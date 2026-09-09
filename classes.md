@@ -941,32 +941,197 @@ These relationships should inform world generation without turning the map into 
 
 # 9. Class ↔ Universal Progression
 
-Match progression currently runs from Level 1 to Level 30.
+Matches progress from:
 
-Broad power curve:
+> **Level 1 → Level 30**
+
+Level 30 intentionally references Minecraft's familiar enchanting threshold.
+
+The exact relationship between MOBA levels and vanilla Minecraft XP/enchanting remains unresolved.
+
+The intended broad power curve is:
 
 Early game:
-- significantly constrained Minecraft character.
+- significantly constrained Minecraft character;
+- fundamental physical capacities matter;
+- loadout, provisioning, expedition range, and survivability impose meaningful limits.
 
 Midgame:
-- approximately complete / vanilla-capable Minecraft player.
+- approaches and reaches ordinary vanilla physical capability;
+- specialization begins to distinguish players above or ahead of the universal floor.
 
 Late game:
-- increasingly supernormal class/archetype expression.
+- increasingly supernormal class/archetype expression;
+- exceptional power should increasingly come from specialization, class mechanics, archetype mechanics, efficiency, potency, and systemic recognition rather than indefinite generic physical growth.
 
 Level 30:
 - highly realized class.
 
-Approximately Level 16 is currently a conceptual vanilla-capability landmark, not a locked threshold.
+---
 
-Universal progression currently considers:
-- Health;
-- Hunger;
-- Inventory.
+## Universal capacities
 
-Generic progression choices may accelerate or specialize these capacities.
+The current preliminary universal capacities are:
 
-Class/archetype progression establishes the exceptional ceiling.
+- **Health**
+- **Hunger**
+- **Inventory Capacity**
+
+At Level 1, every player begins with:
+
+| Capacity | Level 1 value |
+| --- | ---: |
+| Health | **9 Health / 4.5 hearts** |
+| Hunger | **9 Hunger / 4.5 hunger icons** |
+| Inventory Capacity | **6 slots** |
+
+These deliberately place the Level 1 player below ordinary vanilla physical capability.
+
+Health limits early survivability.
+
+Hunger functions as internal expedition/endurance capacity.
+
+Inventory Capacity limits the number of distinct tools, supplies, materials, and resource categories a player can carry at once.
+
+Hunger and Inventory intentionally overlap as expedition constraints:
+
+> Hunger determines how long the player's body can operate between resupply.
+>
+> Inventory determines how much resupply, equipment, and return haul the player can carry.
+
+---
+
+## Automatic universal growth
+
+Every level that does **not** present the player with a progression choice grants:
+
+- **+1 Health**
+- **+1 Hunger**
+- **+3 Inventory Capacity**
+
+Fixed class unlocks and automatic passive scaling do not prevent this growth.
+
+A level forgoes automatic universal growth only when that level presents the player with a progression choice.
+
+Automatic universal growth stops separately for each capacity when its vanilla maximum is reached:
+
+| Capacity | Universal maximum |
+| --- | ---: |
+| Health | **20 Health / 10 hearts** |
+| Hunger | **20 Hunger / 10 hunger icons** |
+| Inventory Capacity | **36 slots** |
+
+Under the current preliminary level schedule, a player who never specializes in any of these capacities reaches all three vanilla capacities at approximately **Level 19**.
+
+Vanilla physical capability is therefore a midgame universal floor rather than the player's maximum possible power.
+
+---
+
+## Capacity specialization
+
+At the current preliminary capacity-choice levels of:
+
+- **Level 3**
+- **Level 18**
+- **Level 24**
+
+the player may specialize in one universal capacity.
+
+The choices are:
+
+| Choice | Increase |
+| --- | ---: |
+| Health | **+2 Health / 1 heart** |
+| Hunger | **+2 Hunger / 1 hunger icon** |
+| Inventory Capacity | **+6 slots** |
+
+Each capacity choice is therefore worth two automatic increments of that capacity.
+
+Capacity specialization is additive to the universal floor.
+
+Automatic progression does not erase or absorb an earlier specialization.
+
+Health and Hunger specialization may raise maximum Health or Hunger **above their vanilla values**.
+
+Inventory Capacity cannot exceed the vanilla **36-slot** inventory maximum. Once a player has reached 36 slots, Inventory should no longer be offered as a capacity specialization. Its replacement choice remains unresolved.
+
+---
+
+## Level 3 capacity choice
+
+Immediately before the Level 3 choice, the Level 2 automatic increase has brought every player to:
+
+- **10 Health / 5 hearts**
+- **10 Hunger / 5 hunger icons**
+- **9 Inventory slots**
+
+The Level 3 capacity choice therefore produces:
+
+| Choice | Before | After |
+| --- | ---: | ---: |
+| Health | 10 Health / 5 hearts | **12 Health / 6 hearts** |
+| Hunger | 10 Hunger / 5 icons | **12 Hunger / 6 icons** |
+| Inventory | 9 slots | **15 slots** |
+
+The three choices use the same progression grammar but are not expected to produce identical percentage changes or strategic effects.
+
+### Health
+
+The Level 3 Health choice increases maximum Health from 10 to 12:
+
+> **+20% maximum Health**
+
+Its practical value should be evaluated against recognizable Minecraft survival thresholds, including combat, mobs, falls, environmental damage, and the ability to survive long enough to disengage.
+
+### Hunger
+
+Vanilla sprinting becomes unavailable at **6 Hunger or below**.
+
+At Level 3, a player who does not choose Hunger has:
+
+> 10 maximum Hunger − 6 sprint cutoff = **4 Hunger of pre-cutoff reserve**
+
+A player who chooses Hunger has:
+
+> 12 maximum Hunger − 6 sprint cutoff = **6 Hunger of pre-cutoff reserve**
+
+The Level 3 Hunger choice therefore increases this simplified pre-cutoff sprint-capable reserve from 4 to 6:
+
+> **+50%**
+
+This does not mean exactly 50% more real-world travel distance. Saturation, exhaustion, food carried, terrain, combat, detours, and other actions affect actual expedition range.
+
+The magnitude is nevertheless intentional. Hunger progression is coupled to Default-map scale, food availability, expedition distance, and return-trip constraints and should be tested against those systems.
+
+Hunger specialization should increase endurance rather than directly grant movement speed.
+
+### Inventory Capacity
+
+The Level 3 Inventory choice increases carrying capacity from 9 to 15 slots:
+
+> **+67% Inventory Capacity**
+
+Inventory progression should be evaluated through meaningful loadout categories rather than slot count alone.
+
+Relevant decisions include:
+
+- tools vs food;
+- blocks vs supplies;
+- expedition provisioning vs return haul;
+- multiple construction materials vs utility;
+- extraction yield vs preparedness.
+
+The intended effect is to make additional categories of equipment or material practical to carry, not merely to make inventory management more convenient.
+
+---
+
+## Relationship to archetypes and classes
+
+Universal progression establishes the minimum physical capability available to everyone.
+
+Capacity specialization differentiates players above or ahead of that floor.
+
+Class and archetype progression establishes the exceptional ceiling.
 
 Therefore:
 
@@ -976,13 +1141,50 @@ Therefore:
 >
 > Class/archetype progression establishes the exceptional ceiling.
 
-A generic progression choice should not reproduce an entire class identity.
+Generic universal progression should not reproduce an entire archetype or class identity.
 
 Examples:
+
 - generic Health progression does not replace Combat;
 - generic Hunger progression does not replace Exploration;
-- generic Inventory progression does not replace Logistics;
-- generic construction capability does not replace Construction classes.
+- generic Inventory progression does not replace Logistics.
+
+Everyone can become physically tougher, travel farther between resupply, and carry a vanilla-sized inventory.
+
+Combat, Exploration, and Logistics classes remain exceptional because their archetype mechanics can manipulate the corresponding strategic domains in ways that generic capacity growth does not.
+
+The same principle applies outside these three universal capacities: ordinary Minecraft capabilities remain broadly available, while class/archetype progression supplies exceptional efficiency, potency, systemic recognition, and higher-order interaction with the world.
+
+---
+
+## Current status
+
+The numerical universal-capacity model above is the **current preliminary progression model**.
+
+In particular, it supersedes earlier exploratory assumptions that:
+
+- approximately Level 16 must be the universal vanilla-capability landmark;
+- Level 1 Health should begin at 10 Health / 5 hearts;
+- Level 1 Hunger should begin at 10 Hunger / 5 icons;
+- starting Inventory Capacity should be 9 slots;
+- Health, Hunger, and Inventory require different progression schedules merely because they represent different systems.
+
+The current model instead uses a common progression grammar:
+
+> **Health:** 9 start → +1 automatic → +2 specialization
+>
+> **Hunger:** 9 start → +1 automatic → +2 specialization
+>
+> **Inventory:** 6 start → +3 automatic → +6 specialization
+
+with the universal component of all three reaching vanilla capability at approximately Level 19 under the current preliminary level schedule.
+
+These values remain subject to playtesting, particularly:
+
+- early-game lethality at 9 Health;
+- Hunger against actual Default-map expedition distances, food availability, saturation, and exhaustion;
+- whether 6 starting Inventory slots creates strategic loadout pressure without excessive item-management friction;
+- the replacement for Inventory specialization once 36 slots have been reached.
 
 ---
 
