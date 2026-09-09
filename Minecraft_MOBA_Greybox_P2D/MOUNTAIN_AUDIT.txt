@@ -1,0 +1,38 @@
+Minecraft MOBA P2D — Mountain Region Audit
+
+Mountain footprint: 81,008 surface columns (~316.4 chunk-equivalents)
+Generated mountain surface range: Y60–Y110 (50 blocks)
+Approach zone: 13,552 columns
+Lower mountain: 20,336 columns
+Interior mountain: 23,808 columns
+High mountain: 23,312 columns
+
+Deliberate entrance systems: 3
+- route-adjacent central saddle around z=-78
+- northern pass around z=-170
+- southern valley around z=74
+
+Internal inhabitable geography:
+- central high basin/shelf
+- irregular high lake
+- southern shoulder plateau
+- multiple ridge/massif systems
+- 3 cave-mouth / short-tunnel features
+- 5 exposed stone needle/cliff landmarks
+
+Resource differentiation:
+- coal ore: 520 blocks
+- iron ore: 390 blocks
+- gold ore: 150 blocks
+- emerald ore: 95 blocks
+- diamond ore: 36 blocks
+- sparse lower-mountain trees: 45
+
+Route audit:
+- north-side visible yellow-route columns: 4,971
+- north-side columns with inherited/other obstruction above: 28
+- north-west mountain-approach route columns (x < -145): 242
+- mountain-approach route columns obstructed above: 0
+
+P2D is an experimental geometry pass. Resource quantities are deliberately conspicuous for evaluation and are NOT balance targets.
+The eastern coastline remains untouched.
