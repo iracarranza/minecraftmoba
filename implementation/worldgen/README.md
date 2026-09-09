@@ -38,3 +38,51 @@ evaluation.
 Historical configuration and selected seed fixtures live under
 `reference/solution-space/`. P2D terrain evidence lives under
 `reference/history/p2d/`.
+
+## Successor Default candidate generator
+
+`generate_default_candidates.py` and `successor/` implement the metadata-first
+candidate generator requested after recovery. It does not write Minecraft
+worlds and does not choose a final Default map.
+
+The pipeline is intentionally staged:
+
+1. `terrain.py` generates a 5-block analytical surface, western mountain
+   structure, variable eastern coast, forest terrain, and connected downhill
+   hydrology.
+2. `ecology.py` places actual terrain-linked resources, animals, crops,
+   formations, structures, caves, and geology. A separately reported guarantee
+   correction substage runs before regions are derived from those instances.
+3. `routes.py` generates six terrain-adaptive provisional analytical
+   centerlines. They have no speed bonus and are not a final visual Route
+   vocabulary.
+4. `analysis.py` performs terrain-aware shortest-path and reconstructed
+   round-trip Hunger analysis, resource-packing/space allocation, and
+   opportunity-portfolio diagnostics.
+5. `validation.py` keeps hard contract failures, experimental warnings, and
+   descriptive metrics in separate namespaces.
+6. `pipeline.py` searches more seeds than it saves, preserves topology/metric
+   diversity, and writes only a small shortlist. RLE grids retain sufficient
+   surface geometry for a later serializer or renderer.
+
+The scale transform is explicit metadata: an approximately 840×1040 block
+analytical envelope tests the +25% macro hypothesis while leaving homelands
+and feature footprints near their former physical scale. Added area is spent
+on regional/deep separation, Route divergence, forest and mountain interiors,
+and empty connective territory rather than uniformly enlarging objects.
+
+Run the reproducible search:
+
+```sh
+python3 implementation/worldgen/generate_default_candidates.py
+```
+
+Run the invariant/regression suite:
+
+```sh
+python3 -m unittest discover -s implementation/worldgen/tests -v
+```
+
+The implementation uses only the Python standard library. Current analytical
+thresholds are prototype tests, not final balance constants or replacements
+for visual/playable review.

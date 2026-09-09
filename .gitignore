@@ -1,4 +1,6 @@
 .DS_Store
+__pycache__/
+*.pyc
 
 # Generated Minecraft artifacts should be kept out of version control unless a
 # deliberate release/artifact policy is added.

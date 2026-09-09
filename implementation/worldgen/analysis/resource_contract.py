@@ -20,6 +20,19 @@ REQUIRED_ORES = {"coal", "iron", "copper", "gold", "redstone", "lapis", "diamond
 
 
 def audit(candidate: dict) -> dict:
+    # Successor metadata stores concrete instances under ecology; retain support
+    # for the compact historical schema used by the recovery helpers.
+    if "ecology" in candidate:
+        ecology = candidate["ecology"]
+        instances = ecology.get("instances", [])
+        candidate = {
+            "livestock_ranges": ecology.get("livestock_ranges", []),
+            "horses": [x for x in instances if x.get("type") == "horse"],
+            "crop_patches": [{"crop": x.get("type")} for x in instances if x.get("category") == "crop_starter"],
+            "formations": [x for x in instances if x.get("category") == "formation"],
+            "ores": [x for x in instances if x.get("type") in REQUIRED_ORES],
+            "contract_gaps": candidate.get("validation", {}).get("hard_contract", {}).get("failures", []),
+        }
     livestock = {
         species
         for region in candidate.get("livestock_ranges", [])
