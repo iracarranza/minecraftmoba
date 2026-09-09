@@ -181,3 +181,36 @@ architecture.
 For a faster repeat of readback validation, rendering, server boot, and
 packaging after chunks already exist, append `--reuse-existing`. Do not use that
 flag after changing block-generation code or candidate metadata.
+
+## Vanilla Default-region proof of concept
+
+`search_vanilla_default_regions.py` and `vanilla_search/` test the newer
+Minecraft-first architecture: the official Minecraft Java 1.21.11 dedicated
+server generates real chunks, the repository's Anvil/NBT reader extracts
+heightmaps, biome palettes, surface blocks, fluids, and structure starts, and
+Python evaluates eight rotations/reflections without changing the terrain.
+
+The default experiment generates ten 864×1056-block origin regions, screens
+their functional western-highland/eastern-coast fit, and retains three review
+worlds. It requires the pinned official server JAR and Java 21. Review the
+Minecraft EULA before passing `--accept-eula`:
+
+```sh
+python3 implementation/worldgen/search_vanilla_default_regions.py \
+  --server-jar /tmp/minecraft-server-1.21.11.jar \
+  --java "/path/to/java-21/bin/java" \
+  --accept-eula
+```
+
+Compact committed metadata, findings, and renders are written to
+`implementation/worldgen/results/vanilla_default_poc_2026-09-09/`. Only the
+retained, unmodified vanilla chunk worlds are preserved locally under
+`artifacts/worldgen/vanilla_default_poc_2026-09-09/worlds/`; that bulk artifact
+directory remains gitignored. The pipeline changes only `level.dat` name,
+creative inspection spawn, and command permission after selection, then adds
+`INSPECTION.json` and `README_INSPECTION.txt`. It does not rewrite region or
+entity chunks.
+
+This proof of concept deliberately defers production-scale seed prefiltering,
+ore volumes, entity/ecology analysis, exhaustive cave/aquifer analysis,
+terrain correction, physical Routes, objectives, and custom serialization.

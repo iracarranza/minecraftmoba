@@ -1,0 +1,476 @@
+{
+  "generator": "vanilla_default_region_poc_v1",
+  "minecraft_java_version": "1.21.11",
+  "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "seed_range": [
+    920270001,
+    920270010
+  ],
+  "regions_evaluated": 10,
+  "region_chunk_bounds": [
+    -27,
+    26,
+    -33,
+    32
+  ],
+  "region_block_dimensions": [
+    864,
+    1056
+  ],
+  "orientations_per_region": 8,
+  "experimental_screen_passes": 2,
+  "shortlist_seeds": [
+    920270010,
+    920270002,
+    920270003
+  ],
+  "stage_runtime_seconds": {
+    "runtime_setup_seconds": 3.521,
+    "acquisition_seconds": 689.489,
+    "extraction_seconds": 84.719,
+    "evaluation_seconds": 1.905,
+    "rendering_seconds": 0.54
+  },
+  "total_runtime_seconds": 794.613,
+  "evaluated": [
+    {
+      "seed": 920270001,
+      "score": 31.489,
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 3.128,
+        "highland_depth_blocks": 0,
+        "highland_fraction_west": 0.0437,
+        "local_relief_p90_y": 10,
+        "steep_fraction": 0.3179,
+        "western_approach_bands": 4,
+        "western_wall_concentration": 0.061,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 3272,
+        "east_coast_boundary_variation_blocks": 192.22,
+        "east_coast_headland_cove_turns": 16,
+        "coastal_buildable_sample_cells": 90,
+        "east_actual_ocean_fraction": 0.8487,
+        "actual_surface_water_fraction": 0.8324,
+        "actual_river_water_cells": 317,
+        "actual_river_mouth_sample_cells": 15,
+        "actual_water_body_count": 29,
+        "largest_actual_water_body_blocks2": 756352,
+        "forest_region_count": 20,
+        "largest_forest_region_blocks2": 57536,
+        "forest_interior_depth_blocks": 120,
+        "open_buildable_fraction_of_land": 0.4031,
+        "homeland_developability_bias": 0.1481
+      },
+      "experimental_warnings": [
+        "western_highland_depth",
+        "region_not_mostly_water"
+      ],
+      "structure_count": 31,
+      "retained": false
+    },
+    {
+      "seed": 920270002,
+      "score": 67.348,
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 8.242,
+        "highland_depth_blocks": 344,
+        "highland_fraction_west": 0.2886,
+        "local_relief_p90_y": 12,
+        "steep_fraction": 0.4003,
+        "western_approach_bands": 10,
+        "western_wall_concentration": 0.0288,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 6160,
+        "east_coast_boundary_variation_blocks": 111.68,
+        "east_coast_headland_cove_turns": 24,
+        "coastal_buildable_sample_cells": 167,
+        "east_actual_ocean_fraction": 0.3988,
+        "west_actual_ocean_fraction": 0.0,
+        "east_over_west_ocean_advantage": 0.3988,
+        "actual_surface_water_fraction": 0.2728,
+        "actual_river_water_cells": 1129,
+        "actual_river_mouth_sample_cells": 17,
+        "actual_water_body_count": 68,
+        "largest_actual_water_body_blocks2": 174848,
+        "forest_region_count": 8,
+        "largest_forest_region_blocks2": 460992,
+        "forest_interior_depth_blocks": 184,
+        "open_buildable_fraction_of_land": 0.3948,
+        "homeland_developability_bias": 0.0988
+      },
+      "experimental_warnings": [],
+      "structure_count": 25,
+      "retained": true
+    },
+    {
+      "seed": 920270003,
+      "score": 51.912,
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 14.579,
+        "highland_depth_blocks": 488,
+        "highland_fraction_west": 0.3903,
+        "local_relief_p90_y": 14,
+        "steep_fraction": 0.4646,
+        "western_approach_bands": 7,
+        "western_wall_concentration": 0.042,
+        "snow_cold_cells_west": 286,
+        "coastline_sample_edge_blocks": 5632,
+        "east_coast_boundary_variation_blocks": 80.08,
+        "east_coast_headland_cove_turns": 21,
+        "coastal_buildable_sample_cells": 15,
+        "east_actual_ocean_fraction": 0.1084,
+        "west_actual_ocean_fraction": 0.0585,
+        "east_over_west_ocean_advantage": 0.0499,
+        "actual_surface_water_fraction": 0.3412,
+        "actual_river_water_cells": 1792,
+        "actual_river_mouth_sample_cells": 59,
+        "actual_water_body_count": 15,
+        "largest_actual_water_body_blocks2": 211904,
+        "forest_region_count": 6,
+        "largest_forest_region_blocks2": 41792,
+        "forest_interior_depth_blocks": 160,
+        "open_buildable_fraction_of_land": 0.2495,
+        "homeland_developability_bias": 0.1235
+      },
+      "experimental_warnings": [
+        "ocean_gradient_points_east"
+      ],
+      "structure_count": 27,
+      "retained": true
+    },
+    {
+      "seed": 920270004,
+      "score": 52.446,
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 5.482,
+        "highland_depth_blocks": 768,
+        "highland_fraction_west": 0.2993,
+        "local_relief_p90_y": 17,
+        "steep_fraction": 0.6201,
+        "western_approach_bands": 6,
+        "western_wall_concentration": 0.0298,
+        "snow_cold_cells_west": 108,
+        "coastline_sample_edge_blocks": 5888,
+        "east_coast_boundary_variation_blocks": 35.92,
+        "east_coast_headland_cove_turns": 7,
+        "coastal_buildable_sample_cells": 52,
+        "east_actual_ocean_fraction": 0.0,
+        "actual_surface_water_fraction": 0.1569,
+        "actual_river_water_cells": 1539,
+        "actual_river_mouth_sample_cells": 0,
+        "actual_water_body_count": 46,
+        "largest_actual_water_body_blocks2": 35200,
+        "forest_region_count": 26,
+        "largest_forest_region_blocks2": 455424,
+        "forest_interior_depth_blocks": 216,
+        "open_buildable_fraction_of_land": 0.1699,
+        "homeland_developability_bias": 0.3457
+      },
+      "experimental_warnings": [
+        "eastern_ocean_present"
+      ],
+      "structure_count": 33,
+      "retained": false
+    },
+    {
+      "seed": 920270005,
+      "score": 51.81,
+      "orientation": {
+        "rotation_degrees_clockwise": 270,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 9.537,
+        "highland_depth_blocks": 168,
+        "highland_fraction_west": 0.2825,
+        "local_relief_p90_y": 12,
+        "steep_fraction": 0.3329,
+        "western_approach_bands": 1,
+        "western_wall_concentration": 0.0418,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 3104,
+        "east_coast_boundary_variation_blocks": 263.12,
+        "east_coast_headland_cove_turns": 32,
+        "coastal_buildable_sample_cells": 68,
+        "east_actual_ocean_fraction": 0.9398,
+        "actual_surface_water_fraction": 0.8321,
+        "actual_river_water_cells": 335,
+        "actual_river_mouth_sample_cells": 34,
+        "actual_water_body_count": 25,
+        "largest_actual_water_body_blocks2": 751040,
+        "forest_region_count": 21,
+        "largest_forest_region_blocks2": 94976,
+        "forest_interior_depth_blocks": 96,
+        "open_buildable_fraction_of_land": 0.246,
+        "homeland_developability_bias": 0.284
+      },
+      "experimental_warnings": [
+        "region_not_mostly_water"
+      ],
+      "structure_count": 37,
+      "retained": false
+    },
+    {
+      "seed": 920270006,
+      "score": 57.655,
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 13.012,
+        "highland_depth_blocks": 528,
+        "highland_fraction_west": 0.4571,
+        "local_relief_p90_y": 13,
+        "steep_fraction": 0.4441,
+        "western_approach_bands": 6,
+        "western_wall_concentration": 0.0402,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 5432,
+        "east_coast_boundary_variation_blocks": 349.52,
+        "east_coast_headland_cove_turns": 7,
+        "coastal_buildable_sample_cells": 133,
+        "east_actual_ocean_fraction": 0.2565,
+        "actual_surface_water_fraction": 0.4876,
+        "actual_river_water_cells": 810,
+        "actual_river_mouth_sample_cells": 12,
+        "actual_water_body_count": 42,
+        "largest_actual_water_body_blocks2": 399168,
+        "forest_region_count": 10,
+        "largest_forest_region_blocks2": 134784,
+        "forest_interior_depth_blocks": 192,
+        "open_buildable_fraction_of_land": 0.2201,
+        "homeland_developability_bias": 0.2963
+      },
+      "experimental_warnings": [
+        "post_render_orientation_coast_false_positive",
+        "western_relief_advantage_in_east-coast_orientation"
+      ],
+      "structure_count": 38,
+      "retained": false
+    },
+    {
+      "seed": 920270007,
+      "score": 33.777,
+      "orientation": {
+        "rotation_degrees_clockwise": 270,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 2.16,
+        "highland_depth_blocks": 80,
+        "highland_fraction_west": 0.1037,
+        "local_relief_p90_y": 27,
+        "steep_fraction": 0.4719,
+        "western_approach_bands": 4,
+        "western_wall_concentration": 0.0355,
+        "snow_cold_cells_west": 1,
+        "coastline_sample_edge_blocks": 11032,
+        "east_coast_boundary_variation_blocks": 305.32,
+        "east_coast_headland_cove_turns": 36,
+        "coastal_buildable_sample_cells": 208,
+        "east_actual_ocean_fraction": 0.8272,
+        "actual_surface_water_fraction": 0.7168,
+        "actual_river_water_cells": 26,
+        "actual_river_mouth_sample_cells": 9,
+        "actual_water_body_count": 53,
+        "largest_actual_water_body_blocks2": 643456,
+        "forest_region_count": 9,
+        "largest_forest_region_blocks2": 64768,
+        "forest_interior_depth_blocks": 144,
+        "open_buildable_fraction_of_land": 0.2371,
+        "homeland_developability_bias": 0.0
+      },
+      "experimental_warnings": [
+        "western_relief_advantage",
+        "western_highland_depth"
+      ],
+      "structure_count": 36,
+      "retained": false
+    },
+    {
+      "seed": 920270008,
+      "score": 20.692,
+      "orientation": {
+        "rotation_degrees_clockwise": 180,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 2.504,
+        "highland_depth_blocks": 200,
+        "highland_fraction_west": 0.2309,
+        "local_relief_p90_y": 15,
+        "steep_fraction": 0.3871,
+        "western_approach_bands": 4,
+        "western_wall_concentration": 0.0366,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 4056,
+        "east_coast_boundary_variation_blocks": 206.47,
+        "east_coast_headland_cove_turns": 34,
+        "coastal_buildable_sample_cells": 12,
+        "east_actual_ocean_fraction": 0.9085,
+        "actual_surface_water_fraction": 0.7096,
+        "actual_river_water_cells": 671,
+        "actual_river_mouth_sample_cells": 38,
+        "actual_water_body_count": 14,
+        "largest_actual_water_body_blocks2": 645888,
+        "forest_region_count": 25,
+        "largest_forest_region_blocks2": 70720,
+        "forest_interior_depth_blocks": 112,
+        "open_buildable_fraction_of_land": 0.2428,
+        "homeland_developability_bias": 0.6914
+      },
+      "experimental_warnings": [
+        "western_relief_advantage",
+        "homelands_reasonably_viable"
+      ],
+      "structure_count": 24,
+      "retained": false
+    },
+    {
+      "seed": 920270009,
+      "score": 38.635,
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": -0.444,
+        "highland_depth_blocks": 392,
+        "highland_fraction_west": 0.153,
+        "local_relief_p90_y": 12,
+        "steep_fraction": 0.4014,
+        "western_approach_bands": 12,
+        "western_wall_concentration": 0.0393,
+        "snow_cold_cells_west": 583,
+        "coastline_sample_edge_blocks": 9888,
+        "east_coast_boundary_variation_blocks": 43.79,
+        "east_coast_headland_cove_turns": 13,
+        "coastal_buildable_sample_cells": 430,
+        "east_actual_ocean_fraction": 0.0368,
+        "actual_surface_water_fraction": 0.2134,
+        "actual_river_water_cells": 1587,
+        "actual_river_mouth_sample_cells": 13,
+        "actual_water_body_count": 119,
+        "largest_actual_water_body_blocks2": 76864,
+        "forest_region_count": 28,
+        "largest_forest_region_blocks2": 347904,
+        "forest_interior_depth_blocks": 192,
+        "open_buildable_fraction_of_land": 0.4197,
+        "homeland_developability_bias": 0.0123
+      },
+      "experimental_warnings": [
+        "western_relief_advantage",
+        "eastern_ocean_present"
+      ],
+      "structure_count": 17,
+      "retained": false
+    },
+    {
+      "seed": 920270010,
+      "score": 71.702,
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "metrics": {
+        "western_mean_elevation_advantage_y": 17.583,
+        "highland_depth_blocks": 296,
+        "highland_fraction_west": 0.3965,
+        "local_relief_p90_y": 14,
+        "steep_fraction": 0.4716,
+        "western_approach_bands": 9,
+        "western_wall_concentration": 0.0319,
+        "snow_cold_cells_west": 0,
+        "coastline_sample_edge_blocks": 5528,
+        "east_coast_boundary_variation_blocks": 215.31,
+        "east_coast_headland_cove_turns": 34,
+        "coastal_buildable_sample_cells": 78,
+        "east_actual_ocean_fraction": 0.6511,
+        "west_actual_ocean_fraction": 0.0,
+        "east_over_west_ocean_advantage": 0.6511,
+        "actual_surface_water_fraction": 0.4906,
+        "actual_river_water_cells": 1536,
+        "actual_river_mouth_sample_cells": 47,
+        "actual_water_body_count": 15,
+        "largest_actual_water_body_blocks2": 445632,
+        "forest_region_count": 6,
+        "largest_forest_region_blocks2": 28416,
+        "forest_interior_depth_blocks": 104,
+        "open_buildable_fraction_of_land": 0.2297,
+        "homeland_developability_bias": 0.0
+      },
+      "experimental_warnings": [],
+      "structure_count": 37,
+      "retained": true
+    }
+  ],
+  "selection_note": "Two full functional-screen passes plus one one-warning near-miss; seed 920270006 was removed after visual review exposed an orientation/coast false positive.",
+  "post_screen_regeneration": {
+    "seed": 920270003,
+    "reason": "Regenerated after correcting orientation selection to prefer functional-screen-passing frames and replacing a coast false positive.",
+    "runtime_setup_seconds": 3.516,
+    "acquisition_seconds": 66.913,
+    "extraction_seconds": 6.16,
+    "evaluation_seconds": 0.171,
+    "rendering_seconds": 0.178,
+    "total_seconds": 78.24
+  },
+  "total_generation_work_seconds": 872.853
+}
