@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "classification": "historical prototype configuration",
+  "bounds": {"x_min": -336, "x_max": 335, "z_min": -416, "z_max": 415, "y_min": 48, "y_max": 111, "sea_level": 64},
+  "default_run": {"count": 50, "starting_seed": 920260900},
+  "topology_families": ["twin_massif", "split_spine", "horseshoe", "broken_peaks", "long_ridge", "highland_ravines", "offset_basin", "sawtooth_valleys"],
+  "acceptance_gates": {
+    "villages": {"min": 3, "max": 5, "minimum_spacing_blocks": 90},
+    "largest_connected_wilderness_cells_min": 250000,
+    "mountain": {"surface_cells_min": 65000, "depth_cells_min": 45, "vertical_range_min": 34, "deep_over_approach_median_y_min": 16, "adjacent_edges_gt_8_max": 800, "adjacent_edges_gt_12_max": 20, "walkable_network_cells_min": 18000, "approaches_min": 2, "landmarks_min": 4},
+    "abstract_mountain_resource_regions": {"count_min": 5, "mean_route_distance_min": 55},
+    "forest": {"surface_cells_min": 9000, "interior_depth_min": 12},
+    "route": {"adjacent_step_p95_max": 2, "adjacent_edges_gt_8_max": 0},
+    "connected_surface_water_features_min": 1
+  },
+  "warning": "These values reproduce the 50-variant experiment. They are not current balance requirements; current maps.md supersedes its scale, resource model, and evaluation scope."
+}

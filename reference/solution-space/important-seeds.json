@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "historical reference fixtures; none is canonical Default",
+  "source_experiment": {
+    "generator": "implementation/worldgen/historical/minecraft_moba_variant_pipeline.py",
+    "starting_seed": 920260900,
+    "accepted_variants": 50,
+    "attempted_candidates": 74,
+    "structural_validator_failures": 0,
+    "diversity_rejections": 24
+  },
+  "fixtures": [
+    {
+      "variant": 3,
+      "seed": 920260902,
+      "topology": "offset_basin",
+      "role": "baseline",
+      "historical_metrics": {"villages": 4, "mountain_blocks": 108650, "mountain_depth": 194.3, "entrances": 4, "forest_depth": 42.8}
+    },
+    {
+      "variant": 11,
+      "seed": 920260911,
+      "topology": "sawtooth_valleys",
+      "role": "older mountain/resource-region laboratory",
+      "historical_metrics": {"villages": 4, "mountain_blocks": 108208, "mountain_depth": 202.4, "entrances": 3, "resource_regions": 7, "mean_resource_route_distance": 164.1, "forest_depth": 46.0}
+    },
+    {
+      "variant": 44,
+      "seed": 920260959,
+      "topology": "sawtooth_valleys",
+      "role": "fairness specialist",
+      "historical_metrics": {"villages": 4, "mountain_depth": 204.0, "entrances": 4, "forest_depth": 35.8}
+    },
+    {
+      "variant": 45,
+      "seed": 920260960,
+      "topology": "twin_massif",
+      "role": "space-allocation laboratory",
+      "historical_metrics": {"villages": 3, "mountain_depth": 196.7, "entrances": 4, "forest_depth": 51.3}
+    },
+    {
+      "variant": 47,
+      "seed": 920260965,
+      "topology": "highland_ravines",
+      "role": "traversal stress",
+      "historical_metrics": {"villages": 4, "mountain_blocks": 112005, "mountain_depth": 185.0, "entrances": 2, "forest_depth": 40.3}
+    },
+    {
+      "variant": 49,
+      "seed": 920260970,
+      "topology": "horseshoe",
+      "role": "opportunity-complexity stress",
+      "historical_metrics": {"villages": 5, "mountain_blocks": 112527, "mountain_depth": 198.0, "entrances": 3, "resource_regions": 7, "mean_resource_route_distance": 169.6}
+    },
+    {
+      "variant": 1,
+      "seed": 920260900,
+      "topology": "long_ridge",
+      "role": "strong incomplete first-ten resource-ecology result",
+      "warning": "The resource-ecology run timed out after ten seeds. This result is evidence, not a selection recommendation."
+    }
+  ]
+}
