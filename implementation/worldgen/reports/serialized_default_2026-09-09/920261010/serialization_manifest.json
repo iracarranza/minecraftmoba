@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "minecraft_java_version": "1.21.11",
+  "data_version": 4671,
+  "serialization_method": "direct modern Anvil/NBT with Mojang-server-derived level.dat template",
+  "candidate_source": "implementation/worldgen/results/default_candidates_2026-09-09/candidate_920261010.json",
+  "seed": 920261010,
+  "world_name": "Minecraft_MOBA_Default_920261010_Horseshoe",
+  "bounds": {
+    "x": [
+      -432,
+      431
+    ],
+    "z": [
+      -528,
+      527
+    ],
+    "chunk_x": [
+      -27,
+      26
+    ],
+    "chunk_z": [
+      -33,
+      32
+    ],
+    "y": [
+      -64,
+      127
+    ]
+  },
+  "expected_chunks": 3564,
+  "spawn": {
+    "x": 0,
+    "y": 65,
+    "z": -365,
+    "mode": "creative; commands enabled"
+  },
+  "trees": 1358,
+  "entities": 63,
+  "deterministic_block_corrections": [
+    {
+      "stage": "homeland_safety",
+      "team": "north",
+      "columns_adjusted": 5216,
+      "maximum_y_adjustment": 3,
+      "reason": "safe usable inspection/development pad"
+    },
+    {
+      "stage": "homeland_safety",
+      "team": "south",
+      "columns_adjusted": 2857,
+      "maximum_y_adjustment": 2,
+      "reason": "safe usable inspection/development pad"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-1",
+      "columns_adjusted": 88,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-2",
+      "columns_adjusted": 0,
+      "maximum_y_adjustment": 0,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-3",
+      "columns_adjusted": 370,
+      "maximum_y_adjustment": 2,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-4",
+      "columns_adjusted": 201,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "baseline-north-cave",
+      "tunnel_length_blocks": 18,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "baseline-south-cave",
+      "tunnel_length_blocks": 18,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-1",
+      "tunnel_length_blocks": 34,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-2",
+      "tunnel_length_blocks": 32,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-3",
+      "tunnel_length_blocks": 49,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-4",
+      "tunnel_length_blocks": 23,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-5",
+      "tunnel_length_blocks": 47,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-6",
+      "tunnel_length_blocks": 29,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "route_physicalization",
+      "columns_adjusted": 4839,
+      "maximum_y_adjustment": 1,
+      "reason": "convert 5-block analytical centerlines into step-traversable temporary paths with blended aprons"
+    }
+  ],
+  "route_terrain_observations": [
+    {
+      "branch": "north-route-1",
+      "center_columns": 456,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 0,
+      "analytical_segments_rising_over_one_y": 0,
+      "assessment": "ordinary terrain fit"
+    },
+    {
+      "branch": "north-route-2",
+      "center_columns": 561,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 0,
+      "analytical_segments_rising_over_one_y": 1,
+      "assessment": "crossing/grade review required"
+    },
+    {
+      "branch": "north-route-3",
+      "center_columns": 371,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 3,
+      "analytical_segments_rising_over_one_y": 0,
+      "assessment": "ordinary terrain fit"
+    },
+    {
+      "branch": "south-route-1",
+      "center_columns": 556,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 156,
+      "analytical_segments_rising_over_one_y": 6,
+      "assessment": "crossing/grade review required"
+    },
+    {
+      "branch": "south-route-2",
+      "center_columns": 611,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 156,
+      "analytical_segments_rising_over_one_y": 0,
+      "assessment": "ordinary terrain fit"
+    },
+    {
+      "branch": "south-route-3",
+      "center_columns": 391,
+      "stream_or_ocean_columns": 0,
+      "forest_columns": 273,
+      "analytical_segments_rising_over_one_y": 1,
+      "assessment": "crossing/grade review required"
+    }
+  ]
+}

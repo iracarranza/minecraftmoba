@@ -6,3 +6,10 @@ __pycache__/
 # deliberate release/artifact policy is added.
 *.zip
 *.mca
+
+# Reproducible bulk worldgen outputs. Compact reports and review renders belong
+# under implementation/worldgen/reports instead.
+/artifacts/worldgen/*/worlds/
+/artifacts/worldgen/*/packages/
+/artifacts/worldgen/*/build/
+/artifacts/worldgen/*/build_summary.json

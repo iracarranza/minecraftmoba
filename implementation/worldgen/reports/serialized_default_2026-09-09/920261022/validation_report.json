@@ -1,0 +1,234 @@
+{
+  "schema_version": 1,
+  "world": "Minecraft_MOBA_Default_920261022_Offset_Basin",
+  "minecraft_java_version": "1.21.11",
+  "pass": true,
+  "checks": {
+    "expected_chunks": true,
+    "spawn_valid": true,
+    "no_massive_empty_regions": true,
+    "sane_terrain_heights": true,
+    "ocean_and_coast": true,
+    "western_mountain_depth": true,
+    "six_routes_connected": true,
+    "resource_vocabulary": true,
+    "livestock_and_horses": true,
+    "drainage_connected": true,
+    "no_serialization_walls": true,
+    "candidate_geometry_preserved": true
+  },
+  "metrics": {
+    "chunks": 3564,
+    "expected_chunks": 3564,
+    "height_min": 59,
+    "height_max": 107,
+    "adjacent_edges_gt8": 0,
+    "adjacent_edges_gt12": 0,
+    "geometry_anchor_max_delta": 1,
+    "geometry_anchor_mean_delta": 0.169,
+    "excluded_corrected_anchor_count": 7770,
+    "block_counts": {
+      "minecraft:bedrock": 912384,
+      "minecraft:deepslate": 57480192,
+      "minecraft:stone": 60374279,
+      "minecraft:dirt": 2066944,
+      "minecraft:grass_block": 658306,
+      "minecraft:air": 52363565,
+      "minecraft:andesite": 32670,
+      "minecraft:coarse_dirt": 12139,
+      "minecraft:snow_block": 64004,
+      "minecraft:gravel": 110025,
+      "minecraft:redstone_ore": 15,
+      "minecraft:copper_ore": 18,
+      "minecraft:lapis_ore": 18,
+      "minecraft:podzol": 16650,
+      "minecraft:oak_log": 2558,
+      "minecraft:oak_leaves": 38571,
+      "minecraft:netherrack": 35,
+      "minecraft:obsidian": 24,
+      "minecraft:crying_obsidian": 2,
+      "minecraft:brown_mushroom": 33,
+      "minecraft:emerald_ore": 12,
+      "minecraft:farmland": 273,
+      "minecraft:water": 956309,
+      "minecraft:potatoes": 105,
+      "minecraft:carrots": 105,
+      "minecraft:cobblestone": 300,
+      "minecraft:wheat": 105,
+      "minecraft:oak_planks": 540,
+      "minecraft:white_bed": 24,
+      "minecraft:oak_slab": 300,
+      "minecraft:dirt_path": 53,
+      "minecraft:diamond_ore": 14,
+      "minecraft:iron_ore": 20,
+      "minecraft:sandstone": 65324,
+      "minecraft:coal_ore": 22,
+      "minecraft:bone_block": 9,
+      "minecraft:gold_ore": 11,
+      "minecraft:amethyst_block": 5,
+      "minecraft:budding_amethyst": 1,
+      "minecraft:sand": 21764
+    },
+    "entity_counts": {
+      "minecraft:horse": 10,
+      "minecraft:villager": 8,
+      "minecraft:pig": 12,
+      "minecraft:cow": 8,
+      "minecraft:chicken": 15,
+      "minecraft:sheep": 10
+    }
+  },
+  "routes": {
+    "north-route-1": {
+      "sample_columns": 954,
+      "physical_route_coverage": 0.9969,
+      "pass": true
+    },
+    "north-route-2": {
+      "sample_columns": 642,
+      "physical_route_coverage": 1.0,
+      "pass": true
+    },
+    "north-route-3": {
+      "sample_columns": 768,
+      "physical_route_coverage": 1.0,
+      "pass": true
+    },
+    "south-route-1": {
+      "sample_columns": 918,
+      "physical_route_coverage": 1.0,
+      "pass": true
+    },
+    "south-route-2": {
+      "sample_columns": 534,
+      "physical_route_coverage": 1.0,
+      "pass": true
+    },
+    "south-route-3": {
+      "sample_columns": 780,
+      "physical_route_coverage": 1.0,
+      "pass": true
+    }
+  },
+  "hydrology": [
+    {
+      "feature": 1,
+      "sample_columns": 114,
+      "water_coverage": 1.0,
+      "uphill_artifacts": 0,
+      "pass": true
+    },
+    {
+      "feature": 2,
+      "sample_columns": 102,
+      "water_coverage": 1.0,
+      "uphill_artifacts": 0,
+      "pass": true
+    },
+    {
+      "feature": 3,
+      "sample_columns": 102,
+      "water_coverage": 1.0,
+      "uphill_artifacts": 0,
+      "pass": true
+    }
+  ],
+  "manifest_corrections": [
+    {
+      "stage": "homeland_safety",
+      "team": "north",
+      "columns_adjusted": 6309,
+      "maximum_y_adjustment": 2,
+      "reason": "safe usable inspection/development pad"
+    },
+    {
+      "stage": "homeland_safety",
+      "team": "south",
+      "columns_adjusted": 1146,
+      "maximum_y_adjustment": 1,
+      "reason": "safe usable inspection/development pad"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-1",
+      "columns_adjusted": 102,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-2",
+      "columns_adjusted": 87,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-3",
+      "columns_adjusted": 22,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "settlement_pad",
+      "id": "village-4",
+      "columns_adjusted": 68,
+      "maximum_y_adjustment": 1,
+      "reason": "small developable Minecraft-like settlement footprint"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "baseline-north-cave",
+      "tunnel_length_blocks": 18,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "baseline-south-cave",
+      "tunnel_length_blocks": 18,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-1",
+      "tunnel_length_blocks": 48,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-2",
+      "tunnel_length_blocks": 42,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-3",
+      "tunnel_length_blocks": 20,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-4",
+      "tunnel_length_blocks": 22,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-5",
+      "tunnel_length_blocks": 46,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "cave_physicalization",
+      "id": "cave-6",
+      "tunnel_length_blocks": 35,
+      "reason": "2D cave opportunity translated to a bounded inspectable tunnel; full cave topology remains unresolved"
+    },
+    {
+      "stage": "route_physicalization",
+      "columns_adjusted": 7304,
+      "maximum_y_adjustment": 1,
+      "reason": "convert 5-block analytical centerlines into step-traversable temporary paths with blended aprons"
+    }
+  ]
+}

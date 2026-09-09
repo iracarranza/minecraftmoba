@@ -86,3 +86,53 @@ python3 -m unittest discover -s implementation/worldgen/tests -v
 The implementation uses only the Python standard library. Current analytical
 thresholds are prototype tests, not final balance constants or replacements
 for visual/playable review.
+
+## Minecraft Java 1.21.11 serialization milestone
+
+`serialize_default_worlds.py` and `serialization/` translate finalists
+920261010 and 920261022 through one deterministic block-writing pipeline. The
+output is Minecraft Java 1.21.11 (DataVersion 4671), using direct modern
+Anvil/NBT region writing and a `level.dat` template bootstrapped by the matching
+official Mojang server. This keeps the analytical heightfield and feature
+coordinates authoritative; it does not feed the seed back into vanilla terrain
+generation.
+
+Version 1.21.11 was selected because the locally installed official client,
+Java 21 runtime, version metadata, and server were available for an end-to-end
+format check. It avoids the historical Java 1.12 numeric-ID format while making
+the precise palette, entity-region, and `level.dat` schemas independently
+testable. The build rejects any server JAR whose SHA-1 is not
+`64bb6d763bed0a9f1d632ec347938594144943ed`.
+
+Download that server and run the full reproducible build (review the Minecraft
+EULA before passing `--accept-eula`):
+
+```sh
+curl -L \
+  https://piston-data.mojang.com/v1/objects/64bb6d763bed0a9f1d632ec347938594144943ed/server.jar \
+  -o /tmp/minecraft-server-1.21.11.jar
+
+python3 implementation/worldgen/serialize_default_worlds.py \
+  --server-jar /tmp/minecraft-server-1.21.11.jar \
+  --java /path/to/a/Java-21/bin/java \
+  --accept-eula \
+  --server-check
+```
+
+The command writes independently playable folders and reproducible ZIPs under
+`artifacts/worldgen/default_serialized_2026-09-09/`. Bulk worlds and packages
+are intentionally gitignored; compact validation evidence, comparison text,
+and renders are retained in
+`implementation/worldgen/reports/serialized_default_2026-09-09/`.
+
+Both worlds start in creative mode at the north homeland, with commands and
+flight enabled. `INSPECTION.json` inside each world records homelands, Routes,
+hydrology endpoints, villages, POIs, and mountain markers. Extract a package
+into the Minecraft `saves` directory, open it in Java 1.21.11, and use creative
+flight or `/gamemode spectator` for inspection. These builds intentionally have
+no Route speed mechanic, Hunger datapack, objective system, or final Route
+architecture.
+
+For a faster repeat of readback validation, rendering, server boot, and
+packaging after chunks already exist, append `--reuse-existing`. Do not use that
+flag after changing block-generation code or candidate metadata.

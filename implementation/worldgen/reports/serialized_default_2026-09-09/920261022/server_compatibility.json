@@ -1,0 +1,10 @@
+{
+  "minecraft_java_version": "1.21.11",
+  "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "expected_server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "ready": true,
+  "clean_exit": true,
+  "serious_log_messages": [],
+  "pass": true,
+  "note": "Offline-mode warnings in the disposable localhost validation server are expected and are not package defects."
+}
