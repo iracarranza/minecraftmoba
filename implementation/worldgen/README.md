@@ -87,6 +87,46 @@ The implementation uses only the Python standard library. Current analytical
 thresholds are prototype tests, not final balance constants or replacements
 for visual/playable review.
 
+## Geography greybox v2 search
+
+`generate_default_greyboxes.py` and `greybox/` are the current terrain-first
+exploration workflow. They retain the successor envelope, ecology markers,
+packing, fairness, and terrain-aware access analysis, but replace its source
+terrain and provisional Route geometry. This milestone deliberately writes no
+Minecraft worlds, water/lava systems, structures, roads, datapacks, or final
+resources.
+
+The terrain generator combines domain-warped multiscale noise, overlapping
+topology forms, negative-relief valleys/ravines, irregular mountain entry, and
+terrain-responsive landcover. Hydrology is represented by priority-flood
+spill relationships and D8 flow accumulation over the unchanged heightfield:
+channels, tributaries, basins, minima, and coastal outlets are analytical
+opportunities, not finished water. Coast profiles vary boundary, transition
+width, and shore character. Forest masks combine multiscale moisture,
+topography, clearings, and continuous homeland pressure. Six provisional
+Routes use 8-direction terrain-cost search, deterministic guide points, curve
+refinement, and resampling; they remain centerlines rather than roads.
+
+Run the deterministic 48-seed search (including regression seeds 920261010
+and 920261022):
+
+```sh
+python3 implementation/worldgen/generate_default_greyboxes.py
+```
+
+The default output is
+`implementation/worldgen/results/default_greyboxes_2026-09-09/`. It contains
+a compact JSON search summary, six shortlisted metadata packages, two
+regression packages, three consistent PNG renders per retained seed, and a
+phone-scrollable `SHORTLIST.md`. Override the batch with `--seed`,
+`--attempts`, `--shortlist`, or `--out`; the selected range must retain both
+regression seeds. The implementation uses only the Python standard library.
+
+Hard design/resource invariants and experimental visible-defect screens remain
+separate. The search rejects hard failures, applies experimental geography
+screens, then preserves topology and metric diversity; it never chooses the
+top candidates solely by one aggregate score.
+
 ## Minecraft Java 1.21.11 serialization milestone
 
 `serialize_default_worlds.py` and `serialization/` translate finalists
@@ -103,6 +143,11 @@ format check. It avoids the historical Java 1.12 numeric-ID format while making
 the precise palette, entity-region, and `level.dat` schemas independently
 testable. The build rejects any server JAR whose SHA-1 is not
 `64bb6d763bed0a9f1d632ec347938594144943ed`.
+
+This section documents the earlier serialization milestone and remains useful
+for diagnosing its block-level findings. It is not the next step for the v2
+greybox shortlist; review the geography renders before serializing any new
+candidate.
 
 Download that server and run the full reproducible build (review the Minecraft
 EULA before passing `--accept-eula`):

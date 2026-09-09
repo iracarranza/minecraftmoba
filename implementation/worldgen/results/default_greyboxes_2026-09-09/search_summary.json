@@ -1,0 +1,489 @@
+{
+  "generator": "default_geography_greybox_v2",
+  "start_seed": 920261000,
+  "attempts": 48,
+  "runtime_seconds": 177.252,
+  "hard_contract_passes": 44,
+  "hard_rejected_count": 4,
+  "experimental_quality_passes": 31,
+  "quality_screened_out_count": 13,
+  "shortlist_size": 6,
+  "selection_method": "Hard contracts first; experimental geography checks screen visible defects; shortlist then preserves topology and metric diversity. Score alone never selects top-N.",
+  "regression_seeds": [
+    920261010,
+    920261022
+  ],
+  "evaluated_summary": [
+    {
+      "seed": 920261000,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 89.802,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261001,
+      "topology": "split_spine",
+      "hard_pass": false,
+      "hard_failures": [
+        "all_markers_on_traversable_land"
+      ],
+      "quality_score": -999.0,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261002,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.022,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261003,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 102.91,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261004,
+      "topology": "long_ridge",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 102.601,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261005,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 105.129,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261006,
+      "topology": "offset_basin",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.732,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261007,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 80.061,
+      "quality_warnings": [
+        "terrain_bands_reduced",
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261008,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.11,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261009,
+      "topology": "split_spine",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.923,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261010,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.647,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261011,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 89.868,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261012,
+      "topology": "long_ridge",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 86.92,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261013,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 90.631,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261014,
+      "topology": "offset_basin",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 91.85,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261015,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 100.372,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261016,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 90.5,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261017,
+      "topology": "split_spine",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 106.465,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261018,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 101.226,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261019,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.617,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261020,
+      "topology": "long_ridge",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.941,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261021,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.647,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261022,
+      "topology": "offset_basin",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.12,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261023,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.08,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261024,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.242,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261025,
+      "topology": "split_spine",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.487,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261026,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 84.874,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261027,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 90.223,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261028,
+      "topology": "long_ridge",
+      "hard_pass": false,
+      "hard_failures": [
+        "all_markers_on_traversable_land"
+      ],
+      "quality_score": -999.0,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261029,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 101.64,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261030,
+      "topology": "offset_basin",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.084,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261031,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 102.776,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261032,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 91.05,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261033,
+      "topology": "split_spine",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.142,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261034,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 101.191,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261035,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 98.617,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261036,
+      "topology": "long_ridge",
+      "hard_pass": false,
+      "hard_failures": [
+        "all_markers_on_traversable_land"
+      ],
+      "quality_score": -999.0,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261037,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 89.293,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261038,
+      "topology": "offset_basin",
+      "hard_pass": false,
+      "hard_failures": [
+        "all_markers_on_traversable_land"
+      ],
+      "quality_score": -999.0,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261039,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.895,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261040,
+      "topology": "twin_massif",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 91.252,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261041,
+      "topology": "split_spine",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 102.775,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261042,
+      "topology": "horseshoe",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 88.541,
+      "quality_warnings": [
+        "coast_not_uniform_ribbon"
+      ],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261043,
+      "topology": "broken_peaks",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.146,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261044,
+      "topology": "long_ridge",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 104.871,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261045,
+      "topology": "highland_ravines",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 105.199,
+      "quality_warnings": [],
+      "shortlisted": false
+    },
+    {
+      "seed": 920261046,
+      "topology": "offset_basin",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 100.417,
+      "quality_warnings": [],
+      "shortlisted": true
+    },
+    {
+      "seed": 920261047,
+      "topology": "sawtooth_valleys",
+      "hard_pass": true,
+      "hard_failures": [],
+      "quality_score": 103.64,
+      "quality_warnings": [],
+      "shortlisted": false
+    }
+  ]
+}
