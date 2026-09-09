@@ -988,21 +988,42 @@ Examples:
 
 # 10. Infrastructure and Classes
 
-Progression can gate systemic recognition and exceptional infrastructure benefits without gating normal Minecraft behavior.
+# INJECTION §10: clarify infrastructure progression
+
+Progression gates access to exceptional/system-recognized infrastructure without gating ordinary Minecraft behavior.
 
 Anyone can:
 - build;
 - travel;
 - place storage;
-- farm;
+- farm and develop productive terrain;
 - transport items.
 
-Specialized systems may recognize:
-- Constructs;
-- Routes;
-- Supply Lines;
-- Development systems/areas;
-- other infrastructure.
+These ordinary actions form the universal Minecraft floor and do not require specialization.
+
+Permanent progression/specialization choices can unlock systemic recognition of:
+- a Construct;
+- a Route;
+- a Supply Line;
+- a Development system/area;
+- other empowered infrastructure.
+
+The causal order is:
+
+> progression unlocks recognition capability → the player establishes a qualifying world structure/system → the game recognizes and empowers it.
+
+Simply building, traversing, farming, or connecting storage does not by itself grant the corresponding progression capability.
+
+Further progression may improve the scale, capacity, efficiency, potency, or sophistication of infrastructure the player can have recognized.
+
+The exact:
+- first unlock level;
+- upgrade cadence;
+- number of available investments;
+- mutual exclusivity or non-exclusivity of infrastructure investments;
+- numerical scaling of each recognized system
+
+remain unresolved pending the preliminary level model.
 
 These systems may interact with classes, but they should not automatically become mandatory prerequisites for a class.
 
