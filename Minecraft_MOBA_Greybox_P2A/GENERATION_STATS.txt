@@ -1,6 +1,0 @@
-mask_blocks: 83786
-route_buffer_blocks: 13881
-poi_buffer_blocks: 5198
-free_wilderness_blocks: 64729
-trees: 323
-boulder_clusters: 24
