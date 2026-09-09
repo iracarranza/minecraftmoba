@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="index.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand"><a href="index.html" style="text-decoration:none;">Minecraft MOBA</a></div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="classes.html">Classes</a>
+      <a href="objectives.html">Objectives</a>
+      <a href="mechanics.html">Unique Mechanics</a>
+      <a href="progression.html">Items / Progression</a>
+      <a href="map.html">Map / World</a>
+      <a href="balance.html">Balance Notes</a>
+      <a href="inbox.html">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="panel">
+      <div class="kicker">Design Wiki</div>
+      <h1>Minecraft MOBA</h1>
+      <div class="editable" data-edit="home-intro">
+        <p>A local design workspace for organizing the game by system. Canonical drafts are presented as readable pages, while the Classes page also functions as a small local design database for editing and creating class concepts.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="kicker">Editing model</div>
+      <div class="editable" data-edit="home-howto">
+        <p><strong>Classes:</strong> choose an existing class, edit it directly, create new drafts, and export/import the whole class library.</p>
+        <p><strong>Other pages:</strong> click editable text to revise it; changes save locally in the browser.</p>
+        <p><strong>Source:</strong> the HTML/CSS/JS files remain plain files that can also be edited in a text editor.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button class="primary" data-save>Save now</button>
+    <button data-export>Export page JSON</button>
+    <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+    <button class="danger" data-reset>Reset page</button>
+    <span class="status" data-status>Edits save locally in this browser.</span>
+  </div>
+
+  <section class="grid">
+    <a class="card-link" href="classes.html"><div class="panel">
+      <div class="kicker">Library + editor · 3 canonical classes</div>
+      <h2>Classes</h2>
+      <p><strong>Mole · Gardener · Golem Master</strong></p>
+      <p class="muted">Browse and read existing classes, edit them in place, create new class drafts, and export/import the class library.</p>
+    </div></a>
+
+    <a class="card-link" href="objectives.html"><div class="panel">
+      <div class="kicker">Canonical design · 3 layers</div>
+      <h2>Objectives</h2>
+      <p><strong>Team structures · Non-combat objectives · Major neutral bosses</strong></p>
+      <p class="muted">Four team objectives, Mining Outpost, Supply Chain, boss progression, XP logic, escalation, and unresolved design risks.</p>
+    </div></a>
+
+    <a class="card-link" href="map.html"><div class="panel">
+      <div class="kicker">Latest map draft</div>
+      <h2>Map / World</h2>
+      <p><strong>Procedural generation · Continuous wilderness · Map archetypes</strong></p>
+      <p class="muted">Mirrored homelands, value-balanced procedural wilderness, village networks, seed validation, and six working archetypes.</p>
+    </div></a>
+
+    <a class="card-link" href="mechanics.html"><div class="panel">
+      <div class="kicker">Game identity</div><h2>Unique Mechanics</h2>
+      <p class="muted">Systems that make the game feel like Minecraft rather than a reskinned lane MOBA.</p>
+    </div></a>
+
+    <a class="card-link" href="progression.html"><div class="panel">
+      <div class="kicker">Power curve</div><h2>Items / Progression</h2>
+      <p class="muted">XP, resources, crafting, upgrades, drops, and other forms of match progression.</p>
+    </div></a>
+
+    <a class="card-link" href="balance.html"><div class="panel">
+      <div class="kicker">Tuning</div><h2>Balance Notes</h2>
+      <p class="muted">Numbers, hypotheses, problem cases, playtest findings, and unresolved balance risks.</p>
+    </div></a>
+
+    <a class="card-link" href="inbox.html"><div class="panel">
+      <div class="kicker">Capture</div><h2>Inbox / Ideas</h2>
+      <p class="muted">Half-formed ideas before they are promoted into canonical system pages.</p>
+    </div></a>
+  
+    <a class="card-link" href="import.html"><div class="panel">
+      <div class="kicker">Conversation → wiki</div>
+      <h2>Import Design</h2>
+      <p><strong>Paste · Preview · Apply</strong></p>
+      <p class="muted">Paste a wiki import block from a design discussion and route it automatically into the appropriate design page.</p>
+    </div></a>
+  </section>
+
+  <div class="footer-note">Everything in this folder is plain HTML/CSS/JS. There are no dependencies, installs, accounts, or build steps.</div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

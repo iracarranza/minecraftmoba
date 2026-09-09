@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inbox / Ideas · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="inbox.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand">Minecraft MOBA</div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="">Home</a>
+<a href="classes.html" class="">Classes</a>
+<a href="objectives.html" class="">Objectives</a>
+<a href="mechanics.html" class="">Unique Mechanics</a>
+<a href="progression.html" class="">Items / Progression</a>
+<a href="map.html" class="">Map / World</a>
+<a href="balance.html" class="">Balance Notes</a>
+<a href="inbox.html" class="active">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="kicker">Capture first, organize later</div>
+<h1>Inbox / Ideas</h1>
+<p class="muted">Use this page for half-formed ideas that should not yet be promoted into the canonical system pages.</p>
+
+<div class="toolbar">
+  <button class="primary" data-save>Save now</button>
+  <button data-export>Export page JSON</button>
+  <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+  <button class="danger" data-reset>Reset page</button>
+  <span class="status" data-status>Edits save locally in this browser.</span>
+</div>
+
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Idea inbox</h2>
+    <div class="editable" data-edit="idea-inbox">
+      <ul>
+        <li>New idea:</li>
+        <li>New idea:</li>
+        <li>New idea:</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Questions to resolve</h2>
+    <div class="editable" data-edit="question-inbox">
+      <ul>
+        <li>What is still undefined about the core match loop?</li>
+        <li>Which mechanics need a prototype before more design work?</li>
+        <li>Which current systems are too close to conventional MOBA defaults?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="panel" style="margin-top:16px;">
+  <h2>Promotion checklist</h2>
+  <div class="editable" data-edit="promotion-checklist">
+    <p>Before moving an idea out of the inbox, define its player verb, purpose, counterplay, Minecraft justification, and interaction with at least one existing system.</p>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>

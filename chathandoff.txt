@@ -1,0 +1,3753 @@
+MINECRAFT MOBA — UNIFIED AUTHORITATIVE PROJECT HANDOFF
+
+Current design state: September 8, 2026
+
+PURPOSE
+
+This document consolidates the current authoritative state of the Minecraft MOBA project across:
+
+Levels / universal progression
+
+Archetypes
+
+Objectives and XP
+
+Constructs
+
+Routes
+
+Supply Lines
+
+Worksites
+
+Default map structure
+
+World generation
+
+Wilderness design
+
+Resource ecology
+
+Hunger / expedition range
+
+Map scale
+
+Previous procedural map experiments
+
+The next playable prototype
+
+It is intended to be sufficient context for continuing the project in a fresh session.
+
+Where earlier exploratory ideas conflict with later corrections, the later correction is authoritative.
+
+In particular:
+
+Constructs do not necessarily grant an XP multiplier.
+
+Development does not necessarily operate inside Constructs.
+
+Construction and Development do not require one another.
+
+Supply Lines do not currently require a physical traced path.
+
+Routes and Supply Lines are distinct systems.
+
+The old objective-method XP hierarchy is nixed.
+
+Base authored Routes no longer receive a movement-speed bonus in the current test.
+
+L1 = 10 food and L3 Hunger = 12 food are prototype test settings, not globally finalized progression values.
+
+1. THE GAME / WORLD THESIS
+
+Minecraft is the base systemic language.
+
+The game should not feel like a conventional MOBA arena covered in Minecraft textures. The Minecraft world itself is the strategic board.
+
+Terrain, hunger, mining, construction, caves, food, animals, villages, routes, logistics, resources, infrastructure, farming, transport, and player modification of the environment should remain real gameplay.
+
+The broad world-state arc is:
+
+generated Minecraft world
+→ discovered
+→ traversed
+→ extracted
+→ constructed
+→ developed
+→ connected
+→ supplied
+→ contested
+
+This is an emergent ecosystem, not a mandatory linear sequence.
+
+Ordinary Minecraft verbs should generally remain available to everyone.
+
+Progression and archetypes should primarily gate:
+
+exceptional efficiency;
+
+exceptional potency;
+
+systemic recognition;
+
+higher-order infrastructure;
+
+rather than saying:
+
+"You are not the correct class, therefore you cannot build/mine/travel/craft."
+
+2. LEVEL STRUCTURE AND POWER CURVE
+
+Level range
+
+Matches progress from:
+
+Level 1 → Level 30
+
+Level 30 intentionally references Minecraft's familiar enchanting threshold.
+
+The exact relationship between MOBA levels and vanilla Minecraft XP/enchanting remains unresolved.
+
+Power curve
+
+The intended progression fantasy is:
+
+Early game
+
+A significantly constrained Minecraft character.
+
+Midgame
+
+Approximately complete / vanilla-capable Minecraft player.
+
+Late game
+
+Increasingly supernormal class/archetype expression.
+
+Level 30
+
+A highly realized class whose exceptional systems significantly alter how the player interacts with the Minecraft world.
+
+Vanilla Steve is therefore approximately a midgame reference point, not the maximum state.
+
+Approximately Level 16 has been used as the conceptual vanilla-baseline transition, but this is not locked.
+
+Change in progression composition
+
+Early → mid progression should contain substantial growth in fundamental physical Minecraft capacity.
+
+Mid → late progression should increasingly derive power from:
+
+specialization;
+
+archetype mechanics;
+
+class mechanics;
+
+efficiency;
+
+potency;
+
+rather than indefinitely increasing generic:
+
+health;
+
+hunger;
+
+inventory;
+
+movement speed;
+
+damage;
+
+mining speed.
+
+3. THREE PROGRESSION LAYERS
+
+3.1 Universal progression
+
+Automatic progression establishes the minimum capability available to everyone.
+
+Principal universal capacities currently under consideration:
+
+Health
+
+Hunger
+
+Inventory
+
+A player should eventually reach approximately vanilla capability in these systems even without investing specialization choices into them.
+
+3.2 Permanent progression/specialization choices
+
+At selected progression points, players can permanently accelerate or specialize particular capacities or systems.
+
+The generic term Development choices should not be used because Development is one of the seven archetypes.
+
+The exact name and cadence remain unresolved.
+
+Early examples include:
+
+Health
+
+Hunger
+
+Inventory
+
+A useful balancing principle:
+
+Investment should let a player experience a new practical capability several levels before the universal baseline naturally reaches it.
+
+Examples:
+
+Hunger investment allows a meaningful expedition earlier.
+
+Inventory investment allows a meaningful provisioning/haul configuration earlier.
+
+Health investment allows deliberate exposure to danger earlier.
+
+Specialization should accelerate or exceed the universal curve.
+
+It should not replace it.
+
+3.3 Class/archetype progression
+
+Class mechanics establish the exceptional ceiling.
+
+Therefore:
+
+Universal progression establishes the floor.
+Specialization creates differentiation above or ahead of that floor.
+Class/archetype progression establishes the exceptional ceiling.
+
+Generic investment should never completely replace a class whose archetype owns the relevant system.
+
+4. HEALTH, HUNGER, AND INVENTORY DESIGN METHOD
+
+Do not begin by choosing arbitrary schedules such as:
+
++1 heart every X levels;
+
++1 hunger icon every Y levels;
+
++1 slot every Z levels.
+
+Instead:
+
+Determine what activities should be practical at a progression phase.
+
+Determine what every player can do.
+
+Determine what an invested player can do earlier/better.
+
+Choose the smallest numerical change that reliably causes that gameplay transition.
+
+Numbers should follow desired Minecraft behavior.
+
+5. ROUGH UNIVERSAL CAPABILITY PHASES
+
+These are conceptual phases, not locked level thresholds.
+
+Level 1
+
+Players are substantially below vanilla physical capability.
+
+Desired consequences:
+
+local planning matters;
+
+mistakes matter;
+
+expedition range matters;
+
+inventory forces loadout decisions;
+
+ordinary Minecraft is possible but constrained.
+
+Early levels (~3–5)
+
+Players remain below vanilla capacity.
+
+Nearby activity should be reliable.
+
+Larger undertakings require preparation.
+
+Investment begins to make specific activities practical earlier.
+
+Developing phase (~8)
+
+Ordinary PvP/PvE and wilderness activity become increasingly practical.
+
+The character remains recognizably below complete vanilla physical capability.
+
+Approaching midgame (~12)
+
+Most ordinary Minecraft activities should be viable.
+
+Physical limitations can still matter.
+
+Invested capacities may approach, reach, or potentially exceed their corresponding vanilla values before the universal baseline does.
+
+Vanilla-baseline transition (~16 conceptual)
+
+Every player approaches roughly vanilla-like:
+
+Health
+
+Hunger
+
+carrying capability
+
+Invested players may already exceed those baselines.
+
+Late game
+
+Vanilla capability becomes the floor.
+
+The majority of exceptional power increasingly comes from:
+
+class mechanics;
+
+archetype systems;
+
+specialization.
+
+6. HEALTH
+
+Health should be calibrated against recognizable Minecraft survival thresholds.
+
+Questions include:
+
+How many normal attacks are survivable?
+
+What falls become survivable?
+
+How forgiving are ordinary mob encounters?
+
+Can a player survive long enough to disengage?
+
+At what point does the environment stop being disproportionately lethal?
+
+A Level 1 value around 5 hearts / 10 HP has been discussed as more plausible than 3 hearts / 6 HP.
+
+This is not final.
+
+Half-heart / +1 HP increments may provide useful granularity.
+
+Also not final.
+
+7. HUNGER AS EXPEDITION CAPACITY
+
+Hunger is primarily:
+
+internal expedition / endurance / provisioning capacity
+
+rather than merely another bar.
+
+Higher Hunger can allow a player to:
+
+sprint longer;
+
+stay away from supplies longer;
+
+tolerate detours;
+
+search larger uncertain areas;
+
+carry less food for the same journey;
+
+retain safer return reserves.
+
+Hunger investment should not automatically grant speed.
+
+This matters particularly for Exploration balance.
+
+Hunger and Inventory intentionally overlap
+
+Hunger:
+
+"My body can operate longer between resupply."
+
+Inventory:
+
+"I can carry more resupply with me."
+
+A low-Hunger player may use inventory slots for food.
+
+A high-Hunger player can use those same slots for other purposes.
+
+This overlap is desirable.
+
+8. CURRENT HUNGER TEST VALUES
+
+These are prototype test settings, not finalized universal progression rules.
+
+L1 map test
+
+5 hunger icons
+
+10 food points
+
+0 / effectively 0 saturation
+
+L3 Hunger test
+
+6 hunger icons
+
+12 food points
+
+0 / effectively 0 saturation
+
+This represents:
+
++1 hunger icon
+
+Sprint cutoff
+
+Use vanilla behavior.
+
+Sprint becomes unavailable at:
+
+3 hunger icons
+
+6 food points
+
+No custom sprint threshold is required.
+
+Design implication
+
+At L1:
+
+10 food → sprint cutoff at 6
+
+Sprint-capable reserve:
+
+4 food points
+
+~16 exhaustion
+
+At L3 Hunger:
+
+12 food → cutoff at 6
+
+Reserve:
+
+6 food points
+
+~24 exhaustion
+
+Therefore the +1 icon test represents:
+
++20% total displayed Hunger;
+
+approximately +50% pre-cutoff sprint-capable reserve.
+
+This is a strong early logistics/traversal upgrade and should be tested intentionally.
+
+9. INVENTORY
+
+Inventory progression should be evaluated in meaningful loadout categories rather than abstract slot counts.
+
+Examples of low-level decisions:
+
+tools vs food;
+
+blocks vs supplies;
+
+expedition provisioning vs return haul;
+
+multiple construction materials vs utility;
+
+extraction yield vs preparedness.
+
+The correct question is:
+
+"What meaningful additional equipment/material category can this player now bring or return with?"
+
+Inventory being universally useful does not invalidate Logistics.
+
+Everyone benefits from carrying capacity.
+
+Logistics classes manipulate:
+
+storage;
+
+carrying;
+
+transport;
+
+transfer;
+
+distribution;
+
+at exceptional/team-facing scales.
+
+10. THE SEVEN ARCHETYPES
+
+Current archetypes:
+
+Combat
+
+Exploration
+
+Construction
+
+Extraction
+
+Production
+
+Development
+
+Logistics
+
+Archetypes identify Minecraft domains in which classes may achieve exceptional:
+
+efficiency
+
+potency
+
+They do not reserve normal Minecraft actions.
+
+11. EFFICIENCY VS POTENCY
+
+Efficiency
+
+Perform approximately the same useful task for less:
+
+time;
+
+input;
+
+resource expenditure;
+
+risk;
+
+effort;
+
+logistical burden.
+
+Potency
+
+Perform:
+
+more;
+
+a stronger version;
+
+a larger-scale version;
+
+or something an ordinary player could not normally accomplish through that system.
+
+This distinction should remain explicit throughout class and progression design.
+
+12. ARCHETYPE DOMAINS
+
+Combat
+
+Exceptional manipulation of:
+
+damage;
+
+health;
+
+survivability;
+
+mitigation;
+
+sustain;
+
+control;
+
+combat efficiency/potency.
+
+Universal Health progression does not undermine Combat.
+
+Exploration
+
+Exceptional manipulation of:
+
+movement;
+
+traversal;
+
+expedition efficiency;
+
+sprinting;
+
+jumping;
+
+terrain interaction;
+
+mobility.
+
+Raw unconditional movement potency is especially balance-sensitive.
+
+Construction
+
+Exceptional manipulation of:
+
+block placement;
+
+construction;
+
+world geometry;
+
+conversion of carried material into useful built world.
+
+Extraction
+
+Exceptional useful:
+
+removal;
+
+access;
+
+acquisition;
+
+of world materials.
+
+Extraction does not simply mean "blocks disappear."
+
+Production
+
+Exceptional transformation of acquired inputs into useful outputs.
+
+Potential expressions:
+
+input efficiency;
+
+output quantity;
+
+output quality;
+
+processing speed;
+
+recipe flexibility;
+
+alternate production access;
+
+byproducts;
+
+batch/automation.
+
+Development
+
+Exceptional improvement/maturation of productive world states.
+
+Examples may include:
+
+crops;
+
+renewable systems;
+
+animal populations;
+
+productive terrain;
+
+sustainability;
+
+advanced cultivation;
+
+persistent growth/transformation.
+
+Development is not simply Production.
+
+Conceptually:
+
+Production:
+
+wheat → bread
+
+Development:
+
+crop/farmland system → more reliable/productive wheat
+
+Logistics
+
+Exceptional manipulation of:
+
+carrying;
+
+storage;
+
+transport;
+
+transfer;
+
+distribution;
+
+resource availability.
+
+Central question:
+
+How effectively can the team's resources become available where and when they are needed?
+
+13. EXPLORATION / MOVEMENT BALANCE
+
+Permanent unconditional movement speed is unusually strategically powerful.
+
+It affects:
+
+POI arrival;
+
+Pioneer/Match First exploration;
+
+reinforcement timing;
+
+escapes;
+
+pursuit;
+
+Worksite contests;
+
+objective timing;
+
+territorial reach;
+
+resource acquisition;
+
+return-from-death timing.
+
+Small speed bonuses can compound into opportunity leads.
+
+Therefore:
+
+Equivalent local combat/stat power does not imply equivalent strategic power.
+
+Current early Exploration direction:
+
+movement efficiency before movement potency
+
+Examples:
+
+sprint efficiency;
+
+traversal efficiency;
+
+endurance;
+
+specialized environmental traversal.
+
+Raw:
+
+speed;
+
+high jump;
+
+unusual vertical mobility;
+
+should be introduced cautiously and may fit later progression or specific classes.
+
+14. CONSTRUCTION — BLOCK EFFICIENCY
+
+A current Construction scaling vocabulary concept is Block Efficiency.
+
+A Construction-specialized player may create more useful world geometry from a fixed carried material supply.
+
+Possible implementation:
+
+after enough eligible placements, a placement costs no block;
+
+or a block is refunded after enough eligible placements.
+
+Anti-exploit requirement
+
+Efficiency-generated blocks are valid world geometry but should not become recoverable material sources.
+
+If destroyed, they should not drop collectible items.
+
+This should survive, where technically possible:
+
+ordinary mining;
+
+explosions;
+
+pistons;
+
+environmental destruction;
+
+transformations.
+
+They remain valid for:
+
+shelter;
+
+bridges;
+
+defenses;
+
+collision;
+
+functional construction;
+
+infrastructure validation.
+
+Block provenance may need invisible tracking.
+
+This is Construction vocabulary, not necessarily a universal passive shared by every Construction class.
+
+15. CONSTRUCTION ↔ DEVELOPMENT
+
+Construction and Development intentionally have adjacent vocabulary.
+
+Useful distinction:
+
+Construction
+
+Establish/manipulate useful built places.
+
+Development
+
+Improve/mature productive world states.
+
+They will often interact.
+
+They may frequently become colocated.
+
+However:
+
+Construction does not require Development.
+
+Development does not require Construction.
+
+Development does not necessarily operate inside Constructs.
+
+Their relationship is synergy, not prerequisite.
+
+16. INFRASTRUCTURE RECOGNITION PRINCIPLE
+
+A major cross-system rule:
+
+Progression can gate systemic recognition and exceptional infrastructure benefits without gating normal Minecraft behavior.
+
+Anyone can:
+
+build a house;
+
+create a road;
+
+place storage;
+
+farm;
+
+manually transport items;
+
+construct a fortress.
+
+Specialized progression may allow recognition of:
+
+a Construct;
+
+a Route;
+
+a Supply Line;
+
+a Development area/system;
+
+other empowered infrastructure.
+
+17. CONSTRUCTS
+
+The older Construction-submission model is being redesigned.
+
+A player can physically build regardless of Construct access.
+
+Progression may grant:
+
+Construct designation;
+
+Construct slots/capacity;
+
+maximum recognized size;
+
+recognition radius;
+
+other benefits.
+
+A promising model is that recognized influence partly derives from the validated physical extent of the submitted structure, capped by the player's current progression limit.
+
+This allows early-game recognized construction size to be gated without preventing players from physically building larger structures.
+
+Important correction
+
+Do not treat "Constructs grant an allied XP multiplier" as a required/current universal rule.
+
+That concept was explored and at one point documented as a leading implementation, but was subsequently demoted.
+
+The desired broader principle remains:
+
+Useful infrastructure should prove its strategic value through actual use rather than through a trivial one-time submission reward.
+
+Exactly how Constructs provide that team-facing systemic value remains open.
+
+Open Construct questions
+
+slots;
+
+size;
+
+validation;
+
+influence;
+
+functionality;
+
+XP interaction, if any;
+
+enemy interaction;
+
+destruction/damage;
+
+scaling.
+
+18. ROUTES
+
+There are two different Route contexts in the current design:
+
+authored map Routes, generated as part of Default;
+
+player-recognized Routes, potentially established through progression.
+
+They share traversal language but should not automatically be assumed identical in implementation.
+
+Player-recognized Route topology
+
+Current working idea:
+
+The player physically traverses the desired path, and that traversal defines the Route.
+
+Exact:
+
+drawing;
+
+submission;
+
+validation;
+
+width;
+
+branching;
+
+remain unresolved.
+
+Current early Route benefit
+
+Preferred systemic language:
+
+improve sprint/traversal efficiency
+
+rather than generic speed.
+
+Infrastructure that already exists can improve repeated travel without determining who wins the original race to an unknown place.
+
+19. ROUTE TEST MECHANIC
+
+For the next Default-map playable test:
+
+base authored Routes receive no movement-speed bonus;
+
+their clean/direct terrain is already useful;
+
+additionally, Routes provisionally grant approximately 10% lower locomotion-generated exhaustion.
+
+Conceptual values:
+
+Sprinting
+
+0.10 exhaustion/block
+→ approximately 0.09
+
+Sprint-jumping
+
+0.20 jump component
+→ approximately 0.18
+
+Ordinary jumping
+
+0.05
+→ approximately 0.045
+
+Do not apply this reduction to:
+
+combat;
+
+regeneration;
+
+mining;
+
+non-locomotion hunger costs.
+
+This deliberately double-counts Route value for the first prototype:
+
+Routes are geometrically cleaner.
+
+Routes also receive modest artificial locomotion efficiency.
+
+This is a test mechanic, not final Route progression.
+
+Do not restore the earlier +10% movement-speed idea as the default.
+
+20. SUPPLY LINES
+
+Supply Lines are the current leading team-facing Logistics infrastructure concept.
+
+Current topology
+
+Unlike Routes, which are currently envisioned as being drawn through traversal:
+
+A Supply Line is currently envisioned as being established using storage at a start point and storage at an endpoint.
+
+The two storage endpoints establish the connection.
+
+Do not prematurely document whether the intervening connection is:
+
+physically traced;
+
+pathless;
+
+node-based;
+
+route-following;
+
+vulnerable terrain;
+
+abstract logistics.
+
+That remains unresolved.
+
+Core fantasy
+
+Upstream stored items gradually replenish/transfer to downstream storage.
+
+Examples:
+
+Mine storage
+→ Base storage
+
+Farm storage
+→ Production storage
+
+Base storage
+→ Worksite storage
+
+Production storage
+→ Forward storage
+
+The key benefit is persistent resource availability even when the Logistics player is elsewhere.
+
+Potential scaling
+
+Supply Line count;
+
+range;
+
+throughput;
+
+transfer frequency;
+
+capacity;
+
+filtering;
+
+destinations;
+
+branching;
+
+network sophistication;
+
+reliability.
+
+Later high-potency Logistics may allow infrastructure to replenish players directly.
+
+Example fantasy:
+
+"This position is supplied."
+
+21. ROUTES VS SUPPLY LINES
+
+Route
+
+Question:
+
+How efficiently can players repeatedly travel through this connection?
+
+Current establishment concept:
+
+pure traversal
+
+Core value:
+
+traversal efficiency
+
+Supply Line
+
+Question:
+
+How efficiently can resources become available where the team needs them?
+
+Current establishment concept:
+
+start storage + end storage
+
+Core value:
+
+distribution/replenishment
+
+Do not collapse these systems together merely because they both connect places.
+
+22. EXTRACTION
+
+Extraction concerns useful acquisition/access to world material.
+
+Possible expressions:
+
+faster extraction;
+
+tool efficiency;
+
+difficult-material access;
+
+unusual detection;
+
+larger-scale extraction;
+
+exceptional excavation.
+
+Destroying an enemy fortress is not inherently Extraction.
+
+The resource/access purpose matters.
+
+Mole
+
+Mole's Sifth Sense is an existing class-specific Extraction example.
+
+It detects underground resources and scales in:
+
+radius;
+
+rate;
+
+specificity.
+
+World systems such as Worksites should preserve meaningful specialist advantage without making Mole mandatory.
+
+23. PRODUCTION / KITFIGHTER
+
+Kitfighter currently has:
+
+Primary: Combat
+
+Secondary: Production
+
+Do not list Extraction as a current Kitfighter archetype.
+
+Salvage
+
+Current Kitfighter direction:
+
+Crafting equipment using at least 3 units of a Primary Material grants:
+
+1 Salvage for that material
+
+Salvage is material-specific.
+
+Recovery thresholds:
+
+Level 0: 6 Salvage
+
+Level 8: 5 Salvage
+
+Level 16: 4 Salvage
+
+Level 24: 3 Salvage
+
+Consume the required Salvage to recover:
+
+2 units of that Primary Material
+
+These thresholds belong to Kitfighter.
+
+They do not establish a universal class-progression cadence.
+
+Covered With Diamonds
+
+Ultimate:
+
+temporarily upgrades iron armor/tools to Diamond;
+
+equipment later reverts.
+
+Current overdrive direction:
+
+knockback resistance;
+
+movement speed.
+
+Exact unlock timing is unresolved.
+
+It should eventually be calibrated against universal progression/economy.
+
+Equipment economy
+
+Current direction:
+
+Iron is the highest combat-equipment tier routinely/sustainably available to ordinary players.
+
+This should be an economic result, not an equip ban.
+
+Diamond remains legal and vanilla-powerful.
+
+Permanent Diamond represents exceptional investment.
+
+Diamonds compete with other strategic uses.
+
+Natural diamonds may remain scarce.
+
+Mining Worksites can create reliable exceptional concentrations.
+
+If everyone reaches full Diamond, first diagnose the resource economy rather than banning Diamond.
+
+24. XP PHILOSOPHY
+
+Legitimate resource attainment grants XP directly. The XP system does not need to determine whether each acquired resource was ultimately used well; usefulness is presumed through the resource economy.
+
+Prefer objective, legible evidence over subjective judgments of strategic value.
+
+Examples may include:
+
+legitimate resource attainment;
+
+exploration discoveries;
+
+major neutral encounters;
+
+objective contribution;
+
+infrastructure interaction/use.
+
+Exploration XP
+
+Existing concepts include:
+
+Team First discovery
+
+Match First / Pioneer discovery
+
+This is another reason early unconditional movement speed is dangerous.
+
+Important correction
+
+The following hierarchy is nixed:
+
+destruction = lowest XP
+
+defender elimination = medium XP
+
+specialized objective interaction = highest XP
+
+Objective solution methods should produce strategically different consequences, not be globally ranked by XP multipliers.
+
+25. KEY LOCATIONS / OBJECTIVES / CONTRIBUTIONS
+
+Useful vocabulary:
+
+Key Location
+
+Where strategic opportunity exists.
+
+Objective
+
+An accomplishment available there.
+
+Contribution
+
+An individual action toward accomplishing it.
+
+Broad Key Location categories include:
+
+Team Structures
+
+Major Encounters
+
+Worksites
+
+World Locations
+
+Possible player-established locations
+
+This prevents every important place from being mislabeled as "an objective."
+
+26. WORKSITES
+
+Worksites are Key Locations offering:
+
+exceptional resource opportunities
+
+not merely "rare materials."
+
+Value may come from:
+
+scarcity;
+
+concentration;
+
+timing;
+
+local scarcity;
+
+unusual combinations;
+
+phase-specific opportunity.
+
+Desired lifecycle
+
+Dormant opportunity
+→ developed opportunity
+→ contested resource site
+→ depleted opportunity
+
+Development principle
+
+Players should not be able to receive full Worksite value merely by:
+
+camping;
+
+mining randomly;
+
+enclosing it with trivial walls.
+
+Development should materially change access.
+
+Ownership should not be absolute.
+
+Enemies may:
+
+attack;
+
+contest;
+
+exploit a developed opportunity.
+
+Worksite apparatus
+
+Current stronger concept:
+
+Core
+
+A phase-expensive crafted object/block.
+
+Most economic gating should probably reside here.
+
+Functional multiblock
+
+A recognizable required topology surrounding the Core.
+
+Facility
+
+Flexible player-authored surrounding construction:
+
+storage;
+
+shelter;
+
+defenses;
+
+access;
+
+roads;
+
+Routes;
+
+logistics.
+
+Prefer:
+
+recognizable functional topology + terrain adaptation
+
+over a giant rigid schematic.
+
+If the functional multiblock is invalidated:
+
+activation/prospecting pauses;
+
+already revealed deposits remain revealed.
+
+Prefer economic/material gating over arbitrary level locks when possible.
+
+27. MINING OUTPOST
+
+Current Mining Outpost model:
+
+discover
+→ invest
+→ construct/progress apparatus
+→ prospect/reveal
+→ excavate
+→ extract
+→ transport/use
+
+The apparatus prospects/reveals.
+
+Players excavate.
+
+It must not become:
+
+an ore dispenser;
+
+a Diamond chest;
+
+automatic block clearing.
+
+The reward category is:
+
+phase-appropriate exceptional extraction opportunities
+
+These can derive value from:
+
+scarcity;
+
+concentration;
+
+timing;
+
+local scarcity;
+
+combinations.
+
+Generic players must be able to exploit a Mining Outpost.
+
+Extraction specialists should still substantially outperform them in:
+
+search;
+
+excavation;
+
+route selection;
+
+extraction efficiency.
+
+28. OTHER OBJECTIVE-WORLD INTERACTIONS
+
+Pillager Outpost
+
+Allay powers/is involved in the structure.
+
+Specialized interaction can steal the Allay.
+
+Post-capture Allay function remains unresolved.
+
+Nether Bastion
+
+Contains a physical gold hoard.
+
+Gold should exist in the actual structure/world.
+
+Extraction and transport matter.
+
+End Tower
+
+End Crystal / End machinery is involved.
+
+Destruction/progression matters.
+
+Extra generic loot is not automatically necessary.
+
+Aether Fountain
+
+Disabling it affects enemy respawning.
+
+Exposure/reactivation details remain unresolved.
+
+Supply Chain
+
+Advanced development-resource contents remain intentionally unresolved.
+
+Do not use baseline wheat/carrots/potatoes as its unique reward vocabulary.
+
+29. DEFAULT MAP THESIS
+
+Default should feel like Minecraft first and a competitive MOBA second.
+
+Generation philosophy:
+
+Let Minecraft generate Minecraft-like geography, then constrain, inspect, validate, select, and modestly adjust it for competitive play.
+
+Do not:
+
+construct a conventional MOBA arena and disguise it with Minecraft terrain.
+
+The world itself is strategic.
+
+30. DEFAULT MACRO-GEOGRAPHY
+
+Teams oppose one another:
+
+North ↔ South
+
+The strongest environmental gradient is:
+
+West ↔ East
+
+This orthogonality is deliberate.
+
+North/South
+
+North homeland
+
+South homeland
+
+competitive team opposition
+
+authored routes projecting into shared wilderness
+
+West
+
+Major mountain/highland geography.
+
+East
+
+Ocean/coast geography.
+
+This allows strong environmental asymmetry without making one team inherently "the mountain team" or "the ocean team."
+
+Exact terrain varies by seed.
+
+The macro relationship is guaranteed.
+
+31. TEAM HOMELANDS
+
+Each team begins in a comparatively safe development region.
+
+Homelands should provide viable baseline access to:
+
+wood;
+
+stone;
+
+soil;
+
+water;
+
+food;
+
+baseline ores;
+
+caves;
+
+farming;
+
+construction space;
+
+development space.
+
+Competitive equivalence matters more than literal block-for-block mirroring.
+
+Players may choose to remain near home and specialize in:
+
+farming;
+
+production;
+
+logistics;
+
+infrastructure;
+
+development;
+
+preparation.
+
+This division of labor is desirable.
+
+32. THE SHARED WILDERNESS
+
+The Wilderness is the large contested region between the homelands.
+
+It contains:
+
+villages;
+
+POIs;
+
+forests;
+
+caves;
+
+ores;
+
+animals;
+
+crops;
+
+geology;
+
+difficult terrain;
+
+water;
+
+objectives;
+
+transport opportunities;
+
+resource sites;
+
+routes;
+
+player-created infrastructure.
+
+Players should meaningfully choose between:
+
+following authored Routes;
+
+exploring off-route;
+
+mining;
+
+gathering;
+
+building infrastructure;
+
+contesting known opportunities;
+
+searching for less obvious opportunities;
+
+remaining closer to home and producing.
+
+The Wilderness must not become a tightly packed theme park of content nodes.
+
+33. AUTHORED ROUTES
+
+Each team has:
+
+three major authored Route branches
+
+projecting from its homeland.
+
+Villages and major POIs have visible authored Route infrastructure leading
+toward them.
+
+A destination does not necessarily sit directly on a Route, and players remain
+free to approach it off-route, but this Route relationship is an intentional
+part of Default's generated infrastructure rather than merely a likely
+proximity relationship.
+
+Routes may also lead toward other strategically useful Wilderness areas.
+
+They are physical Minecraft infrastructure, not invisible lanes.
+
+Players may freely leave them.
+
+Large POIs generally have meaningful route relationships.
+
+Routes should remain cleanly traversable.
+
+Avoid arbitrary:
+
+trees blocking roads;
+
+pointless jump taxes;
+
+random walls;
+
+decorative impassability.
+
+Difficult terrain should make off-route traversal meaningfully more expensive rather than making designed infrastructure unpleasant.
+
+34. DIFFICULT WILDERNESS
+
+A difficult region should be a place, not just an obstacle.
+
+It should provide:
+
+intentionality;
+
+value;
+
+depth;
+
+legibility;
+
+contestability;
+
+transformability;
+
+logistical consequences.
+
+It should support:
+
+multiple approaches;
+
+internal routes;
+
+differentiated resources;
+
+landmarks;
+
+reasons to remain inside;
+
+reinforcement depth;
+
+infrastructure development.
+
+Minecraft actions should be capable of improving the geography:
+
+tunneling;
+
+bridging;
+
+roads;
+
+stairs;
+
+clearing;
+
+construction;
+
+occupation.
+
+Difficulty should not be synonymous with repeated jumping.
+
+35. WESTERN MOUNTAIN SYSTEM
+
+The west contains the major highland/mountain region.
+
+Desired gradient:
+
+foothills
+→ greater elevation
+→ greater relief
+→ exposed stone
+→ larger ridges
+→ steeper terrain
+→ stronger geology
+→ deep western highlands
+
+The increase in difficulty should initially be gradual and then become more
+pronounced toward the deep west.
+
+As off-Route western terrain becomes increasingly expensive to traverse,
+authored western Routes should become correspondingly more strategically
+valuable even before accounting for any explicit Route locomotion-efficiency
+mechanic.
+
+The mountain must have depth.
+
+It should contain:
+
+ridges;
+
+valleys;
+
+saddles;
+
+basins;
+
+ravines;
+
+caves;
+
+exposed deposits;
+
+landmarks;
+
+multiple approaches;
+
+internal resource geography.
+
+It should not simply be one wall or decorative mountain.
+
+36. SNOW / COLD ECOLOGY
+
+Default should guarantee a:
+
+variable high-altitude cold/snow ecology
+
+within the western highlands.
+
+Do not add arbitrary snow patches.
+
+Snow should read as actual geography/ecology.
+
+This guarantee is strategically important, including because Golem Master cares about snow.
+
+37. EASTERN COAST / OCEAN
+
+The east transitions into coast/ocean geography.
+
+Exact coastline geometry varies by seed.
+
+The ocean/coast should eventually matter for:
+
+transportation;
+
+traversal;
+
+resource geography;
+
+settlements;
+
+class interactions;
+
+regional identity.
+
+It should not merely act as a decorative map boundary.
+
+38. TERRAIN GENERATION PRINCIPLES
+
+Competitive topology may be mathematically authored internally.
+
+The math should not remain visually legible.
+
+Avoid:
+
+obvious ellipses;
+
+capsules;
+
+repeated circles;
+
+gridlike forests;
+
+mathematical cliffs;
+
+repeated stamps;
+
+suspicious micro-symmetry.
+
+Prefer irregular Minecraft-like terrain.
+
+Forests
+
+Prefer:
+
+irregular stands;
+
+varied density;
+
+clearings;
+
+edge variation;
+
+plausible substrates;
+
+varied canopy;
+
+natural understory;
+
+occasional fallen logs/mushrooms where appropriate.
+
+Verticality
+
+Use positive and negative verticality.
+
+Positive:
+
+hills;
+
+peaks;
+
+ridges;
+
+outcrops.
+
+Negative:
+
+gullies;
+
+basins;
+
+ravines;
+
+cuts;
+
+cave mouths.
+
+Hydrology
+
+Water should:
+
+occupy plausible catchments;
+
+flow/connect where appropriate;
+
+follow terrain;
+
+visibly descend when necessary.
+
+Avoid arbitrary liquid stamps.
+
+Landmarks
+
+Large regions need recognizable geography that players can:
+
+learn;
+
+name;
+
+communicate.
+
+39. MIRRORING / FAIRNESS
+
+The full Wilderness does not need literal mirroring.
+
+Current preference:
+
+baseline homeland opportunity should be competitively equivalent;
+
+Wilderness terrain may be asymmetric;
+
+resource opportunity may be asymmetric;
+
+villages may be asymmetric;
+
+the generator/validator evaluates opportunity rather than identical geometry.
+
+Fairness should consider:
+
+access cost;
+
+quantity;
+
+quality;
+
+terrain;
+
+Route relationships;
+
+transport;
+
+contestability;
+
+portfolio value.
+
+Straight-line distance alone is insufficient.
+
+40. VILLAGES
+
+The Wilderness should have multiple meaningful village destinations.
+
+Earlier discussion suggested at least roughly three as a useful minimum for exploration diversity, but this is not a final cap.
+
+Villages are compound resource portfolios.
+
+They can provide:
+
+crops;
+
+livestock;
+
+villagers;
+
+workstations;
+
+beds;
+
+buildings/materials;
+
+containers;
+
+defensive terrain;
+
+developed space;
+
+Route/logistics value.
+
+A village cannot be evaluated merely as a point coordinate.
+
+Portfolio and accessibility matter.
+
+41. POIs
+
+The Wilderness includes:
+
+minor POIs;
+
+major POIs;
+
+villages;
+
+natural/geological opportunities;
+
+objective-related locations.
+
+A major POI does not necessarily mean:
+
+huge structure;
+
+boss arena;
+
+neutral objective.
+
+It means strategically important place.
+
+POI placement should interact with:
+
+terrain;
+
+Routes;
+
+villages;
+
+resources;
+
+team access;
+
+contestability;
+
+regional identity.
+
+Historical scale note:
+
+In an earlier flat greybox, approximately 15 seconds of sprint-jumping from a
+Route endpoint to a major POI felt reasonable.
+
+This is retained only as a historical perceptual benchmark, not a current
+distance requirement. Later map-scale work may place equivalent opportunities
+farther apart.
+
+42. RESOURCE GENERATION PHILOSOPHY
+
+Core rule:
+
+Discovery uncertainty is good.
+Existence uncertainty is often bad.
+
+Players should be uncertain about:
+
+exact location;
+
+quantity;
+
+access;
+
+contest state;
+
+extraction difficulty;
+
+development potential.
+
+Fundamental resource categories should generally not disappear entirely from a map by random chance.
+
+If a resource becomes fundamental to:
+
+a class;
+
+objective;
+
+recipe;
+
+baseline progression;
+
+core logistics;
+
+traversal;
+
+promote it to guaranteed map vocabulary.
+
+Guaranteed does not mean:
+
+mirrored;
+
+abundant;
+
+fixed;
+
+near spawn.
+
+It means the map cannot accidentally omit the system.
+
+43. RESOURCE TREATMENT CATEGORIES
+
+Baseline / Homeland-guaranteed
+
+Natural Wilderness
+
+Region / Map-guaranteed
+
+Allocated Wilderness Opportunity
+
+Objective-guaranteed / Objective-activated
+
+Player-developed
+
+Also distinguish whether a resource is:
+
+finite/depletable;
+
+renewable/replantable;
+
+reproductive/mobile;
+
+naturally regenerating;
+
+objective-generated;
+
+objective-activated;
+
+player-produced.
+
+43A. RESOURCE FUNCTIONAL FAMILIES
+
+In addition to the resource-treatment categories above, retain the following
+functional families for generation and resource-packing analysis.
+
+Construction
+
+soil/dirt;
+
+stone/cobble;
+
+wood;
+
+sand;
+
+gravel;
+
+clay-like materials.
+
+Extraction
+
+coal/fuel;
+
+iron;
+
+copper;
+
+gold;
+
+redstone-like utility ores;
+
+rare ores;
+
+exposed/deep deposits.
+
+Food / Development
+
+animals;
+
+crops;
+
+seeds;
+
+mushrooms/forage;
+
+farmland;
+
+water.
+
+Ecological / Specialized
+
+flowers;
+
+vines;
+
+pumpkins;
+
+unusual plants/crops;
+
+biome/ecology-specific resources.
+
+Infrastructure
+
+wood;
+
+stone;
+
+iron;
+
+gravel;
+
+sand;
+
+water/ice;
+
+usable terrain.
+
+Exceptional / Objective
+
+unusual concentrations;
+
+exceptional extraction opportunities;
+
+objective-embedded resources such as Bastion gold;
+
+other phase-appropriate objective-activated opportunities.
+
+44. LIVESTOCK ECOLOGY
+
+Current first prototype contract guarantees:
+
+cows
+
+sheep
+
+pigs
+
+chickens
+
+Use at least:
+
+four broad mixed livestock ecological ranges/locales
+
+These are not exact herd spawn coordinates.
+
+Each represents:
+
+suitable broad ecology;
+
+variable location;
+
+variable composition;
+
+physical animals.
+
+All four baseline livestock species should exist somewhere map-wide.
+
+Vanilla/random animals may also spawn.
+
+Long-term replenishment should preferably behave as population/ecology maintenance rather than periodically spawning identical herds at exact coordinates.
+
+Exact replenishment remains unresolved.
+
+45. HORSES
+
+Horses are separately map-guaranteed.
+
+Reason:
+
+They function as a transportation/logistics resource.
+
+They do not have to occupy one of the four baseline livestock ranges.
+
+Exact horse distribution remains open.
+
+46. BASELINE CROPS
+
+Default guarantees multiple starter occurrences of:
+
+wheat;
+
+carrots;
+
+potatoes.
+
+These should appear plausibly as:
+
+wild;
+
+naturalized;
+
+settlement-adjacent;
+
+farmland-related.
+
+Do not make them obvious arbitrary loot patches.
+
+These crops are baseline world vocabulary and therefore should not be Supply Chain's unique reward pool.
+
+47. SAND / GRAVEL / SNOW
+
+Meaningful map-level access should be guaranteed to:
+
+sand;
+
+gravel;
+
+snow.
+
+Sand and gravel should occur as actual surface/geological formations.
+
+Snow is provided through high-altitude western ecology.
+
+These guarantees are partly driven by class/resource dependencies.
+
+48. ORE / GEOLOGICAL GEOGRAPHY
+
+Relevant ore vocabulary includes:
+
+coal;
+
+iron;
+
+copper;
+
+gold;
+
+redstone;
+
+lapis;
+
+diamond;
+
+emerald.
+
+Resources should exist as spatial geological situations:
+
+buried;
+
+exposed;
+
+cave-linked;
+
+mountain-linked;
+
+Route-adjacent;
+
+deep wilderness.
+
+Strategic value depends on:
+
+abundance;
+
+concentration;
+
+exposure;
+
+travel;
+
+excavation cost;
+
+scarcity;
+
+Route relationship;
+
+defensibility;
+
+transport.
+
+Resource regions should be derived from actual resource instances, not created as arbitrary labeled polygons.
+
+49. CLASS → WORLDGEN CONSTRAINTS
+
+The world should contain enough meaningful material/ecological vocabulary that:
+
+every class can care about multiple world resources;
+
+every meaningful world resource ideally matters to at least one class/system;
+
+common resources often matter to multiple systems.
+
+Known examples:
+
+Mole
+
+sand;
+
+gravel;
+
+excavation;
+
+geology.
+
+Gardener
+
+plants;
+
+renewable resources;
+
+ecological development.
+
+Golem Master
+
+iron;
+
+snow;
+
+copper;
+
+pumpkins;
+
+arbitrary blocks/materials.
+
+Kitfighter
+
+Combat / Production;
+
+material economy;
+
+Salvage interactions.
+
+50. FOOD AS GEOGRAPHY
+
+Food changes effective map distance.
+
+Examples:
+
+village;
+
+herd;
+
+crop patch;
+
+farm;
+
+may serve as:
+
+resupply;
+
+staging;
+
+return-trip insurance;
+
+contested logistical waypoints.
+
+Therefore resource geography and traversal geography cannot be designed independently.
+
+A farther destination with reliable food along the route may be operationally "closer" than a physically nearer destination through barren terrain.
+
+51. WALKING AS THE FAILURE STATE
+
+Once sprint is lost, ordinary walking does not aggressively drain hunger.
+
+Therefore underprovisioning should often mean:
+
+slower return;
+
+vulnerability;
+
+lost tempo;
+
+reduced tactical flexibility;
+
+rather than:
+
+"The game physically prohibits you from traveling farther."
+
+Players can exchange time for range.
+
+They can further extend range with:
+
+food;
+
+Routes;
+
+mounts;
+
+infrastructure;
+
+class mobility;
+
+planning.
+
+This creates a continuous strategic spectrum rather than a hard distance gate.
+
+52. EXPEDITIONS MUST BE MEASURED ROUND-TRIP
+
+Do not judge accessibility by one-way travel.
+
+A complete expedition budget includes:
+
+outbound travel;
+
+searching;
+
+gathering/mining;
+
+possible fighting;
+
+hauling;
+
+return travel;
+
+safety reserve.
+
+A player being capable of reaching a location once does not mean they can comfortably operate there.
+
+53. MAP SCALE PROBLEM
+
+The Default map may need approximately:
+
+20–30% more linear macro scale
+
+The purpose is not simply longer travel time.
+
+The world needs room for:
+
+villages to feel distinct;
+
+forests to have interiors;
+
+mountains to have depth;
+
+herds to occupy separate ranges;
+
+resources to occupy separate geography;
+
+Routes to diverge;
+
+POIs to have surrounding terrain;
+
+expeditions to contain genuine travel;
+
+logistics to emerge naturally.
+
+Do not fake geographic distance using:
+
+tiny Hunger pools;
+
+arbitrary blockers;
+
+obnoxious terrain;
+
+visible-but-unreachable destinations.
+
+54. +25% FIRST SCALE TEST
+
+Current first test:
+
+approximately +25% macro linear Wilderness/resource separation
+
+This is not a uniform ×1.25 transformation.
+
+Preserve approximately the same scale for:
+
+homelands;
+
+villages;
+
+individual POIs;
+
+Route width;
+
+trees;
+
+individual structures;
+
+individual resource patches.
+
+Spend the new area primarily on:
+
+connective Wilderness;
+
+village separation;
+
+resource separation;
+
+Route divergence;
+
+mountain depth;
+
+forest depth;
+
+regional identity;
+
+empty terrain.
+
++25% in two horizontal dimensions creates roughly:
+
+56% more total surface area
+
+which is potentially useful for resource/ecological packing.
+
+55. NONUNIFORM EXPANSION
+
+Expansion should accumulate with depth from the homeland.
+
+Conceptual model:
+
+Home
+→ short transition
+
+Near Wilderness
+→ little expansion
+
+Local opportunities
+→ expansion begins accumulating
+
+Regional Wilderness
+→ substantially greater separation
+
+Deep Wilderness / midmap
+→ greatest expansion
+
+Approximate design vocabulary:
+
+Near Wilderness: ~1.0–1.1×
+
+Local → regional spacing: ~1.2–1.3×
+
+Deep Wilderness: ~1.3–1.4×
+
+Mountain internal depth: possibly ~1.3×+
+
+Overall macro dimensions: ~1.25×
+
+These are design guides, not rigid formulas.
+
+56. TRAVEL-BAND HYPOTHESIS
+
+Measured roughly from homeland edge / developed territory.
+
+Immediate outskirts
+
+~0–40 blocks
+
+Essentially local.
+
+Near Wilderness
+
+~40–80 blocks
+
+Comfortable normal excursion.
+
+Local opportunities
+
+~80–150 blocks
+
+Meaningful travel/Hunger choice.
+
+Regional Wilderness
+
+~150–250 blocks
+
+Provisioning/infrastructure increasingly relevant.
+
+Deep Wilderness
+
+~250–375+ blocks
+
+Genuine expedition territory.
+
+These are not literal circular rings.
+
+Effective distance depends on:
+
+terrain;
+
+Route geometry;
+
+elevation;
+
+food;
+
+Hunger;
+
+walking;
+
+sprinting;
+
+classes;
+
+mounts;
+
+combat;
+
+haul load;
+
+infrastructure.
+
+57. ROUTE / HUNGER OPERATING-RANGE MODEL
+
+One conceptual model reserved ~20% of endurance for actual activity and return safety.
+
+Approximate one-way unsupported sprint-heavy operating ranges:
+
+Travel mix
+
+L1
+
+L3 Hunger
+
+All clean Route
+
+~68 blocks
+
+~103
+
+Mostly Route
+
+~65
+
+~97
+
+Half Route / half Wilderness
+
+~61
+
+~92
+
+Mostly Wilderness
+
+~58
+
+~87
+
+Ordinary Wilderness
+
+~55
+
+~83
+
+These are modeling assumptions, not hard limits.
+
+Important conclusion:
+
+Even ~60 blocks can already represent meaningful unsupported early expedition distance once the round trip is considered.
+
+Near Wilderness should therefore not be expanded too aggressively.
+
+58. PREVIOUS GENERATOR DIMENSIONS
+
+The 50-variant generator used approximately:
+
+X: -336 .. 335 ≈ 672 blocks
+
+Z: -416 .. 415 ≈ 832 blocks
+
+Sea level: 64
+
+Working Y range: approximately 48–111
+
+A naive +25% rectangular equivalent would be approximately:
+
+X ≈ 840
+
+Z ≈ 1040
+
+roughly:
+
+X: -420 .. 419
+
+Z: -520 .. 519
+
+But the intended prototype should use nonuniform expansion, not uniform coordinate scaling.
+
+59. 50-VARIANT SOLUTION-SPACE EXPERIMENT
+
+A procedural generator previously produced:
+
+50 accepted Default-map variants
+
+Purpose:
+
+demonstrate a broad valid solution space;
+
+avoid overfitting Default to one geography;
+
+test mountain/coast/Route/POI relationships;
+
+establish validation-driven generation.
+
+Topology families included:
+
+twin_massif
+
+split_spine
+
+horseshoe
+
+broken_peaks
+
+long_ridge
+
+highland_ravines
+
+offset_basin
+
+sawtooth_valleys
+
+These were procedural map variants, not 50 playable Java saves.
+
+Representative seeds previously identified:
+
+Variant03 — 920260902 — offset_basin — baseline
+
+Variant47 — 920260965 — highland_ravines — traversal stress
+
+Variant49 — 920260970 — horseshoe — opportunity complexity
+
+Variant44 — 920260959 — fairness specialist
+
+Variant45 — 920260960 — space-allocation laboratory
+
+Variant11 — 920260911 — older resource-geography laboratory
+
+920260900 — strongest result in an incomplete first-10 resource ecology audit
+
+None are automatically canonical Default.
+
+60. PREVIOUS GREYBOXES
+
+P0
+
+Minecraft_MOBA_Greybox_P0.zip
+
+Basic macro-layout test.
+
+Contained:
+
+north/south bases;
+
+Routes;
+
+villages;
+
+POIs;
+
+western mountain placeholder;
+
+eastern coast;
+
+cave markers.
+
+At render distance 12, opposite Route visibility was only marginal from one Route endpoint; this scale relationship was liked.
+
+P1
+
+Minecraft_MOBA_Greybox_P1.zip
+
+Added:
+
+traversal-friction model;
+
+simple A* surface proxy;
+
+corrected western-village accessibility.
+
+Also generated:
+
+Minecraft_MOBA_Greybox_P1_travel_matrix.csv
+
+P2A
+
+Minecraft_MOBA_Greybox_P2A.zip
+
+Improved Route fan geometry.
+
+Criticism:
+
+too flat;
+
+too conservative.
+
+P2B
+
+Minecraft_MOBA_Greybox_P2B.zip
+
+Added:
+
+stronger verticality;
+
+forests;
+
+pools;
+
+spires;
+
+boulders.
+
+Problems:
+
+gridlike trees;
+
+visible capsules;
+
+shallow fluids;
+
+unnatural substrates;
+
+excessive authored appearance.
+
+P2C
+
+Minecraft_MOBA_Greybox_P2C.zip
+
+Improved:
+
+forest irregularity;
+
+trees;
+
+fallen logs;
+
+mushrooms;
+
+pools;
+
+foothill gradient;
+
+Route preservation.
+
+P2D FINAL
+
+Minecraft_MOBA_Greybox_P2D_FINAL.zip
+
+Improved:
+
+mountain geology;
+
+hydrology;
+
+Y roughly 60–109;
+
+naturalized transitions;
+
+connected water;
+
+Route preservation.
+
+P2D remains a useful terrain-generation reference.
+
+It is not final Default.
+
+61. PREVIOUS WORLD GENERATION METHOD
+
+Earlier playable greyboxes were generated programmatically as Minecraft Java/Anvil saves.
+
+They were not actually WorldPainter-authored.
+
+Do not describe them as WorldPainter worlds.
+
+WorldPainter may still be used in future if useful.
+
+The resulting playable geography matters more than the authoring application.
+
+62. RESOURCE ECOLOGY PROTOTYPE
+
+A second-stage generator previously existed:
+
+Minecraft_MOBA_resource_ecology_pipeline.py
+
+It preserved accepted terrain seeds while overlaying/auditing resource geography.
+
+It included:
+
+four livestock ranges;
+
+cow/sheep/pig/chicken coverage;
+
+three starter patches each for wheat/carrot/potato;
+
+sand/gravel formations;
+
+concrete ore clusters;
+
+variable village portfolios;
+
+north/south accessibility proxies;
+
+resource fairness metrics;
+
+contract-gap reporting.
+
+Its counts, densities, radii, populations, and ore totals were prototype parameters, not balance decisions.
+
+The early version explicitly lacked snow.
+
+That design gap is now addressed conceptually through western high-altitude cold ecology, though implementation remains required.
+
+A 50-seed resource pass timed out.
+
+The first ten completed.
+
+Seed 920260900 performed strongly within that incomplete sample.
+
+It is not canonical.
+
+63. GENERATION PIPELINE
+
+Preferred eventual pipeline:
+
+Generate terrain.
+
+Locate/classify natural POIs and structures.
+
+Identify/place competitively equivalent homelands.
+
+Identify resource instances.
+
+Derive resource regions from those instances.
+
+Build/select Route relationships.
+
+Evaluate opportunity.
+
+Modestly adjust resources/ecology/loot/opportunity where needed.
+
+Integrate objectives.
+
+Validate.
+
+Accept or reject the seed.
+
+Key rule:
+
+If a seed requires extensive correction, reject it.
+
+Do not over-author a fundamentally unsuitable region until it resembles a MOBA board.
+
+64. VALIDATION
+
+Validation should measure strategic opportunity rather than geometry alone.
+
+Potential dimensions:
+
+required-resource existence;
+
+abundance;
+
+concentration;
+
+renewable access;
+
+livestock distribution;
+
+crops;
+
+village portfolios;
+
+geological situations;
+
+team travel cost;
+
+Route relationships;
+
+terrain difficulty;
+
+forest depth;
+
+mountain depth;
+
+POI accessibility;
+
+contestability;
+
+homeland equivalence;
+
+artificial correction required.
+
+Long-term, straight-line distance should be replaced by movement-aware traversal cost.
+
+Eventually evaluate approximate vanilla-player movement through actual terrain, including:
+
+sprinting;
+
+jumping;
+
+slopes;
+
+water;
+
+obstacles;
+
+elevation;
+
+detours;
+
+Route surfaces;
+
+potentially Hunger cost.
+
+65. RESOURCE FAIRNESS
+
+Fairness does not require:
+
+the same resource at the same distance for both teams.
+
+Instead ask:
+
+Does each team have a competitively reasonable portfolio of opportunities, and are asymmetric opportunities contestable?
+
+Factors include:
+
+primary access;
+
+alternate access;
+
+abundance;
+
+Route quality;
+
+terrain;
+
+timing;
+
+local scarcity;
+
+extraction difficulty;
+
+transport;
+
+nearby defenses;
+
+neighboring resources.
+
+66. PLAYER TRANSFORMATION OF THE MAP
+
+Terrain difficulty should create opportunities for development, not merely permanent taxes.
+
+Players may:
+
+build roads;
+
+improve Routes;
+
+bridge gaps;
+
+tunnel mountains;
+
+establish storage;
+
+farm;
+
+breed animals;
+
+create extraction infrastructure;
+
+clear terrain;
+
+establish supply systems;
+
+create safer movement.
+
+The effective strategic map should therefore change over a match.
+
+67. NEXT PLAYABLE DEFAULT-MAP PROTOTYPE
+
+The next intended artifact is:
+
+a new independent Minecraft Java Default-map prototype
+
+Do not modify P2D in place.
+
+Macro structure
+
+Include:
+
+North homeland
+
+South homeland
+
+Three authored Routes per team
+
+Large shared Wilderness
+
+Western mountain/highlands
+
+Eastern coast/ocean
+
+Western region
+
+Include:
+
+deep highland geography;
+
+ridges/valleys/basins;
+
+integrated high-altitude cold/snow ecology.
+
+Ecology
+
+Include:
+
+forests;
+
+at least four mixed livestock ranges;
+
+cows;
+
+sheep;
+
+pigs;
+
+chickens;
+
+separate horse presence;
+
+multiple wheat patches;
+
+multiple carrot patches;
+
+multiple potato patches.
+
+Geology
+
+Include:
+
+sand;
+
+gravel;
+
+caves;
+
+coal;
+
+iron;
+
+copper;
+
+gold;
+
+redstone;
+
+lapis;
+
+diamond;
+
+emerald.
+
+Strategic geography
+
+Include:
+
+villages;
+
+major POIs;
+
+minor POIs;
+
+meaningful empty connective Wilderness.
+
+Scale
+
+Use:
+
+approximately +25% macro linear Wilderness/resource separation
+
+implemented nonuniformly.
+
+Do not uniformly enlarge every feature.
+
+Most added area should appear:
+
+between meaningful resources/places;
+
+within deep Wilderness;
+
+inside mountain/forest depth;
+
+between major Route/opportunity systems.
+
+68. PROTOTYPE DATAPACK / TEST HARNESS
+
+If technically feasible, embed a modern Minecraft datapack/test harness.
+
+Test modes
+
+L1
+
+food = 10
+
+saturation = 0
+
+L3 Hunger
+
+food = 12
+
+saturation = 0
+
+Control
+
+Normal/unlimited food mode if useful.
+
+Sprint cutoff
+
+Retain vanilla behavior at 6 food / 3 icons.
+
+Route behavior
+
+no speed bonus;
+
+approximately 10% locomotion-exhaustion efficiency.
+
+Instrumentation
+
+Ideally record:
+
+journey start;
+
+journey end;
+
+elapsed time;
+
+start coordinates;
+
+end coordinates;
+
+total distance;
+
+Route time/distance;
+
+off-Route time/distance;
+
+starting food;
+
+current food;
+
+food consumed;
+
+sprint-loss flag;
+
+current test mode.
+
+69. DATAPACK TECHNICAL LIMITATION
+
+Vanilla datapacks do not provide clean direct arbitrary control over the player's internal exhaustion accumulator.
+
+Therefore:
+
+"multiply locomotion exhaustion by 0.9"
+
+cannot simply be implemented as a vanilla datapack constant.
+
+Possible test implementation:
+
+detect authored Route blocks beneath the player;
+
+track movement;
+
+estimate locomotion discount;
+
+compensate periodically through scoreboard/state logic.
+
+This is an approximation.
+
+Do not claim the datapack literally changes vanilla exhaustion constants if it does not.
+
+A mod/plugin is the cleaner long-term implementation if exact source-specific exhaustion adjustment becomes necessary.
+
+70. JAVA VERSION ISSUE
+
+Older playable greyboxes used 1.12.2-era Anvil/numeric-ID generation.
+
+Datapacks require 1.13+.
+
+Therefore the next prototype must resolve its target Java version explicitly.
+
+A modern version is preferable if the datapack is embedded natively.
+
+However modern palette/chunk/NBT writing is substantially more complex.
+
+Before generating the world, inspect:
+
+available Anvil/NBT libraries;
+
+modern Minecraft world-writing support;
+
+existing generator code;
+
+WorldPainter availability if relevant.
+
+Do not create a 1.12.2 world and imply that a modern datapack works natively inside it.
+
+71. NEXT SCALE / RESOURCE QUESTION
+
+After the initial +25% test, the next major spatial analysis is:
+
+resource packing
+
+Take all committed spatial systems:
+
+homelands;
+
+six authored Route branches;
+
+villages;
+
+four livestock ranges;
+
+horses;
+
+crop patches;
+
+forests;
+
+sand;
+
+gravel;
+
+ordinary geology;
+
+exceptional geology;
+
+major POIs;
+
+minor POIs;
+
+snow ecology;
+
+mountain interior;
+
+coast;
+
+caves;
+
+connective empty Wilderness;
+
+and estimate how much actual territory each needs.
+
+The goal is to determine whether +25% provides genuine spatial separation rather than only appearing plausible in travel-time calculations.
+
+72. CURRENT NEXT-PROTOTYPE EVALUATION QUESTIONS
+
+Can an L1 player enter Near Wilderness, accomplish something, and return comfortably?
+
+Does the next meaningful band feel physically farther rather than mechanically gated?
+
+Does food turn deeper travel into an expedition rather than a prohibition?
+
+Does +1 Hunger materially expand independent operating range?
+
+Are Routes useful because they are infrastructure rather than speed lanes?
+
+Do villages/resources/POIs feel like separate places?
+
+Is there enough empty terrain between meaningful discoveries?
+
+Does the western mountain feel like a region rather than an obstacle?
+
+Does the snow ecology feel geographically integrated?
+
+Do forests possess actual interiors?
+
+Can resource ecology occupy separate spatial identities?
+
+Does the overall world still immediately read as Minecraft?
+
+73. IMPORTANT SUPERSEDED IDEAS
+
+Do not reintroduce the following as current rules without new discussion:
+
+Level 1 necessarily being exactly 50% vanilla capacity.
+
+Level 8 necessarily being 70–75%.
+
+Level 12 necessarily being 85–90%.
+
+A universal 0/8/16/24 or 1/8/16/24/30 class cadence.
+
+Choices necessarily happening every 3 levels.
+
+3/6/9/12/... as a locked choice schedule.
+
+Generic progression choices being called Development choices.
+
+Level 1 Health being definitively fixed.
+
+Level 1 Hunger being globally fixed at 5 icons.
+
+Level 3 globally being the mandatory first Hunger upgrade.
+
+Hunger investment necessarily giving a fixed percentage more range.
+
+Universal early movement-speed progression.
+
+Routes receiving +10% movement speed in the current test.
+
+Supply Points as Logistics' foundational mechanic.
+
+Logistics being merely larger inventory.
+
+Supply Lines necessarily requiring physical traced paths.
+
+Supply Lines necessarily sharing Route geometry.
+
+Development necessarily operating inside Constructs.
+
+Construction requiring Development.
+
+Development requiring Construction.
+
+Constructs necessarily granting XP multipliers.
+
+Construct submission necessarily granting flat XP.
+
+Production universally functioning through Salvage/refunds.
+
+Extraction meaning arbitrary block destruction.
+
+specialized objective interaction necessarily granting more XP than combat/destruction.
+
+Supply Chain using baseline wheat/carrots/potatoes as unique rewards.
+
+Mining Outpost being an ore chest/dispenser.
+
+Snow being an arbitrary resource patch.
+
+literal mirroring of all Wilderness terrain/resources.
+
+uniform 1.25× scaling of every map feature.
+
+difficult terrain being repeated jump obstacles.
+
+POIs necessarily being boss arenas.
+
+all villages having identical portfolios.
+
+every class resource appearing inside the homeland.
+
+seed 920260900 being canonical.
+
+P2D being final Default.
+
+previous generated worlds being WorldPainter worlds.
+
+74. MAJOR OPEN QUESTIONS
+
+Universal progression
+
+exact Level 1 Health;
+
+final Level 1 Hunger;
+
+starting inventory;
+
+universal automatic growth;
+
+final vanilla-baseline level;
+
+whether Health/Hunger/Inventory reach vanilla simultaneously;
+
+permanent-choice cadence;
+
+first choice level;
+
+upgrade values;
+
+generic supernormal ceilings.
+
+Hunger / expedition
+
+actual live-game exhaustion budget;
+
+food availability;
+
+provisioning vs inventory;
+
+terrain-adjusted travel bands;
+
+final relationship between Hunger and map dimensions.
+
+Constructs
+
+systemic benefit;
+
+slots;
+
+size;
+
+validation;
+
+recognition/influence;
+
+enemy interaction;
+
+damage;
+
+progression.
+
+Development
+
+generic/team-facing infrastructure expression;
+
+eligible processes;
+
+area definition;
+
+relationship with Construction/Constructs.
+
+Routes
+
+player Route submission;
+
+validation;
+
+width;
+
+branching;
+
+length;
+
+efficiency formula;
+
+later movement potency;
+
+enemy interaction.
+
+Supply Lines
+
+endpoint requirements;
+
+transfer algorithm;
+
+distance;
+
+throughput;
+
+filters;
+
+branching;
+
+topology;
+
+disruption;
+
+player replenishment.
+
+Objectives
+
+XP values;
+
+contribution accounting;
+
+neutral boss XP;
+
+Worksite XP;
+
+exploration First/Pioneer rewards;
+
+Minecraft XP/enchanting relationship.
+
+Worldgen
+
+final physical dimensions;
+
+resource packing;
+
+target Java version;
+
+modern world-writing method;
+
+exact seed;
+
+realistic resource generation vs authored guarantees;
+
+objective integration;
+
+final coast/ocean gameplay.
+
+Kitfighter
+
+Covered With Diamonds unlock timing;
+
+ultimate scaling;
+
+relationship between Diamond economy and universal progression.
+
+75. CURRENT DESIGN PRINCIPLES TO PRESERVE
+
+Minecraft remains the base language.
+
+Do not unnecessarily gate normal Minecraft verbs.
+
+Early progression expands possibility.
+
+Midgame approaches vanilla capability.
+
+Late game increasingly realizes archetypes.
+
+Efficiency and potency are different.
+
+Generic capacity should not replace archetype identity.
+
+Infrastructure should create persistent/team-facing strategic value through use.
+
+Adjacent archetypes can synergize without becoming prerequisites.
+
+Treat hidden strategic tempo from movement speed with extreme caution.
+
+Solve resource-economy problems through resource economy where possible.
+
+Specialists should outperform generic players without becoming mandatory.
+
+Progression choices should change what is practically achievable.
+
+The world should become increasingly player-developed over the match.
+
+Resource geography and traversal geography are inseparable.
+
+Fairness means competitive opportunity, not literal symmetry.
+
+Generated Minecraft geography should be preserved when viable.
+
+Reject seeds that require excessive correction.
+
+Real physical distance should create expedition scale before artificial gating does.
+
+The Default map should remain immediately recognizable as Minecraft.
+
+76. IMMEDIATE IMPLEMENTATION TARGET
+
+The immediate artifact target is:
+
+Minecraft_MOBA_Default_Scale_Test
+
+A new playable Minecraft Java world testing:
+
++25% nonuniform macro Wilderness expansion;
+
+North/South homelands;
+
+three Routes per team;
+
+western deep mountain;
+
+high-altitude snow ecology;
+
+eastern coast/ocean;
+
+multiple villages/POIs;
+
+forests;
+
+caves;
+
+sand/gravel;
+
+livestock ranges;
+
+horses;
+
+wheat/carrots/potatoes;
+
+physical ore geography;
+
+meaningful connective Wilderness;
+
+L1 and L3 Hunger states;
+
+vanilla sprint cutoff;
+
+no Route movement-speed bonus;
+
+provisional 10% Route locomotion-efficiency model;
+
+journey instrumentation where technically practical.
+
+This is a test artifact, not final balance.
+
+The first question is not whether every system is complete.
+
+The first question is whether the physical world has enough room for the current Minecraft-first strategic thesis to function.
+
+77. AUTHORITATIVE SHORT FORM
+
+If most other context is lost, preserve the following:
+
+Minecraft MOBA uses a Level 1–30 progression curve where players begin significantly constrained, approach vanilla Minecraft capability around midgame, and increasingly express supernormal archetype/class power afterward.
+
+The seven archetypes are Combat, Exploration, Construction, Extraction, Production, Development, and Logistics. Archetypes govern exceptional efficiency and potency rather than reserving ordinary Minecraft actions.
+
+Infrastructure recognition can be progression-gated without gating normal building/travel/storage. Constructs, Routes, and Supply Lines are distinct. Development does not require Constructs or Construction. Player Routes are currently envisioned as being drawn through traversal. Supply Lines are currently envisioned as start-storage → end-storage resource-distribution connections. Constructs do not currently have a settled XP-multiplier mechanic; their systemic benefit remains open, but recognized infrastructure should create persistent/team-facing value through actual use rather than merely paying a trivial submission reward.
+
+Default is a Minecraft-first competitive world with North/South team homelands, three authored Route branches per team, a large shared Wilderness, western mountain/highland geography, and eastern coast/ocean geography.
+
+Homelands guarantee viable baseline Minecraft development. Wilderness opportunities may be asymmetric but should be competitively evaluated.
+
+The generator should create plausible Minecraft geography, identify actual resource instances, derive strategic geography from them, make modest corrections, and reject unsuitable seeds rather than over-authoring them.
+
+Default guarantees strategically fundamental vocabulary where omission would break systems. Current prototype guarantees include cow/sheep/pig/chicken through at least four broad livestock ranges, separate horses, wheat/carrots/potatoes, sand, gravel, and western high-altitude snow ecology. Ores and village resources exist physically.
+
+The current map prototype uses L1 = 10 food / 0 saturation and L3 Hunger = 12 food / 0 saturation strictly as test states. Vanilla sprint cutoff remains at 6 food / 3 icons.
+
+Base authored Routes receive no movement-speed bonus in the current test. They are clean/direct physical infrastructure and provisionally reduce locomotion-generated exhaustion by approximately 10%.
+
+The current map-scale hypothesis is approximately +25% macro linear Wilderness/resource separation implemented nonuniformly. Near-home geography changes little; deeper Wilderness, resource separation, forest depth, Route separation, and mountain depth receive most of the added space.
+
+The immediate next artifact is a new playable Minecraft Java Default-map
+prototype testing whether this added physical room creates genuine expeditions,
+distinct resource geography, useful infrastructure, ecological identity, and
+enough empty connective terrain while remaining recognizably Minecraft.
+
+The exact target Java version remains unresolved and must be chosen before
+generation. A modern version is preferred if an embedded datapack is used
+natively, but this preference is not yet a finalized version requirement.

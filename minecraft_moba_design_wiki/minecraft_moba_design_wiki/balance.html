@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Balance Notes · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="balance.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand">Minecraft MOBA</div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="">Home</a>
+<a href="classes.html" class="">Classes</a>
+<a href="objectives.html" class="">Objectives</a>
+<a href="mechanics.html" class="">Unique Mechanics</a>
+<a href="progression.html" class="">Items / Progression</a>
+<a href="map.html" class="">Map / World</a>
+<a href="balance.html" class="active">Balance Notes</a>
+<a href="inbox.html" class="">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="kicker">Tuning</div>
+<h1>Balance Notes</h1>
+<p class="muted">Separate design intent from numbers. This page is for hypotheses, test results, risks, and tuning decisions.</p>
+
+<div class="toolbar">
+  <button class="primary" data-save>Save now</button>
+  <button data-export>Export page JSON</button>
+  <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+  <button class="danger" data-reset>Reset page</button>
+  <span class="status" data-status>Edits save locally in this browser.</span>
+</div>
+
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Active concerns</h2>
+    <div class="editable" data-edit="balance-concerns">
+      <table>
+        <thead><tr><th>System</th><th>Concern</th><th>Current hypothesis</th></tr></thead>
+        <tbody>
+          <tr><td>Objectives</td><td>Brute-force destruction may be too universally efficient.</td><td>Keep it available but pay less XP than mechanic-specific routes.</td></tr>
+          <tr><td>Aether Fountain</td><td>Respawn shutdown may snowball too abruptly.</td><td>Expose only after major objective progress; test repair/reactivation rules.</td></tr>
+          <tr><td>Neutral defenders</td><td>Objective fights can become visually noisy.</td><td>Use readable attacks and clear target telegraphs.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Playtest log</h2>
+    <div class="editable" data-edit="playtest-log">
+      <p><strong>Date:</strong> </p>
+      <p><strong>Build / ruleset:</strong> </p>
+      <p><strong>What happened:</strong> </p>
+      <p><strong>Unexpected behavior:</strong> </p>
+      <p><strong>Change to test next:</strong> </p>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>

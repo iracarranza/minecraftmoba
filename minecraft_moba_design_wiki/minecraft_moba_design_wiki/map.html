@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map / World · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="map.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand"><a href="index.html" style="text-decoration:none;">Minecraft MOBA</a></div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="classes.html">Classes</a>
+      <a href="objectives.html">Objectives</a>
+      <a href="mechanics.html">Unique Mechanics</a>
+      <a href="progression.html">Items / Progression</a>
+      <a href="map.html" class="active">Map / World</a>
+      <a href="balance.html">Balance Notes</a>
+      <a href="inbox.html">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="page-title-row">
+    <div>
+      <div class="kicker">Procedural world design</div>
+      <h1>Map / World</h1>
+      <p class="muted">Latest working map document: procedural generation, competitive seed validation, village networks, and distinct map archetypes.</p>
+    </div>
+    <span class="badge status-working">Working generation model</span>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" data-save>Save now</button>
+    <button data-export>Export page JSON</button>
+    <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+    <button class="danger" data-reset>Reset page</button>
+    <span class="status" data-status>Edits save locally in this browser.</span>
+  </div>
+
+  <div class="doc-layout">
+    <div class="doc-main">
+      <section id="philosophy" class="doc-section">
+        <div class="panel editable" data-edit="map-philosophy">
+          <div class="section-number">Established</div>
+          <h2>Procedural philosophy</h2>
+          <p>Maps should combine <strong>procedural generation</strong> with distinct <strong>map archetypes</strong>.</p>
+          <p>A map archetype defines the fundamental geometry and strategic problem. The seed determines the exact terrain, resources, routes, structures, and opportunities inside that grammar.</p>
+          <p>Players should learn Minecraft generation rules and how an archetype behaves without memorizing fixed resource coordinates. The competitive skill test includes rapidly reading an unfamiliar Minecraft world and deciding how the team should transform it.</p>
+        </div>
+      </section>
+
+      <section id="default" class="doc-section">
+        <div class="panel editable" data-edit="map-default">
+          <div class="section-number">Working generation model</div>
+          <h2>Default map</h2>
+          <p>The Default map should remain recognizably based on <strong>actual Minecraft Overworld generation</strong>, including underused or ordinarily low-value generation quirks. It is not one fixed map.</p>
+
+          <div class="subpanel">
+            <h3>Mirrored homeland</h3>
+            <p>Generate one baseline starting territory and mirror it for the opposing team. The homeland contains the ordinary resources necessary to begin playing Minecraft: common terrain materials, wood, food, baseline ore access, useful caves, development space, the Aether Fountain, and team defensive objectives.</p>
+            <p>Literal mirroring is acceptable here because these are baseline resources rather than jackpot opportunities. Early play tests what teams do differently with comparable starting material.</p>
+          </div>
+
+          <div class="subpanel">
+            <h3>Continuous wilderness</h3>
+            <p>Outside the homelands is one continuous procedurally generated Overworld rather than rigid A-side, center, and B-side bands.</p>
+            <p>The wilderness contains the meaningful exploration layer: villages, natural structures, unusual geology, richer deposits, biome-specific resources, transportation opportunities, and neutral objectives. High-value resources and POIs should generally <strong>not</strong> be literal mirrors.</p>
+          </div>
+
+          <div class="subpanel">
+            <h3>Mirrored value, not mirrored generation</h3>
+            <p>Competitive balancing should compare the strategic opportunity available to each team without requiring identical terrain or POIs.</p>
+            <p>POIs can be assigned multidimensional value profiles rather than one universal score—for example Extraction, Development, Production, Exploration, Logistics, and Combat value. Loot tables and surrounding resources can be adjusted where useful to balance an otherwise strong seed.</p>
+            <ol>
+              <li><strong>Baseline</strong> — literally mirrored starting access.</li>
+              <li><strong>Allocated opportunity</strong> — independently generated content with comparable strategic value available toward each side.</li>
+              <li><strong>Contested opportunity</strong> — a single shared POI whose fairness comes from comparable discoverability/access rather than duplication.</li>
+            </ol>
+            <p>Players do not see generator value scores.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="villages" class="doc-section">
+        <div class="panel editable" data-edit="map-villages">
+          <div class="section-number">Working</div>
+          <h2>Villages</h2>
+          <p>The wilderness should contain enough villages for discovery to become a network problem rather than a single lookup.</p>
+          <div class="quote-rule">Current target: <strong>at least 3 wilderness villages, with roughly 3–5 possible in a Default match.</strong></div>
+          <p>Three is the minimum at which players can discover settlements in different orders, compare their economic value, develop different villagers, and build meaningful inter-settlement routes. Additional villages must remain sparse enough to feel discovered rather than ubiquitous.</p>
+          <p>Vanilla generation legality is not sufficient for match design. Even if villages may legally generate relatively near one another, the map should generally allow substantially larger effective separation—often hundreds of blocks, with terrain further changing travel difficulty.</p>
+        </div>
+      </section>
+
+      <section id="scale" class="doc-section">
+        <div class="panel editable" data-edit="map-scale">
+          <div class="section-number">Working / unresolved</div>
+          <h2>Scale</h2>
+          <p>Earlier working footprint: approximately <strong>1,300 × 1,000 blocks</strong>, with Aether Fountains roughly <strong>900–1,100 blocks apart</strong>. These numbers are prototype targets, not canon.</p>
+          <p>The previous concept of narrow ~200-block wilderness bands is superseded. Most territory outside the mirrored homelands is continuous wilderness, which gives several villages and lesser POIs enough space to function as genuine exploration discoveries.</p>
+          <p>Scale should be locked only after testing movement speed, match duration, POI density, and how strongly player-created routes compress effective distance.</p>
+        </div>
+      </section>
+
+      <section id="validation" class="doc-section">
+        <div class="panel editable" data-edit="map-validation">
+          <div class="section-number">Working</div>
+          <h2>Seed selection / validation</h2>
+          <p>A useful precedent is Minecraft speedrunning seed filtering: let Minecraft generate Minecraft, then inspect whether a seed/region is suitable for competitive play.</p>
+          <div class="flow">generate terrain → locate/classify POIs → establish mirrored homelands → evaluate regional opportunity → adjust loot/resources where appropriate → place competitive objectives → validate → accept/reject</div>
+          <p style="margin-top:12px;">Different map archetypes may eventually function partly as different generation/seed-selection contracts rather than wholly separate handcrafted terrain generators.</p>
+        </div>
+      </section>
+
+      <section id="overworld" class="doc-section">
+        <div class="panel editable" data-edit="map-overworld">
+          <div class="section-number">Working direction</div>
+          <h2>Underused Overworld generation</h2>
+          <p>Default should particularly value Minecraft features that ordinary survival often underuses or quickly outgrows.</p>
+          <p>Candidates include desert wells, fossils, igloos, swamp huts, ruined portals, ocean ruins, trail ruins, geodes, mineshafts, monster rooms, unusual cave/aquifer formations, and biome-specific terrain quirks.</p>
+          <p>These should retain their Minecraft identity. Classes and systems can create additional reasons to care about them rather than replacing them with generic MOBA camps or tokens.</p>
+          <p class="muted">The source document points to <code>WORLD_VOCABULARY.md</code> for the broader resource/feature coverage audit.</p>
+        </div>
+      </section>
+
+      <section id="archetypes" class="doc-section">
+        <div class="panel editable" data-edit="map-archetypes">
+          <div class="section-number">Working archetypes</div>
+          <h2>Map archetypes</h2>
+          <div class="subpanel"><h3>Valley / Default</h3><p>Balanced baseline. Ordinary Overworld terrain and generation. All avenues broadly viable; strategic variation comes from the seed rather than a fixed arena.</p></div>
+          <div class="subpanel"><h3>Chasm</h3><p>Vertical ravine/cavern geometry emphasizing bridging, cliff routes, tunneling, and vertical transportation. Problems should admit multiple Minecraft solutions: across, around, through, or down.</p></div>
+          <div class="subpanel"><h3>Archipelago</h3><p>Water-separated resources and objectives. Boats, bridges, underwater tunnels, docks, ice routes, and potentially later advanced transportation make logistics central.</p></div>
+          <div class="subpanel"><h3>Underdark</h3><p>Predominantly underground and initially unknown. Cave reading, tunneling, lighting, sound, and verticality dominate. Player-created tunnels may effectively become the match's lanes.</p></div>
+          <div class="subpanel"><h3>Canopy</h3><p>Large forest/jungle with canopy, ground, and underground layers. Encourages three-dimensional route networks.</p></div>
+          <div class="subpanel"><h3>Wastes</h3><p>Scarcity-focused desert/badlands/volcanic family. Renewable resources, settlement expansion, wood/food access, and concentrated deposits matter more.</p></div>
+          <div class="quote-rule">Map archetypes should foreground different Minecraft traversal/building techniques without arbitrary class bonuses such as “+20% Mole power on cave map.”</div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="panel doc-toc">
+      <h2>On this page</h2>
+      <a href="#philosophy">Procedural philosophy</a>
+      <a href="#default">Default map</a>
+      <a href="#villages">Villages</a>
+      <a href="#scale">Scale</a>
+      <a href="#validation">Seed validation</a>
+      <a href="#overworld">Overworld generation</a>
+      <a href="#archetypes">Map archetypes</a>
+    </aside>
+  </div>
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>

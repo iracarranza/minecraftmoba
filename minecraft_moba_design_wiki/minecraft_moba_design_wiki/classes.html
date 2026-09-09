@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classes · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="classes.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand"><a href="index.html" style="text-decoration:none;">Minecraft MOBA</a></div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="classes.html" class="active">Classes</a>
+      <a href="objectives.html">Objectives</a>
+      <a href="mechanics.html">Unique Mechanics</a>
+      <a href="progression.html">Items / Progression</a>
+      <a href="map.html">Map / World</a>
+      <a href="balance.html">Balance Notes</a>
+      <a href="inbox.html">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="page-title-row">
+    <div>
+      <div class="kicker">Class workspace</div>
+      <h1>Classes</h1>
+      <p class="muted">Store and browse the current class library, edit existing designs in place, or create a new class from the shared draft structure.</p>
+    </div>
+    <span class="badge status-working">Local design database</span>
+  </div>
+
+  <section class="panel" style="margin-bottom:18px;">
+    <div class="kicker">Storage</div>
+    <h2>Class library data</h2>
+    <p class="seed-note">The three canonical drafts are embedded directly in this file. Browser edits and newly created classes are stored locally. Export the library JSON when you want a portable backup.</p>
+    <div class="storage-strip">
+      <button id="class-export" class="primary" type="button">Export class library</button>
+      <label class="file-label">Import class library<input id="class-import" type="file" accept=".json,application/json"></label>
+      <button id="class-reset-all" class="danger" type="button">Reset entire library</button>
+      <span id="class-manager-status" class="class-manager-status"></span>
+    </div>
+  </section>
+
+  <section id="existing-classes" style="margin-bottom:18px;">
+    <div class="kicker">Read / edit</div>
+    <h2>Existing classes</h2>
+
+    <div class="library-layout">
+      <aside class="panel library-sidebar">
+        <h3>Class library</h3>
+        <div id="class-list" class="library-list"></div>
+      </aside>
+
+      <div class="panel">
+        <div id="class-reader-empty" class="empty-state">Choose a class from the library.</div>
+        <div id="class-reader" hidden>
+          <div class="reader-actions">
+            <button id="class-edit" class="primary" type="button">Edit selected class</button>
+            <button id="class-save" type="button" hidden>Save edits</button>
+            <button id="class-cancel" type="button" hidden>Cancel</button>
+            <button id="class-reset" class="danger" type="button">Reset to source</button>
+            <button id="class-delete" class="danger" type="button" hidden>Delete class</button>
+          </div>
+          <article id="class-reader-content" class="class-reader-content"></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="create-class" class="panel">
+    <div class="kicker">Create</div>
+    <h2>New class</h2>
+    <p class="muted">Create a structured draft, then continue editing it in the reader/editor above.</p>
+
+    <form id="new-class-form" class="create-form">
+      <div class="form-grid">
+        <div class="field">
+          <label for="new-class-name">Class name</label>
+          <input id="new-class-name" name="name" required placeholder="e.g. Redstoner">
+        </div>
+        <div class="field">
+          <label for="new-class-status">Status</label>
+          <select id="new-class-status" name="status">
+            <option>Working draft</option>
+            <option>Core idea established</option>
+            <option>Established</option>
+            <option>Needs revision</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="new-class-primary">Primary archetype</label>
+          <input id="new-class-primary" name="primary" placeholder="e.g. Production">
+        </div>
+        <div class="field">
+          <label for="new-class-other">Other possible archetypes</label>
+          <input id="new-class-other" name="other" placeholder="e.g. Logistics, Combat">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="new-class-core">Core idea</label>
+        <textarea id="new-class-core" name="core" required placeholder="What does this class do that nobody else does?"></textarea>
+      </div>
+
+      <button class="primary" type="submit">Create class draft</button>
+    </form>
+  </section>
+
+  <!-- Canonical source drafts. These are used by Reset to source. -->
+  <template class="class-seed" data-class-id="mole" data-name="Mole" data-status="Core idea established" data-primary="Extraction">
+    <h2>Mole</h2>
+    <div class="class-meta-line">
+      <span class="badge status-established">Core idea established</span>
+      <span class="badge">Primary: Extraction</span>
+      <span class="badge">Exploration</span>
+      <span class="badge">Combat</span>
+      <span class="badge">Logistics</span>
+    </div>
+    <h3>Core idea</h3>
+    <p>Uses the ground itself for movement, information, extraction, and combat.</p>
+
+    <h3>Passive — Sifth Sense</h3>
+    <p>Detects players moving on sand and gravel.</p>
+    <p>Scales with level through:</p>
+    <ol>
+      <li>increased detection radius;</li>
+      <li>increased detection rate;</li>
+      <li>increased location specificity.</li>
+    </ol>
+
+    <h3>Ability 1 — Tunneling</h3>
+    <p>Toggle Mole into a dedicated digging mode.</p>
+    <p>While active:</p>
+    <ul>
+      <li>Mole cannot attack;</li>
+      <li>Mole cannot build;</li>
+      <li>current digging-tool speed is amplified;</li>
+      <li>moving into a wall automatically excavates a 1×2 player passage;</li>
+      <li>shifting directs tunneling downward;</li>
+      <li>jumping directs tunneling upward.</li>
+    </ul>
+    <h4>Upgrade choices</h4>
+    <p><strong>Speed</strong> — dig significantly faster.</p>
+    <p><strong>Width</strong> — dig in a wider radius.</p>
+    <p><strong>Stability</strong> — negate knockback while Tunneling is active.</p>
+
+    <h3>Ability 2 — Drill Rush</h3>
+    <p>Allows Mole to walk into walls or the floor. On reactivation, Mole emerges and deals damage in the direction they are facing.</p>
+    <h4>Upgrade choices</h4>
+    <p><strong>Armored Emergence</strong> — gain massive damage reduction when emerging.</p>
+    <p><strong>Undermine</strong> — emerging from the floor stuns enemies.</p>
+    <p><strong>Burrow Chain</strong> — gain speed when exiting a wall. Drill Rush's cooldown resets if Mole enters a new section of wall within a short window; failing to do so causes the normal cooldown.</p>
+
+    <h3>Ultimate — Sinkhole</h3>
+    <p>After a delay, open a massive hole in targeted ground.</p>
+    <ul>
+      <li>The block destruction is real and persistent rather than a temporary visual/state change.</li>
+      <li>Enemies inside cannot build for several seconds.</li>
+    </ul>
+    <p>Ultimate currently has <strong>no upgrade branch</strong>.</p>
+
+    <h3>Possible build directions — Working labels only</h3>
+    <ul>
+      <li>Extraction / route creation</li>
+      <li>Exploration / information</li>
+      <li>Bruiser / engage</li>
+      <li>Control</li>
+      <li>Hybrid combinations</li>
+    </ul>
+    <p>These are not fixed subclasses.</p>
+  </template>
+
+  <template class="class-seed" data-class-id="gardener" data-name="Gardener" data-status="Core idea established" data-primary="Development">
+    <h2>Gardener</h2>
+    <div class="class-meta-line">
+      <span class="badge status-established">Core idea established</span>
+      <span class="badge">Primary: Development</span>
+      <span class="badge">Exploration</span>
+      <span class="badge">Support / Combat</span>
+    </div>
+    <h3>Core idea</h3>
+    <p>Cultivates plants that turn parts of the map into useful environments for allies, combining renewable development with exploratory/ecological utility.</p>
+
+    <h3>Broad upgrade tendencies — Working</h3>
+    <p>Gardener has two emerging thematic modes plus generalist choices:</p>
+    <ul>
+      <li><strong>Backyard</strong> — familiar, renewable, sustainable plants.</li>
+      <li><strong>Exotic</strong> — unusual plants with specialized effects.</li>
+      <li><strong>Generalist</strong> — quantity/flexibility or effects that do not need to belong to either mode.</li>
+    </ul>
+    <p>These are not required to form rigid three-way subclasses, and mixed builds are allowed.</p>
+
+    <h3>Passive — name TBD</h3>
+    <p>Repeatedly planting the same plant increases the growth speed of that plant.</p>
+
+    <h3>Ability 1 — Spread Vines</h3>
+    <p>Grow a vine on the targeted block.</p>
+    <h4>Upgrade choices</h4>
+    <p><strong>Grapevines / Backyard</strong> — vines become renewable grapevines. Allies can interact with them to restore some hunger.</p>
+    <p><strong>Jungle Vines / Exotic</strong> — allies gain Jump Boost and Speed after climbing them.</p>
+    <p><strong>Offensive vine / name TBD</strong> — enemies take damage over time while climbing the vines.</p>
+
+    <h3>Ability 2 — Flowerpot</h3>
+    <p>Periodically summons flowers in the targeted area. Teammates can interact with the flowers to consume them for a small amount of regeneration.</p>
+    <h4>Upgrade choices</h4>
+    <p><strong>Double Bushes / Backyard</strong> — regeneration lasts longer.</p>
+    <p><strong>Torchflowers / Exotic</strong> — grant Night Vision and Absorption.</p>
+    <p><strong>Generalist / charges</strong> — add additional charges to Flowerpot.</p>
+
+    <h3>Ultimate — Glistening Greenhouse</h3>
+    <p>Turn the nearby area into a greenhouse. Allies receive periodic Instant Health while near allied plants inside the greenhouse.</p>
+    <p>Exact duration, area, healing rate, plant persistence, and counterplay are intentionally unresolved.</p>
+  </template>
+
+  <template class="class-seed" data-class-id="golem-master" data-name="Golem Master" data-status="Working draft" data-primary="Construction">
+    <h2>Golem Master</h2>
+    <div class="class-meta-line">
+      <span class="badge status-working">Working draft</span>
+      <span class="badge">Primary: Construction</span>
+      <span class="badge">Secondary: Combat</span>
+    </div>
+    <h3>Core idea</h3>
+    <p>Golem Master converts terrain into commanded golems, then uses those golems to convert carried materials back into useful structures.</p>
+    <ul>
+      <li><strong>Animate:</strong> world blocks → golem</li>
+      <li><strong>Assemble:</strong> inventory blocks + golem labor → structure</li>
+    </ul>
+    <p>Iron, Snow, and Copper are upgraded independently across Animate and Assemble, allowing mixed builds rather than locking Golem Master into one form.</p>
+
+    <h3>Passive — [Unnamed]</h3>
+    <ul>
+      <li>Pumpkins periodically spawn/grow nearby.</li>
+      <li>Maximum commanded golems increases with level.</li>
+    </ul>
+
+    <h3>Ability 1 — Animate</h3>
+    <p>Target terrain and consume blocks from the area at a tool-dependent rate. Once enough material has been consumed, reactivate and consume a Pumpkin to form the stored material into a temporary golem.</p>
+    <p>Golem level, health, damage, and other properties scale from the amount and relevant vanilla metadata of the blocks consumed, including properties such as hardness, explosion resistance, and preferred tool.</p>
+    <p>Golems can incidentally destroy and collect blocks; Copper specializes in doing so intentionally.</p>
+
+    <h4>Iron</h4>
+    <ul><li>More expensive / less efficient to form.</li><li>Additional health.</li><li>Increased attack knockback.</li></ul>
+    <h4>Snow</h4>
+    <ul><li>Ranged projectile attack.</li><li>Projectiles apply Slowness.</li></ul>
+    <h4>Copper</h4>
+    <ul><li>More efficient / cheaper to form.</li><li>Smaller and faster.</li><li>Can wield different weapons.</li><li>Best at intentionally destroying and collecting blocks.</li></ul>
+
+    <h3>Ability 2 — Assemble</h3>
+    <p>Consume blocks from inventory and command nearby golems to construct a wall at the targeted location.</p>
+    <p>Construction speed scales with participating golem health and level. Assemble always spends actual carried blocks.</p>
+    <h4>Iron Wall</h4>
+    <ul><li>Reinforced.</li><li>Grants nearby Resistance.</li><li>Golems receive a stronger Resistance benefit.</li></ul>
+    <h4>Snow Wall</h4>
+    <ul><li>Projectiles fired from behind/near the wall apply additional Slowness.</li><li>Can enhance player, Snow Golem, and weapon-bearing Copper Golem projectiles.</li></ul>
+    <h4>Copper Wall</h4>
+    <ul><li>Constructed significantly faster.</li><li>Nearby allied golems gain Speed.</li><li>Nearby allied players gain Haste.</li></ul>
+
+    <h3>Ultimate — Wither Golem</h3>
+    <p>Create a temporary Wither Golem.</p>
+    <p>The Wither Golem is non-destructive to blocks. Exact duration and combat behavior remain open.</p>
+
+    <h3>Build modularity</h3>
+    <p>Animate and Assemble forms are selected independently.</p>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Animate / Assemble</th><th>Iron Wall</th><th>Snow Wall</th><th>Copper Wall</th></tr></thead>
+        <tbody>
+          <tr><th>Iron Golem</th><td>Fortress / maximum defensive presence</td><td>Durable frontline for a ranged-control position</td><td>Mobile heavy golems / bruiser workforce</td></tr>
+          <tr><th>Snow Golem</th><td>Protected ranged battery</td><td>Maximum ranged control</td><td>Mobile/kiting ranged force</td></tr>
+          <tr><th>Copper Golem</th><td>Mobile workers with defensive staying power</td><td>Mobile weapon users exploiting a slowing firing position</td><td>Maximum work/extraction/construction tempo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>These are possible synergies, not fixed subclasses.</p>
+
+    <h3>Open</h3>
+    <ul>
+      <li>Passive name and Pumpkin generation rate.</li>
+      <li>Command-capacity progression.</li>
+      <li>Animate minimum material and block-property formulas.</li>
+      <li>Exact Iron/Snow/Copper construction-efficiency differences.</li>
+      <li>Golem duration and handling of collected materials on death/expiry.</li>
+      <li>Assemble wall dimensions, targeting, material cost, and permanence.</li>
+      <li>Snow Wall Slowness behavior.</li>
+      <li>Copper Wall Haste/Speed values and radius.</li>
+      <li>Wither Golem duration and exact combat behavior.</li>
+    </ul>
+  </template>
+</main>
+<script src="app.js"></script>
+<script src="class-library.js"></script>
+</body>
+</html>

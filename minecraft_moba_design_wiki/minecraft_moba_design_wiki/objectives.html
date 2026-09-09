@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Objectives · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="objectives.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand"><a href="index.html" style="text-decoration:none;">Minecraft MOBA</a></div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="">Home</a>
+<a href="classes.html" class="">Classes</a>
+<a href="objectives.html" class="active">Objectives</a>
+<a href="mechanics.html" class="">Unique Mechanics</a>
+<a href="progression.html" class="">Items / Progression</a>
+<a href="map.html" class="">Map / World</a>
+<a href="balance.html" class="">Balance Notes</a>
+<a href="inbox.html" class="">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="page-title-row">
+  <div>
+    <div class="kicker">Objective system</div>
+    <h1>Objectives</h1>
+    <p class="muted">Working design replacing the earlier candidate objective-family model with a concrete three-layer structure.</p>
+  </div>
+  <span class="badge status-working">Working design</span>
+</div>
+
+
+<div class="toolbar">
+  <button class="primary" data-save>Save now</button>
+  <button data-export>Export page JSON</button>
+  <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+  <button class="danger" data-reset>Reset page</button>
+  <span class="status" data-status>Edits save locally in this browser.</span>
+</div>
+
+
+<div class="doc-layout">
+  <div class="doc-main">
+
+    <section id="status" class="doc-section">
+      <div class="panel editable" data-edit="objectives-status">
+        <div class="section-number">Status</div>
+        <p><strong>Working design.</strong> This replaces the earlier candidate objective-family model (Stronghold / Excavation / Monument / Expedition / Siege) with a concrete three-layer objective structure.</p>
+        <div class="quote-rule">Minecraft already supplies many avenues of progression. Objectives should <strong>concentrate and contest Minecraft play</strong>, not replace the sandbox with a collection of bespoke minigames.</div>
+      </div>
+    </section>
+
+    <section id="structure" class="doc-section">
+      <div class="panel editable" data-edit="objectives-structure">
+        <div class="section-number">1 · Objective Structure</div>
+        <h2>Three objective layers</h2>
+        <ol>
+          <li><strong>Four team objectives</strong> — persistent structures taking the place of MOBA turrets/base defenses.</li>
+          <li><strong>Dedicated non-combat objectives</strong> — “jungle camp”-scale opportunities centered on construction, extraction, logistics, development, and related Minecraft verbs.</li>
+          <li><strong>Major neutral objectives</strong> — combat encounters whose defeat directly damages the enemy's corresponding team objective and grants massive XP.</li>
+        </ol>
+        <p>This deliberately does <strong>not</strong> require one objective for every avenue of play.</p>
+      </div>
+    </section>
+
+    <section id="team-objectives" class="doc-section">
+      <div class="panel editable" data-edit="team-objectives">
+        <div class="section-number">2 · Team Objectives</div>
+        <h2>Four persistent team structures</h2>
+        <ol>
+          <li>The Pillager Outpost</li>
+          <li>The Nether Bastion</li>
+          <li>The End Tower</li>
+          <li>The Aether Fountain</li>
+        </ol>
+        <p>The first three support multiple defeat conditions, with a working XP ordering:</p>
+        <div class="flow">Structural destruction &lt; Defender elimination &lt; Objective-specific interaction</div>
+        <p style="margin-top:12px;">Brute force remains valid; the specialized solution rewards interacting with the structure's Minecraft identity.</p>
+
+        <div class="subpanel" id="pillager">
+          <h3>2.1 · The Pillager Outpost</h3>
+          <p>The earliest and most accessible defensive objective.</p>
+          <ul>
+            <li><strong>Destruction — lowest XP.</strong> Destroy enough of the structure for the Outpost to topple.</li>
+            <li><strong>Elimination — medium XP.</strong> Kill all defending Pillagers.</li>
+            <li><strong>Allay Theft — highest XP.</strong> Steal the <strong>Allay that powers the Outpost</strong>.</li>
+          </ul>
+          <p>The Allay route creates an infiltration/extraction problem rather than another health bar.</p>
+          <p><strong>Flavor:</strong> Overworld / occupation / raiding / theft.</p>
+        </div>
+
+        <div class="subpanel" id="bastion">
+          <h3>2.2 · The Nether Bastion</h3>
+          <p>A tougher defensive layer.</p>
+          <ul>
+            <li><strong>Destruction — lowest XP.</strong> Destroy enough of the Bastion. Its construction makes this substantially harder than destroying the Outpost.</li>
+            <li><strong>Elimination — medium XP.</strong> Kill all defending Piglins.</li>
+            <li><strong>Gold-Hoard Extraction — highest XP.</strong> Reach the center and extract the Bastion's <strong>gold hoard</strong>.</li>
+          </ul>
+          <p>This makes the specialized solution an extraction problem: penetrate, secure, and remove the hoard rather than demolishing the whole fortification.</p>
+          <p><strong>Flavor:</strong> Nether / fortification / greed / extraction.</p>
+        </div>
+
+        <div class="subpanel" id="end-tower">
+          <h3>2.3 · The End Tower</h3>
+          <p>The final defensive layer before the Fountain.</p>
+          <ul>
+            <li><strong>Destruction — lowest XP.</strong> Destroy enough of the tower. Its extensive <strong>Obsidian</strong> construction makes brute-force destruction possible but deliberately difficult.</li>
+            <li><strong>Elimination — medium XP.</strong> Kill all defending Endermen.</li>
+            <li><strong>End Crystal Destruction — highest XP.</strong> Reach the top and destroy the objective's <strong>End Crystal</strong>. Unlike a vanilla crystal, it is substantially more durable and has a visible HP bar.</li>
+          </ul>
+          <p>This creates a vertical assault problem.</p>
+          <p><strong>Flavor:</strong> End / verticality / extreme durability / assault.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="aether" class="doc-section">
+      <div class="panel editable" data-edit="aether-fountain">
+        <div class="section-number">3 · Final Team Objective</div>
+        <h2>The Aether Fountain</h2>
+        <p>The <strong>Aether Fountain</strong> is the final team objective.</p>
+        <p>It begins protected and becomes exposed as defensive objectives fall. The exact exposure rule remains unresolved.</p>
+        <p>The Fountain is a functioning Minecraft structure rather than primarily another combat health bar.</p>
+        <p>It can be disabled by:</p>
+        <ul>
+          <li><strong>Source obstruction:</strong> obstruct its source block so the Fountain ceases to function.</li>
+          <li><strong>Total destruction:</strong> destroy enough of the Fountain to stop its operation.</li>
+        </ul>
+
+        <div class="subpanel">
+          <h3>Respawning</h3>
+          <div class="quote-rule"><strong>If the Aether Fountain stops functioning, that team's players can no longer respawn.</strong></div>
+          <div class="flow">breach defenses → disable Fountain → subsequent deaths become permanent → eliminate surviving defenders</div>
+          <p style="margin-top:12px;">Whether a disabled Fountain can be repaired/reactivated is unresolved.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="solutions-xp" class="doc-section">
+      <div class="panel editable" data-edit="solutions-xp">
+        <div class="section-number">4 · Multiple Solutions and XP</div>
+        <h2>Completion methods are recognized, not preselected</h2>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead><tr><th>Method</th><th>Character</th><th>XP</th></tr></thead>
+            <tbody>
+              <tr><td>Sufficient structural destruction</td><td>Brute force / extraction / siege</td><td>Lowest</td></tr>
+              <tr><td>Kill all defenders</td><td>Combat clearance</td><td>Medium</td></tr>
+              <tr><td>Objective-specific interaction</td><td>Infiltration / extraction / specialized play</td><td>Highest</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Destruction is not an incorrect solution. It consumes tools, time, positioning, and often materials. It is the universal Minecraft fallback.</p>
+        <p>The objective recognizes the <strong>completion condition</strong>, not a route declared in advance. Mixed attacks are expected: players might kill Pillagers while tunneling toward the Allay, demolish a Bastion wall to reach its gold, or build upward while fighting Endermen to reach the crystal.</p>
+        <p class="muted">Exact XP values and distribution are unresolved.</p>
+      </div>
+    </section>
+
+    <section id="noncombat" class="doc-section">
+      <div class="panel editable" data-edit="noncombat-objectives">
+        <div class="section-number">5 · Dedicated Non-Combat Objectives</div>
+        <h2>Jungle-camp scale Minecraft work</h2>
+        <p>Smaller neutral objectives replace the earlier broad candidate-family list.</p>
+        <p>These are analogous in strategic scale to <strong>jungle camps</strong>: optional, valuable opportunities that create reasons to leave established territory and perform Minecraft-native work. Enemy players can contest them, but combat is not their primary interaction.</p>
+
+        <div class="subpanel" id="mining-outpost">
+          <h3>5.1 · Mining Outpost</h3>
+          <p>Players construct a <strong>defensible, functional structure</strong> at a designated site.</p>
+          <p>Successful completion temporarily exposes or grants access to <strong>rare ores in the surrounding area</strong>.</p>
+          <p>The objective should use the ordinary Construction evaluation system rather than a bespoke building minigame. Candidate validation includes:</p>
+          <ul>
+            <li>sufficient committed construction;</li>
+            <li>protected/enclosed usable area;</li>
+            <li>access;</li>
+            <li>functional blocks;</li>
+            <li>defensibility/obstruction;</li>
+            <li>minimum project scale.</li>
+          </ul>
+          <p><strong>Center:</strong> Construction<br>
+             <strong>Strong overlap:</strong> Extraction, Logistics<br>
+             <strong>Contest pressure:</strong> Combat, Exploration</p>
+          <p>The reward is physical and Minecraft-native: building successfully changes the world into a valuable extraction site.</p>
+        </div>
+
+        <div class="subpanel" id="supply-chain">
+          <h3>5.2 · Supply Chain</h3>
+          <p>A valuable development zone appears in terrain deliberately difficult to access or supply.</p>
+          <p>Candidate environments:</p>
+          <ul>
+            <li>waterlocked islands;</li>
+            <li>floating terrain;</li>
+            <li>lava pockets;</li>
+            <li>isolated cliffs;</li>
+            <li>other disconnected regions.</li>
+          </ul>
+          <p>The zone contains <strong>unique crops and development resources</strong>.</p>
+          <p>Completion requires establishing a usable supply route between accessible team territory/infrastructure and the target zone. Evaluation should focus on actual connectivity/traversal rather than prescribing a number of rails or blocks.</p>
+          <p>Valid solutions might include bridges, boats, railways, tunnels, vertical transport, or combinations.</p>
+          <p><strong>Center:</strong> Logistics<br>
+             <strong>Strong overlap:</strong> Construction, Exploration, Development<br>
+             <strong>Possible overlap:</strong> Extraction</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="neutral" class="doc-section">
+      <div class="panel editable" data-edit="major-neutral-objectives">
+        <div class="section-number">6 · Major Neutral Objectives</div>
+        <h2>Combat-focused boss sequence</h2>
+        <ol>
+          <li><strong>Giant Zombie</strong></li>
+          <li><strong>Ghast</strong></li>
+          <li><strong>Ender Dragon</strong></li>
+        </ol>
+        <p>Defeating one grants:</p>
+        <ol>
+          <li><strong>Massive XP</strong></li>
+          <li><strong>Direct damage to the corresponding enemy team objective</strong></li>
+        </ol>
+        <table>
+          <thead><tr><th>Neutral objective</th><th>Enemy objective damaged</th></tr></thead>
+          <tbody>
+            <tr><td>Giant Zombie</td><td>Pillager Outpost</td></tr>
+            <tr><td>Ghast</td><td>Nether Bastion</td></tr>
+            <tr><td>Ender Dragon</td><td>End Tower</td></tr>
+          </tbody>
+        </table>
+        <div class="quote-rule"><strong>Strategic alternative:</strong> attack the enemy structure directly <em>or</em> contest and defeat the neutral monster to damage it indirectly.</div>
+        <p>The exact form and amount of objective damage are unresolved. It should materially change the corresponding siege without making direct interaction with the objective's three defeat routes irrelevant.</p>
+      </div>
+    </section>
+
+    <section id="escalation" class="doc-section">
+      <div class="panel editable" data-edit="match-escalation">
+        <div class="section-number">7 · Match Escalation and Flavor</div>
+        <h2>Overworld → Nether → End → Aether</h2>
+        <ul>
+          <li><strong>Early — Pillager / Giant Zombie:</strong> accessible materials, conventional enemies, theft/infiltration.</li>
+          <li><strong>Mid — Nether / Ghast:</strong> tougher fortification, environmental complications, gold extraction, ranged threat.</li>
+          <li><strong>Late — End / Ender Dragon:</strong> Obsidian durability, vertical assault, durable End Crystal, strongest neutral combat encounter.</li>
+          <li><strong>Final — Aether Fountain:</strong> the contest shifts from destroying another defensive layer to disabling the enemy team's ability to respawn.</li>
+        </ul>
+        <div class="flow">Overworld → Nether → End → Aether</div>
+        <p style="margin-top:12px;">This does not require literal vanilla dimensional progression.</p>
+      </div>
+    </section>
+
+    <section id="ordinary-progression" class="doc-section">
+      <div class="panel editable" data-edit="ordinary-progression">
+        <div class="section-number">8 · Relationship to Ordinary Progression</div>
+        <h2>Objectives are not the sole source of progression</h2>
+        <p>Players still gain resources and XP through recognized Minecraft accomplishments such as:</p>
+        <ul>
+          <li>extracting ore deposits;</li>
+          <li>establishing productive farms;</li>
+          <li>enclosing/developing animals;</li>
+          <li>completing submitted construction projects;</li>
+          <li>meaningful exploration/discovery;</li>
+          <li>establishing useful transport infrastructure;</li>
+          <li>production;</li>
+          <li>combat.</li>
+        </ul>
+        <div class="quote-rule">Objectives answer: <strong>“Where is unusually valuable work available right now?”</strong><br><br>Not: <strong>“What is the only thing worth doing right now?”</strong></div>
+        <p>Conceding an objective to pursue mining, development, construction, exploration, an enemy assault, or another opportunity can therefore be rational.</p>
+      </div>
+    </section>
+
+    <section id="analysis" class="doc-section">
+      <div class="panel editable" data-edit="objective-analysis">
+        <div class="section-number">9 · Design Analysis</div>
+        <h2>Strengths</h2>
+        <ul>
+          <li><strong>Minecraft-native objective interaction.</strong> Team objectives use ordinary world verbs: break, kill, steal, extract, climb, obstruct.</li>
+          <li><strong>Distinct solutions without class locks.</strong> No objective says “bring the Builder.” Different avenues can create different routes to the same strategic result.</li>
+          <li><strong>Non-combat objective-scale play.</strong> Mining Outpost and Supply Chain concentrate construction/logistics/development value without requiring a dedicated objective for every archetype.</li>
+          <li><strong>Clear combat objective home.</strong> The Giant Zombie → Ghast → Ender Dragon sequence creates major combat contests and massive XP without turning every smaller neutral objective into a monster camp.</li>
+          <li><strong>Multiple simultaneous priorities.</strong> Enemy siege, neutral boss, non-combat objective, resource acquisition, infrastructure, development, and harassment can coexist.</li>
+        </ul>
+
+        <div class="subpanel">
+          <h2>Key Risks / Unresolved Questions</h2>
+          <h3>Objective sequence</h3>
+          <p>Is Pillager → Bastion → End Tower strictly sequential, are later layers merely protected until earlier ones fall, or can difficult Minecraft-native routes bypass layers?</p>
+
+          <h3>Aether exposure</h3>
+          <p>Does the Fountain become attackable after <strong>any one</strong> objective falls, become progressively vulnerable with each loss, or only fully expose after all three?</p>
+
+          <h3>Aether obstruction</h3>
+          <p>A single unnoticed block should probably not be equivalent to instantly destroying a Nexus. Source obstruction may need to persist for a validation/channel period, or defenders may be able to restore function while alive.</p>
+
+          <h3>Structural destruction</h3>
+          <p>“Sufficient destruction” needs a robust threshold. Pure percentage destruction risks teaching players to identify and remove the cheapest arbitrary blocks rather than meaningfully topple the structure.</p>
+
+          <h3>Defenders</h3>
+          <p>Pillagers, Piglins, and Endermen need enough encounter design that elimination is a genuine route rather than clearing static vanilla mobs.</p>
+
+          <h3>Neutral boss damage</h3>
+          <p>Too much damage makes the three-route enemy objectives irrelevant; too little makes bosses strategically secondary despite their intended importance.</p>
+
+          <h3>XP economy</h3>
+          <p>“Massive XP” and high-XP specialized captures must fit the 1–30 progression curve without allowing one early objective to skip most character development.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary" class="doc-section">
+      <div class="panel editable" data-edit="objectives-summary">
+        <div class="section-number">10 · Working Summary</div>
+        <div class="quote-rule"><strong>Team structures give the enemy Minecraft-native siege problems.</strong></div>
+        <div class="quote-rule"><strong>Non-combat neutral objectives create concentrated opportunities to build, extract, transport, and develop.</strong></div>
+        <div class="quote-rule"><strong>Major neutral monsters create high-stakes combat contests and indirectly advance sieges.</strong></div>
+        <div class="quote-rule"><strong>Ordinary Minecraft remains a valid source of progression between and around all three.</strong></div>
+        <p>This replaces the need for one objective corresponding to every avenue while preserving Minecraft's intentionally broad progression space.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <aside class="panel doc-toc">
+    <h2>On this page</h2>
+    <a href="#status">Status</a>
+    <a href="#structure">1 · Structure</a>
+    <a href="#team-objectives">2 · Team Objectives</a>
+    <a href="#aether">3 · Aether Fountain</a>
+    <a href="#solutions-xp">4 · Solutions & XP</a>
+    <a href="#noncombat">5 · Non-Combat</a>
+    <a href="#neutral">6 · Major Neutral</a>
+    <a href="#escalation">7 · Escalation</a>
+    <a href="#ordinary-progression">8 · Ordinary Progression</a>
+    <a href="#analysis">9 · Design Analysis</a>
+    <a href="#summary">10 · Summary</a>
+  </aside>
+</div>
+
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>

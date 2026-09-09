@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unique Mechanics · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="mechanics.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand">Minecraft MOBA</div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="">Home</a>
+<a href="classes.html" class="">Classes</a>
+<a href="objectives.html" class="">Objectives</a>
+<a href="mechanics.html" class="active">Unique Mechanics</a>
+<a href="progression.html" class="">Items / Progression</a>
+<a href="map.html" class="">Map / World</a>
+<a href="balance.html" class="">Balance Notes</a>
+<a href="inbox.html" class="">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="kicker">Game identity</div>
+<h1>Unique Mechanics</h1>
+<p class="muted">Use this page for systems that make the project meaningfully Minecraft-native.</p>
+
+<div class="toolbar">
+  <button class="primary" data-save>Save now</button>
+  <button data-export>Export page JSON</button>
+  <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+  <button class="danger" data-reset>Reset page</button>
+  <span class="status" data-status>Edits save locally in this browser.</span>
+</div>
+
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Core mechanic inventory</h2>
+    <div class="editable" data-edit="mechanic-inventory">
+      <ul class="clean">
+        <li><strong>Destructible objectives:</strong> structures can fall through actual material destruction rather than only abstract HP.</li>
+        <li><strong>Alternate objective verbs:</strong> killing defenders, stealing entities, extracting resources, and sabotaging blocks can all complete objectives.</li>
+        <li><strong>Respawn infrastructure:</strong> the Aether Fountain physically represents a team's ability to return to play.</li>
+        <li><strong>Add new mechanic:</strong> describe the rule, why it belongs in Minecraft, and what decisions it creates.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Mechanic test</h2>
+    <div class="editable" data-edit="mechanic-test">
+      <p>For every new mechanic, answer:</p>
+      <ol>
+        <li>What does the player physically do?</li>
+        <li>What information do opponents have?</li>
+        <li>What is the counterplay?</li>
+        <li>Why is this better than the conventional MOBA version?</li>
+        <li>Does it create a Minecraft interaction, or merely look Minecraft-themed?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="panel" style="margin-top:16px;">
+  <h2>Mechanic template</h2>
+  <div class="editable" data-edit="mechanic-template">
+    <p><strong>Name:</strong> </p>
+    <p><strong>Player verb:</strong> </p>
+    <p><strong>Purpose:</strong> </p>
+    <p><strong>Minecraft source/fantasy:</strong> </p>
+    <p><strong>Decision created:</strong> </p>
+    <p><strong>Counterplay:</strong> </p>
+    <p><strong>Readable tells:</strong> </p>
+    <p><strong>Failure / abuse cases:</strong> </p>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Import Design · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="import.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand"><a href="index.html" style="text-decoration:none;">Minecraft MOBA</a></div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="classes.html">Classes</a>
+      <a href="objectives.html">Objectives</a>
+      <a href="mechanics.html">Unique Mechanics</a>
+      <a href="progression.html">Items / Progression</a>
+      <a href="map.html">Map / World</a>
+      <a href="balance.html">Balance Notes</a>
+      <a href="inbox.html">Inbox / Ideas</a>
+      <a href="import.html" class="active">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="page-title-row">
+    <div>
+      <div class="kicker">Conversation → wiki</div>
+      <h1>Import Design</h1>
+      <p class="muted">Paste a structured design block from ChatGPT. Nothing changes until it validates and you explicitly apply it.</p>
+    </div>
+    <span class="badge status-established">Preview before apply</span>
+  </div>
+
+  <section class="import-layout">
+    <div class="panel">
+      <div class="kicker">1 · Paste</div>
+      <h2>Design block</h2>
+      <p class="muted">Accepts raw JSON or a copied <code>```json</code> block.</p>
+      <textarea id="design-import-input" class="import-textarea" spellcheck="false" placeholder='Paste {"type":"class", ...} here'></textarea>
+      <div class="toolbar import-toolbar">
+        <button id="design-parse" class="primary">Parse &amp; Preview</button>
+        <button id="load-class-example">Load class example</button>
+        <button id="clear-import">Clear</button>
+      </div>
+      <div id="import-message" class="import-message"></div>
+    </div>
+
+    <div class="panel">
+      <div class="kicker">2 · Preview</div>
+      <h2>What will change</h2>
+      <div id="import-preview" class="import-preview empty-state">Paste a design block and choose <strong>Parse &amp; Preview</strong>.</div>
+      <div id="import-apply-row" class="toolbar" hidden>
+        <button id="apply-import" class="primary">Apply Import</button>
+        <a id="destination-link" class="button-link" href="#">Open destination</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:18px;">
+    <div class="kicker">Import contract</div>
+    <h2>Supported design types</h2>
+    <div class="type-grid">
+      <div><strong>class</strong><small>→ Classes</small></div>
+      <div><strong>objective</strong><small>→ Objectives</small></div>
+      <div><strong>map_archetype</strong><small>→ Map / World</small></div>
+      <div><strong>mechanic</strong><small>→ Unique Mechanics</small></div>
+      <div><strong>item</strong><small>→ Items / Progression</small></div>
+      <div><strong>balance_note</strong><small>→ Balance Notes</small></div>
+      <div><strong>idea</strong><small>→ Inbox / Ideas</small></div>
+    </div>
+
+    <div class="quote-rule" style="margin-top:16px;">
+      After a design discussion, ask ChatGPT for the <strong>wiki import block</strong>. Paste it here instead of translating the discussion into HTML manually.
+    </div>
+
+    <details class="schema-details" open>
+      <summary>Class schema</summary>
+      <pre>{
+  "type": "class",
+  "version": 1,
+  "id": "redstoner",
+  "name": "Redstoner",
+  "status": "Working draft",
+  "archetypes": {
+    "primary": "Production",
+    "secondary": ["Construction", "Combat"]
+  },
+  "coreIdea": "One-sentence class identity.",
+  "passive": {
+    "name": "Passive name",
+    "description": "..."
+  },
+  "abilities": [
+    {
+      "name": "Ability 1",
+      "description": "...",
+      "upgrades": [
+        {"name": "Upgrade A", "description": "..."}
+      ]
+    }
+  ],
+  "ultimate": {
+    "name": "Ultimate",
+    "description": "..."
+  },
+  "buildDirections": ["Direction A"],
+  "openQuestions": ["Question A"]
+}</pre>
+    </details>
+
+    <details class="schema-details">
+      <summary>Generic schema for other pages</summary>
+      <pre>{
+  "type": "objective",
+  "version": 1,
+  "id": "example-objective",
+  "name": "Example Objective",
+  "status": "Working draft",
+  "summary": "Short canonical description.",
+  "sections": [
+    {
+      "heading": "Rules",
+      "body": ["First rule", "Second rule"]
+    }
+  ],
+  "openQuestions": ["Question A"]
+}</pre>
+      <p class="muted">The same generic shape works for <code>map_archetype</code>, <code>mechanic</code>, <code>item</code>, <code>balance_note</code>, and <code>idea</code>.</p>
+    </details>
+  </section>
+</main>
+<script src="app.js"></script>
+<script src="design-importer.js"></script>
+</body>
+</html>

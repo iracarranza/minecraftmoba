@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Items / Progression · Minecraft MOBA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="progression.html">
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand-row">
+      <div class="brand">Minecraft MOBA</div>
+      <div class="tagline">Minecraft MOBA design workspace</div>
+    </div>
+    <nav>
+      <a href="index.html" class="">Home</a>
+<a href="classes.html" class="">Classes</a>
+<a href="objectives.html" class="">Objectives</a>
+<a href="mechanics.html" class="">Unique Mechanics</a>
+<a href="progression.html" class="active">Items / Progression</a>
+<a href="map.html" class="">Map / World</a>
+<a href="balance.html" class="">Balance Notes</a>
+<a href="inbox.html" class="">Inbox / Ideas</a>
+      <a href="import.html">Import Design</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="kicker">Power curve</div>
+<h1>Items / Progression</h1>
+<p class="muted">Track all systems that increase player or team power over the course of a match.</p>
+
+<div class="toolbar">
+  <button class="primary" data-save>Save now</button>
+  <button data-export>Export page JSON</button>
+  <label class="file-label">Import page JSON<input type="file" accept=".json,application/json" data-import></label>
+  <button class="danger" data-reset>Reset page</button>
+  <span class="status" data-status>Edits save locally in this browser.</span>
+</div>
+
+
+<section class="grid two">
+  <div class="panel">
+    <h2>Progression channels</h2>
+    <div class="editable" data-edit="progression-channels">
+      <table>
+        <thead><tr><th>Channel</th><th>Earned by</th><th>Spent / expressed as</th></tr></thead>
+        <tbody>
+          <tr><td>XP</td><td>Combat, objectives, higher-skill objective methods</td><td>Levels / class growth</td></tr>
+          <tr><td>Resources</td><td>Mining, map control, drops, objectives</td><td>Crafting / upgrades</td></tr>
+          <tr><td>Objective rewards</td><td>Destroying, clearing, extracting, stealing</td><td>Team momentum / XP / map state</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Design questions</h2>
+    <div class="editable" data-edit="progression-questions">
+      <ul>
+        <li>How much of Minecraft's crafting tree should appear directly?</li>
+        <li>Should equipment be purchased, crafted, found, upgraded, or some mixture?</li>
+        <li>How do gathering actions avoid becoming PvE chores?</li>
+        <li>Which progression systems are individual versus team-wide?</li>
+        <li>How does a losing team obtain comeback tools without invalidating map control?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="panel" style="margin-top:16px;">
+  <h2>Item / upgrade template</h2>
+  <div class="editable" data-edit="item-template">
+    <p><strong>Name:</strong> </p>
+    <p><strong>Cost / recipe:</strong> </p>
+    <p><strong>Effect:</strong> </p>
+    <p><strong>Who wants it:</strong> </p>
+    <p><strong>Counterplay / tradeoff:</strong> </p>
+    <p><strong>Tier / timing:</strong> </p>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+<script src="imported-items.js"></script>
+</body>
+</html>
