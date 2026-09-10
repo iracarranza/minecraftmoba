@@ -13,3 +13,6 @@ __pycache__/
 /artifacts/worldgen/*/packages/
 /artifacts/worldgen/*/build/
 /artifacts/worldgen/*/build_summary.json
+# Task B physical greybox worlds are local inspection artifacts; compact plans
+# and validation reports remain committed under implementation/worldgen/results.
+/artifacts/worldgen/default_task_b_2026-09-10/
