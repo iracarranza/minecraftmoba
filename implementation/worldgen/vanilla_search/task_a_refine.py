@@ -356,7 +356,8 @@ def refine(candidate, baseline, parameters=None):
                                  'circuity':round(physical/max(direct,1),4),'deep_water_burden':None,
                                  'collective_choices_supported':diff[r['team']]['three_meaningful_choices_supported']}
         if score<p['starter_min_score']: issues.append(f'{r["id"]}: forced Starter construction proxy')
-        if not t.p['starter_soft_min']<=s['effective_blocks_from_edge']<=t.p['starter_soft_max']: issues.append(f'{r["id"]}: Starter handoff outside soft band')
+        if not s.get('destination_revision') and not t.p['starter_soft_min']<=s['effective_blocks_from_edge']<=t.p['starter_soft_max']: issues.append(f'{r["id"]}: Starter handoff outside soft band')
+        if s.get('destination_revision') and not s.get('destination'): issues.append(f'{r["id"]}: no supported destination')
     for team,d in diff.items():
         if not d['three_meaningful_choices_supported']: issues.append(f'{team}: three meaningful openings not established')
         for q in d['pairs']:

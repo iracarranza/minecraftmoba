@@ -294,6 +294,11 @@ Evaluate both teams independently.
 
 Preserve the current approximately 60–70 effective-block target from homeland edge, with a soft acceptable band rather than exact cutoff.
 
+Starter Route termini are destination-anchored; travel depth constrains destination choice but does not itself determine termination.
+The three handoffs should collectively expose supported, differentiated geography.
+Analytical destination refits require human acceptance before new physical greyboxing;
+prior physical selection does not automatically accept changed handoffs.
+
 Retain separate evaluation of:
 
 1. Route corridor quality.

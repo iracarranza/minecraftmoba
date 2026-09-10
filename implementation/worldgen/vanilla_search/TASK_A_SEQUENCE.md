@@ -119,3 +119,36 @@ incomplete, so B.2/freeze/C remain gated; see that report for the current state.
 Human review must evaluate diagnostic validity as well as candidate suitability.
 No missing qualitative judgment is replaced by a scalar score, and no physical
 stage is used to bypass the A.2 readiness gate.
+
+## Destination-anchored analytical revision — 2026-09-10
+
+Subsequent human B.1 inspection reported arbitrary open-terrain Starter ends,
+particularly in 930010639. The user authorized a bounded analytical objective
+revision, not seed rejection, world editing or Task C. The confirmed principle
+is now recorded in spec2 §11 and spec3 §9.
+
+Run `python3 implementation/worldgen/fit_default_task_a_destinations.py`.
+Outputs: `results/default_task_a_destinations_2026-09-10/` (eight JSON/SVG pairs,
+`comparison.json`, focused `REPORT.md`, preservation `verification.json`).
+The fitter retains bounds, homelands, Fountains, departures and deeper targets;
+it scores terrain-interface destinations jointly and recomputes network analysis.
+Unavailable replacements are explicitly unresolved, never successful arbitrary
+distance termini. Search bounds and evidence/scoring assumptions are prototype
+parameters, not new balance rules. Earlier A/B artifacts remain unchanged.
+
+Tests: `python3 -m unittest discover -s implementation/worldgen/tests -v`.
+No new physical greybox is authorized until human review accepts the analytical
+refit. Prior physical selection and partial block validation do not validate the
+new Starter paths. No skeleton freeze or Task C occurred in this revision.
+
+Completed verification: all eight fits ran in 13.685 seconds of fitting time
+(world hashing separate); 34/48 handoffs are anchored and 14 remain explicitly
+unresolved under the bounded search. Primary 930010639 has 4/6 anchored;
+comparison 930012642 has 5/6. These counts are not physical pass/fail decisions.
+The full suite passed **79 tests** in 30.662 seconds, including deterministic
+reproduction of all eight results, XML parsing and output/provenance hashes.
+The run verified **651 unchanged files across all ten existing worlds** and
+**67 unchanged prior input/artifact files**. No world was unavailable.
+Quick Look render inspection covered both focused candidates; long feature
+labels were moved to the SVG sidebar to keep homeland handoffs readable.
+`git diff --check` passed. Existing user `.DS_Store` changes are outside this work.

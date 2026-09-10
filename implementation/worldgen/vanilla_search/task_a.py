@@ -359,7 +359,7 @@ def depth_summary(t, depths, regions, excluded=frozenset()):
             'compressed_geography_fraction':round(sum(depths[r['sample'][1]*t.w+r['sample'][0]]<70 for r in regions)/max(1,len(regions)),4)}
 
 
-def fit(candidate, parameters=None):
+def fit(candidate, parameters=None, route_revision=None):
     t=Terrain(candidate,parameters);failures=[];homes={};internal={}
     for team in ('north','south'):
         result=fit_homeland(t,team)
@@ -382,6 +382,8 @@ def fit(candidate, parameters=None):
         depths[team]=edge_depth(t,cells)
         fitted,p=fit_routes(t,team,homes[team],cells,perimeter,fountain,depths[team],all_homes)
         routes+=fitted;paths+=p
+    if route_revision is not None:
+        routes,paths=route_revision(t,routes,paths,all_homes)
     intersections,connections,shortcuts,components=network_analysis(t,paths,all_homes)
     landmarks=[]
     for region in candidate.get('greybox',{}).get('landscape_regions',[]):

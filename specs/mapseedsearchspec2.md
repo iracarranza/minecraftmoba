@@ -293,6 +293,13 @@ Starter Routes should generally hand players into unsupported Wilderness at appr
 
 This is a soft target.
 
+Starter Route termini are destination-anchored; travel depth constrains destination choice but does not itself determine termination.
+
+Use supported terrain/feature evidence to choose meaningful early-game handoffs,
+jointly differentiating each team's three destinations. The destination ends
+provided Starter infrastructure, not the full designated Route. Record missing
+or weak destination evidence rather than accepting an arbitrary distance endpoint.
+
 It is not:
 
 - a Euclidean radius;

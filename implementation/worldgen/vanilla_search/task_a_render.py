@@ -6,11 +6,12 @@ from successor.grid import unrle
 
 def svg(fit, candidate, background):
     w=candidate['feature_grid']['width'];h=candidate['feature_grid']['height']
-    scale=5;ox=65;oy=90;right=ox+w*scale+35;height=max(850,h*scale+180)
+    destination_refit='destination_sets' in fit
+    scale=5;ox=65;oy=90;right=ox+w*scale+35;height=max(1080 if destination_refit else 850,h*scale+180)
     parts=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{right+310}" height="{height}" viewBox="0 0 {right+310} {height}">',
            '<rect width="100%" height="100%" fill="#14211d"/>',
            '<g font-family="sans-serif" fill="#eef2e9">',
-           f'<text x="30" y="30" font-size="22">Default Task {"A.1" if "central_connective_area" in fit else "A"} · {fit["seed"]}</text>',
+           f'<text x="30" y="30" font-size="22">Default Task {"A destination refit" if destination_refit else "A.1" if "central_connective_area" in fit else "A"} · {fit["seed"]}</text>',
            '<text x="30" y="54" font-size="13">Analytical spatial skeleton · no constructed content · effective depth measured from homeland edge</text>',
            f'<image x="{ox}" y="{oy}" width="{w*scale}" height="{h*scale}" href="data:image/png;base64,{base64.b64encode(background).decode()}"/>',
            f'<rect x="{ox}" y="{oy}" width="{w*scale}" height="{h*scale}" stroke="white" stroke-width="2" fill="none"/>']
@@ -41,10 +42,16 @@ def svg(fit, candidate, background):
         color='#55bcff' if route['team']=='north' else '#ff856c'
         if 'sample_path' not in route: continue
         line(route['sample_path'],color,2.5,'6 4')
-        early=route['starter'];line(early['supported_sample_path'],color,6)
+        early=route['starter'];unresolved=early.get('destination_revision') and not early.get('destination')
+        line(early['supported_sample_path'],color,3 if unresolved else 6,'2 5' if unresolved else '')
         sx,sy=point(early['terminus']['sample'])
         parts.append(f'<circle cx="{sx}" cy="{sy}" r="5" fill="#fff" stroke="{color}" stroke-width="2"/>')
-        label(early['terminus']['sample'],route['id'].replace('north','N').replace('south','S'),color)
+        name=route['id'].replace('north','N').replace('south','S')
+        if early.get('destination'):
+            d=early['destination']
+            parts.append(f'<circle cx="{sx}" cy="{sy}" r="9" fill="none" stroke="{color}"><title>{escape(d["id"])}; {early["effective_blocks_from_edge"]} effective blocks; {escape("; ".join(d["weak_evidence"]))}</title></circle>')
+        elif unresolved: name+='?'
+        label(early['terminus']['sample'],name,color)
     for team,home in fit['homelands'].items():
         color='#55bcff' if team=='north' else '#ff856c';x0,x1,z0,z1=home['logical_footprint_samples']
         parts.append(f'<rect x="{ox+x0*scale}" y="{oy+z0*scale}" width="{(x1-x0+1)*scale}" height="{(z1-z0+1)*scale}" fill="{color}" fill-opacity=".16" stroke="{color}" stroke-width="3"/>')
@@ -78,15 +85,23 @@ def svg(fit, candidate, background):
                 side(y+20+row*18,f'{band}: land {"yes" if d["traversable_depth_supported"] else "no"} / geo {"yes" if d["geographic_depth_supported"] else "unverified"}')
             else:
                 side(y+20+row*18,f'{band}: {d.get("land_samples",0)} samples · {"present" if d.get("meaningful_area_available") else "weak / absent"}')
-    side(525,'LANDMARK REFERENCES',13)
-    for index,item in enumerate(major,1):side(530+index*20,f'L{index} · {item["kind"]}')
+    landmark_y=850 if destination_refit else 525
+    side(landmark_y,'LANDMARK REFERENCES',13)
+    for index,item in enumerate(major,1):side(landmark_y+5+index*20,f'L{index} · {item["kind"]}')
+    if destination_refit:
+        side(525,'DESTINATION HANDOFFS',13)
+        for index,r in enumerate(fit['routes']):
+            s=r.get('starter') or {};d=s.get('destination')
+            name=r['id'].replace('north','N').replace('south','S')
+            text=f'{name}: {d["kind"].split(":")[0]} · {s["effective_blocks_from_edge"]:.0f}' if d else f'{name}?: unresolved; dotted old reference'
+            side(550+index*18,text)
     side(675,f'Failure diagnostics: {len(fit["failures"])}')
     side(698,'Detailed evidence and limits: companion JSON')
     side(722,'No winning seed or gameplay assignments')
     if refined:
         side(746,f'Shared interior clusters: {refined["shared_team_cluster_count"]}')
         side(766,'Tint: conservative traversable interior')
-        side(786,'A.2 human selection pending; Task B gated')
+        side(786,'Analytical refit review pending; no world edits' if 'destination_sets' in fit else 'A.2 human selection pending; Task B gated')
     parts.extend([f'<text x="30" y="{height-45}" font-size="12">Bounds: {fit["playable_bounds"]} · rotation {fit["logical_orientation"]["rotation_degrees_clockwise"]}° · reflected {fit["logical_orientation"]["east_west_reflected"]}</text>',
                   f'<text x="30" y="{height-23}" font-size="12">Corridor spines and surface joins are sampled analytical references; block walkability and physical construction remain unverified.</text>', '</g></svg>'])
     return '\n'.join(parts)+'\n'
