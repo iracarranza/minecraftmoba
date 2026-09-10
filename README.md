@@ -12,6 +12,9 @@ domains:
 - [Classes](classes.md)
 - [Objectives](objectives.md)
 - [Maps](maps.md)
+- [Infrastructure](infrastructure.md)
+
+The [design manuscript](docs/manuscript/Minecraft-MOBA-Design.md) and its editable Word companion synthesize these sources. The [10 September infrastructure reconciliation](docs/reconciliation/2026-09-10-infrastructure.md) records the latest shared infrastructure update.
 
 [chathandoff.txt](chathandoff.txt) is a September 8, 2026 handoff snapshot.
 It is useful context and preserves material not yet incorporated into a

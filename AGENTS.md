@@ -3,7 +3,7 @@
 ## Design authority
 
 `classes.md`, `objectives.md`, and `maps.md` are the canonical design sources
-for their respective domains. `chathandoff.txt` is a dated consolidation and
+for their respective domains. `infrastructure.md` is canonical for shared infrastructure recognition, persistence, spatial metrics, and transport proof. `chathandoff.txt` is a dated consolidation and
 may preserve unincorporated context, but does not override a canonical source
 without an explicit reconciliation decision.
 

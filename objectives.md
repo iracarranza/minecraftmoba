@@ -939,6 +939,8 @@ The match should support concurrent:
 
 # 20. Relationship to Infrastructure
 
+**Working canon update, 10 September 2026:** Shared recognition, persistence, physical counterplay, and connection eligibility are governed by [infrastructure.md](infrastructure.md). Objective-specific mechanics remain here. Operational Area defines legal connections for integration; it is not a general buff radius. Industrial Enchanter completion does not require a recognized Supply Line.
+
 O# 20. Relationship to Infrastructure
 
 Objectives and infrastructure can overlap spatially and strategically without becoming the same system.

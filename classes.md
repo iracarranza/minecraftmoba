@@ -102,12 +102,14 @@ These are role-expression examples rather than requirements that every class bel
 
 ## Infrastructure recognition and integration
 
+**Working canon update, 10 September 2026:** [infrastructure.md](infrastructure.md) owns shared Infrastructure Mode, retroactive recognition, the extent/relation and constitutive/facilitative matrix, Construct spatial metrics, Development Zones, Route proof, and directional Supply Line proof/persistence. Class eligibility remains authored per class. See the [explicit reconciliation](docs/reconciliation/2026-09-10-infrastructure.md).
+
 A useful current design model connects four archetypes to four forms of recognized infrastructure:
 
 | Archetype | Strategic infrastructure expression | Primary question |
 | --- | --- | --- |
 | Construction | Constructs | How efficiently can the team maintain useful presence at this place? |
-| Development | Developed areas/processes | How productive or mature can this place become? |
+| Development | Development Zones | How productive or mature can this place become? |
 | Exploration | Routes | How efficiently can players repeatedly traverse this connection? |
 | Logistics | Supply Lines | How effectively can resources become available across this connection? |
 
@@ -324,7 +326,7 @@ Authored class progression may grant or improve:
 
 Because useful building can occur before Construct recognition is unlocked, the system should support retrospective designation of qualifying existing construction rather than requiring all recognized construction to be built after entering a special mode.
 
-A promising scale rule is that a Construct's recognized area derives partly from its actual physical extent, capped by the player's current maximum recognized Construct size. Exact validation and boundary rules remain unresolved.
+Construct Slots, Buildable Scale, and Operational Scale are separate constraints. Buildable Scale governs recognized physical extent/material; Operational Area governs where Development Zones, Route points, and Supply Line nodes may legally connect for integration. Recognition is architecturally permissive and evaluates current qualifying construction; exact boundaries and thresholds remain [OPEN]. See [infrastructure.md](infrastructure.md#constructs).
 
 #### Intrinsic value
 
@@ -422,9 +424,9 @@ However:
 
 Their relationship is synergy, not prerequisite.
 
-### Infrastructure expression — developed areas/processes
+### Infrastructure expression — Development Zones
 
-Development may receive a recognized spatial or systemic infrastructure expression analogous to, but independent from, Constructs.
+Development recognizes a **Development Zone** through designation and measurement of eligible developmental resources and their enabling conditions, independently of Constructs. The current-state and restoration rules are in [infrastructure.md](infrastructure.md#development-zones).
 
 The current direction is localized improvement of eligible persistent Development processes, potentially including:
 
@@ -486,12 +488,7 @@ Potential mechanical axes available to authored class progression include:
 
 Later high-potency Logistics may eventually allow supplied infrastructure to replenish allied players directly. This is a future candidate rather than an established baseline capability.
 
-The intervening topology of a Supply Line remains unresolved. Do not assume that it must:
-
-- trace a physical continuous path;
-- follow a Route;
-- be pathless;
-- use a particular transport entity.
+A Supply Line requires source and destination container selection plus successful cargo-transport proof. It is directional unless separately proved in reverse. Transit Time and Flow Weight determine demonstrated performance conceptually; ordinary player Flow Weight is 1, and the exact formula remains [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
 
 Routes and Supply Lines may physically overlap and synergize without either requiring the other.
 
