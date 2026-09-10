@@ -1,0 +1,10 @@
+{
+  "authority": "User instruction in the continuation of specs/mapseedsearchspec3.md",
+  "human_a2_selection_complete": true,
+  "scope": "Satisfies the human-selection portion of the Task A to Task B readiness gate",
+  "selected_candidates": [
+    {"seed": 930010639, "role": "primary"},
+    {"seed": 930012642, "role": "comparison / fallback"}
+  ],
+  "acceptance_of_remaining_negative_gate_evidence": null
+}

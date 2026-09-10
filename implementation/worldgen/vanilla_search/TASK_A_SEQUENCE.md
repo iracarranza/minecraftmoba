@@ -97,6 +97,19 @@ Coarse highland/coast access from A.0 is retained as corridor-target evidence,
 not promoted to a verified walk. Prior staged review files provide analytical
 and overhead context, not human acceptance of these revised overlays.
 
+## Subsequent human selection and gate recheck
+
+The user subsequently completed A.2 selection: **930010639 primary** and
+**930012642 comparison/fallback**. The earlier A.1 output and stage-state text
+above are historical snapshots, preserved rather than rewritten.
+
+The decision is recorded in `decisions/task_b_selection_2026-09-10.json`.
+Run `python3 implementation/worldgen/audit_task_b_readiness.py` from the repo root
+to reproduce `results/default_task_b_gate_2026-09-10/`. Selection now satisfies
+the human-selection criterion. Remaining central/lateral-connectivity and
+Starter-handoff evidence requires resolution before B.0 under section 16.
+Neither candidate has a measured physical pass/failure, correction or freeze.
+
 Human review must evaluate diagnostic validity as well as candidate suitability.
 No missing qualitative judgment is replaced by a scalar score, and no physical
 stage is used to bypass the A.2 readiness gate.

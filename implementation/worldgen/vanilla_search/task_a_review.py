@@ -32,6 +32,34 @@ def readiness(fits):
             'prior_manual_inspection_agreement':'unavailable: no completed human comparison of these revised A.1 overlays with world inspection is supplied'}
 
 
+def selected_readiness(fits, decision):
+    """Record selection without converting unresolved evidence into approval.
+
+    Selection alone is explicitly only one part of spec3 section 16. Negative
+    coarse evidence is an unresolved gate question, not a physical seed failure.
+    This audit never refits a candidate or authorizes construction.
+    """
+    selected=decision['selected_candidates']
+    seeds=[c['seed'] for c in selected]
+    if not decision['human_a2_selection_complete'] or len(seeds) not in (1,2) or len(set(seeds))!=len(seeds):
+        raise ValueError('Require an explicit human selection of one or two distinct candidates')
+    if set(seeds)!={f['seed'] for f in fits}:
+        raise ValueError('Selected identities must match the supplied fits')
+    gate=readiness(fits)
+    gate['selected_candidates']=selected
+    gate['a2_status']='human selection complete; remaining readiness criteria unresolved'
+    gate['selection_authority']=decision['authority']
+    gate['stop_reason']='Human selection is satisfied. Remaining negative analytical gate evidence and diagnostic-validity review are not resolved by selection alone; section 16 still prevents B.0.'
+    for row in gate['candidates']:
+        row['checks']['human_review_selects_candidate']['human_validation']=True
+        row['pending_human_checks'].remove('human_review_selects_candidate')
+        row['unresolved_gate_checks']=[k for k,v in row['checks'].items()
+                                       if k!='human_review_selects_candidate' and v['automated_evidence'] is not True]
+        row['candidate_state']='selected; physical pass/failure not measured'
+        row['physical_failure']=None
+    return gate
+
+
 def comparison_report(fits,gate):
     lines=['# Task A.2 comparative validation packet','',
            'Working analytical comparison, not a human selection or seed ranking. A.1 retains the A.0 bounds, homeland/Fountain geometry and six Route spines; it refines what the measurements mean. No seed-specific edits were made.','',
