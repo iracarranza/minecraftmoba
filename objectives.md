@@ -337,6 +337,16 @@ Current first-pass targets are approximately:
 - fully integrated T1 infrastructure: ~1.10×;
 - fully integrated T2 infrastructure: ~1.15×.
 
+T1 and T2 currently describe infrastructure-integration strength for balance discussion. They are not yet mapped to specific player levels or universal progression rewards.
+
+In particular, do not assume:
+
+- T1 is automatically granted at Level 6;
+- T2 is automatically granted at Level 12;
+- or Levels 20/25 automatically advance infrastructure integration tier.
+
+The current XP-band model expects T1 infrastructure to emerge and mature during earlier infrastructure-enabled progression, with T2 infrastructure emerging later and becoming increasingly mature in advanced progression. However, the exact class-authored rewards, levels, or upgrade paths by which individual infrastructure systems advance from T1 to T2 remain unresolved.
+
 Intermediate values should reward distinct-system integration rather than simply making every infrastructure element an independent flat XP aura.
 
 Exact XP values remain unresolved.
@@ -695,6 +705,17 @@ Instead, ranges of levels may belong to distinct **XP requirement tiers** corres
 Current working model:
 
 > Levels 1–6 form the base XP tier.
+
+
+The current level-reward curve gives this boundary a specific economic interpretation:
+
+- Level 4 grants Efficiency I, accelerating ordinary block-breaking and worldwork;
+- Level 6 introduces the current infrastructure-recognition breakpoint;
+- Level 7 grants Yield I through Fortune I + Looting I, increasing resource-acquisition productivity.
+
+The Level 6 → 7 boundary therefore marks a deliberate transition from the constrained opening economy toward a faster productive economy. A player entering the next XP-requirement tier can have access both to recognized infrastructure and, immediately thereafter, improved resource yield.
+
+These rewards are among the reasons later XP requirements can increase without assuming that infrastructure integration alone must account for the increase.
 
 This tier assumes primarily early Minecraft activity without a mature recognized-infrastructure economy.
 

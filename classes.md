@@ -78,6 +78,28 @@ A class may combine multiple archetypes.
 
 Classes do not need to express every possible mechanic associated with their archetype.
 
+
+## Archetypes and strategic roles
+
+Archetype and strategic role are separate design dimensions.
+
+An archetype describes which Minecraft systems a class manipulates exceptionally.
+
+A strategic role describes how that class converts its capabilities into useful team contribution during a match.
+
+The seven archetypes therefore do not need to map one-to-one onto conventional MOBA roles, and every archetype does not need to support every possible role equally well.
+
+Instead, each archetype should support multiple strategically legitimate forms of contribution. Individual classes author the intersection between their Minecraft-system archetypes and their intended match roles.
+
+For example:
+
+- Construction can support territorial, wilderness, or ally-enabling play through different uses of recognized construction;
+- Development can support an economic carry pattern by scaling productive world states, or support allies by directing productive value toward them;
+- Exploration can support roaming and resource discovery, but can also support allies through information, access, expedition efficiency, and rapid intervention;
+- Logistics can create personal or team economic value through resource availability and distribution.
+
+These are role-expression examples rather than requirements that every class belonging to those archetypes provide every listed playstyle.
+
 ## Infrastructure recognition and integration
 
 A useful current design model connects four archetypes to four forms of recognized infrastructure:
@@ -95,7 +117,72 @@ The adjacency between these archetypes is intentional rather than necessarily ev
 
 Ordinary Minecraft behavior remains universal. Progression can instead gate **systemic recognition** and exceptional infrastructure effects.
 
-Likewise, possessing an archetype does not necessarily grant every infrastructure mechanic associated with that domain. Individual classes can use authored progression to determine which infrastructure systems and upgrades they actually receive.
+
+### Infrastructure progression breakpoints
+
+The current working infrastructure progression begins at Level 6.
+
+**Level 6 — Infrastructure specialization / recognition entry**
+
+Level 6 grants the class's first authored infrastructure specialization or recognition capability. Ordinary Minecraft actions remain available before this point; the unlock concerns systemic recognition and exceptional infrastructure effects rather than permission to build, travel, develop, store, or otherwise interact with the world.
+
+Infrastructure eligibility is authored per class rather than automatically inherited from archetype tags.
+
+The earlier infrastructure model used one recognized infrastructure slot at this initial unlock. One slot remains the current working starting capacity rather than a finalized balance value.
+
+**Level 12 — Infrastructure role expression**
+
+Level 12 develops the Level 6 infrastructure specialization through an authored branch defining how that infrastructure completes or reinforces the class's strategic playstyle and team role.
+
+The purpose of this breakpoint is not merely to provide a generic numerical Infrastructure II upgrade. A Level 12 branch can change what strategic job the infrastructure is especially good at performing: for example, territorial control, wilderness operation, ally enablement, or economic/personal scaling.
+
+Exact mechanics remain class-specific and must also respect the global rules of the relevant world and match systems.
+
+Examples discussed during development, not established mechanics:
+
+- a wilderness-oriented Construction branch could increase effective Construct radius when established in the Wilderness;
+- a support-oriented Construction branch could sacrifice some of the owner's progression benefit to increase the progression benefit received by an ally using the Construct.
+
+The exact definitions of Wilderness, infrastructure use, XP transfer or multiplication, and effective radius are not established by these examples.
+
+
+An earlier working progression model placed generic infrastructure upgrades at Levels 6, 12, 21, and 27.
+
+That generic Infrastructure I / II / III / IV cadence is superseded by the current authored progression model.
+
+Current infrastructure-related progression is instead framed as:
+
+- Level 6 — infrastructure specialization / recognition entry;
+- Level 12 — infrastructure role expression;
+- Levels 20 and 25 — advanced class-authored rewards that may, where appropriate, further transform or empower the class's existing infrastructure specialization.
+
+Levels 21 and 27 currently have no established universal infrastructure reward.
+
+
+### Advanced class-authored progression
+
+Levels 20 and 25 are current working advanced-reward breakpoints.
+
+These rewards are authored for the individual class rather than generated automatically from its archetype tags.
+
+An advanced reward may provide:
+
+- an exceptional personal capability;
+- an exceptional form of an ordinary Minecraft action;
+- a powerful extension of an existing class mechanic;
+- a powerful extension of the class's existing infrastructure specialization.
+
+Advanced progression does not automatically grant unrelated infrastructure systems. A class that receives Routes through its authored progression does not therefore gain Supply Lines merely because Logistics is also among its archetype classifications.
+
+Vanilla-native effects such as status effects, enchantment behaviors, attributes, and other systemic capabilities remain candidate design vocabulary for these rewards, but individual advanced rewards are not yet universally assigned.
+
+Level 30 remains the capstone breakpoint; its universal design grammar is not yet settled.
+
+Infrastructure associations with archetypes are design vocabulary, not automatic progression inheritance.
+
+A class's authored progression explicitly determines which infrastructure system, if any, it can recognize and develop. Two classes sharing an archetype do not therefore need to receive the same infrastructure system or infrastructure progression.
+
+This avoids requiring the game to support every possible combination implied by a class's archetype tags. For example, an Exploration-associated class does not automatically receive Routes merely because Exploration is among its archetypes.
 
 ### Infrastructure integration
 
@@ -187,7 +274,7 @@ The current early Route direction follows the broader Exploration rule:
 
 A recognized Route should initially improve repeated traversal primarily through sprint/traversal efficiency rather than unconditional movement speed.
 
-Possible Route progression axes include:
+Possible mechanical axes available to authored class progression include:
 
 - Route slots/capacity;
 - maximum length;
@@ -226,7 +313,7 @@ A current strategic infrastructure expression of Construction is the **Construct
 
 Ordinary Minecraft building remains unrestricted. Construct progression does not determine whether a player is allowed to build; it determines whether and how much player-built world state can receive systemic recognition as Construction infrastructure.
 
-Progression may grant or improve:
+Authored class progression may grant or improve:
 
 - Construct designation;
 - Construct slots/capacity;
@@ -384,7 +471,7 @@ Actual items stored upstream gradually transfer or replenish downstream storage.
 
 This allows Logistics contribution to persist for the team even while the Logistics player is elsewhere.
 
-Potential progression axes include:
+Potential mechanical axes available to authored class progression include:
 
 - Supply Line count;
 - range;
@@ -430,7 +517,231 @@ Classes are generally documented through:
 
 Not every class must use exactly the same upgrade structure.
 
-Class-specific progression thresholds do not automatically establish a universal progression cadence.
+## Current universal progression skeleton
+
+The current working match progression spans Levels 1–30.
+
+The level curve intentionally contains distinct breakpoints rather than treating every level as an equivalent incremental increase. Some rewards establish class abilities, some accelerate ordinary Minecraft activity, some expand fundamental player capacity, and others open or deepen persistent world specialization.
+
+Current working breakpoint structure:
+
+| Level | Progression event |
+| ---: | --- |
+| 1 | Ability 1; begin at 9 Health, 9 Hunger, and 6 inventory slots |
+| 2 | Ability 2; universal capacity growth |
+| 3 | Capacity specialization I |
+| 4 | Efficiency I; universal capacity growth |
+| 5 | Ability 1 upgrade |
+| 6 | Infrastructure specialization / recognition entry |
+| 7 | Yield I; universal capacity growth |
+| 8 | Passive scaling; universal capacity growth |
+| 9 | Task specialization; universal capacity growth |
+| 10 | Ability 2 upgrade |
+| 12 | Infrastructure role-expression upgrade |
+| 14 | Task advancement; universal capacity growth |
+| 15 | Ultimate unlock |
+| 16 | Passive scaling; current working mobility breakpoint |
+| 17 | Universal Health and Hunger floors reach vanilla capacity |
+| 18 | Capacity specialization II |
+| 19 | Task advancement |
+| 20 | Advanced class-authored reward I |
+| 24 | Capacity specialization III; passive scaling |
+| 25 | Advanced class-authored reward II |
+| 30 | Capstone, exact form unresolved |
+
+Levels not listed here may still provide universal capacity growth according to the universal growth rules.
+
+Universal capacity progression currently begins at:
+
+- 9 Health = 4.5 hearts;
+- 9 Hunger = 4.5 hunger icons;
+- 6 inventory slots.
+
+On applicable universal-growth levels:
+
+- +1 Health;
+- +1 Hunger;
+- +3 inventory slots.
+
+Capacity specialization occurs at Levels 3, 18, and 24. Each specialization choice currently grants one of:
+
+- +2 Health;
+- +2 Hunger;
+- +6 inventory slots.
+
+Health and Hunger specialization may exceed their vanilla capacities. Inventory capacity has a hard maximum of 36 slots.
+
+Task-progression rewards can coexist with universal capacity growth. In particular, Level 9 task specialization does not replace Level 9 universal growth.
+
+Under the current schedule, the universal inventory floor reaches 36 slots at Level 16. The universal Health and Hunger floors reach 20 at Level 17. Specialization remains additive above the corresponding universal floor where applicable.
+
+
+A current working Level 16 phase-transition reward is approximately +10% universal movement speed.
+
+This is intended as a match-condensing mid/late-game mobility breakpoint, not as an early-game Exploration reward. It therefore does not replace the current principle that early Exploration and early Routes should generally emphasize traversal efficiency before unconditional movement potency.
+
+The exact Level 16 movement value and implementation remain subject to testing.
+
+Exact XP requirements for reaching these levels are a separate match-progression question.
+
+
+### Task progression
+
+Task progression condenses ordinary Minecraft economic and world-interaction time as the match advances.
+
+The current working domains are:
+
+- Efficiency — the Efficiency enchantment family; improves ordinary block-breaking and worldwork rate.
+- Yield — Fortune + Looting; improves the amount of useful material obtained from successful resource-producing or acquisition actions.
+- Damage — Sharpness + Power; improves conventional melee and ranged damage.
+
+Current working cadence:
+
+- Level 4: Efficiency I universally.
+- Level 7: Yield I universally.
+- Level 9: choose an eligible task advancement.
+- Level 14: choose an eligible task advancement.
+- Level 19: choose an eligible task advancement.
+
+Efficiency, Yield, and Damage currently have an intended generic maximum of Tier III.
+
+At Level 9, the initial choice space therefore begins from a player who already has Efficiency I and Yield I, while Damage has not yet been universally granted.
+
+The Tier III ceiling is intended to preserve room for class-specific amplification. Generic high-tier enchantment scaling should not make specialized class mechanics redundant or cause uncontrolled multiplication with them. Mole's Tunneling, which amplifies current digging-tool speed, is an important example.
+
+Task advancement is an additive progression layer and may occur on the same level as universal capacity growth.
+
+## Working XP requirement bands
+
+Exact XP values remain unresolved, but the current working direction is that Levels 1–30 do not follow one uninterrupted smooth XP curve.
+
+Instead, levels are grouped into broad **XP requirement bands** corresponding to changes in the productive economy available to players.
+
+A new band represents a new category of XP requirement. Requirements may remain approximately flat or rise only modestly within a band, while major economic breakpoints can produce a more substantial increase between bands.
+
+Current working structure:
+
+| XP band | Levels | Working requirement index | Economic state |
+| --- | ---: | ---: | --- |
+| I — Bootstrap | 1–6 | ~1.000× | constrained player; base Minecraft XP economy |
+| II — Established | 7–12 | ~1.350× | first infrastructure economy; Yield I; early task specialization |
+| III — Developed | 13–19 | ~1.875× | mature T1 / emerging T2 infrastructure; repeated task advancement; universal capacity approaches vanilla completeness |
+| IV — Advanced | 20–24 | ~2.575× | increasingly mature T2 infrastructure and advanced class-authored progression |
+| V — Endgame | 25–30 | ~3.250× | mature late-game economy; progression increasingly emphasizes exceptional class expression and terminal power |
+
+These indices are relative balance targets rather than final displayed XP values. `1.000×` represents the eventual baseline XP requirement chosen for the Bootstrap band.
+
+The exact amount of XP represented by that baseline should be derived from the amount and type of legitimate Minecraft activity expected during Levels 1–6 rather than chosen arbitrarily.
+
+### Relationship between breakpoints and XP bands
+
+Not every progression breakpoint creates a new XP band.
+
+Many breakpoint rewards instead increase player throughput **within** the current band or provide the economic tools needed to enter the next one.
+
+The current working progression rhythm is:
+
+- Levels 1–6 use the Bootstrap requirement band.
+- Efficiency I at Level 4 begins accelerating productive activity within that band.
+- Infrastructure specialization / recognition at Level 6 provides access to a new economic tool immediately before the first major XP-requirement transition.
+- The Level 6 → 7 requirement is the current candidate entry into the Established band.
+- Yield I at Level 7 further accelerates productive activity after that transition.
+- Level 9 task specialization provides another within-band progression increase.
+- Level 12 infrastructure role expression helps mature the first infrastructure economy before the next requirement band.
+- The Level 12 → 13 requirement is the current candidate entry into the Developed band.
+- Level 14 task advancement further increases productive capability within that band.
+- Levels 16–17 mark the approximate completion of the universal physical-capacity transition: inventory reaches its 36-slot universal floor at Level 16, while Health and Hunger reach their vanilla universal floors at Level 17.
+- Level 19 task advancement provides another late-Developed-band progression increase.
+- The Level 19 → 20 requirement is the current candidate entry into the Advanced band, alongside Advanced class-authored reward I.
+- The Level 24 → 25 requirement is the current candidate entry into the Endgame band, alongside Advanced class-authored reward II.
+- Level 30 is terminal progression rather than preparation for another XP band.
+
+This creates a general pacing relationship:
+
+> major economic tools and throughput increases should arrive before, at, or within the XP-requirement bands whose larger requirements assume access to those tools.
+
+### XP requirements should not cancel progression acceleration
+
+Higher XP requirements are intended to absorb only part of the increased XP throughput created by progression.
+
+Efficiency, Yield, task advancement, increased universal capacity, infrastructure, class abilities, and increasingly valuable world opportunities are deliberately capable of making later match progression faster.
+
+Therefore, if a later economy can generate legitimate XP substantially faster than the Bootstrap economy, its XP requirements should generally increase by a smaller proportion.
+
+The current requirement indices reflect this principle:
+
+- Bootstrap: ~1.000×;
+- Established: ~1.350×;
+- Developed: ~1.875×;
+- Advanced: ~2.575×;
+- Endgame: ~3.250×.
+
+These values should be recalibrated once actual XP yields and expected XP throughput can be measured.
+
+### Relationship to infrastructure progression
+
+Infrastructure is one contributor to the economic transitions represented by the XP bands, but it is not the sole means of remaining competitive with later XP requirements.
+
+The current infrastructure-integration direction allows independently useful infrastructure systems to become connected around recognized centers of activity.
+
+A Construct alone does not automatically grant an XP multiplier.
+
+Distinct connected infrastructure systems can instead contribute toward a modest multiplier on otherwise legitimate XP-generating activity within the relevant integrated area.
+
+Current first-pass integration targets are:
+
+| Integration state | T1 infrastructure | T2 infrastructure |
+| --- | ---: | ---: |
+| One distinct connected system | ~1.025× XP | ~1.050× XP |
+| Two distinct connected systems | ~1.055× XP | ~1.100× XP |
+| Three distinct connected systems | ~1.100× XP | ~1.150× XP |
+
+These are working balance targets rather than final values.
+
+The important intended relationship is:
+
+- a Construct alone does not create bonus XP;
+- the first distinct infrastructure connection provides a modest progression benefit;
+- additional distinct connections provide increasingly meaningful integration;
+- mature T1 integration currently targets approximately +10% XP;
+- mature T2 integration currently targets approximately +15% XP;
+- individual infrastructure systems should be able to improve their own integration contribution through later progression.
+
+Infrastructure integration should not determine XP requirements dynamically.
+
+The XP requirement for a level remains fixed regardless of whether a player or team has established effective infrastructure. Strong infrastructure instead allows players to meet those requirements more efficiently.
+
+This preserves meaningful consequences for preparation and world development without making infrastructure the only viable source of post-Bootstrap progression.
+
+### Relationship to match economy
+
+The XP-band model assumes that the world and the players both become capable of supporting larger-scale activity over time.
+
+Later XP requirements should therefore be evaluated against the combined effect of:
+
+- Efficiency progression;
+- Yield progression;
+- task advancement;
+- increasing universal Health, Hunger, and inventory capacity;
+- infrastructure recognition and integration;
+- Development productivity;
+- Route efficiency;
+- Supply Line distribution;
+- Construct benefits;
+- class-authored progression;
+- phase-appropriate Worksite opportunities;
+- larger or more valuable naturally available opportunities;
+- other phase-appropriate XP-generating accomplishments.
+
+The intended calibration target is therefore not:
+
+> later XP requirement = earlier XP requirement × infrastructure multiplier
+
+but:
+
+> later XP requirement is calibrated against expected legitimate XP throughput in that progression and match phase.
+
+The current XP bands and requirement indices are a framework for that later bottom-up calibration, not final XP values.
 
 ---
 
