@@ -70,7 +70,7 @@ def generate_world(seed, server_jar, java, root, runtime, chunk_bounds, accept_e
     (root / "server.properties").write_text(
         "level-name=world\n"
         f"level-seed={seed}\n"
-        "generate-structures=true\ngamemode=creative\nonline-mode=false\n"
+        "generate-structures=true\ngamemode=creative\nonline-mode=false\nserver-ip=127.0.0.1\n"
         "spawn-protection=0\nview-distance=2\nsimulation-distance=2\n"
         "max-tick-time=0\nsync-chunk-writes=true\npause-when-empty-seconds=-1\n"
     )

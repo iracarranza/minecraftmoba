@@ -61,7 +61,7 @@ def _distance(mask, width, height):
     return values
 
 
-def _choose_home(rows, north, buildable):
+def _choose_home(rows, north, buildable, terrain_fit=False):
     height, width = len(rows), len(rows[0]); target_z = round(height * (.18 if north else .82))
     best = None
     for z in range(max(5, target_z - height // 8), min(height - 5, target_z + height // 8 + 1)):
@@ -70,6 +70,9 @@ def _choose_home(rows, north, buildable):
             if not buildable[i]: continue
             local = [qz * width + qx for qz in range(z-4,z+5) for qx in range(x-4,x+5)]
             score = sum(buildable[q] for q in local) + len({rows[q//width][q%width]["biome"] for q in local}) * 2 - abs(z-target_z) * .2
+            if terrain_fit:
+                heights=[rows[q//width][q%width]['terrain_y'] for q in local]
+                score -= (max(heights)-min(heights))*.8 + sum(rows[q//width][q%width].get('canopy_overhead',False) for q in local)*.3
             if best is None or score > best[0]: best = (score, x, z, sum(buildable[q] for q in local)/len(local))
     if best is not None:
         return best
@@ -84,7 +87,7 @@ def _choose_home(rows, north, buildable):
     return best
 
 
-def _astar(rows, start, goal, buildable):
+def _astar(rows, start, goal, buildable, uncapped_relief=False):
     height, width = len(rows), len(rows[0]); start_i=start[1]*width+start[0]; goal_i=goal[1]*width+goal[0]
     queue=[(0,start_i)]; costs={start_i:0}; previous={}
     while queue:
@@ -95,7 +98,9 @@ def _astar(rows, start, goal, buildable):
             qx,qz=x+dx,z+dz
             if not (0<=qx<width and 0<=qz<height): continue
             q=qz*width+qx; cell=rows[qz][qx]; rise=abs(cell["terrain_y"]-h)
-            step=math.hypot(dx,dz)*(1+min(4,rise*.25)+(2.5 if cell["actual_surface_water"] else 0)+(0 if buildable[q] else .35))
+            relief = rise*.5 + (rise*.8 if rise>8 else 0) if uncapped_relief else min(4,rise*.25)
+            water_cost = (10 if uncapped_relief else 2.5) if cell["actual_surface_water"] else 0
+            step=math.hypot(dx,dz)*(1+relief+water_cost+(0 if buildable[q] else .35))
             cost=costs[i]+step
             if cost<costs.get(q,math.inf): costs[q]=cost; previous[q]=i; heapq.heappush(queue,(cost+math.hypot(goal[0]-qx,goal[1]-qz),q))
     if goal_i not in costs: return []
@@ -104,7 +109,7 @@ def _astar(rows, start, goal, buildable):
     path.append(start); return list(reversed(path))
 
 
-def _route_analysis(rows, homes, buildable):
+def _route_analysis(rows, homes, buildable, uncapped_relief=False, flexible_anchors=False):
     height,width=len(rows),len(rows[0]); anchors=[]
     for fraction in (.18,.5,.82):
         x0=round((width-1)*fraction); candidates=[]
@@ -112,17 +117,38 @@ def _route_analysis(rows, homes, buildable):
             for x in range(max(2,x0-8),min(width-2,x0+9)):
                 i=z*width+x
                 if buildable[i]: candidates.append((abs(x-x0)+abs(z-height//2)*.15,x,z))
-        anchors.append(min(candidates)[1:] if candidates else (x0,height//2))
+        if flexible_anchors:
+            # Endpoints are landscape opportunities, never mandatory offshore
+            # coordinates. Prefer the principal mainland over isolated islands.
+            unseen={(x,z) for z in range(height) for x in range(width) if not rows[z][x]['actual_surface_water']}; groups=[]
+            while unseen:
+                start=unseen.pop();group={start};stack=[start]
+                while stack:
+                    x,z=stack.pop()
+                    for q in ((x-1,z),(x+1,z),(x,z-1),(x,z+1)):
+                        if q in unseen: unseen.remove(q);group.add(q);stack.append(q)
+                groups.append(group)
+            mainland=max(groups,key=len)
+            def target_cost(x,z):
+                balance=abs(math.dist((x,z),homes[0])-math.dist((x,z),homes[1]))
+                return abs(x-x0)+abs(z-height//2)*2+balance*.3+(0 if buildable[z*width+x] else 6)
+            choices=[(target_cost(x,z),x,z) for x,z in mainland if height//3<=z<height*2//3]
+            if not choices: choices=[(abs(x-x0)+abs(z-height//2),x,z) for x,z in mainland]
+            separated=[q for q in choices if all(math.hypot(q[1]-a[0],q[2]-a[1])>=8 for a in anchors)]
+            choices=separated or choices
+            anchors.append(min(choices)[1:])
+        else:
+            anchors.append(min(candidates)[1:] if candidates else (x0,height//2))
     branches=[]
     for team,home in (("north",homes[0]),("south",homes[1])):
         for index,anchor in enumerate(anchors,1):
-            path=_astar(rows,home,anchor,buildable)
+            path=_astar(rows,home,anchor,buildable,uncapped_relief=uncapped_relief)
             rises=[abs(rows[b[1]][b[0]]["terrain_y"]-rows[a[1]][a[0]]["terrain_y"]) for a,b in zip(path,path[1:])]
             branches.append({"id":f"{team}-route-{index}","team":team,"target_role":("western_highland_approach","central_wilderness","eastern_coast_approach")[index-1],"sample_path":[list(p) for p in path],"raw_world_path":[[rows[z][x]["x"],rows[z][x]["z"]] for x,z in path],"length_blocks":round(sum(math.hypot(b[0]-a[0],b[1]-a[1])*8 for a,b in zip(path,path[1:]))),"water_steps":sum(rows[z][x]["actual_surface_water"] for x,z in path),"mean_step_y":round(sum(rises)/max(1,len(rises)),3),"max_step_y":max(rises,default=0)})
     return {"status":"analytical compatibility only; no Route generated in Minecraft","branches":branches,"all_six_connected":len(branches)==6 and all(b["sample_path"] for b in branches),"mean_water_steps":round(sum(b["water_steps"] for b in branches)/6,2),"maximum_step_y":max(b["max_step_y"] for b in branches)}
 
 
-def evaluate_orientation(extracted, rotation, reflected):
+def evaluate_orientation(extracted, rotation, reflected, fit_routes=True):
     started=time.perf_counter(); rows=orient(extracted["rows"],rotation,reflected); height,width=len(rows),len(rows[0]); cells=[c for row in rows for c in row]
     land=[not c["actual_surface_water"] for c in cells]; land_heights=[c["terrain_y"] for c in cells if not c["actual_surface_water"]]; median=_percentile(land_heights,.5); high_cut=max(median+12,_percentile(land_heights,.77))
     slopes=[]
@@ -136,9 +162,9 @@ def evaluate_orientation(extracted, rotation, reflected):
     high=[land[i] and cells[i]["terrain_y"]>=high_cut for i in range(len(cells))]
     column_high=[sum(high[z*width+x] for z in range(height))/height for x in range(width)]
     high_depth=max((sum(1 for q in column_high[:x+1] if q>.12) for x in range(width)),default=0)*8
-    home_n=_choose_home(rows,True,buildable); home_s=_choose_home(rows,False,buildable)
+    home_n=_choose_home(rows,True,buildable,terrain_fit=not fit_routes); home_s=_choose_home(rows,False,buildable,terrain_fit=not fit_routes)
     if not home_n or not home_s: return None
-    homes=((home_n[1],home_n[2]),(home_s[1],home_s[2])); routes=_route_analysis(rows,homes,buildable)
+    homes=((home_n[1],home_n[2]),(home_s[1],home_s[2])); routes=_route_analysis(rows,homes,buildable) if fit_routes else {"all_six_connected":False,"mean_water_steps":0,"maximum_step_y":0,"branches":[],"status":"deferred to Stage D"}
     water=[c["actual_surface_water"] for c in cells]; water_sizes=_components(water,width,height); forest_sizes=_components(forest,width,height); forest_depth=_distance([not x for x in forest],width,height)
     coast_edges=0
     for z in range(height):

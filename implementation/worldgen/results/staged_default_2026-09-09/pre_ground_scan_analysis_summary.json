@@ -1,0 +1,550 @@
+{
+  "screen": {
+    "seeds": 20000,
+    "windows": 100000,
+    "stage_a_survivors": 30897,
+    "stage_b_survivors": 19288,
+    "stage_a_rejections": {
+      "no_ocean_sample": 15962,
+      "no_highland_opportunity": 52634,
+      "mostly_ocean": 507
+    },
+    "stage_a_seconds": 24.746195,
+    "stage_b_seconds": 81.184556,
+    "wall_seconds": 105.999689
+  },
+  "full_generation_count": 8,
+  "finalist_count": 8,
+  "finalist_seeds": [
+    930010639,
+    930015734,
+    930012642,
+    930016657,
+    930004953,
+    930006815,
+    930019528,
+    930011701
+  ],
+  "generated": [
+    {
+      "seed": 930010639,
+      "region": {
+        "source_center": [
+          2048,
+          0
+        ],
+        "chunk_bounds": [
+          101,
+          154,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          1616,
+          2479,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.717,
+        "western_ocean_fraction": 0.0301,
+        "western_highland_fraction": 0.3887,
+        "western_highland_core_diameter_proxy_blocks": 400,
+        "western_cold_highland_samples": 1815,
+        "actual_canopy_fraction": 0.0248,
+        "genuine_open_ground_fraction": 0.4192,
+        "largest_open_patch_blocks2": 121664,
+        "largest_dry_component_fraction_of_land": 0.9696,
+        "center_open_fraction": 0.3895,
+        "forest_biome_fraction": 0.2066,
+        "terrain_height_range": [
+          35,
+          183
+        ],
+        "sampled_surface_water_fraction": 0.3878,
+        "score": 62.32,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 7.147,
+        "chunk_generation_and_save_seconds": 71.622,
+        "total_acquisition_seconds": 79.44,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 276.453,
+        "extraction_seconds": 6.602,
+        "stage_c_analysis_seconds": 0.445,
+        "stage_d_fit_seconds": 0.134
+      },
+      "retained": true
+    },
+    {
+      "seed": 930015734,
+      "region": {
+        "source_center": [
+          2048,
+          0
+        ],
+        "chunk_bounds": [
+          101,
+          154,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          1616,
+          2479,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.5852,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.6639,
+        "western_highland_core_diameter_proxy_blocks": 272,
+        "western_cold_highland_samples": 3055,
+        "actual_canopy_fraction": 0.0405,
+        "genuine_open_ground_fraction": 0.1956,
+        "largest_open_patch_blocks2": 17728,
+        "largest_dry_component_fraction_of_land": 0.9429,
+        "center_open_fraction": 0.1446,
+        "forest_biome_fraction": 0.4246,
+        "terrain_height_range": [
+          11,
+          198
+        ],
+        "sampled_surface_water_fraction": 0.3267,
+        "score": 57.245,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 8.209,
+        "chunk_generation_and_save_seconds": 72.785,
+        "total_acquisition_seconds": 81.544,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 273.36,
+        "extraction_seconds": 12.401,
+        "stage_c_analysis_seconds": 0.448,
+        "stage_d_fit_seconds": 0.136
+      },
+      "retained": true
+    },
+    {
+      "seed": 930012642,
+      "region": {
+        "source_center": [
+          -2048,
+          0
+        ],
+        "chunk_bounds": [
+          -155,
+          -102,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          -2480,
+          -1617,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.2837,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.403,
+        "western_highland_core_diameter_proxy_blocks": 320,
+        "western_cold_highland_samples": 339,
+        "actual_canopy_fraction": 0.0928,
+        "genuine_open_ground_fraction": 0.4745,
+        "largest_open_patch_blocks2": 142784,
+        "largest_dry_component_fraction_of_land": 0.9361,
+        "center_open_fraction": 0.5025,
+        "forest_biome_fraction": 0.189,
+        "terrain_height_range": [
+          4,
+          149
+        ],
+        "sampled_surface_water_fraction": 0.217,
+        "score": 54.599,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.338,
+        "chunk_generation_and_save_seconds": 65.077,
+        "total_acquisition_seconds": 72.15,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 228.191,
+        "extraction_seconds": 7.299,
+        "stage_c_analysis_seconds": 0.483,
+        "stage_d_fit_seconds": 0.148
+      },
+      "retained": true
+    },
+    {
+      "seed": 930016657,
+      "region": {
+        "source_center": [
+          -2048,
+          0
+        ],
+        "chunk_bounds": [
+          -155,
+          -102,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          -2480,
+          -1617,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 180,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.7643,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.3157,
+        "western_highland_core_diameter_proxy_blocks": 160,
+        "western_cold_highland_samples": 1488,
+        "actual_canopy_fraction": 0.0254,
+        "genuine_open_ground_fraction": 0.4054,
+        "largest_open_patch_blocks2": 96064,
+        "largest_dry_component_fraction_of_land": 0.8485,
+        "center_open_fraction": 0.1364,
+        "forest_biome_fraction": 0.2853,
+        "terrain_height_range": [
+          0,
+          142
+        ],
+        "sampled_surface_water_fraction": 0.4459,
+        "score": 59.92,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.113,
+        "chunk_generation_and_save_seconds": 63.37,
+        "total_acquisition_seconds": 70.207,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 229.599,
+        "extraction_seconds": 7.52,
+        "stage_c_analysis_seconds": 0.431,
+        "stage_d_fit_seconds": 0.177
+      },
+      "retained": true
+    },
+    {
+      "seed": 930004953,
+      "region": {
+        "source_center": [
+          2048,
+          0
+        ],
+        "chunk_bounds": [
+          101,
+          154,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          1616,
+          2479,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.2586,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.5777,
+        "western_highland_core_diameter_proxy_blocks": 368,
+        "western_cold_highland_samples": 2527,
+        "actual_canopy_fraction": 0.0036,
+        "genuine_open_ground_fraction": 0.3174,
+        "largest_open_patch_blocks2": 74880,
+        "largest_dry_component_fraction_of_land": 0.9001,
+        "center_open_fraction": 0.1888,
+        "forest_biome_fraction": 0.1521,
+        "terrain_height_range": [
+          48,
+          213
+        ],
+        "sampled_surface_water_fraction": 0.1788,
+        "score": 48.926,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.646,
+        "chunk_generation_and_save_seconds": 69.058,
+        "total_acquisition_seconds": 76.319,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 240.901,
+        "extraction_seconds": 6.992,
+        "stage_c_analysis_seconds": 0.492,
+        "stage_d_fit_seconds": 0.093
+      },
+      "retained": true
+    },
+    {
+      "seed": 930006815,
+      "region": {
+        "source_center": [
+          0,
+          0
+        ],
+        "chunk_bounds": [
+          -27,
+          26,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          -432,
+          431,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 270,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.9573,
+        "western_ocean_fraction": 0.0046,
+        "western_highland_fraction": 0.4066,
+        "western_highland_core_diameter_proxy_blocks": 384,
+        "western_cold_highland_samples": 382,
+        "actual_canopy_fraction": 0.0608,
+        "genuine_open_ground_fraction": 0.4525,
+        "largest_open_patch_blocks2": 48192,
+        "largest_dry_component_fraction_of_land": 0.9882,
+        "center_open_fraction": 0.19,
+        "forest_biome_fraction": 0.0934,
+        "terrain_height_range": [
+          27,
+          154
+        ],
+        "sampled_surface_water_fraction": 0.5425,
+        "score": 63.896,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.548,
+        "chunk_generation_and_save_seconds": 60.501,
+        "total_acquisition_seconds": 67.616,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 218.083,
+        "extraction_seconds": 6.086,
+        "stage_c_analysis_seconds": 0.426,
+        "stage_d_fit_seconds": 0.203
+      },
+      "retained": true
+    },
+    {
+      "seed": 930019528,
+      "region": {
+        "source_center": [
+          -2048,
+          0
+        ],
+        "chunk_bounds": [
+          -155,
+          -102,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          -2480,
+          -1617,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 180,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.3308,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.3481,
+        "western_highland_core_diameter_proxy_blocks": 176,
+        "western_cold_highland_samples": 1654,
+        "actual_canopy_fraction": 0.0251,
+        "genuine_open_ground_fraction": 0.3678,
+        "largest_open_patch_blocks2": 53248,
+        "largest_dry_component_fraction_of_land": 0.8892,
+        "center_open_fraction": 0.3403,
+        "forest_biome_fraction": 0.4736,
+        "terrain_height_range": [
+          36,
+          154
+        ],
+        "sampled_surface_water_fraction": 0.2758,
+        "score": 50.829,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.189,
+        "chunk_generation_and_save_seconds": 68.701,
+        "total_acquisition_seconds": 75.449,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 242.526,
+        "extraction_seconds": 9.562,
+        "stage_c_analysis_seconds": 0.468,
+        "stage_d_fit_seconds": 0.15
+      },
+      "retained": true
+    },
+    {
+      "seed": 930011701,
+      "region": {
+        "source_center": [
+          0,
+          0
+        ],
+        "chunk_bounds": [
+          -27,
+          26,
+          -33,
+          32
+        ],
+        "block_bounds": [
+          -432,
+          431,
+          -528,
+          527
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "stage_c": {
+        "eastern_ocean_fraction": 0.6319,
+        "western_ocean_fraction": 0.0061,
+        "western_highland_fraction": 0.4236,
+        "western_highland_core_diameter_proxy_blocks": 304,
+        "western_cold_highland_samples": 2013,
+        "actual_canopy_fraction": 0.0074,
+        "genuine_open_ground_fraction": 0.1949,
+        "largest_open_patch_blocks2": 17600,
+        "largest_dry_component_fraction_of_land": 0.6886,
+        "center_open_fraction": 0.0133,
+        "forest_biome_fraction": 0.2214,
+        "terrain_height_range": [
+          46,
+          180
+        ],
+        "sampled_surface_water_fraction": 0.4594,
+        "score": 52.124,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "timing": {
+        "startup_seconds": 6.351,
+        "chunk_generation_and_save_seconds": 60.4,
+        "total_acquisition_seconds": 67.525,
+        "forceload_batches": 20,
+        "server_cpu_seconds": 225.606,
+        "extraction_seconds": 6.619,
+        "stage_c_analysis_seconds": 0.42,
+        "stage_d_fit_seconds": 0.208
+      },
+      "retained": true
+    }
+  ]
+}

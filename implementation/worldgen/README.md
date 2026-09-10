@@ -184,6 +184,10 @@ flag after changing block-generation code or candidate metadata.
 
 ## Vanilla Default-region proof of concept
 
+For the completed successor search governed by `specs/mapseedsearchspec1.md`,
+see **Staged vanilla seed search** below. The following proof of concept and its
+results remain historical regression evidence.
+
 `search_vanilla_default_regions.py` and `vanilla_search/` test the newer
 Minecraft-first architecture: the official Minecraft Java 1.21.11 dedicated
 server generates real chunks, the repository's Anvil/NBT reader extracts
@@ -214,3 +218,63 @@ entity chunks.
 This proof of concept deliberately defers production-scale seed prefiltering,
 ore volumes, entity/ecology analysis, exhaustive cave/aquifer analysis,
 terrain correction, physical Routes, objectives, and custom serialization.
+
+## Staged vanilla seed search
+
+`search_staged_vanilla.py` reuses official 1.21.11 generation and extraction,
+with native Cubiomes biome screening before full chunks. It searches seed +
+coordinate window + logical orientation; all worlds remain vanilla.
+
+```sh
+python3 implementation/worldgen/search_staged_vanilla.py \
+  --server-jar /private/tmp/moba-server-1.21.11.jar \
+  --java /path/to/java-21/bin/java --accept-eula
+python3 implementation/worldgen/refine_staged_vanilla.py
+python3 implementation/worldgen/search_staged_vanilla.py \
+  --server-jar /private/tmp/moba-server-1.21.11.jar \
+  --java /path/to/java-21/bin/java --accept-eula \
+  --supplemental-queue implementation/worldgen/results/staged_default_2026-09-09/supplemental_queue.json \
+  --review-exclusions implementation/worldgen/results/staged_default_2026-09-09/review_exclusions.json
+python3 implementation/worldgen/audit_staged_vanilla.py
+python3 -m unittest discover -s implementation/worldgen/tests -p 'test_*vanilla*.py' -v
+```
+
+Review Minecraft's EULA before invoking `--accept-eula`. Requires Python 3.10+,
+Java 21, `git`, `make`, and a C compiler. No Python packages are required. The
+same official server JAR SHA-1 pin as the prior search is enforced. Cubiomes is
+downloaded into the ignored build directory and pinned to
+`e61f90580cbdd883214a8054670dacae655e59c0` (MIT); it is used only as a biome
+proxy because its version enumeration does not explicitly guarantee 1.21.11.
+See upstream <https://github.com/Cubitect/cubiomes> and its included LICENSE.
+
+Default: 20,000 seeds × five coordinate windows = 100,000 raw regions. Stage A
+uses 63 biome samples/window; Stage B uses 891 samples on survivors and four
+distinct W/E axis assignments. N/S reversal/reflection is strategically
+equivalent before authored teams, so mirrored duplicate finalists are avoided.
+Soft composition ranking restricts the diversity pool before eight official
+survivors are selected. `--screen-only` stops before official generation;
+`--generate` controls the small survivor budget (maximum 16).
+
+The completed run adds a 5,000-window cheap temperate-interior refinement and
+three selective official generations after overhead review exposed excessive
+snowy-coast representation. Three documented review exclusions leave eight
+finalists from eleven full generations. The refinement script is specific to
+this recorded run. For an existing completed checkout, use the second search
+command (with the recorded supplemental queue and exclusions) to refresh it;
+the initial command intentionally refuses to shrink an already completed run.
+
+The output folder is configuration checked and resumable. Completed acquisition
+timings and extraction checkpoints prevent redundant generation on a rerun.
+An incomplete acquisition stops with its exact path for inspection; it is never
+silently overwritten. Choose separate `--out` and `--artifacts` folders for a
+new search configuration. Existing historical worlds and results are untouched.
+
+Committed comparison, metadata, calibration, timing, and labeled greybox
+references: `results/staged_default_2026-09-09/`. Implementation review:
+`reports/staged_default_2026-09-09/IMPLEMENTATION_REVIEW.md`. Clean local worlds:
+`artifacts/worldgen/staged_default_2026-09-09/worlds/`. Native source checkout,
+runtime, extraction checkpoints and acquisition workspaces are isolated in its
+ignored `build/` directory. World chunks are never rotated, rewritten, corrected,
+or decorated. Only inspection name/spawn/settings and external reference files
+are added. Use each finalist's `REVIEW.md`, `04_labeled_greybox.svg`, and
+`candidate.json` to interpret its boundary and logical axes.

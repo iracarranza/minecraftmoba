@@ -26,6 +26,9 @@ def _public(candidate):
     output={k:v for k,v in candidate.items() if k not in ("_rows","_masks","_world")}
     rows=candidate["_rows"]; cells=[c for row in rows for c in row]
     output["feature_grid"]={"order":"oriented row-major","width":len(rows[0]),"height":len(rows),"sample_spacing_blocks":8,"height_rle":rle([c["terrain_y"] for c in cells]),"biome_rle":rle([c["biome"] for c in cells]),"surface_block_rle":rle([c["top_block"] for c in cells]),"actual_surface_water_rle":rle([c["actual_surface_water"] for c in cells]),"forest_mask_rle":rle(candidate["_masks"]["forest"]),"buildable_mask_rle":rle(candidate["_masks"]["buildable"]),"highland_mask_rle":rle(candidate["_masks"]["highland"])}
+    for key in ("open_ground", "canopy"):
+        if key in candidate["_masks"]:
+            output["feature_grid"][key+"_mask_rle"] = rle(candidate["_masks"][key])
     return output
 
 

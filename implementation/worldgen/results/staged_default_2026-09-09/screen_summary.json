@@ -1,0 +1,14 @@
+{
+  "seeds": 20000,
+  "windows": 100000,
+  "stage_a_survivors": 30897,
+  "stage_b_survivors": 19288,
+  "stage_a_rejections": {
+    "no_ocean_sample": 15962,
+    "no_highland_opportunity": 52634,
+    "mostly_ocean": 507
+  },
+  "stage_a_seconds": 24.746195,
+  "stage_b_seconds": 81.184556,
+  "wall_seconds": 105.999689
+}

@@ -1,0 +1,7 @@
+{
+  "startup_seconds": 6.548,
+  "chunk_generation_and_save_seconds": 60.501,
+  "total_acquisition_seconds": 67.616,
+  "forceload_batches": 20,
+  "server_cpu_seconds": 218.083
+}

@@ -53,7 +53,21 @@ class VanillaChunk:
         return _palette_value(section["biomes"], index, 1)
 
 
-def extract_region(world, bounds):
+def sampled_ground(chunk, x, z, surface_y):
+    """Return substrate height and overhead canopy, including snow-covered trees."""
+    y = surface_y
+    canopy = False
+    while y > max(MIN_Y, surface_y - 64):
+        block = chunk.block(x, y, z).removeprefix("minecraft:")
+        canopy |= "leaves" in block or "log" in block
+        vegetation = block in {"air", "cave_air", "snow", "vine", "short_grass", "tall_grass", "fern", "large_fern", "dead_bush", "moss_carpet", "pale_moss_carpet", "hanging_roots"} or any(word in block for word in ("leaves", "_log", "_wood", "sapling", "flower", "bamboo", "mushroom", "azalea"))
+        if not vegetation:
+            break
+        y -= 1
+    return y, canopy
+
+
+def extract_region(world, bounds, ground_scan=False):
     started = time.perf_counter()
     min_cx, max_cx, min_cz, max_cz = bounds
     chunks = {}
@@ -102,9 +116,16 @@ def extract_region(world, bounds):
                     motion_block = chunk.block(x, motion_y, z)
                     actual_water = top_block in WATER_BLOCKS or motion_block in WATER_BLOCKS
                     terrain_y = ocean_floor_y if actual_water else motion_y
-                    row.append({"x": x, "z": z, "surface_y": surface_y, "terrain_y": terrain_y, "biome": chunk.biome(x, max(terrain_y, 63), z), "top_block": top_block, "ground_block": chunk.block(x, terrain_y, z), "actual_surface_water": actual_water})
+                    canopy_overhead = "leaves" in top_block or "log" in top_block
+                    if ground_scan:
+                        # Snow on leaves can defeat NO_LEAVES heightmaps. Walk
+                        # through vegetation/air to the sampled substrate.
+                        terrain_y, canopy_overhead = sampled_ground(chunk, x, z, surface_y)
+                        actual_water = chunk.block(x, terrain_y, z) in WATER_BLOCKS
+                        if actual_water: terrain_y = ocean_floor_y
+                    row.append({"x": x, "z": z, "surface_y": surface_y, "terrain_y": terrain_y, "biome": chunk.biome(x, max(terrain_y, 63), z), "top_block": top_block, "ground_block": chunk.block(x, terrain_y, z), "actual_surface_water": actual_water, "canopy_overhead": canopy_overhead})
             rows.append(row)
     # More than one structure start may legitimately share a start chunk.
     # Deduplicate repeated serialization evidence without collapsing types.
     unique_structures = {(item["type"], *item["chunk"]): item for item in structures}
-    return {"sample_spacing": SAMPLE_SPACING, "width": len(rows[0]), "height": len(rows), "rows": rows, "structures": list(unique_structures.values()), "block_volume_presence": dict(presence), "full_chunks": len(chunks), "expected_chunks": expected, "status_counts": dict(statuses), "extraction_seconds": round(time.perf_counter() - started, 3)}
+    return {"ground_scan": ground_scan, "sample_spacing": SAMPLE_SPACING, "width": len(rows[0]), "height": len(rows), "rows": rows, "structures": list(unique_structures.values()), "block_volume_presence": dict(presence), "full_chunks": len(chunks), "expected_chunks": expected, "status_counts": dict(statuses), "extraction_seconds": round(time.perf_counter() - started, 3)}

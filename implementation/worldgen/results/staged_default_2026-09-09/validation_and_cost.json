@@ -1,0 +1,346 @@
+{
+  "reference_comparison": {
+    "920270002": {
+      "stage_c": {
+        "eastern_ocean_fraction": 0.3988,
+        "western_ocean_fraction": 0.0,
+        "western_highland_fraction": 0.0995,
+        "western_highland_core_diameter_proxy_blocks": 112,
+        "western_cold_highland_samples": 0,
+        "actual_canopy_fraction": 0.4057,
+        "genuine_open_ground_fraction": 0.2892,
+        "largest_open_patch_blocks2": 63808,
+        "largest_dry_component_fraction_of_land": 0.9049,
+        "center_open_fraction": 0.2652,
+        "forest_biome_fraction": 0.5132,
+        "terrain_height_range": [
+          -14,
+          116
+        ],
+        "sampled_surface_water_fraction": 0.2728,
+        "score": 29.842,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 90,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          1056,
+          864
+        ]
+      },
+      "source": "new analysis of existing official chunks; no regeneration"
+    },
+    "920270003": {
+      "stage_c": {
+        "eastern_ocean_fraction": 0.1084,
+        "western_ocean_fraction": 0.0585,
+        "western_highland_fraction": 0.2753,
+        "western_highland_core_diameter_proxy_blocks": 304,
+        "western_cold_highland_samples": 277,
+        "actual_canopy_fraction": 0.0728,
+        "genuine_open_ground_fraction": 0.4637,
+        "largest_open_patch_blocks2": 45248,
+        "largest_dry_component_fraction_of_land": 0.4531,
+        "center_open_fraction": 0.1856,
+        "forest_biome_fraction": 0.0808,
+        "terrain_height_range": [
+          34,
+          124
+        ],
+        "sampled_surface_water_fraction": 0.3413,
+        "score": 38.432,
+        "hard_failures": [],
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ]
+      },
+      "orientation": {
+        "rotation_degrees_clockwise": 0,
+        "east_west_reflected": true,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ]
+      },
+      "source": "new analysis of existing official chunks; no regeneration"
+    }
+  },
+  "finalists": {
+    "930010639": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7796,
+      "world_bytes": 52719372,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930015734": {
+      "verified_chunk_file_hashes": 43,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7791,
+      "world_bytes": 55943700,
+      "world_files": 61,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930012642": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7789,
+      "world_bytes": 54478846,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930006815": {
+      "verified_chunk_file_hashes": 40,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7274,
+      "world_bytes": 48270343,
+      "world_files": 58,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930019528": {
+      "verified_chunk_file_hashes": 43,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7777,
+      "world_bytes": 56097315,
+      "world_files": 61,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930005557": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7794,
+      "world_bytes": 52743525,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930016664": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7792,
+      "world_bytes": 57427302,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930007222": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7796,
+      "world_bytes": 52720487,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    }
+  },
+  "worlds": {
+    "930010639": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7796,
+      "world_bytes": 52719372,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930015734": {
+      "verified_chunk_file_hashes": 43,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7791,
+      "world_bytes": 55943700,
+      "world_files": 61,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930012642": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7789,
+      "world_bytes": 54478846,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930016657": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7813,
+      "world_bytes": 53481065,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": false
+    },
+    "930004953": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7795,
+      "world_bytes": 54455959,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": false
+    },
+    "930006815": {
+      "verified_chunk_file_hashes": 40,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7274,
+      "world_bytes": 48270343,
+      "world_files": 58,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930019528": {
+      "verified_chunk_file_hashes": 43,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7777,
+      "world_bytes": 56097315,
+      "world_files": 61,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930011701": {
+      "verified_chunk_file_hashes": 40,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7321,
+      "world_bytes": 50822038,
+      "world_files": 58,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": false
+    },
+    "930005557": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7794,
+      "world_bytes": 52743525,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930016664": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7792,
+      "world_bytes": 57427302,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    },
+    "930007222": {
+      "verified_chunk_file_hashes": 49,
+      "evaluated_full_chunks": 3564,
+      "saved_overworld_chunk_slots_including_halo_and_spawn": 7796,
+      "world_bytes": 52720487,
+      "world_files": 67,
+      "bounds_routes_homeland_footprints_valid": true,
+      "finalist": true
+    }
+  },
+  "calibration": {
+    "920270002": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "920270003": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930010639": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 459,
+      "match_fraction": 0.99783,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930015734": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930012642": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 459,
+      "match_fraction": 0.99783,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930016657": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930004953": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930006815": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930019528": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930011701": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930005557": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 459,
+      "match_fraction": 0.99783,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930016664": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    },
+    "930007222": {
+      "samples": 460,
+      "exact_stored_quart_biome_matches": 460,
+      "match_fraction": 1.0,
+      "method": "same quart coordinates and surface sampling Y; library MC_1_21 versus official 1.21.11"
+    }
+  },
+  "cost": {
+    "stage_a_windows_per_second": 4041.0252970204106,
+    "stage_b_windows_per_second": 380.5773107880272,
+    "full_acquisition_seconds": 824.052,
+    "full_generation_regions_per_second": 0.013348672171173663,
+    "full_generation_cpu_seconds": 2648.43,
+    "evaluated_full_chunks": 39204,
+    "stage_c_extraction_seconds": 92.90299999999999,
+    "stage_c_analysis_seconds": 5.594,
+    "stage_d_fit_seconds": 1.421,
+    "retained_world_bytes": 430400890,
+    "all_generated_world_bytes": 589159952,
+    "all_saved_overworld_chunk_slots": 84738,
+    "temperate_refinement_seconds": 13.55726450000111
+  }
+}

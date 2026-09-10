@@ -1,0 +1,80 @@
+[
+  {
+    "seed": 930005557,
+    "center": [
+      -2048,
+      0
+    ],
+    "rotation": 90,
+    "score": 52.89085,
+    "features": [
+      0.57576,
+      0.18855,
+      0.17508,
+      0.54209,
+      0.09315,
+      0.85417,
+      0.88889,
+      0.86806
+    ],
+    "refinement": {
+      "temperate_open": 0.542088,
+      "center_temperate_open": 0.89899,
+      "snowy_plains": 0.0,
+      "western_peak_slope_biomes": 0.158249
+    },
+    "refined_score": 141.5605
+  },
+  {
+    "seed": 930016664,
+    "center": [
+      0,
+      2048
+    ],
+    "rotation": 180,
+    "score": 52.29774,
+    "features": [
+      0.16162,
+      0.59259,
+      0.59259,
+      0.37374,
+      0.38945,
+      0.77273,
+      0.62338,
+      0.69481
+    ],
+    "refinement": {
+      "temperate_open": 0.347924,
+      "center_temperate_open": 0.858586,
+      "snowy_plains": 0.025814,
+      "western_peak_slope_biomes": 0.279461
+    },
+    "refined_score": 125.4297
+  },
+  {
+    "seed": 930007222,
+    "center": [
+      -2048,
+      0
+    ],
+    "rotation": 90,
+    "score": 56.84933,
+    "features": [
+      0.6936,
+      0.48822,
+      0.45455,
+      0.28171,
+      0.13131,
+      0.64583,
+      0.67361,
+      0.50694
+    ],
+    "refinement": {
+      "temperate_open": 0.279461,
+      "center_temperate_open": 0.717172,
+      "snowy_plains": 0.002245,
+      "western_peak_slope_biomes": 0.427609
+    },
+    "refined_score": 139.6608
+  }
+]
