@@ -11,3 +11,4 @@ execute as @a[scores={moba_armed=0}] run function moba:arm
 function #moba:modifiers
 function #moba:detect
 function #moba:ultchan
+function #moba:prog

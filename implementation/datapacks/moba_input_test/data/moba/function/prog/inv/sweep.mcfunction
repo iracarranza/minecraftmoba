@@ -1,0 +1,39 @@
+# Slot index i is LOCKED when effective capacity <= i.
+# Unlock order is hotbar first, then the main grid. Offhand and armor
+# are outside the capacity model (offhand is the input-harness sentinel).
+execute if score @s moba_capinv matches ..0 if items entity @s hotbar.0 * run function moba:prog/inv/evict {slot:"hotbar.0",i:"0b"}
+execute if score @s moba_capinv matches ..1 if items entity @s hotbar.1 * run function moba:prog/inv/evict {slot:"hotbar.1",i:"1b"}
+execute if score @s moba_capinv matches ..2 if items entity @s hotbar.2 * run function moba:prog/inv/evict {slot:"hotbar.2",i:"2b"}
+execute if score @s moba_capinv matches ..3 if items entity @s hotbar.3 * run function moba:prog/inv/evict {slot:"hotbar.3",i:"3b"}
+execute if score @s moba_capinv matches ..4 if items entity @s hotbar.4 * run function moba:prog/inv/evict {slot:"hotbar.4",i:"4b"}
+execute if score @s moba_capinv matches ..5 if items entity @s hotbar.5 * run function moba:prog/inv/evict {slot:"hotbar.5",i:"5b"}
+execute if score @s moba_capinv matches ..6 if items entity @s hotbar.6 * run function moba:prog/inv/evict {slot:"hotbar.6",i:"6b"}
+execute if score @s moba_capinv matches ..7 if items entity @s hotbar.7 * run function moba:prog/inv/evict {slot:"hotbar.7",i:"7b"}
+execute if score @s moba_capinv matches ..8 if items entity @s hotbar.8 * run function moba:prog/inv/evict {slot:"hotbar.8",i:"8b"}
+execute if score @s moba_capinv matches ..9 if items entity @s inventory.0 * run function moba:prog/inv/evict {slot:"inventory.0",i:"9b"}
+execute if score @s moba_capinv matches ..10 if items entity @s inventory.1 * run function moba:prog/inv/evict {slot:"inventory.1",i:"10b"}
+execute if score @s moba_capinv matches ..11 if items entity @s inventory.2 * run function moba:prog/inv/evict {slot:"inventory.2",i:"11b"}
+execute if score @s moba_capinv matches ..12 if items entity @s inventory.3 * run function moba:prog/inv/evict {slot:"inventory.3",i:"12b"}
+execute if score @s moba_capinv matches ..13 if items entity @s inventory.4 * run function moba:prog/inv/evict {slot:"inventory.4",i:"13b"}
+execute if score @s moba_capinv matches ..14 if items entity @s inventory.5 * run function moba:prog/inv/evict {slot:"inventory.5",i:"14b"}
+execute if score @s moba_capinv matches ..15 if items entity @s inventory.6 * run function moba:prog/inv/evict {slot:"inventory.6",i:"15b"}
+execute if score @s moba_capinv matches ..16 if items entity @s inventory.7 * run function moba:prog/inv/evict {slot:"inventory.7",i:"16b"}
+execute if score @s moba_capinv matches ..17 if items entity @s inventory.8 * run function moba:prog/inv/evict {slot:"inventory.8",i:"17b"}
+execute if score @s moba_capinv matches ..18 if items entity @s inventory.9 * run function moba:prog/inv/evict {slot:"inventory.9",i:"18b"}
+execute if score @s moba_capinv matches ..19 if items entity @s inventory.10 * run function moba:prog/inv/evict {slot:"inventory.10",i:"19b"}
+execute if score @s moba_capinv matches ..20 if items entity @s inventory.11 * run function moba:prog/inv/evict {slot:"inventory.11",i:"20b"}
+execute if score @s moba_capinv matches ..21 if items entity @s inventory.12 * run function moba:prog/inv/evict {slot:"inventory.12",i:"21b"}
+execute if score @s moba_capinv matches ..22 if items entity @s inventory.13 * run function moba:prog/inv/evict {slot:"inventory.13",i:"22b"}
+execute if score @s moba_capinv matches ..23 if items entity @s inventory.14 * run function moba:prog/inv/evict {slot:"inventory.14",i:"23b"}
+execute if score @s moba_capinv matches ..24 if items entity @s inventory.15 * run function moba:prog/inv/evict {slot:"inventory.15",i:"24b"}
+execute if score @s moba_capinv matches ..25 if items entity @s inventory.16 * run function moba:prog/inv/evict {slot:"inventory.16",i:"25b"}
+execute if score @s moba_capinv matches ..26 if items entity @s inventory.17 * run function moba:prog/inv/evict {slot:"inventory.17",i:"26b"}
+execute if score @s moba_capinv matches ..27 if items entity @s inventory.18 * run function moba:prog/inv/evict {slot:"inventory.18",i:"27b"}
+execute if score @s moba_capinv matches ..28 if items entity @s inventory.19 * run function moba:prog/inv/evict {slot:"inventory.19",i:"28b"}
+execute if score @s moba_capinv matches ..29 if items entity @s inventory.20 * run function moba:prog/inv/evict {slot:"inventory.20",i:"29b"}
+execute if score @s moba_capinv matches ..30 if items entity @s inventory.21 * run function moba:prog/inv/evict {slot:"inventory.21",i:"30b"}
+execute if score @s moba_capinv matches ..31 if items entity @s inventory.22 * run function moba:prog/inv/evict {slot:"inventory.22",i:"31b"}
+execute if score @s moba_capinv matches ..32 if items entity @s inventory.23 * run function moba:prog/inv/evict {slot:"inventory.23",i:"32b"}
+execute if score @s moba_capinv matches ..33 if items entity @s inventory.24 * run function moba:prog/inv/evict {slot:"inventory.24",i:"33b"}
+execute if score @s moba_capinv matches ..34 if items entity @s inventory.25 * run function moba:prog/inv/evict {slot:"inventory.25",i:"34b"}
+execute if score @s moba_capinv matches ..35 if items entity @s inventory.26 * run function moba:prog/inv/evict {slot:"inventory.26",i:"35b"}

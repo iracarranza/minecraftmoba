@@ -541,7 +541,7 @@ Current working breakpoint structure:
 | 14 | Task advancement; universal capacity growth |
 | 15 | Ultimate unlock |
 | 16 | Passive scaling; current working mobility breakpoint |
-| 17 | Universal Health and Hunger floors reach vanilla capacity |
+| 17 | Universal Health and Hunger floors reach 20; Hunger above 20 is represented through exhaustion efficiency |
 | 18 | Capacity specialization II |
 | 19 | Task advancement |
 | 20 | Advanced class-authored reward I |
@@ -566,17 +566,88 @@ On applicable universal-growth levels:
 Capacity specialization occurs at Levels 3, 18, and 24. Each specialization choice currently grants one of:
 
 - +2 Health;
-- +2 Hunger;
+- +2 effective Hunger;
 - +6 inventory slots.
 
-Health and Hunger specialization may exceed their vanilla capacities. Inventory capacity has a hard maximum of 36 slots.
+Health and effective Hunger specialization may exceed 20. Inventory capacity has a hard maximum of 36 slots.
+
+If an Inventory specialization is selected while the player's Inventory is already at the 36-slot hard maximum, its +6 Inventory effect is replaced by +0.5 Health and +0.5 effective Hunger.
+
+This makes early Inventory specialization primarily an acceleration benefit: an Inventory specialization at Level 3 causes the player to reach the 36-slot maximum at Level 14 rather than Level 16. Once universal Inventory progression catches up, later Inventory specialization remains mechanically live through the replacement benefit rather than exceeding the 36-slot maximum.
+
+If an Inventory specialization is selected while the player's Inventory is already at the 36-slot hard maximum, its +6 Inventory effect is replaced by +0.5 Health and +0.5 Hunger. This keeps later Inventory specialization choices mechanically live without allowing Inventory capacity to exceed 36 slots.
 
 Task-progression rewards can coexist with universal capacity growth. In particular, Level 9 task specialization does not replace Level 9 universal growth.
 
-Under the current schedule, the universal inventory floor reaches 36 slots at Level 16. The universal Health and Hunger floors reach 20 at Level 17. Specialization remains additive above the corresponding universal floor where applicable.
+Under the current schedule, the universal Inventory floor reaches its hard maximum of 36 slots at Level 16. The universal Health and effective Hunger floors reach 20 at Level 17.
 
+Health specialization remains directly additive above 20.
+
+Effective Hunger specialization also remains additive above 20, but Minecraft's displayed food level remains capped at 20. Effective Hunger above 20 is therefore represented mechanically through exhaustion efficiency rather than additional visible Hunger icons.
+
+Inventory specialization cannot raise Inventory above 36; specialization selected at the cap instead uses the +0.5 Health / +0.5 effective Hunger replacement benefit described above.
+
+### Effective Hunger above 20
+
+Effective Hunger remains a progression stat above Minecraft's visible 20-point food limit.
+
+Up to 20 effective Hunger, the player's maximum displayed Hunger directly represents the progression stat.
+
+Above 20 effective Hunger:
+
+- displayed Hunger remains capped at 20;
+- the player's effective reserve above the 6-Hunger sprint cutoff continues to scale according to the existing Hunger progression curve;
+- this additional capacity is represented through reduced exhaustion consumption rather than additional food icons.
+
+The conversion preserves the amount of Hunger-consuming activity that the original effective-Hunger value would have allowed before reaching the 6-Hunger sprint cutoff.
+
+For effective Hunger H above 20:
+
+    exhaustion multiplier = 14 / (H - 6)
+
+The value 14 is the ordinary reserve between 20 Hunger and the 6-Hunger sprint cutoff.
+
+Current relevant conversions are:
+
+| Effective Hunger | Exhaustion multiplier | Exhaustion reduction |
+| ---: | ---: | ---: |
+| 20 | 1.0000× | 0% |
+| 21 | 0.9333× | ~6.67% |
+| 22 | 0.8750× | 12.5% |
+| 24 | 0.7778× | ~22.22% |
+| 26 | 0.7000× | 30% |
+
+This conversion changes the implementation of Hunger capacity above 20, not the underlying progression curve. A player with 24 effective Hunger still has 24 Hunger for progression and balance purposes even though the vanilla HUD displays at most 20.
+
+The interaction between this exhaustion-efficiency model and Hunger expenditure associated with health regeneration is intentionally unresolved and should not currently alter these values.
 
 A current working Level 16 phase-transition reward is approximately +10% universal movement speed.
+
+Example — a player selecting Hunger specialization at Level 3:
+
+| Level | Effective Hunger | Displayed maximum | Exhaustion multiplier once above 20 |
+| ---: | ---: | ---: | ---: |
+| 1 | 9 | 9 | — |
+| 2 | 10 | 10 | — |
+| 3 | 12 | 12 | — |
+| 4 | 13 | 13 | — |
+| 7 | 14 | 14 | — |
+| 8 | 15 | 15 | — |
+| 9 | 16 | 16 | — |
+| 11 | 17 | 17 | — |
+| 13 | 18 | 18 | — |
+| 14 | 19 | 19 | — |
+| 15 | 20 | 20 | 1.0000× |
+| 16 | 21 | 20 | 0.9333× |
+| 17 | 22 | 20 | 0.8750× |
+
+Level 18 Hunger specialization:
+22 → 24 effective Hunger
+exhaustion multiplier → 0.7778×
+
+Level 24 Hunger specialization:
+24 → 26 effective Hunger
+exhaustion multiplier → 0.7000×
 
 This is intended as a match-condensing mid/late-game mobility breakpoint, not as an early-game Exploration reward. It therefore does not replace the current principle that early Exploration and early Routes should generally emphasize traversal efficiency before unconditional movement potency.
 
