@@ -1,0 +1,2 @@
+{ "type": "minecraft:notice", "title": "MOBA Input Test",
+  "action": { "label": "Test", "action": { "type": "run_command", "command": "trigger moba_test" } } }
