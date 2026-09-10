@@ -1,0 +1,13 @@
+{
+  "launcher_opened": true,
+  "launcher_screenshot_observed": true,
+  "launcher_keyboard_navigation_attempted": true,
+  "launcher_profile_list_observed": ["Latest release 26.2", "Latest snapshot 26.3-pre-3"],
+  "matching_1_21_11_version_files_present": true,
+  "matching_graphical_world_session_established": false,
+  "player_scale_walk_completed": false,
+  "in_world_screenshot_paths": [],
+  "limitation": "A controllable matching-version graphical traversal session was not established. Only the launcher was inspected interactively. Both physical worlds were instead loaded and edited in the matching vanilla dedicated server, then inspected at block resolution. This does not replace the required normal player-scale walk, unmarked Wilderness continuation or experiential competitive validation.",
+  "block_readback_images_are_not_game_screenshots": true,
+  "authorizes_b2_or_freeze": false
+}

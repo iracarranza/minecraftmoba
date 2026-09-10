@@ -1,0 +1,9 @@
+{
+  "authority": "User answered yes continue to the explicit question accepting flagged connectivity/handoff conditions and confirming no fundamental fitter mismeasurement remains suspected",
+  "selection_record": "implementation/worldgen/decisions/task_b_selection_2026-09-10.json",
+  "selected_candidates": [930010639, 930012642],
+  "remaining_readiness_criteria_accepted": true,
+  "task_b_authorized": true,
+  "physical_validation_pass": null,
+  "skeleton_freeze_authorized_only_after_validation": true
+}

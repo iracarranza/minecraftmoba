@@ -110,6 +110,12 @@ the human-selection criterion. Remaining central/lateral-connectivity and
 Starter-handoff evidence requires resolution before B.0 under section 16.
 Neither candidate has a measured physical pass/failure, correction or freeze.
 
+The user then answered **yes continue** to the explicit remaining-gate acceptance
+question. `decisions/task_b_gate_acceptance_2026-09-10.json` supersedes the blocked
+gate state. Both B.0 greyboxes and partial B.1 block validation are now recorded in
+`results/default_task_b_2026-09-10/REPORT.md`. The full player-scale walk remains
+incomplete, so B.2/freeze/C remain gated; see that report for the current state.
+
 Human review must evaluate diagnostic validity as well as candidate suitability.
 No missing qualitative judgment is replaced by a scalar score, and no physical
 stage is used to bypass the A.2 readiness gate.
