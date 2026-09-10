@@ -294,6 +294,51 @@ Examples may include:
 - infrastructure interaction/use;
 - other recognizable Minecraft accomplishments.
 
+## Infrastructure and XP
+
+Infrastructure should not generally generate XP merely because it was submitted, exists, or has a player standing nearby.
+
+The current infrastructure-integration direction instead modifies otherwise legitimate XP-generating activity.
+
+A recognized Construct alone does not automatically grant an XP multiplier.
+
+When distinct allied infrastructure systems become connected to or established around a Construct, they may contribute toward an **infrastructure-integration XP multiplier** affecting legitimate XP earned through activity in the relevant area.
+
+Current contributing infrastructure candidates are:
+
+- Development infrastructure;
+- Routes;
+- Supply Lines.
+
+The underlying accomplishment remains the XP source.
+
+For example:
+
+- legitimate resource attainment remains resource-attainment XP;
+- recognized productive activity remains the relevant productive XP;
+- other eligible accomplishments retain their normal identity.
+
+Infrastructure integration can increase the value of that legitimate activity without creating passive XP.
+
+This serves a strategic purpose:
+
+> World opportunities encourage players to disperse, while connected infrastructure rewards teams for intentionally concentrating some useful activity around places they have developed.
+
+The goal is not to require XP-efficient play to occur at a permanent home base.
+
+A remote Worksite, forward position, objective approach, bridgehead, or other strategically useful location may be worth formalizing and connecting later in the match.
+
+Multiple infrastructure slots and expanding network capacity should allow teams to develop additional centers rather than being punished for having already invested in an earlier base.
+
+Exact multiplier values remain subject to balance testing.
+
+Current first-pass targets are approximately:
+
+- fully integrated T1 infrastructure: ~1.10×;
+- fully integrated T2 infrastructure: ~1.15×.
+
+Intermediate values should reward distinct-system integration rather than simply making every infrastructure element an independent flat XP aura.
+
 Exact XP values remain unresolved.
 
 ---
@@ -641,6 +686,48 @@ It may be rational to concede or delay an objective in order to:
 
 Multiple strategic priorities should be capable of existing simultaneously.
 
+## XP requirement tiers and productive economy
+
+The current progression direction does not assume that Level 1–30 XP requirements must follow one uninterrupted smooth curve.
+
+Instead, ranges of levels may belong to distinct **XP requirement tiers** corresponding to changes in the productive economy available to players.
+
+Current working model:
+
+> Levels 1–6 form the base XP tier.
+
+This tier assumes primarily early Minecraft activity without a mature recognized-infrastructure economy.
+
+Progression around the end of this tier can unlock new ways of increasing useful throughput, including infrastructure recognition and integration.
+
+The following XP tier can therefore require substantially more XP per level because players have access to qualitatively stronger economic tools.
+
+This should not be implemented as dynamic XP requirements based on whether a particular team actually built infrastructure.
+
+Level requirements remain fixed.
+
+A team that prepared and integrated its economy well can satisfy the new requirements more efficiently; a team that did not remains capable of progressing but must work harder, establish the missing economy later, or exploit other valuable opportunities.
+
+The infrastructure XP multiplier is only one source of increased progression throughput.
+
+Tier calibration should also account for progression effects such as:
+
+- task efficiency;
+- yield improvements;
+- increased fundamental Minecraft capacity;
+- Development productivity;
+- better traversal;
+- better resource distribution;
+- larger or more sophisticated infrastructure;
+- phase-appropriate Worksite opportunities;
+- other increasingly valuable world opportunities.
+
+Therefore XP requirement tiers should ultimately be calibrated against:
+
+> expected legitimate XP throughput in the corresponding match/progression phase
+
+rather than simply increasing XP requirements by the same percentage as the infrastructure multiplier.
+
 ---
 
 # 19. Objective Design Principles
@@ -717,15 +804,92 @@ The match should support concurrent:
 
 # 20. Relationship to Infrastructure
 
-Objectives may interact with infrastructure systems, but those systems should remain conceptually distinct.
+O# 20. Relationship to Infrastructure
+
+Objectives and infrastructure can overlap spatially and strategically without becoming the same system.
+
+A Worksite facility, objective structure, road, farm, or storage network is not automatically recognized infrastructure merely because it exists.
+
+Likewise, recognized infrastructure should remain useful outside formal Objectives.
 
 ## Constructs
 
 Constructs are recognized Construction infrastructure.
 
-They do not currently have a mandatory settled XP-multiplier mechanic.
+Ordinary building remains unrestricted.
 
-Do not require a Worksite facility to be a Construct unless that relationship is deliberately established later.
+A Construct's intrinsic purpose is currently framed as improving **occupation or sustainment efficiency**:
+
+> How efficiently can the team maintain useful presence at this place?
+
+Exact intrinsic mechanics remain unresolved.
+
+A Construct alone does not automatically grant an XP multiplier.
+
+Instead, it can serve as an anchor for infrastructure integration.
+
+## Development infrastructure
+
+Development infrastructure improves eligible persistent productive or maturing world processes.
+
+It remains independently useful and does not require a Construct.
+
+When appropriately colocated with a Construct, it can also contribute toward that location's infrastructure-integration state.
+
+## Routes
+
+Routes concern repeated player traversal.
+
+Their early systemic direction is traversal/sprint efficiency rather than unconditional movement speed.
+
+Current player-established Route concept:
+
+- physically traverse the desired path;
+- traversal defines the Route.
+
+A Route connected to a Construct can contribute toward infrastructure integration while retaining its independent traversal value.
+
+## Supply Lines
+
+Supply Lines concern actual resource distribution.
+
+Current establishment concept:
+
+- start storage;
+- end storage;
+- real resources transfer/replenish downstream.
+
+The intervening topology remains unresolved.
+
+A Supply Line connected to a Construct can contribute toward infrastructure integration while retaining its independent Logistics value.
+
+## Integration
+
+These systems should remain independently useful.
+
+Their combination creates additional value because the team has created a location that is simultaneously:
+
+- occupiable;
+- productive;
+- accessible;
+- supplied.
+
+The current working direction is to recognize that integration through a modest multiplier on otherwise legitimate XP-generating activity within the integrated Construct area.
+
+Infrastructure progression may improve each participating system's contribution to that multiplier.
+
+Do not collapse:
+
+- Constructs;
+- Development infrastructure;
+- Routes;
+- Supply Lines;
+- Worksite access;
+- objective progress
+
+into a single infrastructure mechanic.
+
+Physical overlap and strategic synergy do not imply identical system ownership or prerequisites.
 
 ## Routes
 

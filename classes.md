@@ -78,6 +78,71 @@ A class may combine multiple archetypes.
 
 Classes do not need to express every possible mechanic associated with their archetype.
 
+## Infrastructure recognition and integration
+
+A useful current design model connects four archetypes to four forms of recognized infrastructure:
+
+| Archetype | Strategic infrastructure expression | Primary question |
+| --- | --- | --- |
+| Construction | Constructs | How efficiently can the team maintain useful presence at this place? |
+| Development | Developed areas/processes | How productive or mature can this place become? |
+| Exploration | Routes | How efficiently can players repeatedly traverse this connection? |
+| Logistics | Supply Lines | How effectively can resources become available across this connection? |
+
+This is a design model rather than a rigid taxonomy.
+
+The adjacency between these archetypes is intentional rather than necessarily evidence that they should be merged.
+
+Ordinary Minecraft behavior remains universal. Progression can instead gate **systemic recognition** and exceptional infrastructure effects.
+
+Likewise, possessing an archetype does not necessarily grant every infrastructure mechanic associated with that domain. Individual classes can use authored progression to determine which infrastructure systems and upgrades they actually receive.
+
+### Infrastructure integration
+
+Recognized infrastructure should also reward **connection**.
+
+The current working direction is that a Construct can act as a spatial anchor for an integrated infrastructure center.
+
+A Construct alone does **not** automatically grant an XP multiplier.
+
+Instead, distinct recognized infrastructure connected to or established within the relevant Construct area can contribute toward an **infrastructure-integration XP multiplier** on otherwise legitimate XP-generating activity performed there.
+
+Potential contributing systems currently include:
+
+- Development infrastructure;
+- a connected Route;
+- a connected Supply Line.
+
+The purpose is to reward teams for turning independently useful infrastructure into a connected center of activity without requiring all useful play to occur at a base.
+
+World opportunities naturally encourage dispersion.
+
+Infrastructure integration creates a competing incentive toward intentional concentration.
+
+Each infrastructure type should be capable of improving the strength of its own integration contribution through later progression rather than making Construction solely responsible for the strength of the network-wide reward.
+
+Exact contribution values and progression thresholds remain unresolved.
+
+A current first-pass balance shape for later testing is:
+
+| Integration state | T1 infrastructure | T2 infrastructure |
+| --- | ---: | ---: |
+| One distinct connected system | ~1.025× XP | ~1.05× XP |
+| Two distinct connected systems | ~1.055× XP | ~1.10× XP |
+| Three distinct connected systems | ~1.10× XP | ~1.15× XP |
+
+These are balance targets, not established final values.
+
+The important intended shape is:
+
+- no integration multiplier from a Construct alone;
+- modest value from the first connection;
+- increasing value from distinct-system integration;
+- approximately 10% as an initial fully integrated T1 target;
+- approximately 15% as an initial fully integrated T2 target.
+
+The multiplier modifies legitimate XP-generating activity. It does not create passive or AFK XP.
+
 ---
 
 ## Combat
@@ -110,6 +175,37 @@ Early Exploration should generally favor movement efficiency over unconditional 
 
 Raw movement speed, high jumps, and similar effects can create disproportionate strategic tempo and should therefore be introduced cautiously.
 
+### Infrastructure expression — Routes
+
+A current strategic infrastructure expression of Exploration is the **Route**.
+
+Ordinary Minecraft travel and road-building remain available to every player. Progression may instead grant the ability and capacity to designate or recognize Routes that provide exceptional traversal benefits.
+
+The current early Route direction follows the broader Exploration rule:
+
+> movement efficiency before movement potency
+
+A recognized Route should initially improve repeated traversal primarily through sprint/traversal efficiency rather than unconditional movement speed.
+
+Possible Route progression axes include:
+
+- Route slots/capacity;
+- maximum length;
+- width;
+- branching or network complexity;
+- traversal-efficiency strength;
+- eventually, more cautiously, movement potency.
+
+The current working establishment concept is that the player physically traverses the desired path and that traversal defines the Route. Exact submission, validation, width, branching, and topology remain unresolved.
+
+Routes are distinct from Supply Lines.
+
+A Route answers:
+
+> How efficiently can players repeatedly travel through this connection?
+
+A Supply Line instead concerns the distribution of actual resources.
+
 ---
 
 ## Construction
@@ -123,6 +219,52 @@ Exceptional manipulation of:
 One current Construction scaling vocabulary concept is **Block Efficiency**: producing more useful placed geometry from a fixed amount of carried material.
 
 Block Efficiency is not necessarily a universal passive shared by every Construction class.
+
+### Infrastructure expression — Constructs
+
+A current strategic infrastructure expression of Construction is the **Construct**.
+
+Ordinary Minecraft building remains unrestricted. Construct progression does not determine whether a player is allowed to build; it determines whether and how much player-built world state can receive systemic recognition as Construction infrastructure.
+
+Progression may grant or improve:
+
+- Construct designation;
+- Construct slots/capacity;
+- maximum recognized size;
+- recognized influence area;
+- intrinsic Construct benefits;
+- other Construct-specific properties.
+
+Because useful building can occur before Construct recognition is unlocked, the system should support retrospective designation of qualifying existing construction rather than requiring all recognized construction to be built after entering a special mode.
+
+A promising scale rule is that a Construct's recognized area derives partly from its actual physical extent, capped by the player's current maximum recognized Construct size. Exact validation and boundary rules remain unresolved.
+
+#### Intrinsic value
+
+Constructs should provide useful strategic value independently of other infrastructure.
+
+The current design direction is that Constructs improve some form of **occupation or sustainment efficiency**:
+
+> How efficiently can the team maintain useful presence at this place?
+
+The exact mechanic remains unresolved.
+
+Possible expressions include recovery, provisioning, hunger/exhaustion, or other costs associated with maintaining presence. These are examples rather than established mechanics and should not cause Constructs to subsume Development or other archetype domains.
+
+This intrinsic benefit is important because not every useful Construct should be an economic base.
+
+A mid- or late-game player may establish a Construct at:
+
+- a bridge;
+- a chokepoint;
+- a Worksite;
+- a forward position;
+- an objective approach;
+- another temporary or strategically important location.
+
+Such a Construct should be immediately useful even if it never becomes a fully developed economic center.
+
+Additional Construct slots/capacity allow established home infrastructure and later strategic positions to coexist rather than forcing players to abandon earlier useful construction.
 
 ---
 
@@ -193,6 +335,23 @@ However:
 
 Their relationship is synergy, not prerequisite.
 
+### Infrastructure expression — developed areas/processes
+
+Development may receive a recognized spatial or systemic infrastructure expression analogous to, but independent from, Constructs.
+
+The current direction is localized improvement of eligible persistent Development processes, potentially including:
+
+- crop growth;
+- animal or renewable-resource maturation;
+- productive terrain;
+- other persistent growth or transformation systems.
+
+This should not currently be documented as a generic increase to Minecraft random tick speed. The intended mechanic is targeted acceleration or improvement of eligible Development processes.
+
+Development infrastructure must remain independently establishable and useful without a Construct or Construction teammate.
+
+When Development infrastructure and a Construct are colocated, however, that relationship may count toward broader infrastructure integration.
+
 ---
 
 ## Logistics
@@ -210,6 +369,48 @@ The central Logistics question is:
 > How effectively can the team's resources become available where and when they are needed?
 
 Logistics should not be reduced to merely having a larger inventory.
+
+### Infrastructure expression — Supply Lines
+
+The current leading team-facing infrastructure expression of Logistics is the **Supply Line**.
+
+A Supply Line concerns actual resource distribution rather than merely improving the carrying capacity of the Logistics player.
+
+Current basic model:
+
+> origin storage → Supply Line → destination storage
+
+Actual items stored upstream gradually transfer or replenish downstream storage.
+
+This allows Logistics contribution to persist for the team even while the Logistics player is elsewhere.
+
+Potential progression axes include:
+
+- Supply Line count;
+- range;
+- throughput;
+- transfer frequency;
+- capacity;
+- filtering;
+- number of destinations or nodes;
+- branching;
+- network sophistication;
+- reliability.
+
+Later high-potency Logistics may eventually allow supplied infrastructure to replenish allied players directly. This is a future candidate rather than an established baseline capability.
+
+The intervening topology of a Supply Line remains unresolved. Do not assume that it must:
+
+- trace a physical continuous path;
+- follow a Route;
+- be pathless;
+- use a particular transport entity.
+
+Routes and Supply Lines may physically overlap and synergize without either requiring the other.
+
+A Supply Line answers:
+
+> How effectively can the team's resources become available where they are needed?
 
 ---
 
