@@ -890,17 +890,17 @@ Archetypes identify the systems manipulated; strategic roles identify the result
 
 ## 9.3 Mole
 
-**Established core; numerical and classification details Open. Source: [C §4].** Mole uses the ground for movement, information, extraction, and combat. Sand, gravel, caves, geology, and excavation opportunities are its world dependencies.
+**Conceptually settled. Sources: [C §4], [WC].** The world beneath and inside terrain is as navigable to Mole as its surface is to everyone else. Sand, gravel, caves, geology, and excavation opportunities are its world dependencies. Primary archetype Extraction; secondary Combat and Exploration. Logistics is not a Mole archetype.
 
 ### 9.3.1 Passive — Sifth Sense
 
-Detects players moving on sand and gravel. Level scaling improves radius, detection rate, and location specificity. [OPEN] Exact ranges, frequency, precision, and Worksite interaction are undefined. This is not a general ore-detection passive in the documented kit.
+While actively digging, Mole senses nearby sand and gravel. Excavating sand or gravel can sift or clear connected falling material substantially more effectively instead of producing normal collapse behaviour. [HISTORICAL] The earlier player-detection formulation, scaling through radius, rate and location specificity, is superseded. [OPEN] Sense radius, sift volume, relationship to vanilla falling-block behaviour, progression scaling, and Worksite interaction are undefined.
 
 ### 9.3.2 Ability 1 — Tunneling
 
 A toggled digging mode amplifies the current digging tool’s speed. Mole cannot attack or build while active. Moving into a wall automatically excavates a 1×2 player passage; shifting directs digging downward and jumping directs it upward.
 
-Upgrade choices are Speed (significantly faster digging), Width (larger excavation radius), and Stability (negate knockback while active). [OPEN] Amplification, tool/material compatibility, resource handling, and protection interactions require definition. Generic Efficiency progression must be tested with the amplification rather than balanced independently.
+Branches are Bore (increased tunnelling speed), Gallery (approximately 3×2 useful tunnels), and Dig In (substantially harder to displace while actively excavating). [HISTORICAL] The earlier Speed / Width / Stability labels are superseded. [OPEN] Amplification, tool/material compatibility, resource handling, and protection interactions require definition. Generic Efficiency progression must be tested with the amplification rather than balanced independently.
 
 ### 9.3.3 Ability 2 — Drill Rush
 
@@ -910,33 +910,35 @@ Mole enters a wall or floor, then reactivates to emerge and deal damage in its f
 
 ### 9.3.4 Ultimate — Sinkhole
 
-After a delay, a massive hole opens in targeted ground. Block destruction is real and persistent; enemies inside cannot build for several seconds. No ultimate upgrade branch is currently specified. [OPEN] Size, delay, build-prevention duration, protected terrain, and counterplay remain unresolved.
+Mole senses and targets an unstable natural-terrain region and incites a delayed collapse. Natural terrain only; collapse occurs downward in stages; destroyed terrain produces only partial drops; the area becomes No-Build while actively collapsing; a permanent jagged sinkhole remains. Player-authored construction survives rather than being indiscriminately erased. No ultimate upgrade branch is specified. [OPEN] Delay, staging cadence, region size, instability criteria, drop fraction, No-Build duration, and counterplay remain unresolved.
 
 Extraction/route creation, information, bruiser/engage, and control are possible build directions, not fixed subclasses. Mining Outposts should leave enough approach and excavation work for Mole to excel while remaining usable by generic players (§7.5).
 
 ## 9.4 Gardener
 
-**Established core; Working upgrade themes. Source: [C §5].** Gardener cultivates plants that turn places into useful environments for allies. Its Development identity combines renewable productivity with ecological and traversal utility. Backyard and Exotic are thematic tendencies alongside generalist choices, not exclusive subclasses.
+**Conceptually settled. Sources: [C §5], [WC].** Everyone else sees vegetation primarily as things to harvest. Gardener sees a landscape of productive sources at different stages of development and is constantly deciding which ones are worth harvesting, preserving, or reinvesting into. Primary archetype Development; secondary archetypes deliberately unassigned pending descriptive evaluation. [HISTORICAL] The earlier Spread Vines / Flowerpot / Glistening Greenhouse kit, the repeated-planting passive, and the Backyard / Exotic / Generalist tendencies are superseded by the Plant Material and Cultivar model below.
 
-### 9.4.1 Passive — name unresolved
+Plant Material is a stacking proc/meter, not an inventory item; at threshold it is automatically consumed to grow a Cultivar nearby. A Cultivar is a special developed plant created through Gardener's class systems, and Cultivars accelerate adjacent plant growth.
 
-Repeatedly planting the same plant increases that plant’s growth speed. [OPEN] What counts as the same plant, tracking scope, scaling, and cap remain undefined.
+### 9.4.1 Passive — Plant Material
 
-### 9.4.2 Ability 1 — Spread Vines
+Accumulate Plant Material. At threshold it is automatically consumed to grow the currently available Cultivar nearby, and Cultivars accelerate adjacent plant growth. [OPEN] Threshold value, accumulation rates, Cultivar placement, persistence, stacking limits, and enemy counterplay remain undefined.
 
-Grow a vine on a targeted block. Grapevines / Backyard creates renewable vines allies can interact with to restore Hunger. Jungle Vines / Exotic gives allies Jump Boost and Speed after climbing. The unnamed offensive upgrade damages enemies over time while they climb.
+### 9.4.2 Ability 1 — Clip
 
-[OPEN] Values, renewability, duration, placement eligibility, and offensive behavior need specification. The traversal effect is class-specific, not universal Route progression.
+Clip a living plant without destroying or resetting it to generate Plant Material. Growing crops are eligible; mature plants and crops provide substantially greater value. Branches are Maturity / Specimen (rewards individually mature, high-value specimens), Proliferation / Population (rewards clipping where many plants of the same family are locally established), and Diversity / Collection (rewards varied species and families, with repeated clipping of the same kinds becoming less valuable).
 
-### 9.4.3 Ability 2 — Flowerpot
+[OPEN] Branch names are conceptual labels, not finalized titles. Values, eligibility, and scaling need specification.
 
-Periodically summons flowers in a targeted area. Teammates interact with and consume them for a small regeneration benefit. Double Bushes / Backyard extends regeneration; Torchflowers / Exotic grants Night Vision and Absorption; the generalist option adds charges.
+### 9.4.3 Ability 2 — Cultivate
 
-[OPEN] Generation rate, area, consumption, charges, persistence, and effect values are unresolved.
+Consume eligible real plant items from inventory to generate Plant Material. This is less efficient than Clip but converts harvested plant inventory back into development. The chosen branch determines Gardener's normal Cultivar: Torchflower (protection and sanctuary, light and Absorption-related value), Sweet Berry Bush (fortification and sustain, provisioning value and a hostile thicket effect), or Giant Bamboo (expansive Development, whose original produces empowered bamboo offspring that themselves project growth acceleration).
 
-### 9.4.4 Ultimate — Glistening Greenhouse
+Empowered offspring do not recursively create further empowered generations without limit; no exponential recursion. [OPEN] Conversion efficiency, eligible plant items, Cultivar effect magnitudes, and the offspring generation cap remain unresolved.
 
-Turns nearby space into a greenhouse. Allies receive periodic Instant Health while near allied plants inside it. [OPEN] Duration, area, healing rate, plant persistence, and counterplay are undefined.
+### 9.4.4 Ultimate — Grafter's Handbook
+
+At the appropriate progression point, currently Level 15 in design discussion, activation allows Gardener to grow both of the other upgraded Cultivar forms sequentially, one at a time. This is not a respec or cycling system; it represents mastery over the other Cultivar forms. [HISTORICAL] Glistening Greenhouse is superseded. [OPEN] Unlock level, sequencing, duration, and whether granted Cultivars persist after the ultimate ends remain unresolved.
 
 Gardener must function without a Construct, Construction teammate, or predefined Development zone. World plants, crops, water, farmland, and ecological variety should matter alongside ability-created vegetation. Synergy with recognized infrastructure does not become a prerequisite.
 
@@ -949,6 +951,8 @@ Gardener must function without a Construct, Construction teammate, or predefined
 The unnamed passive periodically produces nearby pumpkins and increases command capacity with level. Animate consumes targeted terrain at a tool-dependent rate. After enough material has been gathered, reactivation consumes a Pumpkin and forms a temporary golem. Amount and relevant vanilla block properties—potentially hardness, explosion resistance, and preferred tool—inform its properties.
 
 Iron is more expensive/less efficient to form, with extra Health and attack knockback. Snow uses slowing ranged projectiles. Copper is cheaper/more efficient, smaller and faster, can wield different weapons, and is best at intentional block destruction and collection. Other golems can incidentally destroy and collect blocks.
+
+Copper golems should behave as cheap worker drones outside combat and as swarm/harass/scatter units in combat. The core command principle is that the player chooses intent while the golem type determines execution; commands under consideration include Follow, Combat, Work, and Rally/Guard. [OPEN] The Wither Golem ultimate and generic Construction progression retain their existing questions.
 
 ### 9.5.2 Assemble
 
@@ -985,7 +989,7 @@ Offhander equips a bow in the offhand on right-click. Upgrade alternatives repla
 
 ### 9.6.3 Covered With Diamonds
 
-Temporarily upgrades armor/tools to Diamond, then reverts them. Current overdrive bonuses are knockback resistance and movement speed. It should not inject a permanent free Diamond set into the economy.
+Temporarily upgrades armor/tools to Diamond, then reverts them. Current overdrive bonuses are knockback resistance and movement speed, with upgraded escalation including a Notch Apple and an Ender Crystal. It should not inject a permanent free Diamond set into the economy.
 
 [CONFLICT] The newer general skeleton places ultimate unlock at Level 15, while the class’s own section says its exact unlock remains unresolved. Treat 15 as the general schedule and Kitfighter’s assignment as needing confirmation. Do not infer Level 16 from the older vanilla-capability landmark.
 
@@ -995,9 +999,9 @@ Temporarily upgrades armor/tools to Diamond, then reverts them. Current overdriv
 
 **Working noncanonical drafts; [NEEDS CANONICAL OWNER]. Source: [J], exported 8 September 2026 at 06:08:22 UTC.** These are developed context absent from root classes.md, not additional finalized roster entries.
 
-Merchant’s hook is discovering, developing, exploiting, and connecting villages and economic locations. Star Trading grants bonus XP as villagers advance through trade levels, with a major Master reward. Ability 1 and Ability 2 are unresolved. Silk Road grants speed along nearby established routes and, on reaching the endpoint, allows allied enchantments and potion effects to be transmitted along the route. [OPEN] Range, eligible effects, recipients, duration, trade attribution, and the meaning of route are unspecified. It does not settle generic effect distribution or Supply Lines.
+[HISTORICAL] This earlier Merchant draft is **superseded** by the active design in §9.11. It framed the hook as discovering, developing, exploiting and connecting villages and economic locations, with a Star Trading passive granting bonus XP as villagers advanced through trade levels, and a Silk Road ultimate granting speed along established routes and transmitting allied enchantments and potion effects along the route. The name Silk Road survives as an alternative title for Procession; the route-effect-transmission mechanic does not.
 
-Lightfooted’s hook uses animal properties for stealthy/quick traversal with combat and animal-propagation applications. The export retains placeholders for the passive, both abilities, upgrades, and ultimate. Those placeholders are missing design, not rules to be completed through invention. [VERIFY RECENCY] A later full kit, if one exists outside the retrieved material, needs reconciliation before promotion.
+Lightfooted is developed further in §9.12. Its hook uses animal properties for stealthy/quick traversal with combat and animal-propagation applications. The export retains placeholders for the passive, both abilities, upgrades, and ultimate. Those placeholders are missing design, not rules to be completed through invention. [VERIFY RECENCY] A later full kit, if one exists outside the retrieved material, needs reconciliation before promotion.
 
 ## 9.8 New concepts and the Waxer branch
 
@@ -1044,6 +1048,152 @@ Canonical world dependencies are strongest for Mole’s geology, Gardener’s pl
 The governing principle is bounded on both sides. Construction may outperform Production at a transformation when the output's principal purpose is structural construction, while Production remains superior at transformation as a general capability; and Construction may hold advantages involving construction-specific feedstocks without becoming superior to Extraction at acquisition generally. These are legitimate class-design territories, not universal passive bonuses for every Construction player. Candidate expressions include construction-material yield, bulk preparation, on-site preparation, rapid hardening or conversion, construction recovery and recycling, efficient demolition and rebuilding, and structural material reuse.
 
 This creates a real decision when preferred Construction Blocks are unavailable. Building immediately from ordinary or improvised material brings the structure online sooner and keeps the Construct valid while sacrificing the Construction Block progression premium; spending time obtaining and preparing Construction Blocks delays the structure but is more progression-efficient; coordinating with Extraction, Logistics, or Production lets those archetypes support the material chain while Construction spends more labor actually constructing. The correct choice should vary with strategic pressure rather than having a universally optimal answer. Construction Blocks are defined in §5.10.
+
+## 9.11 Merchant — active design
+
+**ACTIVE DESIGN — not settled.** Merchant is the current active class-design subject. Structure below is recorded at the confidence level it actually holds: strong current structure, [FAINT CAUTION] for mechanics worth preserving but not conceptually settled, and [OPEN] for unresolved implementation, balance, or system questions.
+
+Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated.
+
+**Core fantasy.** A fabulously wealthy travelling benefactor and opportunist whose economic success becomes spectacle. The presentation is fairytale and lavish: showering villagers with money, gaudy fanfare, pomp, patronage, prosperity, an entourage, procession, finery, and royal treatment.
+
+Merchant is feast-or-famine, potentially enormous in both economic and combat utility, and an aloof, unserious, largely self-serving aristocrat. Merchant helps the team because the team happens to benefit from Merchant getting disgustingly rich.
+
+Progression fantasy: a poor Merchant still has to get a job — farm, cut wood, gather requested resources, walk normally, personally craft. A successful Merchant increasingly escapes ordinary labour through capital and employees.
+
+**Economic model.** **Reputation** determines commercial relationship and willingness to work. Hiring should specifically require sufficient Trading Reputation / commercial relationship rather than merely any positive vanilla Reputation, and continued willingness to Work may depend on sufficiently positive overall Reputation. This lets curing and gratitude differ from actually establishing a business relationship, and means Swindle can eventually damage an employee relationship. [OPEN] Exact thresholds and vanilla-gossip implementation.
+
+**Mastery** is the villager's vanilla-style progression: Novice, Apprentice, Journeyman, Expert, Master. Mastery determines productive capability and later Procession strength. Work itself advances Mastery.
+
+**Payroll** is the Emerald cost/obligation of employed villagers. It is not a new currency.
+
+**Employment**: sufficient commercial Reputation makes a villager willing to Work; Merchant then hires them onto Payroll. Do not automatically force every eligible villager onto Payroll. [OPEN] Firing/rehiring anti-exploit behaviour.
+
+**Retinue** is the subset of employed workers physically mobilized around Merchant. Workforce is not the same as Retinue.
+
+**Passive — Work.** Villagers with sufficient commercial Trading Reputation toward Merchant become willing to Work for Emeralds. Merchant may employ willing villagers, placing them on Payroll. Performing Work advances Mastery, and higher Mastery makes Work more capable and materially efficient.
+
+Work is a **Production** system: resources plus Emerald labour cost produce products. Merchant supplies the actual resources; workers do **not** generate missing raw resources.
+
+Work is **not** profession-specific. Villager professions remain important to their ordinary vanilla trading relationships, but Work itself should use a universal paid-production abstraction.
+
+Preferred interaction model: avoid a bespoke Merchant production UI or specialized input family if possible. Work should occur periodically and automatically from eligible supplied materials. Some RNG is acceptable and may be desirable. Available materials constrain the possible output pool — Primary Materials, Construction Blocks, and secondary materials — and the worker selects a valid vanilla-grounded transformation within their Mastery and Production Reach.
+
+Initial obvious output families are equipment and processed/construction products. Do not permanently define Work as only tools and blocks; specialized products may later expand the vocabulary. Use vanilla recipes and transformations as the authoritative semantic vocabulary rather than mathematically inferring every possible product from arbitrary material categories.
+
+Output RNG principle: uncertainty may determine **which** useful valid production occurs, while the system remains legible through the materials Merchant supplies.
+
+**Mastery and the production curve.** Work is **not** required to be economically superior at low Mastery. Poor employees may genuinely lose Merchant material. Mastery can provide a continuous production-efficiency curve rather than requiring a new mechanic at every tier.
+
+| Mastery | Approximate conceptual behaviour |
+| --- | --- |
+| Novice | Potentially actively wasteful; may consume more material than equivalent ordinary crafting |
+| Apprentice | Likely the realistic floor of Merchant employment, because the trading needed to establish a commercial relationship may already advance many villagers past Novice. Still inefficient or near-ordinary |
+| Journeyman | Production becomes genuinely efficient |
+| Expert | Meaningful preserved inputs, leftovers, or surplus |
+| Master | Exceptional material utilization: primary craft, useful leftover material, and potentially additional secondary products from the same budget |
+
+[OPEN] Tier breakpoints are not finalized. Do not spend equal design budget forcing Novice to matter; Novice employment may be a legitimate but uncommon edge case.
+
+Mastery has two related dimensions. **Production Reach** is what transformations the worker can perform; **Production Efficiency** is how effectively they convert the supplied material budget. Production Reach should represent productive sophistication, depth, and complexity — not simply Novice equals wood and Master equals diamond. [OPEN] The exact Production Reach model.
+
+**Emerald substitution.** [FAINT CAUTION] Merchant may substitute an intentionally **exorbitant** quantity of Emeralds for some or all goods requested by a villager in a trade.
+
+A poor Merchant must satisfy trade requests normally. An extremely rich Merchant increasingly decides whether acquiring a requested material is worth their time or whether to throw money at the problem. The exchange rate must be intentionally bad, and this should not make trading obsolete — trading remains important for commercial relationships and Reputation, villager progression, liquidity, Swindle opportunities, and workforce development.
+
+Emerald substitution competes with Payroll for the same liquid capital. [OPEN] Placement in the passive or another system is unresolved.
+
+**Ability 1 — Swindle.** After trading with a villager, Merchant can strike them to Swindle them, converting or sacrificing some Reputation for bonus Emerald value from the completed trade. Once per villager per restock cycle; the villager is marked Swindled until a successful restock.
+
+The economic tension is that Emeralds are liquid capital and Reputation is social/commercial capital: Merchant can finance their economy by damaging the relationships that allow the economy to exist.
+
+**Invisible Hand** — strong, near-settled. Swindling one eligible villager also Swindles other qualifying nearby villagers without physically hitting them, extracting bonus Emerald value from each while concentrating Reputation loss onto the struck villager. Nearby villagers must independently be eligible, traded, and not already Swindled.
+
+**Credit Line** — [FAINT CAUTION] Commercial leverage. The intended question is whether Merchant can consume future relationship value now for immediate liquidity and convert that liquidity into enough acceleration before the exhausted relationship matters again. Exact mechanic **not locked**.
+
+**Community Chest** — [FAINT CAUTION] Economic circulation and distributed value. The intended question is whether Merchant can keep enough value circulating through Work and commerce that redistribution beats retaining personal liquidity. Exact mechanic **not locked**.
+
+Branch principle: every branch should be an economically irresponsible business model that becomes brilliant if Merchant correctly understands the economy they built. The failure state is "I built my business model around an economy that doesn't exist."
+
+**Ability 2 — Retinue.** Nearby employed workers respond to Merchant and accompany or follow them. Retinue mobilizes the existing workforce; it does not independently create employees.
+
+Because Work has evolved away from profession-specific resource gathering, any older Retinue text assuming workers simply gather profession-specific materials should be re-evaluated.
+
+**Seize the Means** — [FAINT CAUTION / STRONG] Retinue sacrifices or pauses ordinary productive Work to target a designated area and **disable** enemy workstations and infrastructure — disable, not necessarily destroy. This naturally creates Splitpusher, Dismantler, Siege, and Disruptor behaviour if retained.
+
+**Toll Patrol** — [FAINT CAUTION / STRONG] Retinue patrols and operates around Merchant in contested space. Ordinary productive Work is sacrificed or paused. Enemy presence and activity offset Payroll rather than directly generating arbitrary Emeralds.
+
+**Overtime** — [FAINT CAUTION] Pay more or intensify labour to accelerate ordinary Work and/or Mastery. This is the **weakest** current branch concept and still needs to prove it creates a distinct playstyle rather than merely numbers going up.
+
+**Ultimate — Procession / Silk Road.** Merchant begins a moving procession in a chosen direction or toward a destination with nearby Retinue workers. Merchant leads by remaining within the procession radius and continuing to finance the workers. If Merchant abandons the procession or cannot meet its Emerald/Payroll requirement, the ultimate ends.
+
+Do **not** force Supply Line or Route clauses into the ability; infrastructure interaction should occur naturally through generic WAMS rules where appropriate.
+
+Retinue size and Mastery directly determine power. **Retinue size** determines Work proc frequency and cadence. **Mastery** determines the cumulative Procession Work package:
+
+| Mastery | Cumulative package |
+| --- | --- |
+| Novice | I |
+| Apprentice | I + II |
+| Journeyman | I + II + III |
+| Expert | I–IV |
+| Master | I–V |
+
+This cumulative structure is intentional. Current candidate effects are I Saturation, II Speed, III Regeneration, IV Absorption, V Instant Damage AoE.
+
+[FAINT CAUTION] The exact effect lineup is not settled. Instant Damage is not conceptually forbidden; the primary balance concern is proc frequency with many Master workers.
+
+Procession should probably represent **maximum expenditure** rather than discounted Work: workers stop running Merchant's ordinary economy and redirect their productive capacity into the procession. The fed-state payoff scales accordingly — a small low-Mastery workforce gives a modest procession, a large low-Mastery workforce frequent weaker Work, a small elite workforce infrequent but powerful Work, and a large Master workforce a deliberately obscene feast-state payoff.
+
+## 9.12 Unsettled class drafts
+
+Preserved as drafts, not settled classes. Missing slots are missing design, not gaps to fill by invention.
+
+**Skeleton Crew.** **Draft — not settled.** Likely emergent archetypes are Logistics and Combat, but these should be re-evaluated after completion.
+
+Core rule: hostile undead become logistical labour.
+
+**Passive — Undead Affinity.** Zombies and Skeletons become compatible with the class and largely non-hostile, per the current draft.
+
+**Ability 1.** An empowered interaction or attack against Zombies and Skeletons banks the mob. Arise raises the banked crew. Raised crew can be sent toward a destination, physically pick up dropped items, use actual inventories and cargo, and be redirected; killing or dismissing them spills cargo.
+
+**Ability 2.** Set crew ablaze for dramatically increased speed and combat effectiveness, at the cost of continuous HP loss and risk of cargo spill.
+
+**Ultimate — Getting A-Head.** A Headless Horseman leads the horde. An alternative under consideration has the player ride the horse while the Horseman independently fights.
+
+Missing conceptual slots: A1 branches, A2 branches, exact command structure, Horseman resolution, and possible simplification of A1 complexity.
+
+**Waxer.** **Draft — not settled.** Primary Production; Combat currently plausible.
+
+Core rule: Honeycomb can be repeatedly invested into existing products to preserve them against change; enough preservation becomes obstruction.
+
+**Passive — Waxed Recipes.** Fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version or output.
+
+**Ability 1 — Wax-On.** Apply Waxed stacks to existing objects. Enough Wax on interactive blocks makes them Sealed; Sealed blocks cannot normally change or use their interactive state. The first Wax application to damaged unwaxed equipment restores durability. Branch concepts: **Amber** (faster or stronger sealing), **Restorative** (stronger initial restoration), **Sticky** (interaction with Waxed armour can punish attackers, for example Mining Fatigue while consuming Wax).
+
+**Ability 2 — Wax-Off.** A thrown Honey Solution. The base ability needs to provide a repeatable route to Honeycomb acquisition. Branch seeds — **Enzymatic**, **Preserving**, **Floral** — are not equally developed and remain draft.
+
+**Ultimate — Amber.** Complete preservation and stasis; delivery mechanism unresolved.
+
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, ordinary removal, and implementation feasibility remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+
+**Lightfooted.** **Draft — substantially incomplete.** Primary Exploration currently plausible; Combat and Development consequences possible but not finalized.
+
+Core area: animal traversal, animal following, and movement/combat interactions.
+
+**Passive — Rabbit's Foot.** Massively reduced fall damage. Lured or following animals share movement and following benefits.
+
+**Ability 1 — Lunge.** Leap toward the cursor and deal damage. Known branches: **Swarming Bite** (wolf count affects or reduces cooldown) and **Thieving Swipe** (charge recovery / offhand disruption concept).
+
+Missing conceptual slots: the third A1 branch, Ability 2 entirely, the A2 branch tree, and the ultimate. These gaps are missing design, not invitations to invent.
+
+**Daredevil.** **Draft — substantially incomplete.** Primary Exploration currently plausible; Extraction and Combat only tentative consequences.
+
+**Passive — Skydiver.** Remaining airborne for more than one second grants extreme Speed while airborne. Traversal and routes created while Skydiving interact with this movement concept according to existing global infrastructure rules.
+
+**Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
+
+Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
 
 # 10. System Interactions
 
@@ -1424,6 +1574,8 @@ Keep design, implementation, and validation status separate. Update cross-refere
 
 
 **[I] Infrastructure Design and reconciliation.** Canonical infrastructure.md, introduced in this revision; docs/reconciliation/2026-09-10-infrastructure.md records scope and supersession. [Infrastructure source](https://github.com/iracarranza/minecraftmoba/blob/main/infrastructure.md). This main-branch link identifies the living source; the base source snapshot above remains pinned.
+
+**[WC] Class Documentation Handoff.** 11 September 2026. Settles Mole and Gardener, records Merchant as active design, and preserves Skeleton Crew, Waxer, Lightfooted and Daredevil as drafts. Supersedes the earlier Gardener kit, Mole passive and Tunneling branches, and the Star Trading / route-effect Merchant. See docs/reconciliation/2026-09-11-classes.md.
 
 **[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 
