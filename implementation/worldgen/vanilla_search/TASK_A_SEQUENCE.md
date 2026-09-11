@@ -152,3 +152,42 @@ The run verified **651 unchanged files across all ten existing worlds** and
 Quick Look render inspection covered both focused candidates; long feature
 labels were moved to the SVG sidebar to keep homeland handoffs readable.
 `git diff --check` passed. Existing user `.DS_Store` changes are outside this work.
+
+## Destination-first terrain-network analysis — subsequent revision
+
+The next user-directed analytical pass supersedes the historical-spine search
+constraints above. It retains existing candidate bounds, orientation, homelands
+and Fountains, but **no historical Route geometry enters the solver**. Historical
+Routes are preserved in comparison/debug output only.
+
+Run `python3 implementation/worldgen/fit_default_task_a_network.py`.
+Outputs: `results/default_destination_first_2026-09-10/`, with eight JSON/SVG pairs,
+aggregate `comparison.json`, focused `REPORT.md` (930010639, 930012642, 930005557),
+and input/world preservation hashes in `verification.json`.
+
+The pass separates geometric Homeland Depth from terrain-weighted Travel Cost,
+compresses coarse geographic components, groups inland-water systems, evaluates
+homeland-wide destinations and forward/backtracking continuation, selects up to
+three destinations jointly, then finalizes exits and Starter corridors. Same-team
+lateral and opposing convergence matrices use sample-level reach rather than
+mathematical-center or large-region-overlap assumptions. Region/branch counts
+and convergence depths are descriptive, not desired topology targets.
+
+Natural/modest/major labels are sampled dependency proxies. Water crossings are
+conditional; the major sensitivity graph also contains **unverified water
+transport**, not proof that a wide-water connection needs major earthwork.
+Unresolved analysis of the manually promising 930010639 remains an analyzer
+limitation, not an automatic seed rejection. No physical greybox or Task C is
+authorized by this pass. Run the full test suite using the command above.
+
+Completed run: all eight finalists, 65.666 seconds of analytical fitting
+(preservation hashing separate), 46 provisional handoffs. One choice remains
+unresolved for 930015734 South and 930016664 North. All three focused candidates
+have three provisional handoffs per team, not a physical validation pass.
+The final suite passed **92 tests** in 41.392 seconds, including history-removal
+and corruption tests, reproduction of the real 930010639 fit without old Routes,
+all-face perimeter coverage, depth/cost separation, water identity, noise
+absorption, continuation/backtracking, sample-level convergence and observed
+overlap-growth profiles. All 19 output files were verified; **651 world files**
+and **86 prior input/artifact files** remained unchanged. Focused SVG overlays
+were render-inspected; XML and provenance hashes passed. No worlds were missing.
