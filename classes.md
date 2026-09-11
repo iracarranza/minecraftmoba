@@ -459,15 +459,21 @@ The central Logistics question is:
 
 Logistics should not be reduced to merely having a larger inventory.
 
+**Working canon, 11 September 2026.** Logistics materially changes how items, resources, supplies, and other strategic assets are delivered and made available where they are needed. The foundational verb is delivery and availability, not connection. A connection may result from Logistics, but connection is not what defines the archetype.
+
+This separates Logistics from Exploration more cleanly. Exploration improves how players traverse, discover, access, and project through geography. Logistics improves how resources are delivered through that geography and made available at useful destinations.
+
 ### Infrastructure expression — Supply Lines
 
 The current leading team-facing infrastructure expression of Logistics is the **Supply Line**.
 
 A Supply Line concerns actual resource distribution rather than merely improving the carrying capacity of the Logistics player.
 
-Current basic model:
+Current model:
 
-> origin storage → Supply Line → destination storage
+> demonstrate repeatable delivery to a useful destination → recognize the demonstrated capability as a Supply Line
+
+[HISTORICAL] The earlier origin-first formulation — origin storage → Supply Line → destination storage — is superseded as the defining model; the storage relationship it describes remains real as an observed property. See [infrastructure.md](infrastructure.md#supply-lines).
 
 Actual items stored upstream gradually transfer or replenish downstream storage.
 
@@ -488,7 +494,7 @@ Potential mechanical axes available to authored class progression include:
 
 Later high-potency Logistics may eventually allow supplied infrastructure to replenish allied players directly. This is a future candidate rather than an established baseline capability.
 
-A Supply Line requires source and destination container selection plus successful cargo-transport proof. It is directional unless separately proved in reverse. Transit Time and Flow Weight determine demonstrated performance conceptually; ordinary player Flow Weight is 1, and the exact formula remains [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
+A Supply Line is established by demonstrating repeatable delivery to an eligible destination; origin and path are observed from that movement rather than selected beforehand. It is directional unless separately proved in reverse. Flow Weight is authored by the transport method and sets items per pulse; Item Rate derives from demonstrated Transit Time and sets pulse frequency; ordinary player Flow Weight is 1, and exact values remain [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
 
 Routes and Supply Lines may physically overlap and synergize without either requiring the other.
 
