@@ -713,6 +713,99 @@ This rules out making a Construct's primary intrinsic effect an XP bonus for pla
 
 This separates Logistics from Exploration more cleanly. Exploration improves how players traverse, discover, access, and project through geography. Logistics improves how resources are delivered through that geography and made available at useful destinations.
 
+## 6.17 Designation and evidence
+
+**Working canon. Source: [WC].** Infrastructure Mode is not responsible for inferring arbitrary infrastructure from the world. It allows a player to **designate Minecraft-native evidence** of infrastructure, and the system then recognizes and extrapolates infrastructure properties from that evidence. This produces different recognition grammars for the four systems rather than forcing all of them through one submission mechanic.
+
+Infrastructure is the systemic recognition, automation, and amplification of behaviour that already exists in Minecraft or through the player's class. Archetype membership does not by itself grant recognized infrastructure, and ordinary Construction, Development, Exploration and Logistics behaviour remains available before recognition is unlocked. The chain remains player action, demonstrated capability, persistent world capability.
+
+### 6.17.1 Place and connection infrastructure
+
+The four systems divide into two structural categories, and this should be embraced rather than normalized away. **Place infrastructure** covers Constructs and Development Zones; **connection infrastructure** covers Routes and Supply Lines. Place infrastructure asks what Minecraft evidence establishes that an area is meaningfully built or developed. Connection infrastructure asks what Minecraft objects establish the endpoints and what player behaviour demonstrates the connection between them.
+
+In each system's own voice: a Construct says these authored blocks constitute one useful place; a Development Zone says these renewable productive resources constitute one productive place; a Route says these two marked places are meaningfully traversable; a Supply Line says resources can meaningfully move between these two storage nodes. Place and connection map onto the existing extent and relation axis in the four-identity table; they are an organizing frame for that axis, not a replacement for it.
+
+### 6.17.2 Archetype-native anchors
+
+| Archetype | Native anchor / evidence | Infrastructure |
+|---|---|---|
+| Exploration | Banners | Route |
+| Logistics | Copper Chests | Supply Line |
+| Construction | Construction Blocks | Construct |
+| Development | Developable resources and populations | Development Zone |
+
+Each archetype perceives a particular ordinary Minecraft object as the anchor or raw material of its infrastructure. This keeps infrastructure legible in the world and requires participation in the ordinary resource economy: an archetype does not merely press an infrastructure button, it needs the Minecraft things through which its infrastructure exists.
+
+It also gives ordinary resources new economic significance without inventing currencies. Banners create relevance for sheep, wool, dyes and banner crafting, and already semantically communicate a marked or important location. Copper Chests make a logistics node visible to allies and enemies alike: an ordinary chest says items are stored here, while a Copper Chest says this storage participates in Logistics infrastructure and is a possible disruption target.
+
+## 6.18 Designating a Construct
+
+**Working. Source: [WC].** Construction uses Construction Blocks as its own infrastructure evidence. The grammar is to enter Infrastructure Mode, designate qualifying authored Construction Blocks or a bounded region containing them, have those materials recognized as belonging to a Construct, optionally designate further nearby regions or components, and let the system evaluate the aggregate recognized build.
+
+The system does not need to decide whether something is objectively a house, a fortress or a bridge; that is fuzzy and unnecessary. The player declares that these authored blocks are one Construct, and the system evaluates objective properties of that declaration: block investment or mass, spatial extent, and possibly internal coherence, meaning how spatially separated the selected regions are. Coherence may remain an internal validation concept rather than a visible player statistic.
+
+The core relationship is that more legitimate constructed material allows a player to claim and support more operational space. Insufficient block investment should constrain maximum legitimate extent, which prevents placing four blocks at four distant corners and claiming an enormous fortress area. Conversely, many blocks in a compact region can represent a dense high-investment Construct without requiring a large operational footprint.
+
+Repeated region selection is preferable to requiring one mathematically contiguous mass, because legitimate Minecraft structures routinely contain gaps, air, separate walls, fence components, bridge supports, nearby defensive works, vertical separation and disconnected authored components. [OPEN] Exact region-selection representation is unresolved. Prefer player-assisted bounded selection over automatic recursive flood-fill of arbitrary world construction; do not continuously ask the implementation to infer enormous connected structures.
+
+## 6.19 Development Weight and dynamic capacity
+
+**Working. Source: [WC].** Development Zones are the simplest place infrastructure. The player enters Infrastructure Mode, designates something recognized as developable, and the system recognizes and evaluates the surrounding qualifying productive region. Further nearby developmental components may be added to the same zone. Developable evidence may include crops, trees and saplings, livestock, bees and hives, and other renewable productive Minecraft systems.
+
+Raw counts cannot be compared across developmental types: ten wheat blocks, ten cows and ten saplings are not equivalent. An internal **Development Weight** normalizes productive value per recognized resource type, with Development Capacity conceptually the sum of qualifying weights. [OPEN] Exact weights are unresolved. As with Constructs, spatial extent and density matter, so that productive investment must justify operational area and one cow at each corner of an enormous field does not produce an enormous zone.
+
+Block-based and entity-based development should not use identical normalization. Qualifying resource blocks can be counted with density and area limits preventing pathological layouts. Raw population count is dangerous on its own: a hundred cows crammed into a single block should not read as vastly greater legitimate Development than a functioning pasture. Population, occupied viable area, and a local density ceiling or diminishing return are candidate factors. [OPEN] Exact formula unresolved. Mixed zones combining crops, livestock, bees and trees should be allowed to constitute one productive area rather than four unrelated zones.
+
+Unlike a Construct, a Development Zone should be periodically re-evaluated. A Construct derives legitimacy primarily from authored construction that exists; a Development Zone derives it from productive resources and populations that continue to exist and develop. If livestock disappear, crops are destroyed, hives vanish or productive area collapses, Development Capacity should be able to fall. This is preferable to permanently certifying a zone based on whatever was present at the moment of designation. [OPEN] Recalculation frequency unresolved.
+
+## 6.20 Banner endpoints
+
+**Working. Source: [WC].** Banners become Exploration's infrastructure anchor. The establishment grammar is to place or find Banner A, enter Infrastructure Mode and designate it as an endpoint, travel to another location, place or find Banner B, and designate it as the other endpoint, after which the system recognizes and evaluates the demonstrated connection. The Banner says this location matters; the player's traversal says a viable connection between these locations has been demonstrated.
+
+The persistent Route need not be defined as an exact block-by-block replay of the player's recorded footsteps. The endpoints are the durable semantic identity of the Route; the demonstrated traversal is evidence used to establish and evaluate it. This gives Exploration an internal resource requirement, so it is no longer only about finding interesting things but also about provisioning itself to create navigational infrastructure. [OPEN] Whether Routes are inherently bidirectional, how much demonstrated path geometry is retained, how Route effect is calculated, whether alternate demonstrations can improve an existing Route, and the exact designate input all remain unresolved.
+
+## 6.21 Copper Chest anchors and Supply Line execution
+
+**Working. Source: [WC].** Supply Lines use **Copper Chests** as their infrastructure anchors rather than generic storage. This is primarily a legibility decision and should read to both allies and enemies: seeing an enemy Copper Chest should immediately communicate a strategically significant logistics node, a possible Supply Line endpoint, and a possible disruption or denial target.
+
+[CONFLICT] The proposed grammar — enter Infrastructure Mode, designate Copper Chest A as Source, demonstrate resource movement, designate Copper Chest B as Destination — partially reinstates explicit source designation, which the 11 September handoff superseded with the instruction not to require marking an origin container first and not to force class abilities to contain explicit Supply Line interface. The two are not identical: the newer proposal anchors designation to a specific legible block type and still requires demonstrated delivery rather than treating selection as sufficient. This tension is recorded rather than silently resolved. Until the owner decides, both the destination-oriented framing and the Copper Chest designation grammar are documented, with the first endpoint naturally meaning Source and the second Destination.
+
+[OPEN] The exact designate interaction is unresolved. Do not prematurely canonize right-click; a generic designate-targeted-block action may be cleaner than detecting arbitrary vanilla right-click interactions. Actual item withdrawal or deposit could form part of establishment, but reliable inventory-transfer detection should be feasibility-tested before becoming a design dependency.
+
+### 6.21.1 Self-directed logistical entities
+
+Any summoned or self-directed entity performing Logistics operates on a **Source to Destination assignment**. The player determines logistical intent; the entity determines how it physically resolves that assignment with its own movement capabilities. A walking worker pathfinds over traversable terrain, a future flying carrier may resolve the connection through flight, and an aquatic carrier through swimming.
+
+[CONFLICT] The player does not need to specify a self-directed entity's literal block-by-block path, and for these entities endpoints alone are sufficient. This narrows the 11 September player-authored corridor model, which had the player demonstrating an intended corridor that the carrier then resolved. Both agree the carrier resolves traversal in its own movement vocabulary; they differ on whether the player authors a corridor at all. The narrower endpoint model is recorded here for self-directed entities; corridor authoring remains documented for player-guided methods pending a decision.
+
+This resolves the earlier problem where self-directed systems appeared directionless beside intrinsically directional systems such as rails and water channels. Directional infrastructure already encodes movement through its physical construction; self-directed entities instead receive strategic endpoints and independently resolve traversal.
+
+### 6.21.2 Physical Logistics before recognition
+
+Physical logistical labour and recognized Supply Lines are not the same thing. Before recognition, an actual carrier physically collects and moves actual items between storage: it travels, can be intercepted, carries cargo, can die, is affected by pathing, and must repeat the trip. That is already legitimate Logistics gameplay.
+
+After the capability is recognized, the persistent infrastructure can reproduce the demonstrated resource flow without requiring the original physical carrier to make every future trip. The progression is manual physical Minecraft behaviour, then demonstrated logistical capability, then recognized automated infrastructure. Infrastructure should free the player or entity to establish new value rather than requiring permanent repetition of already-proven labour.
+
+### 6.21.3 Derived Flow Weight and Item Rate
+
+[CONFLICT] Flow Weight and Item Rate should preferably both be **derived from demonstrated logistical performance** rather than arbitrarily assigned from endpoint distance or class identity. For a demonstrated delivery the system can observe cargo successfully moved over elapsed time, which is evidence for both quantities. This refines the 11 September position that Flow Weight is an authored property of the transport method while only Item Rate is derived; the two positions are recorded together pending a decision. The distinction between the quantities is unchanged: Flow Weight is items per pulse, Item Rate is pulse frequency, and throughput is their product.
+
+Do not derive Item Rate primarily from geometric source-to-destination distance. Distance already affects actual demonstrated delivery time, so building a bridge, laying rails, creating a shortcut, using flight, tunnelling through a mountain, or using a faster carrier improves the demonstration itself. This preserves player action, demonstrated capability, persistent capability. Different methods need not share movement mechanics; they become comparable because the system ultimately asks how much a system successfully moved and how quickly and reliably it moved it.
+
+### 6.21.4 Recognized Supply Line execution
+
+**Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Flow Weight and an Item Rate, the recognized line periodically transfers up to Flow Weight eligible actual items from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
+
+Two alternatives were considered and are not preferred. Using invisible carrier entities to physically simulate the calculated rate makes mob AI the system's clock and brings pathfinding failure, entity overhead, obstruction, and chunk-loading questions; keep it only as a possible presentation experiment, not canonical behaviour. Physical item packets travelling the world at each pulse recreate a logistical simulation after the player has already earned infrastructure abstraction; revisit only if in-transit interception proves essential to counterplay.
+
+[OPEN] Arbitrary-container inventory manipulation in Java 1.21.9 deserves a technical prototype before this is declared solved. Carrier entities, particles, sounds, or visible activation at Copper Chests may later serve as presentation without being responsible for the actual transfer.
+
+## 6.22 Implementation feasibility notes
+
+**Working. Source: [WC].** Conceptually safe for datapack implementation: Infrastructure Mode state via scoreboard or tag; designating a targeted or nearby known block type; identifying Banners and Copper Chests; storing endpoint coordinates; counting and inspecting bounded areas after explicit player action; storing aggregate infrastructure properties; scoreboard-based pulse timers; entity ownership via tags or scores; and class-controlled source and destination state.
+
+[OPEN] Needs prototyping: arbitrary-container item transfer; inventory-origin proof during Supply Line demonstration; performant region representation for Constructs and Development Zones; dynamic Development Zone scanning; entity-population normalization; and the chosen designate interaction. Avoid making design dependent on arbitrary vanilla right-click detection until tested, on continuous flood-fill or large world scans, on mob AI as the authoritative timing mechanism for recognized Supply Lines, or on exact replay of a player's route when endpoint and demonstration data suffice.
+
 # 7. Objectives and Strategic Locations
 
 ## 7.1 Vocabulary and organizing principle
@@ -1465,6 +1558,8 @@ Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainte
 
 11 September 2026: a WAMS handoff on infrastructure benefits and Logistics redefinition was integrated. Structural Integrity becomes the current preferred intrinsic Construct benefit, and the Supply Line model is reframed from origin-first endpoint selection to demonstrated destination-oriented delivery. Flow Weight and Item Rate are separated, with the earlier combined Flow Rate formulation superseded. Flow Weight, Transit Time, persistent operation, physical disruption, directionality, and team-relative integration are retained and reconciled rather than replaced.
 
+Late September 2026: a WAMS infrastructure clarification handoff from the Skeleton Crew and Logistics discussion introduced the designation-and-evidence model, the place versus connection organizing frame, archetype-native anchors (Banners, Copper Chests, Construction Blocks, developable resources), Construct block-investment and extent evaluation, Development Weight with dynamic recalculation, the source-to-destination rule for self-directed logistical entities, the distinction between pre-infrastructure physical Logistics and recognized Supply Lines, and direct Copper Chest inventory transfer as the preferred execution model. Four tensions with 10 and 11 September canon are recorded as [CONFLICT] rather than resolved.
+
 ## 14.3 Conflict and recency ledger
 
 | ID | Collision | Treatment in this manuscript |
@@ -1576,6 +1671,8 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[I] Infrastructure Design and reconciliation.** Canonical infrastructure.md, introduced in this revision; docs/reconciliation/2026-09-10-infrastructure.md records scope and supersession. [Infrastructure source](https://github.com/iracarranza/minecraftmoba/blob/main/infrastructure.md). This main-branch link identifies the living source; the base source snapshot above remains pinned.
 
 **[WC] Class Documentation Handoff.** 11 September 2026. Settles Mole and Gardener, records Merchant as active design, and preserves Skeleton Crew, Waxer, Lightfooted and Daredevil as drafts. Supersedes the earlier Gardener kit, Mole passive and Tunneling branches, and the Star Trading / route-effect Merchant. See docs/reconciliation/2026-09-11-classes.md.
+
+**[WC] WAMS Infrastructure Clarification Handoff.** Late September 2026, from the Skeleton Crew / Logistics discussion. Introduces the designation-and-evidence model, place/connection framing, archetype-native anchors, and direct Copper Chest inventory transfer. Four tensions with [WB] and [WI] are recorded as [CONFLICT] rather than resolved. See docs/reconciliation/2026-09-11-wams-clarification.md.
 
 **[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 

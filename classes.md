@@ -266,6 +266,9 @@ Raw movement speed, high jumps, and similar effects can create disproportionate 
 
 ### Infrastructure expression — Routes
 
+**Working, late September 2026.** Banners are Exploration's native infrastructure anchor: a Route is designated between two Banner endpoints and evaluated from demonstrated traversal. See [infrastructure.md](infrastructure.md#banner-endpoints).
+
+
 A current strategic infrastructure expression of Exploration is the **Route**.
 
 Ordinary Minecraft travel and road-building remain available to every player. Progression may instead grant the ability and capacity to designate or recognize Routes that provide exceptional traversal benefits.
@@ -464,6 +467,9 @@ Logistics should not be reduced to merely having a larger inventory.
 This separates Logistics from Exploration more cleanly. Exploration improves how players traverse, discover, access, and project through geography. Logistics improves how resources are delivered through that geography and made available at useful destinations.
 
 ### Infrastructure expression — Supply Lines
+
+**Working, late September 2026.** Copper Chests are Logistics' native infrastructure anchor and make a logistics node legible to both teams. See [infrastructure.md](infrastructure.md#copper-chest-anchors-and-designation).
+
 
 The current leading team-facing infrastructure expression of Logistics is the **Supply Line**.
 
