@@ -247,3 +247,39 @@ were render-inspected (square-padded temporary QA copies avoid Quick Look's
 rectangular thumbnail clipping). The report records guard contact in 43/46
 physical budgets and the 57.9–137.9 physical / 90.4–479.5 effective extent range;
 these are observed analyzer limits, not calibrated gameplay distances.
+
+## Opportunity Relationship shadow pass — spec 4
+
+The next pass consumes those frozen results without reselecting handoffs or
+changing any active fitting logic. See `OPPORTUNITY_SHADOW.md` for terminology,
+provisional heuristics, natural/authored responsibility and the stopping rule.
+
+```
+python3 implementation/worldgen/fit_default_task_a_opportunities.py
+python3 implementation/worldgen/fit_default_task_a_opportunities.py --verify
+```
+
+Outputs: `results/default_opportunity_shadow_2026-09-11/`. All 46 selected
+handoffs and 192 stratified unselected candidates receive additive diagnostics.
+The final eight-candidate shadow run took 11.298 seconds of analysis (world
+hashing separate). Completion observations are 7 Complete, 10 Structurally
+Supported and 29 Incomplete selected relationships; 55 sampled unselected
+relationships are Complete or Structurally Supported. These are conditional
+evidence categories, not new quality scores, eligibility decisions or seed
+verdicts.
+
+930010639 North coastal/inland-water handoffs share a sampled water network and
+village payoff; direct land access and existing homeland water contact leave
+privileged-access advantage unresolved. N1's immediate highland entry is not
+established by the modest proxy, but its local Junction structure is separate
+evidence. The suspicious 930007222 forest handoff is not a demonstrated forest
+Gateway; its structural interpretation comes instead from water access, with
+payoff still unobserved. General slope/pass semantics remain an analyzer gap.
+
+The full suite passes 126 tests. Verification includes exact equality with each
+baseline after stripping only shadow fields, unchanged active implementation,
+133 protected input/artifact/implementation files and 651 unchanged files
+across all ten available worlds. Previous analytical outputs remain intact.
+No new seed, physical world, authored payoff, reselection or Task C work occurs.
+Manual shadow review and another explicit design/validation pass are required
+before Opportunity Relationship evidence may influence selection.
