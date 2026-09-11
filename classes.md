@@ -479,7 +479,7 @@ Current model:
 
 > demonstrate repeatable delivery to a useful destination → recognize the demonstrated capability as a Supply Line
 
-[HISTORICAL] The earlier origin-first formulation — origin storage → Supply Line → destination storage — is superseded as the defining model; the storage relationship it describes remains real as an observed property. See [infrastructure.md](infrastructure.md#supply-lines).
+**Reinstated, late September 2026.** Explicit origin designation returns: a Supply Line is established Copper Chest Source → actual logistical transport → Copper Chest Destination. [HISTORICAL] The intervening origin-free formulation, in which origin was inferred from observed cargo movement rather than designated, is superseded. See [infrastructure.md](infrastructure.md#supply-lines).
 
 Actual items stored upstream gradually transfer or replenish downstream storage.
 
@@ -500,7 +500,7 @@ Potential mechanical axes available to authored class progression include:
 
 Later high-potency Logistics may eventually allow supplied infrastructure to replenish allied players directly. This is a future candidate rather than an established baseline capability.
 
-A Supply Line is established by demonstrating repeatable delivery to an eligible destination; origin and path are observed from that movement rather than selected beforehand. It is directional unless separately proved in reverse. Flow Weight is authored by the transport method and sets items per pulse; Item Rate derives from demonstrated Transit Time and sets pulse frequency; ordinary player Flow Weight is 1, and exact values remain [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
+A Supply Line is established by designating a Copper Chest Source, performing actual logistical transport, and designating a Copper Chest Destination; it then simulates repeated deliveries by that method. It is directional unless separately proved in reverse. Flow Weight is a property of the logistical method and sets items per pulse; Item Rate emerges from that method's actual movement over the established connection and sets pulse frequency. The player authors neither. Ordinary player Flow Weight is 1, and exact values remain [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
 
 Routes and Supply Lines may physically overlap and synergize without either requiring the other.
 
@@ -2098,6 +2098,10 @@ Core rule: hostile undead become logistical labour.
 **Passive — Undead Affinity.** Zombies and Skeletons become compatible with the class and largely non-hostile, per the current draft.
 
 **Ability 1.** An empowered interaction or attack against Zombies and Skeletons banks the mob. Arise raises the banked crew. Raised crew can be sent toward a destination, physically pick up dropped items, use actual inventories and cargo, and be redirected; killing or dismissing them spills cargo.
+
+**Logistics baseline, late September 2026.** Crew Members are **self-directed logistical workers**. A Crew Member can be assigned a Source and a Destination and physically moves cargo between them; the player determines logistical intent, and the Crew Member determines its own traversable path. A basic Crew Member therefore has an authored Flow Weight plus actual movement and pathfinding behaviour. If a Crew Member is the method that connects Copper Chest A to Copper Chest B, a recognized Supply Line can later simulate repeated performance of that method. See [infrastructure.md](infrastructure.md#self-directed-logistical-entities).
+
+A later Skeleton Crew upgrade producing a stronger worker does not need to say "+Supply Line Flow Weight" or "+Supply Line Item Rate." Altering actual Crew behaviour is sufficient: greater cargo capacity yields greater Flow Weight, faster movement yields greater Item Rate, and better traversal yields greater effective Item Rate. The infrastructure consequence is the system's to handle, and no Skeleton Crew ability should contain explicit Supply Line interface.
 
 **Ability 2.** Set crew ablaze for dramatically increased speed and combat effectiveness, at the cost of continuous HP loss and risk of cargo spill.
 
