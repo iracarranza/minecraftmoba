@@ -12,6 +12,7 @@ from successor.grid import rle
 from .task_a import Terrain, shortest, path_to, UNAVAILABLE
 from .task_a_refine import PARAMETERS as A1, components, overlap
 from .task_a_destinations import destinations, feasibility, PARAMETERS as PREVIOUS
+from .task_a_local import local_continuation, locally_viable, POLICY as LOCAL_POLICY
 
 MODES=('natural','modest','major')
 PARAMETERS={
@@ -24,7 +25,7 @@ LIMITS={**UNAVAILABLE,
     'homeland_depth':'Shortest horizontal graph length from outward homeland edges, independent of rise/canopy cost. Potential water/major-grade relationships are optimistic geographic links, not proven traversal. Travel fields separately expose dependency.',
     'component_resolution':'Broad-family/elevation/relief/cover/snow segmentation with sub-24-sample noise absorption. These are analysis resolutions, not target region counts; large regions can conceal passes and internal hierarchy.',
     'water_semantics':'Connected inland water systems and opposite-bank sample runs distinguish access, crossing candidates and barriers. Up-to-32-block runs are conditional modest candidates, not verified shallow water or approved bridges. Longer/ocean links enter only the major-or-unverified sensitivity graph: boats could avoid major construction, but transport and fords are unmeasured.',
-    'continuation':'Forward reach excludes samples shallower than the handoff. Backtracking is measured against unrestricted reach. Classes describe regional continuation: no deeper region is a regional dead_end even if some same-component depth gain exists. Branches are groups of adjacent first-neighbor regions, not proven player-perceived valleys or independently navigable paths.',
+    'continuation':'Local class is determined only by bounded unsupported geography. The preserved broad forward flood is deep_network_reach; its historical class/counts are legacy diagnostics, never local eligibility or shape scores. Local horizons reuse operational band markers on geometric Homeland Depth, provisionally; they are not Travel Cost targets.',
     'selection':'Existing 65-effective-block travel calibration remains a soft travel cost only. Homeland Depth has no invented target; a map-relative depth cost favors earlier handoff. Joint pool/exit caps are computational, not desired topology.',
     'topology':'Matrices use same-sample forward minimax-depth meetings, not merely touching a large region. All depth/branch/convergence counts are descriptive; there is no mathematical-center requirement or winning seed.',
     'manual_evidence':'The supplied manual review of 930010639 establishes useful geographic hierarchy as an analyzer test. Missing recognition is an analyzer limitation, not automatic seed rejection.',
@@ -276,8 +277,8 @@ def analyze(candidate,homelands,parameters=None):
         for feature in catalog:
             eligible=[i for i in feature['cells'] if i in field['depth']]
             if not eligible:
-                pool.append({'id':feature['id'],'kind':feature['kind'],'eligible':False,'continuation':None,
-                             'unavailable':'No outward homeland geographic path in the sampled graph'})
+                pool.append({'id':feature['id'],'kind':feature['kind'],'eligible':False,
+                             'local_continuation':None,'deep_network_reach':None,'unavailable':'No outward homeland geographic path in the sampled graph'})
                 continue
             # Anchor choices remain homeland-wide; no old Route, radius or suffix.
             modes=[m for m in ('natural','modest') if any(i in field['travel'][m] for i in eligible)] or ['major']
@@ -290,30 +291,36 @@ def analyze(candidate,homelands,parameters=None):
                     utility=PREVIOUS['construction_weight']*feature['strength']*score-abs(field['travel'][mode][node]-t.p['starter_target'])/t.p['starter_target']-field['depth'][node]/maxdepth
                     alternatives.append((-utility,MODES.index(mode),node,path,gate,score))
             if not alternatives:
-                pool.append({'id':feature['id'],'kind':feature['kind'],'eligible':False,'continuation':None,
-                             'unavailable':'No traversal-field path from a valid outward perimeter sample'})
+                pool.append({'id':feature['id'],'kind':feature['kind'],'eligible':False,
+                             'local_continuation':None,'deep_network_reach':None,'unavailable':'No traversal-field path from a valid outward perimeter sample'})
                 continue
             _,rank,node,path,gate,score=min(alternatives,key=lambda a:a[:3]);mode=MODES[rank]
             if node not in continuation_cache:
-                continuation_cache[node]={m:continuation(graphs[m],node,field['depth'],regions,membership,unrestricted[m].get(node,set())) for m in MODES}
-            cont=continuation_cache[node]
+                deep={m:continuation(graphs[m],node,field['depth'],regions,membership,unrestricted[m].get(node,set())) for m in MODES}
+                for c in deep.values():
+                    c['legacy_regional_continuation_class']=c.pop('continuation_class')
+                    c['legacy_regional_port_count']=c.pop('meaningful_branch_count')
+                    c['eventual_network_participation']=bool(c['deeper_regions_reached'])
+                continuation_cache[node]=(deep,local_continuation(t,graphs,node,field['depth'],regions,membership))
+            cont,local=continuation_cache[node]
             depth=field['depth'][node];cost=field['travel'][mode][node]
             terms={'evidence_and_constructability':PREVIOUS['construction_weight']*feature['strength']*score,
                    'soft_travel_cost':abs(cost-t.p['starter_target'])/t.p['starter_target'],
                    'soft_homeland_depth':depth/maxdepth,
-                   'continuation_viability':0 if cont['modest']['depth_gain']>0 else 1,
+                   'continuation_viability':0 if local['continuation_class']!='dead_end' else 1,
                    'network_participation':0 if cont['modest']['deeper_regions_reached'] else 1}
             utility=terms['evidence_and_constructability']-sum(v for k,v in terms.items() if k!='evidence_and_constructability')
             pool.append({'id':feature['id'],'opportunity_group':feature['opportunity_group'],'kind':feature['kind'],
                          'anchor':t.point(node),'homeland_depth':round(depth,3),'travel_cost':round(cost,3),
                          'starter_dependency':mode,'conditional_water_dependency':any(edges[tuple(sorted((a,b)))]['water_system'] for a,b in zip(path,path[1:])),
                          'constructability':round(score,4),'evidence':feature['evidence'],'strength':feature['strength'],
-                         'weak_evidence':feature['weak_evidence'],'continuation':cont,'selection_terms':terms,
+                         'weak_evidence':feature['weak_evidence'],'deep_network_reach':cont,'local_continuation':local,'selection_terms':terms,
                          'continuation_dependencies':{
                              'major_only_deeper_regions':sorted(set(cont['major']['deeper_regions_reached'])-set(cont['modest']['deeper_regions_reached'])),
                              'modest_additional_deeper_regions':sorted(set(cont['modest']['deeper_regions_reached'])-set(cont['natural']['deeper_regions_reached']))},
                          'opening_regions':sorted({membership[i] for i in path}),
-                         'utility':utility,'eligible':mode!='major' and score>=A1['starter_min_score'] and utility>0,
+                         'utility':utility,'eligible':mode!='major' and score>=A1['starter_min_score'] and utility>0 and local['continuation_class']!='dead_end',
+                         'local_rejection':'local dead_end: ordinary Starter handoff ineligible' if local['continuation_class']=='dead_end' else None,
                          '_path':path,'_gate':gate,'_node':node})
         selected[team]=select_joint(t,pool,p)
         corridors[team]=finalize_corridors(t,selected[team],field,graphs,homelands[team],p)
@@ -327,7 +334,7 @@ def analyze(candidate,homelands,parameters=None):
             corridors[team]=finalize_corridors(t,selected[team],field,graphs,homelands[team],p)
         pools[team]=pool
         unresolved=3-sum(c['status']=='provisional' for c in corridors[team])
-        if unresolved:diagnostics.append(f'{team}: {unresolved} unresolved choices; evidence/constructability/joint differentiation or analysis scope, not a seed rejection')
+        if unresolved:diagnostics.append(f'{team}: {unresolved} unresolved choices; local viability/evidence/constructability/joint differentiation or analyzer capability, not a seed rejection')
     topology=whole_topology(t,selected,fields,graphs,membership)
     region_output=[]
     for r in regions:
@@ -341,20 +348,20 @@ def analyze(candidate,homelands,parameters=None):
         return refs[key]
     def compact(r):
         out=clean(r)
-        if not r.get('continuation'):return out
-        out['continuation']={}
-        for mode,c in r['continuation'].items():
+        if not r.get('deep_network_reach'):return out
+        out['deep_network_reach']={}
+        for mode,c in r['deep_network_reach'].items():
             entry=dict(c)
             for key in ('deeper_regions_reached','additional_deeper_regions_requiring_backtracking'):
                 values=entry.pop(key);entry[key+'_count']=len(values)
                 entry[key+'_ref']=intern(values,region_sets,region_refs)
             key='distinct_deeper_region_types';values=entry.pop(key)
             entry[key+'_count']=len(values);entry[key+'_ref']=intern(values,type_sets,type_refs)
-            out['continuation'][mode]=entry
+            out['deep_network_reach'][mode]=entry
         out['continuation_dependencies']={k+'_ref':intern(v,region_sets,region_refs) for k,v in r['continuation_dependencies'].items()}
         return out
     compact_pools={team:[compact(r) for r in pool] for team,pool in pools.items()}
-    return {'schema':'default_destination_first_v1','seed':candidate['seed'],'status':'analytical/descriptive; no physical readiness or seed verdict',
+    return {'schema':'default_destination_first_local_v2','local_analysis_policy':LOCAL_POLICY,'seed':candidate['seed'],'status':'analytical/descriptive; no physical readiness or seed verdict',
             'sampling':{'width':t.w,'height':t.h,'spacing_blocks':t.s,'order':'oriented row-major'},
             'parameters':p,'homelands':homelands,'playable_bounds':candidate['region']['block_bounds'],'logical_orientation':candidate['orientation'],
             'region_compression':compression,'regions':region_output,'region_grid_rle':rle([membership.get(i) for i in range(t.n)]),
@@ -373,12 +380,12 @@ def analyze(candidate,homelands,parameters=None):
 
 def select_joint(t,pool,p,locked=()):
     by_group={}
-    for r in sorted((r for r in pool if r['eligible']),key=lambda r:(-r['utility'],r['id'])):
+    for r in sorted((r for r in pool if r['eligible'] and locally_viable(r)),key=lambda r:(-r['utility'],r['id'])):
         by_group.setdefault(r['opportunity_group'],r)
     options=list(by_group.values())[:p['joint_pool_limit']]
     for r in locked:
-        if r not in options:options.append(r)
-    required={r['id'] for r in locked}
+        if r not in options and r['eligible'] and locally_viable(r):options.append(r)
+    required={r['id'] for r in locked if r['eligible'] and locally_viable(r)}
     def pair(a,b):
         if a['opportunity_group']==b['opportunity_group']:return None
         shared=max(overlap(t,a['_path'],b['_path'],0),overlap(t,b['_path'],a['_path'],0))

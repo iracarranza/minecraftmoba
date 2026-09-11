@@ -35,10 +35,13 @@ UNAVAILABLE = {
 }
 
 
-def depth_band(value):
-    for limit, name in ((40, 'fringe'), (70, 'opening'), (110, 'secondary_core'),
+DEPTH_BANDS = ((40, 'fringe'), (70, 'opening'), (110, 'secondary_core'),
                         (150, 'secondary_transition'), (210, 'tertiary_core'),
-                        (250, 'deep_transition'), (350, 'deep_core')):
+                        (250, 'deep_transition'), (350, 'deep_core'))
+
+
+def depth_band(value):
+    for limit, name in DEPTH_BANDS:
         if value < limit:
             return name
     return 'deep_core_350_plus' if math.isfinite(value) else 'unreachable'

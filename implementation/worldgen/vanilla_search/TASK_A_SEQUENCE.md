@@ -191,3 +191,59 @@ absorption, continuation/backtracking, sample-level convergence and observed
 overlap-growth profiles. All 19 output files were verified; **651 world files**
 and **86 prior input/artifact files** remained unchanged. Focused SVG overlays
 were render-inspected; XML and provenance hashes passed. No worlds were missing.
+
+## Bounded local continuation correction — 2026-09-11
+
+The user-directed correction from `4ec2dc5` separates immediate unsupported
+handoff geography from eventual network reach. The runner now writes to
+`results/default_local_continuation_2026-09-11/`; the previous destination-first
+directory remains preserved. Run:
+
+```
+python3 implementation/worldgen/fit_default_task_a_network.py
+python3 implementation/worldgen/fit_default_task_a_network.py --verify
+```
+
+The second command runs the full unittest suite and seals a test receipt plus
+output hashes. The report includes all eight candidates, every selected handoff,
+all-eight lateral/convergence matrices, focused before/after comparisons and
+the primary coastal handoff's small-backward-detour evidence.
+
+`local_continuation` uses the next existing operational depth layer, a fixed
+one-sample-diagonal backward floor, and an explicitly provisional physical-path
+guard of twice the derived depth span. It removes the immediate sample
+neighborhood, merges residual components that reconnect inside the horizon,
+and rejects unsupported small pockets. Physical and effective extents are
+observations, not balance targets. Local dead_end handoffs are ineligible for
+every destination kind. Directed/branching/junction receive no shape bonus.
+
+`deep_network_reach` preserves the old broad flood, interventions, region access,
+and network participation. Old regional port counts/classes are explicitly
+legacy diagnostics, never local eligibility. Whole-map topology remains a
+deep-network measurement. Homeland fields, destination discovery, water-system
+identity, terrain segmentation, map dimensions and general weights are unchanged.
+
+No seed search, world authoring, Task C or physical readiness decision occurs.
+Missing choices and uncertain local scale remain analyzer/evidence limitations,
+not automatic grounds for rejecting a manually promising seed. This pass does
+not retry lower-ranked feature anchors after a local rejection; that limitation
+is explicit rather than silently broadening the destination-fitting revision.
+
+Completed result: eight finalists fitted in 132.945 seconds (world hashing
+separate), with 46 provisional handoffs: 39 directed and 7 branching. No selected
+local junction or dead_end. The same two unresolved choices remain: 930015734
+South and 930016664 North. Changed sets are limited to 930007222 South and
+930016664 South; all three focused candidates retain their prior destinations.
+930010639 North's coast survives as a locally directed handoff requiring an
+allowed small backward detour, not a destination-type exception. Its strict
+forward deep reach remains limited and is reported separately.
+
+The suite passes 107 tests, including the retained historical-geometry
+independence tests and new bounded-local branch, pocket, reconvergence, depth
+floor, eligibility, equal-shape-value and deep-reach preservation regressions.
+All 651 files across ten available worlds and 105 prior input/artifact files
+remain unchanged. JSON/XML/hash verification passed; all three focused SVGs
+were render-inspected (square-padded temporary QA copies avoid Quick Look's
+rectangular thumbnail clipping). The report records guard contact in 43/46
+physical budgets and the 57.9–137.9 physical / 90.4–479.5 effective extent range;
+these are observed analyzer limits, not calibrated gameplay distances.

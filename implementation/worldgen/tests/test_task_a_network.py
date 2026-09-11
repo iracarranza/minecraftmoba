@@ -105,7 +105,7 @@ class DestinationFirstTests(unittest.TestCase):
     def test_joint_selection_can_leave_third_choice_unresolved(self):
         t=Terrain(fixture(flat=True))
         def option(i,group):return {'id':str(i),'eligible':True,'opportunity_group':group,'utility':2,
-            '_node':i,'_gate':i,'_path':[i],'kind':'water','opening_regions':[str(i)]}
+            '_node':i,'_gate':i,'_path':[i],'kind':'water','opening_regions':[str(i)],'local_continuation':{'continuation_class':'directed'}}
         choices=select_joint(t,[option(100,'same-water'),option(105,'same-water')],PARAMETERS)
         self.assertEqual(1,len(choices))
         self.assertEqual([],select_joint(t,[],PARAMETERS))
@@ -139,12 +139,12 @@ class DestinationFirstArtifacts(unittest.TestCase):
                 self.assertIn('homeland_depth_rle',f['homeland_fields'][team])
                 self.assertEqual(len(f['destination_catalog']),len(f['destination_pools'][team]))
                 for r in f['destination_pools'][team]:
-                    self.assertTrue(r.get('continuation') or r.get('unavailable'))
-                    for c in (r.get('continuation') or {}).values():
+                    self.assertTrue(r.get('deep_network_reach') or r.get('unavailable'))
+                    for c in (r.get('deep_network_reach') or {}).values():
                         self.assertEqual(c['deeper_regions_reached_count'],len(f['continuation_region_sets'][c['deeper_regions_reached_ref']]))
                 for r in f['selected_handoffs'][team]:
                     self.assertNotEqual('major',r['starter_dependency'])
-                    for mode in MODES:self.assertIn('backtracking_dependency',r['continuation'][mode])
+                    for mode in MODES:self.assertIn('backtracking_dependency',r['deep_network_reach'][mode])
             self.assertEqual(set(MODES),set(f['topology']['by_dependency']))
             for mode in MODES:
                 for matrix in f['topology']['by_dependency'][mode]['same_team_lateral_matrices'].values():
