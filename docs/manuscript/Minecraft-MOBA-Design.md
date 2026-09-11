@@ -479,7 +479,7 @@ The system evaluates objective capability, not architectural or strategic qualit
 
 ## 6.2 Constructs
 
-**Working. Sources: [I], [WI], [C: Construction].** A Construct recognizes qualifying construction investment and scale. Its independent benefit remains occupation or sustainment efficiency: the ability to maintain useful presence. Recovery, provisioning, and Hunger/exhaustion remain possible expressions, not selected mechanics. Integration is a separate benefit and cannot replace the need to define intrinsic value.
+**Working. Sources: [I], [WI], [WB], [C: Construction].** A Construct recognizes qualifying construction investment and scale. Its current preferred intrinsic benefit is Structural Integrity (§6.2.4), under the benefit symmetry principle in §6.15. [HISTORICAL] Occupation or sustainment efficiency — recovery, provisioning, Hunger and exhaustion — is retained as an earlier framing of the same slot, not a competing current answer. Integration is a separate benefit and cannot replace intrinsic value.
 
 ### 6.2.1 Permissive designation
 
@@ -503,6 +503,28 @@ A team can eventually achieve both projection and protection by paying the mater
 
 [PROTOTYPE] Test structures at 64, 128, 256, 512, and 1024+ qualifying blocks to learn what real construction those investments permit. These are experimental bands, not approved recognition thresholds. Construction specialization must not make material acquisition, transport, labor, or time irrelevant.
 
+### 6.2.4 Structural Integrity
+
+**Working canon. Source: [WB].** A recognized Construct grants Structural Integrity to selected qualifying built and infrastructure world state, increasing its resistance to hostile destruction. Structural Integrity should not reinforce every block inside a Construct or its Operational Area.
+
+It applies to qualifying Construction Blocks incorporated into the Construct, and to explicitly recognized infrastructure-relevant blocks and components within it. Ordinary construction still contributes to Construct recognition, still provides all normal Minecraft physical utility, and still forms walls, bridges, platforms and cover, without automatically receiving Structural Integrity.
+
+This draws an intentional distinction. Ordinary blocks are cheap, immediate, physically useful, and easier to alter or breach. Construction Blocks are deliberately prepared structural materials that are progression-relevant and capable of receiving Structural Integrity when incorporated into a Construct. This gives Construction Blocks a functional reason to exist beyond an XP premium.
+
+The resulting decision is a real one. A team holding 500 total blocks but only 80 qualifying Construction Blocks must choose where hardened structural investment matters: a gate, an inner wall, a bridge support, a bunker, an infrastructure enclosure, or a forward-facing defence.
+
+[OPEN] Exact Structural Integrity strength is unresolved. Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
+
+### 6.2.5 Protecting infrastructure components
+
+A Construct may also apply Structural Integrity to narrowly defined infrastructure-relevant components located within it: recognized Supply Line nodes and components, Development-enabling infrastructure, infrastructure workstations, and other explicitly recognized functional infrastructure blocks.
+
+Do not automatically treat every chest, furnace, crafting table, crop, or fence inside an Operational Area as reinforced. [OPEN] Infrastructure-relevant block must eventually be defined narrowly.
+
+The strategic consequence is that Construction can physically protect the team's economic machinery. This gives a second reason to co-locate infrastructure with a Construct beyond the integration multiplier: the Construct can make critical integrated infrastructure harder to dismantle. It also preserves raiding and breaching, because ordinary walls and improvised construction remain normal Minecraft terrain while deliberately invested hard points gain additional persistence.
+
+[OPEN] What happens to Structural Integrity when practical control changes, and whether captured Construction Blocks immediately lose former reinforcement, gain occupier reinforcement, or require new recognition, are unresolved.
+
 ## 6.3 Development Zones
 
 **Working. Sources: [I], [WI], [C: Development].** Development Zone is the current working name for recognized managed productive/developmental world state within an extent. Designation and measurement recognize existing eligible resources together with the conditions facilitating development. Targeted improvement of eligible processes remains the direction; this is not a generic random-tick-speed increase.
@@ -521,13 +543,27 @@ An ordinary road, a map-authored Starter Route (§4.3), and a player-recognized 
 
 ## 6.5 Supply Lines
 
-**Working. Sources: [I], [WI], [C: Logistics], [O §20].** A Supply Line is a directional logistical relationship between eligible container nodes, with performance established by demonstrated cargo transport. The sequence is Infrastructure Mode → select source container → select destination container → prove valid cargo transport → establish rated performance. Merely selecting two containers is insufficient. The reverse direction requires its own proof.
+**Working canon, reframed. Sources: [WB], [I], [WI], [C: Logistics], [O §20].** A Supply Line is persistent infrastructure produced by demonstrating repeatable resource delivery to an eligible destination. Its origin, path, Flow Weight, Item Rate, and other performance properties are derived from the logistical movement that establishes it rather than being specified beforehand.
+
+The destination is strategically intentional; the origin is primarily descriptive and observed. The real Logistics question is normally how to make resources available here, not what can be done with the contents of a particular chest over there. The origin remains mechanically real and important, but it need not be manually selected before the logistical action begins.
+
+Origin is evidence, not necessarily an instruction. A qualifying logistical action causes actual cargo to begin moving toward a useful destination, and the system can observe where qualifying cargo entered logistical movement, what transport method moved it, what corridor was involved, how long successful delivery took, and where cargo was delivered. Origin is therefore where qualifying cargo began the demonstrated movement, and destination is the eligible location or container where it successfully arrived.
+
+This removes any need for a Logistics class ability to contain an explicit select Supply Line origin step. A Skeleton Crew ability can simply make undead carry actual cargo somewhere; a Merchant Advertisement can simply cause qualifying actors to deliver actual resources somewhere. Classes create unusual ways of moving resources; the system recognizes qualifying resource movement as infrastructure. Do not force class abilities to explicitly create a Supply Line.
+
+Proof is a demonstration of repeatable delivery, not merely that an item can physically reach a destination. A random item or mob accidentally arriving in a container is not sufficient; the movement must constitute intentional qualifying Logistics. Once recognized, the infrastructure extrapolates persistent logistical capability from the demonstrated instance, and the player does not manually reproduce every future delivery.
+
+[HISTORICAL] The earlier sequence — Infrastructure Mode, select source container, select destination container, prove transport — is superseded as the defining model. Directionality is retained: the reverse direction still requires its own demonstrated delivery. Current establishment grammar: the player identifies a useful logistical destination; authors an intended corridor toward it; a qualifying transport method begins carrying actual cargo; the method resolves the intended delivery using its own movement capabilities; the system observes entry point, method, actual movement, Transit Time, and successful destination; delivery demonstrates repeatable capability; origin, destination, corridor, Flow Weight and Item Rate are derived; a Supply Line may be recognized; and it then persistently reproduces the demonstrated capability. [OPEN] The exact input sequence is unresolved. Do not prematurely require marking an origin container first, and do not require every class ability to contain explicit Supply Line interface.
 
 The existing upstream-storage → downstream-storage distribution model remains: actual upstream items gradually become available downstream, allowing team benefit while the Logistics player is elsewhere. The handoff clarifies that physical transport proves the capability and recognized flow may represent its continued operation. It does not require every transferred item to persist as a dropped entity along a path.
 
 ### 6.5.1 Transport specific performance
 
-**Transit Time** measures elapsed delivery time for the demonstrated method. **Flow Weight** standardizes its logistical capacity; ordinary player transport has baseline Flow Weight 1. Flow Weight is not simply inventory item count. Conceptually, Flow Rate is proportional to Flow Weight divided by Transit Time. [OPEN] The exact formula, units, normalization, eligible cargo, and ratings beyond the baseline are not established.
+**Transit Time** measures elapsed delivery time for the demonstrated method; ordinary player transport has baseline Flow Weight 1. Flow Weight is an authored gameplay property of a logistical movement method, representing the standardized carrying capacity that method demonstrates. It determines how many items transfer per Supply Line pulse. It is not Item Rate, and it is not derived solely from literal Minecraft inventory slot count.
+
+Item Rate is not an authored property of the carrier in isolation. It is derived from how quickly the actual demonstrated cargo movement reached its destination: observed successful Transit Time yields Item Rate, which sets pulse frequency. Flow Weight therefore determines items per pulse and Item Rate determines how frequently pulses occur, with effective throughput conceptually Flow Weight multiplied by Item Rate. Do not collapse these into a single generic throughput stat in the underlying design. [HISTORICAL] The earlier single Flow Rate proportional to Flow Weight divided by Transit Time is superseded by this pair.
+
+[PROTOTYPE] An Allay illustrates low authored Flow Weight with relatively fast movement, tending toward smaller and more frequent pulses; a Camel illustrates higher authored Flow Weight with slower movement, tending toward larger and less frequent pulses. Final Item Rate still comes from the actual successful demonstration, so distance, terrain, and route quality matter: a long or poor Allay delivery can produce a lower Item Rate than a short easy Camel delivery. Transport archetype influences performance; the demonstrated journey determines the result. Exact values remain balance territory. [OPEN] Exact units, normalization, eligible cargo, and ratings beyond the baseline are not established.
 
 Proof demonstrates that a particular cargo-rated method can move capacity W from A to B in time T. It does not merely measure how quickly any player can reach B. Valid methods may involve players, Logistics-class or summoned carriers, camels, Allays, golems, minecarts, boats, water systems, or other engineered transport. Exceptional mobility improves Logistics only insofar as a valid rated transport method can use it while carrying its rated capacity.
 
@@ -551,6 +587,40 @@ A canal can prove player traversal for a Route and independently prove cargo tra
 
 [HISTORICAL] The earlier uncertainty between generic gradual transfer and recognition of physical flow is narrowed by this handoff: proof establishes the rating; persistent supporting world state maintains it; represented ongoing flow need not continuously render every cargo item. Remaining accounting, revalidation, and transport-specific details stay [OPEN]. No mandatory Route, universal continuous ground path, or one required carrier type is introduced. Industrial Enchanter completion remains independent of recognized Supply Lines (§7.6).
 
+
+### 6.5.5 Player-authored corridor and transport resolution
+
+**Working canon. Source: [WB].** Living and unique carriers have very different movement capabilities and may lack an obvious long-distance delivery vector. The solution separates route intent from transport resolution: the player authors and demonstrates the intended logistical corridor, and the selected transport method then attempts to resolve that delivery using its own movement tools, restrictions, navigation, and pathing. The player authors the route; the transport method authors how that route is traversed logistically.
+
+Demonstration is not literal playback. The carrier need not reproduce the player's exact block-by-block footsteps; the demonstration communicates an intended corridor, movement vector, and delivery path, which the carrier resolves in its own movement vocabulary. A parrot, bat, or Allay may fly, cross gaps unavailable to grounded carriers, and take valid aerial shortcuts. A Camel is grounded and must resolve a valid terrestrial traversal, and cannot reproduce an impossible jump merely because the player demonstrated one. A boat requires valid water traversal, a minecart resolves through rail topology, and water transport resolves through actual flow. One authored corridor may therefore produce different successful paths and performance depending on the method selected.
+
+Player movement abilities do not automatically transfer. If the Logistics player leaps a ravine, climbs exceptionally, briefly flies, teleports, or uses a movement ability while authoring the corridor, the carrier does not inherit that capability. The selected transport method must be able to resolve the demonstrated delivery through its own movement vocabulary. This preserves transport-method identity and prevents Supply Line performance from collapsing into whatever speedrun path the player personally can execute.
+
+Transit Time is measured from the carrier's cargo delivery, not the player's route-authoring traversal. If the player demonstrates the intended corridor in twelve seconds and a loaded Camel resolves it in twenty-seven, the Supply Line Transit Time is twenty-seven seconds. The player demonstrated where and how delivery should be attempted; the carrier demonstrated how well that logistical method can actually perform it.
+
+### 6.5.6 Engineered and living methods
+
+Self-directed engineered transport and guided living carriers do not require separate Supply Line systems. Rail resolves an intended connection through existing rail topology, water through actual flow, a Camel through grounded movement, an Allay through flight and navigation, and a class-created aerial carrier through whatever movement vocabulary that class provides. The common question is whether the method can successfully resolve the intended delivery and deliver qualifying cargo to the destination; if it can, its actual successful movement provides the proof.
+
+[OPEN] Do not yet canonize a generic penalty such as automated methods always having reduced Flow Weight. Engineered systems naturally offer a predictable vector, repeatability, potentially low establishment attention, and infrastructure that may already physically encode the path. Living and guided systems may offer route flexibility, terrain adaptation, aerial traversal, class abilities, and potentially better demonstrated Item Rate or higher authored Flow Weight. An abstract compensatory penalty may be unnecessary if the profiles already differ enough. Compare actual candidate methods before introducing a universal modifier.
+
+### 6.5.7 Persistence of demonstrated capability
+
+Once established, a Supply Line preserves the demonstrated logistical capability. The Logistics player does not repeatedly travel the route, continually recast the establishing ability, repeatedly command the same carrier, or manually perform every delivery, and is free to do other economic or combat work. Infrastructure converts demonstrated player capability into persistent world capability.
+
+Distinguish this from a temporary buff applied to an already existing Supply Line. An effect making existing lines pulse faster for ten seconds should not permanently rewrite their Item Rate. But where an ability is itself part of the logistical method used to establish the line, the successfully demonstrated performance becomes the line's persistent performance.
+
+### 6.5.8 Relation classification, capture, and geography
+
+Supply Lines remain relation-based infrastructure in the four-identity matrix, but not because the player explicitly selects two endpoints. The causality is delivery need and destination, then demonstrated logistical movement, then observed origin, path and performance, then a persistent delivery relationship. The destination is strategically primary; origin and path are mechanically important properties of the demonstrated capability. Revisit the classification later only if necessary.
+
+The delivery model remains compatible with the capture and control framework. Authorship earns the establishing team its historical progression rewards; recognition exists because qualifying delivery capability was demonstrated; ongoing benefit depends on current functional access and team-relative integration. Capturing a destination does not mean the occupying team inherits the defeated team's logistical network, because a Supply Line represents a demonstrated delivery capability including its movement relationship. The occupier may need to establish its own qualifying delivery capability to that destination before the location is fully integrated into its network. This matters more for Supply Lines than for Constructs or Development world state because they are more relational.
+
+The revised model creates a natural but non-mandatory relationship with Exploration. A good Route may improve the path available to grounded logistical carriers, and bridges, tunnels, roads, waterways and other player-created world state can affect logistical resolution. Aerial methods may value geography differently. Neither archetype should mechanically require the other, but they should cooperate naturally.
+
+[OPEN] Long-distance Logistics still raises how a player refers to a distant destination that is not currently visible. This belongs partly to the pending Vision / Detection / Information work and to a Known or Designated Location vocabulary. A Logistics class may eventually reference a previously known destination without line of sight while arbitrary unknown coordinates cannot normally be targeted remotely. Do not build a Logistics node menu into current canon.
+
+[OPEN] How robustly different entities can resolve a player-authored long-distance corridor with their own pathfinding is a technical question, and a datapack cannot be assumed capable of transplanting one mob's navigation onto arbitrary others. Keep the design rule as written: logistical carriers resolve a player-authored corridor according to their own movement vocabulary. Evaluate implementation compromises afterward rather than letting feasibility drive the design.
 
 ## 6.6 Infrastructure integration
 
@@ -630,6 +700,18 @@ This produces a deliberate intermediate outcome between capturing everything wit
 **Working direction. Sources: [WI], §6.2.2.** Construct scale should be jointly resource- and progression-gated. Physical construction itself is unrestricted: if a team invests enough resources and labor to create an enormous fortress early, the fortress physically exists and provides all Minecraft-native physical utility. Infrastructure designation remains retroactive. Progression governs how much exceptional systemic Construct value can be extracted from that investment, but should not make physically existing construction unreal.
 
 [OPEN] Do not finalize recognized-scale thresholds yet. The infrastructure-labor and control-window findings materially affect scale design. Before assigning any threshold series, establish the realistic player-minutes required to place it, how construction efficiency changes that, what fraction of total material supply can realistically be concentrated in one project, how many control windows a large project is expected to span, what recognized scale actually provides, and how late-game Construction compresses labor requirements. Earlier numerical thresholds are exploratory only.
+
+## 6.15 Infrastructure benefit symmetry
+
+**Working canon. Source: [WB].** The intrinsic benefit of each recognized infrastructure type should directly improve the vocabulary of its corresponding archetype rather than acting as an arbitrary generic buff. A Development Zone improves Development within a productive place; a Route improves traversal and projection through an established corridor; a Supply Line improves delivery of resources to a strategically useful place; a Construct should improve Construction and the persistence of built world.
+
+This rules out making a Construct's primary intrinsic effect an XP bonus for placing blocks nearby. That is progression amplification rather than an improvement to built-world capability, and it creates an undesirable feedback loop in which a Construct exists to make building near it more rewarding, which encourages building near it. The current preferred intrinsic Construct vocabulary is Structural Integrity.
+
+## 6.16 Logistics as delivery
+
+**Working canon. Source: [WB].** Logistics materially changes how items, resources, supplies, and other strategic assets are delivered and made available where they are needed. The foundational verb is delivery and availability, not connection. A connection may result from Logistics, but connection is not what defines the archetype.
+
+This separates Logistics from Exploration more cleanly. Exploration improves how players traverse, discover, access, and project through geography. Logistics improves how resources are delivered through that geography and made available at useful destinations.
 
 # 7. Objectives and Strategic Locations
 
@@ -1055,6 +1137,8 @@ Buildable Scale and Operational Scale are distinct working progression dimension
 
 Primary Materials and Construction Blocks are deliberately restricted categories, not exhaustive material taxonomies; exclusion does not imply low economic value. Infrastructure Labor names committed player-time and is distinct from material supply. A Control Window is a period of usable access won through play, not a clock phase. Payback Horizon names the shrinking time an investment has to repay its establishment cost. Authorship, Recognition, and Control are three separate questions and should not be collapsed into a single notion of ownership.
 
+Structural Integrity names the current preferred intrinsic Construct benefit: added resistance to hostile destruction for qualifying Construction Blocks and narrowly defined infrastructure-relevant components. Occupation and sustainment efficiency are retained as [HISTORICAL] framings of that same unresolved slot, not as a competing current answer. Flow Weight is authored by the transport method and sets items per pulse; Item Rate is derived from demonstrated Transit Time and sets pulse frequency; the earlier Flow Rate formulation is superseded by that pair. Origin is observed evidence; Destination is strategically intentional.
+
 ## 11.3 Status and concept-ledger tags
 
 The manuscript’s Established / Working / Prototype-Test / Historical-Superseded / Open labels describe design maturity. Concept-ledger tags describe strengths, missing pieces, or risks and are not substitutes for those statuses.
@@ -1110,6 +1194,8 @@ If equipment turnover is adopted, measure lifetimes in actual activity by equipm
 These are design/readiness dependencies, not reasons to declare the existing work invalid. A successful bounded prototype answers its own question; it does not automatically pass the entire game.
 
 [OPEN] Further readiness dependencies identified on 10 September: the Construction Block XP premium and its interaction with anti-farming rules; the Construct intrinsic benefit and its relationship to recognized scale and Operational Area; the conditions under which a captured Construct's intrinsic benefit applies to an occupier; team-relative Route re-proof, Development Zone capture behaviour, and Supply Line re-establishment; Construct scale thresholds pending the labor and control-window modelling; late-game Construction mechanics that compress labor requirements; mid- and late-objective design that deliberately creates infrastructure development windows; and whether any formal territorial-control mechanic is needed at all, as against functional access emerging from physical play.
+
+[OPEN] Readiness dependencies added on 11 September: Structural Integrity strength and whether mining, explosions and abilities are affected differently; a narrow definition of infrastructure-relevant block; Structural Integrity behaviour when practical control changes; the exact input for authoring a logistical corridor; qualifying cargo movement; derivation of pulse interval from Transit Time; authored Flow Weight values and whether they vary by cargo, carrier or upgrade; branching and rerouting; permitted carrier deviation from the authored corridor; failure to resolve; obstruction after establishment; interaction with Routes; capture and re-establishment; whether engineered transport needs any balancing disadvantage; long-distance destination targeting; and datapack feasibility for entity navigation.
 
 # 13. Technical Design and Feasibility
 
@@ -1227,6 +1313,8 @@ Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainte
 
 10 September 2026, second integration: the World and Match Systems handoff was supplied in full and integrated, adding restricted material categories, the revised block economy and infrastructure-labor model, Construction's material agency, and the payback horizon, control-window, authorship/recognition/control, capture, and team-relative integration material. The numerical estimates and phase bands recorded there are modelling targets, not balance canon.
 
+11 September 2026: a WAMS handoff on infrastructure benefits and Logistics redefinition was integrated. Structural Integrity becomes the current preferred intrinsic Construct benefit, and the Supply Line model is reframed from origin-first endpoint selection to demonstrated destination-oriented delivery. Flow Weight and Item Rate are separated, with the earlier combined Flow Rate formulation superseded. Flow Weight, Transit Time, persistent operation, physical disruption, directionality, and team-relative integration are retained and reconciled rather than replaced.
+
 ## 14.3 Conflict and recency ledger
 
 | ID | Collision | Treatment in this manuscript |
@@ -1336,5 +1424,7 @@ Keep design, implementation, and validation status separate. Update cross-refere
 
 
 **[I] Infrastructure Design and reconciliation.** Canonical infrastructure.md, introduced in this revision; docs/reconciliation/2026-09-10-infrastructure.md records scope and supersession. [Infrastructure source](https://github.com/iracarranza/minecraftmoba/blob/main/infrastructure.md). This main-branch link identifies the living source; the base source snapshot above remains pinned.
+
+**[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 
 **[WI] Infrastructure System New Design Handoff.** World and Match Systems, 10 September 2026, working-canon handoff. Retrieved text covers sections 1–19 and begins section 20; the retrieval truncates there. Integration context was independently available in the preceding framework discussion and canonical class/objective text. [VERIFY RECENCY] Any unseen continuation beyond that retrieval is not claimed as incorporated. [Source conversation](https://chatgpt.com/c/6aa1edb8-4594-83e9-98cb-fd0870e52b5b).
