@@ -430,6 +430,28 @@ The progression discussion proposes resolving universal effects first, class mec
 
 [OPEN] Ordinary enchanting availability, vanilla XP costs, bookshelves, random selection, Mending, Unbreaking, eligible goods, brewing access, and effect distribution require decisions. Levels 20 and 25 contain class-authored advanced rewards, not automatic infrastructure entitlement. Level 30’s capstone remains unspecified.
 
+## 5.10 Restricted material categories
+
+**Established categories; Working premium. Sources: [C §7], [WI].** Primary Materials are a deliberately restricted set of materials whose expenditure directly represents significant portable player capability. The current members are Iron, Gold, Diamond, Netherite, and Leather. Wood, Stone, Copper, Redstone, Lapis, Coal, Emerald, Quartz, Flint, and String are explicitly outside the category. Exclusion does not imply low economic importance; a material can be central to another system, class, or activity without becoming a Primary Material.
+
+The distinction is directness of conversion. Iron becomes tools, weapons, armour, shields, and buckets with little intermediation, so spending it intensifies an already meaningful scarcity and opportunity cost. Redstone is excluded because its major value emerges through further components, arrangement, and functioning systems rather than direct portable capability. Class relevance alone does not grant Primary Material status, and the category should remain restrictive rather than expanding toward an exhaustive material taxonomy. This supplies the definition Kitfighter's Salvage depends on (§9.6).
+
+Construction Blocks are a separate restricted set whose acquisition and preparation chains are distinct enough that Construction can meaningfully specialize in bringing them into structural use. The current members are Bricks, Mud Bricks, Terracotta, Concrete, and Glass. They are not an exhaustive list of blocks suitable for building, not the best building blocks, not required for valid construction, and not required for Construct recognition. Ordinary blocks remain fully useful and contribute normally to valid Constructs.
+
+Current exclusions include planks, logs, cobblestone and stone, stone bricks, deepslate variants, granite, diorite and andesite with their polished forms, sandstone, slabs, stairs, panes and comparable derivatives, and mineral storage blocks. Status does not propagate to specialized derivatives: Glass may qualify while Glass Panes do not automatically qualify, and Bricks may qualify while Brick Slabs do not.
+
+The category is partly an economic intervention. Wood is already extraordinarily useful and naturally demanded, and polished rock largely adds a crafting step to abundant material, so neither creates new strategic demand. Clay, mud, concrete, and glass support distinctive construction-oriented acquisition and preparation processes whose competitive value would otherwise be weak in a compressed match. The intent is to reward meaningful construction-material activity rather than arbitrary extra crafting clicks.
+
+[OPEN] The XP premium for legitimately incorporating Construction Blocks is a balance target, not canon. Per-recipe Primary Material mapping, derivative handling, and the interaction with anti-farming rules remain unresolved.
+
+## 5.11 Block economy and infrastructure labor
+
+**Working model; non-canonical estimates. Source: [WI].** The block economy must not be modelled as blocks extracted to blocks available to Construct size. At least six quantities matter: bulk or ordinary material supply; Construction Block supply; total physical construction supply; infrastructure labor, meaning the player-time a team can realistically commit to establishing, expanding, repairing, supplying, reorganizing, or dismantling infrastructure; construction efficiency, meaning built-world output per committed unit of labor; and realized construction output, limited by the intersection of available material and efficiency multiplied by committed labor.
+
+Material abundance and infrastructure labor do not necessarily increase together. [PROTOTYPE] For a balanced seven-player team across a representative thirty-minute match, a mature total usable construction supply of roughly 2,500 to 3,000 blocks is the current modelling target, of which perhaps 500 to 900 are intentionally prepared Construction Blocks and 1,800 to 2,400 are ordinary, bulk, or improvised. An economy-specialized team coordinating Extraction, Construction, and Logistics might plausibly reach 4,000 to 5,500 total and 1,000 to 1,600 Construction Blocks. These are modelling targets only and are not balance canon.
+
+Construction specialization should initially alter the composition and effective structural use of the material economy rather than acting as a generic percentage bonus to blocks generated. Extraction pushes front-of-pipeline acquisition; Construction creates disproportionate demand for construction-specific feedstocks and extracts greater structural and progression value from them; Logistics makes geographically separated material economically accessible; Production supports transformation where relevant; Exploration reduces access and travel cost and establishes Routes.
+
 # 6. Infrastructure and Logistics
 
 ## 6.1 Infrastructure Mode and recognition
@@ -558,6 +580,56 @@ Night may reduce each system’s intrinsic effectiveness and offer later resilie
 Its current Barrier-based cargo represents inaccessible fuel, not a new freely usable resource. Stacks can represent cargo quantity; no one-unit-per-slot rule or inventory-lock system is implied. The complete Worksite lifecycle is in §7.6.
 
 [OPEN] Cargo behavior on death, interruption, enemy pickup, storage, portals, disconnects, or late delivery remains undefined. KeepInventory for ordinary possessions does not silently decide these cases.
+
+## 6.9 Infrastructure payback horizon
+
+**Established principle. Source: [WI].** Persistent infrastructure has a payback horizon. Progression can increase infrastructure potency, but advancing match state reduces remaining match time, uncontested labor, and the time available for an investment to repay its establishment cost. An early Route may repay across much of the match; a late Route needs a much more immediate tactical purpose. The same applies to Supply Lines, Development Zones, and Constructs. Late infrastructure must establish faster, produce more immediate value, repurpose existing world state, solve an immediate tactical need, or otherwise justify its shortened horizon.
+
+## 6.10 Control windows and infrastructure labor
+
+**Established match-flow principle. Source: [WI].** Mid- and late-game infrastructure time is not given by the match clock. It is won through control. Objectives and strategic contests create temporary windows of access, space, safety, and labor availability during which a team can establish or expand infrastructure.
+
+Infrastructure and contestation form a reciprocal cycle. Infrastructure improves projection, economic position, and objective control; that helps win strategic contests; winning control creates a development window; the team converts some combat presence into infrastructure labor; the infrastructure becomes more valuable; the stakes of the next contest rise; the enemy attacks or disrupts; the cycle repeats.
+
+Progression and material abundance rise throughout the match, but discretionary infrastructure time need not. Enemy contact increases, objective contests matter more, existing infrastructure needs defending, players must rotate, and deaths remove presence. Early infrastructure is therefore more likely to be material-constrained and late infrastructure more likely to be labor- and attention-constrained. [PROTOTYPE] A working qualitative curve places scarcity at Levels 1 to 6, a construction window at 7 to 12, the likely peak intersection for large new infrastructure formation at 13 to 18, collapsing labor under still-rising throughput at 19 to 24, and reactive repair, modification, fortification, demolition and reconnection at 25 to 30. These bands are not timing canon until progression pacing is settled. §2.4 owns the shared phase model.
+
+Economic players hold simultaneous combat roles. A Construction player may be the team's tank, a Development player an assassin, a Logistics player a support. Infrastructure work must therefore be naturally interruptible. The foundational interruption test for any persistent economic activity is what happens when that player suddenly needs to fulfil their combat role. The preferred answer is that the activity pauses, meaningful persistent progress remains, the player fights, and the activity can later resume. Avoid systems where leaving to help the team wipes minutes of progress or requires starting over.
+
+Large infrastructure should be able to emerge across multiple successive control windows rather than requiring one uninterrupted construction period. Partially developed infrastructure is normal world state, not failed infrastructure: a half-built fortification already provides cover and terrain, represents invested material and labor, may support a smaller recognized Construct, can be attacked or defended, and can later be resumed. A late-game Construct can therefore record accumulated territorial success over time, and by late match the map should visibly contain the history of previous development and conflict.
+
+Winning an initial strategic fight does not entitle a team to finish its infrastructure safely. Starting major infrastructure while the opponent retains the capability to contest it converts current territorial advantage and player labor into future advantage while exposing that investment to contest. An opponent may legitimately concede the first development window, progress elsewhere, improve equipment, attack another location, wait for labor to divide, and siege after the investment has been made. Infrastructure creates value and stakes simultaneously.
+
+A class-design consequence follows: late Construction potency should increasingly help solve having material but very little time, not merely permit a bigger structure.
+
+## 6.11 Authorship, recognition, and control
+
+**Established distinction. Source: [WI].** Three concepts previously conflated should be kept separate. Authorship is who performed the action that created or developed something, and governs historical progression rewards: Construction XP, any Construction Block placement premium, XP for establishing infrastructure, and class triggers tied to performing the work. Authorship does not transfer because territory changes hands. Recognition is which infrastructure relationships currently exist, based on qualifying world state and capability. Control is which team can currently use, operate, and connect the infrastructure.
+
+Most ongoing infrastructure benefits should depend more heavily on current functional access and control than on permanent authorship. World value can be stolen; historical progression earned by doing the work cannot.
+
+## 6.12 Capture, local value, and network value
+
+**Working direction. Source: [WI].** Do not adopt a simplistic rule in which enemy presence automatically invalidates infrastructure, one won fight changes formal ownership of every block, or captured infrastructure grants the occupier the creator's historical progression. Physical utility is substantially owner-agnostic: a capturing team can immediately benefit from walls, cover, bridges, tunnels, terrain modification, accessible storage and interactables where Minecraft rules permit, farms, and other surviving world state. Capturing a developed position may therefore let a team skip some physical infrastructure creation, and that is intentional. It prevents infrastructure from being risk-free economic accumulation.
+
+A captured hub should not transfer as a perfectly functioning integrated economic machine. This follows the established extent and relation axis: extent-based local value is more directly capturable, while relation-based network value generally requires re-establishment by the occupier. A Construct is highly physically capturable and the built world continues to exist. A Development Zone is fairly capturable in practical terms where the occupier actually performs the relevant activity. A Route's physical path remains useful, but team-specific projection and network recognition may need to be re-proved. A Supply Line is the least automatically capturable, because its defining feature is an active demonstrated relationship between nodes; capturing a destination does not cause the occupier's cargo to flow through the defeated team's network. The extent/relation axis is defined in §6.1.1 and owned by [I].
+
+[OPEN] The conditions under which a captured Construct's intrinsic benefit applies to the occupier, team-relative Route re-proof, Development Zone capture and use, and Supply Line interruption and re-establishment all require specification. Do not introduce a universal capture bar or automatic infrastructure conversion system before these physical and access-based rules have been tested.
+
+Contested positions should accumulate physical history rather than reset. A late-game objective approach may contain original walls, a breach, later fortifications, repaired sections, competing or abandoned structures, tunnels, replacement bridges, severed and reconnected Routes, abandoned storage, Development Zones that changed practical control, new Supply Line approaches, and terrain destroyed by repeated combat. The history of territorial control should become physically legible in the map. Do not introduce a universal reset-on-capture mechanic unless later playtesting demonstrates a need.
+
+## 6.13 Team-relative integration
+
+**Working direction extending §6.6. Source: [WI].** Integration should not be evaluated only as whether a hub is fully integrated, but as how integrated it is for each team right now. The existing T1/T2 multiplier should follow active team-relative integration rather than permanent historical authorship.
+
+Worked example. Before a siege, Team A has authored and functionally uses a Construct, a Development Zone, a Route, and a Supply Line, so A holds full integration and B none. Immediately after B wins the siege, B may physically occupy and use the fortress and exploit local productive state; A's Supply Line may cease functioning through interruption or lost access; A's Route may still physically exist without granting B its team-specific projection benefit; and B has not automatically established its own cargo flow. B therefore receives substantial local value but only partial integration, and B's infrastructure players now have meaningful work reconnecting the captured position into B's network.
+
+This produces a deliberate intermediate outcome between capturing everything with instant full integration and gaining nothing while rebuilding the position from zero. Authorship determines progression rewards for creating infrastructure; current functional access and connection determine most ongoing infrastructure benefits.
+
+## 6.14 Construct scale gating
+
+**Working direction. Sources: [WI], §6.2.2.** Construct scale should be jointly resource- and progression-gated. Physical construction itself is unrestricted: if a team invests enough resources and labor to create an enormous fortress early, the fortress physically exists and provides all Minecraft-native physical utility. Infrastructure designation remains retroactive. Progression governs how much exceptional systemic Construct value can be extracted from that investment, but should not make physically existing construction unreal.
+
+[OPEN] Do not finalize recognized-scale thresholds yet. The infrastructure-labor and control-window findings materially affect scale design. Before assigning any threshold series, establish the realistic player-minutes required to place it, how construction efficiency changes that, what fraction of total material supply can realistically be concentrated in one project, how many control windows a large project is expected to span, what recognized scale actually provides, and how late-game Construction compresses labor requirements. Earlier numerical thresholds are exploratory only.
 
 # 7. Objectives and Strategic Locations
 
@@ -883,6 +955,14 @@ The user explicitly questioned whether global infrastructure breaking rules were
 
 Canonical world dependencies are strongest for Mole’s geology, Gardener’s plants, Golem Master’s iron/snow/copper/pumpkins, and Kitfighter’s material economy. Review coverage in both directions: resources without meaningful uses and classes vulnerable to resource omission. Aquatic and other biome-oriented class families remain prospective, not justification for arbitrary map buffs.
 
+## 9.10 Construction's material agency
+
+**Working design direction. Sources: [C §2], [WI].** Construction may hold exceptional agency over the acquisition, preparation, recovery, and structural use of specifically construction-oriented materials without becoming generic Extraction or generic Production. Extraction remains exceptional removal, access, acquisition, detection, and excavation of world materials generally. Production remains exceptional transformation of acquired inputs into useful outputs generally. Construction is exceptional creation and manipulation of persistent built world, and may possess class mechanics that improve material handling precisely because the material is destined for structural construction.
+
+The governing principle is bounded on both sides. Construction may outperform Production at a transformation when the output's principal purpose is structural construction, while Production remains superior at transformation as a general capability; and Construction may hold advantages involving construction-specific feedstocks without becoming superior to Extraction at acquisition generally. These are legitimate class-design territories, not universal passive bonuses for every Construction player. Candidate expressions include construction-material yield, bulk preparation, on-site preparation, rapid hardening or conversion, construction recovery and recycling, efficient demolition and rebuilding, and structural material reuse.
+
+This creates a real decision when preferred Construction Blocks are unavailable. Building immediately from ordinary or improvised material brings the structure online sooner and keeps the Construct valid while sacrificing the Construction Block progression premium; spending time obtaining and preparing Construction Blocks delays the structure but is more progression-efficient; coordinating with Extraction, Logistics, or Production lets those archetypes support the material chain while Construction spends more labor actually constructing. The correct choice should vary with strategic pressure rather than having a universally optimal answer. Construction Blocks are defined in §5.10.
+
 # 10. System Interactions
 
 ## 10.1 Reading the game through dependencies
@@ -973,6 +1053,8 @@ Buildable Scale and Operational Scale are distinct working progression dimension
 
 “Development choices” should not be the generic term for progression choices because Development is an archetype. “Support” remains a role. “Extraction” is useful removal/access/acquisition, not arbitrary block destruction. “Production” is transformation, not universally Salvage. A “Route” is not automatically a Supply Line, a road, or a speed lane.
 
+Primary Materials and Construction Blocks are deliberately restricted categories, not exhaustive material taxonomies; exclusion does not imply low economic value. Infrastructure Labor names committed player-time and is distinct from material supply. A Control Window is a period of usable access won through play, not a clock phase. Payback Horizon names the shrinking time an investment has to repay its establishment cost. Authorship, Recognition, and Control are three separate questions and should not be collapsed into a single notion of ownership.
+
 ## 11.3 Status and concept-ledger tags
 
 The manuscript’s Established / Working / Prototype-Test / Historical-Superseded / Open labels describe design maturity. Concept-ledger tags describe strengths, missing pieces, or risks and are not substitutes for those statuses.
@@ -1026,6 +1108,8 @@ If equipment turnover is adopted, measure lifetimes in actual activity by equipm
 | Class runtime | Ability inputs compatible with kits and reliable world interaction |
 
 These are design/readiness dependencies, not reasons to declare the existing work invalid. A successful bounded prototype answers its own question; it does not automatically pass the entire game.
+
+[OPEN] Further readiness dependencies identified on 10 September: the Construction Block XP premium and its interaction with anti-farming rules; the Construct intrinsic benefit and its relationship to recognized scale and Operational Area; the conditions under which a captured Construct's intrinsic benefit applies to an occupier; team-relative Route re-proof, Development Zone capture behaviour, and Supply Line re-establishment; Construct scale thresholds pending the labor and control-window modelling; late-game Construction mechanics that compress labor requirements; mid- and late-objective design that deliberately creates infrastructure development windows; and whether any formal territorial-control mechanic is needed at all, as against functional access emerging from physical play.
 
 # 13. Technical Design and Feasibility
 
@@ -1140,6 +1224,8 @@ The requested manuscript hierarchy is preserved. Prose, cross-references, consol
 | Latest systems/concept chats | Durability turnover, Construct scales, Waxer | Working discussion; not silently canonized |
 
 Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainter-authored worlds. The historical dimensions and method do not dictate the modern official-vanilla approach.
+
+10 September 2026, second integration: the World and Match Systems handoff was supplied in full and integrated, adding restricted material categories, the revised block economy and infrastructure-labor model, Construction's material agency, and the payback horizon, control-window, authorship/recognition/control, capture, and team-relative integration material. The numerical estimates and phase bands recorded there are modelling targets, not balance canon.
 
 ## 14.3 Conflict and recency ledger
 

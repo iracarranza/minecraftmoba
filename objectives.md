@@ -1056,6 +1056,12 @@ into one generic connectivity system.
 
 ---
 
+## Objectives create infrastructure time
+
+**Working canon, 10 September 2026.** Mid- and late-game infrastructure time is not given by the match clock. It is won through control. Objectives and strategic contests create temporary windows of access, space, safety, and labor availability during which a team can establish or expand infrastructure.
+
+Objective and encounter design should therefore be evaluated partly on whether winning creates a usable development window. See [infrastructure.md](infrastructure.md#control-windows-and-infrastructure-labor) for the labor model, the interruption test, and capture behaviour.
+
 # 21. Key Risks / Open Questions
 
 ## Team Structure sequence
@@ -1154,6 +1160,12 @@ Open:
 - Worksite XP;
 - exploration Team First / Pioneer rewards;
 - relationship between MOBA levels and vanilla Minecraft XP/enchanting.
+
+---
+
+## Control windows and captured infrastructure
+
+Open: whether any formal territorial-control mechanic is needed at all, as against functional access emerging from physical play; how mid- and late-objective design deliberately creates development windows; and the capture questions owned by [infrastructure.md](infrastructure.md#capture-local-value-and-network-value).
 
 ---
 
