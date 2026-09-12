@@ -757,6 +757,35 @@ coordinates.
 Exact replenishment behavior remains unresolved.
 
 
+## Regenerative source depth gradient — Working
+
+**Working direction, 12 September 2026.** The three regenerative buckets — crops and plant resources, animal populations, and hostile Mob Swarms — should be generated with a spatial depth and value gradient. The economic framing belongs to [objectives.md](objectives.md#17b-regenerative-sources); the spatial rule is recorded here.
+
+Regenerating resources increase in **economic specificity** with distance from the midpoint and base regions. This does not mean farther equals more XP, or the same resource in larger stacks. Near and core resources solve broad universal needs; deeper resources are newer, rarer, more specialized or composition-dependent, and support narrower but stronger strategies. Distance increases specialization, niche utility, strategic value and sometimes challenge.
+
+### Crops and plant resources
+
+Near, basic and staple candidates are wheat, carrots, potatoes and beetroot, serving food, the basic renewable economy, and common Development opportunity. Intermediate and specialized candidates include pumpkin, melon, sugar cane, cocoa beans and sweet berries, which begin to carry more specific downstream value through recipes, class interactions, utility, biome identity and production inputs. Deep and niche candidates include bamboo, cactus, nether wart, glow berries, torchflower and pitcher plant.
+
+These lists are neither canon nor exhaustive. Deep resources should only matter if they have real match utility: do not populate deep plant sites with vanilla resources nobody has reason to value. Deep regenerative resources are a good home for narrower class-specific demand.
+
+Do not automatically treat all renewable vegetation as crop sites. Trees, logs and flowers enter this bucket only where they function as deliberately valuable renewable plant resources.
+
+### Animal populations
+
+"Herds" remains useful player-facing language, but the underlying system is better treated internally as **animal populations**, which also covers schools, colonies, biome-specific populations and aquatic populations.
+
+Near and common candidates are cows, pigs, sheep and chickens, solving general needs such as food, leather, wool, feathers and eggs — consistent with the existing livestock prototype contract above. Intermediate and specialized candidates include rabbits, bees, horses, donkeys and goats, providing mobility, transport, honey and wax, class interactions and specialized drops. Deep and niche candidates include llamas, squid, glow squid, turtles, frogs, axolotls and other biome-specific or unusual populations.
+
+[OPEN] Exact placement and distance tier for each species is not settled. The system should support region-specific populations such as ocean and coast resources, mountain-specific animals, and biome-specific utility species.
+
+### Mob Swarms
+
+Mob Swarm composition depends on spatial depth, regional and biome identity, and day/night state rather than on a difficulty tier alone. Composition rules and the day/night axis belong to [objectives.md](objectives.md#mob-swarms); generation only needs to supply the regional and depth identity those rules read from.
+
+[OPEN] Exact crop, animal and Mob Swarm distance tables and regional resource tables are unresolved.
+
+
 ## Horses — Prototype contract
 
 Horses are separately map-guaranteed.

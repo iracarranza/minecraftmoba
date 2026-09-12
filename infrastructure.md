@@ -2,7 +2,7 @@
 
 ## Infrastructure Mode and recognition
 
-**Working canon, reconciled 10 September 2026.** At the infrastructure progression breakpoint, currently Level 6, eligible classes use shared **Infrastructure Mode**. Construction recognizes a Construct; Development recognizes a Development Zone; Exploration recognizes a Route; Logistics recognizes a Supply Line. Eligibility remains authored per class, not automatically inherited from every archetype tag. [OPEN] Combat’s corresponding Level 6 economic system remains a nighttime/combat-economy question.
+**Working canon, reconciled 10 September 2026.** At the infrastructure progression breakpoint, currently Level 6, eligible classes use shared **Infrastructure Mode**. Construction recognizes a Construct; Development recognizes a Development Zone; Exploration recognizes a Route; Logistics recognizes a Supply Line. Eligibility remains authored per class, not automatically inherited from every archetype tag. [OPEN] Combat’s corresponding Level 6 economic system remains a nighttime/combat-economy question. The 12 September direction is that Combat should **not** require a dedicated Combat infrastructure system; its economic role is securing value under threat, and its regenerative world system is Mob Swarms. See [objectives.md](objectives.md#combats-economic-role). This narrows the question without answering what, if anything, Combat receives at Level 6.
 
 Ordinary building, farming, movement, and transport remain unrestricted. Infrastructure Mode recognizes qualifying present world state or demonstrated capability; the system need not have witnessed its original creation. Build then designate, designate then build, recognize existing modified construction, and expand or repair a designated site are valid workflows. Recognition can generally be retroactive, although a connection still requires proof of its current capability.
 
@@ -344,7 +344,24 @@ The revised model creates a natural but non-mandatory relationship with Explorat
 
 A Development Zone appropriately within/intersecting Operational Area, a Route connection point within it, and a Supply Line node within it may legally connect to the Construct. Distinct connected systems contribute to the existing integration XP model in [classes.md](classes.md#infrastructure-recognition-and-integration) and [objectives.md](objectives.md#infrastructure-and-xp). A Construct alone creates neither passive XP nor an automatic XP multiplier; otherwise legitimate activity must grant XP. World opportunities encourage dispersion while integration rewards intentional concentration.
 
-Existing T1/T2 numerical targets and class-authored progression remain unchanged. Level 6 is the current recognition entry; Level 12 expresses the class role. No automatic T1/T2 level mapping is introduced. [OPEN] Exact overlap, mixed-tier contributions, attribution, eligible activity, and night behavior remain unresolved.
+Existing T1/T2 numerical targets and class-authored progression remain unchanged. Level 6 is the current recognition entry; Level 12 expresses the class role. No automatic T1/T2 level mapping is introduced. [OPEN] Exact overlap, mixed-tier contributions, attribution, and eligible activity remain unresolved. Night behaviour now has a working direction — see [Infrastructure at night](#infrastructure-at-night) — though its magnitudes and whether integration XP itself changes at night remain open.
+
+## Infrastructure at night
+
+**Working direction, 12 September 2026.** All four recognized infrastructure types become **less effective at night** and none of them disables completely. Night is opportunity and contestable time; day is accumulation time, when established world state compounds most efficiently. The economic framing is owned by [objectives.md](objectives.md#17a-day-and-night-economy).
+
+[OPEN] The exact penalty is unresolved, as is whether it applies equally to all four types. Implementation should probably differ by infrastructure type rather than reading as a uniform "all bonuses are -X%."
+
+Conceptual vulnerabilities per type:
+
+- **Construct** — maintaining useful presence becomes less efficient; sustainment, recovery and occupation benefits weaken; established positions become somewhat easier to pressure.
+- **Development Zone** — productive maturation and eligible renewable-process acceleration weaken; compounding productive value slows.
+- **Route** — repeated player projection and traversal become less efficient; reinforcement and long-distance movement lose some advantage while the world is more dangerous.
+- **Supply Line** — resource distribution and replenishment become less efficient; forward activity becomes harder to sustain economically.
+
+The strategic consequence is that night temporarily compresses some of the advantage of highly developed infrastructure **without introducing an explicit comeback mechanic**. This creates windows where raids, sieges and ambushes matter more, isolated infrastructure is more vulnerable, and forward expeditions require more active protection. Infrastructure vulnerability alone is not considered sufficient to create nighttime PvP; the positive nighttime opportunity economy is the stronger driver.
+
+Higher-level class progression may allow classes to improve the nighttime resilience of infrastructure associated with their authored progression trees. [OPEN] This is not yet designed and the exact class-upgrade mechanism is unresolved. [OPEN] Whether infrastructure XP integration changes at night is unresolved.
 
 ## Infrastructure payback horizon
 

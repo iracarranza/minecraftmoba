@@ -247,6 +247,8 @@ Exceptional manipulation of:
 
 Universal Health progression does not invalidate Combat specialization.
 
+**Economic role, 12 September 2026.** Combat's economic role is **securing value under threat**: it lets a team operate economically where danger or opposition would otherwise make operating inefficient or impossible. This refines the earlier phrasing that Combat converts threats and contestation into value. Combat does not require a dedicated Combat infrastructure system; its regenerative world system is hostile Mob Swarms, shared with Development's renewable living-world systems. See [objectives.md](objectives.md#combats-economic-role).
+
 ---
 
 ## Exploration
@@ -600,6 +602,8 @@ Current working breakpoint structure:
 | 30 | Capstone, exact form unresolved |
 
 Levels not listed here may still provide universal capacity growth according to the universal growth rules.
+
+[PROPOSED — NOT CANON, 12 September 2026] A capacity curve rework is under review: distinct growth cadences per capacity, Lv1 Health 8, universal Health and Hunger endpoints of 18 with specialization reaching 20, and a third specialization that unlocks a qualitative Mastery instead of a higher number. It is recorded in full in [docs/proposals/2026-09-12-capacity-curve.md](docs/proposals/2026-09-12-capacity-curve.md) and deliberately changes nothing below until reviewed. Everything in this section remains canon.
 
 Universal capacity progression currently begins at:
 

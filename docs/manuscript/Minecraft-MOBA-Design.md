@@ -156,7 +156,13 @@ A mountain-linked material can be guaranteed somewhere in the relevant geography
 
 Herds, Crop Patches, and Mob Swarms also appear in the later world-economy discussion as concentrated, phase-appropriate opportunities. They are intended to enlarge the scale of legitimate Minecraft activity as the economy develops. They are not established as generic XP pickups or automatically as formal Worksites.
 
-[OPEN] [NEEDS CANONICAL OWNER] Their activators, spawning, populations, renewal, depletion, ownership, reward attribution, and temporal behavior are not settled. The night branch explicitly corrected an earlier claim that its full original specifications were available. Do not infer a complete system from that earlier “yes.”
+**Regenerative Sources, 12 September 2026. Source: [WN].** The system has three top-level buckets — crops and plant resources, animal populations, and hostile Mob Swarms — generated with a spatial depth gradient. The governing rule is that regenerating resources increase in **economic specificity** with distance from the midpoint and base regions: near resources solve broad universal needs, deeper resources are rarer, more specialized or composition-dependent and support narrower but stronger strategies. Farther does not mean simply more XP or the same resource in bigger stacks. "Herds" remains useful player-facing language, but the internal system is better treated as animal populations, which also covers schools, colonies and aquatic populations. Candidate species and plants per tier are recorded in `maps.md`; none are canon.
+
+Mob Swarms add a second axis, **time of day**, so a Swarm is not generated from a difficulty tier alone but from spatial depth, regional identity, and day/night state. A night encounter need not be the day encounter with more health — it may change mob type, geometry, status effects, ranged pressure, density, drops, and required tactics. Near Swarms stay ordinary; intermediate ones add specialized threats; deep ones may include ravagers, charged creepers, dense pillager groups or ocean guardian groups. Boss and quasi-boss mobs such as the Warden are explicitly not ordinary regenerative Swarms, which remain distinct from major objectives and one-off encounters.
+
+Spatial depth and time of day form an opportunity field rather than a numeric tier table, and deep-night play can be some of the most valuable Combat activity on the map. Because deep opportunities are far from base and night weakens Routes, Supply Lines and Constructs, deep-night expeditions create strong Exploration, Logistics and Combat interdependence.
+
+[OPEN] Their activators, spawning, populations, renewal, depletion, ownership, reward attribution, temporal behavior, distance tables, regional tables, Swarm compositions, day-to-night transformations, respawn cadence, and reward scaling are not settled. The night branch explicitly corrected an earlier claim that its full original specifications were available. Do not infer a complete system from that earlier “yes.”
 
 Later extensions under discussion include horse, squid, or mountain-goat groupings and additional crop families such as melons. These are questions about the population framework, not committed species guarantees. Distinguish naturally occurring patches, ordinary player farms, and recognized Development infrastructure (§6.3).
 
@@ -168,13 +174,19 @@ These properties are not exclusive resource classes. A Mining Outpost creates pe
 
 ## 3.5 Day and night
 
-**Working; [NEEDS CANONICAL OWNER]. Source: [N: final night-economy direction].** Day favors the full effectiveness of established infrastructure. Night reduces the effectiveness of Constructs, Development infrastructure, Routes, and Supply Lines without disabling them. Hostile-mob activity should become more economically valuable, giving Combat a recurring opportunity to convert danger into resources and progression.
+**Canonical owner assigned 12 September 2026. Sources: [N], [WN].** The day/night economy is owned by `objectives.md` §17A, and the nighttime infrastructure penalty by `infrastructure.md`. The working distinction is that **day is accumulation and productive time; night is opportunity and contestable time.** Day and night are pressures, not role-locking phases: players can fight by day and farm, build or produce at night. The system changes relative economic attractiveness rather than prohibiting actions.
+
+At sunset three things change together: a limited, randomly selected set of Worksites activates (§7.10), Mob Swarms transform to nighttime compositions (§3.3), and recognized infrastructure enters a reduced-efficiency state. At sunrise Worksites close, Swarms revert, infrastructure returns to full efficiency, and teams integrate nighttime gains into the daytime economy.
+
+Infrastructure vulnerability alone is **not** considered sufficient to create nighttime PvP; the positive nighttime opportunity economy is the stronger driver. [OPEN] Exact day and night duration remains unresolved, as does the magnitude and per-type shape of the infrastructure penalty.
+
+**Working. Source: [N: final night-economy direction].** Day favors the full effectiveness of established infrastructure. Night reduces the effectiveness of Constructs, Development infrastructure, Routes, and Supply Lines without disabling them. Hostile-mob activity should become more economically valuable, giving Combat a recurring opportunity to convert danger into resources and progression.
 
 This combination makes established positions harder to sustain, supplies less efficient, and reinforcement less comfortable. Raids, ambushes, interception, and siege become more attractive because the world’s relative incentives change. A team can still work, defend, travel, or prepare through night.
 
 Infrastructure progression may mitigate each system’s nighttime weakness in its own way. These resilience paths are candidates; they are not automatically T2 rewards. The discussion’s illustrative 75–90% effectiveness range is not a selected multiplier and is not applied elsewhere in this manuscript.
 
-[OPEN] Cycle duration, start time, number of nights, transitions, sleep behavior, mob composition, spawn rules, reward changes, and which intrinsic or integration effects weaken are undefined. No global nighttime PvP-XP bonus is established. Mob Swarms’ exact relationship to this economy remains open.
+[OPEN] Cycle duration, start time, number of nights, transitions, sleep behavior, spawn rules, reward changes, and which intrinsic or integration effects weaken are undefined. No global nighttime PvP-XP bonus is established, and [WN] explicitly declines to add one yet: night already weakens infrastructure, enriches Mob Swarms, and activates limited Worksites, so PvP should emerge from overlapping demand rather than from a rule making kills worth more after sunset. Whether a direct incentive is needed after testing is open. Mob Swarms’ relationship to this economy is no longer open in outline — they are the Combat-facing regenerative resource and their composition changes with time of day (§3.3) — though their compositions and values are unresolved.
 
 ## 3.6 Compression of Minecraft timescales
 
@@ -350,6 +362,8 @@ Levels 11 and 13 also provide universal growth. The complete implemented prototy
 
 ## 5.4 Universal capacity and specialization
 
+**[PROPOSED — NOT CANON, 12 September 2026. Source: [CP].]** A capacity curve rework is under review and changes nothing in this chapter until reviewed. It proposes distinct growth cadences per capacity (Health frequent +1, Hunger periodic +1.5, Inventory frequent +3), Lv1 Health of 8, universal Health and Hunger endpoints of 18 with specialization reaching 20, Inventory unchanged at 6 → 36, and a third specialization that unlocks a qualitative **Mastery** — regenerating out-of-combat Absorption, exhaustion efficiency, or additional movement speed — instead of a larger number. If adopted it would supersede both the Inventory overflow conversion (§5.4) and the Hunger-above-20 exhaustion model (§5.5). It is recorded in full in `docs/proposals/2026-09-12-capacity-curve.md`. Its source states explicitly that repository documentation must not treat these numbers as final until the curve is reviewed.
+
 **Working numerical model. Sources: [C §3], [D].** Each universal growth unit adds 1 Health, 1 effective Hunger, and 3 inventory slots, with universal floors capped independently at 20, 20, and 36. Health/Hunger specialization is additive above those floors. Inventory has an effective hard maximum of 36.
 
 | Capacity | Level 1 | Automatic unit | Specialization at 3 / 18 / 24 | Universal floor |
@@ -395,6 +409,8 @@ Efficiency I arrives universally at Level 4; Yield I at Level 7. Task choices oc
 The approximately +10% universal movement-speed reward at Level 16 is a Working phase-transition proposal, not the superseded early Route-speed bonus. Its purpose is to condense the mid/late match. Test its effects on discovery races, reinforcement, interception, and expedition reach before fixing the value.
 
 ## 5.7 XP requirement bands
+
+**Dependency recorded 12 September 2026. Source: [WN].** XP calibration is downstream of the day/night economy. The chain runs day/night system, then nighttime Worksite availability, then Mob Swarm availability and value, then expected Combat economic throughput, then teamwide XP throughput, then band calibration. Calibration should eventually account for how much legitimate XP activity a night offers, how Combat progression changes exploitation rate, how the nighttime infrastructure slowdown offsets other throughput, how Worksites inject phase-appropriate opportunities, and how spatial depth changes reward density. Do not derive XP numbers from the night model yet.
 
 **Working targets, not final XP amounts. Source: [C §3: Working XP requirement bands]; supporting discussion [X].** Requirements are grouped around changes in productive capability rather than one uninterrupted smooth curve.
 
@@ -1000,6 +1016,24 @@ The Overworld → Nether → End → Aether thematic escalation does not require
 
 Worksite completion must follow actual finite opportunities rather than arbitrary class checks. Objective availability should coexist with ordinary progression; it is sometimes rational to concede one opportunity to develop or attack elsewhere.
 
+## 7.10 Nighttime Worksite activation
+
+**Working, 12 September 2026. Source: [WN].** Worksites open only at sunset. A limited number activate, chosen randomly from the eligible pool, with the number depending on match phase; at sunrise the active Worksites close. The purpose is positive nighttime opportunity, scarcity, and unpredictable but legible convergence, so that teams cannot script the same route every night and night is strategic rather than a global stat modifier.
+
+Selection should be constrained by eligibility rather than uniformly random. Availability and intensity are two independent tuning axes: more active Worksites does not automatically produce more contestation, because too many simultaneous sites let teams split peacefully. A broad candidate pattern is few moderate-value opportunities early, several fronts at mid, and potentially fewer but more consequential opportunities late.
+
+Worksites and regenerative hostile sources remain distinct nighttime systems — the first discrete, scarce and temporarily active, the second distributed and biome-dependent — so that a night presents multiple competing opportunities rather than one mandatory objective phase.
+
+[OPEN] Active Worksite count per phase, the selection algorithm, phase eligibility, whether late-game Worksites become more numerous or fewer and more consequential, and whether Worksites receive special mob pressure at night are all unresolved.
+
+## 7.11 Archetype and world-system mapping
+
+**Working, 12 September 2026. Source: [WN].** Construction with Extraction maps to the Mining Outpost; Logistics with Production to an industrial Worksite; Development with Combat to Regenerative Sources; Exploration to every POI. This maps which archetypal verbs each world system most strongly expresses and is not ownership or exclusivity.
+
+The Mining Outpost is exceptional physical resource opportunity: Extraction acquires, Construction activates and stabilizes the site, and activating its machinery should create or reveal a genuine new deposit rather than pointing at ore that already existed. A Production counterpart is wanted — provisionally Forge or Industrial Worksite — offering exceptional transformation opportunity, with Logistics supplying inputs and distributing outputs. [OPEN] Its name and mechanics are unresolved; "Forge" may read as overly metal-specific. Development and Combat have parallel but opposite relationships with recurring living systems, nurturing versus overcoming. Exploration is cross-cutting and needs no exclusive paired Worksite, because every meaningful POI creates Exploration value through discovery, navigation, access, first arrival and spatial knowledge.
+
+Read as verbs: Extraction acquires, Production transforms, Development matures renewable productive world state, Construction establishes useful built places, Logistics distributes, Combat secures value under threat, and Exploration discovers, accesses and connects the opportunity graph.
+
 # 8. Combat
 
 ## 8.1 Combat as economic contribution
@@ -1015,6 +1049,10 @@ Combat should remain recognizable Minecraft play enhanced by class expression an
 [OPEN] The outline’s minute-level skirmish timings are hypotheses (§2.5). Damage, equipment availability, early Health, escape ability, and food access must be tested together before asserting when typical encounters happen.
 
 ## 8.3 Night combat and siege
+
+**Refined 12 September 2026. Source: [WN].** Combat's economic role is **securing value under threat**: the archetype that lets a team operate economically where danger or opposition would otherwise make operating inefficient or impossible. This refines the earlier "converts threats into value" phrasing and does not require a dedicated Combat infrastructure system. Value comes from defeating hostile mobs, securing Mob Swarms, protecting expeditions, contesting Worksites, defending infrastructure, breaking enemy control, escorting resources, raiding, ambushing, sieging, and denying opponents temporary opportunities.
+
+Nighttime Combat should become more economical primarily because the world presents harder and richer combat work, not because of a multiplier. A harder encounter produces more legitimate output and therefore more legitimate XP, which keeps XP grounded in activity. Avoid flat nighttime PvP bonuses, arbitrary kill multipliers, and rules instructing players to attack enemy structures at sunset.
 
 **Working. Source: [N].** Richer hostile-mob opportunity and weaker infrastructure can make night favorable for combat-oriented activity. Players may hunt, raid, ambush, defend, disrupt distribution, or pressure a siege. This is a recurring incentive window, not a mandatory combat phase.
 
@@ -1722,6 +1760,8 @@ The requested manuscript hierarchy is preserved. Prose, cross-references, consol
 | Current Task B | Two minimal physical candidates; B.1 incomplete | No frozen competitive skeleton or Task C |
 | Latest systems/concept chats | Durability turnover, Construct scales, Waxer | Working discussion; not silently canonized |
 
+12 September 2026: the Nighttime, Combat Economy, Regenerative Sources and World-System Mapping handoff [WN] was integrated, giving the day/night economy a canonical owner (`objectives.md` §17A) and adding sunset-only Worksite activation, the three regenerative buckets with their spatial specificity gradient, Mob Swarm composition by depth, region and time of day, Combat as securing value under threat, the archetype/world-system mapping, and the nighttime infrastructure penalty in `infrastructure.md`. No XP numbers were derived; the XP branch is explicitly downstream. Separately, a capacity progression curve rework [CP] was recorded as a **proposal only** in `docs/proposals/2026-09-12-capacity-curve.md` at its author's instruction; no canonical capacity value was changed.
+
 Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainter-authored worlds. The historical dimensions and method do not dictate the modern official-vanilla approach.
 
 10 September 2026, second integration: the World and Match Systems handoff was supplied in full and integrated, adding restricted material categories, the revised block economy and infrastructure-labor model, Construction's material agency, and the payback horizon, control-window, authorship/recognition/control, capture, and team-relative integration material. The numerical estimates and phase bands recorded there are modelling targets, not balance canon.
@@ -1851,6 +1891,10 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[WS] Class Design Handoff: Skeleton Crew and Lightfooted.** 12 September 2026. Completes both classes to the settled standard and promotes them out of the drafts section. See docs/reconciliation/2026-09-12-classes.md.
 
 **[WL] Logistics / Supply Line / Skeleton Crew Handoff.** Late September 2026. Replaces Flow Weight with slot-based Capacity, makes logistical Capacity non-duplicable between committed infrastructure and active world presence, introduces relay-node chains, and rebuilds Skeleton Crew on a shared labour pool. See docs/reconciliation/2026-09-11-capacity.md.
+
+**[WN] WAMS Handoff — Nighttime, Combat Economy, Regenerative Sources, and World-System Mapping.** 12 September 2026, working design direction with no finalized numbers or tables. Day as accumulation and night as opportunity; per-type nighttime infrastructure weakening; Combat as securing value under threat with no dedicated Combat infrastructure; sunset-only Worksite activation with phase-dependent count and constrained random selection; crops, animal populations and Mob Swarms as regenerative sources on a specificity-by-distance gradient; Mob Swarm composition by depth, region and time of day; the archetype/world-system mapping; and XP calibration as a downstream branch. See docs/reconciliation/2026-09-12-nighttime-economy.md.
+
+**[CP] Minecraft MOBA Capacity Progression Curve Handoff.** 12 September 2026, explicitly **NOT CANON**. Proposes per-capacity growth cadences, an 8-Health start, 18-point universal Health and Hunger endpoints, specialization reaching 20, and qualitative Masteries at the third specialization. Recorded as a proposal only, at the source's own instruction; no canonical value changed. See docs/proposals/2026-09-12-capacity-curve.md.
 
 **[WR] Minecraft MOBA Infrastructure Reconciliation / Correction Handoff.** September 2026. Resolves the four [WC]/[WB] conflicts, reinstates explicit Supply Line start, corrects Capacity (then Flow Weight) and Item Rate authorship, splits self-directed from path-authored logistical methods, reaffirms the class-ability firewall, and states the shared start/journey/end connection grammar. Retains [WC] where it is not corrected; does not supersede [WB] wholesale. See docs/reconciliation/2026-09-11-infrastructure-reconciliation.md.
 

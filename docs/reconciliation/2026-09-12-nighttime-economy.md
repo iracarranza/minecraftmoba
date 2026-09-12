@@ -1,0 +1,87 @@
+# Reconciliation — nighttime and combat economy handoff
+
+Date: 2026-09-12
+
+## Sources
+
+1. **[WN]** WAMS Handoff — Nighttime, Combat Economy, Regenerative Sources, and
+   World-System Mapping, sections 1–17. Working design direction; exact
+   numbers and tables explicitly not finalized.
+2. **[CP]** Minecraft MOBA Capacity Progression Curve Handoff, sections 1–14.
+   Explicitly **NOT CANON**, with a standing instruction not to modify
+   repository documentation as if its numbers are final.
+
+The two were supplied together but are handled differently: [WN] is integrated
+as Working direction, [CP] is recorded as a proposal and changes nothing.
+
+## [WN] — integrated
+
+| Section | Destination |
+| --- | --- |
+| 1 Day/night economic foundation | `objectives.md` §17A; manuscript §3.5 |
+| 2 Infrastructure at night | `infrastructure.md` → Infrastructure at night; manuscript §3.5 |
+| 3 Combat's economic role | `objectives.md` §17A; `classes.md` → Combat; manuscript §8.3 |
+| 4 Nighttime Worksites | `objectives.md` §11 → Nighttime activation; manuscript §7.10 |
+| 5 Worksite / archetype mapping | `objectives.md` §17C; manuscript §7.11 |
+| 6 Regenerative resource system | `objectives.md` §17B; `maps.md` → depth gradient; manuscript §3.3 |
+| 7–8 Crops, animal populations | `maps.md` → depth gradient |
+| 9–11 Mob Swarms, depth, day/night | `objectives.md` §17B; `maps.md`; manuscript §3.3 |
+| 12 Distance × day/night field | `objectives.md` §17B; manuscript §3.3 |
+| 13 Two nighttime opportunity systems | `objectives.md` §17A; manuscript §7.10 |
+| 14 Why no direct PvP bonus | `objectives.md` §17A; manuscript §3.5 |
+| 15 Archetype economy | `objectives.md` §17C; manuscript §7.11 |
+| 16 Unresolved questions | preserved as `[OPEN]` in place |
+| 17 XP branch dependency | `objectives.md` §9; manuscript §5.7 |
+
+### Ownership resolved
+
+Manuscript §3.5 carried `[NEEDS CANONICAL OWNER]` on day/night. That is now
+assigned: **`objectives.md` §17A owns the day/night economy**, and
+**`infrastructure.md` owns the nighttime infrastructure penalty**. `maps.md`
+owns the spatial gradient the regenerative buckets are generated against.
+
+### Narrowed, not answered
+
+`infrastructure.md`'s standing `[OPEN]` on Combat's Level 6 economic system is
+narrowed: Combat should not require a dedicated Combat infrastructure system,
+its economic role is securing value under threat, and its regenerative world
+system is Mob Swarms. What, if anything, Combat receives at Level 6 is still
+open. The `[OPEN]` on infrastructure night behaviour in the integration section
+now points at the new night section for direction while keeping magnitudes open.
+
+### Deliberately not derived
+
+No XP values, no nighttime multipliers, no penalty percentages, no Worksite
+counts, no distance tables, no Swarm compositions. [WN] §17 places XP
+calibration downstream of these decisions, and that dependency is recorded in
+`objectives.md` §9 and manuscript §5.7 rather than acted on.
+
+The manuscript's existing illustrative 75–90% nighttime effectiveness range
+remains marked as not a selected multiplier; [WN] does not select one.
+
+## [CP] — recorded as a proposal, nothing changed
+
+Full text preserved in `docs/proposals/2026-09-12-capacity-curve.md`. Pointers
+added, each labelled `[PROPOSED — NOT CANON]`, in `classes.md` (capacity
+progression), `implementation/datapacks/README.md` (implemented capacity
+values), and manuscript §5.4.
+
+Canon **unchanged** and explicitly still in force:
+
+- 9 Health / 9 Hunger / 6 slots at Level 1, with +1 / +1 / +3 universal growth;
+- +2 / +2 / +6 specialization at Levels 3, 18 and 24;
+- the Inventory overflow conversion to +0.5 Health / +0.5 effective Hunger;
+- effective Hunger above 20 via `exhaustion multiplier = 14 / (H − 6)`;
+- the implemented Chunk 2 curve in the datapack.
+
+[CP] says the last two are *probably* superseded if it is adopted. They are not
+superseded now. Two items are flagged for whoever reviews the curve: half-point
+Hunger values (10.5 / 13.5 / 16.5) have no vanilla representation and need a
+rounding or accounting decision, and all three Masteries are new mechanisms
+rather than capacity numbers, each wanting its own feasibility pass.
+
+## Incidental
+
+A stray `O` prefix on the second `# 20. Relationship to Infrastructure` heading
+in `objectives.md` was corrected. The duplicated section body around it is
+pre-existing and was left alone.

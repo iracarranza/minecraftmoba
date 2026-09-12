@@ -284,6 +284,12 @@ Usefulness is presumed through the resource economy.
 
 This avoids requiring the game to trace every resource through its eventual strategic use.
 
+## XP calibration is downstream of the day/night economy
+
+**Working direction, 12 September 2026.** Do not derive XP numbers from the day/night model. The dependency runs day/night system, then nighttime Worksite availability, then Mob Swarm availability, composition and value, then expected Combat economic throughput, then expected teamwide XP throughput, then XP band calibration.
+
+XP curve calibration should eventually account for how much legitimate XP activity is available during each night, how much Combat progression changes exploitation rate, how much the nighttime infrastructure slowdown offsets other economic throughput, how Worksites inject phase-appropriate opportunities, and how spatial depth changes reward density. The XP branch is intentionally downstream of these decisions; see section 17A.
+
 ## Other XP sources under consideration
 
 Examples may include:
@@ -402,6 +408,16 @@ Their value may derive from:
 Worksites are **finite exceptional opportunities that test archetype capability through Minecraft-native activity**. They span and act as gateways across early-mid through late-mid progression, potentially extending into the beginning of lategame, but not endgame. Their requirements must not assume endgame technology. Later opportunities can demand greater capability while retaining ordinary Minecraft participation and meaningful specialist advantage.
 
 The Mining Outpost tests Extraction, supported by Construction that establishes its apparatus. The Industrial Enchanter tests Production, supported by Logistics that realizes a finite delivery opportunity. These are working examples, not a requirement to provide one Worksite for every archetype.
+
+## Nighttime activation — Working, 12 September 2026
+
+**Worksites open only at sunset.** At sunset a limited number of Worksites activate; at sunrise the active Worksites close. The number of simultaneously active Worksites depends on match phase, and which eligible Worksites activate is chosen randomly from the eligible pool.
+
+This exists to create positive nighttime opportunity rather than a global nighttime stat modifier: scarcity, unpredictable but legible convergence, and a reason not to script the same route every night.
+
+Selection should be constrained by eligibility rather than uniformly random. [OPEN] Candidate eligibility inputs include match phase, Worksite type, prior use or exhaustion, geographic fairness, distance, map distribution, accessibility, and whether the chosen sites cluster near one team. None of this is settled.
+
+Availability and intensity are two independent tuning axes. More active Worksites does **not** automatically produce more contestation — too many simultaneous sites simply let teams split peacefully. A broad candidate pattern is few moderate-value opportunities early, several fronts at mid, and potentially fewer but much more consequential opportunities late. [OPEN] Exact counts per phase, the selection algorithm, phase eligibility, and whether late-game Worksites become more numerous or fewer and more consequential are all unresolved. [OPEN] Whether Worksites themselves receive special mob pressure at night is unresolved.
 
 ## Desired lifecycle
 
@@ -773,6 +789,92 @@ without requiring literal vanilla dimensional progression.
 
 ---
 
+# 17A. Day and Night Economy
+
+**Working direction, 12 September 2026.** The working distinction is that **day is accumulation and productive time; night is opportunity and contestable time.** Day and night are pressures, not role-locking phases: players can fight in daytime and farm, build or produce at night. The system changes relative economic attractiveness rather than prohibiting actions.
+
+During daytime, established world state compounds most efficiently. Constructs and Development systems operate at full intended efficiency, Routes give their full traversal benefit, Supply Lines their full distribution benefit, and ordinary extraction, production, development, logistics, construction and preparation are comparatively favoured. Teams are rewarded for improving and exploiting controlled world state.
+
+Night is not simply a combat phase. It changes the relative economic environment: infrastructure becomes less efficient, hostile world pressure increases, Mob Swarms become stronger and more specialized and more valuable, a limited selection of Worksites activates, and teams are encouraged to leave stable economic loops and respond to temporary opportunities. PvP should emerge from overlapping demand for those opportunities and from weaker economic projection.
+
+The conceptual loop is: day accumulates, builds, develops, extracts, produces, connects and distributes; at sunset limited Worksites activate, Mob Swarms transform to nighttime forms, and infrastructure enters its reduced-efficiency state; at night teams evaluate opportunities, provision, project outward, secure, exploit, contest, fight mobs and possibly players, and raid, defend, ambush or siege where worthwhile; at sunrise Worksites close, Swarms revert, infrastructure returns to full efficiency, and teams integrate nighttime gains into the daytime economy.
+
+[OPEN] Exact day and night duration is unresolved.
+
+## Infrastructure at night
+
+Nighttime infrastructure penalties are owned by [infrastructure.md](infrastructure.md#infrastructure-at-night). In summary: all four recognized infrastructure types become less effective at night, none disables completely, and the penalty should probably differ by infrastructure type rather than being a uniform percentage. Night temporarily compresses some of the advantage of highly developed infrastructure without introducing an explicit comeback mechanic, creating windows where raids, sieges and ambushes matter more, isolated infrastructure is more vulnerable, and forward expeditions need active protection.
+
+Infrastructure vulnerability alone is **not** considered sufficient to create nighttime PvP. The positive nighttime opportunity economy is the stronger driver.
+
+## Combat's economic role
+
+**Working direction, 12 September 2026.** Combat should not require a dedicated Combat infrastructure system. Combat is **securing value under threat**: the archetype that lets a team economically operate where danger or opposition would otherwise make operating inefficient or impossible. This refines the earlier phrasing that Combat converts threats and contestation into value.
+
+Combat can generate economic value by defeating hostile mobs, securing Mob Swarms, protecting expeditions, contesting Worksites, defending infrastructure, breaking enemy control, escorting valuable resources, raiding, ambushing, sieging, and denying the opponent access to temporary opportunities.
+
+Avoid flat "+X% XP for PvP at night," arbitrary nighttime kill multipliers, and explicit instructions that force players to attack enemy structures at sunset. The preferred model is that nighttime produces richer and more dangerous opportunities, limited Worksites create scarcity, infrastructure projection weakens, teams collide over valuable opportunities, and PvP emerges from game theory.
+
+## Why a direct nighttime PvP bonus may be unnecessary
+
+**Working direction, 12 September 2026.** Do not add an explicit nighttime PvP XP bonus yet. Night already creates three pressures: infrastructure is weaker, Mob Swarms are richer and more dangerous, and limited Worksites activate. Players therefore leave safe economic patterns, movement converges, valuable locations become contested, defence and reinforcement weaken, and PvP becomes more likely without a rule saying kills are worth more after sunset. PvP should happen because the thing we want overlaps with the thing they want. [OPEN] Whether any direct nighttime PvP incentive is still needed after testing is unresolved.
+
+## Two distinct nighttime opportunity systems
+
+At sunset two systems change and they should remain distinct. **Worksites** are discrete, scarce, temporarily active, known strategic destinations. **Regenerative hostile sources** are distributed living-world opportunities whose composition changes with time of day and which depend on location and biome.
+
+The intent is multiple competing nighttime opportunities rather than one mandatory objective-spawn phase. A Forge activating in the east while a deep mountain Swarm becomes a high-value Stray encounter in the west should force a team to choose between contesting the Worksite, securing the Swarm, splitting, defending infrastructure, ambushing another team, or ignoring both.
+
+---
+
+# 17B. Regenerative Sources
+
+**Working direction, 12 September 2026.** The regenerative-resource system has three top-level buckets: **crops and plant resources**, **animal populations**, and **hostile Mob Swarms**. They are generated with a spatial depth and value gradient; the spatial rules belong to [maps.md](maps.md#regenerative-source-depth-gradient--working) and the economic role belongs here.
+
+The core rule is that regenerating resources increase in **economic specificity** with distance from the midpoint and base regions. Do not read this as farther meaning simply more XP, or the same resource in larger stacks. Near and core resources solve broad universal needs; deeper resources are newer, rarer, more specialized or composition-dependent, and support narrower but stronger strategies. Distance therefore increases specialization, niche utility, strategic value and sometimes challenge.
+
+## Mob Swarms
+
+Mob Swarms are the Combat-facing regenerative resource. They follow the same spatial principle, but add a second major axis: **time of day**. Swarm composition depends on spatial depth, regional and biome identity, and day/night state, so a Swarm is not generated from a difficulty tier alone.
+
+The night encounter does not need to be the day encounter multiplied numerically. Night may change mob type, encounter geometry, status effects, ranged pressure, terrain interaction, density, rare drops, and the tactics required. This is preferred over the same swarm with more health.
+
+Near and core Swarms should be relatively ordinary: zombies, skeletons, spiders, basic mixed groups. Intermediate Swarms may include more specialized threats such as creepers, pillagers, witches, husks, strays, cave spiders, slimes, drowned, and mixed contextual groups. Deep Swarms may include ravagers, charged creepers, large specialized swarms, dense pillager groups, guardian groups in appropriate ocean regions, and multi-mob compositions with tactical synergy.
+
+Do not casually use boss or quasi-boss mobs such as the Warden as ordinary regenerative Swarms. Regenerative Mob Swarms remain distinct from major objectives, bosses, and one-off encounter content.
+
+Nighttime Combat should become more economical primarily because the world presents harder and richer combat work — larger concentrations, stronger variants, more specialized compositions, rare drops, higher-value hostile opportunities, and more difficult territory to operate in. A harder and richer encounter produces more legitimate output and therefore more legitimate XP value, which keeps XP grounded in actual activity rather than in a global nighttime multiplier.
+
+[OPEN] Exact Mob Swarm compositions, day-to-night Swarm transformations, respawn cadence, regional tables, XP values, and drop or reward scaling are unresolved. [OPEN] Whether all nighttime Combat value can be embodied in encounter composition is unresolved.
+
+## Distance and time of day as an opportunity field
+
+Spatial depth and time of day form a conceptual two-dimensional field rather than a numeric tier table: near-day play is routine and near-night play is dangerous; intermediate depth is valuable by day and high-value by night; deep regions are specialized by day and exceptional by night. Deep-night play can become some of the most valuable Combat activity on the map.
+
+This interacts strongly with infrastructure. Deep opportunities are already far from bases, and night weakens Routes, Supply Lines and Constructs, so deep-night expeditions create strong Exploration, Logistics and Combat interdependence.
+
+---
+
+# 17C. Archetype and World-System Mapping
+
+**Working direction, 12 September 2026.** The broad mapping between archetypes and world systems is Construction with Extraction to the Mining Outpost; Logistics with Production to an industrial Worksite; Development with Combat to Regenerative Sources; and Exploration to every POI.
+
+This is a mapping of which archetypal verbs each world system most strongly expresses. It is **not** ownership or exclusivity.
+
+**Construction and Extraction — Mining Outpost.** The Mining Outpost represents exceptional physical resource opportunity. Extraction acquires exceptional resources; Construction interacts with, activates, stabilizes and establishes the useful physical site. Activating its machinery should create or reveal a genuine new exceptional deposit or extraction opportunity rather than pointing at ore that already existed and could have been mined accidentally. It remains a Worksite, not Extraction infrastructure.
+
+**Logistics and Production — Forge / Industrial Worksite.** A Production counterpart to the Mining Outpost is wanted: where the Mining Outpost is an exceptional Extraction opportunity, this is an exceptional Production and transformation opportunity. Logistics fits because significant inputs must be supplied, outputs must be distributed, and throughput and transport matter; Production fits because inputs are transformed into unusually valuable outputs. [OPEN] The name is unresolved. "Forge" is attractive but may read as overly metal-specific, which may be acceptable if the Worksite is slightly abstract in edge cases for Production classes working in wood, glass or food. [OPEN] Exact industrial mechanics are unresolved. See also the Industrial Enchanter in section 14A, which is a Working Production Worksite and is not automatically this system.
+
+**Development and Combat — Regenerative Sources.** Development and Combat share the regenerative-resource world system and have parallel but opposite relationships with recurring living systems: Development gains increasing value from nurturing and harvesting renewable living-world opportunities, Combat from overcoming renewable hostile-world opportunities.
+
+**Exploration — every POI.** Exploration is intentionally cross-cutting and its value is not limited to one dedicated POI type. Every meaningful POI creates Exploration value through discovery, navigation, information, route planning, access, first arrival, connection, and knowledge of spatial opportunity. Exploration therefore does not need an exclusive paired Worksite to remain economically legible.
+
+## Broader archetype economy
+
+Extraction acquires resources. Production transforms acquired resources. Development matures and improves renewable productive world state. Construction establishes useful built places. Logistics distributes resources. Combat secures value under threat. Exploration discovers, accesses and connects the opportunity graph.
+
+---
+
 # 18. Relationship to Ordinary Progression
 
 Objectives are not the sole source of XP, resources, or strategic value.
@@ -941,7 +1043,7 @@ The match should support concurrent:
 
 **Working canon update, 10 September 2026:** Shared recognition, persistence, physical counterplay, and connection eligibility are governed by [infrastructure.md](infrastructure.md). Objective-specific mechanics remain here. Operational Area defines legal connections for integration; it is not a general buff radius. Industrial Enchanter completion does not require a recognized Supply Line.
 
-O# 20. Relationship to Infrastructure
+# 20. Relationship to Infrastructure
 
 Objectives and infrastructure can overlap spatially and strategically without becoming the same system.
 
