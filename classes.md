@@ -956,6 +956,7 @@ On reactivation, Mole emerges and deals damage in the direction they are facing.
 Mole senses and targets an unstable natural-terrain region and incites a delayed collapse.
 
 - Natural terrain only.
+  - [TECHNICAL RISK] Distinguishing natural terrain from player construction requires block provenance, which vanilla does not record. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 - Collapse occurs downward in stages.
 - Destroyed terrain produces only partial drops.
 - The area becomes No-Build while actively collapsing.

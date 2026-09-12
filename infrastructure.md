@@ -66,7 +66,9 @@ This draws an intentional distinction. Ordinary blocks are cheap, immediate, phy
 
 The resulting decision is a real one. A team holding 500 total blocks but only 80 qualifying Construction Blocks must choose where hardened structural investment matters: a gate, an inner wall, a bridge support, a bunker, an infrastructure enclosure, or a forward-facing defence.
 
-[OPEN] Exact Structural Integrity strength is unresolved. Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
+[OPEN] Exact Structural Integrity strength is unresolved.
+
+[TECHNICAL RISK] Vanilla exposes no per-instance block hardness or blast resistance and cannot cancel a block break, so Structural Integrity has no direct implementation. The only vanilla route is detect-and-restore, in which the block does break before returning. Consider expressing integrity as rebuild rather than resistance. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
 
 ### Protecting infrastructure components
 
@@ -87,6 +89,8 @@ The system does not need to decide whether something is objectively a house, a f
 The core relationship is that more legitimate constructed material allows a player to claim and support more operational space. Insufficient block investment should constrain maximum legitimate extent, which prevents placing four blocks at four distant corners and claiming an enormous fortress area. Conversely, many blocks in a compact region can represent a dense high-investment Construct without requiring a large operational footprint.
 
 Repeated region selection is preferable to requiring one mathematically contiguous mass, because legitimate Minecraft structures routinely contain gaps, air, separate walls, fence components, bridge supports, nearby defensive works, vertical separation and disconnected authored components. [OPEN] Exact region-selection representation is unresolved. Prefer player-assisted bounded selection over automatic recursive flood-fill of arbitrary world construction; do not continuously ask the implementation to infer enormous connected structures.
+
+[TECHNICAL RISK] Vanilla does not record whether a block was world-generated or player-placed. This passage assumes block provenance, a capability shared by five systems and owned by none; see §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 
 ### Permissive designation
 
@@ -248,6 +252,8 @@ Logistics counterplay now has several physical layers. **Nodes** are visible Cop
 ### Recognized Supply Line execution
 
 **Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Capacity and an Item Rate, the recognized line periodically transfers up to Capacity eligible cargo slots from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
+
+[TECHNICAL RISK] Simulated delivery between distant nodes requires both endpoints to be loaded. Forceloading is limited and costly, which silently caps how far infrastructure can project. See §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 
 At each simulated delivery the line transfers up to the committed Capacity from Source to Destination, and the interval represents Item Rate. The game therefore does not continue physically simulating every individual carrier trip forever after recognition: physical logistical behaviour establishes the connection, and the system then simulates repeated performance of that behaviour. This is the automation payoff of infrastructure.
 

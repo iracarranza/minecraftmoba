@@ -326,7 +326,9 @@ Team First is the first allied discovery of an eligible opportunity. Match First
 
 [OPEN] The manuscript does not assign XP per block, craft, kill, delivery, farm action, or objective contribution. Source provenance, repeated pickup, transfer between teammates, re-crafting, renewable output, and joint work need a rule that avoids duplicate credit while recognizing useful activity. No complete anti-farming ledger is currently canonical.
 
-[CONFLICT] Older chat preserves flat submission XP plus usage-driven infrastructure XP. Current [O §9] and [C §2] instead reject passive/submission assumptions and specify integration around legitimate activity. The old model is retained as historical discussion, not used in the economy described here.
+[CONFLICT] Older chat preserves flat submission XP plus usage-driven infrastructure XP.
+
+[TECHNICAL RISK] Statistics cannot distinguish mining a natural block from mining a replaced one, or a world pickup from a teammate's handover. Anti-farming therefore depends on block provenance (§13.8). See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Current [O §9] and [C §2] instead reject passive/submission assumptions and specify integration around legitimate activity. The old model is retained as historical discussion, not used in the economy described here.
 
 ## 5.3 Current working level spine
 
@@ -383,6 +385,8 @@ Inventory means meaningful loadout categories: tools, food, blocks, utility, sup
 **Working formula. Source: [C §3: Effective Hunger above 20].** Up to 20 effective Hunger, the stat is represented by the intended displayed maximum. Above 20, the visible food bar stays at 20 and additional pre-cutoff reserve is represented by exhaustion efficiency:
 
 **Exhaustion multiplier = 14 / (H − 6), for effective Hunger H > 20.**
+
+[TECHNICAL RISK] §13.6 records that vanilla exposes no locomotion-only exhaustion scaling and that any datapack version is an approximation. The multipliers below are specified more precisely than the mechanism can currently deliver. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 
 The numerator is the reserve from 20 to the 6-food sprint cutoff. The conversion preserves the simplified amount of Hunger-consuming activity before that cutoff. It does not prove exact travel distance in a live match.
 
@@ -529,7 +533,9 @@ This draws an intentional distinction. Ordinary blocks are cheap, immediate, phy
 
 The resulting decision is a real one. A team holding 500 total blocks but only 80 qualifying Construction Blocks must choose where hardened structural investment matters: a gate, an inner wall, a bridge support, a bunker, an infrastructure enclosure, or a forward-facing defence.
 
-[OPEN] Exact Structural Integrity strength is unresolved. Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
+[OPEN] Exact Structural Integrity strength is unresolved.
+
+[TECHNICAL RISK] Vanilla exposes no per-instance block hardness or blast resistance and cannot cancel a block break, so Structural Integrity has no direct implementation. The only vanilla route is detect-and-restore, in which the block does break before returning. Consider expressing integrity as rebuild rather than resistance. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
 
 ### 6.2.5 Protecting infrastructure components
 
@@ -764,6 +770,8 @@ The core relationship is that more legitimate constructed material allows a play
 
 Repeated region selection is preferable to requiring one mathematically contiguous mass, because legitimate Minecraft structures routinely contain gaps, air, separate walls, fence components, bridge supports, nearby defensive works, vertical separation and disconnected authored components. [OPEN] Exact region-selection representation is unresolved. Prefer player-assisted bounded selection over automatic recursive flood-fill of arbitrary world construction; do not continuously ask the implementation to infer enormous connected structures.
 
+[TECHNICAL RISK] Vanilla does not record whether a block was world-generated or player-placed. This passage assumes block provenance, a capability shared by five systems and owned by none; see §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
+
 ## 6.19 Development Weight and dynamic capacity
 
 **Working. Source: [WC].** Development Zones are the simplest place infrastructure. The player enters Infrastructure Mode, designates something recognized as developable, and the system recognizes and evaluates the surrounding qualifying productive region. Further nearby developmental components may be added to the same zone. Developable evidence may include crops, trees and saplings, livestock, bees and hives, and other renewable productive Minecraft systems.
@@ -773,6 +781,8 @@ Raw counts cannot be compared across developmental types: ten wheat blocks, ten 
 Block-based and entity-based development should not use identical normalization. Qualifying resource blocks can be counted with density and area limits preventing pathological layouts. Raw population count is dangerous on its own: a hundred cows crammed into a single block should not read as vastly greater legitimate Development than a functioning pasture. Population, occupied viable area, and a local density ceiling or diminishing return are candidate factors. [OPEN] Exact formula unresolved. Mixed zones combining crops, livestock, bees and trees should be allowed to constitute one productive area rather than four unrelated zones.
 
 Unlike a Construct, a Development Zone should be periodically re-evaluated. A Construct derives legitimacy primarily from authored construction that exists; a Development Zone derives it from productive resources and populations that continue to exist and develop. If livestock disappear, crops are destroyed, hives vanish or productive area collapses, Development Capacity should be able to fall. This is preferable to permanently certifying a zone based on whatever was present at the moment of designation. [OPEN] Recalculation frequency unresolved.
+
+[TECHNICAL RISK] Periodic re-evaluation over an extent requires repeated volume measurement. No shared scan budget exists; see §13.8.
 
 ## 6.20 Banner endpoints
 
@@ -823,6 +833,8 @@ Do not derive Item Rate primarily from geometric source-to-destination distance.
 ### 6.21.4 Recognized Supply Line execution
 
 **Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Capacity and an Item Rate, the recognized line periodically transfers up to Capacity eligible cargo slots from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
+
+[TECHNICAL RISK] Simulated delivery between distant nodes requires both endpoints to be loaded. Forceloading is limited and costly, which silently caps how far infrastructure can project. See §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 
 At each simulated delivery the line transfers up to the committed Capacity from Source to Destination, and the pulse interval represents Item Rate. The game does not continue physically simulating every individual carrier trip after recognition: physical logistical behaviour establishes the connection, and the system then simulates repeated performance of that behaviour. This is the automation payoff of infrastructure.
 
@@ -928,7 +940,9 @@ The final defined defensive layer before the Fountain uses durable End-related c
 
 Demolition can create permanent access; defenders can be cleared to establish control; Allay theft can alter function; hoard extraction moves actual wealth; machinery interaction can progress the objective. [OPEN] These examples do not settle reward values or exact state transitions.
 
-Pure percentage-of-block destruction risks rewarding removal of cheap, irrelevant blocks. The project requires a meaningful structural or functional validation rule; none is finalized. Ability-driven destruction, tunneling, and repair must be evaluated against that rule, not independently invented exceptions.
+Pure percentage-of-block destruction risks rewarding removal of cheap, irrelevant blocks. The project requires a meaningful structural or functional validation rule; none is finalized.
+
+[TECHNICAL RISK] A structural or topological validation over an arbitrarily damaged, player-modified building requires connectivity analysis that is expensive and is discouraged elsewhere (§6.18). Because the map is authored, functional components at known coordinates are the cheap alternative. This sits on the victory path. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Ability-driven destruction, tunneling, and repair must be evaluated against that rule, not independently invented exceptions.
 
 ## 7.4 Aether Fountain, exposure, and victory
 
@@ -1728,6 +1742,40 @@ Barrier cargo needs transport, provenance, cleanup, death, storage, enemy intera
 Implementation should record its target version, implemented behavior, approximation, observed tests, and remaining gaps separately. “Can load,” “matches planned block edits,” “walkable,” “competitively viable,” and “complete match” are different claims. Preserve them as such.
 
 The immediate technical priorities follow the current evidence: finish the selected map’s player-scale validation, resolve input/kit compatibility, implement or test effective Hunger’s intended mechanics, and define shared infrastructure/XP contracts before treating isolated prototypes as a full game runtime.
+
+## 13.8 Shared technical contracts
+
+**Recorded 12 September 2026. Source: capability audit.** Several chapters
+independently assume engine capabilities that are unproven or unavailable. They
+are collected here so they stop being re-assumed locally. Full ranking and
+escape hatches are in [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
+
+**Block provenance.** Vanilla does not record whether a block was generated or
+player-placed. Assumed by anti-farming XP (§5.2), Mole's Sinkhole (§9.3),
+Construct designation (§6.18), Structural Integrity (§6.2.4), and Development
+Zone eligibility (§3.3, §6.19). Solvable only by persistent per-block state with
+no natural eviction policy. **Prove or kill this first; five systems fail
+together.**
+
+**Event cancellation.** No datapack can veto an action. Structural Integrity,
+Sinkhole's no-build area, armour locking and infrastructure protection all want
+prevention and can only detect and revert. Adventure mode with `can_place_on`
+and `can_break` is the sole true prevention and is too restrictive for a
+building game.
+
+**Chunk loading.** Supply Line pulses, Development Zone recalculation, Worksite
+operation and Mob Swarm behaviour all imply activity away from players.
+Forceloaded chunks are limited and costly.
+
+**Region-scale measurement budget.** Constructs, Development Zones and
+structural defeat each need volume counting. Individually affordable;
+collectively they need one budget and one owner.
+
+[TECHNICAL RISK] is introduced as a marker distinct from [OPEN]: a passage may
+be fully decided as design and still assume an unavailable capability.
+
+[OPEN] Each contract needs a technical owner and a prototype before the systems
+above are implemented.
 
 # 14. Development Record
 
