@@ -1920,8 +1920,11 @@ Emergent archetype:
 
 Do not assign further archetypes until finished behaviour is evaluated. See [section 13](#13-merchant--active-design).
 
+### Settled beyond the original four
+Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) completed conceptual passes on 12 September 2026. Skeleton Crew is Logistics and Combat; Lightfooted is Exploration primary with Combat secondary.
+
 ### Unsettled drafts
-Skeleton Crew, Waxer, Lightfooted, and Daredevil are drafts with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
+Waxer and Daredevil are drafts with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
 
 ---
 
@@ -2087,47 +2090,10 @@ Procession should probably represent **maximum expenditure** rather than discoun
 
 These are preserved as drafts. They are **not** settled classes, and their missing slots are missing design rather than gaps to be filled by invention.
 
----
-
-## Skeleton Crew
-
-**Draft — not settled.** Likely emergent archetypes are Logistics and Combat, but these should be re-evaluated after completion.
-
-Core rule: hostile undead become logistical labour.
-
-**Passive — Undead Affinity.** Zombies and Skeletons become compatible with the class and largely non-hostile, per the current draft.
-
-**Passive — Crew generation, revised.** Hostile undead are attracted to Skeleton Crew from unusually far away, and killing eligible hostile undead generates Crew stacks. This makes darkness, night, spawners and caves simultaneously danger and economic opportunity. Crew is an abstract accumulated labour resource rather than a literally preserved corpse. [HISTORICAL] This supersedes the earlier banking of specific individual undead. [OPEN] The eligible undead list is unresolved.
-
-**Ability 1.** [HISTORICAL] The earlier banking-and-Arise formulation is superseded by Graveyard Shift below. Raised crew still physically pick up dropped items, use actual inventories and cargo, and can be redirected; killing or dismissing them spills cargo.
-
-**A1 — Graveyard Shift.** Context-sensitive. With a target present, perform an immediate class-owned melee strike; this direct active strike is preferred over empowering the next vanilla hit because it gives deterministic ownership of the event and avoids after-the-fact attack attribution. With no eligible target, spend a fixed amount of Crew to raise one active Crew Member — which under the allocation model may withdraw Capacity from currently operating Supply Lines rather than merely hitting a summon cap. [OPEN] Exact Crew cost and strike target eligibility are unresolved; likely any valid enemy can be struck while only eligible undead produce Crew.
-
-**A1 branch — Labored Union.** The current strongest Combat branch direction. It upgrades Provoked Crew's ability to turn combat back into labour: eligible hostile undead killed by Provoked Crew can generate Crew stacks, extending the passive beyond kills the player personally secures, and Provoked Crew inherit or reproduce Skeleton Crew's enhanced undead attraction so hostile undead seek the mobilized workforce more aggressively. The loop is labour, mobilized fighters, attracted undead, killed undead, additional labour, without making ordinary passive workers farm mobs automatically.
-
-Do not add arbitrary numerical weakening to that loop yet. It already pays through Capacity withdrawn from Supply Lines, workers not performing independent Logistics, Crew deaths, finite local undead populations, daylight vulnerability, combat risk, and time spent mobilized; the attraction itself raises both opportunity and danger. The gamble is to withdraw productive Capacity, fight, and return with enough new Crew to rebuild or expand it. This is the strongest current expression of the class's Combat and Logistics hybrid.
-
-**Remaining A1 branches** keep the broad contrast. A wide or deployment branch spends more Crew to materialize multiple ordinary workers more rapidly. A tall or specialist branch creates fewer but more capable workers, with candidate dimensions including greater Capacity, durability, daylight resilience, movement and traversal, and equipment; the exact elite form is unsettled. The Capacity model informs both: more active bodies means less labour available for infrastructure, and greater per-worker Capacity makes each worker more valuable whether active or committed.
-
-**Logistics baseline, revised late September 2026.** Crew Members are **self-directed logistical workers**. A Crew Member can be assigned a Source and a Destination and physically moves cargo between them; the player determines logistical intent, and the Crew Member determines its own traversable path. See [infrastructure.md](infrastructure.md#self-directed-logistical-entities).
-
-**Logistics foundation, revised.** Skeleton Crew's physical workers and its automated Logistics draw from the **same labour pool**. This is the emerging causal relationship between its Combat and Logistics archetypes: the fighting force and the logistical workforce are literally the same bodies and the same Capacity. Committing labour means stronger automated Logistics; withdrawing and summoning it means weaker automated Logistics and stronger immediate field presence; losing workers to death means labour that cannot simply be restored to the network until Crew is replenished. This is preferable to giving the class unrelated combat abilities and logistics abilities.
-
-A Crew Member has a Capacity measured in inventory slots. A Crew Member committed abstractly as Supply Line Capacity and a Crew Member physically active in the world are not the same labour and must never be counted twice. [HISTORICAL] The earlier baseline describing Crew Members as workers with an authored Flow Weight, and the earlier banking of individual undead, are superseded.
-
-**Baseline states** remain Working/logistical and Provoked/combat, reinterpreted through allocation. An active Crew Member follows its owner when empty-handed, seeks the nearest valid Supply Line node when carrying cargo, normally ignores unrelated mobs, may become Provoked if attacked, can be deliberately Provoked against a struck target by Graveyard Shift, and returns to ordinary behaviour after combat resolves.
-
-**Sunlight.** Ordinary Crew Members should remain meaningfully undead and burn in direct sunlight like ordinary vulnerable undead. Do not solve this at base. It creates a distinctive constraint: Skeleton Crew does not only ask what the shortest path is, but what path its workforce can survive, so caves, tunnels, forests, shade, roofs, buildings, nighttime and protected corridors all matter. Do not create a bespoke undead Supply Line rule if ordinary Minecraft world manipulation solves the problem. [OPEN] A future upgrade may mitigate daylight vulnerability, possibly with an economic or carrying tradeoff; its mechanic is unsettled.
-
-A later upgrade producing a stronger worker does not need to say "+Supply Line Capacity" or "+Supply Line Item Rate." Altering actual Crew behaviour is sufficient: greater cargo capacity yields greater Capacity, faster movement and better traversal yield greater Item Rate. No Skeleton Crew ability should contain explicit Supply Line interface.
-
-**Ability 2.** Set crew ablaze for dramatically increased speed and combat effectiveness, at the cost of continuous HP loss and risk of cargo spill.
-
-**Ultimate — Getting A-Head.** A Headless Horseman leads the horde. An alternative under consideration has the player ride the horse while the Horseman independently fights.
-
-Missing conceptual slots: the wide and tall A1 branches are directions rather than settled mechanics; A2 branches, exact command structure, and Horseman resolution remain unresolved.
+**Waxer** and **Daredevil** are the only remaining drafts. Skeleton Crew and Lightfooted were promoted to settled classes on 12 September 2026; see [section 15](#15-skeleton-crew) and [section 16](#16-lightfooted).
 
 ---
+
 
 ## Waxer
 
@@ -2147,19 +2113,6 @@ Core rule: Honeycomb can be repeatedly invested into existing products to preser
 
 ---
 
-## Lightfooted
-
-**Draft — substantially incomplete.** Primary Exploration currently plausible; Combat and Development consequences possible but not finalized.
-
-Core area: animal traversal, animal following, and movement/combat interactions.
-
-**Passive — Rabbit's Foot.** Massively reduced fall damage. Lured or following animals share movement and following benefits.
-
-**Ability 1 — Lunge.** Leap toward the cursor and deal damage. Known branches: **Swarming Bite** (wolf count affects or reduces cooldown) and **Thieving Swipe** (charge recovery / offhand disruption concept).
-
-Missing conceptual slots: the third A1 branch, Ability 2 entirely, the A2 branch tree, and the ultimate. These gaps are missing design, not invitations to invent.
-
----
 
 ## Daredevil
 
@@ -2170,3 +2123,123 @@ Missing conceptual slots: the third A1 branch, Ability 2 entirely, the A2 branch
 **Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
 
 Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
+
+---
+
+# 15. Skeleton Crew
+
+**Conceptually settled, 12 September 2026.** Hook, core rule, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and interaction with global systems. Do not reopen settled mechanics for lack of exact values.
+
+Archetypes, assigned descriptively from the finished kit: **Logistics** and **Combat**.
+
+### Core fantasy
+
+Night and darkness produce undead pressure; Skeleton Crew attracts that pressure; fighting undead generates Crew; Crew becomes labour, logistical, and combat capacity.
+
+> Skeleton Crew wants the undead to find them.
+
+### Resource terms
+
+**Crew** is the stored resource the class generates. **Crew Limit** is the maximum workforce simultaneously deployed or committed. Crew Limit is not Logistics Capacity and is not a universal summon cap; stored Crew may exceed deployed Crew Limit, and Crew Limit should not automatically scale with level. [OPEN] Exact values.
+
+Each Crew Member is either physically active in the world **or** committed to Supply Line Capacity, never both. A Crew Member's physical cargo Capacity and its possible committed Supply Line Capacity are the same underlying capacity and must never be counted twice. Summoning is therefore withdrawing logistical capacity from your infrastructure. Capacity and Item Rate follow the global definitions in [infrastructure.md](infrastructure.md#committed-capacity); the superseded Flow Weight terminology is not used.
+
+### Passive — Undead Affinity
+
+Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew stacks. This deliberately converts nighttime and undead danger into economic opportunity. [OPEN] Detection radius, eligible undead, Crew generation values, Crew Limit.
+
+### Base Crew behaviour
+
+Active Crew Members are physical workers and combatants with the priority order **Combat → Logistics → self-preservation**. Empty-handed Crew follow Skeleton Crew. Cargo-carrying Crew seek the nearest valid Supply Line node, deposit, then follow. Provoked Crew fight, then resume previous behaviour. Crew likely retain cargo while fighting and spill it if killed. Ordinary sunlight can burn Crew like undead unless otherwise protected.
+
+### Ability 1 — Graveyard Shift
+
+Context-sensitive. Against a valid hostile target, the ability itself performs a **Strike** dealing bonus damage and provoking Crew against that target. Otherwise it consumes Crew to **Raise** a Crew Member. This is not an empowered next normal attack; the ability performs the Strike directly.
+
+**Field Work.** Graveyard Shift becomes a projectile. Impact on an enemy or mob performs the Strike at the impact point; impact on valid terrain may consume Crew to Raise a Crew Member there. It does not both Strike and Raise from one impact. Remote raising plus ranged Strike.
+
+**Hard Hat Zone.** Graveyard Shift may Strike friendly Crew for reduced damage. Successive friendly Strikes temporarily equip that Crew Member in order — helmet, chestplate, leggings, boots — and each additional Strike refreshes the timeout of all armour granted this way, including further hits at full armour. The helmet naturally protects against sunlight ignition. The costs are friendly Strike damage, spent A1 opportunities, and maintenance time; do not invent an arbitrary Capacity penalty. [OPEN] Armour material, timeout, friendly damage.
+
+**Labored Union.** Graveyard Shift's hostile Strike deals reduced bonus damage. Crew automatically become Provoked by any nearby mob, and kills made by Crew Members generate Crew stacks. "Any" is intentional where technically feasible — enemy players, hostile mobs, cows, villagers — and Crew generation is deliberately **not** restricted to undead victims under this branch. The result is an autonomous, self-replenishing combat workforce. Withdrawal of infrastructure Capacity is an emergent consequence of the global allocation rule, not a branch-specific penalty.
+
+### Ability 2 — Burning Out
+
+Active Crew that are burning move substantially faster. The burning state may come from any legitimate source — Burning Out itself, sunlight, environmental fire — and Burning Out reliably sets affected active Crew on fire.
+
+Burning does not override the priority hierarchy. When no higher-priority responsibility remains, burning Crew seek a valid way to extinguish themselves. Consequences worth stating: shade does not extinguish an already burning entity; helmets prevent sunlight ignition but not actual fire; vanilla burning melee contact already supplies its own fire interaction, so no redundant combat rider is added; faster physical traversal naturally raises observed Item Rate, and the ability must never say "+Item Rate"; and damaged Crew can be deliberately risked and replaced, though this is not an instant workforce reset.
+
+**Fire Drill.** Burning Out no longer ignites affected Crew. They become **Alarmed** instead: they abandon combat and urgently move toward their current logistical destination, or urgently return to Skeleton Crew if they have none. This is emergency relocation and task completion, not teleportation, recall, or instant cargo banking. Alarmed is the conceptual counterpart to Provoked.
+
+**Deadline.** Crew that remain in combat while burning for long enough explode violently. Leaving combat before the threshold prevents it, and merely being on fire is insufficient. This interacts with the hierarchy: a burning cargo carrier that meets an enemy fights because Combat outranks Logistics, and a sustained fight ends in an explosion that may spill cargo, while a fight that ends quickly returns the Crew Member to work still burning. An enemy can disengage to prevent the explosion, indirectly letting the worker continue. [OPEN] Threshold, conceptually around three seconds.
+
+**Water Break.** Crew that successfully extinguish themselves after burning restore Health proportional to time spent on fire, then move faster briefly. The lifecycle is burn, overdrive through higher-priority responsibilities, seek extinguishing, heal, brief refreshed movement, resume work. Any legitimate burning source may qualify. [OPEN] What counts as successfully extinguishing — rain, another player, and similar cases are deliberately not over-specified yet. Hard Hat Zone sits in intentional soft tension with this branch: the helmet suppresses incidental sunlight ignition while Burning Out can still start a controlled burn.
+
+### Ultimate — A-Head of Schedule
+
+Summon the Headless Horseman and his own temporary Crew. Their specialization is determined by what the ordinary workforce is doing at activation or first meaningful state. If ordinary Crew are fighting, the Horseman workforce commits to Combat, fights until combat ends, and remains ready for further Combat rather than switching to Logistics. If ordinary Crew are performing Logistics, it commits to Logistics, works immediately, and continues even if ordinary Crew are later pulled into combat. If ordinary Crew are inactive, it waits and commits to the first new Combat or Logistics state they enter. Once selected the mode is fixed for the duration rather than continuously mirroring ordinary Crew, and the Horseman workforce is more effective at the selected activity.
+
+Temporary Horseman Crew are separate from normal Crew Limit, may physically perform Logistics, but do **not** become persistent Supply Line Capacity: temporary labour cannot create permanent automated infrastructure. [OPEN] Horseman size, stats, duration, specialization strength.
+
+The fantasy: the project is behind schedule, so Skeleton Crew brings in another supervisor and a specialized temporary shift.
+
+---
+
+# 16. Lightfooted
+
+**Conceptually settled, 12 September 2026.** Hook, core rule, archetypes, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and visual communication.
+
+Archetypes: **Exploration** primary, **Combat** secondary. Development is not assigned merely because animals are managed, and Logistics is not assigned merely because animals are moved.
+
+### Hook and core rule
+
+Lightfooted treats wolves, foxes, and cats or ocelots as **mobile resources**, using their different vanilla lure methods to gather and keep them nearby. Their presence strengthens the group and changes Lightfooted's abilities, while their movement inspires Lightfooted's own extraordinary traversal.
+
+> Lightfooted treats particular woodland animals as mobile resources that must be kept physically nearby.
+
+This is deliberately **not** a generic companion-animal or tamed-animal system. The class cares specifically about wolves, foxes, and cats/ocelots, which avoids ownership and taming edge cases and prevents unrelated animals such as horses from qualifying. The animals need not be technically tamed in vanilla terms; physical proximity is the class state. Animals influence Lightfooted, and Lightfooted enables and empowers the animal group, so the player cares about finding the species, using their different lure relationships, keeping them nearby, and transporting the resulting living resource group through difficult terrain.
+
+### Passive — Animal Senses
+
+Nearby wolves, foxes, and cats/ocelots grant small stacking species-specific bonuses that apply both to Lightfooted and to nearby animals of those species. Each species caps independently.
+
+| Species | Bonus | Effect |
+| --- | --- | --- |
+| Wolves | Toughness | incremental damage reduction |
+| Foxes | Quickness | incremental movement speed |
+| Cats / Ocelots | Surefootedness | incremental fall-damage reduction |
+
+These must be granular **custom** bonuses. Do not grant vanilla Resistance or Speed tiers, which are far too coarse for one nearby animal. One animal is a small but meaningful contribution, several are a recognizable specialization, and the cap prevents unlimited accumulation from breaking stats. [OPEN] Percentages, radii, caps.
+
+### Ability 1 — Lunge
+
+Lightfooted leaps toward the aimed direction, damaging a struck target. The three branches form a deliberate spectrum from smallest leap and highest combat potency to largest leap and weakest direct combat payoff.
+
+**Swarming Bite — wolf.** The smallest increase to the leap itself. Nearby or following wolves enable increasingly frequent or repeated Lunges. This is the combat-heavy branch: repeated pounces, pack pursuit, and the highest ability to stay on a target. [OPEN] Wolf scaling, cooldown or charge behaviour.
+
+**Thieving Swipe — fox.** The Lunge travels moderately farther than base. Striking an enemy player temporarily disables their **current mainhand item**, with nearby or following foxes increasing the duration up to a cap. This is the middle branch: moderate mobility plus combat disruption. Do not revert to the older offhand-only concept. [OPEN] Duration, scaling, cap.
+
+**Stalking Pounce — cat/ocelot.** The strongest movement improvement. Activation first pulls Lightfooted into a brief, heavily slowed stalking stance; after a short **fixed** windup they automatically launch toward the current aim direction at greatly increased velocity. There is no hold-and-release input, it is not a literal sneak state, the player may keep aiming during the windup, and it cannot be charged indefinitely. Bow-draw-like field-of-view language may communicate the physical coiling. Do not add another damage or crowd-control rider; this branch is dramatic movement and ambush positioning.
+
+> Input-design lesson worth preserving: prefer press to a deterministic state sequence over hold and release, unless continuous charging is indispensable.
+
+### Ability 2 — Bounding
+
+Lightfooted begins a **continuous** sequence of low Bounds. Each Bound commits to its launch direction; the player may choose a new heading on landing but cannot substantially redirect a Bound in mid-air. The sequence cannot be paused or voluntarily held between Bounds — once it begins, the remaining Bounds must be taken.
+
+Lightfooted **cannot attack** while Bounding but **can build**. Building access is intentional and important: it lets skilled players manipulate upcoming terrain, landings, and takeoffs while already moving. Animals travelling with Lightfooted Bound alongside them.
+
+Bounding should feel closer to boat-like momentum over land than a series of independently aimed combat dashes: launch, committed trajectory, land, choose next heading, immediately launch again. The ability is about intentional movement across the whole sequence.
+
+**Drift to Drift — fox, snow.** Landing a Bound on snow grants Invisibility until the next Bound leaves the ground. Because Bounding cannot pause, this is not stationary stealth: a visible arc, a landing in snow, a brief disappearance, then immediate emergence into the next committed Bound. The enemy knows where Lightfooted entered the drift but briefly loses certainty about the next heading. The previously considered high-jump effect is not part of this branch. Fox's branch is **hide between Bounds**. [OPEN] Snow-family definition, invisibility timing.
+
+**Branch to Branch — cat/ocelot, leaves.** Bounds taking off from leaves launch higher and faster. This is the strongest individual-Bound specialization and supports canopy traversal. It is not an "extreme" leap; the ultimate owns the truly extreme vertical launch. Cat's branch is **stronger individual Bounds**. [OPEN] Leaf tags, velocity.
+
+**Track to Track — wolf, dirt.** A **normal** Bound taking off from eligible dirt-family terrain grants a **bonus** Bound. Bonus Bounds cannot generate further bonus Bounds, which prevents self-sustaining infinite movement without an arbitrary low cap. A skilful sequence alternates normal dirt takeoff and bonus Bound repeatedly; long back-and-forth traversal is not inherently undesirable, and the restriction exists only to stop recursion. Dirt is the contextual anchor because the fantasy is tracking through trackable ground. Wolf's branch is **more Bounds**. [OPEN] Dirt-family block tag, base Bound count.
+
+A2 branches deliberately do **not** scale with animal count. A1 already uses nearby animals as its resource; A2 uses terrain and movement execution as its resource. Do not force animal-count scaling onto A2 for symmetry.
+
+### Ultimate — Rabbit's Lucky Foot
+
+Target a location. Nearby wolves, foxes, and cats/ocelots leap in extremely high arcs toward the target area, and after a short delay Lightfooted launches after them. Participating animals are **invincible** throughout the forced leap and landing, because they are valuable class resources and the ultimate forcibly commits them into dangerous space. Each animal landing on an enemy player deals damage; Lightfooted's own landing deals greater bonus damage. The extreme high leap belongs here rather than to Branch to Branch.
+
+After landing, ordinary protection ends and the group is physically concentrated near Lightfooted again, naturally re-establishing Animal Senses at the destination. [OPEN] Targeting geometry, animal spread, impact radius, animal damage, Lightfooted bonus damage, delay, invincibility end timing.
