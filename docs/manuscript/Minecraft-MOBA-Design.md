@@ -563,7 +563,7 @@ The existing upstream-storage → downstream-storage distribution model remains:
 
 Item Rate is not an authored property of the carrier in isolation. It is derived from how quickly the actual demonstrated cargo movement reached its destination: observed successful Transit Time yields Item Rate, which sets pulse frequency. Flow Weight therefore determines items per pulse and Item Rate determines how frequently pulses occur, with effective throughput conceptually Flow Weight multiplied by Item Rate. Do not collapse these into a single generic throughput stat in the underlying design. [HISTORICAL] The earlier single Flow Rate proportional to Flow Weight divided by Transit Time is superseded by this pair.
 
-[PROTOTYPE] An Allay illustrates low authored Flow Weight with relatively fast movement, tending toward smaller and more frequent pulses; a Camel illustrates higher authored Flow Weight with slower movement, tending toward larger and less frequent pulses. Final Item Rate still comes from the actual successful demonstration, so distance, terrain, and route quality matter: a long or poor Allay delivery can produce a lower Item Rate than a short easy Camel delivery. Transport archetype influences performance; the demonstrated journey determines the result. Exact values remain balance territory. [OPEN] Exact units, normalization, eligible cargo, and ratings beyond the baseline are not established.
+[PROTOTYPE] An Allay illustrates low Capacity with relatively fast movement, tending toward smaller and more frequent pulses; a Camel illustrates higher authored Flow Weight with slower movement, tending toward larger and less frequent pulses. Final Item Rate still comes from the actual successful demonstration, so distance, terrain, and route quality matter: a long or poor Allay delivery can produce a lower Item Rate than a short easy Camel delivery. Transport archetype influences performance; the demonstrated journey determines the result. Exact values remain balance territory. [OPEN] Exact units, normalization, eligible cargo, and ratings beyond the baseline are not established.
 
 Proof demonstrates that a particular cargo-rated method can move capacity W from A to B in time T. It does not merely measure how quickly any player can reach B. Valid methods may involve players, Logistics-class or summoned carriers, camels, Allays, golems, minecarts, boats, water systems, or other engineered transport. Exceptional mobility improves Logistics only insofar as a valid rated transport method can use it while carrying its rated capacity.
 
@@ -790,11 +790,11 @@ Physical logistical labour and recognized Supply Lines are not the same thing. B
 
 After the capability is recognized, the persistent infrastructure can reproduce the demonstrated resource flow without requiring the original physical carrier to make every future trip. The progression is manual physical Minecraft behaviour, then demonstrated logistical capability, then recognized automated infrastructure. Infrastructure should free the player or entity to establish new value rather than requiring permanent repetition of already-proven labour.
 
-### 6.21.3 Derived Flow Weight and Item Rate
+### 6.21.3 Derived Capacity and Item Rate
 
 **Resolved, late September 2026. Source: [WR].** Neither quantity is an infrastructure stat the player authors, and the two do not share an origin. The establishment journey is not a benchmark run from which the system estimates both.
 
-**Flow Weight is a property of the logistical vehicle or method**, representing its carrying efficiency and capacity, and determining items per pulse. A basic walking carrier, an improved or elite carrier, a minecart system and a future flying carrier each have their own. It is not inferred from a single observed cargo sample and is not a player-selected infrastructure stat. [OPEN] Exact values unresolved.
+**[HISTORICAL] Flow Weight is superseded by Capacity; see §6.23.** The earlier text read: Flow Weight is a property of the logistical vehicle or method, representing its carrying efficiency and capacity, and determining items per pulse. A basic walking carrier, an improved or elite carrier, a minecart system and a future flying carrier each have their own. It is not inferred from a single observed cargo sample and is not a player-selected infrastructure stat. [OPEN] Exact values unresolved.
 
 **Item Rate emerges from the method's actual movement behaviour over the established connection**, depending on carrier movement speed, connection length, traversability, terrain, rails, paths, bridges, tunnels, shortcuts, movement-enhancing infrastructure and method-specific traversal abilities. Player-authored Item Rate is removed: the player never declares that a line has Item Rate 5.
 
@@ -808,7 +808,7 @@ Do not derive Item Rate primarily from geometric source-to-destination distance.
 
 **Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Flow Weight and an Item Rate, the recognized line periodically transfers up to Flow Weight eligible actual items from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
 
-At each simulated delivery pulse the line transfers up to the method's Flow Weight from Source to Destination, and the pulse interval represents Item Rate. The game does not continue physically simulating every individual carrier trip after recognition: physical logistical behaviour establishes the connection, and the system then simulates repeated performance of that behaviour. This is the automation payoff of infrastructure.
+At each simulated delivery the line transfers up to the committed Capacity from Source to Destination, and the pulse interval represents Item Rate. The game does not continue physically simulating every individual carrier trip after recognition: physical logistical behaviour establishes the connection, and the system then simulates repeated performance of that behaviour. This is the automation payoff of infrastructure.
 
 Two alternatives were considered and are not preferred. Invisible Copper Golems and other invisible carrier entities used to physically simulate the calculated rate makes mob AI the system's clock and brings pathfinding failure, entity overhead, obstruction, and chunk-loading questions; keep it only as a possible presentation experiment, not canonical behaviour. Physical item packets travelling the world at each pulse recreate a logistical simulation after the player has already earned infrastructure abstraction; revisit only if in-transit interception proves essential to counterplay.
 
@@ -833,6 +833,54 @@ The core principle is preserved: player action, actual Minecraft capability, rec
 **Working. Source: [WC].** Conceptually safe for datapack implementation: Infrastructure Mode state via scoreboard or tag; designating a targeted or nearby known block type; identifying Banners and Copper Chests; storing endpoint coordinates; counting and inspecting bounded areas after explicit player action; storing aggregate infrastructure properties; scoreboard-based pulse timers; entity ownership via tags or scores; and class-controlled source and destination state.
 
 [OPEN] Needs prototyping: arbitrary-container item transfer; inventory-origin proof during Supply Line demonstration; performant region representation for Constructs and Development Zones; dynamic Development Zone scanning; entity-population normalization; and the chosen designate interaction. Avoid making design dependent on arbitrary vanilla right-click detection until tested, on continuous flood-fill or large world scans, on mob AI as the authoritative timing mechanism for recognized Supply Lines, or on exact replay of a player's route when endpoint and demonstration data suffice.
+
+## 6.23 Capacity
+
+**Working canon. Source: [WL].** **Capacity is how much cargo a logistical method can transport in one delivery.** The unit is a Minecraft inventory slot, respecting the carried item's ordinary maximum stack size. Sixty-four cobblestone is 1 Capacity, sixty-four arrows is 1 Capacity, sixteen ender pearls is 1 Capacity, one pickaxe is 1 Capacity, one potion is 1 Capacity. A carrier with Capacity 5 transports five inventory slots of cargo per delivery.
+
+Do not normalize this into abstract individual-item units merely because unstackable items look inefficient. Minecraft already makes one pickaxe and one full cobblestone stack consume the same inventory slot, and Logistics inherits that existing inventory economy. Capacity comes from the logistical method itself; Item Rate continues to emerge from that method's real movement performance across the established connection. The player authors neither number.
+
+[HISTORICAL] **Flow Weight is superseded by Capacity.** The earlier statement that the quantity is "not derived solely from literal Minecraft inventory slot count" and functions as a broader authored carrying-efficiency property no longer holds. Literal slot Capacity is immediately legible in Minecraft terms, describes what a physical carrier can actually hold, lets physical and simulated Logistics use one measurement, creates native differences between stackable and unstackable cargo, and removes an invented statistic. Capacity replaces Flow Weight in every current-facing use; Flow Weight survives only where it explains superseded design.
+
+Capacity sets cargo slots per delivery, Item Rate sets delivery frequency, and throughput is Capacity multiplied by Item Rate. The distinction between the two axes is unchanged.
+
+## 6.24 Committed Capacity
+
+**Working canon. Source: [WL].** **Recognized infrastructure automates repeated transportation, but it does not duplicate the logistical capacity committed to producing that transportation.** A logistical method's Capacity may be committed to a Supply Line, where the system simulates its repeated transport, or active in the world, where that carrier or summon performs flexible Logistics, follows its owner, or fights. It cannot contribute the same Capacity to both at once.
+
+Worked example. Six equivalent workers each with Capacity 5 give a maximum of 30. Committing three to a Supply Line gives that line 15 Capacity and leaves three active in the world. Withdrawing one committed worker moves the line to 10 and the active force to four. Withdrawing all committed workers leaves the line at 0: the recognized infrastructure and its nodes may still exist, but the line cannot move cargo without committed Capacity.
+
+**Item Rate does not fall merely because Capacity is withdrawn.** If the established logistical method and path have not changed, removing one carrier's Capacity does not make the remaining carriers slower. Fifteen Capacity at an established Item Rate simply becomes ten Capacity at the same Item Rate. Capacity and Item Rate remain independent axes.
+
+[HISTORICAL] The earlier permissive framing — that after recognition the persistent infrastructure reproduces the flow without requiring the original carrier, freeing the player or entity entirely to establish new value elsewhere — is **superseded as too permissive**. It created a double-use contradiction in which a worker established an automated line and then physically left to fight while the line continued as though that same worker were still labouring. The carrier does not need to be AI-simulated on every automated trip, but the Capacity it represents must remain committed.
+
+**Establishment demonstrates the logistical method; operation reserves the Capacity that method represents.** The sequence is physical method establishes behaviour, Capacity is committed, the system simulates repeated deliveries at the established Item Rate. If Capacity is withdrawn, simulated cargo quantity drops accordingly. This preserves the preference for direct inventory transfer rather than making mob AI the authoritative repeated-delivery clock.
+
+The consequence is that Logistics keeps persistent gameplay after establishment: maintaining a network means continually deciding where logistical capacity is allocated.
+
+**A separate universal Summoning Capacity system is not required for this purpose.** Capacity allocation already creates the important constraint between labour committed to infrastructure and labour instantiated as active summons, and for Skeleton Crew the same workforce supplies both, so summoning a worker can be equivalent to withdrawing its logistical Capacity. [OPEN] Do not extend this to every summoner. Golem Master and future non-Logistics summoners should be reconsidered independently rather than forced into a Logistics-derived rule. No universal Summoning Capacity was ever recorded in this repository, so nothing is removed; this records the scoped decision not to introduce one merely to constrain Skeleton Crew.
+
+## 6.25 Relay nodes and supported span
+
+**Working. Source: [WL].** **Long Supply Lines should require a chain of nodes** rather than allowing arbitrarily distant single-hop connections from one demonstrated trip. The shape is Source, then relays, then Destination, with each adjacent node pair falling within a maximum supported span. Copper Chests remain the anchor at every node. Even a minimal line has two nodes, Source and Destination; longer distances require additional relays.
+
+This makes Supply Lines in one sense the inverse of Routes. Routes specialize in projecting player traversal over useful distance; Supply Lines require enough infrastructure presence to sustain resource delivery across distance. It improves geographic commitment, enemy counterplay, legibility, the economic cost of projecting Logistics deep into the map, and the value of protecting logistical infrastructure. Destroying or disabling an essential relay can sever downstream connectivity without needing a fictional attackable line.
+
+Infrastructure progression may increase the maximum supported distance between nodes, letting advanced Logistics maintain longer links with fewer relays. [OPEN] Node-distance thresholds, required relay counts, branching, alternate-path behaviour, and whether different logistical methods support different spans are all unresolved. Do not invent numbers.
+
+## 6.26 Logistics contestability
+
+Logistics counterplay now has several physical layers. **Nodes** are visible Copper Chests and removing a required one can interrupt the connection. **Committed Capacity** can be reduced by enemy action that forces logistical capacity out of infrastructure — for Skeleton Crew, forcing the player to mobilize workers for combat indirectly damages their network. [OPEN] A third possibility, that a Logistics player's death temporarily stops their class-created methods from contributing Capacity or Item Rate until they return and recommit, is under discussion and is **not** canon; do not document player death disabling all Supply Lines. The settled requirement is that enemies must be able to attack the conditions supporting logistical operation, not merely destroy endpoint inventories.
+
+## 6.27 Default summon behaviour
+
+**An empty-handed summon follows its owner.** This gives an idle summoned worker a natural state and avoids requiring an assignment interface merely to keep it useful. This can serve as a broad default for summons generally.
+
+**A cargo-carrying logistical summon seeks the nearest valid Supply Line node and deposits its cargo there** — not necessarily the line's Source, not necessarily a manually chosen Destination, and not necessarily travelling along the line itself. The summon performs last-mile physical Logistics by getting cargo onto the established network, then returns to following. The loop is follow, acquire cargo, nearest valid node, deposit, follow. This second behaviour only applies to summons capable of carrying cargo; do not turn every temporary combat entity into a courier because it is technically a summon.
+
+## 6.28 Logistics after establishment
+
+**A Logistics class should remain meaningfully involved in Logistics after establishing automated infrastructure.** Supply Lines must not produce a state where a player does Logistics once and then permanently redirects their entire kit elsewhere while Logistics continues on its own. Different classes may reinforce a network differently: summoned carriers allocate physical Capacity, vehicles may remain assigned, engineered systems may require operational apparatus, and future classes may improve, redirect, provision or repair active transport. Skeleton Crew has a particularly sharp expression because its logistical resource can instead be mobilized into Combat. [OPEN] Do not require every Logistics class to use Skeleton Crew's exact active-versus-committed model.
 
 # 7. Objectives and Strategic Locations
 
@@ -1588,6 +1636,8 @@ Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainte
 
 Late September 2026: a WAMS infrastructure clarification handoff from the Skeleton Crew and Logistics discussion introduced the designation-and-evidence model, the place versus connection organizing frame, archetype-native anchors (Banners, Copper Chests, Construction Blocks, developable resources), Construct block-investment and extent evaluation, Development Weight with dynamic recalculation, the source-to-destination rule for self-directed logistical entities, the distinction between pre-infrastructure physical Logistics and recognized Supply Lines, and direct Copper Chest inventory transfer as the preferred execution model. Four tensions with 10 and 11 September canon were recorded as [CONFLICT] rather than resolved. A subsequent infrastructure reconciliation handoff [WR] then decided them: explicit Copper Chest Source designation is reinstated; Flow Weight belongs to the logistical method while Item Rate emerges from that method's actual movement over the connection, with player-authored Item Rate removed; endpoints suffice only for self-directed carriers, leaving corridors meaningful for path-authored methods; and the class-ability firewall is reaffirmed. Route corridor retention remains [OPEN].
 
+Late September 2026, Logistics revision: Flow Weight was replaced by Capacity measured in Minecraft inventory slots; logistical Capacity was made non-duplicable between committed infrastructure and active world presence; Supply Lines moved toward relay-node chains with a maximum supported span; a default summon behaviour grammar was recorded; and Skeleton Crew was rebuilt around a single labour pool shared by its combat and logistics expressions.
+
 ## 14.3 Conflict and recency ledger
 
 | ID | Collision | Treatment in this manuscript |
@@ -1701,6 +1751,8 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[WC] Class Documentation Handoff.** 11 September 2026. Settles Mole and Gardener, records Merchant as active design, and preserves Skeleton Crew, Waxer, Lightfooted and Daredevil as drafts. Supersedes the earlier Gardener kit, Mole passive and Tunneling branches, and the Star Trading / route-effect Merchant. See docs/reconciliation/2026-09-11-classes.md.
 
 **[WC] WAMS Infrastructure Clarification Handoff.** Late September 2026, from the Skeleton Crew / Logistics discussion. Introduces the designation-and-evidence model, place/connection framing, archetype-native anchors, and direct Copper Chest inventory transfer. Four tensions with [WB] and [WI] were recorded as [CONFLICT]; all four are decided by [WR]. See docs/reconciliation/2026-09-11-wams-clarification.md.
+
+**[WL] Logistics / Supply Line / Skeleton Crew Handoff.** Late September 2026. Replaces Flow Weight with slot-based Capacity, makes logistical Capacity non-duplicable between committed infrastructure and active world presence, introduces relay-node chains, and rebuilds Skeleton Crew on a shared labour pool. See docs/reconciliation/2026-09-11-capacity.md.
 
 **[WR] Minecraft MOBA Infrastructure Reconciliation / Correction Handoff.** September 2026. Resolves the four [WC]/[WB] conflicts, reinstates explicit Supply Line start, corrects Flow Weight and Item Rate authorship, splits self-directed from path-authored logistical methods, reaffirms the class-ability firewall, and states the shared start/journey/end connection grammar. Retains [WC] where it is not corrected; does not supersede [WB] wholesale. See docs/reconciliation/2026-09-11-infrastructure-reconciliation.md.
 
