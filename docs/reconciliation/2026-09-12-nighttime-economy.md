@@ -75,10 +75,30 @@ Canon **unchanged** and explicitly still in force:
 - the implemented Chunk 2 curve in the datapack.
 
 [CP] says the last two are *probably* superseded if it is adopted. They are not
-superseded now. Two items are flagged for whoever reviews the curve: half-point
-Hunger values (10.5 / 13.5 / 16.5) have no vanilla representation and need a
-rounding or accounting decision, and all three Masteries are new mechanisms
-rather than capacity numbers, each wanting its own feasibility pass.
+superseded now.
+
+### One point settled within the proposal, same day
+
+The owner settled the Hunger cadence: [CP]'s +1.5 per event is replaced by an
+alternating **+1/+2** with the same start (9), endpoint (18), event levels and
+event count. A half food point is a quarter drumstick — the project's Hunger
+unit is the food point and a food point is already half an icon — and vanilla's
+renderer has only full/half/empty sprites driven by an integer `foodLevel`, so
+10.5 / 13.5 / 16.5 cannot be drawn and a fractional maximum has no observable
+state. This settles a value *inside a proposal that remains unadopted*; it
+promotes nothing to canon, and every current capacity value listed above is
+still in force.
+
+Recorded with it: the Level 3 expedition breakpoint in `maps.md` measured a
+Hunger specialization as +50% sprint-capable reserve on a 10/12-food fixture.
+[CP] as written makes that +22% and the adopted cadence makes it +25%; the
+disturbance comes mostly from specialization I dropping to +1 and the Lv1 base
+to 9, not from the cadence fix. That measurement is invalidated by the curve and
+wants re-testing. This is an observation, not an acceptance bound.
+
+The remaining item for whoever reviews the curve is the three Masteries, which
+are new mechanisms rather than capacity numbers, each wanting its own
+feasibility pass. The half-point representation question is closed.
 
 ## Incidental
 

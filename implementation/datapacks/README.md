@@ -104,9 +104,11 @@ can never auto-level the display out from under us.
 > (`docs/proposals/2026-09-12-capacity-curve.md`, 12 September 2026) proposes
 > different per-capacity cadences, an 18-point universal Health/Hunger endpoint,
 > and qualitative Masteries at the third specialization. Nothing below is
-> implemented against it and nothing below has changed. If it is adopted, the
-> notable implementation question is half-point Hunger values, which have no
-> vanilla representation.
+> implemented against it and nothing below has changed. Its Hunger cadence was
+> settled on 12 September as an alternating +1/+2, so every proposed Hunger value
+> is an integer and no half-point accounting would be needed; the remaining
+> implementation questions are the three Masteries, each a new mechanism rather
+> than a capacity number.
 
 
 Level 1: **9 HP / 9 food / 6 inventory slots**. Universal growth unit:

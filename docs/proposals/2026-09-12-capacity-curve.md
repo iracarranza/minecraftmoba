@@ -46,7 +46,12 @@ unchanged.
 
 **Health** — frequent, small increases. +1 at Lv2, 4, 7, 8, 9, 11, 13, 14, 15, 17.
 
-**Hunger** — less frequent, larger steps. +1.5 at Lv2, 7, 9, 13, 15, 17.
+**Hunger** — less frequent, larger steps, alternating **+1 / +2** at Lv2, 7, 9,
+13, 15, 17 (so +1 at Lv2, +2 at Lv7, +1 at Lv9, +2 at Lv13, +1 at Lv15, +2 at
+Lv17). Six events, +9 total, endpoint 18, exactly as the source handoff
+specified — but every intermediate value is an integer. See
+[Hunger cadence: resolved](#hunger-cadence-resolved) below; the handoff's
+original +1.5 per event is superseded.
 
 **Inventory** — unchanged shape. +3 at Lv2, 4, 7, 8, 9, 11, 13, 14, 15, 16.
 
@@ -55,21 +60,82 @@ Combined, unspecialized:
 | Lv | Health | Hunger | Inventory |
 | ---: | ---: | ---: | ---: |
 | 1 | 8 | 9 | 6 |
-| 2 | 9 | 10.5 | 9 |
-| 3 | 9 | 10.5 | 9 |
-| 4 | 10 | 10.5 | 12 |
+| 2 | 9 | 10 | 9 |
+| 3 | 9 | 10 | 9 |
+| 4 | 10 | 10 | 12 |
 | 7 | 11 | 12 | 15 |
 | 8 | 12 | 12 | 18 |
-| 9 | 13 | 13.5 | 21 |
-| 11 | 14 | 13.5 | 24 |
+| 9 | 13 | 13 | 21 |
+| 11 | 14 | 13 | 24 |
 | 13 | 15 | 15 | 27 |
 | 14 | 16 | 15 | 30 |
-| 15 | 17 | 16.5 | 33 |
-| 16 | 17 | 16.5 | 36 |
+| 15 | 17 | 16 | 33 |
+| 16 | 17 | 16 | 36 |
 | 17 | 18 | 18 | 36 |
 
-Each capacity gets a distinct rhythm: Health frequent +1, Hunger periodic +1.5,
-Inventory frequent +3 to its hard maximum.
+Each capacity gets a distinct rhythm: Health frequent +1, Hunger less frequent
++1/+2, Inventory frequent +3 to its hard maximum.
+
+## Hunger cadence: resolved
+
+**Decided 12 September 2026 by the design owner.** The handoff's +1.5 per event
+is replaced by the alternating +1/+2 cadence above. Start, endpoint, event
+levels and event count are unchanged; only the per-event split moves, by half a
+food point at Lv2, Lv9 and Lv15.
+
+The reason is representational. The Hunger unit in this project is the food
+point, and a food point is already **half a drumstick** — `classes.md` states
+"9 Hunger = 4.5 hunger icons." A half food point is therefore a *quarter*
+drumstick. Vanilla's food renderer selects one of three sprites per icon — full,
+half, empty — from an integer `foodLevel`, and a resource pack can only
+retexture those three, not add a fourth quantization step. The values 10.5, 13.5
+and 16.5 food points are 5.25, 6.75 and 8.25 drumsticks and cannot be drawn.
+
+Two alternatives were considered and rejected. Storing the fractional design
+value while flooring the enforced value (which `moba_capfood` / `moba_fenf`
+already supports) makes the Lv2, Lv9 and Lv15 rewards invisible until the next
+event tops them up. Spending the half point as exhaustion efficiency instead is
+coherent, and uses the same currency as Hunger Mastery, but puts two mechanisms
+in every Hunger event and partly spends the Mastery's identity early.
+
+Worth stating plainly: vanilla has no maximum-hunger attribute, so a maximum is
+only ever observable as the point at which the bar stops refilling. A fractional
+maximum is not merely hard to draw — it has no observable state at all.
+
+## Consequence for the Lv3 expedition breakpoint
+
+`maps.md` → *Hunger as expedition capacity* measures the Level 3 Hunger choice as
+reserve above the vanilla 6-food sprint cutoff, using a fixture of 10 food
+unspecialized and 12 specialized: 4 versus 6 points of reserve, reported as
+**+50%** sprint-capable reserve and "a meaningful early expedition/logistics
+choice."
+
+At 4 exhaustion per food point and vanilla's 0.1 exhaustion per metre sprinted,
+one food point is about 40 m of sprint. Expeditions are evaluated round-trip
+(`maps.md`), so that is roughly 20 m of radius.
+
+| Lv3 state | Food, unspec / spec | Reserve | Specialization gain |
+| --- | --- | --- | ---: |
+| `maps.md` prototype fixture | 10 / 12 | 4 / 6 | +50% |
+| this curve with +1.5 events | 10.5 / 11.5 | 4.5 / 5.5 | +22% |
+| this curve as adopted (+1/+2) | 10 / 11 | 4 / 5 | +25% |
+
+The integer cadence costs half a food point at this breakpoint, about 40 m of
+sprint one-way. The larger disturbance comes from the curve itself — Hunger
+specialization I dropping from +2 to +1, and the Lv1 base from 10 to 9 — not
+from the cadence fix, and the integer cadence is marginally the better of the
+two here because lowering the unspecialized baseline restores a little of the
+specialization's relative value.
+
+One convenient property: with the adopted cadence the unspecialized Lv3 player
+sits at exactly 10 food and 4 reserve, which is the prototype's own L1 test
+state, so one side of that comparison needs no new testing.
+
+[OPEN] `maps.md` labels its Hunger values prototype test settings, so this curve
+may change them — but the +50% figure is *measured evidence* that the Lv3 choice
+is meaningful, and this curve invalidates that measurement. Whether +25% is
+still a meaningful early choice is an open question requiring a new test.
+Neither this curve nor the cadence fix establishes that it is.
 
 ## Specialization architecture
 
@@ -155,12 +221,13 @@ regenerating out-of-combat Absorption; Inventory Mastery explores movement speed
 above the universal increase.
 
 Preliminary numbers: Lv1 Health 8; universal Health and Hunger endpoints 18;
-Hunger +1.5 per event; Health/Hunger specialization I and II +1 each; Hunger
+Hunger +1/+2 alternating per event (settled); Health/Hunger specialization I and
+II +1 each; Hunger
 Mastery ×0.875 exhaustion; universal Lv16 movement +10%; Inventory II +2.5%
 movement; Inventory III a further +2.5%.
 
 [OPEN] Whether Lv1 Health should be 8; exact Health and Hunger growth event
-levels; whether half-point Hunger values are desirable or implementable; exact
+levels; exact
 Health Mastery behaviour and numbers; exact Hunger Mastery exhaustion value; the
 regeneration interaction; exact Inventory II/III movement values; whether
 Inventory II counts as mastery or wants an intermediate effect; whether +10%
@@ -170,11 +237,9 @@ universal movement at Lv16 remains the final movement breakpoint.
 
 These are consequences for Chunk 2, not requests to change it now.
 
-- Half-point Hunger values have no vanilla representation. `foodLevel` is an
-  integer and the client draws 10 icons; a curve passing through 10.5 / 13.5 /
-  16.5 needs a rounding rule or a datapack-side half-point accounting decision
-  before implementation. The existing `moba_capfood` / `moba_fenf` split already
-  separates design value from enforceable value, so the structure is in place.
+- Hunger values are now integral at every level, so no rounding rule, no
+  half-point accounting and no change to the `moba_capfood` / `moba_fenf` split
+  are required. This was the curve's one presentation blocker and it is closed.
 - An 18-point universal Health endpoint is reachable natively; `max_health` is
   already set by attribute. No new mechanism is needed.
 - The Masteries are all new mechanisms rather than capacity numbers: Absorption
