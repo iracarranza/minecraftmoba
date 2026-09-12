@@ -144,7 +144,7 @@ The persistent Route need not be defined as an exact block-by-block replay of th
 
 ## Supply Lines
 
-**Working canon, reconciled late September 2026.** A Supply Line is persistent infrastructure that simulates repeated resource deliveries by the logistical method that established a connection between two designated Copper Chests. Its **Flow Weight** represents the carrying efficiency and capacity of that logistical method. Its **Item Rate** represents the frequency with which that method can deliver across the established connection under its relevant movement conditions.
+**Working canon, reconciled late September 2026.** A Supply Line is persistent infrastructure that simulates repeated resource deliveries by the logistical method that established a connection between two designated Copper Chests. Its **Capacity** is how much cargo that logistical method moves in one delivery, measured in Minecraft inventory slots (§ Capacity). Its **Item Rate** represents the frequency with which that method can deliver across the established connection under its relevant movement conditions.
 
 Establishment is explicit at both ends. The player designates a Copper Chest Source, the logistical method actually performs the transport, and the player designates a Copper Chest Destination; the first endpoint begins the establishment process and the second completes it. The journey between them is not a benchmark minigame and not an occasion for the player to assign numbers: it is the real Minecraft behaviour whose repeated operation the resulting infrastructure represents.
 
@@ -315,7 +315,7 @@ Transit Time is measured from the carrier's cargo delivery, not the player's rou
 
 Self-directed engineered transport and guided living carriers do not require separate Supply Line systems. Rail resolves an intended connection through existing rail topology, water through actual flow, a Camel through grounded movement, an Allay through flight and navigation, and a class-created aerial carrier through whatever movement vocabulary that class provides. The common question is whether the method can successfully resolve the intended delivery and deliver qualifying cargo to the destination; if it can, its actual successful movement provides the proof.
 
-[OPEN] Do not yet canonize a generic penalty such as automated methods always having reduced Flow Weight. Engineered systems naturally offer a predictable vector, repeatability, potentially low establishment attention, and infrastructure that may already physically encode the path. Living and guided systems may offer route flexibility, terrain adaptation, aerial traversal, class abilities, and potentially better demonstrated Item Rate or higher authored Flow Weight. An abstract compensatory penalty may be unnecessary if the profiles already differ enough. Compare actual candidate methods before introducing a universal modifier.
+[OPEN] Do not yet canonize a generic penalty such as automated methods always having reduced Capacity. Engineered systems naturally offer a predictable vector, repeatability, potentially low establishment attention, and infrastructure that may already physically encode the path. Living and guided systems may offer route flexibility, terrain adaptation, aerial traversal, class abilities, and potentially better demonstrated Item Rate or higher Capacity. An abstract compensatory penalty may be unnecessary if the profiles already differ enough. Compare actual candidate methods before introducing a universal modifier.
 
 ### Persistence of demonstrated capability
 
