@@ -2039,7 +2039,10 @@ Kitfighter should not currently be listed as Extraction.
 Emergent archetype:
 - Production
 
-Do not assign further archetypes until finished behaviour is evaluated. See [section 13](#13-merchant--active-design).
+Do not assign further archetypes until finished behaviour is evaluated. The 13 September kit [K9] confirms "Production (others pending final classification)" and lists final archetype classification among its open items. See [section 13](#13-merchant--active-design).
+
+### Waxer — kit supplied 13 September 2026
+Production and Combat, working, per [K9]. The kit supplies the previously undeveloped Ability 2 branch tree and the ultimate's delivery. See [section 18](#18-waxer). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
 
 ### Settled beyond the original four
 Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) completed conceptual passes on 12 September 2026. Skeleton Crew is Logistics and Combat; Lightfooted is Exploration primary with Combat secondary.
@@ -2048,7 +2051,7 @@ Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#1
 Exploration and Combat, per [K7]. The kit supplies the previously missing Ability 2 and ultimate. See [section 17](#17-daredevil). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
 
 ### Unsettled drafts
-Waxer is the only remaining draft with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
+None. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
 
 ---
 
@@ -2074,7 +2077,38 @@ Waxer is the only remaining draft with missing conceptual slots. See [section 14
 
 **ACTIVE DESIGN — not settled.** Merchant is the current active class-design subject. Structure below is recorded at the confidence level it actually holds: strong current structure, [FAINT CAUTION] for mechanics worth preserving but not conceptually settled, and [OPEN] for unresolved implementation, balance, or system questions.
 
-Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated.
+Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated. The 13 September kit repeats this as "Production (others pending final classification)".
+
+---
+
+### Canonical kit — 13 September 2026
+
+**Source: [K9] Merchant and Waxer kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Production (others pending final classification)
+Hook: Merchant gets rich enough to stop doing ordinary Minecraft work, turning successful trade relationships into an increasingly capable paid workforce and eventually an extravagant traveling spectacle.
+
+**Passive — Work.** Villagers with sufficient Trading Reputation toward Merchant become willing to Work for Emeralds. Merchant can employ willing villagers on Payroll, allowing them to process available materials into valid products.
+
+Working advances a villager's Mastery from Novice → Apprentice → Journeyman → Expert → Master. Higher Mastery expands the sophistication of transformations they can perform and improves their material efficiency.
+
+**A1 — Swindle.** After trading with a villager, strike them to sacrifice Reputation and extract bonus Emerald value from the completed trade. Each villager can be Swindled once per restock cycle.
+
+- **Invisible Hand** — Swindling one villager also Swindles nearby independently eligible villagers while concentrating the Reputation loss on the struck villager.
+- **Credit Line** — Convert future commercial/relationship value into immediate liquidity. [OPEN: exact mechanic]
+- **Community Chest** — Redirect Swindle toward distributed/circulating economic value. [OPEN: exact mechanic]
+
+**A2 — Retinue.** Call nearby employed villagers away from ordinary Work to accompany Merchant.
+
+- **Seize the Means** — Retinue seek out and temporarily disable workstations/infrastructure in a designated area rather than destroying them.
+- **Toll Patrol** — Retinue patrol a contested area; enemy activity there offsets Payroll costs while the workers sacrifice ordinary Work.
+- **Overtime** — Increase expenditure to accelerate Work/Mastery. [OPEN: mechanic/replacement]
+
+**Ultimate — Procession / Silk Road.** Begin an extravagant procession with nearby Retinue. Merchant must continue moving with the procession and paying its costs or the ultimate ends.
+
+The procession repeatedly grants effects to allies around it. Retinue size determines the frequency of these procs; workforce Mastery determines their cumulative quality, progressing through effects such as Saturation, Speed, Regeneration, Absorption, and offensive damage.
+
+Open: Credit Line · Community Chest · Overtime · exact Emerald-substitution placement · final ultimate name/effect package · final archetype classification.
 
 ---
 
@@ -2210,30 +2244,15 @@ Procession should probably represent **maximum expenditure** rather than discoun
 
 ---
 
-# 14. Unsettled Class Drafts
+# 14. Class Draft Record
 
-These are preserved as drafts. They are **not** settled classes, and their missing slots are missing design rather than gaps to be filled by invention.
+**No class remains an unsettled draft as of 13 September 2026.** This section is retained for traceability of how the roster reached that state rather than deleted.
 
-**Waxer** is the only remaining draft. Skeleton Crew and Lightfooted were promoted to settled classes on 12 September 2026; see [section 15](#15-skeleton-crew) and [section 16](#16-lightfooted). Daredevil received a full kit on 13 September 2026 and moved to [section 17](#17-daredevil).
+The drafts were Skeleton Crew, Lightfooted, Waxer and Daredevil. Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) were promoted to settled classes on 12 September 2026. Daredevil ([section 17](#17-daredevil)) and Waxer ([section 18](#18-waxer)) received full kits on 13 September 2026, supplying the slots that were previously missing.
 
----
+The original rule still applies to anything that remains unspecified within those kits: **missing slots are missing design rather than gaps to be filled by invention.** Promotion out of draft status is not a claim that every quantity is decided; each class section carries its own [OPEN] items.
 
-
-## Waxer
-
-**Draft — not settled.** Primary Production; Combat currently plausible.
-
-Core rule: Honeycomb can be repeatedly invested into existing products to preserve them against change; enough preservation becomes obstruction.
-
-**Passive — Waxed Recipes.** Fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version or output.
-
-**Ability 1 — Wax-On.** Apply Waxed stacks to existing objects. Enough Wax on interactive blocks makes them Sealed; Sealed blocks cannot normally change or use their interactive state. The first Wax application to damaged unwaxed equipment restores durability. Branch concepts: **Amber** (faster or stronger sealing), **Restorative** (stronger initial restoration), **Sticky** (interaction with Waxed armour can punish attackers, for example Mining Fatigue while consuming Wax).
-
-**Ability 2 — Wax-Off.** A thrown Honey Solution. The base ability needs to provide a repeatable route to Honeycomb acquisition. Branch seeds — **Enzymatic**, **Preserving**, **Floral** — are not equally developed and remain draft.
-
-**Ultimate — Amber.** Complete preservation and stasis; delivery mechanism unresolved.
-
-[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, ordinary removal, and implementation feasibility remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+[OPEN] Whether Daredevil and Waxer have had conceptual passes equivalent to Skeleton Crew's and Lightfooted's — which were declared settled with explicit statements about what was decided — is the owner's call and is not asserted by the presence of a kit.
 
 ---
 
@@ -2415,7 +2434,7 @@ After landing, ordinary protection ends and the group is physically concentrated
 
 # 17. Daredevil
 
-**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate ([section 14](#14-unsettled-class-drafts)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate ([section 14](#14-class-draft-record)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
 
 Archetypes: Exploration · Combat
 Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredevil converts dangerous momentum into something better.
@@ -2439,5 +2458,52 @@ Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredev
 [HISTORICAL] The earlier draft's Runway branches — **Cannon Jump**, **Trampoline**, **Mach Headbutt** — are superseded by Pop Rocket, Trampoline and Suplex above. The earlier Passive wording, which specified more than one second airborne and granted extreme Speed, is superseded by the Skydiver wording above. The earlier tentative Extraction archetype is not carried forward; the kit assigns Exploration and Combat.
 
 [OPEN] N in Deathly Clutches, the attack count that restores instances, Skydiver's airborne threshold, Runway's momentum requirement, Crash velocity thresholds, and all durations remain unresolved.
+
+---
+
+# 18. Waxer
+
+**Kit supplied 13 September 2026. Source: [K9].** Waxer was previously a draft whose Ability 2 branch seeds were "not equally developed" and whose ultimate had no delivery mechanism ([section 14](#14-class-draft-record)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Production · Combat (working)
+Hook: Wax isn't merely protective: Waxer can preserve useful things against change until preservation itself becomes an obstruction.
+
+**Passive — Waxed Recipes.** When crafting, fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version of the product.
+
+Waxed products become the persistent substrate for Waxer's preservation mechanics.
+
+**A1 — Wax-On.** Apply Wax to a target. Repeated Waxing increasingly preserves its current state.
+
+Interactive blocks that accumulate enough Wax become Sealed, preventing their interactive state from changing. Applying the first Wax to damaged, previously unwaxed equipment also restores some durability.
+
+- **Amber** — Wax targets more aggressively, allowing them to reach a Sealed state more readily.
+- **Restorative** — Greatly increase the durability restored by the first application of Wax.
+- **Sticky** — Attacking Waxed enemy armor can consume Wax from it to inflict Mining Fatigue.
+
+**A2 — Wax-Off.** Splash an area with Honey Solution. Using Honey Solution around eligible working/production activity generates Honeycomb, giving Waxer a repeatable way to replenish the resource consumed by Waxed Recipes and Wax-On.
+
+- **Enzymatic** — While enemy players remain within the Honey Solution, their equipment suffers additional durability wear.
+- **Preserving** — While allied players remain within the Honey Solution, their equipment suffers reduced durability wear.
+- **Floral** — Honeycomb generation expands beyond workstations: splashing flowers and beehives can also produce Honeycomb.
+
+This gives the tree a clean three-way interpretation of the solution:
+
+Enzymatic: break things down.
+Preserving: prevent things from breaking down.
+Floral: produce more wax.
+
+**Ultimate — Amber.** Completely encase a target in Amber, preserving it in stasis and preventing its state from changing.
+
+Open: Exact Amber delivery/targeting and the precise rules governing what an Ambered target can or cannot do.
+
+---
+
+## Notes carried forward from the draft
+
+[HISTORICAL] The draft recorded the A2 branch seeds — **Enzymatic**, **Preserving**, **Floral** — as "not equally developed and remain draft". They are now defined above. The draft's A1 branch concepts described Amber as "faster or stronger sealing", Restorative as "stronger initial restoration", and Sticky as punishing attackers "for example Mining Fatigue while consuming Wax"; the kit's wording supersedes those sketches. The draft's core rule — Honeycomb repeatedly invested into existing products to preserve them against change, until enough preservation becomes obstruction — survives as the hook above.
+
+The **Amber** name is used twice, for the A1 branch and for the ultimate. This is reproduced as supplied rather than renamed.
+
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work. Implementation feasibility is unassessed: Sealed blocks, per-block Wax accumulation, and durability-wear modification for players standing in an area are each unproven in a datapack and belong in the capability audit rather than being assumed.
 
 ---
