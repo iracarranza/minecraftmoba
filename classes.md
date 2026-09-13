@@ -2504,6 +2504,14 @@ Open: Exact Amber delivery/targeting and the precise rules governing what an Amb
 
 The **Amber** name is used twice, for the A1 branch and for the ultimate. This is reproduced as supplied rather than renamed.
 
-[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work. Implementation feasibility is unassessed: Sealed blocks, per-block Wax accumulation, and durability-wear modification for players standing in an area are each unproven in a datapack and belong in the capability audit rather than being assumed.
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+
+**Feasibility assessed 13 September 2026.** See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Most of the kit is reachable: durability restore, per-item Wax counters, the Honey Solution area, Floral, and Amber against mobs all work, and Enzymatic and Preserving are reachable through the same detect-and-correct polling this project has already accepted for Structural Integrity. Three [TECHNICAL RISK] items do not work as written:
+
+- **Recipes cannot be class-gated.** Waxed Recipes would be craftable by every player. Workarounds exist — inert components for non-Waxers, or detect-and-revert — and both are visible seams. "Fill otherwise-empty slots" is also one authored full-grid recipe per product, not a general rule.
+- **Sealed containers are not reachable.** Block states such as doors and levers can be forced back by polling; a chest cannot be prevented from opening, because a datapack cannot cancel an interaction or close a screen.
+- **Amber cannot hold a player in stasis.** It is exact against mobs. Against players, every available effect still leaves them able to look, attack, use items and place blocks. The audit's escape hatch is encasing the target in **actual Honey Blocks**, which is vanilla-native, legible to both teams, natively prevents jumping and slows movement, and gives enemies physical counterplay by digging the target out.
+
+Sealed blocks also make Waxer the sixth system depending on **persistent per-position block data**, alongside anti-farming XP, Sinkhole, Construct designation, Structural Integrity and Development Zones. That dependency has no owner; see §0 of the audit.
 
 ---

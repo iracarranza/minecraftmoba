@@ -1,6 +1,6 @@
 # Capability audit — where design outruns the engine
 
-Date: 2026-09-12
+Date: 2026-09-12; Waxer kit and shield mechanics added 2026-09-13.
 Scope: full manuscript read at `b9ffc25`. Datapack-only target, Java 1.21.9+.
 
 This document ranks systems by **technical danger**: how likely the mechanism
@@ -33,12 +33,16 @@ a player. Cobblestone is cobblestone.
 | Construct designation (§6.18) | "these **authored** blocks constitute one Construct" |
 | Structural Integrity (§6.2.4) | applies to *incorporated* Construction Blocks |
 | Development Zones (§3.3, §6.19) | distinguish natural patches, ordinary farms, recognized Development |
+| Waxer's Sealed blocks (§9.17) | per-position Wax accumulation persisting over the map |
 
 It is solvable — detect placement, record positions — but that means persistent
 per-block state over the whole map with no natural eviction policy. Chapter 13
 records no such contract; each chapter assumes it locally as though free.
 
-**This is the first thing to prove or kill.** Five systems fail together.
+**This is the first thing to prove or kill.** Six systems fail together. Waxer's
+Sealed state is the newest dependent: it needs durable per-position data with no
+natural eviction policy, exactly like the others, and was added to the design on
+13 September without a contract for it existing.
 
 ---
 
@@ -117,6 +121,119 @@ only true prevention and is too restrictive for a building game.
 
 ---
 
+## Waxer kit — added 13 September 2026
+
+Assessed on the [K9] kit. The class splits unusually cleanly into parts that are
+free, parts that need the project's existing detect-and-correct pattern, and one
+part that cannot be built as written.
+
+| Element | Verdict |
+| --- | --- |
+| Waxed Recipes | Works, with a class-gating problem |
+| Wax-On: durability restore | Works — `/item modify` with `set_damage` |
+| Wax-On: per-item Wax counter | Works — `custom_data` plus macro read/modify/write |
+| Wax-On: Sealed **block states** | Approximable — restore-on-poll, visibly imperfect |
+| Wax-On: Sealed **containers** | **Not reachable** |
+| Sticky | Works, via the HurtTime idiom and its imprecision |
+| Wax-Off: splash and area | Works — area effect cloud |
+| Wax-Off: Honeycomb near production | Works if "activity" means proximity to workstations |
+| Enzymatic / Preserving | Approximable — poll-and-correct; no wear hook exists |
+| Floral | Works, trivial |
+| Amber on mobs | Works exactly — `NoAI`, `Invulnerable`, `Silent` |
+| Amber on players | **Not reachable as stasis** |
+
+### [TECHNICAL RISK] Recipes cannot be class-gated
+
+Recipes are global. A datapack cannot restrict Waxed Recipes to Waxer, so every
+player could craft Waxed items. Workarounds are to make Waxed components inert
+for non-Waxers, or to detect the craft with the `recipe_crafted` trigger and
+revert it. Both are visible seams. Separately, "fill otherwise-empty slots" is
+one hand-authored full-grid recipe per craftable product, not a general rule —
+a sword plus six Honeycomb is its own 3×3 shaped recipe.
+
+### [TECHNICAL RISK] Sealed containers
+
+Block *states* — doors, trapdoors, gates, buttons, levers — can be forced back
+by polling, so "cannot normally change its interactive state" is roughly
+achieved, though the player sees the block open and slam shut rather than
+refuse. **Containers cannot be sealed at all.** A datapack cannot cancel an
+interaction or close an open screen, so a Sealed chest can still be opened and
+emptied. This is pattern 9 (event cancellation) again.
+
+### [TECHNICAL RISK] Amber against players
+
+There is no stasis primitive for players. Zeroed movement speed, zeroed jump
+strength, stacked Slowness, Blindness and Mining Fatigue, and forced remounting
+onto a locked invisible entity each tick to defeat dismounting still leave the
+target able to look, swing, use items, eat and place blocks. "Preventing its
+state from changing" is achievable against mobs and not against players.
+
+*Escape hatch:* encase the target in **actual Honey Blocks**. Real blocks,
+immediately legible to both teams, and honey natively slows movement and
+prevents jumping. It is a partial stasis the engine actually supports, and it
+fits the project's preference for vanilla-grounded mechanisms over abstract
+ones. It also gives enemies physical counterplay by digging the target out,
+which an effect-based stasis does not.
+
+### Enzymatic and Preserving reuse an accepted pattern
+
+There is no durability-wear multiplier and no way to intercept damage to an
+item. The only implementation is per-player, per-slot polling: record each
+item's damage each tick and, on an increase, add more or refund it. Refunding
+is the cleaner direction. Worth noting that this is the **same
+detect-and-correct pattern** this audit already recommends as Structural
+Integrity's escape hatch, so it is a pattern the project has accepted once
+already rather than a new compromise.
+
+### Victim identification affects Sticky
+
+The `player_hurt_entity` trigger runs as the attacker and gives no clean handle
+on the victim. The standard workaround finds nearby entities with a fresh
+`HurtTime`, which is imprecise when several entities are hurt in the same tick.
+Adequate for a single-target melee hit, unreliable in a crowd. The same caveat
+applies to any on-hit effect the project adds later.
+
+---
+
+## Shield mechanics — checked 13 September 2026
+
+Unusually, this section records capabilities that **are** available. Shields
+became data-driven in recent versions, and a combat idea that would have been
+impossible two years ago is now mostly component configuration.
+
+| Question | Answer |
+| --- | --- |
+| Shield usable in mainhand? | Yes, vanilla, no work required |
+| Inherent cooldown after blocking? | No. Only a ~5-tick raise delay, a brief post-attack window, and the 5-second axe disable |
+| Author a post-block cooldown? | Yes — `blocks_attacks` or `use_cooldown` |
+| Detect a *successful* block? | Yes — damage predicate `blocked: true` |
+| Shield-only attack with knockback? | Yes — slot-scoped `attack_knockback` |
+| Avoid attribute leaking from other slots? | Yes — `attribute_modifiers` are slot-scoped |
+
+**`blocks_attacks`** exposes `block_delay_seconds`, `disable_cooldown_scale`,
+`damage_reductions`, `item_damage` and `bypassed_by`, and can be applied to any
+item. **`use_cooldown`** with a `cooldown_group` gives a genuine cooldown after
+each block, drawn with the vanilla cooldown sweep. **`blocked: true`** in the
+damage predicate, via `entity_hurt_player`, is the clean detector, and is the
+difference between "raised the shield" and "actually blocked something" — build
+on that rather than on use detection.
+
+For a shield-only attack, item `attribute_modifiers` scoped to
+`slot: "mainhand"` apply only while the shield is in the mainhand, so nothing
+leaks from the offhand or from inventory. `attack_knockback` is a real
+attribute, so knockback needs no scripting. Slowness needs an on-hit script
+gated on an `equipment` condition requiring shield in mainhand and empty
+offhand — and Chunk 1 testing already proved `equipment` predicates load and
+evaluate correctly, so this is the branch that works, not the `input`/`keys`
+branch that failed.
+
+[VERIFY] The component names and fields above are recent and version-specific.
+Confirm each with a reload test before any design depends on it, and record the
+result in the datapack README's pass/fail table as Chunk 1 did. Nothing here is
+proven in this repository yet.
+
+---
+
 ## Two failure patterns
 
 **Numerical design ahead of mechanism.** Exhaustion multipliers, integration
@@ -140,3 +257,8 @@ load-bearing in more places than anyone tracked.
 3. Replace **structural defeat** with functional components.
 4. Establish a **shared technical contracts** section (now §13.8) so these stop
    being re-assumed per chapter.
+5. Decide Waxer's **Amber against players** before the class develops further:
+   either accept Honey Block encasement as the mechanism, or accept that Amber
+   is a mob-and-block ability. It cannot be a player stasis as written.
+6. Reload-test the **shield components** above. They are cheap to verify and
+   they unlock a combat direction that currently reads as impossible.

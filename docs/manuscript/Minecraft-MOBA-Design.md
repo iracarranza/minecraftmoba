@@ -1604,7 +1604,9 @@ Open: Exact Amber delivery/targeting and the precise rules governing what an Amb
 
 The **Amber** name is used twice, for the A1 branch and for the ultimate. This is reproduced as supplied rather than renamed.
 
-[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work. Implementation feasibility is unassessed: Sealed blocks, per-block Wax accumulation, and durability-wear modification for players standing in an area are each unproven in a datapack and belong in the capability audit rather than being assumed.
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+
+[TECHNICAL RISK] **Feasibility assessed 13 September 2026**; see the capability audit. Most of the kit is reachable, and Enzymatic and Preserving use the same detect-and-correct polling already accepted for Structural Integrity. Three items do not work as written: recipes cannot be class-gated, so Waxed Recipes would be craftable by everyone; Sealed containers are not reachable, because a datapack cannot cancel an interaction or close a screen, though block states such as doors can be forced back by polling; and Amber cannot hold a **player** in stasis, being exact only against mobs. The audit's escape hatch for Amber is encasing the target in actual Honey Blocks, which is vanilla-native, prevents jumping, slows movement, and gives enemies physical counterplay. Sealed blocks make Waxer the sixth system depending on persistent per-position block data, which still has no owner.
 
 ## 9.18 Merchant and Waxer kit register
 
