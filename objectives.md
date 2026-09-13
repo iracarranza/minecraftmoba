@@ -290,6 +290,30 @@ This avoids requiring the game to trace every resource through its eventual stra
 
 XP curve calibration should eventually account for how much legitimate XP activity is available during each night, how much Combat progression changes exploitation rate, how much the nighttime infrastructure slowdown offsets other economic throughput, how Worksites inject phase-appropriate opportunities, and how spatial depth changes reward density. The XP branch is intentionally downstream of these decisions; see section 17A.
 
+### Extraction opportunity significance
+
+**Established principles.** Reward meaningful opportunity-level extraction work, rather than commodity market value or raw block count. Extraction covers search/identify → reach/access → expose → mine/acquire. Legitimate attainment does not wait for delivery, Production use, or proof of good team play; the precise recognition event, partial-work attribution and cross-archetype credit remain Open.
+
+Keep three layers distinct:
+
+- **Resource-intrinsic acquisition difficulty:** concealment/exposure, search or identification requirements inherent to the manifestation, vein geometry, dispersion, required tool tier, block-breaking burden and intrinsic hazards.
+- **Generated opportunity evidence:** reuse worldgen's Opportunity Relationship, Reach/Payoff, arrival envelopes, local continuation, deep network reach and `commitment_profile` (`access_burden`, `exploitation_burden`, `return_burden`, `infrastructure_dependency`, `exposure`). This describes geographic context; it is not a second invented distance score.
+- **Player-contingent realized difficulty:** current position, tools, Hunger, inventory, information, enemies, class, infrastructure and mission. These shape rational choices and actual cost; personal inconvenience or current material demand does not set base XP.
+
+**Working progression direction.** Eventually recognize generated opportunity significance through intrinsic acquisition challenge plus validated worldgen access/commitment evidence. Account for overlapping evidence, especially intrinsic exploitation work versus worldgen exploitation burden, without double counting. The current [spec 4](specs/mapseedsearchspec4.md) shadow outputs are diagnostic only: they MUST NOT become hard XP formulas, weights, quotas or generation gates. A descriptive high burden is neither validated difficulty nor automatic high XP; unresolved evidence stays unresolved.
+
+Infrastructure may reduce realized acquisition cost without reducing underlying generated progression significance. Efficiency is naturally rewarded as XP/hour. This does not replace the separately governed infrastructure-integration modifier or create passive XP, and it does not settle whether generation-depth eligibility can ever change.
+
+Do not add repeat-extraction or anti-farming penalties by default. Increasing XP requirements, renewal intervals, search/travel, inventory constraints and opportunity cost may already make repeated low-value chasing inefficient. Test actual repeat behavior before adding restrictions; this is not a claim that exploits cannot exist or a repeal of other domains' safeguards.
+
+### Rational resource relevance
+
+**Established doctrine.** Systems establish constraints and opportunities; rational actors responding to match state determine marginal value. Prefer this emergent resource relevance to explicit current-relevance modifiers. Current stocks, demand, infrastructure, threats, information, objectives and remaining time influence whether a player mines, ignores, marks, caches, contests or transports a resource; they do not make its base Extraction XP fluctuate with demand.
+
+Systemic importance can be very high while marginal universal value is low. Clay can matter greatly to Construction without every passing Combat player needing to collect it. If collecting every manifestation is always optimal, examine XP attraction, active saturation, payload and opportunity cost upstream rather than declaring the resource temporarily irrelevant.
+
+**Do not enforce good team play; construct an economy in which rational good team play tends to be efficient.** Players can still make inefficient choices. The [renewable-resource matrix](docs/worldgen-initial-balancing.md#renewable-resource-matrix--working-schema) records the separate economic and acquisition dimensions.
+
 ## Other XP sources under consideration
 
 Examples may include:
@@ -829,9 +853,11 @@ The intent is multiple competing nighttime opportunities rather than one mandato
 
 # 17B. Regenerative Sources
 
-**Working direction, 12 September 2026.** The regenerative-resource system has three top-level buckets: **crops and plant resources**, **animal populations**, and **hostile Mob Swarms**. They are generated with a spatial depth and value gradient; the spatial rules belong to [maps.md](maps.md#regenerative-source-depth-gradient--working) and the economic role belongs here.
+**Working direction, 12 September 2026.** The currently described living-world regenerative system has three top-level buckets: **crops and plant resources**, **animal populations**, and **hostile Mob Swarms**. They are generated with a spatial depth and value gradient; the spatial rules belong to [maps.md](maps.md#regenerative-source-depth-gradient--working) and the economic role belongs here.
 
 The core rule is that regenerating resources increase in **economic specificity** with distance from the midpoint and base regions. Do not read this as farther meaning simply more XP, or the same resource in larger stacks. Near and core resources solve broad universal needs; deeper resources are newer, rarer, more specialized or composition-dependent, and support narrower but stronger strategies. Distance therefore increases specialization, niche utility, strategic value and sometimes challenge.
+
+**Working expansion.** These living-world buckets are not an exhaustive limit on renewable resources. Tree ecologies and geologically supported copper/iron/coal or clay/gravel/sand opportunities are candidates where recurring systemic demand warrants them; high-power resources such as diamond may remain finite/restricted. No membership or count is selected here. Preserve the Development/Combat mapping for living-world sources while investigating Extraction's role in renewable geology. See the [matrix](docs/worldgen-initial-balancing.md#renewable-resource-matrix--working-schema).
 
 ## Mob Swarms
 
@@ -1313,3 +1339,8 @@ Do not reintroduce the following as current rules without new discussion:
 > **Legitimate resource attainment grants XP directly; the XP system does not need to judge whether every acquired resource was ultimately used well.**
 
 The objective system should concentrate conflict around meaningful Minecraft opportunities while preserving the broader sandbox as part of the competitive game.
+## Strategic locations and surrounding traffic
+
+**Established secondary map-design function, 12 September Worldgen and Initial System Balancing branch.** A POI, Worksite, team objective, village or important junction/crossing can act as Q: a reason for recurring entry into or passage through region MNOP. Evaluate the resulting Strategic Exposure along terrain and approach connections as well as inside the objective footprint. Q need not overlap a resource to make its exploitation or remote infrastructure contestable. Exposure is not universally monotonic with regional depth, and low-exposure remote economic settlements remain legitimate. See [maps.md](maps.md#spatial-opportunities-and-initial-balancing).
+
+This function does not make every Q a formal objective or regenerative resource. Existing Mining Outpost finite generated-ore behavior and Industrial Enchanter/Silo activation, finite-window and delivery contracts remain in force. Renewal of world opportunity does not add passive player income, reset Worksites automatically, or dispense objective rewards without their specified human work. Exact traffic modeling is Working; no universal Q radius or visitation rate is selected.

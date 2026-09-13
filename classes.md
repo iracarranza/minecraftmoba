@@ -375,6 +375,10 @@ of world materials.
 
 Extraction does not simply mean that blocks disappear.
 
+**Established acquisition framing.** Extraction is the efficient conversion of difficult-to-access world resources into acquired material: search/identify → reach/access → expose → mine/acquire. Mining blocks alone is not the core difficulty; useful detection, approach and excavation are part of the task.
+
+Material's current economic value and an Extraction task's progression significance are distinct. The [resource-attainment XP contract](objectives.md#resource-attainment) separates intrinsic acquisition challenge, generated worldgen evidence and player-contingent cost. Infrastructure and specialist capability can improve XP/hour by making meaningful acquisition more efficient.
+
 Destroying an enemy structure is not inherently Extraction; the resource/access purpose matters.
 
 ---
