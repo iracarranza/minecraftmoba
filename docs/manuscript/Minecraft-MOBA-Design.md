@@ -1137,7 +1137,7 @@ Extraction/route creation, information, bruiser/engage, and control are possible
 
 ## 9.4 Gardener
 
-**Conceptually settled. Sources: [C §5], [WC].** Everyone else sees vegetation primarily as things to harvest. Gardener sees a landscape of productive sources at different stages of development and is constantly deciding which ones are worth harvesting, preserving, or reinvesting into. Primary archetype Development; secondary archetypes deliberately unassigned pending descriptive evaluation. [HISTORICAL] The earlier Spread Vines / Flowerpot / Glistening Greenhouse kit, the repeated-planting passive, and the Backyard / Exotic / Generalist tendencies are superseded by the Plant Material and Cultivar model below.
+**Conceptually settled. Sources: [C §5], [WC].** Everyone else sees vegetation primarily as things to harvest. Gardener sees a landscape of productive sources at different stages of development and is constantly deciding which ones are worth harvesting, preserving, or reinvesting into. Primary archetype Development; secondary archetypes deliberately unassigned pending descriptive evaluation. [CONFLICT] The 13 September kit [K7] lists Gardener as "Development · Control · Support". Control and Support are not members of the Seven Archetypes (§9.1, `classes.md` §2). The kit line is preserved verbatim in `classes.md` rather than mapped onto existing archetypes or dropped; whether these are new archetypes, role language, or replacements for the unassigned secondaries is the owner's decision. [HISTORICAL] The earlier Spread Vines / Flowerpot / Glistening Greenhouse kit, the repeated-planting passive, and the Backyard / Exotic / Generalist tendencies are superseded by the Plant Material and Cultivar model below.
 
 Plant Material is a stacking proc/meter, not an inventory item; at threshold it is automatically consumed to grow a Cultivar nearby. A Cultivar is a special developed plant created through Gardener's class systems, and Cultivars accelerate adjacent plant growth.
 
@@ -1167,9 +1167,11 @@ Gardener must function without a Construct, Construction teammate, or predefined
 
 **Working. Source: [C §6].** Golem Master converts terrain into golems, then uses golem labor and carried materials to construct useful structures. Animate and Assemble forms are independently selected, supporting mixed builds.
 
+**Kit restated 13 September 2026. Source: [K7].** Archetypes Construction · Combat · Production. The passive is named **Pumpkin Supply**. The kit carries an explicit audit flag from its own author: Golem Master remains the least settled of the seven, and the base Assemble rule, generic material-stat rules and Wither Golem's behaviour need one final conceptual pass, so that wording is **not** promoted to canon. Production is therefore recorded but not adopted as a roster archetype.
+
 ### 9.5.1 Passive and Animate
 
-The unnamed passive periodically produces nearby pumpkins and increases command capacity with level. Animate consumes targeted terrain at a tool-dependent rate. After enough material has been gathered, reactivation consumes a Pumpkin and forms a temporary golem. Amount and relevant vanilla block properties—potentially hardness, explosion resistance, and preferred tool—inform its properties.
+Pumpkin Supply periodically produces nearby pumpkins and increases command capacity with level. Animate consumes targeted terrain at a tool-dependent rate. After enough material has been gathered, reactivation consumes a Pumpkin and forms a temporary golem. Amount and relevant vanilla block properties—potentially hardness, explosion resistance, and preferred tool—inform its properties.
 
 Iron is more expensive/less efficient to form, with extra Health and attack knockback. Snow uses slowing ranged projectiles. Copper is cheaper/more efficient, smaller and faster, can wield different weapons, and is best at intentional block destruction and collection. Other golems can incidentally destroy and collect blocks.
 
@@ -1210,7 +1212,7 @@ Offhander equips a bow in the offhand on right-click. Upgrade alternatives repla
 
 ### 9.6.3 Covered With Diamonds
 
-Temporarily upgrades armor/tools to Diamond, then reverts them. Current overdrive bonuses are knockback resistance and movement speed, with upgraded escalation including a Notch Apple and an Ender Crystal. It should not inject a permanent free Diamond set into the economy.
+**Restated 13 September 2026. Source: [K7].** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance; the effects extend to Kitfighter's upgraded equipment options. This is a projection over weaker equipment rather than a blanket upgrade of armor and tools. Equipment reverts when the ultimate ends, and it should not inject a permanent free Diamond set into the economy. Upgraded escalation including a Notch Apple and an Ender Crystal is retained from the earlier documented direction. [OPEN] Exact interaction with equipment already exceeding the projected Diamond state remains implementation and balance work.
 
 [CONFLICT] The newer general skeleton places ultimate unlock at Level 15, while the class’s own section says its exact unlock remains unresolved. Treat 15 as the general schedule and Kitfighter’s assignment as needing confirmation. Do not infer Level 16 from the older vanilla-capability landmark.
 
@@ -1368,7 +1370,7 @@ Procession should probably represent **maximum expenditure** rather than discoun
 
 ## 9.12 Unsettled class drafts
 
-Preserved as drafts, not settled classes. Missing slots are missing design, not gaps to fill by invention. **Waxer and Daredevil are the only remaining drafts**; Skeleton Crew (§9.13) and Lightfooted (§9.14) were promoted on 12 September 2026.
+Preserved as drafts, not settled classes. Missing slots are missing design, not gaps to fill by invention. **Waxer is the only remaining draft**; Skeleton Crew (§9.13) and Lightfooted (§9.14) were promoted on 12 September 2026, and Daredevil received a full kit on 13 September 2026 (§9.15).
 
 
 **Waxer.** **Draft — not settled.** Primary Production; Combat currently plausible.
@@ -1385,14 +1387,6 @@ Core rule: Honeycomb can be repeatedly invested into existing products to preser
 
 [OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, ordinary removal, and implementation feasibility remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
 
-
-**Daredevil.** **Draft — substantially incomplete.** Primary Exploration currently plausible; Extraction and Combat only tentative consequences.
-
-**Passive — Skydiver.** Remaining airborne for more than one second grants extreme Speed while airborne. Traversal and routes created while Skydiving interact with this movement concept according to existing global infrastructure rules.
-
-**Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
-
-Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
 
 ## 9.13 Skeleton Crew
 
@@ -1509,6 +1503,49 @@ A2 branches deliberately do **not** scale with animal count. A1 already uses nea
 Target a location. Nearby wolves, foxes, and cats/ocelots leap in extremely high arcs toward the target area, and after a short delay Lightfooted launches after them. Participating animals are **invincible** throughout the forced leap and landing, because they are valuable class resources and the ultimate forcibly commits them into dangerous space. Each animal landing on an enemy player deals damage; Lightfooted's own landing deals greater bonus damage. The extreme high leap belongs here rather than to Branch to Branch.
 
 After landing, ordinary protection ends and the group is physically concentrated near Lightfooted again, naturally re-establishing Animal Senses at the destination. [OPEN] Targeting geometry, animal spread, impact radius, animal damage, Lightfooted bonus damage, delay, invincibility end timing.
+
+## 9.15 Daredevil
+
+**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate (§9.12). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Exploration · Combat
+Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredevil converts dangerous momentum into something better.
+
+**Passive — Skydiver.** Remaining airborne long enough grants extreme airborne movement, rewarding Daredevil for sustaining dangerous aerial traversal rather than returning safely to the ground.
+
+**A1 — Runway.** Convert meaningful forward momentum into a forward-and-upward launch, turning an existing run into aerial traversal.
+
+- **Pop Rocket** — Use Wind Burst/Wind Charge behavior for more explosive propulsion.
+- **Trampoline** — Use slime-like rebound behavior to extend or redirect the stunt.
+- **Suplex** — Activating Runway while touching an enemy subjects them to Runway's corresponding upward and downward velocity bursts.
+
+**A2 — Crash Landing.** At sufficient velocity, deliberately Crash into terrain, abruptly ending movement. Daredevil takes a fixed amount of fall damage while nearby enemies take damage based on the velocity lost in the impact. Daredevil's next instance of fall damage is then negated.
+
+- **Crater** — Take greater fixed fall damage and deal less impact damage, but stun affected enemies based on Crash velocity.
+- **Combat Roll** — Take minimal fall damage and deal greatly reduced immediate impact damage; instead, empower the next attack based on Crash velocity.
+- **Superhero** — Take no self-damage and retain normal impact damage, but become simultaneously invincible and unable to act while holding a superhero landing pose.
+
+**Ultimate — Deathly Clutches.** Drop to near-death Health and negate the next N damage instances. During the ultimate, a limited number of successful attacks restore already-consumed damage-negation instances, never exceeding the initial maximum.
+
+[HISTORICAL] The earlier draft's Runway branches — **Cannon Jump**, **Trampoline**, **Mach Headbutt** — are superseded by Pop Rocket, Trampoline and Suplex above. The earlier Passive wording, which specified more than one second airborne and granted extreme Speed, is superseded by the Skydiver wording above. The earlier tentative Extraction archetype is not carried forward; the kit assigns Exploration and Combat.
+
+[OPEN] N in Deathly Clutches, the attack count that restores instances, Skydiver's airborne threshold, Runway's momentum requirement, Crash velocity thresholds, and all durations remain unresolved.
+
+## 9.16 Seven-class kit register
+
+**Source: [K7], 13 September 2026.** A single handoff supplied compact kits for seven classes — Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil. Each gives archetypes, a hook, a passive, two actives with three branches each, and an ultimate. The kits are reproduced **verbatim** in `classes.md` at the head of each class section, ahead of the developed material, and are the current statement wherever the two differ.
+
+| Class | Archetypes as supplied | Status after the kit |
+| --- | --- | --- |
+| Mole | Extraction · Combat · Exploration | Settled; kit agrees with existing canon |
+| Gardener | Development · Control · Support | Settled; archetype line is a recorded [CONFLICT] (§9.4) |
+| Kitfighter | Combat · Production | Ultimate restated (§9.6.3) |
+| Golem Master | Construction · Combat · Production | Passive named; author's audit flag preserved, wording not promoted (§9.5) |
+| Skeleton Crew | Logistics · Combat | Settled 12 September; kit agrees |
+| Lightfooted | Exploration · Combat | Settled 12 September; kit agrees |
+| Daredevil | Exploration · Combat | Previously a substantially incomplete draft; A2 and ultimate supplied (§9.15) |
+
+The handoff does not address Merchant (§9.11) or Waxer (§9.12), which are unchanged. Two of the seven carry explicit caveats from the handoff itself — Golem Master's audit flag and Gardener's non-standard archetypes — and neither was silently reconciled.
 
 # 10. System Interactions
 
@@ -1810,6 +1847,8 @@ The requested manuscript hierarchy is preserved. Prose, cross-references, consol
 
 12 September 2026: the Nighttime, Combat Economy, Regenerative Sources and World-System Mapping handoff [WN] was integrated, giving the day/night economy a canonical owner (`objectives.md` §17A) and adding sunset-only Worksite activation, the three regenerative buckets with their spatial specificity gradient, Mob Swarm composition by depth, region and time of day, Combat as securing value under threat, the archetype/world-system mapping, and the nighttime infrastructure penalty in `infrastructure.md`. No XP numbers were derived; the XP branch is explicitly downstream. Separately, a capacity progression curve rework [CP] was recorded as a **proposal only** in `docs/proposals/2026-09-12-capacity-curve.md` at its author's instruction; no canonical capacity value was changed.
 
+13 September 2026: a seven-class kit handoff [K7] supplied compact canonical kits for Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil. The kits are reproduced verbatim in `classes.md`. Daredevil moved from substantially incomplete draft to a full kit with its previously missing Ability 2 and ultimate; Golem Master's passive was named Pumpkin Supply; Kitfighter's ultimate was restated as a projection over weaker equipment. Two caveats supplied with the handoff were preserved rather than reconciled: Golem Master's own audit flag against promoting its wording, and Gardener's archetype line naming Control and Support, which are not members of the Seven Archetypes.
+
 Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainter-authored worlds. The historical dimensions and method do not dictate the modern official-vanilla approach.
 
 10 September 2026, second integration: the World and Match Systems handoff was supplied in full and integrated, adding restricted material categories, the revised block economy and infrastructure-labor model, Construction's material agency, and the payback horizon, control-window, authorship/recognition/control, capture, and team-relative integration material. The numerical estimates and phase bands recorded there are modelling targets, not balance canon.
@@ -1941,6 +1980,8 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[WL] Logistics / Supply Line / Skeleton Crew Handoff.** Late September 2026. Replaces Flow Weight with slot-based Capacity, makes logistical Capacity non-duplicable between committed infrastructure and active world presence, introduces relay-node chains, and rebuilds Skeleton Crew on a shared labour pool. See docs/reconciliation/2026-09-11-capacity.md.
 
 **[WN] WAMS Handoff — Nighttime, Combat Economy, Regenerative Sources, and World-System Mapping.** 12 September 2026, working design direction with no finalized numbers or tables. Day as accumulation and night as opportunity; per-type nighttime infrastructure weakening; Combat as securing value under threat with no dedicated Combat infrastructure; sunset-only Worksite activation with phase-dependent count and constrained random selection; crops, animal populations and Mob Swarms as regenerative sources on a specificity-by-distance gradient; Mob Swarm composition by depth, region and time of day; the archetype/world-system mapping; and XP calibration as a downstream branch. See docs/reconciliation/2026-09-12-nighttime-economy.md.
+
+**[K7] Seven-class kit handoff.** 13 September 2026. Compact kits for Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil: archetypes, hook, passive, two actives with three branches each, and an ultimate. Reproduced verbatim in `classes.md`; supplied with its own audit flag on Golem Master. Does not address Merchant or Waxer. See docs/reconciliation/2026-09-13-class-kits.md.
 
 **[CP] Minecraft MOBA Capacity Progression Curve Handoff.** 12 September 2026, explicitly **NOT CANON**. Proposes per-capacity growth cadences, an 8-Health start, 18-point universal Health and Hunger endpoints, specialization reaching 20, and qualitative Masteries at the third specialization. Recorded as a proposal only, at the source's own instruction; no canonical value changed. See docs/proposals/2026-09-12-capacity-curve.md.
 

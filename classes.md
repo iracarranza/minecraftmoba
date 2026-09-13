@@ -874,7 +874,32 @@ The current XP bands and requirement indices are a framework for that later bott
 
 ## Status
 
-**Conceptually settled** (11 September 2026). Numerical and implementation details remain [OPEN].
+**Conceptually settled** (11 September 2026). Numerical and implementation details remain [OPEN]. Kit restated 13 September 2026.
+
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Extraction · Combat · Exploration
+Hook: The world beneath and inside terrain is as navigable to Mole as its surface is to everyone else.
+
+**Passive — Sifth Sense.** While actively digging, Mole senses nearby sand and gravel. Excavating these materials can sift through connected falling material rather than allowing it to collapse normally.
+
+**A1 — Tunneling.** Enter a digging mode that amplifies tool speed and automatically excavates a 1×2 passage while moving into terrain. Mole cannot attack or build while Tunneling and can steer vertically with jump and sneak.
+
+- **Bore** — Tunnel substantially faster.
+- **Gallery** — Excavate a wider, approximately 3×2 passage.
+- **Dig In** — Become substantially harder to displace while actively excavating.
+
+**A2 — Drill Rush.** Enter a wall or floor. Reactivate to burst from the terrain in the aimed direction, damaging enemies at the point of emergence.
+
+- **Armored Emergence** — Gain major damage reduction upon emerging.
+- **Undermine** — Emerging upward from beneath an enemy stuns them.
+- **Burrow Chain** — Gain Speed after emerging from a wall; quickly entering another wall resets Drill Rush.
+
+**Ultimate — Sinkhole.** Destabilize a large region of natural terrain. After a delay, it progressively collapses downward into a permanent jagged sinkhole and becomes temporarily unbuildable during the collapse. Player-built construction is unaffected.
+
+---
 
 ## Core idea / hook
 
@@ -1031,6 +1056,33 @@ A Worksite system should not automatically reveal/excavate so much information o
 
 # 5. Gardener
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Development · Control · Support
+Hook: Vegetation isn't just something to harvest: it is a landscape of productive sources worth harvesting, preserving, and reinvesting into.
+
+[CONFLICT] **Control** and **Support** are not members of the Seven Archetypes defined in [section 2](#2-the-seven-archetypes), which are Combat, Construction, Development, Exploration, Extraction, Logistics and Production. The kit's archetype line is reproduced exactly as supplied rather than silently mapped onto existing archetypes or silently dropped. Whether Control and Support are new archetypes, descriptive role language, or a substitution for existing secondary archetypes is for the owner to decide; the roster in [section 11](#11-current-class-roster-status) still records Gardener's secondaries as deliberately unassigned.
+
+**Passive — Plant Material.** Gardener accumulates Plant Material through their abilities. At full stacks, Plant Material is automatically consumed to grow a Cultivar nearby. Cultivars accelerate the growth of adjacent plants.
+
+**A1 — Clip.** Clip a living plant without destroying or resetting it, generating Plant Material. Mature plants provide substantially more.
+
+- **Specimen** — Rewards clipping individually mature plants.
+- **Proliferation** — Rewards concentrations of plants from the same family.
+- **Collection** — Rewards clipping varied plant species and families, with diminishing value from repetition.
+
+**A2 — Cultivate.** Consume eligible plant items from inventory to generate Plant Material at lower efficiency than Clip. The selected upgrade determines Gardener's normal Cultivar.
+
+- **Torchflower** — Cultivars provide light and protective Absorption.
+- **Sweet Berry Bush** — Cultivars provide provisioning and create hostile defensive thickets.
+- **Giant Bamboo** — Cultivars generate empowered bamboo offspring that extend growth acceleration outward without recursively reproducing themselves.
+
+**Ultimate — Grafter's Handbook.** Gardener gains access to both Cultivar types they did not select through Cultivate, allowing all three forms to be grown sequentially without changing the original specialization.
+
+---
+
 ## Status
 
 **Conceptually settled** (11 September 2026). The kit below **supersedes** the earlier Spread Vines / Flowerpot / Glistening Greenhouse design.
@@ -1173,6 +1225,33 @@ Gardener may naturally become stronger or more strategically useful when allied 
 
 # 6. Golem Master
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Construction · Combat · Production
+Hook: Building materials are also potential workers: the blocks Golem Master carries determine what kind of golems they can animate and what those golems can accomplish.
+
+**Passive — Pumpkin Supply.** Pumpkins become periodically available to Golem Master, supplying the defining component needed to animate golems.
+
+**A1 — Animate.** Consume four blocks and a pumpkin to animate a temporary golem. Its durability and physical properties derive from the material used to create it.
+
+- **Iron Golem** — A durable fighter emphasizing health and knockback.
+- **Snow Golem** — A ranged golem whose projectiles hinder enemy movement.
+- **Copper Golem** — A smaller, faster worker and swarm fighter using evasive hit-and-run behavior.
+
+**A2 — Assemble.** Consume carried materials to rapidly assemble a wall. Construction performance scales with Golem Master's available workforce/material properties.
+
+- **Iron Wall** — Reinforced defensive construction that synergizes with Iron Golems.
+- **Snow Wall** — Defensive construction whose attacks/projectiles slow and displace enemies.
+- **Copper Wall** — Rapid construction that improves nearby Copper Golem movement and work speed.
+
+**Ultimate — Wither Golem.** Animate a temporary Wither-derived golem whose combat power evokes the Wither without reproducing its uncontrolled terrain destruction.
+
+**Audit flag (supplied with the kit):** This is still the least settled of the seven. The base Assemble rule, generic material-stat rules, and Wither Golem's actual behavior need one final conceptual pass. This exact wording is **not** promoted to canon.
+
+---
+
 ## Status
 
 Working draft.
@@ -1201,7 +1280,9 @@ Iron, Snow, and Copper are upgraded independently across Animate and Assemble, a
 
 ---
 
-## Passive — [Unnamed]
+## Passive — Pumpkin Supply
+
+**Named 13 September 2026 by [K7].** Pumpkins become periodically available to Golem Master, supplying the defining component needed to animate golems.
 
 - Pumpkins periodically spawn/grow nearby.
 - Maximum commanded golems increases with level.
@@ -1376,6 +1457,33 @@ The class's exceptional ceiling comes from converting:
 
 # 7. Kitfighter
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Combat · Production
+Hook: Ordinary equipment is raw material for a combat kit: Kitfighter crafts efficiently, carries unusual tools into battle, and temporarily exceeds Minecraft's normal equipment ceiling.
+
+**Passive — Salvage.** Crafting equipment with at least three units of a Primary Material generates Salvage for that material. Accumulating enough material-specific Salvage automatically recovers two units of that material, with the required Salvage decreasing through progression.
+
+**A1 — Offhander.** Equip a Bow in the offhand, allowing it to function alongside Kitfighter's normal mainhand equipment.
+
+- **Crossbow** — Replace the Bow with a Crossbow.
+- **Fishing Rod** — Replace it with a Fishing Rod.
+- **Golden Head** — Replace it with a Golden Head.
+
+**A2 — Hotswap.** Deploy a temporary web at the targeted block.
+
+- **Cobweb** — Deploy a longer-lasting Cobweb.
+- **Lava** — Deploy temporary Lava instead.
+- **TNT** — Deploy temporary TNT instead.
+
+**Ultimate — Covered With Diamonds.** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance. Its effects extend to Kitfighter's upgraded equipment options.
+
+Open: Exact interaction with equipment already exceeding the projected Diamond state remains implementation/balance work.
+
+---
+
 ## Status
 
 Current documented class direction.
@@ -1464,7 +1572,9 @@ Deploy a web at the targeted block that breaks after a short duration.
 
 ## Ultimate — Covered With Diamonds
 
-Temporarily upgrades Kitfighter's armor/tools to Diamond.
+**Restated 13 September 2026 by [K7].** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance. Its effects extend to Kitfighter's upgraded equipment options. This is a projection over weaker equipment rather than a blanket upgrade, and it now also carries movement speed and knockback resistance.
+
+[OPEN] Exact interaction with equipment already exceeding the projected Diamond state remains implementation/balance work.
 
 When the Ultimate ends, the equipment reverts.
 
@@ -1903,6 +2013,8 @@ Primary:
 Secondary:
 - Deliberately unassigned pending descriptive evaluation of finished behaviour.
 
+[CONFLICT] The 13 September kit lists Gardener as "Development · Control · Support". Control and Support are not members of the Seven Archetypes. Recorded in [section 5](#5-gardener) rather than resolved; this roster entry is unchanged pending the owner's decision.
+
 ### Golem Master
 Primary:
 - Construction
@@ -1910,12 +2022,16 @@ Primary:
 Secondary:
 - Combat
 
+The 13 September kit lists Construction · Combat · Production and carries an explicit audit flag against promoting its wording to canon; Production is therefore recorded in [section 6](#6-golem-master) but not adopted here.
+
 ### Kitfighter
 Primary:
 - Combat
 
 Secondary:
 - Production
+
+Confirmed by the 13 September kit: Combat · Production.
 
 Kitfighter should not currently be listed as Extraction.
 
@@ -1928,8 +2044,11 @@ Do not assign further archetypes until finished behaviour is evaluated. See [sec
 ### Settled beyond the original four
 Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) completed conceptual passes on 12 September 2026. Skeleton Crew is Logistics and Combat; Lightfooted is Exploration primary with Combat secondary.
 
+### Daredevil — kit supplied 13 September 2026
+Exploration and Combat, per [K7]. The kit supplies the previously missing Ability 2 and ultimate. See [section 17](#17-daredevil). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
+
 ### Unsettled drafts
-Waxer and Daredevil are drafts with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
+Waxer is the only remaining draft with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
 
 ---
 
@@ -2095,7 +2214,7 @@ Procession should probably represent **maximum expenditure** rather than discoun
 
 These are preserved as drafts. They are **not** settled classes, and their missing slots are missing design rather than gaps to be filled by invention.
 
-**Waxer** and **Daredevil** are the only remaining drafts. Skeleton Crew and Lightfooted were promoted to settled classes on 12 September 2026; see [section 15](#15-skeleton-crew) and [section 16](#16-lightfooted).
+**Waxer** is the only remaining draft. Skeleton Crew and Lightfooted were promoted to settled classes on 12 September 2026; see [section 15](#15-skeleton-crew) and [section 16](#16-lightfooted). Daredevil received a full kit on 13 September 2026 and moved to [section 17](#17-daredevil).
 
 ---
 
@@ -2118,20 +2237,34 @@ Core rule: Honeycomb can be repeatedly invested into existing products to preser
 
 ---
 
+# 15. Skeleton Crew
 
-## Daredevil
+### Canonical kit — 13 September 2026
 
-**Draft — substantially incomplete.** Primary Exploration currently plausible; Extraction and Combat only tentative consequences.
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
 
-**Passive — Skydiver.** Remaining airborne for more than one second grants extreme Speed while airborne. Traversal and routes created while Skydiving interact with this movement concept according to existing global infrastructure rules.
+Archetypes: Logistics · Combat
+Hook: Skeleton Crew wants the undead to find them: nighttime monster pressure becomes a workforce that can fight or move resources.
 
-**Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
+**Passive — Undead Affinity.** Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew, which can be spent to deploy Crew Members.
 
-Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
+Each Crew Member can exist either actively in the world or be committed as Capacity to a Supply Line, never both.
+
+**A1 — Graveyard Shift.** Target an enemy to Strike them for bonus damage and provoke active Crew against them. Otherwise, consume Crew to Raise a Crew Member.
+
+- **Field Work** — Graveyard Shift becomes a projectile: striking enemies at range or Raising Crew where it hits valid terrain.
+- **Hard Hat Zone** — Strike friendly Crew for reduced damage to temporarily equip them with armor, progressing through Helmet → Chestplate → Leggings → Boots with repeated Strikes.
+- **Labored Union** — Reduce Strike's bonus damage; Crew automatically fight nearby mobs, and their kills generate Crew.
+
+**A2 — Burning Out.** Ignite active Crew. Burning Crew move substantially faster while continuing to prioritize Combat → Logistics → self-preservation, seeking to extinguish themselves once higher-priority work ends.
+
+- **Fire Drill** — Do not ignite Crew. Instead, they become Alarmed and urgently complete their current logistical journey or return to Skeleton Crew.
+- **Deadline** — Crew that remain burning in combat long enough explode.
+- **Water Break** — Successfully extinguishing restores Health based on time spent burning and briefly increases movement speed.
+
+**Ultimate — A-Head of Schedule.** Summon the Headless Horseman and a temporary supernatural Crew. They commit to either Combat or Logistics according to Skeleton Crew's workforce activity and become exceptionally effective at that activity for the ultimate's duration.
 
 ---
-
-# 15. Skeleton Crew
 
 **Conceptually settled, 12 September 2026.** Hook, core rule, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and interaction with global systems. Do not reopen settled mechanics for lack of exact values.
 
@@ -2191,6 +2324,35 @@ The fantasy: the project is behind schedule, so Skeleton Crew brings in another 
 
 # 16. Lightfooted
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Exploration · Combat
+Hook: Wolves, foxes, and cats/ocelots are mobile resources whose presence changes Lightfooted's abilities, while Lightfooted lets the whole group traverse terrain in extraordinary ways.
+
+**Passive — Animal Senses.** Nearby animals provide stacking species-specific bonuses to Lightfooted and nearby animals of that species:
+
+- **Wolves** — Toughness: damage resistance.
+- **Foxes** — Quickness: movement speed.
+- **Cats/Ocelots** — Surefootedness: fall-damage reduction.
+
+**A1 — Lunge.** Leap toward the aimed location, damaging an enemy struck during the leap.
+
+- **Swarming Bite** — Wolf: Shortest extension, but nearby wolves enable more frequent Lunges.
+- **Thieving Swipe** — Fox: Longer Lunge; striking an enemy temporarily disables their current mainhand item, with nearby foxes extending the disable.
+- **Stalking Pounce** — Cat/Ocelot: Greatest Lunge. Enter a brief slowed stalking stance before automatically launching toward the current aim.
+
+**A2 — Bounding.** Continuously traverse through a sequence of low Bounds. Each Bound commits to a direction until landing, where Lightfooted can redirect. Nearby animals Bound alongside.
+
+- **Drift to Drift** — Fox: Taking off from snow grants Invisibility until the next Bound leaves the ground.
+- **Branch to Branch** — Cat/Ocelot: Taking off from leaves launches higher and faster.
+- **Track to Track** — Wolf: A normal Bound from dirt-family terrain grants one bonus Bound; bonus Bounds cannot generate additional ones.
+
+**Ultimate — Rabbit's Lucky Foot.** Target an area. Nearby wolves, foxes, and cats/ocelots make enormous protected leaps toward it, followed shortly by Lightfooted. Participating animals are invincible during the forced leap and landing; landing on enemies deals damage, with Lightfooted's own landing dealing greater damage.
+
+---
+
 **Conceptually settled, 12 September 2026.** Hook, core rule, archetypes, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and visual communication.
 
 Archetypes: **Exploration** primary, **Combat** secondary. Development is not assigned merely because animals are managed, and Logistics is not assigned merely because animals are moved.
@@ -2248,3 +2410,34 @@ A2 branches deliberately do **not** scale with animal count. A1 already uses nea
 Target a location. Nearby wolves, foxes, and cats/ocelots leap in extremely high arcs toward the target area, and after a short delay Lightfooted launches after them. Participating animals are **invincible** throughout the forced leap and landing, because they are valuable class resources and the ultimate forcibly commits them into dangerous space. Each animal landing on an enemy player deals damage; Lightfooted's own landing deals greater bonus damage. The extreme high leap belongs here rather than to Branch to Branch.
 
 After landing, ordinary protection ends and the group is physically concentrated near Lightfooted again, naturally re-establishing Animal Senses at the destination. [OPEN] Targeting geometry, animal spread, impact radius, animal damage, Lightfooted bonus damage, delay, invincibility end timing.
+
+---
+
+# 17. Daredevil
+
+**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate ([section 14](#14-unsettled-class-drafts)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Exploration · Combat
+Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredevil converts dangerous momentum into something better.
+
+**Passive — Skydiver.** Remaining airborne long enough grants extreme airborne movement, rewarding Daredevil for sustaining dangerous aerial traversal rather than returning safely to the ground.
+
+**A1 — Runway.** Convert meaningful forward momentum into a forward-and-upward launch, turning an existing run into aerial traversal.
+
+- **Pop Rocket** — Use Wind Burst/Wind Charge behavior for more explosive propulsion.
+- **Trampoline** — Use slime-like rebound behavior to extend or redirect the stunt.
+- **Suplex** — Activating Runway while touching an enemy subjects them to Runway's corresponding upward and downward velocity bursts.
+
+**A2 — Crash Landing.** At sufficient velocity, deliberately Crash into terrain, abruptly ending movement. Daredevil takes a fixed amount of fall damage while nearby enemies take damage based on the velocity lost in the impact. Daredevil's next instance of fall damage is then negated.
+
+- **Crater** — Take greater fixed fall damage and deal less impact damage, but stun affected enemies based on Crash velocity.
+- **Combat Roll** — Take minimal fall damage and deal greatly reduced immediate impact damage; instead, empower the next attack based on Crash velocity.
+- **Superhero** — Take no self-damage and retain normal impact damage, but become simultaneously invincible and unable to act while holding a superhero landing pose.
+
+**Ultimate — Deathly Clutches.** Drop to near-death Health and negate the next N damage instances. During the ultimate, a limited number of successful attacks restore already-consumed damage-negation instances, never exceeding the initial maximum.
+
+[HISTORICAL] The earlier draft's Runway branches — **Cannon Jump**, **Trampoline**, **Mach Headbutt** — are superseded by Pop Rocket, Trampoline and Suplex above. The earlier Passive wording, which specified more than one second airborne and granted extreme Speed, is superseded by the Skydiver wording above. The earlier tentative Extraction archetype is not carried forward; the kit assigns Exploration and Combat.
+
+[OPEN] N in Deathly Clutches, the attack count that restores instances, Skydiver's airborne threshold, Runway's momentum requirement, Crash velocity thresholds, and all durations remain unresolved.
+
+---
