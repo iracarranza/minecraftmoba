@@ -50,13 +50,13 @@ Durability should not be globally compressed. Compress it only where vanilla dur
 
 Copper ore drops 2–5 raw Copper, average approximately 3.5 before Fortune/Yield. Approximate expected raw Copper per ore used for calibration: F0 3.5; Fortune/Yield I 4.67; II 6.125; III 7.7. Earlier near-1:1 Copper opportunity calculations are superseded.
 
-**Prototype-Test calibration, not generation quota:** ordinary economically relevant Copper field per team ~45–55 physical ore; early Copper Mining Worksite ~8–12 ore.
+**Prototype-Test calibration, not generation quota:** ordinary economically relevant Copper field per team ~45–55 physical ore; early Copper Mining Site ~8–12 ore.
 
 Copper's Primary Material status also makes Production relevant to its equipment economy. Under current Kitfighter Salvage, seven armor sets create 28 qualifying crafts. If centralized through a Lv8–15 Kitfighter at the five-Salvage threshold, that fixture returns about 10 Copper. Thus 182 remains the universal gross recipe threshold while Production can lower net expenditure.
 
 ## F. Iron
 
-**Prototype-Test calibration, not generation quota:** ordinary economically relevant Iron field per team ~130–140 physical ore; Iron Mining Worksite ~40–50 ore, central sensitivity ~45.
+**Prototype-Test calibration, not generation quota:** ordinary economically relevant Iron field per team ~130–140 physical ore; Iron Mining Site ~40–50 ore, central sensitivity ~45.
 
 Target relationship: ordinary balanced development reaches majority Iron. Universal Iron normally indicates exceptional material opportunity, economic specialization, or sufficiently mature late play. Material is persistent team stock, so 'four kits worth' does not imply four literal complete kits; mixed-tier allocation is expected.
 
@@ -81,7 +81,7 @@ Efficiency does not multiply physical geology. It can process available geology 
 
 Worksites are concentrated, phase-sensitive economic inflation, not mandatory permission to participate in a resource tier. Base world economy should remain viable; regenerative opportunity relationships preserve recurring strategically important inputs; Worksites create exceptional concentrated opportunities.
 
-With sunsets at 6/18/30/42, useful test vocabulary is: first sunset Copper/Coal/basic processing; second Iron/enchanting transition; third Gold/Lapis/Diamond/advanced capability; fourth Diamond/Ancient Debris/Smithing relationships. These are **phase vocabularies, not guaranteed contents**. Availability and intensity remain separate tuning axes.
+With sunsets at 6/18/30/42, useful test vocabulary is: first sunset Copper/Coal/basic processing; second Iron/system-resource opportunity; third Gold/Lapis/Diamond/advanced capability; fourth Diamond/Ancient Debris/Smithing relationships. These are **phase vocabularies, not guaranteed contents**. Availability and intensity remain separate tuning axes.
 
 Players should be able to win and exploit immediately, delay exploitation for stronger Yield at greater exposure, partially exploit to solve immediate demand, ignore a site, or lose it and continue through the ordinary economy at a disadvantage.
 
@@ -99,10 +99,13 @@ These percentages are not hard worldgen targets. They are hypotheses for testing
 
 Exact XP yields remain unresolved. Existing XP-band indices remain relative balance targets: Lv1–6 1.000×; Lv7–12 1.350×; Lv13–19 1.875×; Lv20–24 2.575×; Lv25–30 3.250×. A normalized minute-to-level curve used in analysis is a sensitivity fixture, not a schedule that activity rewards should be forced to obey.
 
-The immediately subsequent lost design discussion introduced **Useful Action Units (UAU)** as a basis for bottom-up XP valuation. Its exact definition and equations are not recoverable from current project context. They must not be invented and attributed to the lost discussion. The next progression-calibration pass should reconstruct UAU explicitly from first principles, preserve assumptions, and test whether resulting legitimate XP throughput naturally produces acceptable match progression.
+**Historical recovery limitation, superseded by the subsequent UAU manuscript:** the initial recovery lacked the UAU definition. Current UAU, Work Stock and Practical Reach doctrine is in [the companion manuscript](2026-09-14-UAU-Work-Stock-and-Practical-Reach.md); use that explicit development rather than treating the earlier recovery gap as current. Quantitative sensitivity fixtures still do not define canonical reward schedules.
 
 ## M. Supersession register
 
 Current-facing material should reject: Copper excluded from Primary Materials; functional/free offhand; old day/night timings; first sunset near 10m or second near 30m; near-1:1 Copper drop assumptions; Efficiency as physical-resource multiplication; ~247 Iron as universal mature-kit demand; routine armor/sword churn as the primary metal sink; Worksites as mandatory tier permission; a normalized minute-to-level sensitivity treated as canon; and any invented UAU formula presented as recovered history.
 
 For the full reconciliation record and provenance boundary, see `docs/reconciliation/2026-09-14-economic-calibration-recovery.md`.
+
+
+**15 September clarification:** These resource sensitivity examples describe activation-phase possibilities, not fixed site tiers or canonical quantities. The established Factory progression is 6m Blast Furnace + Smoker; 18m **TBD / OPEN**; 30m Enchanting Table; 42m Smithing Table. Surplus dormant locations receive packages only on selection. Capitalization and exploitation work, downstream Work Stock and the persistent +1 team Infrastructure Slot from first capture all contribute to acceleration; no flat XP value is assigned to the slot. See [objectives.md](../../objectives.md#11-worksites).

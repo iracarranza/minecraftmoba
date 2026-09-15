@@ -1,3 +1,5 @@
+> **Worksite terminology reconciled 15 September 2026:** Exactly Mining Site and Industrial Factory; placement supplies surplus dormant candidates, never permanent phase/tier packages. The current lifecycle and gates are owned by [objectives.md](../objectives.md#11-worksites). Other dated map-spec assumptions retain their existing authority.
+
 SPEC: Default Map Opportunity-Relationship Shadow Analysis
 Project: Minecraft MOBA
 Scope: Default-map analytical fitter only
@@ -563,7 +565,7 @@ Reserved for future strategic placement.
 
 Examples:
 - Worksite;
-- lapis silo;
+- Industrial Factory;
 - wild crop patch;
 - recurring animal zone;
 - minor POI;
@@ -959,7 +961,7 @@ AUTHORED MAP RESPONSIBILITY
 - Worksites;
 - recurring animals;
 - wild crop patches;
-- lapis silos;
+- Industrial Factories;
 - minor POIs;
 - other strategic resource placement.
 

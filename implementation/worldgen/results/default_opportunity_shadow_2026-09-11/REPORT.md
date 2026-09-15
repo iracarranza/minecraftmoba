@@ -1,3 +1,5 @@
+> **Historical Worksite vocabulary:** Silo references in this dated worldgen record are superseded by the two-type Mining Site / Industrial Factory model in `objectives.md`; no Silo system is a current requirement.
+
 # Default Opportunity Relationship shadow analysis
 
 Authority: `specs/mapseedsearchspec4.md`. Diagnostic only. Current selections, eligibility, scoring, homelands, dimensions, terrain regions, local continuation and deep-network logic are unchanged. This is an explanation of frozen choices—not a new fitting decision or physical validation.

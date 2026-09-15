@@ -1,3 +1,5 @@
+> **Historical scope / superseded where applicable (15 September 2026):** Worksite types, Apparatus, capitalization/capture, Factory packages and Infrastructure Slot rules in this dated record are superseded by [the canonical reconciliation](2026-09-15-worksites-infrastructure.md). Unrelated decisions retain their stated status.
+
 # Worksite reconciliation — 2026-09-10
 
 ## Authority and decision

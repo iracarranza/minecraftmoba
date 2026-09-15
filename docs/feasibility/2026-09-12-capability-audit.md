@@ -106,7 +106,7 @@ Chests, Development Zones recalculating, Worksites and Mob Swarms acting away
 from players. Forceloading is limited and costly. Not recorded in Chapter 13,
 and it silently caps how far infrastructure can project.
 
-**7. Mining Outpost generate-then-reveal (§7.5.2).** Placing new ore in
+**7. Mining Site ore manifestation after Construct capitalization (§7.5).** Placing new ore in
 "eligible surrounding geology" needs a volume scan plus a rule that never
 overwrites player construction — provenance again.
 

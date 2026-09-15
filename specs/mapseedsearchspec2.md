@@ -1,3 +1,5 @@
+> **Worksite terminology reconciled 15 September 2026:** Exactly Mining Site and Industrial Factory; placement supplies surplus dormant candidates, never permanent phase/tier packages. The current lifecycle and gates are owned by [objectives.md](../objectives.md#11-worksites). Other dated map-spec assumptions retain their existing authority.
+
 # Default Map Fitting — Task A Specification
 
 Status: Working implementation specification  
@@ -528,7 +530,7 @@ Task A must not assign:
 - rewards;
 - resource packages;
 - Worksites;
-- Mining Outposts;
+- Mining Sites;
 - production sites;
 - authored villages;
 - other gameplay content.
@@ -834,9 +836,9 @@ Task A does **not** fit, author or implement:
 
 - final objectives;
 - defensive objective structures;
-- Mining Outposts;
-- production Worksites;
-- other final Worksites;
+- Mining Sites;
+- Industrial Factories;
+- dormant candidates of those two Worksite types;
 - final POIs;
 - resource portfolios;
 - ore guarantees;

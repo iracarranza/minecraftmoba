@@ -48,7 +48,7 @@ Important categories include:
 
 1. **Team Structures** — persistent enemy structures that create Minecraft-native siege problems.
 2. **Major Encounters** — high-stakes neutral combat opportunities.
-3. **Worksites** — exceptional resource opportunities that players develop, contest, exploit, and eventually deplete.
+3. **Worksites** — latent productive opportunities that players capitalize, contest and exploit; Mining Sites deplete while Industrial Factories depend on throughput, inputs and access.
 4. **World Locations** — strategically important Minecraft places whose value may derive from resources, geography, infrastructure, inhabitants, or other interactions.
 5. **Possible player-established Key Locations** — infrastructure or developed places that may eventually receive systemic recognition.
 
@@ -388,294 +388,69 @@ Movement speed can affect not only traversal but also who reaches discovery rewa
 
 # 11. Worksites
 
-Worksites are Key Locations offering:
+**Established, reconciled 15 September 2026.** There are exactly two Worksite types: **Mining Site** and **Industrial Factory**. Worksites are latent productive opportunities, not free sunset resource drops or mandatory permission to participate in a resource tier. Their value comes from scarcity, concentration, timing, resource composition and phase-appropriate productive capability.
 
-> exceptional resource opportunities
+## Sunset selection and phase assignment
 
-rather than simply "rare materials."
+The world contains a **surplus pool of dormant Mining Sites and Industrial Factories**: more locations than regular match activation guarantees to use. At sunsets **6m, 18m, 30m and 42m**, some eligible dormant Worksites are selected and **Activated**, receiving that phase's opportunity package. No particular site is guaranteed to activate. Any dormant Worksite can potentially receive any phase/tier package appropriate to its type until selected; tier/resource packages belong to the activation phase, not permanently to the location. Scouting and preparing a site therefore do not guarantee its future tier or activation.
 
-Their value may derive from:
+| Sunset | Phase-economic verb | Industrial Factory workstation package |
+| --- | --- | --- |
+| 6m | Establish | Blast Furnace + Smoker |
+| 18m | Specialize | **TBD / OPEN** |
+| 30m | Capitalize | Enchanting Table |
+| 42m | Resolve | Smithing Table |
 
-- scarcity;
-- concentration;
-- timing;
-- local scarcity;
-- unusual combinations;
-- phase-specific opportunity.
+Mining resource compositions and quantities require separate phase balancing; existing quantitative sensitivity fixtures remain non-canon. The phase verb **Capitalize (30m)** does not restrict the capitalization lifecycle step to that sunset.
 
-## Progression and capability — Working
+The existing Working nighttime availability direction remains: selected sites open at sunset and close at sunrise. Closure does not erase exposed physical ore or revoke earned Infrastructure Slots. Exact closure effects on unfinished capitalization and Factory operation, reuse/exhaustion, selection algorithm, geographic fairness, eligibility constraints, active counts and special mob pressure remain **OPEN**. Eligibility must not silently assign a permanent tier to a dormant location. Availability and intensity are separate tuning axes.
 
-Worksites are **finite exceptional opportunities that test archetype capability through Minecraft-native activity**. They span and act as gateways across early-mid through late-mid progression, potentially extending into the beginning of lategame, but not endgame. Their requirements must not assume endgame technology. Later opportunities can demand greater capability while retaining ordinary Minecraft participation and meaningful specialist advantage.
+## Shared lifecycle
 
-The Mining Outpost tests Extraction, supported by Construction that establishes its apparatus. The Industrial Enchanter tests Production, supported by Logistics that realizes a finite delivery opportunity. These are working examples, not a requirement to provide one Worksite for every archetype.
+**Dormant -> Activated -> Capitalized -> Exploited**
 
-## Nighttime activation — Working, 12 September 2026
+- **Dormant:** a latent site of one of the two types; its eventual phase/tier is unresolved.
+- **Activated:** the sunset/world event selects the site and assigns its package. This is distinct from player work.
+- **Capitalized:** qualifying player work unlocks productive payoff under the type-specific gate.
+- **Exploited:** players perform Extraction or Production to realize value. This can be partial; it does not assert depletion of a Factory.
 
-**Worksites open only at sunset.** At sunset a limited number of Worksites activate; at sunrise the active Worksites close. The number of simultaneously active Worksites depends on match phase, and which eligible Worksites activate is chosen randomly from the eligible pool.
+Exploration discovers and reaches both types; Combat can secure, contest or deny them. Neither receives its own Worksite type. Construction/Extraction and Logistics/Production are activity relationships, not four archetype-specific Worksite categories.
 
-This exists to create positive nighttime opportunity rather than a global nighttime stat modifier: scarcity, unpredictable but legible convergence, and a reason not to script the same route every night.
+# 12. First Capture and Infrastructure Slots
 
-Selection should be constrained by eligibility rather than uniformly random. [OPEN] Candidate eligibility inputs include match phase, Worksite type, prior use or exhaustion, geographic fairness, distance, map distribution, accessibility, and whether the chosen sites cluster near one team. None of this is settled.
+**Established, reconciled 15 September 2026.** At **Lv6**, each team member gains **1 Infrastructure Slot**, offering the ability to create/support one eligible Infrastructure. Eligible infrastructure includes **Construct, Route, Supply Line, Development Zone**, and the **Working Mob Slayer** concept using otherwise unused/relevant weapon enchantment specializations such as Bane of Arthropods and Smite. Mob Slayer's exact effects, recognition, eligibility and enchantment rules remain **OPEN**. The four developed recognition grammars below do not exhaust future eligible infrastructure.
 
-Availability and intensity are two independent tuning axes. More active Worksites does **not** automatically produce more contestation — too many simultaneous sites simply let teams split peacefully. A broad candidate pattern is few moderate-value opportunities early, several fronts at mid, and potentially fewer but much more consequential opportunities late. [OPEN] Exact counts per phase, the selection algorithm, phase eligibility, and whether late-game Worksites become more numerous or fewer and more consequential are all unresolved. [OPEN] Whether Worksites themselves receive special mob pressure at night is unresolved.
+Normal character/class progression increases player Infrastructure Slots; exact later level slot cadence remains **OPEN**. Authored class eligibility and role-expression branches still apply and do not establish a universal numerical slot schedule. Separately, the **first team to capitalize each activated Worksite earns +1 team Infrastructure Slot**. Player progression-granted capacity and team-earned Worksite capacity are distinct. Allocation, assignment, sharing, reassignment and interaction of team slots with player capacity remain **OPEN**.
 
-## Desired lifecycle
+**First Capture != Exclusive Control.** The first qualifying Construct at an activated Mining Site or the first qualifying Logistics supply/enabling work at an activated Industrial Factory earns that site's one-time team slot. Subsequent enemy use or loss of practical control does not revoke or transfer the earned slot. Capture does not award a flat XP payout for the slot.
 
-Dormant opportunity  
-→ developed opportunity  
-→ contested resource site  
-→ depleted opportunity
+The Mining Site capture trigger is the first team establishing its qualifying Construct; the Industrial Factory trigger is the first team satisfying its qualifying Logistics supply/power/enabling requirement. Merely arriving, sunset activation, finding a workstation, or beginning work is not capture. Every activated Worksite offers this reward once, to its first capitalizing team.
 
-A Worksite should become valuable because players materially develop and exploit it.
+# 13. Mining Site
 
-Players should not receive its full value merely by:
+**Construction capitalization -> Extraction opportunity.** Activation communicates the prospective resource composition/opportunity but **does not expose the special ores**. The exact communication UI/mechanism remains **OPEN**.
 
-- camping nearby;
-- mining randomly;
-- enclosing it with trivial walls;
-- submitting an arbitrary construction.
+A team must establish a **Construct-compliant building at the site**, using the ordinary Construct recognition contract in [infrastructure.md](infrastructure.md#constructs). Player-designated Construction Blocks, the minimum recognized threshold, bounded recognition region and maximum recognizable block count governed by infrastructure investment apply; exact unsettled parameters are not invented here. This capitalization exposes the ore manifestation and makes Extraction possible. A generic shelter or arbitrary submitted build is insufficient unless it meets the Construct contract. No separate Core, multiblock or prospecting system is required.
 
-Development should materially change access to the opportunity.
+The exposed opportunity is physical resource geography: players approach, excavate, collect, transport and use it. Exposure does not automatically clear terrain or dispense finished resources. Opponents can also contest and extract once exposed; the first capture slot is retained by the first team. Exposed ore remains physical world state after later disruption. Mining Sites are **finite-opportunity/depletion oriented**: intact -> partially extracted -> depleted. No infinite repeated generation or automatic renewal is established. Exact manifestation placement, finite resource budgets and later disruption handling beyond exposed-ore persistence remain **OPEN**.
 
-Ownership should not be absolute.
+# 14. Mining Site and Extraction Specialists
 
-Enemy players may:
-- attack;
-- contest;
-- enter;
-- exploit;
-- interfere with
+Generic players can exploit exposed ore. Extraction specialists should retain advantages in interpreting geography, selecting approaches, searching, tunneling and efficient extraction. Revealing the prospective composition must not solve the whole excavation task or invent ore-sensing capabilities for a class.
 
-a developed Worksite.
+Preserve **WP_X = A(O) + qH**, with **H measured in normalized Harvest Units**. Fortune increases realized qualifying harvest and therefore Extraction progression naturally; it does not multiply physical geology or create a separate flat reward. UAU, Work Stock and Practical Reach retain their current meanings and authority. Exact XP yields and quantitative sensitivity figures are not canonized by this Worksite revision.
 
----
+# 14A. Industrial Factory
 
-# 12. Worksite Apparatus
+**Logistics capitalization -> Production opportunity.** Sunset activation physically exposes the assigned special workstation(s), but they remain unusable/inaccessible **for productive use** until sufficient qualifying Logistics work supplies, powers or otherwise enables them. Use the phase table in section 11; **18m is TBD / OPEN**, and Enchanting Table belongs to 30m.
 
-The current Construction-established apparatus model, developed for the Mining Outpost, separates three layers. It is not a universal prerequisite for every Worksite; the Industrial Enchanter uses the Logistics gate described in section 14A.
+The first team to satisfy that Logistics requirement captures the site and earns its +1 team Infrastructure Slot. Opponents may later establish sufficient qualifying Logistics and use the workstations too. First capture does not confer exclusive access. A recognized Supply Line can support qualifying work, but is not itself a mandatory designation check; actual Logistics must satisfy the requirement.
 
-## Core
+Factories are **throughput/input/access oriented**. Logistics enables the special productive capability; Production transforms supplied inputs into useful outputs. Activation alone does not grant usable production or finished goods. Exact supply/power thresholds, ongoing requirements, input/output rules, operating windows and workstation-specific parameters remain **OPEN**. Earlier Silo, Barrier-cargo, finite fuel-bank and enchanting-only contracts are superseded, not default Factory requirements.
 
-A phase-expensive crafted object or block.
+## Economic acceleration
 
-Most of the economic gating should probably reside here.
-
-## Functional multiblock
-
-A recognizable required topology surrounding or incorporating the Core.
-
-This establishes functional infrastructure without requiring a giant rigid blueprint.
-
-## Facility
-
-The flexible player-authored environment surrounding the functional apparatus.
-
-This may include:
-
-- storage;
-- shelter;
-- defenses;
-- access;
-- roads;
-- Routes;
-- logistics.
-
-The preferred principle is:
-
-> recognizable functional topology + terrain adaptation
-
-rather than:
-
-> reproduce a giant predetermined schematic.
-
-For the Mining Outpost, if the functional multiblock is invalidated:
-
-- ongoing activation, prospecting, or generation of new Worksite opportunities should pause;
-- opportunities already generated by successful Worksite operation should remain physically present;
-- already revealed information about those opportunities should remain revealed.
-
-A Worksite's exceptional opportunity does not necessarily need to exist in exploitable form before the Worksite is developed.
-
-Where appropriate, successful Worksite operation may cause a new physical opportunity to be generated in the world.
-
-The important constraint is:
-
-> A Worksite creates access to an exceptional Minecraft-native opportunity rather than directly dispensing its finished reward.
-
-The exact form of this generation is Worksite-specific.
-
-Where possible, prefer economic/material gating over arbitrary level locks.
-
----
-
-# 13. Mining Outpost
-
-The Mining Outpost is the current most-developed Worksite example: an **Extraction challenge generator**, not simply a resource generator.
-
-Its intended flow is:
-
-discover  
-→ invest  
-→ construct/progress apparatus  
-→ prospect/generate/reveal\
-→ excavate  
-→ extract  
-→ transport/use
-
-## Apparatus role
-
-The Mining Outpost apparatus:
-
-> prospects, generates, and reveals an exceptional extraction opportunity.
-
-Players:
-
-> excavate and extract it.
-
-The Mining Outpost site represents a **latent resource opportunity**.
-
-Its exceptional resource deposit does **not** physically exist underground before successful operation of the Worksite apparatus.
-
-Successful prospecting causes phase-appropriate resource geography to be generated within the Worksite's eligible surrounding geology. The apparatus then provides players with information sufficient to locate and pursue that opportunity.
-
-This distinction is deliberate.
-
-If the exceptional deposit existed physically before Worksite activation, players could accidentally or deliberately discover and extract the future Worksite reward through ordinary pre-mining. That would allow the Mining Outpost's development requirements to be bypassed.
-
-The Worksite therefore gates the **creation of the exceptional opportunity**, not permission to mine blocks that were already present.
-
-Once generated, however, the opportunity becomes ordinary physical Minecraft world state.
-
-The valuable resources:
-
-- exist as physical blocks in the world;
-- occupy actual resource geography;
-- must be reached through the surrounding terrain;
-- must be physically excavated;
-- must be collected;
-- must be transported and used normally.
-
-The apparatus should not become:
-
-- an ore dispenser;
-- a Diamond chest;
-- automatic block clearing;
-- an automatic mining system;
-- a substitute for actual excavation and extraction.
-
-Its reward category remains:
-
-> phase-appropriate exceptional extraction opportunities.
-
-These opportunities may derive their value from:
-
-- scarcity;
-- concentration;
-- timing;
-- local scarcity;
-- unusual resource combinations.
-
-The key distinction is:
-
-> The latent opportunity exists before activation; the ore itself does not. Successful apparatus operation generates new physical resource geography, then reveals it.
-
-Its challenge has intrinsic completedness:
-
-> **Generated ore geography: intact → partially excavated/extracted → depleted.**
-
-Physical excavation and depletion express progress without an arbitrary completion bar. Generated ores are normal Minecraft blocks and persist if the apparatus is later disrupted; disruption stops further prospecting/generation, not extraction of an existing deposit.
-
----
-
-# 14. Mining Outpost and Extraction Specialists
-
-A generic player must be able to exploit a Mining Outpost.
-
-An Extraction specialist should nevertheless substantially outperform a generic player in areas such as:
-
-- search;
-- excavation;
-- route selection;
-- extraction efficiency.
-
-The Worksite should therefore expose an opportunity without completely solving the extraction problem.
-
-For example, successful Mining Outpost prospecting may generate and reveal valuable geology while leaving the actual:
-
-- interpretation of the revealed opportunity;
-- approach;
-- excavation;
-- tunnel creation;
-- resource collection;
-- transport
-
-to players.
-
-The apparatus creates the exceptional opportunity and makes it discoverable.
-
-It does not perform the Extraction player's work.
-
-A generic player must still be capable of exploiting the generated deposit, while an Extraction specialist can substantially outperform that player in finding the best approach, reaching the deposit, excavating it efficiently, extracting its resources, and moving the resulting material into the wider economy.
-
----
-
-# 14A. Industrial Enchanter — Working Production Worksite
-
-## Central apparatus and child Silos
-
-The current direction is a central **Industrial Enchanter**, positioned relative to child **Lapis Silos** at increasingly difficult logistical distances. The opportunities roughly represent three interphase gamestates across early-mid through late-mid progression, potentially reaching the start of lategame. This is a capability progression, not a finalized count of three Silos or a prescribed technology ladder. Names and whether internal fuel remains lapis-themed are open.
-
-Logistics is the supporting challenge for Production here, as Construction supports Extraction at the Mining Outpost. The Industrial Enchanter must remain fully completable without recognized **Supply Line** infrastructure. It must never require a Supply Line designation, node, multiplier, or recognition check. Ordinary transport infrastructure and class capabilities can help on their own merits.
-
-## Deliberate activation and finite flow
-
-A Silo requires deliberate activation so a player does not accidentally spend an infeasible opportunity merely by passing through its loading zone. Activation announces the activating team, Silo, and remaining timer; the exact activation UI and announcement presentation remain open.
-
-During a finite active window, the Silo gradually outputs transport cargo into suitable available carrying capacity or world-item transport. It does not present the entire payout as an immediate pickup. Players choose how much to wait for, batch, load, and move before the transfer window closes.
-
-Difficulty scales through logistical distance and route difficulty, output schedule, and transfer window. Ordinary running should be viable early and increasingly inefficient later. Mature Logistics solutions should capture much more of the available value without hard technology or class locks. Greater logistical difficulty offers greater potential payout; exact amounts are prototype parameters, not settled balance.
-
-The challenge measures **item-flow performance**, not raw movement speed. Relevant capabilities and costs include:
-
-- batching, loading time, waiting, and available carrying capacity;
-- outward travel, return trips, hunger, danger, and human error;
-- automation, parallel carriers, and continuity of flow while players do other work;
-- routing, handoffs, transfer bottlenecks, and distribution into the Enchanter intake.
-
-A fast runner can help, but speed alone does not solve these combined constraints. Success is expressed by actual cargo delivery; there is no hidden throughput-tier evaluation or prescribed chest-boat → rail → Ender technology sequence.
-
-## Proportional banking, then Production
-
-The preferred outcome is proportional success: successfully delivered cargo banks proportional **inaccessible Worksite fuel/energy**. Partial delivery retains proportional value rather than requiring all-or-nothing completion. Undelivered cargo does not count as banked fuel; its final handling remains open.
-
-After the Logistics transfer phase, banked fuel determines a finite Industrial Enchanter Production opportunity. Production then tests preparation and throughput: players bring prepared enchantable goods and convert them into useful enchanted output within that opportunity. The Worksite provides access to exceptional production, rather than dispensing finished enchanted rewards automatically.
-
-The exact relationship between fuel and operating duration or processing capacity remains open. Exact enchanting rules, vanilla XP requirements, RNG, bookshelves, eligible items, and the treatment of already enchanted goods are also open. A complicated crafting-order challenge is not the current preferred direction.
-
-## Cargo representation — Prototype/test
-
-Worksite fuel must remain economically inaccessible. Ordinary free lapis, coal, kelp blocks, blaze rods, or other usable resources are not the preferred cargo: they create unintended resource payouts and potential collisions with future resource-focused classes. Resource acquisition is the Mining Outpost's purpose; here the transported material is instrumental to the Production opportunity.
-
-The current prototype is the existing vanilla technical **Barrier** item, renamed and remodeled through the resource pack, with the working concept **“Encumbered with Fuel.”** It has no ordinary Survival economy, is stackable, and is not normally placeable in Java Survival. It transiently represents inaccessible Worksite fuel/cargo rather than introducing a new economic resource. This narrow reuse of a technical item does not establish a precedent for proliferating bespoke MOBA items. Its final presentation and implementation still require testing.
-
-Cargo should be transport-method agnostic where feasible: player inventories, vehicles and class carriers, dropped-item transport, water, hoppers, minecarts, and other compatible Minecraft item-transfer methods. Stack quantities can represent cargo quantities; the concept does not prescribe one fuel unit per inventory slot or require an inventory-lock mechanic.
-
-## Deliberate asymmetry
-
-Construction gates the Mining Outpost through **creation of previously nonexistent geology**. Once created, that physical Extraction opportunity persists independently of later apparatus disruption.
-
-Logistics gates the Industrial Enchanter through **realizability of increasingly difficult timed item flow**. Actual delivery banks the fuel that makes a finite Production opportunity usable. These gates intentionally differ; do not replace either with a shared arbitrary capability check.
-
-## Open details
-
-- Exact Silo count, layout, distances, timers, output rates, transfer window, and grace period.
-- Activation UI and precise loading/intake interactions.
-- Barrier presentation, tagging/identification, cleanup, death, enemy interception, cross-team behavior, portals, and buffering/storage behavior.
-- Exact banked-fuel conversion into Production duration/capacity and handling of unused fuel.
-- Enchanting rules, XP, RNG, bookshelves, and eligible inputs/outputs.
-- Final names and whether internal fuel remains lapis-themed.
-
-Enchanting identity is reserved for this Production Worksite. An Enchanting Table should not be a Construction apparatus candidate; sharing that identity would collide with the Industrial Enchanter's role.
+Evaluate capitalization work, exploitation work, downstream **Work Stock**, and persistent acceleration from the earned **+1 Infrastructure Slot** together. Productive structures, material, transport, knowledge and networks can expand **Practical Reach** and future useful work. The slot is persistent capacity, not a flat XP payout. Worksites remain optional accelerators within an ordinary viable economy; teams can capitalize and exploit, defer, partially exploit, contest or concede them. UAU-based valuation must account for legitimate work without turning sensitivity estimates into canonical reward schedules.
 
 ---
 
@@ -823,7 +598,7 @@ Avoid flat "+X% XP for PvP at night," arbitrary nighttime kill multipliers, and 
 
 At sunset two systems change and they should remain distinct. **Worksites** are discrete, scarce, temporarily active, known strategic destinations. **Regenerative hostile sources** are distributed living-world opportunities whose composition changes with time of day and which depend on location and biome.
 
-The intent is multiple competing nighttime opportunities rather than one mandatory objective-spawn phase. A Forge activating in the east while a deep mountain Swarm becomes a high-value Stray encounter in the west should force a team to choose between contesting the Worksite, securing the Swarm, splitting, defending infrastructure, ambushing another team, or ignoring both.
+The intent is multiple competing nighttime opportunities rather than one mandatory objective-spawn phase. An Industrial Factory activating in the east while a deep mountain Swarm becomes a high-value Stray encounter in the west should force a team to choose between contesting the Worksite, securing the Swarm, splitting, defending infrastructure, ambushing another team, or ignoring both.
 
 ---
 
@@ -857,17 +632,7 @@ This interacts strongly with infrastructure. Deep opportunities are already far 
 
 # 17C. Archetype and World-System Mapping
 
-**Working direction, 12 September 2026.** The broad mapping between archetypes and world systems is Construction with Extraction to the Mining Outpost; Logistics with Production to an industrial Worksite; Development with Combat to Regenerative Sources; and Exploration to every POI.
-
-This is a mapping of which archetypal verbs each world system most strongly expresses. It is **not** ownership or exclusivity.
-
-**Construction and Extraction — Mining Outpost.** The Mining Outpost represents exceptional physical resource opportunity. Extraction acquires exceptional resources; Construction interacts with, activates, stabilizes and establishes the useful physical site. Activating its machinery should create or reveal a genuine new exceptional deposit or extraction opportunity rather than pointing at ore that already existed and could have been mined accidentally. It remains a Worksite, not Extraction infrastructure.
-
-**Logistics and Production — Forge / Industrial Worksite.** A Production counterpart to the Mining Outpost is wanted: where the Mining Outpost is an exceptional Extraction opportunity, this is an exceptional Production and transformation opportunity. Logistics fits because significant inputs must be supplied, outputs must be distributed, and throughput and transport matter; Production fits because inputs are transformed into unusually valuable outputs. [OPEN] The name is unresolved. "Forge" is attractive but may read as overly metal-specific, which may be acceptable if the Worksite is slightly abstract in edge cases for Production classes working in wood, glass or food. [OPEN] Exact industrial mechanics are unresolved. See also the Industrial Enchanter in section 14A, which is a Working Production Worksite and is not automatically this system.
-
-**Development and Combat — Regenerative Sources.** Development and Combat share the regenerative-resource world system and have parallel but opposite relationships with recurring living systems: Development gains increasing value from nurturing and harvesting renewable living-world opportunities, Combat from overcoming renewable hostile-world opportunities.
-
-**Exploration — every POI.** Exploration is intentionally cross-cutting and its value is not limited to one dedicated POI type. Every meaningful POI creates Exploration value through discovery, navigation, information, route planning, access, first arrival, connection, and knowledge of spatial opportunity. Exploration therefore does not need an exclusive paired Worksite to remain economically legible.
+**Established, reconciled 15 September 2026.** Mining Site = Construction capitalization -> Extraction opportunity. Industrial Factory = Logistics capitalization -> Production opportunity. These are exactly two Worksite types. Development and Combat have nurturing/overcoming relationships with Regenerative Sources; Exploration discovers, accesses and connects all meaningful POIs. Combat secures value under threat and can deny either Worksite. These relationships do not assign exclusive ownership or create additional Worksite categories.
 
 ## Broader archetype economy
 
@@ -1003,7 +768,7 @@ Where practical, objective value should exist in the world.
 Examples:
 
 - Bastion gold is physical gold;
-- Mining Outpost opportunities are physical geology;
+- Mining Site opportunities are physical geology;
 - terrain modification persists;
 - constructed facilities remain;
 - extracted resources must be transported.
@@ -1041,9 +806,7 @@ The match should support concurrent:
 
 # 20. Relationship to Infrastructure
 
-**Working canon update, 10 September 2026:** Shared recognition, persistence, physical counterplay, and connection eligibility are governed by [infrastructure.md](infrastructure.md). Objective-specific mechanics remain here. Operational Area defines legal connections for integration; it is not a general buff radius. Industrial Enchanter completion does not require a recognized Supply Line.
-
-# 20. Relationship to Infrastructure
+**Working canon update, 10 September 2026:** Shared recognition, persistence, physical counterplay, and connection eligibility are governed by [infrastructure.md](infrastructure.md). Objective-specific mechanics remain here. Operational Area defines legal connections for integration; it is not a general buff radius. Industrial Factory completion does not require a recognized Supply Line.
 
 Objectives and infrastructure can overlap spatially and strategically without becoming the same system.
 
@@ -1238,16 +1001,7 @@ Open:
 
 ## Worksites
 
-Open:
-- Core recipes/cost;
-- apparatus topology;
-- activation;
-- prospecting;
-- depletion;
-- enemy interaction;
-- resource generation/revelation;
-- Worksite XP;
-- Industrial Enchanter/Silo parameters, cargo behavior, and enchanting rules listed in section 14A.
+Open: phase selection counts/eligibility and fairness; exact Mining resource packages, manifestation placement and communication mechanism; Factory supply/power thresholds and operating/input rules; **18m Factory workstation**; team-slot allocation; exact legitimate-work XP values. First-capture triggers and the +1 team slot are established, not open.
 
 ## Supply Chain
 
@@ -1280,7 +1034,7 @@ Do not reintroduce the following as current rules without new discussion:
 - Defender elimination necessarily granting medium XP.
 - Objective-specific interaction necessarily granting the most XP.
 - Specialized objective interaction being globally more valuable in XP than combat/destruction.
-- Mining Outpost being completed simply by submitting a defensible Construction project.
+- Treating a merely defensible building as sufficient without Construct compliance, or treating capitalization as completed Extraction.
 - Mining Outpost directly dispensing rare ores.
 - Mining Outpost functioning as a Diamond chest.
 - Mining Outpost automatically clearing/excavating valuable material.
@@ -1289,10 +1043,10 @@ Do not reintroduce the following as current rules without new discussion:
 - Worksites requiring arbitrary level locks when economic/material gating can perform the same function.
 - One objective being required for every archetype.
 - Player-supplied lapis as the Industrial Enchanter's preferred gate, or ordinary free resource cargo as its preferred transport model.
-- A generic powered-production Forge or complicated crafting-order challenge as the preferred Production Worksite.
+- The earlier rejection of Logistics-powered Factory production is superseded by section 14A; no complicated crafting-order challenge is mandated.
 - Industrial Enchanter dependence on recognized Supply Lines.
 - Logistics tiers defined by a prescribed chest-boat → rail → Ender technology ladder, or by hidden throughput-tier evaluation.
-- Enchanting Table as a Construction apparatus candidate; enchanting identity belongs to the Production Worksite.
+- Apparatus as a live system, including Core/functional-multiblock prerequisites. Enchanting Table is the 30m Industrial Factory workstation.
 
 ---
 
@@ -1302,7 +1056,7 @@ Do not reintroduce the following as current rules without new discussion:
 
 > **Major Encounters create high-stakes combat contests that can influence larger strategic objectives.**
 
-> **Worksites create finite exceptional opportunities developed, contested, and exploited through Minecraft-native capability: Construction supports Extraction at Mining Outposts; Logistics supports Production at Industrial Enchanters.**
+> **Worksites are latent productive opportunities: Mining Sites require Construction capitalization before Extraction; Industrial Factories require Logistics capitalization before Production. Every first capture earns +1 team Infrastructure Slot without exclusive control.**
 
 > **World Locations provide strategically valuable Minecraft geography without every important place needing to become a formal objective.**
 

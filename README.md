@@ -14,13 +14,13 @@ domains:
 - [Maps](maps.md)
 - [Infrastructure](infrastructure.md)
 
-The [design manuscript](docs/manuscript/Minecraft-MOBA-Design.md) and its editable Word companion synthesize these sources. The [10 September infrastructure reconciliation](docs/reconciliation/2026-09-10-infrastructure.md) records the latest shared infrastructure update.
+The [design manuscript](docs/manuscript/Minecraft-MOBA-Design.md)  synthesize these sources. The [15 September Worksite and Infrastructure reconciliation](docs/reconciliation/2026-09-15-worksites-infrastructure.md) records the latest rules. The older Word export is archived under `docs/history/` as superseded.
 
 [chathandoff.txt](chathandoff.txt) is a September 8, 2026 handoff snapshot.
 It is useful context and preserves material not yet incorporated into a
 canonical document, but it does not silently override the canonical documents.
 
-The browser wiki under `minecraft_moba_design_wiki/` is a local, generated-style
+The root `minecraft_moba_design_wiki.zip` is also historical/superseded. The browser wiki under `minecraft_moba_design_wiki/` is a local, generated-style
 design workspace. It is not authoritative and currently contains stale,
 superseded material; see the reconciliation report before using it as a source.
 

@@ -1777,3 +1777,9 @@ Map archetypes should foreground different Minecraft traversal/building
 techniques without arbitrary class modifiers such as:
 
 "+20% Mole power on cave map."
+
+## Worksite placement and phase assignment
+
+**Established, 15 September 2026.** Author a surplus dormant pool of exactly two Worksite types: **Mining Sites** and **Industrial Factories**. At sunsets 6m/18m/30m/42m some eligible dormant sites activate and receive that phase's package; no individual site is guaranteed to activate. Any dormant site can receive any phase/tier appropriate to its type until selection. Geography identifies candidate locations, not fixed resource tiers. Exact pool counts, selection/fairness rules and Mining resource quantities remain OPEN.
+
+Mining activation communicates prospective resources without exposing special ore; a Construct-compliant building exposes the ore manifestation. Factory activation physically exposes workstations, with productive use gated by sufficient qualifying Logistics. First capitalization of every activated site earns +1 team Infrastructure Slot without exclusive control. See [objectives.md](objectives.md#11-worksites) for the complete lifecycle, packages and capture contract.

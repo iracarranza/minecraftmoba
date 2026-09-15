@@ -1,3 +1,5 @@
+> **Historical Worksite vocabulary:** Silo references in this dated worldgen record are superseded by the two-type Mining Site / Industrial Factory model in `objectives.md`; no Silo system is a current requirement.
+
 # Opportunity Relationship diagnostics — Working / shadow
 
 Authority: [spec 4](../../../specs/mapseedsearchspec4.md). This is a diagnostic

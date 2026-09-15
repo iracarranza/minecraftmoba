@@ -39,14 +39,14 @@ Working pickaxe sensitivity Wood 16 / Stone 36 / Copper 60 / Iron 96 remains **n
 ## 5. Copper correction and calibration
 Copper ore drops 2–5 raw Copper, average ~3.5 before Fortune/Yield. Earlier near-1:1 Copper calculations are superseded. Useful expected-material sensitivity: F0 ~3.5 raw/ore; Yield I ~4.67; Yield II ~6.125; Yield III ~7.7.
 
-Current **non-canon calibration fixture**: ordinary economically relevant Copper opportunity per team ~45–55 physical ore; early Copper Mining Worksite ~8–12 ore. These are opportunity-calibration values, not worldgen quotas.
+Current **non-canon calibration fixture**: ordinary economically relevant Copper opportunity per team ~45–55 physical ore; early Copper Mining Site ~8–12 ore. These are opportunity-calibration values, not worldgen quotas.
 
 Because Copper is Primary, Kitfighter Salvage can lower net Copper expenditure. Universal armor+sword saturation remains 182 gross. Seven armor sets create 28 qualifying armor crafts under the current >=3-Primary-Material trigger; at the Lv8 five-stack threshold, centralizing those crafts through Kitfighter can return about 10 Copper. Production reduces net expenditure without redefining the physical equipment threshold.
 
 ## 6. Iron calibration
-Current **non-canon calibration fixture**: ordinary economically relevant Iron opportunity per team ~130–140 physical ore; Iron Mining Worksite ~40–50 ore, central ~45.
+Current **non-canon calibration fixture**: ordinary economically relevant Iron opportunity per team ~130–140 physical ore; Iron Mining Site ~40–50 ore, central ~45.
 
-Intended relationship: ordinary balanced development reaches broad/majority Iron; universal Iron normally indicates exceptional opportunity, economic specialization, or sufficiently mature late play; a Mining Worksite can push a balanced team across a finite ordinary-world material ceiling; strong Yield can partially substitute for Worksite inflation by amplifying the same geology.
+Intended relationship: ordinary balanced development reaches broad/majority Iron; universal Iron normally indicates exceptional opportunity, economic specialization, or sufficiently mature late play; a Mining Site can push a balanced team across a finite ordinary-world material ceiling; strong Yield can partially substitute for Worksite inflation by amplifying the same geology.
 
 Do not interpret material equal to several full kits as literal complete-kit allocation. Mixed equipment states are rational.
 
@@ -70,7 +70,7 @@ Ancient Debris is not Fortune-amplified. Four Debris are required per Netherite 
 ## 9. Sunset Worksite economy
 Corrected sunset pulses: 6, 18, 30, 42 minutes. A specific Worksite is not guaranteed each sunset; current direction selects a phase-dependent subset from an eligible pool. Availability and intensity are separate tuning axes.
 
-Useful **test vocabulary, not mandatory contents**: 6m Copper/Coal/opening industry; 18m Iron/enchanting transition; 30m Gold/Lapis/Diamond/advanced capability; 42m apex resources/Ancient Debris/Smithing relationships.
+Useful **test vocabulary, not mandatory contents**: 6m Copper/Coal/opening industry; 18m Iron/system-resource opportunity; 30m Gold/Lapis/Diamond/advanced capability; 42m apex resources/Ancient Debris/Smithing relationships.
 
 Worksites are accelerator/inflation sources rather than tier permission. Rational responses include immediate exploitation, delayed exploitation for later Yield, partial exploitation, ignoring the site, and losing it to the enemy.
 
@@ -101,3 +101,6 @@ The next XP pass should reconstruct UAU explicitly from first principles, mark e
 
 ## 13. Superseded assumptions to reject
 Do not reintroduce: Copper excluded from Primary Materials; a functional/free offhand; vanilla-length day/night timing; a 6-minute entire day/night cycle; first sunset near 10m or second near 30m; Copper opportunity based on near-1:1 drops; Efficiency as a physical-resource multiplier; universal 247-Iron mature-kit demand; large routine sword/armor replacement as the main Copper/Iron sink; Worksites as mandatory tier permission; normalized minute-to-level sensitivity as canonical progression timing; or an invented UAU formula attributed to the lost conversation.
+
+
+**15 September clarification:** These resource sensitivity examples describe activation-phase possibilities, not fixed site tiers or canonical quantities. The established Factory progression is 6m Blast Furnace + Smoker; 18m **TBD / OPEN**; 30m Enchanting Table; 42m Smithing Table. Surplus dormant locations receive packages only on selection. Capitalization and exploitation work, downstream Work Stock and the persistent +1 team Infrastructure Slot from first capture all contribute to acceleration; no flat XP value is assigned to the slot. See [objectives.md](../../objectives.md#11-worksites).

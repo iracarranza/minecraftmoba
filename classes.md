@@ -122,7 +122,7 @@ Ordinary Minecraft behavior remains universal. Progression can instead gate **sy
 
 ### Infrastructure progression breakpoints
 
-The current working infrastructure progression begins at Level 6.
+Infrastructure Slot progression begins at Level 6.
 
 **Level 6 — Infrastructure specialization / recognition entry**
 
@@ -130,7 +130,11 @@ Level 6 grants the class's first authored infrastructure specialization or recog
 
 Infrastructure eligibility is authored per class rather than automatically inherited from archetype tags.
 
-The earlier infrastructure model used one recognized infrastructure slot at this initial unlock. One slot remains the current working starting capacity rather than a finalized balance value.
+**Established, reconciled 15 September 2026.** At **Lv6**, each team member gains **1 Infrastructure Slot**, offering the ability to create/support one eligible Infrastructure. Eligible infrastructure includes **Construct, Route, Supply Line, Development Zone**, and the **Working Mob Slayer** concept using otherwise unused/relevant weapon enchantment specializations such as Bane of Arthropods and Smite. Mob Slayer's exact effects, recognition, eligibility and enchantment rules remain **OPEN**. The four developed recognition grammars below do not exhaust future eligible infrastructure.
+
+Normal character/class progression increases player Infrastructure Slots; exact later level slot cadence remains **OPEN**. Authored class eligibility and role-expression branches still apply and do not establish a universal numerical slot schedule. Separately, the **first team to capitalize each activated Worksite earns +1 team Infrastructure Slot**. Player progression-granted capacity and team-earned Worksite capacity are distinct. Allocation, assignment, sharing, reassignment and interaction of team slots with player capacity remain **OPEN**.
+
+**First Capture != Exclusive Control.** The first qualifying Construct at an activated Mining Site or the first qualifying Logistics supply/enabling work at an activated Industrial Factory earns that site's one-time team slot. Subsequent enemy use or loss of practical control does not revoke or transfer the earned slot. Capture does not award a flat XP payout for the slot.
 
 **Level 12 — Infrastructure role expression**
 
@@ -1024,11 +1028,11 @@ The world should contain enough physical geological variation for Mole's extract
 
 ## Worksite interaction
 
-Mining Worksites should follow the principle:
+Mining Sites should follow the principle:
 
-> The apparatus prospects/reveals. Players excavate.
+> Sunset activation communicates prospective resources without exposing ores. A Construct-compliant building capitalizes the Mining Site and exposes its ore manifestation. Players excavate and extract; first capture earns +1 team Infrastructure Slot without exclusive control.
 
-Generic players must remain capable of exploiting a Mining Worksite.
+Generic players must remain capable of exploiting a Mining Site.
 
 Mole should substantially outperform generic players through:
 - search;
@@ -1617,14 +1621,14 @@ Diamond remains:
 Permanent Diamond equipment should represent substantial strategic investment.
 
 Diamond can compete with other uses such as:
-- Worksite cores;
+- Worksite capitalization;
 - infrastructure;
 - tools;
 - other strategic crafting.
 
 Natural Diamond may remain possible but scarce.
 
-Mining Worksites can provide reliable exceptional concentrations.
+Mining Sites can provide reliable exceptional concentrations.
 
 If ordinary matches consistently result in everyone wearing full Diamond, diagnose the resource economy before simply banning Diamond equipment.
 
@@ -2515,3 +2519,8 @@ The **Amber** name is used twice, for the A1 branch and for the ultimate. This i
 Sealed blocks also make Waxer the sixth system depending on **persistent per-position block data**, alongside anti-farming XP, Sinkhole, Construct designation, Structural Integrity and Development Zones. That dependency has no owner; see §0 of the audit.
 
 ---
+
+
+## Extraction work valuation — preserved canon
+
+**WP_X = A(O) + qH**, where A(O) is the resource-opportunity attainment term, H is realized qualifying harvest in **normalized Harvest Units**, and q weights that harvest contribution. Fortune increases realized qualifying harvest and therefore Extraction progression naturally. Do not substitute raw broken-block counts for normalized harvest, or interpret Fortune as creating more physical geology. Exact coefficients and sensitivity numbers remain unfinalized. This rule coexists with current UAU, Work Stock and Practical Reach doctrine; Worksite first-capture slots are persistent capacity, not flat XP rewards.

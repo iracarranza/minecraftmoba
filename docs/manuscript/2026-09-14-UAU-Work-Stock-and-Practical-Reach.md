@@ -75,7 +75,7 @@ Level 6 should be understood as an **authored Recognition Breakpoint inside an o
 
 Before Level 6, players may already build structures and paths, establish farms, move and cache resources, explore distant terrain, prepare Construction Blocks, and organize productive sites. Their limits are principally material and logistical.
 
-At Level 6, selected qualifying prior state can receive first formal infrastructure recognition. Earlier work can therefore become a basis for greater throughput without being retroactively treated as nonexistent before recognition.
+At Level 6, each team member gains one Infrastructure Slot, and selected qualifying prior state can receive first formal infrastructure recognition. Normal class progression grows player slot capacity; first capitalization of each activated Worksite separately grants +1 team Infrastructure Slot. Later slot cadence and team-slot allocation remain OPEN. Earlier work can therefore become a basis for greater throughput without being retroactively treated as nonexistent before recognition.
 
 This creates two overlapping transitions:
 

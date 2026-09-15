@@ -1,3 +1,5 @@
+> **Worksite terminology reconciled 15 September 2026:** Exactly Mining Site and Industrial Factory; placement supplies surplus dormant candidates, never permanent phase/tier packages. The current lifecycle and gates are owned by [objectives.md](../objectives.md#11-worksites). Other dated map-spec assumptions retain their existing authority.
+
 # Default Map Fitting — Post-Task-A Sequence Specification
 
 Status: Working implementation/design sequence
@@ -569,8 +571,8 @@ These are debug markers, not final content.
 Do not yet build:
 
 - final objectives;
-- Mining Outposts;
-- production Worksites;
+- Mining Sites;
+- Industrial Factories;
 - final Key Location gameplay content;
 - Supply Chains;
 - crop systems;
@@ -814,8 +816,8 @@ Task C includes later work on:
 
 - objectives;
 - Key Location gameplay roles;
-- Mining Outposts;
-- production Worksites;
+- Mining Sites;
+- Industrial Factories;
 - resource opportunities;
 - villages;
 - ecology;
@@ -852,8 +854,8 @@ mountain foot
 
 rather than:
 
-need Mining Outpost
-→ place Mining Outpost at arbitrary symmetric coordinate.
+need Mining Site
+→ place Mining Site at arbitrary symmetric coordinate.
 
 
 32. LATER PHYSICAL AUTHORING
