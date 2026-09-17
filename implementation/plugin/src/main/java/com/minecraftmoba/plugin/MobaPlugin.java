@@ -17,14 +17,27 @@ import java.util.*;
 public final class MobaPlugin extends JavaPlugin implements Listener, CommandExecutor {
     private final Map<UUID, PlayerData> players = new HashMap<>();
     private Settings settings;
+    private OffhandMap offhandMap;
     private NamespacedKey dataKey;
     @Override public void onEnable() {
         saveDefaultConfig();
         settings = Settings.load(getConfig());
         dataKey = new NamespacedKey(this, "player_data");
+        offhandMap = new OffhandMap(this);
+        getServer().getPluginManager().registerEvents(offhandMap, this);
+        getServer().getPluginManager().registerEvents(new InventoryGuard(this), this);
         Objects.requireNonNull(getCommand("moba")).setExecutor(this);
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getOnlinePlayers().forEach(this::load);
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            for (Player p : getServer().getOnlinePlayers()) {
+                if (enrolled(p) && !offhandMap.ensure(p)) {
+                    PlayerData d = players.remove(p.getUniqueId());
+                    d.modeState.clear(); save(p, d);
+                    p.sendMessage("MOBA enrollment paused: empty your offhand, then /moba join.");
+                }
+            }
+        }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
     @Override public void onDisable() {
         for (Player p : getServer().getOnlinePlayers()) {
@@ -33,7 +46,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }
         players.clear();
     }
+    public boolean enrolled(Player p) { return players.containsKey(p.getUniqueId()); }
+    public boolean isMap(org.bukkit.inventory.ItemStack item) { return offhandMap.isMap(item); }
+    public int unlockedSlots(Player p) { return capacity(players.get(p.getUniqueId())).unlockedSlots(); }
     private void load(Player p) {
+        if (!offhandMap.ensure(p)) {
+            p.sendMessage("Empty your offhand yourself, then /moba join to enroll. No item was replaced.");
+            return;
+        }
         try {
             byte[] bytes = p.getPersistentDataContainer().get(dataKey, PersistentDataType.BYTE_ARRAY);
             var data = bytes == null ? new PlayerData(p.getUniqueId())
@@ -87,6 +107,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("join") && sender instanceof Player player) {
+            if (!enrolled(player)) load(player);
+            return true;
+        }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
         if (args.length < 2) return false;
         Player p = getServer().getPlayerExact(args[1]);

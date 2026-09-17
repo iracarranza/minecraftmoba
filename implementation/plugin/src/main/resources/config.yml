@@ -16,3 +16,9 @@ abilities:
     a2: RIGHT_CLICK
     ult: DROP
   modeTimeoutTicks: 50
+
+mapStub:
+  text: MOBA
+  textX: 8
+  textY: 60
+  checkTicks: 20

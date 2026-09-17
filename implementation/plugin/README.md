@@ -32,3 +32,20 @@ this source directory. No live acceptance test is claimed by unit-test results.
 
 Step 2 has a separately built [diagnostic probe](probe/README.md). See
 [validation status](../../validation/plugin/phase1-status.md) for evidence and blockers.
+
+## Inventory policy
+
+Slot locking cancels clicks (including creative clicks), drags, number-key swaps,
+offhand swaps, unsafe pickups and automatic inventory transfers. At partial capacity,
+shift insertion into player inventory and double-click collection are conservatively
+cancelled because their destination/source traversal is not exposed by the event.
+Vanilla hoppers cannot feed a player inventory; the move handler also guards custom
+inventory-transfer events. Administrative capacity reduction leaves existing items in
+place in their now-locked slots. Raising capacity restores access without moving them.
+
+User-approved enrollment policy: an occupied offhand containing another item blocks
+enrollment. Empty it yourself and run `/moba join`; the plugin never overwrites it.
+The sole inventory write creates a fresh tagged FILLED_MAP in an empty offhand.
+Offhand map interaction with entities/blocks is blocked, including item frames.
+Enrolled players retain inventory on death through vanilla keep-inventory semantics.
+The map renderer is a one-time placeholder; no minimap is implemented.
