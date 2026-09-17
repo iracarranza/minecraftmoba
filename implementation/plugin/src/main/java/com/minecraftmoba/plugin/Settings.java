@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.HashSet;
 import java.util.Map;
 
-public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity) {
+public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity, RewardCatalog rewards) {
     public static Settings load(FileConfiguration c) {
         positiveInt(c, "abilities.modeTimeoutTicks");
         positiveInt(c, "mapStub.checkTicks");
@@ -40,8 +40,9 @@ public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity)
         var levels = c.getIntegerList("capacity.growthLevels");
         if (levels.stream().anyMatch(l -> l <= 1 || l > max) || new HashSet<>(levels).size() != levels.size())
             throw new IllegalArgumentException("Growth levels must be unique and within 2..maxLevel");
+        var rewards = RewardCatalog.load(c.getConfigurationSection("rewards.levels"),max);
         return new Settings(max, xp, new Capacity.Settings(health, hunger, slots,
-            new HashSet<>(levels), Map.of()));
+            new HashSet<>(levels), rewards.bonuses()), rewards);
     }
     private static void finitePositive(FileConfiguration c,String path) {
         if (!(c.get(path) instanceof Number n) || !Double.isFinite(n.doubleValue()) || n.doubleValue() <= 0)

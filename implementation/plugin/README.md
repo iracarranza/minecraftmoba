@@ -25,13 +25,11 @@ and progression values come from config. Rewards ship empty.
 
 ## Delivery status
 
-Step 1 scaffolding only. No slot locking, map, abilities, provenance, or reward GUI
-is claimed yet. The step-2 vanilla client packet check must pass before further build.
-Generated server worlds, downloaded tools, and raw validation output belong outside
-this source directory. No live acceptance test is claimed by unit-test results.
-
-Step 2 has a separately built [diagnostic probe](probe/README.md). See
-[validation status](../../validation/plugin/phase1-status.md) for evidence and blockers.
+Steps 1–6 are implemented in separate commits. The empty-mainhand drop gate passed
+on Paper 1.21.11 with `inspiralc` (20 observed drop packets, all mainhand AIR).
+The full live acceptance suite remains pending. See
+[validation status](../../validation/plugin/phase1-status.md). Generated server worlds,
+tools, and raw server files remain outside source directories.
 
 ## Inventory policy
 
@@ -86,3 +84,23 @@ exit/death/quit cancels it. Sinkhole removes a configured number of blocks per s
 never drops loot, never loads chunks, skips containers, and rechecks provenance at
 removal time. `/moba debug <player>` includes ability execution counters for live
 single-input verification. These tests still require a real client.
+
+## Rewards framework
+
+Production `rewards.levels` is empty. `/moba rewards` opens the oldest pending
+configured reward level. The GUI uses newly created display icons, cancels every
+inventory click/drag while open, records the opaque choice once, and immediately
+recomputes capacity. A bossbar shows the unspent count; the normal XP bar remains
+the progression display. Level notifications use a brief title.
+
+Pending choices are derived from `(current level, recorded choice levels, config)`;
+closing the menu or relogging cannot lose them. Adding a reward table applies to
+already reached levels; lowering level hides future pending choices and preserves
+history. Admin level/reset commands invalidate an open menu. The production table
+contains no content, variants or specialization decisions.
+
+For a disposable GUI test, merge only `rewards.levels` from
+[test-config/rewards-example.yml](test-config/rewards-example.yml), restart, reset the
+player, then award the configured XP requirement. Choose `fixture_slots` and verify
+three extra slots become usable immediately; reset should restore the configured
+baseline. Restore the empty production rewards table afterward.

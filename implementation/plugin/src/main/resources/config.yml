@@ -9,6 +9,7 @@ capacity:
   growthLevels: [2, 4, 7, 8, 9, 11, 13, 14, 15, 16, 17]
 rewards:
   levels: {}
+  toast: { fadeInTicks: 5, stayTicks: 30, fadeOutTicks: 10 }
 abilities:
   bindings:
     mode: SWAP_HAND

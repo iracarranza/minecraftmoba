@@ -21,6 +21,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Provenance provenance;
     private AbilityInputs inputs;
     private PacketInputs packets;
+    private Rewards rewards;
     private NamespacedKey dataKey;
     @Override public void onEnable() {
         saveDefaultConfig();
@@ -33,6 +34,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(new InventoryGuard(this), this);
         Objects.requireNonNull(getCommand("moba")).setExecutor(this);
         getServer().getPluginManager().registerEvents(this, this);
+        rewards = new Rewards(this, settings.rewards());
+        getServer().getPluginManager().registerEvents(rewards, this);
         inputs = new AbilityInputs(this, provenance);
         packets = new PacketInputs(this, inputs);
         getServer().getPluginManager().registerEvents(inputs, this);
@@ -49,6 +52,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
     @Override public void onDisable() {
+        if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
         if (packets != null) packets.close();
         if (inputs != null) getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true));
         if (provenance != null) provenance.sample();
@@ -86,6 +90,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Capacity.DerivedCapacity capacity(PlayerData d) {
         return Capacity.recompute(d.level, d.choices, settings.capacity());
     }
+    public void applyAndSave(Player p) { sync(p, data(p)); }
     private void sync(Player p, PlayerData d) {
         var c = capacity(d);
         var attribute = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH));
@@ -96,6 +101,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         p.setLevel(d.level);
         p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / settings.xpPerLevel()));
         save(p, d);
+        rewards.refresh(p);
     }
     @EventHandler public void join(PlayerJoinEvent e) { load(e.getPlayer()); }
     @EventHandler public void quit(PlayerQuitEvent e) {
@@ -104,7 +110,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     @EventHandler public void death(PlayerDeathEvent e) {
         var d = players.get(e.getPlayer().getUniqueId());
-        if (d != null) d.modeState.clear();
+        if (d == null) return;
+        d.modeState.clear();
         e.setDroppedExp(0);
         e.setKeepLevel(true);
     }
@@ -118,11 +125,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (e.getEntity() instanceof Player p && players.containsKey(p.getUniqueId()))
             e.setFoodLevel(Math.min(e.getFoodLevel(), Math.min(20, capacity(players.get(p.getUniqueId())).effectiveHunger())));
     }
-    @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { e.setAmount(0); }
+    @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("join") && sender instanceof Player player) {
             if (!enrolled(player)) load(player);
             return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("rewards") && sender instanceof Player player) {
+            rewards.open(player); return true;
         }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
         if (args.length == 1 && args[0].equalsIgnoreCase("provenance")) {
@@ -166,14 +176,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     long total = (long)d.xp + amount;
                     while (total >= settings.xpPerLevel() && d.level < settings.maxLevel()) {
                         total -= settings.xpPerLevel(); d.level++;
-                        // Step 6 replaces this hook with the configurable reward queue.
-                        p.sendMessage(Component.text("Level " + d.level));
+                        rewards.levelUp(p, d.level);
                     }
                     d.xp = (int)Math.min(total, Integer.MAX_VALUE);
                 }
                 default -> { return false; }
             }
             sync(p, d);
+            rewards.invalidate(p);
             sender.sendMessage("Updated " + p.getName() + ": level=" + d.level + " xp=" + d.xp + " class=" + d.classId);
         } catch (IllegalArgumentException ex) { sender.sendMessage("Invalid input: " + ex.getMessage()); }
         return true;
