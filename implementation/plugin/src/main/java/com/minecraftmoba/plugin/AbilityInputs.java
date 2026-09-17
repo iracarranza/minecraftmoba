@@ -43,6 +43,7 @@ public final class AbilityInputs implements Listener {
             }
             kits.put(id, Map.copyOf(kit));
         }
+        plugin.getLogger().info("Registered ability kits: " + kits.keySet());
         Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 1, 1); // server tick cadence, not a balance constant
     }
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
@@ -87,7 +88,7 @@ public final class AbilityInputs implements Listener {
         channels.put(p.getUniqueId(), new Channel(p.getLocation().clone(),tick+duration,threshold*threshold));
         p.sendMessage("Channel started");
     }
-    public String debug(Player p) { return "executions="+executionCounts.getOrDefault(p.getUniqueId(),Map.of())+" channel="+channels.containsKey(p.getUniqueId()); }
+    public String debug(Player p) { return "kitConfigured="+kits.containsKey(plugin.data(p).classId)+" executions="+executionCounts.getOrDefault(p.getUniqueId(),Map.of())+" channel="+channels.containsKey(p.getUniqueId()); }
     private void tick() {
         tick++;
         for (Player p : Bukkit.getOnlinePlayers()) {

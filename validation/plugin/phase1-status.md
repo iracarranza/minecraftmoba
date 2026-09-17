@@ -135,3 +135,10 @@ resolved no ability. A regression using a legacy config reproduced zero executio
 across 50 input pairs. Config loading now enables copying defaults before enumerating
 registries and persists the merged config after validation, preserving explicit values.
 This fixes the reproduced server-side cause; a fresh real-client retest is still needed.
+
+The fix was pushed to main as `87469cb`. All 11 regression tests pass, including the
+legacy-config reproduction now executing exactly 50 Lunges. The local server then
+started cleanly, saved the merged config, and contained the test class assignments.
+Fresh-launch computer control still exposed only Minecraft Launcher, so the corrected
+abilities need a real-client retest before any additional acceptance row can pass.
+Startup logs and `/moba debug` now explicitly show whether ability kits are registered.
