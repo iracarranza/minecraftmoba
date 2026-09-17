@@ -88,3 +88,736 @@
 {"time":"2026-09-17T19:35:25.681Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=52} channel=false"}
 {"time":"2026-09-17T19:35:25.931Z","kind":"result","value":"Quit while mode active"}
 {"time":"2026-09-17T19:35:25.936Z","kind":"end","value":"disconnect.quitting"}
+{"time":"2026-09-17T21:09:07.124Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-17T21:09:07.153Z","kind":"ready","value":{"scenarios":["fiftyLunges","fiftyUltimates","inventoryAndUnlock","sinkholeProtection","sinkholeProvenance","deathInMode","duplicateUltInput","rewardGui","mobTargeted"],"instruction":"Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time":"2026-09-17T21:09:07.606Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0010376609900506484,"y":-0.0783739241897089,"z":0.06354147592016113}}}
+{"time":"2026-09-17T21:09:08.155Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.0290545077214186,"y":-0.0783739241897089,"z":-0.017884392357932044}}}
+{"time":"2026-09-17T21:09:08.252Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.000427272172373816,"y":-0.0783739241897089,"z":0.0636025148019288}}}
+{"time":"2026-09-17T21:09:08.303Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.058353170969907886,"y":-0.0783739241897089,"z":-0.03582982359763165}}}
+{"time":"2026-09-17T21:09:08.452Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.06311420374778731,"y":-0.0783739241897089,"z":-0.03875968992248058}}}
+{"time":"2026-09-17T21:09:08.601Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.0582921320881401,"y":-0.0783739241897089,"z":-0.046755783434047515}}}
+{"time":"2026-09-17T21:09:08.748Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.05597265458096812,"y":-0.0783739241897089,"z":-0.05005188304950259}}}
+{"time":"2026-09-17T21:09:08.907Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.05542330464505896,"y":-0.0783739241897089,"z":-0.05072331074894709}}}
+{"time":"2026-09-17T21:09:09.052Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.054568760300311325,"y":-0.0783739241897089,"z":-0.0516388939754624}}}
+{"time":"2026-09-17T21:09:09.052Z","kind":"velocityPacket","value":{"entityId":6,"velocity":{"x":-0.00726362693035465,"y":-0.0783739241897089,"z":-0.050784349630714765}}}
+{"time":"2026-09-17T21:09:09.102Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.038637612158945345,"y":-0.0783739241897089,"z":0.021363608618690133}}}
+{"time":"2026-09-17T21:09:09.203Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.053775254837331365,"y":-0.0783739241897089,"z":-0.05249343832021003}}}
+{"time":"2026-09-17T21:09:09.204Z","kind":"velocityPacket","value":{"entityId":6,"velocity":{"x":0.0023194775071719853,"y":-0.0783739241897089,"z":-0.07104925837758658}}}
+{"time":"2026-09-17T21:09:09.255Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.05768174327046327,"y":-0.0783739241897089,"z":0.015564914850759948}}}
+{"time":"2026-09-17T21:09:09.348Z","kind":"velocityPacket","value":{"entityId":6,"velocity":{"x":0,"y":-0.0783739241897089,"z":-0.021729841909296277}}}
+{"time":"2026-09-17T21:09:09.399Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.06244277604834281,"y":-0.0783739241897089,"z":0.007324665812122433}}}
+{"time":"2026-09-17T21:09:09.500Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.05353109931026068,"y":-0.0783739241897089,"z":-0.05273759384728072}}}
+{"time":"2026-09-17T21:09:09.500Z","kind":"velocityPacket","value":{"entityId":6,"velocity":{"x":0,"y":-0.0783739241897089,"z":-0.003540255142525761}}}
+{"time":"2026-09-17T21:09:09.546Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.06323628151132277,"y":-0.0783739241897089,"z":0.005493499359091825}}}
+{"time":"2026-09-17T21:09:09.600Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.00006103888176767214,"y":-0.0783739241897089,"z":0.0636025148019288}}}
+{"time":"2026-09-17T21:09:09.649Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.05328694378318988,"y":-0.0783739241897089,"z":-0.05298174937435152}}}
+{"time":"2026-09-17T21:09:09.649Z","kind":"velocityPacket","value":{"entityId":6,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:09.700Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.03460904596227787,"y":-0.0783739241897089,"z":0.0027467496795459123}}}
+{"time":"2026-09-17T21:09:09.851Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.02130256973692246,"y":-0.0783739241897089,"z":-0.05090642739425011}}}
+{"time":"2026-09-17T21:09:10.001Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.016907770249648957,"y":-0.0783739241897089,"z":-0.05981810413233235}}}
+{"time":"2026-09-17T21:09:10.052Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0.010376609900506706}}}
+{"time":"2026-09-17T21:09:10.100Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.01587010925959842,"y":-0.0783739241897089,"z":-0.015809070377830636}}}
+{"time":"2026-09-17T21:09:10.150Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.006164927058536218,"y":-0.0783739241897089,"z":-0.06287004822071662}}}
+{"time":"2026-09-17T21:09:10.196Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0.001709088689495264}}}
+{"time":"2026-09-17T21:09:10.246Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":-0.002563633034242785,"y":-0.0783739241897089,"z":-0.002563633034242785}}}
+{"time":"2026-09-17T21:09:10.296Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.0037844106695965607,"y":-0.0783739241897089,"z":-0.06341939815662578}}}
+{"time":"2026-09-17T21:09:10.351Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:10.397Z","kind":"velocityPacket","value":{"entityId":2,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:10.451Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.0032350607336872894,"y":-0.0783739241897089,"z":-0.06354147592016113}}}
+{"time":"2026-09-17T21:09:10.601Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.0003662332906060328,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:09:10.796Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.043764878227430914,"y":-0.0783739241897089,"z":0.00891167673808213}}}
+{"time":"2026-09-17T21:09:10.973Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05932979307819086,"y":-0.0783739241897089,"z":0.012085698590001748}}}
+{"time":"2026-09-17T21:09:11.143Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0626869315754135,"y":-0.0783739241897089,"z":0.006287004822071562}}}
+{"time":"2026-09-17T21:09:11.246Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06341939815662578,"y":-0.0783739241897089,"z":0.0036012940242935443}}}
+{"time":"2026-09-17T21:09:11.398Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":0.002990905206616601}}}
+{"time":"2026-09-17T21:09:11.548Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05517914911798827,"y":-0.0783739241897089,"z":-0.026063602514801887}}}
+{"time":"2026-09-17T21:09:11.652Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04315448940975397,"y":-0.0783739241897089,"z":-0.011536348654092698}}}
+{"time":"2026-09-17T21:09:11.699Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05121162180308847,"y":-0.0783739241897089,"z":-0.03674540682414695}}}
+{"time":"2026-09-17T21:09:11.804Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05847524873344323,"y":-0.0783739241897089,"z":-0.01562595373252762}}}
+{"time":"2026-09-17T21:09:11.854Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05017396081303782,"y":-0.0783739241897089,"z":-0.038942806567783705}}}
+{"time":"2026-09-17T21:09:11.948Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06097784288591823,"y":-0.0783739241897089,"z":-0.016297381431972124}}}
+{"time":"2026-09-17T21:09:12.002Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04992980528596713,"y":-0.0783739241897089,"z":-0.039431117621925194}}}
+{"time":"2026-09-17T21:09:12.101Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06280900933894884,"y":-0.0783739241897089,"z":-0.00805713239333461}}}
+{"time":"2026-09-17T21:09:12.147Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.060489531831776855,"y":-0.0783739241897089,"z":-0.015992187023133764}}}
+{"time":"2026-09-17T21:09:12.251Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.026063602514801998,"y":-0.0783739241897089,"z":-0.05524018799975583}}}
+{"time":"2026-09-17T21:09:12.252Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06341939815662578,"y":-0.0783739241897089,"z":-0.004455838369041065}}}
+{"time":"2026-09-17T21:09:12.301Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06250381493011048,"y":-0.0783739241897089,"z":-0.010742843191112739}}}
+{"time":"2026-09-17T21:09:12.399Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.036745406824147064,"y":-0.0783739241897089,"z":-0.05121162180308858}}}
+{"time":"2026-09-17T21:09:12.399Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06348043703839346,"y":-0.0783739241897089,"z":-0.003540255142525761}}}
+{"time":"2026-09-17T21:09:12.447Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06287004822071651,"y":-0.0783739241897089,"z":-0.009338948910455946}}}
+{"time":"2026-09-17T21:09:12.549Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.03888176768601603,"y":-0.0783739241897089,"z":-0.050234999694805604}}}
+{"time":"2026-09-17T21:09:12.549Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.00036623329060614385}}}
+{"time":"2026-09-17T21:09:12.601Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06348043703839346,"y":-0.0783739241897089,"z":-0.003112982970151945}}}
+{"time":"2026-09-17T21:09:12.696Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.03937007874015741,"y":-0.0783739241897089,"z":-0.04992980528596713}}}
+{"time":"2026-09-17T21:09:12.747Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.0007324665812122877}}}
+{"time":"2026-09-17T21:09:12.851Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.006409082585607129,"y":-0.0783739241897089,"z":-0.008118171275102282}}}
+{"time":"2026-09-17T21:09:12.898Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.018983092229750254,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:12.997Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:12.997Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05316486601965442,"y":-0.0783739241897089,"z":-0.03174021851919673}}}
+{"time":"2026-09-17T21:09:13.049Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.003112982970151945,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:13.146Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05060123298541175,"y":-0.0783739241897089,"z":-0.03796618445950073}}}
+{"time":"2026-09-17T21:09:13.202Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:13.298Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.049990844167734805,"y":-0.0783739241897089,"z":-0.039248000976622066}}}
+{"time":"2026-09-17T21:09:13.450Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.02722334126838799,"y":-0.0783739241897089,"z":-0.02154672526399315}}}
+{"time":"2026-09-17T21:09:13.600Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.004455838369041176,"y":-0.0783739241897089,"z":-0.003540255142525761}}}
+{"time":"2026-09-17T21:09:13.748Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:14.050Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.036806445705914737,"y":-0.0783739241897089,"z":-0.03851553439540989}}}
+{"time":"2026-09-17T21:09:14.200Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.04278825611914794,"y":-0.0783739241897089,"z":-0.04480253921748156}}}
+{"time":"2026-09-17T21:09:14.350Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.043764878227430914,"y":-0.0783739241897089,"z":-0.04584020020753221}}}
+{"time":"2026-09-17T21:09:14.645Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0.007141549166819194,"y":-0.0783739241897089,"z":-0.007507782457425338}}}
+{"time":"2026-09-17T21:09:14.795Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:15.246Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.03766099005066226,"y":-0.0783739241897089,"z":-0.020081792101568685}}}
+{"time":"2026-09-17T21:09:15.408Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.05865836537874625,"y":-0.0783739241897089,"z":-0.010681804309345067}}}
+{"time":"2026-09-17T21:09:15.549Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.06274797045718128,"y":-0.0783739241897089,"z":-0.0041506439602027045}}}
+{"time":"2026-09-17T21:09:15.696Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.06341939815662578,"y":-0.0783739241897089,"z":-0.0010376609900506484}}}
+{"time":"2026-09-17T21:09:15.851Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.06354147592016113,"y":-0.0783739241897089,"z":-0.000427272172373816}}}
+{"time":"2026-09-17T21:09:16.747Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.055118110236220486,"y":-0.0783739241897089,"z":0.026246719160105014}}}
+{"time":"2026-09-17T21:09:16.922Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.051028505157785564,"y":-0.0783739241897089,"z":0.03692852346945008}}}
+{"time":"2026-09-17T21:09:17.046Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.049990844167734805,"y":-0.0783739241897089,"z":0.03912592321308672}}}
+{"time":"2026-09-17T21:09:17.203Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.049746688640664116,"y":-0.0783739241897089,"z":0.03961423426722832}}}
+{"time":"2026-09-17T21:09:17.350Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":-0.008118171275102282,"y":-0.0783739241897089,"z":0.006470121467374801}}}
+{"time":"2026-09-17T21:09:17.498Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:17.847Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.02453763047060975,"y":-0.0783739241897089,"z":0.04590123908929988}}}
+{"time":"2026-09-17T21:09:17.960Z","kind":"scenarioBegin","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:09:18.007Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T21:09:18.008Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03424281267167184,"y":-0.0783739241897089,"z":0.051272660684856364}}}
+{"time":"2026-09-17T21:09:18.151Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.01886101446621502,"y":-0.0783739241897089,"z":0.05926875419642319}}}
+{"time":"2026-09-17T21:09:18.237Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:09:18.309Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.011536348654092698,"y":-0.0783739241897089,"z":0.06225965940303979}}}
+{"time":"2026-09-17T21:09:18.449Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.009766221082829762,"y":-0.0783739241897089,"z":0.06280900933894884}}}
+{"time":"2026-09-17T21:09:18.490Z","kind":"chat","value":"Successfully filled 49 block(s)"}
+{"time":"2026-09-17T21:09:18.597Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.004516877250808737,"y":-0.0783739241897089,"z":0.06335835927485811}}}
+{"time":"2026-09-17T21:09:18.788Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0007935054629799598,"y":-0.0783739241897089,"z":0.06354147592016113}}}
+{"time":"2026-09-17T21:09:19.049Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.02746749679545868,"y":-0.0783739241897089,"z":0.0541414881279374}}}
+{"time":"2026-09-17T21:09:19.200Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.038698651040712906,"y":-0.0783739241897089,"z":0.04962461087712877}}}
+{"time":"2026-09-17T21:09:19.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041018128547885,"y":-0.0783739241897089,"z":0.04846487212354278}}}
+{"time":"2026-09-17T21:09:19.498Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.02264542513581147,"y":-0.0783739241897089,"z":0.026307758041872686}}}
+{"time":"2026-09-17T21:09:19.649Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0036623329060612164,"y":-0.0783739241897089,"z":0.004272721723737938}}}
+{"time":"2026-09-17T21:09:19.798Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:20.202Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.015015564914850676,"y":-0.0783739241897089,"z":0.024659708234145095}}}
+{"time":"2026-09-17T21:09:20.348Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.030092168711469247,"y":-0.0783739241897089,"z":0.0495635719953611}}}
+{"time":"2026-09-17T21:09:20.496Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.03253372398217658,"y":-0.0783739241897089,"z":0.05359213819202835}}}
+{"time":"2026-09-17T21:09:20.648Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04529085027162294,"y":-0.0783739241897089,"z":0.038942806567783705}}}
+{"time":"2026-09-17T21:09:20.798Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05865836537874625,"y":-0.0783739241897089,"z":0.020692180919245518}}}
+{"time":"2026-09-17T21:09:20.946Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06122199841298914,"y":-0.0783739241897089,"z":0.016297381431972235}}}
+{"time":"2026-09-17T21:09:21.099Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05340902154672533,"y":-0.0783739241897089,"z":0.03228956845510589}}}
+{"time":"2026-09-17T21:09:21.251Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04980772752243179,"y":-0.0783739241897089,"z":0.03906488433131905}}}
+{"time":"2026-09-17T21:09:21.417Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04901422205945183,"y":-0.0783739241897089,"z":0.04046877861197573}}}
+{"time":"2026-09-17T21:09:21.546Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04883110541414881,"y":-0.0783739241897089,"z":0.040773973020814314}}}
+{"time":"2026-09-17T21:09:21.698Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.060001220777635256,"y":-0.0783739241897089,"z":0.018006470121467277}}}
+{"time":"2026-09-17T21:09:21.854Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.062076542757736775,"y":-0.0783739241897089,"z":0.01294024293474938}}}
+{"time":"2026-09-17T21:09:22.002Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06250381493011048,"y":-0.0783739241897089,"z":0.011658426417628043}}}
+{"time":"2026-09-17T21:09:22.152Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06335835927485811,"y":-0.0783739241897089,"z":0.004272721723737938}}}
+{"time":"2026-09-17T21:09:22.306Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":0.0010376609900506484}}}
+{"time":"2026-09-17T21:09:22.449Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":0.0014038942806566812}}}
+{"time":"2026-09-17T21:09:22.595Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":0.0004883110541415991}}}
+{"time":"2026-09-17T21:09:22.899Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.058353170969907886,"y":-0.0783739241897089,"z":0.016663614722578268}}}
+{"time":"2026-09-17T21:09:23.045Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05182201062076541,"y":-0.0783739241897089,"z":0.03509735701641947}}}
+{"time":"2026-09-17T21:09:23.202Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.05023499969480549,"y":-0.0783739241897089,"z":0.03875968992248069}}}
+{"time":"2026-09-17T21:09:23.348Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.04980772752243179,"y":-0.0783739241897089,"z":0.03955319538546065}}}
+{"time":"2026-09-17T21:09:23.514Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.01483244826954766,"y":-0.0783739241897089,"z":0.01184154306293106}}}
+{"time":"2026-09-17T21:09:23.648Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0.0024415552707075516,"y":-0.0783739241897089,"z":0.0019532442165659525}}}
+{"time":"2026-09-17T21:09:23.796Z","kind":"velocityPacket","value":{"entityId":5,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:24.330Z","kind":"scenarioError","value":"Error: Server did not answer the placement at (3, -59, -5): Event blockUpdate:(3, -59, -5) did not fire within timeout of 5000ms\n    at /private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:33:27\n    at async placeBlockWithOptions (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:28:26)\n    at async EventEmitter.placeBlock (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:48:5)\n    at async exports.sinkholeProvenance (/private/tmp/minecraftmoba-phase1/validation/plugin/protocol/scenarios.js:61:5)\n    at async /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/driver.cjs:28:5"}
+{"time":"2026-09-17T21:09:31.948Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04693890007935053,"y":-0.0783739241897089,"z":-0.025148019288286694}}}
+{"time":"2026-09-17T21:09:32.104Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.054568760300311325,"y":-0.0783739241897089,"z":-0.029237624366721615}}}
+{"time":"2026-09-17T21:09:32.247Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.05585057681743266,"y":-0.0783739241897089,"z":-0.02990905206616612}}}
+{"time":"2026-09-17T21:09:32.397Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0288103521943478,"y":-0.0783739241897089,"z":-0.051883049502533085}}}
+{"time":"2026-09-17T21:09:32.546Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.016114264786669108,"y":-0.0783739241897089,"z":-0.060489531831776855}}}
+{"time":"2026-09-17T21:09:32.696Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.012757126289446363,"y":-0.0783739241897089,"z":-0.062137581639504336}}}
+{"time":"2026-09-17T21:09:32.850Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03576878471586398,"y":-0.0783739241897089,"z":-0.051333699566623925}}}
+{"time":"2026-09-17T21:09:32.999Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0403467008484405,"y":-0.0783739241897089,"z":-0.048892144295916484}}}
+{"time":"2026-09-17T21:09:33.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041323322956723474,"y":-0.0783739241897089,"z":-0.048342794360007324}}}
+{"time":"2026-09-17T21:09:33.296Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.012329854117072547,"y":-0.0783739241897089,"z":-0.014405176097173955}}}
+{"time":"2026-09-17T21:09:33.447Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0020142830983336246,"y":-0.0783739241897089,"z":-0.0023194775071720963}}}
+{"time":"2026-09-17T21:09:33.598Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:46.147Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.020875297564548645,"y":-0.0783739241897089,"z":-0.01995971433803334}}}
+{"time":"2026-09-17T21:09:46.298Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.05414148812793751,"y":-0.0783739241897089,"z":-0.019471403283891853}}}
+{"time":"2026-09-17T21:09:46.445Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.06189342611243365,"y":-0.0783739241897089,"z":-0.007324665812122322}}}
+{"time":"2026-09-17T21:09:46.599Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.06323628151132277,"y":-0.0783739241897089,"z":-0.004638955014344193}}}
+{"time":"2026-09-17T21:09:46.746Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.06348043703839346,"y":-0.0783739241897089,"z":-0.003967527314899577}}}
+{"time":"2026-09-17T21:09:46.896Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.0636025148019288,"y":-0.0783739241897089,"z":-0.000427272172373816}}}
+{"time":"2026-09-17T21:09:47.346Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.05224928279313923,"y":-0.0783739241897089,"z":-0.03289995727278272}}}
+{"time":"2026-09-17T21:09:47.497Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.04950253311359332,"y":-0.0783739241897089,"z":-0.03937007874015752}}}
+{"time":"2026-09-17T21:09:47.647Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.04877006653238114,"y":-0.0783739241897089,"z":-0.040773973020814314}}}
+{"time":"2026-09-17T21:09:47.796Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.0145272538607093,"y":-0.0783739241897089,"z":-0.012207776353537203}}}
+{"time":"2026-09-17T21:09:47.946Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":-0.0023805163889397685,"y":-0.0783739241897089,"z":-0.0020142830983336246}}}
+{"time":"2026-09-17T21:09:47.980Z","kind":"scenarioBegin","value":"duplicateUltInput"}
+{"time":"2026-09-17T21:09:47.986Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T21:09:48.101Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:48.259Z","kind":"chat","value":"[MobaTest] DUPLICATE_ULT_BASELINE"}
+{"time":"2026-09-17T21:09:48.487Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-17T21:09:48.903Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T21:09:49.946Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.006164927058536329,"y":-0.0783739241897089,"z":-0.028199963376670967}}}
+{"time":"2026-09-17T21:09:50.129Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.01239089299884022,"y":-0.0783739241897089,"z":-0.05664408228041262}}}
+{"time":"2026-09-17T21:09:50.246Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.013428553988890979,"y":-0.0783739241897089,"z":-0.06122199841298903}}}
+{"time":"2026-09-17T21:09:50.349Z","kind":"chat","value":"Channel complete"}
+{"time":"2026-09-17T21:09:50.371Z","kind":"chat","value":"[MobaTest] DUPLICATE_ULT_AFTER"}
+{"time":"2026-09-17T21:09:50.396Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.013611670634193995,"y":-0.0783739241897089,"z":-0.06201550387596899}}}
+{"time":"2026-09-17T21:09:50.554Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.004638955014344193,"y":-0.0783739241897089,"z":-0.06329732039309044}}}
+{"time":"2026-09-17T21:09:50.619Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={channel_ult=1} channel=false"}
+{"time":"2026-09-17T21:09:50.696Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0009766221082829762,"y":-0.0783739241897089,"z":-0.06354147592016113}}}
+{"time":"2026-09-17T21:09:50.847Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.000427272172373816,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:09:51.071Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={channel_ult=1} channel=false"}
+{"time":"2026-09-17T21:09:51.321Z","kind":"scenarioEnd","value":"duplicateUltInput"}
+{"time":"2026-09-17T21:09:51.748Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.026002563633034326,"y":-0.0783739241897089,"z":-0.05524018799975583}}}
+{"time":"2026-09-17T21:09:51.899Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03662332906061172,"y":-0.0783739241897089,"z":-0.05127266068485625}}}
+{"time":"2026-09-17T21:09:52.048Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03882072880424836,"y":-0.0783739241897089,"z":-0.050296038576573276}}}
+{"time":"2026-09-17T21:09:52.200Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03930903985838974,"y":-0.0783739241897089,"z":-0.049990844167734805}}}
+{"time":"2026-09-17T21:09:52.348Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.01641945919550758,"y":-0.0783739241897089,"z":-0.06042849295000918}}}
+{"time":"2026-09-17T21:09:52.497Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.01129219312702201,"y":-0.0783739241897089,"z":-0.062381737166575135}}}
+{"time":"2026-09-17T21:09:52.647Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.010010376609900451,"y":-0.0783739241897089,"z":-0.06280900933894895}}}
+{"time":"2026-09-17T21:09:52.797Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0034792162607582,"y":-0.0783739241897089,"z":-0.06348043703839346}}}
+{"time":"2026-09-17T21:09:52.946Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.000854544344747632,"y":-0.0783739241897089,"z":-0.06354147592016113}}}
+{"time":"2026-09-17T21:09:53.097Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0003662332906060328,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:09:53.546Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.016907770249648957,"y":-0.0783739241897089,"z":-0.058109015442837086}}}
+{"time":"2026-09-17T21:09:53.697Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.035646706952328744,"y":-0.0783739241897089,"z":-0.051333699566623925}}}
+{"time":"2026-09-17T21:09:53.849Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03943111762192508,"y":-0.0783739241897089,"z":-0.049685649758896444}}}
+{"time":"2026-09-17T21:09:54.002Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04022462308490504,"y":-0.0783739241897089,"z":-0.04925837758652263}}}
+{"time":"2026-09-17T21:09:54.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.012024659708234076,"y":-0.0783739241897089,"z":-0.014649331624244644}}}
+{"time":"2026-09-17T21:09:54.298Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0019532442165659525,"y":-0.0783739241897089,"z":-0.0023805163889397685}}}
+{"time":"2026-09-17T21:09:54.449Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:09:56.099Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.032228529573338216,"y":-0.0783739241897089,"z":0.01080388207288041}}}
+{"time":"2026-09-17T21:09:56.248Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04022462308490504,"y":-0.0783739241897089,"z":0.041933711774400306}}}
+{"time":"2026-09-17T21:09:56.398Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04205578953793565,"y":-0.0783739241897089,"z":0.046450589025209155}}}
+{"time":"2026-09-17T21:09:56.549Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04364280046389546,"y":-0.0783739241897089,"z":0.0460843557346029}}}
+{"time":"2026-09-17T21:09:56.849Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0440090337545016,"y":-0.0783739241897089,"z":0.045962277971067556}}}
+{"time":"2026-09-17T21:09:56.998Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.031373985228590584,"y":-0.0783739241897089,"z":0.052981749374351406}}}
+{"time":"2026-09-17T21:09:57.149Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.016541536959042924,"y":-0.0783739241897089,"z":0.06067264847707987}}}
+{"time":"2026-09-17T21:09:57.297Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.013123359580052507,"y":-0.0783739241897089,"z":0.06213758163950445}}}
+{"time":"2026-09-17T21:09:57.449Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.024415552707074406,"y":-0.0783739241897089,"z":0.05688823780748331}}}
+{"time":"2026-09-17T21:09:57.599Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0377830678141976,"y":-0.0783739241897089,"z":0.05041811634010873}}}
+{"time":"2026-09-17T21:09:57.751Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04046877861197584,"y":-0.0783739241897089,"z":0.048892144295916484}}}
+{"time":"2026-09-17T21:09:57.897Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041079167429652674,"y":-0.0783739241897089,"z":0.04852591100531045}}}
+{"time":"2026-09-17T21:09:58.046Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.012268815235304875,"y":-0.0783739241897089,"z":0.014466214978941627}}}
+{"time":"2026-09-17T21:09:58.199Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0020142830983336246,"y":-0.0783739241897089,"z":0.0023805163889396574}}}
+{"time":"2026-09-17T21:09:58.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:07.993Z","kind":"scenarioBegin","value":"deathInMode"}
+{"time":"2026-09-17T21:10:07.998Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T21:10:08.277Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 63}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T21:10:08.514Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={channel_ult=1} channel=false"}
+{"time":"2026-09-17T21:10:08.961Z","kind":"chat","value":"[MobaTest] DEATH_WITH_MODE_ACTIVE"}
+{"time":"2026-09-17T21:10:09.240Z","kind":"chat","value":"MobaTest was killed"}
+{"time":"2026-09-17T21:10:09.242Z","kind":"chat","value":"Killed MobaTest"}
+{"time":"2026-09-17T21:10:09.246Z","kind":"velocityPacket","value":{"entityId":11,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:10.960Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={channel_ult=1} channel=false"}
+{"time":"2026-09-17T21:10:11.218Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 63}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T21:10:11.650Z","kind":"velocityPacket","value":{"entityId":11,"velocity":{"x":0,"y":-0.0783739241897089,"z":0.7999755844472929}}}
+{"time":"2026-09-17T21:10:12.168Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=1, channel_ult=1} channel=false"}
+{"time":"2026-09-17T21:10:12.418Z","kind":"scenarioEnd","value":"deathInMode"}
+{"time":"2026-09-17T21:10:12.695Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:14.749Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.014161020570103156,"y":-0.0783739241897089,"z":0.005737654886162513}}}
+{"time":"2026-09-17T21:10:14.901Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.02099737532808399,"y":-0.0783739241897089,"z":-0.02020386986510403}}}
+{"time":"2026-09-17T21:10:15.045Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.02154672526399315,"y":-0.0783739241897089,"z":-0.024903863761215894}}}
+{"time":"2026-09-17T21:10:15.195Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.021485686382225477,"y":-0.0783739241897089,"z":-0.0258194469877312}}}
+{"time":"2026-09-17T21:10:15.345Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.023255813953488413,"y":-0.0783739241897089,"z":-0.024354513825306734}}}
+{"time":"2026-09-17T21:10:15.498Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.023561008362326774,"y":-0.0783739241897089,"z":-0.024049319416468262}}}
+{"time":"2026-09-17T21:10:16.547Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.023805163889397574,"y":-0.0783739241897089,"z":-0.023866202771165246}}}
+{"time":"2026-09-17T21:10:19.848Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.030519440883843063,"y":-0.0783739241897089,"z":-0.010315571018738923}}}
+{"time":"2026-09-17T21:10:20.001Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.033022035036318176,"y":-0.0783739241897089,"z":-0.004822071659647209}}}
+{"time":"2026-09-17T21:10:20.150Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.03344930720869199,"y":-0.0783739241897089,"z":-0.0037233717878288886}}}
+{"time":"2026-09-17T21:10:20.748Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.03363242385399501,"y":-0.0783739241897089,"z":-0.0001831166453030164}}}
+{"time":"2026-09-17T21:10:20.845Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04584020020753221,"y":-0.0783739241897089,"z":-0.027101263504852646}}}
+{"time":"2026-09-17T21:10:21.000Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.05334798266495755,"y":-0.0783739241897089,"z":-0.03149606299212604}}}
+{"time":"2026-09-17T21:10:21.149Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.05450772141854365,"y":-0.0783739241897089,"z":-0.032228529573338216}}}
+{"time":"2026-09-17T21:10:21.301Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04870902765061347,"y":-0.0783739241897089,"z":-0.040590856375511186}}}
+{"time":"2026-09-17T21:10:21.449Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.047549288897027364,"y":-0.0783739241897089,"z":-0.04223890618323878}}}
+{"time":"2026-09-17T21:10:21.498Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.02777269120429715,"y":-0.0783739241897089,"z":-0.01562595373252762}}}
+{"time":"2026-09-17T21:10:21.599Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.047244094488189003,"y":-0.0783739241897089,"z":-0.04254410059207714}}}
+{"time":"2026-09-17T21:10:21.649Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.02533113593358971,"y":-0.0783739241897089,"z":-0.02154672526399315}}}
+{"time":"2026-09-17T21:10:21.801Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.024842824879448222,"y":-0.0783739241897089,"z":-0.02264542513581147}}}
+{"time":"2026-09-17T21:10:21.899Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04577916132576454,"y":-0.0783739241897089,"z":-0.04413111151803695}}}
+{"time":"2026-09-17T21:10:22.048Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04553500579869374,"y":-0.0783739241897089,"z":-0.04443630592687542}}}
+{"time":"2026-09-17T21:10:22.498Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04516877250808771,"y":-0.0783739241897089,"z":-0.04480253921748156}}}
+{"time":"2026-09-17T21:10:22.547Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.007385704693889994,"y":-0.0783739241897089,"z":-0.006836354757980834}}}
+{"time":"2026-09-17T21:10:22.698Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":-0.004028566196667249,"y":-0.0783739241897089,"z":-0.0037233717878288886}}}
+{"time":"2026-09-17T21:10:23.303Z","kind":"velocityPacket","value":{"entityId":12,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:24.297Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.02105841420985166,"y":-0.0783739241897089,"z":-0.05878044314228159}}}
+{"time":"2026-09-17T21:10:24.449Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.015748031496062964,"y":-0.0783739241897089,"z":-0.06140511505829216}}}
+{"time":"2026-09-17T21:10:24.600Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.014466214978941627,"y":-0.0783739241897089,"z":-0.06189342611243365}}}
+{"time":"2026-09-17T21:10:24.746Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.035463590307025616,"y":-0.0783739241897089,"z":-0.05182201062076541}}}
+{"time":"2026-09-17T21:10:24.899Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03961423426722821,"y":-0.0783739241897089,"z":-0.0495635719953611}}}
+{"time":"2026-09-17T21:10:25.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04046877861197584,"y":-0.0783739241897089,"z":-0.04907526094121961}}}
+{"time":"2026-09-17T21:10:25.198Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.022157114081669982,"y":-0.0783739241897089,"z":-0.026735030214246502}}}
+{"time":"2026-09-17T21:10:25.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0036012940242934333,"y":-0.0783739241897089,"z":-0.004333760605505721}}}
+{"time":"2026-09-17T21:10:25.499Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:26.249Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.026063602514801998,"y":-0.0783739241897089,"z":-0.046450589025209044}}}
+{"time":"2026-09-17T21:10:26.399Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.030336324238539936,"y":-0.0783739241897089,"z":-0.054019410364402165}}}
+{"time":"2026-09-17T21:10:26.548Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03100775193798455,"y":-0.0783739241897089,"z":-0.05524018799975583}}}
+{"time":"2026-09-17T21:10:26.698Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03875968992248069,"y":-0.0783739241897089,"z":-0.05005188304950259}}}
+{"time":"2026-09-17T21:10:26.847Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.041872672892632634,"y":-0.0783739241897089,"z":-0.047793444424098164}}}
+{"time":"2026-09-17T21:10:26.999Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04254410059207725,"y":-0.0783739241897089,"z":-0.047305133369956676}}}
+{"time":"2026-09-17T21:10:27.299Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.044070072636269275,"y":-0.0783739241897089,"z":-0.04584020020753221}}}
+{"time":"2026-09-17T21:10:27.448Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.044375267045107636,"y":-0.0783739241897089,"z":-0.04559604468046141}}}
+{"time":"2026-09-17T21:10:27.897Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04480253921748156,"y":-0.0783739241897089,"z":-0.04516877250808771}}}
+{"time":"2026-09-17T21:10:30.898Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.013428553988890979,"y":-0.0783739241897089,"z":-0.013428553988890979}}}
+{"time":"2026-09-17T21:10:31.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.002197399743636641,"y":-0.0783739241897089,"z":-0.002197399743636752}}}
+{"time":"2026-09-17T21:10:31.197Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:33.023Z","kind":"scenarioBegin","value":"rewardGui"}
+{"time":"2026-09-17T21:10:33.028Z","kind":"chat","value":"Updated MobaTest: level=1 xp=0 class=null"}
+{"time":"2026-09-17T21:10:33.679Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=false executions={} channel=false"}
+{"time":"2026-09-17T21:10:33.931Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=null"}
+{"time":"2026-09-17T21:10:34.786Z","kind":"chat","value":"[MobaTest] REWARD_PENDING_EXPECTED"}
+{"time":"2026-09-17T21:10:35.035Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time":"2026-09-17T21:10:36.337Z","kind":"chat","value":"[MobaTest] REWARD_WINDOW_OPEN_45"}
+{"time":"2026-09-17T21:10:37.499Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 63}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T21:10:37.747Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=0 choices=[ChoiceRecord[level=2, choiceId=fixture_health]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time":"2026-09-17T21:10:37.993Z","kind":"scenarioEnd","value":"rewardGui"}
+{"time":"2026-09-17T21:10:39.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05176097173899774,"y":-0.0783739241897089,"z":-0.012512970762375675}}}
+{"time":"2026-09-17T21:10:39.298Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.060184337422938494,"y":-0.0783739241897089,"z":-0.0145272538607093}}}
+{"time":"2026-09-17T21:10:39.448Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.061588231703595175,"y":-0.0783739241897089,"z":-0.01483244826954766}}}
+{"time":"2026-09-17T21:10:39.598Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0631752426295551,"y":-0.0783739241897089,"z":-0.005798693767930185}}}
+{"time":"2026-09-17T21:10:39.748Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06348043703839346,"y":-0.0783739241897089,"z":-0.003845449551364233}}}
+{"time":"2026-09-17T21:10:39.897Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":-0.0032960996154550726}}}
+{"time":"2026-09-17T21:10:40.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.00036623329060614385}}}
+{"time":"2026-09-17T21:10:41.698Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.00006103888176767214}}}
+{"time":"2026-09-17T21:10:42.146Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05475187694561434,"y":-0.0783739241897089,"z":-0.026735030214246502}}}
+{"time":"2026-09-17T21:10:42.298Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.050479155221876404,"y":-0.0783739241897089,"z":-0.03766099005066226}}}
+{"time":"2026-09-17T21:10:42.448Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04938045535005808,"y":-0.0783739241897089,"z":-0.03991942867606668}}}
+{"time":"2026-09-17T21:10:42.599Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.026857107977781958,"y":-0.0783739241897089,"z":-0.022035036318134638}}}
+{"time":"2026-09-17T21:10:42.748Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.004394799487273504,"y":-0.0783739241897089,"z":-0.0036012940242934333}}}
+{"time":"2026-09-17T21:10:42.897Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:44.098Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.010620765427577394,"y":-0.0783739241897089,"z":0.03235060733687356}}}
+{"time":"2026-09-17T21:10:44.247Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041872672892632634,"y":-0.0783739241897089,"z":0.040285661966672714}}}
+{"time":"2026-09-17T21:10:44.397Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.013428553988890979,"y":-0.0783739241897089,"z":0.012085698590001748}}}
+{"time":"2026-09-17T21:10:44.547Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.002197399743636752,"y":-0.0783739241897089,"z":0.0019532442165659525}}}
+{"time":"2026-09-17T21:10:44.695Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:46.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.020875297564548645,"y":-0.0783739241897089,"z":0.01995971433803323}}}
+{"time":"2026-09-17T21:10:46.198Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041933711774400306,"y":-0.0783739241897089,"z":0.039980467557834354}}}
+{"time":"2026-09-17T21:10:46.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04535188915339072,"y":-0.0783739241897089,"z":0.043276567173289315}}}
+{"time":"2026-09-17T21:10:46.498Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04590123908929988,"y":-0.0783739241897089,"z":0.04382591710919859}}}
+{"time":"2026-09-17T21:10:46.646Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.045657083562229195,"y":-0.0783739241897089,"z":0.04425318928157229}}}
+{"time":"2026-09-17T21:10:46.796Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04529085027162305,"y":-0.0783739241897089,"z":0.04468046145394622}}}
+{"time":"2026-09-17T21:10:47.397Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04504669474455225,"y":-0.0783739241897089,"z":0.04492461698101691}}}
+{"time":"2026-09-17T21:10:48.448Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.032777879509247376,"y":-0.0783739241897089,"z":0.05224928279313934}}}
+{"time":"2026-09-17T21:10:48.599Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.018494781175608876,"y":-0.0783739241897089,"z":0.06012329854117082}}}
+{"time":"2026-09-17T21:10:48.746Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.015259720441921476,"y":-0.0783739241897089,"z":0.06164927058536285}}}
+{"time":"2026-09-17T21:10:48.895Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.010010376609900562,"y":-0.0783739241897089,"z":0.06262589269364582}}}
+{"time":"2026-09-17T21:10:49.046Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.004638955014344193,"y":-0.0783739241897089,"z":0.06335835927485811}}}
+{"time":"2026-09-17T21:10:49.197Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.003418177378990417,"y":-0.0783739241897089,"z":0.06354147592016113}}}
+{"time":"2026-09-17T21:10:49.345Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.002136360861868969,"y":-0.0783739241897089,"z":0.06354147592016113}}}
+{"time":"2026-09-17T21:10:49.496Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.00036623329060614385,"y":-0.0783739241897089,"z":0.0636025148019288}}}
+{"time":"2026-09-17T21:10:49.797Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0172740035402551,"y":-0.0783739241897089,"z":0.05786485991576629}}}
+{"time":"2026-09-17T21:10:49.946Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03644021241530859,"y":-0.0783739241897089,"z":0.05072331074894709}}}
+{"time":"2026-09-17T21:10:50.097Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.040285661966672826,"y":-0.0783739241897089,"z":0.048953183177684156}}}
+{"time":"2026-09-17T21:10:50.246Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.041140206311420346,"y":-0.0783739241897089,"z":0.04846487212354278}}}
+{"time":"2026-09-17T21:10:50.396Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.006714276994445489,"y":-0.0783739241897089,"z":0.007874015748031482}}}
+{"time":"2026-09-17T21:10:50.552Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:54.747Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.013977903924800028,"y":-0.0783739241897089,"z":0.025270097051822038}}}
+{"time":"2026-09-17T21:10:54.898Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.028077885613135622,"y":-0.0783739241897089,"z":0.05072331074894709}}}
+{"time":"2026-09-17T21:10:55.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.030336324238539936,"y":-0.0783739241897089,"z":0.054873954709149686}}}
+{"time":"2026-09-17T21:10:55.198Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03070255752914597,"y":-0.0783739241897089,"z":0.0555453824085943}}}
+{"time":"2026-09-17T21:10:55.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.040285661966672714,"y":-0.0783739241897089,"z":0.048953183177684156}}}
+{"time":"2026-09-17T21:10:55.496Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.042177867301470995,"y":-0.0783739241897089,"z":0.04761032777879515}}}
+{"time":"2026-09-17T21:10:55.647Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04254410059207725,"y":-0.0783739241897089,"z":0.047305133369956565}}}
+{"time":"2026-09-17T21:10:55.797Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04339864493682466,"y":-0.0783739241897089,"z":0.04651162790697683}}}
+{"time":"2026-09-17T21:10:55.946Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04425318928157229,"y":-0.0783739241897089,"z":0.04571812244399687}}}
+{"time":"2026-09-17T21:10:56.396Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.044619422572178546,"y":-0.0783739241897089,"z":0.04535188915339061}}}
+{"time":"2026-09-17T21:10:56.697Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.044863578099249235,"y":-0.0783739241897089,"z":0.045107733626319924}}}
+{"time":"2026-09-17T21:10:58.036Z","kind":"scenarioBegin","value":"mobTargeted"}
+{"time":"2026-09-17T21:10:58.041Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=test"}
+{"time":"2026-09-17T21:10:58.301Z","kind":"chat","value":"No entity was found"}
+{"time":"2026-09-17T21:10:58.557Z","kind":"chat","value":"Monsters cannot be summoned in Peaceful difficulty"}
+{"time":"2026-09-17T21:10:59.398Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=3 xp=0 choices=[ChoiceRecord[level=2, choiceId=fixture_health]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-17T21:10:59.546Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.007324665812122433,"y":-0.0783739241897089,"z":0.007324665812122433}}}
+{"time":"2026-09-17T21:10:59.699Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:10:59.848Z","kind":"velocityPacket","value":{"entityId":11,"velocity":{"x":0.33571384972227314,"y":-0.18488677287432098,"z":-0.718305560642129}}}
+{"time":"2026-09-17T21:10:59.998Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.03961423426722832,"y":-0.0783739241897089,"z":-0.020570103155710173}}}
+{"time":"2026-09-17T21:11:00.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05371421595556369,"y":-0.0783739241897089,"z":-0.027894768967832495}}}
+{"time":"2026-09-17T21:11:00.297Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05603369346273568,"y":-0.0783739241897089,"z":-0.02911554660318627}}}
+{"time":"2026-09-17T21:11:00.448Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05261551608374537,"y":-0.0783739241897089,"z":-0.03485320148934867}}}
+{"time":"2026-09-17T21:11:00.597Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04840383324177511,"y":-0.0783739241897089,"z":-0.041018128547885}}}
+{"time":"2026-09-17T21:11:00.603Z","kind":"chat","value":"[MobaTest] MOB_M1_DONE"}
+{"time":"2026-09-17T21:11:00.748Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0474882500152598,"y":-0.0783739241897089,"z":-0.04223890618323878}}}
+{"time":"2026-09-17T21:11:00.852Z","kind":"chat","value":"No entity was found"}
+{"time":"2026-09-17T21:11:00.897Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.047305133369956565,"y":-0.0783739241897089,"z":-0.04254410059207714}}}
+{"time":"2026-09-17T21:11:01.048Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0460843557346029,"y":-0.0783739241897089,"z":-0.04382591710919859}}}
+{"time":"2026-09-17T21:11:01.199Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.045657083562229195,"y":-0.0783739241897089,"z":-0.044314228163340075}}}
+{"time":"2026-09-17T21:11:01.295Z","kind":"velocityPacket","value":{"entityId":11,"velocity":{"x":0.38338521638283596,"y":-0.2813892449490325,"z":-0.6721601660257583}}}
+{"time":"2026-09-17T21:11:01.645Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04522981138985527,"y":-0.0783739241897089,"z":-0.04474150033571389}}}
+{"time":"2026-09-17T21:11:02.546Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04504669474455225,"y":-0.0783739241897089,"z":-0.04492461698101691}}}
+{"time":"2026-09-17T21:11:03.461Z","kind":"chat","value":"[MobaTest] MOB_M2_DONE"}
+{"time":"2026-09-17T21:11:03.712Z","kind":"chat","value":"No entity was found"}
+{"time":"2026-09-17T21:11:03.963Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=3 xp=0 choices=[ChoiceRecord[level=2, choiceId=fixture_health]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=2} channel=false"}
+{"time":"2026-09-17T21:11:04.047Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.02453763047060975,"y":-0.0783739241897089,"z":-0.02453763047060975}}}
+{"time":"2026-09-17T21:11:04.197Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.004028566196667249,"y":-0.0783739241897089,"z":-0.003967527314899577}}}
+{"time":"2026-09-17T21:11:04.211Z","kind":"scenarioEnd","value":"mobTargeted"}
+{"time":"2026-09-17T21:11:04.348Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:11:12.598Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.009766221082829762,"y":-0.0783739241897089,"z":-0.04358176158212779}}}
+{"time":"2026-09-17T21:11:12.747Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.013245437343587962,"y":-0.0783739241897089,"z":-0.05908563755112006}}}
+{"time":"2026-09-17T21:11:12.896Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.013794787279497012,"y":-0.0783739241897089,"z":-0.061588231703595175}}}
+{"time":"2026-09-17T21:11:13.049Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0067753158762131616,"y":-0.0783739241897089,"z":-0.06299212598425197}}}
+{"time":"2026-09-17T21:11:13.196Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0036012940242935443,"y":-0.0783739241897089,"z":-0.06348043703839346}}}
+{"time":"2026-09-17T21:11:13.345Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0028688274430812566,"y":-0.0783739241897089,"z":-0.06354147592016113}}}
+{"time":"2026-09-17T21:11:13.499Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0003662332906060328,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:11:13.946Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03149606299212604,"y":-0.0783739241897089,"z":-0.05328694378318988}}}
+{"time":"2026-09-17T21:11:14.100Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03772202893242993,"y":-0.0783739241897089,"z":-0.050784349630714765}}}
+{"time":"2026-09-17T21:11:14.246Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03900384544955138,"y":-0.0783739241897089,"z":-0.05017396081303793}}}
+{"time":"2026-09-17T21:11:14.396Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.02752853567722635,"y":-0.0783739241897089,"z":-0.0555453824085943}}}
+{"time":"2026-09-17T21:11:14.547Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.01373374839772934,"y":-0.0783739241897089,"z":-0.06146615394005983}}}
+{"time":"2026-09-17T21:11:14.694Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.010559726545809722,"y":-0.0783739241897089,"z":-0.06262589269364582}}}
+{"time":"2026-09-17T21:11:14.847Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.006592199230910145,"y":-0.0783739241897089,"z":-0.06317524262955498}}}
+{"time":"2026-09-17T21:11:14.995Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.00268571079777824,"y":-0.0783739241897089,"z":-0.06354147592016113}}}
+{"time":"2026-09-17T21:11:15.146Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0009155832265153041,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:11:15.296Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.00036623329060614385,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:11:15.747Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.026735030214246502,"y":-0.0783739241897089,"z":-0.05475187694561434}}}
+{"time":"2026-09-17T21:11:15.896Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03766099005066226,"y":-0.0783739241897089,"z":-0.05047915522187629}}}
+{"time":"2026-09-17T21:11:16.046Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03985838979429901,"y":-0.0783739241897089,"z":-0.049441494231825645}}}
+{"time":"2026-09-17T21:11:16.197Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.04040773973020817,"y":-0.0783739241897089,"z":-0.049136299822987284}}}
+{"time":"2026-09-17T21:11:16.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.006592199230910145,"y":-0.0783739241897089,"z":-0.007996093511566826}}}
+{"time":"2026-09-17T21:11:16.497Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:11:33.896Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.019044131111518037,"y":-0.0783739241897089,"z":0.03808826222303607}}}
+{"time":"2026-09-17T21:11:34.046Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.009583104437526746,"y":-0.0783739241897089,"z":0.058902520905816935}}}
+{"time":"2026-09-17T21:11:34.196Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0037233717878288886,"y":-0.0783739241897089,"z":0.06280900933894884}}}
+{"time":"2026-09-17T21:11:34.354Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0009766221082829762,"y":-0.0783739241897089,"z":0.06348043703839346}}}
+{"time":"2026-09-17T21:11:34.495Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.000427272172373816,"y":-0.0783739241897089,"z":0.06354147592016113}}}
+{"time":"2026-09-17T21:11:34.950Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.017151925776719756,"y":-0.0783739241897089,"z":0.05798693767930163}}}
+{"time":"2026-09-17T21:11:35.097Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.03613501800647012,"y":-0.0783739241897089,"z":0.05096746627601778}}}
+{"time":"2026-09-17T21:11:35.246Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":-0.0058597326496978575,"y":-0.0783739241897089,"z":0.008301287920405409}}}
+{"time":"2026-09-17T21:11:35.397Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:11:51.602Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-17T21:11:51.610Z","kind":"ready","value":{"scenarios":["fiftyLunges","fiftyUltimates","inventoryAndUnlock","sinkholeProtection","sinkholeProvenance","deathInMode","duplicateUltInput","rewardGui","mobTargeted"],"instruction":"Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time":"2026-09-17T21:11:51.904Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.046267472379905916,"y":-0.0783739241897089,"z":-0.04120124519318802}}}
+{"time":"2026-09-17T21:11:52.002Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04712201672465355,"y":-0.0783739241897089,"z":-0.041933711774400306}}}
+{"time":"2026-09-17T21:11:52.150Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0474882500152598,"y":-0.0783739241897089,"z":-0.04223890618323878}}}
+{"time":"2026-09-17T21:11:52.302Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05957394860526155,"y":-0.0783739241897089,"z":-0.01910516999328571}}}
+{"time":"2026-09-17T21:11:52.450Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.061832387230665864,"y":-0.0783739241897089,"z":-0.013977903924800139}}}
+{"time":"2026-09-17T21:11:52.604Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06232069828480746,"y":-0.0783739241897089,"z":-0.012757126289446363}}}
+{"time":"2026-09-17T21:11:52.758Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05194408838430076,"y":-0.0783739241897089,"z":-0.03509735701641947}}}
+{"time":"2026-09-17T21:11:52.901Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04962461087712877,"y":-0.0783739241897089,"z":-0.039492156503692866}}}
+{"time":"2026-09-17T21:11:53.052Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0490752609412195,"y":-0.0783739241897089,"z":-0.04046877861197584}}}
+{"time":"2026-09-17T21:11:53.200Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.054812915827382014,"y":-0.0783739241897089,"z":-0.028932429957883143}}}
+{"time":"2026-09-17T21:11:53.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06116095953122147,"y":-0.0783739241897089,"z":-0.015198681560153804}}}
+{"time":"2026-09-17T21:11:53.496Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06232069828480746,"y":-0.0783739241897089,"z":-0.012024659708234187}}}
+{"time":"2026-09-17T21:11:53.647Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06299212598425208,"y":-0.0783739241897089,"z":-0.007690899102728466}}}
+{"time":"2026-09-17T21:11:53.797Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06348043703839346,"y":-0.0783739241897089,"z":-0.0033571384972227447}}}
+{"time":"2026-09-17T21:11:53.947Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":-0.0010986998718183205}}}
+{"time":"2026-09-17T21:11:54.097Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.000427272172373816}}}
+{"time":"2026-09-17T21:11:54.549Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05499603247268503,"y":-0.0783739241897089,"z":-0.02636879692364036}}}
+{"time":"2026-09-17T21:11:54.699Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05090642739425011,"y":-0.0783739241897089,"z":-0.0371116401147531}}}
+{"time":"2026-09-17T21:11:54.849Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04992980528596713,"y":-0.0783739241897089,"z":-0.039248000976622066}}}
+{"time":"2026-09-17T21:11:54.998Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04962461087712877,"y":-0.0783739241897089,"z":-0.039736312030763554}}}
+{"time":"2026-09-17T21:11:55.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.008057132393334498,"y":-0.0783739241897089,"z":-0.00647012146737469}}}
+{"time":"2026-09-17T21:11:55.298Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:11:57.047Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.008972715619849803,"y":-0.0783739241897089,"z":0.03289995727278283}}}
+{"time":"2026-09-17T21:11:57.200Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.01806750900323506,"y":-0.0783739241897089,"z":0.06604407007263635}}}
+{"time":"2026-09-17T21:11:57.247Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.02423243606177139,"y":-0.0783739241897089,"z":-0.04687786119758286}}}
+{"time":"2026-09-17T21:11:57.347Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.019532442165659525,"y":-0.0783739241897089,"z":0.07147653054996028}}}
+{"time":"2026-09-17T21:11:57.397Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.03289995727278283,"y":-0.0783739241897089,"z":-0.06348043703839346}}}
+{"time":"2026-09-17T21:11:57.498Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.008179210156869954,"y":-0.0783739241897089,"z":0.07434535799304154}}}
+{"time":"2026-09-17T21:11:57.546Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.03430385155343951,"y":-0.0783739241897089,"z":-0.06622718671793937}}}
+{"time":"2026-09-17T21:11:57.650Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.005554538240859386,"y":-0.0783739241897089,"z":0.07489470792895081}}}
+{"time":"2026-09-17T21:11:57.699Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.045168772508087596,"y":-0.0783739241897089,"z":-0.05932979307819086}}}
+{"time":"2026-09-17T21:11:57.797Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.002624671916010457,"y":-0.0783739241897089,"z":0.07507782457425383}}}
+{"time":"2026-09-17T21:11:57.847Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.049746688640664116,"y":-0.0783739241897089,"z":-0.056155771226271134}}}
+{"time":"2026-09-17T21:11:57.947Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.0007324665812122877,"y":-0.0783739241897089,"z":0.0751388634560215}}}
+{"time":"2026-09-17T21:11:57.998Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.050784349630714765,"y":-0.0783739241897089,"z":-0.055362265763291174}}}
+{"time":"2026-09-17T21:11:58.147Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.052127205029603774,"y":-0.0783739241897089,"z":-0.05414148812793751}}}
+{"time":"2026-09-17T21:11:58.298Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05261551608374537,"y":-0.0783739241897089,"z":-0.05371421595556369}}}
+{"time":"2026-09-17T21:11:58.598Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05285967161081606,"y":-0.0783739241897089,"z":-0.05340902154672522}}}
+{"time":"2026-09-17T21:11:59.197Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05310382713788675,"y":-0.0783739241897089,"z":-0.05316486601965453}}}
+{"time":"2026-09-17T21:12:00.246Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.069584325215162,"y":-0.0783739241897089,"z":-0.024415552707074406}}}
+{"time":"2026-09-17T21:12:00.399Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07275834706708184,"y":-0.0783739241897089,"z":-0.017640236830861244}}}
+{"time":"2026-09-17T21:12:00.548Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07410120246597085,"y":-0.0783739241897089,"z":-0.010742843191112739}}}
+{"time":"2026-09-17T21:12:00.698Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07495574681071848,"y":-0.0783739241897089,"z":-0.004272721723738049}}}
+{"time":"2026-09-17T21:12:00.850Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07507782457425383,"y":-0.0783739241897089,"z":-0.0009766221082829762}}}
+{"time":"2026-09-17T21:12:00.998Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.062381737166575135,"y":-0.0783739241897089,"z":-0.0380272233412684}}}
+{"time":"2026-09-17T21:12:01.149Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05902459866935228,"y":-0.0783739241897089,"z":-0.04577916132576454}}}
+{"time":"2026-09-17T21:12:01.299Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.0581090154428372,"y":-0.0783739241897089,"z":-0.047549288897027364}}}
+{"time":"2026-09-17T21:12:01.447Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.009461026673991402,"y":-0.0783739241897089,"z":-0.007751937984496138}}}
+{"time":"2026-09-17T21:12:01.600Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:03.043Z","kind":"scenarioBegin","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:12:03.052Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=test"}
+{"time":"2026-09-17T21:12:03.302Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:03.551Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:03.811Z","kind":"chat","value":"Replaced a slot on MobaTest with [Stone]"}
+{"time":"2026-09-17T21:12:09.758Z","kind":"scenarioError","value":"Error: Server did not answer the placement at (3, -59, -5): Event blockUpdate:(3, -59, -5) did not fire within timeout of 5000ms\n    at /private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:33:27\n    at async placeBlockWithOptions (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:28:26)\n    at async EventEmitter.placeBlock (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:48:5)\n    at async exports.sinkholeProvenance (/private/tmp/minecraftmoba-phase1/validation/plugin/protocol/scenarios.js:63:5)\n    at async /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/driver.cjs:28:5"}
+{"time":"2026-09-17T21:12:33.203Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-17T21:12:33.211Z","kind":"ready","value":{"scenarios":["fiftyLunges","fiftyUltimates","inventoryAndUnlock","sinkholeProtection","sinkholeProvenance","deathInMode","duplicateUltInput","rewardGui","mobTargeted"],"instruction":"Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time":"2026-09-17T21:12:34.307Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.02234023072697311,"y":-0.0783739241897089,"z":0.038637612158945345}}}
+{"time":"2026-09-17T21:12:34.447Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.030275285356772264,"y":-0.0783739241897089,"z":0.052432399438442356}}}
+{"time":"2026-09-17T21:12:34.603Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.03155710187389371,"y":-0.0783739241897089,"z":0.054629799182079}}}
+{"time":"2026-09-17T21:12:34.751Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.03888176768601603,"y":-0.0783739241897089,"z":0.04992980528596713}}}
+{"time":"2026-09-17T21:12:34.795Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.05182201062076541,"y":-0.0783739241897089,"z":-0.009766221082829762}}}
+{"time":"2026-09-17T21:12:34.896Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.041872672892632634,"y":-0.0783739241897089,"z":0.047793444424098164}}}
+{"time":"2026-09-17T21:12:34.947Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.07031679179637429,"y":-0.0783739241897089,"z":-0.01318439846182018}}}
+{"time":"2026-09-17T21:12:35.046Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.04248306171030947,"y":-0.0783739241897089,"z":0.04736617225172446}}}
+{"time":"2026-09-17T21:12:35.098Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.07416224134773852,"y":-0.0783739241897089,"z":-0.00647012146737469}}}
+{"time":"2026-09-17T21:12:35.248Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.07495574681071848,"y":-0.0783739241897089,"z":-0.0031740218519197283}}}
+{"time":"2026-09-17T21:12:35.348Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.04388695599096626,"y":-0.0783739241897089,"z":0.0460843557346029}}}
+{"time":"2026-09-17T21:12:35.397Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.0751388634560215,"y":-0.0783739241897089,"z":-0.00036623329060614385}}}
+{"time":"2026-09-17T21:12:35.499Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.04437526704510775,"y":-0.0783739241897089,"z":0.04559604468046152}}}
+{"time":"2026-09-17T21:12:35.646Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.02160776414576082,"y":-0.0783739241897089,"z":0.03857657327717767}}}
+{"time":"2026-09-17T21:12:35.797Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.016114264786669108,"y":-0.0783739241897089,"z":0.057559665506927926}}}
+{"time":"2026-09-17T21:12:35.948Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.007690899102728466,"y":-0.0783739241897089,"z":0.062381737166575135}}}
+{"time":"2026-09-17T21:12:35.950Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.04474150033571389,"y":-0.0783739241897089,"z":0.04522981138985527}}}
+{"time":"2026-09-17T21:12:36.097Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.005737654886162513,"y":-0.0783739241897089,"z":0.06323628151132277}}}
+{"time":"2026-09-17T21:12:36.247Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.0036012940242934333,"y":-0.0783739241897089,"z":0.06348043703839346}}}
+{"time":"2026-09-17T21:12:36.399Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":-0.0005493499359091603,"y":-0.0783739241897089,"z":0.0636025148019288}}}
+{"time":"2026-09-17T21:12:36.601Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05450772141854365,"y":-0.0783739241897089,"z":0.031435024110358256}}}
+{"time":"2026-09-17T21:12:36.748Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.06341939815662578,"y":-0.0783739241897089,"z":0.036562290178843826}}}
+{"time":"2026-09-17T21:12:36.897Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.06512848684612105,"y":-0.0783739241897089,"z":-0.03100775193798455}}}
+{"time":"2026-09-17T21:12:36.898Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.06482329243728246,"y":-0.0783739241897089,"z":0.037355795641823786}}}
+{"time":"2026-09-17T21:12:36.997Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":0,"y":-0.0783739241897089,"z":0.03473112372581344}}}
+{"time":"2026-09-17T21:12:37.047Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.060001220777635256,"y":-0.0783739241897089,"z":-0.0440090337545016}}}
+{"time":"2026-09-17T21:12:37.048Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05719343221632189,"y":-0.0783739241897089,"z":0.04828175547823954}}}
+{"time":"2026-09-17T21:12:37.149Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":0,"y":-0.0783739241897089,"z":0.005676616004394841}}}
+{"time":"2026-09-17T21:12:37.197Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.05865836537874625,"y":-0.0783739241897089,"z":-0.04681682231581519}}}
+{"time":"2026-09-17T21:12:37.198Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0555453824085943,"y":-0.0783739241897089,"z":0.05060123298541175}}}
+{"time":"2026-09-17T21:12:37.297Z","kind":"velocityPacket","value":{"entityId":21,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:37.347Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.017396081303790556,"y":-0.0783739241897089,"z":-0.014038942806567811}}}
+{"time":"2026-09-17T21:12:37.347Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.055118110236220375,"y":-0.0783739241897089,"z":0.051089544039553125}}}
+{"time":"2026-09-17T21:12:37.497Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0.0028077885613135845,"y":-0.0783739241897089,"z":-0.002258438625404424}}}
+{"time":"2026-09-17T21:12:37.498Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05389733260086671,"y":-0.0783739241897089,"z":0.052432399438442356}}}
+{"time":"2026-09-17T21:12:37.648Z","kind":"velocityPacket","value":{"entityId":24,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:37.648Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05359213819202835,"y":-0.0783739241897089,"z":0.052676554965513045}}}
+{"time":"2026-09-17T21:12:37.747Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.056460965635109606,"y":-0.0783739241897089,"z":0.02533113593358971}}}
+{"time":"2026-09-17T21:12:37.898Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.06097784288591834,"y":-0.0783739241897089,"z":0.016541536959042924}}}
+{"time":"2026-09-17T21:12:37.948Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05334798266495766,"y":-0.0783739241897089,"z":0.052981749374351406}}}
+{"time":"2026-09-17T21:12:38.047Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.06189342611243365,"y":-0.0783739241897089,"z":0.0145272538607093}}}
+{"time":"2026-09-17T21:12:38.197Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.06305316486601964,"y":-0.0783739241897089,"z":0.00701947140328385}}}
+{"time":"2026-09-17T21:12:38.350Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.06348043703839346,"y":-0.0783739241897089,"z":0.003845449551364233}}}
+{"time":"2026-09-17T21:12:38.498Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.06354147592016113,"y":-0.0783739241897089,"z":0.003051944088384273}}}
+{"time":"2026-09-17T21:12:38.499Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":-0.045962277971067556,"y":-0.0783739241897089,"z":-0.02691814685954952}}}
+{"time":"2026-09-17T21:12:38.650Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.054568760300311325,"y":-0.0783739241897089,"z":0.02691814685954963}}}
+{"time":"2026-09-17T21:12:38.651Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":-0.053470060428493005,"y":-0.0783739241897089,"z":-0.03131294634682291}}}
+{"time":"2026-09-17T21:12:38.800Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.050234999694805604,"y":-0.0783739241897089,"z":0.03790514557773306}}}
+{"time":"2026-09-17T21:12:38.800Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":-0.054629799182079,"y":-0.0783739241897089,"z":-0.0320454129280352}}}
+{"time":"2026-09-17T21:12:38.950Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.049197338704754956,"y":-0.0783739241897089,"z":0.04016358420313737}}}
+{"time":"2026-09-17T21:12:38.950Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":-0.016297381431972124,"y":-0.0783739241897089,"z":-0.009583104437526746}}}
+{"time":"2026-09-17T21:12:39.096Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.026735030214246502,"y":-0.0783739241897089,"z":0.022157114081670093}}}
+{"time":"2026-09-17T21:12:39.097Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":-0.00268571079777824,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:39.248Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":-0.004333760605505721,"y":-0.0783739241897089,"z":0.0036012940242935443}}}
+{"time":"2026-09-17T21:12:39.249Z","kind":"velocityPacket","value":{"entityId":27,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:39.299Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.030397363120307608,"y":-0.0783739241897089,"z":0.032716840627479815}}}
+{"time":"2026-09-17T21:12:39.397Z","kind":"velocityPacket","value":{"entityId":23,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:39.448Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.03882072880424836,"y":-0.0783739241897089,"z":0.06171030946713052}}}
+{"time":"2026-09-17T21:12:39.449Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04120124519318802,"y":-0.0783739241897089,"z":0.044314228163339964}}}
+{"time":"2026-09-17T21:12:39.597Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.02154672526399315,"y":-0.0783739241897089,"z":0.07111029725935425}}}
+{"time":"2026-09-17T21:12:39.598Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.0440090337545016,"y":-0.0783739241897089,"z":0.04522981138985527}}}
+{"time":"2026-09-17T21:12:39.748Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.01727400354025521,"y":-0.0783739241897089,"z":0.07300250259415253}}}
+{"time":"2026-09-17T21:12:39.749Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04449734480864309,"y":-0.0783739241897089,"z":0.04535188915339061}}}
+{"time":"2026-09-17T21:12:39.897Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.03778306781419771,"y":-0.0783739241897089,"z":0.06311420374778742}}}
+{"time":"2026-09-17T21:12:40.049Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04669474455227984,"y":-0.0783739241897089,"z":0.05841420985167556}}}
+{"time":"2026-09-17T21:12:40.197Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.048647988768845796,"y":-0.0783739241897089,"z":0.05719343221632189}}}
+{"time":"2026-09-17T21:12:40.200Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04480253921748156,"y":-0.0783739241897089,"z":0.045168772508087596}}}
+{"time":"2026-09-17T21:12:40.348Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.014588292742476971,"y":-0.0783739241897089,"z":0.0170298480131843}}}
+{"time":"2026-09-17T21:12:40.498Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0023805163889396574,"y":-0.0783739241897089,"z":0.0027467496795459123}}}
+{"time":"2026-09-17T21:12:40.647Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:44.397Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.013428553988890979,"y":-0.0783739241897089,"z":0.013428553988890979}}}
+{"time":"2026-09-17T21:12:44.547Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.002197399743636752,"y":-0.0783739241897089,"z":0.002197399743636641}}}
+{"time":"2026-09-17T21:12:44.680Z","kind":"scenarioBegin","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:12:44.688Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=test"}
+{"time":"2026-09-17T21:12:44.696Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:44.948Z","kind":"chat","value":"Teleported MobaTest to 2.500000, -59.000000, -5.500000"}
+{"time":"2026-09-17T21:12:45.797Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:46.046Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:46.297Z","kind":"chat","value":"Replaced a slot on MobaTest with [Stone]"}
+{"time":"2026-09-17T21:12:46.749Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.010254532136971362,"y":-0.0783739241897089,"z":-0.05176097173899774}}}
+{"time":"2026-09-17T21:12:46.897Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.013916865043032356,"y":-0.0783739241897089,"z":-0.07013367515107127}}}
+{"time":"2026-09-17T21:12:47.047Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.014466214978941627,"y":-0.0783739241897089,"z":-0.07312458035768787}}}
+{"time":"2026-09-17T21:12:47.196Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.004761032777879537,"y":-0.0783739241897089,"z":-0.07477263016541535}}}
+{"time":"2026-09-17T21:12:47.347Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.0007935054629799598,"y":-0.0783739241897089,"z":-0.07507782457425383}}}
+{"time":"2026-09-17T21:12:47.496Z","kind":"velocityPacket","value":{"entityId":31,"velocity":{"x":0.0003051944088383607,"y":-0.0783739241897089,"z":-0.0751388634560215}}}
+{"time":"2026-09-17T21:12:47.531Z","kind":"scenarioError","value":"Error: Server refused to place stone at (3, -59, -5): the block is still stone\n    at placeBlockWithOptions (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:42:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async EventEmitter.placeBlock (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:48:5)\n    at async exports.sinkholeProvenance (/private/tmp/minecraftmoba-phase1/validation/plugin/protocol/scenarios.js:65:5)\n    at async /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/driver.cjs:28:5"}
+{"time":"2026-09-17T21:12:48.300Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.006714276994445489,"y":-0.0783739241897089,"z":0.03344930720869188}}}
+{"time":"2026-09-17T21:12:48.447Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.013428553988890979,"y":-0.0783739241897089,"z":0.06714276994445467}}}
+{"time":"2026-09-17T21:12:48.596Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0145272538607093,"y":-0.0783739241897089,"z":0.07263626930354627}}}
+{"time":"2026-09-17T21:12:48.747Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.006958432521516178,"y":-0.0783739241897089,"z":0.07446743575657688}}}
+{"time":"2026-09-17T21:12:48.896Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0033571384972226337,"y":-0.0783739241897089,"z":0.07501678569248615}}}
+{"time":"2026-09-17T21:12:49.046Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.019837636574497886,"y":-0.0783739241897089,"z":0.06879081975218204}}}
+{"time":"2026-09-17T21:12:49.195Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.042177867301470995,"y":-0.0783739241897089,"z":0.0606116095953122}}}
+{"time":"2026-09-17T21:12:49.348Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04687786119758286,"y":-0.0783739241897089,"z":0.05847524873344323}}}
+{"time":"2026-09-17T21:12:49.497Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.03424281267167184,"y":-0.0783739241897089,"z":0.06476225355551479}}}
+{"time":"2026-09-17T21:12:49.646Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.017884392357931933,"y":-0.0783739241897089,"z":0.07227003601294024}}}
+{"time":"2026-09-17T21:12:49.796Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.013794787279497012,"y":-0.0783739241897089,"z":0.07373496917536482}}}
+{"time":"2026-09-17T21:12:49.948Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.005981810413233202,"y":-0.0783739241897089,"z":0.07477263016541547}}}
+{"time":"2026-09-17T21:12:50.097Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.002624671916010568,"y":-0.0783739241897089,"z":0.07507782457425383}}}
+{"time":"2026-09-17T21:12:50.247Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0003051944088383607,"y":-0.0783739241897089,"z":0.0751388634560215}}}
+{"time":"2026-09-17T21:12:50.697Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0375389122871268,"y":-0.0783739241897089,"z":0.0626869315754135}}}
+{"time":"2026-09-17T21:12:50.847Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04522981138985527,"y":-0.0783739241897089,"z":0.05951290972349388}}}
+{"time":"2026-09-17T21:12:50.996Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.046999938961118204,"y":-0.0783739241897089,"z":0.058597326496978575}}}
+{"time":"2026-09-17T21:12:50.997Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.019532442165659525,"y":-0.0783739241897089,"z":0.04016358420313737}}}
+{"time":"2026-09-17T21:12:51.147Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0076298602209607935,"y":-0.0783739241897089,"z":0.009522065555759074}}}
+{"time":"2026-09-17T21:12:51.148Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.02642983580540803,"y":-0.0783739241897089,"z":0.05444668253677598}}}
+{"time":"2026-09-17T21:12:51.295Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:51.296Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.027589574558994023,"y":-0.0783739241897089,"z":0.056766160043947966}}}
+{"time":"2026-09-17T21:12:51.446Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.033815540499298136,"y":-0.0783739241897089,"z":0.053225904901422316}}}
+{"time":"2026-09-17T21:12:51.596Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.040529817493743625,"y":-0.0783739241897089,"z":0.04877006653238114}}}
+{"time":"2026-09-17T21:12:51.750Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.041933711774400306,"y":-0.0783739241897089,"z":0.047793444424098164}}}
+{"time":"2026-09-17T21:12:51.897Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.042177867301470995,"y":-0.0783739241897089,"z":0.04761032777879515}}}
+{"time":"2026-09-17T21:12:52.047Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04364280046389557,"y":-0.0783739241897089,"z":0.046267472379905916}}}
+{"time":"2026-09-17T21:12:52.199Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04425318928157229,"y":-0.0783739241897089,"z":0.04571812244399687}}}
+{"time":"2026-09-17T21:12:52.647Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04468046145394622,"y":-0.0783739241897089,"z":0.04529085027162294}}}
+{"time":"2026-09-17T21:12:53.248Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.05621681010803892,"y":-0.0783739241897089,"z":0.025941524751266654}}}
+{"time":"2026-09-17T21:12:53.397Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.06073368735884754,"y":-0.0783739241897089,"z":0.017457120185558228}}}
+{"time":"2026-09-17T21:12:53.546Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.06164927058536285,"y":-0.0783739241897089,"z":0.015442837087224603}}}
+{"time":"2026-09-17T21:12:53.699Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.05627784898980659,"y":-0.0783739241897089,"z":0.026307758041872686}}}
+{"time":"2026-09-17T21:12:53.846Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.049685649758896444,"y":-0.0783739241897089,"z":0.03882072880424836}}}
+{"time":"2026-09-17T21:12:54.044Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.043520722700360226,"y":-0.0783739241897089,"z":0.04547396691692618}}}
+{"time":"2026-09-17T21:12:54.045Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.0481596777147042,"y":-0.0783739241897089,"z":0.041384361838491035}}}
+{"time":"2026-09-17T21:12:54.160Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05060123298541175,"y":-0.0783739241897089,"z":0.05285967161081606}}}
+{"time":"2026-09-17T21:12:54.160Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.047793444424098164,"y":-0.0783739241897089,"z":0.041933711774400306}}}
+{"time":"2026-09-17T21:12:54.296Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05176097173899774,"y":-0.0783739241897089,"z":0.054019410364402054}}}
+{"time":"2026-09-17T21:12:54.296Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.007751937984496138,"y":-0.0783739241897089,"z":0.006836354757980834}}}
+{"time":"2026-09-17T21:12:54.447Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.029298663248489287,"y":-0.0783739241897089,"z":0.067081731062687}}}
+{"time":"2026-09-17T21:12:54.448Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:54.598Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.018799975584447237,"y":-0.0783739241897089,"z":0.07227003601294024}}}
+{"time":"2026-09-17T21:12:54.748Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.016053225904901325,"y":-0.0783739241897089,"z":0.07330769700299089}}}
+{"time":"2026-09-17T21:12:54.902Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.042177867301470995,"y":-0.0783739241897089,"z":0.06085576512238289}}}
+{"time":"2026-09-17T21:12:54.902Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.01049868766404205,"y":-0.0783739241897089,"z":-0.031679179637429056}}}
+{"time":"2026-09-17T21:12:55.047Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04761032777879515,"y":-0.0783739241897089,"z":0.05786485991576629}}}
+{"time":"2026-09-17T21:12:55.048Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04236098394677412,"y":-0.0783739241897089,"z":-0.03961423426722821}}}
+{"time":"2026-09-17T21:12:55.197Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04883110541414881,"y":-0.0783739241897089,"z":0.05707135445278633}}}
+{"time":"2026-09-17T21:12:55.198Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.05719343221632178,"y":-0.0783739241897089,"z":-0.021363608618690133}}}
+{"time":"2026-09-17T21:12:55.347Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.007935054629799154,"y":-0.0783739241897089,"z":0.009277910028688385}}}
+{"time":"2026-09-17T21:12:55.348Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06171030946713052,"y":-0.0783739241897089,"z":-0.013062320698284835}}}
+{"time":"2026-09-17T21:12:55.497Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:55.498Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06256485381187815,"y":-0.0783739241897089,"z":-0.011109076481718883}}}
+{"time":"2026-09-17T21:12:55.647Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06329732039309044,"y":-0.0783739241897089,"z":-0.005188304950253353}}}
+{"time":"2026-09-17T21:12:55.797Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06354147592016113,"y":-0.0783739241897089,"z":-0.0027467496795459123}}}
+{"time":"2026-09-17T21:12:55.948Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06354147592016113,"y":-0.0783739241897089,"z":-0.0011597387535859927}}}
+{"time":"2026-09-17T21:12:56.099Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.054324604773240526,"y":-0.0783739241897089,"z":-0.02722334126838799}}}
+{"time":"2026-09-17T21:12:56.246Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04986876640419946,"y":-0.0783739241897089,"z":-0.038393456631874545}}}
+{"time":"2026-09-17T21:12:56.397Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04877006653238114,"y":-0.0783739241897089,"z":-0.04065189525727886}}}
+{"time":"2026-09-17T21:12:56.547Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.026490874687175703,"y":-0.0783739241897089,"z":-0.02240126960874078}}}
+{"time":"2026-09-17T21:12:56.697Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.004333760605505721,"y":-0.0783739241897089,"z":-0.0036623329060612164}}}
+{"time":"2026-09-17T21:12:56.849Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:57.446Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.026185680278337342,"y":-0.0783739241897089,"z":0.04577916132576454}}}
+{"time":"2026-09-17T21:12:57.598Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.035463590307025616,"y":-0.0783739241897089,"z":0.062076542757736775}}}
+{"time":"2026-09-17T21:12:57.747Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.03698956235121775,"y":-0.0783739241897089,"z":0.06476225355551479}}}
+{"time":"2026-09-17T21:12:57.905Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.04626747237990603,"y":-0.0783739241897089,"z":0.05865836537874625}}}
+{"time":"2026-09-17T21:12:58.045Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05017396081303793,"y":-0.0783739241897089,"z":0.05585057681743266}}}
+{"time":"2026-09-17T21:12:58.201Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.051028505157785564,"y":-0.0783739241897089,"z":0.05517914911798827}}}
+{"time":"2026-09-17T21:12:58.347Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05218824391137156,"y":-0.0783739241897089,"z":0.054080449246169726}}}
+{"time":"2026-09-17T21:12:58.496Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05261551608374537,"y":-0.0783739241897089,"z":0.05365317707379602}}}
+{"time":"2026-09-17T21:12:58.797Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05285967161081606,"y":-0.0783739241897089,"z":0.05340902154672533}}}
+{"time":"2026-09-17T21:12:59.547Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05310382713788686,"y":-0.0783739241897089,"z":0.05316486601965442}}}
+{"time":"2026-09-17T21:13:00.447Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.008667521211011442,"y":-0.0783739241897089,"z":0.008667521211011442}}}
+{"time":"2026-09-17T21:13:00.597Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:02.802Z","kind":"kicked","value":{"type":"compound","value":{"translate":{"type":"string","value":"multiplayer.disconnect.duplicate_login"}}}}
+{"time":"2026-09-17T21:13:02.802Z","kind":"end","value":"socketClosed"}
+{"time":"2026-09-17T21:13:02.906Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-17T21:13:02.914Z","kind":"ready","value":{"scenarios":["fiftyLunges","fiftyUltimates","inventoryAndUnlock","sinkholeProtection","sinkholeProvenance","deathInMode","duplicateUltInput","rewardGui","mobTargeted"],"instruction":"Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time":"2026-09-17T21:13:03.408Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.056705121162180294,"y":-0.0783739241897089,"z":-0.012085698590001859}}}
+{"time":"2026-09-17T21:13:03.452Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.05920771531465541,"y":-0.0783739241897089,"z":-0.012635048525911019}}}
+{"time":"2026-09-17T21:13:03.602Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06171030946713052,"y":-0.0783739241897089,"z":-0.013123359580052507}}}
+{"time":"2026-09-17T21:13:03.747Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.010071415491668234,"y":-0.0783739241897089,"z":-0.002136360861868969}}}
+{"time":"2026-09-17T21:13:03.898Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:06.148Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.01049868766404205,"y":-0.0783739241897089,"z":-0.02691814685954952}}}
+{"time":"2026-09-17T21:13:06.297Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.02105841420985166,"y":-0.0783739241897089,"z":-0.054019410364402165}}}
+{"time":"2026-09-17T21:13:06.448Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.022767502899346925,"y":-0.0783739241897089,"z":-0.05841420985167556}}}
+{"time":"2026-09-17T21:13:06.601Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.010986998718183538,"y":-0.0783739241897089,"z":-0.06201550387596899}}}
+{"time":"2026-09-17T21:13:06.746Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.005615577122627169,"y":-0.0783739241897089,"z":-0.06323628151132277}}}
+{"time":"2026-09-17T21:13:06.899Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.004333760605505721,"y":-0.0783739241897089,"z":-0.06341939815662578}}}
+{"time":"2026-09-17T21:13:07.051Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.032716840627479704,"y":-0.0783739241897089,"z":-0.052920710492583733}}}
+{"time":"2026-09-17T21:13:07.197Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.03827137886833909,"y":-0.0783739241897089,"z":-0.05041811634010862}}}
+{"time":"2026-09-17T21:13:07.349Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.039492156503692866,"y":-0.0783739241897089,"z":-0.04986876640419946}}}
+{"time":"2026-09-17T21:13:07.496Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.028077885613135622,"y":-0.0783739241897089,"z":-0.0553012268815235}}}
+{"time":"2026-09-17T21:13:07.648Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.014405176097173955,"y":-0.0783739241897089,"z":-0.06134407617652449}}}
+{"time":"2026-09-17T21:13:07.799Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.011292193127021899,"y":-0.0783739241897089,"z":-0.06250381493011048}}}
+{"time":"2026-09-17T21:13:07.949Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.007141549166819305,"y":-0.0783739241897089,"z":-0.06305316486601964}}}
+{"time":"2026-09-17T21:13:08.099Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.002990905206616601,"y":-0.0783739241897089,"z":-0.06348043703839346}}}
+{"time":"2026-09-17T21:13:08.248Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.0009155832265153041,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:13:08.398Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.00036623329060614385,"y":-0.0783739241897089,"z":-0.0636025148019288}}}
+{"time":"2026-09-17T21:13:08.847Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.026490874687175703,"y":-0.0783739241897089,"z":-0.05493499359091747}}}
+{"time":"2026-09-17T21:13:08.998Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.037294756760056114,"y":-0.0783739241897089,"z":-0.050784349630714765}}}
+{"time":"2026-09-17T21:13:09.148Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.039492156503692866,"y":-0.0783739241897089,"z":-0.049746688640664116}}}
+{"time":"2026-09-17T21:13:09.297Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.039980467557834354,"y":-0.0783739241897089,"z":-0.049441494231825645}}}
+{"time":"2026-09-17T21:13:09.447Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.006531160349142362,"y":-0.0783739241897089,"z":-0.00805713239333461}}}
+{"time":"2026-09-17T21:13:09.597Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:10.949Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.024415552707074406,"y":-0.0783739241897089,"z":0.046755783434047515}}}
+{"time":"2026-09-17T21:13:11.098Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.03314411279985352,"y":-0.0783739241897089,"z":0.06335835927485811}}}
+{"time":"2026-09-17T21:13:11.249Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0345480070805102,"y":-0.0783739241897089,"z":0.06610510895440402}}}
+{"time":"2026-09-17T21:13:11.397Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04529085027162294,"y":-0.0783739241897089,"z":0.05926875419642319}}}
+{"time":"2026-09-17T21:13:11.398Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.03235060733687356,"y":-0.0783739241897089,"z":0.01080388207288041}}}
+{"time":"2026-09-17T21:13:11.548Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.04980772752243179,"y":-0.0783739241897089,"z":0.05609473234450335}}}
+{"time":"2026-09-17T21:13:11.548Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04034670084844039,"y":-0.0783739241897089,"z":0.04181163401086496}}}
+{"time":"2026-09-17T21:13:11.698Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05084538851248244,"y":-0.0783739241897089,"z":0.055362265763291285}}}
+{"time":"2026-09-17T21:13:11.699Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.042177867301470995,"y":-0.0783739241897089,"z":0.04638955014344148}}}
+{"time":"2026-09-17T21:13:11.848Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.06598303119086868,"y":-0.0783739241897089,"z":0.030824635292681535}}}
+{"time":"2026-09-17T21:13:11.849Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04370383934566324,"y":-0.0783739241897089,"z":0.04602331685283523}}}
+{"time":"2026-09-17T21:13:11.997Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07202588048586955,"y":-0.0783739241897089,"z":0.01934932552035651}}}
+{"time":"2026-09-17T21:13:12.148Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07324665812122322,"y":-0.0783739241897089,"z":0.016297381431972235}}}
+{"time":"2026-09-17T21:13:12.150Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.044070072636269275,"y":-0.0783739241897089,"z":0.04590123908929988}}}
+{"time":"2026-09-17T21:13:12.297Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07477263016541547,"y":-0.0783739241897089,"z":0.0054324604773241525}}}
+{"time":"2026-09-17T21:13:12.299Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.044375267045107636,"y":-0.0783739241897089,"z":0.04559604468046152}}}
+{"time":"2026-09-17T21:13:12.446Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07507782457425383,"y":-0.0783739241897089,"z":0.0027467496795459123}}}
+{"time":"2026-09-17T21:13:12.447Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04474150033571389,"y":-0.0783739241897089,"z":0.04522981138985527}}}
+{"time":"2026-09-17T21:13:12.599Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.06470121467374712,"y":-0.0783739241897089,"z":0.03149606299212593}}}
+{"time":"2026-09-17T21:13:12.748Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.059451870841726207,"y":-0.0783739241897089,"z":0.04474150033571389}}}
+{"time":"2026-09-17T21:13:12.898Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.05798693767930163,"y":-0.0783739241897089,"z":0.04761032777879515}}}
+{"time":"2026-09-17T21:13:13.048Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.01721296465848754,"y":-0.0783739241897089,"z":0.01428309833363861}}}
+{"time":"2026-09-17T21:13:13.195Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0028077885613135845,"y":-0.0783739241897089,"z":0.0023194775071719853}}}
+{"time":"2026-09-17T21:13:13.196Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04492461698101691,"y":-0.0783739241897089,"z":0.04504669474455225}}}
+{"time":"2026-09-17T21:13:13.348Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:14.447Z","kind":"scenarioBegin","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:13:14.454Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=test"}
+{"time":"2026-09-17T21:13:14.697Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.05231032167490701,"y":-0.0783739241897089,"z":0.03259476286394425}}}
+{"time":"2026-09-17T21:13:14.705Z","kind":"chat","value":"Teleported MobaTest to 2.500000, -59.000000, -5.500000"}
+{"time":"2026-09-17T21:13:14.849Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.060245376304706166,"y":-0.0783739241897089,"z":0.01806750900323517}}}
+{"time":"2026-09-17T21:13:14.997Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.06177134834889819,"y":-0.0783739241897089,"z":0.014710370506012316}}}
+{"time":"2026-09-17T21:13:15.148Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.0626869315754135,"y":-0.0783739241897089,"z":0.009522065555759074}}}
+{"time":"2026-09-17T21:13:15.298Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.06341939815662578,"y":-0.0783739241897089,"z":0.00433376060550561}}}
+{"time":"2026-09-17T21:13:15.447Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":0.003112982970151945}}}
+{"time":"2026-09-17T21:13:15.559Z","kind":"chat","value":"Successfully filled 2 block(s)"}
+{"time":"2026-09-17T21:13:15.600Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.05792589879753396,"y":-0.0783739241897089,"z":0.017151925776719867}}}
+{"time":"2026-09-17T21:13:15.748Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.05096746627601778,"y":-0.0783739241897089,"z":0.03613501800647012}}}
+{"time":"2026-09-17T21:13:15.807Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:13:15.898Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04925837758652252,"y":-0.0783739241897089,"z":0.03991942867606668}}}
+{"time":"2026-09-17T21:13:16.048Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04883110541414881,"y":-0.0783739241897089,"z":0.040773973020814314}}}
+{"time":"2026-09-17T21:13:16.059Z","kind":"chat","value":"Replaced a slot on MobaTest with [Stone]"}
+{"time":"2026-09-17T21:13:16.198Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.007935054629799154,"y":-0.0783739241897089,"z":0.006653238112677817}}}
+{"time":"2026-09-17T21:13:16.348Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:16.648Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.020814258682780862,"y":-0.0783739241897089,"z":0.020020753219801124}}}
+{"time":"2026-09-17T21:13:16.798Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.017029848013184412,"y":-0.0783739241897089,"z":0.029603857657327648}}}
+{"time":"2026-09-17T21:13:16.799Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04181163401086496,"y":-0.0783739241897089,"z":0.04016358420313737}}}
+{"time":"2026-09-17T21:13:16.948Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.034120734908136496,"y":-0.0783739241897089,"z":0.059390831959958534}}}
+{"time":"2026-09-17T21:13:16.949Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04522981138985527,"y":-0.0783739241897089,"z":0.04339864493682466}}}
+{"time":"2026-09-17T21:13:17.097Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.03692852346945008,"y":-0.0783739241897089,"z":0.06421290361960574}}}
+{"time":"2026-09-17T21:13:17.098Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04577916132576454,"y":-0.0783739241897089,"z":0.04394799487273393}}}
+{"time":"2026-09-17T21:13:17.247Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.045962277971067556,"y":-0.0783739241897089,"z":0.05884148202404926}}}
+{"time":"2026-09-17T21:13:17.248Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04559604468046152,"y":-0.0783739241897089,"z":0.044314228163339964}}}
+{"time":"2026-09-17T21:13:17.398Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.049685649758896444,"y":-0.0783739241897089,"z":0.05627784898980659}}}
+{"time":"2026-09-17T21:13:17.400Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04529085027162294,"y":-0.0783739241897089,"z":0.04468046145394622}}}
+{"time":"2026-09-17T21:13:17.547Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05047915522187629,"y":-0.0783739241897089,"z":0.055667460172129646}}}
+{"time":"2026-09-17T21:13:17.697Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05145577733015927,"y":-0.0783739241897089,"z":0.05475187694561434}}}
+{"time":"2026-09-17T21:13:17.847Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.052432399438442245,"y":-0.0783739241897089,"z":0.05383629371909904}}}
+{"time":"2026-09-17T21:13:17.997Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.04504669474455225,"y":-0.0783739241897089,"z":0.04492461698101691}}}
+{"time":"2026-09-17T21:13:18.148Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05273759384728072,"y":-0.0783739241897089,"z":0.05359213819202835}}}
+{"time":"2026-09-17T21:13:18.298Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.05298174937435152,"y":-0.0783739241897089,"z":0.05328694378318999}}}
+{"time":"2026-09-17T21:13:18.410Z","kind":"chat","value":"[MobaTest] PROVENANCE_SETUP_DONE"}
+{"time":"2026-09-17T21:13:20.400Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0.007324665812122433,"y":-0.0783739241897089,"z":0.007324665812122433}}}
+{"time":"2026-09-17T21:13:20.546Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:20.848Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.02044802539217483,"y":-0.0783739241897089,"z":0.02044802539217483}}}
+{"time":"2026-09-17T21:13:21.000Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.037599951168894585,"y":-0.0783739241897089,"z":-0.0373557956418239}}}
+{"time":"2026-09-17T21:13:21.146Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.040590856375511186,"y":-0.0783739241897089,"z":-0.04663370567051217}}}
+{"time":"2026-09-17T21:13:21.298Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.028993468839650816,"y":-0.0783739241897089,"z":0.028993468839650927}}}
+{"time":"2026-09-17T21:13:21.298Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04291033388268328,"y":-0.0783739241897089,"z":-0.04657266678874439}}}
+{"time":"2026-09-17T21:13:21.329Z","kind":"chat","value":"[MobaTest] PLACED_SURVIVED_3_-5"}
+{"time":"2026-09-17T21:13:21.452Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":-0.004699993896111865,"y":-0.0783739241897089,"z":0.004699993896111865}}}
+{"time":"2026-09-17T21:13:21.453Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.0433376060550571,"y":-0.0783739241897089,"z":-0.046511627906976716}}}
+{"time":"2026-09-17T21:13:21.571Z","kind":"chat","value":"[MobaTest] PLACED_SURVIVED_4_-5"}
+{"time":"2026-09-17T21:13:21.598Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:21.748Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.0513947384483916,"y":-0.0783739241897089,"z":-0.033571384972227336}}}
+{"time":"2026-09-17T21:13:21.825Z","kind":"chat","value":"[MobaTest] PLACED_SURVIVED_3_-4"}
+{"time":"2026-09-17T21:13:21.898Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06006225965940304,"y":-0.0783739241897089,"z":-0.018372703412073532}}}
+{"time":"2026-09-17T21:13:22.049Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06171030946713052,"y":-0.0783739241897089,"z":-0.014893487151315443}}}
+{"time":"2026-09-17T21:13:22.075Z","kind":"chat","value":"[MobaTest] NATURAL_REMOVED_5_-5"}
+{"time":"2026-09-17T21:13:22.199Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.0626869315754135,"y":-0.0783739241897089,"z":-0.009522065555759074}}}
+{"time":"2026-09-17T21:13:22.326Z","kind":"chat","value":"[MobaTest] NATURAL_REMOVED_3_-3"}
+{"time":"2026-09-17T21:13:22.349Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06341939815662578,"y":-0.0783739241897089,"z":-0.0041506439602027045}}}
+{"time":"2026-09-17T21:13:22.499Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.06354147592016113,"y":-0.0783739241897089,"z":-0.0029298663248489287}}}
+{"time":"2026-09-17T21:13:22.577Z","kind":"chat","value":"[MobaTest] NATURAL_REMOVED_2_-5"}
+{"time":"2026-09-17T21:13:22.648Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.057803821033998615,"y":-0.0783739241897089,"z":-0.017335042422022884}}}
+{"time":"2026-09-17T21:13:22.797Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.05066227186717942,"y":-0.0783739241897089,"z":-0.036501251297076265}}}
+{"time":"2026-09-17T21:13:22.843Z","kind":"chat","value":"provenance observedNonemptyChunks=1 payloadBytes=185 peakBytes=185 maxChunkBytes=185 reclaimedBytes=0 placeCount=3 placeMeanNs=1795319.0 placeMaxNs=4340583 breakCount=0 breakMeanNs=0.0 breakMaxNs=0 openPistonMarked=0 openExplosionMarked=0 csv=plugins/MinecraftMoba/measurements/provenance-1789679315348.csv"}
+{"time":"2026-09-17T21:13:22.948Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.048892144295916484,"y":-0.0783739241897089,"z":-0.0403467008484405}}}
+{"time":"2026-09-17T21:13:23.077Z","kind":"scenarioEnd","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:13:23.097Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.0580479765610693,"y":-0.0783739241897089,"z":0.02124153085515479}}}
+{"time":"2026-09-17T21:13:23.098Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.04846487212354267,"y":-0.0783739241897089,"z":-0.04120124519318802}}}
+{"time":"2026-09-17T21:13:23.249Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07202588048586955,"y":-0.0783739241897089,"z":0.00891167673808213}}}
+{"time":"2026-09-17T21:13:23.250Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":-0.007874015748031482,"y":-0.0783739241897089,"z":-0.006714276994445489}}}
+{"time":"2026-09-17T21:13:23.398Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07458951352011223,"y":-0.0783739241897089,"z":0.0037844106695965607}}}
+{"time":"2026-09-17T21:13:23.400Z","kind":"velocityPacket","value":{"entityId":26,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:13:23.548Z","kind":"velocityPacket","value":{"entityId":25,"velocity":{"x":0.07507782457425383,"y":-0.0783739241897089,"z":0.0009155832265153041}}}

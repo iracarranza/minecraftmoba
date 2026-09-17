@@ -54,9 +54,13 @@ exports.sinkholeProtection = async ({bot,cmd,action,sleep,Vec3}) => {
 // asserts each survives while natural neighbours go. Reads playerPlacedExcluded.
 exports.sinkholeProvenance = async ({bot,cmd,action,sleep,Vec3}) => {
   await cmd('moba setclass MobaTest test');
-  await cmd('fill 0 -58 -8 6 -54 -2 minecraft:air');           // clear headroom
+  await cmd('tp MobaTest 2.5 -59 -5.5 0 0');                   // within reach of the build site
+  await sleep(600);
+  await cmd('fill 0 -59 -8 6 -54 -2 minecraft:air');           // clear from the build layer up
   await cmd('fill 0 -60 -8 6 -60 -2 minecraft:stone');          // natural floor (server-set, unmarked)
-  bot.setQuickBarSlot(0);
+  await cmd('item replace entity @s hotbar.0 with minecraft:stone 64');
+  await sleep(400);
+  bot.setQuickBarSlot(0); await sleep(300);
   for (const [x,z] of [[3,-5],[4,-5],[3,-4]]) {                 // player-placed, marked by BlockPlaceEvent
     await bot.placeBlock(bot.blockAt(new Vec3(x,-60,z)), new Vec3(0,1,0));
     await sleep(250);
