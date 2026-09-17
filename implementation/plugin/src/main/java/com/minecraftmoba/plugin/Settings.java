@@ -9,6 +9,7 @@ public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity,
         // Bukkit scalar fallback is not enough: getKeys() omits default-only registry entries.
         // Include bundled missing keys while preserving every explicit administrator value.
         c.options().copyDefaults(true);
+        positiveInt(c, "capacity.enforceTicks");
         positiveInt(c, "abilities.modeTimeoutTicks");
         positiveInt(c, "mapStub.checkTicks");
         positiveInt(c, "provenance.sampleTicks");

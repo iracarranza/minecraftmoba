@@ -142,3 +142,17 @@ started cleanly, saved the merged config, and contained the test class assignmen
 Fresh-launch computer control still exposed only Minecraft Launcher, so the corrected
 abilities need a real-client retest before any additional acceptance row can pass.
 Startup logs and `/moba debug` now explicitly show whether ability kits are registered.
+
+## Protocol fixture follow-up
+
+A separate loopback-only Paper fixture on port 25576 uses Mineflayer 4.39.0 and a
+new disposable flat world. It leaves the authenticated player server on 25575
+unchanged. The fixed registry executed empty-hand ChannelUlt exactly once and
+reported channel completion, and executed Lunge from an arm-animation packet.
+Initial live inventory checks retained all six filled L1 slots while cancelling
+pickup overflow and attempted insertion into hotbar slot 6. These are protocol-client
+tests, not assertions about vanilla key generation or rendered feedback.
+
+This fixture also exposed peaceful hunger regeneration bypassing FoodLevelChangeEvent.
+Capacity now enforces the hunger/saturation cap on a configurable tick cadence as
+well as food-change events. No item state is inspected or modified by that task.

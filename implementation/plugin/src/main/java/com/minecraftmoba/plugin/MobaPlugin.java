@@ -43,6 +43,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(packets, this);
         getServer().getOnlinePlayers().forEach(p -> { load(p); packets.attach(p); });
         getServer().getScheduler().runTaskTimer(this, () -> {
+            for (Player p : getServer().getOnlinePlayers()) if (enrolled(p)) enforceHunger(p, capacity(data(p)));
+        }, getConfig().getLong("capacity.enforceTicks"), getConfig().getLong("capacity.enforceTicks"));
+        getServer().getScheduler().runTaskTimer(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) {
                 if (enrolled(p) && !offhandMap.ensure(p)) {
                     PlayerData d = players.remove(p.getUniqueId());
@@ -95,14 +98,18 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Capacity.DerivedCapacity capacity(PlayerData d) {
         return Capacity.recompute(d.level, d.choices, settings.capacity());
     }
+    private void enforceHunger(Player p, Capacity.DerivedCapacity c) {
+        int capped=Math.min(p.getFoodLevel(), Math.min(20,c.effectiveHunger()));
+        if (p.getFoodLevel()!=capped) p.setFoodLevel(capped);
+        if (p.getSaturation()>capped) p.setSaturation(capped);
+    }
     public void applyAndSave(Player p) { sync(p, data(p)); }
     private void sync(Player p, PlayerData d) {
         var c = capacity(d);
         var attribute = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH));
         attribute.setBaseValue(c.maxHealth());
         if (p.getHealth() > attribute.getValue()) p.setHealth(attribute.getValue());
-        p.setFoodLevel(Math.min(p.getFoodLevel(), Math.min(20, c.effectiveHunger())));
-        p.setSaturation(Math.min(p.getSaturation(), p.getFoodLevel()));
+        enforceHunger(p, c);
         p.setLevel(d.level);
         p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / settings.xpPerLevel()));
         save(p, d);

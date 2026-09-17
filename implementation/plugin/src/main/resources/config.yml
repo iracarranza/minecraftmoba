@@ -3,6 +3,7 @@ progression:
   maxLevel: 30
   xpPerLevel: 100
 capacity:
+  enforceTicks: 1
   health: { start: 9, growthUnit: 1, cap: 20 }
   hunger: { start: 9, growthUnit: 1, cap: 20 }
   slots: { start: 6, growthUnit: 3, cap: 36 }
