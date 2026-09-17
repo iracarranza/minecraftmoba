@@ -1,0 +1,13 @@
+name: DropActionProbe
+version: 0.1.0
+main: com.minecraftmoba.probe.DropActionProbe
+api-version: '1.21.11'
+description: Throwaway read-and-cancel probe for the Phase 1 empty-hand gate
+commands:
+  dropprobe:
+    description: Log a labeled input test boundary with both hand states
+    usage: /dropprobe <label>
+    permission: dropprobe.admin
+permissions:
+  dropprobe.admin:
+    default: op

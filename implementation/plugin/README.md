@@ -29,3 +29,6 @@ Step 1 scaffolding only. No slot locking, map, abilities, provenance, or reward 
 is claimed yet. The step-2 vanilla client packet check must pass before further build.
 Generated server worlds, downloaded tools, and raw validation output belong outside
 this source directory. No live acceptance test is claimed by unit-test results.
+
+Step 2 has a separately built [diagnostic probe](probe/README.md). See
+[validation status](../../validation/plugin/phase1-status.md) for evidence and blockers.
