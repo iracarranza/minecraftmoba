@@ -26,6 +26,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     @Override public void onEnable() {
         saveDefaultConfig();
         settings = Settings.load(getConfig());
+        saveConfig(); // persist merged missing defaults after validation
         dataKey = new NamespacedKey(this, "player_data");
         provenance = new Provenance(this);
         getServer().getPluginManager().registerEvents(provenance, this);

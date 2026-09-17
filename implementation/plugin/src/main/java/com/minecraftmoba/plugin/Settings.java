@@ -6,6 +6,9 @@ import java.util.Map;
 
 public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity, RewardCatalog rewards) {
     public static Settings load(FileConfiguration c) {
+        // Bukkit scalar fallback is not enough: getKeys() omits default-only registry entries.
+        // Include bundled missing keys while preserving every explicit administrator value.
+        c.options().copyDefaults(true);
         positiveInt(c, "abilities.modeTimeoutTicks");
         positiveInt(c, "mapStub.checkTicks");
         positiveInt(c, "provenance.sampleTicks");

@@ -13,9 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AbilityInputsTest {
-    @Test void fiftyDuplicateClickPairsResolveOnceAndTimeoutClearsMode() {
+    @Test void fiftyDuplicateClickPairsResolveOnceAndTimeoutClearsMode() throws Exception {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class); var scheduler=mock(BukkitScheduler.class);
-        var config=YamlConfiguration.loadConfiguration(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/config.yml"))));
+        var defaults=YamlConfiguration.loadConfiguration(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/config.yml"))));
+        var config=new YamlConfiguration();
+        config.loadFromString("abilities:\n  modeTimeoutTicks: 50\n");
+        config.setDefaults(defaults); // existing scaffold config lacks the later registry sections
+        Settings.load(config);
         when(plugin.getConfig()).thenReturn(config); when(plugin.getLogger()).thenReturn(java.util.logging.Logger.getAnonymousLogger());
         var id=UUID.randomUUID(); var data=new PlayerData(id); data.classId="test";
         when(player.getUniqueId()).thenReturn(id); when(player.getName()).thenReturn("test");

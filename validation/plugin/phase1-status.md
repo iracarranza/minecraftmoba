@@ -125,3 +125,13 @@ Microsoft OpenJDK 21.0.7. No third-party heap-size estimator is used.
 
 The user explicitly requested pushing the in-progress implementation to main and
 continuing with small checkpoints. Merge/push does not certify live acceptance.
+
+## Ability dispatch regression — reproduced and fixed
+
+The test server retained the first scaffold config, without `abilities.classes`.
+Bukkit returned scalar defaults but `getKeys(false)` omitted default-only class
+entries, yielding an empty ability registry: mode feedback worked and casts silently
+resolved no ability. A regression using a legacy config reproduced zero executions
+across 50 input pairs. Config loading now enables copying defaults before enumerating
+registries and persists the merged config after validation, preserving explicit values.
+This fixes the reproduced server-side cause; a fresh real-client retest is still needed.
