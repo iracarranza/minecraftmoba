@@ -1,0 +1,53 @@
+# Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
+progression:
+  maxLevel: 30
+  xpPerLevel: 100
+capacity:
+  health: { start: 9, growthUnit: 1, cap: 20 }
+  hunger: { start: 9, growthUnit: 1, cap: 20 }
+  slots: { start: 6, growthUnit: 3, cap: 36 }
+  growthLevels: [2, 4, 7, 8, 9, 11, 13, 14, 15, 16, 17]
+rewards:
+  levels: {}
+  toast: { fadeInTicks: 5, stayTicks: 30, fadeOutTicks: 10 }
+abilities:
+  bindings:
+    mode: SWAP_HAND
+    a1: LEFT_CLICK
+    a2: RIGHT_CLICK
+    ult: DROP
+  modeTimeoutTicks: 50
+  logExecutions: true
+  # User-authorized prototype test kit. Not class design or balance canon.
+  classes:
+    test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
+  definitions:
+    lunge:
+      displayName: Lunge
+      cooldownTicks: 10
+      power: 0.8
+    sinkhole_lite:
+      displayName: SinkholeLite
+      cooldownTicks: 10
+      radius: 3
+      maxSelectionBlocks: 4096
+      rayDistance: 12
+      blocksPerStage: 12
+      stageTicks: 2
+    channel_ult:
+      displayName: ChannelUlt
+      cooldownTicks: 10
+      channelTicks: 30
+      movementThreshold: 0.25
+  feedback:
+    enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
+    exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }
+
+mapStub:
+  text: MOBA
+  textX: 8
+  textY: 60
+  checkTicks: 20
+
+provenance:
+  sampleTicks: 200

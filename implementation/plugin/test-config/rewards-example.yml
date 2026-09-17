@@ -1,0 +1,13 @@
+# TEST FIXTURE ONLY. Replace only rewards.levels in a disposable server config.
+# These opaque example choices are not designed game rewards and never ship enabled.
+rewards:
+  levels:
+    '2':
+      - id: fixture_health
+        label: 'TEST: health growth'
+        icon: APPLE
+        capacity: { health: 1, hunger: 0, slots: 0 }
+      - id: fixture_slots
+        label: 'TEST: slot growth'
+        icon: CHEST
+        capacity: { health: 0, hunger: 0, slots: 3 }
