@@ -67,6 +67,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public boolean isMap(org.bukkit.inventory.ItemStack item) { return offhandMap.isMap(item); }
     public int unlockedSlots(Player p) { return capacity(players.get(p.getUniqueId())).unlockedSlots(); }
     private void load(Player p) {
+        if (!InventoryGuard.safeToReduce(p)) {
+            p.sendMessage("Empty the cursor and temporary crafting/menu slots yourself, then /moba join.");
+            return;
+        }
         if (!offhandMap.ensure(p)) {
             p.sendMessage("Empty your offhand yourself, then /moba join to enroll. No item was replaced.");
             return;
@@ -152,6 +156,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 }
                 case "reset" -> {
                     if (args.length != 2) return false;
+                    if (!InventoryGuard.safeToReduce(p)) throw new IllegalArgumentException("Empty cursor and temporary menu slots before reset.");
                     inputs.forget(p);
                     d = new PlayerData(p.getUniqueId()); players.put(d.uuid, d);
                 }
@@ -166,6 +171,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     if (args.length != 3) return false;
                     int level = Integer.parseInt(args[2]);
                     if (level < 1 || level > settings.maxLevel()) throw new IllegalArgumentException("Level outside configured range.");
+                    if (level < d.level && !InventoryGuard.safeToReduce(p)) throw new IllegalArgumentException("Empty cursor and temporary menu slots before lowering level.");
                     inputs.exit(p, true);
                     d.level = level; d.xp = 0; d.modeState.clear();
                 }

@@ -104,3 +104,14 @@ For a disposable GUI test, merge only `rewards.levels` from
 player, then award the configured XP requirement. Choose `fixture_slots` and verify
 three extra slots become usable immediately; reset should restore the configured
 baseline. Restore the empty production rewards table afterward.
+
+### Preventing close-time returns
+
+At partial capacity, temporary crafting/anvil/trading menus are disabled because
+closing them returns contents outside cancellable inventory-transfer events.
+External cursor pickups require safe unlocked return space; while holding a cursor
+stack, automatic pickups and cursor swaps are cancelled to preserve that space.
+Enrollment/reset/level reduction requires an empty cursor and empty temporary menu
+slots. These conservative restrictions avoid closing-time insertion into locked slots
+without relocating or restoring anything. Commands or other plugins that directly
+write inventories bypass Bukkit inventory events and are not supported insertion paths.

@@ -49,6 +49,7 @@ public final class Rewards implements Listener {
     }
     public void open(Player p) {
         if(!plugin.enrolled(p)) { p.sendMessage("Use /moba join first."); return; }
+        if (!InventoryGuard.safeToReduce(p)) { p.sendMessage("Empty cursor and temporary menu slots before opening rewards."); return; }
         var pending=catalog.pending(plugin.data(p));
         if(pending.isEmpty()) { p.sendMessage("No pending rewards."); return; }
         int level=pending.getFirst(); var options=catalog.levels().get(level);
@@ -88,6 +89,7 @@ public final class Rewards implements Listener {
     }
     @EventHandler public void quit(PlayerQuitEvent e) { cleanup(e.getPlayer()); }
     public void cleanup(Player p) {
+        if (p.getOpenInventory().getTopInventory().getHolder() instanceof Menu) p.closeInventory();
         menus.remove(p.getUniqueId()); var bar=markers.remove(p.getUniqueId()); if(bar!=null) p.hideBossBar(bar);
     }
     public void invalidate(Player p) {

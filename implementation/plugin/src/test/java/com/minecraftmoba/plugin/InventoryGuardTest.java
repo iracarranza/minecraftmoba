@@ -54,4 +54,28 @@ class InventoryGuardTest {
         when(offhand.getWhoClicked()).thenReturn(player); when(offhand.getClick()).thenReturn(ClickType.SWAP_OFFHAND);
         guard.click(offhand); verify(offhand).setCancelled(true);
     }
+    @Test void temporaryMenuInsertionAndUnsafeExternalCursorPickupAreCancelled() {
+        var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
+        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
+        when(view.getTopInventory()).thenReturn(top);
+        // Registry-backed InventoryType needs a live server; stub only that classification seam.
+        try (var policy=mockStatic(InventoryGuard.class)) {
+        policy.when(() -> InventoryGuard.returnsOnClose(null)).thenReturn(true);
+        var insert=mock(InventoryClickEvent.class);
+        when(insert.getWhoClicked()).thenReturn(player); when(insert.getView()).thenReturn(view);
+        when(insert.getClickedInventory()).thenReturn(top); when(insert.getHotbarButton()).thenReturn(-1);
+        guard.click(insert); verify(insert).setCancelled(true);
+        policy.when(() -> InventoryGuard.returnsOnClose(null)).thenReturn(false);
+        var inv=mock(PlayerInventory.class); when(player.getInventory()).thenReturn(inv);
+        when(inv.getMaxStackSize()).thenReturn(64);
+        var incoming=stack(64);
+        for(int n=0;n<6;n++) { var full=stack(64); when(inv.getItem(n)).thenReturn(full); }
+        var pickup=mock(InventoryClickEvent.class);
+        when(pickup.getWhoClicked()).thenReturn(player); when(pickup.getView()).thenReturn(view);
+        when(pickup.getClickedInventory()).thenReturn(top); when(pickup.getHotbarButton()).thenReturn(-1);
+        when(pickup.getAction()).thenReturn(InventoryAction.PICKUP_ALL); when(pickup.getCurrentItem()).thenReturn(incoming);
+        guard.click(pickup); verify(pickup).setCancelled(true);
+        }
+    }
 }
