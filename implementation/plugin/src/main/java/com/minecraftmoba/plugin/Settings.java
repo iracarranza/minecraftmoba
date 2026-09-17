@@ -6,6 +6,23 @@ import java.util.Map;
 
 public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity) {
     public static Settings load(FileConfiguration c) {
+        positiveInt(c, "abilities.modeTimeoutTicks");
+        positiveInt(c, "mapStub.checkTicks");
+        positiveInt(c, "provenance.sampleTicks");
+        for (String id : java.util.List.of("lunge", "sinkhole_lite", "channel_ult")) {
+            String path = "abilities.definitions." + id + ".cooldownTicks";
+            if (!c.isInt(path) || c.getInt(path) < 0) throw new IllegalArgumentException(path + " must be nonnegative");
+        }
+        finitePositive(c,"abilities.definitions.lunge.power");
+        finitePositive(c,"abilities.definitions.sinkhole_lite.radius");
+        finitePositive(c,"abilities.definitions.sinkhole_lite.rayDistance");
+        positiveInt(c,"abilities.definitions.sinkhole_lite.blocksPerStage");
+        positiveInt(c,"abilities.definitions.sinkhole_lite.stageTicks");
+        int maxBlocks = positiveInt(c,"abilities.definitions.sinkhole_lite.maxSelectionBlocks");
+        double reach = Math.ceil(c.getDouble("abilities.definitions.sinkhole_lite.radius"));
+        if (Math.pow(2*reach+1,3)>maxBlocks) throw new IllegalArgumentException("Sinkhole selection exceeds configured budget");
+        positiveInt(c,"abilities.definitions.channel_ult.channelTicks");
+        finitePositive(c,"abilities.definitions.channel_ult.movementThreshold");
         int max = positiveInt(c, "progression.maxLevel");
         int xp = positiveInt(c, "progression.xpPerLevel");
         var health = curve(c, "health");
@@ -25,6 +42,10 @@ public record Settings(int maxLevel, int xpPerLevel, Capacity.Settings capacity)
             throw new IllegalArgumentException("Growth levels must be unique and within 2..maxLevel");
         return new Settings(max, xp, new Capacity.Settings(health, hunger, slots,
             new HashSet<>(levels), Map.of()));
+    }
+    private static void finitePositive(FileConfiguration c,String path) {
+        if (!(c.get(path) instanceof Number n) || !Double.isFinite(n.doubleValue()) || n.doubleValue() <= 0)
+            throw new IllegalArgumentException(path + " must be finite and positive");
     }
     private static int positiveInt(FileConfiguration c, String path) {
         if (!c.isInt(path) || c.getInt(path) <= 0)

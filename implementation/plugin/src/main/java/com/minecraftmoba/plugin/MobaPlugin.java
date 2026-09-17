@@ -19,6 +19,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Settings settings;
     private OffhandMap offhandMap;
     private Provenance provenance;
+    private AbilityInputs inputs;
+    private PacketInputs packets;
     private NamespacedKey dataKey;
     @Override public void onEnable() {
         saveDefaultConfig();
@@ -31,7 +33,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(new InventoryGuard(this), this);
         Objects.requireNonNull(getCommand("moba")).setExecutor(this);
         getServer().getPluginManager().registerEvents(this, this);
-        getServer().getOnlinePlayers().forEach(this::load);
+        inputs = new AbilityInputs(this, provenance);
+        packets = new PacketInputs(this, inputs);
+        getServer().getPluginManager().registerEvents(inputs, this);
+        getServer().getPluginManager().registerEvents(packets, this);
+        getServer().getOnlinePlayers().forEach(p -> { load(p); packets.attach(p); });
         getServer().getScheduler().runTaskTimer(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) {
                 if (enrolled(p) && !offhandMap.ensure(p)) {
@@ -43,6 +49,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
     @Override public void onDisable() {
+        if (packets != null) packets.close();
+        if (inputs != null) getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true));
         if (provenance != null) provenance.sample();
         for (Player p : getServer().getOnlinePlayers()) {
             PlayerData d = players.get(p.getUniqueId());
@@ -50,6 +58,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }
         players.clear();
     }
+    public PlayerData data(Player p) { return players.get(p.getUniqueId()); }
     public boolean enrolled(Player p) { return players.containsKey(p.getUniqueId()); }
     public boolean isMap(org.bukkit.inventory.ItemStack item) { return offhandMap.isMap(item); }
     public int unlockedSlots(Player p) { return capacity(players.get(p.getUniqueId())).unlockedSlots(); }
@@ -128,16 +137,18 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 case "debug" -> {
                     if (args.length != 2) return false;
                     sender.sendMessage("uuid=" + d.uuid + " class=" + d.classId + " level=" + d.level + " xp=" + d.xp
-                        + " choices=" + d.choices + " capacity=" + capacity(d) + " mode=" + d.modeState.active);
+                        + " choices=" + d.choices + " capacity=" + capacity(d) + " mode=" + d.modeState.active + " " + inputs.debug(p));
                     return true;
                 }
                 case "reset" -> {
                     if (args.length != 2) return false;
+                    inputs.forget(p);
                     d = new PlayerData(p.getUniqueId()); players.put(d.uuid, d);
                 }
                 case "setclass" -> {
                     if (args.length != 3) return false;
                     if (args[2].isBlank()) throw new IllegalArgumentException("Class ID cannot be blank.");
+                    inputs.exit(p, true);
                     d.classId = args[2].equals("none") ? null : args[2];
                     d.modeState.clear();
                 }
@@ -145,6 +156,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     if (args.length != 3) return false;
                     int level = Integer.parseInt(args[2]);
                     if (level < 1 || level > settings.maxLevel()) throw new IllegalArgumentException("Level outside configured range.");
+                    inputs.exit(p, true);
                     d.level = level; d.xp = 0; d.modeState.clear();
                 }
                 case "xp" -> {

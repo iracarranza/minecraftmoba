@@ -67,3 +67,22 @@ shrinks storage; clearing the last bit deletes the PDC key. Covering a block pre
 its mark. Piston/explosion events count marked blocks but do not transfer or reclaim
 marks: these policies remain OPEN. Bucket/fluid/entity placement paths outside
 BlockPlaceEvent are not assigned a provenance policy in this phase.
+
+## Test abilities
+
+`/moba setclass <player> test` selects the user-approved test kit: Lunge (A1),
+SinkholeLite (A2), ChannelUlt (ultimate). Prototype numbers and assignments live in
+config. F toggles; M1/M2/Q dispatch in mode; timeout is silent. Both interaction
+hands and entity/block/air paths are handled, with per-ability per-tick deduplication
+and cooldown checks. Unknown class IDs have an empty kit, not invented abilities.
+
+The version-pinned packet adapter consumes swap/drop packets in channel order and
+schedules authoritative state changes on the server thread. It forwards unconsumed
+outside-mode drops to vanilla processing. It does not read Bukkit inventory on a
+Netty thread. The Bukkit swap/drop handlers remain fallback protection.
+
+ChannelUlt reports start/completion/abort; it has no invented combat effect. Mode
+exit/death/quit cancels it. Sinkhole removes a configured number of blocks per stage,
+never drops loot, never loads chunks, skips containers, and rechecks provenance at
+removal time. `/moba debug <player>` includes ability execution counters for live
+single-input verification. These tests still require a real client.
