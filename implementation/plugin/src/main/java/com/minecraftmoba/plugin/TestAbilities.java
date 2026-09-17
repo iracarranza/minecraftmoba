@@ -43,15 +43,19 @@ final class TestAbilities {
             double radius = config.getDouble("radius");
             int reach = (int)Math.ceil(radius);
             var pending = new ArrayDeque<Block>();
+            int excludedAtCollection = 0;
             for (int dy = -reach; dy <= reach; dy++) for (int dx = -reach; dx <= reach; dx++) for (int dz = -reach; dz <= reach; dz++) {
                 if ((double)dx*dx + (double)dy*dy + (double)dz*dz > radius*radius) continue;
                 int x=center.getX()+dx, y=center.getY()+dy, z=center.getZ()+dz;
                 World w = center.getWorld();
                 if (y < w.getMinHeight() || y >= w.getMaxHeight() || !w.isChunkLoaded(x >> 4, z >> 4)) continue;
                 Block b = w.getBlockAt(x,y,z);
-                if (!b.getType().isAir() && !ctx.provenance().isPlayerPlaced(b)) pending.add(b);
+                if (b.getType().isAir()) continue;
+                if (ctx.provenance().isPlayerPlaced(b)) { excludedAtCollection++; continue; }
+                pending.add(b);
             }
             if (pending.isEmpty()) return false;
+            final int playerPlacedExcluded = excludedAtCollection;
             new BukkitRunnable() {
                 int spared, removed;
                 @Override public void run() {
@@ -65,7 +69,11 @@ final class TestAbilities {
                         b.setType(Material.AIR, false); removed++;
                     }
                     if (pending.isEmpty()) {
-                        ctx.plugin().getLogger().info("SinkholeLite removed=" + removed + " newlyPlacedSpared=" + spared);
+                        // playerPlacedExcluded: player-placed blocks skipped when the volume was collected.
+                        // newlyPlacedSpared: blocks that became player-placed during the staged collapse.
+                        ctx.plugin().getLogger().info("SinkholeLite removed=" + removed
+                            + " playerPlacedExcluded=" + playerPlacedExcluded
+                            + " newlyPlacedSpared=" + spared);
                         cancel();
                     }
                 }
