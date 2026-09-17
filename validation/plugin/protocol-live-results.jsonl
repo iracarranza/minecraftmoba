@@ -1,0 +1,90 @@
+{"time":"2026-09-17T19:27:19.821Z","kind":"result","value":{"position":{"x":2.5,"y":-59,"z":-5.5},"health":9,"food":20,"slots":[{"slot":36,"name":"stone","count":64},{"slot":37,"name":"stone","count":64},{"slot":38,"name":"stone","count":64},{"slot":39,"name":"stone","count":64},{"slot":40,"name":"stone","count":64},{"slot":41,"name":"stone","count":64},{"slot":45,"name":"filled_map","count":1}],"cursor":null}}
+{"time":"2026-09-17T19:27:44.616Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-17T19:27:45.169Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-17T19:27:45.417Z","kind":"result","value":{"position":{"x":2.5,"y":-59,"z":-5.5},"health":9,"food":20,"slots":[{"slot":36,"name":"stone","count":64},{"slot":37,"name":"stone","count":64},{"slot":38,"name":"stone","count":64},{"slot":39,"name":"stone","count":64},{"slot":40,"name":"stone","count":64},{"slot":41,"name":"stone","count":64},{"slot":45,"name":"filled_map","count":1}],"cursor":{"type":1104,"count":1,"metadata":0,"nbt":null,"components":[{"type":"custom_data","data":{"type":"compound","value":{"PublicBukkitValues":{"type":"compound","value":{"minecraftmoba:offhand_map":{"type":"byte","value":1}}}}}},{"type":"map_id","data":0}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"filled_map","displayName":"Map","stackSize":64,"slot":45}}}
+{"time":"2026-09-17T19:28:54.395Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T19:28:55.851Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T19:28:56.090Z","kind":"result","value":{"position":{"x":2.5,"y":-59,"z":-5.5},"health":10,"food":13,"slots":[{"slot":36,"name":"stone","count":64},{"slot":37,"name":"stone","count":64},{"slot":38,"name":"stone","count":64},{"slot":39,"name":"stone","count":64},{"slot":40,"name":"stone","count":64},{"slot":41,"name":"stone","count":64},{"slot":42,"name":"dirt","count":64},{"slot":45,"name":"filled_map","count":1}],"cursor":{"type":1104,"count":1,"metadata":0,"nbt":null,"components":[{"type":"custom_data","data":{"type":"compound","value":{"PublicBukkitValues":{"type":"compound","value":{"minecraftmoba:offhand_map":{"type":"byte","value":1}}}}}},{"type":"map_id","data":0}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"filled_map","displayName":"Map","stackSize":64,"slot":45}}}
+{"time":"2026-09-17T19:29:13.288Z","kind":"chat","value":"Changed the block at 4, -59, -6"}
+{"time":"2026-09-17T19:29:13.515Z","kind":"chat","value":"Replaced a slot at 4, -59, -6 with [Oak Planks]"}
+{"time":"2026-09-17T19:29:14.932Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T19:29:15.180Z","kind":"chat","value":"4, -59, -6 has the following block data: [{Slot: 0b, id: \"minecraft:oak_planks\", count: 64}]"}
+{"time":"2026-09-17T19:29:15.430Z","kind":"result","value":{"position":{"x":2.5,"y":-59,"z":-5.5},"health":10,"food":20,"slots":[{"slot":36,"name":"stone","count":64},{"slot":37,"name":"stone","count":64},{"slot":38,"name":"stone","count":64},{"slot":39,"name":"stone","count":64},{"slot":40,"name":"stone","count":64},{"slot":41,"name":"stone","count":64},{"slot":42,"name":"dirt","count":64},{"slot":45,"name":"filled_map","count":1}],"cursor":{"type":1104,"count":1,"metadata":0,"nbt":null,"components":[{"type":"custom_data","data":{"type":"compound","value":{"PublicBukkitValues":{"type":"compound","value":{"minecraftmoba:offhand_map":{"type":"byte","value":1}}}}}},{"type":"map_id","data":0}],"removedComponents":[],"componentMap":{},"stackId":null,"name":"filled_map","displayName":"Map","stackSize":64,"slot":45}}}
+{"time":"2026-09-17T19:29:51.270Z","kind":"chat","value":"provenance observedNonemptyChunks=1 payloadBytes=183 peakBytes=183 maxChunkBytes=183 reclaimedBytes=0 placeCount=1 placeMeanNs=1.2350542E7 placeMaxNs=12350542 breakCount=0 breakMeanNs=0.0 breakMaxNs=0 openPistonMarked=0 openExplosionMarked=0 csv=plugins/MinecraftMoba/measurements/provenance-1789673099987.csv"}
+{"time":"2026-09-17T19:29:53.437Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={lunge=1, sinkhole_lite=1, channel_ult=1} channel=false"}
+{"time":"2026-09-17T19:29:53.706Z","kind":"chat","value":"[MobaTest] PLAYER_BLOCK_SURVIVED"}
+{"time":"2026-09-17T19:29:53.942Z","kind":"chat","value":"[MobaTest] NATURAL_BLOCK_REMOVED"}
+{"time":"2026-09-17T19:29:54.189Z","kind":"result","value":{"placed":"stone","below":"air"}}
+{"time":"2026-09-17T19:30:31.824Z","kind":"chat","value":"Teleported MobaTest to 10.500000, -59.000000, 0.500000"}
+{"time":"2026-09-17T19:30:32.669Z","kind":"result","value":{"physicsEnabled":true,"onGround":true,"velocity":{"x":0,"y":-0.0784000015258789,"z":0},"position":{"x":10.5,"y":-59,"z":0.5}}}
+{"time":"2026-09-17T19:30:49.509Z","kind":"velocityPacket","value":{"entityId":1,"velocity":{"x":0,"y":-0.0783739241897089,"z":-0.7999755844472929}}}
+{"time":"2026-09-17T19:30:50.010Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={lunge=2, sinkhole_lite=1, channel_ult=1} channel=false"}
+{"time":"2026-09-17T19:30:50.258Z","kind":"result","value":{"position":{"x":10.5,"y":-59,"z":0.5},"velocity":{"x":0,"y":-0.0784000015258789,"z":0}}}
+{"time":"2026-09-17T19:31:24.363Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T19:31:59.790Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=1} channel=false"}
+{"time":"2026-09-17T19:32:02.845Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=1} channel=false"}
+{"time":"2026-09-17T19:32:03.096Z","kind":"result","value":"50 Lunge inputs and timeout complete"}
+{"time":"2026-09-17T19:33:14.736Z","kind":"chat","value":"Updated MobaTest: level=2 xp=0 class=test"}
+{"time":"2026-09-17T19:33:15.116Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:15.809Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:16.509Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:17.207Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:17.907Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:18.657Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:19.359Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:20.059Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:20.758Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:21.459Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:22.156Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:22.860Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:23.558Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:24.258Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:24.956Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:25.660Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:26.409Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:27.107Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:27.807Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:28.510Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:29.209Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:29.908Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:30.607Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:31.310Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:32.009Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:32.707Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:33.407Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:34.109Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:34.858Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:35.558Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:36.256Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:36.959Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:37.658Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:38.360Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:39.059Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:39.760Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:40.459Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:41.209Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:41.911Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:42.607Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:43.308Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:44.010Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:44.709Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:45.408Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:46.159Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:46.859Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:47.562Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:48.258Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:48.960Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:49.658Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:33:50.241Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=51} channel=false"}
+{"time":"2026-09-17T19:33:50.490Z","kind":"result","value":"50 empty-hand ult inputs completed"}
+{"time":"2026-09-17T19:34:12.595Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 63}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T19:34:12.964Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-17T19:34:13.037Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=52} channel=true"}
+{"time":"2026-09-17T19:34:13.327Z","kind":"chat","value":"MobaTest was killed"}
+{"time":"2026-09-17T19:34:13.329Z","kind":"chat","value":"Killed MobaTest"}
+{"time":"2026-09-17T19:34:15.142Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=52} channel=false"}
+{"time":"2026-09-17T19:34:15.397Z","kind":"chat","value":"MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 63}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-17T19:34:15.644Z","kind":"result","value":{"position":{"x":-4.5,"y":-59,"z":-2.5},"health":10,"food":14,"slots":[{"slot":36,"name":"stone","count":63},{"slot":37,"name":"stone","count":64},{"slot":38,"name":"stone","count":64},{"slot":39,"name":"stone","count":64},{"slot":40,"name":"stone","count":64},{"slot":41,"name":"stone","count":64},{"slot":42,"name":"dirt","count":64},{"slot":45,"name":"filled_map","count":1}],"cursor":null}}
+{"time":"2026-09-17T19:35:25.681Z","kind":"chat","value":"uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=2 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=true kitConfigured=true executions={lunge=52, sinkhole_lite=1, channel_ult=52} channel=false"}
+{"time":"2026-09-17T19:35:25.931Z","kind":"result","value":"Quit while mode active"}
+{"time":"2026-09-17T19:35:25.936Z","kind":"end","value":"disconnect.quitting"}

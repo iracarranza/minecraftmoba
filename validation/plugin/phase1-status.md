@@ -76,15 +76,21 @@ Microsoft OpenJDK 21.0.7. No third-party heap-size estimator is used.
 
 ## Live acceptance status
 
+Evidence files: `protocol-live-results.jsonl` (90 records, run ending 2026-09-17T19:35:25Z),
+`protocol-server-excerpt.log` (113 filtered server lines), and the reusable driver under
+`protocol/`. The protocol fixture exercises real packet handling, Bukkit events and PDC
+updates; per its README it cannot certify vanilla key generation, renderer appearance,
+or the 30-minute ordinary-building requirement.
+
 | Spec test | Status / evidence still required |
 |---|---|
 | 1 | Pending full real-client path matrix; cancellation unit tests pass. |
 | 2 | Level commands observed live; immediate usability needs client confirmation. |
 | 3 | Reset command observed live; choice fixture/reset needs live confirmation. |
-| 4 | User reports mode feedback works but abilities do not fire; investigation open. Pending 50 live inputs per ability; 50 duplicate-pair unit regression passes. |
-| 4b | Empty-hand drop packets PASS; actual ChannelUlt execution still pending. |
-| 5 | Unit timeout PASS; live silent/no-consumption observation pending. |
-| 6 | Deaths observed before ability mode shipped; in-mode death/quit test pending. |
+| 4 | **Partial live PASS.** The earlier "abilities do not fire" report is superseded: 50 protocol M1 inputs raised Lunge 2 -> 52 (exactly +50) and 50 empty-hand ult inputs raised ChannelUlt 1 -> 51. SinkholeLite remains at 1 execution, so 50-inputs-per-ability is met for 2 of 3 abilities. Protocol fixture only; not a vanilla-client key-generation test. |
+| 4b | **Live PASS (protocol).** Empty-hand drop packets already PASS; ChannelUlt now observed executing, counter 1 -> 51 -> 52. Vanilla-client key generation remains evidenced only by the earlier empty-hand Q log. |
+| 5 | **Live PASS (protocol).** Mode timeout observed live in the same run; counters were unchanged across the timeout (lunge held at 52, sinkhole_lite at 1, channel_ult at 1), confirming silent clearing with no ability consumption. |
+| 6 | **Quit-in-mode observed** ("Quit while mode active" recorded with mode=true at disconnect). In-mode **death** and reconnect still pending. |
 | 7 | Pending real-client attempts to move/drop/store/frame the map. |
 | 8 | Pending real mob-targeted M1/M2. |
 | 9 | Pending real built structure + Sinkhole test; do not mark platform go/no-go. |
