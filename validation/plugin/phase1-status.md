@@ -22,9 +22,12 @@ This is not evidence for any live acceptance test.
 bundled in the main plugin. Its reflective field lookup was checked against the
 actual Paper 1.21.11 server jar with `javap`. Attachment still needs live verification.
 
-The official launcher has a Java 1.21.11 profile. The disposable server initialized
-successfully, but stopped at Mojang's EULA check. Authorization to set `eula=true`
-has been requested. No world or player session has run on this test server yet.
+The user authorized EULA acceptance, and `eula=true` is set on the disposable
+server. Paper starts successfully with both plugins enabled at `127.0.0.1:25575`
+(online mode, localhost only). No player has joined yet. The computer-control tool
+could not attach to the Java game window; the user has been asked to join with a
+vanilla 1.21.11 client and press F, then Q and Ctrl+Q with an empty mainhand.
+Packet verification remains pending; server startup alone does not pass the gate.
 
 ### Static supporting evidence (NOT a live test)
 
