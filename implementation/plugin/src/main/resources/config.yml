@@ -22,3 +22,6 @@ mapStub:
   textX: 8
   textY: 60
   checkTicks: 20
+
+provenance:
+  sampleTicks: 200

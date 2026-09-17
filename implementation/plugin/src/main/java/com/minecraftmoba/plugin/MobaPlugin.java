@@ -18,11 +18,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private final Map<UUID, PlayerData> players = new HashMap<>();
     private Settings settings;
     private OffhandMap offhandMap;
+    private Provenance provenance;
     private NamespacedKey dataKey;
     @Override public void onEnable() {
         saveDefaultConfig();
         settings = Settings.load(getConfig());
         dataKey = new NamespacedKey(this, "player_data");
+        provenance = new Provenance(this);
+        getServer().getPluginManager().registerEvents(provenance, this);
         offhandMap = new OffhandMap(this);
         getServer().getPluginManager().registerEvents(offhandMap, this);
         getServer().getPluginManager().registerEvents(new InventoryGuard(this), this);
@@ -40,6 +43,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
     @Override public void onDisable() {
+        if (provenance != null) provenance.sample();
         for (Player p : getServer().getOnlinePlayers()) {
             PlayerData d = players.get(p.getUniqueId());
             if (d != null) { d.modeState.clear(); save(p, d); }
@@ -112,6 +116,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             return true;
         }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
+        if (args.length == 1 && args[0].equalsIgnoreCase("provenance")) {
+            provenance.sample(); sender.sendMessage(provenance.summary()); return true;
+        }
         if (args.length < 2) return false;
         Player p = getServer().getPlayerExact(args[1]);
         if (p == null || !players.containsKey(p.getUniqueId())) { sender.sendMessage("Player must be online with valid MOBA data."); return true; }

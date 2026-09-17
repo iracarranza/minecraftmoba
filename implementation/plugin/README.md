@@ -49,3 +49,21 @@ The sole inventory write creates a fresh tagged FILLED_MAP in an empty offhand.
 Offhand map interaction with entities/blocks is blocked, including item frames.
 Enrolled players retain inventory on death through vanilla keep-inventory semantics.
 The map renderer is a one-time placeholder; no minimap is implemented.
+
+## Provenance measurement
+
+`/moba provenance` reports counts, observed chunk payload bytes, reclaimed bytes,
+mean/max place/break nanoseconds, and the CSV path under `plugins/MinecraftMoba/measurements/`.
+Samples include wall-clock session duration and Paper mean tick time. Handler timings
+include PDC access and bookkeeping; CSV append cost is outside place/break timing.
+The chunk ledger covers chunks loaded/observed during this process, not unvisited
+chunks on disk. It retains only nonempty chunk entries; zero-size entries are removed.
+No BitSet cache is retained. Payload bytes are exact serialized bytes, **not** total
+JVM heap consumption or entire chunk memory. BitSet and byte-array copies are transient.
+
+Normal BlockPlaceEvent (including multi-block placements) marks; successful break
+unmarks. Negative Y and world-specific height are supported. Clearing the highest bits
+shrinks storage; clearing the last bit deletes the PDC key. Covering a block preserves
+its mark. Piston/explosion events count marked blocks but do not transfer or reclaim
+marks: these policies remain OPEN. Bucket/fluid/entity placement paths outside
+BlockPlaceEvent are not assigned a provenance policy in this phase.
