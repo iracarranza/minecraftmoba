@@ -1,0 +1,49 @@
+[10:18:11] [Server thread/INFO]: [DropActionProbe] Loading server plugin DropActionProbe v0.1.0
+[10:18:12] [Server thread/INFO]: [DropActionProbe] Enabling DropActionProbe v0.1.0
+[10:18:12] [Server thread/WARN]: [DropActionProbe] DIAGNOSTIC ONLY: cancels every received drop/swap action; remove after verification.
+[11:34:26] [User Authenticator #0/INFO]: UUID of player inspiralc is a93fa970-56fc-4097-b937-cc8b5da51cd8
+[11:34:30] [Netty Kqueue IO #1/INFO]: [DropActionProbe] ATTACHED uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 before=packet_handler
+[11:34:41] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=SWAP_ITEM_WITH_OFFHAND drops=0
+[11:34:41] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_SWAP_ITEM_WITH_OFFHAND uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=0
+[11:34:45] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=1
+[11:34:45] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=1
+[11:34:45] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=2
+[11:34:45] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=2
+[11:34:46] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=3
+[11:34:46] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=3
+[11:34:46] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=4
+[11:34:46] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=4
+[11:34:46] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=5
+[11:34:46] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=5
+[11:34:48] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=6
+[11:34:48] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=6
+[11:34:48] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=7
+[11:34:48] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=7
+[11:34:48] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=8
+[11:34:48] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=8
+[11:34:49] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=9
+[11:34:49] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=9
+[11:34:49] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=10
+[11:34:49] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=10
+[11:35:18] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=SWAP_ITEM_WITH_OFFHAND drops=10
+[11:35:18] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_SWAP_ITEM_WITH_OFFHAND uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=10
+[11:35:18] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=11
+[11:35:18] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=11
+[11:35:18] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=12
+[11:35:18] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=12
+[11:35:19] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=13
+[11:35:19] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=13
+[11:35:19] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=14
+[11:35:19] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=14
+[11:35:19] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ITEM drops=15
+[11:35:19] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ITEM uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=15
+[11:35:21] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=16
+[11:35:21] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=16
+[11:35:21] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=17
+[11:35:21] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=17
+[11:35:21] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=18
+[11:35:21] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=18
+[11:35:22] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=19
+[11:35:22] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=19
+[11:35:22] [Netty Kqueue IO #1/INFO]: [DropActionProbe] PACKET uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 action=DROP_ALL_ITEMS drops=20
+[11:35:22] [Server thread/INFO]: [DropActionProbe] SNAPSHOT label=AFTER_DROP_ALL_ITEMS uuid=a93fa970-56fc-4097-b937-cc8b5da51cd8 mainhand=AIR offhand=AIR mode=SURVIVAL drops=20

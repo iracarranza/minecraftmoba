@@ -16,43 +16,32 @@ Two JUnit tests verify binary round-trip, UUID rejection, omission of transient 
 capacity growth/caps, choice folding, and reset-to-baseline recomputation.
 This is not evidence for any live acceptance test.
 
-## Step 2 — gate still pending
+## Step 2 — PASS (live)
 
-`:probe:build`: **PASS**. The diagnostic is a separate plugin artifact; it is not
-bundled in the main plugin. Its reflective field lookup was checked against the
-actual Paper 1.21.11 server jar with `javap`. Attachment still needs live verification.
+Paper 1.21.11 build 132, vanilla 1.21.11 client, player `inspiralc` in survival.
+The listener attached before `packet_handler` at 11:34:30 server-log time.
+Two observed runs each produced one swap control, five `DROP_ITEM`, and five
+`DROP_ALL_ITEMS`: **20 drop packets total, all with mainhand=AIR and offhand=AIR**.
+The first run was 11:34:41–11:34:49; the second was 11:35:18–11:35:22.
+No Bukkit drop event was raised. The probe cancels drop/swap packets before vanilla
+processing and never writes inventory. See `empty-hand-drop.log` for the excerpt.
 
-The user authorized EULA acceptance, and `eula=true` is set on the disposable
-server. Paper starts successfully with both plugins enabled at `127.0.0.1:25575`
-(online mode, localhost only). No player has joined yet. The computer-control tool
-could not attach to the Java game window; the user has been asked to join with a
-vanilla 1.21.11 client and press F, then Q and Ctrl+Q with an empty mainhand.
-Packet verification remains pending; server startup alone does not pass the gate.
+**Answer: yes, the client sends both drop actions with an empty mainhand.**
+This clears the prerequisite for steps 3–6; it is not acceptance test 4b, which
+requires the eventual ultimate ability to execute.
 
-### Static supporting evidence (NOT a live test)
-
-Using Mojang's official 1.21.11 mappings and the locally installed client jar:
-
-- `net.minecraft.client.Minecraft.handleKeybinds` calls `LocalPlayer.drop(boolean)`
-  on consumed drop input for a non-spectator; it does not check the held item first.
-- `net.minecraft.client.player.LocalPlayer.drop(boolean)` sends the player-action
-  packet before checking whether the removed item is empty for its return value.
-- Thus the inspected bytecode supports the expectation that empty-hand Q transmits
-  a drop packet. This does **not** satisfy the requested listener-backed live gate.
-
-Mapping artifact SHA-1 from the official version manifest:
-`031a68bebf55d824f66d6573d8c752f0e1bf232a`.
-Do not promote this gate to PASS without actual packet logs from vanilla input.
+Mojang's official client bytecode independently supports this result: the drop
+method sends the action before inspecting the empty item return value.
 
 ## Provenance measurements
 
-Not measured. Step 4 has not been started because step 2 is unverified.
+Not measured. Step 4 has not been started yet.
 No per-chunk memory, tick cost, session growth, or reclamation claim is made.
 
 ## Live acceptance tests
 
 All 11 rows in SPEC §10 (including 4b): **NOT RUN**.
-Steps 3–6 have deliberately not been built past the verification gate.
+Steps 3–6 are next after the now-passed verification gate.
 
 ## Implementation details / unresolved decisions
 
