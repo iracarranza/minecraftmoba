@@ -278,3 +278,10 @@ ignored `build/` directory. World chunks are never rotated, rewritten, corrected
 or decorated. Only inspection name/spawn/settings and external reference files
 are added. Use each finalist's `REVIEW.md`, `04_labeled_greybox.svg`, and
 `candidate.json` to interpret its boundary and logical axes.
+
+## Terrain harvest and gallery (Working / Prototype-test, 18 September 2026)
+
+[Terrain harvest tooling](terrain_harvest/README.md) imports existing finalists as
+finite 3D references, retains near-miss evidence and specialist sections, and
+materializes selected volumes into isolated void inspection dimensions. This
+changes the inspection object, not Default selection authority or fitter scores.
