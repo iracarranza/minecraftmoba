@@ -68,6 +68,8 @@ public final class Provenance implements Listener {
     }
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void place(BlockPlaceEvent e) {
+        // Paper can veto building independently of the cancellation flag.
+        if (!e.canBuild()) return;
         if (e instanceof BlockMultiPlaceEvent multi) multi.getReplacedBlockStates().forEach(s -> mark(s.getBlock(), true));
         else mark(e.getBlockPlaced(), true);
     }

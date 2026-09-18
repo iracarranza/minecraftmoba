@@ -192,3 +192,20 @@ The 30-minute **ordinary building** trial is still missing. Repeated fixture
 casts and operator-generated terrain do not measure ordinary provenance growth.
 No new provenance performance claim or platform go/no-go conclusion follows from
 these tests. Full vanilla inventory/map-path coverage also remains outstanding.
+
+## Inventory matrix and placement veto follow-up
+
+`inventory-matrix-2026-09-18.jsonl` records 18 successful live protocol checks:
+map left/right/shift/number-key clicks, one/stack drop, offhand hotkey, insertion
+into locked hotbar/main slots, drag across locked slots, crafting-close safety,
+chest shift-insertion/locked hotkey/full-capacity cursor pickup, overflow pickup,
+immediate L2 slot availability, creative locked-slot insertion, and creative map
+removal. Sixteen blocked-operation checks reported no unexpected ground items;
+nine server `equipment` NBT snapshots were identical. Storage comparisons use
+server `Inventory` NBT rather than the protocol client's predicted inventory.
+Frame/armor-stand interaction and the player-destination transfer event remain
+separate checks; vanilla hoppers cannot target a player's inventory directly.
+
+A code review found that BlockPlaceEvent can have canBuild=false independently
+of cancellation. Provenance now ignores that denied placement, with a regression
+covering denied and accepted events. This prevents false marks for vetoed builds.
