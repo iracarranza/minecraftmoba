@@ -1,7 +1,7 @@
 // Real server packet-path checks. Assertions use server NBT, not client predictions.
 const fs=require('node:fs');const mineflayer=require('mineflayer');const {Vec3}=require('vec3');
 const Item=require('prismarine-item')('1.21.11');
-const bot=mineflayer.createBot({host:'127.0.0.1',port:25576,username:'MobaVerify',auth:'offline',version:'1.21.11'});
+const bot=mineflayer.createBot({host:'127.0.0.1',port:Number(process.env.MOBA_PORT||25576),username:'MobaVerify',auth:'offline',version:'1.21.11'});
 fs.mkdirSync('results',{recursive:true});const out=`results/inventory-${Date.now()}.jsonl`;
 const log=(kind,value)=>{const row=JSON.stringify({time:new Date().toISOString(),kind,value});fs.appendFileSync(out,row+'\n');console.log(row)};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));let stateId=0;
@@ -30,6 +30,7 @@ bot.once('spawn',async()=>{try{
  await cmd('setblock 202 -59 200 chest');await cmd('item replace block 202 -59 200 container.0 with oak_planks 64');
  async function chest(){await bot.openContainer(bot.blockAt(new Vec3(202,-59,200)));await sleep(200)}
  await unchanged('chest shift insertion',async()=>{await chest();await click(0,0,1)});
+ await unchanged('chest offhand hotkey',async()=>{await chest();await click(0,40,2)});
  await unchanged('chest locked hotkey',async()=>{await chest();await click(0,6,2)});
  await unchanged('external cursor return denied at full capacity',async()=>{await chest();await click(0)});
  await cmd('data get block 202 -59 200 Items');
@@ -39,6 +40,19 @@ bot.once('spawn',async()=>{try{
  await cmd('gamemode creative');await cmd('moba setlevel MobaVerify 1');baseline=await data('Inventory');
  await unchanged('creative locked insertion',async()=>{bot._client.write('set_creative_slot',{slot:43,item:Item.toNotch(new Item(bot.registry.itemsByName.diamond.id,1))});await sleep(250)});
  await unchanged('creative map deletion',async()=>{bot._client.write('set_creative_slot',{slot:45,item:Item.toNotch(null)});await sleep(250)});await data('equipment');
+ await unchanged('creative map clone',()=>click(45,2,3));await data('equipment');
  await cmd('gamemode survival');
+ await cmd('moba setlevel MobaVerify 30');
+ await cmd('item replace entity @s hotbar.0 with stone 1');
+ for(let i=1;i<6;i++)await cmd(`item replace entity @s hotbar.${i} with dirt 64`);
+ await cmd('item replace entity @s inventory.11 with stone 32');
+ await cmd('moba setlevel MobaVerify 1');baseline=await data('Inventory');
+ await unchanged('double-click cannot collect from locked storage',async()=>{await click(36);await click(36,0,6)});
+ await cmd('item replace entity @s armor.head with iron_helmet');
+ await cmd('item replace entity @s hotbar.0 with stone 64');baseline=await data('Inventory');
+ const armor=await data('equipment');
+ await unchanged('armor cursor return requires safe storage',()=>click(5));
+ await unchanged('armor shift return denied at partial capacity',()=>click(5,0,1));
+ if(await data('equipment')!==armor) throw new Error('Armor equipment changed during blocked returns');
  log('complete','Inventory matrix completed; inspect equipment and no-ground-item markers alongside each pass.');bot.quit('inventory matrix complete');
 }catch(e){log('failure',e.stack);bot.quit('inventory matrix failed');process.exitCode=1}});

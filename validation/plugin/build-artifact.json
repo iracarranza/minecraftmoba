@@ -1,0 +1,10 @@
+{
+  "target": "Paper 1.21.11 build 132",
+  "java": "21.0.7",
+  "mainJar": "implementation/plugin/build/libs/minecraft-moba-0.1.0-SNAPSHOT.jar",
+  "sha256": "95d29067bcc637a391a3f49f10dbe7dac5043faac7473de85b8736f4a39787f1",
+  "automatedTestsPassed": 14,
+  "implementationCommit": "c72d921",
+  "liveFixturePort": 25577,
+  "authenticatedDevelopmentPort": 25575
+}

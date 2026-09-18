@@ -1,211 +1,160 @@
-# Phase 1 validation status — 2026-09-18
+# Phase 1 implementation and validation — 2026-09-18
 
-## Environment
+All six implementation stages are built. **14 automated tests pass**, and the
+live server protocol checks below pass. This is not an unqualified claim that
+all requested human-client/ordinary-play acceptance is complete: the 30-minute
+measurement was a controlled protocol-client building workload, and rendered
+client feedback has not been retested through computer control.
 
-- Target selected before first commit: Paper **1.21.11**, Java **21**.
-- Official Paper build **132**, commit `c5eb079`.
-- Paper download SHA-256: `5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba` (verified).
-- Runtime: Microsoft OpenJDK 21.0.7, macOS arm64.
-- Gradle 8.14.3.
-- Source isolation: `codex/phase1-plugin`, based on `fe5b534`.
+## Environment and artifacts
 
-## Step 1
+- Paper **1.21.11**, official build **132**, commit `c5eb079`; available and tested.
+- Paper SHA-256: `5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba`.
+- Microsoft OpenJDK **21.0.7**, macOS arm64; Gradle **8.14.3**.
+- Main jar: `implementation/plugin/build/libs/minecraft-moba-0.1.0-SNAPSHOT.jar`.
+- Build: `implementation/plugin/gradlew -p implementation/plugin clean test build`.
+- Production rewards remain **empty**. GUI examples and event harness are test-only.
+- Live protocol clients: pinned Mineflayer **4.39.0**, disposable loopback worlds.
+- Claude's three pushed commits were preserved and incorporated on `codex/phase1-plugin`.
+  The user authorized small checkpoints pushed to main; pushing is not acceptance certification.
 
-`gradle wrapper test build --no-daemon`: **PASS**.
-Two JUnit tests verify binary round-trip, UUID rejection, omission of transient mode,
-capacity growth/caps, choice folding, and reset-to-baseline recomputation.
-This is not evidence for any live acceptance test.
+## Step 2: empty-mainhand drop — confirmed on the vanilla client
 
-## Step 2 — PASS (live)
+**Yes.** Vanilla Minecraft 1.21.11, player `inspiralc`, sent both `DROP_ITEM` and
+`DROP_ALL_ITEMS` with an empty mainhand. Two runs captured **20 drop packets**,
+all mainhand/offhand AIR, without a Bukkit drop event. This was verified before
+building the dependent systems. Evidence: `empty-hand-drop.log`.
 
-Paper 1.21.11 build 132, vanilla 1.21.11 client, player `inspiralc` in survival.
-The listener attached before `packet_handler` at 11:34:30 server-log time.
-Two observed runs each produced one swap control, five `DROP_ITEM`, and five
-`DROP_ALL_ITEMS`: **20 drop packets total, all with mainhand=AIR and offhand=AIR**.
-The first run was 11:34:41–11:34:49; the second was 11:35:18–11:35:22.
-No Bukkit drop event was raised. The probe cancels drop/swap packets before vanilla
-processing and never writes inventory. See `empty-hand-drop.log` for the excerpt.
+## Live acceptance matrix
 
-**Answer: yes, the client sends both drop actions with an empty mainhand.**
-This clears the prerequisite for steps 3–6; it is not acceptance test 4b, which
-requires the eventual ultimate ability to execute.
+“Protocol” means real Paper packet processing, Bukkit events, and server-side
+inventory/world/PDC assertions. It does not establish vanilla rendering or mouse/key
+mapping beyond the separately observed empty-hand drop gate.
 
-Mojang's official client bytecode independently supports this result: the drop
-method sends the action before inspecting the empty item return value.
-
-## Implementation and automated validation
-
-All six build stages are implemented in separate commits, followed by a preventive
-inventory-close hardening commit. Production rewards are empty; the test kit and
-all prototype parameters are config. The combined build starts on Paper 1.21.11.
-Unit checks cover persistence, capacity/reset, pickup and click safety, close-time
-returns, index uniqueness across the full world height, repeated reclamation,
-50 duplicate input pairs, mode timeout, and reconstruction of unspent choices.
-They are not substituted for the live acceptance suite.
-
-## Provenance measurements — initial sample only
-
-See `provenance-initial-live.csv` and `memory-layout.csv`.
-
-- Observed real-client activity: **8 places, 16 breaks** during an approximately
-  11-minute server session (including idle time). This was NOT a 30-minute ordinary
-  building session and cannot establish building-speed performance.
-- The first place/break cycle rose to **4,504 bytes**, then returned to **0**
-  with **4,504 bytes reclaimed**. Seven later placements left a final/peak payload
-  of **4,902 bytes in one chunk** at server shutdown. Reclamation does not shrink
-  marks for blocks that remain placed.
-- Place handlers: **0.315240 ms mean**, **0.573333 ms maximum**, eight samples.
-  The first isolated placement took 0.277083 ms.
-- Break handlers: **0.242622 ms mean**, **2.236042 ms maximum**, 16 samples.
-  These include successful breaks of natural blocks as well as the placed block.
-- Default overworld bitset maximum: **12,288 payload bytes per marked chunk**
-  (`16 × 16 × 384 / 8`). This is a layout bound, not a benchmark result.
-- Java 21 instrumentation measured a 4,504-byte payload array at **4,520 heap bytes**,
-  plus **4,544 bytes** for a transient BitSet and its words during modification.
-  At maximum height these are **12,304** and **12,328** bytes respectively.
-  PDC tag/map/key bookkeeping, extra serialization copies, and chunk memory are
-  additional; these figures must not be described as total per-chunk heap cost.
-- Reclamation is demonstrated for direct place/break and 100 unit-test cycles.
-  Global storage can still grow when players leave marked blocks in new chunks.
-  Piston/explosion policy remains OPEN, and can leave stale marks; no stronger
-  global bound or production go/no-go conclusion is claimed.
-
-`tools/MemoryProbe.java` uses a premain Instrumentation agent and
-`--add-opens java.base/java.util=ALL-UNNAMED` to measure arrays/BitSet objects on
-Microsoft OpenJDK 21.0.7. No third-party heap-size estimator is used.
-
-## Live acceptance status
-
-**Debounce.** `duplicateUltInput`: ten rapid drop inputs inside a single mode
-window produced exactly **one** ChannelUlt execution. Sequential 50-input runs
-already passed; this closes the duplicate-input case.
-
-**SinkholeLite reporting.** The log line now reports `playerPlacedExcluded`
-alongside `newlyPlacedSpared`. The former counts player-placed blocks skipped
-when the volume is collected and is the provenance demonstration; the latter
-counts blocks that become player-placed during the staged collapse, which is
-why every earlier cast logged zero while sparing was in fact working.
-
-Evidence files: `protocol-live-results.jsonl` (90 records, run ending 2026-09-17T19:35:25Z),
-`protocol-server-excerpt.log` (113 filtered server lines), and the reusable driver under
-`protocol/`. The protocol fixture exercises real packet handling, Bukkit events and PDC
-updates; per its README it cannot certify vanilla key generation, renderer appearance,
-or the 30-minute ordinary-building requirement.
-
-| Spec test | Status / evidence still required |
+| Test | Evidence / status |
 |---|---|
-| 1 | Pending full real-client path matrix; cancellation unit tests pass. |
-| 2 | Level commands observed live; immediate usability needs client confirmation. |
-| 3 | **Live PASS (protocol).** Two configured fixture choices were selected through the GUI. Reset cleared both and restored capacity from 11/11/9 to the exact 9/9/6 baseline; inventory readbacks before/after matched. Production rewards remain empty. |
-| 4 | **Live PASS (protocol).** M1, M2, and empty-hand Q each completed 50-input runs with exactly +50 executions. The M2 run was completed Sept 18; no double-fire. Vanilla key generation/rendered feedback remains a separate client check. |
-| 4b | **Live PASS (protocol).** Empty-hand drop packets already PASS; ChannelUlt now observed executing, counter 1 -> 51 -> 52. Vanilla-client key generation remains evidenced only by the earlier empty-hand Q log. |
-| 5 | **Live PASS (protocol).** Mode timeout observed live in the same run; counters were unchanged across the timeout (lunge held at 52, sinkhole_lite at 1, channel_ult at 1), confirming silent clearing with no ability consumption. |
-| 6 | **Live PASS (protocol).** Earlier death-in-mode checks retained inventory/map. Sept 18 clean quit-in-mode showed mode=true before quit, mode=false after reconnect, identical storage stacks and the tagged map still in offhand slot 45. An earlier reconnect interrupted by a spider death was not used for the clean reconnect assertion. |
-| 7 | Pending real-client attempts to move/drop/store/frame the map. |
-| 8 | **Live PASS (protocol).** Actual entity attack packet caused exactly one Lunge and left husk health at 20.0. Entity interaction caused Sinkhole; a separate red-dye/sheep interaction caused Sinkhole while the sheep stayed white and all 3 dye remained. The old air/block-click scenario has been removed. |
-| 9 | **Live PASS (protocol) for provenance sparing.** `sinkholeProvenance`: three player-placed blocks inside the blast volume, `playerPlacedExcluded=3`, all three asserted surviving, 25 natural blocks removed with three asserted individually as air. A real-client built structure is still untested; do not mark platform go/no-go. |
-| 10 | Pending 30-minute ordinary-building trial. Initial small sample only. |
+| 1: slot locking | **PASS, protocol + event harness.** 23 inventory cases include locked hotbar/main insertion, drag, chest shift/hotkey/offhand transfer, full-capacity cursor returns, crafting returns, locked-stack double-click collection, overflow pickup, armor returns, creative insertion, and map operations. Server snapshots matched and no unexpected ground items appeared. Real InventoryMoveItemEvent dispatch cancels partial player destinations and map transfers; full capacity with room remains usable. Vanilla hoppers cannot feed a player inventory directly. |
+| 2: unlock immediately | **PASS, protocol.** Waiting dirt was rejected at six full slots, then entered slot 6 immediately at L2 without relog. |
+| 3: reset choices | **PASS, protocol.** Two GUI choices changed capacity to 11/11/9; reset cleared choices and restored exactly 9/9/6 with unchanged storage. |
+| 4: 50 each | **PASS, protocol.** Final zero-gap F→input run produced exactly 50 Lunges, 50 Sinkholes, and 50 ultimates. Earlier spaced-input runs also passed. |
+| 4b: empty-hand Q | **PASS.** Vanilla empty-hand packet generation was observed; the final protocol run selected an empty slot and sent Q plus Ctrl-Q per entry, resolving exactly 50 ultimates, not 100. |
+| 5: timeout | **PASS, protocol.** Mode cleared after timeout with unchanged execution counters. Timeout exit code is silent and touches no items. |
+| 6: death/logout | **PASS, protocol.** Death cleared active mode and preserved storage/map. A clean quit-in-mode/reconnect preserved exact storage and tagged offhand map with mode false. A full server restart also preserved level, XP, class and choices. |
+| 7: map locking | **PASS, protocol.** Left/right/shift/number-key/drop/stack-drop/creative-clone/deletion/offhand-hotkey attempts were blocked. Interact and interact-at could not insert the map into item frames or armor stands. F entry/exit preserved the same map. |
+| 8: entity targets | **PASS, protocol.** Actual entity attack triggered one Lunge and left husk health at 20.0. Entity right-click triggered Sinkhole while a white sheep stayed white and all three red dye remained. |
+| 9: provenance sparing | **PASS, protocol.** A seven-block, three-high arch survived while supporting terrain collapsed. After a clean server restart, all seven survived another collapse with placeCount=0, proving persisted marks were used. |
+| 10: 30-minute measurement | **Controlled live trial complete.** 585 placements and 585 breaks over 1,803.823 seconds; results below. This repetitive paced workload is not a human ordinary-play session. The user's requested ordinary-play interpretation remains an explicit acceptance caveat. |
 
-## Decisions and spec limitations
+Evidence: `inventory-matrix-final-2026-09-18.jsonl`, `map-entities-2026-09-18.jsonl`,
+`rapid-input-2026-09-18.jsonl`, `server-followup-2026-09-18.jsonl`,
+`server-assertions-2026-09-18.log`, and earlier checked-in protocol/death logs.
 
-- User approved refusal of enrollment when the offhand is occupied; the player must
-  empty it themselves. A fresh map is issued only into an empty offhand.
-- User approved the `test` class assignments (Lunge/SinkholeLite/ChannelUlt) and
-  explicitly labeled configurable prototype defaults. No branch trees are invented.
-- Vanilla keep-inventory semantics preserve exact inventory slots on enrolled-player
-  death, satisfying the stated inventory-untouched requirement without restoring items.
-- Shift insertion, double-click collection, cursor-return hazards, and temporary
-  crafting/trading menu returns require more prevention than §4's sketch shows.
-  Partial capacity therefore disables unsafe operations/temporary menu inputs;
-  there is no relocation fallback. Admin reduction/reset requires empty cursor and
-  temporary slots. This is a usability limitation for review, not hidden item repair.
-- InventoryMoveItemEvent exposes a destination inventory, not a destination slot.
-  Partial-capacity player destinations are conservatively cancelled. Vanilla hoppers
-  do not feed player inventories; the handler also covers custom transfer events.
-- Commands or other plugins that write directly to inventories bypass these events;
-  no cancellation-only implementation can enforce against arbitrary external writes.
-- §2 comments refer to rewards/specialization in §7; their actual seam is §8.
-- The vanilla offhand map rendering claim in §5/§11 is not a guarantee of a useful
-  persistent minimap in every pose/view. Only the requested placeholder ships.
-- Commands target online players; setlevel clears XP toward the next level. Choices
-  remain historical on a level reduction; reset clears them. Unknown classes have
-  no kit. Adding reward config applies retroactively to reached unspent levels.
-- Pending choices are derived from level, choices and config. The GUI creates icons
-  only in its own menu and cancels all transfer actions; it never gives item rewards.
-- Structural protocol constants (36 storage slots, 20 displayed hunger, 16-wide
-  chunks, 8 bits/byte, GUI rows) and serialization version numbers are not balance
-  values. Progression, abilities, reward values, and sampling cadence are config.
-- Provenance tracks successful BlockPlaceEvent/BlockMultiPlaceEvent and break events.
-  Covering retains marks; piston/explosion interactions are measured without policy.
-  Fluid/entity placement outside those events is not assigned a new policy.
+## Provenance measurements
 
-The user explicitly requested pushing the in-progress implementation to main and
-continuing with small checkpoints. Merge/push does not certify live acceptance.
+Controlled survival construction and teardown of a 13-block wall, paced with
+normal placement/dig packets. **45 complete cycles**, 585 placements, 585 breaks,
+**30 minutes 3.823 seconds**. Operator commands supplied materials and a foundation;
+they did not create placement marks. No other player placed/broke blocks on that
+measurement server during the run. Other validation ran on a separate server.
 
-## Ability dispatch regression — reproduced and fixed
+| Measurement | Result |
+|---|---:|
+| Marked chunk payload at a completed wall | **4,148 bytes** |
+| Test chunk after each complete teardown | **0 payload bytes; key removed** |
+| Net payload growth across the session | **0 bytes** |
+| Cumulative payload reclaimed | **186,660 bytes** |
+| Place handler mean, baseline-subtracted | **0.176570 ms** |
+| Break handler mean | **0.212108 ms** |
+| Break handler maximum | **2.235583 ms** |
+| Place handler maximum | **≤4.340583 ms**, a cumulative upper bound including earlier fixture activity |
+| Sampled Paper rolling mean tick time | median **1.469322 ms**, mean **1.543279 ms**, max **5.751500 ms** |
 
-The test server retained the first scaffold config, without `abilities.classes`.
-Bukkit returned scalar defaults but `getKeys(false)` omitted default-only class
-entries, yielding an empty ability registry: mode feedback worked and casts silently
-resolved no ability. A regression using a legacy config reproduced zero executions
-across 50 input pairs. Config loading now enables copying defaults before enumerating
-registries and persists the merged config after validation, preserving explicit values.
-This fixes the reproduced server-side cause; a fresh real-client retest is still needed.
+The preexisting unrelated chunk held 185 bytes throughout: whole observed payload
+alternated between 185 and 4,333 bytes and ended at 185. Place averages subtract
+three preexisting samples; the cumulative maximum cannot isolate the trial's own
+maximum. The 273 tick samples are rolling averages, **not per-tick percentiles**.
+These are measurements on a developer machine, not an isolated production load test.
+The timed mark/unmark implementation was unchanged by the later pre-handler
+canBuild check or the unrelated input-queue fix.
 
-The fix was pushed to main as `87469cb`. All 11 regression tests pass, including the
-legacy-config reproduction now executing exactly 50 Lunges. The local server then
-started cleanly, saved the merged config, and contained the test class assignments.
-Fresh-launch computer control still exposed only Minecraft Launcher, so the corrected
-abilities need a real-client retest before any additional acceptance row can pass.
-Startup logs and `/moba debug` now explicitly show whether ability kits are registered.
+Raw results: `building-session-2026-09-18.jsonl`, `provenance-controlled-30min.csv`.
+The earlier human-client sample remains in `provenance-initial-live.csv`: eight
+places, sixteen breaks over approximately eleven minutes including idle time.
 
-## Protocol fixture follow-up
+### Heap footprint, beyond serialized payload
 
-A separate loopback-only Paper fixture on port 25576 uses Mineflayer 4.39.0 and a
-new disposable flat world. It leaves the authenticated player server on 25575
-unchanged. The fixed registry executed empty-hand ChannelUlt exactly once and
-reported channel completion, and executed Lunge from an arm-animation packet.
-Initial live inventory checks retained all six filled L1 slots while cancelling
-pickup overflow and attempted insertion into hotbar slot 6. These are protocol-client
-tests, not assertions about vanilla key generation or rendered feedback.
+Java Instrumentation measured the exact Paper `DirtyCraftPersistentDataContainer`
+used by chunks and its reachable raw-map graph (table/nodes/key/tag/byte array).
+It excludes the shared type registry, enclosing Minecraft chunk, the plugin's
+separate observation ledger, and transient event allocations.
 
-This fixture also exposed peaceful hunger regeneration bypassing FoodLevelChangeEvent.
-Capacity now enforces the hunger/saturation cap on a configurable tick cadence as
-well as food-change events. No item state is inspected or modified by that task.
+| Payload | PDC + raw-map graph |
+|---:|---:|
+| 185 bytes | 488 bytes |
+| 4,148 bytes (trial peak/chunk) | **4,448 bytes** |
+| 4,504 bytes | 4,800 bytes |
+| 4,902 bytes | 5,200 bytes |
+| 12,288 bytes (384-height layout maximum) | **12,584 bytes** |
 
-## Sept 18 review and live follow-up
+An empty fresh container/map graph was **80 bytes**; after removing its only entry,
+**160 bytes** remained because HashMap retains its allocated table. Payload/tag/key
+objects were no longer reachable from it. Therefore “zero payload” is not “zero
+heap.” BitSet and modification-array allocations are transient; the earlier
+`memory-layout.csv` measures those separately. Reproduce the Paper measurement
+with `tools/paper_memory_probe.py`; see `tools/README.md`.
 
-Claude's three pushed commits were already present on `codex/phase1-plugin`.
-They were preserved, reviewed, built and pushed to main with checkpoint `7fc208a`.
-The local absolute node_modules symlink was removed from version control.
-The review corrected premature reset/reconnect acceptance labels and replaced the
-mob scenario's air/block packets with actual entity packets.
+**Conclusion:** direct place/break reclamation bounds this repeated working set,
+and costs were small at the measured building rate. Storage still grows with
+retained builds in additional chunks. Piston/explosion policy remains OPEN and
+can leave stale marks; no global production bound or unconditional platform go/no-go
+is claimed from this controlled workload.
 
-`protocol-followup-2026-09-18.jsonl` preserves the follow-up chat, scenario and
-inventory evidence; ambient entity-velocity packets are omitted. The failed first
-husk summon (peaceful difficulty) and spider-interrupted reconnect are retained,
-not counted as passes. A later peaceful reconnect supplies the clean evidence.
-The peaceful hunger check returned actual foodLevel 9 after reset, independently
-of the computed-capacity debug output.
+## Bugs found and fixed
 
-The 30-minute **ordinary building** trial is still missing. Repeated fixture
-casts and operator-generated terrain do not measure ordinary provenance growth.
-No new provenance performance claim or platform go/no-go conclusion follows from
-these tests. Full vanilla inventory/map-path coverage also remains outstanding.
+- Legacy scaffold configs lacked the default-only class registry: mode feedback
+  worked while casts did nothing. Missing defaults now merge before registry
+  enumeration and are persisted without overwriting explicit configuration.
+- Peaceful regeneration bypassed FoodLevelChangeEvent. Configurable tick enforcement
+  now caps hunger/saturation as well; actual foodLevel 9 was observed at L1.
+- Bukkit scheduling of F raced vanilla click processing: **0/50 zero-gap M1 casts**.
+  Swap/drop now use Paper 1.21.11's native PacketProcessor queue, preserving order
+  with clicks/movement. Unconsumed drops execute once in place through vanilla.
+  Final results were 50/50 for all three abilities. No item movement was added.
+- Provenance now ignores canBuild=false placements, even when not cancelled.
+  Unit and live event-dispatch regressions pass.
 
-## Inventory matrix and placement veto follow-up
+The rapid-input archive also preserves failed intermediate fixture runs. A block
+interaction target was at the survival reach edge, the reused platform collapsed,
+and forced client aiming had not necessarily been sent. The final run uses a
+fresh verified platform, targets within reach, and awaits aiming before sending
+zero-gap F/click. An initial transfer harness attempted nested level commands;
+those were deferred, so the corrected harness changes level before dispatching
+each test event. Failed fixture runs are not counted as passes.
 
-`inventory-matrix-2026-09-18.jsonl` records 18 successful live protocol checks:
-map left/right/shift/number-key clicks, one/stack drop, offhand hotkey, insertion
-into locked hotbar/main slots, drag across locked slots, crafting-close safety,
-chest shift-insertion/locked hotkey/full-capacity cursor pickup, overflow pickup,
-immediate L2 slot availability, creative locked-slot insertion, and creative map
-removal. Sixteen blocked-operation checks reported no unexpected ground items;
-nine server `equipment` NBT snapshots were identical. Storage comparisons use
-server `Inventory` NBT rather than the protocol client's predicted inventory.
-Frame/armor-stand interaction and the player-destination transfer event remain
-separate checks; vanilla hoppers cannot target a player's inventory directly.
+## Decisions, limitations, and open seams
 
-A code review found that BlockPlaceEvent can have canBuild=false independently
-of cancellation. Provenance now ignores that denied placement, with a regression
-covering denied and accepted events. This prevents false marks for vetoed builds.
+- User-approved: refuse enrollment until a conflicting offhand is emptied by the
+  player; only create a fresh map into an empty offhand.
+- User-approved: one `test` kit and labeled configurable prototype ability numbers.
+- No built-in rewards or branch trees; examples are separate test configuration.
+- Capacity is recomputed from level/choices/config. Choices remain historical when
+  lowering level; reset clears them. Setlevel clears XP; commands target online players.
+- Pending choices are derived and reconstructed on reconnect; adding a reward
+  configuration applies retroactively to reached, unspent levels.
+- Vanilla keep-inventory semantics preserve exact slots on enrolled-player death.
+- Partial capacity conservatively disables unsafe shift insertion, collection,
+  cursor swaps, and temporary crafting/trading inputs because close-time returns
+  bypass cancellable transfer events. Reduction/reset requires an empty cursor and
+  temporary menu. There is no repair, stash, relocation, or drop fallback.
+- Direct inventory writes by commands/other plugins bypass cancellable events;
+  enforcing against arbitrary external writes would conflict with the prevention-only rule.
+- The observation ledger covers loaded/touched chunks, not all unvisited disk data.
+- Piston/explosion events are counted without transfer/reclamation policy. Covering
+  retains marks; other fluid/entity placement paths remain undesigned.
+- §2's references to reward/specialization §7 actually point to the seam in §8.
+- The vanilla map's visibility depends on pose/view; Phase 1 ships only the requested stub.
+- Protocol/layout constants (36 slots, chunk width, bits/byte, GUI rows, serialization
+  version) are structural; progression, ability, reward, and sampling values are config.
+- Computer control exposes the launcher but not the Java game window. No new visual
+  client acceptance is claimed. The outstanding ordinary-play distinction above
+  must be resolved before declaring all eleven acceptance rows unconditionally done.

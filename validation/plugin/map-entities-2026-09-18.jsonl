@@ -1,0 +1,19 @@
+{"time":"2026-09-18T12:36:36.919Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:36:36.930Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=null"}
+{"time":"2026-09-18T12:36:37.232Z","kind":"chat","value":"Teleported MobaVerify to 200.500000, -59.000000, 200.500000"}
+{"time":"2026-09-18T12:36:37.535Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:37.536Z","kind":"chat","value":"No entity was found"}
+{"time":"2026-09-18T12:36:37.841Z","kind":"chat","value":"Summoned new Item Frame"}
+{"time":"2026-09-18T12:36:38.904Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:39.161Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:39.169Z","kind":"chat","value":"[MobaVerify] TARGET_EMPTY"}
+{"time":"2026-09-18T12:36:39.171Z","kind":"pass","value":"Offhand map cannot enter item_frame through interact or interact-at"}
+{"time":"2026-09-18T12:36:39.174Z","kind":"chat","value":"No entity was found"}
+{"time":"2026-09-18T12:36:39.497Z","kind":"chat","value":"Summoned new Armor Stand"}
+{"time":"2026-09-18T12:36:40.537Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:40.796Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:40.801Z","kind":"chat","value":"[MobaVerify] TARGET_EMPTY"}
+{"time":"2026-09-18T12:36:40.802Z","kind":"pass","value":"Offhand map cannot enter armor_stand through interact or interact-at"}
+{"time":"2026-09-18T12:36:41.008Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:41.214Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 1}}}"}
+{"time":"2026-09-18T12:36:41.215Z","kind":"pass","value":"F enter/exit preserves offhand"}

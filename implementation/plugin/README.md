@@ -29,7 +29,8 @@ and progression values come from config. Rewards ship empty.
 
 Steps 1–6 are implemented in separate commits. The empty-mainhand drop gate passed
 on Paper 1.21.11 with `inspiralc` (20 observed drop packets, all mainhand AIR).
-The full live acceptance suite remains pending. See
+The server-side live protocol suite passes; a 30-minute controlled building trial is
+recorded separately from human ordinary play. See
 [validation status](../../validation/plugin/phase1-status.md). Generated server worlds,
 tools, and raw server files remain outside source directories.
 
@@ -77,15 +78,16 @@ hands and entity/block/air paths are handled, with per-ability per-tick deduplic
 and cooldown checks. Unknown class IDs have an empty kit, not invented abilities.
 
 The version-pinned packet adapter consumes swap/drop packets in channel order and
-schedules authoritative state changes on the server thread. It forwards unconsumed
-outside-mode drops to vanilla processing. It does not read Bukkit inventory on a
+uses Paper 1.21.11's native PacketProcessor queue for authoritative state changes.
+This preserves zero-gap F→click order; Bukkit scheduler deferral does not.
+Unconsumed outside-mode drops execute once through vanilla on the same queue. It does not read Bukkit inventory on a
 Netty thread. The Bukkit swap/drop handlers remain fallback protection.
 
 ChannelUlt reports start/completion/abort; it has no invented combat effect. Mode
 exit/death/quit cancels it. Sinkhole removes a configured number of blocks per stage,
 never drops loot, never loads chunks, skips containers, and rechecks provenance at
 removal time. `/moba debug <player>` includes ability execution counters for live
-single-input verification. These tests still require a real client.
+single-input verification. The validation report distinguishes live protocol tests from vanilla rendering checks.
 
 ## Rewards framework
 

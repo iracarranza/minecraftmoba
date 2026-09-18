@@ -40,3 +40,26 @@ The entity interaction check deliberately holds three red dye: white sheep and
 unchanged dye count provide observable evidence that vanilla interaction was
 cancelled. Test setup commands bypass inventory locking; they are fixture authoring,
 not plugin item handling.
+
+## Final follow-up tools
+
+- `rapid-input.cjs`: zero-gap F→M1/M2/Q, 50 of each, with explicit safe terrain and
+  awaited client aiming; use `MOBA_PORT=25577` for the isolated input fixture.
+- `inventory-matrix.cjs`: 23 server-NBT-checked inventory/map cases, including
+  creative and temporary/cursor return paths. Uses fresh fixture player MobaVerify.
+- `map-entities.cjs`: offhand interactions with item frames and armor stands.
+- `building-session.cjs`: default 30-minute controlled survival wall construction
+  and teardown. It is a paced repetitive workload, not claimed to be human ordinary
+  play. Requires op MobaTest, its own disposable server and no concurrent builders.
+  `BUILD_DURATION_MS` can shorten a smoke run; only the default duration qualifies
+  as the recorded 30-minute trial. It uses real place/break packets; operator setup
+  supplies the foundation and materials only.
+- `fixtureEvents` uses the separate test-only server plugin in `../server-fixture`.
+- `rewardPendingBefore` / `rewardPendingAfter` span a client reconnect.
+- `sinkholeArch` / `archAfterRestart` span a full clean server restart.
+
+Driver overrides `MOBA_PORT` and `MOBA_PLAYER` apply only to the loopback fixture.
+Legacy scenarios name MobaTest explicitly; use that account for those scenarios.
+Server-NBT comparisons are authoritative because Mineflayer can retain incorrect
+cursor predictions after cancelled actions. Failed fixture runs remain in the
+archived evidence and are excluded from pass counts.

@@ -9,7 +9,7 @@ const log=(kind,value)=>{
   const line=JSON.stringify({time:new Date().toISOString(),kind,value});
   fs.appendFileSync(file,line+'\n'); console.log(line);
 };
-const bot=mineflayer.createBot({host:'127.0.0.1',port:25576,username:'MobaTest',auth:'offline',version:'1.21.11'});
+const bot=mineflayer.createBot({host:'127.0.0.1',port:Number(process.env.MOBA_PORT||25576),username:process.env.MOBA_PLAYER||'MobaTest',auth:'offline',version:'1.21.11'});
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const cmd=async command=>{bot.chat('/'+command);await sleep(250)};
 const action=status=>bot._client.write('block_dig',{status,location:{x:0,y:0,z:0},face:0,sequence:0});

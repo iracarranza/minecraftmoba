@@ -207,3 +207,82 @@ exports.entityInteraction = async ({bot,cmd,action,sleep,Vec3}) => {
   await cmd('execute as @e[tag=moba_sheep_fixture,limit=1] if entity @s[nbt={Color:0b}] run say SHEEP_NOT_DYED');
   await cmd('data get entity @s Inventory'); await cmd('moba debug MobaTest');
 };
+
+exports.fixtureEvents = async ({bot,cmd}) => {
+  await cmd(`moba setlevel ${bot.username} 1`);
+  await cmd('mobafixture transfer-partial');
+  await cmd(`moba setlevel ${bot.username} 30`);
+  await cmd('mobafixture transfer-full');
+  await cmd(`moba setlevel ${bot.username} 1`);
+  await cmd('mobafixture denied-place');
+};
+exports.dropOrdering = async ({bot,cmd,action,sleep}) => {
+  const name=bot.username;
+  await cmd(`moba setclass ${name} test`);
+  await cmd('item replace entity @s hotbar.0 with stone 3');
+  await cmd('item replace entity @s hotbar.1 with dirt 3');
+  bot.setQuickBarSlot(1);action(4); // held-slot and drop packets must retain native order
+  await sleep(300);await cmd('data get entity @s Inventory');
+  action(6);action(4);action(3); // immediate F/Q/Ctrl-Q: no held item may leave inventory
+  await sleep(300);await cmd('data get entity @s Inventory');
+  await cmd(`moba debug ${name}`);
+  action(6);await sleep(300);
+};
+
+exports.rewardPendingBefore = async ({bot,cmd,sleep}) => {
+  await cmd(`moba reset ${bot.username}`);
+  await cmd(`moba xp ${bot.username} 250`);
+  await cmd(`moba debug ${bot.username}`);
+  await cmd('moba rewards');await sleep(400);
+  if(!bot.currentWindow) throw new Error('Pending reward GUI missing before logout');
+  bot.closeWindow(bot.currentWindow);await sleep(200);
+  bot.quit('pending rewards reconnect check');
+};
+exports.rewardPendingAfter = async ({bot,cmd,sleep,log}) => {
+  await cmd(`moba debug ${bot.username}`);
+  log('nativeXp',bot.experience);
+  if(bot.experience.level!==3 || Math.abs(bot.experience.progress-.5)>.001) throw new Error('Native XP did not persist at level 3 / half bar');
+  await cmd('moba rewards');await sleep(400);
+  if(!bot.currentWindow) throw new Error('Pending reward GUI missing after logout');
+  for(let i=0;i<2;i++) {
+    if(!bot.currentWindow) throw new Error('Missing pending reward '+i);
+    await bot.clickWindow(0,0,0);await sleep(500);
+    await cmd(`moba debug ${bot.username}`);
+  }
+  await cmd('data get entity @s Inventory');
+  log('pass','Pending rewards, native XP, and immediate capacity updates survive reconnect');
+};
+
+exports.sinkholeArch = async ({bot,cmd,action,sleep,Vec3}) => {
+  await cmd(`moba setclass ${bot.username} test`);
+  await cmd('tp @s 2.5 -59 -5.5');await sleep(400);
+  await cmd('fill 0 -59 -8 6 -54 -2 air');
+  await cmd('fill 0 -60 -8 6 -60 -2 stone');
+  await cmd('item replace entity @s hotbar.0 with stone 64');
+  bot.setQuickBarSlot(0);await sleep(300);
+  const placed=[];
+  for(const x of [3,5]) for(let y=-59;y<=-57;y++) {
+    await bot.placeBlock(bot.blockAt(new Vec3(x,y-1,-5)),new Vec3(0,1,0));
+    placed.push([x,y,-5]);await sleep(200);
+  }
+  await bot.placeBlock(bot.blockAt(new Vec3(3,-57,-5)),new Vec3(1,0,0));placed.push([4,-57,-5]);
+  await sleep(250);action(6);await sleep(100);
+  await bot.activateBlock(bot.blockAt(new Vec3(3,-59,-5)));await sleep(2000);
+  for(const [x,y,z] of placed) await cmd(`execute if block ${x} ${y} ${z} stone run say ARCH_SURVIVED_${x}_${y}_${z}`);
+  for(const [x,z] of [[3,-5],[4,-5],[3,-4]]) await cmd(`execute if block ${x} -60 ${z} air run say ARCH_TERRAIN_REMOVED_${x}_${z}`);
+  await cmd(`moba debug ${bot.username}`);await cmd('moba provenance');
+};
+
+exports.archAfterRestart = async ({bot,cmd,action,sleep,Vec3,log}) => {
+  await cmd(`moba debug ${bot.username}`);
+  if(bot.experience.level!==3 || Math.abs(bot.experience.progress-.5)>.001) throw new Error('Progression did not survive full server restart');
+  await cmd('moba provenance');
+  await cmd('fill 0 -60 -8 6 -60 -2 stone');
+  await cmd('tp @s 2.5 -59 -5.5');await sleep(500);
+  action(6);await sleep(100);await bot.activateBlock(bot.blockAt(new Vec3(3,-59,-5)));await sleep(2000);
+  for(const [x,y,z] of [[3,-59,-5],[3,-58,-5],[3,-57,-5],[5,-59,-5],[5,-58,-5],[5,-57,-5],[4,-57,-5]])
+    await cmd(`execute if block ${x} ${y} ${z} stone run say PERSISTED_ARCH_${x}_${y}_${z}`);
+  await cmd('execute if block 3 -60 -5 air run say PERSISTED_TERRAIN_COLLAPSED');
+  await cmd('moba provenance');
+  log('checked','Inspect seven persisted arch markers, terrain collapse, and placeCount=0 after server restart');
+};
