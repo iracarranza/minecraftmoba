@@ -11,3 +11,8 @@ rewards:
         label: 'TEST: slot growth'
         icon: CHEST
         capacity: { health: 0, hunger: 0, slots: 3 }
+    '3':
+      - id: fixture_hunger
+        label: 'TEST: hunger growth'
+        icon: BREAD
+        capacity: { health: 0, hunger: 1, slots: 0 }

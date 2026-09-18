@@ -50,7 +50,7 @@ exports.sinkholeProtection = async ({bot,cmd,action,sleep,Vec3}) => {
 
 // --- added 2026-09-17: provenance, death/reconnect, duplicate-input, rewards, mob targeting ---
 
-// #1 Provenance. Places a 3-block player-built column INSIDE the blast volume and
+// #1 Provenance. Places three player blocks INSIDE the blast volume and
 // asserts each survives while natural neighbours go. Reads playerPlacedExcluded.
 exports.sinkholeProvenance = async ({bot,cmd,action,sleep,Vec3}) => {
   await cmd('moba setclass MobaTest test');
@@ -127,22 +127,83 @@ exports.rewardGui = async ({bot,cmd,sleep}) => {
   await cmd('moba debug MobaTest');            // choice should be recorded
 };
 
-// #5b Mob-targeted M1/M2 against a summoned, non-retaliating target.
-exports.mobTargeted = async ({bot,cmd,action,sleep,Vec3}) => {
+// Actual entity packets, not air swings or block interaction.
+exports.entityPackets = async ({bot,cmd,action,sleep,Vec3}) => {
+  await cmd('difficulty easy');
+  await cmd('gamerule minecraft:spawn_mobs false');
   await cmd('moba setclass MobaTest test');
-  await cmd('kill @e[type=minecraft:zombie]');
-  await cmd('summon minecraft:zombie 4 -59 -5 {NoAI:1b,PersistenceRequired:1b,CustomName:\'"MobaTarget"\',Health:20f}');
+  await cmd('fill 18 -60 18 26 -60 26 stone');
+  await cmd('tp @s 20.5 -59 20.5');
+  await cmd('kill @e[tag=moba_entity_fixture]');
+  await cmd('summon husk 22.5 -59 20.5 {Tags:["moba_entity_fixture"],NoAI:1b,PersistenceRequired:1b,Health:20f}');
   await sleep(600);
+  const target=Object.values(bot.entities).find(e=>e.name==='husk');
+  if(!target) throw new Error('Fixture husk not received');
+  await bot.lookAt(new Vec3(22.5,-58,20.5),true);
+  await cmd('say ENTITY_BASELINE'); await cmd('moba debug MobaTest');
+  action(6); await sleep(150); bot.attack(target); await sleep(300); action(6);
+  await cmd('execute as @e[tag=moba_entity_fixture,limit=1] if entity @s[nbt={Health:20.0f}] run say ENTITY_HEALTH_UNCHANGED');
+  await cmd('data get entity @e[tag=moba_entity_fixture,limit=1] Health');
   await cmd('moba debug MobaTest');
-  await bot.lookAt(new Vec3(4,-58.5,-5), true);
-  action(6); await sleep(150); bot.swingArm('right'); await sleep(400); action(6);
+  await bot.lookAt(new Vec3(22.5,-59.8,20.5),true);
+  action(6); await sleep(150); await bot.activateEntity(target); await sleep(1200); action(6);
+  await cmd('say ENTITY_AFTER'); await cmd('moba debug MobaTest');
+};
+exports.fiftySinkholes = async ({bot,cmd,action,sleep,Vec3}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd('tp @s 40.5 -59 40.5');
+  await cmd('setblock 40 -60 40 bedrock');
+  await cmd('say SINKHOLE_50_BASELINE'); await cmd('moba debug MobaTest');
+  for(let i=0;i<50;i++) {
+    await cmd('fill 42 -60 38 48 -60 44 stone');
+    await bot.lookAt(new Vec3(44.5,-60,40.5),true);
+    action(6); await sleep(100);
+    await bot.activateBlock(bot.blockAt(new Vec3(44,-60,40)));
+    await sleep(800); action(6); await sleep(100);
+  }
+  await cmd('say SINKHOLE_50_AFTER'); await cmd('moba debug MobaTest');
+};
+exports.rewardReset = async ({bot,cmd,sleep}) => {
+  await cmd('moba reset MobaTest');
+  await cmd('say RESET_BASELINE'); await cmd('moba debug MobaTest');
+  await cmd('moba setlevel MobaTest 3'); await cmd('moba rewards');
   await sleep(400);
-  await cmd('say MOB_M1_DONE');
-  await cmd('data get entity @e[type=minecraft:zombie,limit=1] Health');
-  action(6); await sleep(150);
-  await bot.activateBlock(bot.blockAt(new Vec3(4,-60,-5)));
-  await sleep(2000); action(6); await sleep(200);
-  await cmd('say MOB_M2_DONE');
-  await cmd('data get entity @e[type=minecraft:zombie,limit=1] Health');
+  for(let i=0;i<2;i++) {
+    if(!bot.currentWindow) throw new Error('Expected pending reward menu '+i);
+    await bot.clickWindow(0,0,0); await sleep(500);
+  }
+  await cmd('say TWO_CHOICES'); await cmd('moba debug MobaTest');
+  await cmd('data get entity @s Inventory');
+  await cmd('moba reset MobaTest'); await sleep(1200);
+  await cmd('say RESET_AFTER_CHOICES'); await cmd('moba debug MobaTest');
+  await cmd('data get entity @s foodLevel');
+  await cmd('data get entity @s Inventory');
+};
+exports.quitInMode = async ({bot,cmd,action,sleep}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd('say QUIT_BASELINE'); await cmd('data get entity @s Inventory');
+  action(6); await sleep(200); await cmd('moba debug MobaTest');
+  bot.quit('acceptance mode reset on reconnect');
+};
+exports.reconnectState = async ({bot,cmd,log}) => {
+  await cmd('say RECONNECTED_STATE'); await cmd('moba debug MobaTest');
+  await cmd('data get entity @s Inventory');
+  log('reconnectInventory',{offhand:bot.inventory.slots[45],held:bot.heldItem});
+};
+exports.entityInteraction = async ({bot,cmd,action,sleep,Vec3}) => {
+  await cmd('difficulty peaceful');
+  await cmd('moba setclass MobaTest test');
+  await cmd('fill 58 -60 58 66 -60 66 stone');
+  await cmd('tp @s 60.5 -59 60.5');
+  await cmd('item replace entity @s hotbar.0 with red_dye 3');
+  bot.setQuickBarSlot(0);
+  await cmd('summon sheep 62.5 -59 60.5 {Tags:["moba_sheep_fixture"],NoAI:1b,PersistenceRequired:1b,Color:0b}');
+  await sleep(400);
+  const target=Object.values(bot.entities).find(e=>e.name==='sheep' && e.position.distanceTo(new Vec3(62.5,-59,60.5))<1);
+  if(!target) throw new Error('Fixture sheep not received');
+  await bot.lookAt(new Vec3(62.5,-59.8,60.5),true);
   await cmd('moba debug MobaTest');
+  action(6); await sleep(150); await bot.activateEntity(target); await sleep(300); action(6);
+  await cmd('execute as @e[tag=moba_sheep_fixture,limit=1] if entity @s[nbt={Color:0b}] run say SHEEP_NOT_DYED');
+  await cmd('data get entity @s Inventory'); await cmd('moba debug MobaTest');
 };

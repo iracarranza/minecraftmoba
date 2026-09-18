@@ -1,0 +1,145 @@
+{"time": "2026-09-18T06:58:13.754Z", "kind": "error", "value": "Error: connect EPERM 127.0.0.1:25576 - Local (0.0.0.0:0)\n    at internalConnect (node:net:1115:16)\n    at defaultTriggerAsyncIdScope (node:internal/async_hooks:464:18)\n    at node:net:1353:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)"}
+{"time": "2026-09-18T06:58:13.759Z", "kind": "end", "value": "socketClosed"}
+{"time": "2026-09-18T06:58:53.731Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T06:58:53.744Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "mobTargeted", "entityPackets", "fiftySinkholes", "rewardReset"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T06:59:01.855Z", "kind": "scenarioBegin", "value": "entityPackets"}
+{"time": "2026-09-18T06:59:01.858Z", "kind": "chat", "value": "Updated MobaTest: level=3 xp=0 class=test"}
+{"time": "2026-09-18T06:59:02.117Z", "kind": "chat", "value": "Successfully filled 81 block(s)"}
+{"time": "2026-09-18T06:59:02.365Z", "kind": "chat", "value": "Teleported MobaTest to 20.500000, -59.000000, 20.500000"}
+{"time": "2026-09-18T06:59:02.636Z", "kind": "chat", "value": "No entity was found"}
+{"time": "2026-09-18T06:59:02.863Z", "kind": "chat", "value": "Monsters cannot be summoned in Peaceful difficulty"}
+{"time": "2026-09-18T06:59:03.712Z", "kind": "scenarioError", "value": "Error: Fixture husk not received\n    at exports.entityPackets (/private/tmp/minecraftmoba-phase1/validation/plugin/protocol/scenarios.js:159:21)\n    at async /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/driver.cjs:28:5"}
+{"time": "2026-09-18T06:59:03.713Z", "kind": "scenarioBegin", "value": "rewardReset"}
+{"time": "2026-09-18T06:59:03.716Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=null"}
+{"time": "2026-09-18T06:59:03.970Z", "kind": "chat", "value": "[MobaTest] RESET_BASELINE"}
+{"time": "2026-09-18T06:59:04.222Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T06:59:04.472Z", "kind": "chat", "value": "Updated MobaTest: level=3 xp=0 class=null"}
+{"time": "2026-09-18T06:59:06.387Z", "kind": "chat", "value": "[MobaTest] TWO_CHOICES"}
+{"time": "2026-09-18T06:59:06.636Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=0 choices=[ChoiceRecord[level=2, choiceId=fixture_health], ChoiceRecord[level=3, choiceId=fixture_hunger]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=11, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T06:59:06.889Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 61}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T06:59:07.139Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=null"}
+{"time": "2026-09-18T06:59:08.591Z", "kind": "chat", "value": "[MobaTest] RESET_AFTER_CHOICES"}
+{"time": "2026-09-18T06:59:08.845Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T06:59:09.097Z", "kind": "chat", "value": "MobaTest has the following entity data: 9"}
+{"time": "2026-09-18T06:59:09.354Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 61}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T06:59:09.598Z", "kind": "scenarioEnd", "value": "rewardReset"}
+{"time": "2026-09-18T06:59:09.598Z", "kind": "scenarioBegin", "value": "fiftySinkholes"}
+{"time": "2026-09-18T06:59:09.610Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=test"}
+{"time": "2026-09-18T06:59:09.861Z", "kind": "chat", "value": "Teleported MobaTest to 40.500000, -59.000000, 40.500000"}
+{"time": "2026-09-18T06:59:10.108Z", "kind": "chat", "value": "Changed the block at 40, -60, 40"}
+{"time": "2026-09-18T06:59:10.362Z", "kind": "chat", "value": "[MobaTest] SINKHOLE_50_BASELINE"}
+{"time": "2026-09-18T06:59:10.611Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T06:59:10.863Z", "kind": "chat", "value": "Successfully filled 49 block(s)"}
+{"time": "2026-09-18T06:59:12.170Z", "kind": "chat", "value": "Successfully filled 22 block(s)"}
+{"time": "2026-09-18T06:59:13.445Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:14.738Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:16.027Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:17.312Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:18.592Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:19.880Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:21.203Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:22.459Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:23.755Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:25.043Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:26.331Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:27.627Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:28.916Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:30.203Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:31.493Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:32.782Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:34.066Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:35.354Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:36.642Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:37.927Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:39.212Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:40.511Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:41.803Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:43.096Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:44.380Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:45.682Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:46.960Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:48.253Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:49.531Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:50.819Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:52.107Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:53.407Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:54.697Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:55.978Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:57.264Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:58.557Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T06:59:59.838Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:01.131Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:02.412Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:03.709Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:04.987Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:06.277Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:07.578Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:08.874Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:10.158Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:11.443Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:12.731Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:14.013Z", "kind": "chat", "value": "Successfully filled 17 block(s)"}
+{"time": "2026-09-18T07:00:15.308Z", "kind": "chat", "value": "[MobaTest] SINKHOLE_50_AFTER"}
+{"time": "2026-09-18T07:00:15.554Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={sinkhole_lite=50} channel=false"}
+{"time": "2026-09-18T07:00:15.801Z", "kind": "scenarioEnd", "value": "fiftySinkholes"}
+{"time": "2026-09-18T07:00:40.380Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T07:00:40.390Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T07:00:51.644Z", "kind": "scenarioBegin", "value": "entityPackets"}
+{"time": "2026-09-18T07:00:51.654Z", "kind": "chat", "value": "The difficulty has been set to Easy"}
+{"time": "2026-09-18T07:00:51.901Z", "kind": "chat", "value": "Gamerule spawn_mobs is now set to: false"}
+{"time": "2026-09-18T07:00:52.154Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=test"}
+{"time": "2026-09-18T07:00:52.401Z", "kind": "chat", "value": "No blocks were filled"}
+{"time": "2026-09-18T07:00:52.658Z", "kind": "chat", "value": "Teleported MobaTest to 20.500000, -59.000000, 20.500000"}
+{"time": "2026-09-18T07:00:52.905Z", "kind": "chat", "value": "No entity was found"}
+{"time": "2026-09-18T07:00:53.168Z", "kind": "chat", "value": "Summoned new Husk"}
+{"time": "2026-09-18T07:00:54.006Z", "kind": "chat", "value": "[MobaTest] ENTITY_BASELINE"}
+{"time": "2026-09-18T07:00:54.259Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T07:00:54.978Z", "kind": "chat", "value": "[Husk] ENTITY_HEALTH_UNCHANGED"}
+{"time": "2026-09-18T07:00:55.217Z", "kind": "chat", "value": "Husk has the following entity data: 20.0f"}
+{"time": "2026-09-18T07:00:55.471Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=1} channel=false"}
+{"time": "2026-09-18T07:00:57.117Z", "kind": "chat", "value": "[MobaTest] ENTITY_AFTER"}
+{"time": "2026-09-18T07:00:57.361Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=1, sinkhole_lite=1} channel=false"}
+{"time": "2026-09-18T07:00:57.608Z", "kind": "scenarioEnd", "value": "entityPackets"}
+{"time": "2026-09-18T07:00:57.609Z", "kind": "scenarioBegin", "value": "quitInMode"}
+{"time": "2026-09-18T07:00:57.613Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=test"}
+{"time": "2026-09-18T07:00:57.863Z", "kind": "chat", "value": "[MobaTest] QUIT_BASELINE"}
+{"time": "2026-09-18T07:00:58.119Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 61}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T07:00:58.566Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=true kitConfigured=true executions={lunge=1, sinkhole_lite=1} channel=false"}
+{"time": "2026-09-18T07:00:58.818Z", "kind": "scenarioEnd", "value": "quitInMode"}
+{"time": "2026-09-18T07:00:58.821Z", "kind": "end", "value": "acceptance mode reset on reconnect"}
+{"time": "2026-09-18T07:01:31.959Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T07:01:31.968Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T07:01:33.534Z", "kind": "chat", "value": "MobaTest was slain by Spider"}
+{"time": "2026-09-18T07:01:40.362Z", "kind": "scenarioBegin", "value": "reconnectState"}
+{"time": "2026-09-18T07:01:40.366Z", "kind": "chat", "value": "[MobaTest] RECONNECTED_STATE"}
+{"time": "2026-09-18T07:01:40.618Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T07:01:40.875Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 61}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T07:01:41.119Z", "kind": "reconnectInventory", "value": {"offhand": {"type": 1104, "count": 1, "metadata": 0, "nbt": null, "components": [{"type": "map_id", "data": 0}, {"type": "custom_data", "data": {"type": "compound", "value": {"PublicBukkitValues": {"type": "compound", "value": {"minecraftmoba:offhand_map": {"type": "byte", "value": 1}}}}}}], "removedComponents": [], "componentMap": {}, "stackId": null, "name": "filled_map", "displayName": "Map", "stackSize": 64, "slot": 45}, "held": {"type": 1, "count": 61, "metadata": 0, "nbt": null, "components": [], "removedComponents": [], "componentMap": {}, "stackId": null, "name": "stone", "displayName": "Stone", "stackSize": 64, "slot": 36}}}
+{"time": "2026-09-18T07:01:41.120Z", "kind": "scenarioEnd", "value": "reconnectState"}
+{"time": "2026-09-18T07:01:41.121Z", "kind": "scenarioBegin", "value": "entityInteraction"}
+{"time": "2026-09-18T07:01:41.123Z", "kind": "chat", "value": "The difficulty has been set to Peaceful"}
+{"time": "2026-09-18T07:01:41.376Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=test"}
+{"time": "2026-09-18T07:01:41.629Z", "kind": "chat", "value": "Successfully filled 81 block(s)"}
+{"time": "2026-09-18T07:01:41.885Z", "kind": "chat", "value": "Teleported MobaTest to 60.500000, -59.000000, 60.500000"}
+{"time": "2026-09-18T07:01:42.142Z", "kind": "chat", "value": "Replaced a slot on MobaTest with [Red Dye]"}
+{"time": "2026-09-18T07:01:42.386Z", "kind": "chat", "value": "Summoned new Sheep"}
+{"time": "2026-09-18T07:01:43.045Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T07:01:43.797Z", "kind": "chat", "value": "[Sheep] SHEEP_NOT_DYED"}
+{"time": "2026-09-18T07:01:44.049Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:red_dye\", count: 3}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T07:01:44.298Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={sinkhole_lite=1} channel=false"}
+{"time": "2026-09-18T07:01:44.549Z", "kind": "scenarioEnd", "value": "entityInteraction"}
+{"time": "2026-09-18T07:01:53.285Z", "kind": "scenarioBegin", "value": "quitInMode"}
+{"time": "2026-09-18T07:01:53.288Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=test"}
+{"time": "2026-09-18T07:01:53.543Z", "kind": "chat", "value": "[MobaTest] QUIT_BASELINE"}
+{"time": "2026-09-18T07:01:53.797Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:red_dye\", count: 3}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T07:01:54.249Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=true kitConfigured=true executions={sinkhole_lite=1} channel=false"}
+{"time": "2026-09-18T07:01:54.499Z", "kind": "scenarioEnd", "value": "quitInMode"}
+{"time": "2026-09-18T07:01:54.500Z", "kind": "end", "value": "acceptance mode reset on reconnect"}
+{"time": "2026-09-18T07:02:11.562Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T07:02:11.573Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T07:02:18.598Z", "kind": "scenarioBegin", "value": "reconnectState"}
+{"time": "2026-09-18T07:02:18.603Z", "kind": "chat", "value": "[MobaTest] RECONNECTED_STATE"}
+{"time": "2026-09-18T07:02:18.859Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T07:02:19.110Z", "kind": "chat", "value": "MobaTest has the following entity data: [{Slot: 0b, id: \"minecraft:red_dye\", count: 3}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time": "2026-09-18T07:02:19.353Z", "kind": "reconnectInventory", "value": {"offhand": {"type": 1104, "count": 1, "metadata": 0, "nbt": null, "components": [{"type": "map_id", "data": 0}, {"type": "custom_data", "data": {"type": "compound", "value": {"PublicBukkitValues": {"type": "compound", "value": {"minecraftmoba:offhand_map": {"type": "byte", "value": 1}}}}}}], "removedComponents": [], "componentMap": {}, "stackId": null, "name": "filled_map", "displayName": "Map", "stackSize": 64, "slot": 45}, "held": {"type": 1080, "count": 3, "metadata": 0, "nbt": null, "components": [], "removedComponents": [], "componentMap": {}, "stackId": null, "name": "red_dye", "displayName": "Red Dye", "stackSize": 64, "slot": 36}}}
+{"time": "2026-09-18T07:02:19.355Z", "kind": "scenarioEnd", "value": "reconnectState"}

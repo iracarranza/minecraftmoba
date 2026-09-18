@@ -17,7 +17,7 @@ bot.on('messagestr',message=>log('chat',message));
 bot.on('error',e=>log('error',e.stack));
 bot.on('kicked',reason=>log('kicked',reason));
 bot.on('end',reason=>log('end',reason));
-bot._client.on('entity_velocity',packet=>log('velocityPacket',packet));
+bot._client.on('entity_velocity',packet=>{if(packet.entityId===bot.entity?.id) log('velocityPacket',packet)});
 bot.once('spawn',()=>log('ready',{scenarios:Object.keys(scenarios),instruction:'Grant op MobaTest in fixture console, then type one scenario name here.'}));
 let queue=Promise.resolve();
 readline.createInterface({input:process.stdin}).on('line',line=>{
@@ -25,7 +25,7 @@ readline.createInterface({input:process.stdin}).on('line',line=>{
     const name=line.trim();
     if(!Object.hasOwn(scenarios,name)) throw new Error('Unknown scenario: '+name);
     log('scenarioBegin',name);
-    await scenarios[name]({bot,cmd,action,sleep,Vec3});
+    await scenarios[name]({bot,cmd,action,sleep,Vec3,log});
     log('scenarioEnd',name);
   }).catch(e=>log('scenarioError',e.stack));
 });

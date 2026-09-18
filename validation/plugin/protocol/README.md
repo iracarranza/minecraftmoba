@@ -29,3 +29,14 @@ serialized. They require the documented fresh flat-world layout; setup coordinat
 for the Sinkhole example assume the player is near (2.5, -59, -5.5), with stone
 in hotbar slot 0 and the test class selected. Inspect server assertions/counters
 before declaring a scenario passed; the driver does not fabricate a pass status.
+
+The Sept 18 follow-up adds `fiftySinkholes`, `rewardReset`, `entityPackets`,
+`entityInteraction`, `quitInMode`, and `reconnectState`. For rewards use both
+levels from `implementation/plugin/test-config/rewards-example.yml` only in the
+fixture. The entity attack scenario temporarily uses Easy difficulty to summon a
+husk; the sheep scenario returns to Peaceful. Run the clean reconnect check under
+Peaceful (disconnect with `quitInMode`, restart driver, run `reconnectState`).
+The entity interaction check deliberately holds three red dye: white sheep and
+unchanged dye count provide observable evidence that vanilla interaction was
+cancelled. Test setup commands bypass inventory locking; they are fixture authoring,
+not plugin item handling.

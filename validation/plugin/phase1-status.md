@@ -1,4 +1,4 @@
-# Phase 1 validation status — 2026-09-17
+# Phase 1 validation status — 2026-09-18
 
 ## Environment
 
@@ -96,13 +96,13 @@ or the 30-minute ordinary-building requirement.
 |---|---|
 | 1 | Pending full real-client path matrix; cancellation unit tests pass. |
 | 2 | Level commands observed live; immediate usability needs client confirmation. |
-| 3 | **Partial (protocol).** `rewardGui`: reset to level 1, setlevel 3, 45-slot menu opened, click recorded `ChoiceRecord[level=2, choiceId=fixture_health]`, and the inventory readback contained no reward item. Fixture-only reward levels; production `rewards.levels` remains empty. Reset after multiple choices remains unverified. |
-| 4 | **Partial live PASS.** The earlier "abilities do not fire" report is superseded: 50 protocol M1 inputs raised Lunge 2 -> 52 (exactly +50) and 50 empty-hand ult inputs raised ChannelUlt 1 -> 51. SinkholeLite remains at 1 execution, so 50-inputs-per-ability is met for 2 of 3 abilities. Protocol fixture only; not a vanilla-client key-generation test. |
+| 3 | **Live PASS (protocol).** Two configured fixture choices were selected through the GUI. Reset cleared both and restored capacity from 11/11/9 to the exact 9/9/6 baseline; inventory readbacks before/after matched. Production rewards remain empty. |
+| 4 | **Live PASS (protocol).** M1, M2, and empty-hand Q each completed 50-input runs with exactly +50 executions. The M2 run was completed Sept 18; no double-fire. Vanilla key generation/rendered feedback remains a separate client check. |
 | 4b | **Live PASS (protocol).** Empty-hand drop packets already PASS; ChannelUlt now observed executing, counter 1 -> 51 -> 52. Vanilla-client key generation remains evidenced only by the earlier empty-hand Q log. |
 | 5 | **Live PASS (protocol).** Mode timeout observed live in the same run; counters were unchanged across the timeout (lunge held at 52, sinkhole_lite at 1, channel_ult at 1), confirming silent clearing with no ability consumption. |
-| 6 | **Partial (protocol).** `deathInMode`: died with mode=true, mode read false afterwards rather than sticking; level and choices unchanged; a following M1 still executed (lunge incremented). Quit-in-mode was recorded, but a post-reconnect inventory/map comparison remains unverified. |
+| 6 | **Live PASS (protocol).** Earlier death-in-mode checks retained inventory/map. Sept 18 clean quit-in-mode showed mode=true before quit, mode=false after reconnect, identical storage stacks and the tagged map still in offhand slot 45. An earlier reconnect interrupted by a spider death was not used for the clean reconnect assertion. |
 | 7 | Pending real-client attempts to move/drop/store/frame the map. |
-| 8 | Pending corrected entity-target test. The previous scenario sent an arm swing and activateBlock, which do not exercise the required entity attack/interact packets. |
+| 8 | **Live PASS (protocol).** Actual entity attack packet caused exactly one Lunge and left husk health at 20.0. Entity interaction caused Sinkhole; a separate red-dye/sheep interaction caused Sinkhole while the sheep stayed white and all 3 dye remained. The old air/block-click scenario has been removed. |
 | 9 | **Live PASS (protocol) for provenance sparing.** `sinkholeProvenance`: three player-placed blocks inside the blast volume, `playerPlacedExcluded=3`, all three asserted surviving, 25 natural blocks removed with three asserted individually as air. A real-client built structure is still untested; do not mark platform go/no-go. |
 | 10 | Pending 30-minute ordinary-building trial. Initial small sample only. |
 
@@ -172,3 +172,23 @@ tests, not assertions about vanilla key generation or rendered feedback.
 This fixture also exposed peaceful hunger regeneration bypassing FoodLevelChangeEvent.
 Capacity now enforces the hunger/saturation cap on a configurable tick cadence as
 well as food-change events. No item state is inspected or modified by that task.
+
+## Sept 18 review and live follow-up
+
+Claude's three pushed commits were already present on `codex/phase1-plugin`.
+They were preserved, reviewed, built and pushed to main with checkpoint `7fc208a`.
+The local absolute node_modules symlink was removed from version control.
+The review corrected premature reset/reconnect acceptance labels and replaced the
+mob scenario's air/block packets with actual entity packets.
+
+`protocol-followup-2026-09-18.jsonl` preserves the follow-up chat, scenario and
+inventory evidence; ambient entity-velocity packets are omitted. The failed first
+husk summon (peaceful difficulty) and spider-interrupted reconnect are retained,
+not counted as passes. A later peaceful reconnect supplies the clean evidence.
+The peaceful hunger check returned actual foodLevel 9 after reset, independently
+of the computed-capacity debug output.
+
+The 30-minute **ordinary building** trial is still missing. Repeated fixture
+casts and operator-generated terrain do not measure ordinary provenance growth.
+No new provenance performance claim or platform go/no-go conclusion follows from
+these tests. Full vanilla inventory/map-path coverage also remains outstanding.
