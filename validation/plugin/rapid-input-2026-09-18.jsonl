@@ -1,0 +1,378 @@
+{"time":"2026-09-18T12:39:36.876Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:39:36.886Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=test"}
+{"time":"2026-09-18T12:39:37.193Z","kind":"chat","value":"[MobaVerify] RAPID_M1_BEFORE"}
+{"time":"2026-09-18T12:39:37.489Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:39:52.376Z","kind":"chat","value":"[MobaTest: Replaced a slot on MobaTest with [Stone]]"}
+{"time":"2026-09-18T12:40:13.006Z","kind":"chat","value":"[MobaVerify] RAPID_M1_AFTER"}
+{"time":"2026-09-18T12:40:13.307Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:43:55.377Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:43:55.417Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=test"}
+{"time":"2026-09-18T12:43:55.704Z","kind":"chat","value":"[MobaVerify] RAPID_M1_BEFORE"}
+{"time":"2026-09-18T12:43:56.002Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:44:31.499Z","kind":"chat","value":"[MobaVerify] RAPID_M1_AFTER"}
+{"time":"2026-09-18T12:44:31.798Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50} channel=false"}
+{"time":"2026-09-18T12:48:35.401Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:48:35.434Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=test"}
+{"time":"2026-09-18T12:48:35.726Z","kind":"chat","value":"[MobaVerify] RAPID_M1_BEFORE"}
+{"time":"2026-09-18T12:48:36.022Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:49:11.503Z","kind":"chat","value":"[MobaVerify] RAPID_M1_AFTER"}
+{"time":"2026-09-18T12:49:11.803Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50} channel=false"}
+{"time":"2026-09-18T12:49:12.112Z","kind":"chat","value":"Teleported MobaVerify to 20.500000, -59.000000, 20.500000"}
+{"time":"2026-09-18T12:49:12.404Z","kind":"chat","value":"Changed the block at 20, -60, 20"}
+{"time":"2026-09-18T12:49:12.705Z","kind":"chat","value":"[MobaVerify] RAPID_M2_BEFORE"}
+{"time":"2026-09-18T12:49:13.007Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50} channel=false"}
+{"time":"2026-09-18T12:49:13.311Z","kind":"chat","value":"Successfully filled 49 block(s)"}
+{"time":"2026-09-18T12:49:14.316Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:49:15.323Z","kind":"chat","value":"Successfully filled 17 block(s)"}
+{"time":"2026-09-18T12:49:16.327Z","kind":"chat","value":"Successfully filled 1 block(s)"}
+{"time":"2026-09-18T12:49:17.334Z","kind":"chat","value":"Successfully filled 25 block(s)"}
+{"time":"2026-09-18T12:49:18.340Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:19.346Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:20.348Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:21.350Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:22.361Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:23.364Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:24.370Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:25.375Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:26.378Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:27.383Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:28.405Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:29.400Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:30.405Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:31.413Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:32.416Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:33.419Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:34.430Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:35.434Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:36.435Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:37.445Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:38.448Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:39.455Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:40.454Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:41.461Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:42.465Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:43.474Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:44.480Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:45.486Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:46.493Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:47.492Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:48.496Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:49.502Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:50.504Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:51.513Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:52.517Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:53.525Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:54.530Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:55.539Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:56.548Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:57.549Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:58.558Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:49:59.563Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:50:00.569Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:50:01.573Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:50:02.576Z","kind":"chat","value":"Successfully filled 27 block(s)"}
+{"time":"2026-09-18T12:50:03.583Z","kind":"chat","value":"[MobaVerify] RAPID_M2_AFTER"}
+{"time":"2026-09-18T12:50:03.882Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, sinkhole_lite=49} channel=false"}
+{"time":"2026-09-18T12:50:04.386Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_BEFORE"}
+{"time":"2026-09-18T12:50:04.687Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, sinkhole_lite=49} channel=false"}
+{"time":"2026-09-18T12:50:04.987Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:05.690Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:06.396Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:07.093Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:07.796Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:08.498Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:09.199Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:09.903Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:10.608Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:11.311Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:12.016Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:12.721Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:13.422Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:14.128Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:14.829Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:14.997Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-18T12:50:15.534Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:16.239Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:16.948Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:17.649Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:18.350Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:19.054Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:19.758Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:20.463Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:21.166Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:21.871Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:22.574Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:23.279Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:23.985Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:24.688Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:25.393Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:26.095Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:26.795Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:27.497Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:28.200Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:28.903Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:29.606Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:30.311Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:31.014Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:31.718Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:32.421Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:33.124Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:33.426Z","kind":"chat","value":"MobaTest left the game"}
+{"time":"2026-09-18T12:50:33.830Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:34.533Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:35.237Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:35.939Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:36.644Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:37.347Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:38.048Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:38.752Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:39.454Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:50:40.162Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_AFTER"}
+{"time":"2026-09-18T12:50:40.463Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, channel_ult=50, sinkhole_lite=49} channel=false"}
+{"time":"2026-09-18T12:52:50.300Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:52:50.310Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=test"}
+{"time":"2026-09-18T12:52:50.611Z","kind":"chat","value":"[MobaVerify] RAPID_M1_BEFORE"}
+{"time":"2026-09-18T12:52:50.913Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:52:53.961Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_3_-59_-5"}
+{"time":"2026-09-18T12:52:54.206Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_3_-58_-5"}
+{"time":"2026-09-18T12:52:54.571Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_3_-57_-5"}
+{"time":"2026-09-18T12:52:54.810Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_5_-59_-5"}
+{"time":"2026-09-18T12:52:55.071Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_5_-58_-5"}
+{"time":"2026-09-18T12:52:55.310Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_5_-57_-5"}
+{"time":"2026-09-18T12:52:55.563Z","kind":"chat","value":"[MobaTest] ARCH_SURVIVED_4_-57_-5"}
+{"time":"2026-09-18T12:52:55.824Z","kind":"chat","value":"[MobaTest] ARCH_TERRAIN_REMOVED_3_-5"}
+{"time":"2026-09-18T12:52:56.069Z","kind":"chat","value":"[MobaTest] ARCH_TERRAIN_REMOVED_4_-5"}
+{"time":"2026-09-18T12:52:56.320Z","kind":"chat","value":"[MobaTest] ARCH_TERRAIN_REMOVED_3_-4"}
+{"time":"2026-09-18T12:53:26.397Z","kind":"chat","value":"[MobaVerify] RAPID_M1_AFTER"}
+{"time":"2026-09-18T12:53:26.693Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:53:27.000Z","kind":"chat","value":"Teleported MobaVerify to 20.500000, -59.000000, 20.500000"}
+{"time":"2026-09-18T12:53:27.297Z","kind":"chat","value":"Changed the block at 20, -60, 20"}
+{"time":"2026-09-18T12:53:28.601Z","kind":"chat","value":"[MobaVerify] RAPID_M2_BEFORE"}
+{"time":"2026-09-18T12:53:28.901Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:53:29.204Z","kind":"chat","value":"Successfully filled 49 block(s)"}
+{"time":"2026-09-18T12:53:30.205Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:31.210Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:32.215Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:33.060Z","kind":"chat","value":"MobaVerify fell out of the world"}
+{"time":"2026-09-18T12:53:33.219Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:34.223Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:35.231Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:36.237Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:37.245Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:38.248Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:39.254Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:40.260Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:41.264Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:42.269Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:43.274Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:44.275Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:45.280Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:46.286Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:47.294Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:48.296Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:49.301Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:50.303Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:51.308Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:52.314Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:53.319Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:54.322Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:55.343Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:56.350Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:57.351Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:58.359Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:53:59.364Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:00.371Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:01.375Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:02.381Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:03.387Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:04.394Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:05.400Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:06.407Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:07.415Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:08.419Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:09.424Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:10.433Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:11.440Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:12.445Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:13.449Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:14.455Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:15.460Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:16.468Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:17.473Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:18.486Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-18T12:54:19.495Z","kind":"chat","value":"[MobaVerify] RAPID_M2_AFTER"}
+{"time":"2026-09-18T12:54:19.797Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={sinkhole_lite=1} channel=false"}
+{"time":"2026-09-18T12:54:20.297Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_BEFORE"}
+{"time":"2026-09-18T12:54:20.597Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={sinkhole_lite=1} channel=false"}
+{"time":"2026-09-18T12:54:20.898Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:21.601Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:22.304Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:23.006Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:23.710Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:24.414Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:25.115Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:25.816Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:26.519Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:27.225Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:27.930Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:28.637Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:29.343Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:30.046Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:30.748Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:31.456Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:32.158Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:32.862Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:33.565Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:34.270Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:34.977Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:35.681Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:36.386Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:37.089Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:37.793Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:38.495Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:39.199Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:39.903Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:40.606Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:41.309Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:42.014Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:42.719Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:43.422Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:44.128Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:44.831Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:45.536Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:46.240Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:46.944Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:47.643Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:48.351Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:49.049Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:49.751Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:50.455Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:51.157Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:51.860Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:52.560Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:53.265Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:53.969Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:54.673Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:55.377Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:54:56.091Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_AFTER"}
+{"time":"2026-09-18T12:54:56.386Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={channel_ult=50, sinkhole_lite=1} channel=false"}
+{"time":"2026-09-18T12:55:59.254Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T12:55:59.275Z","kind":"chat","value":"Marked chunk [5, 5] in minecraft:overworld to be force loaded"}
+{"time":"2026-09-18T12:56:00.374Z","kind":"chat","value":"Successfully filled 256 block(s)"}
+{"time":"2026-09-18T12:56:00.677Z","kind":"chat","value":"Teleported MobaVerify to 88.500000, -59.000000, 88.500000"}
+{"time":"2026-09-18T12:56:01.772Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=test"}
+{"time":"2026-09-18T12:56:03.269Z","kind":"chat","value":"MobaVerify has the following entity data: [88.5d, -59.0d, 88.5d]"}
+{"time":"2026-09-18T12:56:03.576Z","kind":"chat","value":"[MobaVerify] RAPID_M1_BEFORE"}
+{"time":"2026-09-18T12:56:03.875Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={} channel=false"}
+{"time":"2026-09-18T12:56:39.369Z","kind":"chat","value":"[MobaVerify] RAPID_M1_AFTER"}
+{"time":"2026-09-18T12:56:39.665Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50} channel=false"}
+{"time":"2026-09-18T12:56:39.966Z","kind":"chat","value":"Teleported MobaVerify to 88.500000, -59.000000, 88.500000"}
+{"time":"2026-09-18T12:56:41.070Z","kind":"chat","value":"[MobaVerify] RAPID_M2_BEFORE"}
+{"time":"2026-09-18T12:56:41.369Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50} channel=false"}
+{"time":"2026-09-18T12:56:41.675Z","kind":"chat","value":"Successfully filled 35 block(s)"}
+{"time":"2026-09-18T12:56:43.204Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:44.210Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:45.214Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:46.220Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:47.230Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:48.234Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:49.246Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:50.248Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:51.254Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:52.262Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:53.267Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:54.277Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:55.284Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:56.290Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:57.295Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:58.299Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:56:59.302Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:00.310Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:01.315Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:02.322Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:03.327Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:04.333Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:05.339Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:06.355Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:07.360Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:08.390Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:09.398Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:10.401Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:11.408Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:12.411Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:13.416Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:14.419Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:15.423Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:16.464Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:17.436Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:18.439Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:19.442Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:20.454Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:21.447Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:22.449Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:23.456Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:24.456Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:25.458Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:26.462Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:27.465Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:28.471Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:29.485Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:30.481Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:31.485Z","kind":"chat","value":"Successfully filled 18 block(s)"}
+{"time":"2026-09-18T12:57:32.494Z","kind":"chat","value":"[MobaVerify] RAPID_M2_AFTER"}
+{"time":"2026-09-18T12:57:32.800Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, sinkhole_lite=50} channel=false"}
+{"time":"2026-09-18T12:57:33.299Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_BEFORE"}
+{"time":"2026-09-18T12:57:33.597Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, sinkhole_lite=50} channel=false"}
+{"time":"2026-09-18T12:57:33.898Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:34.598Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:35.301Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:36.001Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:36.703Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:37.407Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:38.109Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:38.817Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:39.518Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:40.223Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:40.928Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:41.631Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:42.336Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:43.037Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:43.746Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:44.455Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:45.147Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:45.851Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:46.553Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:47.258Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:47.964Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:48.668Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:49.373Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:50.078Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:50.784Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:51.487Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:52.199Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:52.897Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:53.598Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:54.301Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:55.003Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:55.707Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:56.409Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:57.111Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:57.814Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:58.516Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:59.222Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:57:59.924Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:00.630Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:01.331Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:02.035Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:02.739Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:03.448Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:04.144Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:04.847Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:05.548Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:06.248Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:06.950Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:07.652Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:08.355Z","kind":"chat","value":"Channel started"}
+{"time":"2026-09-18T12:58:09.068Z","kind":"chat","value":"[MobaVerify] RAPID_EMPTY_Q_AFTER"}
+{"time":"2026-09-18T12:58:09.362Z","kind":"chat","value":"uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=false kitConfigured=true executions={lunge=50, channel_ult=50, sinkhole_lite=50} channel=false"}
+{"time":"2026-09-18T12:58:09.663Z","kind":"chat","value":"Unmarked chunk [5, 5] in minecraft:overworld for force loading"}

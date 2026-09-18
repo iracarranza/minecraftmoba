@@ -1,7 +1,6 @@
 package com.minecraftmoba.plugin;
 
 import io.netty.channel.*;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.player.*;
@@ -24,6 +23,7 @@ public final class PacketInputs implements Listener, AutoCloseable {
             Object listener=handle.getClass().getField("connection").get(handle);
             Object connection=listener.getClass().getField("connection").get(listener);
             Channel channel=(Channel)connection.getClass().getField("channel").get(connection);
+            NativePacketQueue queue = NativePacketQueue.forPlayer(p, listener);
             channels.put(p.getUniqueId(),channel);
             channel.eventLoop().execute(()-> {
                 if (closed || !channel.isActive()) return;
@@ -34,15 +34,13 @@ public final class PacketInputs implements Listener, AutoCloseable {
                             boolean swap=action.equals("SWAP_ITEM_WITH_OFFHAND");
                             boolean drop=action.equals("DROP_ITEM") || action.equals("DROP_ALL_ITEMS");
                             if (swap || drop) {
-                                // Serial submissions from this channel preserve F -> Q ordering.
-                                Bukkit.getScheduler().runTask(plugin,()-> {
-                                    if (closed || !p.isOnline()) return;
-                                    if (plugin.enrolled(p)) {
-                                        boolean consumed=inputs.input(p,swap?AbilityInputs.Input.SWAP_HAND:AbilityInputs.Input.DROP);
-                                        if (swap || consumed) return;
-                                    }
-                                    // Unconsumed user action resumes vanilla processing. No inventory writes.
-                                    channel.eventLoop().execute(()-> { if (channel.isActive()) ctx.fireChannelRead(packet); });
+                                // F/drop share vanilla's packet queue with clicks. Bukkit's
+                                // scheduler runs later and loses zero-gap F -> M1/M2 input.
+                                queue.submit(packet, () -> {
+                                    if (closed || !p.isOnline()) return true;
+                                    if (!plugin.enrolled(p)) return false;
+                                    boolean consumed=inputs.input(p,swap?AbilityInputs.Input.SWAP_HAND:AbilityInputs.Input.DROP);
+                                    return swap || consumed;
                                 });
                                 return;
                             }
