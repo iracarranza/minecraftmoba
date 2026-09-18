@@ -96,13 +96,13 @@ or the 30-minute ordinary-building requirement.
 |---|---|
 | 1 | Pending full real-client path matrix; cancellation unit tests pass. |
 | 2 | Level commands observed live; immediate usability needs client confirmation. |
-| 3 | **Live PASS (protocol).** `rewardGui`: reset to level 1, setlevel 3, 45-slot menu opened, click recorded `ChoiceRecord[level=2, choiceId=fixture_health]`, and the inventory readback contained no reward item. Fixture-only reward levels; production `rewards.levels` remains empty. |
+| 3 | **Partial (protocol).** `rewardGui`: reset to level 1, setlevel 3, 45-slot menu opened, click recorded `ChoiceRecord[level=2, choiceId=fixture_health]`, and the inventory readback contained no reward item. Fixture-only reward levels; production `rewards.levels` remains empty. Reset after multiple choices remains unverified. |
 | 4 | **Partial live PASS.** The earlier "abilities do not fire" report is superseded: 50 protocol M1 inputs raised Lunge 2 -> 52 (exactly +50) and 50 empty-hand ult inputs raised ChannelUlt 1 -> 51. SinkholeLite remains at 1 execution, so 50-inputs-per-ability is met for 2 of 3 abilities. Protocol fixture only; not a vanilla-client key-generation test. |
 | 4b | **Live PASS (protocol).** Empty-hand drop packets already PASS; ChannelUlt now observed executing, counter 1 -> 51 -> 52. Vanilla-client key generation remains evidenced only by the earlier empty-hand Q log. |
 | 5 | **Live PASS (protocol).** Mode timeout observed live in the same run; counters were unchanged across the timeout (lunge held at 52, sinkhole_lite at 1, channel_ult at 1), confirming silent clearing with no ability consumption. |
-| 6 | **Live PASS (protocol).** `deathInMode`: died with mode=true, mode read false afterwards rather than sticking; level and choices unchanged; a following M1 still executed (lunge incremented). Quit-in-mode was already recorded. |
+| 6 | **Partial (protocol).** `deathInMode`: died with mode=true, mode read false afterwards rather than sticking; level and choices unchanged; a following M1 still executed (lunge incremented). Quit-in-mode was recorded, but a post-reconnect inventory/map comparison remains unverified. |
 | 7 | Pending real-client attempts to move/drop/store/frame the map. |
-| 8 | **Partial.** `mobTargeted` ran M1 and M2 against a summoned NoAI zombie and lunge incremented, but the Health readback did not return usable data, so damage is unconfirmed. Assertion needs fixing. |
+| 8 | Pending corrected entity-target test. The previous scenario sent an arm swing and activateBlock, which do not exercise the required entity attack/interact packets. |
 | 9 | **Live PASS (protocol) for provenance sparing.** `sinkholeProvenance`: three player-placed blocks inside the blast volume, `playerPlacedExcluded=3`, all three asserted surviving, 25 natural blocks removed with three asserted individually as air. A real-client built structure is still untested; do not mark platform go/no-go. |
 | 10 | Pending 30-minute ordinary-building trial. Initial small sample only. |
 
