@@ -278,6 +278,13 @@ PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.composition \
 Choosing a base map, an insertion pair, a seam policy or final acceptance is
 outside this tooling entirely.
 
+## Client inspection status
+
+One volume has been inspected in a real client: see
+[CLIENT-INSPECTION.md](../reports/terrain_harvest_2026-09-18/CLIENT-INSPECTION.md).
+Terrain reads as a contained world rather than a sliced fragment. The other two
+volumes remain uninspected, and no selection decision follows from one session.
+
 ## Remaining work
 
 Manifest validity, deterministic masks, copied world output, server loading and
