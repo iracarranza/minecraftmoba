@@ -1,0 +1,1263 @@
+{
+  "containment": {
+    "checks": [
+      {
+        "died": false,
+        "ended": [
+          1936.5,
+          114,
+          350.3
+        ],
+        "escaped_at": null,
+        "name": "walk south",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": 0
+      },
+      {
+        "died": false,
+        "ended": [
+          1935.3,
+          114,
+          352.5
+        ],
+        "escaped_at": null,
+        "name": "walk west",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": 90
+      },
+      {
+        "died": true,
+        "ended": [
+          0.5,
+          65,
+          0.5
+        ],
+        "escaped_at": null,
+        "name": "walk north",
+        "ok": true,
+        "outcome": "died inside the volume; respawn is not an escape, containment inconclusive for this direction",
+        "yaw": 180
+      },
+      {
+        "died": false,
+        "ended": [
+          1937.7,
+          114,
+          352.4999999999998
+        ],
+        "escaped_at": null,
+        "name": "walk east",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": -90
+      },
+      {
+        "died_on_impact": false,
+        "floor": -64,
+        "lowest": 174.78935982125608,
+        "name": "fall does not pass the floor",
+        "ok": true,
+        "outcome": "came to rest above the floor"
+      },
+      {
+        "block": "bedrock",
+        "broke": false,
+        "chat_since": 2,
+        "name": "adventure mode cannot mine the floor",
+        "ok": true
+      }
+    ],
+    "deaths": 2,
+    "not_covered": [
+      "operator commands",
+      "spectator flight",
+      "teleports",
+      "boats and other vehicles",
+      "every boundary cell; only the probed directions"
+    ],
+    "pass": true,
+    "schema": "terrain_containment/1",
+    "scope": "adventure-mode walking, falling and block-breaking attempts while ticks run"
+  },
+  "evidence_state": "DERIVED MEASUREMENT",
+  "expectations": {
+    "envelope intact after simulation": true,
+    "frozen changes nothing": true,
+    "player stayed inside source bounds": true
+  },
+  "frozen": {
+    "counts": {
+      "cells_changed": 0,
+      "chunks_generated_empty": 525,
+      "chunks_generated_nonempty": 0,
+      "chunks_lost": 0,
+      "envelope_breached": 0,
+      "envelope_changed": 0,
+      "in_mask_changed": 0,
+      "outside_changed": 0,
+      "sections_compared": 690,
+      "sections_differing": 666,
+      "state_normalized": 3473
+    },
+    "label": "frozen soak",
+    "samples": []
+  },
+  "not_covered": [
+    "human client walkthrough",
+    "rendering",
+    "long-term fluid equilibrium",
+    "operator, spectator or teleport exploits",
+    "volumes other than the one probed"
+  ],
+  "pass": true,
+  "running": {
+    "counts": {
+      "cells_changed": 712,
+      "chunks_generated_empty": 674,
+      "chunks_generated_nonempty": 0,
+      "chunks_lost": 0,
+      "envelope_breached": 0,
+      "envelope_changed": 0,
+      "in_mask_changed": 712,
+      "outside_changed": 0,
+      "sections_compared": 690,
+      "sections_differing": 667,
+      "state_normalized": 3473
+    },
+    "label": "resumed soak with player",
+    "samples": [
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "5"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1919,
+          127,
+          340
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1914,
+          142,
+          346
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1913,
+          142,
+          347
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1915,
+          142,
+          347
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1914,
+          142,
+          348
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1914,
+          144,
+          346
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1913,
+          144,
+          347
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1915,
+          144,
+          347
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1914,
+          144,
+          348
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          124,
+          335
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          124,
+          335
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          125,
+          335
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          125,
+          335
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1925,
+          123,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1925,
+          124,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1926,
+          124,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1926,
+          125,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          125,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          125,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          126,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          126,
+          336
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1923,
+          126,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1925,
+          126,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          126,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          126,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "1"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:spruce_leaves",
+          [
+            [
+              "distance",
+              "2"
+            ],
+            [
+              "persistent",
+              "false"
+            ],
+            [
+              "waterlogged",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1924,
+          126,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1926,
+          127,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          127,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          127,
+          337
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1922,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1923,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1925,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1926,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1927,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1928,
+          127,
+          338
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1921,
+          127,
+          339
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:snow",
+          [
+            [
+              "layers",
+              "1"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1922,
+          127,
+          339
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1923,
+          127,
+          339
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1924,
+          127,
+          339
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          1925,
+          127,
+          339
+        ]
+      }
+    ]
+  },
+  "schema": "terrain_simulation_probe/1",
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "soak_seconds": 60,
+  "volume_id": "tv_49b22bb49e0684c3a1295570"
+}

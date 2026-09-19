@@ -11,7 +11,7 @@ from serialization.region import read_region, write_region
 from serialization.world import _block_states_tag, block
 from terrain_harvest.materialize import export_volume
 from terrain_harvest.model import Mask
-from terrain_harvest.simulation import diff_regions
+from terrain_harvest.simulation import _subset, diff_regions
 from test_terrain_preservation import build_source, volume
 
 class DiffTests(unittest.TestCase):
@@ -69,6 +69,40 @@ class DiffTests(unittest.TestCase):
         write_region(path, roots)
         d = diff_regions(self.before, self.after, self.mask, 'shell intact')
         self.assertEqual(d['counts']['envelope_breached'], 0)
+
+class NormalizationTests(unittest.TestCase):
+    """The server spells out default properties on load; that is not drift."""
+    def test_added_default_property_is_normalization(self):
+        self.assertTrue(_subset({}, {'waterlogged': 'false'}))
+        self.assertTrue(_subset({'waterlogged': 'false'}, {'waterlogged': 'false'}))
+
+    def test_conflicting_value_is_not_normalization(self):
+        self.assertFalse(_subset({'waterlogged': 'true'}, {'waterlogged': 'false'}))
+
+    def test_barrier_gaining_waterlogged_is_not_a_breach(self):
+        top = self.mask_top()
+        path = self.after/'region'/'r.0.0.mca'
+        roots = {(cx, cz): (n, r) for cx, cz, n, r in read_region(path)}
+        section = next(s for s in roots[(1, 1)][1].value['sections'].value if s.value['Y'].value == 0)
+        states = []
+        for y in range(0, 16):
+            for z in range(16, 32):
+                for x in range(16, 32):
+                    if self.mask.include_block(x, y, z): states.append(block('stone'))
+                    elif self.mask.envelope(x, y, z):
+                        states.append(block('barrier', waterlogged='false') if y > top
+                                      else block('bedrock'))
+                    else: states.append(block('air'))
+        section.value['block_states'] = _block_states_tag(states)
+        write_region(path, roots)
+        d = diff_regions(self.before, self.after, self.mask, 'normalized shell')
+        self.assertEqual(d['counts']['envelope_breached'], 0)
+
+    def mask_top(self):
+        return self.mask.bounds['y'][1]
+
+    def setUp(self):
+        DiffTests.setUp(self)
 
 if __name__ == '__main__':
     unittest.main()

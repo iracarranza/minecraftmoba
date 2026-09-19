@@ -35,12 +35,25 @@ HERE = Path(__file__).resolve().parent
 def _sections(root):
     return {s.value['Y'].value: s for s in root.value['sections'].value}
 
+def _subset(a, b):
+    """True when one property map only adds keys to the other, with no conflicts."""
+    small, large = (a, b) if len(a) <= len(b) else (b, a)
+    return all(large.get(k) == v for k, v in small.items())
+
+def _section_is_air(section):
+    """A section with no container, or a single-entry air palette, holds no blocks."""
+    container = plain(section).get('block_states')
+    if not container: return True
+    palette = container.get('palette') or []
+    return len(palette) == 1 and palette[0].get('Name') == 'minecraft:air'
+
 def diff_regions(before, after, mask, label):
     """Cell-level diff, descending only into sections whose containers differ."""
     top = mask.bounds['y'][1]
     counts = {'sections_compared': 0, 'sections_differing': 0, 'cells_changed': 0,
               'in_mask_changed': 0, 'envelope_changed': 0, 'outside_changed': 0,
-              'envelope_breached': 0}
+              'envelope_breached': 0, 'chunks_generated_empty': 0, 'chunks_generated_nonempty': 0,
+              'chunks_lost': 0, 'state_normalized': 0}
     samples = []
     for f in sorted((before/'region').glob('*.mca')):
         g = after/'region'/f.name
@@ -51,8 +64,18 @@ def diff_regions(before, after, mask, label):
         a = {(cx, cz): r for cx, cz, _, r in read_region(f)}
         b = {(cx, cz): r for cx, cz, _, r in read_region(g)}
         for key in sorted(set(a) | set(b)):
-            if key not in a or key not in b:
-                samples.append({'kind': 'chunk_present_in_only_one', 'chunk': list(key)}); continue
+            if key not in a:
+                # The void generator fills in chunks around a loaded player. An empty
+                # one is expected; a generated chunk with blocks in it is not.
+                empty = all(_section_is_air(s) for s in _sections(b[key]).values())
+                counts['chunks_generated_empty' if empty else 'chunks_generated_nonempty'] += 1
+                if not empty and len(samples) < 40:
+                    samples.append({'kind': 'generated_chunk_with_blocks', 'chunk': list(key)})
+                continue
+            if key not in b:
+                counts['chunks_lost'] += 1
+                if len(samples) < 40: samples.append({'kind': 'chunk_lost', 'chunk': list(key)})
+                continue
             asec, bsec = _sections(a[key]), _sections(b[key])
             for sy in sorted(set(asec) | set(bsec)):
                 counts['sections_compared'] += 1
@@ -69,13 +92,20 @@ def diff_regions(before, after, mask, label):
                             sa = state_tuple(_palette_value(ca, i, 4)) if ca else AIR
                             sb = state_tuple(_palette_value(cb, i, 4)) if cb else AIR
                             if sa == sb: continue
+                            # The server writes blocks with their full default
+                            # property set on load. Same block, more properties
+                            # spelled out, is normalization and not drift.
+                            if sa[0] == sb[0] and _subset(dict(sa[1]), dict(sb[1])):
+                                counts['state_normalized'] += 1
+                                continue
                             counts['cells_changed'] += 1
                             if mask.include_block(x, y, z): bucket = 'in_mask_changed'
                             elif mask.envelope(x, y, z):
                                 bucket = 'envelope_changed'
-                                want = block('barrier') if y > top else block('bedrock')
-                                # A shell cell that is no longer shell is a real breach.
-                                if sb != want: counts['envelope_breached'] += 1
+                                # Containment depends on which block is there,
+                                # not on its property spelling.
+                                want = 'minecraft:barrier' if y > top else 'minecraft:bedrock'
+                                if sb[0] != want: counts['envelope_breached'] += 1
                             else: bucket = 'outside_changed'
                             counts[bucket] += 1
                             if len(samples) < 40:
@@ -114,7 +144,7 @@ def _prepare(world, root, eula, port, player):
     (root/'ops.json').write_text(json.dumps([{'uuid': offline_uuid(player), 'name': player,
                                               'level': 4, 'bypassesPlayerLimit': True}]))
 
-def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_seconds, player='HarvestSim'):
+def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_seconds, player='HarvestSim', keep_world=None):
     if hashlib.sha1(jar.read_bytes()).hexdigest() != SERVER_SHA1: raise ValueError('wrong server jar')
     if not any(l.strip() == 'eula=true' for l in eula.read_text().splitlines()): raise ValueError('existing accepted eula.txt required')
     dest = world/'dimensions/harvest'/volume_id
@@ -125,7 +155,7 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
     with tempfile.TemporaryDirectory(prefix='terrain-sim-frozen-') as tmp:
         root = Path(tmp); _prepare(world, root, eula, port, player)
         def frozen(proc, q, lines):
-            proc.stdin.write(f'tick freeze\nforceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
+            proc.stdin.write(f'tick freeze\nexecute in harvest:{volume_id} run forceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
             proc.stdin.flush(); time.sleep(soak_seconds)
         logs['frozen'] = _server(root, jar, java, port, frozen)
         results['frozen'] = diff_regions(dest, root/'world/dimensions/harvest'/volume_id, mask, 'frozen soak')
@@ -136,7 +166,7 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
         result_path = root/'containment.json'
         def running(proc, q, lines):
             nonlocal containment
-            proc.stdin.write(f'tick unfreeze\nforceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
+            proc.stdin.write(f'tick unfreeze\nexecute in harvest:{volume_id} run forceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
             proc.stdin.flush(); time.sleep(5)
             env = dict(os.environ, HARVEST_PORT=str(port), HARVEST_PLAYER=player,
                        HARVEST_VOLUME=volume_id, HARVEST_BOUNDS=json.dumps(mask.bounds),
@@ -148,9 +178,16 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
             containment = json.loads(result_path.read_text()) if result_path.exists() else {'pass': False, 'checks': []}
             time.sleep(soak_seconds)
         logs['running'] = _server(root, jar, java, port, running)
-        results['running'] = diff_regions(dest, root/'world/dimensions/harvest'/volume_id, mask, 'resumed soak with player')
+        after = root/'world/dimensions/harvest'/volume_id
+        results['running'] = diff_regions(dest, after, mask, 'resumed soak with player')
+        if keep_world:
+            keep_world.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(after, keep_world/'after', dirs_exist_ok=True)
 
-    frozen_clean = results['frozen']['counts']['cells_changed'] == 0
+    def clean(r):
+        c = r['counts']
+        return c['cells_changed'] == 0 and c['chunks_generated_nonempty'] == 0 and c['chunks_lost'] == 0
+    frozen_clean = clean(results['frozen'])
     no_breach = results['running']['counts']['envelope_breached'] == 0
     result = {'schema': 'terrain_simulation_probe/1', 'evidence_state': 'DERIVED MEASUREMENT',
               'volume_id': volume_id, 'soak_seconds': soak_seconds, 'server_sha1': SERVER_SHA1,
@@ -176,10 +213,11 @@ if __name__ == '__main__':
     p.add_argument('--volume-id', required=True)
     p.add_argument('--port', type=int, default=25599)
     p.add_argument('--soak-seconds', type=int, default=60)
+    p.add_argument('--keep-world', type=Path, default=None, help='copy the post-simulation dimension out for inspection')
     a = p.parse_args()
     r = probe(a.world.resolve(), a.jar.resolve(), a.java.resolve(), a.eula.resolve(),
               getattr(a, 'node_modules').resolve(), a.report.resolve(), a.port,
-              a.volume_id, a.soak_seconds)
+              a.volume_id, a.soak_seconds, keep_world=a.keep_world.resolve() if a.keep_world else None)
     print('frozen cells changed:', r['frozen']['counts']['cells_changed'])
     print('resumed cells changed:', r['running']['counts']['cells_changed'],
           '| envelope breached:', r['running']['counts']['envelope_breached'])

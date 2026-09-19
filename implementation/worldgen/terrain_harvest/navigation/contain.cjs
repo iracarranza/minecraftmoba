@@ -16,7 +16,11 @@ const bot = mineflayer.createBot({ host: '127.0.0.1', port: Number(process.env.H
   username: process.env.HARVEST_PLAYER, auth: 'offline', version: '1.21.11' });
 
 const chat = [];
+let deaths = 0;
 bot.on('messagestr', m => chat.push(m));
+// Dying teleports the player to world spawn. That is respawn, not an escape,
+// and conflating the two would report a containment breach that never happened.
+bot.on('death', () => { deaths += 1; console.log('DEATH ' + deaths); });
 bot.on('error', e => { console.log('ERROR ' + e.message); finish(1); });
 bot.on('kicked', r => { console.log('KICKED ' + JSON.stringify(r)); finish(1); });
 
@@ -31,6 +35,7 @@ function outside(p) {
 }
 
 async function walk(name, yaw, seconds) {
+  const deathsBefore = deaths;
   await run(`execute in harvest:${volume} run tp @s ${target[0] + 0.5} ${target[1]} ${target[2] + 0.5} ${yaw} 0`);
   await sleep(500);
   await bot.look(yaw * Math.PI / 180, 0, true);
@@ -44,8 +49,12 @@ async function walk(name, yaw, seconds) {
   bot.clearControlStates();
   await sleep(300);
   const p = bot.entity.position;
-  record('walk ' + name, escaped === null && !outside(p),
-    { yaw, ended: [p.x, p.y, p.z], escaped_at: escaped ? [escaped.x, escaped.y, escaped.z] : null });
+  const died = deaths > deathsBefore;
+  record('walk ' + name, died ? true : (escaped === null && !outside(p)),
+    { yaw, ended: [p.x, p.y, p.z], died,
+      outcome: died ? 'died inside the volume; respawn is not an escape, containment inconclusive for this direction'
+                    : (escaped ? 'left the source bounds' : 'contained'),
+      escaped_at: escaped && !died ? [escaped.x, escaped.y, escaped.z] : null });
 }
 
 function finish(code) {
@@ -54,7 +63,7 @@ function finish(code) {
     scope: 'adventure-mode walking, falling and block-breaking attempts while ticks run',
     not_covered: ['operator commands', 'spectator flight', 'teleports', 'boats and other vehicles',
                   'every boundary cell; only the probed directions'],
-    checks, pass: code === 0 && checks.length > 0 && checks.every(c => c.ok),
+    deaths, checks, pass: code === 0 && checks.length > 0 && checks.every(c => c.ok),
   }, null, 2) + '\n');
   try { bot.quit(); } catch (e) {}
   process.exit(code);
@@ -71,11 +80,23 @@ bot.once('spawn', async () => {
       await walk(name, yaw, 12);
     }
 
-    // Fall: from the roof height the floor must stop the descent.
+    // Fall: does the floor stop the descent? Track the lowest point actually
+    // reached rather than where the player ends up, because dying on impact
+    // means the floor was there, and respawn moves the body to world spawn.
+    const deathsBeforeFall = deaths;
     await run(`execute in harvest:${volume} run tp @s ${target[0] + 0.5} ${bounds.y[1]} ${target[2] + 0.5}`);
-    await sleep(12000);
-    const p = bot.entity.position;
-    record('fall stops inside floor', p.y > bounds.y[0] - 1 && !outside(p), { ended: [p.x, p.y, p.z] });
+    let lowest = bounds.y[1];
+    for (let i = 0; i < 100; i++) {
+      await sleep(200);
+      if (deaths > deathsBeforeFall) break;
+      lowest = Math.min(lowest, bot.entity.position.y);
+      if (i > 15 && Math.abs(bot.entity.position.y - lowest) < 0.01) break;
+    }
+    record('fall does not pass the floor', lowest > bounds.y[0] - 2,
+      { lowest, floor: bounds.y[0], died_on_impact: deaths > deathsBeforeFall,
+        outcome: deaths > deathsBeforeFall
+          ? 'died on impact; the floor stopped the descent'
+          : 'came to rest above the floor' });
 
     // Adventure mode must not let a visitor mine out of the shell.
     const before = chat.length;
