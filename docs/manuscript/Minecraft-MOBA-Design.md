@@ -2224,3 +2224,53 @@ The family-wide target is behavioral:
 Accordingly, do not interpret category-specific calibration as an exception to the material ladder. **The ladder is universal; raw durability is category-calibrated.**
 
 The existing 48-minute finding that **armor acquisition capital >> armor replacement** and that occupational pick consumption exceeds ordinary sword replacement is evidence for different category-specific raw curves, not for abandoning family-wide durability identity. Exact weapon and armor curves remain **[OPEN]** and should be derived from representative combat/damage workloads rather than copied mechanically from pickaxe uses.
+
+
+### 15.1.2 Family-wide durability doctrine
+
+**Working design doctrine.** The durability hierarchy belongs to the **material equipment family as a whole**, even when the literal durability stat does not.
+
+The intended material identity is:
+
+> **Stone — disposable → Copper — replaceable field equipment → Iron — reliable repeated-operation equipment → Diamond — high-value capital → Netherite — premier late-game capital**
+
+Tools, weapons, and armor should all communicate that ordering through their expected useful lifetime. Copper should therefore function as the family-wide buffer between Stone and Iron, not only as a pickaxe-specific tier. Its presence allows Stone/Copper to absorb most ordinary early replacement pressure while Iron marks a meaningful transition toward equipment expected to persist through repeated useful operations.
+
+Raw durability should be calibrated by **equipment workload**, rather than requiring every item made from a material to share one numerical durability value. A useful conceptual measure is:
+
+[
+L_e = \frac{D_e U_e}{R_e}
+]
+
+where:
+
+- (L_e) = expected useful lifetime of equipment category (e);
+- (D_e) = base durability;
+- (U_e) = expected effective-lifetime multiplier from Unbreaking;
+- (R_e) = durability-consumption rate under that category's relevant match workload.
+
+The purpose of this model is not to establish a final continuous-time formula. It states the balancing target: **material identity should be comparable in expected useful lifetime character, while raw durability can differ because mining tools, weapons, and armor consume durability through different workloads.**
+
+Accordingly:
+
+- a Stone pick should feel disposable as a mining implement;
+- Stone combat equipment should likewise feel disposable within its own combat workload;
+- Copper equipment should be legitimate field equipment that remains economically replaceable;
+- Iron equipment should normally survive repeated relevant operations and feel materially more stable than Copper;
+- Diamond and Netherite should increasingly behave as capital equipment rather than routine churn.
+
+The current **Wood 16 / Stone 36 / Copper 60 / Iron 96** fixture remains the concrete **non-canon pick/tool calibration candidate**, not a universal stat line for swords and armor. It demonstrates the desired spacing under a high-use occupational workload. Weapons and armor should be calibrated separately to produce the same broad material-tier identity under their own wear patterns.
+
+This distinction is economically important. A 96-use Iron pick can still represent reliable equipment because mining can consume tens of durability uses during one substantial operation, especially once universal Unbreaking is included. A 96-durability sword would face a different use rate and therefore need not represent the same lifetime. Armor distributes wear across multiple pieces and follows a different durability-consumption model again.
+
+Thus the current rule is:
+
+[
+\boxed{\text{shared material lifetime identity} \neq \text{necessarily shared raw durability}}
+]
+
+The design target is family-wide; the numerical curves are category-specific.
+
+Earlier match-scale analysis further suggests that **armor acquisition capital >> armor replacement**, while occupational tool wear is a stronger recurring equipment sink than ordinary sword replacement. This does not exempt armor or weapons from the family-wide durability identity; it means their category-specific curves may produce fewer replacements during a match while still preserving Stone → Copper → Iron → Diamond → Netherite as a legible stability progression.
+
+**[OPEN]** Final weapon and armor durability curves, the appropriate workload units for each category, and whether some closely related tool types can share one calibrated curve remain unresolved.
