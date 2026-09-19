@@ -1,6 +1,9 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  hud:
+    enabled: true
+    refreshTicks: 20
   taskProgression:
     enabled: true
   sentinelSkull:

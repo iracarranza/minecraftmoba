@@ -26,6 +26,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Sentinel sentinel() { return sentinel; }
     private TaskEffects taskEffects;
     public TaskEffects taskEffects() { return taskEffects; }
+    private Hud hud;
+    public Hud hud() { return hud; }
+    public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
     private Rewards rewards;
@@ -39,6 +42,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(provenance, this);
         sentinel = new Sentinel(this);
         taskEffects = new TaskEffects(this);
+        hud = new Hud(this);
+        getServer().getPluginManager().registerEvents(hud, this);
         getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
         getServer().getPluginManager().registerEvents(renewables, this);
