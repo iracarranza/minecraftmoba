@@ -54,6 +54,9 @@ public final class TaskEffects implements Listener {
         if (capped <= current) return;
         d.task.put(domain.name(), capped);
         reapply(p, d);
+        if (plugin.rewardAdvancements() != null)
+            for (int t = 1; t <= capped; t++)
+                plugin.rewardAdvancements().grant(p, domain.name().toLowerCase(Locale.ROOT) + "_" + t);
     }
 
     public void reapply(Player p, PlayerData d) {

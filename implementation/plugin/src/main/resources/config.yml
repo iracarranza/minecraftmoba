@@ -1,6 +1,8 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  rewardAdvancements:
+    enabled: true
   infraMode:
     enabled: true
   routes:

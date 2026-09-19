@@ -33,6 +33,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Routes routes;
     public InfraMode infraMode() { return infraMode; }
     public Routes routes() { return routes; }
+    private RewardAdvancements rewardAdvancements;
+    public RewardAdvancements rewardAdvancements() { return rewardAdvancements; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -51,6 +53,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         renewAuthoring = new RenewableAuthoring(this);
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);
+        rewardAdvancements = new RewardAdvancements(this);
         routes = new Routes(this);
         getServer().getPluginManager().registerEvents(routes, this);
         getServer().getPluginManager().registerEvents(hud, this);
@@ -199,6 +202,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba infra <enter|exit|toggle|status>");
             }
             return true;
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("syncadv")) {
+            var target = org.bukkit.Bukkit.getPlayerExact(args[1]);
+            if (target == null) { sender.sendMessage("No such player"); return true; }
+            rewardAdvancements.sync(target); sender.sendMessage("Synced advancements for " + args[1]); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("routes")) {
             routes.report().forEach(sender::sendMessage); return true;

@@ -1,0 +1,19 @@
+{
+  "parent": "moba:rewards/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "title": "Damage I",
+    "description": "Conventional melee and ranged damage (generic ceiling is Tier III)",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
