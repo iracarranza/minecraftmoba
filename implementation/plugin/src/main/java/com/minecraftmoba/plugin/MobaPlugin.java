@@ -152,6 +152,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             rewards.open(player); return true;
         }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
+        if (args.length == 1 && args[0].equalsIgnoreCase("renewables")) {
+            renewables.report().forEach(sender::sendMessage); return true;
+        }
         if (args.length == 1 && args[0].equalsIgnoreCase("provenance")) {
             provenance.sample(); sender.sendMessage(provenance.summary()); return true;
         }

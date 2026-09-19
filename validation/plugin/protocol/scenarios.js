@@ -286,3 +286,105 @@ exports.archAfterRestart = async ({bot,cmd,action,sleep,Vec3,log}) => {
   await cmd('moba provenance');
   log('checked','Inspect seven persisted arch markers, terrain collapse, and placeCount=0 after server restart');
 };
+
+// ---- Regenerative Sources ----
+// These assert the seam's invariant: renewal restores availability at a place
+// and grants nothing to anyone. Requires the fixture source `fixture_patch`
+// (CROP) and `fixture_herd` (ANIMAL) in the acceptance config.
+
+const SRC = {x: 40, y: -60, z: 40};   // fixture source centre, radius 4
+
+// #10 Harvesting wild crops inside a source decrements its availability.
+exports.renewableHarvest = async ({bot,cmd,sleep,Vec3}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
+  await sleep(600);
+  await cmd(`fill ${SRC.x-2} ${SRC.y} ${SRC.z-2} ${SRC.x+2} ${SRC.y} ${SRC.z+2} minecraft:farmland`);
+  // Server-set, so unmarked by BlockPlaceEvent: a wild patch, not a player farm.
+  await cmd(`fill ${SRC.x-2} ${SRC.y+1} ${SRC.z-2} ${SRC.x+2} ${SRC.y+1} ${SRC.z+2} minecraft:wheat[age=7]`);
+  await sleep(500);
+  await cmd('say RENEWABLE_BEFORE'); await cmd('moba renewables');
+  await cmd('gamemode survival MobaTest'); await sleep(400);
+  for (const [dx,dz] of [[0,0],[1,0],[0,1]]) {
+    await bot.dig(bot.blockAt(new Vec3(SRC.x+dx, SRC.y+1, SRC.z+dz)));
+    await sleep(400);
+  }
+  await cmd('say RENEWABLE_AFTER'); await cmd('moba renewables');
+};
+
+// #11 A player's own crops inside the same volume must NOT count as wild harvest.
+exports.renewableFarmNotWild = async ({bot,cmd,sleep,Vec3}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
+  await sleep(600);
+  await cmd(`fill ${SRC.x-2} ${SRC.y+1} ${SRC.z-2} ${SRC.x+2} ${SRC.y+1} ${SRC.z+2} minecraft:air`);
+  // Walking on farmland tramples it back to dirt, and seeds then refuse to
+  // place. Re-lay the farmland after the player has already moved.
+  await cmd(`fill ${SRC.x-2} ${SRC.y} ${SRC.z-2} ${SRC.x+2} ${SRC.y} ${SRC.z+2} minecraft:farmland`);
+  await cmd('gamerule mobGriefing false');
+  await cmd('gamemode survival MobaTest');
+  await cmd('item replace entity @s hotbar.0 with minecraft:wheat_seeds 64');
+  await sleep(400);
+  bot.setQuickBarSlot(0); await sleep(300);
+  await cmd('say FARM_BEFORE'); await cmd('moba renewables');
+  // Placed by the player, so marked; breaking them must not decrement.
+  for (const [dx,dz] of [[0,0],[1,0]]) {
+    await bot.placeBlock(bot.blockAt(new Vec3(SRC.x+dx, SRC.y, SRC.z+dz)), new Vec3(0,1,0));
+    await sleep(350);
+    // Prove the crop really exists before breaking it: "availability unchanged"
+    // is also what a scenario that placed nothing would report.
+    await cmd(`execute if block ${SRC.x+dx} ${SRC.y+1} ${SRC.z+dz} minecraft:wheat run say FARM_PLACED_${dx}_${dz}`);
+  }
+  for (const [dx,dz] of [[0,0],[1,0]]) {
+    const b = bot.blockAt(new Vec3(SRC.x+dx, SRC.y+1, SRC.z+dz));
+    if (b && b.name !== 'air') { await bot.dig(b); await sleep(350); }
+    await cmd(`execute if block ${SRC.x+dx} ${SRC.y+1} ${SRC.z+dz} minecraft:air run say FARM_BROKEN_${dx}_${dz}`);
+  }
+  await cmd('say FARM_AFTER'); await cmd('moba renewables');
+};
+
+// #12 Depletion then recovery. The assertion that matters is that recovery
+// restores availability while granting nothing: inventory before and after,
+// and grantedByRenewal, are both printed.
+exports.renewableRecovery = async ({bot,cmd,sleep,Vec3}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
+  await sleep(600);
+  await cmd(`fill ${SRC.x-2} ${SRC.y} ${SRC.z-2} ${SRC.x+2} ${SRC.y} ${SRC.z+2} minecraft:farmland`);
+  await cmd(`fill ${SRC.x-2} ${SRC.y+1} ${SRC.z-2} ${SRC.x+2} ${SRC.y+1} ${SRC.z+2} minecraft:wheat[age=7]`);
+  await cmd('gamemode survival MobaTest'); await sleep(500);
+  // Drain to zero; fixture capacity is small on purpose.
+  for (const [dx,dz] of [[0,0],[1,0],[0,1],[1,1],[2,0],[0,2],[2,1],[1,2]]) {
+    const b = bot.blockAt(new Vec3(SRC.x+dx, SRC.y+1, SRC.z+dz));
+    if (b && b.name !== 'air') { await bot.dig(b); await sleep(300); }
+  }
+  await cmd('say RENEWABLE_DEPLETED'); await cmd('moba renewables');
+  await cmd('clear MobaTest'); await sleep(400);
+  await cmd('say RENEWABLE_INVENTORY_BEFORE'); await cmd('data get entity MobaTest Inventory');
+  await sleep(400);
+  // Push the world clock past the recovery deadline. Lazy recovery settles on
+  // the next report, so no ticking loop is needed.
+  await cmd('time add 400'); await sleep(600);
+  await cmd('say RENEWABLE_RECOVERED'); await cmd('moba renewables');
+  await sleep(400);
+  await cmd('say RENEWABLE_INVENTORY_AFTER'); await cmd('data get entity MobaTest Inventory');
+};
+
+// #13 Animal harvest counts; a monster in the same volume does not.
+exports.renewableAnimal = async ({cmd,sleep}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
+  await sleep(600);
+  await cmd('say ANIMAL_BEFORE'); await cmd('moba renewables');
+  await cmd(`summon minecraft:cow ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
+  await sleep(500);
+  // Killed by the player, so it counts as harvest rather than attrition.
+  await cmd(`execute as MobaTest at @s run damage @e[type=minecraft:cow,limit=1,sort=nearest] 100 minecraft:player_attack by MobaTest`);
+  await sleep(700);
+  await cmd('say ANIMAL_AFTER'); await cmd('moba renewables');
+  await cmd(`summon minecraft:zombie ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
+  await sleep(500);
+  await cmd(`execute as MobaTest at @s run damage @e[type=minecraft:zombie,limit=1,sort=nearest] 100 minecraft:player_attack by MobaTest`);
+  await sleep(700);
+  await cmd('say MONSTER_AFTER'); await cmd('moba renewables');
+};

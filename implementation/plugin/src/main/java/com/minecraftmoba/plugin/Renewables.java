@@ -118,9 +118,9 @@ public final class Renewables implements Listener {
         return s.available;
     }
 
-    private Optional<Source> at(World w, int x, int y, int z) {
+    private Optional<Source> at(World w, int x, int y, int z, Type type) {
         for (Source s : sources.values())
-            if (s.world.equals(w.getUID()) && s.contains(x, y, z)) return Optional.of(s);
+            if (s.type == type && s.world.equals(w.getUID()) && s.contains(x, y, z)) return Optional.of(s);
         return Optional.empty();
     }
 
@@ -138,7 +138,10 @@ public final class Renewables implements Listener {
         return true;
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    // HIGHEST, not MONITOR: Provenance clears the placed mark in its own MONITOR
+    // handler, and it is registered first, so a MONITOR read here sees every
+    // player-placed block as unmarked and counts a farm as a wild patch.
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent e) {
         long t0 = System.nanoTime();
         try {
@@ -146,9 +149,10 @@ public final class Renewables implements Listener {
             // A player's own farm is not a wild patch. This is why the seam
             // depends on the Phase 1 provenance result rather than assuming it.
             if (plugin.provenance().isPlayerPlaced(b)) return;
-            at(b.getWorld(), b.getX(), b.getY(), b.getZ())
-                    .filter(s -> s.type == Type.CROP)
-                    .ifPresent(this::harvest);
+            // Vanilla's own crop tag, not an invented species list. Which further
+            // plant resources count is content and stays [OPEN].
+            if (!Tag.CROPS.isTagged(b.getType())) return;
+            at(b.getWorld(), b.getX(), b.getY(), b.getZ(), Type.CROP).ifPresent(this::harvest);
         } finally { harvestCalls++; harvestNanos += System.nanoTime() - t0; }
     }
 
@@ -159,9 +163,8 @@ public final class Renewables implements Listener {
             LivingEntity victim = e.getEntity();
             if (victim.getKiller() == null) return;   // only player-caused harvest counts
             var loc = victim.getLocation();
-            at(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ())
-                    .filter(s -> s.type == (victim instanceof Monster ? Type.SWARM : Type.ANIMAL))
-                    .ifPresent(this::harvest);
+            at(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
+                    victim instanceof Monster ? Type.SWARM : Type.ANIMAL).ifPresent(this::harvest);
         } finally { harvestCalls++; harvestNanos += System.nanoTime() - t0; }
     }
 
@@ -228,4 +231,16 @@ public final class Renewables implements Listener {
     }
 
     public long grantedByRenewal() { return grantedByRenewal; }
+
+    /** One line per source, for acceptance assertions and operator inspection. */
+    public List<String> report() {
+        var out = new ArrayList<String>();
+        for (Source s : sources.values())
+            out.add("RENEWABLE " + s.id + " type=" + s.type + " available=" + available(s)
+                    + "/" + s.capacity + " recoveringUntil=" + s.recoveringUntil);
+        out.add("RENEWABLE_TOTALS sources=" + sources.size() + " harvests=" + harvests
+                + " depletions=" + depletions + " recoveries=" + recoveries
+                + " grantedByRenewal=" + grantedByRenewal);
+        return out;
+    }
 }
