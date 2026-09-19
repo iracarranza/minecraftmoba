@@ -95,6 +95,7 @@ def export_volume(v, source, out):
                 for cx,cz,_,r in read_region(f):
                     if (cx,cz) in needed:
                         if r.value.get('Status',string('')).value!='minecraft:full': raise ValueError('non-full source chunk')
+                        if r.value.get('DataVersion',integer(-1)).value!=DATA_VERSION: raise ValueError('source chunk version mismatch')
                         found.add((cx,cz))
     if found!=needed: raise ValueError(f'missing source chunks: {sorted(needed-found)[:8]}')
     chunks_written=0;block_entities=0;ticks=defaultdict(int)

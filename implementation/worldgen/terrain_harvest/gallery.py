@@ -34,7 +34,9 @@ def navigation(volumes, targets):
     functions['dispatch']=[]
     for i,v in enumerate(volumes):
         ident=v['id'];p=v['provenance'];t=targets[ident];dim='harvest:'+ident
-        text=f"{ident} | seed {p['source_seed']} | {v['classification']['kind']} | source {p['source_bounds']} | rotation 0 | evidence: {p['source_analysis_record']['path']} | acceptance UNRESOLVED"
+        stage_c=next((m['stage_c'] for m in v['measurements'] if 'stage_c' in m),None)
+        screen='Stage C unavailable' if stage_c is None else 'Recorded Stage C hard failures: '+json.dumps(stage_c.get('hard_failures','UNRESOLVED'))
+        text=f"{ident} | seed {p['source_seed']} | {v['classification']['kind']} | source {p['source_bounds']} | rotation 0 | evidence: {p['source_analysis_record']['path']} | {screen} | Practical Reach / final acceptance UNRESOLVED"
         functions['index'].append('tellraw @s '+json.dumps({'text':text,'click_event':{'action':'run_command','command':'/function harvest:visit/'+ident}}))
         functions['visit/'+ident]=['gamemode adventure @s',f'scoreboard players set @s harvest {i}',f'execute in {dim} run tp @s {t[0]+.5} {t[1]} {t[2]+.5}',
             'tellraw @s '+json.dumps({'text':text})]
@@ -93,6 +95,7 @@ def build_gallery(volumes, sources, output):
     data['Time']=long(6000);data['DayTime']=long(6000);data['LastPlayed']=long(0)
     rules=data['game_rules'].value
     for key in ('spawn_mobs','advance_time','advance_weather','allow_entering_nether_using_portals'):rules['minecraft:'+key]=byte(0)
+    rules['minecraft:respawn_radius']=integer(0)
     rules['minecraft:random_tick_speed']=integer(0);rules['minecraft:keep_inventory']=byte(1)
     dump_gzip(output/'level.dat',name,root)
     hub=empty_chunk(0,0);states=[block('bedrock') if y==0 else AIR for y in range(16) for z in range(16) for x in range(16)]
