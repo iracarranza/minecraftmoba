@@ -9,7 +9,42 @@ the same coordinates, which is the ordinary case for a wild meadow.
 | `renewableHarvest` | **Pass.** Three wild wheat breaks took the patch 5/5 to 2/5, `harvests=3`. |
 | `renewableFarmNotWild` | **Pass.** Player-placed wheat confirmed present, then confirmed broken, with availability 5/5 unchanged and `harvests` unchanged. |
 | `renewableRecovery` | **Pass.** Depleted to 0/5, clock advanced, restored to 5/5. Inventory `[]` before and after; `grantedByRenewal=0`. |
-| `renewableAnimal` | **Pass.** Player-killed cow took the herd 3/3 to 2/3; a zombie killed in the same volume changed nothing. |
+| `renewableAnimal` | **Partly vacuous as first reported.** The cow half was real: a player-killed cow took the herd 3/3 to 2/3. The zombie half was not — the fixture runs on Peaceful, so `summon minecraft:zombie` failed and the "did not count" result was measured against an entity that never existed. Corrected below. |
+
+## Correction, later the same day
+
+The `renewableAnimal` row above was reported as a clean pass. Its negative half
+was vacuous: hostiles cannot be summoned on Peaceful difficulty, the summon
+failed silently, and an availability figure that did not move was read as proof
+that a hostile does not count against an ANIMAL source. Nothing was tested.
+
+This surfaced only because the later SWARM scenario asserted its target was
+present and that marker did not print. An availability number alone cannot
+distinguish "the rule held" from "the event never happened", so both scenarios
+now set `difficulty easy` and assert `ANIMAL_TARGET_PRESENT` /
+`MONSTER_TARGET_PRESENT` before killing anything.
+
+**Treat a summon as an action that can fail for reasons outside the plugin.**
+Any scenario summoning an entity needs a presence assertion, or its negative
+results are worthless.
+
+## Re-measured results
+
+| Scenario | Result |
+| --- | --- |
+| `renewableSwarm` | **Pass, non-vacuous.** Target confirmed present, then confirmed dead. Player-attributed kill took the swarm 2/2 to 1/2. A second zombie killed by `/kill`, with no killer attribution, left it at 1/2: unattributed death is attrition, not harvest. |
+| `renewableAnimal`, re-run | **Pass on the positive case.** `ANIMAL_TARGET_PRESENT` confirmed, cow kill took the herd 1/3 to 0/3. `MONSTER_TARGET_PRESENT` confirmed, and the zombie kill took the **swarm** 1/2 to 0/2 while the herd stayed 0/3. |
+
+### The hostile-versus-animal negative is still weak
+
+The re-run shows a zombie decrementing the SWARM source rather than the ANIMAL
+source, which is real evidence that routing by type works. But the herd was
+already at 0/3 when the zombie died, so "the zombie did not decrement the herd"
+could not have been observed either way: nothing can go below zero.
+
+A clean negative needs a hostile killed inside an ANIMAL source that still has
+availability, with no SWARM source present to absorb it. That case is **not yet
+covered**. The positive routing evidence is what currently carries this claim.
 
 ## The invariant
 

@@ -6,6 +6,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.persistence.PersistentDataType;
 import java.io.*;
 import java.nio.file.*;
@@ -52,6 +53,10 @@ public final class Renewables implements Listener {
     private final Map<String, Source> sources = new LinkedHashMap<>();
     private final Path csv;
     private long harvests, recoveries, recoveryChecks, depletions, harvestNanos, harvestCalls;
+    private long restoresApplied, persistsDeferred;
+    /** Sources whose chunk was not loaded when state changed or registration ran. */
+    private final Set<String> pendingPersist = new HashSet<>();
+    private final Set<String> pendingRestore = new HashSet<>();
     /** Must stay zero. A nonzero value means this became passive income. */
     private long grantedByRenewal;
 
@@ -96,7 +101,21 @@ public final class Renewables implements Listener {
 
     public void register(Source s) {
         if (sources.putIfAbsent(s.id, s) != null) throw new IllegalArgumentException("duplicate source id " + s.id);
-        restore(s);
+        // onEnable runs before any chunk is loaded, so saved state cannot be read
+        // yet. Defer to ChunkLoadEvent rather than force-loading during startup.
+        if (!restore(s)) pendingRestore.add(s.id);
+    }
+
+    /** Saved state only becomes readable once the owning chunk loads. */
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onChunkLoad(ChunkLoadEvent e) {
+        Chunk c = e.getChunk();
+        for (Source s : sources.values()) {
+            if (!s.world.equals(c.getWorld().getUID())) continue;
+            if ((s.x >> 4) != c.getX() || (s.z >> 4) != c.getZ()) continue;
+            if (pendingRestore.remove(s.id) && restore(s)) restoresApplied++;
+            if (pendingPersist.remove(s.id)) persist(s);
+        }
     }
 
     public Collection<Source> sources() { return Collections.unmodifiableCollection(sources.values()); }
@@ -170,14 +189,18 @@ public final class Renewables implements Listener {
 
     // ---- persistence: chunk PDC, matching Provenance ----
 
-    private Chunk chunkOf(Source s) {
+    /** Never force-loads: an absent chunk means the answer is not available yet. */
+    private Chunk loadedChunkOf(Source s) {
         World w = Bukkit.getWorld(s.world);
-        return w == null ? null : w.getChunkAt(s.x >> 4, s.z >> 4);
+        if (w == null) return null;
+        int cx = s.x >> 4, cz = s.z >> 4;
+        return w.isChunkLoaded(cx, cz) ? w.getChunkAt(cx, cz) : null;
     }
 
     private void persist(Source s) {
-        Chunk c = chunkOf(s);
-        if (c == null) return;
+        Chunk c = loadedChunkOf(s);
+        // Losing a write would silently hand out free harvests after a restart.
+        if (c == null) { pendingPersist.add(s.id); persistsDeferred++; return; }
         var pdc = c.getPersistentDataContainer();
         var existing = pdc.get(key, PersistentDataType.BYTE_ARRAY);
         Map<String, long[]> state = decode(existing);
@@ -185,14 +208,16 @@ public final class Renewables implements Listener {
         pdc.set(key, PersistentDataType.BYTE_ARRAY, encode(state));
     }
 
-    private void restore(Source s) {
-        Chunk c = chunkOf(s);
-        if (c == null) return;
+    /** Returns true when the chunk was available to read, saved state or not. */
+    private boolean restore(Source s) {
+        Chunk c = loadedChunkOf(s);
+        if (c == null) return false;
         var payload = c.getPersistentDataContainer().get(key, PersistentDataType.BYTE_ARRAY);
         long[] saved = decode(payload).get(s.id);
-        if (saved == null) return;
+        if (saved == null) return true;
         s.available = (int) Math.max(0, Math.min(s.capacity, saved[0]));
         s.recoveringUntil = saved[1];
+        return true;
     }
 
     static Map<String, long[]> decode(byte[] payload) {

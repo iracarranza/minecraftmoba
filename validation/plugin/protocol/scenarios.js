@@ -373,18 +373,45 @@ exports.renewableRecovery = async ({bot,cmd,sleep,Vec3}) => {
 // #13 Animal harvest counts; a monster in the same volume does not.
 exports.renewableAnimal = async ({cmd,sleep}) => {
   await cmd('moba setclass MobaTest test');
+  await cmd('difficulty easy');
   await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
   await sleep(600);
   await cmd('say ANIMAL_BEFORE'); await cmd('moba renewables');
   await cmd(`summon minecraft:cow ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
   await sleep(500);
+  await cmd('execute if entity @e[type=minecraft:cow,limit=1] run say ANIMAL_TARGET_PRESENT');
   // Killed by the player, so it counts as harvest rather than attrition.
   await cmd(`execute as MobaTest at @s run damage @e[type=minecraft:cow,limit=1,sort=nearest] 100 minecraft:player_attack by MobaTest`);
   await sleep(700);
   await cmd('say ANIMAL_AFTER'); await cmd('moba renewables');
   await cmd(`summon minecraft:zombie ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
   await sleep(500);
+  await cmd('execute if entity @e[type=minecraft:zombie,limit=1] run say MONSTER_TARGET_PRESENT');
   await cmd(`execute as MobaTest at @s run damage @e[type=minecraft:zombie,limit=1,sort=nearest] 100 minecraft:player_attack by MobaTest`);
   await sleep(700);
   await cmd('say MONSTER_AFTER'); await cmd('moba renewables');
+};
+
+// #14 A hostile kill counts against a SWARM source in the same volume. This
+// proves the counting path only. Composition, depth and species are content and
+// stay [OPEN] in canon, so nothing here asserts what a Swarm should contain.
+exports.renewableSwarm = async ({cmd,sleep}) => {
+  await cmd('moba setclass MobaTest test');
+  await cmd('difficulty easy');
+  await cmd(`tp MobaTest ${SRC.x}.5 ${SRC.y + 1} ${SRC.z - 2}.5 0 0`);
+  await sleep(600);
+  await cmd('say SWARM_BEFORE'); await cmd('moba renewables');
+  await cmd(`summon minecraft:zombie ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
+  await sleep(500);
+  await cmd(`execute if entity @e[type=minecraft:zombie,limit=1] run say SWARM_TARGET_PRESENT`);
+  await cmd(`execute as MobaTest at @s run damage @e[type=minecraft:zombie,limit=1,sort=nearest] 100 minecraft:player_attack by MobaTest`);
+  await sleep(700);
+  await cmd(`execute unless entity @e[type=minecraft:zombie,limit=1] run say SWARM_TARGET_KILLED`);
+  await cmd('say SWARM_AFTER'); await cmd('moba renewables');
+  // An unattributed death is attrition, not harvest, and must not count.
+  await cmd(`summon minecraft:zombie ${SRC.x}.5 ${SRC.y + 1} ${SRC.z}.5 {NoAI:1b,Health:1f}`);
+  await sleep(500);
+  await cmd(`kill @e[type=minecraft:zombie,limit=1,sort=nearest]`);
+  await sleep(700);
+  await cmd('say SWARM_UNATTRIBUTED'); await cmd('moba renewables');
 };
