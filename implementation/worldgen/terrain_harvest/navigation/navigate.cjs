@@ -105,7 +105,14 @@ bot.once('spawn', async () => {
     await run('function harvest:index');
     await sleep(600);
     const printed = chat.slice(before).join('\n');
-    for (const id of ids) record('index lists ' + id, printed.includes(id), { found: printed.includes(id) });
+    // The index now shows a compact clickable label; the volume id lives in the
+    // hover text, which a bot cannot read, so assert the label instead.
+    for (let i = 0; i < ids.length; i++) {
+      const label = '[' + (i + 1) + ']';
+      record('index lists entry ' + label, printed.includes(label), { found: printed.includes(label) });
+    }
+    record('index is compact', printed.split('\n').filter(l => l.trim()).length <= ids.length + 2,
+      { lines: printed.split('\n').filter(l => l.trim()).length, volumes: ids.length });
 
     finish(0);
   } catch (e) {

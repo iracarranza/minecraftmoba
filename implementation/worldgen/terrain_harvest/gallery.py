@@ -25,10 +25,17 @@ def nbt_json(value):
     return string(value)
 
 def navigation(volumes, targets):
+    """Compact clickable labels; full provenance moves into hover text.
+
+    The first client inspection filled the chat with wrapped provenance lines
+    and the observer did not notice the entries were clickable. The detail is
+    still complete and one hover away, rather than deleted.
+    """
     functions={'load':['scoreboard objectives add harvest dummy'],
                'hub':['gamemode adventure @s','execute in minecraft:overworld run tp @s 0.5 65 0.5','scoreboard players set @s harvest -1',
                       'tellraw @s '+json.dumps({'text':'Terrain gallery | Run /tick freeze before snapshot inspection | /function harvest:next | /function harvest:index'})],
-               'index':[], 'next':['scoreboard players add @s harvest 1'], 'previous':['scoreboard players remove @s harvest 1']}
+               'index':['tellraw @s '+json.dumps({'text':'Terrain gallery — click an entry to visit, hover for provenance','color':'gray','italic':True})],
+               'next':['scoreboard players add @s harvest 1'], 'previous':['scoreboard players remove @s harvest 1']}
     n=len(volumes)
     functions['next']+= [f'execute if score @s harvest matches {n}.. run scoreboard players set @s harvest 0','function harvest:dispatch']
     functions['previous']+= [f'execute if score @s harvest matches ..-1 run scoreboard players set @s harvest {n-1}','function harvest:dispatch']
@@ -37,11 +44,22 @@ def navigation(volumes, targets):
         ident=v['id'];p=v['provenance'];t=targets[ident];dim='harvest:'+ident
         stage_c=next((m['stage_c'] for m in v['measurements'] if 'stage_c' in m),None)
         screen='Stage C unavailable' if stage_c is None else 'Recorded Stage C hard failures: '+json.dumps(stage_c.get('hard_failures','UNRESOLVED'))
-        text=f"{ident} | seed {p['source_seed']} | {v['classification']['kind']} | source {p['source_bounds']} | rotation 0 | evidence: {p['source_analysis_record']['path']} | {screen} | Practical Reach / final acceptance UNRESOLVED"
-        functions['index'].append('tellraw @s '+json.dumps({'text':text,'click_event':{'action':'run_command','command':'/function harvest:visit/'+ident}}))
-        functions['visit/'+ident]=['gamemode adventure @s',f'scoreboard players set @s harvest {i}',f'execute in {dim} run tp @s {t[0]+.5} {t[1]} {t[2]+.5}',
-            'tellraw @s '+json.dumps({'text':text})]
         b=p['source_bounds']
+        detail=(f"{ident}\nseed {p['source_seed']} | {v['classification']['kind']} | rotation 0\n"
+                f"source x {b['x']} y {b['y']} z {b['z']}\n"
+                f"evidence: {p['source_analysis_record']['path']}\n{screen}\n"
+                "Practical Reach / final acceptance UNRESOLVED")
+        span=(f"[{i+1}] {v['classification']['kind']} | seed {p['source_seed']} | "
+              f"{b['x'][1]-b['x'][0]+1}x{b['z'][1]-b['z'][0]+1}")
+        hover={'action':'show_text','value':{'text':detail}}
+        functions['index'].append('tellraw @s '+json.dumps(
+            {'text':span,'color':'aqua','underlined':True,
+             'click_event':{'action':'run_command','command':'/function harvest:visit/'+ident},
+             'hover_event':hover}))
+        # Arriving somewhere should say where, briefly; detail stays on hover.
+        arrival=json.dumps({'text':f"{span} — {ident[:12]}...",'color':'yellow','hover_event':hover})
+        functions['visit/'+ident]=['gamemode adventure @s',f'scoreboard players set @s harvest {i}',f'execute in {dim} run tp @s {t[0]+.5} {t[1]} {t[2]+.5}',
+            'tellraw @s '+arrival]
         functions['overview/'+ident]=['gamemode spectator @s',f'execute in {dim} run tp @s {b["x"][0]-12} {min(310,b["y"][1]+8)} {b["z"][0]-12}']
         functions['dispatch'].append(f'execute if score @s harvest matches {i} run function harvest:visit/{ident}')
     return functions
