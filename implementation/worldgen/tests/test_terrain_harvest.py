@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from terrain_harvest.model import *
-from terrain_harvest.library import write_library
+from terrain_harvest.library import write_library,reference_candidate
 from terrain_harvest.gallery import navigation
 from terrain_harvest.materialize import clip_chunk,empty_chunk,entity_inside,export_volume
 from serialization.nbt import plain,compound,list_tag,byte,string,double,COMPOUND,DOUBLE
@@ -70,6 +70,21 @@ class ModelTests(unittest.TestCase):
         v=fixture();a=navigation([v],{v['id']:[0,1,0]});self.assertEqual(a,navigation([v],{v['id']:[0,1,0]}))
         self.assertIn('next',a);self.assertIn('previous',a);self.assertIn('hub',a)
         self.assertTrue(a['visit/'+v['id']][0].startswith('gamemode adventure'))
+    def test_generic_retention_missing_evidence(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d);path=root/'candidate.json';candidate={'seed':42,'region':{'block_bounds':[-4,4,-4,4]},'minecraft_java_version':'1.21.11','data_version':4671,'generator':'fixture'}
+            path.write_text(json.dumps(candidate));bounds=fixture()['provenance']['source_bounds']
+            with self.assertRaises(ValueError):reference_candidate(root,path,bounds,'whole_map','box')
+            near=reference_candidate(root,path,bounds,'near_miss_map','box',criteria=['Stage C missing'])
+            self.assertEqual(near['classification']['kind'],'near_miss_map')
+            self.assertEqual(near['measurements'][0]['evidence_state'],'UNRESOLVED')
+            candidate['stage_c']={'hard_failures':['coast absent']};path.write_text(json.dumps(candidate))
+            with self.assertRaises(ValueError):reference_candidate(root,path,bounds,'whole_map','box')
+            candidate['stage_c']={'hard_failures':[]};path.write_text(json.dumps(candidate))
+            self.assertEqual(reference_candidate(root,path,bounds,'whole_map','box')['classification']['kind'],'whole_map')
+            bounds['x'][0]=-5
+            with self.assertRaises(ValueError):reference_candidate(root,path,bounds,'local_section','box')
+
     def test_tampered_manifest_rejected(self):
         v=fixture();v['provenance']['source_seed']=45
         with self.assertRaises(ValueError):loads(json.dumps(v))

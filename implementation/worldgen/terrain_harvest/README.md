@@ -166,3 +166,21 @@ observations and unresolved compatibility. Then implement and test state-aware
 relocation on tiny fixtures before attempting any stitching. Recompute derived
 travel/economic evidence after geometry changes; never transplant candidate-wide
 fitness onto a cropped section or composite.
+
+Arbitrary retained sections and near misses can be added without changing the
+corpus adapter. For example (near-miss criteria must be real review findings,
+not an invented score):
+
+```sh
+python3 implementation/worldgen/harvest_terrain.py reference \
+  --candidate implementation/worldgen/results/staged_default_2026-09-09/finalists/930010639/candidate.json \
+  --bounds 1908 1972 -64 319 332 396 --classification local_section \
+  --geometry scoop --scoop-knots '[[-64,"1/4"],[0,"3/4"],[48,"1"],[319,"1"]]' \
+  --tag western_highland --output /tmp/my-terrain-library
+```
+
+Use `--classification near_miss_map --criterion 'specific failed/unresolved criterion'`
+for reviewed near misses, or `large_section` for a large subsystem. The command
+refuses selections outside the candidate's observed bounds, and whole-map
+retention without explicit Stage C evidence. `gallery` discovers all `tv_*.json`
+references in its input library, including individually added references.

@@ -7,7 +7,7 @@ from .model import make_volume, dumps
 RESULTS = Path('implementation/worldgen/results')
 
 def file_ref(path, root):
-    return {'path':str(path.relative_to(root)), 'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+    return {'path':str(path.resolve().relative_to(root.resolve())), 'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
 
 def harvest_corpus(root):
     volumes=[]
@@ -42,7 +42,28 @@ def harvest_corpus(root):
                     tags=['western_highland','section_proposal','inspection_fixture']))
     return sorted(volumes,key=lambda v:v['id'])
 
+def reference_candidate(root, candidate_path, bounds, kind, geometry, parameters=None, criteria=None, tags=None):
+    """Retain an explicit source selection; no ranking, world access or generation."""
+    path=candidate_path.resolve();c=json.loads(path.read_text())
+    x0,x1,z0,z1=c['region']['block_bounds']
+    if not (x0<=bounds['x'][0]<=bounds['x'][1]<=x1 and z0<=bounds['z'][0]<=bounds['z'][1]<=z1):
+        raise ValueError('selection outside candidate source bounds')
+    if not (-64<=bounds['y'][0]<=bounds['y'][1]<=319):raise ValueError('source vertical bounds')
+    provenance={'source_seed':c['seed'],'source_dimension':'minecraft:overworld','source_bounds':bounds,
+        'minecraft_version':c['minecraft_java_version'],'data_version':c['data_version'],
+        'worldgen_settings':{'status':'UNRESOLVED until source level.dat is read; original generator: '+c['generator']},
+        'source_analysis_record':file_ref(path,root)}
+    stage=c.get('stage_c')
+    if kind=='whole_map' and (stage is None or 'hard_failures' not in stage or stage['hard_failures']):
+        raise ValueError('whole-map retention requires recorded Stage C with no hard failures; use near_miss_map with named criteria')
+    return make_volume(provenance,kind,geometry,parameters,
+        measurements=[{'evidence_state':'DERIVED MEASUREMENT' if stage else 'UNRESOLVED',
+                       'scope':'source candidate only; not recalculated for this selection','stage_c':stage},
+                      {'evidence_state':'UNRESOLVED','criteria':['physical traversal','Practical Reach','final Default acceptance']}],
+        criteria=criteria,tags=tags)
+
 def write_library(volumes, output):
+    if len({v['id'] for v in volumes})!=len(volumes):raise ValueError('duplicate volume reference IDs')
     if output.exists(): raise FileExistsError(output)
     output.mkdir(parents=True)
     for v in volumes: (output/(v['id']+'.json')).write_text(dumps(v))

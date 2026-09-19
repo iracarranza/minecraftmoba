@@ -3,19 +3,27 @@
 import argparse
 import json
 from pathlib import Path
-from terrain_harvest.library import harvest_corpus,write_library
-from terrain_harvest.model import loads
+from terrain_harvest.library import harvest_corpus,write_library,reference_candidate
+from terrain_harvest.model import loads,dumps,KINDS
 from terrain_harvest.gallery import build_gallery
 from terrain_harvest.verify import audit
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
     ref=sub.add_parser('catalog');ref.add_argument('--repository',type=Path,default=Path(__file__).resolve().parents[2]);ref.add_argument('--output',type=Path,required=True)
+    one=sub.add_parser('reference');one.add_argument('--repository',type=Path,default=Path(__file__).resolve().parents[2]);one.add_argument('--candidate',type=Path,required=True);one.add_argument('--bounds',nargs=6,type=int,required=True,metavar=('XMIN','XMAX','YMIN','YMAX','ZMIN','ZMAX'));one.add_argument('--classification',choices=sorted(KINDS),required=True);one.add_argument('--geometry',choices=['box','ellipse','scoop'],default='box');one.add_argument('--scoop-knots',help='JSON array of [Y, rational-scale] pairs');one.add_argument('--criterion',action='append');one.add_argument('--tag',action='append');one.add_argument('--output',type=Path,required=True)
     mat=sub.add_parser('gallery');mat.add_argument('--library',type=Path,required=True);mat.add_argument('--output',type=Path,required=True)
     mat.add_argument('--source',action='append',required=True,metavar='SEED=WORLD_DIRECTORY');mat.add_argument('--id',action='append',help='materialize exact ID, repeatable')
     mat.add_argument('--proof',action='store_true',help='two named whole-map finalists and one local scoop (three volumes)')
     check=sub.add_parser('verify');check.add_argument('--gallery',type=Path,required=True);check.add_argument('--source',action='append',required=True);check.add_argument('--report',type=Path,required=True)
     a=p.parse_args()
+    if a.command=='reference':
+        bounds=dict(zip(('x','y','z'),[a.bounds[0:2],a.bounds[2:4],a.bounds[4:6]]))
+        params={'radius_scale_by_y':json.loads(a.scoop_knots)} if a.scoop_knots else {}
+        v=reference_candidate(a.repository.resolve(),a.candidate,bounds,a.classification,a.geometry,params,a.criterion,a.tag)
+        a.output.mkdir(parents=True,exist_ok=True)
+        with (a.output/(v['id']+'.json')).open('x') as f:f.write(dumps(v))
+        print(v['id']);return
     if a.command=='verify':
         sources={int(s.split('=',1)[0]):Path(s.split('=',1)[1]) for s in a.source}
         result=audit(a.gallery,sources,a.report);print('PASS' if result['pass'] else 'FAIL');return
