@@ -24,9 +24,9 @@ def nbt_json(value):
     return string(value)
 
 def navigation(volumes, targets):
-    functions={'load':['scoreboard objectives add harvest dummy','tick freeze'],
+    functions={'load':['scoreboard objectives add harvest dummy'],
                'hub':['gamemode adventure @s','execute in minecraft:overworld run tp @s 0.5 65 0.5','scoreboard players set @s harvest -1',
-                      'tellraw @s '+json.dumps({'text':'Terrain gallery | /function harvest:next | /function harvest:index'})],
+                      'tellraw @s '+json.dumps({'text':'Terrain gallery | Run /tick freeze before snapshot inspection | /function harvest:next | /function harvest:index'})],
                'index':[], 'next':['scoreboard players add @s harvest 1'], 'previous':['scoreboard players remove @s harvest 1']}
     n=len(volumes)
     functions['next']+= [f'execute if score @s harvest matches {n}.. run scoreboard players set @s harvest 0','function harvest:dispatch']
@@ -51,7 +51,7 @@ def find_target(world,v):
     candidates=sorted(((cx*16+8-center[0])**2+(cz*16+8-center[1])**2,cx,cz)
         for cz in range(b['z'][0]//16,b['z'][1]//16+1) for cx in range(b['x'][0]//16,b['x'][1]//16+1))
     cached_region=None;roots={}
-    bad={'minecraft:air','minecraft:cave_air','minecraft:void_air','minecraft:water','minecraft:lava','minecraft:powder_snow','minecraft:barrier','minecraft:bedrock'}
+    safe={'minecraft:'+name for name in ('stone','deepslate','grass_block','dirt','coarse_dirt','podzol','mycelium','sand','red_sand','gravel','snow_block','packed_ice','ice','blue_ice','moss_block','calcite','tuff','andesite','diorite','granite','terracotta','clay')}
     for _,cx,cz in candidates:
         region=(cx//32,cz//32)
         if region!=cached_region:
@@ -63,7 +63,7 @@ def find_target(world,v):
                 for y in range(min(316,b['y'][1]-2),max(-63,b['y'][0]),-1):
                     if not mask.include_block(x,y+2,z):continue
                     floor=c.block(x,y,z)
-                    if floor not in bad and not any(k in floor for k in ('leaves','log','grass','fern','flower','vine','snow','mushroom','sapling')) and c.block(x,y+1,z)=='minecraft:air' and c.block(x,y+2,z)=='minecraft:air':
+                    if floor in safe and c.block(x,y+1,z)=='minecraft:air' and c.block(x,y+2,z)=='minecraft:air':
                         return [x,y+1,z]
     raise ValueError('no conservative standing target; supply different selection')
 
@@ -87,7 +87,9 @@ def build_gallery(volumes, sources, output):
         targets[ident]=find_target(dest,v)
         (dest/'terrain_volume.json').write_text(dumps(v))
     source=next(iter(sources.values()));name,root=load_gzip(source/'level.dat');data=root.value['Data'].value
-    for k in ('Player','BossEvents','DragonFight','WanderingTraderId'):data.pop(k,None)
+    for k in ('Player','BossEvents','WanderingTraderId'):data.pop(k,None)
+    data['ScheduledEvents']=list_tag(COMPOUND,[]);data['CustomBossEvents']=compound()
+    for key,value in [('SpawnX',0),('SpawnY',65),('SpawnZ',0)]:data[key]=integer(value)
     data['LevelName']=string('Terrain Harvest Gallery');data['GameType']=integer(2);data['allowCommands']=byte(1)
     data['spawn']=compound(pos=int_array([0,65,0]),dimension=string('minecraft:overworld'),yaw=float_tag(0),pitch=float_tag(0))
     data['DataPacks']=compound(Enabled=list_tag(8,[string('vanilla'),string('file/terrain_gallery')]),Disabled=list_tag(8,[]))
@@ -105,7 +107,7 @@ def build_gallery(volumes, sources, output):
         p=base/'function'/f'{name}.mcfunction';p.parent.mkdir(parents=True,exist_ok=True);p.write_text('\n'.join(lines)+'\n')
     json_write(pack/'data/minecraft/tags/function/load.json',{'values':['harvest:load']})
     json_write(output/'gallery.json',{'schema':'terrain_gallery/1','minecraft_version':'1.21.11','volumes':records,'targets':targets,
-        'normal_mode':'adventure, frozen simulation; use /function harvest:hub then next/previous/index',
+        'normal_mode':'adventure; run /tick freeze before visiting for static inspection; use /function harvest:hub then next/previous/index',
         'debug':'/function harvest:overview/<id> gives spectator; visit/<id> restores adventure',
         'containment':'26-neighbor exterior bedrock envelope, barrier roof; commands/spectator/teleport exploits excluded',
         'inspection_status':'generated and decoded; no Minecraft client inspection claimed'})

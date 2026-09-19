@@ -73,6 +73,12 @@ def entity_inside(t, mask):
     if not mask.include_block(*(math.floor(x.value) for x in d['Pos'].value)): return False
     return all(entity_inside(p,mask) for p in d.get('Passengers',list_tag(COMPOUND,[])).value)
 
+def read_entity_region(path):
+    # Vanilla can leave an empty optional entity-region placeholder. A nonempty
+    # truncated container is still corruption and must fail in the shared codec.
+    if path.stat().st_size == 0:return
+    yield from read_region(path)
+
 def export_volume(v, source, out):
     validate(v)
     if v['transform']!={'rotation':0,'translation':[0,0,0]}: raise ValueError('physical state-aware transforms not implemented; reference transforms only')
@@ -110,12 +116,13 @@ def export_volume(v, source, out):
                     block_entities+=len(chunk.value['block_entities'].value)
                     for key in ('block_ticks','fluid_ticks'):ticks[key]+=len(chunk.value[key].value)
             write_region(out/'region'/f'r.{rx}.{rz}.mca',dest);chunks_written+=len(dest)
-    entities=0;excluded=0
+    entities=0;excluded=0;empty_entity_files=[]
     for f in sorted((source/'entities').glob('*.mca')):
         _,rx,rz=f.stem.split('.')
         if not (xmin//32<=int(rx)<=xmax//32 and zmin//32<=int(rz)<=zmax//32):continue
         inventory[str(f.relative_to(source))]=sha(f);dest={}
-        for cx,cz,name,r in read_region(f):
+        if f.stat().st_size==0:empty_entity_files.append(str(f.relative_to(source)))
+        for cx,cz,name,r in read_entity_region(f):
             if not (xmin<=cx<=xmax and zmin<=cz<=zmax):continue
             kept=[copy.deepcopy(t) for t in r.value['Entities'].value if entity_inside(t,mask)]
             excluded+=len(r.value['Entities'].value)-len(kept);entities+=len(kept)
@@ -125,7 +132,7 @@ def export_volume(v, source, out):
     return {'volume_id':v['id'],'status':'materialized_not_client_inspected','source_level_sha256':level_hash,
         'worldgen_settings':data['WorldGenSettings'],'source_region_sha256':inventory,
         'source_snapshot_note':'existing staged inspection snapshot; pristine worldgen equivalence unproven',
-        'chunks':chunks_written,'block_entities':block_entities,'entity_roots':entities,'excluded_entity_roots':excluded,'scheduled_ticks':dict(ticks),
+        'chunks':chunks_written,'block_entities':block_entities,'entity_roots':entities,'excluded_entity_roots':excluded,'empty_entity_region_files':empty_entity_files,'scheduled_ticks':dict(ticks),
         'preserved':'in-mask blocks including properties, air/caves, ores, fluids, vegetation, structure blocks, biomes, block entities and contained entity trees',
         'limitations':['structure starts/references and POI registries omitted; structure-specific spawning and villager POI behavior not preserved',
           'entities with any passenger outside mask excluded; external UUID/leash/brain references are not repaired',

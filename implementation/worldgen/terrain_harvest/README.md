@@ -86,9 +86,9 @@ not a security boundary against administrator actions or teleport exploits.
 Water and waterlogged properties inside the mask are copied just like rock;
 offshore ocean stays inside the volume, with void beyond the envelope. There is
 no host ocean. Source scheduled block/fluid ticks are retained where in bounds;
-source lighting is removed for recalculation. Frozen simulation (`tick freeze`
-on load), random ticks disabled and mob spawning disabled make initial inspection
-less destructive. `/tick unfreeze` enables simulation for a disposable traversal
+source lighting is removed for recalculation. Run `/tick freeze` in the hub **before visiting** for a static snapshot. The
+command requires administrator permission and cannot run in the default
+permission-level-2 load function. Random ticks and mob spawning are disabled. `/tick unfreeze` enables simulation for a disposable traversal
 session. Fluid flow, leaves, gravity, neighbor updates and structure behavior may
 then diverge at clipped edges. No guarantee of long-term fluid equilibrium.
 
@@ -97,7 +97,9 @@ structure blocks, biomes at native quart resolution, block-entity NBT and wholly
 contained entity/passenger trees. Missing/non-full source chunks fail rather than
 becoming air. Clipped block entities and scheduled ticks are filtered by position.
 Entity roots with an out-of-mask passenger are excluded and counted. External
-UUID/leash/brain references are not repaired. Structure starts/references and POI
+UUID/leash/brain references and embedded dimension references are not repaired.
+Zero-byte optional entity-region placeholders contain no serialized records and
+are recorded separately; nonempty truncated regions still fail. Structure starts/references and POI
 registries are omitted: associated spawning rules and villager POI behavior are
 not preserved. Partial structures may be cut. Cross-dimension entity identities
 may duplicate between overlapping selections; volumes are isolated inspection
@@ -147,7 +149,7 @@ a disposable world copy. It is not evidence of a human client walkthrough.
 ## Open and navigate
 
 Copy `TerrainGallery` into Minecraft's `saves` directory, open with **Java 1.21.11**
-and commands enabled. Use `/function harvest:hub`, `/function harvest:index`,
+and commands enabled. First run `/tick freeze`, then `/function harvest:hub`, `/function harvest:index`,
 `/function harvest:next`, `/function harvest:previous`, or
 `/function harvest:visit/<TerrainVolume ID>`. Index messages offer clickable visits
 and show seed, source bounds, classification, rotation and evidence path. Detailed

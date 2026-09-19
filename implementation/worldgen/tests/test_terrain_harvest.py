@@ -6,7 +6,7 @@ from pathlib import Path
 from terrain_harvest.model import *
 from terrain_harvest.library import write_library,reference_candidate
 from terrain_harvest.gallery import navigation
-from terrain_harvest.materialize import clip_chunk,empty_chunk,entity_inside,export_volume
+from terrain_harvest.materialize import clip_chunk,empty_chunk,entity_inside,export_volume,read_entity_region
 from serialization.nbt import plain,compound,list_tag,byte,string,double,COMPOUND,DOUBLE
 from serialization.world import _block_states_tag,block
 from vanilla_search.extract import VanillaChunk,_palette_value
@@ -69,6 +69,7 @@ class ModelTests(unittest.TestCase):
     def test_navigation_deterministic(self):
         v=fixture();a=navigation([v],{v['id']:[0,1,0]});self.assertEqual(a,navigation([v],{v['id']:[0,1,0]}))
         self.assertIn('next',a);self.assertIn('previous',a);self.assertIn('hub',a)
+        self.assertFalse(any(line.startswith('tick ') for line in a['load']))
         self.assertTrue(a['visit/'+v['id']][0].startswith('gamemode adventure'))
     def test_generic_retention_missing_evidence(self):
         with tempfile.TemporaryDirectory() as d:
@@ -99,6 +100,13 @@ class ClipTests(unittest.TestCase):
         before=copy.deepcopy(root);out=clip_chunk(root,0,0,m);self.assertEqual(before,root)
         c=VanillaChunk(plain(out));self.assertEqual(c.block(0,0,0),'minecraft:water');self.assertEqual(c.block(5,0,0),'minecraft:bedrock');self.assertEqual(c.block(6,0,0),'minecraft:air');self.assertEqual(c.block(0,5,0),'minecraft:barrier')
         s=c.sections[0]['block_states'];self.assertEqual(_palette_value(s,0,4),{'Name':'minecraft:water','Properties':{'level':'0'}})
+    def test_empty_entity_placeholder_not_corrupt_region(self):
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'r.0.0.mca';p.write_bytes(b'')
+            self.assertEqual(list(read_entity_region(p)),[])
+            p.write_bytes(b'broken')
+            with self.assertRaises(ValueError):list(read_entity_region(p))
+
     def test_entity_tree_boundary(self):
         m=Mask(fixture());e=compound(Pos=list_tag(DOUBLE,[double(0),double(0),double(0)]));self.assertTrue(entity_inside(e,m))
         e.value['Passengers']=list_tag(COMPOUND,[compound(Pos=list_tag(DOUBLE,[double(5),double(0),double(0)]))]);self.assertFalse(entity_inside(e,m))
