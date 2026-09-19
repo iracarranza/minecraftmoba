@@ -28,6 +28,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public TaskEffects taskEffects() { return taskEffects; }
     private Hud hud;
     public Hud hud() { return hud; }
+    private RenewableAuthoring renewAuthoring;
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -43,6 +44,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         sentinel = new Sentinel(this);
         taskEffects = new TaskEffects(this);
         hud = new Hud(this);
+        renewAuthoring = new RenewableAuthoring(this);
         getServer().getPluginManager().registerEvents(hud, this);
         getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
@@ -178,6 +180,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("renew")) return renewAuthoring.handle(sender, args);
         if (args.length == 1 && args[0].equalsIgnoreCase("renewables")) {
             renewables.report().forEach(sender::sendMessage); return true;
         }

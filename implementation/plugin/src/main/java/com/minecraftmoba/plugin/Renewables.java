@@ -1,6 +1,7 @@
 package com.minecraftmoba.plugin;
 
 import org.bukkit.*;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
@@ -29,11 +30,16 @@ public final class Renewables implements Listener {
 
     /** Availability state only. Nothing here is an inventory, a drop or a reward. */
     public static final class Source {
-        final String id; final Type type; final UUID world;
+        final String id; final Type type; final UUID world; final String kind;
         final int x, y, z, radius, capacity; final long recoverTicks;
         int available; long recoveringUntil;
         Source(String id, Type type, UUID world, int x, int y, int z,
                int radius, int capacity, long recoverTicks) {
+            this(id, type, world, x, y, z, radius, capacity, recoverTicks, null);
+        }
+        Source(String id, Type type, UUID world, int x, int y, int z,
+               int radius, int capacity, long recoverTicks, String kind) {
+            this.kind = kind;
             this.id = id; this.type = type; this.world = world;
             this.x = x; this.y = y; this.z = z;
             this.radius = radius; this.capacity = capacity;
@@ -46,6 +52,7 @@ public final class Renewables implements Listener {
         public Type type() { return type; }
         public int available() { return available; }
         public int capacity() { return capacity; }
+        public String kind() { return kind; }
     }
 
     private final MobaPlugin plugin;
@@ -74,6 +81,8 @@ public final class Renewables implements Listener {
         long period = plugin.getConfig().getLong("renewables.sampleTicks");
         if (period <= 0) throw new IllegalArgumentException("renewables.sampleTicks must be positive");
         Bukkit.getScheduler().runTaskTimer(plugin, this::sample, period, period);
+        long pt = plugin.getConfig().getLong("features.renewableParticles.ticks", 20L);
+        if (pt > 0) Bukkit.getScheduler().runTaskTimer(plugin, this::particles, pt, pt);
     }
 
     /** Ships empty. An absent or empty list is the expected state, not an error. */
@@ -93,9 +102,11 @@ public final class Renewables implements Listener {
             long recover = plugin.getConfig().getLong(base + "recoverTicks");
             if (radius <= 0 || capacity <= 0 || recover <= 0)
                 throw new IllegalArgumentException(base + "radius, capacity and recoverTicks must be positive");
+            String kind = plugin.getConfig().getString(base + "kind");
+            if (kind != null) RenewableKinds.require(kind);   // fail loudly on an unknown kind
             register(new Source(id, type, w.getUID(),
                     plugin.getConfig().getInt(base + "x"), plugin.getConfig().getInt(base + "y"),
-                    plugin.getConfig().getInt(base + "z"), radius, capacity, recover));
+                    plugin.getConfig().getInt(base + "z"), radius, capacity, recover, kind));
         }
     }
 
@@ -119,6 +130,17 @@ public final class Renewables implements Listener {
     }
 
     public Collection<Source> sources() { return Collections.unmodifiableCollection(sources.values()); }
+
+    /** Runtime registration for the authoring commands. */
+    public Source createRuntime(String id, String kind, World w, int x, int y, int z,
+                                int radius, int capacity, long recoverTicks) {
+        var k = RenewableKinds.require(kind);
+        var s = new Source(id, k.type(), w.getUID(), x, y, z, radius, capacity, recoverTicks, kind);
+        register(s);
+        return s;
+    }
+
+    public boolean remove(String id) { return sources.remove(id) != null; }
 
     /**
      * Lazily settles recovery, then reports availability. Recovery restores the
@@ -170,8 +192,14 @@ public final class Renewables implements Listener {
             if (plugin.provenance().isPlayerPlaced(b)) return;
             // Vanilla's own crop tag, not an invented species list. Which further
             // plant resources count is content and stays [OPEN].
-            if (!Tag.CROPS.isTagged(b.getType())) return;
-            at(b.getWorld(), b.getX(), b.getY(), b.getZ(), Type.CROP).ifPresent(this::harvest);
+            at(b.getWorld(), b.getX(), b.getY(), b.getZ(), Type.CROP).ifPresent(s -> {
+                // A kinded source counts only its own materials; an unkinded one
+                // falls back to vanilla's crop tag.
+                if (s.kind != null) {
+                    if (!RenewableKinds.require(s.kind).blocks().contains(b.getType())) return;
+                } else if (!Tag.CROPS.isTagged(b.getType())) return;
+                harvest(s);
+            });
         } finally { harvestCalls++; harvestNanos += System.nanoTime() - t0; }
     }
 
@@ -183,7 +211,10 @@ public final class Renewables implements Listener {
             if (victim.getKiller() == null) return;   // only player-caused harvest counts
             var loc = victim.getLocation();
             at(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
-                    victim instanceof Monster ? Type.SWARM : Type.ANIMAL).ifPresent(this::harvest);
+                    victim instanceof Monster ? Type.SWARM : Type.ANIMAL).ifPresent(s -> {
+                if (s.kind != null && !RenewableKinds.require(s.kind).entities().contains(victim.getType())) return;
+                harvest(s);
+            });
         } finally { harvestCalls++; harvestNanos += System.nanoTime() - t0; }
     }
 
@@ -243,6 +274,26 @@ public final class Renewables implements Listener {
         return bytes.toByteArray();
     }
 
+    /** Legibility, not decoration: a depleted source shows nothing. */
+    private void particles() {
+        if (!plugin.getConfig().getBoolean("features.renewableParticles.enabled")) return;
+        for (Source s : sources.values()) {
+            World w = Bukkit.getWorld(s.world);
+            if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) continue;
+            int avail = available(s);
+            if (avail <= 0) continue;
+            int points = Math.max(4, (int) Math.round(
+                    plugin.getConfig().getDouble("features.renewableParticles.pointsPerRing", 16)
+                            * ((double) avail / s.capacity)));
+            for (int i = 0; i < points; i++) {
+                double angle = 2 * Math.PI * i / points;
+                w.spawnParticle(Particle.END_ROD,
+                        s.x + 0.5 + Math.cos(angle) * s.radius, s.y + 1.2,
+                        s.z + 0.5 + Math.sin(angle) * s.radius, 1, 0, 0, 0, 0);
+            }
+        }
+    }
+
     private void sample() {
         // Settle recovery for every source so the sample reflects real state.
         for (Source s : sources.values()) available(s);
@@ -261,7 +312,8 @@ public final class Renewables implements Listener {
     public List<String> report() {
         var out = new ArrayList<String>();
         for (Source s : sources.values())
-            out.add("RENEWABLE " + s.id + " type=" + s.type + " available=" + available(s)
+            out.add("RENEWABLE " + s.id + " type=" + s.type + " kind=" + (s.kind == null ? "-" : s.kind)
+                    + " available=" + available(s)
                     + "/" + s.capacity + " recoveringUntil=" + s.recoveringUntil);
         out.add("RENEWABLE_TOTALS sources=" + sources.size() + " harvests=" + harvests
                 + " depletions=" + depletions + " recoveries=" + recoveries

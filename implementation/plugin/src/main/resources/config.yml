@@ -1,6 +1,16 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  renewableParticles:
+    enabled: true
+    ticks: 20
+    pointsPerRing: 16
+  renewableAuthoring:
+    enabled: true
+    reach: 48
+    defaultRadius: 3
+    defaultCapacity: 5
+    recoverTicks: 200
   hud:
     enabled: true
     refreshTicks: 20
