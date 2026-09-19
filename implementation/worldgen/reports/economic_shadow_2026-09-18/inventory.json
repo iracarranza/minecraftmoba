@@ -1,0 +1,1352 @@
+{
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "reference_sha256": "cffac8d04aa8445c9488014804f1768242ec9f34c23687b3d6ce2da926d863b0",
+      "worktree_sha256": "cffac8d04aa8445c9488014804f1768242ec9f34c23687b3d6ce2da926d863b0"
+    },
+    {
+      "path": "classes.md",
+      "reference_sha256": "76d1104624c765109d75bd93df2061f618622368dcbd28aa464cd700ed752244",
+      "worktree_sha256": "96327c50869806ef546e4c6340aaf8ee563b5e4e9aaf43d3b3a8729f0260263a"
+    },
+    {
+      "path": "docs/README.md",
+      "reference_sha256": "36009b1fd61c5e07a39a33bec89eff1ab47f7acc2834dd1ab980382bcd893207",
+      "worktree_sha256": "90b91ad97424bffa59a1a68ba658c849d6925e7f3299fa94b7f113b2d8975389"
+    },
+    {
+      "path": "docs/feasibility/2026-09-12-capability-audit.md",
+      "reference_sha256": "3dd3b05e983af77ac14177988567a71c620d01b8dbb7c9414ac3a10d50670965",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/history/README.md",
+      "reference_sha256": "3894e47ac4d201a24450c1bb7239949d8323b1f8615cc41bf38d8f71f73952df",
+      "worktree_sha256": "3894e47ac4d201a24450c1bb7239949d8323b1f8615cc41bf38d8f71f73952df"
+    },
+    {
+      "path": "docs/manuscript/2026-09-14-Economic-Calibration-Supplement.md",
+      "reference_sha256": "0f8cdd7b8d5a88143cab8b23175afd0d53e0f37c95a8abfd6776be07b1080987",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/manuscript/2026-09-14-UAU-Work-Stock-and-Practical-Reach.md",
+      "reference_sha256": "7781f2d518a49846d3b1dec590b24b8cde91f5078e2e65213ac663857ccf0caa",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/manuscript/Minecraft-MOBA-Design.md",
+      "reference_sha256": "eaee01af32a2bdfb096dfefdc7b735f47a77bb53109d80bf4f10c067e402e9d3",
+      "worktree_sha256": "478152498072772a79a794d68daf92b0cd3573234295e39940d435033ff7165a"
+    },
+    {
+      "path": "docs/proposals/2026-09-12-capacity-curve.md",
+      "reference_sha256": "86c3ec4ed76f9dab1e0f7286021a405e55e44e154afd8d6cf81086dd043dfbd9",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-08.md",
+      "reference_sha256": "332eb20dafc1d21d0b39a4ba29362a0f4551c9139b02bc00f4ce83b63f60095e",
+      "worktree_sha256": "332eb20dafc1d21d0b39a4ba29362a0f4551c9139b02bc00f4ce83b63f60095e"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-10-infrastructure.md",
+      "reference_sha256": "d7b8a00de2c3df4086586159d46d40da7fc48fc21fa15c7d6afc5e834d306384",
+      "worktree_sha256": "d7b8a00de2c3df4086586159d46d40da7fc48fc21fa15c7d6afc5e834d306384"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-10-worksites.md",
+      "reference_sha256": "aa607ec5344d63e3b1eff23188cbec39e014c6c714338fd4a1436c90a3db0ba7",
+      "worktree_sha256": "aa607ec5344d63e3b1eff23188cbec39e014c6c714338fd4a1436c90a3db0ba7"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-10-worldsystems.md",
+      "reference_sha256": "2f1620401c1a1f83c32908e5ddc02a860e6379925419e373a95e2385cc8f607b",
+      "worktree_sha256": "2f1620401c1a1f83c32908e5ddc02a860e6379925419e373a95e2385cc8f607b"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-11-capacity.md",
+      "reference_sha256": "fcabba87744b3624a410617a7bb84d60881c00c096282c2d25e4a54431508021",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-11-classes.md",
+      "reference_sha256": "1476d58ad95272b76529c414cf1f2de099d568193986b44b5695957b96c3d53f",
+      "worktree_sha256": "1476d58ad95272b76529c414cf1f2de099d568193986b44b5695957b96c3d53f"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-11-infrastructure-reconciliation.md",
+      "reference_sha256": "6a43b646d6e4e2ffc4875b1bea3c43d39ce0cd71846e3832628170c27acc8d2d",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-11-logistics.md",
+      "reference_sha256": "30d0827e9e5bfabf76fd3faabe3e8c9dee7f05eb3fe3245ca1a58c4933215bf0",
+      "worktree_sha256": "30d0827e9e5bfabf76fd3faabe3e8c9dee7f05eb3fe3245ca1a58c4933215bf0"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-11-wams-clarification.md",
+      "reference_sha256": "2290bde924072a4442c8eec29081ae4a402b79c92497cbaec4adae46ee813450",
+      "worktree_sha256": "961ef291f665a5ab74b5adf9741f3b8083ad2b1853626924d135966d2a441f40"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-12-classes.md",
+      "reference_sha256": "f81145a9f488ed0b06c7b9d8e16b796d1dffab9ac0448bc01c4bb2c9e6d5dfa6",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-12-nighttime-economy.md",
+      "reference_sha256": "f924dc1e87f93cd4a8c0574ec778d309525c5643a72cbb9ac12dff20458f4d15",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-12-worldgen-balancing.md",
+      "worktree_sha256": "8dd79223e19f4a9f5914ed392576a1c2cd56190a43661095d6ec6b8701278acf"
+    },
+    {
+      "path": "docs/reconciliation/2026-09-13-class-kits.md",
+      "reference_sha256": "edfced8d77935f9db22de2dc11fd42eb7fc260e046889571570362e836ca089b",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-14-economic-calibration-recovery.md",
+      "reference_sha256": "f0645352abfd83b7ee039813c21cc4efb73cb9e868ca9314bea359a83a2bc47e",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/reconciliation/2026-09-14-primary-material-efficiency-offhand-exception.md",
+      "reference_sha256": "7f68a6bced7d5b18b963b9450497d6566a399d6900a0fe4596073785e3132e05",
+      "worktree_sha256": null
+    },
+    {
+      "path": "docs/recovery/2026-09-09-default-map.md",
+      "reference_sha256": "ec6ab6004a0642cd60c7d500a4c50897c950586851c299bd2ee6244b1c1b1357",
+      "worktree_sha256": "ec6ab6004a0642cd60c7d500a4c50897c950586851c299bd2ee6244b1c1b1357"
+    },
+    {
+      "path": "docs/worldgen-initial-balancing.md",
+      "worktree_sha256": "98a3be7bef211fb2b625e703449f86a2ed03e6e4bfcbfb0c7411b41b9504577f"
+    },
+    {
+      "path": "implementation/worldgen/README.md",
+      "reference_sha256": "4f5af7f2edc6f0fa50cae11b58766178ffb3c6c9417358f45c4b312dc4d8e460",
+      "worktree_sha256": "4f5af7f2edc6f0fa50cae11b58766178ffb3c6c9417358f45c4b312dc4d8e460"
+    },
+    {
+      "path": "implementation/worldgen/analysis/default_map_analysis.py",
+      "reference_sha256": "ffdd102c194e83842ee8b0b554c4db2429a3fece0b98f9c5e15213cdd3f7191f",
+      "worktree_sha256": "ffdd102c194e83842ee8b0b554c4db2429a3fece0b98f9c5e15213cdd3f7191f"
+    },
+    {
+      "path": "implementation/worldgen/analysis/resource_contract.py",
+      "reference_sha256": "e497cfe86ddf1e29c88d797060408ca14edcfd75ba02c0ad5377a4a1412c4cec",
+      "worktree_sha256": "e497cfe86ddf1e29c88d797060408ca14edcfd75ba02c0ad5377a4a1412c4cec"
+    },
+    {
+      "path": "implementation/worldgen/audit_staged_vanilla.py",
+      "reference_sha256": "5f0c6c64da9c32106bf7faade323df0a9037967ec401b9a93f3fb7c15a08af33",
+      "worktree_sha256": "5f0c6c64da9c32106bf7faade323df0a9037967ec401b9a93f3fb7c15a08af33"
+    },
+    {
+      "path": "implementation/worldgen/audit_task_b_blocks.py",
+      "reference_sha256": "43319d7241192ce5ccdf6ab3241c16987da8d3312fcd1ca724e3a13e50e7b6ed",
+      "worktree_sha256": "43319d7241192ce5ccdf6ab3241c16987da8d3312fcd1ca724e3a13e50e7b6ed"
+    },
+    {
+      "path": "implementation/worldgen/audit_task_b_readiness.py",
+      "reference_sha256": "879e4d9efaa9f5247e044c474cc3dfcef57af4cbc2cda2c6a46578aea8c169a5",
+      "worktree_sha256": "879e4d9efaa9f5247e044c474cc3dfcef57af4cbc2cda2c6a46578aea8c169a5"
+    },
+    {
+      "path": "implementation/worldgen/build_task_b_greyboxes.py",
+      "reference_sha256": "e6a008698c100335efb482a8c2a6d00cca254f7a42893f98b38a7b1f3fec15de",
+      "worktree_sha256": "e6a008698c100335efb482a8c2a6d00cca254f7a42893f98b38a7b1f3fec15de"
+    },
+    {
+      "path": "implementation/worldgen/decisions/task_b_gate_acceptance_2026-09-10.json",
+      "reference_sha256": "77b26c3449be99598e2523d338d3fa7f6801a9535708c5249e43be3c685af4ed",
+      "worktree_sha256": "77b26c3449be99598e2523d338d3fa7f6801a9535708c5249e43be3c685af4ed"
+    },
+    {
+      "path": "implementation/worldgen/decisions/task_b_selection_2026-09-10.json",
+      "reference_sha256": "32db48a1c51b7422d1875057d02f96b4de2e205b03dabe149deef266cf59e456",
+      "worktree_sha256": "32db48a1c51b7422d1875057d02f96b4de2e205b03dabe149deef266cf59e456"
+    },
+    {
+      "path": "implementation/worldgen/economic_shadow.py",
+      "worktree_sha256": "b04d3e4791c49202ded2d8c4df2b4db47d86ba53172cd371f6e72e8a465fe8bc"
+    },
+    {
+      "path": "implementation/worldgen/fit_default_task_a.py",
+      "reference_sha256": "86a83a5fbbe776c6632ff1e2efc38fd22750ce4d065423d0b7b148f948ec4954",
+      "worktree_sha256": "86a83a5fbbe776c6632ff1e2efc38fd22750ce4d065423d0b7b148f948ec4954"
+    },
+    {
+      "path": "implementation/worldgen/fit_default_task_a_destinations.py",
+      "reference_sha256": "cb51d110b8445fdddee554c66c660c0d09d0e1e5b546157cbd3cd94f7f796c16",
+      "worktree_sha256": "cb51d110b8445fdddee554c66c660c0d09d0e1e5b546157cbd3cd94f7f796c16"
+    },
+    {
+      "path": "implementation/worldgen/fit_default_task_a_network.py",
+      "reference_sha256": "149e7fa9d4236f6ee103e7721203a8b64104dca07836c071352fbce58ea5cd64",
+      "worktree_sha256": "149e7fa9d4236f6ee103e7721203a8b64104dca07836c071352fbce58ea5cd64"
+    },
+    {
+      "path": "implementation/worldgen/fit_default_task_a_opportunities.py",
+      "reference_sha256": "e0391b0f1789ac8f819b31b2afe391c81759284710cc7acaa3d0ef9f76eb48ba",
+      "worktree_sha256": "e0391b0f1789ac8f819b31b2afe391c81759284710cc7acaa3d0ef9f76eb48ba"
+    },
+    {
+      "path": "implementation/worldgen/generate_default_candidates.py",
+      "reference_sha256": "357109364638a7910553a1d156c1a28533504b48c3fb06906ef4c1e69f6fe810",
+      "worktree_sha256": "357109364638a7910553a1d156c1a28533504b48c3fb06906ef4c1e69f6fe810"
+    },
+    {
+      "path": "implementation/worldgen/generate_default_greyboxes.py",
+      "reference_sha256": "390e209ea8f64f2b0ede0c3fca8abe11b885fb21d51c3cb5950b167d0e9b7aea",
+      "worktree_sha256": "390e209ea8f64f2b0ede0c3fca8abe11b885fb21d51c3cb5950b167d0e9b7aea"
+    },
+    {
+      "path": "implementation/worldgen/greybox/__init__.py",
+      "reference_sha256": "f46f82d7319a30fdb34bb06a452b3f2a33d0dcc232bd4bc7185f770afa1d1efa",
+      "worktree_sha256": "f46f82d7319a30fdb34bb06a452b3f2a33d0dcc232bd4bc7185f770afa1d1efa"
+    },
+    {
+      "path": "implementation/worldgen/greybox/diagnostics.py",
+      "reference_sha256": "9de0b7f18c622aa9d289dd9038024f8b47311798510768418d69a88b10041363",
+      "worktree_sha256": "9de0b7f18c622aa9d289dd9038024f8b47311798510768418d69a88b10041363"
+    },
+    {
+      "path": "implementation/worldgen/greybox/pipeline.py",
+      "reference_sha256": "747085e21154c5375a2e97813673e460dd8be00fd128cd4a0a3d01310255ce17",
+      "worktree_sha256": "747085e21154c5375a2e97813673e460dd8be00fd128cd4a0a3d01310255ce17"
+    },
+    {
+      "path": "implementation/worldgen/greybox/render.py",
+      "reference_sha256": "463df981085ced1b7140bd82163b1eb7374068a53b860b0a70e9d9b8d0e900e8",
+      "worktree_sha256": "463df981085ced1b7140bd82163b1eb7374068a53b860b0a70e9d9b8d0e900e8"
+    },
+    {
+      "path": "implementation/worldgen/greybox/routes.py",
+      "reference_sha256": "fe9aef3038186b890cc668e13f5546e64057b031634deb788bc174e8bcd509f1",
+      "worktree_sha256": "fe9aef3038186b890cc668e13f5546e64057b031634deb788bc174e8bcd509f1"
+    },
+    {
+      "path": "implementation/worldgen/greybox/terrain.py",
+      "reference_sha256": "5aa901f824674e05b67b4c1f8d98c5c8e7f1d2fb017b6898c0761a36c6f59697",
+      "worktree_sha256": "5aa901f824674e05b67b4c1f8d98c5c8e7f1d2fb017b6898c0761a36c6f59697"
+    },
+    {
+      "path": "implementation/worldgen/historical/minecraft_moba_variant_pipeline.py",
+      "reference_sha256": "d4355cfe8cc0e6e0c677264f5ce074603767108eab61a8d112b3245695c04611",
+      "worktree_sha256": "d4355cfe8cc0e6e0c677264f5ce074603767108eab61a8d112b3245695c04611"
+    },
+    {
+      "path": "implementation/worldgen/historical/requirements.txt",
+      "reference_sha256": "076c5e2c0c68b1537b31b782efea5a1efa6fec884349ebd9f933939197b37297",
+      "worktree_sha256": "076c5e2c0c68b1537b31b782efea5a1efa6fec884349ebd9f933939197b37297"
+    },
+    {
+      "path": "implementation/worldgen/refine_staged_vanilla.py",
+      "reference_sha256": "51631580358db78c26c6e1091a9b5887e8d125cbf44e5d7796c95c3e467bb8f1",
+      "worktree_sha256": "51631580358db78c26c6e1091a9b5887e8d125cbf44e5d7796c95c3e467bb8f1"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261010/serialization_manifest.json",
+      "reference_sha256": "2b19d314dcf3378b9dd8458ba75e0e4a9bcf6a326bdce6ebf5882d596ab9b610",
+      "worktree_sha256": "2b19d314dcf3378b9dd8458ba75e0e4a9bcf6a326bdce6ebf5882d596ab9b610"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261010/server_compatibility.json",
+      "reference_sha256": "97329cd31e26de51fe443eff5baf372d9be1ce39940c1b3eab3b5f0b7879a1f0",
+      "worktree_sha256": "97329cd31e26de51fe443eff5baf372d9be1ce39940c1b3eab3b5f0b7879a1f0"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261010/validation_report.json",
+      "reference_sha256": "60b1dab70d3beb1a9e38d758162d238bffae5d293db2a0a5e1bd9c92c6747e81",
+      "worktree_sha256": "60b1dab70d3beb1a9e38d758162d238bffae5d293db2a0a5e1bd9c92c6747e81"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261022/serialization_manifest.json",
+      "reference_sha256": "6c822d5734bb402e96a5d4537fab6c36936f0aa0f4a283a641e365daad455d8a",
+      "worktree_sha256": "6c822d5734bb402e96a5d4537fab6c36936f0aa0f4a283a641e365daad455d8a"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261022/server_compatibility.json",
+      "reference_sha256": "97329cd31e26de51fe443eff5baf372d9be1ce39940c1b3eab3b5f0b7879a1f0",
+      "worktree_sha256": "97329cd31e26de51fe443eff5baf372d9be1ce39940c1b3eab3b5f0b7879a1f0"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/920261022/validation_report.json",
+      "reference_sha256": "761c1e185b1f5b8b26dca145fadc34120fecb004ae4ce9aefd1ccea9d4380f0d",
+      "worktree_sha256": "761c1e185b1f5b8b26dca145fadc34120fecb004ae4ce9aefd1ccea9d4380f0d"
+    },
+    {
+      "path": "implementation/worldgen/reports/serialized_default_2026-09-09/COMPARISON.md",
+      "reference_sha256": "953fc63046299427ff21a30ba4f28a8747112db7b7fc2b8e7691c377051db6cd",
+      "worktree_sha256": "953fc63046299427ff21a30ba4f28a8747112db7b7fc2b8e7691c377051db6cd"
+    },
+    {
+      "path": "implementation/worldgen/reports/staged_default_2026-09-09/IMPLEMENTATION_REVIEW.md",
+      "reference_sha256": "767ae3c0415261c9f34cd2ed317e641ad7c0dd89919f4a628ddc4a11bc6f17e9",
+      "worktree_sha256": "767ae3c0415261c9f34cd2ed317e641ad7c0dd89919f4a628ddc4a11bc6f17e9"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/FINALISTS.md",
+      "reference_sha256": "cdf6f433a5933ddd5400e5c23120a4af93ac584f4d8941ba9ac9953c3163fd12",
+      "worktree_sha256": "cdf6f433a5933ddd5400e5c23120a4af93ac584f4d8941ba9ac9953c3163fd12"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/candidate_920261010.json",
+      "reference_sha256": "672bbb1d26c0744c60b041732c1e038198daa171d0a5dbae3d66d7eaed99b1ee",
+      "worktree_sha256": "672bbb1d26c0744c60b041732c1e038198daa171d0a5dbae3d66d7eaed99b1ee"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/candidate_920261011.json",
+      "reference_sha256": "cdeb396f5201b3c6be79d181ded3717c848589ae8f22d3c854b6f11129ef5844",
+      "worktree_sha256": "cdeb396f5201b3c6be79d181ded3717c848589ae8f22d3c854b6f11129ef5844"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/candidate_920261020.json",
+      "reference_sha256": "161473484e00b564cc4a86bc98aa422a32bfeec29a7fec4f131fd2be9f97c3a8",
+      "worktree_sha256": "161473484e00b564cc4a86bc98aa422a32bfeec29a7fec4f131fd2be9f97c3a8"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/candidate_920261022.json",
+      "reference_sha256": "e9002b2996d184f82bd818483631d7192bdcbea23b24f4bc4f65a0c6ff704aa3",
+      "worktree_sha256": "e9002b2996d184f82bd818483631d7192bdcbea23b24f4bc4f65a0c6ff704aa3"
+    },
+    {
+      "path": "implementation/worldgen/results/default_candidates_2026-09-09/search_summary.json",
+      "reference_sha256": "bb43efed0f6524fe8d7e3f904970e8b64ad2eec8b3fffd8e1fd516ae7d6d5244",
+      "worktree_sha256": "bb43efed0f6524fe8d7e3f904970e8b64ad2eec8b3fffd8e1fd516ae7d6d5244"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930005557/fit.json",
+      "reference_sha256": "fcdbc42898a1cd306c9b04f9522c4e8b979eb8911eac2e5a516ef939e2b42fd5",
+      "worktree_sha256": "fcdbc42898a1cd306c9b04f9522c4e8b979eb8911eac2e5a516ef939e2b42fd5"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930006815/fit.json",
+      "reference_sha256": "b459d86e8fb8fb11eb9ef7a88205da78e9cc4ff033bc4ed2f62252241a051c7f",
+      "worktree_sha256": "b459d86e8fb8fb11eb9ef7a88205da78e9cc4ff033bc4ed2f62252241a051c7f"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930007222/fit.json",
+      "reference_sha256": "fb1aa9e4cf6b84b531b0649f4c932b977efd3fdae64db0934b916e00f02f3fde",
+      "worktree_sha256": "fb1aa9e4cf6b84b531b0649f4c932b977efd3fdae64db0934b916e00f02f3fde"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930010639/fit.json",
+      "reference_sha256": "efd086d59c413d7b9b1470e79887aada5711ba96ea7a7dd75a866bf07b9924b7",
+      "worktree_sha256": "efd086d59c413d7b9b1470e79887aada5711ba96ea7a7dd75a866bf07b9924b7"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930012642/fit.json",
+      "reference_sha256": "02ff3d989d22cfda4ce790cdad7ade3826a67c3ffe7b52c1c8fd90680d856c31",
+      "worktree_sha256": "02ff3d989d22cfda4ce790cdad7ade3826a67c3ffe7b52c1c8fd90680d856c31"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930015734/fit.json",
+      "reference_sha256": "0936379fd2f2689b04dbd4b6a4935742f53c9a03ad8c262c0dc84673aab61508",
+      "worktree_sha256": "0936379fd2f2689b04dbd4b6a4935742f53c9a03ad8c262c0dc84673aab61508"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930016664/fit.json",
+      "reference_sha256": "247c0f75bf6c8ea826db66123eba955f3acfe42b920beee29b9fa430adadebea",
+      "worktree_sha256": "247c0f75bf6c8ea826db66123eba955f3acfe42b920beee29b9fa430adadebea"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/930019528/fit.json",
+      "reference_sha256": "46b2a9199e0d3aaf159874efa6e523f9776f07480855e45d222b8d2f5a1fb9b0",
+      "worktree_sha256": "46b2a9199e0d3aaf159874efa6e523f9776f07480855e45d222b8d2f5a1fb9b0"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/REPORT.md",
+      "reference_sha256": "2a46027f211d97169b7b4b881ec16605b8043238e288f4849eec4985bec2656d",
+      "worktree_sha256": "2a46027f211d97169b7b4b881ec16605b8043238e288f4849eec4985bec2656d"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/comparison.json",
+      "reference_sha256": "6ccafd79dac179f85176a285816186c45618f1892830bba9418d151f08f0a575",
+      "worktree_sha256": "6ccafd79dac179f85176a285816186c45618f1892830bba9418d151f08f0a575"
+    },
+    {
+      "path": "implementation/worldgen/results/default_destination_first_2026-09-10/verification.json",
+      "reference_sha256": "ad4176b87e2e41452f8af7e7fb7728c642a35f0edf3dc7f3accc28dbcc592b79",
+      "worktree_sha256": "ad4176b87e2e41452f8af7e7fb7728c642a35f0edf3dc7f3accc28dbcc592b79"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/SHORTLIST.md",
+      "reference_sha256": "d374f6cdd8dbc73742eb3beb40381962a2aefd502f237d626308657b8d482a48",
+      "worktree_sha256": "d374f6cdd8dbc73742eb3beb40381962a2aefd502f237d626308657b8d482a48"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/regressions/920261010/candidate.json",
+      "reference_sha256": "60db99c25f065c0a9ec8a3924f0e1576a87be41aba6d879ed438f38718badedf",
+      "worktree_sha256": "60db99c25f065c0a9ec8a3924f0e1576a87be41aba6d879ed438f38718badedf"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/regressions/920261022/candidate.json",
+      "reference_sha256": "85454293d52e3ab75436a837f60c3201ec52e95c17745f2acd1ff4824db83d32",
+      "worktree_sha256": "85454293d52e3ab75436a837f60c3201ec52e95c17745f2acd1ff4824db83d32"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/search_summary.json",
+      "reference_sha256": "227765fa2180fe335c97a61e5976cb9dd8aa14ef8ef4fc05c1cc13f8cbb6c5e9",
+      "worktree_sha256": "227765fa2180fe335c97a61e5976cb9dd8aa14ef8ef4fc05c1cc13f8cbb6c5e9"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261017/candidate.json",
+      "reference_sha256": "7a6acbd0018b6dea281dc3f7ac5224bd81f92e8600b3bd69925b64c33219d978",
+      "worktree_sha256": "7a6acbd0018b6dea281dc3f7ac5224bd81f92e8600b3bd69925b64c33219d978"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261024/candidate.json",
+      "reference_sha256": "6f4809528e99c887bc85fb6a836b4699fc3594127d6a91149e80fd0e0cad1e82",
+      "worktree_sha256": "6f4809528e99c887bc85fb6a836b4699fc3594127d6a91149e80fd0e0cad1e82"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261029/candidate.json",
+      "reference_sha256": "d8508fe19a71805777d6a7246742fa000ae435b48af6bd58e5f6b208bc402109",
+      "worktree_sha256": "d8508fe19a71805777d6a7246742fa000ae435b48af6bd58e5f6b208bc402109"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261031/candidate.json",
+      "reference_sha256": "9052442ca4bf9eb6e1ec71f689bf7a22d5c7428fe4c761cbd475193f53fdfa86",
+      "worktree_sha256": "9052442ca4bf9eb6e1ec71f689bf7a22d5c7428fe4c761cbd475193f53fdfa86"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261043/candidate.json",
+      "reference_sha256": "512d55036a76df60494eb1475d53943fdee9de886564b8f96b572f83c417e9d7",
+      "worktree_sha256": "512d55036a76df60494eb1475d53943fdee9de886564b8f96b572f83c417e9d7"
+    },
+    {
+      "path": "implementation/worldgen/results/default_greyboxes_2026-09-09/shortlist/920261046/candidate.json",
+      "reference_sha256": "91321965cb805387ac213e9828694d567b2a447d4ed76af4c4059f8c87b8a99a",
+      "worktree_sha256": "91321965cb805387ac213e9828694d567b2a447d4ed76af4c4059f8c87b8a99a"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930005557/fit.json",
+      "reference_sha256": "a94555059e7cad6d7cc1973d1e9fccff98275f1975129fe27670dff1b98c8f65",
+      "worktree_sha256": "a94555059e7cad6d7cc1973d1e9fccff98275f1975129fe27670dff1b98c8f65"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930006815/fit.json",
+      "reference_sha256": "d4331d72a66b2877d0ccf5d55c761e2568ea20e3b0a0c5ef5c63e33dc87dad49",
+      "worktree_sha256": "d4331d72a66b2877d0ccf5d55c761e2568ea20e3b0a0c5ef5c63e33dc87dad49"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930007222/fit.json",
+      "reference_sha256": "d461671aca793a77eeb5ade259877d64ad65c11e37215ba2ef33954e0d1e629a",
+      "worktree_sha256": "d461671aca793a77eeb5ade259877d64ad65c11e37215ba2ef33954e0d1e629a"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930010639/fit.json",
+      "reference_sha256": "d9c2b12896b2705d20baae2255b7b567bac28234422c93167f6534cdb7de0db9",
+      "worktree_sha256": "d9c2b12896b2705d20baae2255b7b567bac28234422c93167f6534cdb7de0db9"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930012642/fit.json",
+      "reference_sha256": "7f871d52f60ded4f439d46345d4a435d44913b0d2a15525ff6fc8c0d9c6002d5",
+      "worktree_sha256": "7f871d52f60ded4f439d46345d4a435d44913b0d2a15525ff6fc8c0d9c6002d5"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930015734/fit.json",
+      "reference_sha256": "b2455923d99c1573f3b5c8a87b09e494d5a882aef062fa3150c244470671208d",
+      "worktree_sha256": "b2455923d99c1573f3b5c8a87b09e494d5a882aef062fa3150c244470671208d"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930016664/fit.json",
+      "reference_sha256": "b8c61c6240b78ace24ad856e40faa38a04a9da6a0a09e779d3c49af16c3e9139",
+      "worktree_sha256": "b8c61c6240b78ace24ad856e40faa38a04a9da6a0a09e779d3c49af16c3e9139"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/930019528/fit.json",
+      "reference_sha256": "207788a2a337d848ea84ab223bedf901ae744c6e06c9fe3ab5adda454acd1d6c",
+      "worktree_sha256": "207788a2a337d848ea84ab223bedf901ae744c6e06c9fe3ab5adda454acd1d6c"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/REPORT.md",
+      "reference_sha256": "7d05660dd3dc09045faa3788fbe13d264519611055e212ace23de07a2e52496a",
+      "worktree_sha256": "7d05660dd3dc09045faa3788fbe13d264519611055e212ace23de07a2e52496a"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/TEST_RESULTS.md",
+      "reference_sha256": "bdeb1aa013e60c443cb5999dba48e577a7d9226c506fb4fbc1d29fff6d3516d1",
+      "worktree_sha256": "bdeb1aa013e60c443cb5999dba48e577a7d9226c506fb4fbc1d29fff6d3516d1"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/comparison.json",
+      "reference_sha256": "2fd3300502367a9c6608a6266010109cc7f08a078975ac8ae82379c808b95e1d",
+      "worktree_sha256": "2fd3300502367a9c6608a6266010109cc7f08a078975ac8ae82379c808b95e1d"
+    },
+    {
+      "path": "implementation/worldgen/results/default_local_continuation_2026-09-11/verification.json",
+      "reference_sha256": "5e2beb16c5df9fa6cb0e3f3916b8c56aa153443146d6269c8e13c96df0be44fc",
+      "worktree_sha256": "5e2beb16c5df9fa6cb0e3f3916b8c56aa153443146d6269c8e13c96df0be44fc"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930005557/fit.json",
+      "reference_sha256": "29d2452ff229333cf000baf961e2500249638fb50297f07692776698a75884c5",
+      "worktree_sha256": "29d2452ff229333cf000baf961e2500249638fb50297f07692776698a75884c5"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930006815/fit.json",
+      "reference_sha256": "43b81f93004d017c0ee54896bc02dc0dc79cbc262abf9a1dfdb3b45a612bb960",
+      "worktree_sha256": "43b81f93004d017c0ee54896bc02dc0dc79cbc262abf9a1dfdb3b45a612bb960"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930007222/fit.json",
+      "reference_sha256": "a81cb7a1aa9989278501f3f8e12ef6a5328f8f89f49b323fd810e4b967115f69",
+      "worktree_sha256": "a81cb7a1aa9989278501f3f8e12ef6a5328f8f89f49b323fd810e4b967115f69"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930010639/fit.json",
+      "reference_sha256": "c38bc3de178bb636c7306bd1c2f610a6ca86b5ea97937f22de1ee7d40147cff3",
+      "worktree_sha256": "c38bc3de178bb636c7306bd1c2f610a6ca86b5ea97937f22de1ee7d40147cff3"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930012642/fit.json",
+      "reference_sha256": "5a0de523b0aac569ea9d8a610a9da363826189d09a89b168f8cf98ba28946911",
+      "worktree_sha256": "5a0de523b0aac569ea9d8a610a9da363826189d09a89b168f8cf98ba28946911"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930015734/fit.json",
+      "reference_sha256": "27e03e81d3877027543ce349077e3f911d7b15b1085d0eabe8867baee8886e9c",
+      "worktree_sha256": "27e03e81d3877027543ce349077e3f911d7b15b1085d0eabe8867baee8886e9c"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930016664/fit.json",
+      "reference_sha256": "2c59511572ad1c9bd237fb40230b898dbec6bb295cb25f5d6f79496de7ad7e06",
+      "worktree_sha256": "2c59511572ad1c9bd237fb40230b898dbec6bb295cb25f5d6f79496de7ad7e06"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930019528/fit.json",
+      "reference_sha256": "b5512b0211eb3ffe3e900025c45b00003de1523962b2eb1fcc92994000ff55c5",
+      "worktree_sha256": "b5512b0211eb3ffe3e900025c45b00003de1523962b2eb1fcc92994000ff55c5"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/REPORT.md",
+      "reference_sha256": "94e6b82be5ae820ad4637bd2cd78d6da99fea90e2be6bbe023a3e8116d625d99",
+      "worktree_sha256": "94e6b82be5ae820ad4637bd2cd78d6da99fea90e2be6bbe023a3e8116d625d99"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/TEST_RESULTS.md",
+      "reference_sha256": "8f2f9fe6df3d6c8d930965caff1ecf7587393890e4fa6072b9a9455887b46da9",
+      "worktree_sha256": "8f2f9fe6df3d6c8d930965caff1ecf7587393890e4fa6072b9a9455887b46da9"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/comparison.json",
+      "reference_sha256": "cbc5fbb99686ca9757d710e0f5ccb4a9fc2741096875201ecfb804f1b7091304",
+      "worktree_sha256": "cbc5fbb99686ca9757d710e0f5ccb4a9fc2741096875201ecfb804f1b7091304"
+    },
+    {
+      "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/verification.json",
+      "reference_sha256": "9b4eca7ba84fa7d689017c10338c975ab941f31fa343096c956e4de1a1042404",
+      "worktree_sha256": "9b4eca7ba84fa7d689017c10338c975ab941f31fa343096c956e4de1a1042404"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930005557/fit.json",
+      "reference_sha256": "c7cd436dade96d78dc96e49d949d8337d7d0241e259abb883b913c1bfaa2af19",
+      "worktree_sha256": "c7cd436dade96d78dc96e49d949d8337d7d0241e259abb883b913c1bfaa2af19"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930006815/fit.json",
+      "reference_sha256": "8c62c63d67f254215a63c6903640ebdd56ff560957c55432475a0d3657388228",
+      "worktree_sha256": "8c62c63d67f254215a63c6903640ebdd56ff560957c55432475a0d3657388228"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930007222/fit.json",
+      "reference_sha256": "ccaf1a5a6fb82d66d863682f83dbb5580ec70c5b09787298be0697549fada0cc",
+      "worktree_sha256": "ccaf1a5a6fb82d66d863682f83dbb5580ec70c5b09787298be0697549fada0cc"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930010639/fit.json",
+      "reference_sha256": "57686534918acf06a847668b9c1f74e7eabb508db66556497e519e418b171daf",
+      "worktree_sha256": "57686534918acf06a847668b9c1f74e7eabb508db66556497e519e418b171daf"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930012642/fit.json",
+      "reference_sha256": "fd2979609160559592b39bc07ea7ac7207c99b54085353e66c859735d74fc4bb",
+      "worktree_sha256": "fd2979609160559592b39bc07ea7ac7207c99b54085353e66c859735d74fc4bb"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930015734/fit.json",
+      "reference_sha256": "3ec527799778e537beb2378d9b11f3f86352e3653e4d652c6ea3ff6a8204b877",
+      "worktree_sha256": "3ec527799778e537beb2378d9b11f3f86352e3653e4d652c6ea3ff6a8204b877"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930016664/fit.json",
+      "reference_sha256": "3f2b178d7df067d50adee1e22bd6e93b1eb2ebf4e863ee6b3851ed42989b5fcd",
+      "worktree_sha256": "3f2b178d7df067d50adee1e22bd6e93b1eb2ebf4e863ee6b3851ed42989b5fcd"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/930019528/fit.json",
+      "reference_sha256": "119eefdaccc0d4831810885534a2f2d1ccac99846492965ec4c68ed263edbaaf",
+      "worktree_sha256": "119eefdaccc0d4831810885534a2f2d1ccac99846492965ec4c68ed263edbaaf"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/comparative_validation.md",
+      "reference_sha256": "7c185790caac4b78225bbaab79909c65c42e864c2bc4efbc18437556167ec36d",
+      "worktree_sha256": "7c185790caac4b78225bbaab79909c65c42e864c2bc4efbc18437556167ec36d"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/comparison.json",
+      "reference_sha256": "bf70e999b21fd90ef4ddd3e82ed1c0a6ee427d42c07162edc526cec56d2aed8b",
+      "worktree_sha256": "bf70e999b21fd90ef4ddd3e82ed1c0a6ee427d42c07162edc526cec56d2aed8b"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/readiness_gate.json",
+      "reference_sha256": "14c19f75d56fb80379d419e54307fbddfc899497311f4d1c4b8c1da14fb64294",
+      "worktree_sha256": "14c19f75d56fb80379d419e54307fbddfc899497311f4d1c4b8c1da14fb64294"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_1_2026-09-10/verification.json",
+      "reference_sha256": "04a4b8340dd1a08120680badc90d3c33f3920c4039b4cf9198ce03213a4df615",
+      "worktree_sha256": "04a4b8340dd1a08120680badc90d3c33f3920c4039b4cf9198ce03213a4df615"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930005557/fit.json",
+      "reference_sha256": "dd9ef16c1f68821d1282bb3de3df2e4772585b743cdafc90a904dc34836d3389",
+      "worktree_sha256": "dd9ef16c1f68821d1282bb3de3df2e4772585b743cdafc90a904dc34836d3389"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930006815/fit.json",
+      "reference_sha256": "59cbe0a4cf4b68aa59edc532ccc0876ed814f241240fe40a95f35c2733be5c56",
+      "worktree_sha256": "59cbe0a4cf4b68aa59edc532ccc0876ed814f241240fe40a95f35c2733be5c56"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930007222/fit.json",
+      "reference_sha256": "e2e39f7bdb41928013182e722beab1002519ae3f913c1c8c027a97ffbae30169",
+      "worktree_sha256": "e2e39f7bdb41928013182e722beab1002519ae3f913c1c8c027a97ffbae30169"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930010639/fit.json",
+      "reference_sha256": "ae804d975dc01a97e21f395d94aee0ff04b4e04c02ce4e4897a6cf14e91a1840",
+      "worktree_sha256": "ae804d975dc01a97e21f395d94aee0ff04b4e04c02ce4e4897a6cf14e91a1840"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930012642/fit.json",
+      "reference_sha256": "994883a707bffb0f4e41b00ee5d29b4f5e1588c3a78c24892c8f2de282252aee",
+      "worktree_sha256": "994883a707bffb0f4e41b00ee5d29b4f5e1588c3a78c24892c8f2de282252aee"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930015734/fit.json",
+      "reference_sha256": "959f820d7c2e7e99a583e7b49ab05b97a71fbeb6e2bc601366327d047f192542",
+      "worktree_sha256": "959f820d7c2e7e99a583e7b49ab05b97a71fbeb6e2bc601366327d047f192542"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930016664/fit.json",
+      "reference_sha256": "ec1055330f9095d77d1fe135410da7c5399d70947f16eecbc10026fd7e827786",
+      "worktree_sha256": "ec1055330f9095d77d1fe135410da7c5399d70947f16eecbc10026fd7e827786"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/930019528/fit.json",
+      "reference_sha256": "a255c648d22287bb15da2231d3304a493ac19fd77cc52f0f2a05c094cf7ff7d1",
+      "worktree_sha256": "a255c648d22287bb15da2231d3304a493ac19fd77cc52f0f2a05c094cf7ff7d1"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/comparison.json",
+      "reference_sha256": "d75d026f849fe575a004efb952ced632177d406feca2a44d0c341df299616dce",
+      "worktree_sha256": "d75d026f849fe575a004efb952ced632177d406feca2a44d0c341df299616dce"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_2026-09-10/verification.json",
+      "reference_sha256": "c7b7d1732e42243334b266e0fdef4232ccb018e72110db961b546dd0ef65ab12",
+      "worktree_sha256": "c7b7d1732e42243334b266e0fdef4232ccb018e72110db961b546dd0ef65ab12"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930005557/fit.json",
+      "reference_sha256": "f8586e2d2aa1f0fe48ee09cb7ef0d5639f86c5d999e88d3036ed2fca7a5eeeaa",
+      "worktree_sha256": "f8586e2d2aa1f0fe48ee09cb7ef0d5639f86c5d999e88d3036ed2fca7a5eeeaa"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930006815/fit.json",
+      "reference_sha256": "1c3acb35921c4abb2855f3d0cbc2e34e918bde5f9ef72a889b0ae1c56cb7d0c0",
+      "worktree_sha256": "1c3acb35921c4abb2855f3d0cbc2e34e918bde5f9ef72a889b0ae1c56cb7d0c0"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930007222/fit.json",
+      "reference_sha256": "a6042719529959db06d62381d2692a5d13262d8c73246207e4944b732844d953",
+      "worktree_sha256": "a6042719529959db06d62381d2692a5d13262d8c73246207e4944b732844d953"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930010639/fit.json",
+      "reference_sha256": "b845e4b53d1672e54f196da4a39307f0565dad261d30cb806e9f86e865f8c057",
+      "worktree_sha256": "b845e4b53d1672e54f196da4a39307f0565dad261d30cb806e9f86e865f8c057"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930012642/fit.json",
+      "reference_sha256": "5dee914fad0351f97d8a489328d684f77bca3d86f1615c05d2356c146aec9851",
+      "worktree_sha256": "5dee914fad0351f97d8a489328d684f77bca3d86f1615c05d2356c146aec9851"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930015734/fit.json",
+      "reference_sha256": "ff5fe14ccde5116d21d60cc2eb7e1d02c07e62662056ef86688fd96b171420e0",
+      "worktree_sha256": "ff5fe14ccde5116d21d60cc2eb7e1d02c07e62662056ef86688fd96b171420e0"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930016664/fit.json",
+      "reference_sha256": "77217097c7109775f6cf6601c32fdec00301d965311761cbb95ce9fd92520ea3",
+      "worktree_sha256": "77217097c7109775f6cf6601c32fdec00301d965311761cbb95ce9fd92520ea3"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/930019528/fit.json",
+      "reference_sha256": "cb4886a48227b096e8464ee573b1f3833a5e6f3bba7fa29829f0ceb6b535fd9b",
+      "worktree_sha256": "cb4886a48227b096e8464ee573b1f3833a5e6f3bba7fa29829f0ceb6b535fd9b"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/REPORT.md",
+      "reference_sha256": "6494d61b46888521a6ce4b09a6ec835d966d6f4067a72858793040abe00d8181",
+      "worktree_sha256": "6494d61b46888521a6ce4b09a6ec835d966d6f4067a72858793040abe00d8181"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/comparison.json",
+      "reference_sha256": "24696d5da1b19049c01831af84a143eff2fd2366c442754701a239f5969e0327",
+      "worktree_sha256": "24696d5da1b19049c01831af84a143eff2fd2366c442754701a239f5969e0327"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_a_destinations_2026-09-10/verification.json",
+      "reference_sha256": "47464e380d24187e7c6fef86c9e6deeb77063ca3daab8c742016f5e9a79e08ca",
+      "worktree_sha256": "47464e380d24187e7c6fef86c9e6deeb77063ca3daab8c742016f5e9a79e08ca"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930010639/build_plan.json",
+      "reference_sha256": "c80d80eab4d597b4b3afa9378e129b21355794cdf5ebfe891f1d2a4666dacaad",
+      "worktree_sha256": "c80d80eab4d597b4b3afa9378e129b21355794cdf5ebfe891f1d2a4666dacaad"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930010639/preservation_audit.json",
+      "reference_sha256": "43e669b5604eec5993bdf295f70519a010802d06290fbc6d79f601987c941b28",
+      "worktree_sha256": "43e669b5604eec5993bdf295f70519a010802d06290fbc6d79f601987c941b28"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930010639/server_validation.json",
+      "reference_sha256": "9fe026779ce3c5d7ff43deeeff9f0272eac216db08775112dd9a91517febb499",
+      "worktree_sha256": "9fe026779ce3c5d7ff43deeeff9f0272eac216db08775112dd9a91517febb499"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930010639/validation.json",
+      "reference_sha256": "17cffab0752b53dc08ff455485a0089a97341d0a0081aaa29fe6a5838bc2cac4",
+      "worktree_sha256": "17cffab0752b53dc08ff455485a0089a97341d0a0081aaa29fe6a5838bc2cac4"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930012642/build_plan.json",
+      "reference_sha256": "9b27672cd94aa7d04a04db3a208b907bb4c5ee802cb24904d8608ada14005c15",
+      "worktree_sha256": "9b27672cd94aa7d04a04db3a208b907bb4c5ee802cb24904d8608ada14005c15"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930012642/preservation_audit.json",
+      "reference_sha256": "e5ec7047bd96be968c73db307d48559ef8085fd9ec8d162dc55af4fb6726c43b",
+      "worktree_sha256": "e5ec7047bd96be968c73db307d48559ef8085fd9ec8d162dc55af4fb6726c43b"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930012642/server_validation.json",
+      "reference_sha256": "79ac1ca1f30638ce35b75f2035a7e3c9f2c3167fa2144ae1749dfbd3b36ef316",
+      "worktree_sha256": "79ac1ca1f30638ce35b75f2035a7e3c9f2c3167fa2144ae1749dfbd3b36ef316"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/930012642/validation.json",
+      "reference_sha256": "a7452a2556430215d1f5dca5793a6a078e02cf8cb86c08d1971a9f62aa62b7bd",
+      "worktree_sha256": "a7452a2556430215d1f5dca5793a6a078e02cf8cb86c08d1971a9f62aa62b7bd"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/REPORT.md",
+      "reference_sha256": "f80d6e851bbb043bd9d88bc054e1b5135b2b7dbc17292a474d2e09cadc345878",
+      "worktree_sha256": "f80d6e851bbb043bd9d88bc054e1b5135b2b7dbc17292a474d2e09cadc345878"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/client_validation.json",
+      "reference_sha256": "de4b1c086f47406f3f0137fb5f1e540897ddc59cf71bef2c0a6362e27ba83404",
+      "worktree_sha256": "de4b1c086f47406f3f0137fb5f1e540897ddc59cf71bef2c0a6362e27ba83404"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_2026-09-10/summary.json",
+      "reference_sha256": "61bd0bda4c5b0850085c77230bf634a653636a51a7db7c0e869ecdb4f74a44fb",
+      "worktree_sha256": "61bd0bda4c5b0850085c77230bf634a653636a51a7db7c0e869ecdb4f74a44fb"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_gate_2026-09-10/REPORT.md",
+      "reference_sha256": "d707fc4c9ad975ded03692834d2384a453034b52fe97b99161e5a7d69ddce919",
+      "worktree_sha256": "d707fc4c9ad975ded03692834d2384a453034b52fe97b99161e5a7d69ddce919"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_gate_2026-09-10/readiness_gate.json",
+      "reference_sha256": "0657648023d820340f67a1d11c895ca603aa59c2ec65e0198b74852da135f2c7",
+      "worktree_sha256": "0657648023d820340f67a1d11c895ca603aa59c2ec65e0198b74852da135f2c7"
+    },
+    {
+      "path": "implementation/worldgen/results/default_task_b_gate_2026-09-10/verification.json",
+      "reference_sha256": "0b9d2731fd68278ccca4d893e197165db68014e7977080c9394f071925fe8654",
+      "worktree_sha256": "0b9d2731fd68278ccca4d893e197165db68014e7977080c9394f071925fe8654"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/REPORT.md",
+      "reference_sha256": "ac83c0e1e762f54bd0cd9aa6f7d6c5f076faf8750455b8e576f7d56402e3a551",
+      "worktree_sha256": "ac83c0e1e762f54bd0cd9aa6f7d6c5f076faf8750455b8e576f7d56402e3a551"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930004953_2048_0.json",
+      "reference_sha256": "9f05ea033257cfa6e28acdbbfa6ee64c03edc00c77e12d8c3db2f9299f2e736c",
+      "worktree_sha256": "9f05ea033257cfa6e28acdbbfa6ee64c03edc00c77e12d8c3db2f9299f2e736c"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930005557_-2048_0.json",
+      "reference_sha256": "d4fb7e1a26a061427018255e026ece844c323253e5833d29941a45281996a773",
+      "worktree_sha256": "d4fb7e1a26a061427018255e026ece844c323253e5833d29941a45281996a773"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930006815_0_0.json",
+      "reference_sha256": "0ef76a0c7d608eba768288fb7f065b9c0576fb9c562d601c8a40d362d25d049b",
+      "worktree_sha256": "0ef76a0c7d608eba768288fb7f065b9c0576fb9c562d601c8a40d362d25d049b"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930007222_-2048_0.json",
+      "reference_sha256": "be634251c5a7685e66d63b8952681abfa9dbfe89a36879a9b5df7b590faf4304",
+      "worktree_sha256": "be634251c5a7685e66d63b8952681abfa9dbfe89a36879a9b5df7b590faf4304"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930010639_2048_0.json",
+      "reference_sha256": "6eaee673e423d3829817bb08f3399ac1f227fc20b32b111d47ace0bc2d3b0a8f",
+      "worktree_sha256": "6eaee673e423d3829817bb08f3399ac1f227fc20b32b111d47ace0bc2d3b0a8f"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930011701_0_0.json",
+      "reference_sha256": "602eb89dea016757402cb57cc713d8246db1dc9e192db6340d28454ad36bbd71",
+      "worktree_sha256": "602eb89dea016757402cb57cc713d8246db1dc9e192db6340d28454ad36bbd71"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930012642_-2048_0.json",
+      "reference_sha256": "9f2c31d9af999f5d7c195b2aaa98441dd079a61d7d9d9474758bf5d5dc4b0871",
+      "worktree_sha256": "9f2c31d9af999f5d7c195b2aaa98441dd079a61d7d9d9474758bf5d5dc4b0871"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930015734_2048_0.json",
+      "reference_sha256": "f2a3f088f5e7c90dd587a3d88853b150764e4bb32dc9b6713d2ad69322fe7cfc",
+      "worktree_sha256": "f2a3f088f5e7c90dd587a3d88853b150764e4bb32dc9b6713d2ad69322fe7cfc"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930016657_-2048_0.json",
+      "reference_sha256": "a3ecc5831909f041ffd7db728e4d288f728a39729a5e57ae37afee53bb20cff5",
+      "worktree_sha256": "a3ecc5831909f041ffd7db728e4d288f728a39729a5e57ae37afee53bb20cff5"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930016664_0_2048.json",
+      "reference_sha256": "24c5b9ed2b47ed9f4636e9d1a3e05750999d1f3c758e893c9e601d396640d030",
+      "worktree_sha256": "24c5b9ed2b47ed9f4636e9d1a3e05750999d1f3c758e893c9e601d396640d030"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/acquisition/930019528_-2048_0.json",
+      "reference_sha256": "82e811d4071f82e6e3ff4c1411f22bd22eff6deff6be54ad5bf992f1429261d4",
+      "worktree_sha256": "82e811d4071f82e6e3ff4c1411f22bd22eff6deff6be54ad5bf992f1429261d4"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930005557/REVIEW.md",
+      "reference_sha256": "ff1bf06503154eb3254369d6804c8e0ce5633aece33a5da81c21bfa1d411a13e",
+      "worktree_sha256": "ff1bf06503154eb3254369d6804c8e0ce5633aece33a5da81c21bfa1d411a13e"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930005557/candidate.json",
+      "reference_sha256": "133189ae176ba256c2079af4f83e9d18a6a1b1d03ad7629d14ab863619d31cea",
+      "worktree_sha256": "133189ae176ba256c2079af4f83e9d18a6a1b1d03ad7629d14ab863619d31cea"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930006815/REVIEW.md",
+      "reference_sha256": "ad4a93a991bced411c4a83848593a3759682ef01920c1abf3f6740bc9401c314",
+      "worktree_sha256": "ad4a93a991bced411c4a83848593a3759682ef01920c1abf3f6740bc9401c314"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930006815/candidate.json",
+      "reference_sha256": "e1aaff5f6e7d5c289480e7f4b999b0aac705d0af2d2a8cd4437f6178b0ccb474",
+      "worktree_sha256": "e1aaff5f6e7d5c289480e7f4b999b0aac705d0af2d2a8cd4437f6178b0ccb474"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930007222/REVIEW.md",
+      "reference_sha256": "58135dd3e5b541aeedc76edc563f45b97f42ba617f7bf1a2450627ecfd73a248",
+      "worktree_sha256": "58135dd3e5b541aeedc76edc563f45b97f42ba617f7bf1a2450627ecfd73a248"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930007222/candidate.json",
+      "reference_sha256": "3aad73c71e8368f831c8aa54072a34446fd00b6b621f12cae828ead9e8ac99ee",
+      "worktree_sha256": "3aad73c71e8368f831c8aa54072a34446fd00b6b621f12cae828ead9e8ac99ee"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930010639/REVIEW.md",
+      "reference_sha256": "ec84472d4446bec193a5c5e39444a1bf0fe9e8ca65f0893c47fec32fa46b89d0",
+      "worktree_sha256": "ec84472d4446bec193a5c5e39444a1bf0fe9e8ca65f0893c47fec32fa46b89d0"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930010639/candidate.json",
+      "reference_sha256": "de0dcba9a99b79d10c07b3ef1752d03afbc92a941c35215c25502305d17f5a50",
+      "worktree_sha256": "de0dcba9a99b79d10c07b3ef1752d03afbc92a941c35215c25502305d17f5a50"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930012642/REVIEW.md",
+      "reference_sha256": "8981346bcdb4072d9a5de2cae6024a83a2b95812c823ce4148c423e86b5f3927",
+      "worktree_sha256": "8981346bcdb4072d9a5de2cae6024a83a2b95812c823ce4148c423e86b5f3927"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930012642/candidate.json",
+      "reference_sha256": "06e1a040baf3303dfd72d243faa786aef0fc3f7eda26527954c898d753af2432",
+      "worktree_sha256": "06e1a040baf3303dfd72d243faa786aef0fc3f7eda26527954c898d753af2432"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930015734/REVIEW.md",
+      "reference_sha256": "621b74ac45c90659be45620385c8788b09484368c2f3b2217b22eb3935503e43",
+      "worktree_sha256": "621b74ac45c90659be45620385c8788b09484368c2f3b2217b22eb3935503e43"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930015734/candidate.json",
+      "reference_sha256": "8ad1b4080621b2d618e09d15a39ffcb5549d06aada7aa99964f96ee7920902fd",
+      "worktree_sha256": "8ad1b4080621b2d618e09d15a39ffcb5549d06aada7aa99964f96ee7920902fd"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930016664/REVIEW.md",
+      "reference_sha256": "00bea7e5f4900f70e06d9eb95c7f435bc6aaaf2dde4dd75c4682603dc0cfcb73",
+      "worktree_sha256": "00bea7e5f4900f70e06d9eb95c7f435bc6aaaf2dde4dd75c4682603dc0cfcb73"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930016664/candidate.json",
+      "reference_sha256": "caa31e1ecbfe09a577992cb12084a0947a4bea3f86ad920dbc25f00d2a76a362",
+      "worktree_sha256": "caa31e1ecbfe09a577992cb12084a0947a4bea3f86ad920dbc25f00d2a76a362"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930019528/REVIEW.md",
+      "reference_sha256": "9cf669961f4462736fe4bd49427d4c6e90bedfb9aaf03f0dbca4cd2d4e4ab218",
+      "worktree_sha256": "9cf669961f4462736fe4bd49427d4c6e90bedfb9aaf03f0dbca4cd2d4e4ab218"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930019528/candidate.json",
+      "reference_sha256": "3acba0a318e2e2e37031318c3c3c506ea546be126bffc9e510a0987d5bc3aad6",
+      "worktree_sha256": "3acba0a318e2e2e37031318c3c3c506ea546be126bffc9e510a0987d5bc3aad6"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/generation_queue.json",
+      "reference_sha256": "251d060dd4e608a1f60acc556246fae929cd15c7597ffe605eba646c6eef2ad9",
+      "worktree_sha256": "251d060dd4e608a1f60acc556246fae929cd15c7597ffe605eba646c6eef2ad9"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/pilot_summary.json",
+      "reference_sha256": "cd8a8cf45c2f3a1445e9bbffb3f4a8d576d26df34d424aae47dc684556dbe573",
+      "worktree_sha256": "cd8a8cf45c2f3a1445e9bbffb3f4a8d576d26df34d424aae47dc684556dbe573"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/pre_ground_scan_analysis_summary.json",
+      "reference_sha256": "aea5fd36d5527b9b033436dfa6e4e8728a976614c829896a14e397d626b2890e",
+      "worktree_sha256": "aea5fd36d5527b9b033436dfa6e4e8728a976614c829896a14e397d626b2890e"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930004953/REVIEW.md",
+      "reference_sha256": "c4ca7ca805402418d10baa2e8ea198c31e9d29b35dbf260f5238d2b369b79f97",
+      "worktree_sha256": "c4ca7ca805402418d10baa2e8ea198c31e9d29b35dbf260f5238d2b369b79f97"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930004953/candidate.json",
+      "reference_sha256": "b1f7d303a786e6efa378b491655f0b84f08e97def9684f595a5528cb7889b3a0",
+      "worktree_sha256": "b1f7d303a786e6efa378b491655f0b84f08e97def9684f595a5528cb7889b3a0"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930011701/REVIEW.md",
+      "reference_sha256": "6598a9d68723f424c777b652b457c6c72c835561b036703487dc7587d04d6c4f",
+      "worktree_sha256": "6598a9d68723f424c777b652b457c6c72c835561b036703487dc7587d04d6c4f"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930011701/candidate.json",
+      "reference_sha256": "bcde2f906e69f353650cc1a735715cb4753e761d7cae9818591789db311fc415",
+      "worktree_sha256": "bcde2f906e69f353650cc1a735715cb4753e761d7cae9818591789db311fc415"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930016657/REVIEW.md",
+      "reference_sha256": "3e9c4c2f785a63d9c0fa4aca2d2a846eba184e89c61b2e547d2d914ed986f61e",
+      "worktree_sha256": "3e9c4c2f785a63d9c0fa4aca2d2a846eba184e89c61b2e547d2d914ed986f61e"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_excluded/930016657/candidate.json",
+      "reference_sha256": "23b75600130782c2db17eeed9342fe3cafe35d8d6bfc5f797ae6b146c4418deb",
+      "worktree_sha256": "23b75600130782c2db17eeed9342fe3cafe35d8d6bfc5f797ae6b146c4418deb"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/review_exclusions.json",
+      "reference_sha256": "0e8c99abbbfe30387710991d3efa537a6dc3ef368c5696bd900d1d213c594106",
+      "worktree_sha256": "0e8c99abbbfe30387710991d3efa537a6dc3ef368c5696bd900d1d213c594106"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/screen_summary.json",
+      "reference_sha256": "75ce76de3396beb7afba3fd3aceeafa9900d6c16c27d3263ac2a6c52727b3a6e",
+      "worktree_sha256": "75ce76de3396beb7afba3fd3aceeafa9900d6c16c27d3263ac2a6c52727b3a6e"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/search_config.json",
+      "reference_sha256": "a51aae768335ddc1be9f505481b117ae78428c8cef045004123c658d85c67af3",
+      "worktree_sha256": "a51aae768335ddc1be9f505481b117ae78428c8cef045004123c658d85c67af3"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/search_summary.json",
+      "reference_sha256": "12b13ba4cdc5e2ace1c0421c2ef41d376d5dfd6b5324c184723a670fc0334be7",
+      "worktree_sha256": "12b13ba4cdc5e2ace1c0421c2ef41d376d5dfd6b5324c184723a670fc0334be7"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/structural_survivors.jsonl",
+      "reference_sha256": "ff995ee915cb1e601f163b1973e0b0f801f161bd443ff452704cc73354d6455a",
+      "worktree_sha256": "ff995ee915cb1e601f163b1973e0b0f801f161bd443ff452704cc73354d6455a"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/supplemental_queue.json",
+      "reference_sha256": "04e3c8c3416bd88a3cfc574698e763d3cdcd160d8596fafb7a5cee35a3eff927",
+      "worktree_sha256": "04e3c8c3416bd88a3cfc574698e763d3cdcd160d8596fafb7a5cee35a3eff927"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/temperate_refinement.json",
+      "reference_sha256": "703d281f1109578dee298d30fbe784c4a32cbb298e515cb215a1f0d3262f570c",
+      "worktree_sha256": "703d281f1109578dee298d30fbe784c4a32cbb298e515cb215a1f0d3262f570c"
+    },
+    {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/validation_and_cost.json",
+      "reference_sha256": "4f83a8f7939828352553bfcdbb1a7b931ba5ce78f58938fca5381e0b20b53774",
+      "worktree_sha256": "4f83a8f7939828352553bfcdbb1a7b931ba5ce78f58938fca5381e0b20b53774"
+    },
+    {
+      "path": "implementation/worldgen/results/vanilla_default_poc_2026-09-09/FINDINGS.md",
+      "reference_sha256": "b2c10a7ab6ae5dd22356382e67c828b1bcd2069bd0f4c4516f64f6a5f369ac4c",
+      "worktree_sha256": "b2c10a7ab6ae5dd22356382e67c828b1bcd2069bd0f4c4516f64f6a5f369ac4c"
+    },
+    {
+      "path": "implementation/worldgen/results/vanilla_default_poc_2026-09-09/search_summary.json",
+      "reference_sha256": "7525f48dab29994c0d06df80aade4da5060671ff817408c174adec7021195953",
+      "worktree_sha256": "7525f48dab29994c0d06df80aade4da5060671ff817408c174adec7021195953"
+    },
+    {
+      "path": "implementation/worldgen/results/vanilla_default_poc_2026-09-09/shortlist/920270002/candidate.json",
+      "reference_sha256": "507bd5ccc077a258f26589b34d6c85f9c3bcd75514069eda966fe4ef2d121817",
+      "worktree_sha256": "507bd5ccc077a258f26589b34d6c85f9c3bcd75514069eda966fe4ef2d121817"
+    },
+    {
+      "path": "implementation/worldgen/results/vanilla_default_poc_2026-09-09/shortlist/920270003/candidate.json",
+      "reference_sha256": "0b60aedfa8c72ba9eb7d421d018decf47c82459b79ad6ec3dd455f3fea2acadc",
+      "worktree_sha256": "0b60aedfa8c72ba9eb7d421d018decf47c82459b79ad6ec3dd455f3fea2acadc"
+    },
+    {
+      "path": "implementation/worldgen/results/vanilla_default_poc_2026-09-09/shortlist/920270010/candidate.json",
+      "reference_sha256": "0027ef715ec94f33b8b136dd8df1a2704558e057946e46bc113a19ed6fd6c964",
+      "worktree_sha256": "0027ef715ec94f33b8b136dd8df1a2704558e057946e46bc113a19ed6fd6c964"
+    },
+    {
+      "path": "implementation/worldgen/search_staged_vanilla.py",
+      "reference_sha256": "41f2e4bf619034635d8186dbc51e726329cf4fe09d94d666b8633531ef64224d",
+      "worktree_sha256": "41f2e4bf619034635d8186dbc51e726329cf4fe09d94d666b8633531ef64224d"
+    },
+    {
+      "path": "implementation/worldgen/search_vanilla_default_regions.py",
+      "reference_sha256": "8c10681d52edc6ab8f2f010a83b5c9424c625dcf824841b04d4d0d3bebb183c0",
+      "worktree_sha256": "8c10681d52edc6ab8f2f010a83b5c9424c625dcf824841b04d4d0d3bebb183c0"
+    },
+    {
+      "path": "implementation/worldgen/serialization/__init__.py",
+      "reference_sha256": "910065390176caa3d5c56f5595b3fc0cf39213ddc96c37fcd09e1126890da67d",
+      "worktree_sha256": "910065390176caa3d5c56f5595b3fc0cf39213ddc96c37fcd09e1126890da67d"
+    },
+    {
+      "path": "implementation/worldgen/serialization/bootstrap.py",
+      "reference_sha256": "55cb5d753547ee14b6e29b0a72c6f48c7b47c51d6cb700959db22cba0ce08050",
+      "worktree_sha256": "55cb5d753547ee14b6e29b0a72c6f48c7b47c51d6cb700959db22cba0ce08050"
+    },
+    {
+      "path": "implementation/worldgen/serialization/inspect.py",
+      "reference_sha256": "8444f1e4d1bb37a1a27bcf10bcecfe87a30bd9862fb05d7ab934fad16455b521",
+      "worktree_sha256": "8444f1e4d1bb37a1a27bcf10bcecfe87a30bd9862fb05d7ab934fad16455b521"
+    },
+    {
+      "path": "implementation/worldgen/serialization/nbt.py",
+      "reference_sha256": "64f7251a8a71d1b938fbcc84c656ff79db435a96722234819338b738a4846008",
+      "worktree_sha256": "64f7251a8a71d1b938fbcc84c656ff79db435a96722234819338b738a4846008"
+    },
+    {
+      "path": "implementation/worldgen/serialization/region.py",
+      "reference_sha256": "060c382d071290a012d9fcad4b0649cfd3e8997df505f5b5640dd8330d29287e",
+      "worktree_sha256": "060c382d071290a012d9fcad4b0649cfd3e8997df505f5b5640dd8330d29287e"
+    },
+    {
+      "path": "implementation/worldgen/serialization/server_check.py",
+      "reference_sha256": "dbc6b4ea9ac815b81534fc9448859f778836b48f69d7a994a6a89a500a9dd35d",
+      "worktree_sha256": "dbc6b4ea9ac815b81534fc9448859f778836b48f69d7a994a6a89a500a9dd35d"
+    },
+    {
+      "path": "implementation/worldgen/serialization/world.py",
+      "reference_sha256": "fc2c6156ba02e7b7286c6ef71d3d1b29f0ba07a9629eb1919e4156d39872b117",
+      "worktree_sha256": "fc2c6156ba02e7b7286c6ef71d3d1b29f0ba07a9629eb1919e4156d39872b117"
+    },
+    {
+      "path": "implementation/worldgen/serialize_default_worlds.py",
+      "reference_sha256": "959f0530f542293b6d33094d3a5767eb8341ac99ce39470c25181347c56e8c32",
+      "worktree_sha256": "959f0530f542293b6d33094d3a5767eb8341ac99ce39470c25181347c56e8c32"
+    },
+    {
+      "path": "implementation/worldgen/successor/__init__.py",
+      "reference_sha256": "31ca5cc1e2217816adb8a33ba71246f17fafb8c64b52e58e230e8f15ed2dd6a5",
+      "worktree_sha256": "31ca5cc1e2217816adb8a33ba71246f17fafb8c64b52e58e230e8f15ed2dd6a5"
+    },
+    {
+      "path": "implementation/worldgen/successor/analysis.py",
+      "reference_sha256": "af6efd31638894fd7b4c210c166568e4e277ff67a77991e9d8cea79cda5a90f7",
+      "worktree_sha256": "af6efd31638894fd7b4c210c166568e4e277ff67a77991e9d8cea79cda5a90f7"
+    },
+    {
+      "path": "implementation/worldgen/successor/config.py",
+      "reference_sha256": "487844e1b1ec293a48e3e8403d1a08154ebaf014968648af1d1cd297e86f94d7",
+      "worktree_sha256": "487844e1b1ec293a48e3e8403d1a08154ebaf014968648af1d1cd297e86f94d7"
+    },
+    {
+      "path": "implementation/worldgen/successor/ecology.py",
+      "reference_sha256": "704f77cfcd76f3842e3dbd6c949d3b1b3168ec193e98a2310b3dd5cb156239c9",
+      "worktree_sha256": "704f77cfcd76f3842e3dbd6c949d3b1b3168ec193e98a2310b3dd5cb156239c9"
+    },
+    {
+      "path": "implementation/worldgen/successor/grid.py",
+      "reference_sha256": "09b50d08dcca1c267e3a67ef5ac481800cbd8f48addaeedc7c05c0f123199775",
+      "worktree_sha256": "09b50d08dcca1c267e3a67ef5ac481800cbd8f48addaeedc7c05c0f123199775"
+    },
+    {
+      "path": "implementation/worldgen/successor/pipeline.py",
+      "reference_sha256": "c790bdb0f0bdcb2904129c92e9569bd1e421474fce8f090b6a5a42b7a6eec0b7",
+      "worktree_sha256": "c790bdb0f0bdcb2904129c92e9569bd1e421474fce8f090b6a5a42b7a6eec0b7"
+    },
+    {
+      "path": "implementation/worldgen/successor/routes.py",
+      "reference_sha256": "58802efabd6806e390367a1af4d142a191f82f2ec58238d2c0bf2e13c18ca8aa",
+      "worktree_sha256": "58802efabd6806e390367a1af4d142a191f82f2ec58238d2c0bf2e13c18ca8aa"
+    },
+    {
+      "path": "implementation/worldgen/successor/terrain.py",
+      "reference_sha256": "e201058f615012a616043f55615f56cb360bb36d4be12bb2a487c50878cfe2e4",
+      "worktree_sha256": "e201058f615012a616043f55615f56cb360bb36d4be12bb2a487c50878cfe2e4"
+    },
+    {
+      "path": "implementation/worldgen/successor/validation.py",
+      "reference_sha256": "3b7bb3347b1a2d4be71795d746389ad2c99a7284f3d3bf0cc20b40f60a690e8f",
+      "worktree_sha256": "3b7bb3347b1a2d4be71795d746389ad2c99a7284f3d3bf0cc20b40f60a690e8f"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_economic_shadow.py",
+      "worktree_sha256": "0f905f3658a39076964ed3e2eb041fbd3720f4c2f516a527a651a4c53568f44a"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_greybox.py",
+      "reference_sha256": "b5629a2f92438d98b4a995393b3262f561f8ad26271cc7b50e905ccbf07d5fe8",
+      "worktree_sha256": "b5629a2f92438d98b4a995393b3262f561f8ad26271cc7b50e905ccbf07d5fe8"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_serialization.py",
+      "reference_sha256": "a6683b4f8918f2a52ffcb2887946ce6674fc26a73f2e6af70366f67557b62d96",
+      "worktree_sha256": "a6683b4f8918f2a52ffcb2887946ce6674fc26a73f2e6af70366f67557b62d96"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_staged_vanilla.py",
+      "reference_sha256": "0b6064d45782d786b66533f4d4e378087beac17cb5a652df41eadf9439660bfd",
+      "worktree_sha256": "0b6064d45782d786b66533f4d4e378087beac17cb5a652df41eadf9439660bfd"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_successor.py",
+      "reference_sha256": "286fd10566a51616d2169616b682f0fe859c8ba6c7eb87a8729d5cc2637402ab",
+      "worktree_sha256": "286fd10566a51616d2169616b682f0fe859c8ba6c7eb87a8729d5cc2637402ab"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a.py",
+      "reference_sha256": "d69aef09012cf445eab53a4b2e65a70c7a4bd0642baa7674973d108833c89921",
+      "worktree_sha256": "d69aef09012cf445eab53a4b2e65a70c7a4bd0642baa7674973d108833c89921"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a_destinations.py",
+      "reference_sha256": "064a8c0a7d3e92264a8fa1cc94038443860937b35a444b3608faedf5bf5821ab",
+      "worktree_sha256": "064a8c0a7d3e92264a8fa1cc94038443860937b35a444b3608faedf5bf5821ab"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a_local.py",
+      "reference_sha256": "213db22176b4649e1787819f79b2e59a0dccb973f773e3d7a3b4e8695b6c7231",
+      "worktree_sha256": "213db22176b4649e1787819f79b2e59a0dccb973f773e3d7a3b4e8695b6c7231"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a_network.py",
+      "reference_sha256": "73d19b716a85a62fb272031e80e0b05aaafb968a4b3ba00521b82e9913e54374",
+      "worktree_sha256": "73d19b716a85a62fb272031e80e0b05aaafb968a4b3ba00521b82e9913e54374"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a_opportunities.py",
+      "reference_sha256": "f9f2ed5d6f651800a3a582688f668f55be52a2332dec0ce8a94e8bf9daa70e1e",
+      "worktree_sha256": "f9f2ed5d6f651800a3a582688f668f55be52a2332dec0ce8a94e8bf9daa70e1e"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_a_refine.py",
+      "reference_sha256": "e240036a01db3c93117f6e4df5c0f81760b1324e9ed10473d16d7d4fb007a662",
+      "worktree_sha256": "e240036a01db3c93117f6e4df5c0f81760b1324e9ed10473d16d7d4fb007a662"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_b.py",
+      "reference_sha256": "3ac03b10239a23708b32c9ded4f0476a3bac7365e394e67f1605e12d2523ed6e",
+      "worktree_sha256": "3ac03b10239a23708b32c9ded4f0476a3bac7365e394e67f1605e12d2523ed6e"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_task_b_readiness.py",
+      "reference_sha256": "31ddbecad537080d554871a841662ff49897a91aff1571c6e1ddae66c0a4b00c",
+      "worktree_sha256": "31ddbecad537080d554871a841662ff49897a91aff1571c6e1ddae66c0a4b00c"
+    },
+    {
+      "path": "implementation/worldgen/tests/test_vanilla_search.py",
+      "reference_sha256": "1024c896fb0b0f150336521e14854aca53af31eca1b309a0dec85c173946fd9c",
+      "worktree_sha256": "1024c896fb0b0f150336521e14854aca53af31eca1b309a0dec85c173946fd9c"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/OPPORTUNITY_SHADOW.md",
+      "reference_sha256": "aacd26a3943735aa84de0b665e4fe677ad8b54a36253f99d03b0b09ccc67a734",
+      "worktree_sha256": "aacd26a3943735aa84de0b665e4fe677ad8b54a36253f99d03b0b09ccc67a734"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/TASK_A.md",
+      "reference_sha256": "39bfc6701087f834a46eb1099e47f4c2c6d619e899c476df1d8f1b71446cc3c1",
+      "worktree_sha256": "39bfc6701087f834a46eb1099e47f4c2c6d619e899c476df1d8f1b71446cc3c1"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/TASK_A_SEQUENCE.md",
+      "reference_sha256": "75f47de0cfcca8703acd0c3b832e679559243606b084c7b13ffc55a99b9de2de",
+      "worktree_sha256": "75f47de0cfcca8703acd0c3b832e679559243606b084c7b13ffc55a99b9de2de"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/__init__.py",
+      "reference_sha256": "3da6f6edf714763b438c342c68a52f92a903635fd7a7aaf5fd17b4e683424f41",
+      "worktree_sha256": "3da6f6edf714763b438c342c68a52f92a903635fd7a7aaf5fd17b4e683424f41"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/acquire.py",
+      "reference_sha256": "6309c5b92ae97f7df155e5c6b06e5a6b6de254943cfdcb89a13ae70701a1efe3",
+      "worktree_sha256": "6309c5b92ae97f7df155e5c6b06e5a6b6de254943cfdcb89a13ae70701a1efe3"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/evaluate.py",
+      "reference_sha256": "ceead9ce35d644eb8a30ad635fc4f19ec51a137e2b68559eb3614892b5eea164",
+      "worktree_sha256": "ceead9ce35d644eb8a30ad635fc4f19ec51a137e2b68559eb3614892b5eea164"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/extract.py",
+      "reference_sha256": "36d4edcc0dc62a8bd93f2093458887ba577fed55e888686faac88ec9216bdce5",
+      "worktree_sha256": "36d4edcc0dc62a8bd93f2093458887ba577fed55e888686faac88ec9216bdce5"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/fit.py",
+      "reference_sha256": "7e918a2db2dd1b256a4a92387c455da222cea28b84a4a5f103a355e2f74038cd",
+      "worktree_sha256": "7e918a2db2dd1b256a4a92387c455da222cea28b84a4a5f103a355e2f74038cd"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/pipeline.py",
+      "reference_sha256": "146160fbdfc24f7ec7fe11d29bac8a4d521c698314f5d5f221cc3e335615b56d",
+      "worktree_sha256": "146160fbdfc24f7ec7fe11d29bac8a4d521c698314f5d5f221cc3e335615b56d"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/render.py",
+      "reference_sha256": "15f1069617e72c4a60932875687114a0699fb94b4c51f3c417f6919f2614d135",
+      "worktree_sha256": "15f1069617e72c4a60932875687114a0699fb94b4c51f3c417f6919f2614d135"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/staged.py",
+      "reference_sha256": "2e71ab4f0e655afb9a9abca1ded5d6df54716aa8a01b90137c6a5de3334780ef",
+      "worktree_sha256": "2e71ab4f0e655afb9a9abca1ded5d6df54716aa8a01b90137c6a5de3334780ef"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a.py",
+      "reference_sha256": "a5ee63438fe8903b7d719b5e2ed9e3ef582012c3e0b6b29842d27dfca2901658",
+      "worktree_sha256": "a5ee63438fe8903b7d719b5e2ed9e3ef582012c3e0b6b29842d27dfca2901658"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_destinations.py",
+      "reference_sha256": "de38bdfa8e4e97282aca7d1f29ef696e0fbfc5c64169dee01e3703b043863efc",
+      "worktree_sha256": "de38bdfa8e4e97282aca7d1f29ef696e0fbfc5c64169dee01e3703b043863efc"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_local.py",
+      "reference_sha256": "cb9f0ba635e5953985c4185f787b2f78f5cdea09af24feceefd67268721267f2",
+      "worktree_sha256": "cb9f0ba635e5953985c4185f787b2f78f5cdea09af24feceefd67268721267f2"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_local_report.py",
+      "reference_sha256": "f03dde125b9b64e5a08becab87b6c01414cc267b8651bd1238b6ced8866faa66",
+      "worktree_sha256": "f03dde125b9b64e5a08becab87b6c01414cc267b8651bd1238b6ced8866faa66"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_network.py",
+      "reference_sha256": "ac44066251cd0c05e4111b0aa339ba045417cfc1cff9d0a4cf0695a98e14fe53",
+      "worktree_sha256": "ac44066251cd0c05e4111b0aa339ba045417cfc1cff9d0a4cf0695a98e14fe53"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_opportunities.py",
+      "reference_sha256": "ca799b0196e5c7a89677f127b85a1ee38f835736c549c7d7d0b5be6912c35286",
+      "worktree_sha256": "ca799b0196e5c7a89677f127b85a1ee38f835736c549c7d7d0b5be6912c35286"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_opportunity_report.py",
+      "reference_sha256": "9566033cfa128635e8e3ff6a978cdf6a4f3ff4c954630b4a15d26a3a6d485b0c",
+      "worktree_sha256": "9566033cfa128635e8e3ff6a978cdf6a4f3ff4c954630b4a15d26a3a6d485b0c"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_refine.py",
+      "reference_sha256": "f9b7b153c4fe81531e66377f26352596af10c8c77f6200ee1f85fc953cb7daac",
+      "worktree_sha256": "f9b7b153c4fe81531e66377f26352596af10c8c77f6200ee1f85fc953cb7daac"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_render.py",
+      "reference_sha256": "3374843da7d9b2a6c443cbd4d37241a8a4c3190f4d13dc9610a7dd64377cabd9",
+      "worktree_sha256": "3374843da7d9b2a6c443cbd4d37241a8a4c3190f4d13dc9610a7dd64377cabd9"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_a_review.py",
+      "reference_sha256": "70a862ff4d53cd2ca11bfedc297286a566eafe3112bc5be0f05f9e03534a961c",
+      "worktree_sha256": "70a862ff4d53cd2ca11bfedc297286a566eafe3112bc5be0f05f9e03534a961c"
+    },
+    {
+      "path": "implementation/worldgen/vanilla_search/task_b.py",
+      "reference_sha256": "e4e5fa3fbd3a4d8aa41b093ebd57de0a639a45fe6d4b6b8ccf8826ef1901710d",
+      "worktree_sha256": "e4e5fa3fbd3a4d8aa41b093ebd57de0a639a45fe6d4b6b8ccf8826ef1901710d"
+    },
+    {
+      "path": "infrastructure.md",
+      "reference_sha256": "694f686fa277e051d29c3948477f53b44c6f0ea4c42513d09db51f0bc5f5bcac",
+      "worktree_sha256": "2de95630d279f94728df320c434d66eee2ffd1d66a7489cf4069d19344db1f42"
+    },
+    {
+      "path": "maps.md",
+      "reference_sha256": "9bc161411ad59a24a104e49b44d5cd286c407209183e3402c7d3c6e0f4968dd0",
+      "worktree_sha256": "119b59434820c1af4c93a3fd2ad61f23b3c065ac086e42506adeb521e71c0f7e"
+    },
+    {
+      "path": "objectives.md",
+      "reference_sha256": "8d8d669528c572c1215bc95638d71591ebb09605934d9f46a6ac0f05ae7c5589",
+      "worktree_sha256": "17e5923e39baf409328930a7e35af5327849506b7ae81ea532e53bda71cfa037"
+    },
+    {
+      "path": "specs/mapseedsearchspec1.md",
+      "reference_sha256": "74ca4866a53faff965e1cecd8ce0ee379516473c430b6a26a69f75efb981564d",
+      "worktree_sha256": "74ca4866a53faff965e1cecd8ce0ee379516473c430b6a26a69f75efb981564d"
+    },
+    {
+      "path": "specs/mapseedsearchspec2.md",
+      "reference_sha256": "9cd9661dd750f6769306d01662cb295a35457e310dba9f4c6f1ac9d15b20d815",
+      "worktree_sha256": "9cd9661dd750f6769306d01662cb295a35457e310dba9f4c6f1ac9d15b20d815"
+    },
+    {
+      "path": "specs/mapseedsearchspec3.md",
+      "reference_sha256": "65c20fe8b71cd09d61c62d3774e3e7cea37381dbf226bfdbff3e7fe55f319029",
+      "worktree_sha256": "65c20fe8b71cd09d61c62d3774e3e7cea37381dbf226bfdbff3e7fe55f319029"
+    },
+    {
+      "path": "specs/mapseedsearchspec4.md",
+      "reference_sha256": "c2146283384fdd817a8f6f28c0470070f2b112b6a22e7599a3d6d8d9f4b6afa5",
+      "worktree_sha256": "c2146283384fdd817a8f6f28c0470070f2b112b6a22e7599a3d6d8d9f4b6afa5"
+    }
+  ],
+  "identity": {
+    "branch": "main",
+    "reference_commit": "9c85c915599f410cdadf26dbc76de9b7b9b55220",
+    "remote": "https://github.com/iracarranza/minecraftmoba.git",
+    "starting_commit": "be06814fbcbe8bf8e62386ef591bf48e296faf17"
+  },
+  "scope": "Tracked working tree and pinned local origin/main; no network freshness claim. Local edits retained."
+}

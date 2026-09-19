@@ -1,0 +1,52 @@
+[
+  {
+    "capability": "canonical design",
+    "inspected_sources": "maps.md; objectives.md; infrastructure.md; classes.md",
+    "established_scope": "Working-tree authorities exist with local edits; pinned origin/main alternatives hashed separately. No reconciliation or authority edits made."
+  },
+  {
+    "capability": "current manuscript",
+    "inspected_sources": "docs/manuscript/Minecraft-MOBA-Design.md; docs/manuscript/2026-09-14-Economic-Calibration-Supplement.md; docs/manuscript/2026-09-14-UAU-Work-Stock-and-Practical-Reach.md",
+    "established_scope": "Both Sept 14 supplements exist in pinned origin/main, not this older working tree. Later UAU supplement provides Working 256 WP/UAU and resolves the preceding supplement\u2019s historical missing-UAU boundary. Numerical resource fields remain fixtures, not generation quotas."
+  },
+  {
+    "capability": "seed search and fitter",
+    "inspected_sources": "implementation/worldgen/vanilla_search/task_a.py; task_a_destinations.py; task_a_local.py; task_a_network.py; specs/mapseedsearchspec4.md",
+    "established_scope": "Frozen oriented grids, homeland-relative fields, destination-first handoffs, local continuation and deep networks. Eight-block terrain; analytical travel cost, not seconds or Hunger."
+  },
+  {
+    "capability": "Opening Opportunity Relationship",
+    "inspected_sources": "implementation/worldgen/vanilla_search/OPPORTUNITY_SHADOW.md; implementation/worldgen/results/default_opportunity_shadow_2026-09-11/REPORT.md; both seed fit.json files",
+    "established_scope": "Conditional water reach, affordance/payoff chains, set overlap and substitution. Preserved verbatim in measurements.json; not reranked."
+  },
+  {
+    "capability": "surface extraction",
+    "inspected_sources": "implementation/worldgen/vanilla_search/extract.py",
+    "established_scope": "Anvil palette decoding, 8-block terrain/biome/water/canopy samples, structure starts and section-level cave/water/lava palette presence. Presence is not a resource block count or entrance proof."
+  },
+  {
+    "capability": "block decoding",
+    "inspected_sources": "implementation/worldgen/serialization/region.py; implementation/worldgen/serialization/nbt.py; implementation/worldgen/serialization/inspect.py",
+    "established_scope": "Existing read_region and VanillaChunk reused. WorldReader also supports block counts but its validation is tied to authored serialization fixtures; it is not evidence for target-seed accessible resources."
+  },
+  {
+    "capability": "resource contract",
+    "inspected_sources": "implementation/worldgen/analysis/resource_contract.py",
+    "established_scope": "Vocabulary/existence validation only; no abundance, accessibility, depletion or economic field measurement."
+  },
+  {
+    "capability": "physical worlds",
+    "inspected_sources": "artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930010639_2048_0; artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930012642_-2048_0",
+    "established_scope": "Both worlds exist locally outside tracked corpus. level.dat seed checked, version recorded, consumed region hashes checked before/after. GREYBOX.json says terrain unchanged, but pristine-generation equivalence is not independently established."
+  },
+  {
+    "capability": "Task B preservation",
+    "inspected_sources": "implementation/worldgen/results/default_task_b_2026-09-10/<seed>/preservation_audit.json",
+    "established_scope": "Separate physical authoring audit exists; do not confuse its edited output with the staged inspection world measured here."
+  },
+  {
+    "capability": "new bounded ore observation",
+    "inspected_sources": "implementation/worldgen/economic_shadow.py",
+    "established_scope": "Read-only full block-state observations in handoff-centered cuboids, clipped to recorded seed bounds. Counts, material breadth, six-face components, boundary truncation and vertical distribution; no yield, accessibility or time model."
+  }
+]
