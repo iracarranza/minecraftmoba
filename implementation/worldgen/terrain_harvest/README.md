@@ -186,3 +186,25 @@ for reviewed near misses, or `large_section` for a large subsystem. The command
 refuses selections outside the candidate's observed bounds, and whole-map
 retention without explicit Stage C evidence. `gallery` discovers all `tv_*.json`
 references in its input library, including individually added references.
+
+## Read-only boundary transects
+
+The [autonomous follow-up plan](NEXT_STEPS.md) records the full engineering queue.
+The first tool observes four cardinal vertical transects in the pinned **natural
+source**, never the artificial gallery shell. The default 16-block vertical step
+is an explicit sampling fixture; top and bottom are included. Exact block
+properties are retained. No collision, cave connection, port width, medium
+traversability or seam score is inferred. Source hashes must match the existing
+materialization record before and after observation. Missing observations fail.
+
+```sh
+PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.profiles \
+  --gallery artifacts/worldgen/terrain_harvest_2026-09-18/worlds/TerrainGallery \
+  --source 930010639=/Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930010639_2048_0 \
+  --source 930012642=/Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930012642_-2048_0 \
+  --vertical-step 16 \
+  --output implementation/worldgen/reports/terrain_harvest_2026-09-18/boundary-profiles.json
+```
+
+Use a fresh output path for repeats. Profiles are observations and candidate
+interface groundwork, not a recommendation to join the sampled volumes.
