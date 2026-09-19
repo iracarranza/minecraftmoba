@@ -1,0 +1,103 @@
+{
+  "pass": true,
+  "schema": "terrain_preservation_audits/1",
+  "volumes": [
+    {
+      "clipped_section_limit": null,
+      "coverage": {
+        "cell_mismatches": 0,
+        "cells_compared": 2564096,
+        "chunks_absent_ok": 0,
+        "chunks_audited": 25,
+        "chunks_in_range": 25,
+        "sections_clipped_compared": 513,
+        "sections_clipped_skipped": 0,
+        "sections_retained": 113
+      },
+      "entities": {
+        "excluded_root_outside_mask": 5,
+        "source_roots": 5
+      },
+      "evidence_state": "DERIVED MEASUREMENT",
+      "exhaustive": true,
+      "failure_count": 0,
+      "failures": [],
+      "method": "destination recomputed from source snapshot and mask independently of the exporter",
+      "not_covered": [
+        "lighting recomputation",
+        "structure/POI behaviour after load",
+        "simulation behaviour once unfrozen",
+        "client rendering"
+      ],
+      "pass": true,
+      "schema": "terrain_preservation_audit/1",
+      "volume_id": "tv_49b22bb49e0684c3a1295570"
+    },
+    {
+      "clipped_section_limit": null,
+      "coverage": {
+        "cell_mismatches": 0,
+        "cells_compared": 405536768,
+        "chunks_absent_ok": 0,
+        "chunks_audited": 3808,
+        "chunks_in_range": 3808,
+        "sections_clipped_compared": 13472,
+        "sections_clipped_skipped": 0,
+        "sections_retained": 85536
+      },
+      "entities": {
+        "destination_roots": 579,
+        "excluded_root_outside_mask": 14,
+        "expected_kept": 579,
+        "source_roots": 593
+      },
+      "evidence_state": "DERIVED MEASUREMENT",
+      "exhaustive": true,
+      "failure_count": 0,
+      "failures": [],
+      "method": "destination recomputed from source snapshot and mask independently of the exporter",
+      "not_covered": [
+        "lighting recomputation",
+        "structure/POI behaviour after load",
+        "simulation behaviour once unfrozen",
+        "client rendering"
+      ],
+      "pass": true,
+      "schema": "terrain_preservation_audit/1",
+      "volume_id": "tv_51a79e3b1bee05ea7559e799"
+    },
+    {
+      "clipped_section_limit": null,
+      "coverage": {
+        "cell_mismatches": 0,
+        "cells_compared": 405536768,
+        "chunks_absent_ok": 0,
+        "chunks_audited": 3808,
+        "chunks_in_range": 3808,
+        "sections_clipped_compared": 13472,
+        "sections_clipped_skipped": 0,
+        "sections_retained": 85536
+      },
+      "entities": {
+        "destination_roots": 809,
+        "excluded_root_outside_mask": 56,
+        "expected_kept": 809,
+        "source_roots": 865
+      },
+      "evidence_state": "DERIVED MEASUREMENT",
+      "exhaustive": true,
+      "failure_count": 0,
+      "failures": [],
+      "method": "destination recomputed from source snapshot and mask independently of the exporter",
+      "not_covered": [
+        "lighting recomputation",
+        "structure/POI behaviour after load",
+        "simulation behaviour once unfrozen",
+        "client rendering"
+      ],
+      "pass": true,
+      "schema": "terrain_preservation_audit/1",
+      "volume_id": "tv_ef56852eda10acc88342e5ee"
+    }
+  ]
+}

@@ -158,6 +158,34 @@ pass/fail/unknown evidence is retained in each dimension's `terrain_volume.json`
 `/function harvest:overview/<ID>` enables external spectator inspection; `visit`
 restores normal Adventure inspection. No polished UI or gameplay systems.
 
+## Independent preservation audit
+
+`preservation.py` recomputes expected destination state from the source snapshot
+and the mask alone. It never calls the exporter, so an exporter defect cannot
+certify itself. Fully retained sections are compared as whole typed NBT
+containers; clipped sections are compared cell by cell. Block entities and
+scheduled ticks are compared by position and typed identity; entity roots by
+typed-identity multiset, with each exclusion attributed to the root or to a
+passenger leaving the mask. `fingerprint()` preserves NBT type and list-kind
+distinctions that `plain()` collapses.
+
+Coverage is reported literally rather than implied. Counters are pre-seeded so a
+missing key cannot read as full coverage, and `exhaustive` is false whenever
+`--max-clipped-sections` skipped anything. The audit does **not** cover lighting
+recomputation, structure/POI behaviour after load, simulation once unfrozen, or
+client rendering; every report lists these under `not_covered`.
+
+```sh
+PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.preservation \
+  --gallery artifacts/worldgen/terrain_harvest_2026-09-18/worlds/TerrainGallery \
+  --source 930010639=/Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930010639_2048_0 \
+  --source 930012642=/Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930012642_-2048_0 \
+  --output implementation/worldgen/reports/terrain_harvest_2026-09-18/preservation-audit.json
+```
+
+Add repeated `--id tv_...` to audit selected volumes. Exit status is nonzero on
+any failure, and failing runs still write the report.
+
 ## Remaining work
 
 Manifest validity, deterministic masks, copied world output, server loading and
