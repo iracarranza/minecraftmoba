@@ -9,6 +9,7 @@ from vanilla_search.extract import VanillaChunk
 from serialization.nbt import plain
 from .materialize import empty_chunk, export_volume, json_write, sha
 from .model import Mask,dumps,validate
+from .lifecycle import write_receipt
 
 VOID={'type':'harvest:inspection','generator':{'type':'minecraft:flat','settings':{'biome':'minecraft:the_void','layers':[], 'features':False,'lakes':False,'structure_overrides':[]}}}
 DIMENSION_TYPE={'ambient_light':0.0,'coordinate_scale':1.0,'has_ceiling':False,'has_skylight':True,
@@ -83,9 +84,12 @@ def build_gallery(volumes, sources, output):
         ident=v['id'];dest=output/'dimensions/harvest'/ident
         json_write(base/f'dimension/{ident}.json',VOID)
         print('Materializing '+ident+' '+v['classification']['kind'],flush=True)
-        records.append(export_volume(v,sources[v['provenance']['source_seed']],dest))
+        source=sources[v['provenance']['source_seed']]
+        record=export_volume(v,source,dest);records.append(record)
         targets[ident]=find_target(dest,v)
         (dest/'terrain_volume.json').write_text(dumps(v))
+        # Receipt last: an interrupted volume is left without one, never with a false one.
+        write_receipt(dest,v,record,source)
     source=next(iter(sources.values()));name,root=load_gzip(source/'level.dat');data=root.value['Data'].value
     for k in ('Player','BossEvents','WanderingTraderId'):data.pop(k,None)
     data['ScheduledEvents']=list_tag(COMPOUND,[]);data['CustomBossEvents']=compound()
