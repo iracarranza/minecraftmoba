@@ -1,0 +1,96 @@
+Unpacking 1.21.11/server-1.21.11.jar (versions:1.21.11) to versions/1.21.11/server-1.21.11.jar
+Unpacking at/yawk/lz4/lz4-java/1.8.1/lz4-java-1.8.1.jar (libraries:at.yawk.lz4:lz4-java:1.8.1) to libraries/at/yawk/lz4/lz4-java/1.8.1/lz4-java-1.8.1.jar
+Unpacking com/azure/azure-json/1.4.0/azure-json-1.4.0.jar (libraries:com.azure:azure-json:1.4.0) to libraries/com/azure/azure-json/1.4.0/azure-json-1.4.0.jar
+Unpacking com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar (libraries:com.github.oshi:oshi-core:6.9.0) to libraries/com/github/oshi/oshi-core/6.9.0/oshi-core-6.9.0.jar
+Unpacking com/google/code/gson/gson/2.13.2/gson-2.13.2.jar (libraries:com.google.code.gson:gson:2.13.2) to libraries/com/google/code/gson/gson/2.13.2/gson-2.13.2.jar
+Unpacking com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar (libraries:com.google.guava:failureaccess:1.0.3) to libraries/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+Unpacking com/google/guava/guava/33.5.0-jre/guava-33.5.0-jre.jar (libraries:com.google.guava:guava:33.5.0-jre) to libraries/com/google/guava/guava/33.5.0-jre/guava-33.5.0-jre.jar
+Unpacking com/microsoft/azure/msal4j/1.23.1/msal4j-1.23.1.jar (libraries:com.microsoft.azure:msal4j:1.23.1) to libraries/com/microsoft/azure/msal4j/1.23.1/msal4j-1.23.1.jar
+Unpacking com/mojang/authlib/7.0.61/authlib-7.0.61.jar (libraries:com.mojang:authlib:7.0.61) to libraries/com/mojang/authlib/7.0.61/authlib-7.0.61.jar
+Unpacking com/mojang/brigadier/1.3.10/brigadier-1.3.10.jar (libraries:com.mojang:brigadier:1.3.10) to libraries/com/mojang/brigadier/1.3.10/brigadier-1.3.10.jar
+Unpacking com/mojang/datafixerupper/9.0.19/datafixerupper-9.0.19.jar (libraries:com.mojang:datafixerupper:9.0.19) to libraries/com/mojang/datafixerupper/9.0.19/datafixerupper-9.0.19.jar
+Unpacking com/mojang/jtracy/1.0.37/jtracy-1.0.37.jar (libraries:com.mojang:jtracy:1.0.37) to libraries/com/mojang/jtracy/1.0.37/jtracy-1.0.37.jar
+Unpacking com/mojang/logging/1.6.11/logging-1.6.11.jar (libraries:com.mojang:logging:1.6.11) to libraries/com/mojang/logging/1.6.11/logging-1.6.11.jar
+Unpacking commons-io/commons-io/2.20.0/commons-io-2.20.0.jar (libraries:commons-io:commons-io:2.20.0) to libraries/commons-io/commons-io/2.20.0/commons-io-2.20.0.jar
+Unpacking io/netty/netty-buffer/4.2.7.Final/netty-buffer-4.2.7.Final.jar (libraries:io.netty:netty-buffer:4.2.7.Final) to libraries/io/netty/netty-buffer/4.2.7.Final/netty-buffer-4.2.7.Final.jar
+Unpacking io/netty/netty-codec-base/4.2.7.Final/netty-codec-base-4.2.7.Final.jar (libraries:io.netty:netty-codec-base:4.2.7.Final) to libraries/io/netty/netty-codec-base/4.2.7.Final/netty-codec-base-4.2.7.Final.jar
+Unpacking io/netty/netty-codec-compression/4.2.7.Final/netty-codec-compression-4.2.7.Final.jar (libraries:io.netty:netty-codec-compression:4.2.7.Final) to libraries/io/netty/netty-codec-compression/4.2.7.Final/netty-codec-compression-4.2.7.Final.jar
+Unpacking io/netty/netty-codec-http/4.2.7.Final/netty-codec-http-4.2.7.Final.jar (libraries:io.netty:netty-codec-http:4.2.7.Final) to libraries/io/netty/netty-codec-http/4.2.7.Final/netty-codec-http-4.2.7.Final.jar
+Unpacking io/netty/netty-common/4.2.7.Final/netty-common-4.2.7.Final.jar (libraries:io.netty:netty-common:4.2.7.Final) to libraries/io/netty/netty-common/4.2.7.Final/netty-common-4.2.7.Final.jar
+Unpacking io/netty/netty-handler/4.2.7.Final/netty-handler-4.2.7.Final.jar (libraries:io.netty:netty-handler:4.2.7.Final) to libraries/io/netty/netty-handler/4.2.7.Final/netty-handler-4.2.7.Final.jar
+Unpacking io/netty/netty-resolver/4.2.7.Final/netty-resolver-4.2.7.Final.jar (libraries:io.netty:netty-resolver:4.2.7.Final) to libraries/io/netty/netty-resolver/4.2.7.Final/netty-resolver-4.2.7.Final.jar
+Unpacking io/netty/netty-transport/4.2.7.Final/netty-transport-4.2.7.Final.jar (libraries:io.netty:netty-transport:4.2.7.Final) to libraries/io/netty/netty-transport/4.2.7.Final/netty-transport-4.2.7.Final.jar
+Unpacking io/netty/netty-transport-classes-epoll/4.2.7.Final/netty-transport-classes-epoll-4.2.7.Final.jar (libraries:io.netty:netty-transport-classes-epoll:4.2.7.Final) to libraries/io/netty/netty-transport-classes-epoll/4.2.7.Final/netty-transport-classes-epoll-4.2.7.Final.jar
+Unpacking io/netty/netty-transport-classes-kqueue/4.2.7.Final/netty-transport-classes-kqueue-4.2.7.Final.jar (libraries:io.netty:netty-transport-classes-kqueue:4.2.7.Final) to libraries/io/netty/netty-transport-classes-kqueue/4.2.7.Final/netty-transport-classes-kqueue-4.2.7.Final.jar
+Unpacking io/netty/netty-transport-native-epoll/4.2.7.Final/netty-transport-native-epoll-4.2.7.Final-linux-x86_64.jar (libraries:io.netty:netty-transport-native-epoll:4.2.7.Final:linux-x86_64) to libraries/io/netty/netty-transport-native-epoll/4.2.7.Final/netty-transport-native-epoll-4.2.7.Final-linux-x86_64.jar
+Unpacking io/netty/netty-transport-native-epoll/4.2.7.Final/netty-transport-native-epoll-4.2.7.Final-linux-aarch_64.jar (libraries:io.netty:netty-transport-native-epoll:4.2.7.Final:linux-aarch_64) to libraries/io/netty/netty-transport-native-epoll/4.2.7.Final/netty-transport-native-epoll-4.2.7.Final-linux-aarch_64.jar
+Unpacking io/netty/netty-transport-native-kqueue/4.2.7.Final/netty-transport-native-kqueue-4.2.7.Final-osx-x86_64.jar (libraries:io.netty:netty-transport-native-kqueue:4.2.7.Final:osx-x86_64) to libraries/io/netty/netty-transport-native-kqueue/4.2.7.Final/netty-transport-native-kqueue-4.2.7.Final-osx-x86_64.jar
+Unpacking io/netty/netty-transport-native-kqueue/4.2.7.Final/netty-transport-native-kqueue-4.2.7.Final-osx-aarch_64.jar (libraries:io.netty:netty-transport-native-kqueue:4.2.7.Final:osx-aarch_64) to libraries/io/netty/netty-transport-native-kqueue/4.2.7.Final/netty-transport-native-kqueue-4.2.7.Final-osx-aarch_64.jar
+Unpacking io/netty/netty-transport-native-unix-common/4.2.7.Final/netty-transport-native-unix-common-4.2.7.Final.jar (libraries:io.netty:netty-transport-native-unix-common:4.2.7.Final) to libraries/io/netty/netty-transport-native-unix-common/4.2.7.Final/netty-transport-native-unix-common-4.2.7.Final.jar
+Unpacking it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar (libraries:it.unimi.dsi:fastutil:8.5.18) to libraries/it/unimi/dsi/fastutil/8.5.18/fastutil-8.5.18.jar
+Unpacking net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar (libraries:net.java.dev.jna:jna:5.17.0) to libraries/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar
+Unpacking net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar (libraries:net.java.dev.jna:jna-platform:5.17.0) to libraries/net/java/dev/jna/jna-platform/5.17.0/jna-platform-5.17.0.jar
+Unpacking net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar (libraries:net.sf.jopt-simple:jopt-simple:5.0.4) to libraries/net/sf/jopt-simple/jopt-simple/5.0.4/jopt-simple-5.0.4.jar
+Unpacking org/apache/commons/commons-lang3/3.19.0/commons-lang3-3.19.0.jar (libraries:org.apache.commons:commons-lang3:3.19.0) to libraries/org/apache/commons/commons-lang3/3.19.0/commons-lang3-3.19.0.jar
+Unpacking org/apache/logging/log4j/log4j-api/2.25.2/log4j-api-2.25.2.jar (libraries:org.apache.logging.log4j:log4j-api:2.25.2) to libraries/org/apache/logging/log4j/log4j-api/2.25.2/log4j-api-2.25.2.jar
+Unpacking org/apache/logging/log4j/log4j-core/2.25.2/log4j-core-2.25.2.jar (libraries:org.apache.logging.log4j:log4j-core:2.25.2) to libraries/org/apache/logging/log4j/log4j-core/2.25.2/log4j-core-2.25.2.jar
+Unpacking org/apache/logging/log4j/log4j-slf4j2-impl/2.25.2/log4j-slf4j2-impl-2.25.2.jar (libraries:org.apache.logging.log4j:log4j-slf4j2-impl:2.25.2) to libraries/org/apache/logging/log4j/log4j-slf4j2-impl/2.25.2/log4j-slf4j2-impl-2.25.2.jar
+Unpacking org/joml/joml/1.10.8/joml-1.10.8.jar (libraries:org.joml:joml:1.10.8) to libraries/org/joml/joml/1.10.8/joml-1.10.8.jar
+Unpacking org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar (libraries:org.jspecify:jspecify:1.0.0) to libraries/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+Unpacking org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar (libraries:org.slf4j:slf4j-api:2.0.17) to libraries/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+Starting net.minecraft.server.Main
+[20:26:30] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[20:26:30] [ServerMain/ERROR]: key missing: DragonFight in {CustomBossEvents:{},DataPacks:{Disabled:[],Enabled:["vanilla","file/terrain_gallery"]},DataVersion:4671,DayTime:6000L,Difficulty:1b,DifficultyLocked:0b,GameType:2,LastPlayed:0L,LevelName:"Terrain Harvest Gallery",ScheduledEvents:[],ServerBrands:["vanilla"],SpawnX:1812,SpawnY:68,SpawnZ:-244,Time:6000L,Version:{Id:4671,Name:"1.21.11",Series:"main",Snapshot:0b},WanderingTraderSpawnChance:25,WanderingTraderSpawnDelay:24000,WasModded:0b,WorldGenSettings:{bonus_chest:0b,dimensions:{"minecraft:overworld":{generator:{settings:{biome:"minecraft:the_void",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:"minecraft:flat"},type:"harvest:inspection"},"minecraft:the_end":{generator:{settings:{biome:"minecraft:the_void",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:"minecraft:flat"},type:"harvest:inspection"},"minecraft:the_nether":{generator:{settings:{biome:"minecraft:the_void",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:"minecraft:flat"},type:"harvest:inspection"}},generate_features:0b,seed:0L},allowCommands:1b,clearWeatherTime:0,game_rules:{"minecraft:advance_time":0b,"minecraft:advance_weather":0b,"minecraft:allow_entering_nether_using_portals":0b,"minecraft:block_drops":1b,"minecraft:block_explosion_drop_decay":1b,"minecraft:command_block_output":1b,"minecraft:command_blocks_work":1b,"minecraft:drowning_damage":1b,"minecraft:elytra_movement_check":1b,"minecraft:ender_pearls_vanish_on_death":1b,"minecraft:entity_drops":1b,"minecraft:fall_damage":1b,"minecraft:fire_damage":1b,"minecraft:fire_spread_radius_around_player":128,"minecraft:forgive_dead_players":1b,"minecraft:freeze_damage":1b,"minecraft:global_sound_events":1b,"minecraft:immediate_respawn":0b,"minecraft:keep_inventory":1b,"minecraft:lava_source_conversion":0b,"minecraft:limited_crafting":0b,"minecraft:locator_bar":1b,"minecraft:log_admin_commands":1b,"minecraft:max_block_modifications":32768,"minecraft:max_command_forks":65536,"minecraft:max_command_sequence_length":65536,"minecraft:max_entity_cramming":24,"minecraft:max_snow_accumulation_height":1,"minecraft:mob_drops":1b,"minecraft:mob_explosion_drop_decay":1b,"minecraft:mob_griefing":1b,"minecraft:natural_health_regeneration":1b,"minecraft:player_movement_check":1b,"minecraft:players_nether_portal_creative_delay":0,"minecraft:players_nether_portal_default_delay":80,"minecraft:players_sleeping_percentage":100,"minecraft:projectiles_can_break_blocks":1b,"minecraft:pvp":1b,"minecraft:raids":1b,"minecraft:random_tick_speed":0,"minecraft:reduced_debug_info":0b,"minecraft:respawn_radius":0,"minecraft:send_command_feedback":1b,"minecraft:show_advancement_messages":1b,"minecraft:show_death_messages":1b,"minecraft:spawn_mobs":0b,"minecraft:spawn_monsters":1b,"minecraft:spawn_patrols":1b,"minecraft:spawn_phantoms":1b,"minecraft:spawn_wandering_traders":1b,"minecraft:spawn_wardens":1b,"minecraft:spawner_blocks_work":1b,"minecraft:spectators_generate_chunks":1b,"minecraft:spread_vines":1b,"minecraft:tnt_explodes":1b,"minecraft:tnt_explosion_drop_decay":0b,"minecraft:universal_anger":0b,"minecraft:water_source_conversion":1b},hardcore:0b,initialized:1b,rainTime:111204,raining:0b,spawn:{dimension:"minecraft:overworld",pitch:0.0f,pos:[I;0,65,0],yaw:0.0f},thunderTime:72232,thundering:0b,version:19133}
+[20:26:31] [ServerMain/INFO]: Loaded 1470 recipes
+[20:26:31] [ServerMain/ERROR]: Failed to load function harvest:load
+java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at bbf.b(SourceFile:51)
+	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1423)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)
+Caused by: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]
+	at ht.a(SourceFile:80)
+	at anh.a(SourceFile:85)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 7 more
+[20:26:31] [ServerMain/ERROR]: Couldn't load tag minecraft:load as it is missing following references: harvest:load (from file/terrain_gallery)
+[20:26:31] [ServerMain/INFO]: Loaded 1584 advancements
+[20:26:31] [Server thread/INFO]: Starting minecraft server version 1.21.11
+[20:26:31] [Server thread/INFO]: Loading properties
+[20:26:31] [Server thread/INFO]: Default game type: SURVIVAL
+[20:26:31] [Server thread/INFO]: Generating keypair
+[20:26:31] [Server thread/INFO]: Starting Minecraft server on 127.0.0.1:0
+[20:26:31] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[20:26:31] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[20:26:31] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[20:26:31] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[20:26:31] [Server thread/INFO]: Preparing level "world"
+[20:26:31] [Server thread/INFO]: Loading 0 persistent chunks...
+[20:26:31] [Server thread/INFO]: Preparing spawn area: 100%
+[20:26:31] [Server thread/INFO]: Time elapsed: 13 ms
+[20:26:31] [Server thread/INFO]: Done (0.086s)! For help, type "help"
+[20:26:31] [Server thread/INFO]: The game is frozen
+[20:26:31] [Server thread/INFO]: Marked chunk [121, 22] in harvest:tv_49b22bb49e0684c3a1295570 to be force loaded
+[20:26:39] [Server thread/INFO]: [Not Secure] [Server] HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor
+[20:26:39] [Server thread/INFO]: [Not Secure] [Server] HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof
+[20:26:39] [Server thread/INFO]: Saving the game (this may take a moment!)
+[20:26:39] [Server thread/INFO]: Saved the game
+[20:26:39] [Server thread/INFO]: Stopping the server
+[20:26:39] [Server thread/INFO]: Stopping server
+[20:26:39] [Server thread/INFO]: Saving players
+[20:26:39] [Server thread/INFO]: Saving worlds
+[20:26:40] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Terrain Harvest Gallery]'/minecraft:overworld
+[20:26:40] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Terrain Harvest Gallery]'/minecraft:the_end
+[20:26:40] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Terrain Harvest Gallery]'/minecraft:the_nether
+[20:26:40] [Server thread/INFO]: Saving chunks for level 'ServerLevel[Terrain Harvest Gallery]'/harvest:tv_49b22bb49e0684c3a1295570
+[20:26:40] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[20:26:40] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[20:26:40] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[20:26:40] [Server thread/INFO]: ThreadedAnvilChunkStorage (tv_49b22bb49e0684c3a1295570): All chunks are saved
+[20:26:40] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved

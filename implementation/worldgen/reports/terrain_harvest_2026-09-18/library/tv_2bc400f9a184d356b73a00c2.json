@@ -1,0 +1,146 @@
+{
+  "boundary": {
+    "geometry_type": "box",
+    "inclusion_rule": "integer_block_coordinates_inclusive_v1",
+    "parameters": {}
+  },
+  "classification": {
+    "failed_or_unresolved_criteria": [],
+    "geographic_tags": [],
+    "kind": "whole_map"
+  },
+  "connection_interfaces": [],
+  "id": "tv_2bc400f9a184d356b73a00c2",
+  "materialization_status": "reference_only",
+  "measurements": [
+    {
+      "evidence_state": "DERIVED MEASUREMENT",
+      "logical_orientation": {
+        "east_west_reflected": false,
+        "logical_dimensions_blocks": [
+          864,
+          1056
+        ],
+        "rotation_degrees_clockwise": 180
+      },
+      "metrics": {
+        "actual_river_mouth_sample_cells": 14,
+        "actual_river_water_cells": 633,
+        "actual_surface_water_fraction": 0.1365,
+        "actual_water_body_count": 56,
+        "coastal_buildable_sample_cells": 65,
+        "coastline_sample_edge_blocks": 4600,
+        "east_actual_ocean_fraction": 0.1553,
+        "east_coast_boundary_variation_blocks": 62.93,
+        "east_coast_headland_cove_turns": 8,
+        "east_over_west_ocean_advantage": 0.1553,
+        "forest_interior_depth_blocks": 232,
+        "forest_region_count": 8,
+        "highland_depth_blocks": 472,
+        "highland_fraction_west": 0.2886,
+        "homeland_developability_bias": 0.1728,
+        "largest_actual_water_body_blocks2": 75200,
+        "largest_forest_region_blocks2": 268672,
+        "local_relief_p90_y": 14,
+        "open_buildable_fraction_of_land": 0.2512,
+        "snow_cold_cells_west": 2909,
+        "steep_fraction": 0.5113,
+        "west_actual_ocean_fraction": 0.0,
+        "western_approach_bands": 9,
+        "western_mean_elevation_advantage_y": -1.469,
+        "western_wall_concentration": 0.0382
+      },
+      "note": "logical fitter orientation is not physical block rotation",
+      "scope": "original full candidate, not recomputed for clipped sections",
+      "stage_c": {
+        "actual_canopy_fraction": 0.178,
+        "center_open_fraction": 0.4236,
+        "eastern_ocean_fraction": 0.1553,
+        "forest_biome_fraction": 0.3774,
+        "genuine_open_ground_fraction": 0.2767,
+        "hard_failures": [],
+        "largest_dry_component_fraction_of_land": 0.9998,
+        "largest_open_patch_blocks2": 68160,
+        "limitations": [
+          "8-block samples miss thin barriers and small clearings",
+          "open ground is sampled substrate and top-block evidence, not sightline measurement",
+          "highland core diameter uses Manhattan distance; internal mountain quality remains manual"
+        ],
+        "sampled_surface_water_fraction": 0.1365,
+        "score": 46.332,
+        "terrain_height_range": [
+          -11,
+          182
+        ],
+        "western_cold_highland_samples": 1374,
+        "western_highland_core_diameter_proxy_blocks": 224,
+        "western_highland_fraction": 0.4148,
+        "western_ocean_fraction": 0.0
+      }
+    },
+    {
+      "evidence_state": "INTERPRETATION",
+      "finalist_assessment": {
+        "correction_burden": "Modest local access/vegetation work provisionally plausible",
+        "evidence": "automated actual-surface and analytical-fit assessment, subject to manual interior review",
+        "macro_repair_proposed": false,
+        "principal_weakness": "Coarse ground samples cannot establish block-scale access, interior sightlines or homeland resource equivalence",
+        "survival_rationale": "Actual western cold highlands, eastern ocean, distinct open/forest geography and plausible separated development sites within the chosen bounds"
+      }
+    },
+    {
+      "criteria": [
+        "physical traversal",
+        "homeland resource equivalence",
+        "Practical Reach",
+        "final Default acceptance"
+      ],
+      "evidence_state": "UNRESOLVED"
+    },
+    {
+      "evidence_state": "DERIVED MEASUREMENT",
+      "note": "frozen Handoffs, Opportunity Relationships, local/deep networks retained at source; no refit",
+      "source": {
+        "path": "implementation/worldgen/results/default_opportunity_shadow_2026-09-11/930016664/fit.json",
+        "sha256": "2c59511572ad1c9bd237fb40230b898dbec6bb295cb25f5d6f79496de7ad7e06"
+      },
+      "status": "analytical/descriptive; no physical readiness or seed verdict"
+    }
+  ],
+  "provenance": {
+    "data_version": 4671,
+    "minecraft_version": "1.21.11",
+    "source_analysis_record": {
+      "path": "implementation/worldgen/results/staged_default_2026-09-09/finalists/930016664/candidate.json",
+      "sha256": "caa31e1ecbfe09a577992cb12084a0947a4bea3f86ad920dbc25f00d2a76a362"
+    },
+    "source_bounds": {
+      "x": [
+        -432,
+        431
+      ],
+      "y": [
+        -64,
+        319
+      ],
+      "z": [
+        1520,
+        2575
+      ]
+    },
+    "source_dimension": "minecraft:overworld",
+    "source_seed": 930016664,
+    "worldgen_settings": {
+      "status": "UNRESOLVED until source level.dat is read; original generator: staged_vanilla_spec1"
+    }
+  },
+  "schema": "terrain_volume/1",
+  "transform": {
+    "rotation": 0,
+    "translation": [
+      0,
+      0,
+      0
+    ]
+  }
+}

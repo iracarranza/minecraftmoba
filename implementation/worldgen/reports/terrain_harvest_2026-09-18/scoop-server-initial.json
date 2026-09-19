@@ -1,0 +1,27 @@
+{
+  "commands": [
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 run forceload add 1940 364",
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 if block 1940 -65 364 minecraft:bedrock run say HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 if block 1940 320 364 minecraft:barrier run say HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "errors": [
+    "[20:26:30] [ServerMain/ERROR]: key missing: DragonFight in {CustomBossEvents:{},DataPacks:{Disabled:[],Enabled:[\"vanilla\",\"file/terrain_gallery\"]},DataVersion:4671,DayTime:6000L,Difficulty:1b,DifficultyLocked:0b,GameType:2,LastPlayed:0L,LevelName:\"Terrain Harvest Gallery\",ScheduledEvents:[],ServerBrands:[\"vanilla\"],SpawnX:1812,SpawnY:68,SpawnZ:-244,Time:6000L,Version:{Id:4671,Name:\"1.21.11\",Series:\"main\",Snapshot:0b},WanderingTraderSpawnChance:25,WanderingTraderSpawnDelay:24000,WasModded:0b,WorldGenSettings:{bonus_chest:0b,dimensions:{\"minecraft:overworld\":{generator:{settings:{biome:\"minecraft:the_void\",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:\"minecraft:flat\"},type:\"harvest:inspection\"},\"minecraft:the_end\":{generator:{settings:{biome:\"minecraft:the_void\",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:\"minecraft:flat\"},type:\"harvest:inspection\"},\"minecraft:the_nether\":{generator:{settings:{biome:\"minecraft:the_void\",features:0b,lakes:0b,layers:[],structure_overrides:[]},type:\"minecraft:flat\"},type:\"harvest:inspection\"}},generate_features:0b,seed:0L},allowCommands:1b,clearWeatherTime:0,game_rules:{\"minecraft:advance_time\":0b,\"minecraft:advance_weather\":0b,\"minecraft:allow_entering_nether_using_portals\":0b,\"minecraft:block_drops\":1b,\"minecraft:block_explosion_drop_decay\":1b,\"minecraft:command_block_output\":1b,\"minecraft:command_blocks_work\":1b,\"minecraft:drowning_damage\":1b,\"minecraft:elytra_movement_check\":1b,\"minecraft:ender_pearls_vanish_on_death\":1b,\"minecraft:entity_drops\":1b,\"minecraft:fall_damage\":1b,\"minecraft:fire_damage\":1b,\"minecraft:fire_spread_radius_around_player\":128,\"minecraft:forgive_dead_players\":1b,\"minecraft:freeze_damage\":1b,\"minecraft:global_sound_events\":1b,\"minecraft:immediate_respawn\":0b,\"minecraft:keep_inventory\":1b,\"minecraft:lava_source_conversion\":0b,\"minecraft:limited_crafting\":0b,\"minecraft:locator_bar\":1b,\"minecraft:log_admin_commands\":1b,\"minecraft:max_block_modifications\":32768,\"minecraft:max_command_forks\":65536,\"minecraft:max_command_sequence_length\":65536,\"minecraft:max_entity_cramming\":24,\"minecraft:max_snow_accumulation_height\":1,\"minecraft:mob_drops\":1b,\"minecraft:mob_explosion_drop_decay\":1b,\"minecraft:mob_griefing\":1b,\"minecraft:natural_health_regeneration\":1b,\"minecraft:player_movement_check\":1b,\"minecraft:players_nether_portal_creative_delay\":0,\"minecraft:players_nether_portal_default_delay\":80,\"minecraft:players_sleeping_percentage\":100,\"minecraft:projectiles_can_break_blocks\":1b,\"minecraft:pvp\":1b,\"minecraft:raids\":1b,\"minecraft:random_tick_speed\":0,\"minecraft:reduced_debug_info\":0b,\"minecraft:respawn_radius\":0,\"minecraft:send_command_feedback\":1b,\"minecraft:show_advancement_messages\":1b,\"minecraft:show_death_messages\":1b,\"minecraft:spawn_mobs\":0b,\"minecraft:spawn_monsters\":1b,\"minecraft:spawn_patrols\":1b,\"minecraft:spawn_phantoms\":1b,\"minecraft:spawn_wandering_traders\":1b,\"minecraft:spawn_wardens\":1b,\"minecraft:spawner_blocks_work\":1b,\"minecraft:spectators_generate_chunks\":1b,\"minecraft:spread_vines\":1b,\"minecraft:tnt_explodes\":1b,\"minecraft:tnt_explosion_drop_decay\":0b,\"minecraft:universal_anger\":0b,\"minecraft:water_source_conversion\":1b},hardcore:0b,initialized:1b,rainTime:111204,raining:0b,spawn:{dimension:\"minecraft:overworld\",pitch:0.0f,pos:[I;0,65,0],yaw:0.0f},thunderTime:72232,thundering:0b,version:19133}",
+    "[20:26:31] [ServerMain/ERROR]: Failed to load function harvest:load",
+    "java.util.concurrent.CompletionException: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]",
+    "Caused by: java.lang.IllegalArgumentException: Whilst parsing command on line 2: Unknown or incomplete command. See below for error at position 0: <--[HERE]",
+    "[20:26:31] [ServerMain/ERROR]: Couldn't load tag minecraft:load as it is missing following references: harvest:load (from file/terrain_gallery)"
+  ],
+  "exit_code": 0,
+  "expected_markers": [
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "observed_markers": [
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "pass": false,
+  "ready": true,
+  "scope": "disposable server load, datapack parse, actual floor/roof block probes; no player navigation or client walkthrough",
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed"
+}
