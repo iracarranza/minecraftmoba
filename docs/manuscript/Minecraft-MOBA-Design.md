@@ -2186,3 +2186,41 @@ Copper is what allows meaningful early equipment churn to occur primarily across
 Do **not** automatically apply the 16/36/60/96 curve to every equipment category. Tools, weapons, and armor have different match-scale replacement pressures. Earlier 48-minute analysis indicates the working relationship **armor acquisition capital >> armor replacement**, while occupational pick consumption is more economically significant than ordinary sword replacement. Weapon and armor durability therefore require their own calibration while preserving the same broad tier identity where appropriate.
 
 For comparison, longer vanilla/current weapon durability values discussed during calibration (Wood 59, Stone 131, Copper 190, Iron 250, Diamond 1561, Netherite 2031) are reference points, not targets for the compressed match economy.
+
+
+### 15.1.2 Family-wide durability doctrine
+
+**Working design direction, 19 September 2026.** The durability economy applies to the **material equipment family as a whole**, even though identical raw durability values need not be assigned to every equipment category.
+
+The shared material identity remains:
+
+> **Wood temporary → Stone disposable → Copper replaceable legitimate equipment → Iron reliable equipment → Diamond high-value capital → Netherite premier late-game capital**
+
+Tools, weapons, and armor should preserve that relative economic relationship. The category-specific durability stat is a means of producing the intended match-scale lifetime, not the identity itself.
+
+A useful balancing model is:
+
+[
+L_e = \frac{D_e \times U_e}{R_e}
+]
+
+where:
+
+- (L_e) = expected useful match-scale lifetime for equipment category (e);
+- (D_e) = base durability;
+- (U_e) = expected effective-life multiplier from Unbreaking or equivalent persistence;
+- (R_e) = representative durability-consumption rate under the item's actual workload.
+
+This explains why the current **16 / 36 / 60 / 96** Wood/Stone/Copper/Iron curve can be a useful pickaxe/tool calibration without requiring a Stone sword, Copper sword, Iron sword, and every armor piece to use those exact same raw durability values. A mining tool can spend dozens of durability points during one meaningful extraction operation; weapons and armor experience different consumption patterns and therefore may require different raw durability to express the same material-tier lifetime.
+
+The family-wide target is behavioral:
+
+- **Stone** equipment should feel expendable and plausibly replaced during ordinary play.
+- **Copper** equipment should be legitimate field equipment but remain sufficiently replaceable that wear and replacement participate in the Production/material economy.
+- **Iron** equipment should mark a clear transition to reliable gear expected to survive repeated meaningful operations.
+- **Diamond** should behave as high-value capital rather than ordinary replacement stock.
+- **Netherite** should behave as premier late-game capital.
+
+Accordingly, do not interpret category-specific calibration as an exception to the material ladder. **The ladder is universal; raw durability is category-calibrated.**
+
+The existing 48-minute finding that **armor acquisition capital >> armor replacement** and that occupational pick consumption exceeds ordinary sword replacement is evidence for different category-specific raw curves, not for abandoning family-wide durability identity. Exact weapon and armor curves remain **[OPEN]** and should be derived from representative combat/damage workloads rather than copied mechanically from pickaxe uses.
