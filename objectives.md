@@ -1211,3 +1211,8 @@ Do not reintroduce the following as current rules without new discussion:
 > **Legitimate resource attainment grants XP directly; the XP system does not need to judge whether every acquired resource was ultimately used well.**
 
 The objective system should concentrate conflict around meaningful Minecraft opportunities while preserving the broader sandbox as part of the competitive game.
+## Strategic locations and surrounding traffic
+
+**Established secondary map-design function, 12 September Worldgen and Initial System Balancing branch.** A POI, Worksite, team objective, village or important junction/crossing can act as Q: a reason for recurring entry into or passage through region MNOP. Evaluate the resulting Strategic Exposure along terrain and approach connections as well as inside the objective footprint. Q need not overlap a resource to make its exploitation or remote infrastructure contestable. Exposure is not universally monotonic with regional depth, and low-exposure remote economic settlements remain legitimate. See [maps.md](maps.md#spatial-opportunities-and-initial-balancing).
+
+This function does not make every Q a formal objective or regenerative resource. Existing Mining Outpost finite generated-ore behavior and Industrial Enchanter/Silo activation, finite-window and delivery contracts remain in force. Renewal of world opportunity does not add passive player income, reset Worksites automatically, or dispense objective rewards without their specified human work. Exact traffic modeling is Working; no universal Q radius or visitation rate is selected.

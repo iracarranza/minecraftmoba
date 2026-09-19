@@ -665,6 +665,51 @@ Also distinguish whether a resource is:
 - player-produced.
 
 
+## Spatial opportunities and initial balancing
+
+**CANON / ESTABLISHED principles — Worldgen and Initial System Balancing branch, incorporated 12 September 2026.** Worldgen generates spatial opportunities. Player income and throughput emerge from current world state and human activity. This section incorporates the explicit branch corrections; it does not select numerical balance or claim implementation. The quantitative specification is [the opportunity-field model](docs/worldgen-initial-balancing.md). Source and conflicts are recorded in [the reconciliation](docs/reconciliation/2026-09-12-worldgen-balancing.md).
+
+### Candidate Density, Regenerative Eligibility, and Regenerative Vocabulary
+
+**Candidate Density** is how many candidate resource opportunities the geography supports per stated spatial unit. Ecology, geology, biome, terrain, and actual resource instances determine the candidate population. **Regenerative Eligibility** identifies which of those opportunities can participate in regeneration. **Regenerative Vocabulary** is the set of resource or encounter kinds eligible to recur in that geography. Vocabulary eligibility does not promise every eligible kind appears in every region.
+
+Regional depth increases both regenerative vocabulary and the fraction of candidate opportunities eligible to regenerate. In the branch's symbolic comparison, shallow A has X/T and deeper Z has Y/T, where Y/T > X/T. X and Y describe eligible subsets, not quotas the generator must fill. The result emerges from candidate resource density, ecology/geology, and eligibility conditions. Identify real candidate opportunities, evaluate their regional conditions, and observe the eligible subset; do not sprinkle enough regenerative nodes onto empty cells to satisfy a percentage.
+
+T is not held equal between real regions. For an implementation using opportunity counts, report X_A/T_A and Y_Z/T_Z with a consistent candidate unit. A depth band is an analytical grouping, not an authored resource polygon. The intended gradient does not require every stochastic region at a greater depth to exceed every shallower region; the comparison scope and acceptance tolerance remain Open. Sparse deep geography may have a high eligible fraction and very few actual recurring sites. At matching spatial units, eligible density is candidate density times the observed eligible fraction; currently available density additionally depends on depletion and renewal state.
+
+[CONFLICT — measurement terminology] Earlier branch prose also called T “total resource value.” Counting opportunities and weighting their value are different measurements. This incorporation uses candidate-opportunity share for X/T, as explicitly requested. A value-weighted regenerative share may be reported separately under an explicit valuation rule; it must not silently replace the count statistic or become an authored value budget.
+
+### The depth gradient remains additive
+
+The established reasons for depth and difficulty remain: travel and round-trip commitment, Hunger/provisioning, difficult terrain, danger, uncertainty, search, extraction and return burden, limited immediate access to homeland stores, logistics, infrastructure investment, and specialized regional resource vocabulary. Broader regenerative eligibility and vocabulary add recurring potential to this existing exchange. They do not replace finite rewards, simplify all costs to distance, or assign higher drops automatically.
+
+Regional depth is not simply radial distance from a Fountain. Existing effective-distance factors include terrain, elevation, usable paths, food, Hunger, movement methods, cargo, classes, and infrastructure. Separate the regional generation descriptor from the player's changing operating cost; whether eligibility itself is recalculated after development remains Open.
+
+Raw candidate density, actual resource density, Strategic Exposure, and defensibility are **not monotonic with depth**. Their causes differ. Ecology/geology may produce a sparse mountain, dense forest, or economically weak connective terrain at the same depth. Empty or weak deep terrain is legitimate; each deep region need not contain a standardized reward package. Existing map resource guarantees remain vocabulary/functionality guarantees, not blanket abundance or regenerative quotas.
+
+### Finite and regenerative world opportunity
+
+Both finite and regenerative resources are spatial from the beginning. Finite opportunity is sought, discovered, accessed, and exploited; local remaining value decreases and does not naturally restore under that opportunity's rule. Depletion can push activity toward other deposits or new geography, without requiring a strictly outward radial frontier.
+
+Regenerative opportunity is a known recurring world possibility whose current manifestation must still be sought, accessed, and exploited by humans. Exploitation reduces local availability; renewal or ecological conditions later restore opportunity. Known ecology does not imply exact current location, readiness, convenient access, ownership, or guaranteed successful acquisition. Crop Patches, Herds, and Mob Swarms illustrate the recurring-opportunity concept without settling their complete population rules.
+
+**Regeneration restores world opportunity, not player income.** It does not place periodic resource payments in inventories or storage. Search, harvest or combat, mixed drops, inventory decisions, danger, and delivery remain necessary. A repeatable Production process consuming acquired inputs, an ordinary replanted farm, an objective-generated finite deposit, and a naturally recurring opportunity remain distinguishable behaviors; this section does not make every resource regenerative.
+
+**CURRENT WORKING DIRECTION.** Availability cycles and current manifestations give recurring opportunities temporal variation. Day/night variants, especially Mob Swarm composition, belong in the future model, with exact species, quantities, timing, and any phase gating Open. Cooldowns can encourage circulation: exploit one place, pursue another task or opportunity, then revisit. This is a possible incentive, not a rule that forbids camping or settlement; multiple opportunities, safety, travel cost, and demand may support sustained local activity.
+
+### MNOP and Q generate Strategic Exposure
+
+**CANON / ESTABLISHED distinction.** A depth-Z region MNOP may contain strategic location Q, or lie on approaches used to reach Q. Q may be a POI, active Worksite, team objective, village, junction, crossing, or another strategically relevant destination. Q gives other players reasons to enter or traverse the surrounding geography independently of the resource being evaluated. This creates Strategic Exposure and potentially recurring contest, raids, interference, or interception.
+
+Q need not sit on the resource. Its traffic field follows geography and connectivity: passes, basins, crossings, approach alternatives, tunnels, waterways, and developed connections. A circle around Q cannot by itself describe that field. Multiple Q locations, their activity, and team access may combine or redirect traffic. The exposure model is Working; no universal radius or traffic rate is established.
+
+**Logistical remoteness** concerns the difficulty of reaching, provisioning, exploiting, and moving cargo from a place. **Strategic Exposure** concerns other players' reasons and ability to pass through or contest it. **Security** additionally depends on control, information, defenses, and player response. Exposure is neither automatic defeat nor a synonym for difficult terrain or defensibility.
+
+Infrastructure and ordinary world development can conquer logistical remoteness without necessarily eliminating contestability. A well-supplied deep base may remain unsafe because Q continues attracting traffic. Bridges, tunnels, roads, storage, recognized Routes, Supply Lines, and defensive construction can substantially reduce costs and improve security; none automatically removes enemy reasons to visit. Conversely, low-exposure remote economic settlements are valid outcomes. Do not place Q everywhere to prohibit them or require every deep region to be heavily contested.
+
+POIs, Worksites, and objectives therefore have a secondary map-design function: they generate traffic through neighboring geography as well as hosting their primary activity. Evaluate approach corridors and surrounding opportunities, not just the objective footprint. Changing infrastructure may redirect that traffic; exposure is not frozen merely because its generating geography was authored first.
+
+
 ## Resource functional families
 
 These functional families are useful for generation and resource-packing
@@ -1595,6 +1640,8 @@ an approximation unless a more exact implementation method is found.
 
 After or alongside the first +25% scale prototype, perform a **resource-packing
 analysis**.
+
+**12 September clarification:** The historical counts below belong to that prototype. For initial economic balancing, use the spatial-opportunity principles above and the opportunity-field model in docs/worldgen-initial-balancing.md. Resource packing must not become a regenerative-node quota or a promise of income.
 
 Consider the territorial requirements and desired separation of:
 

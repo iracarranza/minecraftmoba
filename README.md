@@ -40,3 +40,7 @@ by the design documents is presently checked in.
 Start with [the reconciliation report](docs/reconciliation/2026-09-08.md) for
 the established/working/prototype/historical/open classification and the next
 recommended milestone.
+
+## Worldgen and Initial System Balancing
+
+The [Working opportunity-field model](docs/worldgen-initial-balancing.md) connects generated spatial opportunities to human acquisition and delivery. Established spatial principles are integrated into maps.md, with matching infrastructure/objective clarifications and manuscript sections. See the [12 September reconciliation](docs/reconciliation/2026-09-12-worldgen-balancing.md) for authority, source limits and unresolved conflicts. Numerical sensitivity examples remain non-canon.

@@ -1,6 +1,6 @@
 # Minecraft MOBA Design
 
-Design manuscript • Source snapshot: 10 September 2026
+Design manuscript • Base source snapshot: 10 September 2026 • Worldgen and Initial System Balancing revision: 12 September 2026
 
 Minecraft-first competitive play, persistent world transformation, and specialized contribution
 
@@ -182,6 +182,18 @@ Infrastructure progression may mitigate each system’s nighttime weakness in it
 
 The latest durability exploration favors recurring equipment turnover, possibly with a deliberately uneven material-tier curve: wood temporary, stone disposable, iron dependable, gold an unusually fragile special case, and diamond a durable strategic investment. [VERIFY RECENCY] This direction was discussed after the canonical progression edits and was explicitly not yet canonized. Chapter 5 retains the economy implications; no durability constants are approved.
 
+## 3.7 Candidate and regenerative opportunity
+
+**CANON / ESTABLISHED principles. Sources: [WGB], [M: Spatial opportunities and initial balancing].** Worldgen generates spatial opportunities; human activity determines income. Candidate Density measures opportunities supported by ecology/geology per spatial unit. Regenerative Eligibility identifies the subset that can recur. Regenerative Vocabulary specifies which kinds can recur. A broader vocabulary does not guarantee every eligible kind occurs locally.
+
+At shallow A, fraction X/T of candidate opportunities is eligible to regenerate; at deeper Z the intended fraction is Y/T, where Y/T > X/T. These describe generated subsets, not authored quotas or instructions to sprinkle regenerative nodes. Real regional denominators can differ: X_A/T_A and Y_Z/T_Z. Sparse deep terrain may have high eligibility and few recurring opportunities. Actual resource density need not rise with depth.
+
+[CONFLICT] The branch sometimes used “resource value” for T. The current incorporation uses candidate-opportunity counts, following the explicit correction. Count share and value-weighted share must be separate metrics. Candidate granularity, valuation and the aggregation scale for the intended depth gradient remain Open; empty regions have an undefined share.
+
+Finite opportunity is sought, discovered, exploited and locally depleted without natural restoration under its rule. Regenerative opportunity is sought and exploited too, but renewal later restores world availability. Both economies are geographic from the beginning. Regeneration restores world opportunity, not player income: known recurring ecology still requires humans to locate its current manifestation, reach it, harvest or fight, manage inventory, and apply or deliver the result.
+
+**CURRENT WORKING DIRECTION.** Renewal creates availability cycles; current manifestations may differ between day and night, especially for Mob Swarms. Cooldowns can encourage leaving, pursuing other opportunities and revisiting, rather than continuous camping. Neither circulation nor settlement is mandatory. Exact renewal periods, species, quantities, eligibility, phase gates and population rules remain Open. This narrows the conceptual uncertainty in §3.3 without claiming its unfinished mechanics are specified.
+
 # 4. Map and Geography
 
 ## 4.1 Archetype, seed, and competitive fit
@@ -295,6 +307,16 @@ Current candidates 930010639 and 930012642 are physical experiments, not final D
 These archetypes foreground Minecraft techniques without arbitrary class modifiers. [OPEN] They do not yet have Default’s detailed generation and validation contracts.
 
 [HISTORICAL] P0–P2D, the 50-variant experiment, and seed 920260900 document prior learning. Their dimensions, terrain generation, and incomplete resource audits are not current design authority. The chronology is retained in §14.2.
+
+## 4.12 Depth and Strategic Exposure
+
+**CANON / ESTABLISHED principles. Sources: [WGB], [M].** Regenerative eligibility and vocabulary add to the existing depth exchange: travel, Hunger/provisioning, terrain, danger, uncertainty, search, extraction/return, limited homeland access, logistics, infrastructure and specialized resource vocabulary remain relevant. Depth is not one multiplier applied to every cost and reward. Raw candidate density, actual density, Strategic Exposure and defensibility are not monotonic with depth. Economically weak deep connective terrain remains legitimate.
+
+A depth-Z region MNOP may contain strategic location Q or lie on paths toward it. A POI, Worksite, objective, village, junction or crossing can attract recurring player traffic independently of the resource being exploited. Q need not sit on that resource. Its traffic field follows geography and connectivity—passes, basins, crossings and usable connections—rather than a simple circle.
+
+Logistical remoteness describes reaching, provisioning and moving cargo. Strategic Exposure describes other players' reasons and ability to enter or contest. Security additionally depends on control, defense, information and response. A road, bridge, cache, recognized Route or Supply Line may greatly reduce logistical difficulty while Q continues to attract enemies. Infrastructure can conquer remoteness without necessarily eliminating contestability. Construction may improve defense and access may redirect traffic; neither implies exposure must remain unchanged or vanish.
+
+Low-exposure remote economic settlements are valid outcomes. Do not add a Q to every deep region to prevent settlement. Q locations have a secondary map-design role by generating traffic through surrounding geography; the primary objective rules remain separate. Regional generation depth and current player operating cost must be distinguishable. [OPEN] Whether changing infrastructure recalculates eligibility, how team-relative depth works, and how exposure is estimated are not settled.
 
 # 5. Economy and Progression
 
@@ -451,6 +473,16 @@ The category is partly an economic intervention. Wood is already extraordinarily
 Material abundance and infrastructure labor do not necessarily increase together. [PROTOTYPE] For a balanced seven-player team across a representative thirty-minute match, a mature total usable construction supply of roughly 2,500 to 3,000 blocks is the current modelling target, of which perhaps 500 to 900 are intentionally prepared Construction Blocks and 1,800 to 2,400 are ordinary, bulk, or improvised. An economy-specialized team coordinating Extraction, Construction, and Logistics might plausibly reach 4,000 to 5,500 total and 1,000 to 1,600 Construction Blocks. These are modelling targets only and are not balance canon.
 
 Construction specialization should initially alter the composition and effective structural use of the material economy rather than acting as a generic percentage bonus to blocks generated. Extraction pushes front-of-pipeline acquisition; Construction creates disproportionate demand for construction-specific feedstocks and extracts greater structural and progression value from them; Logistics makes geographically separated material economically accessible; Production supports transformation where relevant; Exploration reduces access and travel cost and establishes Routes.
+
+## 5.12 Human acquisition and delivered value
+
+**Established correction; Working quantitative direction. Source: [WGB].** The constant 48 ore/min gathering fixture is a vacuum benchmark, useful only for isolating capacity and batching. A realistic expedition follows search → discovery → exploitation burst → local exhaustion → search, interspersed with access, combat, deposits, return, task changes and revisits to recurring opportunities. Blocks broken, useful resources acquired and strategic value are different quantities.
+
+Inventory contains multiple objectives at once: primary cargo, incidental resources, food, tools, equipment, traversal material and reserved headroom. Item diversity and partially filled stacks can constrain a player before bulk capacity fills. Inventory Policy covers pickup, discard, reservation, deposit and return; Deposit Policy is a subset. Exhaustion, danger or team demand can trigger return before capacity binds.
+
+Measure Potential Value → Available Value → Discovered Value → Extracted Value → Carried Value → Delivered Value → Consumed/Applied Value. Keep personal, locally stored, in-transit, central and available-at-demand stock distinct. Delivery means reaching a declared useful destination, which need not be homeland; local consumption and construction may apply resources directly. Track item quantities before imposing scalar value weights, and distinguish current stock snapshots from cumulative flows and renewed availability episodes.
+
+Larger Inventory may improve work uptime while delaying team availability under infrequent deposits. Network capacity does not ensure utilization if upstream storage is empty. Production, deposit, transport, delivery and consumption rates must remain separate. This is a reason to test operational policies, not to canonize the earlier fixture's bottleneck sequence or adopt arbitrary supply rates. KeepInventory and special cargo follow their existing contracts; exposure does not imply automatic inventory loss.
 
 # 6. Infrastructure and Logistics
 
@@ -805,6 +837,14 @@ Two alternatives were considered and are not preferred. Using invisible carrier 
 **Working. Source: [WC].** Conceptually safe for datapack implementation: Infrastructure Mode state via scoreboard or tag; designating a targeted or nearby known block type; identifying Banners and Copper Chests; storing endpoint coordinates; counting and inspecting bounded areas after explicit player action; storing aggregate infrastructure properties; scoreboard-based pulse timers; entity ownership via tags or scores; and class-controlled source and destination state.
 
 [OPEN] Needs prototyping: arbitrary-container item transfer; inventory-origin proof during Supply Line demonstration; performant region representation for Constructs and Development Zones; dynamic Development Zone scanning; entity-population normalization; and the chosen designate interaction. Avoid making design dependent on arbitrary vanilla right-click detection until tested, on continuous flood-fill or large world scans, on mob AI as the authoritative timing mechanism for recognized Supply Lines, or on exact replay of a player's route when endpoint and demonstration data suffice.
+
+## 6.23 Layered attribution in initial balancing
+
+**CANON / ESTABLISHED distinction. Source: [WGB].** Separate Worldgen, vanilla-intrinsic mechanics, emergent organization, character progression, recognized MOBA infrastructure, and classes/integration. These are analytical layers rather than an unlock sequence. Physical roads do not automatically become Routes, caches do not become Supply Lines, crop patches do not become Development Zones, and useful shelters do not become Constructs. Map-authored Starter Routes retain their own context.
+
+Ordinary organization already produces benefits: selecting better paths, placing storage, tending a farm or coordinating carriers changes activity before recognition. Credit only additional recognized benefits to infrastructure, and only authored exceptional effects to classes. Temporary Development boosts need their duration, area, eligible activity and availability modeled; a permanent average multiplier is not established.
+
+The opportunity-field model does not resolve existing Flow Weight, transport execution, intrinsic-benefit or recognition conflicts. It must state which Working contract each experiment uses. A well-supplied operation can remain strategically exposed (§4.12); exposure alone is not recognition failure.
 
 # 7. Objectives and Strategic Locations
 
@@ -1440,6 +1480,20 @@ These are design/readiness dependencies, not reasons to declare the existing wor
 
 [OPEN] Readiness dependencies added on 11 September: Structural Integrity strength and whether mining, explosions and abilities are affected differently; a narrow definition of infrastructure-relevant block; Structural Integrity behaviour when practical control changes; the exact input for authoring a logistical corridor; qualifying cargo movement; derivation of pulse interval from Transit Time; authored Flow Weight values and whether they vary by cargo, carrier or upgrade; branching and rerouting; permitted carrier deviation from the authored corridor; failure to resolve; obstruction after establishment; interaction with Routes; capture and re-establishment; whether engineered transport needs any balancing disadvantage; long-distance destination targeting; and datapack feasibility for entity navigation.
 
+## 12.7 Stochastic opportunity field model
+
+**CURRENT WORKING DIRECTION. Source: [WGB]; detailed experiment specification: docs/worldgen-initial-balancing.md.** The next quantitative step is a small stochastic world with configurable depth bands, ecology/geology, candidate populations, Q-driven traffic, finite/regenerative opportunities and simulated human expeditions. No model results or final balance are claimed here. Worldgen and initial system numbers should constrain each other through measured human realization of opportunity.
+
+Region records hold spatial extent, regional depth, terrain/connectivity, ecology/geology, candidate IDs and derived density, eligible share and vocabulary, Q activity/approaches, exposure, defensibility, current world state and development. ResourceOpportunity records hold spatial support, resource portfolio, eligibility reason, finite/renewal rule, remaining stock, availability/current manifestation, day/night alternatives, search/access/exploitation requirements and mixed-inventory consequences. Player knowledge must be separate from world truth.
+
+Generate supported candidates before evaluating their eligibility and deriving statistics. Do not set regenerative counts to hit a quota. Use an explicit candidate unit and distinguish baseline generation depth from evolving travel costs. Simulate failed searches, exploitation bursts, local exhaustion, renewal, provisioning, mixed stacks, reserved slots, deposits, transport and useful application. Q exposure follows plausible approach connections; initial traffic approximations must be labeled assumptions.
+
+Compare vanilla behavior and intelligent organization, then progression, recognized infrastructure, and classes/integration on comparable worlds. Track the seven value stages in §5.12, time allocation, inventory pressure, deposits, delays, ending stocks, network utilization and unmet demand. Log conservation, finite depletion, valid renewal, source availability and recognition status. Add Construction's reverse material flow and input-consuming Production after the acquisition/delivery baseline is coherent.
+
+**NON-CANON SENSITIVITY EXAMPLES.** Four illustrative depth-band names, percentages, regeneration periods, resource/encounter compositions, gathering rates, trial distances, value funnels, supply rates and level sampling choices remain experiments. No arbitrary number becomes canon by entering a model configuration. Re-test the proposed Character → organization → transport bottleneck progression rather than assuming the vacuum fixture proves it.
+
+**OPEN.** Candidate granularity; count versus separately weighted value; fixed versus dynamic and team-relative depth; eligibility rules and gradient tolerance; renewal triggers and destruction behavior; day/night transitions and phase gating; Q traffic and risk; human inventory/search policies; demand destinations; unresolved infrastructure/class parameters; and criteria for acceptable balance. The branch's whole-match timing and Temporal Window examples do not resolve the manuscript's existing duration assumptions. Start with a declared finite simulation horizon, then evaluate XP and match pacing after opportunity conversion is measured.
+
 # 13. Technical Design and Feasibility
 
 ## 13.1 Implementation maturity and version scope
@@ -1560,6 +1614,8 @@ Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainte
 
 Late September 2026: a WAMS infrastructure clarification handoff from the Skeleton Crew and Logistics discussion introduced the designation-and-evidence model, the place versus connection organizing frame, archetype-native anchors (Banners, Copper Chests, Construction Blocks, developable resources), Construct block-investment and extent evaluation, Development Weight with dynamic recalculation, the source-to-destination rule for self-directed logistical entities, the distinction between pre-infrastructure physical Logistics and recognized Supply Lines, and direct Copper Chest inventory transfer as the preferred execution model. Four tensions with 10 and 11 September canon are recorded as [CONFLICT] rather than resolved.
 
+12 September 2026: Worldgen and Initial System Balancing integrated into maps.md, infrastructure.md, objectives.md, the quantitative experiment specification and manuscript §§3.7, 4.12, 5.12, 6.23 and 12.7. Explicit branch corrections are Established; model structures remain Working and numerical examples remain non-canon. Existing later-labeled infrastructure passages are retained without inferring their chronology from this revision date.
+
 ## 14.3 Conflict and recency ledger
 
 | ID | Collision | Treatment in this manuscript |
@@ -1580,6 +1636,8 @@ Late September 2026: a WAMS infrastructure clarification handoff from the Skelet
 | CR-14 | Old blocked Task B gate versus later accepted gate and B.0 completion | Later report governs; B.1 still incomplete |
 | CR-15 | Old unresolved Java version versus version-specific modern milestones | Milestone choices recorded; unified runtime target still needs confirmation |
 | CR-16 | Durability removal/reduced consumption versus latest shorter-lifecycle discussion | Latest direction Working, exact rule still Open |
+| CR-17 | X/T candidate counts versus branch value-weighted phrasing; older resource-packing counts | Count share adopted for this branch; weighted value separate; no regenerative quotas |
+| CR-18 | Constant-rate fixture and whole-match timing examples versus realistic spatial economy and existing duration target | Fixture retained only as vacuum sensitivity; timing unresolved; stochastic model proposed |
 
 ## 14.4 Canonical ownership and decision register
 
@@ -1660,6 +1718,8 @@ Repository links below are pinned to the reviewed commit for reproducibility. Br
 Additional contextual inspection included Class Design (6a9f46d8-837c-83e9-8172-5e31cf296d81), Map Types, Worldgen (6a9f5718-f650-83e9-bbc4-2a38bd5dde7b), Datapack Prompting (6aa0b5d8-f37c-83ea-8b72-267b40de66cc), and Design volleyball MOBA (6a9dd1ff-ad94-83ea-834e-f72b8276a426). Their older summaries were not used to override the pinned roots or later explicit reports.
 
 **[V] Mojang, Minecraft Java Edition 1.21.6 release notes.** External technical reference for dialogs and Quick Actions’ limited UI purpose; consulted 10 September 2026. It establishes the platform feature, not project implementation success. [Read official release notes](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-6).
+
+**[WGB] Worldgen and Initial System Balancing branch.** Explicit user corrections and subsequent modeling proposal from Branch · Worldgen Branch - Seed Finding/Choosing, conversation 6aa5f738-816c-83ea-bb61-83d40b3c7cfa; incorporated 12 September 2026. [Source conversation](https://chatgpt.com/c/6aa5f738-816c-83ea-bb61-83d40b3c7cfa). The repository reconciliation at docs/reconciliation/2026-09-12-worldgen-balancing.md records source boundaries, status decisions and conflicts. The detailed Working model is docs/worldgen-initial-balancing.md. This revision does not validate numerical examples or implement the model.
 
 ## 14.7 Manuscript maintenance
 
