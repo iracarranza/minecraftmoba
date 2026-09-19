@@ -2126,3 +2126,39 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 
 **[WI] Infrastructure System New Design Handoff.** World and Match Systems, 10 September 2026, working-canon handoff. Retrieved text covers sections 1–19 and begins section 20; the retrieval truncates there. Integration context was independently available in the preceding framework discussion and canonical class/objective text. [VERIFY RECENCY] Any unseen continuation beyond that retrieval is not claimed as incorporated. [Source conversation](https://chatgpt.com/c/6aa1edb8-4594-83e9-98cb-fd0870e52b5b).
+
+---
+
+# 15. Current Reconciliation — 19 September 2026
+
+This section records later explicit design decisions and supersedes conflicting earlier manuscript passages while preserving them as historical record.
+
+## 15.1 Copper equipment tier
+
+**Working canon.** Copper is a **Primary Material**. Earlier manuscript/root language excluding Copper from Primary Materials is superseded.
+
+Copper equipment is the intentional buffer between Stone and Iron:
+
+> **Stone — disposable → Copper — replaceable / field-standard metal → Iron — stable / reliable → Diamond — high-value capital → Netherite — premier late-game capital**
+
+Copper therefore creates room to compress the early durability economy around Stone and Copper while allowing Iron to occupy a distinctly more stable equipment position. Exact durability values remain **[OPEN]**. Previously discussed numerical durability lifetimes are sensitivity fixtures, not canon.
+
+This is an equipment-economy relationship rather than a claim that every tier must have evenly spaced durability. Retaining durability remains important where equipment wear can create meaningful replacement/Production demand, but armor, tools, and weapons may require different match-scale curves.
+
+## 15.2 Level 6 Infrastructure / Monster Combat fork
+
+**Working canon.** At Level 6, authored class progression may offer a choice between contributing one **class-compatible Infrastructure form** to the team and specializing into **Monster Combat**.
+
+An Infrastructure chooser contributes one persistent form rather than receiving a freely interchangeable generic slot. Later personal progression may improve the quantity and/or quality of that contribution. Multiple players can choose the same Infrastructure form to concentrate team capability.
+
+Eligibility is partially class-authored and asymmetric; archetype tags do not automatically grant every corresponding Infrastructure system. Classes need not have equal option counts. Current examples — Mole plausibly choosing Route or Construct, Kitfighter potentially Monster Combat only — are examples of the model, not a completed compatibility matrix.
+
+Monster Combat is not a fifth Infrastructure form. Smite, Bane of Arthropods, and related monster-facing enchantment vocabulary belong on that side of the fork as candidates; exact mechanics remain **[OPEN]**.
+
+## 15.3 Worksite-earned shared Infrastructure
+
+Personal Infrastructure contribution is distinct from the reward for first-capitalizing an activated Worksite.
+
+The first team to capitalize a Worksite gains **one shared team Infrastructure opportunity**. It belongs to the team rather than the individual capturer and is currently intended to be flexibly allocable so Worksite success can broaden or reinforce the team's Infrastructure portfolio beyond personal class restrictions. Exact allocation and later advancement rules remain **[OPEN]**.
+
+The reward is persistent organizational capacity / Work Stock, not a direct XP award. **First Capture is not Exclusive Control:** the earned team opportunity persists even if the opposing team later controls or exploits the Worksite.
