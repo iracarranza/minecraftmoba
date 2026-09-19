@@ -1,0 +1,113 @@
+{"time":"2026-09-18T17:39:18.344Z","kind":"chat","value":"MobaVerify joined the game"}
+{"time":"2026-09-18T17:39:18.355Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=null"}
+{"time":"2026-09-18T17:39:18.662Z","kind":"chat","value":"Teleported MobaVerify to 200.500000, -59.000000, 200.500000"}
+{"time":"2026-09-18T17:39:19.763Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:20.063Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:20.365Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:20.667Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:20.968Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:21.279Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:21.591Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:21.595Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:22.103Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:22.113Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:22.406Z","kind":"pass","value":"map left"}
+{"time":"2026-09-18T17:39:22.410Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:22.920Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:22.924Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:23.223Z","kind":"pass","value":"map right"}
+{"time":"2026-09-18T17:39:23.228Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:23.740Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:23.746Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:24.042Z","kind":"pass","value":"map shift"}
+{"time":"2026-09-18T17:39:24.048Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:24.559Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:24.562Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:24.862Z","kind":"pass","value":"map number key"}
+{"time":"2026-09-18T17:39:24.869Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:25.383Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:25.389Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:25.686Z","kind":"pass","value":"map drop one"}
+{"time":"2026-09-18T17:39:25.690Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:26.200Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:26.205Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:26.502Z","kind":"pass","value":"map drop stack"}
+{"time":"2026-09-18T17:39:26.506Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:27.016Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:27.021Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:27.318Z","kind":"pass","value":"offhand hotkey"}
+{"time":"2026-09-18T17:39:27.321Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:28.036Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:28.043Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:28.338Z","kind":"pass","value":"locked insertion 42"}
+{"time":"2026-09-18T17:39:29.046Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:29.048Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:29.347Z","kind":"pass","value":"locked insertion 9"}
+{"time":"2026-09-18T17:39:30.669Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:30.674Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:30.972Z","kind":"pass","value":"locked drag"}
+{"time":"2026-09-18T17:39:31.683Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:31.686Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:31.987Z","kind":"pass","value":"crafting return safety"}
+{"time":"2026-09-18T17:39:31.989Z","kind":"chat","value":"Changed the block at 202, -59, 200"}
+{"time":"2026-09-18T17:39:32.295Z","kind":"chat","value":"Replaced a slot at 202, -59, 200 with [Oak Planks]"}
+{"time":"2026-09-18T17:39:33.347Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:33.351Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:33.650Z","kind":"pass","value":"chest shift insertion"}
+{"time":"2026-09-18T17:39:34.363Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:34.365Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:34.666Z","kind":"pass","value":"chest offhand hotkey"}
+{"time":"2026-09-18T17:39:35.379Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:35.381Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:35.681Z","kind":"pass","value":"chest locked hotkey"}
+{"time":"2026-09-18T17:39:36.408Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:36.412Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:36.711Z","kind":"pass","value":"external cursor return denied at full capacity"}
+{"time":"2026-09-18T17:39:36.714Z","kind":"chat","value":"202, -59, 200 has the following block data: [{Slot: 0b, id: \"minecraft:oak_planks\", count: 64}]"}
+{"time":"2026-09-18T17:39:37.027Z","kind":"chat","value":"Summoned new Dirt"}
+{"time":"2026-09-18T17:39:38.322Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}]"}
+{"time":"2026-09-18T17:39:38.323Z","kind":"pass","value":"overflow pickup"}
+{"time":"2026-09-18T17:39:38.350Z","kind":"chat","value":"Updated MobaVerify: level=2 xp=0 class=null"}
+{"time":"2026-09-18T17:39:39.635Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-18T17:39:39.636Z","kind":"pass","value":"new slots usable immediately"}
+{"time":"2026-09-18T17:39:39.641Z","kind":"chat","value":"Set own game mode to Creative Mode"}
+{"time":"2026-09-18T17:39:39.942Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=null"}
+{"time":"2026-09-18T17:39:40.243Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-18T17:39:40.801Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-18T17:39:40.804Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:41.104Z","kind":"pass","value":"creative locked insertion"}
+{"time":"2026-09-18T17:39:41.663Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-18T17:39:41.668Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:41.965Z","kind":"pass","value":"creative map deletion"}
+{"time":"2026-09-18T17:39:41.970Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:42.479Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:stone\", count: 64}, {Slot: 2b, id: \"minecraft:stone\", count: 64}, {Slot: 3b, id: \"minecraft:stone\", count: 64}, {Slot: 4b, id: \"minecraft:stone\", count: 64}, {Slot: 5b, id: \"minecraft:stone\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}]"}
+{"time":"2026-09-18T17:39:42.485Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:42.783Z","kind":"pass","value":"creative map clone"}
+{"time":"2026-09-18T17:39:42.789Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}}"}
+{"time":"2026-09-18T17:39:42.792Z","kind":"chat","value":"Set own game mode to Survival Mode"}
+{"time":"2026-09-18T17:39:43.091Z","kind":"chat","value":"Updated MobaVerify: level=30 xp=0 class=null"}
+{"time":"2026-09-18T17:39:43.398Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:43.700Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Dirt]"}
+{"time":"2026-09-18T17:39:44.000Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Dirt]"}
+{"time":"2026-09-18T17:39:44.299Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Dirt]"}
+{"time":"2026-09-18T17:39:44.598Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Dirt]"}
+{"time":"2026-09-18T17:39:44.902Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Dirt]"}
+{"time":"2026-09-18T17:39:45.203Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:45.505Z","kind":"chat","value":"Updated MobaVerify: level=1 xp=0 class=null"}
+{"time":"2026-09-18T17:39:45.810Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 1}, {Slot: 1b, id: \"minecraft:dirt\", count: 64}, {Slot: 2b, id: \"minecraft:dirt\", count: 64}, {Slot: 3b, id: \"minecraft:dirt\", count: 64}, {Slot: 4b, id: \"minecraft:dirt\", count: 64}, {Slot: 5b, id: \"minecraft:dirt\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}, {Slot: 20b, id: \"minecraft:stone\", count: 32}]"}
+{"time":"2026-09-18T17:39:46.518Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 1}, {Slot: 1b, id: \"minecraft:dirt\", count: 64}, {Slot: 2b, id: \"minecraft:dirt\", count: 64}, {Slot: 3b, id: \"minecraft:dirt\", count: 64}, {Slot: 4b, id: \"minecraft:dirt\", count: 64}, {Slot: 5b, id: \"minecraft:dirt\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}, {Slot: 20b, id: \"minecraft:stone\", count: 32}]"}
+{"time":"2026-09-18T17:39:46.521Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:46.820Z","kind":"pass","value":"double-click cannot collect from locked storage"}
+{"time":"2026-09-18T17:39:46.833Z","kind":"chat","value":"MobaVerify has made the advancement [Suit Up]"}
+{"time":"2026-09-18T17:39:46.834Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Iron Helmet]"}
+{"time":"2026-09-18T17:39:47.125Z","kind":"chat","value":"Replaced a slot on MobaVerify with [Stone]"}
+{"time":"2026-09-18T17:39:47.432Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:dirt\", count: 64}, {Slot: 2b, id: \"minecraft:dirt\", count: 64}, {Slot: 3b, id: \"minecraft:dirt\", count: 64}, {Slot: 4b, id: \"minecraft:dirt\", count: 64}, {Slot: 5b, id: \"minecraft:dirt\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}, {Slot: 20b, id: \"minecraft:stone\", count: 32}]"}
+{"time":"2026-09-18T17:39:47.436Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}, head: {id: \"minecraft:iron_helmet\", count: 1}}"}
+{"time":"2026-09-18T17:39:47.946Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:dirt\", count: 64}, {Slot: 2b, id: \"minecraft:dirt\", count: 64}, {Slot: 3b, id: \"minecraft:dirt\", count: 64}, {Slot: 4b, id: \"minecraft:dirt\", count: 64}, {Slot: 5b, id: \"minecraft:dirt\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}, {Slot: 20b, id: \"minecraft:stone\", count: 32}]"}
+{"time":"2026-09-18T17:39:47.950Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:48.249Z","kind":"pass","value":"armor cursor return requires safe storage"}
+{"time":"2026-09-18T17:39:48.762Z","kind":"chat","value":"MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 64}, {Slot: 1b, id: \"minecraft:dirt\", count: 64}, {Slot: 2b, id: \"minecraft:dirt\", count: 64}, {Slot: 3b, id: \"minecraft:dirt\", count: 64}, {Slot: 4b, id: \"minecraft:dirt\", count: 64}, {Slot: 5b, id: \"minecraft:dirt\", count: 64}, {Slot: 6b, id: \"minecraft:dirt\", count: 64}, {Slot: 20b, id: \"minecraft:stone\", count: 32}]"}
+{"time":"2026-09-18T17:39:48.767Z","kind":"chat","value":"[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time":"2026-09-18T17:39:49.065Z","kind":"pass","value":"armor shift return denied at partial capacity"}
+{"time":"2026-09-18T17:39:49.072Z","kind":"chat","value":"MobaVerify has the following entity data: {offhand: {id: \"minecraft:filled_map\", count: 1, components: {\"minecraft:custom_data\": {PublicBukkitValues: {\"minecraftmoba:offhand_map\": 1b}}, \"minecraft:map_id\": 0}}, head: {id: \"minecraft:iron_helmet\", count: 1}}"}
+{"time":"2026-09-18T17:39:49.073Z","kind":"complete","value":"Inventory matrix completed; inspect equipment and no-ground-item markers alongside each pass."}

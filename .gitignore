@@ -16,3 +16,7 @@ __pycache__/
 # Task B physical greybox worlds are local inspection artifacts; compact plans
 # and validation reports remain committed under implementation/worldgen/results.
 /artifacts/worldgen/default_task_b_2026-09-10/
+
+# Local protocol fixture dependencies and scratch output.
+/validation/plugin/protocol/node_modules
+/validation/plugin/protocol/results/

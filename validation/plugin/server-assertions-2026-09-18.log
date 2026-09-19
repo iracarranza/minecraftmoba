@@ -1,0 +1,32 @@
+[08:45:52] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS partial destination cancelled=true inventoriesUnchanged=true
+[08:45:52] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map inbound cancelled=true inventoriesUnchanged=true
+[08:45:52] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map outbound cancelled=true inventoriesUnchanged=true
+[08:45:52] [Server thread/ERROR]: [MobaAcceptanceFixture] FIXTURE_FAIL java.lang.IllegalStateException: full capacity destination with room cancellation=true
+[08:45:53] [Server thread/INFO]: [MobaAcceptanceFixture] FIXTURE_PASS denied-place player=MobaVerify
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS partial destination cancelled=true inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map inbound cancelled=true inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map outbound cancelled=true inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] FIXTURE_PASS transfer-partial player=MobaTest
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS full capacity destination with room cancelled=false inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map inbound cancelled=true inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] TRANSFER_PASS map outbound cancelled=true inventoriesUnchanged=true
+[08:50:30] [Server thread/INFO]: [MobaAcceptanceFixture] FIXTURE_PASS transfer-full player=MobaTest
+[08:50:31] [Server thread/INFO]: [MobaAcceptanceFixture] FIXTURE_PASS denied-place player=MobaTest
+[08:52:52] [Server thread/INFO]: [MinecraftMoba] SinkholeLite removed=22 playerPlacedExcluded=7 newlyPlacedSpared=0
+[13:38:13] [Server thread/INFO]: [MinecraftMoba] SinkholeLite removed=21 playerPlacedExcluded=7 newlyPlacedSpared=0
+[13:38:14] [Server thread/INFO]: MobaTest issued server command: /execute if block 3 -59 -5 stone run say PERSISTED_ARCH_3_-59_-5
+[13:38:14] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_3_-59_-5
+[13:38:15] [Server thread/INFO]: MobaTest issued server command: /execute if block 3 -58 -5 stone run say PERSISTED_ARCH_3_-58_-5
+[13:38:15] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_3_-58_-5
+[13:38:15] [Server thread/INFO]: MobaTest issued server command: /execute if block 3 -57 -5 stone run say PERSISTED_ARCH_3_-57_-5
+[13:38:15] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_3_-57_-5
+[13:38:15] [Server thread/INFO]: MobaTest issued server command: /execute if block 5 -59 -5 stone run say PERSISTED_ARCH_5_-59_-5
+[13:38:15] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_5_-59_-5
+[13:38:15] [Server thread/INFO]: MobaTest issued server command: /execute if block 5 -58 -5 stone run say PERSISTED_ARCH_5_-58_-5
+[13:38:15] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_5_-58_-5
+[13:38:16] [Server thread/INFO]: MobaTest issued server command: /execute if block 5 -57 -5 stone run say PERSISTED_ARCH_5_-57_-5
+[13:38:16] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_5_-57_-5
+[13:38:16] [Server thread/INFO]: MobaTest issued server command: /execute if block 4 -57 -5 stone run say PERSISTED_ARCH_4_-57_-5
+[13:38:16] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_ARCH_4_-57_-5
+[13:38:16] [Server thread/INFO]: MobaTest issued server command: /execute if block 3 -60 -5 air run say PERSISTED_TERRAIN_COLLAPSED
+[13:38:16] [Server thread/INFO]: [Not Secure] [MobaTest] PERSISTED_TERRAIN_COLLAPSED

@@ -1,0 +1,206 @@
+{"time": "2026-09-18T12:45:45.312Z", "kind": "chat", "value": "MobaVerify joined the game"}
+{"time": "2026-09-18T12:45:45.321Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction", "fixtureEvents", "dropOrdering"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T12:45:52.821Z", "kind": "scenarioBegin", "value": "fixtureEvents"}
+{"time": "2026-09-18T12:45:52.829Z", "kind": "chat", "value": "FIXTURE_FAIL java.lang.IllegalStateException: full capacity destination with room cancellation=true"}
+{"time": "2026-09-18T12:45:53.108Z", "kind": "chat", "value": "FIXTURE_PASS denied-place"}
+{"time": "2026-09-18T12:45:53.326Z", "kind": "scenarioEnd", "value": "fixtureEvents"}
+{"time": "2026-09-18T12:45:53.327Z", "kind": "scenarioBegin", "value": "dropOrdering"}
+{"time": "2026-09-18T12:45:53.331Z", "kind": "chat", "value": "Updated MobaVerify: level=1 xp=0 class=test"}
+{"time": "2026-09-18T12:45:53.599Z", "kind": "chat", "value": "Replaced a slot on MobaVerify with [Stone]"}
+{"time": "2026-09-18T12:45:53.839Z", "kind": "chat", "value": "Replaced a slot on MobaVerify with [Dirt]"}
+{"time": "2026-09-18T12:45:54.402Z", "kind": "chat", "value": "MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 3}, {Slot: 1b, id: \"minecraft:dirt\", count: 2}]"}
+{"time": "2026-09-18T12:45:54.644Z", "kind": "chat", "value": "Channel started"}
+{"time": "2026-09-18T12:45:54.950Z", "kind": "chat", "value": "MobaVerify has the following entity data: [{Slot: 0b, id: \"minecraft:stone\", count: 3}, {Slot: 1b, id: \"minecraft:dirt\", count: 2}]"}
+{"time": "2026-09-18T12:45:55.202Z", "kind": "chat", "value": "uuid=38683690-8e49-3c79-8912-0a974d6eb52a class=test level=1 xp=0 choices=[] capacity=DerivedCapacity[maxHealth=9.0, effectiveHunger=9, unlockedSlots=6] mode=true kitConfigured=true executions={channel_ult=1} channel=true"}
+{"time": "2026-09-18T12:45:55.750Z", "kind": "scenarioEnd", "value": "dropOrdering"}
+{"time": "2026-09-18T12:45:57.907Z", "kind": "chat", "value": "[Server: Made MobaTest a server operator]"}
+{"time": "2026-09-18T12:47:34.108Z", "kind": "chat", "value": "[Server: Stopping the server]"}
+{"time": "2026-09-18T12:47:34.170Z", "kind": "kicked", "value": {"type": "string", "value": "Server closed"}}
+{"time": "2026-09-18T12:47:34.170Z", "kind": "end", "value": "socketClosed"}
+{"time": "2026-09-18T12:49:33.225Z", "kind": "error", "value": "Error: connect EPERM 127.0.0.1:25577 - Local (0.0.0.0:0)\n    at internalConnect (node:net:1115:16)\n    at defaultTriggerAsyncIdScope (node:internal/async_hooks:464:18)\n    at node:net:1353:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)"}
+{"time": "2026-09-18T12:49:33.226Z", "kind": "end", "value": "socketClosed"}
+{"time": "2026-09-18T12:50:15.021Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T12:50:15.030Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction", "fixtureEvents", "dropOrdering", "rewardPendingBefore", "rewardPendingAfter"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T12:50:30.222Z", "kind": "scenarioBegin", "value": "fixtureEvents"}
+{"time": "2026-09-18T12:50:30.224Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=null"}
+{"time": "2026-09-18T12:50:30.481Z", "kind": "chat", "value": "FIXTURE_PASS transfer-partial"}
+{"time": "2026-09-18T12:50:30.773Z", "kind": "chat", "value": "Updated MobaTest: level=30 xp=0 class=null"}
+{"time": "2026-09-18T12:50:30.983Z", "kind": "chat", "value": "FIXTURE_PASS transfer-full"}
+{"time": "2026-09-18T12:50:31.233Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=null"}
+{"time": "2026-09-18T12:50:31.481Z", "kind": "chat", "value": "FIXTURE_PASS denied-place"}
+{"time": "2026-09-18T12:50:31.732Z", "kind": "scenarioEnd", "value": "fixtureEvents"}
+{"time": "2026-09-18T12:50:31.732Z", "kind": "scenarioBegin", "value": "rewardPendingBefore"}
+{"time": "2026-09-18T12:50:31.735Z", "kind": "chat", "value": "Updated MobaTest: level=1 xp=0 class=null"}
+{"time": "2026-09-18T12:50:32.011Z", "kind": "chat", "value": "Updated MobaTest: level=3 xp=50 class=null"}
+{"time": "2026-09-18T12:50:32.246Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=50 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T12:50:33.348Z", "kind": "scenarioEnd", "value": "rewardPendingBefore"}
+{"time": "2026-09-18T12:50:33.359Z", "kind": "end", "value": "pending rewards reconnect check"}
+{"time": "2026-09-18T12:52:02.867Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T12:52:02.876Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction", "fixtureEvents", "dropOrdering", "rewardPendingBefore", "rewardPendingAfter", "sinkholeArch"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T12:52:45.069Z", "kind": "scenarioBegin", "value": "rewardPendingAfter"}
+{"time": "2026-09-18T12:52:45.076Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=50 choices=[] capacity=DerivedCapacity[maxHealth=10.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T12:52:45.322Z", "kind": "nativeXp", "value": {"level": 3, "points": 0, "progress": 0.5}}
+{"time": "2026-09-18T12:52:46.486Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=50 choices=[ChoiceRecord[level=2, choiceId=fixture_health]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=10, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T12:52:47.238Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=null level=3 xp=50 choices=[ChoiceRecord[level=2, choiceId=fixture_health], ChoiceRecord[level=3, choiceId=fixture_hunger]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=11, unlockedSlots=9] mode=false kitConfigured=false executions={} channel=false"}
+{"time": "2026-09-18T12:52:47.505Z", "kind": "chat", "value": "MobaTest has the following entity data: []"}
+{"time": "2026-09-18T12:52:47.738Z", "kind": "pass", "value": "Pending rewards, native XP, and immediate capacity updates survive reconnect"}
+{"time": "2026-09-18T12:52:47.739Z", "kind": "scenarioEnd", "value": "rewardPendingAfter"}
+{"time": "2026-09-18T12:52:47.739Z", "kind": "scenarioBegin", "value": "sinkholeArch"}
+{"time": "2026-09-18T12:52:47.742Z", "kind": "chat", "value": "Updated MobaTest: level=3 xp=50 class=test"}
+{"time": "2026-09-18T12:52:47.998Z", "kind": "chat", "value": "Teleported MobaTest to 2.500000, -59.000000, -5.500000"}
+{"time": "2026-09-18T12:52:48.647Z", "kind": "chat", "value": "No blocks were filled"}
+{"time": "2026-09-18T12:52:48.901Z", "kind": "chat", "value": "Successfully filled 49 block(s)"}
+{"time": "2026-09-18T12:52:49.169Z", "kind": "chat", "value": "Replaced a slot on MobaTest with [Stone]"}
+{"time": "2026-09-18T12:52:50.263Z", "kind": "chat", "value": "MobaVerify joined the game"}
+{"time": "2026-09-18T12:52:50.611Z", "kind": "chat", "value": "[MobaVerify] RAPID_M1_BEFORE"}
+{"time": "2026-09-18T12:52:53.961Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_3_-59_-5"}
+{"time": "2026-09-18T12:52:54.206Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_3_-58_-5"}
+{"time": "2026-09-18T12:52:54.571Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_3_-57_-5"}
+{"time": "2026-09-18T12:52:54.809Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_5_-59_-5"}
+{"time": "2026-09-18T12:52:55.061Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_5_-58_-5"}
+{"time": "2026-09-18T12:52:55.310Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_5_-57_-5"}
+{"time": "2026-09-18T12:52:55.563Z", "kind": "chat", "value": "[MobaTest] ARCH_SURVIVED_4_-57_-5"}
+{"time": "2026-09-18T12:52:55.814Z", "kind": "chat", "value": "[MobaTest] ARCH_TERRAIN_REMOVED_3_-5"}
+{"time": "2026-09-18T12:52:56.068Z", "kind": "chat", "value": "[MobaTest] ARCH_TERRAIN_REMOVED_4_-5"}
+{"time": "2026-09-18T12:52:56.320Z", "kind": "chat", "value": "[MobaTest] ARCH_TERRAIN_REMOVED_3_-4"}
+{"time": "2026-09-18T12:52:56.575Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=3 xp=50 choices=[ChoiceRecord[level=2, choiceId=fixture_health], ChoiceRecord[level=3, choiceId=fixture_hunger]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=11, unlockedSlots=9] mode=false kitConfigured=true executions={sinkhole_lite=1} channel=false"}
+{"time": "2026-09-18T12:52:56.844Z", "kind": "chat", "value": "provenance observedNonemptyChunks=1 payloadBytes=247 peakBytes=247 maxChunkBytes=247 reclaimedBytes=0 placeCount=7 placeMeanNs=189262.14285714287 placeMaxNs=558084 breakCount=0 breakMeanNs=0.0 breakMaxNs=0 openPistonMarked=0 openExplosionMarked=0 csv=plugins/MinecraftMoba/measurements/provenance-1789735702995.csv"}
+{"time": "2026-09-18T12:52:57.070Z", "kind": "scenarioEnd", "value": "sinkholeArch"}
+{"time": "2026-09-18T12:53:26.397Z", "kind": "chat", "value": "[MobaVerify] RAPID_M1_AFTER"}
+{"time": "2026-09-18T12:53:26.999Z", "kind": "chat", "value": "[MobaVerify: Teleported MobaVerify to 20.500000, -59.000000, 20.500000]"}
+{"time": "2026-09-18T12:53:27.297Z", "kind": "chat", "value": "[MobaVerify: Changed the block at 20, -60, 20]"}
+{"time": "2026-09-18T12:53:28.601Z", "kind": "chat", "value": "[MobaVerify] RAPID_M2_BEFORE"}
+{"time": "2026-09-18T12:53:29.204Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 49 block(s)]"}
+{"time": "2026-09-18T12:53:33.060Z", "kind": "chat", "value": "MobaVerify fell out of the world"}
+{"time": "2026-09-18T12:54:19.495Z", "kind": "chat", "value": "[MobaVerify] RAPID_M2_AFTER"}
+{"time": "2026-09-18T12:54:20.297Z", "kind": "chat", "value": "[MobaVerify] RAPID_EMPTY_Q_BEFORE"}
+{"time": "2026-09-18T12:54:56.091Z", "kind": "chat", "value": "[MobaVerify] RAPID_EMPTY_Q_AFTER"}
+{"time": "2026-09-18T12:54:56.715Z", "kind": "chat", "value": "MobaVerify left the game"}
+{"time": "2026-09-18T12:55:59.214Z", "kind": "chat", "value": "MobaVerify joined the game"}
+{"time": "2026-09-18T12:55:59.274Z", "kind": "chat", "value": "[MobaVerify: Marked chunk [5, 5] in minecraft:overworld to be force loaded]"}
+{"time": "2026-09-18T12:56:00.375Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 256 block(s)]"}
+{"time": "2026-09-18T12:56:00.676Z", "kind": "chat", "value": "[MobaVerify: Teleported MobaVerify to 88.500000, -59.000000, 88.500000]"}
+{"time": "2026-09-18T12:56:03.574Z", "kind": "chat", "value": "[MobaVerify] RAPID_M1_BEFORE"}
+{"time": "2026-09-18T12:56:39.372Z", "kind": "chat", "value": "[MobaVerify] RAPID_M1_AFTER"}
+{"time": "2026-09-18T12:56:39.966Z", "kind": "chat", "value": "[MobaVerify: Teleported MobaVerify to 88.500000, -59.000000, 88.500000]"}
+{"time": "2026-09-18T12:56:41.070Z", "kind": "chat", "value": "[MobaVerify] RAPID_M2_BEFORE"}
+{"time": "2026-09-18T12:56:41.675Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 35 block(s)]"}
+{"time": "2026-09-18T12:56:43.204Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:44.211Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:45.215Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:46.220Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:47.230Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:48.235Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:49.247Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:50.248Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:51.255Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:52.262Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:53.267Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:54.277Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:55.286Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:56.291Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:57.295Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:58.300Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:56:59.304Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:00.310Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:01.315Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:02.323Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:03.328Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:04.334Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:05.339Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:06.355Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:07.360Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:08.394Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:09.399Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:10.402Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:11.408Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:12.411Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:13.417Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:14.419Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:15.424Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:16.464Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:17.436Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:18.439Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:19.443Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:20.457Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:21.448Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:22.450Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:23.456Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:24.457Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:25.458Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:26.463Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:27.465Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:28.471Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:29.486Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:30.482Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:31.486Z", "kind": "chat", "value": "[MobaVerify: Successfully filled 18 block(s)]"}
+{"time": "2026-09-18T12:57:32.494Z", "kind": "chat", "value": "[MobaVerify] RAPID_M2_AFTER"}
+{"time": "2026-09-18T12:57:33.298Z", "kind": "chat", "value": "[MobaVerify] RAPID_EMPTY_Q_BEFORE"}
+{"time": "2026-09-18T12:58:09.067Z", "kind": "chat", "value": "[MobaVerify] RAPID_EMPTY_Q_AFTER"}
+{"time": "2026-09-18T12:58:09.665Z", "kind": "chat", "value": "[MobaVerify: Unmarked chunk [5, 5] in minecraft:overworld for force loading]"}
+{"time": "2026-09-18T12:58:10.002Z", "kind": "chat", "value": "MobaVerify left the game"}
+{"time": "2026-09-18T16:03:34.964Z", "kind": "error", "value": "Error: client timed out after 30000 milliseconds\n    at Timeout._onTimeout (/private/tmp/moba-protocol/node_modules/minecraft-protocol/src/client/keepalive.js:18:28)\n    at listOnTimeout (node:internal/timers:594:17)\n    at process.processTimers (node:internal/timers:529:7)"}
+{"time": "2026-09-18T16:03:34.975Z", "kind": "end", "value": "keepAliveError"}
+{"time": "2026-09-18T17:37:58.053Z", "kind": "chat", "value": "MobaTest joined the game"}
+{"time": "2026-09-18T17:37:58.066Z", "kind": "ready", "value": {"scenarios": ["fiftyLunges", "fiftyUltimates", "inventoryAndUnlock", "sinkholeProtection", "sinkholeProvenance", "deathInMode", "duplicateUltInput", "rewardGui", "entityPackets", "fiftySinkholes", "rewardReset", "quitInMode", "reconnectState", "entityInteraction", "fixtureEvents", "dropOrdering", "rewardPendingBefore", "rewardPendingAfter", "sinkholeArch", "archAfterRestart"], "instruction": "Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time": "2026-09-18T17:38:11.004Z", "kind": "scenarioBegin", "value": "archAfterRestart"}
+{"time": "2026-09-18T17:38:11.015Z", "kind": "chat", "value": "uuid=7199870d-4ba1-3676-816e-e2c0860e13ea class=test level=3 xp=50 choices=[ChoiceRecord[level=2, choiceId=fixture_health], ChoiceRecord[level=3, choiceId=fixture_hunger]] capacity=DerivedCapacity[maxHealth=11.0, effectiveHunger=11, unlockedSlots=9] mode=false kitConfigured=true executions={} channel=false"}
+{"time": "2026-09-18T17:38:11.267Z", "kind": "chat", "value": "provenance observedNonemptyChunks=1 payloadBytes=247 peakBytes=247 maxChunkBytes=247 reclaimedBytes=0 placeCount=0 placeMeanNs=0.0 placeMaxNs=0 breakCount=0 breakMeanNs=0.0 breakMaxNs=0 openPistonMarked=0 openExplosionMarked=0 csv=plugins/MinecraftMoba/measurements/provenance-1789753048201.csv"}
+{"time": "2026-09-18T17:38:11.626Z", "kind": "chat", "value": "Successfully filled 21 block(s)"}
+{"time": "2026-09-18T17:38:11.768Z", "kind": "chat", "value": "Teleported MobaTest to 2.500000, -59.000000, -5.500000"}
+{"time": "2026-09-18T17:38:14.999Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_3_-59_-5"}
+{"time": "2026-09-18T17:38:15.244Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_3_-58_-5"}
+{"time": "2026-09-18T17:38:15.494Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_3_-57_-5"}
+{"time": "2026-09-18T17:38:15.745Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_5_-59_-5"}
+{"time": "2026-09-18T17:38:15.997Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_5_-58_-5"}
+{"time": "2026-09-18T17:38:16.248Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_5_-57_-5"}
+{"time": "2026-09-18T17:38:16.497Z", "kind": "chat", "value": "[MobaTest] PERSISTED_ARCH_4_-57_-5"}
+{"time": "2026-09-18T17:38:16.747Z", "kind": "chat", "value": "[MobaTest] PERSISTED_TERRAIN_COLLAPSED"}
+{"time": "2026-09-18T17:38:16.999Z", "kind": "chat", "value": "provenance observedNonemptyChunks=1 payloadBytes=247 peakBytes=247 maxChunkBytes=247 reclaimedBytes=0 placeCount=0 placeMeanNs=0.0 placeMaxNs=0 breakCount=0 breakMeanNs=0.0 breakMaxNs=0 openPistonMarked=0 openExplosionMarked=0 csv=plugins/MinecraftMoba/measurements/provenance-1789753048201.csv"}
+{"time": "2026-09-18T17:38:17.248Z", "kind": "checked", "value": "Inspect seven persisted arch markers, terrain collapse, and placeCount=0 after server restart"}
+{"time": "2026-09-18T17:38:17.248Z", "kind": "scenarioEnd", "value": "archAfterRestart"}
+{"time": "2026-09-18T17:39:18.311Z", "kind": "chat", "value": "MobaVerify joined the game"}
+{"time": "2026-09-18T17:39:18.662Z", "kind": "chat", "value": "[MobaVerify: Teleported MobaVerify to 200.500000, -59.000000, 200.500000]"}
+{"time": "2026-09-18T17:39:19.763Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:20.063Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:20.365Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:20.667Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:20.968Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:21.277Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:22.113Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:22.925Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:23.746Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:24.563Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:25.389Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:26.204Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:27.020Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:28.043Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:29.048Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:30.674Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:31.686Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:31.989Z", "kind": "chat", "value": "[MobaVerify: Changed the block at 202, -59, 200]"}
+{"time": "2026-09-18T17:39:32.294Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot at 202, -59, 200 with [Oak Planks]]"}
+{"time": "2026-09-18T17:39:33.351Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:34.365Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:35.380Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:36.412Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:37.027Z", "kind": "chat", "value": "[MobaVerify: Summoned new Dirt]"}
+{"time": "2026-09-18T17:39:39.641Z", "kind": "chat", "value": "[MobaVerify: Set own game mode to Creative Mode]"}
+{"time": "2026-09-18T17:39:40.804Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:41.668Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:42.485Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:42.792Z", "kind": "chat", "value": "[MobaVerify: Set own game mode to Survival Mode]"}
+{"time": "2026-09-18T17:39:43.399Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:43.700Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Dirt]]"}
+{"time": "2026-09-18T17:39:44.000Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Dirt]]"}
+{"time": "2026-09-18T17:39:44.299Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Dirt]]"}
+{"time": "2026-09-18T17:39:44.598Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Dirt]]"}
+{"time": "2026-09-18T17:39:44.902Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Dirt]]"}
+{"time": "2026-09-18T17:39:45.203Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:46.521Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:46.833Z", "kind": "chat", "value": "MobaVerify has made the advancement [Suit Up]"}
+{"time": "2026-09-18T17:39:46.833Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Iron Helmet]]"}
+{"time": "2026-09-18T17:39:47.125Z", "kind": "chat", "value": "[MobaVerify: Replaced a slot on MobaVerify with [Stone]]"}
+{"time": "2026-09-18T17:39:47.950Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:48.767Z", "kind": "chat", "value": "[MobaVerify] NO_UNEXPECTED_GROUND_ITEMS"}
+{"time": "2026-09-18T17:39:49.112Z", "kind": "chat", "value": "MobaVerify left the game"}

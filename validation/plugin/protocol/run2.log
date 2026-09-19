@@ -1,0 +1,57 @@
+{"time":"2026-09-17T21:11:51.602Z","kind":"chat","value":"MobaTest joined the game"}
+{"time":"2026-09-17T21:11:51.610Z","kind":"ready","value":{"scenarios":["fiftyLunges","fiftyUltimates","inventoryAndUnlock","sinkholeProtection","sinkholeProvenance","deathInMode","duplicateUltInput","rewardGui","mobTargeted"],"instruction":"Grant op MobaTest in fixture console, then type one scenario name here."}}
+{"time":"2026-09-17T21:11:51.904Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.046267472379905916,"y":-0.0783739241897089,"z":-0.04120124519318802}}}
+{"time":"2026-09-17T21:11:52.002Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04712201672465355,"y":-0.0783739241897089,"z":-0.041933711774400306}}}
+{"time":"2026-09-17T21:11:52.150Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0474882500152598,"y":-0.0783739241897089,"z":-0.04223890618323878}}}
+{"time":"2026-09-17T21:11:52.302Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05957394860526155,"y":-0.0783739241897089,"z":-0.01910516999328571}}}
+{"time":"2026-09-17T21:11:52.450Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.061832387230665864,"y":-0.0783739241897089,"z":-0.013977903924800139}}}
+{"time":"2026-09-17T21:11:52.604Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06232069828480746,"y":-0.0783739241897089,"z":-0.012757126289446363}}}
+{"time":"2026-09-17T21:11:52.758Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05194408838430076,"y":-0.0783739241897089,"z":-0.03509735701641947}}}
+{"time":"2026-09-17T21:11:52.901Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04962461087712877,"y":-0.0783739241897089,"z":-0.039492156503692866}}}
+{"time":"2026-09-17T21:11:53.052Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0490752609412195,"y":-0.0783739241897089,"z":-0.04046877861197584}}}
+{"time":"2026-09-17T21:11:53.200Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.054812915827382014,"y":-0.0783739241897089,"z":-0.028932429957883143}}}
+{"time":"2026-09-17T21:11:53.347Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06116095953122147,"y":-0.0783739241897089,"z":-0.015198681560153804}}}
+{"time":"2026-09-17T21:11:53.496Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06232069828480746,"y":-0.0783739241897089,"z":-0.012024659708234187}}}
+{"time":"2026-09-17T21:11:53.647Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06299212598425208,"y":-0.0783739241897089,"z":-0.007690899102728466}}}
+{"time":"2026-09-17T21:11:53.797Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06348043703839346,"y":-0.0783739241897089,"z":-0.0033571384972227447}}}
+{"time":"2026-09-17T21:11:53.947Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.06354147592016113,"y":-0.0783739241897089,"z":-0.0010986998718183205}}}
+{"time":"2026-09-17T21:11:54.097Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.0636025148019288,"y":-0.0783739241897089,"z":-0.000427272172373816}}}
+{"time":"2026-09-17T21:11:54.549Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05499603247268503,"y":-0.0783739241897089,"z":-0.02636879692364036}}}
+{"time":"2026-09-17T21:11:54.699Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.05090642739425011,"y":-0.0783739241897089,"z":-0.0371116401147531}}}
+{"time":"2026-09-17T21:11:54.849Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04992980528596713,"y":-0.0783739241897089,"z":-0.039248000976622066}}}
+{"time":"2026-09-17T21:11:54.998Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.04962461087712877,"y":-0.0783739241897089,"z":-0.039736312030763554}}}
+{"time":"2026-09-17T21:11:55.148Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0.008057132393334498,"y":-0.0783739241897089,"z":-0.00647012146737469}}}
+{"time":"2026-09-17T21:11:55.298Z","kind":"velocityPacket","value":{"entityId":3,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:11:57.047Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.008972715619849803,"y":-0.0783739241897089,"z":0.03289995727278283}}}
+{"time":"2026-09-17T21:11:57.200Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.01806750900323506,"y":-0.0783739241897089,"z":0.06604407007263635}}}
+{"time":"2026-09-17T21:11:57.247Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.02423243606177139,"y":-0.0783739241897089,"z":-0.04687786119758286}}}
+{"time":"2026-09-17T21:11:57.347Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.019532442165659525,"y":-0.0783739241897089,"z":0.07147653054996028}}}
+{"time":"2026-09-17T21:11:57.397Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.03289995727278283,"y":-0.0783739241897089,"z":-0.06348043703839346}}}
+{"time":"2026-09-17T21:11:57.498Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.008179210156869954,"y":-0.0783739241897089,"z":0.07434535799304154}}}
+{"time":"2026-09-17T21:11:57.546Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.03430385155343951,"y":-0.0783739241897089,"z":-0.06622718671793937}}}
+{"time":"2026-09-17T21:11:57.650Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.005554538240859386,"y":-0.0783739241897089,"z":0.07489470792895081}}}
+{"time":"2026-09-17T21:11:57.699Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.045168772508087596,"y":-0.0783739241897089,"z":-0.05932979307819086}}}
+{"time":"2026-09-17T21:11:57.797Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.002624671916010457,"y":-0.0783739241897089,"z":0.07507782457425383}}}
+{"time":"2026-09-17T21:11:57.847Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.049746688640664116,"y":-0.0783739241897089,"z":-0.056155771226271134}}}
+{"time":"2026-09-17T21:11:57.947Z","kind":"velocityPacket","value":{"entityId":17,"velocity":{"x":-0.0007324665812122877,"y":-0.0783739241897089,"z":0.0751388634560215}}}
+{"time":"2026-09-17T21:11:57.998Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.050784349630714765,"y":-0.0783739241897089,"z":-0.055362265763291174}}}
+{"time":"2026-09-17T21:11:58.147Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.052127205029603774,"y":-0.0783739241897089,"z":-0.05414148812793751}}}
+{"time":"2026-09-17T21:11:58.298Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05261551608374537,"y":-0.0783739241897089,"z":-0.05371421595556369}}}
+{"time":"2026-09-17T21:11:58.598Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05285967161081606,"y":-0.0783739241897089,"z":-0.05340902154672522}}}
+{"time":"2026-09-17T21:11:59.197Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05310382713788675,"y":-0.0783739241897089,"z":-0.05316486601965453}}}
+{"time":"2026-09-17T21:12:00.246Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.069584325215162,"y":-0.0783739241897089,"z":-0.024415552707074406}}}
+{"time":"2026-09-17T21:12:00.399Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07275834706708184,"y":-0.0783739241897089,"z":-0.017640236830861244}}}
+{"time":"2026-09-17T21:12:00.548Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07410120246597085,"y":-0.0783739241897089,"z":-0.010742843191112739}}}
+{"time":"2026-09-17T21:12:00.698Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07495574681071848,"y":-0.0783739241897089,"z":-0.004272721723738049}}}
+{"time":"2026-09-17T21:12:00.850Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.07507782457425383,"y":-0.0783739241897089,"z":-0.0009766221082829762}}}
+{"time":"2026-09-17T21:12:00.998Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.062381737166575135,"y":-0.0783739241897089,"z":-0.0380272233412684}}}
+{"time":"2026-09-17T21:12:01.149Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.05902459866935228,"y":-0.0783739241897089,"z":-0.04577916132576454}}}
+{"time":"2026-09-17T21:12:01.299Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.0581090154428372,"y":-0.0783739241897089,"z":-0.047549288897027364}}}
+{"time":"2026-09-17T21:12:01.447Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0.009461026673991402,"y":-0.0783739241897089,"z":-0.007751937984496138}}}
+{"time":"2026-09-17T21:12:01.600Z","kind":"velocityPacket","value":{"entityId":15,"velocity":{"x":0,"y":-0.0783739241897089,"z":0}}}
+{"time":"2026-09-17T21:12:03.043Z","kind":"scenarioBegin","value":"sinkholeProvenance"}
+{"time":"2026-09-17T21:12:03.052Z","kind":"chat","value":"Updated MobaTest: level=3 xp=0 class=test"}
+{"time":"2026-09-17T21:12:03.302Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:03.551Z","kind":"chat","value":"No blocks were filled"}
+{"time":"2026-09-17T21:12:03.811Z","kind":"chat","value":"Replaced a slot on MobaTest with [Stone]"}
+{"time":"2026-09-17T21:12:09.758Z","kind":"scenarioError","value":"Error: Server did not answer the placement at (3, -59, -5): Event blockUpdate:(3, -59, -5) did not fire within timeout of 5000ms\n    at /private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:33:27\n    at async placeBlockWithOptions (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:28:26)\n    at async EventEmitter.placeBlock (/private/tmp/moba-protocol/node_modules/mineflayer/lib/plugins/place_block.js:48:5)\n    at async exports.sinkholeProvenance (/private/tmp/minecraftmoba-phase1/validation/plugin/protocol/scenarios.js:63:5)\n    at async /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/driver.cjs:28:5"}

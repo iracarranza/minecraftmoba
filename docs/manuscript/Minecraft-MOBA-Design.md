@@ -156,7 +156,13 @@ A mountain-linked material can be guaranteed somewhere in the relevant geography
 
 Herds, Crop Patches, and Mob Swarms also appear in the later world-economy discussion as concentrated, phase-appropriate opportunities. They are intended to enlarge the scale of legitimate Minecraft activity as the economy develops. They are not established as generic XP pickups or automatically as formal Worksites.
 
-[OPEN] [NEEDS CANONICAL OWNER] Their activators, spawning, populations, renewal, depletion, ownership, reward attribution, and temporal behavior are not settled. The night branch explicitly corrected an earlier claim that its full original specifications were available. Do not infer a complete system from that earlier “yes.”
+**Regenerative Sources, 12 September 2026. Source: [WN].** The system has three top-level buckets — crops and plant resources, animal populations, and hostile Mob Swarms — generated with a spatial depth gradient. The governing rule is that regenerating resources increase in **economic specificity** with distance from the midpoint and base regions: near resources solve broad universal needs, deeper resources are rarer, more specialized or composition-dependent and support narrower but stronger strategies. Farther does not mean simply more XP or the same resource in bigger stacks. "Herds" remains useful player-facing language, but the internal system is better treated as animal populations, which also covers schools, colonies and aquatic populations. Candidate species and plants per tier are recorded in `maps.md`; none are canon.
+
+Mob Swarms add a second axis, **time of day**, so a Swarm is not generated from a difficulty tier alone but from spatial depth, regional identity, and day/night state. A night encounter need not be the day encounter with more health — it may change mob type, geometry, status effects, ranged pressure, density, drops, and required tactics. Near Swarms stay ordinary; intermediate ones add specialized threats; deep ones may include ravagers, charged creepers, dense pillager groups or ocean guardian groups. Boss and quasi-boss mobs such as the Warden are explicitly not ordinary regenerative Swarms, which remain distinct from major objectives and one-off encounters.
+
+Spatial depth and time of day form an opportunity field rather than a numeric tier table, and deep-night play can be some of the most valuable Combat activity on the map. Because deep opportunities are far from base and night weakens Routes, Supply Lines and Constructs, deep-night expeditions create strong Exploration, Logistics and Combat interdependence.
+
+[OPEN] Their activators, spawning, populations, renewal, depletion, ownership, reward attribution, temporal behavior, distance tables, regional tables, Swarm compositions, day-to-night transformations, respawn cadence, and reward scaling are not settled. The night branch explicitly corrected an earlier claim that its full original specifications were available. Do not infer a complete system from that earlier “yes.”
 
 Later extensions under discussion include horse, squid, or mountain-goat groupings and additional crop families such as melons. These are questions about the population framework, not committed species guarantees. Distinguish naturally occurring patches, ordinary player farms, and recognized Development infrastructure (§6.3).
 
@@ -168,13 +174,19 @@ These properties are not exclusive resource classes. A Mining Outpost creates pe
 
 ## 3.5 Day and night
 
-**Working; [NEEDS CANONICAL OWNER]. Source: [N: final night-economy direction].** Day favors the full effectiveness of established infrastructure. Night reduces the effectiveness of Constructs, Development infrastructure, Routes, and Supply Lines without disabling them. Hostile-mob activity should become more economically valuable, giving Combat a recurring opportunity to convert danger into resources and progression.
+**Canonical owner assigned 12 September 2026. Sources: [N], [WN].** The day/night economy is owned by `objectives.md` §17A, and the nighttime infrastructure penalty by `infrastructure.md`. The working distinction is that **day is accumulation and productive time; night is opportunity and contestable time.** Day and night are pressures, not role-locking phases: players can fight by day and farm, build or produce at night. The system changes relative economic attractiveness rather than prohibiting actions.
+
+At sunset three things change together: a limited, randomly selected set of Worksites activates (§7.10), Mob Swarms transform to nighttime compositions (§3.3), and recognized infrastructure enters a reduced-efficiency state. At sunrise Worksites close, Swarms revert, infrastructure returns to full efficiency, and teams integrate nighttime gains into the daytime economy.
+
+Infrastructure vulnerability alone is **not** considered sufficient to create nighttime PvP; the positive nighttime opportunity economy is the stronger driver. [OPEN] Exact day and night duration remains unresolved, as does the magnitude and per-type shape of the infrastructure penalty.
+
+**Working. Source: [N: final night-economy direction].** Day favors the full effectiveness of established infrastructure. Night reduces the effectiveness of Constructs, Development infrastructure, Routes, and Supply Lines without disabling them. Hostile-mob activity should become more economically valuable, giving Combat a recurring opportunity to convert danger into resources and progression.
 
 This combination makes established positions harder to sustain, supplies less efficient, and reinforcement less comfortable. Raids, ambushes, interception, and siege become more attractive because the world’s relative incentives change. A team can still work, defend, travel, or prepare through night.
 
 Infrastructure progression may mitigate each system’s nighttime weakness in its own way. These resilience paths are candidates; they are not automatically T2 rewards. The discussion’s illustrative 75–90% effectiveness range is not a selected multiplier and is not applied elsewhere in this manuscript.
 
-[OPEN] Cycle duration, start time, number of nights, transitions, sleep behavior, mob composition, spawn rules, reward changes, and which intrinsic or integration effects weaken are undefined. No global nighttime PvP-XP bonus is established. Mob Swarms’ exact relationship to this economy remains open.
+[OPEN] Cycle duration, start time, number of nights, transitions, sleep behavior, spawn rules, reward changes, and which intrinsic or integration effects weaken are undefined. No global nighttime PvP-XP bonus is established, and [WN] explicitly declines to add one yet: night already weakens infrastructure, enriches Mob Swarms, and activates limited Worksites, so PvP should emerge from overlapping demand rather than from a rule making kills worth more after sunset. Whether a direct incentive is needed after testing is open. Mob Swarms’ relationship to this economy is no longer open in outline — they are the Combat-facing regenerative resource and their composition changes with time of day (§3.3) — though their compositions and values are unresolved.
 
 ## 3.6 Compression of Minecraft timescales
 
@@ -336,7 +348,9 @@ Team First is the first allied discovery of an eligible opportunity. Match First
 
 [OPEN] The manuscript does not assign XP per block, craft, kill, delivery, farm action, or objective contribution. Source provenance, repeated pickup, transfer between teammates, re-crafting, renewable output, and joint work need a rule that avoids duplicate credit while recognizing useful activity. No complete anti-farming ledger is currently canonical.
 
-[CONFLICT] Older chat preserves flat submission XP plus usage-driven infrastructure XP. Current [O §9] and [C §2] instead reject passive/submission assumptions and specify integration around legitimate activity. The old model is retained as historical discussion, not used in the economy described here.
+[CONFLICT] Older chat preserves flat submission XP plus usage-driven infrastructure XP.
+
+[TECHNICAL RISK] Statistics cannot distinguish mining a natural block from mining a replaced one, or a world pickup from a teammate's handover. Anti-farming therefore depends on block provenance (§13.8). See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Current [O §9] and [C §2] instead reject passive/submission assumptions and specify integration around legitimate activity. The old model is retained as historical discussion, not used in the economy described here.
 
 ## 5.3 Current working level spine
 
@@ -372,6 +386,8 @@ Levels 11 and 13 also provide universal growth. The complete implemented prototy
 
 ## 5.4 Universal capacity and specialization
 
+**[PROPOSED — NOT CANON, 12 September 2026. Source: [CP].]** A capacity curve rework is under review and changes nothing in this chapter until reviewed. It proposes distinct growth cadences per capacity (Health frequent +1, Hunger less frequent +1/+2, Inventory frequent +3), Lv1 Health of 8, universal Health and Hunger endpoints of 18 with specialization reaching 20, Inventory unchanged at 6 → 36, and a third specialization that unlocks a qualitative **Mastery** — regenerating out-of-combat Absorption, exhaustion efficiency, or additional movement speed — instead of a larger number. If adopted it would supersede both the Inventory overflow conversion (§5.4) and the Hunger-above-20 exhaustion model (§5.5). It is recorded in full in `docs/proposals/2026-09-12-capacity-curve.md`. Its source states explicitly that repository documentation must not treat these numbers as final until the curve is reviewed; the one exception is the Hunger cadence, where the owner has settled the handoff's +1.5 per event in favour of an alternating +1/+2 with identical start, endpoint and event levels, because a half food point is a quarter drumstick and vanilla cannot draw it. The rest of the curve remains under review.
+
 **Working numerical model. Sources: [C §3], [D].** Each universal growth unit adds 1 Health, 1 effective Hunger, and 3 inventory slots, with universal floors capped independently at 20, 20, and 36. Health/Hunger specialization is additive above those floors. Inventory has an effective hard maximum of 36.
 
 | Capacity | Level 1 | Automatic unit | Specialization at 3 / 18 / 24 | Universal floor |
@@ -391,6 +407,8 @@ Inventory means meaningful loadout categories: tools, food, blocks, utility, sup
 **Working formula. Source: [C §3: Effective Hunger above 20].** Up to 20 effective Hunger, the stat is represented by the intended displayed maximum. Above 20, the visible food bar stays at 20 and additional pre-cutoff reserve is represented by exhaustion efficiency:
 
 **Exhaustion multiplier = 14 / (H − 6), for effective Hunger H > 20.**
+
+[TECHNICAL RISK] §13.6 records that vanilla exposes no locomotion-only exhaustion scaling and that any datapack version is an approximation. The multipliers below are specified more precisely than the mechanism can currently deliver. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 
 The numerator is the reserve from 20 to the 6-food sprint cutoff. The conversion preserves the simplified amount of Hunger-consuming activity before that cutoff. It does not prove exact travel distance in a live match.
 
@@ -417,6 +435,8 @@ Efficiency I arrives universally at Level 4; Yield I at Level 7. Task choices oc
 The approximately +10% universal movement-speed reward at Level 16 is a Working phase-transition proposal, not the superseded early Route-speed bonus. Its purpose is to condense the mid/late match. Test its effects on discovery races, reinforcement, interception, and expedition reach before fixing the value.
 
 ## 5.7 XP requirement bands
+
+**Dependency recorded 12 September 2026. Source: [WN].** XP calibration is downstream of the day/night economy. The chain runs day/night system, then nighttime Worksite availability, then Mob Swarm availability and value, then expected Combat economic throughput, then teamwide XP throughput, then band calibration. Calibration should eventually account for how much legitimate XP activity a night offers, how Combat progression changes exploitation rate, how the nighttime infrastructure slowdown offsets other throughput, how Worksites inject phase-appropriate opportunities, and how spatial depth changes reward density. Do not derive XP numbers from the night model yet.
 
 **Working targets, not final XP amounts. Source: [C §3: Working XP requirement bands]; supporting discussion [X].** Requirements are grouped around changes in productive capability rather than one uninterrupted smooth curve.
 
@@ -545,7 +565,9 @@ This draws an intentional distinction. Ordinary blocks are cheap, immediate, phy
 
 The resulting decision is a real one. A team holding 500 total blocks but only 80 qualifying Construction Blocks must choose where hardened structural investment matters: a gate, an inner wall, a bridge support, a bunker, an infrastructure enclosure, or a forward-facing defence.
 
-[OPEN] Exact Structural Integrity strength is unresolved. Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
+[OPEN] Exact Structural Integrity strength is unresolved.
+
+[TECHNICAL RISK] Vanilla exposes no per-instance block hardness or blast resistance and cannot cancel a block break, so Structural Integrity has no direct implementation. The only vanilla route is detect-and-restore, in which the block does break before returning. Consider expressing integrity as rebuild rather than resistance. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Do not yet create material-specific Structural Integrity tables; vanilla hardness and blast-resistance differences already distinguish materials and may be sufficient underneath a shared modifier. Whether it affects ordinary mining, explosions, and abilities identically is also unresolved.
 
 ### 6.2.5 Protecting infrastructure components
 
@@ -575,7 +597,7 @@ An ordinary road, a map-authored Starter Route (§4.3), and a player-recognized 
 
 ## 6.5 Supply Lines
 
-**Working canon, reframed. Sources: [WB], [I], [WI], [C: Logistics], [O §20].** A Supply Line is persistent infrastructure produced by demonstrating repeatable resource delivery to an eligible destination. Its origin, path, Flow Weight, Item Rate, and other performance properties are derived from the logistical movement that establishes it rather than being specified beforehand.
+**Working canon, reframed. Sources: [WB], [I], [WI], [C: Logistics], [O §20].** A Supply Line is persistent infrastructure produced by demonstrating repeatable resource delivery to an eligible destination. Its origin, path, Capacity, Item Rate, and other performance properties are derived from the logistical movement that establishes it rather than being specified beforehand.
 
 The destination is strategically intentional; the origin is primarily descriptive and observed. The real Logistics question is normally how to make resources available here, not what can be done with the contents of a particular chest over there. The origin remains mechanically real and important, but it need not be manually selected before the logistical action begins.
 
@@ -591,11 +613,11 @@ The existing upstream-storage → downstream-storage distribution model remains:
 
 ### 6.5.1 Transport specific performance
 
-**Transit Time** measures elapsed delivery time for the demonstrated method; ordinary player transport has baseline Flow Weight 1. Flow Weight is an authored gameplay property of a logistical movement method, representing the standardized carrying capacity that method demonstrates. It determines how many items transfer per Supply Line pulse. It is not Item Rate, and it is not derived solely from literal Minecraft inventory slot count.
+**Transit Time** measures elapsed delivery time for the demonstrated method; [HISTORICAL] This paragraph's Flow Weight framing is superseded by Capacity (§6.23), which is measured in Minecraft inventory slots.
 
-Item Rate is not an authored property of the carrier in isolation. It is derived from how quickly the actual demonstrated cargo movement reached its destination: observed successful Transit Time yields Item Rate, which sets pulse frequency. Flow Weight therefore determines items per pulse and Item Rate determines how frequently pulses occur, with effective throughput conceptually Flow Weight multiplied by Item Rate. Do not collapse these into a single generic throughput stat in the underlying design. [HISTORICAL] The earlier single Flow Rate proportional to Flow Weight divided by Transit Time is superseded by this pair.
+Item Rate is not an authored property of the carrier in isolation. It is derived from how quickly the actual demonstrated cargo movement reached its destination: observed successful Transit Time yields Item Rate, which sets pulse frequency. Capacity therefore determines cargo slots per delivery and Item Rate determines how frequently deliveries occur, with effective throughput conceptually Capacity multiplied by Item Rate. Do not collapse these into a single generic throughput stat in the underlying design. [HISTORICAL] The earlier single Flow Rate proportional to Flow Weight divided by Transit Time is superseded by this pair.
 
-[PROTOTYPE] An Allay illustrates low authored Flow Weight with relatively fast movement, tending toward smaller and more frequent pulses; a Camel illustrates higher authored Flow Weight with slower movement, tending toward larger and less frequent pulses. Final Item Rate still comes from the actual successful demonstration, so distance, terrain, and route quality matter: a long or poor Allay delivery can produce a lower Item Rate than a short easy Camel delivery. Transport archetype influences performance; the demonstrated journey determines the result. Exact values remain balance territory. [OPEN] Exact units, normalization, eligible cargo, and ratings beyond the baseline are not established.
+[PROTOTYPE] An Allay illustrates low Capacity with relatively fast movement, tending toward smaller and more frequent pulses; a Camel illustrates higher Capacity with slower movement, tending toward larger and less frequent pulses. Final Item Rate still comes from the actual successful demonstration, so distance, terrain, and route quality matter: a long or poor Allay delivery can produce a lower Item Rate than a short easy Camel delivery. Transport archetype influences performance; the demonstrated journey determines the result. Exact values remain balance territory. [OPEN] Exact units, normalization, eligible cargo, and ratings beyond the baseline are not established.
 
 Proof demonstrates that a particular cargo-rated method can move capacity W from A to B in time T. It does not merely measure how quickly any player can reach B. Valid methods may involve players, Logistics-class or summoned carriers, camels, Allays, golems, minecarts, boats, water systems, or other engineered transport. Exceptional mobility improves Logistics only insofar as a valid rated transport method can use it while carrying its rated capacity.
 
@@ -634,7 +656,7 @@ Transit Time is measured from the carrier's cargo delivery, not the player's rou
 
 Self-directed engineered transport and guided living carriers do not require separate Supply Line systems. Rail resolves an intended connection through existing rail topology, water through actual flow, a Camel through grounded movement, an Allay through flight and navigation, and a class-created aerial carrier through whatever movement vocabulary that class provides. The common question is whether the method can successfully resolve the intended delivery and deliver qualifying cargo to the destination; if it can, its actual successful movement provides the proof.
 
-[OPEN] Do not yet canonize a generic penalty such as automated methods always having reduced Flow Weight. Engineered systems naturally offer a predictable vector, repeatability, potentially low establishment attention, and infrastructure that may already physically encode the path. Living and guided systems may offer route flexibility, terrain adaptation, aerial traversal, class abilities, and potentially better demonstrated Item Rate or higher authored Flow Weight. An abstract compensatory penalty may be unnecessary if the profiles already differ enough. Compare actual candidate methods before introducing a universal modifier.
+[OPEN] Do not yet canonize a generic penalty such as automated methods always having reduced Capacity. Engineered systems naturally offer a predictable vector, repeatability, potentially low establishment attention, and infrastructure that may already physically encode the path. Living and guided systems may offer route flexibility, terrain adaptation, aerial traversal, class abilities, and potentially better demonstrated Item Rate or higher Capacity. An abstract compensatory penalty may be unnecessary if the profiles already differ enough. Compare actual candidate methods before introducing a universal modifier.
 
 ### 6.5.7 Persistence of demonstrated capability
 
@@ -780,6 +802,8 @@ The core relationship is that more legitimate constructed material allows a play
 
 Repeated region selection is preferable to requiring one mathematically contiguous mass, because legitimate Minecraft structures routinely contain gaps, air, separate walls, fence components, bridge supports, nearby defensive works, vertical separation and disconnected authored components. [OPEN] Exact region-selection representation is unresolved. Prefer player-assisted bounded selection over automatic recursive flood-fill of arbitrary world construction; do not continuously ask the implementation to infer enormous connected structures.
 
+[TECHNICAL RISK] Vanilla does not record whether a block was world-generated or player-placed. This passage assumes block provenance, a capability shared by five systems and owned by none; see §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
+
 ## 6.19 Development Weight and dynamic capacity
 
 **Working. Source: [WC].** Development Zones are the simplest place infrastructure. The player enters Infrastructure Mode, designates something recognized as developable, and the system recognizes and evaluates the surrounding qualifying productive region. Further nearby developmental components may be added to the same zone. Developable evidence may include crops, trees and saplings, livestock, bees and hives, and other renewable productive Minecraft systems.
@@ -789,6 +813,8 @@ Raw counts cannot be compared across developmental types: ten wheat blocks, ten 
 Block-based and entity-based development should not use identical normalization. Qualifying resource blocks can be counted with density and area limits preventing pathological layouts. Raw population count is dangerous on its own: a hundred cows crammed into a single block should not read as vastly greater legitimate Development than a functioning pasture. Population, occupied viable area, and a local density ceiling or diminishing return are candidate factors. [OPEN] Exact formula unresolved. Mixed zones combining crops, livestock, bees and trees should be allowed to constitute one productive area rather than four unrelated zones.
 
 Unlike a Construct, a Development Zone should be periodically re-evaluated. A Construct derives legitimacy primarily from authored construction that exists; a Development Zone derives it from productive resources and populations that continue to exist and develop. If livestock disappear, crops are destroyed, hives vanish or productive area collapses, Development Capacity should be able to fall. This is preferable to permanently certifying a zone based on whatever was present at the moment of designation. [OPEN] Recalculation frequency unresolved.
+
+[TECHNICAL RISK] Periodic re-evaluation over an extent requires repeated volume measurement. No shared scan budget exists; see §13.8.
 
 ## 6.20 Banner endpoints
 
@@ -800,7 +826,11 @@ The persistent Route need not be defined as an exact block-by-block replay of th
 
 **Working. Source: [WC].** Supply Lines use **Copper Chests** as their infrastructure anchors rather than generic storage. This is primarily a legibility decision and should read to both allies and enemies: seeing an enemy Copper Chest should immediately communicate a strategically significant logistics node, a possible Supply Line endpoint, and a possible disruption or denial target.
 
-[CONFLICT] The proposed grammar — enter Infrastructure Mode, designate Copper Chest A as Source, demonstrate resource movement, designate Copper Chest B as Destination — partially reinstates explicit source designation, which the 11 September handoff superseded with the instruction not to require marking an origin container first and not to force class abilities to contain explicit Supply Line interface. The two are not identical: the newer proposal anchors designation to a specific legible block type and still requires demonstrated delivery rather than treating selection as sufficient. This tension is recorded rather than silently resolved. Until the owner decides, both the destination-oriented framing and the Copper Chest designation grammar are documented, with the first endpoint naturally meaning Source and the second Destination.
+**Resolved, late September 2026. Source: [WR].** Explicit start is reinstated. The grammar is: enter Infrastructure Mode, designate Copper Chest A as Source, perform the actual logistical transport, designate Copper Chest B as Destination. This intentionally reverses the 11 September instruction not to require marking an origin container first. That instruction existed mainly because origin-first designation created an unsolved interaction problem — how the player tells the game that an arbitrary storage container begins the infrastructure being established — and the archetype-native anchor model answers it. Designation is now legible, intentional, deterministic, comparatively easy to implement, and structurally parallel to the Banner grammar for Routes. It also bounds what the system must observe: the first endpoint says establishment begins here, the second says it ends here. Retrospective inference of which container was the origin is no longer preferred.
+
+A Supply Line is therefore **persistent infrastructure that simulates repeated resource deliveries by the logistical method that established a connection between two designated Copper Chests.** Its Capacity is how much cargo that method moves in one delivery, measured in Minecraft inventory slots; its Item Rate represents the frequency with which that method can deliver across the established connection under its relevant movement conditions.
+
+Reinstating explicit Source designation does not put Supply Line vocabulary into class abilities; the firewall in §6.21.5 is unaffected.
 
 [OPEN] The exact designate interaction is unresolved. Do not prematurely canonize right-click; a generic designate-targeted-block action may be cleaner than detecting arbitrary vanilla right-click interactions. Actual item withdrawal or deposit could form part of establishment, but reliable inventory-transfer detection should be feasibility-tested before becoming a design dependency.
 
@@ -808,7 +838,7 @@ The persistent Route need not be defined as an exact block-by-block replay of th
 
 Any summoned or self-directed entity performing Logistics operates on a **Source to Destination assignment**. The player determines logistical intent; the entity determines how it physically resolves that assignment with its own movement capabilities. A walking worker pathfinds over traversable terrain, a future flying carrier may resolve the connection through flight, and an aquatic carrier through swimming.
 
-[CONFLICT] The player does not need to specify a self-directed entity's literal block-by-block path, and for these entities endpoints alone are sufficient. This narrows the 11 September player-authored corridor model, which had the player demonstrating an intended corridor that the carrier then resolved. Both agree the carrier resolves traversal in its own movement vocabulary; they differ on whether the player authors a corridor at all. The narrower endpoint model is recorded here for self-directed entities; corridor authoring remains documented for player-guided methods pending a decision.
+**Resolved, late September 2026. Source: [WR].** Endpoints are sufficient to express player intent **for self-directed logistical methods**, which therefore need no player-authored corridor. This is not a universal answer, and corridor information is not globally deleted from Supply Lines. Two broad categories exist. **Self-directed methods** — a Skeleton Crew worker, a hypothetical bat or parrot carrier, a future aquatic carrier, other autonomous summoned workers — receive Source and Destination and answer for themselves how to get there, walking, flying or swimming as their movement vocabulary allows. **Intrinsically directional, path-authored methods** — rails, water channels and other physically directional transport — carry the corridor as part of the logistical method itself, because the construction already encodes movement direction and topology. Different methods may establish their connection differently; the system normalizes their output through Capacity and Item Rate rather than forcing identical topology. The 11 September player-authored corridor model remains canon for player-guided and path-authored methods and no longer applies to self-directed carriers.
 
 This resolves the earlier problem where self-directed systems appeared directionless beside intrinsically directional systems such as rails and water channels. Directional infrastructure already encodes movement through its physical construction; self-directed entities instead receive strategic endpoints and independently resolve traversal.
 
@@ -818,19 +848,45 @@ Physical logistical labour and recognized Supply Lines are not the same thing. B
 
 After the capability is recognized, the persistent infrastructure can reproduce the demonstrated resource flow without requiring the original physical carrier to make every future trip. The progression is manual physical Minecraft behaviour, then demonstrated logistical capability, then recognized automated infrastructure. Infrastructure should free the player or entity to establish new value rather than requiring permanent repetition of already-proven labour.
 
-### 6.21.3 Derived Flow Weight and Item Rate
+### 6.21.3 Derived Capacity and Item Rate
 
-[CONFLICT] Flow Weight and Item Rate should preferably both be **derived from demonstrated logistical performance** rather than arbitrarily assigned from endpoint distance or class identity. For a demonstrated delivery the system can observe cargo successfully moved over elapsed time, which is evidence for both quantities. This refines the 11 September position that Flow Weight is an authored property of the transport method while only Item Rate is derived; the two positions are recorded together pending a decision. The distinction between the quantities is unchanged: Flow Weight is items per pulse, Item Rate is pulse frequency, and throughput is their product.
+**Resolved, late September 2026. Source: [WR].** Neither quantity is an infrastructure stat the player authors, and the two do not share an origin. The establishment journey is not a benchmark run from which the system estimates both.
+
+**[HISTORICAL] Flow Weight is superseded by Capacity; see §6.23.** The earlier text read: Flow Weight is a property of the logistical vehicle or method, representing its carrying efficiency and capacity, and determining items per pulse. A basic walking carrier, an improved or elite carrier, a minecart system and a future flying carrier each have their own. It is not inferred from a single observed cargo sample and is not a player-selected infrastructure stat. [OPEN] Exact values unresolved.
+
+**Item Rate emerges from the method's actual movement behaviour over the established connection**, depending on carrier movement speed, connection length, traversability, terrain, rails, paths, bridges, tunnels, shortcuts, movement-enhancing infrastructure and method-specific traversal abilities. Player-authored Item Rate is removed: the player never declares that a line has Item Rate 5.
+
+Environmental improvement should therefore improve Item Rate naturally. A Crew Member crossing difficult terrain makes a slower repeated trip and yields a lower Item Rate; a better path built for it yields a higher one, with no rule reading "+20% Supply Line Item Rate." A poor rail system yields a slower minecart and a lower rate; an improved or powered rail a higher one. Supply Lines inherit the consequences of actual Minecraft improvements rather than receiving disconnected numerical bonuses.
+
+Distance is not eliminated, but matters indirectly: it changes how long the method takes to perform the connection, so a short connection delivers more frequently than a long one for an otherwise identical carrier. Because the method already experiences distance and traversal conditions, no separate arbitrary distance penalty is needed.
 
 Do not derive Item Rate primarily from geometric source-to-destination distance. Distance already affects actual demonstrated delivery time, so building a bridge, laying rails, creating a shortcut, using flight, tunnelling through a mountain, or using a faster carrier improves the demonstration itself. This preserves player action, demonstrated capability, persistent capability. Different methods need not share movement mechanics; they become comparable because the system ultimately asks how much a system successfully moved and how quickly and reliably it moved it.
 
 ### 6.21.4 Recognized Supply Line execution
 
-**Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Flow Weight and an Item Rate, the recognized line periodically transfers up to Flow Weight eligible actual items from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
+**Direct inventory transfer is the current preferred execution model.** Once a Supply Line has a source Copper Chest, a destination Copper Chest, a Capacity and an Item Rate, the recognized line periodically transfers up to Capacity eligible cargo slots from the source inventory into the destination inventory at the derived interval. The items are real, the inventories are real, the endpoints are physical and attackable, and the transfer is deterministic. This should be the first model prototyped.
 
-Two alternatives were considered and are not preferred. Using invisible carrier entities to physically simulate the calculated rate makes mob AI the system's clock and brings pathfinding failure, entity overhead, obstruction, and chunk-loading questions; keep it only as a possible presentation experiment, not canonical behaviour. Physical item packets travelling the world at each pulse recreate a logistical simulation after the player has already earned infrastructure abstraction; revisit only if in-transit interception proves essential to counterplay.
+[TECHNICAL RISK] Simulated delivery between distant nodes requires both endpoints to be loaded. Forceloading is limited and costly, which silently caps how far infrastructure can project. See §13.8 and [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
+
+At each simulated delivery the line transfers up to the committed Capacity from Source to Destination, and the pulse interval represents Item Rate. The game does not continue physically simulating every individual carrier trip after recognition: physical logistical behaviour establishes the connection, and the system then simulates repeated performance of that behaviour. This is the automation payoff of infrastructure.
+
+Two alternatives were considered and are not preferred. Invisible Copper Golems and other invisible carrier entities used to physically simulate the calculated rate makes mob AI the system's clock and brings pathfinding failure, entity overhead, obstruction, and chunk-loading questions; keep it only as a possible presentation experiment, not canonical behaviour. Physical item packets travelling the world at each pulse recreate a logistical simulation after the player has already earned infrastructure abstraction; revisit only if in-transit interception proves essential to counterplay.
 
 [OPEN] Arbitrary-container inventory manipulation in Java 1.21.9 deserves a technical prototype before this is declared solved. Carrier entities, particles, sounds, or visible activation at Copper Chests may later serve as presentation without being responsible for the actual transfer.
+
+### 6.21.5 Class ability and infrastructure firewall
+
+**Working. Source: [WR].** A normal class ability should generally not say "create a Supply Line." Classes create unusual physical Minecraft behaviour, and the system recognizes that behaviour as infrastructure when appropriate. A Skeleton Crew ability knows "move cargo from this Source to this Destination"; it does not know "create Supply Line #4 with these Item Rate and Capacity values." The system independently knows that a logistical method has established a valid connection between infrastructure-eligible nodes, and when progression allows recognition it may recognize and simulate that behaviour as a Supply Line. Keep **class creates behaviour, then the system recognizes infrastructure**, violating the firewall only intentionally for a class whose exceptional fantasy is manipulating already-recognized infrastructure.
+
+The Skeleton Crew consequence follows. Crew Members are self-directed logistical workers with a Capacity in inventory slots plus actual movement and pathfinding; a later upgrade producing a stronger worker need not say "+Supply Line Capacity" or "+Supply Line Item Rate," because greater cargo capacity, faster movement and better traversal produce those results naturally.
+
+### 6.21.6 Shared connection grammar
+
+**Working. Source: [WR].** Routes and Supply Lines are both connection infrastructure and share one grammar: start, then actual world behaviour or journey, then end, then a recognized connection. A Route runs Banner Start, player traversal, Banner End, Route. A Supply Line runs Copper Chest Source, actual logistical transport, Copper Chest Destination, Supply Line. The player is not drawing an abstract line; they designate meaningful Minecraft endpoints and establish a connection through actual gameplay. The journey is neither a minigame nor stat assignment, but the behaviour whose repeated operation the infrastructure represents.
+
+The core principle is preserved: player action, actual Minecraft capability, recognized infrastructure, persistent simulation and amplification of that capability. This is preferable to a player drawing an abstract connection, assigning a numerical rate, and receiving resources.
+
+[OPEN] Banner endpoints do not automatically eliminate all information about a traversed Route corridor. The Banner model improves endpoint legibility, establishment interaction and resource grounding; how much traversal geometry a Route retains is a separate question, and is not settled merely because self-directed logistical entities need only Source and Destination intent.
 
 ## 6.22 Implementation feasibility notes
 
@@ -838,7 +894,55 @@ Two alternatives were considered and are not preferred. Using invisible carrier 
 
 [OPEN] Needs prototyping: arbitrary-container item transfer; inventory-origin proof during Supply Line demonstration; performant region representation for Constructs and Development Zones; dynamic Development Zone scanning; entity-population normalization; and the chosen designate interaction. Avoid making design dependent on arbitrary vanilla right-click detection until tested, on continuous flood-fill or large world scans, on mob AI as the authoritative timing mechanism for recognized Supply Lines, or on exact replay of a player's route when endpoint and demonstration data suffice.
 
-## 6.23 Layered attribution in initial balancing
+## 6.23 Capacity
+
+**Working canon. Source: [WL].** **Capacity is how much cargo a logistical method can transport in one delivery.** The unit is a Minecraft inventory slot, respecting the carried item's ordinary maximum stack size. Sixty-four cobblestone is 1 Capacity, sixty-four arrows is 1 Capacity, sixteen ender pearls is 1 Capacity, one pickaxe is 1 Capacity, one potion is 1 Capacity. A carrier with Capacity 5 transports five inventory slots of cargo per delivery.
+
+Do not normalize this into abstract individual-item units merely because unstackable items look inefficient. Minecraft already makes one pickaxe and one full cobblestone stack consume the same inventory slot, and Logistics inherits that existing inventory economy. Capacity comes from the logistical method itself; Item Rate continues to emerge from that method's real movement performance across the established connection. The player authors neither number.
+
+[HISTORICAL] **Flow Weight is superseded by Capacity.** The earlier statement that the quantity is "not derived solely from literal Minecraft inventory slot count" and functions as a broader authored carrying-efficiency property no longer holds. Literal slot Capacity is immediately legible in Minecraft terms, describes what a physical carrier can actually hold, lets physical and simulated Logistics use one measurement, creates native differences between stackable and unstackable cargo, and removes an invented statistic. Capacity replaces Flow Weight in every current-facing use; Flow Weight survives only where it explains superseded design.
+
+Capacity sets cargo slots per delivery, Item Rate sets delivery frequency, and throughput is Capacity multiplied by Item Rate. The distinction between the two axes is unchanged.
+
+## 6.24 Committed Capacity
+
+**Working canon. Source: [WL].** **Recognized infrastructure automates repeated transportation, but it does not duplicate the logistical capacity committed to producing that transportation.** A logistical method's Capacity may be committed to a Supply Line, where the system simulates its repeated transport, or active in the world, where that carrier or summon performs flexible Logistics, follows its owner, or fights. It cannot contribute the same Capacity to both at once.
+
+Worked example. Six equivalent workers each with Capacity 5 give a maximum of 30. Committing three to a Supply Line gives that line 15 Capacity and leaves three active in the world. Withdrawing one committed worker moves the line to 10 and the active force to four. Withdrawing all committed workers leaves the line at 0: the recognized infrastructure and its nodes may still exist, but the line cannot move cargo without committed Capacity.
+
+**Item Rate does not fall merely because Capacity is withdrawn.** If the established logistical method and path have not changed, removing one carrier's Capacity does not make the remaining carriers slower. Fifteen Capacity at an established Item Rate simply becomes ten Capacity at the same Item Rate. Capacity and Item Rate remain independent axes.
+
+[HISTORICAL] The earlier permissive framing — that after recognition the persistent infrastructure reproduces the flow without requiring the original carrier, freeing the player or entity entirely to establish new value elsewhere — is **superseded as too permissive**. It created a double-use contradiction in which a worker established an automated line and then physically left to fight while the line continued as though that same worker were still labouring. The carrier does not need to be AI-simulated on every automated trip, but the Capacity it represents must remain committed.
+
+**Establishment demonstrates the logistical method; operation reserves the Capacity that method represents.** The sequence is physical method establishes behaviour, Capacity is committed, the system simulates repeated deliveries at the established Item Rate. If Capacity is withdrawn, simulated cargo quantity drops accordingly. This preserves the preference for direct inventory transfer rather than making mob AI the authoritative repeated-delivery clock.
+
+The consequence is that Logistics keeps persistent gameplay after establishment: maintaining a network means continually deciding where logistical capacity is allocated.
+
+**A separate universal Summoning Capacity system is not required for this purpose.** Capacity allocation already creates the important constraint between labour committed to infrastructure and labour instantiated as active summons, and for Skeleton Crew the same workforce supplies both, so summoning a worker can be equivalent to withdrawing its logistical Capacity. [OPEN] Do not extend this to every summoner. Golem Master and future non-Logistics summoners should be reconsidered independently rather than forced into a Logistics-derived rule. No universal Summoning Capacity was ever recorded in this repository, so nothing is removed; this records the scoped decision not to introduce one merely to constrain Skeleton Crew.
+
+## 6.25 Relay nodes and supported span
+
+**Working. Source: [WL].** **Long Supply Lines should require a chain of nodes** rather than allowing arbitrarily distant single-hop connections from one demonstrated trip. The shape is Source, then relays, then Destination, with each adjacent node pair falling within a maximum supported span. Copper Chests remain the anchor at every node. Even a minimal line has two nodes, Source and Destination; longer distances require additional relays.
+
+This makes Supply Lines in one sense the inverse of Routes. Routes specialize in projecting player traversal over useful distance; Supply Lines require enough infrastructure presence to sustain resource delivery across distance. It improves geographic commitment, enemy counterplay, legibility, the economic cost of projecting Logistics deep into the map, and the value of protecting logistical infrastructure. Destroying or disabling an essential relay can sever downstream connectivity without needing a fictional attackable line.
+
+Infrastructure progression may increase the maximum supported distance between nodes, letting advanced Logistics maintain longer links with fewer relays. [OPEN] Node-distance thresholds, required relay counts, branching, alternate-path behaviour, and whether different logistical methods support different spans are all unresolved. Do not invent numbers.
+
+## 6.26 Logistics contestability
+
+Logistics counterplay now has several physical layers. **Nodes** are visible Copper Chests and removing a required one can interrupt the connection. **Committed Capacity** can be reduced by enemy action that forces logistical capacity out of infrastructure — for Skeleton Crew, forcing the player to mobilize workers for combat indirectly damages their network. [OPEN] A third possibility, that a Logistics player's death temporarily stops their class-created methods from contributing Capacity or Item Rate until they return and recommit, is under discussion and is **not** canon; do not document player death disabling all Supply Lines. The settled requirement is that enemies must be able to attack the conditions supporting logistical operation, not merely destroy endpoint inventories.
+
+## 6.27 Default summon behaviour
+
+**An empty-handed summon follows its owner.** This gives an idle summoned worker a natural state and avoids requiring an assignment interface merely to keep it useful. This can serve as a broad default for summons generally.
+
+**A cargo-carrying logistical summon seeks the nearest valid Supply Line node and deposits its cargo there** — not necessarily the line's Source, not necessarily a manually chosen Destination, and not necessarily travelling along the line itself. The summon performs last-mile physical Logistics by getting cargo onto the established network, then returns to following. The loop is follow, acquire cargo, nearest valid node, deposit, follow. This second behaviour only applies to summons capable of carrying cargo; do not turn every temporary combat entity into a courier because it is technically a summon.
+
+## 6.28 Logistics after establishment
+
+**A Logistics class should remain meaningfully involved in Logistics after establishing automated infrastructure.** Supply Lines must not produce a state where a player does Logistics once and then permanently redirects their entire kit elsewhere while Logistics continues on its own. Different classes may reinforce a network differently: summoned carriers allocate physical Capacity, vehicles may remain assigned, engineered systems may require operational apparatus, and future classes may improve, redirect, provision or repair active transport. Skeleton Crew has a particularly sharp expression because its logistical resource can instead be mobilized into Combat. [OPEN] Do not require every Logistics class to use Skeleton Crew's exact active-versus-committed model.
+
+## 6.29 Layered attribution in initial balancing
 
 **CANON / ESTABLISHED distinction. Source: [WGB].** Separate Worldgen, vanilla-intrinsic mechanics, emergent organization, character progression, recognized MOBA infrastructure, and classes/integration. These are analytical layers rather than an unlock sequence. Physical roads do not automatically become Routes, caches do not become Supply Lines, crop patches do not become Development Zones, and useful shelters do not become Constructs. Map-authored Starter Routes retain their own context.
 
@@ -876,7 +980,9 @@ The final defined defensive layer before the Fountain uses durable End-related c
 
 Demolition can create permanent access; defenders can be cleared to establish control; Allay theft can alter function; hoard extraction moves actual wealth; machinery interaction can progress the objective. [OPEN] These examples do not settle reward values or exact state transitions.
 
-Pure percentage-of-block destruction risks rewarding removal of cheap, irrelevant blocks. The project requires a meaningful structural or functional validation rule; none is finalized. Ability-driven destruction, tunneling, and repair must be evaluated against that rule, not independently invented exceptions.
+Pure percentage-of-block destruction risks rewarding removal of cheap, irrelevant blocks. The project requires a meaningful structural or functional validation rule; none is finalized.
+
+[TECHNICAL RISK] A structural or topological validation over an arbitrarily damaged, player-modified building requires connectivity analysis that is expensive and is discouraged elsewhere (§6.18). Because the map is authored, functional components at known coordinates are the cheap alternative. This sits on the victory path. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Ability-driven destruction, tunneling, and repair must be evaluated against that rule, not independently invented exceptions.
 
 ## 7.4 Aether Fountain, exposure, and victory
 
@@ -964,6 +1070,24 @@ The Overworld → Nether → End → Aether thematic escalation does not require
 
 Worksite completion must follow actual finite opportunities rather than arbitrary class checks. Objective availability should coexist with ordinary progression; it is sometimes rational to concede one opportunity to develop or attack elsewhere.
 
+## 7.10 Nighttime Worksite activation
+
+**Working, 12 September 2026. Source: [WN].** Worksites open only at sunset. A limited number activate, chosen randomly from the eligible pool, with the number depending on match phase; at sunrise the active Worksites close. The purpose is positive nighttime opportunity, scarcity, and unpredictable but legible convergence, so that teams cannot script the same route every night and night is strategic rather than a global stat modifier.
+
+Selection should be constrained by eligibility rather than uniformly random. Availability and intensity are two independent tuning axes: more active Worksites does not automatically produce more contestation, because too many simultaneous sites let teams split peacefully. A broad candidate pattern is few moderate-value opportunities early, several fronts at mid, and potentially fewer but more consequential opportunities late.
+
+Worksites and regenerative hostile sources remain distinct nighttime systems — the first discrete, scarce and temporarily active, the second distributed and biome-dependent — so that a night presents multiple competing opportunities rather than one mandatory objective phase.
+
+[OPEN] Active Worksite count per phase, the selection algorithm, phase eligibility, whether late-game Worksites become more numerous or fewer and more consequential, and whether Worksites receive special mob pressure at night are all unresolved.
+
+## 7.11 Archetype and world-system mapping
+
+**Working, 12 September 2026. Source: [WN].** Construction with Extraction maps to the Mining Outpost; Logistics with Production to an industrial Worksite; Development with Combat to Regenerative Sources; Exploration to every POI. This maps which archetypal verbs each world system most strongly expresses and is not ownership or exclusivity.
+
+The Mining Outpost is exceptional physical resource opportunity: Extraction acquires, Construction activates and stabilizes the site, and activating its machinery should create or reveal a genuine new deposit rather than pointing at ore that already existed. A Production counterpart is wanted — provisionally Forge or Industrial Worksite — offering exceptional transformation opportunity, with Logistics supplying inputs and distributing outputs. [OPEN] Its name and mechanics are unresolved; "Forge" may read as overly metal-specific. Development and Combat have parallel but opposite relationships with recurring living systems, nurturing versus overcoming. Exploration is cross-cutting and needs no exclusive paired Worksite, because every meaningful POI creates Exploration value through discovery, navigation, access, first arrival and spatial knowledge.
+
+Read as verbs: Extraction acquires, Production transforms, Development matures renewable productive world state, Construction establishes useful built places, Logistics distributes, Combat secures value under threat, and Exploration discovers, accesses and connects the opportunity graph.
+
 # 8. Combat
 
 ## 8.1 Combat as economic contribution
@@ -979,6 +1103,10 @@ Combat should remain recognizable Minecraft play enhanced by class expression an
 [OPEN] The outline’s minute-level skirmish timings are hypotheses (§2.5). Damage, equipment availability, early Health, escape ability, and food access must be tested together before asserting when typical encounters happen.
 
 ## 8.3 Night combat and siege
+
+**Refined 12 September 2026. Source: [WN].** Combat's economic role is **securing value under threat**: the archetype that lets a team operate economically where danger or opposition would otherwise make operating inefficient or impossible. This refines the earlier "converts threats into value" phrasing and does not require a dedicated Combat infrastructure system. Value comes from defeating hostile mobs, securing Mob Swarms, protecting expeditions, contesting Worksites, defending infrastructure, breaking enemy control, escorting resources, raiding, ambushing, sieging, and denying opponents temporary opportunities.
+
+Nighttime Combat should become more economical primarily because the world presents harder and richer combat work, not because of a multiplier. A harder encounter produces more legitimate output and therefore more legitimate XP, which keeps XP grounded in activity. Avoid flat nighttime PvP bonuses, arbitrary kill multipliers, and rules instructing players to attack enemy structures at sunset.
 
 **Working. Source: [N].** Richer hostile-mob opportunity and weaker infrastructure can make night favorable for combat-oriented activity. Players may hunt, raid, ambush, defend, disrupt distribution, or pressure a siege. This is a recurring incentive window, not a mandatory combat phase.
 
@@ -1049,7 +1177,7 @@ Extraction/route creation, information, bruiser/engage, and control are possible
 
 ## 9.4 Gardener
 
-**Conceptually settled. Sources: [C §5], [WC].** Everyone else sees vegetation primarily as things to harvest. Gardener sees a landscape of productive sources at different stages of development and is constantly deciding which ones are worth harvesting, preserving, or reinvesting into. Primary archetype Development; secondary archetypes deliberately unassigned pending descriptive evaluation. [HISTORICAL] The earlier Spread Vines / Flowerpot / Glistening Greenhouse kit, the repeated-planting passive, and the Backyard / Exotic / Generalist tendencies are superseded by the Plant Material and Cultivar model below.
+**Conceptually settled. Sources: [C §5], [WC].** Everyone else sees vegetation primarily as things to harvest. Gardener sees a landscape of productive sources at different stages of development and is constantly deciding which ones are worth harvesting, preserving, or reinvesting into. Primary archetype Development; secondary archetypes deliberately unassigned pending descriptive evaluation. [CONFLICT] The 13 September kit [K7] lists Gardener as "Development · Control · Support". Control and Support are not members of the Seven Archetypes (§9.1, `classes.md` §2). The kit line is preserved verbatim in `classes.md` rather than mapped onto existing archetypes or dropped; whether these are new archetypes, role language, or replacements for the unassigned secondaries is the owner's decision. [HISTORICAL] The earlier Spread Vines / Flowerpot / Glistening Greenhouse kit, the repeated-planting passive, and the Backyard / Exotic / Generalist tendencies are superseded by the Plant Material and Cultivar model below.
 
 Plant Material is a stacking proc/meter, not an inventory item; at threshold it is automatically consumed to grow a Cultivar nearby. A Cultivar is a special developed plant created through Gardener's class systems, and Cultivars accelerate adjacent plant growth.
 
@@ -1079,9 +1207,11 @@ Gardener must function without a Construct, Construction teammate, or predefined
 
 **Working. Source: [C §6].** Golem Master converts terrain into golems, then uses golem labor and carried materials to construct useful structures. Animate and Assemble forms are independently selected, supporting mixed builds.
 
+**Kit restated 13 September 2026. Source: [K7].** Archetypes Construction · Combat · Production. The passive is named **Pumpkin Supply**. The kit carries an explicit audit flag from its own author: Golem Master remains the least settled of the seven, and the base Assemble rule, generic material-stat rules and Wither Golem's behaviour need one final conceptual pass, so that wording is **not** promoted to canon. Production is therefore recorded but not adopted as a roster archetype.
+
 ### 9.5.1 Passive and Animate
 
-The unnamed passive periodically produces nearby pumpkins and increases command capacity with level. Animate consumes targeted terrain at a tool-dependent rate. After enough material has been gathered, reactivation consumes a Pumpkin and forms a temporary golem. Amount and relevant vanilla block properties—potentially hardness, explosion resistance, and preferred tool—inform its properties.
+Pumpkin Supply periodically produces nearby pumpkins and increases command capacity with level. Animate consumes targeted terrain at a tool-dependent rate. After enough material has been gathered, reactivation consumes a Pumpkin and forms a temporary golem. Amount and relevant vanilla block properties—potentially hardness, explosion resistance, and preferred tool—inform its properties.
 
 Iron is more expensive/less efficient to form, with extra Health and attack knockback. Snow uses slowing ranged projectiles. Copper is cheaper/more efficient, smaller and faster, can wield different weapons, and is best at intentional block destruction and collection. Other golems can incidentally destroy and collect blocks.
 
@@ -1122,7 +1252,7 @@ Offhander equips a bow in the offhand on right-click. Upgrade alternatives repla
 
 ### 9.6.3 Covered With Diamonds
 
-Temporarily upgrades armor/tools to Diamond, then reverts them. Current overdrive bonuses are knockback resistance and movement speed, with upgraded escalation including a Notch Apple and an Ender Crystal. It should not inject a permanent free Diamond set into the economy.
+**Restated 13 September 2026. Source: [K7].** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance; the effects extend to Kitfighter's upgraded equipment options. This is a projection over weaker equipment rather than a blanket upgrade of armor and tools. Equipment reverts when the ultimate ends, and it should not inject a permanent free Diamond set into the economy. Upgraded escalation including a Notch Apple and an Ender Crystal is retained from the earlier documented direction. [OPEN] Exact interaction with equipment already exceeding the projected Diamond state remains implementation and balance work.
 
 [CONFLICT] The newer general skeleton places ultimate unlock at Level 15, while the class’s own section says its exact unlock remains unresolved. Treat 15 as the general schedule and Kitfighter’s assignment as needing confirmation. Do not infer Level 16 from the older vanilla-capability landmark.
 
@@ -1144,7 +1274,7 @@ Lightfooted is developed further in §9.12. Its hook uses animal properties for 
 |---|---|
 | Kiln | Production creates persistent heat |
 | Paver | Prepare loose construction, then commit/set it; powder and water create territorial reactions |
-| Amber / Wax / Waxer | Preserve state, absorb change, and explore hostile sealing |
+| Amber / Wax / Waxer | Preserve state, absorb change, and explore hostile sealing. Now superseded as a concept sketch by Waxer's full kit (§9.17) |
 | Composter | Convert accumulated Development into immediate tempo |
 | Mushroom Assassin | Develop hostile territory into assassination infrastructure |
 | Invasive Moss | Development becomes excavation |
@@ -1186,7 +1316,36 @@ This creates a real decision when preferred Construction Blocks are unavailable.
 
 **ACTIVE DESIGN — not settled.** Merchant is the current active class-design subject. Structure below is recorded at the confidence level it actually holds: strong current structure, [FAINT CAUTION] for mechanics worth preserving but not conceptually settled, and [OPEN] for unresolved implementation, balance, or system questions.
 
-Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated.
+Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated. The 13 September kit [K9] repeats this as "Production (others pending final classification)" and lists final archetype classification among its open items.
+
+### 9.11.0 Canonical kit — 13 September 2026
+
+**Source: [K9] Merchant and Waxer kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Production (others pending final classification)
+Hook: Merchant gets rich enough to stop doing ordinary Minecraft work, turning successful trade relationships into an increasingly capable paid workforce and eventually an extravagant traveling spectacle.
+
+**Passive — Work.** Villagers with sufficient Trading Reputation toward Merchant become willing to Work for Emeralds. Merchant can employ willing villagers on Payroll, allowing them to process available materials into valid products.
+
+Working advances a villager's Mastery from Novice → Apprentice → Journeyman → Expert → Master. Higher Mastery expands the sophistication of transformations they can perform and improves their material efficiency.
+
+**A1 — Swindle.** After trading with a villager, strike them to sacrifice Reputation and extract bonus Emerald value from the completed trade. Each villager can be Swindled once per restock cycle.
+
+- **Invisible Hand** — Swindling one villager also Swindles nearby independently eligible villagers while concentrating the Reputation loss on the struck villager.
+- **Credit Line** — Convert future commercial/relationship value into immediate liquidity. [OPEN: exact mechanic]
+- **Community Chest** — Redirect Swindle toward distributed/circulating economic value. [OPEN: exact mechanic]
+
+**A2 — Retinue.** Call nearby employed villagers away from ordinary Work to accompany Merchant.
+
+- **Seize the Means** — Retinue seek out and temporarily disable workstations/infrastructure in a designated area rather than destroying them.
+- **Toll Patrol** — Retinue patrol a contested area; enemy activity there offsets Payroll costs while the workers sacrifice ordinary Work.
+- **Overtime** — Increase expenditure to accelerate Work/Mastery. [OPEN: mechanic/replacement]
+
+**Ultimate — Procession / Silk Road.** Begin an extravagant procession with nearby Retinue. Merchant must continue moving with the procession and paying its costs or the ultimate ends.
+
+The procession repeatedly grants effects to allies around it. Retinue size determines the frequency of these procs; workforce Mastery determines their cumulative quality, progressing through effects such as Saturation, Speed, Regeneration, Absorption, and offensive damage.
+
+Open: Credit Line · Community Chest · Overtime · exact Emerald-substitution placement · final ultimate name/effect package · final archetype classification.
 
 **Core fantasy.** A fabulously wealthy travelling benefactor and opportunist whose economic success becomes spectacle. The presentation is fairytale and lavish: showering villagers with money, gaudy fanfare, pomp, patronage, prosperity, an entourage, procession, finery, and royal treatment.
 
@@ -1278,55 +1437,227 @@ This cumulative structure is intentional. Current candidate effects are I Satura
 
 Procession should probably represent **maximum expenditure** rather than discounted Work: workers stop running Merchant's ordinary economy and redirect their productive capacity into the procession. The fed-state payoff scales accordingly — a small low-Mastery workforce gives a modest procession, a large low-Mastery workforce frequent weaker Work, a small elite workforce infrequent but powerful Work, and a large Master workforce a deliberately obscene feast-state payoff.
 
-## 9.12 Unsettled class drafts
+## 9.12 Class draft record
 
-Preserved as drafts, not settled classes. Missing slots are missing design, not gaps to fill by invention.
+**No class remains an unsettled draft as of 13 September 2026.** Retained for traceability rather than deleted. The drafts were Skeleton Crew and Lightfooted, promoted on 12 September 2026 (§9.13, §9.14), and Daredevil and Waxer, which received full kits on 13 September 2026 (§9.15, §9.17). The original rule still governs anything unspecified within those kits: missing slots are missing design, not gaps to fill by invention, and promotion out of draft status is not a claim that every quantity is decided. [OPEN] Whether Daredevil and Waxer have had conceptual passes equivalent to Skeleton Crew's and Lightfooted's is the owner's call and is not asserted by the presence of a kit.
 
-**Skeleton Crew.** **Draft — not settled.** Likely emergent archetypes are Logistics and Combat, but these should be re-evaluated after completion.
 
-Core rule: hostile undead become logistical labour.
+## 9.13 Skeleton Crew
 
-**Passive — Undead Affinity.** Zombies and Skeletons become compatible with the class and largely non-hostile, per the current draft.
+**Source: [WS].** **Conceptually settled, 12 September 2026.** Hook, core rule, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and interaction with global systems. Do not reopen settled mechanics for lack of exact values.
 
-**Ability 1.** An empowered interaction or attack against Zombies and Skeletons banks the mob. Arise raises the banked crew. Raised crew can be sent toward a destination, physically pick up dropped items, use actual inventories and cargo, and be redirected; killing or dismissing them spills cargo.
+Archetypes, assigned descriptively from the finished kit: **Logistics** and **Combat**.
 
-**Ability 2.** Set crew ablaze for dramatically increased speed and combat effectiveness, at the cost of continuous HP loss and risk of cargo spill.
+### Core fantasy
 
-**Ultimate — Getting A-Head.** A Headless Horseman leads the horde. An alternative under consideration has the player ride the horse while the Horseman independently fights.
+Night and darkness produce undead pressure; Skeleton Crew attracts that pressure; fighting undead generates Crew; Crew becomes labour, logistical, and combat capacity.
 
-Missing conceptual slots: A1 branches, A2 branches, exact command structure, Horseman resolution, and possible simplification of A1 complexity.
+> Skeleton Crew wants the undead to find them.
 
-**Waxer.** **Draft — not settled.** Primary Production; Combat currently plausible.
+### Resource terms
 
-Core rule: Honeycomb can be repeatedly invested into existing products to preserve them against change; enough preservation becomes obstruction.
+**Crew** is the stored resource the class generates. **Crew Limit** is the maximum workforce simultaneously deployed or committed. Crew Limit is not Logistics Capacity and is not a universal summon cap; stored Crew may exceed deployed Crew Limit, and Crew Limit should not automatically scale with level. [OPEN] Exact values.
 
-**Passive — Waxed Recipes.** Fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version or output.
+Each Crew Member is either physically active in the world **or** committed to Supply Line Capacity, never both. A Crew Member's physical cargo Capacity and its possible committed Supply Line Capacity are the same underlying capacity and must never be counted twice. Summoning is therefore withdrawing logistical capacity from your infrastructure. Capacity and Item Rate follow the global definitions in [infrastructure.md](infrastructure.md#committed-capacity); the superseded Flow Weight terminology is not used.
 
-**Ability 1 — Wax-On.** Apply Waxed stacks to existing objects. Enough Wax on interactive blocks makes them Sealed; Sealed blocks cannot normally change or use their interactive state. The first Wax application to damaged unwaxed equipment restores durability. Branch concepts: **Amber** (faster or stronger sealing), **Restorative** (stronger initial restoration), **Sticky** (interaction with Waxed armour can punish attackers, for example Mining Fatigue while consuming Wax).
+### Passive — Undead Affinity
 
-**Ability 2 — Wax-Off.** A thrown Honey Solution. The base ability needs to provide a repeatable route to Honeycomb acquisition. Branch seeds — **Enzymatic**, **Preserving**, **Floral** — are not equally developed and remain draft.
+Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew stacks. This deliberately converts nighttime and undead danger into economic opportunity. [OPEN] Detection radius, eligible undead, Crew generation values, Crew Limit.
 
-**Ultimate — Amber.** Complete preservation and stasis; delivery mechanism unresolved.
+### Base Crew behaviour
 
-[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, ordinary removal, and implementation feasibility remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+Active Crew Members are physical workers and combatants with the priority order **Combat → Logistics → self-preservation**. Empty-handed Crew follow Skeleton Crew. Cargo-carrying Crew seek the nearest valid Supply Line node, deposit, then follow. Provoked Crew fight, then resume previous behaviour. Crew likely retain cargo while fighting and spill it if killed. Ordinary sunlight can burn Crew like undead unless otherwise protected.
 
-**Lightfooted.** **Draft — substantially incomplete.** Primary Exploration currently plausible; Combat and Development consequences possible but not finalized.
+### Ability 1 — Graveyard Shift
 
-Core area: animal traversal, animal following, and movement/combat interactions.
+Context-sensitive. Against a valid hostile target, the ability itself performs a **Strike** dealing bonus damage and provoking Crew against that target. Otherwise it consumes Crew to **Raise** a Crew Member. This is not an empowered next normal attack; the ability performs the Strike directly.
 
-**Passive — Rabbit's Foot.** Massively reduced fall damage. Lured or following animals share movement and following benefits.
+**Field Work.** Graveyard Shift becomes a projectile. Impact on an enemy or mob performs the Strike at the impact point; impact on valid terrain may consume Crew to Raise a Crew Member there. It does not both Strike and Raise from one impact. Remote raising plus ranged Strike.
 
-**Ability 1 — Lunge.** Leap toward the cursor and deal damage. Known branches: **Swarming Bite** (wolf count affects or reduces cooldown) and **Thieving Swipe** (charge recovery / offhand disruption concept).
+**Hard Hat Zone.** Graveyard Shift may Strike friendly Crew for reduced damage. Successive friendly Strikes temporarily equip that Crew Member in order — helmet, chestplate, leggings, boots — and each additional Strike refreshes the timeout of all armour granted this way, including further hits at full armour. The helmet naturally protects against sunlight ignition. The costs are friendly Strike damage, spent A1 opportunities, and maintenance time; do not invent an arbitrary Capacity penalty. [OPEN] Armour material, timeout, friendly damage.
 
-Missing conceptual slots: the third A1 branch, Ability 2 entirely, the A2 branch tree, and the ultimate. These gaps are missing design, not invitations to invent.
+**Labored Union.** Graveyard Shift's hostile Strike deals reduced bonus damage. Crew automatically become Provoked by any nearby mob, and kills made by Crew Members generate Crew stacks. "Any" is intentional where technically feasible — enemy players, hostile mobs, cows, villagers — and Crew generation is deliberately **not** restricted to undead victims under this branch. The result is an autonomous, self-replenishing combat workforce. Withdrawal of infrastructure Capacity is an emergent consequence of the global allocation rule, not a branch-specific penalty.
 
-**Daredevil.** **Draft — substantially incomplete.** Primary Exploration currently plausible; Extraction and Combat only tentative consequences.
+### Ability 2 — Burning Out
 
-**Passive — Skydiver.** Remaining airborne for more than one second grants extreme Speed while airborne. Traversal and routes created while Skydiving interact with this movement concept according to existing global infrastructure rules.
+Active Crew that are burning move substantially faster. The burning state may come from any legitimate source — Burning Out itself, sunlight, environmental fire — and Burning Out reliably sets affected active Crew on fire.
 
-**Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
+Burning does not override the priority hierarchy. When no higher-priority responsibility remains, burning Crew seek a valid way to extinguish themselves. Consequences worth stating: shade does not extinguish an already burning entity; helmets prevent sunlight ignition but not actual fire; vanilla burning melee contact already supplies its own fire interaction, so no redundant combat rider is added; faster physical traversal naturally raises observed Item Rate, and the ability must never say "+Item Rate"; and damaged Crew can be deliberately risked and replaced, though this is not an instant workforce reset.
 
-Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
+**Fire Drill.** Burning Out no longer ignites affected Crew. They become **Alarmed** instead: they abandon combat and urgently move toward their current logistical destination, or urgently return to Skeleton Crew if they have none. This is emergency relocation and task completion, not teleportation, recall, or instant cargo banking. Alarmed is the conceptual counterpart to Provoked.
+
+**Deadline.** Crew that remain in combat while burning for long enough explode violently. Leaving combat before the threshold prevents it, and merely being on fire is insufficient. This interacts with the hierarchy: a burning cargo carrier that meets an enemy fights because Combat outranks Logistics, and a sustained fight ends in an explosion that may spill cargo, while a fight that ends quickly returns the Crew Member to work still burning. An enemy can disengage to prevent the explosion, indirectly letting the worker continue. [OPEN] Threshold, conceptually around three seconds.
+
+**Water Break.** Crew that successfully extinguish themselves after burning restore Health proportional to time spent on fire, then move faster briefly. The lifecycle is burn, overdrive through higher-priority responsibilities, seek extinguishing, heal, brief refreshed movement, resume work. Any legitimate burning source may qualify. [OPEN] What counts as successfully extinguishing — rain, another player, and similar cases are deliberately not over-specified yet. Hard Hat Zone sits in intentional soft tension with this branch: the helmet suppresses incidental sunlight ignition while Burning Out can still start a controlled burn.
+
+### Ultimate — A-Head of Schedule
+
+Summon the Headless Horseman and his own temporary Crew. Their specialization is determined by what the ordinary workforce is doing at activation or first meaningful state. If ordinary Crew are fighting, the Horseman workforce commits to Combat, fights until combat ends, and remains ready for further Combat rather than switching to Logistics. If ordinary Crew are performing Logistics, it commits to Logistics, works immediately, and continues even if ordinary Crew are later pulled into combat. If ordinary Crew are inactive, it waits and commits to the first new Combat or Logistics state they enter. Once selected the mode is fixed for the duration rather than continuously mirroring ordinary Crew, and the Horseman workforce is more effective at the selected activity.
+
+Temporary Horseman Crew are separate from normal Crew Limit, may physically perform Logistics, but do **not** become persistent Supply Line Capacity: temporary labour cannot create permanent automated infrastructure. [OPEN] Horseman size, stats, duration, specialization strength.
+
+The fantasy: the project is behind schedule, so Skeleton Crew brings in another supervisor and a specialized temporary shift.
+
+## 9.14 Lightfooted
+
+**Source: [WS].** **Conceptually settled, 12 September 2026.** Hook, core rule, archetypes, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and visual communication.
+
+Archetypes: **Exploration** primary, **Combat** secondary. Development is not assigned merely because animals are managed, and Logistics is not assigned merely because animals are moved.
+
+### Hook and core rule
+
+Lightfooted treats wolves, foxes, and cats or ocelots as **mobile resources**, using their different vanilla lure methods to gather and keep them nearby. Their presence strengthens the group and changes Lightfooted's abilities, while their movement inspires Lightfooted's own extraordinary traversal.
+
+> Lightfooted treats particular woodland animals as mobile resources that must be kept physically nearby.
+
+This is deliberately **not** a generic companion-animal or tamed-animal system. The class cares specifically about wolves, foxes, and cats/ocelots, which avoids ownership and taming edge cases and prevents unrelated animals such as horses from qualifying. The animals need not be technically tamed in vanilla terms; physical proximity is the class state. Animals influence Lightfooted, and Lightfooted enables and empowers the animal group, so the player cares about finding the species, using their different lure relationships, keeping them nearby, and transporting the resulting living resource group through difficult terrain.
+
+### Passive — Animal Senses
+
+Nearby wolves, foxes, and cats/ocelots grant small stacking species-specific bonuses that apply both to Lightfooted and to nearby animals of those species. Each species caps independently.
+
+| Species | Bonus | Effect |
+| --- | --- | --- |
+| Wolves | Toughness | incremental damage reduction |
+| Foxes | Quickness | incremental movement speed |
+| Cats / Ocelots | Surefootedness | incremental fall-damage reduction |
+
+These must be granular **custom** bonuses. Do not grant vanilla Resistance or Speed tiers, which are far too coarse for one nearby animal. One animal is a small but meaningful contribution, several are a recognizable specialization, and the cap prevents unlimited accumulation from breaking stats. [OPEN] Percentages, radii, caps.
+
+### Ability 1 — Lunge
+
+Lightfooted leaps toward the aimed direction, damaging a struck target. The three branches form a deliberate spectrum from smallest leap and highest combat potency to largest leap and weakest direct combat payoff.
+
+**Swarming Bite — wolf.** The smallest increase to the leap itself. Nearby or following wolves enable increasingly frequent or repeated Lunges. This is the combat-heavy branch: repeated pounces, pack pursuit, and the highest ability to stay on a target. [OPEN] Wolf scaling, cooldown or charge behaviour.
+
+**Thieving Swipe — fox.** The Lunge travels moderately farther than base. Striking an enemy player temporarily disables their **current mainhand item**, with nearby or following foxes increasing the duration up to a cap. This is the middle branch: moderate mobility plus combat disruption. Do not revert to the older offhand-only concept. [OPEN] Duration, scaling, cap.
+
+**Stalking Pounce — cat/ocelot.** The strongest movement improvement. Activation first pulls Lightfooted into a brief, heavily slowed stalking stance; after a short **fixed** windup they automatically launch toward the current aim direction at greatly increased velocity. There is no hold-and-release input, it is not a literal sneak state, the player may keep aiming during the windup, and it cannot be charged indefinitely. Bow-draw-like field-of-view language may communicate the physical coiling. Do not add another damage or crowd-control rider; this branch is dramatic movement and ambush positioning.
+
+> Input-design lesson worth preserving: prefer press to a deterministic state sequence over hold and release, unless continuous charging is indispensable.
+
+### Ability 2 — Bounding
+
+Lightfooted begins a **continuous** sequence of low Bounds. Each Bound commits to its launch direction; the player may choose a new heading on landing but cannot substantially redirect a Bound in mid-air. The sequence cannot be paused or voluntarily held between Bounds — once it begins, the remaining Bounds must be taken.
+
+Lightfooted **cannot attack** while Bounding but **can build**. Building access is intentional and important: it lets skilled players manipulate upcoming terrain, landings, and takeoffs while already moving. Animals travelling with Lightfooted Bound alongside them.
+
+Bounding should feel closer to boat-like momentum over land than a series of independently aimed combat dashes: launch, committed trajectory, land, choose next heading, immediately launch again. The ability is about intentional movement across the whole sequence.
+
+**Drift to Drift — fox, snow.** Landing a Bound on snow grants Invisibility until the next Bound leaves the ground. Because Bounding cannot pause, this is not stationary stealth: a visible arc, a landing in snow, a brief disappearance, then immediate emergence into the next committed Bound. The enemy knows where Lightfooted entered the drift but briefly loses certainty about the next heading. The previously considered high-jump effect is not part of this branch. Fox's branch is **hide between Bounds**. [OPEN] Snow-family definition, invisibility timing.
+
+**Branch to Branch — cat/ocelot, leaves.** Bounds taking off from leaves launch higher and faster. This is the strongest individual-Bound specialization and supports canopy traversal. It is not an "extreme" leap; the ultimate owns the truly extreme vertical launch. Cat's branch is **stronger individual Bounds**. [OPEN] Leaf tags, velocity.
+
+**Track to Track — wolf, dirt.** A **normal** Bound taking off from eligible dirt-family terrain grants a **bonus** Bound. Bonus Bounds cannot generate further bonus Bounds, which prevents self-sustaining infinite movement without an arbitrary low cap. A skilful sequence alternates normal dirt takeoff and bonus Bound repeatedly; long back-and-forth traversal is not inherently undesirable, and the restriction exists only to stop recursion. Dirt is the contextual anchor because the fantasy is tracking through trackable ground. Wolf's branch is **more Bounds**. [OPEN] Dirt-family block tag, base Bound count.
+
+A2 branches deliberately do **not** scale with animal count. A1 already uses nearby animals as its resource; A2 uses terrain and movement execution as its resource. Do not force animal-count scaling onto A2 for symmetry.
+
+### Ultimate — Rabbit's Lucky Foot
+
+Target a location. Nearby wolves, foxes, and cats/ocelots leap in extremely high arcs toward the target area, and after a short delay Lightfooted launches after them. Participating animals are **invincible** throughout the forced leap and landing, because they are valuable class resources and the ultimate forcibly commits them into dangerous space. Each animal landing on an enemy player deals damage; Lightfooted's own landing deals greater bonus damage. The extreme high leap belongs here rather than to Branch to Branch.
+
+After landing, ordinary protection ends and the group is physically concentrated near Lightfooted again, naturally re-establishing Animal Senses at the destination. [OPEN] Targeting geometry, animal spread, impact radius, animal damage, Lightfooted bonus damage, delay, invincibility end timing.
+
+## 9.15 Daredevil
+
+**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate (§9.12). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Exploration · Combat
+Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredevil converts dangerous momentum into something better.
+
+**Passive — Skydiver.** Remaining airborne long enough grants extreme airborne movement, rewarding Daredevil for sustaining dangerous aerial traversal rather than returning safely to the ground.
+
+**A1 — Runway.** Convert meaningful forward momentum into a forward-and-upward launch, turning an existing run into aerial traversal.
+
+- **Pop Rocket** — Use Wind Burst/Wind Charge behavior for more explosive propulsion.
+- **Trampoline** — Use slime-like rebound behavior to extend or redirect the stunt.
+- **Suplex** — Activating Runway while touching an enemy subjects them to Runway's corresponding upward and downward velocity bursts.
+
+**A2 — Crash Landing.** At sufficient velocity, deliberately Crash into terrain, abruptly ending movement. Daredevil takes a fixed amount of fall damage while nearby enemies take damage based on the velocity lost in the impact. Daredevil's next instance of fall damage is then negated.
+
+- **Crater** — Take greater fixed fall damage and deal less impact damage, but stun affected enemies based on Crash velocity.
+- **Combat Roll** — Take minimal fall damage and deal greatly reduced immediate impact damage; instead, empower the next attack based on Crash velocity.
+- **Superhero** — Take no self-damage and retain normal impact damage, but become simultaneously invincible and unable to act while holding a superhero landing pose.
+
+**Ultimate — Deathly Clutches.** Drop to near-death Health and negate the next N damage instances. During the ultimate, a limited number of successful attacks restore already-consumed damage-negation instances, never exceeding the initial maximum.
+
+[HISTORICAL] The earlier draft's Runway branches — **Cannon Jump**, **Trampoline**, **Mach Headbutt** — are superseded by Pop Rocket, Trampoline and Suplex above. The earlier Passive wording, which specified more than one second airborne and granted extreme Speed, is superseded by the Skydiver wording above. The earlier tentative Extraction archetype is not carried forward; the kit assigns Exploration and Combat.
+
+[OPEN] N in Deathly Clutches, the attack count that restores instances, Skydiver's airborne threshold, Runway's momentum requirement, Crash velocity thresholds, and all durations remain unresolved.
+
+## 9.16 Seven-class kit register
+
+**Source: [K7], 13 September 2026.** A single handoff supplied compact kits for seven classes — Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil. Each gives archetypes, a hook, a passive, two actives with three branches each, and an ultimate. The kits are reproduced **verbatim** in `classes.md` at the head of each class section, ahead of the developed material, and are the current statement wherever the two differ.
+
+| Class | Archetypes as supplied | Status after the kit |
+| --- | --- | --- |
+| Mole | Extraction · Combat · Exploration | Settled; kit agrees with existing canon |
+| Gardener | Development · Control · Support | Settled; archetype line is a recorded [CONFLICT] (§9.4) |
+| Kitfighter | Combat · Production | Ultimate restated (§9.6.3) |
+| Golem Master | Construction · Combat · Production | Passive named; author's audit flag preserved, wording not promoted (§9.5) |
+| Skeleton Crew | Logistics · Combat | Settled 12 September; kit agrees |
+| Lightfooted | Exploration · Combat | Settled 12 September; kit agrees |
+| Daredevil | Exploration · Combat | Previously a substantially incomplete draft; A2 and ultimate supplied (§9.15) |
+
+The handoff does not address Merchant (§9.11) or Waxer (§9.12), which are unchanged. Two of the seven carry explicit caveats from the handoff itself — Golem Master's audit flag and Gardener's non-standard archetypes — and neither was silently reconciled.
+
+## 9.17 Waxer
+
+**Kit supplied 13 September 2026. Source: [K9].** Waxer was previously a draft whose Ability 2 branch seeds were "not equally developed" and whose ultimate had no delivery mechanism (§9.12). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Production · Combat (working)
+Hook: Wax isn't merely protective: Waxer can preserve useful things against change until preservation itself becomes an obstruction.
+
+**Passive — Waxed Recipes.** When crafting, fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version of the product.
+
+Waxed products become the persistent substrate for Waxer's preservation mechanics.
+
+**A1 — Wax-On.** Apply Wax to a target. Repeated Waxing increasingly preserves its current state.
+
+Interactive blocks that accumulate enough Wax become Sealed, preventing their interactive state from changing. Applying the first Wax to damaged, previously unwaxed equipment also restores some durability.
+
+- **Amber** — Wax targets more aggressively, allowing them to reach a Sealed state more readily.
+- **Restorative** — Greatly increase the durability restored by the first application of Wax.
+- **Sticky** — Attacking Waxed enemy armor can consume Wax from it to inflict Mining Fatigue.
+
+**A2 — Wax-Off.** Splash an area with Honey Solution. Using Honey Solution around eligible working/production activity generates Honeycomb, giving Waxer a repeatable way to replenish the resource consumed by Waxed Recipes and Wax-On.
+
+- **Enzymatic** — While enemy players remain within the Honey Solution, their equipment suffers additional durability wear.
+- **Preserving** — While allied players remain within the Honey Solution, their equipment suffers reduced durability wear.
+- **Floral** — Honeycomb generation expands beyond workstations: splashing flowers and beehives can also produce Honeycomb.
+
+This gives the tree a clean three-way interpretation of the solution:
+
+Enzymatic: break things down.
+Preserving: prevent things from breaking down.
+Floral: produce more wax.
+
+**Ultimate — Amber.** Completely encase a target in Amber, preserving it in stasis and preventing its state from changing.
+
+Open: Exact Amber delivery/targeting and the precise rules governing what an Ambered target can or cannot do.
+
+---
+
+### Notes carried forward from the draft
+
+[HISTORICAL] The draft recorded the A2 branch seeds — **Enzymatic**, **Preserving**, **Floral** — as "not equally developed and remain draft". They are now defined above. The draft's A1 branch concepts described Amber as "faster or stronger sealing", Restorative as "stronger initial restoration", and Sticky as punishing attackers "for example Mining Fatigue while consuming Wax"; the kit's wording supersedes those sketches. The draft's core rule — Honeycomb repeatedly invested into existing products to preserve them against change, until enough preservation becomes obstruction — survives as the hook above.
+
+The **Amber** name is used twice, for the A1 branch and for the ultimate. This is reproduced as supplied rather than renamed.
+
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+
+[TECHNICAL RISK] **Feasibility assessed 13 September 2026**; see the capability audit. Most of the kit is reachable, and Enzymatic and Preserving use the same detect-and-correct polling already accepted for Structural Integrity. Three items do not work as written: recipes cannot be class-gated, so Waxed Recipes would be craftable by everyone; Sealed containers are not reachable, because a datapack cannot cancel an interaction or close a screen, though block states such as doors can be forced back by polling; and Amber cannot hold a **player** in stasis, being exact only against mobs. The audit's escape hatch for Amber is encasing the target in actual Honey Blocks, which is vanilla-native, prevents jumping, slows movement, and gives enemies physical counterplay. Sealed blocks make Waxer the sixth system depending on persistent per-position block data, which still has no owner.
+
+## 9.18 Merchant and Waxer kit register
+
+**Source: [K9], 13 September 2026.** A second kit handoff supplied compact kits for the two classes the [K7] seven-class handoff did not cover. The kits are reproduced **verbatim** in `classes.md` — Merchant at the head of §13, Waxer as §18 — and are the current statement wherever they differ from developed material.
+
+| Class | Archetypes as supplied | Status after the kit |
+| --- | --- | --- |
+| Merchant | Production (others pending final classification) | Still active design, not settled; kit agrees with the developed model |
+| Waxer | Production · Combat (working) | Previously a draft; A2 branch tree and ultimate delivery supplied |
+
+With these two, every documented class has a kit and the roster holds no unsettled drafts. That is a statement about coverage, not about balance or implementation: Merchant remains explicitly unsettled, Golem Master still carries its audit flag (§9.5), Gardener's archetype line remains a recorded [CONFLICT] (§9.4), and both new kits carry their own open items.
 
 # 10. System Interactions
 
@@ -1414,7 +1745,7 @@ The most consequential unsettled interfaces are effective Hunger versus regenera
 
 ## 11.2 Emerging terms and protected distinctions
 
-Buildable Scale and Operational Scale are distinct working progression dimensions. Operational Area defines legal infrastructure connection eligibility, not a general buff radius. Infrastructure Mode is the shared recognition interface; Transit Time and Flow Weight rate demonstrated logistical performance, with ordinary player Flow Weight 1. Extent/relation and constitutive/facilitative define the four infrastructure identities (§6.1.1). These working terms do not specify a final UI. Occupation, occupational, and sustainment efficiency refer to the unresolved intrinsic Construct benefit. Herds, Crop Patches, and Mob Swarms name unfinished world-population concepts; they do not carry a complete spawn or reward contract.
+Buildable Scale and Operational Scale are distinct working progression dimensions. Operational Area defines legal infrastructure connection eligibility, not a general buff radius. Infrastructure Mode is the shared recognition interface; Transit Time and Capacity rate demonstrated logistical performance; Capacity supersedes Flow Weight and is measured in Minecraft inventory slots. Extent/relation and constitutive/facilitative define the four infrastructure identities (§6.1.1). These working terms do not specify a final UI. Occupation, occupational, and sustainment efficiency refer to the unresolved intrinsic Construct benefit. Herds, Crop Patches, and Mob Swarms name unfinished world-population concepts; they do not carry a complete spawn or reward contract.
 
 “Development choices” should not be the generic term for progression choices because Development is an archetype. “Support” remains a role. “Extraction” is useful removal/access/acquisition, not arbitrary block destruction. “Production” is transformation, not universally Salvage. A “Route” is not automatically a Supply Line, a road, or a speed lane.
 
@@ -1478,7 +1809,7 @@ These are design/readiness dependencies, not reasons to declare the existing wor
 
 [OPEN] Further readiness dependencies identified on 10 September: the Construction Block XP premium and its interaction with anti-farming rules; the Construct intrinsic benefit and its relationship to recognized scale and Operational Area; the conditions under which a captured Construct's intrinsic benefit applies to an occupier; team-relative Route re-proof, Development Zone capture behaviour, and Supply Line re-establishment; Construct scale thresholds pending the labor and control-window modelling; late-game Construction mechanics that compress labor requirements; mid- and late-objective design that deliberately creates infrastructure development windows; and whether any formal territorial-control mechanic is needed at all, as against functional access emerging from physical play.
 
-[OPEN] Readiness dependencies added on 11 September: Structural Integrity strength and whether mining, explosions and abilities are affected differently; a narrow definition of infrastructure-relevant block; Structural Integrity behaviour when practical control changes; the exact input for authoring a logistical corridor; qualifying cargo movement; derivation of pulse interval from Transit Time; authored Flow Weight values and whether they vary by cargo, carrier or upgrade; branching and rerouting; permitted carrier deviation from the authored corridor; failure to resolve; obstruction after establishment; interaction with Routes; capture and re-establishment; whether engineered transport needs any balancing disadvantage; long-distance destination targeting; and datapack feasibility for entity navigation.
+[OPEN] Readiness dependencies added on 11 September: Structural Integrity strength and whether mining, explosions and abilities are affected differently; a narrow definition of infrastructure-relevant block; Structural Integrity behaviour when practical control changes; the exact input for authoring a logistical corridor; qualifying cargo movement; derivation of pulse interval from Transit Time; Capacity values and whether they vary by cargo, carrier or upgrade; branching and rerouting; permitted carrier deviation from the authored corridor; failure to resolve; obstruction after establishment; interaction with Routes; capture and re-establishment; whether engineered transport needs any balancing disadvantage; long-distance destination targeting; and datapack feasibility for entity navigation.
 
 ## 12.7 Stochastic opportunity field model
 
@@ -1575,6 +1906,40 @@ Implementation should record its target version, implemented behavior, approxima
 
 The immediate technical priorities follow the current evidence: finish the selected map’s player-scale validation, resolve input/kit compatibility, implement or test effective Hunger’s intended mechanics, and define shared infrastructure/XP contracts before treating isolated prototypes as a full game runtime.
 
+## 13.8 Shared technical contracts
+
+**Recorded 12 September 2026. Source: capability audit.** Several chapters
+independently assume engine capabilities that are unproven or unavailable. They
+are collected here so they stop being re-assumed locally. Full ranking and
+escape hatches are in [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
+
+**Block provenance.** Vanilla does not record whether a block was generated or
+player-placed. Assumed by anti-farming XP (§5.2), Mole's Sinkhole (§9.3),
+Construct designation (§6.18), Structural Integrity (§6.2.4), and Development
+Zone eligibility (§3.3, §6.19). Solvable only by persistent per-block state with
+no natural eviction policy. **Prove or kill this first; five systems fail
+together.**
+
+**Event cancellation.** No datapack can veto an action. Structural Integrity,
+Sinkhole's no-build area, armour locking and infrastructure protection all want
+prevention and can only detect and revert. Adventure mode with `can_place_on`
+and `can_break` is the sole true prevention and is too restrictive for a
+building game.
+
+**Chunk loading.** Supply Line pulses, Development Zone recalculation, Worksite
+operation and Mob Swarm behaviour all imply activity away from players.
+Forceloaded chunks are limited and costly.
+
+**Region-scale measurement budget.** Constructs, Development Zones and
+structural defeat each need volume counting. Individually affordable;
+collectively they need one budget and one owner.
+
+[TECHNICAL RISK] is introduced as a marker distinct from [OPEN]: a passage may
+be fully decided as design and still assume an unavailable capability.
+
+[OPEN] Each contract needs a technical owner and a prototype before the systems
+above are implemented.
+
 # 14. Development Record
 
 ## 14.1 Snapshot, authority, and coverage
@@ -1606,13 +1971,23 @@ The requested manuscript hierarchy is preserved. Prose, cross-references, consol
 | Current Task B | Two minimal physical candidates; B.1 incomplete | No frozen competitive skeleton or Task C |
 | Latest systems/concept chats | Durability turnover, Construct scales, Waxer | Working discussion; not silently canonized |
 
+12 September 2026: the Nighttime, Combat Economy, Regenerative Sources and World-System Mapping handoff [WN] was integrated, giving the day/night economy a canonical owner (`objectives.md` §17A) and adding sunset-only Worksite activation, the three regenerative buckets with their spatial specificity gradient, Mob Swarm composition by depth, region and time of day, Combat as securing value under threat, the archetype/world-system mapping, and the nighttime infrastructure penalty in `infrastructure.md`. No XP numbers were derived; the XP branch is explicitly downstream. Separately, a capacity progression curve rework [CP] was recorded as a **proposal only** in `docs/proposals/2026-09-12-capacity-curve.md` at its author's instruction; no canonical capacity value was changed.
+
+13 September 2026: a seven-class kit handoff [K7] supplied compact canonical kits for Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil. The kits are reproduced verbatim in `classes.md`. Daredevil moved from substantially incomplete draft to a full kit with its previously missing Ability 2 and ultimate; Golem Master's passive was named Pumpkin Supply; Kitfighter's ultimate was restated as a projection over weaker equipment. Two caveats supplied with the handoff were preserved rather than reconciled: Golem Master's own audit flag against promoting its wording, and Gardener's archetype line naming Control and Support, which are not members of the Seven Archetypes.
+
+13 September 2026, second kit handoff: [K9] supplied kits for Merchant and Waxer, the two classes [K7] did not cover. Merchant's kit agrees with the developed active-design model and repeats Production with other archetypes pending. Waxer's kit supplies the previously undeveloped Ability 2 branch tree (Enzymatic, Preserving, Floral) and the ultimate's delivery, moving it out of draft status. Every documented class now has a kit and no unsettled drafts remain, which is a coverage statement rather than a balance or implementation claim.
+
 Earlier worlds were programmatically generated Java/Anvil saves, not WorldPainter-authored worlds. The historical dimensions and method do not dictate the modern official-vanilla approach.
 
 10 September 2026, second integration: the World and Match Systems handoff was supplied in full and integrated, adding restricted material categories, the revised block economy and infrastructure-labor model, Construction's material agency, and the payback horizon, control-window, authorship/recognition/control, capture, and team-relative integration material. The numerical estimates and phase bands recorded there are modelling targets, not balance canon.
 
 11 September 2026: a WAMS handoff on infrastructure benefits and Logistics redefinition was integrated. Structural Integrity becomes the current preferred intrinsic Construct benefit, and the Supply Line model is reframed from origin-first endpoint selection to demonstrated destination-oriented delivery. Flow Weight and Item Rate are separated, with the earlier combined Flow Rate formulation superseded. Flow Weight, Transit Time, persistent operation, physical disruption, directionality, and team-relative integration are retained and reconciled rather than replaced.
 
-Late September 2026: a WAMS infrastructure clarification handoff from the Skeleton Crew and Logistics discussion introduced the designation-and-evidence model, the place versus connection organizing frame, archetype-native anchors (Banners, Copper Chests, Construction Blocks, developable resources), Construct block-investment and extent evaluation, Development Weight with dynamic recalculation, the source-to-destination rule for self-directed logistical entities, the distinction between pre-infrastructure physical Logistics and recognized Supply Lines, and direct Copper Chest inventory transfer as the preferred execution model. Four tensions with 10 and 11 September canon are recorded as [CONFLICT] rather than resolved.
+Late September 2026: a WAMS infrastructure clarification handoff from the Skeleton Crew and Logistics discussion introduced the designation-and-evidence model, the place versus connection organizing frame, archetype-native anchors (Banners, Copper Chests, Construction Blocks, developable resources), Construct block-investment and extent evaluation, Development Weight with dynamic recalculation, the source-to-destination rule for self-directed logistical entities, the distinction between pre-infrastructure physical Logistics and recognized Supply Lines, and direct Copper Chest inventory transfer as the preferred execution model. Four tensions with 10 and 11 September canon were recorded as [CONFLICT] rather than resolved. A subsequent infrastructure reconciliation handoff [WR] then decided them: explicit Copper Chest Source designation is reinstated; Capacity belongs to the logistical method while Item Rate emerges from that method's actual movement over the connection, with player-authored Item Rate removed; endpoints suffice only for self-directed carriers, leaving corridors meaningful for path-authored methods; and the class-ability firewall is reaffirmed. Route corridor retention remains [OPEN].
+
+Late September 2026, Logistics revision: Flow Weight was replaced by Capacity measured in Minecraft inventory slots; logistical Capacity was made non-duplicable between committed infrastructure and active world presence; Supply Lines moved toward relay-node chains with a maximum supported span; a default summon behaviour grammar was recorded; and Skeleton Crew was rebuilt around a single labour pool shared by its combat and logistics expressions.
+
+12 September 2026: Skeleton Crew and Lightfooted completed conceptual passes and were promoted out of the unsettled drafts section. Both now satisfy the settled standard — hook, core rule, passive, two actives with three mutually exclusive branches each, and an ultimate — with remaining work confined to numbers, implementation, tags, radii, durations and global-system interactions. Waxer and Daredevil remain the only drafts.
 
 12 September 2026: Worldgen and Initial System Balancing integrated into maps.md, infrastructure.md, objectives.md, the quantitative experiment specification and manuscript §§3.7, 4.12, 5.12, 6.23 and 12.7. Explicit branch corrections are Established; model structures remain Working and numerical examples remain non-canon. Existing later-labeled infrastructure passages are retained without inferring their chronology from this revision date.
 
@@ -1732,7 +2107,21 @@ Keep design, implementation, and validation status separate. Update cross-refere
 
 **[WC] Class Documentation Handoff.** 11 September 2026. Settles Mole and Gardener, records Merchant as active design, and preserves Skeleton Crew, Waxer, Lightfooted and Daredevil as drafts. Supersedes the earlier Gardener kit, Mole passive and Tunneling branches, and the Star Trading / route-effect Merchant. See docs/reconciliation/2026-09-11-classes.md.
 
-**[WC] WAMS Infrastructure Clarification Handoff.** Late September 2026, from the Skeleton Crew / Logistics discussion. Introduces the designation-and-evidence model, place/connection framing, archetype-native anchors, and direct Copper Chest inventory transfer. Four tensions with [WB] and [WI] are recorded as [CONFLICT] rather than resolved. See docs/reconciliation/2026-09-11-wams-clarification.md.
+**[WC] WAMS Infrastructure Clarification Handoff.** Late September 2026, from the Skeleton Crew / Logistics discussion. Introduces the designation-and-evidence model, place/connection framing, archetype-native anchors, and direct Copper Chest inventory transfer. Four tensions with [WB] and [WI] were recorded as [CONFLICT]; all four are decided by [WR]. See docs/reconciliation/2026-09-11-wams-clarification.md.
+
+**[WS] Class Design Handoff: Skeleton Crew and Lightfooted.** 12 September 2026. Completes both classes to the settled standard and promotes them out of the drafts section. See docs/reconciliation/2026-09-12-classes.md.
+
+**[WL] Logistics / Supply Line / Skeleton Crew Handoff.** Late September 2026. Replaces Flow Weight with slot-based Capacity, makes logistical Capacity non-duplicable between committed infrastructure and active world presence, introduces relay-node chains, and rebuilds Skeleton Crew on a shared labour pool. See docs/reconciliation/2026-09-11-capacity.md.
+
+**[WN] WAMS Handoff — Nighttime, Combat Economy, Regenerative Sources, and World-System Mapping.** 12 September 2026, working design direction with no finalized numbers or tables. Day as accumulation and night as opportunity; per-type nighttime infrastructure weakening; Combat as securing value under threat with no dedicated Combat infrastructure; sunset-only Worksite activation with phase-dependent count and constrained random selection; crops, animal populations and Mob Swarms as regenerative sources on a specificity-by-distance gradient; Mob Swarm composition by depth, region and time of day; the archetype/world-system mapping; and XP calibration as a downstream branch. See docs/reconciliation/2026-09-12-nighttime-economy.md.
+
+**[K9] Merchant and Waxer kit handoff.** 13 September 2026. Compact kits for the two classes [K7] did not cover: archetypes, hook, passive, two actives with three branches each, and an ultimate. Reproduced verbatim in `classes.md`. Merchant remains explicitly unsettled active design; Waxer's kit closes its previously missing slots. See docs/reconciliation/2026-09-13-class-kits.md.
+
+**[K7] Seven-class kit handoff.** 13 September 2026. Compact kits for Mole, Gardener, Kitfighter, Golem Master, Skeleton Crew, Lightfooted and Daredevil: archetypes, hook, passive, two actives with three branches each, and an ultimate. Reproduced verbatim in `classes.md`; supplied with its own audit flag on Golem Master. Does not address Merchant or Waxer. See docs/reconciliation/2026-09-13-class-kits.md.
+
+**[CP] Minecraft MOBA Capacity Progression Curve Handoff.** 12 September 2026, explicitly **NOT CANON**. Proposes per-capacity growth cadences, an 8-Health start, 18-point universal Health and Hunger endpoints, specialization reaching 20, and qualitative Masteries at the third specialization. Recorded as a proposal only, at the source's own instruction; no canonical value changed. See docs/proposals/2026-09-12-capacity-curve.md.
+
+**[WR] Minecraft MOBA Infrastructure Reconciliation / Correction Handoff.** September 2026. Resolves the four [WC]/[WB] conflicts, reinstates explicit Supply Line start, corrects Capacity (then Flow Weight) and Item Rate authorship, splits self-directed from path-authored logistical methods, reaffirms the class-ability firewall, and states the shared start/journey/end connection grammar. Retains [WC] where it is not corrected; does not supersede [WB] wholesale. See docs/reconciliation/2026-09-11-infrastructure-reconciliation.md.
 
 **[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 

@@ -9,7 +9,13 @@ Skeleton Crew / Logistics discussion.
 
 ## Four recorded conflicts — NOT silently resolved
 
-These are tensions with canon committed on 10–11 September. All are marked
+> **Superseded by the owner's decision.** All four conflicts below were decided
+> by the Infrastructure Reconciliation / Correction Handoff `[WR]`; see
+> `2026-09-11-infrastructure-reconciliation.md`. The `[CONFLICT]` markers have
+> been replaced in place. This section is retained for traceability of what was
+> in tension and why.
+
+These were tensions with canon committed on 10–11 September, originally marked
 `[CONFLICT]` in place and left for the owner to decide.
 
 **1. Supply Line source designation.** `[WC]` §5 proposes: enter Infrastructure

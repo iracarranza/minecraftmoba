@@ -247,6 +247,8 @@ Exceptional manipulation of:
 
 Universal Health progression does not invalidate Combat specialization.
 
+**Economic role, 12 September 2026.** Combat's economic role is **securing value under threat**: it lets a team operate economically where danger or opposition would otherwise make operating inefficient or impossible. This refines the earlier phrasing that Combat converts threats and contestation into value. Combat does not require a dedicated Combat infrastructure system; its regenerative world system is hostile Mob Swarms, shared with Development's renewable living-world systems. See [objectives.md](objectives.md#combats-economic-role).
+
 ---
 
 ## Exploration
@@ -479,7 +481,7 @@ Current model:
 
 > demonstrate repeatable delivery to a useful destination → recognize the demonstrated capability as a Supply Line
 
-[HISTORICAL] The earlier origin-first formulation — origin storage → Supply Line → destination storage — is superseded as the defining model; the storage relationship it describes remains real as an observed property. See [infrastructure.md](infrastructure.md#supply-lines).
+**Reinstated, late September 2026.** Explicit origin designation returns: a Supply Line is established Copper Chest Source → actual logistical transport → Copper Chest Destination. [HISTORICAL] The intervening origin-free formulation, in which origin was inferred from observed cargo movement rather than designated, is superseded. See [infrastructure.md](infrastructure.md#supply-lines).
 
 Actual items stored upstream gradually transfer or replenish downstream storage.
 
@@ -500,7 +502,7 @@ Potential mechanical axes available to authored class progression include:
 
 Later high-potency Logistics may eventually allow supplied infrastructure to replenish allied players directly. This is a future candidate rather than an established baseline capability.
 
-A Supply Line is established by demonstrating repeatable delivery to an eligible destination; origin and path are observed from that movement rather than selected beforehand. It is directional unless separately proved in reverse. Flow Weight is authored by the transport method and sets items per pulse; Item Rate derives from demonstrated Transit Time and sets pulse frequency; ordinary player Flow Weight is 1, and exact values remain [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
+A Supply Line is established by designating a Copper Chest Source, performing actual logistical transport, and designating a Copper Chest Destination; it then simulates repeated deliveries by that method. It is directional unless separately proved in reverse. Capacity is a property of the logistical method and sets cargo slots per delivery, measured in Minecraft inventory slots at the carried item's ordinary stack size; Item Rate emerges from that method's actual movement over the established connection and sets delivery frequency. The player authors neither. [HISTORICAL] Capacity supersedes Flow Weight. Committed Capacity cannot simultaneously be active in the world — see [infrastructure.md](infrastructure.md#committed-capacity). Exact values remain [OPEN]. Ongoing flow may be represented without rendering every item, but the required physical transport state must remain valid and periodically checked. See [infrastructure.md](infrastructure.md#supply-lines). No mandatory Route, universal continuous ground path, or single required carrier is imposed; exact topology validation remains [OPEN].
 
 Routes and Supply Lines may physically overlap and synergize without either requiring the other.
 
@@ -600,6 +602,8 @@ Current working breakpoint structure:
 | 30 | Capstone, exact form unresolved |
 
 Levels not listed here may still provide universal capacity growth according to the universal growth rules.
+
+[PROPOSED — NOT CANON, 12 September 2026] A capacity curve rework is under review: distinct growth cadences per capacity, Lv1 Health 8, universal Health and Hunger endpoints of 18 with specialization reaching 20, and a third specialization that unlocks a qualitative Mastery instead of a higher number. It is recorded in full in [docs/proposals/2026-09-12-capacity-curve.md](docs/proposals/2026-09-12-capacity-curve.md) and deliberately changes nothing below until reviewed. Everything in this section remains canon.
 
 Universal capacity progression currently begins at:
 
@@ -870,7 +874,32 @@ The current XP bands and requirement indices are a framework for that later bott
 
 ## Status
 
-**Conceptually settled** (11 September 2026). Numerical and implementation details remain [OPEN].
+**Conceptually settled** (11 September 2026). Numerical and implementation details remain [OPEN]. Kit restated 13 September 2026.
+
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Extraction · Combat · Exploration
+Hook: The world beneath and inside terrain is as navigable to Mole as its surface is to everyone else.
+
+**Passive — Sifth Sense.** While actively digging, Mole senses nearby sand and gravel. Excavating these materials can sift through connected falling material rather than allowing it to collapse normally.
+
+**A1 — Tunneling.** Enter a digging mode that amplifies tool speed and automatically excavates a 1×2 passage while moving into terrain. Mole cannot attack or build while Tunneling and can steer vertically with jump and sneak.
+
+- **Bore** — Tunnel substantially faster.
+- **Gallery** — Excavate a wider, approximately 3×2 passage.
+- **Dig In** — Become substantially harder to displace while actively excavating.
+
+**A2 — Drill Rush.** Enter a wall or floor. Reactivate to burst from the terrain in the aimed direction, damaging enemies at the point of emergence.
+
+- **Armored Emergence** — Gain major damage reduction upon emerging.
+- **Undermine** — Emerging upward from beneath an enemy stuns them.
+- **Burrow Chain** — Gain Speed after emerging from a wall; quickly entering another wall resets Drill Rush.
+
+**Ultimate — Sinkhole.** Destabilize a large region of natural terrain. After a delay, it progressively collapses downward into a permanent jagged sinkhole and becomes temporarily unbuildable during the collapse. Player-built construction is unaffected.
+
+---
 
 ## Core idea / hook
 
@@ -952,6 +981,7 @@ On reactivation, Mole emerges and deals damage in the direction they are facing.
 Mole senses and targets an unstable natural-terrain region and incites a delayed collapse.
 
 - Natural terrain only.
+  - [TECHNICAL RISK] Distinguishing natural terrain from player construction requires block provenance, which vanilla does not record. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
 - Collapse occurs downward in stages.
 - Destroyed terrain produces only partial drops.
 - The area becomes No-Build while actively collapsing.
@@ -1025,6 +1055,33 @@ A Worksite system should not automatically reveal/excavate so much information o
 ---
 
 # 5. Gardener
+
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Development · Control · Support
+Hook: Vegetation isn't just something to harvest: it is a landscape of productive sources worth harvesting, preserving, and reinvesting into.
+
+[CONFLICT] **Control** and **Support** are not members of the Seven Archetypes defined in [section 2](#2-the-seven-archetypes), which are Combat, Construction, Development, Exploration, Extraction, Logistics and Production. The kit's archetype line is reproduced exactly as supplied rather than silently mapped onto existing archetypes or silently dropped. Whether Control and Support are new archetypes, descriptive role language, or a substitution for existing secondary archetypes is for the owner to decide; the roster in [section 11](#11-current-class-roster-status) still records Gardener's secondaries as deliberately unassigned.
+
+**Passive — Plant Material.** Gardener accumulates Plant Material through their abilities. At full stacks, Plant Material is automatically consumed to grow a Cultivar nearby. Cultivars accelerate the growth of adjacent plants.
+
+**A1 — Clip.** Clip a living plant without destroying or resetting it, generating Plant Material. Mature plants provide substantially more.
+
+- **Specimen** — Rewards clipping individually mature plants.
+- **Proliferation** — Rewards concentrations of plants from the same family.
+- **Collection** — Rewards clipping varied plant species and families, with diminishing value from repetition.
+
+**A2 — Cultivate.** Consume eligible plant items from inventory to generate Plant Material at lower efficiency than Clip. The selected upgrade determines Gardener's normal Cultivar.
+
+- **Torchflower** — Cultivars provide light and protective Absorption.
+- **Sweet Berry Bush** — Cultivars provide provisioning and create hostile defensive thickets.
+- **Giant Bamboo** — Cultivars generate empowered bamboo offspring that extend growth acceleration outward without recursively reproducing themselves.
+
+**Ultimate — Grafter's Handbook.** Gardener gains access to both Cultivar types they did not select through Cultivate, allowing all three forms to be grown sequentially without changing the original specialization.
+
+---
 
 ## Status
 
@@ -1168,6 +1225,33 @@ Gardener may naturally become stronger or more strategically useful when allied 
 
 # 6. Golem Master
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Construction · Combat · Production
+Hook: Building materials are also potential workers: the blocks Golem Master carries determine what kind of golems they can animate and what those golems can accomplish.
+
+**Passive — Pumpkin Supply.** Pumpkins become periodically available to Golem Master, supplying the defining component needed to animate golems.
+
+**A1 — Animate.** Consume four blocks and a pumpkin to animate a temporary golem. Its durability and physical properties derive from the material used to create it.
+
+- **Iron Golem** — A durable fighter emphasizing health and knockback.
+- **Snow Golem** — A ranged golem whose projectiles hinder enemy movement.
+- **Copper Golem** — A smaller, faster worker and swarm fighter using evasive hit-and-run behavior.
+
+**A2 — Assemble.** Consume carried materials to rapidly assemble a wall. Construction performance scales with Golem Master's available workforce/material properties.
+
+- **Iron Wall** — Reinforced defensive construction that synergizes with Iron Golems.
+- **Snow Wall** — Defensive construction whose attacks/projectiles slow and displace enemies.
+- **Copper Wall** — Rapid construction that improves nearby Copper Golem movement and work speed.
+
+**Ultimate — Wither Golem.** Animate a temporary Wither-derived golem whose combat power evokes the Wither without reproducing its uncontrolled terrain destruction.
+
+**Audit flag (supplied with the kit):** This is still the least settled of the seven. The base Assemble rule, generic material-stat rules, and Wither Golem's actual behavior need one final conceptual pass. This exact wording is **not** promoted to canon.
+
+---
+
 ## Status
 
 Working draft.
@@ -1196,7 +1280,9 @@ Iron, Snow, and Copper are upgraded independently across Animate and Assemble, a
 
 ---
 
-## Passive — [Unnamed]
+## Passive — Pumpkin Supply
+
+**Named 13 September 2026 by [K7].** Pumpkins become periodically available to Golem Master, supplying the defining component needed to animate golems.
 
 - Pumpkins periodically spawn/grow nearby.
 - Maximum commanded golems increases with level.
@@ -1371,6 +1457,33 @@ The class's exceptional ceiling comes from converting:
 
 # 7. Kitfighter
 
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Combat · Production
+Hook: Ordinary equipment is raw material for a combat kit: Kitfighter crafts efficiently, carries unusual tools into battle, and temporarily exceeds Minecraft's normal equipment ceiling.
+
+**Passive — Salvage.** Crafting equipment with at least three units of a Primary Material generates Salvage for that material. Accumulating enough material-specific Salvage automatically recovers two units of that material, with the required Salvage decreasing through progression.
+
+**A1 — Offhander.** Equip a Bow in the offhand, allowing it to function alongside Kitfighter's normal mainhand equipment.
+
+- **Crossbow** — Replace the Bow with a Crossbow.
+- **Fishing Rod** — Replace it with a Fishing Rod.
+- **Golden Head** — Replace it with a Golden Head.
+
+**A2 — Hotswap.** Deploy a temporary web at the targeted block.
+
+- **Cobweb** — Deploy a longer-lasting Cobweb.
+- **Lava** — Deploy temporary Lava instead.
+- **TNT** — Deploy temporary TNT instead.
+
+**Ultimate — Covered With Diamonds.** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance. Its effects extend to Kitfighter's upgraded equipment options.
+
+Open: Exact interaction with equipment already exceeding the projected Diamond state remains implementation/balance work.
+
+---
+
 ## Status
 
 Current documented class direction.
@@ -1459,7 +1572,9 @@ Deploy a web at the targeted block that breaks after a short duration.
 
 ## Ultimate — Covered With Diamonds
 
-Temporarily upgrades Kitfighter's armor/tools to Diamond.
+**Restated 13 September 2026 by [K7].** Temporarily project Diamond-level protection wherever Kitfighter's current equipment is weaker, while gaining movement speed and knockback resistance. Its effects extend to Kitfighter's upgraded equipment options. This is a projection over weaker equipment rather than a blanket upgrade, and it now also carries movement speed and knockback resistance.
+
+[OPEN] Exact interaction with equipment already exceeding the projected Diamond state remains implementation/balance work.
 
 When the Ultimate ends, the equipment reverts.
 
@@ -1898,12 +2013,16 @@ Primary:
 Secondary:
 - Deliberately unassigned pending descriptive evaluation of finished behaviour.
 
+[CONFLICT] The 13 September kit lists Gardener as "Development · Control · Support". Control and Support are not members of the Seven Archetypes. Recorded in [section 5](#5-gardener) rather than resolved; this roster entry is unchanged pending the owner's decision.
+
 ### Golem Master
 Primary:
 - Construction
 
 Secondary:
 - Combat
+
+The 13 September kit lists Construction · Combat · Production and carries an explicit audit flag against promoting its wording to canon; Production is therefore recorded in [section 6](#6-golem-master) but not adopted here.
 
 ### Kitfighter
 Primary:
@@ -1912,16 +2031,27 @@ Primary:
 Secondary:
 - Production
 
+Confirmed by the 13 September kit: Combat · Production.
+
 Kitfighter should not currently be listed as Extraction.
 
 ### Merchant — active design, not settled
 Emergent archetype:
 - Production
 
-Do not assign further archetypes until finished behaviour is evaluated. See [section 13](#13-merchant--active-design).
+Do not assign further archetypes until finished behaviour is evaluated. The 13 September kit [K9] confirms "Production (others pending final classification)" and lists final archetype classification among its open items. See [section 13](#13-merchant--active-design).
+
+### Waxer — kit supplied 13 September 2026
+Production and Combat, working, per [K9]. The kit supplies the previously undeveloped Ability 2 branch tree and the ultimate's delivery. See [section 18](#18-waxer). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
+
+### Settled beyond the original four
+Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) completed conceptual passes on 12 September 2026. Skeleton Crew is Logistics and Combat; Lightfooted is Exploration primary with Combat secondary.
+
+### Daredevil — kit supplied 13 September 2026
+Exploration and Combat, per [K7]. The kit supplies the previously missing Ability 2 and ultimate. See [section 17](#17-daredevil). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
 
 ### Unsettled drafts
-Skeleton Crew, Waxer, Lightfooted, and Daredevil are drafts with missing conceptual slots. See [section 14](#14-unsettled-class-drafts).
+None. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
 
 ---
 
@@ -1947,7 +2077,38 @@ Skeleton Crew, Waxer, Lightfooted, and Daredevil are drafts with missing concept
 
 **ACTIVE DESIGN — not settled.** Merchant is the current active class-design subject. Structure below is recorded at the confidence level it actually holds: strong current structure, [FAINT CAUTION] for mechanics worth preserving but not conceptually settled, and [OPEN] for unresolved implementation, balance, or system questions.
 
-Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated.
+Emergent archetype: **Production**. Archetypes are descriptive, not generative — do not assign Logistics, Exploration, or others until the finished behaviour is evaluated. The 13 September kit repeats this as "Production (others pending final classification)".
+
+---
+
+### Canonical kit — 13 September 2026
+
+**Source: [K9] Merchant and Waxer kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Production (others pending final classification)
+Hook: Merchant gets rich enough to stop doing ordinary Minecraft work, turning successful trade relationships into an increasingly capable paid workforce and eventually an extravagant traveling spectacle.
+
+**Passive — Work.** Villagers with sufficient Trading Reputation toward Merchant become willing to Work for Emeralds. Merchant can employ willing villagers on Payroll, allowing them to process available materials into valid products.
+
+Working advances a villager's Mastery from Novice → Apprentice → Journeyman → Expert → Master. Higher Mastery expands the sophistication of transformations they can perform and improves their material efficiency.
+
+**A1 — Swindle.** After trading with a villager, strike them to sacrifice Reputation and extract bonus Emerald value from the completed trade. Each villager can be Swindled once per restock cycle.
+
+- **Invisible Hand** — Swindling one villager also Swindles nearby independently eligible villagers while concentrating the Reputation loss on the struck villager.
+- **Credit Line** — Convert future commercial/relationship value into immediate liquidity. [OPEN: exact mechanic]
+- **Community Chest** — Redirect Swindle toward distributed/circulating economic value. [OPEN: exact mechanic]
+
+**A2 — Retinue.** Call nearby employed villagers away from ordinary Work to accompany Merchant.
+
+- **Seize the Means** — Retinue seek out and temporarily disable workstations/infrastructure in a designated area rather than destroying them.
+- **Toll Patrol** — Retinue patrol a contested area; enemy activity there offsets Payroll costs while the workers sacrifice ordinary Work.
+- **Overtime** — Increase expenditure to accelerate Work/Mastery. [OPEN: mechanic/replacement]
+
+**Ultimate — Procession / Silk Road.** Begin an extravagant procession with nearby Retinue. Merchant must continue moving with the procession and paying its costs or the ultimate ends.
+
+The procession repeatedly grants effects to allies around it. Retinue size determines the frequency of these procs; workforce Mastery determines their cumulative quality, progressing through effects such as Saturation, Speed, Regeneration, Absorption, and offensive damage.
+
+Open: Credit Line · Community Chest · Overtime · exact Emerald-substitution placement · final ultimate name/effect package · final archetype classification.
 
 ---
 
@@ -2083,68 +2244,274 @@ Procession should probably represent **maximum expenditure** rather than discoun
 
 ---
 
-# 14. Unsettled Class Drafts
+# 14. Class Draft Record
 
-These are preserved as drafts. They are **not** settled classes, and their missing slots are missing design rather than gaps to be filled by invention.
+**No class remains an unsettled draft as of 13 September 2026.** This section is retained for traceability of how the roster reached that state rather than deleted.
 
----
+The drafts were Skeleton Crew, Lightfooted, Waxer and Daredevil. Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#16-lightfooted)) were promoted to settled classes on 12 September 2026. Daredevil ([section 17](#17-daredevil)) and Waxer ([section 18](#18-waxer)) received full kits on 13 September 2026, supplying the slots that were previously missing.
 
-## Skeleton Crew
+The original rule still applies to anything that remains unspecified within those kits: **missing slots are missing design rather than gaps to be filled by invention.** Promotion out of draft status is not a claim that every quantity is decided; each class section carries its own [OPEN] items.
 
-**Draft — not settled.** Likely emergent archetypes are Logistics and Combat, but these should be re-evaluated after completion.
-
-Core rule: hostile undead become logistical labour.
-
-**Passive — Undead Affinity.** Zombies and Skeletons become compatible with the class and largely non-hostile, per the current draft.
-
-**Ability 1.** An empowered interaction or attack against Zombies and Skeletons banks the mob. Arise raises the banked crew. Raised crew can be sent toward a destination, physically pick up dropped items, use actual inventories and cargo, and be redirected; killing or dismissing them spills cargo.
-
-**Ability 2.** Set crew ablaze for dramatically increased speed and combat effectiveness, at the cost of continuous HP loss and risk of cargo spill.
-
-**Ultimate — Getting A-Head.** A Headless Horseman leads the horde. An alternative under consideration has the player ride the horse while the Horseman independently fights.
-
-Missing conceptual slots: A1 branches, A2 branches, exact command structure, Horseman resolution, and possible simplification of A1 complexity.
+[OPEN] Whether Daredevil and Waxer have had conceptual passes equivalent to Skeleton Crew's and Lightfooted's — which were declared settled with explicit statements about what was decided — is the owner's call and is not asserted by the presence of a kit.
 
 ---
 
-## Waxer
+# 15. Skeleton Crew
 
-**Draft — not settled.** Primary Production; Combat currently plausible.
+### Canonical kit — 13 September 2026
 
-Core rule: Honeycomb can be repeatedly invested into existing products to preserve them against change; enough preservation becomes obstruction.
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
 
-**Passive — Waxed Recipes.** Fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version or output.
+Archetypes: Logistics · Combat
+Hook: Skeleton Crew wants the undead to find them: nighttime monster pressure becomes a workforce that can fight or move resources.
 
-**Ability 1 — Wax-On.** Apply Waxed stacks to existing objects. Enough Wax on interactive blocks makes them Sealed; Sealed blocks cannot normally change or use their interactive state. The first Wax application to damaged unwaxed equipment restores durability. Branch concepts: **Amber** (faster or stronger sealing), **Restorative** (stronger initial restoration), **Sticky** (interaction with Waxed armour can punish attackers, for example Mining Fatigue while consuming Wax).
+**Passive — Undead Affinity.** Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew, which can be spent to deploy Crew Members.
 
-**Ability 2 — Wax-Off.** A thrown Honey Solution. The base ability needs to provide a repeatable route to Honeycomb acquisition. Branch seeds — **Enzymatic**, **Preserving**, **Floral** — are not equally developed and remain draft.
+Each Crew Member can exist either actively in the world or be committed as Capacity to a Supply Line, never both.
 
-**Ultimate — Amber.** Complete preservation and stasis; delivery mechanism unresolved.
+**A1 — Graveyard Shift.** Target an enemy to Strike them for bonus damage and provoke active Crew against them. Otherwise, consume Crew to Raise a Crew Member.
 
-[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, ordinary removal, and implementation feasibility remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+- **Field Work** — Graveyard Shift becomes a projectile: striking enemies at range or Raising Crew where it hits valid terrain.
+- **Hard Hat Zone** — Strike friendly Crew for reduced damage to temporarily equip them with armor, progressing through Helmet → Chestplate → Leggings → Boots with repeated Strikes.
+- **Labored Union** — Reduce Strike's bonus damage; Crew automatically fight nearby mobs, and their kills generate Crew.
 
----
+**A2 — Burning Out.** Ignite active Crew. Burning Crew move substantially faster while continuing to prioritize Combat → Logistics → self-preservation, seeking to extinguish themselves once higher-priority work ends.
 
-## Lightfooted
+- **Fire Drill** — Do not ignite Crew. Instead, they become Alarmed and urgently complete their current logistical journey or return to Skeleton Crew.
+- **Deadline** — Crew that remain burning in combat long enough explode.
+- **Water Break** — Successfully extinguishing restores Health based on time spent burning and briefly increases movement speed.
 
-**Draft — substantially incomplete.** Primary Exploration currently plausible; Combat and Development consequences possible but not finalized.
-
-Core area: animal traversal, animal following, and movement/combat interactions.
-
-**Passive — Rabbit's Foot.** Massively reduced fall damage. Lured or following animals share movement and following benefits.
-
-**Ability 1 — Lunge.** Leap toward the cursor and deal damage. Known branches: **Swarming Bite** (wolf count affects or reduces cooldown) and **Thieving Swipe** (charge recovery / offhand disruption concept).
-
-Missing conceptual slots: the third A1 branch, Ability 2 entirely, the A2 branch tree, and the ultimate. These gaps are missing design, not invitations to invent.
+**Ultimate — A-Head of Schedule.** Summon the Headless Horseman and a temporary supernatural Crew. They commit to either Combat or Logistics according to Skeleton Crew's workforce activity and become exceptionally effective at that activity for the ultimate's duration.
 
 ---
 
-## Daredevil
+**Conceptually settled, 12 September 2026.** Hook, core rule, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and interaction with global systems. Do not reopen settled mechanics for lack of exact values.
 
-**Draft — substantially incomplete.** Primary Exploration currently plausible; Extraction and Combat only tentative consequences.
+Archetypes, assigned descriptively from the finished kit: **Logistics** and **Combat**.
 
-**Passive — Skydiver.** Remaining airborne for more than one second grants extreme Speed while airborne. Traversal and routes created while Skydiving interact with this movement concept according to existing global infrastructure rules.
+### Core fantasy
 
-**Ability 1 — Runway.** Requires speed and momentum. Converts forward momentum into forward or upward traversal and updraft, and negates fall damage. Branches: **Cannon Jump** (TNT-assisted boost), **Trampoline** (slime-based impacts and bouncing), **Mach Headbutt** (high-speed knockback collision).
+Night and darkness produce undead pressure; Skeleton Crew attracts that pressure; fighting undead generates Crew; Crew becomes labour, logistical, and combat capacity.
 
-Missing conceptual slots: Ability 2 entirely, the A2 branch tree, and the ultimate. Do not invent them.
+> Skeleton Crew wants the undead to find them.
+
+### Resource terms
+
+**Crew** is the stored resource the class generates. **Crew Limit** is the maximum workforce simultaneously deployed or committed. Crew Limit is not Logistics Capacity and is not a universal summon cap; stored Crew may exceed deployed Crew Limit, and Crew Limit should not automatically scale with level. [OPEN] Exact values.
+
+Each Crew Member is either physically active in the world **or** committed to Supply Line Capacity, never both. A Crew Member's physical cargo Capacity and its possible committed Supply Line Capacity are the same underlying capacity and must never be counted twice. Summoning is therefore withdrawing logistical capacity from your infrastructure. Capacity and Item Rate follow the global definitions in [infrastructure.md](infrastructure.md#committed-capacity); the superseded Flow Weight terminology is not used.
+
+### Passive — Undead Affinity
+
+Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew stacks. This deliberately converts nighttime and undead danger into economic opportunity. [OPEN] Detection radius, eligible undead, Crew generation values, Crew Limit.
+
+### Base Crew behaviour
+
+Active Crew Members are physical workers and combatants with the priority order **Combat → Logistics → self-preservation**. Empty-handed Crew follow Skeleton Crew. Cargo-carrying Crew seek the nearest valid Supply Line node, deposit, then follow. Provoked Crew fight, then resume previous behaviour. Crew likely retain cargo while fighting and spill it if killed. Ordinary sunlight can burn Crew like undead unless otherwise protected.
+
+### Ability 1 — Graveyard Shift
+
+Context-sensitive. Against a valid hostile target, the ability itself performs a **Strike** dealing bonus damage and provoking Crew against that target. Otherwise it consumes Crew to **Raise** a Crew Member. This is not an empowered next normal attack; the ability performs the Strike directly.
+
+**Field Work.** Graveyard Shift becomes a projectile. Impact on an enemy or mob performs the Strike at the impact point; impact on valid terrain may consume Crew to Raise a Crew Member there. It does not both Strike and Raise from one impact. Remote raising plus ranged Strike.
+
+**Hard Hat Zone.** Graveyard Shift may Strike friendly Crew for reduced damage. Successive friendly Strikes temporarily equip that Crew Member in order — helmet, chestplate, leggings, boots — and each additional Strike refreshes the timeout of all armour granted this way, including further hits at full armour. The helmet naturally protects against sunlight ignition. The costs are friendly Strike damage, spent A1 opportunities, and maintenance time; do not invent an arbitrary Capacity penalty. [OPEN] Armour material, timeout, friendly damage.
+
+**Labored Union.** Graveyard Shift's hostile Strike deals reduced bonus damage. Crew automatically become Provoked by any nearby mob, and kills made by Crew Members generate Crew stacks. "Any" is intentional where technically feasible — enemy players, hostile mobs, cows, villagers — and Crew generation is deliberately **not** restricted to undead victims under this branch. The result is an autonomous, self-replenishing combat workforce. Withdrawal of infrastructure Capacity is an emergent consequence of the global allocation rule, not a branch-specific penalty.
+
+### Ability 2 — Burning Out
+
+Active Crew that are burning move substantially faster. The burning state may come from any legitimate source — Burning Out itself, sunlight, environmental fire — and Burning Out reliably sets affected active Crew on fire.
+
+Burning does not override the priority hierarchy. When no higher-priority responsibility remains, burning Crew seek a valid way to extinguish themselves. Consequences worth stating: shade does not extinguish an already burning entity; helmets prevent sunlight ignition but not actual fire; vanilla burning melee contact already supplies its own fire interaction, so no redundant combat rider is added; faster physical traversal naturally raises observed Item Rate, and the ability must never say "+Item Rate"; and damaged Crew can be deliberately risked and replaced, though this is not an instant workforce reset.
+
+**Fire Drill.** Burning Out no longer ignites affected Crew. They become **Alarmed** instead: they abandon combat and urgently move toward their current logistical destination, or urgently return to Skeleton Crew if they have none. This is emergency relocation and task completion, not teleportation, recall, or instant cargo banking. Alarmed is the conceptual counterpart to Provoked.
+
+**Deadline.** Crew that remain in combat while burning for long enough explode violently. Leaving combat before the threshold prevents it, and merely being on fire is insufficient. This interacts with the hierarchy: a burning cargo carrier that meets an enemy fights because Combat outranks Logistics, and a sustained fight ends in an explosion that may spill cargo, while a fight that ends quickly returns the Crew Member to work still burning. An enemy can disengage to prevent the explosion, indirectly letting the worker continue. [OPEN] Threshold, conceptually around three seconds.
+
+**Water Break.** Crew that successfully extinguish themselves after burning restore Health proportional to time spent on fire, then move faster briefly. The lifecycle is burn, overdrive through higher-priority responsibilities, seek extinguishing, heal, brief refreshed movement, resume work. Any legitimate burning source may qualify. [OPEN] What counts as successfully extinguishing — rain, another player, and similar cases are deliberately not over-specified yet. Hard Hat Zone sits in intentional soft tension with this branch: the helmet suppresses incidental sunlight ignition while Burning Out can still start a controlled burn.
+
+### Ultimate — A-Head of Schedule
+
+Summon the Headless Horseman and his own temporary Crew. Their specialization is determined by what the ordinary workforce is doing at activation or first meaningful state. If ordinary Crew are fighting, the Horseman workforce commits to Combat, fights until combat ends, and remains ready for further Combat rather than switching to Logistics. If ordinary Crew are performing Logistics, it commits to Logistics, works immediately, and continues even if ordinary Crew are later pulled into combat. If ordinary Crew are inactive, it waits and commits to the first new Combat or Logistics state they enter. Once selected the mode is fixed for the duration rather than continuously mirroring ordinary Crew, and the Horseman workforce is more effective at the selected activity.
+
+Temporary Horseman Crew are separate from normal Crew Limit, may physically perform Logistics, but do **not** become persistent Supply Line Capacity: temporary labour cannot create permanent automated infrastructure. [OPEN] Horseman size, stats, duration, specialization strength.
+
+The fantasy: the project is behind schedule, so Skeleton Crew brings in another supervisor and a specialized temporary shift.
+
+---
+
+# 16. Lightfooted
+
+### Canonical kit — 13 September 2026
+
+**Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
+
+Archetypes: Exploration · Combat
+Hook: Wolves, foxes, and cats/ocelots are mobile resources whose presence changes Lightfooted's abilities, while Lightfooted lets the whole group traverse terrain in extraordinary ways.
+
+**Passive — Animal Senses.** Nearby animals provide stacking species-specific bonuses to Lightfooted and nearby animals of that species:
+
+- **Wolves** — Toughness: damage resistance.
+- **Foxes** — Quickness: movement speed.
+- **Cats/Ocelots** — Surefootedness: fall-damage reduction.
+
+**A1 — Lunge.** Leap toward the aimed location, damaging an enemy struck during the leap.
+
+- **Swarming Bite** — Wolf: Shortest extension, but nearby wolves enable more frequent Lunges.
+- **Thieving Swipe** — Fox: Longer Lunge; striking an enemy temporarily disables their current mainhand item, with nearby foxes extending the disable.
+- **Stalking Pounce** — Cat/Ocelot: Greatest Lunge. Enter a brief slowed stalking stance before automatically launching toward the current aim.
+
+**A2 — Bounding.** Continuously traverse through a sequence of low Bounds. Each Bound commits to a direction until landing, where Lightfooted can redirect. Nearby animals Bound alongside.
+
+- **Drift to Drift** — Fox: Taking off from snow grants Invisibility until the next Bound leaves the ground.
+- **Branch to Branch** — Cat/Ocelot: Taking off from leaves launches higher and faster.
+- **Track to Track** — Wolf: A normal Bound from dirt-family terrain grants one bonus Bound; bonus Bounds cannot generate additional ones.
+
+**Ultimate — Rabbit's Lucky Foot.** Target an area. Nearby wolves, foxes, and cats/ocelots make enormous protected leaps toward it, followed shortly by Lightfooted. Participating animals are invincible during the forced leap and landing; landing on enemies deals damage, with Lightfooted's own landing dealing greater damage.
+
+---
+
+**Conceptually settled, 12 September 2026.** Hook, core rule, archetypes, passive, both actives with three mutually exclusive branches each, and the ultimate are decided. Remaining work is numbers, implementation, tags, radii, durations, and visual communication.
+
+Archetypes: **Exploration** primary, **Combat** secondary. Development is not assigned merely because animals are managed, and Logistics is not assigned merely because animals are moved.
+
+### Hook and core rule
+
+Lightfooted treats wolves, foxes, and cats or ocelots as **mobile resources**, using their different vanilla lure methods to gather and keep them nearby. Their presence strengthens the group and changes Lightfooted's abilities, while their movement inspires Lightfooted's own extraordinary traversal.
+
+> Lightfooted treats particular woodland animals as mobile resources that must be kept physically nearby.
+
+This is deliberately **not** a generic companion-animal or tamed-animal system. The class cares specifically about wolves, foxes, and cats/ocelots, which avoids ownership and taming edge cases and prevents unrelated animals such as horses from qualifying. The animals need not be technically tamed in vanilla terms; physical proximity is the class state. Animals influence Lightfooted, and Lightfooted enables and empowers the animal group, so the player cares about finding the species, using their different lure relationships, keeping them nearby, and transporting the resulting living resource group through difficult terrain.
+
+### Passive — Animal Senses
+
+Nearby wolves, foxes, and cats/ocelots grant small stacking species-specific bonuses that apply both to Lightfooted and to nearby animals of those species. Each species caps independently.
+
+| Species | Bonus | Effect |
+| --- | --- | --- |
+| Wolves | Toughness | incremental damage reduction |
+| Foxes | Quickness | incremental movement speed |
+| Cats / Ocelots | Surefootedness | incremental fall-damage reduction |
+
+These must be granular **custom** bonuses. Do not grant vanilla Resistance or Speed tiers, which are far too coarse for one nearby animal. One animal is a small but meaningful contribution, several are a recognizable specialization, and the cap prevents unlimited accumulation from breaking stats. [OPEN] Percentages, radii, caps.
+
+### Ability 1 — Lunge
+
+Lightfooted leaps toward the aimed direction, damaging a struck target. The three branches form a deliberate spectrum from smallest leap and highest combat potency to largest leap and weakest direct combat payoff.
+
+**Swarming Bite — wolf.** The smallest increase to the leap itself. Nearby or following wolves enable increasingly frequent or repeated Lunges. This is the combat-heavy branch: repeated pounces, pack pursuit, and the highest ability to stay on a target. [OPEN] Wolf scaling, cooldown or charge behaviour.
+
+**Thieving Swipe — fox.** The Lunge travels moderately farther than base. Striking an enemy player temporarily disables their **current mainhand item**, with nearby or following foxes increasing the duration up to a cap. This is the middle branch: moderate mobility plus combat disruption. Do not revert to the older offhand-only concept. [OPEN] Duration, scaling, cap.
+
+**Stalking Pounce — cat/ocelot.** The strongest movement improvement. Activation first pulls Lightfooted into a brief, heavily slowed stalking stance; after a short **fixed** windup they automatically launch toward the current aim direction at greatly increased velocity. There is no hold-and-release input, it is not a literal sneak state, the player may keep aiming during the windup, and it cannot be charged indefinitely. Bow-draw-like field-of-view language may communicate the physical coiling. Do not add another damage or crowd-control rider; this branch is dramatic movement and ambush positioning.
+
+> Input-design lesson worth preserving: prefer press to a deterministic state sequence over hold and release, unless continuous charging is indispensable.
+
+### Ability 2 — Bounding
+
+Lightfooted begins a **continuous** sequence of low Bounds. Each Bound commits to its launch direction; the player may choose a new heading on landing but cannot substantially redirect a Bound in mid-air. The sequence cannot be paused or voluntarily held between Bounds — once it begins, the remaining Bounds must be taken.
+
+Lightfooted **cannot attack** while Bounding but **can build**. Building access is intentional and important: it lets skilled players manipulate upcoming terrain, landings, and takeoffs while already moving. Animals travelling with Lightfooted Bound alongside them.
+
+Bounding should feel closer to boat-like momentum over land than a series of independently aimed combat dashes: launch, committed trajectory, land, choose next heading, immediately launch again. The ability is about intentional movement across the whole sequence.
+
+**Drift to Drift — fox, snow.** Landing a Bound on snow grants Invisibility until the next Bound leaves the ground. Because Bounding cannot pause, this is not stationary stealth: a visible arc, a landing in snow, a brief disappearance, then immediate emergence into the next committed Bound. The enemy knows where Lightfooted entered the drift but briefly loses certainty about the next heading. The previously considered high-jump effect is not part of this branch. Fox's branch is **hide between Bounds**. [OPEN] Snow-family definition, invisibility timing.
+
+**Branch to Branch — cat/ocelot, leaves.** Bounds taking off from leaves launch higher and faster. This is the strongest individual-Bound specialization and supports canopy traversal. It is not an "extreme" leap; the ultimate owns the truly extreme vertical launch. Cat's branch is **stronger individual Bounds**. [OPEN] Leaf tags, velocity.
+
+**Track to Track — wolf, dirt.** A **normal** Bound taking off from eligible dirt-family terrain grants a **bonus** Bound. Bonus Bounds cannot generate further bonus Bounds, which prevents self-sustaining infinite movement without an arbitrary low cap. A skilful sequence alternates normal dirt takeoff and bonus Bound repeatedly; long back-and-forth traversal is not inherently undesirable, and the restriction exists only to stop recursion. Dirt is the contextual anchor because the fantasy is tracking through trackable ground. Wolf's branch is **more Bounds**. [OPEN] Dirt-family block tag, base Bound count.
+
+A2 branches deliberately do **not** scale with animal count. A1 already uses nearby animals as its resource; A2 uses terrain and movement execution as its resource. Do not force animal-count scaling onto A2 for symmetry.
+
+### Ultimate — Rabbit's Lucky Foot
+
+Target a location. Nearby wolves, foxes, and cats/ocelots leap in extremely high arcs toward the target area, and after a short delay Lightfooted launches after them. Participating animals are **invincible** throughout the forced leap and landing, because they are valuable class resources and the ultimate forcibly commits them into dangerous space. Each animal landing on an enemy player deals damage; Lightfooted's own landing deals greater bonus damage. The extreme high leap belongs here rather than to Branch to Branch.
+
+After landing, ordinary protection ends and the group is physically concentrated near Lightfooted again, naturally re-establishing Animal Senses at the destination. [OPEN] Targeting geometry, animal spread, impact radius, animal damage, Lightfooted bonus damage, delay, invincibility end timing.
+
+---
+
+# 17. Daredevil
+
+**Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate ([section 14](#14-class-draft-record)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Exploration · Combat
+Hook: Everyone else uses clutch techniques to cancel dangerous momentum. Daredevil converts dangerous momentum into something better.
+
+**Passive — Skydiver.** Remaining airborne long enough grants extreme airborne movement, rewarding Daredevil for sustaining dangerous aerial traversal rather than returning safely to the ground.
+
+**A1 — Runway.** Convert meaningful forward momentum into a forward-and-upward launch, turning an existing run into aerial traversal.
+
+- **Pop Rocket** — Use Wind Burst/Wind Charge behavior for more explosive propulsion.
+- **Trampoline** — Use slime-like rebound behavior to extend or redirect the stunt.
+- **Suplex** — Activating Runway while touching an enemy subjects them to Runway's corresponding upward and downward velocity bursts.
+
+**A2 — Crash Landing.** At sufficient velocity, deliberately Crash into terrain, abruptly ending movement. Daredevil takes a fixed amount of fall damage while nearby enemies take damage based on the velocity lost in the impact. Daredevil's next instance of fall damage is then negated.
+
+- **Crater** — Take greater fixed fall damage and deal less impact damage, but stun affected enemies based on Crash velocity.
+- **Combat Roll** — Take minimal fall damage and deal greatly reduced immediate impact damage; instead, empower the next attack based on Crash velocity.
+- **Superhero** — Take no self-damage and retain normal impact damage, but become simultaneously invincible and unable to act while holding a superhero landing pose.
+
+**Ultimate — Deathly Clutches.** Drop to near-death Health and negate the next N damage instances. During the ultimate, a limited number of successful attacks restore already-consumed damage-negation instances, never exceeding the initial maximum.
+
+[HISTORICAL] The earlier draft's Runway branches — **Cannon Jump**, **Trampoline**, **Mach Headbutt** — are superseded by Pop Rocket, Trampoline and Suplex above. The earlier Passive wording, which specified more than one second airborne and granted extreme Speed, is superseded by the Skydiver wording above. The earlier tentative Extraction archetype is not carried forward; the kit assigns Exploration and Combat.
+
+[OPEN] N in Deathly Clutches, the attack count that restores instances, Skydiver's airborne threshold, Runway's momentum requirement, Crash velocity thresholds, and all durations remain unresolved.
+
+---
+
+# 18. Waxer
+
+**Kit supplied 13 September 2026. Source: [K9].** Waxer was previously a draft whose Ability 2 branch seeds were "not equally developed" and whose ultimate had no delivery mechanism ([section 14](#14-class-draft-record)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
+
+Archetypes: Production · Combat (working)
+Hook: Wax isn't merely protective: Waxer can preserve useful things against change until preservation itself becomes an obstruction.
+
+**Passive — Waxed Recipes.** When crafting, fill otherwise-empty crafting slots with Honeycomb to produce a Waxed version of the product.
+
+Waxed products become the persistent substrate for Waxer's preservation mechanics.
+
+**A1 — Wax-On.** Apply Wax to a target. Repeated Waxing increasingly preserves its current state.
+
+Interactive blocks that accumulate enough Wax become Sealed, preventing their interactive state from changing. Applying the first Wax to damaged, previously unwaxed equipment also restores some durability.
+
+- **Amber** — Wax targets more aggressively, allowing them to reach a Sealed state more readily.
+- **Restorative** — Greatly increase the durability restored by the first application of Wax.
+- **Sticky** — Attacking Waxed enemy armor can consume Wax from it to inflict Mining Fatigue.
+
+**A2 — Wax-Off.** Splash an area with Honey Solution. Using Honey Solution around eligible working/production activity generates Honeycomb, giving Waxer a repeatable way to replenish the resource consumed by Waxed Recipes and Wax-On.
+
+- **Enzymatic** — While enemy players remain within the Honey Solution, their equipment suffers additional durability wear.
+- **Preserving** — While allied players remain within the Honey Solution, their equipment suffers reduced durability wear.
+- **Floral** — Honeycomb generation expands beyond workstations: splashing flowers and beehives can also produce Honeycomb.
+
+This gives the tree a clean three-way interpretation of the solution:
+
+Enzymatic: break things down.
+Preserving: prevent things from breaking down.
+Floral: produce more wax.
+
+**Ultimate — Amber.** Completely encase a target in Amber, preserving it in stasis and preventing its state from changing.
+
+Open: Exact Amber delivery/targeting and the precise rules governing what an Ambered target can or cannot do.
+
+---
+
+## Notes carried forward from the draft
+
+[HISTORICAL] The draft recorded the A2 branch seeds — **Enzymatic**, **Preserving**, **Floral** — as "not equally developed and remain draft". They are now defined above. The draft's A1 branch concepts described Amber as "faster or stronger sealing", Restorative as "stronger initial restoration", and Sticky as punishing attackers "for example Mining Fatigue while consuming Wax"; the kit's wording supersedes those sketches. The draft's core rule — Honeycomb repeatedly invested into existing products to preserve them against change, until enough preservation becomes obstruction — survives as the hook above.
+
+The **Amber** name is used twice, for the A1 branch and for the ultimate. This is reproduced as supplied rather than renamed.
+
+[OPEN] The earlier Seal proposal, eligibility, application, protection consumption, visible counterplay, and ordinary removal remain undeveloped. Do not create a global enemy-block-immunity rule merely to make Waxer work.
+
+**Feasibility assessed 13 September 2026.** See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md). Most of the kit is reachable: durability restore, per-item Wax counters, the Honey Solution area, Floral, and Amber against mobs all work, and Enzymatic and Preserving are reachable through the same detect-and-correct polling this project has already accepted for Structural Integrity. Three [TECHNICAL RISK] items do not work as written:
+
+- **Recipes cannot be class-gated.** Waxed Recipes would be craftable by every player. Workarounds exist — inert components for non-Waxers, or detect-and-revert — and both are visible seams. "Fill otherwise-empty slots" is also one authored full-grid recipe per product, not a general rule.
+- **Sealed containers are not reachable.** Block states such as doors and levers can be forced back by polling; a chest cannot be prevented from opening, because a datapack cannot cancel an interaction or close a screen.
+- **Amber cannot hold a player in stasis.** It is exact against mobs. Against players, every available effect still leaves them able to look, attack, use items and place blocks. The audit's escape hatch is encasing the target in **actual Honey Blocks**, which is vanilla-native, legible to both teams, natively prevents jumping and slows movement, and gives enemies physical counterplay by digging the target out.
+
+Sealed blocks also make Waxer the sixth system depending on **persistent per-position block data**, alongside anti-farming XP, Sinkhole, Construct designation, Structural Integrity and Development Zones. That dependency has no owner; see §0 of the audit.
+
+---

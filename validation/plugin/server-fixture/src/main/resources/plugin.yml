@@ -1,0 +1,12 @@
+name: MobaAcceptanceFixture
+version: 0.1.0
+main: com.minecraftmoba.fixture.AcceptanceFixture
+api-version: '1.21.11'
+depend: [MinecraftMoba]
+commands:
+  mobafixture:
+    description: Disposable-server event acceptance checks
+    permission: moba.fixture
+permissions:
+  moba.fixture:
+    default: op

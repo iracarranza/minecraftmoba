@@ -1,0 +1,12 @@
+name: MinecraftMoba
+version: 0.1.0
+main: com.minecraftmoba.plugin.MobaPlugin
+api-version: '1.21.11'
+description: Minecraft MOBA Phase 1
+commands:
+  moba:
+    description: MOBA administration
+    usage: /moba <join|setlevel|setclass|xp|reset|debug> <player> [value]
+permissions:
+  moba.admin:
+    default: op
