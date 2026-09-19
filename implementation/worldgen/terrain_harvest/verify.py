@@ -42,7 +42,7 @@ def audit(gallery,sources,report):
             for z in range(b['z'][0],b['z'][1]+1,16):
                 for y in (-32,0,63,96,200):probes.add((x,y,z))
         counts={'source_equal':0,'shell':0,'outside_air':0};failures=[]
-        for x,y,z in sorted(probes):
+        for x,y,z in sorted(probes,key=lambda p:(p[0]//512,p[2]//512,p)):
             actual=o.state(x,y,z)
             if m.include_block(x,y,z):expected=a.state(x,y,z);key='source_equal'
             elif m.envelope(x,y,z):expected={'Name':'minecraft:barrier' if y>b['y'][1] else 'minecraft:bedrock'};key='shell'
