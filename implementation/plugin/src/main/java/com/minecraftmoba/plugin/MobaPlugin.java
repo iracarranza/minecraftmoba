@@ -35,6 +35,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Routes routes() { return routes; }
     private RewardAdvancements rewardAdvancements;
     public RewardAdvancements rewardAdvancements() { return rewardAdvancements; }
+    private HubLobby hubLobby;
+    public HubLobby hubLobby() { return hubLobby; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -54,6 +56,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);
         rewardAdvancements = new RewardAdvancements(this);
+        hubLobby = new HubLobby(this);
+        getServer().getPluginManager().registerEvents(hubLobby, this);
         routes = new Routes(this);
         getServer().getPluginManager().registerEvents(routes, this);
         getServer().getPluginManager().registerEvents(hud, this);
@@ -207,6 +211,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             var target = org.bukkit.Bukkit.getPlayerExact(args[1]);
             if (target == null) { sender.sendMessage("No such player"); return true; }
             rewardAdvancements.sync(target); sender.sendMessage("Synced advancements for " + args[1]); return true;
+        }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("hub")) {
+            if (args.length == 2 && args[1].equalsIgnoreCase("build")) {
+                if (!(sender instanceof Player hp)) { sender.sendMessage("Player only"); return true; }
+                hubLobby.build(sender, hp.getWorld()); return true;
+            }
+            hubLobby.report().forEach(sender::sendMessage); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("routes")) {
             routes.report().forEach(sender::sendMessage); return true;

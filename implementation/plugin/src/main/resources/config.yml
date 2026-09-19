@@ -1,6 +1,22 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  hubLobby:
+    enabled: true
+    originX: 0
+    originY: 65
+    originZ: 0
+    spacing: 8
+    floorMaterial: POLISHED_DEEPSLATE
+    frameMaterial: POLISHED_BLACKSTONE_BRICKS
+    cooldownMillis: 3000
+    # Ships EMPTY. Which maps are offered is a selection decision, not a
+    # plugin default. Each entry needs a label and the command to run.
+    # Example, using the terrain gallery's own navigation:
+    #   candidate_a:
+    #     label: "930012642"
+    #     command: "function harvest:visit/tv_ef56852eda10acc88342e5ee"
+    destinations: {}
   rewardAdvancements:
     enabled: true
   infraMode:
