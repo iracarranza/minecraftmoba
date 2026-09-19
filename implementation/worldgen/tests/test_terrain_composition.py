@@ -5,8 +5,9 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from terrain_harvest.composition import (SCHEMA, placed_bounds, stale_measurements,
-                                         validate_composition)
+from terrain_harvest.composition import (SCHEMA, mask_overlap, placed_bounds,
+                                         stale_measurements, unplace_point, validate_composition)
+from terrain_harvest.model import Mask
 from test_terrain_preservation import volume
 
 def lib(*volumes):
@@ -101,13 +102,75 @@ class ValidationTests(unittest.TestCase):
         r = validate_composition(doc([{'volume_id': a['id']}, {'volume_id': b['id']}],
                                      overlap_policy='record_only'), lib(a, b))
         self.assertEqual(len(r['bounding_box_overlaps']), 1)
-        self.assertIn('mask intersection not computed', r['bounding_box_overlaps'][0]['note'])
+        self.assertTrue(r['bounding_box_overlaps'][0]['mask_intersection']['intersects'])
 
     def test_separated_volumes_do_not_overlap(self):
         a = volume(); b = volume('ellipse')
         r = validate_composition(doc([{'volume_id': a['id']},
             {'volume_id': b['id'], 'transform': {'rotation': 0, 'translation': [10000, 0, 0]}}]), lib(a, b))
         self.assertEqual(r['bounding_box_overlaps'], [])
+
+def placed(v, transform=None):
+    t = transform or {'rotation': 0, 'translation': [0, 0, 0]}
+    return {'volume_id': v['id'], 'transform': t, 'mask': Mask(v), 'boundary': v['boundary'],
+            'placed_bounds': placed_bounds(v, t)}
+
+class MaskOverlapTests(unittest.TestCase):
+    """Bounding boxes that touch are not the same claim as masks that collide."""
+    def test_unplace_is_the_inverse_of_place(self):
+        t = {'rotation': 90, 'translation': [10, 0, -5]}
+        from terrain_harvest.relocate import place_point
+        for p in [(0, 0, 0), (7, -3, 11), (-4, 2, -9)]:
+            self.assertEqual(unplace_point(place_point(p, 1, t['translation']), t), p)
+
+    def test_identical_boxes_are_exact(self):
+        v = volume()
+        r = mask_overlap(placed(v), placed(v))
+        self.assertEqual(r['method'], 'exact_box')
+        self.assertTrue(r['intersects'])
+
+    def test_touching_boxes_with_disjoint_ellipses_do_not_intersect(self):
+        # Two ellipses whose bounding boxes share only a corner column: the
+        # inscribed shapes never meet there.
+        import copy
+        a = volume('ellipse')
+        b = copy.deepcopy(volume('ellipse'))
+        src = a['provenance']['source_bounds']
+        dx = src['x'][1] - src['x'][0]
+        dz = src['z'][1] - src['z'][0]
+        r = mask_overlap(placed(a), placed(b, {'rotation': 0, 'translation': [dx, 0, dz]}))
+        self.assertEqual(r['method'], 'exact_cells')
+        self.assertFalse(r['intersects'])
+
+    def test_overlapping_ellipses_report_a_shared_cell(self):
+        a = volume('ellipse')
+        r = mask_overlap(placed(a), placed(a, {'rotation': 0, 'translation': [1, 0, 0]}))
+        self.assertEqual(r['method'], 'exact_cells')
+        self.assertTrue(r['intersects'])
+        self.assertEqual(len(r['first_shared_cell']), 3)
+
+    def test_oversized_shared_box_is_reported_unresolved(self):
+        v = volume('ellipse')
+        r = mask_overlap(placed(v), placed(v), budget=10)
+        self.assertEqual(r['method'], 'not_computed')
+        self.assertIsNone(r['intersects'])
+        self.assertIn('unresolved', r['reason'])
+
+    def test_disjoint_masks_are_not_forbidden_by_policy(self):
+        import copy
+        a = volume('ellipse'); b = copy.deepcopy(volume('ellipse'))
+        src = a['provenance']['source_bounds']
+        d = doc([{'volume_id': a['id']},
+                 {'volume_id': b['id'], 'transform': {'rotation': 0,
+                  'translation': [src['x'][1] - src['x'][0], 0, src['z'][1] - src['z'][0]]}}])
+        # Same id twice would be a duplicate; give the second a distinct identity.
+        b['provenance']['source_seed'] = 78
+        from terrain_harvest.model import identity
+        b['id'] = identity(b)
+        d['placements'][1]['volume_id'] = b['id']
+        r = validate_composition(d, lib(a, b))
+        self.assertEqual(len(r['bounding_box_overlaps']), 1)
+        self.assertFalse(r['bounding_box_overlaps'][0]['mask_intersection']['intersects'])
 
 class SeamTests(unittest.TestCase):
     def two(self):

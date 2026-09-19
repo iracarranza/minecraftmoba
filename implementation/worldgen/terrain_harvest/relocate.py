@@ -30,7 +30,7 @@ ORIENTATION_FREE = {
     'half', 'type', 'layers', 'bites', 'delay', 'distance', 'persistent', 'snowy',
     'stage', 'moisture', 'honey_level', 'hatch', 'eggs', 'pickles', 'candles',
     'charges', 'note', 'instrument', 'mode', 'conditional', 'inverted', 'triggered',
-    'extended', 'short', 'has_record', 'has_book', 'has_bottle_0', 'has_bottle_1',
+    'extended', 'short', 'enabled', 'has_record', 'has_book', 'has_bottle_0', 'has_bottle_1',
     'has_bottle_2', 'signal_fire', 'in_wall', 'attached', 'disarmed', 'unstable',
     'drag', 'bloom', 'berries', 'tilt', 'thickness', 'vertical_direction',
     'up', 'down', 'down_', 'leaves', 'tip', 'slot_0_occupied', 'slot_1_occupied',
@@ -160,3 +160,71 @@ def relocate_entity(tag, quarter, translation):
     if 'Passengers' in d:
         d['Passengers'] = list_tag(COMPOUND, [relocate_entity(p, quarter, translation) for p in d['Passengers'].value])
     return compound(**d)
+
+
+def rotate_state(state, quarter):
+    """Rotate a (name, sorted-property-tuple) state. Fail-closed like the rest."""
+    name, props = state
+    rotated = rotate_properties(name, dict(props), quarter)
+    return (name, tuple(sorted(rotated.items())))
+
+
+def relocate_volume(volume, source, out, quarter, translation):
+    """Write an in-mask volume's blocks to rotated and translated coordinates.
+
+    Fixture-scale only: this walks every cell. It exists so relocation can be
+    checked against a real server before anything touches the corpus, and it
+    raises rather than writing state it cannot rotate correctly.
+    """
+    from collections import defaultdict
+    from serialization.nbt import COMPOUND, byte, compound, integer, list_tag, plain, string
+    from serialization.region import read_region, write_region
+    from serialization.world import AIR, _block_states_tag
+    from vanilla_search.extract import _palette_value
+    from .materialize import empty_chunk, state_tuple
+    from .model import Mask
+
+    mask = Mask(volume); b = mask.bounds
+    quarter %= 4
+    cells = {}
+    rx0, rx1 = b['x'][0]//16//32, b['x'][1]//16//32
+    rz0, rz1 = b['z'][0]//16//32, b['z'][1]//16//32
+    for rz in range(rz0, rz1 + 1):
+        for rx in range(rx0, rx1 + 1):
+            f = source/'region'/f'r.{rx}.{rz}.mca'
+            if not f.exists(): continue
+            for cx, cz, _, root in read_region(f):
+                sections = {s.value['Y'].value: plain(s).get('block_states')
+                            for s in root.value['sections'].value}
+                for sy, container in sections.items():
+                    if not container: continue
+                    for y in range(sy*16, sy*16+16):
+                        if not (b['y'][0] <= y <= b['y'][1]): continue
+                        for z in range(cz*16, cz*16+16):
+                            for x in range(cx*16, cx*16+16):
+                                if not mask.include_block(x, y, z): continue
+                                state = state_tuple(_palette_value(container, (y & 15)*256 + (z & 15)*16 + (x & 15), 4))
+                                if state == AIR: continue
+                                cells[place_point((x, y, z), quarter, translation)] = rotate_state(state, quarter)
+
+    by_chunk = defaultdict(dict)
+    for (x, y, z), state in cells.items():
+        by_chunk[(x//16, z//16)][(x, y, z)] = state
+    written = 0
+    regions = defaultdict(dict)
+    for (cx, cz), contents in by_chunk.items():
+        chunk = empty_chunk(cx, cz)
+        sections = []
+        for sy in sorted({y//16 for (_, y, _) in contents}):
+            states = [contents.get((x, y, z), AIR)
+                      for y in range(sy*16, sy*16+16)
+                      for z in range(cz*16, cz*16+16)
+                      for x in range(cx*16, cx*16+16)]
+            sections.append(compound(Y=byte(sy), block_states=_block_states_tag(states),
+                                     biomes=compound(palette=list_tag(8, [string('minecraft:the_void')]))))
+        chunk.value['sections'] = list_tag(COMPOUND, sections)
+        regions[(cx//32, cz//32)][(cx, cz)] = ('', chunk)
+        written += 1
+    for (rx, rz), dest in regions.items():
+        write_region(out/'region'/f'r.{rx}.{rz}.mca', dest)
+    return {'cells': len(cells), 'chunks': written, 'quarter': quarter, 'translation': list(translation)}

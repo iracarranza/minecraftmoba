@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 from .materialize import json_write
 from .model import Mask, digest, loads
-from .relocate import UnsupportedState, place_point
+from .relocate import UnsupportedState, place_point, rotate_point
 
 SCHEMA = 'terrain_composition/1'
 SEAM_STATES = {'UNRESOLVED', 'OBSERVED_INCOMPATIBLE', 'OBSERVED_COMPATIBLE_PENDING_BUILD'}
@@ -36,6 +36,44 @@ def boxes_overlap(a, b):
 
 def overlap_box(a, b):
     return {k: [max(a[k][0], b[k][0]), min(a[k][1], b[k][1])] for k in ('x', 'y', 'z')}
+
+def unplace_point(point, transform):
+    """Map a placed world cell back into its volume's own source coordinates."""
+    x, y, z = (point[0] - transform['translation'][0],
+               point[1] - transform['translation'][1],
+               point[2] - transform['translation'][2])
+    return rotate_point((x, y, z), (-(transform['rotation'] // 90)) % 4)
+
+def mask_overlap(a, b, budget=4_000_000):
+    """Exact mask intersection inside the shared bounding box, or an honest miss.
+
+    Two boxes at identity placement intersect exactly where their bounding boxes
+    do, so that case is exact by construction. Otherwise every shared cell is
+    tested, unless the shared box exceeds the budget, in which case the result
+    says the question was not answered rather than implying it was.
+    """
+    box = overlap_box(a['placed_bounds'], b['placed_bounds'])
+    cells = 1
+    for k in ('x', 'y', 'z'): cells *= box[k][1] - box[k][0] + 1
+    identity = {'rotation': 0, 'translation': [0, 0, 0]}
+    if (a['boundary']['geometry_type'] == 'box' and b['boundary']['geometry_type'] == 'box'
+            and a['transform'] == identity and b['transform'] == identity):
+        return {'method': 'exact_box', 'cells_in_shared_box': cells, 'intersects': True,
+                'first_shared_cell': [box[k][0] for k in ('x', 'y', 'z')]}
+    if cells > budget:
+        return {'method': 'not_computed', 'cells_in_shared_box': cells, 'intersects': None,
+                'reason': f'shared box of {cells} cells exceeds the {budget} cell budget; '
+                          'bounding boxes intersect but mask intersection is unresolved'}
+    for y in range(box['y'][0], box['y'][1] + 1):
+        for z in range(box['z'][0], box['z'][1] + 1):
+            for x in range(box['x'][0], box['x'][1] + 1):
+                pa = unplace_point((x, y, z), a['transform'])
+                if not a['mask'].include_block(*pa): continue
+                pb = unplace_point((x, y, z), b['transform'])
+                if b['mask'].include_block(*pb):
+                    return {'method': 'exact_cells', 'cells_in_shared_box': cells,
+                            'intersects': True, 'first_shared_cell': [x, y, z]}
+    return {'method': 'exact_cells', 'cells_in_shared_box': cells, 'intersects': False}
 
 def stale_measurements(volume, transform):
     """A measurement describes the source geometry. Moving it invalidates it."""
@@ -72,7 +110,8 @@ def validate_composition(doc, library):
             p.setdefault('placement_status', 'PLANNED_NOT_BUILDABLE')
             if p['placement_status'] != 'PLANNED_NOT_BUILDABLE':
                 raise ValueError('physical relocation is not implemented; placement must stay PLANNED_NOT_BUILDABLE')
-        resolved.append({'volume_id': ident, 'transform': t,
+        resolved.append({'volume_id': ident, 'transform': t, 'mask': Mask(volume),
+                         'boundary': volume['boundary'],
                          'source_bounds': volume['provenance']['source_bounds'],
                          'placed_bounds': placed_bounds(volume, t),
                          'classification': volume['classification']['kind'],
@@ -83,11 +122,15 @@ def validate_composition(doc, library):
     for i, a in enumerate(resolved):
         for b in resolved[i+1:]:
             if boxes_overlap(a['placed_bounds'], b['placed_bounds']):
+                detail = mask_overlap(a, b)
                 overlaps.append({'volumes': [a['volume_id'], b['volume_id']],
                                  'box': overlap_box(a['placed_bounds'], b['placed_bounds']),
-                                 'note': 'bounding boxes intersect; actual mask intersection not computed'})
-    if overlaps and policy == 'forbid':
-        raise ValueError(f'overlap forbidden by policy: {overlaps[0]["volumes"]}')
+                                 'mask_intersection': detail})
+    # Only a real or unresolved mask intersection is an overlap. Bounding boxes
+    # that touch while the masks miss each other are not a collision.
+    blocking = [o for o in overlaps if o['mask_intersection']['intersects'] is not False]
+    if blocking and policy == 'forbid':
+        raise ValueError(f'overlap forbidden by policy: {blocking[0]["volumes"]}')
 
     seams = []
     for s in doc.get('seams', []):
@@ -99,6 +142,7 @@ def validate_composition(doc, library):
             raise ValueError('a compatibility claim requires supporting boundary profile ids')
         seams.append(dict(s))
 
+    for r in resolved: r.pop('mask', None); r.pop('boundary', None)
     result = {'schema': SCHEMA, 'overlap_policy': policy, 'placements': resolved,
               'bounding_box_overlaps': overlaps, 'seams': seams,
               'authored_systems': doc.get('authored_systems', []),
@@ -106,7 +150,7 @@ def validate_composition(doc, library):
                           'this document describes geography only',
               'builds_blocks': False,
               'unresolved': ['physical relocation of rotated or translated volumes',
-                             'mask-level rather than bounding-box overlap',
+                             'mask intersection for shared boxes above the cell budget',
                              'seam continuity, elevation matching and traversability',
                              'travel, opportunity and economic measurements after any geometry change',
                              'final map selection and acceptance'],

@@ -131,3 +131,71 @@ class NbtTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class VolumeRelocationTests(unittest.TestCase):
+    """relocate_volume moves real cells; fixtures only, never the corpus."""
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        from terrain_harvest.relocation_probe import BOUNDS, SEED, build_fixture, specimen_positions
+        from terrain_harvest.materialize import DATA_VERSION
+        from terrain_harvest.model import make_volume
+        self._tmp = tempfile.TemporaryDirectory(prefix='reloc-vol-')
+        self.tmp = Path(self._tmp.name); self.addCleanup(self._tmp.cleanup)
+        self.source = build_fixture(self.tmp/'source')
+        self.specimens = dict(specimen_positions())
+        self.volume = make_volume({'source_seed': SEED, 'source_dimension': 'minecraft:overworld',
+            'source_bounds': BOUNDS, 'minecraft_version': '1.21.11', 'data_version': DATA_VERSION,
+            'worldgen_settings': {'status': 'UNRESOLVED'},
+            'source_analysis_record': {'path': 'fixture', 'sha256': 'fixture'}}, 'local_section')
+
+    def read(self, out):
+        from serialization.nbt import plain
+        from serialization.region import read_region
+        from serialization.world import AIR
+        from terrain_harvest.materialize import state_tuple
+        from vanilla_search.extract import _palette_value
+        cells = {}
+        for f in sorted((out/'region').glob('*.mca')):
+            for cx, cz, _, root in read_region(f):
+                for s in root.value['sections'].value:
+                    sy = s.value['Y'].value; container = plain(s).get('block_states')
+                    if not container: continue
+                    for y in range(sy*16, sy*16+16):
+                        for z in range(cz*16, cz*16+16):
+                            for x in range(cx*16, cx*16+16):
+                                st = state_tuple(_palette_value(container, (y & 15)*256 + (z & 15)*16 + (x & 15), 4))
+                                if st != AIR: cells[(x, y, z)] = st
+        return cells
+
+    def test_rotated_specimens_land_where_predicted(self):
+        from terrain_harvest.relocate import relocate_volume, rotate_state, place_point
+        out = self.tmp/'rot'
+        moved = relocate_volume(self.volume, self.source, out, 1, (1000, 0, 0))
+        self.assertGreater(moved['cells'], 0)
+        cells = self.read(out)
+        for pos, state in self.specimens.items():
+            want = rotate_state(state, 1)
+            self.assertEqual(cells.get(place_point(pos, 1, (1000, 0, 0))), want, f'{pos} {state}')
+
+    def test_four_quarter_turns_restore_every_cell(self):
+        from terrain_harvest.relocate import relocate_volume
+        out = self.tmp/'r4'
+        relocate_volume(self.volume, self.source, out, 4, (0, 0, 0))
+        identity = self.tmp/'r0'
+        relocate_volume(self.volume, self.source, identity, 0, (0, 0, 0))
+        self.assertEqual(self.read(out), self.read(identity))
+
+    def test_unsupported_state_stops_the_relocation(self):
+        from serialization.region import read_region, write_region
+        from serialization.world import _block_states_tag, block
+        from terrain_harvest.relocate import UnsupportedState, relocate_volume
+        path = self.source/'region'/'r.0.0.mca'
+        roots = {(cx, cz): (n, r) for cx, cz, n, r in read_region(path)}
+        section = roots[(0, 0)][1].value['sections'].value[0]
+        states = [block('mystery_block', some_new_direction='north')]*4096
+        section.value['block_states'] = _block_states_tag(states)
+        write_region(path, roots)
+        with self.assertRaises(UnsupportedState):
+            relocate_volume(self.volume, self.source, self.tmp/'bad', 1, (0, 0, 0))

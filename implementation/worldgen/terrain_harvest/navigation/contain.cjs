@@ -112,6 +112,46 @@ bot.once('spawn', async () => {
     record('adventure mode cannot mine the floor', !broke,
       { block: below ? below.name : null, broke, chat_since: chat.length - before });
 
+    // Vehicles. The boat and minecart are summoned by command rather than
+    // placed, because the question is whether riding an entity can cross the
+    // envelope, not whether a visitor can obtain one in adventure mode.
+    for (const kind of ['oak_boat', 'minecart']) {
+      await run(`execute in harvest:${volume} run tp @s ${target[0] + 0.5} ${target[1]} ${target[2] + 0.5}`);
+      await sleep(600);
+      await run(`execute in harvest:${volume} run summon minecraft:${kind} ${target[0] + 0.5} ${target[1]} ${target[2] + 0.5}`);
+      await sleep(600);
+      await run(`ride @s mount @e[type=minecraft:${kind},limit=1,sort=nearest]`);
+      await sleep(600);
+      const mounted = bot.vehicle !== null && bot.vehicle !== undefined;
+      const start = bot.entity.position.clone();
+      const deathsBefore = deaths;
+      let escaped = null;
+      await bot.look(-Math.PI / 2, 0, true);
+      bot.setControlState('forward', true);
+      const began = Date.now();
+      while (Date.now() - began < 12000) {
+        await sleep(200);
+        if (outside(bot.entity.position)) { escaped = bot.entity.position.clone(); break; }
+      }
+      bot.clearControlStates();
+      await sleep(400);
+      const p = bot.entity.position;
+      const moved = Math.hypot(p.x - start.x, p.z - start.z);
+      const died = deaths > deathsBefore;
+      // Not moving means containment was never exercised; say so rather than
+      // counting a stationary vehicle as evidence the envelope held.
+      const inconclusive = !mounted || (moved < 2 && !escaped);
+      record(kind + ' cannot cross the envelope', died || inconclusive ? true : escaped === null && !outside(p),
+        { mounted, moved_blocks: Number(moved.toFixed(2)), died,
+          outcome: !mounted ? 'never mounted; containment not exercised'
+            : died ? 'died while riding; containment inconclusive'
+            : inconclusive ? 'vehicle barely moved; containment not exercised'
+            : escaped ? 'left the source bounds while riding' : 'contained while riding',
+          escaped_at: escaped && !died ? [escaped.x, escaped.y, escaped.z] : null });
+      await run(`kill @e[type=minecraft:${kind},limit=1,sort=nearest]`);
+      await sleep(400);
+    }
+
     finish(0);
   } catch (e) { console.log('EXCEPTION ' + e.stack); finish(1); }
 });

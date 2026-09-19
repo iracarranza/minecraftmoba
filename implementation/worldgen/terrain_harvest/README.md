@@ -217,8 +217,17 @@ containment against a moving player remain uncovered.
 ## Coordinate-bearing state inventory
 
 Relocation is implemented in `relocate.py` on fixtures only. The exporter still
-refuses non-identity placement, and that stays true until round trips and a
-matching-server probe pass on real blocks.
+refuses non-identity placement. Round trips pass and `relocation_probe.py` has
+been confirmed by the pinned server, but block entities, scheduled ticks and
+entities under rotation are still unverified against a server, so corpus
+relocation stays disabled.
+
+`relocation_probe.py` builds a fixture of oriented specimens, rotates it a
+quarter turn, and asks the **server** whether each rotated cell holds the
+predicted state, rather than comparing against our own tables. It treats any
+server error as failure: the first run confirmed all 32 states while logging
+`key missing: DragonFight`, and marker checks alone would have called that a
+pass while the world loaded through a fallback path.
 
 The module is **fail-closed**. A block property is rotated only if it is listed
 in `ROTATABLE`, passed through only if listed in `ORIENTATION_FREE`, and

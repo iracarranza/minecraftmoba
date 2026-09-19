@@ -144,18 +144,33 @@ def _prepare(world, root, eula, port, player):
     (root/'ops.json').write_text(json.dumps([{'uuid': offline_uuid(player), 'name': player,
                                               'level': 4, 'bypassesPlayerLimit': True}]))
 
-def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_seconds, player='HarvestSim', keep_world=None):
+def forceload_area(mask, target, radius):
+    """Vanilla refuses more than 256 chunks per forceload, so large volumes get a
+    bounded window around the inspection target and the report says which."""
+    b = mask.bounds
+    area = {'x': list(b['x']), 'z': list(b['z'])}
+    chunks = ((b['x'][1]//16 - b['x'][0]//16) + 1) * ((b['z'][1]//16 - b['z'][0]//16) + 1)
+    if chunks <= 256:
+        return area, chunks, 'whole volume'
+    area = {'x': [max(b['x'][0], target[0] - radius), min(b['x'][1], target[0] + radius)],
+            'z': [max(b['z'][0], target[2] - radius), min(b['z'][1], target[2] + radius)]}
+    n = ((area['x'][1]//16 - area['x'][0]//16) + 1) * ((area['z'][1]//16 - area['z'][0]//16) + 1)
+    return area, n, f'bounded window of +/-{radius} blocks around the inspection target'
+
+def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_seconds, player='HarvestSim', keep_world=None, forceload_radius=384):
     if hashlib.sha1(jar.read_bytes()).hexdigest() != SERVER_SHA1: raise ValueError('wrong server jar')
     if not any(l.strip() == 'eula=true' for l in eula.read_text().splitlines()): raise ValueError('existing accepted eula.txt required')
     dest = world/'dimensions/harvest'/volume_id
     volume = loads((dest/'terrain_volume.json').read_text()); mask = Mask(volume)
+    target = json.loads((world/'gallery.json').read_text())['targets'][volume_id]
+    area, forced_chunks, forced_note = forceload_area(mask, target, forceload_radius)
     results = {}; logs = {}; containment = None
 
     # Frozen: nothing runs, so nothing may change.
     with tempfile.TemporaryDirectory(prefix='terrain-sim-frozen-') as tmp:
         root = Path(tmp); _prepare(world, root, eula, port, player)
         def frozen(proc, q, lines):
-            proc.stdin.write(f'tick freeze\nexecute in harvest:{volume_id} run forceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
+            proc.stdin.write(f'tick freeze\nexecute in harvest:{volume_id} run forceload add {area["x"][0]} {area["z"][0]} {area["x"][1]} {area["z"][1]}\n')
             proc.stdin.flush(); time.sleep(soak_seconds)
         logs['frozen'] = _server(root, jar, java, port, frozen)
         results['frozen'] = diff_regions(dest, root/'world/dimensions/harvest'/volume_id, mask, 'frozen soak')
@@ -166,11 +181,11 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
         result_path = root/'containment.json'
         def running(proc, q, lines):
             nonlocal containment
-            proc.stdin.write(f'tick unfreeze\nexecute in harvest:{volume_id} run forceload add {mask.bounds["x"][0]} {mask.bounds["z"][0]} {mask.bounds["x"][1]} {mask.bounds["z"][1]}\n')
+            proc.stdin.write(f'tick unfreeze\nexecute in harvest:{volume_id} run forceload add {area["x"][0]} {area["z"][0]} {area["x"][1]} {area["z"][1]}\n')
             proc.stdin.flush(); time.sleep(5)
             env = dict(os.environ, HARVEST_PORT=str(port), HARVEST_PLAYER=player,
                        HARVEST_VOLUME=volume_id, HARVEST_BOUNDS=json.dumps(mask.bounds),
-                       HARVEST_TARGET=json.dumps(json.loads((world/'gallery.json').read_text())['targets'][volume_id]),
+                       HARVEST_TARGET=json.dumps(target),
                        HARVEST_RESULT=str(result_path), NODE_PATH=str(node_modules))
             node = subprocess.run(['node', str(HERE/'navigation'/'contain.cjs')], env=env,
                                   capture_output=True, text=True, timeout=600)
@@ -191,13 +206,15 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
     no_breach = results['running']['counts']['envelope_breached'] == 0
     result = {'schema': 'terrain_simulation_probe/1', 'evidence_state': 'DERIVED MEASUREMENT',
               'volume_id': volume_id, 'soak_seconds': soak_seconds, 'server_sha1': SERVER_SHA1,
+              'forceload': {'area': area, 'chunks': forced_chunks, 'coverage': forced_note},
               'frozen': results['frozen'], 'running': results['running'],
               'containment': containment,
               'expectations': {'frozen changes nothing': frozen_clean,
                                'envelope intact after simulation': no_breach,
                                'player stayed inside source bounds': bool(containment and containment.get('pass'))},
               'not_covered': ['human client walkthrough', 'rendering', 'long-term fluid equilibrium',
-                              'operator, spectator or teleport exploits', 'volumes other than the one probed'],
+                              'operator, spectator or teleport exploits', 'volumes other than the one probed',
+                              'chunks outside the forceloaded window, which only tick near a player'],
               'pass': frozen_clean and no_breach and bool(containment and containment.get('pass'))}
     report.parent.mkdir(parents=True, exist_ok=True)
     report.with_suffix('.log').write_text('\n===== frozen =====\n' + logs.get('frozen', '')
@@ -214,10 +231,13 @@ if __name__ == '__main__':
     p.add_argument('--port', type=int, default=25599)
     p.add_argument('--soak-seconds', type=int, default=60)
     p.add_argument('--keep-world', type=Path, default=None, help='copy the post-simulation dimension out for inspection')
+    p.add_argument('--forceload-radius', type=int, default=384, help='half-width of the forceloaded window for volumes over 256 chunks')
     a = p.parse_args()
     r = probe(a.world.resolve(), a.jar.resolve(), a.java.resolve(), a.eula.resolve(),
               getattr(a, 'node_modules').resolve(), a.report.resolve(), a.port,
-              a.volume_id, a.soak_seconds, keep_world=a.keep_world.resolve() if a.keep_world else None)
+              a.volume_id, a.soak_seconds, keep_world=a.keep_world.resolve() if a.keep_world else None,
+              forceload_radius=a.forceload_radius)
+    print('forceload:', r['forceload']['chunks'], 'chunks -', r['forceload']['coverage'])
     print('frozen cells changed:', r['frozen']['counts']['cells_changed'])
     print('resumed cells changed:', r['running']['counts']['cells_changed'],
           '| envelope breached:', r['running']['counts']['envelope_breached'])
