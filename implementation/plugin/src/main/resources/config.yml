@@ -1,9 +1,25 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  taskProgression:
+    enabled: true
   sentinelSkull:
     enabled: true
     material: SKELETON_SKULL
+
+# Task progression. classes.md fixes the families and the Tier III ceiling;
+# these coefficients are placeholders and are explicitly not balance.
+progression:
+  task:
+    tierMax: 3
+    efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
+    damagePerTier: 1.0           # flat ATTACK_DAMAGE per tier
+    yieldExtraChancePerTier: 0.25
+    # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
+    # then a choice at L9, L14 and L19. Automatic grants:
+    automatic:
+      4: { domain: EFFICIENCY, tier: 1 }
+      7: { domain: YIELD, tier: 1 }
 
 classes:
   test:

@@ -12,6 +12,8 @@ public final class PlayerData {
     public int level = 1;
     public int xp;
     public final List<ChoiceRecord> choices = new ArrayList<>();
+    /** Task progression tiers by domain name; see TaskEffects. */
+    public final java.util.Map<String,Integer> task = new java.util.HashMap<>();
     public final ModeState modeState = new ModeState();
     public PlayerData(UUID uuid) { this.uuid = uuid; }
     public static final class ModeState {

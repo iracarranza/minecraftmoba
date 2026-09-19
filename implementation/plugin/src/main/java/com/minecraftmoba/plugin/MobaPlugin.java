@@ -24,6 +24,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Renewables renewables() { return renewables; }
     private Sentinel sentinel;
     public Sentinel sentinel() { return sentinel; }
+    private TaskEffects taskEffects;
+    public TaskEffects taskEffects() { return taskEffects; }
     private AbilityInputs inputs;
     private PacketInputs packets;
     private Rewards rewards;
@@ -36,6 +38,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         provenance = new Provenance(this);
         getServer().getPluginManager().registerEvents(provenance, this);
         sentinel = new Sentinel(this);
+        taskEffects = new TaskEffects(this);
+        getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
         getServer().getPluginManager().registerEvents(renewables, this);
         offhandMap = new OffhandMap(this);
@@ -155,6 +159,20 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             rewards.open(player); return true;
         }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
+        if (args.length == 2 && args[0].equalsIgnoreCase("task")) {
+            var target = org.bukkit.Bukkit.getPlayerExact(args[1]);
+            if (target == null) { sender.sendMessage("No such player"); return true; }
+            sender.sendMessage(taskEffects.report(data(target))); return true;
+        }
+        if (args.length == 4 && args[0].equalsIgnoreCase("grant")) {
+            var target = org.bukkit.Bukkit.getPlayerExact(args[1]);
+            if (target == null) { sender.sendMessage("No such player"); return true; }
+            TaskEffects.Domain domain;
+            try { domain = TaskEffects.Domain.valueOf(args[2].toUpperCase(java.util.Locale.ROOT)); }
+            catch (IllegalArgumentException ex) { sender.sendMessage("Domain must be EFFICIENCY, YIELD or DAMAGE"); return true; }
+            taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
+            sender.sendMessage(taskEffects.report(data(target))); return true;
+        }
         if (args.length == 1 && args[0].equalsIgnoreCase("renewables")) {
             renewables.report().forEach(sender::sendMessage); return true;
         }
