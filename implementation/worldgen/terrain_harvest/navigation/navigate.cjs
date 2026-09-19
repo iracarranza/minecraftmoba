@@ -25,14 +25,28 @@ bot.on('kicked', r => { console.log('KICKED ' + JSON.stringify(r)); finish(1); }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function run(command) { bot.chat('/' + command); await sleep(600); }
 
-function state() {
+// bot.game.dimension reports the dimension TYPE, which is harvest:inspection for
+// every dimension in this gallery, so it cannot distinguish volumes. Ask the
+// server for the player's actual dimension instead.
+async function dimension() {
+  const before = chat.length;
+  bot.chat('/data get entity ' + bot.username + ' Dimension');
+  await sleep(600);
+  const line = chat.slice(before).find(m => m.includes('entity data'));
+  const m = line && line.match(/"([^"]+)"/);
+  if (!m) throw new Error('could not read dimension: ' + (line || 'no response'));
+  return m[1];
+}
+
+async function state() {
   const p = bot.entity.position;
-  return { dimension: bot.game.dimension, mode: bot.game.gameMode, pos: [p.x, p.y, p.z] };
+  return { dimension: await dimension(), dimension_type: bot.game.dimension,
+           mode: bot.game.gameMode, pos: [p.x, p.y, p.z] };
 }
 
 // Ticks are frozen, so an exact teleport target should not drift at all.
-function expect(name, want, tolerance = 0.51) {
-  const s = state();
+async function expect(name, want, tolerance = 0.51) {
+  const s = await state();
   const posOk = want.pos === undefined || want.pos.every((v, i) => Math.abs(s.pos[i] - v) <= tolerance);
   const dimOk = want.dimension === undefined || s.dimension === want.dimension;
   const modeOk = want.mode === undefined || s.mode === want.mode;
@@ -56,33 +70,36 @@ bot.once('spawn', async () => {
     await run('gamemode adventure @s');
 
     await run('function harvest:hub');
-    expect('hub', { dimension: 'minecraft:overworld', mode: 'adventure', pos: [0.5, 65, 0.5] });
+    await expect('hub', { dimension: 'minecraft:overworld', mode: 'adventure', pos: [0.5, 65, 0.5] });
 
     // next from the hub walks 0,1,2 then wraps to 0.
     for (let i = 0; i < ids.length + 1; i++) {
       const id = ids[i % ids.length];
       await run('function harvest:next');
-      expect('next->' + (i % ids.length) + (i >= ids.length ? ' (wrapped)' : ''),
+      await expect('next->' + (i % ids.length) + (i >= ids.length ? ' (wrapped)' : ''),
         { dimension: 'harvest:' + id, mode: 'adventure', pos: targets[id].map((v, k) => k === 1 ? v : v + 0.5) });
     }
 
     // previous from volume 0 must wrap backwards to the last volume.
     await run('function harvest:previous');
     const last = ids[ids.length - 1];
-    expect('previous wraps to last', { dimension: 'harvest:' + last, pos: targets[last].map((v, k) => k === 1 ? v : v + 0.5) });
+    await expect('previous wraps to last', { dimension: 'harvest:' + last, pos: targets[last].map((v, k) => k === 1 ? v : v + 0.5) });
 
     for (const id of ids) {
       await run('function harvest:visit/' + id);
-      expect('visit ' + id, { dimension: 'harvest:' + id, mode: 'adventure', pos: targets[id].map((v, k) => k === 1 ? v : v + 0.5) });
+      await expect('visit ' + id, { dimension: 'harvest:' + id, mode: 'adventure', pos: targets[id].map((v, k) => k === 1 ? v : v + 0.5) });
 
       await run('function harvest:overview/' + id);
-      expect('overview ' + id + ' is spectator', { dimension: 'harvest:' + id, mode: 'spectator' });
+      await expect('overview ' + id + ' is spectator', { dimension: 'harvest:' + id, mode: 'spectator' });
 
       // Round trip: visit must restore adventure inspection after an overview.
       await run('function harvest:visit/' + id);
-      expect('visit restores adventure after overview ' + id,
+      await expect('visit restores adventure after overview ' + id,
         { dimension: 'harvest:' + id, mode: 'adventure', pos: targets[id].map((v, k) => k === 1 ? v : v + 0.5) });
     }
+
+    record('dimension type is shared across volumes', bot.game.dimension === 'harvest:inspection',
+      { dimension_type: bot.game.dimension });
 
     const before = chat.length;
     await run('function harvest:index');

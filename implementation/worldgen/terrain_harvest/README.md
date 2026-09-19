@@ -186,6 +186,34 @@ PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.preservation \
 Add repeated `--id tv_...` to audit selected volumes. Exit status is nonzero on
 any failure, and failing runs still write the report.
 
+## Protocol navigation probe
+
+`navigation_probe.py` drives the gallery functions over the real protocol using
+the repository's pinned Mineflayer fixture, on a disposable copy of the gallery
+and its own port. Ticks are frozen before the bot joins, so a position
+assertion measures the teleport rather than the fall.
+
+Dimension identity is read with `/data get entity <player> Dimension`, which is
+server-authoritative. Do **not** use a client library's reported dimension here:
+every dimension in this gallery declares `"type": "harvest:inspection"`, so a
+type-valued field reads identically in the hub and in all three volumes and
+cannot distinguish them. A probe checks that this type really is shared, so the
+constraint stays recorded rather than rediscovered.
+
+```sh
+PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.navigation_probe \
+  --world artifacts/worldgen/terrain_harvest_2026-09-18/worlds/TerrainGallery \
+  --jar /tmp/terrain-server-1.21.11.jar \
+  --java '/Users/iracarranza/Library/Application Support/minecraft/runtime/java-runtime-delta/mac-os-arm64/java-runtime-delta/jre.bundle/Contents/Home/bin/java' \
+  --eula /Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/build/930010639_2048_0/eula.txt \
+  --node-modules /private/tmp/minecraftmoba-phase1/validation/plugin/protocol/node_modules \
+  --report implementation/worldgen/reports/terrain_harvest_2026-09-18/navigation.json
+```
+
+`--port` defaults to 25599 to avoid the plugin validation fixtures. This is
+protocol evidence only: rendering, a human walkthrough, unfrozen simulation and
+containment against a moving player remain uncovered.
+
 ## Remaining work
 
 Manifest validity, deterministic masks, copied world output, server loading and

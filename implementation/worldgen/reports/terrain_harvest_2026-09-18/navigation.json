@@ -1,0 +1,373 @@
+{
+  "evidence_state": "DERIVED MEASUREMENT",
+  "navigation": {
+    "chat_lines": 47,
+    "checks": [
+      {
+        "got": {
+          "dimension": "minecraft:overworld",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            0.5,
+            65,
+            0.5
+          ]
+        },
+        "name": "hub",
+        "ok": true,
+        "want": {
+          "dimension": "minecraft:overworld",
+          "mode": "adventure",
+          "pos": [
+            0.5,
+            65,
+            0.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        },
+        "name": "next->0",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        },
+        "name": "next->1",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        },
+        "name": "next->2",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        },
+        "name": "next->0 (wrapped)",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        },
+        "name": "previous wraps to last",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        },
+        "name": "visit tv_49b22bb49e0684c3a1295570",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "dimension_type": "harvest:inspection",
+          "mode": "spectator",
+          "pos": [
+            1896.5,
+            305.9366549461529,
+            320.5
+          ]
+        },
+        "name": "overview tv_49b22bb49e0684c3a1295570 is spectator",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "mode": "spectator"
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        },
+        "name": "visit restores adventure after overview tv_49b22bb49e0684c3a1295570",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_49b22bb49e0684c3a1295570",
+          "mode": "adventure",
+          "pos": [
+            1936.5,
+            114,
+            352.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        },
+        "name": "visit tv_51a79e3b1bee05ea7559e799",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "dimension_type": "harvest:inspection",
+          "mode": "spectator",
+          "pos": [
+            1604.5,
+            309.5358406250445,
+            -539.5
+          ]
+        },
+        "name": "overview tv_51a79e3b1bee05ea7559e799 is spectator",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "mode": "spectator"
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        },
+        "name": "visit restores adventure after overview tv_51a79e3b1bee05ea7559e799",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_51a79e3b1bee05ea7559e799",
+          "mode": "adventure",
+          "pos": [
+            2032.5,
+            77,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        },
+        "name": "visit tv_ef56852eda10acc88342e5ee",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "dimension_type": "harvest:inspection",
+          "mode": "spectator",
+          "pos": [
+            -2491.5,
+            309.5358406250445,
+            -539.5
+          ]
+        },
+        "name": "overview tv_ef56852eda10acc88342e5ee is spectator",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "mode": "spectator"
+        }
+      },
+      {
+        "got": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "dimension_type": "harvest:inspection",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        },
+        "name": "visit restores adventure after overview tv_ef56852eda10acc88342e5ee",
+        "ok": true,
+        "want": {
+          "dimension": "harvest:tv_ef56852eda10acc88342e5ee",
+          "mode": "adventure",
+          "pos": [
+            -2055.5,
+            65,
+            -15.5
+          ]
+        }
+      },
+      {
+        "dimension_type": "harvest:inspection",
+        "name": "dimension type is shared across volumes",
+        "ok": true
+      },
+      {
+        "found": true,
+        "name": "index lists tv_49b22bb49e0684c3a1295570",
+        "ok": true
+      },
+      {
+        "found": true,
+        "name": "index lists tv_51a79e3b1bee05ea7559e799",
+        "ok": true
+      },
+      {
+        "found": true,
+        "name": "index lists tv_ef56852eda10acc88342e5ee",
+        "ok": true
+      }
+    ],
+    "pass": true,
+    "schema": "terrain_gallery_navigation/1",
+    "scope": "protocol-level function navigation against a disposable server; no human client inspection"
+  },
+  "node_exit_code": 0,
+  "not_covered": [
+    "human client walkthrough",
+    "rendering",
+    "unfrozen simulation",
+    "containment against a moving player",
+    "teleport or operator exploits"
+  ],
+  "pass": true,
+  "schema": "terrain_gallery_navigation_probe/1",
+  "scope": "disposable copy, frozen ticks, protocol-level function navigation with dimension/position/mode assertions",
+  "server_errors": [],
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed"
+}
