@@ -214,6 +214,32 @@ PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.navigation_probe \
 protocol evidence only: rendering, a human walkthrough, unfrozen simulation and
 containment against a moving player remain uncovered.
 
+## Coordinate-bearing state inventory
+
+Relocation is implemented in `relocate.py` on fixtures only. The exporter still
+refuses non-identity placement, and that stays true until round trips and a
+matching-server probe pass on real blocks.
+
+The module is **fail-closed**. A block property is rotated only if it is listed
+in `ROTATABLE`, passed through only if listed in `ORIENTATION_FREE`, and
+otherwise raises `UnsupportedState`. An unclassified property is exactly the one
+a rotation would silently corrupt, so it must stop the run instead.
+
+Handled: `facing` (cardinals rotate, `up`/`down` do not), `axis` (x/z swap on odd
+quarter turns), `rotation` (+4 per quarter, mod 16), rail `shape` including
+corners and ascents, stair and door shapes that are already relative to facing,
+`orientation` for crafters and jigsaws, `hinge` and `attachment` (both relative),
+and the `north`/`east`/`south`/`west` boolean group, which permutes as a set.
+
+Entities: `Pos`, `Motion` and `Rotation` yaw rotate together, and passenger trees
+recurse.
+
+Rejected rather than relocated, each by name: end gateway exit portals, beehive
+flower positions, jigsaw and lodestone targets, structure block offsets, piston
+source positions, leash anchors, villager brain memories, sleeping positions,
+hanging entity anchors, home and patrol targets, and beam targets. External UUID
+and dimension references are not repaired and are not made to look repaired.
+
 ## Remaining work
 
 Manifest validity, deterministic masks, copied world output, server loading and
