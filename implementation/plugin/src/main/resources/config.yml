@@ -1,6 +1,8 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  durability:
+    enabled: true
   hubLobby:
     enabled: true
     originX: 0
@@ -58,11 +60,40 @@ progression:
     efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
     damagePerTier: 1.0           # flat ATTACK_DAMAGE per tier
     yieldExtraChancePerTier: 0.25
+    # Efficiency covers Unbreaking as well as block-breaking speed.
+    efficiencyGrantsUnbreaking: true
     # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
     # then a choice at L9, L14 and L19. Automatic grants:
     automatic:
       4: { domain: EFFICIENCY, tier: 1 }
       7: { domain: YIELD, tier: 1 }
+
+# Equipment wear. Follows the family-wide doctrine in manuscript 15.1.2:
+#     L_e = D_e * U_e / R_e
+# expected useful lifetime = base durability * Unbreaking multiplier /
+# consumption rate under that category's workload. Identity belongs to the
+# material FAMILY, so targets are per material and per equipment category
+# rather than one number per material.
+#
+# Ladder: Wood temporary -> Stone disposable -> Copper replaceable legitimate
+# equipment -> Iron reliable -> Diamond capital -> Netherite premier.
+# Copper became a Primary Material on 19 September 2026.
+#
+# Ships EMPTY, which is vanilla. 15.1.1 is labelled a NON-CANON BALANCE-TEST
+# CANDIDATE and exact values remain OPEN, so its numbers are commented below
+# rather than defaulted. Uncomment to run the sensitivity test.
+#
+# Unbreaking needs no coefficient: vanilla's 1/(level+1) already reproduces the
+# 15.1.1 column, with Iron 96 reaching ~192, ~288 and ~384 at Unbreaking I-III.
+#
+# durability:
+#   targetBaseUses:
+#     wood:   { tool: 16 }
+#     stone:  { tool: 36 }
+#     copper: { tool: 60 }
+#     iron:   { tool: 96 }
+durability:
+  targetBaseUses: {}
 
 classes:
   test:

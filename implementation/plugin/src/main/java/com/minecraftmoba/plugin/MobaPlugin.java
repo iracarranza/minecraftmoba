@@ -37,6 +37,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public RewardAdvancements rewardAdvancements() { return rewardAdvancements; }
     private HubLobby hubLobby;
     public HubLobby hubLobby() { return hubLobby; }
+    private Durability durability;
+    public Durability durability() { return durability; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -56,6 +58,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);
         rewardAdvancements = new RewardAdvancements(this);
+        durability = new Durability(this);
+        getServer().getPluginManager().registerEvents(durability, this);
         hubLobby = new HubLobby(this);
         getServer().getPluginManager().registerEvents(hubLobby, this);
         routes = new Routes(this);
@@ -218,6 +222,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 hubLobby.build(sender, hp.getWorld()); return true;
             }
             hubLobby.report().forEach(sender::sendMessage); return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("durability")) {
+            sender.sendMessage(durability.report()); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("routes")) {
             routes.report().forEach(sender::sendMessage); return true;

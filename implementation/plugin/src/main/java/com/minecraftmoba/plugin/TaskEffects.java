@@ -20,6 +20,11 @@ import java.util.*;
  * amplification such as Mole's Tunneling has room and cannot multiply
  * uncontrollably with a high generic tier.
  *
+ * The Efficiency domain also carries **Unbreaking**, so it covers both working
+ * faster and wearing slower. That extends the family classes.md lists; the
+ * durability half lives in Durability.java and is switchable separately via
+ * progression.task.efficiencyGrantsUnbreaking.
+ *
  * These are applied to the player, not enchanted onto an item, so progression
  * is not lost with a tool and cannot be transferred by dropping one.
  *
