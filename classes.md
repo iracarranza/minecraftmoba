@@ -2515,3 +2515,52 @@ The **Amber** name is used twice, for the A1 branch and for the ultimate. This i
 Sealed blocks also make Waxer the sixth system depending on **persistent per-position block data**, alongside anti-farming XP, Sinkhole, Construct designation, Structural Integrity and Development Zones. That dependency has no owner; see §0 of the audit.
 
 ---
+
+
+---
+
+# September 19, 2026 — Equipment and Infrastructure Reconciliation
+
+## Copper equipment as the Stone-to-Iron buffer
+
+**Working canon, 19 September 2026.** Copper is a **Primary Material**. This supersedes the 10 September restricted-material passage above that explicitly excluded Copper from the category.
+
+Copper equipment occupies the durability space between disposable Stone equipment and stable Iron equipment. Its purpose is not merely to add another recipe tier: Copper gives the early equipment economy a legitimate, replaceable metal tier so that Iron can retain a materially more stable and reliable position.
+
+Current qualitative equipment ladder:
+
+> **Stone — disposable → Copper — replaceable / field-standard metal → Iron — stable / reliable → Diamond — high-value capital → Netherite — premier late-game capital**
+
+This direction permits early durability to be compressed around Stone and Copper rather than forcing Iron to function as the first merely serviceable tier. Exact durability values remain **[OPEN]**. Earlier numerical durability fixtures are sensitivity tests, not canon, and must not be promoted by this reconciliation.
+
+Copper's Primary Material status also means qualifying Copper equipment participates in Primary-Material systems such as Kitfighter Salvage according to their recipe rules. The universal full-team combat-tier recipe ledger remains a **gross recipe threshold**; Production/Salvage can reduce net resource expenditure without changing the gross recipe cost.
+
+## Level 6 contribution fork
+
+**Working canon, 19 September 2026.** The Level 6 infrastructure model is no longer best described as every eligible player receiving a fungible generic infrastructure slot.
+
+At Level 6, a player's authored progression may offer a fork between:
+
+- contributing **one class-compatible form of persistent Infrastructure** to the team; or
+- **Monster Combat** specialization.
+
+A player who chooses Infrastructure contributes one authored infrastructure form. Later individual progression may increase the **quantity and/or quality** of that player's contribution. Multiple teammates may choose the same infrastructure form; duplicate choices represent concentrated team depth rather than wasted unlocks.
+
+Infrastructure eligibility is **partially class-authored and may be asymmetric**. A class may have several coherent Infrastructure options, one option, or none. There is no requirement that every class receive the same number of choices. Current discussion examples are deliberately incomplete: Mole may plausibly choose **Route or Construct**, while Kitfighter may be **Monster Combat only**. These examples do not establish the full Class × Infrastructure matrix; unresolved cells remain **[OPEN]**.
+
+Archetype tags do not automatically grant Infrastructure eligibility. Ordinary Minecraft building, travel, transport, farming, storage, and combat remain available regardless of the Level 6 choice.
+
+### Monster Combat is not Infrastructure
+
+The earlier open search for a Combat-side Infrastructure analogue should not be answered by inventing a "Mob Slayer" Infrastructure type. The current direction places Smite, Bane of Arthropods, and related monster-facing specialization vocabulary on the **Monster Combat** side of the Level 6 fork. Exact Monster Combat branches and their relationship to Mob Swarms remain **[OPEN]**.
+
+### Worksite-earned team opportunities
+
+Personal Infrastructure contribution and Worksite-earned Infrastructure are distinct.
+
+- **Personal contribution** is bound to the player's authored/class-compatible Level 6 choice and later personal upgrades.
+- **Shared Worksite opportunity** belongs to the team collectively.
+
+The first team to capitalize an activated Worksite earns **one bonus shared team Infrastructure opportunity**. It is not personal to the player who completed the capitalization. Current direction is that this shared opportunity can let the team broaden or reinforce its infrastructure portfolio beyond individual class restrictions; exact allocation/reallocation rules remain **[OPEN]**.
+
+A Worksite reward is therefore persistent organizational capacity, not a flat XP payout.
