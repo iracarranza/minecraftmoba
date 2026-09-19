@@ -22,6 +22,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Renewables renewables;
     public Provenance provenance() { return provenance; }
     public Renewables renewables() { return renewables; }
+    private Sentinel sentinel;
+    public Sentinel sentinel() { return sentinel; }
     private AbilityInputs inputs;
     private PacketInputs packets;
     private Rewards rewards;
@@ -33,6 +35,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         dataKey = new NamespacedKey(this, "player_data");
         provenance = new Provenance(this);
         getServer().getPluginManager().registerEvents(provenance, this);
+        sentinel = new Sentinel(this);
         renewables = new Renewables(this);
         getServer().getPluginManager().registerEvents(renewables, this);
         offhandMap = new OffhandMap(this);

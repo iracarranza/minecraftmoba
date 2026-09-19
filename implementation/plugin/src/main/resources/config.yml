@@ -1,3 +1,18 @@
+# Feature flags. Each Phase 2 feature is independently switchable; turning one
+# off must never require touching another.
+features:
+  sentinelSkull:
+    enabled: true
+    material: SKELETON_SKULL
+
+classes:
+  test:
+    displayName: "Test Class"
+    blurb:
+      - "Harness class. Not a design."
+      - "F = A1   Sneak+F = A2   Sprint+F = channel ult"
+      - "Drop = ultimate. Swap again to stop casting."
+
 # Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
 progression:
   maxLevel: 30

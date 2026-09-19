@@ -18,6 +18,8 @@ public final class OffhandMap implements Listener {
     private final NamespacedKey key;
     public OffhandMap(MobaPlugin plugin) { this.plugin = plugin; key = new NamespacedKey(plugin, "offhand_map"); }
     public boolean isMap(ItemStack item) {
+        // A sentinel skull is also "the offhand item" for every caller that asks.
+        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(item)) return true;
         return item != null && item.getType() == Material.FILLED_MAP && item.hasItemMeta()
             && item.getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.BYTE);
     }
@@ -29,6 +31,12 @@ public final class OffhandMap implements Listener {
             return true;
         }
         if (!held.getType().isAir()) return false;
+        if (plugin.sentinel() != null && plugin.sentinel().enabled()) {
+            var d = plugin.data(p);
+            String classId = (d == null || d.classId == null) ? "test" : d.classId;
+            p.getInventory().setItemInOffHand(plugin.sentinel().create(classId));
+            return true;
+        }
         var view = Bukkit.createMap(p.getWorld());
         stub(view);
         var item = new ItemStack(Material.FILLED_MAP);
