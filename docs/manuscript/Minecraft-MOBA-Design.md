@@ -2162,3 +2162,27 @@ Personal Infrastructure contribution is distinct from the reward for first-capit
 The first team to capitalize a Worksite gains **one shared team Infrastructure opportunity**. It belongs to the team rather than the individual capturer and is currently intended to be flexibly allocable so Worksite success can broaden or reinforce the team's Infrastructure portfolio beyond personal class restrictions. Exact allocation and later advancement rules remain **[OPEN]**.
 
 The reward is persistent organizational capacity / Work Stock, not a direct XP award. **First Capture is not Exclusive Control:** the earned team opportunity persists even if the opposing team later controls or exploits the Worksite.
+
+
+### 15.1.1 Current durability calibration candidate
+
+**NON-CANON BALANCE-TEST CANDIDATE.** The qualitative Copper tier above has already been tested against a compressed pickaxe durability curve. Preserve this as the current sensitivity model rather than treating durability as wholly unspecified:
+
+| Tier | Candidate base uses | Expected uses with Unbreaking I | Approx. operations at ~40 uses/op |
+|---|---:|---:|---:|
+| Wood | 16 | ~32 | ~0.8 |
+| Stone | 36 | ~72 | ~1.8 |
+| Copper | 60 | ~120 | ~3.0 |
+| Iron | 96 | ~192 | ~4.8 |
+
+For a player continuing the Efficiency/Unbreaking task family, the same Iron fixture reaches roughly **288 effective uses with Unbreaking II (~7.2 operations)** and **384 with Unbreaking III (~9.6 operations)**.
+
+These values are a calibration fixture, **not canon durability values**. Their purpose is to test the intended economic spacing:
+
+> **Wood temporary → Stone disposable → Copper replaceable legitimate equipment → Iron reliable equipment**
+
+Copper is what allows meaningful early equipment churn to occur primarily across Stone and Copper without requiring Iron to become the first merely serviceable/disposable metal tier.
+
+Do **not** automatically apply the 16/36/60/96 curve to every equipment category. Tools, weapons, and armor have different match-scale replacement pressures. Earlier 48-minute analysis indicates the working relationship **armor acquisition capital >> armor replacement**, while occupational pick consumption is more economically significant than ordinary sword replacement. Weapon and armor durability therefore require their own calibration while preserving the same broad tier identity where appropriate.
+
+For comparison, longer vanilla/current weapon durability values discussed during calibration (Wood 59, Stone 131, Copper 190, Iron 250, Diamond 1561, Netherite 2031) are reference points, not targets for the compressed match economy.
