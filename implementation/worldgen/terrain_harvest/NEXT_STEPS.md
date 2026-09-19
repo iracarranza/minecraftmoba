@@ -1,5 +1,10 @@
 # Autonomous next steps — 18 September 2026
 
+> **Status: all seven stages complete.** See
+> [`CONTINUATION.md`](../reports/terrain_harvest_2026-09-18/CONTINUATION.md) for
+> results, what the evidence does and does not support, and the remaining work.
+> The stages below are kept as the original plan of record.
+
 Working / Prototype-test. Continue on `terrain-harvest-gallery-2026-09-18`.
 Baseline proof: `ceede1e`. Preserve original dirty main, canonical rules, frozen
 fitters and the installed inspection save. Push methodology before new outputs.
