@@ -1,6 +1,18 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  infraMode:
+    enabled: true
+  routes:
+    enabled: true
+    minLength: 16.0            # endpoints closer than this are refused
+    sampleEveryBlocks: 4.0
+    maxSamples: 512
+    keepEverySample: 2         # coarse retention; canon leaves geometry OPEN
+    maxDesignationTicks: 24000
+    corridorRadius: 6.0
+    effectTicks: 20
+    exhaustionRelief: 0.1      # sprint efficiency, never added speed
   renewableParticles:
     enabled: true
     ticks: 20

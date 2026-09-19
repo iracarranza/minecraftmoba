@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:multi_action",
+  "title": "Infrastructure",
+  "external_title": "Infrastructure",
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": "Infrastructure Mode changes what interacting with a Banner means. It grants nothing by itself.",
+      "width": 260
+    }
+  ],
+  "columns": 1,
+  "actions": [
+    {
+      "label": "Enter Infrastructure Mode",
+      "tooltip": "Banners become Route endpoints while active",
+      "action": { "type": "minecraft:run_command", "command": "moba infra enter" }
+    },
+    {
+      "label": "Exit Infrastructure Mode",
+      "tooltip": "Abandons any unfinished Route designation",
+      "action": { "type": "minecraft:run_command", "command": "moba infra exit" }
+    },
+    {
+      "label": "Status",
+      "action": { "type": "minecraft:run_command", "command": "moba infra status" }
+    }
+  ]
+}

@@ -29,6 +29,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Hud hud;
     public Hud hud() { return hud; }
     private RenewableAuthoring renewAuthoring;
+    private InfraMode infraMode;
+    private Routes routes;
+    public InfraMode infraMode() { return infraMode; }
+    public Routes routes() { return routes; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -45,6 +49,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         taskEffects = new TaskEffects(this);
         hud = new Hud(this);
         renewAuthoring = new RenewableAuthoring(this);
+        infraMode = new InfraMode(this);
+        getServer().getPluginManager().registerEvents(infraMode, this);
+        routes = new Routes(this);
+        getServer().getPluginManager().registerEvents(routes, this);
         getServer().getPluginManager().registerEvents(hud, this);
         getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
@@ -181,6 +189,20 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
         if (args.length >= 1 && args[0].equalsIgnoreCase("renew")) return renewAuthoring.handle(sender, args);
+        if (args.length >= 2 && args[0].equalsIgnoreCase("infra")) {
+            if (!(sender instanceof Player ip)) { sender.sendMessage("Player only"); return true; }
+            switch (args[1].toLowerCase(java.util.Locale.ROOT)) {
+                case "enter" -> infraMode.enter(ip);
+                case "exit" -> infraMode.exit(ip);
+                case "toggle" -> infraMode.toggle(ip);
+                case "status" -> sender.sendMessage(infraMode.report(ip));
+                default -> sender.sendMessage("/moba infra <enter|exit|toggle|status>");
+            }
+            return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("routes")) {
+            routes.report().forEach(sender::sendMessage); return true;
+        }
         if (args.length == 1 && args[0].equalsIgnoreCase("renewables")) {
             renewables.report().forEach(sender::sendMessage); return true;
         }
