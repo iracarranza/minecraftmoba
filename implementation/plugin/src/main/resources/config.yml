@@ -1,6 +1,8 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  contributions:
+    enabled: true
   durability:
     enabled: true
   hubLobby:
@@ -62,6 +64,8 @@ progression:
     yieldExtraChancePerTier: 0.25
     # Efficiency covers Unbreaking as well as block-breaking speed.
     efficiencyGrantsUnbreaking: true
+  # The Level 6 fork: one class-compatible Infrastructure form, or Monster Combat.
+  contributionForkLevel: 6
     # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
     # then a choice at L9, L14 and L19. Automatic grants:
     automatic:
@@ -97,6 +101,15 @@ durability:
 
 classes:
   test:
+    # Eligibility is AUTHORED PER CLASS and may be asymmetric: several options,
+    # one, or none. It is not inherited from archetype tags. The full class x
+    # infrastructure matrix is [OPEN]; the discussion examples are Mole with
+    # Route/Construct and Kitfighter with Monster Combat only, and neither is
+    # settled. The harness class gets a deliberately mixed set for testing.
+    infrastructureEligibility:
+      - ROUTE
+      - CONSTRUCT
+      - MONSTER_COMBAT
     displayName: "Test Class"
     blurb:
       - "Harness class. Not a design."

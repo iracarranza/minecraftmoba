@@ -39,6 +39,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public HubLobby hubLobby() { return hubLobby; }
     private Durability durability;
     public Durability durability() { return durability; }
+    private Contributions contributions;
+    public Contributions contributions() { return contributions; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -58,6 +60,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);
         rewardAdvancements = new RewardAdvancements(this);
+        contributions = new Contributions(this);
         durability = new Durability(this);
         getServer().getPluginManager().registerEvents(durability, this);
         hubLobby = new HubLobby(this);
@@ -222,6 +225,41 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 hubLobby.build(sender, hp.getWorld()); return true;
             }
             hubLobby.report().forEach(sender::sendMessage); return true;
+        }
+        if (args.length >= 2 && args[0].equalsIgnoreCase("contrib")) {
+            switch (args[1].toLowerCase(java.util.Locale.ROOT)) {
+                case "options" -> {
+                    if (!(sender instanceof Player cp)) { sender.sendMessage("Player only"); return true; }
+                    var d = data(cp);
+                    sender.sendMessage("Eligible for " + (d == null ? "?" : d.classId) + ": "
+                            + contributions.eligible(d == null ? null : d.classId));
+                }
+                case "choose" -> {
+                    if (!(sender instanceof Player cp)) { sender.sendMessage("Player only"); return true; }
+                    if (args.length < 3) { sender.sendMessage("/moba contrib choose <form>"); return true; }
+                    Contributions.Form form;
+                    try { form = Contributions.Form.valueOf(args[2].toUpperCase(java.util.Locale.ROOT)); }
+                    catch (IllegalArgumentException ex) { sender.sendMessage("Unknown form: " + args[2]); return true; }
+                    String refusal = contributions.choose(cp, form);
+                    if (refusal != null) sender.sendMessage("Refused: " + refusal);
+                }
+                case "capitalize" -> {
+                    if (args.length < 4) { sender.sendMessage("/moba contrib capitalize <worksiteId> <team>"); return true; }
+                    String refusal = contributions.capitalize(args[2], args[3]);
+                    sender.sendMessage(refusal == null ? "Shared opportunity earned by " + args[3] : "Refused: " + refusal);
+                }
+                case "allocate" -> {
+                    if (args.length < 4) { sender.sendMessage("/moba contrib allocate <team> <form>"); return true; }
+                    Contributions.Form form;
+                    try { form = Contributions.Form.valueOf(args[3].toUpperCase(java.util.Locale.ROOT)); }
+                    catch (IllegalArgumentException ex) { sender.sendMessage("Unknown form: " + args[3]); return true; }
+                    String refusal = contributions.allocate(args[2], form);
+                    sender.sendMessage(refusal == null ? "Allocated " + form + " to " + args[2] : "Refused: " + refusal);
+                }
+                case "status" -> contributions.report().forEach(sender::sendMessage);
+                default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
+            }
+            return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("durability")) {
             sender.sendMessage(durability.report()); return true;

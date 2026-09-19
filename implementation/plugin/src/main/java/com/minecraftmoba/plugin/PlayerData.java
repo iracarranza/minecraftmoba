@@ -14,6 +14,8 @@ public final class PlayerData {
     public final List<ChoiceRecord> choices = new ArrayList<>();
     /** Task progression tiers by domain name; see TaskEffects. */
     public final java.util.Map<String,Integer> task = new java.util.HashMap<>();
+    /** Level 6 fork result: an Infrastructure form, or MONSTER_COMBAT. Null until chosen. */
+    public String contribution;
     public final ModeState modeState = new ModeState();
     public PlayerData(UUID uuid) { this.uuid = uuid; }
     public static final class ModeState {
