@@ -1,0 +1,3630 @@
+{
+  "profiles": [
+    {
+      "boundary": {
+        "geometry_type": "scoop",
+        "inclusion_rule": "integer_block_coordinates_inclusive_v1",
+        "parameters": {
+          "radius_scale_by_y": [
+            [
+              -64,
+              "1/4"
+            ],
+            [
+              0,
+              "3/4"
+            ],
+            [
+              48,
+              "1"
+            ],
+            [
+              319,
+              "1"
+            ]
+          ]
+        }
+      },
+      "connection_interfaces": [],
+      "evidence_state": "RAW WORLD OBSERVATION",
+      "id": "profile_c2f0df60f71fcb8e02cf0101",
+      "provenance": {
+        "gallery_manifest_sha256": "0983f61f9d03b592f56f8c524f9533cf8452dc52ba6d17516eaf3e3c7681d28d",
+        "minecraft_version": "1.21.11",
+        "source_dimension": "minecraft:overworld",
+        "source_files_sha256": {
+          "entities/r.3.0.mca": "a5a55a7dfc051b82b8cbddb2b099fa5721734e6b5f39be0ee67d729488083cae",
+          "level.dat": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374",
+          "region/r.3.0.mca": "ec8c90f7b48dc2e0bfef041e9b99c2bc647547e507bfa570f06757e707c271f4"
+        },
+        "source_seed": 930010639,
+        "volume_manifest_sha256": "1c0e62d7c783d8611018f438c7806fdb224951dd43f60bb2ee5d7eb176150640"
+      },
+      "samples": [
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "east",
+          "source_position": [
+            1948,
+            -64,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1952,
+            -48,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            1956,
+            -32,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            1960,
+            -16,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:andesite"
+          },
+          "edge": "east",
+          "source_position": [
+            1964,
+            0,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            1966,
+            16,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            1969,
+            32,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            48,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            64,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            80,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            96,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            112,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            128,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:snow",
+            "Properties": {
+              "layers": "1"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            144,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            160,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            176,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            192,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            208,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            224,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            240,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            256,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            272,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            288,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            304,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            1972,
+            319,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            -64,
+            356
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            -48,
+            352
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            -32,
+            348
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:tuff"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            -16,
+            344
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            0,
+            340
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            16,
+            338
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            32,
+            335
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:copper_ore"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            48,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            64,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            80,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            96,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            112,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:snow_block"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            128,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            144,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            160,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            176,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            192,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            208,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            224,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            240,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            256,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            272,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            288,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            304,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            1940,
+            319,
+            332
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            -64,
+            372
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            -48,
+            376
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            -32,
+            380
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            -16,
+            384
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:granite"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            0,
+            388
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            16,
+            390
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            32,
+            393
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            48,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            64,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            80,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            96,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            112,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            128,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            144,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            160,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            176,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            192,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            208,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            224,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            240,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            256,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            272,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            288,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            304,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            1940,
+            319,
+            396
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:diorite"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            48,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            64,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            80,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            96,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            112,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            128,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            144,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            160,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            176,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            192,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            208,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            224,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            240,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            256,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            272,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            288,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            304,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1908,
+            319,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1911,
+            32,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1914,
+            16,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1916,
+            0,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:tuff"
+          },
+          "edge": "west",
+          "source_position": [
+            1920,
+            -16,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1924,
+            -32,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1928,
+            -48,
+            364
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "west",
+          "source_position": [
+            1932,
+            -64,
+            364
+          ]
+        }
+      ],
+      "sampling": {
+        "includes_top_and_bottom": true,
+        "kind": "four cardinal vertical transects through integer X/Z midpoint",
+        "status": "ANALYTICAL FIXTURE; sparse sampling, not full boundary coverage",
+        "vertical_step_blocks": 16
+      },
+      "schema": "terrain_boundary_profile/1",
+      "source_bounds": {
+        "x": [
+          1908,
+          1972
+        ],
+        "y": [
+          -64,
+          319
+        ],
+        "z": [
+          332,
+          396
+        ]
+      },
+      "unresolved": [
+        "solid collision shape",
+        "cave connectivity",
+        "fluid depth and navigability",
+        "port width",
+        "usable boundary segment",
+        "seam compatibility",
+        "Practical Reach"
+      ],
+      "volume_id": "tv_49b22bb49e0684c3a1295570"
+    },
+    {
+      "boundary": {
+        "geometry_type": "box",
+        "inclusion_rule": "integer_block_coordinates_inclusive_v1",
+        "parameters": {}
+      },
+      "connection_interfaces": [],
+      "evidence_state": "RAW WORLD OBSERVATION",
+      "id": "profile_4315b3834c17f0a3c4ba5411",
+      "provenance": {
+        "gallery_manifest_sha256": "0983f61f9d03b592f56f8c524f9533cf8452dc52ba6d17516eaf3e3c7681d28d",
+        "minecraft_version": "1.21.11",
+        "source_dimension": "minecraft:overworld",
+        "source_files_sha256": {
+          "entities/r.3.-1.mca": "ef142fcddd2e31a09d4839eb6146e561d6ba1b11b28cc1f005a352aed1dfea3f",
+          "entities/r.3.-2.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "entities/r.3.0.mca": "a5a55a7dfc051b82b8cbddb2b099fa5721734e6b5f39be0ee67d729488083cae",
+          "entities/r.3.1.mca": "a52fdee5b61ed8ae9cb59379965c3df34033cb3ef9bc0f60e6d6415066ec650d",
+          "entities/r.4.-1.mca": "6127a23556536ea0ebf07d92d4347e2184942b11c532c118b83b4a334d50d516",
+          "entities/r.4.-2.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "entities/r.4.0.mca": "0a3b2dc05f8c3d770b416f28c1c593622464f4772bf995c2179e90c264b5712b",
+          "entities/r.4.1.mca": "fdf54d724f1ad99fb1f23dd150c5df49742f79b95e53e14fb24737866ce41962",
+          "level.dat": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374",
+          "region/r.3.-1.mca": "8c5b4c108f8050d2ad635aca3ad488a0b2a8184b80f0b1eb173b326027991402",
+          "region/r.3.-2.mca": "9282c4bc6ded45b5a4d8e262e26d6d6e346c1e4225f6e1d4293d8439eac8600e",
+          "region/r.3.0.mca": "ec8c90f7b48dc2e0bfef041e9b99c2bc647547e507bfa570f06757e707c271f4",
+          "region/r.3.1.mca": "e8dbc7149c461089b5c7b533e71ffc25f2cbddce6e1128666af190c12e536287",
+          "region/r.4.-1.mca": "5adf028188d2d697337c1d0734679cbb01c7af23b2c3777a1385dcc9aca09bb1",
+          "region/r.4.-2.mca": "9514e9d3fb0af8ea3a1ebfa38fe342336219dabc9dce4f7cd3ed89cc648a3448",
+          "region/r.4.0.mca": "5223da1446a188c8659fdee483cc648fffc06905f6e61a3874d6b2e48cf9d571",
+          "region/r.4.1.mca": "757b68596506d3ccaccbe2cb10b4152988717ec8f133c127a37386aedb802330"
+        },
+        "source_seed": 930010639,
+        "volume_manifest_sha256": "184bde558f4517313ba3a1bc5bceae0642dde51cea69d4753d87dde686450408"
+      },
+      "samples": [
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            -64,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            -48,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            -32,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            -16,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            0,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:water",
+            "Properties": {
+              "level": "0"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            16,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:copper_ore"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            32,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:water",
+            "Properties": {
+              "level": "0"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            48,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            64,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            80,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            96,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            112,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            128,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            144,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            160,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            176,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            192,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            208,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            224,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            240,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            256,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            272,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            288,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            304,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            2047,
+            319,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            -64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            -48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:tuff"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            -32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            -16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            0,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            80,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            96,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            112,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            128,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            144,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            160,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            176,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            192,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            208,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            224,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            240,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            256,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            272,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            288,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            304,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            1616,
+            319,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            -64,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            -48,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            -32,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            -16,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            0,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            16,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            32,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            48,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:dirt"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            64,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            80,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            96,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            112,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            128,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            144,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            160,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            176,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            192,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            208,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            224,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            240,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            256,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            272,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            288,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            304,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            2047,
+            319,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            -64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            -48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            -32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:tuff"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            -16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            0,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:diorite"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            80,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            96,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            112,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            128,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            144,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            160,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            176,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            192,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            208,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            224,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            240,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            256,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            272,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            288,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            304,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            2479,
+            319,
+            -1
+          ]
+        }
+      ],
+      "sampling": {
+        "includes_top_and_bottom": true,
+        "kind": "four cardinal vertical transects through integer X/Z midpoint",
+        "status": "ANALYTICAL FIXTURE; sparse sampling, not full boundary coverage",
+        "vertical_step_blocks": 16
+      },
+      "schema": "terrain_boundary_profile/1",
+      "source_bounds": {
+        "x": [
+          1616,
+          2479
+        ],
+        "y": [
+          -64,
+          319
+        ],
+        "z": [
+          -528,
+          527
+        ]
+      },
+      "unresolved": [
+        "solid collision shape",
+        "cave connectivity",
+        "fluid depth and navigability",
+        "port width",
+        "usable boundary segment",
+        "seam compatibility",
+        "Practical Reach"
+      ],
+      "volume_id": "tv_51a79e3b1bee05ea7559e799"
+    },
+    {
+      "boundary": {
+        "geometry_type": "box",
+        "inclusion_rule": "integer_block_coordinates_inclusive_v1",
+        "parameters": {}
+      },
+      "connection_interfaces": [],
+      "evidence_state": "RAW WORLD OBSERVATION",
+      "id": "profile_ff71d786ba4cb0c55f6b5aeb",
+      "provenance": {
+        "gallery_manifest_sha256": "0983f61f9d03b592f56f8c524f9533cf8452dc52ba6d17516eaf3e3c7681d28d",
+        "minecraft_version": "1.21.11",
+        "source_dimension": "minecraft:overworld",
+        "source_files_sha256": {
+          "entities/r.-4.-1.mca": "6d45604609becea4403fa55369068eaed1a7e88b71561deb52a5b0b1d44a851f",
+          "entities/r.-4.-2.mca": "041bdb330b2a08b370a18dd921630e777d334b6925e9bf49f269eaef0d5d9abb",
+          "entities/r.-4.0.mca": "41f261421311d0d7f99c08f3a46ed29e56254304237ba95b04c2bfcfe01a4843",
+          "entities/r.-4.1.mca": "9ad91d11d4236abf77d3556acc9a4e851e16df921931945d6c88f03dc19a80c6",
+          "entities/r.-5.-1.mca": "8fb0e697220fbe5e2cfb6d9c5f070ae8962ab4bc2bf2470380435b7f512db15d",
+          "entities/r.-5.-2.mca": "bfa3363aa970c287202da61c50869de69eb0c8d20ecf5a7d4b03d8f5a1a90e3b",
+          "entities/r.-5.0.mca": "b89ab64ef5afa9b5b4ef6cb45de7d3a93d4d794aa9c21651d355d1773e2e7bd1",
+          "entities/r.-5.1.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "level.dat": "8954dc568a48dc46b27052999b346384b91c58eb1623894a38b507f9a4269524",
+          "region/r.-4.-1.mca": "e29cda32deb4a0eec7e78b693f6ec557f34a92e8de5eca81ad8e31890ed485c8",
+          "region/r.-4.-2.mca": "6aea6c5487f34ec919600dd317ac2c5568cdde9b058c97fe074035914805c38b",
+          "region/r.-4.0.mca": "4d78a575ab7e19dcaf203c14e83c2ea86349807b354289cea9a0c6059651f816",
+          "region/r.-4.1.mca": "8839d2871ea23d6f795af6596d0ad9c57d661b68668ef222dd853daf3f3ceadf",
+          "region/r.-5.-1.mca": "f1c8bb4774182e80151ccf9ee35db2cb809904c1464f7c37d939f5fec181db9a",
+          "region/r.-5.-2.mca": "327c510f3b41e4f63cc4164d149e602c9033db435d490b7f9c3de5ee2e86ae72",
+          "region/r.-5.0.mca": "6566f002b8b7d90f607b3d98fabcd18cd9c3a3321887aff6798f95d5339c5f1f",
+          "region/r.-5.1.mca": "e9b3df938d3989bb3814f90e6b958a86142fbca700d05324fb8deb9ab4752d63"
+        },
+        "source_seed": 930012642,
+        "volume_manifest_sha256": "9880ceade70371a1bb21cd23374bf375da99c6700de25a5adba5fe10fae40225"
+      },
+      "samples": [
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            -64,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            -48,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            -32,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            -16,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            0,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            16,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            32,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            48,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:grass_block",
+            "Properties": {
+              "snowy": "false"
+            }
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            64,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            80,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            96,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            112,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            128,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            144,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            160,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            176,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            192,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            208,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            224,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            240,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            256,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            272,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            288,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            304,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "north",
+          "source_position": [
+            -2049,
+            319,
+            -528
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            -64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            -48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            -32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            -16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:gravel"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            0,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            80,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            96,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            112,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            128,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            144,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            160,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            176,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            192,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            208,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            224,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            240,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            256,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            272,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            288,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            304,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "west",
+          "source_position": [
+            -2480,
+            319,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            -64,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            -48,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            -32,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            -16,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:gravel"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            0,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            16,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            32,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            48,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:dirt"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            64,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            80,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            96,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            112,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            128,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            144,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            160,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            176,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            192,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            208,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            224,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            240,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            256,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            272,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            288,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            304,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "south",
+          "source_position": [
+            -2049,
+            319,
+            527
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:bedrock"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            -64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            -48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            -32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            -16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:deepslate",
+            "Properties": {
+              "axis": "y"
+            }
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            0,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            16,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:granite"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            32,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            48,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:stone"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            64,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            80,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            96,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            112,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            128,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            144,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            160,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            176,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            192,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            208,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            224,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            240,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            256,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            272,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            288,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            304,
+            -1
+          ]
+        },
+        {
+          "block_state": {
+            "Name": "minecraft:air"
+          },
+          "edge": "east",
+          "source_position": [
+            -1617,
+            319,
+            -1
+          ]
+        }
+      ],
+      "sampling": {
+        "includes_top_and_bottom": true,
+        "kind": "four cardinal vertical transects through integer X/Z midpoint",
+        "status": "ANALYTICAL FIXTURE; sparse sampling, not full boundary coverage",
+        "vertical_step_blocks": 16
+      },
+      "schema": "terrain_boundary_profile/1",
+      "source_bounds": {
+        "x": [
+          -2480,
+          -1617
+        ],
+        "y": [
+          -64,
+          319
+        ],
+        "z": [
+          -528,
+          527
+        ]
+      },
+      "unresolved": [
+        "solid collision shape",
+        "cave connectivity",
+        "fluid depth and navigability",
+        "port width",
+        "usable boundary segment",
+        "seam compatibility",
+        "Practical Reach"
+      ],
+      "volume_id": "tv_ef56852eda10acc88342e5ee"
+    }
+  ],
+  "schema": "terrain_boundary_profiles/1",
+  "selection_note": "existing proof volumes are technical fixtures, not chosen composition partners",
+  "source_preservation": "all pinned source hashes checked before and after each profile"
+}
