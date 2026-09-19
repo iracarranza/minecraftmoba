@@ -144,18 +144,28 @@ def _prepare(world, root, eula, port, player):
     (root/'ops.json').write_text(json.dumps([{'uuid': offline_uuid(player), 'name': player,
                                               'level': 4, 'bypassesPlayerLimit': True}]))
 
+FORCELOAD_MAX_CHUNKS = 256
+
+def _chunk_count(area):
+    return ((area['x'][1]//16 - area['x'][0]//16) + 1) * ((area['z'][1]//16 - area['z'][0]//16) + 1)
+
 def forceload_area(mask, target, radius):
-    """Vanilla refuses more than 256 chunks per forceload, so large volumes get a
-    bounded window around the inspection target and the report says which."""
+    """Vanilla refuses more than 256 chunks per forceload, so a large volume gets
+    a window that actually fits. The radius is shrunk until it does; asking for
+    more silently loads nothing at all."""
     b = mask.bounds
     area = {'x': list(b['x']), 'z': list(b['z'])}
-    chunks = ((b['x'][1]//16 - b['x'][0]//16) + 1) * ((b['z'][1]//16 - b['z'][0]//16) + 1)
-    if chunks <= 256:
-        return area, chunks, 'whole volume'
-    area = {'x': [max(b['x'][0], target[0] - radius), min(b['x'][1], target[0] + radius)],
-            'z': [max(b['z'][0], target[2] - radius), min(b['z'][1], target[2] + radius)]}
-    n = ((area['x'][1]//16 - area['x'][0]//16) + 1) * ((area['z'][1]//16 - area['z'][0]//16) + 1)
-    return area, n, f'bounded window of +/-{radius} blocks around the inspection target'
+    if _chunk_count(area) <= FORCELOAD_MAX_CHUNKS:
+        return area, _chunk_count(area), 'whole volume'
+    while radius > 8:
+        area = {'x': [max(b['x'][0], target[0] - radius), min(b['x'][1], target[0] + radius)],
+                'z': [max(b['z'][0], target[2] - radius), min(b['z'][1], target[2] + radius)]}
+        if _chunk_count(area) <= FORCELOAD_MAX_CHUNKS: break
+        radius //= 2
+    n = _chunk_count(area)
+    if n > FORCELOAD_MAX_CHUNKS: raise ValueError(f'cannot fit a forceload window: {n} chunks')
+    return area, n, (f'bounded window of +/-{radius} blocks around the inspection target; '
+                     f'the rest of the volume ticks only near a player')
 
 def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_seconds, player='HarvestSim', keep_world=None, forceload_radius=384):
     if hashlib.sha1(jar.read_bytes()).hexdigest() != SERVER_SHA1: raise ValueError('wrong server jar')
@@ -202,20 +212,25 @@ def probe(world, jar, java, eula, node_modules, report, port, volume_id, soak_se
     def clean(r):
         c = r['counts']
         return c['cells_changed'] == 0 and c['chunks_generated_nonempty'] == 0 and c['chunks_lost'] == 0
+    combined = logs.get('frozen', '') + logs.get('running', '')
+    forceload_applied = 'Too many chunks in the specified area' not in combined
     frozen_clean = clean(results['frozen'])
     no_breach = results['running']['counts']['envelope_breached'] == 0
     result = {'schema': 'terrain_simulation_probe/1', 'evidence_state': 'DERIVED MEASUREMENT',
               'volume_id': volume_id, 'soak_seconds': soak_seconds, 'server_sha1': SERVER_SHA1,
-              'forceload': {'area': area, 'chunks': forced_chunks, 'coverage': forced_note},
+              'forceload': {'area': area, 'chunks': forced_chunks, 'coverage': forced_note,
+                            'applied': forceload_applied},
               'frozen': results['frozen'], 'running': results['running'],
               'containment': containment,
               'expectations': {'frozen changes nothing': frozen_clean,
                                'envelope intact after simulation': no_breach,
-                               'player stayed inside source bounds': bool(containment and containment.get('pass'))},
+                               'player stayed inside source bounds': bool(containment and containment.get('pass')),
+                               'forceload actually applied': forceload_applied},
               'not_covered': ['human client walkthrough', 'rendering', 'long-term fluid equilibrium',
                               'operator, spectator or teleport exploits', 'volumes other than the one probed',
                               'chunks outside the forceloaded window, which only tick near a player'],
-              'pass': frozen_clean and no_breach and bool(containment and containment.get('pass'))}
+              'pass': frozen_clean and no_breach and forceload_applied
+                      and bool(containment and containment.get('pass'))}
     report.parent.mkdir(parents=True, exist_ok=True)
     report.with_suffix('.log').write_text('\n===== frozen =====\n' + logs.get('frozen', '')
         + '\n===== running =====\n' + logs.get('running', '') + '\n===== node =====\n' + logs.get('node', ''))
