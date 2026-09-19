@@ -1,0 +1,484 @@
+{
+  "evidence_state": "DERIVED MEASUREMENT",
+  "expectations": [
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_0",
+      "observed": true,
+      "pos": [
+        2,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]"
+    },
+    {
+      "from": [
+        2,
+        2,
+        2
+      ],
+      "from_state": "minecraft:oak_stairs[facing=north,half=bottom,shape=straight,waterlogged=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_1",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_2",
+      "observed": true,
+      "pos": [
+        5,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_stairs[facing=east,half=top,shape=inner_left,waterlogged=false]"
+    },
+    {
+      "from": [
+        5,
+        2,
+        2
+      ],
+      "from_state": "minecraft:oak_stairs[facing=east,half=top,shape=inner_left,waterlogged=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_3",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        5
+      ],
+      "state": "minecraft:oak_stairs[facing=south,half=top,shape=inner_left,waterlogged=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_4",
+      "observed": true,
+      "pos": [
+        8,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_log[axis=x]"
+    },
+    {
+      "from": [
+        8,
+        2,
+        2
+      ],
+      "from_state": "minecraft:oak_log[axis=x]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_5",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        8
+      ],
+      "state": "minecraft:oak_log[axis=z]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_6",
+      "observed": true,
+      "pos": [
+        11,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_log[axis=z]"
+    },
+    {
+      "from": [
+        11,
+        2,
+        2
+      ],
+      "from_state": "minecraft:oak_log[axis=z]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_7",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        11
+      ],
+      "state": "minecraft:oak_log[axis=x]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_8",
+      "observed": true,
+      "pos": [
+        14,
+        2,
+        2
+      ],
+      "state": "minecraft:oak_log[axis=y]"
+    },
+    {
+      "from": [
+        14,
+        2,
+        2
+      ],
+      "from_state": "minecraft:oak_log[axis=y]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_9",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        14
+      ],
+      "state": "minecraft:oak_log[axis=y]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_10",
+      "observed": true,
+      "pos": [
+        17,
+        2,
+        2
+      ],
+      "state": "minecraft:rail[shape=north_south]"
+    },
+    {
+      "from": [
+        17,
+        2,
+        2
+      ],
+      "from_state": "minecraft:rail[shape=north_south]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_11",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        17
+      ],
+      "state": "minecraft:rail[shape=east_west]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_12",
+      "observed": true,
+      "pos": [
+        20,
+        2,
+        2
+      ],
+      "state": "minecraft:rail[shape=ascending_north]"
+    },
+    {
+      "from": [
+        20,
+        2,
+        2
+      ],
+      "from_state": "minecraft:rail[shape=ascending_north]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_13",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        20
+      ],
+      "state": "minecraft:rail[shape=ascending_east]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_14",
+      "observed": true,
+      "pos": [
+        23,
+        2,
+        2
+      ],
+      "state": "minecraft:rail[shape=north_east]"
+    },
+    {
+      "from": [
+        23,
+        2,
+        2
+      ],
+      "from_state": "minecraft:rail[shape=north_east]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_15",
+      "observed": true,
+      "pos": [
+        998,
+        2,
+        23
+      ],
+      "state": "minecraft:rail[shape=south_east]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_16",
+      "observed": true,
+      "pos": [
+        2,
+        2,
+        5
+      ],
+      "state": "minecraft:furnace[facing=west,lit=false]"
+    },
+    {
+      "from": [
+        2,
+        2,
+        5
+      ],
+      "from_state": "minecraft:furnace[facing=west,lit=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_17",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        2
+      ],
+      "state": "minecraft:furnace[facing=north,lit=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_18",
+      "observed": true,
+      "pos": [
+        5,
+        2,
+        5
+      ],
+      "state": "minecraft:observer[facing=up,powered=false]"
+    },
+    {
+      "from": [
+        5,
+        2,
+        5
+      ],
+      "from_state": "minecraft:observer[facing=up,powered=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_19",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        5
+      ],
+      "state": "minecraft:observer[facing=up,powered=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_20",
+      "observed": true,
+      "pos": [
+        8,
+        2,
+        5
+      ],
+      "state": "minecraft:observer[facing=south,powered=false]"
+    },
+    {
+      "from": [
+        8,
+        2,
+        5
+      ],
+      "from_state": "minecraft:observer[facing=south,powered=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_21",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        8
+      ],
+      "state": "minecraft:observer[facing=west,powered=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_22",
+      "observed": true,
+      "pos": [
+        11,
+        2,
+        5
+      ],
+      "state": "minecraft:crafter[crafting=false,orientation=down_east,triggered=false]"
+    },
+    {
+      "from": [
+        11,
+        2,
+        5
+      ],
+      "from_state": "minecraft:crafter[crafting=false,orientation=down_east,triggered=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_23",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        11
+      ],
+      "state": "minecraft:crafter[crafting=false,orientation=down_south,triggered=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_24",
+      "observed": true,
+      "pos": [
+        14,
+        2,
+        5
+      ],
+      "state": "minecraft:chest[facing=south,type=single,waterlogged=false]"
+    },
+    {
+      "from": [
+        14,
+        2,
+        5
+      ],
+      "from_state": "minecraft:chest[facing=south,type=single,waterlogged=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_25",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        14
+      ],
+      "state": "minecraft:chest[facing=west,type=single,waterlogged=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_26",
+      "observed": true,
+      "pos": [
+        17,
+        2,
+        5
+      ],
+      "state": "minecraft:ladder[facing=north,waterlogged=false]"
+    },
+    {
+      "from": [
+        17,
+        2,
+        5
+      ],
+      "from_state": "minecraft:ladder[facing=north,waterlogged=false]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_27",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        17
+      ],
+      "state": "minecraft:ladder[facing=east,waterlogged=false]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_28",
+      "observed": true,
+      "pos": [
+        20,
+        2,
+        5
+      ],
+      "state": "minecraft:end_rod[facing=east]"
+    },
+    {
+      "from": [
+        20,
+        2,
+        5
+      ],
+      "from_state": "minecraft:end_rod[facing=east]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_29",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        20
+      ],
+      "state": "minecraft:end_rod[facing=south]"
+    },
+    {
+      "kind": "identity",
+      "marker": "RELOC_OK_30",
+      "observed": true,
+      "pos": [
+        23,
+        2,
+        5
+      ],
+      "state": "minecraft:hopper[enabled=true,facing=north]"
+    },
+    {
+      "from": [
+        23,
+        2,
+        5
+      ],
+      "from_state": "minecraft:hopper[enabled=true,facing=north]",
+      "kind": "rotated",
+      "marker": "RELOC_OK_31",
+      "observed": true,
+      "pos": [
+        995,
+        2,
+        23
+      ],
+      "state": "minecraft:hopper[enabled=true,facing=east]"
+    }
+  ],
+  "identity_confirmed": 16,
+  "method": "the server is asked whether each rotated cell holds the predicted state, so agreement is with vanilla rather than with our own rotation tables",
+  "moved": {
+    "cells": 1040,
+    "chunks": 6,
+    "quarter": 1,
+    "translation": [
+      1000,
+      0,
+      0
+    ]
+  },
+  "not_covered": [
+    "block entities, scheduled ticks and entities under rotation",
+    "blocks outside the specimen list",
+    "rendering and human inspection",
+    "corpus relocation, which remains disabled in the exporter"
+  ],
+  "pass": true,
+  "quarter_turns": 1,
+  "rotated_confirmed": 16,
+  "rotated_total": 16,
+  "schema": "terrain_relocation_probe/1",
+  "server_errors": [],
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "specimens": 16,
+  "translation": [
+    1000,
+    0,
+    0
+  ]
+}

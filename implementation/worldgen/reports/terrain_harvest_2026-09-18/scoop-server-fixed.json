@@ -1,0 +1,21 @@
+{
+  "commands": [
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 run forceload add 1940 364",
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 if block 1940 -65 364 minecraft:bedrock run say HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "execute in harvest:tv_49b22bb49e0684c3a1295570 if block 1940 320 364 minecraft:barrier run say HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "errors": [],
+  "exit_code": 0,
+  "expected_markers": [
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "observed_markers": [
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_floor",
+    "HARVEST_OK_tv_49b22bb49e0684c3a1295570_roof"
+  ],
+  "pass": true,
+  "ready": true,
+  "scope": "disposable server load, datapack parse, actual floor/roof block probes; no player navigation or client walkthrough",
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed"
+}

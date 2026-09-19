@@ -1,0 +1,123 @@
+{
+  "schema": "terrain_library/1",
+  "volumes": [
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_27088d7b0415f1b845590c5a",
+      "manifest": "tv_27088d7b0415f1b845590c5a.json",
+      "seed": 930007222,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_2bc400f9a184d356b73a00c2",
+      "manifest": "tv_2bc400f9a184d356b73a00c2.json",
+      "seed": 930016664,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [
+          "western_highland",
+          "section_proposal",
+          "inspection_fixture"
+        ],
+        "kind": "local_section"
+      },
+      "id": "tv_49b22bb49e0684c3a1295570",
+      "manifest": "tv_49b22bb49e0684c3a1295570.json",
+      "seed": 930010639,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_51a79e3b1bee05ea7559e799",
+      "manifest": "tv_51a79e3b1bee05ea7559e799.json",
+      "seed": 930010639,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_5bc8df07faa6552a961e297f",
+      "manifest": "tv_5bc8df07faa6552a961e297f.json",
+      "seed": 930019528,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_649180d9dc5973be3947abe2",
+      "manifest": "tv_649180d9dc5973be3947abe2.json",
+      "seed": 930015734,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_8bdc824c298a4f8b12b9b882",
+      "manifest": "tv_8bdc824c298a4f8b12b9b882.json",
+      "seed": 930005557,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_c435db893ee2f7da941f756a",
+      "manifest": "tv_c435db893ee2f7da941f756a.json",
+      "seed": 930006815,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [
+          "western_highland",
+          "section_proposal",
+          "inspection_fixture"
+        ],
+        "kind": "large_section"
+      },
+      "id": "tv_e480a5d29b59fe9e319ad514",
+      "manifest": "tv_e480a5d29b59fe9e319ad514.json",
+      "seed": 930010639,
+      "status": "reference_only"
+    },
+    {
+      "classification": {
+        "failed_or_unresolved_criteria": [],
+        "geographic_tags": [],
+        "kind": "whole_map"
+      },
+      "id": "tv_ef56852eda10acc88342e5ee",
+      "manifest": "tv_ef56852eda10acc88342e5ee.json",
+      "seed": 930012642,
+      "status": "reference_only"
+    }
+  ]
+}

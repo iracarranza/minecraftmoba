@@ -1,0 +1,258 @@
+{
+  "containment": "26-neighbor exterior bedrock envelope, barrier roof; commands/spectator/teleport exploits excluded",
+  "debug": "/function harvest:overview/<id> gives spectator; visit/<id> restores adventure",
+  "inspection_status": "generated and decoded; no Minecraft client inspection claimed",
+  "minecraft_version": "1.21.11",
+  "normal_mode": "adventure; run /tick freeze before visiting for static inspection; use /function harvest:hub then next/previous/index",
+  "schema": "terrain_gallery/1",
+  "targets": {
+    "tv_49b22bb49e0684c3a1295570": [
+      1936,
+      114,
+      352
+    ],
+    "tv_51a79e3b1bee05ea7559e799": [
+      2032,
+      77,
+      -16
+    ],
+    "tv_ef56852eda10acc88342e5ee": [
+      -2056,
+      65,
+      -16
+    ]
+  },
+  "volumes": [
+    {
+      "block_entities": 19,
+      "chunks": 25,
+      "empty_entity_region_files": [],
+      "entity_roots": 0,
+      "excluded_entity_roots": 5,
+      "limitations": [
+        "structure starts/references and POI registries omitted; structure-specific spawning and villager POI behavior not preserved",
+        "entities with any passenger outside mask excluded; external UUID/leash/brain references are not repaired",
+        "fluids and neighbor-dependent blocks may update after load; frozen ticks recommended for snapshot inspection",
+        "partial structures and caves are clipped by mask; no seam repair",
+        "physical rotation/translation unsupported"
+      ],
+      "preserved": "in-mask blocks including properties, air/caves, ores, fluids, vegetation, structure blocks, biomes, block entities and contained entity trees",
+      "scheduled_ticks": {
+        "block_ticks": 54,
+        "fluid_ticks": 4
+      },
+      "source_level_sha256": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374",
+      "source_region_sha256": {
+        "entities/r.3.0.mca": "a5a55a7dfc051b82b8cbddb2b099fa5721734e6b5f39be0ee67d729488083cae",
+        "region/r.3.0.mca": "ec8c90f7b48dc2e0bfef041e9b99c2bc647547e507bfa570f06757e707c271f4"
+      },
+      "source_snapshot_note": "existing staged inspection snapshot; pristine worldgen equivalence unproven",
+      "status": "materialized_not_client_inspected",
+      "volume_id": "tv_49b22bb49e0684c3a1295570",
+      "worldgen_settings": {
+        "bonus_chest": 0,
+        "dimensions": {
+          "minecraft:overworld": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:overworld",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:overworld",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:overworld"
+          },
+          "minecraft:the_end": {
+            "generator": {
+              "biome_source": {
+                "type": "minecraft:the_end"
+              },
+              "settings": "minecraft:end",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_end"
+          },
+          "minecraft:the_nether": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:nether",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:nether",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_nether"
+          }
+        },
+        "generate_features": 1,
+        "seed": 930010639
+      }
+    },
+    {
+      "block_entities": 1966,
+      "chunks": 3808,
+      "empty_entity_region_files": [
+        "entities/r.3.-2.mca",
+        "entities/r.4.-2.mca"
+      ],
+      "entity_roots": 579,
+      "excluded_entity_roots": 14,
+      "limitations": [
+        "structure starts/references and POI registries omitted; structure-specific spawning and villager POI behavior not preserved",
+        "entities with any passenger outside mask excluded; external UUID/leash/brain references are not repaired",
+        "fluids and neighbor-dependent blocks may update after load; frozen ticks recommended for snapshot inspection",
+        "partial structures and caves are clipped by mask; no seam repair",
+        "physical rotation/translation unsupported"
+      ],
+      "preserved": "in-mask blocks including properties, air/caves, ores, fluids, vegetation, structure blocks, biomes, block entities and contained entity trees",
+      "scheduled_ticks": {
+        "block_ticks": 194217,
+        "fluid_ticks": 7118
+      },
+      "source_level_sha256": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374",
+      "source_region_sha256": {
+        "entities/r.3.-1.mca": "ef142fcddd2e31a09d4839eb6146e561d6ba1b11b28cc1f005a352aed1dfea3f",
+        "entities/r.3.-2.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entities/r.3.0.mca": "a5a55a7dfc051b82b8cbddb2b099fa5721734e6b5f39be0ee67d729488083cae",
+        "entities/r.3.1.mca": "a52fdee5b61ed8ae9cb59379965c3df34033cb3ef9bc0f60e6d6415066ec650d",
+        "entities/r.4.-1.mca": "6127a23556536ea0ebf07d92d4347e2184942b11c532c118b83b4a334d50d516",
+        "entities/r.4.-2.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "entities/r.4.0.mca": "0a3b2dc05f8c3d770b416f28c1c593622464f4772bf995c2179e90c264b5712b",
+        "entities/r.4.1.mca": "fdf54d724f1ad99fb1f23dd150c5df49742f79b95e53e14fb24737866ce41962",
+        "region/r.3.-1.mca": "8c5b4c108f8050d2ad635aca3ad488a0b2a8184b80f0b1eb173b326027991402",
+        "region/r.3.-2.mca": "9282c4bc6ded45b5a4d8e262e26d6d6e346c1e4225f6e1d4293d8439eac8600e",
+        "region/r.3.0.mca": "ec8c90f7b48dc2e0bfef041e9b99c2bc647547e507bfa570f06757e707c271f4",
+        "region/r.3.1.mca": "e8dbc7149c461089b5c7b533e71ffc25f2cbddce6e1128666af190c12e536287",
+        "region/r.4.-1.mca": "5adf028188d2d697337c1d0734679cbb01c7af23b2c3777a1385dcc9aca09bb1",
+        "region/r.4.-2.mca": "9514e9d3fb0af8ea3a1ebfa38fe342336219dabc9dce4f7cd3ed89cc648a3448",
+        "region/r.4.0.mca": "5223da1446a188c8659fdee483cc648fffc06905f6e61a3874d6b2e48cf9d571",
+        "region/r.4.1.mca": "757b68596506d3ccaccbe2cb10b4152988717ec8f133c127a37386aedb802330"
+      },
+      "source_snapshot_note": "existing staged inspection snapshot; pristine worldgen equivalence unproven",
+      "status": "materialized_not_client_inspected",
+      "volume_id": "tv_51a79e3b1bee05ea7559e799",
+      "worldgen_settings": {
+        "bonus_chest": 0,
+        "dimensions": {
+          "minecraft:overworld": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:overworld",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:overworld",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:overworld"
+          },
+          "minecraft:the_end": {
+            "generator": {
+              "biome_source": {
+                "type": "minecraft:the_end"
+              },
+              "settings": "minecraft:end",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_end"
+          },
+          "minecraft:the_nether": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:nether",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:nether",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_nether"
+          }
+        },
+        "generate_features": 1,
+        "seed": 930010639
+      }
+    },
+    {
+      "block_entities": 1164,
+      "chunks": 3808,
+      "empty_entity_region_files": [
+        "entities/r.-5.1.mca"
+      ],
+      "entity_roots": 809,
+      "excluded_entity_roots": 56,
+      "limitations": [
+        "structure starts/references and POI registries omitted; structure-specific spawning and villager POI behavior not preserved",
+        "entities with any passenger outside mask excluded; external UUID/leash/brain references are not repaired",
+        "fluids and neighbor-dependent blocks may update after load; frozen ticks recommended for snapshot inspection",
+        "partial structures and caves are clipped by mask; no seam repair",
+        "physical rotation/translation unsupported"
+      ],
+      "preserved": "in-mask blocks including properties, air/caves, ores, fluids, vegetation, structure blocks, biomes, block entities and contained entity trees",
+      "scheduled_ticks": {
+        "block_ticks": 224529,
+        "fluid_ticks": 7182
+      },
+      "source_level_sha256": "8954dc568a48dc46b27052999b346384b91c58eb1623894a38b507f9a4269524",
+      "source_region_sha256": {
+        "entities/r.-4.-1.mca": "6d45604609becea4403fa55369068eaed1a7e88b71561deb52a5b0b1d44a851f",
+        "entities/r.-4.-2.mca": "041bdb330b2a08b370a18dd921630e777d334b6925e9bf49f269eaef0d5d9abb",
+        "entities/r.-4.0.mca": "41f261421311d0d7f99c08f3a46ed29e56254304237ba95b04c2bfcfe01a4843",
+        "entities/r.-4.1.mca": "9ad91d11d4236abf77d3556acc9a4e851e16df921931945d6c88f03dc19a80c6",
+        "entities/r.-5.-1.mca": "8fb0e697220fbe5e2cfb6d9c5f070ae8962ab4bc2bf2470380435b7f512db15d",
+        "entities/r.-5.-2.mca": "bfa3363aa970c287202da61c50869de69eb0c8d20ecf5a7d4b03d8f5a1a90e3b",
+        "entities/r.-5.0.mca": "b89ab64ef5afa9b5b4ef6cb45de7d3a93d4d794aa9c21651d355d1773e2e7bd1",
+        "entities/r.-5.1.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "region/r.-4.-1.mca": "e29cda32deb4a0eec7e78b693f6ec557f34a92e8de5eca81ad8e31890ed485c8",
+        "region/r.-4.-2.mca": "6aea6c5487f34ec919600dd317ac2c5568cdde9b058c97fe074035914805c38b",
+        "region/r.-4.0.mca": "4d78a575ab7e19dcaf203c14e83c2ea86349807b354289cea9a0c6059651f816",
+        "region/r.-4.1.mca": "8839d2871ea23d6f795af6596d0ad9c57d661b68668ef222dd853daf3f3ceadf",
+        "region/r.-5.-1.mca": "f1c8bb4774182e80151ccf9ee35db2cb809904c1464f7c37d939f5fec181db9a",
+        "region/r.-5.-2.mca": "327c510f3b41e4f63cc4164d149e602c9033db435d490b7f9c3de5ee2e86ae72",
+        "region/r.-5.0.mca": "6566f002b8b7d90f607b3d98fabcd18cd9c3a3321887aff6798f95d5339c5f1f",
+        "region/r.-5.1.mca": "e9b3df938d3989bb3814f90e6b958a86142fbca700d05324fb8deb9ab4752d63"
+      },
+      "source_snapshot_note": "existing staged inspection snapshot; pristine worldgen equivalence unproven",
+      "status": "materialized_not_client_inspected",
+      "volume_id": "tv_ef56852eda10acc88342e5ee",
+      "worldgen_settings": {
+        "bonus_chest": 0,
+        "dimensions": {
+          "minecraft:overworld": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:overworld",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:overworld",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:overworld"
+          },
+          "minecraft:the_end": {
+            "generator": {
+              "biome_source": {
+                "type": "minecraft:the_end"
+              },
+              "settings": "minecraft:end",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_end"
+          },
+          "minecraft:the_nether": {
+            "generator": {
+              "biome_source": {
+                "preset": "minecraft:nether",
+                "type": "minecraft:multi_noise"
+              },
+              "settings": "minecraft:nether",
+              "type": "minecraft:noise"
+            },
+            "type": "minecraft:the_nether"
+          }
+        },
+        "generate_features": 1,
+        "seed": 930012642
+      }
+    }
+  ]
+}

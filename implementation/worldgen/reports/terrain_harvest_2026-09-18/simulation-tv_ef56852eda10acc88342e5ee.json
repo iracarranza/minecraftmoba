@@ -1,0 +1,1012 @@
+{
+  "containment": {
+    "checks": [
+      {
+        "died": false,
+        "ended": [
+          -2055.5,
+          65,
+          -15.7
+        ],
+        "escaped_at": null,
+        "name": "walk south",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": 0
+      },
+      {
+        "died": false,
+        "ended": [
+          -2067.7,
+          55,
+          -15.5
+        ],
+        "escaped_at": null,
+        "name": "walk west",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": 90
+      },
+      {
+        "died": false,
+        "ended": [
+          -2055.5,
+          56.51412628119959,
+          -2.3
+        ],
+        "escaped_at": null,
+        "name": "walk north",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": 180
+      },
+      {
+        "died": false,
+        "ended": [
+          -2048.3,
+          61,
+          -15.50000000000259
+        ],
+        "escaped_at": null,
+        "name": "walk east",
+        "ok": true,
+        "outcome": "contained",
+        "yaw": -90
+      },
+      {
+        "died_on_impact": false,
+        "floor": -64,
+        "lowest": 177.46212902095309,
+        "name": "fall does not pass the floor",
+        "ok": true,
+        "outcome": "came to rest above the floor"
+      },
+      {
+        "block": "bedrock",
+        "broke": false,
+        "chat_since": 2,
+        "name": "adventure mode cannot mine the floor",
+        "ok": true
+      },
+      {
+        "died": false,
+        "escaped_at": null,
+        "mounted": true,
+        "moved_blocks": 0,
+        "name": "oak_boat cannot cross the envelope",
+        "ok": true,
+        "outcome": "vehicle barely moved; containment not exercised"
+      },
+      {
+        "died": false,
+        "escaped_at": null,
+        "mounted": true,
+        "moved_blocks": 0,
+        "name": "minecart cannot cross the envelope",
+        "ok": true,
+        "outcome": "vehicle barely moved; containment not exercised"
+      }
+    ],
+    "deaths": 1,
+    "not_covered": [
+      "operator commands",
+      "spectator flight",
+      "teleports",
+      "boats and other vehicles",
+      "every boundary cell; only the probed directions"
+    ],
+    "pass": true,
+    "schema": "terrain_containment/1",
+    "scope": "adventure-mode walking, falling and block-breaking attempts while ticks run"
+  },
+  "evidence_state": "DERIVED MEASUREMENT",
+  "expectations": {
+    "envelope intact after simulation": true,
+    "forceload actually applied": true,
+    "frozen changes nothing": true,
+    "player stayed inside source bounds": true
+  },
+  "forceload": {
+    "applied": true,
+    "area": {
+      "x": [
+        -2152,
+        -1960
+      ],
+      "z": [
+        -112,
+        80
+      ]
+    },
+    "chunks": 169,
+    "coverage": "bounded window of +/-96 blocks around the inspection target; the rest of the volume ticks only near a player"
+  },
+  "frozen": {
+    "counts": {
+      "cells_changed": 0,
+      "chunks_generated_empty": 0,
+      "chunks_generated_nonempty": 0,
+      "chunks_lost": 0,
+      "envelope_breached": 0,
+      "envelope_changed": 0,
+      "in_mask_changed": 0,
+      "outside_changed": 0,
+      "sections_compared": 99297,
+      "sections_differing": 2712,
+      "state_normalized": 73984
+    },
+    "label": "frozen soak",
+    "samples": []
+  },
+  "not_covered": [
+    "human client walkthrough",
+    "rendering",
+    "long-term fluid equilibrium",
+    "operator, spectator or teleport exploits",
+    "volumes other than the one probed",
+    "chunks outside the forceloaded window, which only tick near a player"
+  ],
+  "pass": true,
+  "running": {
+    "counts": {
+      "cells_changed": 3533,
+      "chunks_generated_empty": 0,
+      "chunks_generated_nonempty": 0,
+      "chunks_lost": 0,
+      "envelope_breached": 0,
+      "envelope_changed": 0,
+      "in_mask_changed": 3533,
+      "outside_changed": 0,
+      "sections_compared": 99297,
+      "sections_differing": 2743,
+      "state_normalized": 73984
+    },
+    "label": "resumed soak with player",
+    "samples": [
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2048,
+          -41,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          -41,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2046,
+          -41,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2045,
+          -41,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "6"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2044,
+          -41,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2048,
+          -41,
+          -123
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          -41,
+          -123
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "6"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2048,
+          -41,
+          -122
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          -41,
+          -122
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          -40,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:lava",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          -39,
+          -124
+        ]
+      },
+      {
+        "after": [
+          "minecraft:dirt",
+          []
+        ],
+        "before": [
+          "minecraft:grass_block",
+          [
+            [
+              "snowy",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2040,
+          66,
+          -97
+        ]
+      },
+      {
+        "after": [
+          "minecraft:dirt",
+          []
+        ],
+        "before": [
+          "minecraft:grass_block",
+          [
+            [
+              "snowy",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2047,
+          66,
+          -96
+        ]
+      },
+      {
+        "after": [
+          "minecraft:dirt",
+          []
+        ],
+        "before": [
+          "minecraft:grass_block",
+          [
+            [
+              "snowy",
+              "false"
+            ]
+          ]
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          66,
+          -96
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "6"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -57
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -56
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "5"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -56
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -55
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -55
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -55
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "4"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2036,
+          8,
+          -54
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -54
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -54
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -54
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2036,
+          8,
+          -53
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -53
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -53
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -53
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2036,
+          8,
+          -52
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -52
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -52
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -52
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2036,
+          8,
+          -51
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -51
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -51
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -51
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "8"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2036,
+          8,
+          -50
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "1"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2035,
+          8,
+          -50
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "2"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2034,
+          8,
+          -50
+        ]
+      },
+      {
+        "after": [
+          "minecraft:water",
+          [
+            [
+              "level",
+              "3"
+            ]
+          ]
+        ],
+        "before": [
+          "minecraft:air",
+          []
+        ],
+        "bucket": "in_mask_changed",
+        "pos": [
+          -2033,
+          8,
+          -50
+        ]
+      }
+    ]
+  },
+  "schema": "terrain_simulation_probe/1",
+  "server_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "soak_seconds": 60,
+  "volume_id": "tv_ef56852eda10acc88342e5ee"
+}
