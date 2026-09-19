@@ -240,6 +240,35 @@ source positions, leash anchors, villager brain memories, sleeping positions,
 hanging entity anchors, home and patrol targets, and beam targets. External UUID
 and dimension references are not repaired and are not made to look repaired.
 
+## Composition manifests
+
+`composition.py` validates a proposed composition and places no blocks. It
+checks volume references, quarter-turn transforms and translations, computes
+placed bounding boxes, applies an explicit overlap policy and records seams.
+
+Three rules it does not bend. Natural geography and authored systems stay
+separate layers. A measurement inherited from a source volume is marked
+UNRESOLVED the moment a transform changes the geometry it described, rather than
+being carried onto a placement it no longer describes; evidence already
+unresolved is never promoted. A seam is a record with an evidence state, never
+an interpolation, and a compatibility claim must cite supporting boundary
+profile ids.
+
+Any placement with a non-identity transform is forced to `PLANNED_NOT_BUILDABLE`,
+because physical relocation is still unimplemented. Declaring such a placement
+built is refused. Overlap is detected on bounding boxes only, and the record
+says so: mask-level intersection is not computed.
+
+```sh
+PYTHONPATH=implementation/worldgen python3 -m terrain_harvest.composition \
+  --composition my-composition.json \
+  --library implementation/worldgen/reports/terrain_harvest_2026-09-18/library \
+  --output composition-checked.json
+```
+
+Choosing a base map, an insertion pair, a seam policy or final acceptance is
+outside this tooling entirely.
+
 ## Remaining work
 
 Manifest validity, deterministic masks, copied world output, server loading and
