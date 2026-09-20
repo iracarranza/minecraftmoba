@@ -3,12 +3,20 @@
 features:
   # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
   # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
-  # so vanilla regeneration can never fire on the canonical curve. pointsBelowMax
-  # of 2 reproduces vanilla's own relationship (18 of 20) at any maximum.
+  # so vanilla regeneration can never fire on the canonical curve.
+  #
+  # Two empty drumsticks block regeneration. A drumstick is two food points, so
+  # regeneration stops once 4 or more points are missing: at a maximum of 20
+  # that blocks at 16, eight drumsticks or fewer, and permits from 17 up.
+  #
+  # Named for the BLOCKING condition on purpose. "Four below maximum" and
+  # "eight or fewer drumsticks" differ by one point depending on which side the
+  # comparison sits, and that is easy to encode backwards.
+  #
   # The 6-food sprint cutoff is vanilla and is deliberately NOT reimplemented.
   hungerRegen:
     enabled: true
-    pointsBelowMax: 2
+    blockedWhenPointsMissing: 4
     intervalTicks: 80
     healAmount: 1.0
     exhaustionPerHeal: 6.0

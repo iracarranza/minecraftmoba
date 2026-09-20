@@ -13,10 +13,20 @@ import org.bukkit.entity.Player;
  * player on the intended progression never healed naturally at all. The cap and
  * the vanilla threshold are both absolute, and they are incompatible.
  *
- * The rule is therefore relative: regeneration requires food within
- * `pointsBelowMax` of the player's own maximum. At vanilla's 20 that reproduces
- * the familiar 18 threshold; at a capped 9 it becomes 7, so the same "nearly
- * full keeps you healing" relationship holds at every stage of progression.
+ * The rule is therefore relative: **two empty drumsticks block regeneration**.
+ * A drumstick is two food points, so regeneration stops once four or more
+ * points are missing. At vanilla's 20 that blocks at 16, which is eight
+ * drumsticks or fewer, and permits it from 17 up. At a capped 9 it blocks at 5
+ * and permits from 6.
+ *
+ * The config is named for the blocking condition rather than the permitting
+ * one, because "four points below maximum" and "eight or fewer drumsticks"
+ * differ by one point depending on which side the comparison sits, and that
+ * ambiguity is easy to encode backwards.
+ *
+ * At a maximum of 9 the regeneration floor lands on 6, the same value as the
+ * vanilla sprint cutoff, so an early player who cannot sprint also cannot heal.
+ * That coincidence is a property of the curve, not something imposed here.
  *
  * The sprint cutoff is NOT implemented here. Vanilla already refuses to sprint
  * at 6 food or below, which is three drumsticks, and that threshold is absolute
@@ -41,13 +51,14 @@ public final class HungerRegen {
 
     public boolean enabled() { return plugin.getConfig().getBoolean("features.hungerRegen.enabled"); }
 
-    public int pointsBelowMax() {
-        return plugin.getConfig().getInt("features.hungerRegen.pointsBelowMax", 2);
+    /** Missing food points at which regeneration stops. Two drumsticks = 4. */
+    public int blockedWhenPointsMissing() {
+        return plugin.getConfig().getInt("features.hungerRegen.blockedWhenPointsMissing", 4);
     }
 
-    /** The food level at or above which this player regenerates. */
+    /** The lowest food level that still regenerates. */
     public int thresholdFor(Player p) {
-        return Math.max(1, plugin.effectiveHunger(p) - pointsBelowMax());
+        return Math.max(1, plugin.effectiveHunger(p) - blockedWhenPointsMissing() + 1);
     }
 
     public boolean eligible(Player p) {
@@ -78,7 +89,9 @@ public final class HungerRegen {
         int max = plugin.effectiveHunger(p);
         return "HUNGER_REGEN enabled=" + enabled()
                 + " food=" + p.getFoodLevel() + "/" + max
-                + " threshold=" + thresholdFor(p)
+                + " missing=" + (max - p.getFoodLevel())
+                + " blockedAtMissing=" + blockedWhenPointsMissing()
+                + " lowestRegenFood=" + thresholdFor(p)
                 + " vanillaWouldRegen=" + (p.getFoodLevel() >= VANILLA_REGEN_FOOD)
                 + " eligibleNow=" + eligible(p)
                 + " totalHeals=" + healed
