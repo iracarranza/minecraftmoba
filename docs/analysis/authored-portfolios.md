@@ -121,10 +121,42 @@ a Route report is accepted; an unrecorded one fails.
   not become a zero-hazard assumption.
 - **Nothing is frozen.**
 
-## One discrepancy to resolve
+## Provenance: three frontiers, none agreeing
 
-Re-running the optimizer against the export gives substantially more balanced
-configurations than the committed run doc records — 192–395 versus 74–158, at
-the same seed and sample count. Same script, so the difference is the input.
-Worth confirming which export the documented figures came from before either
-set is quoted.
+Three artefacts now describe a scenario frontier for this seed, and no two match
+on any of the eight profiles. Recorded as data in
+`reports/expedition_2026-09-20/frontier-provenance-audit.json`.
+
+| Profile | Handoff `reference_run` | Committed frontier | Committed optimizer |
+|---|---:|---:|---:|
+| Balanced Baseline | 114 / 0.0474 | 300 / 0.0376 | 282 / 0.0403 |
+| Exploration-Centric | 116 / 0.0672 | 259 / 0.0231 | 272 / 0.0265 |
+| Consolidative | 115 / 0.0935 | 266 / 0.0231 | 307 / 0.0685 |
+| Resource-Light | 74 / 0.0616 | 220 / 0.0334 | 192 / 0.0182 |
+
+The committed frontier settles which is authoritative, in its own
+`generator_note`: *"Equivalent regional search generated in-repository handoff
+pass; optimizer Python remains authoritative implementation."* It was produced
+by a reimplementation and defers to the committed optimizer.
+
+**These worlds were authored from a rerun of the committed optimizer**, which is
+what the handoff's own `reproducible_run.commands` instruct. That run is
+byte-identical across repeats, and its candidate space matches the handoff's
+expected counts exactly (74/110/35/35/32/31) — so the divergence is confined to
+scoring, not to candidate construction.
+
+Every portfolio and Route report now records `frontier_sha256` and
+`finalist_sha256`. With three disagreeing frontiers in circulation, a world has
+to name its own source rather than have it inferred.
+
+### Two defects in the pushed artefacts
+
+- `candidate-catalog.json.gz` **fails CRC**. It decompresses 133,311 bytes, then
+  dies mid-object, and the recovered JSON does not parse. The git blob matches
+  the file on disk, so it was committed broken. A rerun of the optimizer
+  regenerates it correctly.
+- `reference_run`, the run doc and `optimizer-report.md` all quote the same
+  figures, which no committed code produces. `CLAUDE.md` step 3 asks a reader to
+  confirm against them.
+
+Neither is mine to fix: replacing chat's artefacts is chat's call.

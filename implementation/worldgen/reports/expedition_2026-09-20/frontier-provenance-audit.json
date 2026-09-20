@@ -1,0 +1,161 @@
+{
+ "agreement": {
+  "candidate_space": "EXACT MATCH to the handoff's expected counts (74/110/35/35/32/31), so the divergence is confined to scoring, not candidate construction",
+  "frontier": "NO MATCH on any of the eight profiles, between any pair"
+ },
+ "answer": "They do not agree, on any profile. The committed optimizer is authoritative by the committed frontier's own generator_note, and the authored worlds were produced from a rerun of it.",
+ "authored_worlds": {
+  "frontier_sha256": "444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5",
+  "note": "every portfolio and route report now records frontier_sha256 and finalist_sha256, so a world names its own source"
+ },
+ "committed_candidate_catalog": {
+  "bytes_recovered_before_failure": 133311,
+  "error": "BadGzipFile: CRC check failed 0xdd7b1003 != 0xf9ff192d",
+  "parses": false,
+  "path": "docs/analysis/map-authoring-optimizer/candidate-catalog.json.gz",
+  "state": "CORRUPT"
+ },
+ "date": "2026-09-20",
+ "profiles": {
+  "balanced_baseline": {
+   "committed_frontier": {
+    "balanced_found": 300,
+    "preferred_balance_asymmetry": 0.037602726326503126
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 282,
+    "preferred_balance_asymmetry": 0.040315307239562545
+   },
+   "handoff_reference_run": {
+    "balanced_found": 114,
+    "preferred_balance_asymmetry": 0.047401
+   }
+  },
+  "consolidative": {
+   "committed_frontier": {
+    "balanced_found": 266,
+    "preferred_balance_asymmetry": 0.02310239844655656
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 307,
+    "preferred_balance_asymmetry": 0.06846827114657382
+   },
+   "handoff_reference_run": {
+    "balanced_found": 115,
+    "preferred_balance_asymmetry": 0.093518
+   }
+  },
+  "contested_core": {
+   "committed_frontier": {
+    "balanced_found": 293,
+    "preferred_balance_asymmetry": 0.02455839099958428
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 282,
+    "preferred_balance_asymmetry": 0.03670369173175138
+   },
+   "handoff_reference_run": {
+    "balanced_found": 146,
+    "preferred_balance_asymmetry": 0.062782
+   }
+  },
+  "exploration_centric": {
+   "committed_frontier": {
+    "balanced_found": 259,
+    "preferred_balance_asymmetry": 0.02312717243037426
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 272,
+    "preferred_balance_asymmetry": 0.026474249641355013
+   },
+   "handoff_reference_run": {
+    "balanced_found": 116,
+    "preferred_balance_asymmetry": 0.067165
+   }
+  },
+  "peripheral_specialization": {
+   "committed_frontier": {
+    "balanced_found": 283,
+    "preferred_balance_asymmetry": 0.030724598585266237
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 279,
+    "preferred_balance_asymmetry": 0.03407396265090345
+   },
+   "handoff_reference_run": {
+    "balanced_found": 99,
+    "preferred_balance_asymmetry": 0.044789
+   }
+  },
+  "resource_dense": {
+   "committed_frontier": {
+    "balanced_found": 385,
+    "preferred_balance_asymmetry": 0.029205045079563112
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 395,
+    "preferred_balance_asymmetry": 0.021097745972564627
+   },
+   "handoff_reference_run": {
+    "balanced_found": 158,
+    "preferred_balance_asymmetry": 0.060442
+   }
+  },
+  "resource_light": {
+   "committed_frontier": {
+    "balanced_found": 220,
+    "preferred_balance_asymmetry": 0.033359459094440484
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 192,
+    "preferred_balance_asymmetry": 0.018242282869080386
+   },
+   "handoff_reference_run": {
+    "balanced_found": 74,
+    "preferred_balance_asymmetry": 0.061608
+   }
+  },
+  "route_centric": {
+   "committed_frontier": {
+    "balanced_found": 280,
+    "preferred_balance_asymmetry": 0.030679562220349225
+   },
+   "committed_optimizer_rerun": {
+    "balanced_found": 276,
+    "preferred_balance_asymmetry": 0.015815270755378266
+   },
+   "handoff_reference_run": {
+    "balanced_found": 122,
+    "preferred_balance_asymmetry": 0.060835
+   }
+  }
+ },
+ "question": "Three artefacts describe a scenario frontier for seed 930012642. Which one did the authored worlds come from, and do they agree?",
+ "recommended": [
+  "regenerate reference_run and optimizer-report.md from the committed optimizer, or mark them as produced by a superseded implementation",
+  "re-compress candidate-catalog.json.gz; the committed file fails CRC and its recovered JSON does not parse",
+  "CLAUDE.md step 3 asks a reader to confirm the reference-run shape, which the repository cannot currently produce"
+ ],
+ "schema": "frontier_provenance_audit/1",
+ "sources": {
+  "committed_frontier": {
+   "generated_from": "main committed realized-map export",
+   "generator": "Equivalent regional search generated in-repository handoff pass; optimizer Python remains authoritative implementation.",
+   "reproducible_from_repo": false,
+   "self_declared_authority": "defers to the optimizer Python",
+   "where": "docs/analysis/map-authoring-optimizer/scenario-frontier.json"
+  },
+  "committed_optimizer_rerun": {
+   "byte_identical_across_runs": true,
+   "generator": "the committed optimizer, seed 20260920, 1200 samples",
+   "reproducible_from_repo": true,
+   "sha256": "444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5",
+   "where": "tools/analysis/map_authoring_optimizer.py, per handoff reproducible_run.commands"
+  },
+  "handoff_reference_run": {
+   "generator": "not stated; the run doc was committed 51s BEFORE the optimizer",
+   "reproducible_from_repo": false,
+   "where": "claude-authoring-handoff.json, 2026-09-20-map-authoring-optimizer-run.md, optimizer-report.md"
+  }
+ }
+}

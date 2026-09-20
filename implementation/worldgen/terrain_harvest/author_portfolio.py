@@ -18,6 +18,7 @@ centre block is buildable.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -187,6 +188,18 @@ def allocate(sites, cell_size: int, chunks, margin: int = 4):
     return placed, rejected
 
 
+def provenance(obj) -> str:
+    """Stable digest of the frontier a world was authored from.
+
+    Three different frontiers for this map now exist -- the handoff's reference
+    run, a committed in-repository search, and the committed optimizer's own
+    output -- and they disagree. Recording which one produced a world is the
+    difference between a reproducible artefact and a plausible one.
+    """
+    return hashlib.sha256(
+        json.dumps(obj, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
 def author(frontier: dict, profile: str, rank: int, opportunity: dict,
            world: Path | None, report: Path, dry_run: bool = True,
            chunks: set | None = None) -> dict:
@@ -275,6 +288,8 @@ def author(frontier: dict, profile: str, rank: int, opportunity: dict,
                           else 'DERIVED MEASUREMENT',
         'profile': profile,
         'finalist_rank': rank,
+        'frontier_sha256': provenance(frontier),
+        'finalist_sha256': provenance(finalist),
         'objective': finalist['objective'],
         'metrics': finalist['metrics'],
         'placed': len(placements),

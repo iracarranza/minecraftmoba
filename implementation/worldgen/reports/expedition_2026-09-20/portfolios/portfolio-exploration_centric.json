@@ -4,6 +4,8 @@
  "dry_run": false,
  "evidence_state": "RAW WORLD OBSERVATION",
  "finalist_rank": 0,
+ "finalist_sha256": "cdaca7d8dd616dd85c935564f8a09637b0ae7c113ba8261a3011fec2206d8bbf",
+ "frontier_sha256": "444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5",
  "metrics": {
   "balance_asymmetry": 0.026474249641355013,
   "components": {

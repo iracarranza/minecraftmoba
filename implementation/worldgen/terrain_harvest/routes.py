@@ -22,6 +22,7 @@ rescan measures, which is the point of authoring it physically.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
