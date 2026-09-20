@@ -1,0 +1,69 @@
+{
+ "break_time_formula": "speed = tool_speed + (efficiency^2 + 1 if efficiency>0); damage = speed/hardness/30 when the tool can harvest; ticks = ceil(1/damage); seconds = ticks/20",
+ "evidence_state": "CANON (vanilla formulas) + MAP MEASUREMENT (hardness read off the Paper 1.21.11 fixture, moba curve, 2026-09-20)",
+ "fortune_expected_multiplier": {
+  "0": 1.0,
+  "1": 1.33,
+  "2": 1.75,
+  "3": 2.2
+ },
+ "hardness": {
+  "coal_ore": 3.0,
+  "copper_ore": 3.0,
+  "deepslate": 3.0,
+  "deepslate_coal_ore": 4.5,
+  "deepslate_copper_ore": 4.5,
+  "deepslate_diamond_ore": 4.5,
+  "deepslate_emerald_ore": 4.5,
+  "deepslate_gold_ore": 4.5,
+  "deepslate_iron_ore": 4.5,
+  "deepslate_lapis_ore": 4.5,
+  "deepslate_redstone_ore": 4.5,
+  "diamond_ore": 3.0,
+  "emerald_ore": 3.0,
+  "gold_ore": 3.0,
+  "iron_ore": 3.0,
+  "lapis_ore": 3.0,
+  "redstone_ore": 3.0,
+  "stone": 1.5
+ },
+ "native_drop_mean": {
+  "coal": 1.0,
+  "copper": 3.5,
+  "diamond": 1.0,
+  "emerald": 1.0,
+  "gold": 1.0,
+  "iron": 1.0,
+  "lapis": 6.0,
+  "redstone": 4.5
+ },
+ "required_tier": {
+  "coal": 0,
+  "copper": 1,
+  "diamond": 2,
+  "emerald": 2,
+  "gold": 2,
+  "iron": 1,
+  "lapis": 1,
+  "redstone": 2
+ },
+ "schema": "vanilla_constants/1",
+ "sprint_blocks_per_second": 5.612,
+ "tool_speed": {
+  "diamond": 8.0,
+  "gold": 12.0,
+  "iron": 6.0,
+  "netherite": 9.0,
+  "stone": 4.0,
+  "wood": 2.0
+ },
+ "tool_tier": {
+  "diamond": 3,
+  "gold": 0,
+  "iron": 2,
+  "netherite": 4,
+  "stone": 1,
+  "wood": 0
+ },
+ "walk_blocks_per_second": 4.317
+}

@@ -91,7 +91,9 @@ def cave_manifestations(caves: dict) -> list[dict]:
                 },
                 'best_band': best_band(hist.get(resource, {}), solid),
                 'discovery': 'unknown',
-                # Not measured by the cave scan. Left null on purpose.
+                # Join key into expedition_travel_matrix/1, which supplies the
+                # routes the cave scan cannot measure.
+                'travel_site_id': f'cave_{centre[0]}_{centre[1]}',
                 'route_from': None,
                 'source': 'MAP MEASUREMENT',
             })

@@ -1,0 +1,752 @@
+{
+ "cells_scanned": 9,
+ "evidence_state": "DERIVED FROM RAW WORLD OBSERVATION + VANILLA FORMULAS",
+ "manifest": "/tmp/map-manifest.json",
+ "not_covered": [
+  "travel from base to the cave mouth; the manifest has no measured routes",
+  "search time to find the deposit in the first place",
+  "Hunger, durability, inventory trips and return delivery, which the full calculator adds once routes exist",
+  "hostile interruption underground"
+ ],
+ "parameter_sources": {
+  "Fortune expected multipliers": "CANON / WORKING DESIGN (calculator spec s8)",
+  "block break time": "CANON (vanilla formula)",
+  "block hardness": "MAP MEASUREMENT (Paper fixture, moba curve 2026-09-20)",
+  "branch inspected-per-dug = 4": "CANON (1x2 branch geometry)",
+  "cave sweep rate": "SENSITIVITY / NON-CANON (reported as a band)",
+  "ore counts, depth, deepslate share, cave volume": "MAP MEASUREMENT",
+  "walk/sprint speed": "CANON (vanilla)"
+ },
+ "results": {
+  "copper": {
+   "by_kit": {
+    "diamond_lv7": {
+     "blocks_available_exposed": 339,
+     "blocks_available_total": 12384,
+     "blocks_required": 40,
+     "density_at_depth": 0.029931,
+     "expected_harvest": 186.2,
+     "ore_break_seconds": 0.46,
+     "overburden_break_seconds": 0.258,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 40,
+       "blocks_dug": 334.10397663777945,
+       "feasible": true,
+       "mining_s": 18.39412960271318,
+       "minutes": 1.7,
+       "overburden_s": 86.15959951098768,
+       "seconds": 104.55372911370085,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 18.39412960271318,
+       "minutes": 5.0,
+       "seconds": 301.6609929262137,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 283.2668633235005
+      },
+      "cave_exploration@300": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 18.39412960271318,
+       "minutes": 2.7,
+       "seconds": 160.02756126446343,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 141.63343166175025
+      },
+      "cave_exploration@600": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 18.39412960271318,
+       "minutes": 1.5,
+       "seconds": 89.2108454335883,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 70.81671583087513
+      },
+      "quarry": {
+       "blocks": 40,
+       "blocks_dug": 1336.4159065511178,
+       "feasible": true,
+       "mining_s": 18.39412960271318,
+       "minutes": 6.1,
+       "overburden_s": 344.6383980439507,
+       "seconds": 363.0325276466639,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv4": {
+     "blocks_available_exposed": 339,
+     "blocks_available_total": 12384,
+     "blocks_required": 52,
+     "density_at_depth": 0.029931,
+     "expected_harvest": 182.0,
+     "ore_break_seconds": 0.61,
+     "overburden_break_seconds": 0.312,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 52,
+       "blocks_dug": 434.3351696291133,
+       "feasible": true,
+       "mining_s": 31.712368483527133,
+       "minutes": 2.8,
+       "overburden_s": 135.43608132424248,
+       "seconds": 167.14844980776962,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 31.712368483527133,
+       "minutes": 6.7,
+       "seconds": 399.9592908040778,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 368.24692232055065
+      },
+      "cave_exploration@300": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 31.712368483527133,
+       "minutes": 3.6,
+       "seconds": 215.83582964380247,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 184.12346116027533
+      },
+      "cave_exploration@600": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 31.712368483527133,
+       "minutes": 2.1,
+       "seconds": 123.77409906366479,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 92.06173058013766
+      },
+      "quarry": {
+       "blocks": 52,
+       "blocks_dug": 1737.3406785164532,
+       "feasible": true,
+       "mining_s": 31.712368483527133,
+       "minutes": 9.6,
+       "overburden_s": 541.7443252969699,
+       "seconds": 573.4566937804971,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv7": {
+     "blocks_available_exposed": 339,
+     "blocks_available_total": 12384,
+     "blocks_required": 40,
+     "density_at_depth": 0.029931,
+     "expected_harvest": 186.2,
+     "ore_break_seconds": 0.61,
+     "overburden_break_seconds": 0.312,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 40,
+       "blocks_dug": 334.10397663777945,
+       "feasible": true,
+       "mining_s": 24.39412960271318,
+       "minutes": 2.1,
+       "overburden_s": 104.18160101864807,
+       "seconds": 128.57573062136123,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 24.39412960271318,
+       "minutes": 5.1,
+       "seconds": 307.6609929262137,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 283.2668633235005
+      },
+      "cave_exploration@300": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 24.39412960271318,
+       "minutes": 2.8,
+       "seconds": 166.02756126446343,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 141.63343166175025
+      },
+      "cave_exploration@600": {
+       "blocks": 40,
+       "feasible": true,
+       "mining_s": 24.39412960271318,
+       "minutes": 1.6,
+       "seconds": 95.2108454335883,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 70.81671583087513
+      },
+      "quarry": {
+       "blocks": 40,
+       "blocks_dug": 1336.4159065511178,
+       "feasible": true,
+       "mining_s": 24.39412960271318,
+       "minutes": 7.4,
+       "overburden_s": 416.72640407459227,
+       "seconds": 441.12053367730545,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "stone_lv1": {
+     "blocks_available_exposed": 339,
+     "blocks_available_total": 12384,
+     "blocks_required": 52,
+     "density_at_depth": 0.029931,
+     "expected_harvest": 182.0,
+     "ore_break_seconds": 1.172,
+     "overburden_break_seconds": 0.622,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 52,
+       "blocks_dug": 434.3351696291133,
+       "feasible": true,
+       "mining_s": 60.927210663759695,
+       "minutes": 5.5,
+       "overburden_s": 270.01624090923355,
+       "seconds": 330.94345157299324,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 60.927210663759695,
+       "minutes": 7.2,
+       "seconds": 429.17413298431035,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 368.24692232055065
+      },
+      "cave_exploration@300": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 60.927210663759695,
+       "minutes": 4.1,
+       "seconds": 245.05067182403502,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 184.12346116027533
+      },
+      "cave_exploration@600": {
+       "blocks": 52,
+       "feasible": true,
+       "mining_s": 60.927210663759695,
+       "minutes": 2.5,
+       "seconds": 152.98894124389736,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 92.06173058013766
+      },
+      "quarry": {
+       "blocks": 52,
+       "blocks_dug": 1737.3406785164532,
+       "feasible": true,
+       "mining_s": 60.927210663759695,
+       "minutes": 19.0,
+       "overburden_s": 1080.0649636369342,
+       "seconds": 1140.992174300694,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    }
+   },
+   "cells": 9,
+   "deepslate_fraction": 0.0394,
+   "mean_y": 44.4
+  },
+  "diamond": {
+   "by_kit": {
+    "diamond_lv7": {
+     "blocks_available_exposed": 35,
+     "blocks_available_total": 1747,
+     "blocks_required": 137,
+     "density_at_depth": 0.004548,
+     "expected_harvest": 182.2,
+     "ore_break_seconds": 0.698,
+     "overburden_break_seconds": 0.448,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 137,
+       "blocks_dug": 7530.941999106881,
+       "feasible": true,
+       "mining_s": 95.58654682312536,
+       "minutes": 57.8,
+       "overburden_s": 3375.139387513549,
+       "seconds": 3470.7259343366745,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 24.419920721236405,
+       "minutes": 40.4,
+       "seconds": 2425.106587387903,
+       "short_by": 102,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 2400.6866666666665
+      },
+      "cave_exploration@300": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 24.419920721236405,
+       "minutes": 20.4,
+       "seconds": 1224.7632540545696,
+       "short_by": 102,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 1200.3433333333332
+      },
+      "cave_exploration@600": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 24.419920721236405,
+       "minutes": 10.4,
+       "seconds": 624.591587387903,
+       "short_by": 102,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 600.1716666666666
+      },
+      "quarry": {
+       "blocks": 137,
+       "blocks_dug": 30123.767996427523,
+       "feasible": true,
+       "mining_s": 95.58654682312536,
+       "minutes": 226.6,
+       "overburden_s": 13500.557550054196,
+       "seconds": 13596.144096877322,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv4": {
+     "blocks_available_exposed": 35,
+     "blocks_available_total": 1747,
+     "blocks_required": 182,
+     "density_at_depth": 0.004548,
+     "expected_harvest": 182.0,
+     "ore_break_seconds": 0.848,
+     "overburden_break_seconds": 0.597,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 182,
+       "blocks_dug": 10004.609079105492,
+       "feasible": true,
+       "mining_s": 154.28358775042932,
+       "minutes": 102.2,
+       "overburden_s": 5975.29704017073,
+       "seconds": 6129.580627921159,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 40.5,
+       "seconds": 2430.356587387903,
+       "short_by": 147,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 2400.6866666666665
+      },
+      "cave_exploration@300": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 20.5,
+       "seconds": 1230.0132540545696,
+       "short_by": 147,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 1200.3433333333332
+      },
+      "cave_exploration@600": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 10.5,
+       "seconds": 629.841587387903,
+       "short_by": 147,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 600.1716666666666
+      },
+      "quarry": {
+       "blocks": 182,
+       "blocks_dug": 40018.43631642197,
+       "feasible": true,
+       "mining_s": 154.28358775042932,
+       "minutes": 400.9,
+       "overburden_s": 23901.18816068292,
+       "seconds": 24055.47174843335,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv7": {
+     "blocks_available_exposed": 35,
+     "blocks_available_total": 1747,
+     "blocks_required": 137,
+     "density_at_depth": 0.004548,
+     "expected_harvest": 182.2,
+     "ore_break_seconds": 0.848,
+     "overburden_break_seconds": 0.597,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 137,
+       "blocks_dug": 7530.941999106881,
+       "feasible": true,
+       "mining_s": 116.13654682312536,
+       "minutes": 76.9,
+       "overburden_s": 4497.888431337307,
+       "seconds": 4614.0249781604325,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 40.5,
+       "seconds": 2430.356587387903,
+       "short_by": 102,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 2400.6866666666665
+      },
+      "cave_exploration@300": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 20.5,
+       "seconds": 1230.0132540545696,
+       "short_by": 102,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 1200.3433333333332
+      },
+      "cave_exploration@600": {
+       "blocks": 35,
+       "feasible": true,
+       "mining_s": 29.669920721236405,
+       "minutes": 10.5,
+       "seconds": 629.841587387903,
+       "short_by": 102,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 600.1716666666666
+      },
+      "quarry": {
+       "blocks": 137,
+       "blocks_dug": 30123.767996427523,
+       "feasible": true,
+       "mining_s": 116.13654682312536,
+       "minutes": 301.8,
+       "overburden_s": 17991.55372534923,
+       "seconds": 18107.690272172356,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "stone_lv1": {
+     "unresolved": "stone pickaxe cannot harvest diamond"
+    }
+   },
+   "cells": 9,
+   "deepslate_fraction": 0.9908,
+   "mean_y": -36.2
+  },
+  "iron": {
+   "by_kit": {
+    "diamond_lv7": {
+     "blocks_available_exposed": 325,
+     "blocks_available_total": 6149,
+     "blocks_required": 137,
+     "density_at_depth": 0.010873,
+     "expected_harvest": 182.2,
+     "ore_break_seconds": 0.522,
+     "overburden_break_seconds": 0.308,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 137,
+       "blocks_dug": 3149.9664831388304,
+       "feasible": true,
+       "mining_s": 71.49774726378273,
+       "minutes": 17.3,
+       "overburden_s": 968.630737954563,
+       "seconds": 1040.1284852183458,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 71.49774726378273,
+       "minutes": 18.1,
+       "seconds": 1083.4795113663467,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 1011.981764102564
+      },
+      "cave_exploration@300": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 71.49774726378273,
+       "minutes": 9.6,
+       "seconds": 577.4886293150647,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 505.990882051282
+      },
+      "cave_exploration@600": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 71.49774726378273,
+       "minutes": 5.4,
+       "seconds": 324.4931882894237,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 252.995441025641
+      },
+      "quarry": {
+       "blocks": 137,
+       "blocks_dug": 12599.865932555322,
+       "feasible": true,
+       "mining_s": 71.49774726378273,
+       "minutes": 65.8,
+       "overburden_s": 3874.522951818252,
+       "seconds": 3946.0206990820348,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv4": {
+     "blocks_available_exposed": 325,
+     "blocks_available_total": 6149,
+     "blocks_required": 182,
+     "density_at_depth": 0.010873,
+     "expected_harvest": 182.0,
+     "ore_break_seconds": 0.672,
+     "overburden_break_seconds": 0.386,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 182,
+       "blocks_dug": 4184.62700679757,
+       "feasible": true,
+       "mining_s": 122.28240877378434,
+       "minutes": 29.0,
+       "overburden_s": 1616.3441530419755,
+       "seconds": 1738.6265618157597,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 122.28240877378434,
+       "minutes": 24.4,
+       "seconds": 1466.6669421071176,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 1344.3845333333334
+      },
+      "cave_exploration@300": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 122.28240877378434,
+       "minutes": 13.2,
+       "seconds": 794.474675440451,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 672.1922666666667
+      },
+      "cave_exploration@600": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 122.28240877378434,
+       "minutes": 7.6,
+       "seconds": 458.3785421071177,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 336.09613333333334
+      },
+      "quarry": {
+       "blocks": 182,
+       "blocks_dug": 16738.50802719028,
+       "feasible": true,
+       "mining_s": 122.28240877378434,
+       "minutes": 109.8,
+       "overburden_s": 6465.376612167902,
+       "seconds": 6587.659020941686,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "iron_lv7": {
+     "blocks_available_exposed": 325,
+     "blocks_available_total": 6149,
+     "blocks_required": 137,
+     "density_at_depth": 0.010873,
+     "expected_harvest": 182.2,
+     "ore_break_seconds": 0.672,
+     "overburden_break_seconds": 0.386,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 137,
+       "blocks_dug": 3149.9664831388304,
+       "feasible": true,
+       "mining_s": 92.04774726378272,
+       "minutes": 21.8,
+       "overburden_s": 1216.6986206964323,
+       "seconds": 1308.746367960215,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 92.04774726378272,
+       "minutes": 18.4,
+       "seconds": 1104.0295113663467,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 1011.981764102564
+      },
+      "cave_exploration@300": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 92.04774726378272,
+       "minutes": 10.0,
+       "seconds": 598.0386293150647,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 505.990882051282
+      },
+      "cave_exploration@600": {
+       "blocks": 137,
+       "feasible": true,
+       "mining_s": 92.04774726378272,
+       "minutes": 5.8,
+       "seconds": 345.0431882894237,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 252.995441025641
+      },
+      "quarry": {
+       "blocks": 137,
+       "blocks_dug": 12599.865932555322,
+       "feasible": true,
+       "mining_s": 92.04774726378272,
+       "minutes": 82.6,
+       "overburden_s": 4866.794482785729,
+       "seconds": 4958.842230049512,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    },
+    "stone_lv1": {
+     "blocks_available_exposed": 325,
+     "blocks_available_total": 6149,
+     "blocks_required": 182,
+     "density_at_depth": 0.010873,
+     "expected_harvest": 182.0,
+     "ore_break_seconds": 1.308,
+     "overburden_break_seconds": 0.758,
+     "quantity": 182.0,
+     "strategies": {
+      "branch_mining": {
+       "blocks": 182,
+       "blocks_dug": 4184.62700679757,
+       "feasible": true,
+       "mining_s": 238.08129930232556,
+       "minutes": 56.8,
+       "overburden_s": 3172.528964250167,
+       "seconds": 3410.6102635524926,
+       "short_by": 0,
+       "travel_s": 0.0
+      },
+      "cave_exploration@150": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 238.08129930232556,
+       "minutes": 26.4,
+       "seconds": 1582.465832635659,
+       "short_by": 0,
+       "sweep_blocks_per_second": 150.0,
+       "travel_s": 1344.3845333333334
+      },
+      "cave_exploration@300": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 238.08129930232556,
+       "minutes": 15.2,
+       "seconds": 910.2735659689922,
+       "short_by": 0,
+       "sweep_blocks_per_second": 300.0,
+       "travel_s": 672.1922666666667
+      },
+      "cave_exploration@600": {
+       "blocks": 182,
+       "feasible": true,
+       "mining_s": 238.08129930232556,
+       "minutes": 9.6,
+       "seconds": 574.1774326356589,
+       "short_by": 0,
+       "sweep_blocks_per_second": 600.0,
+       "travel_s": 336.09613333333334
+      },
+      "quarry": {
+       "blocks": 182,
+       "blocks_dug": 16738.50802719028,
+       "feasible": true,
+       "mining_s": 238.08129930232556,
+       "minutes": 215.5,
+       "overburden_s": 12690.115857000668,
+       "seconds": 12928.197156302995,
+       "short_by": 0,
+       "travel_s": 0.0
+      }
+     }
+    }
+   },
+   "cells": 9,
+   "deepslate_fraction": 0.2875,
+   "mean_y": 13.0
+  }
+ },
+ "schema": "expedition_benchmark/1",
+ "volume_id": "tv_ef56852eda10acc88342e5ee"
+}
