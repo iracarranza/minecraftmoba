@@ -1,0 +1,8 @@
+{
+ "schema": "map_profile/1",
+ "id": "balanced_baseline",
+ "description": "The unmodified consumer demand the packing analysis already fits.",
+ "intent": "Control. Every other profile is read as a delta from this one.",
+ "source": "BASELINE - the packing.CONSUMERS list as committed, not an interpretation.",
+ "consumers": []
+}

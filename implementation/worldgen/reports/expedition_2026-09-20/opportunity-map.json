@@ -1,0 +1,2620 @@
+{
+  "cell_size_blocks": 128,
+  "cells": [
+    {
+      "biomes": {
+        "minecraft:plains": 869,
+        "minecraft:river": 155
+      },
+      "candidate_density": 1382,
+      "cell": [
+        0,
+        0
+      ],
+      "farmable_surface_samples": 623,
+      "fauna": {
+        "chicken": 8,
+        "cow": 7,
+        "horse": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 74.2,
+      "ore": {
+        "coal": 397,
+        "copper": 335,
+        "diamond": 79,
+        "gold": 102,
+        "iron": 253,
+        "lapis": 86,
+        "redstone": 114
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "horse"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 181,
+      "world_origin": [
+        -2480,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 787,
+        "minecraft:river": 237
+      },
+      "candidate_density": 1187,
+      "cell": [
+        0,
+        1
+      ],
+      "farmable_surface_samples": 443,
+      "fauna": {
+        "chicken": 4,
+        "cow": 1,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 70.5,
+      "ore": {
+        "coal": 281,
+        "copper": 278,
+        "diamond": 76,
+        "gold": 80,
+        "iron": 263,
+        "lapis": 82,
+        "redstone": 118
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 462,
+      "world_origin": [
+        -2480,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 860,
+        "minecraft:snowy_slopes": 164
+      },
+      "candidate_density": 1524,
+      "cell": [
+        0,
+        2
+      ],
+      "farmable_surface_samples": 639,
+      "fauna": {
+        "chicken": 4,
+        "donkey": 3,
+        "goat": 7,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 85.4,
+      "ore": {
+        "coal": 487,
+        "copper": 366,
+        "diamond": 79,
+        "emerald": 2,
+        "gold": 89,
+        "iron": 290,
+        "lapis": 77,
+        "redstone": 116
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "donkey",
+        "goat",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 115,
+        "minecraft:plains": 569,
+        "minecraft:snowy_slopes": 185
+      },
+      "candidate_density": 1676,
+      "cell": [
+        0,
+        3
+      ],
+      "farmable_surface_samples": 482,
+      "fauna": {
+        "goat": 6,
+        "rabbit": 8,
+        "sheep": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 91.8,
+      "ore": {
+        "coal": 641,
+        "copper": 404,
+        "diamond": 76,
+        "emerald": 8,
+        "gold": 87,
+        "iron": 257,
+        "lapis": 78,
+        "redstone": 110
+      },
+      "regenerative_vocabulary": [
+        "goat",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 978,
+        "minecraft:grove": 18,
+        "minecraft:plains": 28
+      },
+      "candidate_density": 1900,
+      "cell": [
+        0,
+        4
+      ],
+      "farmable_surface_samples": 234,
+      "fauna": {
+        "cow": 10,
+        "fox": 2,
+        "sheep": 6
+      },
+      "hostiles": {},
+      "mean_surface_y": 98.2,
+      "ore": {
+        "coal": 764,
+        "copper": 471,
+        "diamond": 71,
+        "gold": 91,
+        "iron": 276,
+        "lapis": 96,
+        "redstone": 113
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "fox",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 432,
+        "minecraft:grove": 147,
+        "minecraft:plains": 343
+      },
+      "candidate_density": 2148,
+      "cell": [
+        0,
+        5
+      ],
+      "farmable_surface_samples": 241,
+      "fauna": {
+        "pig": 4,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 98.0,
+      "ore": {
+        "coal": 661,
+        "copper": 839,
+        "diamond": 69,
+        "emerald": 3,
+        "gold": 84,
+        "iron": 292,
+        "lapis": 86,
+        "redstone": 106
+      },
+      "regenerative_vocabulary": [
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 188,
+        "minecraft:plains": 723,
+        "minecraft:snowy_slopes": 113
+      },
+      "candidate_density": 2313,
+      "cell": [
+        0,
+        6
+      ],
+      "farmable_surface_samples": 582,
+      "fauna": {
+        "cow": 15,
+        "sheep": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 94.3,
+      "ore": {
+        "coal": 673,
+        "copper": 894,
+        "diamond": 99,
+        "emerald": 8,
+        "gold": 73,
+        "iron": 342,
+        "lapis": 90,
+        "redstone": 117
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "pumpkin",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "pumpkin": 1
+      },
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 253,
+        "minecraft:plains": 321,
+        "minecraft:snowy_slopes": 360
+      },
+      "candidate_density": 2261,
+      "cell": [
+        0,
+        7
+      ],
+      "farmable_surface_samples": 286,
+      "fauna": {
+        "chicken": 8,
+        "rabbit": 4,
+        "sheep": 2
+      },
+      "hostiles": {},
+      "mean_surface_y": 98.1,
+      "ore": {
+        "coal": 650,
+        "copper": 964,
+        "diamond": 86,
+        "emerald": 4,
+        "gold": 89,
+        "iron": 256,
+        "lapis": 74,
+        "redstone": 124
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 8,
+      "world_origin": [
+        -2480,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:flower_forest": 61,
+        "minecraft:meadow": 71,
+        "minecraft:snowy_slopes": 124
+      },
+      "candidate_density": 600,
+      "cell": [
+        0,
+        8
+      ],
+      "farmable_surface_samples": 45,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 98.4,
+      "ore": {
+        "coal": 163,
+        "copper": 238,
+        "diamond": 19,
+        "emerald": 3,
+        "gold": 24,
+        "iron": 95,
+        "lapis": 32,
+        "redstone": 26
+      },
+      "regenerative_vocabulary": [],
+      "sampled_columns": 256,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2480,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 817,
+        "minecraft:river": 207
+      },
+      "candidate_density": 1212,
+      "cell": [
+        1,
+        0
+      ],
+      "farmable_surface_samples": 474,
+      "fauna": {
+        "chicken": 4,
+        "cow": 4,
+        "horse": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 63.8,
+      "ore": {
+        "coal": 246,
+        "copper": 318,
+        "diamond": 75,
+        "gold": 101,
+        "iron": 275,
+        "lapis": 79,
+        "redstone": 104
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "horse",
+        "sugar_cane"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "sugar_cane": 2
+      },
+      "water_surface_samples": 354,
+      "world_origin": [
+        -2352,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 901,
+        "minecraft:river": 123
+      },
+      "candidate_density": 1400,
+      "cell": [
+        1,
+        1
+      ],
+      "farmable_surface_samples": 651,
+      "fauna": {
+        "chicken": 4,
+        "cow": 8,
+        "pig": 4,
+        "sheep": 6
+      },
+      "hostiles": {},
+      "mean_surface_y": 72.7,
+      "ore": {
+        "coal": 390,
+        "copper": 302,
+        "diamond": 68,
+        "gold": 92,
+        "iron": 322,
+        "lapis": 80,
+        "redstone": 124
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 222,
+      "world_origin": [
+        -2352,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1022,
+        "minecraft:snowy_slopes": 2
+      },
+      "candidate_density": 1376,
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_surface_samples": 748,
+      "fauna": {
+        "chicken": 8,
+        "horse": 8,
+        "pig": 8,
+        "sheep": 16
+      },
+      "hostiles": {},
+      "mean_surface_y": 74.8,
+      "ore": {
+        "coal": 402,
+        "copper": 313,
+        "diamond": 86,
+        "gold": 68,
+        "iron": 260,
+        "lapis": 77,
+        "redstone": 130
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "horse",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2352,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 357,
+        "minecraft:plains": 596,
+        "minecraft:snowy_slopes": 50
+      },
+      "candidate_density": 1382,
+      "cell": [
+        1,
+        3
+      ],
+      "farmable_surface_samples": 530,
+      "fauna": {
+        "donkey": 2,
+        "rabbit": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 88.4,
+      "ore": {
+        "coal": 492,
+        "copper": 317,
+        "diamond": 66,
+        "emerald": 5,
+        "gold": 88,
+        "iron": 230,
+        "lapis": 75,
+        "redstone": 103
+      },
+      "regenerative_vocabulary": [
+        "donkey",
+        "rabbit"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 1,
+      "world_origin": [
+        -2352,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 164,
+        "minecraft:plains": 565,
+        "minecraft:river": 295
+      },
+      "candidate_density": 1561,
+      "cell": [
+        1,
+        4
+      ],
+      "farmable_surface_samples": 522,
+      "fauna": {
+        "pig": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 76.1,
+      "ore": {
+        "coal": 373,
+        "copper": 483,
+        "diamond": 86,
+        "gold": 86,
+        "iron": 349,
+        "lapis": 68,
+        "redstone": 112
+      },
+      "regenerative_vocabulary": [
+        "pig"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 342,
+      "world_origin": [
+        -2352,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 124,
+        "minecraft:plains": 669,
+        "minecraft:river": 226
+      },
+      "candidate_density": 1793,
+      "cell": [
+        1,
+        5
+      ],
+      "farmable_surface_samples": 526,
+      "fauna": {
+        "chicken": 16,
+        "horse": 6,
+        "pig": 5
+      },
+      "hostiles": {},
+      "mean_surface_y": 78.7,
+      "ore": {
+        "coal": 425,
+        "copper": 766,
+        "diamond": 82,
+        "gold": 84,
+        "iron": 252,
+        "lapis": 67,
+        "redstone": 90
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "horse",
+        "pig"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 292,
+      "world_origin": [
+        -2352,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:dripstone_caves": 119,
+        "minecraft:meadow": 759,
+        "minecraft:plains": 133
+      },
+      "candidate_density": 2728,
+      "cell": [
+        1,
+        6
+      ],
+      "farmable_surface_samples": 114,
+      "fauna": {
+        "donkey": 2,
+        "pig": 4,
+        "rabbit": 5,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 99.2,
+      "ore": {
+        "coal": 805,
+        "copper": 1239,
+        "diamond": 85,
+        "emerald": 1,
+        "gold": 89,
+        "iron": 290,
+        "lapis": 91,
+        "redstone": 113
+      },
+      "regenerative_vocabulary": [
+        "donkey",
+        "pig",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2352,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 834,
+        "minecraft:plains": 77,
+        "minecraft:snowy_slopes": 107
+      },
+      "candidate_density": 2070,
+      "cell": [
+        1,
+        7
+      ],
+      "farmable_surface_samples": 37,
+      "fauna": {
+        "horse": 3,
+        "rabbit": 1,
+        "sheep": 2
+      },
+      "hostiles": {},
+      "mean_surface_y": 99.8,
+      "ore": {
+        "coal": 654,
+        "copper": 783,
+        "diamond": 85,
+        "emerald": 7,
+        "gold": 88,
+        "iron": 245,
+        "lapis": 70,
+        "redstone": 132
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2352,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 106,
+        "minecraft:plains": 103,
+        "minecraft:snowy_slopes": 47
+      },
+      "candidate_density": 488,
+      "cell": [
+        1,
+        8
+      ],
+      "farmable_surface_samples": 23,
+      "fauna": {
+        "horse": 3
+      },
+      "hostiles": {},
+      "mean_surface_y": 100.0,
+      "ore": {
+        "coal": 188,
+        "copper": 125,
+        "diamond": 21,
+        "emerald": 4,
+        "gold": 22,
+        "iron": 76,
+        "lapis": 19,
+        "redstone": 30
+      },
+      "regenerative_vocabulary": [
+        "horse"
+      ],
+      "sampled_columns": 256,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2352,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1024
+      },
+      "candidate_density": 1341,
+      "cell": [
+        2,
+        0
+      ],
+      "farmable_surface_samples": 729,
+      "fauna": {
+        "chicken": 4,
+        "horse": 2,
+        "pig": 8,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 68.9,
+      "ore": {
+        "coal": 331,
+        "copper": 348,
+        "diamond": 91,
+        "gold": 91,
+        "iron": 269,
+        "lapis": 85,
+        "redstone": 102
+      },
+      "regenerative_vocabulary": [
+        "carrots",
+        "chicken",
+        "horse",
+        "pig",
+        "potatoes",
+        "pumpkin",
+        "sheep",
+        "wheat"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "carrots": 1,
+        "potatoes": 3,
+        "pumpkin": 1,
+        "wheat": 1
+      },
+      "water_surface_samples": 11,
+      "world_origin": [
+        -2224,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1024
+      },
+      "candidate_density": 1367,
+      "cell": [
+        2,
+        1
+      ],
+      "farmable_surface_samples": 702,
+      "fauna": {
+        "cow": 4,
+        "pig": 8,
+        "sheep": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 76.9,
+      "ore": {
+        "coal": 400,
+        "copper": 303,
+        "diamond": 79,
+        "gold": 83,
+        "iron": 278,
+        "lapis": 98,
+        "redstone": 106
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2224,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1024
+      },
+      "candidate_density": 1249,
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_surface_samples": 794,
+      "fauna": {
+        "horse": 5,
+        "pig": 6,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 75.5,
+      "ore": {
+        "coal": 370,
+        "copper": 274,
+        "diamond": 74,
+        "gold": 89,
+        "iron": 236,
+        "lapis": 77,
+        "redstone": 114
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2224,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 187,
+        "minecraft:plains": 837
+      },
+      "candidate_density": 1320,
+      "cell": [
+        2,
+        3
+      ],
+      "farmable_surface_samples": 722,
+      "fauna": {
+        "chicken": 4,
+        "cow": 4,
+        "donkey": 1,
+        "sheep": 6
+      },
+      "hostiles": {},
+      "mean_surface_y": 90.0,
+      "ore": {
+        "coal": 515,
+        "copper": 298,
+        "diamond": 73,
+        "gold": 65,
+        "iron": 220,
+        "lapis": 42,
+        "redstone": 92
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "donkey",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 1,
+      "world_origin": [
+        -2224,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 12,
+        "minecraft:plains": 833,
+        "minecraft:river": 179
+      },
+      "candidate_density": 1734,
+      "cell": [
+        2,
+        4
+      ],
+      "farmable_surface_samples": 638,
+      "fauna": {
+        "chicken": 8,
+        "horse": 5,
+        "sheep": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 71.7,
+      "ore": {
+        "coal": 353,
+        "copper": 515,
+        "diamond": 70,
+        "gold": 81,
+        "iron": 515,
+        "lapis": 80,
+        "redstone": 106
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "horse",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 240,
+      "world_origin": [
+        -2224,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:dripstone_caves": 109,
+        "minecraft:meadow": 758,
+        "minecraft:plains": 157
+      },
+      "candidate_density": 2528,
+      "cell": [
+        2,
+        5
+      ],
+      "farmable_surface_samples": 206,
+      "fauna": {
+        "chicken": 4,
+        "horse": 3,
+        "rabbit": 4,
+        "sheep": 6
+      },
+      "hostiles": {},
+      "mean_surface_y": 97.4,
+      "ore": {
+        "coal": 727,
+        "copper": 1121,
+        "diamond": 89,
+        "emerald": 4,
+        "gold": 77,
+        "iron": 302,
+        "lapis": 78,
+        "redstone": 113
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "horse",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2224,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:dripstone_caves": 463,
+        "minecraft:meadow": 511,
+        "minecraft:plains": 50
+      },
+      "candidate_density": 2682,
+      "cell": [
+        2,
+        6
+      ],
+      "farmable_surface_samples": 131,
+      "fauna": {
+        "donkey": 2,
+        "pig": 3,
+        "rabbit": 8,
+        "sheep": 2
+      },
+      "hostiles": {},
+      "mean_surface_y": 99.2,
+      "ore": {
+        "coal": 799,
+        "copper": 1212,
+        "diamond": 82,
+        "emerald": 4,
+        "gold": 92,
+        "iron": 264,
+        "lapis": 83,
+        "redstone": 131
+      },
+      "regenerative_vocabulary": [
+        "donkey",
+        "pig",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2224,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 594,
+        "minecraft:plains": 430
+      },
+      "candidate_density": 1834,
+      "cell": [
+        2,
+        7
+      ],
+      "farmable_surface_samples": 427,
+      "fauna": {
+        "sheep": 10
+      },
+      "hostiles": {},
+      "mean_surface_y": 93.5,
+      "ore": {
+        "coal": 637,
+        "copper": 576,
+        "diamond": 73,
+        "emerald": 10,
+        "gold": 97,
+        "iron": 228,
+        "lapis": 83,
+        "redstone": 120
+      },
+      "regenerative_vocabulary": [
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 2,
+      "world_origin": [
+        -2224,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 2,
+        "minecraft:plains": 254
+      },
+      "candidate_density": 399,
+      "cell": [
+        2,
+        8
+      ],
+      "farmable_surface_samples": 122,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 92.9,
+      "ore": {
+        "coal": 139,
+        "copper": 85,
+        "diamond": 24,
+        "gold": 25,
+        "iron": 66,
+        "lapis": 26,
+        "redstone": 34
+      },
+      "regenerative_vocabulary": [],
+      "sampled_columns": 256,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2224,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1023,
+        "minecraft:river": 1
+      },
+      "candidate_density": 1310,
+      "cell": [
+        3,
+        0
+      ],
+      "farmable_surface_samples": 714,
+      "fauna": {
+        "chicken": 7,
+        "cow": 4,
+        "horse": 3,
+        "sheep": 12
+      },
+      "hostiles": {},
+      "mean_surface_y": 67.6,
+      "ore": {
+        "coal": 335,
+        "copper": 309,
+        "diamond": 95,
+        "gold": 82,
+        "iron": 251,
+        "lapis": 81,
+        "redstone": 131
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "horse",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 83,
+      "world_origin": [
+        -2096,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1024
+      },
+      "candidate_density": 1206,
+      "cell": [
+        3,
+        1
+      ],
+      "farmable_surface_samples": 713,
+      "fauna": {
+        "chicken": 5,
+        "cow": 4,
+        "pig": 9,
+        "sheep": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 69.7,
+      "ore": {
+        "coal": 346,
+        "copper": 289,
+        "diamond": 73,
+        "gold": 55,
+        "iron": 218,
+        "lapis": 79,
+        "redstone": 124
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2096,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1024
+      },
+      "candidate_density": 1136,
+      "cell": [
+        3,
+        2
+      ],
+      "farmable_surface_samples": 764,
+      "fauna": {
+        "chicken": 6,
+        "cow": 6,
+        "pig": 4,
+        "sheep": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 73.4,
+      "ore": {
+        "coal": 289,
+        "copper": 242,
+        "diamond": 71,
+        "gold": 78,
+        "iron": 225,
+        "lapis": 89,
+        "redstone": 118
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 0,
+      "world_origin": [
+        -2096,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 1009,
+        "minecraft:river": 15
+      },
+      "candidate_density": 1254,
+      "cell": [
+        3,
+        3
+      ],
+      "farmable_surface_samples": 721,
+      "fauna": {
+        "cow": 6,
+        "horse": 4,
+        "pig": 1,
+        "sheep": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 67.2,
+      "ore": {
+        "coal": 303,
+        "copper": 270,
+        "diamond": 89,
+        "gold": 81,
+        "iron": 301,
+        "lapis": 86,
+        "redstone": 105
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "horse",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 45,
+      "world_origin": [
+        -2096,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 2,
+        "minecraft:plains": 888,
+        "minecraft:river": 134
+      },
+      "candidate_density": 1422,
+      "cell": [
+        3,
+        4
+      ],
+      "farmable_surface_samples": 581,
+      "fauna": {
+        "cow": 4,
+        "horse": 6,
+        "sheep": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 66.6,
+      "ore": {
+        "coal": 362,
+        "copper": 297,
+        "diamond": 86,
+        "gold": 93,
+        "iron": 379,
+        "lapis": 75,
+        "redstone": 112
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "horse",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 241,
+      "world_origin": [
+        -2096,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 54,
+        "minecraft:meadow": 450,
+        "minecraft:plains": 520
+      },
+      "candidate_density": 1940,
+      "cell": [
+        3,
+        5
+      ],
+      "farmable_surface_samples": 402,
+      "fauna": {
+        "horse": 3,
+        "rabbit": 1,
+        "sheep": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 94.1,
+      "ore": {
+        "coal": 648,
+        "copper": 588,
+        "diamond": 65,
+        "emerald": 5,
+        "gold": 86,
+        "iron": 363,
+        "lapis": 69,
+        "redstone": 104
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 1,
+      "world_origin": [
+        -2096,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:meadow": 199,
+        "minecraft:plains": 825
+      },
+      "candidate_density": 1842,
+      "cell": [
+        3,
+        6
+      ],
+      "farmable_surface_samples": 691,
+      "fauna": {
+        "horse": 4,
+        "rabbit": 4,
+        "sheep": 19
+      },
+      "hostiles": {},
+      "mean_surface_y": 90.3,
+      "ore": {
+        "coal": 564,
+        "copper": 639,
+        "diamond": 69,
+        "emerald": 2,
+        "gold": 72,
+        "iron": 282,
+        "lapis": 93,
+        "redstone": 94
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "rabbit",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 21,
+      "world_origin": [
+        -2096,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 994,
+        "minecraft:river": 30
+      },
+      "candidate_density": 1285,
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_surface_samples": 701,
+      "fauna": {
+        "chicken": 4,
+        "horse": 7,
+        "pig": 4,
+        "sheep": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 69.2,
+      "ore": {
+        "coal": 311,
+        "copper": 313,
+        "diamond": 89,
+        "gold": 80,
+        "iron": 276,
+        "lapis": 72,
+        "redstone": 128
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "horse",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 59,
+      "world_origin": [
+        -2096,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 208,
+        "minecraft:river": 48
+      },
+      "candidate_density": 295,
+      "cell": [
+        3,
+        8
+      ],
+      "farmable_surface_samples": 145,
+      "fauna": {
+        "chicken": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 64.5,
+      "ore": {
+        "coal": 81,
+        "copper": 47,
+        "diamond": 12,
+        "gold": 21,
+        "iron": 66,
+        "lapis": 25,
+        "redstone": 39
+      },
+      "regenerative_vocabulary": [
+        "chicken"
+      ],
+      "sampled_columns": 256,
+      "vegetation": {},
+      "water_surface_samples": 68,
+      "world_origin": [
+        -2096,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 421,
+        "minecraft:plains": 416,
+        "minecraft:river": 184
+      },
+      "candidate_density": 1183,
+      "cell": [
+        4,
+        0
+      ],
+      "farmable_surface_samples": 250,
+      "fauna": {
+        "chicken": 4,
+        "cow": 4,
+        "pig": 7,
+        "sheep": 14
+      },
+      "hostiles": {},
+      "mean_surface_y": 64.3,
+      "ore": {
+        "coal": 287,
+        "copper": 274,
+        "diamond": 62,
+        "gold": 76,
+        "iron": 249,
+        "lapis": 83,
+        "redstone": 121
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "pig",
+        "sheep",
+        "sugar_cane"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "sugar_cane": 2
+      },
+      "water_surface_samples": 439,
+      "world_origin": [
+        -1968,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 128,
+        "minecraft:plains": 894,
+        "minecraft:river": 2
+      },
+      "candidate_density": 1296,
+      "cell": [
+        4,
+        1
+      ],
+      "farmable_surface_samples": 511,
+      "fauna": {
+        "chicken": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 65.9,
+      "ore": {
+        "coal": 311,
+        "copper": 308,
+        "diamond": 76,
+        "gold": 63,
+        "iron": 273,
+        "lapis": 80,
+        "redstone": 123
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "kelp"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 58
+      },
+      "water_surface_samples": 329,
+      "world_origin": [
+        -1968,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 69,
+        "minecraft:forest": 33,
+        "minecraft:plains": 922
+      },
+      "candidate_density": 1244,
+      "cell": [
+        4,
+        2
+      ],
+      "farmable_surface_samples": 608,
+      "fauna": {
+        "horse": 2,
+        "sheep": 5
+      },
+      "hostiles": {},
+      "mean_surface_y": 68.3,
+      "ore": {
+        "coal": 288,
+        "copper": 288,
+        "diamond": 95,
+        "gold": 74,
+        "iron": 284,
+        "lapis": 77,
+        "redstone": 109
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "kelp",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 22
+      },
+      "water_surface_samples": 192,
+      "world_origin": [
+        -1968,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 352,
+        "minecraft:plains": 671,
+        "minecraft:river": 1
+      },
+      "candidate_density": 1310,
+      "cell": [
+        4,
+        3
+      ],
+      "farmable_surface_samples": 614,
+      "fauna": {
+        "chicken": 7,
+        "pig": 3,
+        "sheep": 6
+      },
+      "hostiles": {},
+      "mean_surface_y": 71.5,
+      "ore": {
+        "coal": 375,
+        "copper": 289,
+        "diamond": 71,
+        "gold": 94,
+        "iron": 266,
+        "lapis": 76,
+        "redstone": 123
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 16,
+      "world_origin": [
+        -1968,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 649,
+        "minecraft:plains": 255,
+        "minecraft:river": 120
+      },
+      "candidate_density": 1123,
+      "cell": [
+        4,
+        4
+      ],
+      "farmable_surface_samples": 358,
+      "fauna": {
+        "chicken": 2,
+        "pig": 8,
+        "sheep": 2,
+        "wolf": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 65.5,
+      "ore": {
+        "coal": 260,
+        "copper": 263,
+        "diamond": 71,
+        "gold": 68,
+        "iron": 253,
+        "lapis": 76,
+        "redstone": 116
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "pig",
+        "sheep",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 197,
+      "world_origin": [
+        -1968,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 1003,
+        "minecraft:plains": 21
+      },
+      "candidate_density": 1472,
+      "cell": [
+        4,
+        5
+      ],
+      "farmable_surface_samples": 392,
+      "fauna": {
+        "wolf": 5
+      },
+      "hostiles": {},
+      "mean_surface_y": 79.5,
+      "ore": {
+        "coal": 462,
+        "copper": 354,
+        "diamond": 81,
+        "gold": 81,
+        "iron": 245,
+        "lapis": 94,
+        "redstone": 150
+      },
+      "regenerative_vocabulary": [
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 21,
+      "world_origin": [
+        -1968,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 821,
+        "minecraft:plains": 202,
+        "minecraft:river": 1
+      },
+      "candidate_density": 1284,
+      "cell": [
+        4,
+        6
+      ],
+      "farmable_surface_samples": 473,
+      "fauna": {
+        "pig": 1,
+        "sheep": 4,
+        "wolf": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 79.6,
+      "ore": {
+        "coal": 356,
+        "copper": 349,
+        "diamond": 73,
+        "gold": 79,
+        "iron": 224,
+        "lapis": 74,
+        "redstone": 119
+      },
+      "regenerative_vocabulary": [
+        "pig",
+        "pumpkin",
+        "sheep",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "pumpkin": 1
+      },
+      "water_surface_samples": 69,
+      "world_origin": [
+        -1968,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 307,
+        "minecraft:plains": 559,
+        "minecraft:river": 154
+      },
+      "candidate_density": 1096,
+      "cell": [
+        4,
+        7
+      ],
+      "farmable_surface_samples": 484,
+      "fauna": {
+        "horse": 2,
+        "pig": 4,
+        "sheep": 9
+      },
+      "hostiles": {},
+      "mean_surface_y": 66.3,
+      "ore": {
+        "coal": 278,
+        "copper": 266,
+        "diamond": 64,
+        "gold": 75,
+        "iron": 216,
+        "lapis": 67,
+        "redstone": 115
+      },
+      "regenerative_vocabulary": [
+        "horse",
+        "pig",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 222,
+      "world_origin": [
+        -1968,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:plains": 152,
+        "minecraft:river": 104
+      },
+      "candidate_density": 284,
+      "cell": [
+        4,
+        8
+      ],
+      "farmable_surface_samples": 116,
+      "fauna": {
+        "chicken": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 66.1,
+      "ore": {
+        "coal": 73,
+        "copper": 80,
+        "diamond": 16,
+        "gold": 12,
+        "iron": 59,
+        "lapis": 15,
+        "redstone": 21
+      },
+      "regenerative_vocabulary": [
+        "chicken"
+      ],
+      "sampled_columns": 256,
+      "vegetation": {},
+      "water_surface_samples": 101,
+      "world_origin": [
+        -1968,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 368,
+        "minecraft:river": 176,
+        "minecraft:swamp": 278
+      },
+      "candidate_density": 1246,
+      "cell": [
+        5,
+        0
+      ],
+      "farmable_surface_samples": 191,
+      "fauna": {
+        "sheep": 3
+      },
+      "hostiles": {},
+      "mean_surface_y": 63.7,
+      "ore": {
+        "coal": 278,
+        "copper": 301,
+        "diamond": 79,
+        "gold": 102,
+        "iron": 268,
+        "lapis": 76,
+        "redstone": 110
+      },
+      "regenerative_vocabulary": [
+        "kelp",
+        "sheep"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 29
+      },
+      "water_surface_samples": 455,
+      "world_origin": [
+        -1840,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 739,
+        "minecraft:plains": 182,
+        "minecraft:river": 60
+      },
+      "candidate_density": 1340,
+      "cell": [
+        5,
+        1
+      ],
+      "farmable_surface_samples": 414,
+      "fauna": {
+        "sheep": 5,
+        "wolf": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 75.8,
+      "ore": {
+        "coal": 361,
+        "copper": 340,
+        "diamond": 93,
+        "gold": 78,
+        "iron": 267,
+        "lapis": 70,
+        "redstone": 122
+      },
+      "regenerative_vocabulary": [
+        "sheep",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 232,
+      "world_origin": [
+        -1840,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 346,
+        "minecraft:forest": 620,
+        "minecraft:plains": 58
+      },
+      "candidate_density": 1143,
+      "cell": [
+        5,
+        2
+      ],
+      "farmable_surface_samples": 238,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 68.6,
+      "ore": {
+        "coal": 260,
+        "copper": 256,
+        "diamond": 81,
+        "gold": 72,
+        "iron": 242,
+        "lapis": 73,
+        "redstone": 96
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 63
+      },
+      "water_surface_samples": 449,
+      "world_origin": [
+        -1840,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 54,
+        "minecraft:cold_ocean": 626,
+        "minecraft:forest": 344
+      },
+      "candidate_density": 1253,
+      "cell": [
+        5,
+        3
+      ],
+      "farmable_surface_samples": 79,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 63.8,
+      "ore": {
+        "coal": 222,
+        "copper": 217,
+        "diamond": 66,
+        "gold": 65,
+        "iron": 224,
+        "lapis": 69,
+        "redstone": 98
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 292
+      },
+      "water_surface_samples": 772,
+      "world_origin": [
+        -1840,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 269,
+        "minecraft:forest": 569,
+        "minecraft:river": 182
+      },
+      "candidate_density": 976,
+      "cell": [
+        5,
+        4
+      ],
+      "farmable_surface_samples": 147,
+      "fauna": {
+        "cow": 6,
+        "wolf": 2
+      },
+      "hostiles": {},
+      "mean_surface_y": 64.9,
+      "ore": {
+        "coal": 224,
+        "copper": 234,
+        "diamond": 63,
+        "gold": 61,
+        "iron": 230,
+        "lapis": 75,
+        "redstone": 81
+      },
+      "regenerative_vocabulary": [
+        "cow",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {},
+      "water_surface_samples": 359,
+      "world_origin": [
+        -1840,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 1020,
+        "minecraft:taiga": 4
+      },
+      "candidate_density": 1564,
+      "cell": [
+        5,
+        5
+      ],
+      "farmable_surface_samples": 391,
+      "fauna": {
+        "chicken": 8,
+        "cow": 4,
+        "wolf": 8
+      },
+      "hostiles": {},
+      "mean_surface_y": 78.3,
+      "ore": {
+        "coal": 442,
+        "copper": 429,
+        "diamond": 66,
+        "gold": 91,
+        "iron": 305,
+        "lapis": 97,
+        "redstone": 112
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "cow",
+        "mushrooms",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "mushrooms": 2
+      },
+      "water_surface_samples": 6,
+      "world_origin": [
+        -1840,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 77,
+        "minecraft:forest": 769,
+        "minecraft:river": 162
+      },
+      "candidate_density": 1118,
+      "cell": [
+        5,
+        6
+      ],
+      "farmable_surface_samples": 286,
+      "fauna": {
+        "chicken": 4,
+        "pig": 1,
+        "sheep": 2,
+        "wolf": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 69.5,
+      "ore": {
+        "coal": 265,
+        "copper": 252,
+        "diamond": 77,
+        "gold": 93,
+        "iron": 229,
+        "lapis": 89,
+        "redstone": 103
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "pig",
+        "sheep",
+        "sugar_cane",
+        "wolf"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "sugar_cane": 2
+      },
+      "water_surface_samples": 229,
+      "world_origin": [
+        -1840,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 82,
+        "minecraft:forest": 480,
+        "minecraft:ocean": 353
+      },
+      "candidate_density": 964,
+      "cell": [
+        5,
+        7
+      ],
+      "farmable_surface_samples": 126,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 64.2,
+      "ore": {
+        "coal": 196,
+        "copper": 216,
+        "diamond": 49,
+        "gold": 63,
+        "iron": 188,
+        "lapis": 57,
+        "redstone": 85
+      },
+      "regenerative_vocabulary": [
+        "kelp",
+        "sugar_cane"
+      ],
+      "sampled_columns": 1024,
+      "vegetation": {
+        "kelp": 108,
+        "sugar_cane": 2
+      },
+      "water_surface_samples": 769,
+      "world_origin": [
+        -1840,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:ocean": 216,
+        "minecraft:plains": 40
+      },
+      "candidate_density": 322,
+      "cell": [
+        5,
+        8
+      ],
+      "farmable_surface_samples": 18,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 62.1,
+      "ore": {
+        "coal": 37,
+        "copper": 61,
+        "diamond": 16,
+        "gold": 18,
+        "iron": 67,
+        "lapis": 16,
+        "redstone": 20
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 256,
+      "vegetation": {
+        "kelp": 87
+      },
+      "water_surface_samples": 233,
+      "world_origin": [
+        -1840,
+        496
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 212,
+        "minecraft:cold_ocean": 409,
+        "minecraft:swamp": 105
+      },
+      "candidate_density": 892,
+      "cell": [
+        6,
+        0
+      ],
+      "farmable_surface_samples": 79,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 63.3,
+      "ore": {
+        "coal": 166,
+        "copper": 177,
+        "diamond": 50,
+        "gold": 60,
+        "iron": 213,
+        "lapis": 53,
+        "redstone": 74
+      },
+      "regenerative_vocabulary": [
+        "kelp",
+        "sugar_cane"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 97,
+        "sugar_cane": 2
+      },
+      "water_surface_samples": 513,
+      "world_origin": [
+        -1712,
+        -528
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 595,
+        "minecraft:forest": 167,
+        "minecraft:river": 6
+      },
+      "candidate_density": 1042,
+      "cell": [
+        6,
+        1
+      ],
+      "farmable_surface_samples": 8,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 62.1,
+      "ore": {
+        "coal": 177,
+        "copper": 159,
+        "diamond": 60,
+        "gold": 89,
+        "iron": 213,
+        "lapis": 58,
+        "redstone": 106
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 180
+      },
+      "water_surface_samples": 756,
+      "world_origin": [
+        -1712,
+        -400
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 758,
+        "minecraft:forest": 10
+      },
+      "candidate_density": 1120,
+      "cell": [
+        6,
+        2
+      ],
+      "farmable_surface_samples": 22,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 62.0,
+      "ore": {
+        "coal": 176,
+        "copper": 148,
+        "diamond": 68,
+        "gold": 82,
+        "iron": 226,
+        "lapis": 78,
+        "redstone": 105
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 237
+      },
+      "water_surface_samples": 736,
+      "world_origin": [
+        -1712,
+        -272
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 112,
+        "minecraft:cold_ocean": 437,
+        "minecraft:taiga": 130
+      },
+      "candidate_density": 962,
+      "cell": [
+        6,
+        3
+      ],
+      "farmable_surface_samples": 39,
+      "fauna": {
+        "chicken": 3
+      },
+      "hostiles": {},
+      "mean_surface_y": 64.8,
+      "ore": {
+        "coal": 175,
+        "copper": 174,
+        "diamond": 70,
+        "gold": 79,
+        "iron": 163,
+        "lapis": 69,
+        "redstone": 92
+      },
+      "regenerative_vocabulary": [
+        "chicken",
+        "kelp"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 137
+      },
+      "water_surface_samples": 648,
+      "world_origin": [
+        -1712,
+        -144
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:forest": 363,
+        "minecraft:river": 163,
+        "minecraft:taiga": 227
+      },
+      "candidate_density": 1023,
+      "cell": [
+        6,
+        4
+      ],
+      "farmable_surface_samples": 327,
+      "fauna": {
+        "fox": 1,
+        "pig": 1
+      },
+      "hostiles": {},
+      "mean_surface_y": 76.4,
+      "ore": {
+        "coal": 310,
+        "copper": 224,
+        "diamond": 62,
+        "gold": 74,
+        "iron": 194,
+        "lapis": 62,
+        "redstone": 92
+      },
+      "regenerative_vocabulary": [
+        "fox",
+        "pig",
+        "pumpkin",
+        "sweet_berries"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "pumpkin": 1,
+        "sweet_berries": 2
+      },
+      "water_surface_samples": 111,
+      "world_origin": [
+        -1712,
+        -16
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 153,
+        "minecraft:forest": 201,
+        "minecraft:taiga": 414
+      },
+      "candidate_density": 916,
+      "cell": [
+        6,
+        5
+      ],
+      "farmable_surface_samples": 240,
+      "fauna": {
+        "wolf": 4
+      },
+      "hostiles": {},
+      "mean_surface_y": 68.0,
+      "ore": {
+        "coal": 201,
+        "copper": 206,
+        "diamond": 78,
+        "gold": 68,
+        "iron": 197,
+        "lapis": 70,
+        "redstone": 89
+      },
+      "regenerative_vocabulary": [
+        "sweet_berries",
+        "wolf"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "sweet_berries": 3
+      },
+      "water_surface_samples": 60,
+      "world_origin": [
+        -1712,
+        112
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:beach": 220,
+        "minecraft:cold_ocean": 462,
+        "minecraft:taiga": 52
+      },
+      "candidate_density": 913,
+      "cell": [
+        6,
+        6
+      ],
+      "farmable_surface_samples": 19,
+      "fauna": {
+        "turtle": 3
+      },
+      "hostiles": {},
+      "mean_surface_y": 62.4,
+      "ore": {
+        "coal": 139,
+        "copper": 141,
+        "diamond": 60,
+        "gold": 53,
+        "iron": 167,
+        "lapis": 45,
+        "redstone": 85
+      },
+      "regenerative_vocabulary": [
+        "kelp",
+        "turtle"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 220
+      },
+      "water_surface_samples": 683,
+      "world_origin": [
+        -1712,
+        240
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:cold_ocean": 580,
+        "minecraft:forest": 40,
+        "minecraft:ocean": 123
+      },
+      "candidate_density": 937,
+      "cell": [
+        6,
+        7
+      ],
+      "farmable_surface_samples": 4,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 62.0,
+      "ore": {
+        "coal": 114,
+        "copper": 152,
+        "diamond": 56,
+        "gold": 60,
+        "iron": 166,
+        "lapis": 63,
+        "redstone": 94
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 768,
+      "vegetation": {
+        "kelp": 232
+      },
+      "water_surface_samples": 763,
+      "world_origin": [
+        -1712,
+        368
+      ]
+    },
+    {
+      "biomes": {
+        "minecraft:ocean": 171,
+        "minecraft:windswept_savanna": 21
+      },
+      "candidate_density": 237,
+      "cell": [
+        6,
+        8
+      ],
+      "farmable_surface_samples": 4,
+      "fauna": {},
+      "hostiles": {},
+      "mean_surface_y": 62.6,
+      "ore": {
+        "coal": 32,
+        "copper": 48,
+        "diamond": 18,
+        "gold": 16,
+        "iron": 34,
+        "lapis": 11,
+        "redstone": 20
+      },
+      "regenerative_vocabulary": [
+        "kelp"
+      ],
+      "sampled_columns": 192,
+      "vegetation": {
+        "kelp": 58
+      },
+      "water_surface_samples": 184,
+      "world_origin": [
+        -1712,
+        496
+      ]
+    }
+  ],
+  "counts_are": "estimated; every 3th block sampled, raw counts NOT scaled up",
+  "evidence_state": "RAW WORLD OBSERVATION",
+  "method": "ore and vegetation counted per block in mask; surface sampled every 4 blocks for farmable land and biome; entities counted from the snapshot",
+  "not_covered": [
+    "depth tiers and regional tables, which maps.md marks OPEN",
+    "regenerative eligibility, which is a design rule and not a block property",
+    "placement of any node; this reports where candidates already are",
+    "entity counts are a snapshot and vary with spawning, unlike block counts"
+  ],
+  "schema": "terrain_opportunity_map/1",
+  "source_files_sha256": {
+    "entities/r.-4.-1.mca": "6d45604609becea4403fa55369068eaed1a7e88b71561deb52a5b0b1d44a851f",
+    "entities/r.-4.-2.mca": "041bdb330b2a08b370a18dd921630e777d334b6925e9bf49f269eaef0d5d9abb",
+    "entities/r.-4.0.mca": "5028416e494b0f0705f8609c089f8960f8dcd8e832f8bf5763c561f90f71835a",
+    "entities/r.-4.1.mca": "9ad91d11d4236abf77d3556acc9a4e851e16df921931945d6c88f03dc19a80c6",
+    "entities/r.-5.-1.mca": "0617a839d3d8524cd74eebc135ab9b47ec10c3fc07a452e735827fd321e6612f",
+    "entities/r.-5.-2.mca": "6536cb6046968fa848b6a205e82d6614ad646b832409a80b0a63bdf4327bc827",
+    "entities/r.-5.0.mca": "5876da65689f76b099434f5840e3edaf1490a2d12dcfce58c39fbc8a7cd11dda",
+    "entities/r.-5.1.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "region/r.-4.-1.mca": "e29cda32deb4a0eec7e78b693f6ec557f34a92e8de5eca81ad8e31890ed485c8",
+    "region/r.-4.-2.mca": "6aea6c5487f34ec919600dd317ac2c5568cdde9b058c97fe074035914805c38b",
+    "region/r.-4.0.mca": "c4e9e115645ad50a4d17892c82751284291c76374d8d1f26f599c44d59bdab9c",
+    "region/r.-4.1.mca": "8839d2871ea23d6f795af6596d0ad9c57d661b68668ef222dd853daf3f3ceadf",
+    "region/r.-5.-1.mca": "1f8dfb3ba574564e1f0461dc5721ab1a1178d01b01216ad934200914239e52af",
+    "region/r.-5.-2.mca": "be4a413843890106cf6e4d7cd002475e273273081d8799d075eb3ab4baf0c0b9",
+    "region/r.-5.0.mca": "4df5366756e298214b2757efd1b60aa7cc210a4f7deb33a658e0957ca215bc2f",
+    "region/r.-5.1.mca": "e9b3df938d3989bb3814f90e6b958a86142fbca700d05324fb8deb9ab4752d63"
+  },
+  "stride": 3,
+  "totals": {
+    "cells_with_opportunity": 63,
+    "fauna": {
+      "chicken": 142,
+      "cow": 91,
+      "donkey": 10,
+      "fox": 3,
+      "goat": 13,
+      "horse": 71,
+      "pig": 97,
+      "rabbit": 39,
+      "sheep": 209,
+      "turtle": 3,
+      "wolf": 32
+    },
+    "hostiles": {},
+    "ore": {
+      "coal": 22667,
+      "copper": 23367,
+      "diamond": 4333,
+      "emerald": 70,
+      "gold": 4631,
+      "iron": 15024,
+      "lapis": 4421,
+      "redstone": 6336
+    },
+    "vegetation": {
+      "carrots": 1,
+      "kelp": 1820,
+      "mushrooms": 2,
+      "potatoes": 3,
+      "pumpkin": 4,
+      "sugar_cane": 10,
+      "sweet_berries": 5,
+      "wheat": 1
+    }
+  },
+  "volume_id": "tv_ef56852eda10acc88342e5ee",
+  "y_range": [
+    -64,
+    100
+  ]
+}

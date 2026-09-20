@@ -1,0 +1,29 @@
+{
+ "schema": "map_profile/1",
+ "id": "exploration_centric",
+ "description": "More extraction targets, pushed further apart, so traffic is long-range and dispersed.",
+ "intent": "Economic traffic should reward travelling and finding rather than holding. Raises worksite and minor-POI counts and widens separation so no single held area supplies a team.",
+ "source": "CLAUDE INTERPRETATION FROM PROFILE NAME - pending the frontier definitions from the optimizer. Replace `consumers` with the real demand vector; the authoring pipeline does not care which numbers it gets.",
+ "consumers": [
+  {
+   "id": "mining_worksite",
+   "count": 10,
+   "separation": 220
+  },
+  {
+   "id": "minor_poi",
+   "count": 16,
+   "separation": 160
+  },
+  {
+   "id": "crop_patch",
+   "count": 10,
+   "separation": 110
+  },
+  {
+   "id": "livestock_range",
+   "count": 8,
+   "separation": 150
+  }
+ ]
+}

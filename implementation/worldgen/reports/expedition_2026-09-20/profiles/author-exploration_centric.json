@@ -1,0 +1,837 @@
+{
+ "blocks_written": 0,
+ "consumer_demand": [
+  {
+   "count": 2,
+   "id": "homeland",
+   "needs": "development",
+   "priority": 0,
+   "separation": 400,
+   "span": 72
+  },
+  {
+   "count": 2,
+   "id": "aether_fountain",
+   "needs": "development",
+   "priority": 0,
+   "separation": 400,
+   "span": 16
+  },
+  {
+   "count": 2,
+   "id": "end_tower",
+   "needs": "buildable",
+   "priority": 1,
+   "separation": 120,
+   "span": 14
+  },
+  {
+   "count": 2,
+   "id": "nether_bastion",
+   "needs": "buildable",
+   "priority": 1,
+   "separation": 120,
+   "span": 16
+  },
+  {
+   "count": 2,
+   "id": "pillager_outpost",
+   "needs": "buildable",
+   "priority": 1,
+   "separation": 120,
+   "span": 10
+  },
+  {
+   "count": 2,
+   "id": "village",
+   "needs": "development",
+   "priority": 2,
+   "separation": 200,
+   "span": 48
+  },
+  {
+   "count": 8,
+   "id": "livestock_range",
+   "needs": "development",
+   "priority": 3,
+   "separation": 150,
+   "span": 40
+  },
+  {
+   "count": 2,
+   "id": "horse_range",
+   "needs": "development",
+   "priority": 3,
+   "separation": 150,
+   "span": 40
+  },
+  {
+   "count": 10,
+   "id": "crop_patch",
+   "needs": "development",
+   "priority": 4,
+   "separation": 110,
+   "span": 24
+  },
+  {
+   "count": 4,
+   "id": "major_poi",
+   "needs": "buildable",
+   "priority": 2,
+   "separation": 250,
+   "span": 48
+  },
+  {
+   "count": 16,
+   "id": "minor_poi",
+   "needs": "buildable",
+   "priority": 3,
+   "separation": 160,
+   "span": 24
+  },
+  {
+   "count": 10,
+   "id": "mining_worksite",
+   "needs": "extraction",
+   "priority": 2,
+   "separation": 220,
+   "span": 32
+  }
+ ],
+ "dry_run": true,
+ "evidence_state": "DERIVED MEASUREMENT",
+ "fits": false,
+ "nature": "greybox massing in vanilla-native palettes, not final architecture",
+ "not_covered": [
+  "animals, which are entities manifested at runtime by the plugin, not written into region files here",
+  "terrain shape within a cell; packing treats a cell as uniform, so a placement can land on a slope the foundation then flattens",
+  "Routes between placements, which no profile yet declares",
+  "whether a profile is balanced; this authors what the profile asks for"
+ ],
+ "placed": 50,
+ "placed_by_packing": 60,
+ "placements": [
+  {
+   "cell": [
+    2,
+    2
+   ],
+   "id": "village",
+   "instance": 1,
+   "world_xyz": [
+    -2128,
+    76,
+    -200
+   ]
+  },
+  {
+   "cell": [
+    2,
+    0
+   ],
+   "id": "village",
+   "instance": 2,
+   "world_xyz": [
+    -2200,
+    69,
+    -504
+   ]
+  },
+  {
+   "cell": [
+    3,
+    2
+   ],
+   "id": "major_poi",
+   "instance": 1,
+   "world_xyz": [
+    -2024,
+    73,
+    -248
+   ]
+  },
+  {
+   "cell": [
+    2,
+    0
+   ],
+   "id": "major_poi",
+   "instance": 2,
+   "world_xyz": [
+    -2128,
+    69,
+    -504
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "id": "major_poi",
+   "instance": 3,
+   "world_xyz": [
+    -2000,
+    69,
+    440
+   ]
+  },
+  {
+   "cell": [
+    0,
+    2
+   ],
+   "id": "major_poi",
+   "instance": 4,
+   "world_xyz": [
+    -2456,
+    85,
+    -248
+   ]
+  },
+  {
+   "cell": [
+    2,
+    2
+   ],
+   "id": "mining_worksite",
+   "instance": 1,
+   "world_xyz": [
+    -2208,
+    76,
+    -176
+   ]
+  },
+  {
+   "cell": [
+    3,
+    0
+   ],
+   "id": "mining_worksite",
+   "instance": 2,
+   "world_xyz": [
+    -2080,
+    68,
+    -512
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "id": "mining_worksite",
+   "instance": 3,
+   "world_xyz": [
+    -1984,
+    69,
+    384
+   ]
+  },
+  {
+   "cell": [
+    1,
+    1
+   ],
+   "id": "mining_worksite",
+   "instance": 4,
+   "world_xyz": [
+    -2336,
+    73,
+    -384
+   ]
+  },
+  {
+   "cell": [
+    4,
+    3
+   ],
+   "id": "mining_worksite",
+   "instance": 5,
+   "world_xyz": [
+    -1952,
+    72,
+    -128
+   ]
+  },
+  {
+   "cell": [
+    0,
+    6
+   ],
+   "id": "mining_worksite",
+   "instance": 6,
+   "world_xyz": [
+    -2464,
+    94,
+    256
+   ]
+  },
+  {
+   "cell": [
+    0,
+    3
+   ],
+   "id": "mining_worksite",
+   "instance": 7,
+   "world_xyz": [
+    -2464,
+    92,
+    -128
+   ]
+  },
+  {
+   "cell": [
+    6,
+    4
+   ],
+   "id": "mining_worksite",
+   "instance": 8,
+   "world_xyz": [
+    -1696,
+    76,
+    0
+   ]
+  },
+  {
+   "cell": [
+    2,
+    7
+   ],
+   "id": "mining_worksite",
+   "instance": 9,
+   "world_xyz": [
+    -2208,
+    94,
+    384
+   ]
+  },
+  {
+   "cell": [
+    5,
+    1
+   ],
+   "id": "mining_worksite",
+   "instance": 10,
+   "world_xyz": [
+    -1824,
+    76,
+    -384
+   ]
+  },
+  {
+   "cell": [
+    3,
+    2
+   ],
+   "id": "livestock_range",
+   "instance": 1,
+   "world_xyz": [
+    -2076,
+    73,
+    -232
+   ]
+  },
+  {
+   "cell": [
+    2,
+    3
+   ],
+   "id": "livestock_range",
+   "instance": 2,
+   "world_xyz": [
+    -2204,
+    90,
+    -124
+   ]
+  },
+  {
+   "cell": [
+    3,
+    0
+   ],
+   "id": "livestock_range",
+   "instance": 3,
+   "world_xyz": [
+    -2036,
+    68,
+    -508
+   ]
+  },
+  {
+   "cell": [
+    2,
+    1
+   ],
+   "id": "livestock_range",
+   "instance": 4,
+   "world_xyz": [
+    -2204,
+    77,
+    -380
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "id": "livestock_range",
+   "instance": 5,
+   "world_xyz": [
+    -2076,
+    69,
+    468
+   ]
+  },
+  {
+   "cell": [
+    3,
+    6
+   ],
+   "id": "livestock_range",
+   "instance": 6,
+   "world_xyz": [
+    -2076,
+    90,
+    260
+   ]
+  },
+  {
+   "cell": [
+    0,
+    2
+   ],
+   "id": "livestock_range",
+   "instance": 7,
+   "world_xyz": [
+    -2400,
+    85,
+    -252
+   ]
+  },
+  {
+   "cell": [
+    0,
+    0
+   ],
+   "id": "livestock_range",
+   "instance": 8,
+   "world_xyz": [
+    -2460,
+    74,
+    -508
+   ]
+  },
+  {
+   "cell": [
+    2,
+    3
+   ],
+   "id": "horse_range",
+   "instance": 1,
+   "world_xyz": [
+    -2144,
+    90,
+    -124
+   ]
+  },
+  {
+   "cell": [
+    3,
+    1
+   ],
+   "id": "horse_range",
+   "instance": 2,
+   "world_xyz": [
+    -2076,
+    70,
+    -380
+   ]
+  },
+  {
+   "cell": [
+    1,
+    2
+   ],
+   "id": "minor_poi",
+   "instance": 1,
+   "world_xyz": [
+    -2268,
+    75,
+    -260
+   ]
+  },
+  {
+   "cell": [
+    3,
+    3
+   ],
+   "id": "minor_poi",
+   "instance": 2,
+   "world_xyz": [
+    -2084,
+    67,
+    -132
+   ]
+  },
+  {
+   "cell": [
+    3,
+    1
+   ],
+   "id": "minor_poi",
+   "instance": 3,
+   "world_xyz": [
+    -2036,
+    70,
+    -388
+   ]
+  },
+  {
+   "cell": [
+    3,
+    6
+   ],
+   "id": "minor_poi",
+   "instance": 4,
+   "world_xyz": [
+    -2036,
+    90,
+    252
+   ]
+  },
+  {
+   "cell": [
+    2,
+    4
+   ],
+   "id": "minor_poi",
+   "instance": 5,
+   "world_xyz": [
+    -2212,
+    72,
+    -4
+   ]
+  },
+  {
+   "cell": [
+    0,
+    0
+   ],
+   "id": "minor_poi",
+   "instance": 6,
+   "world_xyz": [
+    -2420,
+    74,
+    -516
+   ]
+  },
+  {
+   "cell": [
+    3,
+    8
+   ],
+   "id": "minor_poi",
+   "instance": 7,
+   "world_xyz": [
+    -2084,
+    64,
+    508
+   ]
+  },
+  {
+   "cell": [
+    1,
+    5
+   ],
+   "id": "minor_poi",
+   "instance": 8,
+   "world_xyz": [
+    -2340,
+    79,
+    124
+   ]
+  },
+  {
+   "cell": [
+    5,
+    5
+   ],
+   "id": "minor_poi",
+   "instance": 9,
+   "world_xyz": [
+    -1828,
+    78,
+    124
+   ]
+  },
+  {
+   "cell": [
+    4,
+    4
+   ],
+   "id": "minor_poi",
+   "instance": 10,
+   "world_xyz": [
+    -1956,
+    66,
+    -4
+   ]
+  },
+  {
+   "cell": [
+    0,
+    7
+   ],
+   "id": "minor_poi",
+   "instance": 11,
+   "world_xyz": [
+    -2468,
+    98,
+    380
+   ]
+  },
+  {
+   "cell": [
+    5,
+    2
+   ],
+   "id": "minor_poi",
+   "instance": 12,
+   "world_xyz": [
+    -1828,
+    69,
+    -260
+   ]
+  },
+  {
+   "cell": [
+    0,
+    4
+   ],
+   "id": "minor_poi",
+   "instance": 13,
+   "world_xyz": [
+    -2468,
+    98,
+    -4
+   ]
+  },
+  {
+   "cell": [
+    5,
+    0
+   ],
+   "id": "minor_poi",
+   "instance": 14,
+   "world_xyz": [
+    -1828,
+    64,
+    -516
+   ]
+  },
+  {
+   "cell": [
+    1,
+    2
+   ],
+   "id": "crop_patch",
+   "instance": 1,
+   "world_xyz": [
+    -2340,
+    75,
+    -236
+   ]
+  },
+  {
+   "cell": [
+    3,
+    3
+   ],
+   "id": "crop_patch",
+   "instance": 2,
+   "world_xyz": [
+    -2048,
+    67,
+    -132
+   ]
+  },
+  {
+   "cell": [
+    3,
+    1
+   ],
+   "id": "crop_patch",
+   "instance": 3,
+   "world_xyz": [
+    -2000,
+    70,
+    -388
+   ]
+  },
+  {
+   "cell": [
+    2,
+    1
+   ],
+   "id": "crop_patch",
+   "instance": 4,
+   "world_xyz": [
+    -2164,
+    77,
+    -388
+   ]
+  },
+  {
+   "cell": [
+    3,
+    6
+   ],
+   "id": "crop_patch",
+   "instance": 5,
+   "world_xyz": [
+    -2000,
+    90,
+    252
+   ]
+  },
+  {
+   "cell": [
+    2,
+    4
+   ],
+   "id": "crop_patch",
+   "instance": 6,
+   "world_xyz": [
+    -2176,
+    72,
+    -4
+   ]
+  },
+  {
+   "cell": [
+    0,
+    0
+   ],
+   "id": "crop_patch",
+   "instance": 7,
+   "world_xyz": [
+    -2384,
+    74,
+    -516
+   ]
+  },
+  {
+   "cell": [
+    4,
+    2
+   ],
+   "id": "crop_patch",
+   "instance": 8,
+   "world_xyz": [
+    -1956,
+    68,
+    -260
+   ]
+  },
+  {
+   "cell": [
+    3,
+    8
+   ],
+   "id": "crop_patch",
+   "instance": 9,
+   "world_xyz": [
+    -2048,
+    64,
+    508
+   ]
+  },
+  {
+   "cell": [
+    1,
+    5
+   ],
+   "id": "crop_patch",
+   "instance": 10,
+   "world_xyz": [
+    -2304,
+    79,
+    124
+   ]
+  }
+ ],
+ "profile": {
+  "description": "More extraction targets, pushed further apart, so traffic is long-range and dispersed.",
+  "id": "exploration_centric",
+  "intent": "Economic traffic should reward travelling and finding rather than holding. Raises worksite and minor-POI counts and widens separation so no single held area supplies a team.",
+  "schema": "map_profile/1",
+  "source": "CLAUDE INTERPRETATION FROM PROFILE NAME - pending the frontier definitions from the optimizer. Replace `consumers` with the real demand vector; the authoring pipeline does not care which numbers it gets."
+ },
+ "profile_source": "CLAUDE INTERPRETATION FROM PROFILE NAME - pending the frontier definitions from the optimizer. Replace `consumers` with the real demand vector; the authoring pipeline does not care which numbers it gets.",
+ "schema": "map_profile_authored/1",
+ "skipped": [
+  {
+   "id": "homeland",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "homeland",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "aether_fountain",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "aether_fountain",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "nether_bastion",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "nether_bastion",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "end_tower",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "end_tower",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "pillager_outpost",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  },
+  {
+   "id": "pillager_outpost",
+   "reason": "no profile template; handled by build_structures or has no massing"
+  }
+ ],
+ "unplaced": [
+  {
+   "already_placed_of_this_type": 14,
+   "id": "minor_poi",
+   "instance": 15,
+   "needs": "buildable",
+   "reason": "no free cell with role \"buildable\" outside this type's own separation radius",
+   "separation": 160,
+   "span": 24
+  },
+  {
+   "already_placed_of_this_type": 14,
+   "id": "minor_poi",
+   "instance": 16,
+   "needs": "buildable",
+   "reason": "no free cell with role \"buildable\" outside this type's own separation radius",
+   "separation": 160,
+   "span": 24
+  }
+ ],
+ "world": null
+}

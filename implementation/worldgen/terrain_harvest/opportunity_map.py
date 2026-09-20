@@ -90,7 +90,7 @@ def cell_of(x, z, size, origin):
     return ((x - origin[0]) // size, (z - origin[1]) // size)
 
 
-def scan(volume, source: Path, cell_size: int, y_range):
+def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1):
     mask = Mask(volume)
     b = mask.bounds
     origin = (b['x'][0], b['z'][0])
@@ -101,6 +101,7 @@ def scan(volume, source: Path, cell_size: int, y_range):
         'ore': Counter(), 'vegetation': Counter(), 'fauna': Counter(),
         'hostiles': Counter(), 'biomes': Counter(),
         'farmable_surface': 0, 'water_surface': 0, 'sampled_columns': 0,
+        'surface_y_sum': 0, 'surface_y_samples': 0,
     })
     consumed = {}
 
@@ -118,9 +119,12 @@ def scan(volume, source: Path, cell_size: int, y_range):
                 for sy, container in sections.items():
                     if container is None: continue
                     if sy * 16 > hi or sy * 16 + 15 < lo: continue
-                    for y in range(max(lo, sy * 16), min(hi, sy * 16 + 15) + 1):
-                        for z in range(cz * 16, cz * 16 + 16):
-                            for x in range(cx * 16, cx * 16 + 16):
+                    # A full-depth scan of a whole map is hundreds of millions of
+                    # blocks, so deep passes sample every Nth column and scale the
+                    # result. Counts then become estimates and are labelled so.
+                    for y in range(max(lo, sy * 16), min(hi, sy * 16 + 15) + 1, stride):
+                        for z in range(cz * 16, cz * 16 + 16, stride):
+                            for x in range(cx * 16, cx * 16 + 16, stride):
                                 if not mask.include_block(x, y, z): continue
                                 name = state_tuple(_palette_value(
                                     container, (y & 15) * 256 + (z & 15) * 16 + (x & 15), 4))[0]
@@ -139,6 +143,9 @@ def scan(volume, source: Path, cell_size: int, y_range):
                         name, y = top
                         if name in FARMABLE: cell['farmable_surface'] += 1
                         elif name in WATER: cell['water_surface'] += 1
+                        # Surface height, so anything sited in this cell can be
+                        # placed at a measured y instead of a guessed one.
+                        cell['surface_y_sum'] += y; cell['surface_y_samples'] += 1
                         try: cell['biomes'][chunk.biome(x, max(y, 63), z)] += 1
                         except Exception: pass
 
@@ -183,6 +190,8 @@ def summarise(cells, origin, cell_size):
             'farmable_surface_samples': c['farmable_surface'],
             'water_surface_samples': c['water_surface'],
             'sampled_columns': c['sampled_columns'],
+            'mean_surface_y': (round(c['surface_y_sum'] / c['surface_y_samples'], 1)
+                               if c['surface_y_samples'] else None),
             'biomes': dict(c['biomes'].most_common(3)),
             # Canon's terms, measured rather than assigned.
             'candidate_density': sum(c['ore'].values()) + sum(c['vegetation'].values())
@@ -192,10 +201,11 @@ def summarise(cells, origin, cell_size):
     return out
 
 
-def run(gallery: Path, volume_id: str, source: Path, cell_size: int, y_range, output: Path):
+def run(gallery: Path, volume_id: str, source: Path, cell_size: int, y_range, output: Path,
+        stride: int = 1):
     dest = gallery / 'dimensions/harvest' / volume_id
     volume = loads((dest / 'terrain_volume.json').read_text())
-    cells, consumed, origin = scan(volume, source, cell_size, y_range)
+    cells, consumed, origin = scan(volume, source, cell_size, y_range, stride)
     rows = summarise(cells, origin, cell_size)
     result = {
         'schema': 'terrain_opportunity_map/1',
@@ -203,6 +213,9 @@ def run(gallery: Path, volume_id: str, source: Path, cell_size: int, y_range, ou
         'volume_id': volume_id,
         'cell_size_blocks': cell_size,
         'y_range': list(y_range),
+        'stride': stride,
+        'counts_are': 'exact' if stride == 1 else f'estimated; every {stride}th block sampled, '
+                      f'raw counts NOT scaled up',
         'method': 'ore and vegetation counted per block in mask; surface sampled every 4 blocks '
                   'for farmable land and biome; entities counted from the snapshot',
         'cells': rows,
@@ -233,10 +246,13 @@ if __name__ == '__main__':
     p.add_argument('--cell-size', type=int, default=128)
     p.add_argument('--y-min', type=int, default=-64)
     p.add_argument('--y-max', type=int, default=200)
+    p.add_argument('--stride', type=int, default=1,
+                   help='sample every Nth block; use >1 for deep full-map passes')
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
     r = run(a.gallery.resolve(), a.volume_id, a.source.resolve(), a.cell_size,
-            (a.y_min, a.y_max), a.output.resolve())
+            (a.y_min, a.y_max), a.output.resolve(), a.stride)
+    if a.stride > 1: print(f"stride {a.stride}: counts are SAMPLES, not totals")
     t = r['totals']
     print(f"{t['cells_with_opportunity']} cells with opportunity")
     for k in ('ore', 'vegetation', 'fauna', 'hostiles'):
