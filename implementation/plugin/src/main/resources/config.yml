@@ -204,3 +204,17 @@ provenance:
 renewables:
   sampleTicks: 200
   sources: {}
+
+# Alpha 0.1 match lifecycle.
+#
+# The template is the frozen Consolidative world (docs/analysis/alpha-0.1-map-freeze.json).
+# A match runs on a disposable copy named by instanceWorldName; reset replaces
+# that copy from the template rather than rolling back blocks (ALPHA-D2).
+alpha:
+  templatePath: artifacts/worldgen/alpha-0.1/consolidative-alpha
+  instanceWorldName: alpha_match
+  # Homeland spawn per team, [x, z] or [x, z, y]. From the frozen map's own
+  # siting: north and south Aether Fountains sit at their team's homeland.
+  homelands:
+    north: [-2172, -460]
+    south: [-2020, 428]

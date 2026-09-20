@@ -40,6 +40,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Durability durability;
     public Durability durability() { return durability; }
     private Contributions contributions;
+    private WorldInstance worldInstance;
+    private Match match;
     public Contributions contributions() { return contributions; }
     private LockedSlots lockedSlots;
     public LockedSlots lockedSlots() { return lockedSlots; }
@@ -73,6 +75,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         taskEffects = new TaskEffects(this);
         hud = new Hud(this);
         renewAuthoring = new RenewableAuthoring(this);
+        worldInstance = new WorldInstance(this);
+        match = new Match(this, worldInstance);
+        getServer().getPluginManager().registerEvents(match, this);
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);
         rewardAdvancements = new RewardAdvancements(this);
@@ -122,6 +127,67 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             }
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
+    public Match match() { return match; }
+    public WorldInstance worldInstance() { return worldInstance; }
+
+    /**
+     * Clear a player's match-scoped state (ALPHA-D2 confirmation: progression
+     * and levels are match-scoped for Alpha and reset between matches).
+     */
+    public void clearMatchScopedState(org.bukkit.entity.Player p) {
+        inputs.forget(p);
+        var fresh = new PlayerData(p.getUniqueId());
+        players.put(fresh.uuid, fresh);
+        save(p, fresh);
+    }
+
+    /**
+     * Match lifecycle administration.
+     *
+     * These force legitimate state transitions rather than implementing a
+     * parallel debug game: `fountain disable` sets the same flag a breach
+     * would, and `kill` eliminates through the same path a death does, so the
+     * real victory predicate decides the outcome either way.
+     */
+    private boolean matchCommand(CommandSender sender, String[] args) {
+        String sub = args.length > 1 ? args[1].toLowerCase(java.util.Locale.ROOT) : "status";
+        try {
+            switch (sub) {
+                case "open" -> sender.sendMessage(match.open());
+                case "start" -> sender.sendMessage(match.start());
+                case "status" -> match.report().forEach(sender::sendMessage);
+                case "add" -> {
+                    if (args.length != 4) { sender.sendMessage("/moba match add <player> <north|south>"); return true; }
+                    var target = org.bukkit.Bukkit.getPlayerExact(args[2]);
+                    if (target == null) { sender.sendMessage("No such player online: " + args[2]); return true; }
+                    sender.sendMessage(match.add(target, Team.parse(args[3])));
+                }
+                case "fountain" -> {
+                    if (args.length != 4 || !args[3].equalsIgnoreCase("disable")) {
+                        sender.sendMessage("/moba match fountain <north|south> disable"); return true;
+                    }
+                    sender.sendMessage(match.disableFountain(Team.parse(args[2])));
+                }
+                case "kill" -> {
+                    if (args.length != 3) { sender.sendMessage("/moba match kill <player>"); return true; }
+                    var target = org.bukkit.Bukkit.getPlayerExact(args[2]);
+                    if (target == null) { sender.sendMessage("No such player online: " + args[2]); return true; }
+                    sender.sendMessage(match.eliminate(target.getUniqueId(), "admin"));
+                }
+                case "skip" -> {
+                    if (args.length != 3) { sender.sendMessage("/moba match skip <minutes>"); return true; }
+                    sender.sendMessage(match.skipMinutes(Integer.parseInt(args[2])));
+                }
+                case "reset" -> sender.sendMessage(match.reset());
+                default -> sender.sendMessage(
+                    "/moba match <open|add|start|status|skip|fountain|kill|reset>");
+            }
+        } catch (Exception ex) {
+            sender.sendMessage("match: " + ex.getMessage());
+        }
+        return true;
+    }
+
     @Override public void onDisable() {
         if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
         if (packets != null) packets.close();
@@ -234,6 +300,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("renew")) return renewAuthoring.handle(sender, args);
         if (args.length >= 2 && args[0].equalsIgnoreCase("infra")) {
             if (!(sender instanceof Player ip)) { sender.sendMessage("Player only"); return true; }

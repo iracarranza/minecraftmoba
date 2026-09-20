@@ -216,8 +216,11 @@ the worldgen suite (46 tests) to prove nothing on main regressed.
   sources, and the Paper server is running with it. **That is not
   reproducibility** — it proves a JDK existed earlier, not that a fresh checkout
   can build.
-- `build.gradle.kts` declares **no `jvmToolchain`**. The build inherits whatever
-  JDK happens to be on `PATH`, so it is not pinned even when one is present.
+- ~~`build.gradle.kts` declares no toolchain.~~ **CORRECTION, 20 September:** it
+  does. `java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }` and
+  `options.release.set(21)` were already present; the original audit grepped for
+  `jvmToolchain` and missed this spelling. The build was already pinned. The
+  only real gap was the absent JDK.
 
 **Required:** JDK 21 (Paper 1.21.11 / `paper-api:1.21.11-R0.1-SNAPSHOT`),
 Gradle 8.14.3 via the committed wrapper.
