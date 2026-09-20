@@ -11,6 +11,12 @@ import org.bukkit.inventory.*;
 public final class InventoryGuard implements Listener {
     private final MobaPlugin plugin;
     public InventoryGuard(MobaPlugin plugin) { this.plugin = plugin; }
+    /** A locked-slot marker is furniture; nothing may pick it up or move it. */
+    private boolean marker(Player p, int slot) {
+        return plugin.lockedSlots() != null
+                && plugin.lockedSlots().isMarker(p.getInventory().getItem(slot));
+    }
+
     private boolean locked(Player p, int slot) {
         return slot >= plugin.unlockedSlots(p) && slot < 36;
     }

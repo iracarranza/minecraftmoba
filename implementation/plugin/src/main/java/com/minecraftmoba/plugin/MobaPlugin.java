@@ -41,6 +41,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Durability durability() { return durability; }
     private Contributions contributions;
     public Contributions contributions() { return contributions; }
+    private LockedSlots lockedSlots;
+    public LockedSlots lockedSlots() { return lockedSlots; }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -61,6 +63,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(infraMode, this);
         rewardAdvancements = new RewardAdvancements(this);
         contributions = new Contributions(this);
+        lockedSlots = new LockedSlots(this);
+        getServer().getPluginManager().registerEvents(lockedSlots, this);
         durability = new Durability(this);
         getServer().getPluginManager().registerEvents(durability, this);
         hubLobby = new HubLobby(this);
@@ -260,6 +264,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
             }
             return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("slots")) {
+            if (!(sender instanceof Player sp)) { sender.sendMessage("Player only"); return true; }
+            lockedSlots.refresh(sp); sender.sendMessage(lockedSlots.report(sp)); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("durability")) {
             sender.sendMessage(durability.report()); return true;

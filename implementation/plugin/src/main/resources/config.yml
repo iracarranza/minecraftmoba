@@ -1,6 +1,15 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  lockedSlots:
+    enabled: true
+    # Must be unobtainable in survival: a material a player can hold would let
+    # vanilla merge a pickup into the marker stack. BARRIER also reads as
+    # blocked with no resource pack, and a pack can give it a subtle
+    # slot-shaped texture instead.
+    material: BARRIER
+    label: "Locked slot"
+    refreshTicks: 20
   contributions:
     enabled: true
   durability:
