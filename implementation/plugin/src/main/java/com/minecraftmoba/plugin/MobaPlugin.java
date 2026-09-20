@@ -49,6 +49,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public HealthDisplay healthDisplay() { return healthDisplay; }
     private Recall recall;
     public Recall recall() { return recall; }
+    private Pings pings;
+    public Pings pings() { return pings; }
     public OffhandMap offhandMap() { return offhandMap; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
     public int effectiveHunger(Player p) {
@@ -77,6 +79,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         healthDisplay = new HealthDisplay(this);
+        pings = new Pings(this);
+        getServer().getPluginManager().registerEvents(pings, this);
         recall = new Recall(this);
         getServer().getPluginManager().registerEvents(recall, this);
         getServer().getPluginManager().registerEvents(healthDisplay, this);
@@ -284,6 +288,27 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 }
                 case "status" -> contributions.report().forEach(sender::sendMessage);
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
+            }
+            return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("pings")) {
+            sender.sendMessage(pings.report()); return true;
+        }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("curve")) {
+            // Calibration aid: vanilla hardness and blast resistance, so a
+            // material tier curve can be grounded in the game's own numbers
+            // rather than invented multipliers.
+            String[] probe = args.length > 1 ? java.util.Arrays.copyOfRange(args, 1, args.length)
+                : new String[]{"GLASS","MUD_BRICKS","TERRACOTTA","WHITE_CONCRETE","BRICKS",
+                    "STONE","COBBLESTONE","STONE_BRICKS","TUFF","POLISHED_TUFF","TUFF_BRICKS",
+                    "DEEPSLATE","COBBLED_DEEPSLATE","POLISHED_DEEPSLATE","DEEPSLATE_BRICKS",
+                    "BLACKSTONE","POLISHED_BLACKSTONE_BRICKS","OBSIDIAN","NETHERITE_BLOCK",
+                    "IRON_BLOCK","COPPER_BLOCK","CALCITE","BASALT","END_STONE_BRICKS",
+                    "PURPUR_BLOCK","DARK_PRISMARINE","QUARTZ_BLOCK","SANDSTONE","PACKED_MUD"};
+            for (String n : probe) {
+                var m = org.bukkit.Material.matchMaterial(n);
+                sender.sendMessage(m == null ? "CURVE " + n + " ABSENT"
+                    : String.format("CURVE %s hardness=%.2f blast=%.2f", n, m.getHardness(), m.getBlastResistance()));
             }
             return true;
         }
