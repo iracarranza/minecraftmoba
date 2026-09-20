@@ -47,27 +47,37 @@
   {
    "id": "ALPHA-D3",
    "topic": "Victory condition",
-   "status": "UNRESOLVED - DO NOT IMPLEMENT",
-   "decision": null,
-   "instruction": "Do not invent or implement a victory condition. P0.6 remains design-blocked and the P0 implementation pass is held until this is decided.",
-   "canon_reference": "objectives.md:233 - 'The exact transition from a disabled Fountain to final match victory also remains subject to objective-system development.'",
-   "blocks": [
-    "P0.6 victory",
-    "P0.7 match end: the end trigger, though no longer the reset mechanism"
+   "status": "DECIDED",
+   "decision": "A team wins when the opposing team has no remaining living participating players while that team's Aether Fountain is disabled.",
+   "canon_reference": "objectives.md:233 - superseded for Alpha by this decision; the Fountain-to-victory transition is now specified for Alpha 0.1.",
+   "blocks": [],
+   "fountain_semantics": "Fountain disable is not itself victory. It disables that team's ability to respawn. Players already alive remain active and must subsequently be eliminated.",
+   "terminal_sequence": [
+    "breach/expose Fountain",
+    "disable Fountain",
+    "enemy respawning ceases",
+    "eliminate all surviving enemy participating players",
+    "victory"
    ],
-   "must_be_decided": [
-    "what state terminates a match",
-    "whether disabling a Fountain is sufficient, or a precondition for something further",
-    "whether elimination with no respawn is the terminal state",
-    "what happens at the 48-minute analytical horizon if neither side has won"
+   "alpha_scope": "Fountain disable is irreversible for the remainder of the match. Repair and reactivation remain unresolved and must not be invented now.",
+   "still_unresolved": "The prerequisite/exposure relationship between Pillager Outpost, Nether Bastion, End Tower and Aether Fountain. Do not canonize an exposure rule merely to implement Alpha lifecycle testing; debug/admin controls may force Fountain availability and disable state.",
+   "implementation_rule": "Implement the real victory predicate even though Alpha is solo-tested. Debug/admin tooling may create or force the state needed to exercise the predicate; it must not replace the actual victory rule with a solo-only win button.",
+   "unblocks": [
+    "P0.6 victory",
+    "P0.7 match end trigger"
    ]
   }
  ],
  "still_open_after_these_decisions": [
-  "ALPHA-D3 victory (P0)",
-  "respawn destination and denial (P1); Recall.java:83 records the recall destination as unresolved and the same question governs respawn",
-  "Fountain disable mechanics: reactivation, repair, ordering (P1); objectives.md:225-233",
+  "Fountain exposure/prerequisite relationship with Outpost, Bastion and Tower (P1); must not be invented for lifecycle testing",
+  "Fountain repair and reactivation (P1); irreversible for Alpha 0.1",
+  "respawn destination (P1); Recall.java:83 records the recall destination as unresolved",
   "class x contribution matrix (P2); Contributions.java:29"
  ],
- "implementation_hold": "The P0 implementation pass does not begin until ALPHA-D3 is decided."
+ "implementation_hold": "LIFTED 20 September 2026. The P0 pass proceeds in dependency order.",
+ "confirmations": [
+  "Player progression and levels are match-scoped and reset between matches.",
+  "The pristine-template world-instance lifecycle is authoritative for Alpha reset.",
+  "An instance must be unloaded before restoration or replacement. This is an implementation constraint, not a game mechanic."
+ ]
 }
