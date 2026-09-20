@@ -28,13 +28,18 @@ import java.util.*;
  *
  *   pick a block    HERE     a location
  *   pick an entity  TARGET   that enemy or creature
- *   sneak + either  DANGER   avoid, or incoming
  *   ctrl + either   ASSIST   requesting help there
  *
- * One contextual exception: sneak + pick on a **banner or copper chest** —
- * the anchors for Routes and Supply Lines — toggles Infrastructure Mode rather
- * than pinging. The gesture is shared and the meaning follows the target, which
- * is the smart-ping model rather than an extra binding to learn.
+ * **Sneak + pick is not a ping.** It toggles Infrastructure Mode, always, on
+ * any target. Sharing the gesture would have meant a hotkey whose effect
+ * depends on what happens to be under the crosshair, which is the wrong
+ * trade for a mode toggle.
+ *
+ * Targeted pings therefore cover only what a crosshair can name. The calls
+ * with no world target — DANGER, RETREAT, GROUP, HOLD — are **targetless
+ * pings**, anchored on the sender's own position and raised from a menu
+ * rather than a crosshair. That split is the reason the vocabulary stays
+ * small on the gesture side without losing the calls a team actually needs.
  *
  * Ctrl arrives as isIncludeData(), vanilla's copy-with-data modifier, so the
  * second axis is free rather than a new binding.
@@ -49,13 +54,22 @@ import java.util.*;
  */
 public final class Pings implements Listener {
     public enum Kind {
-        HERE(Particle.HAPPY_VILLAGER, Sound.BLOCK_NOTE_BLOCK_BELL, ChatColor.AQUA, "Here"),
-        TARGET(Particle.CRIT, Sound.BLOCK_NOTE_BLOCK_PLING, ChatColor.RED, "Target"),
-        DANGER(Particle.LARGE_SMOKE, Sound.BLOCK_NOTE_BLOCK_BASS, ChatColor.GOLD, "Danger"),
-        ASSIST(Particle.END_ROD, Sound.BLOCK_NOTE_BLOCK_CHIME, ChatColor.LIGHT_PURPLE, "Assist");
+        // Targeted: raised by pick-block, anchored on what the crosshair named.
+        HERE(Particle.HAPPY_VILLAGER, Sound.BLOCK_NOTE_BLOCK_BELL, ChatColor.AQUA, "Here", false),
+        TARGET(Particle.CRIT, Sound.BLOCK_NOTE_BLOCK_PLING, ChatColor.RED, "Target", false),
+        ASSIST(Particle.END_ROD, Sound.BLOCK_NOTE_BLOCK_CHIME, ChatColor.LIGHT_PURPLE, "Assist", false),
+        // Targetless: raised from a menu, anchored on the sender.
+        DANGER(Particle.LARGE_SMOKE, Sound.BLOCK_NOTE_BLOCK_BASS, ChatColor.GOLD, "Danger", true),
+        RETREAT(Particle.SMOKE, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, ChatColor.YELLOW, "Retreat", true),
+        GROUP(Particle.COMPOSTER, Sound.BLOCK_NOTE_BLOCK_HARP, ChatColor.GREEN, "Group", true),
+        HOLD(Particle.ENCHANT, Sound.BLOCK_NOTE_BLOCK_FLUTE, ChatColor.BLUE, "Hold", true);
 
         final Particle particle; final Sound sound; final ChatColor colour; final String label;
-        Kind(Particle p, Sound s, ChatColor c, String l) { particle = p; sound = s; colour = c; label = l; }
+        final boolean targetless;
+        Kind(Particle p, Sound s, ChatColor c, String l, boolean t) {
+            particle = p; sound = s; colour = c; label = l; targetless = t;
+        }
+        public boolean targetless() { return targetless; }
     }
 
     private final MobaPlugin plugin;
@@ -68,33 +82,40 @@ public final class Pings implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickBlock(PlayerPickBlockEvent e) {
-        // Sneak + pick on an infrastructure anchor toggles Infrastructure Mode
-        // instead of pinging. The gesture is shared but the meaning follows the
-        // target, which is the smart-ping model rather than a second binding.
-        if (e.getPlayer().isSneaking() && isInfrastructureAnchor(e.getBlock().getType())
-                && plugin.infraMode() != null && plugin.infraMode().enabled()) {
-            plugin.infraMode().toggle(e.getPlayer());
-            e.setCancelled(true);
-            return;
-        }
+        if (toggledInfra(e.getPlayer())) { e.setCancelled(true); return; }
         if (handle(e.getPlayer(), e, e.getBlock().getLocation().add(0.5, 0.5, 0.5), false)) e.setCancelled(true);
     }
 
-    /** Banners anchor Routes; copper chests anchor Supply Lines. */
-    private boolean isInfrastructureAnchor(org.bukkit.Material m) {
-        if (org.bukkit.Tag.BANNERS.isTagged(m)) return true;
-        return m.name().equals("COPPER_CHEST") || m.name().endsWith("_COPPER_CHEST");
+    /** Sneak + pick is the Infrastructure Mode toggle, on any target. */
+    private boolean toggledInfra(Player p) {
+        if (!p.isSneaking()) return false;
+        if (plugin.infraMode() == null || !plugin.infraMode().enabled()) return false;
+        plugin.infraMode().toggle(p);
+        return true;
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickEntity(PlayerPickEntityEvent e) {
+        if (toggledInfra(e.getPlayer())) { e.setCancelled(true); return; }
         Entity target = e.getEntity();
         if (handle(e.getPlayer(), e, target.getLocation().add(0, target.getHeight() / 2, 0), true))
             e.setCancelled(true);
     }
 
+    /** Targetless ping, anchored on the sender. Raised from a menu or command. */
+    public boolean raise(Player p, Kind kind) {
+        if (!enabled() || !plugin.enrolled(p)) return false;
+        if (!kind.targetless()) return false;
+        long now = System.currentTimeMillis();
+        if (now - lastPing.getOrDefault(p.getUniqueId(), 0L)
+                < plugin.getConfig().getLong("features.pings.cooldownMillis", 1500L)) return false;
+        lastPing.put(p.getUniqueId(), now);
+        broadcast(p, kind, p.getLocation().add(0, 1, 0));
+        sent++;
+        return true;
+    }
+
     private Kind kindFor(Player p, PlayerPickItemEvent e, boolean entity) {
-        if (p.isSneaking()) return Kind.DANGER;
         if (e.isIncludeData()) return Kind.ASSIST;       // ctrl, vanilla's copy-with-data
         return entity ? Kind.TARGET : Kind.HERE;
     }
@@ -158,7 +179,8 @@ public final class Pings implements Listener {
 
     public String report() {
         return "PINGS enabled=" + enabled() + " sent=" + sent
-                + " kinds=" + Arrays.toString(Kind.values())
-                + " (block=HERE, entity=TARGET, sneak=DANGER, ctrl=ASSIST)";
+                + " targeted=[HERE, TARGET, ASSIST] targetless="
+                + Arrays.stream(Kind.values()).filter(Kind::targetless).map(k -> k.label).toList()
+                + " (block=HERE, entity=TARGET, ctrl=ASSIST, sneak=INFRA MODE)";
     }
 }

@@ -297,6 +297,18 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             if (!(sender instanceof Player tp)) { sender.sendMessage("Player only"); return true; }
             return testBed.build(sender, tp, args.length > 1 ? args[1] : "all");
         }
+        if (args.length == 2 && args[0].equalsIgnoreCase("ping")) {
+            if (!(sender instanceof Player pp)) { sender.sendMessage("Player only"); return true; }
+            Pings.Kind kind;
+            try { kind = Pings.Kind.valueOf(args[1].toUpperCase(java.util.Locale.ROOT)); }
+            catch (IllegalArgumentException ex) { sender.sendMessage("Unknown ping: " + args[1]); return true; }
+            if (!kind.targetless()) {
+                sender.sendMessage(kind + " is a targeted ping; aim and middle-click instead.");
+                return true;
+            }
+            if (!pings.raise(pp, kind)) sender.sendMessage("Ping not sent (disabled, unenrolled, or on cooldown).");
+            return true;
+        }
         if (args.length == 1 && args[0].equalsIgnoreCase("pings")) {
             sender.sendMessage(pings.report()); return true;
         }
