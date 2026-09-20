@@ -5,44 +5,52 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Baseline crafting must work for every player, at every inventory capacity.
+ * Baseline crafting must work for every player at every inventory capacity.
  *
- * The first manual playtest hit a blocker: with locked slots, every click on
- * the player's own 2x2 crafting grid and its result was cancelled, so no one
- * could turn a log into planks. The cause was classification -- InventoryGuard
- * treated CRAFTING as a temporary menu whose contents return on close, like a
- * workbench or an anvil.
+ * The first manual playtest found four things broken below full capacity: the
+ * 2x2 grid, the crafting table, shift-clicking a result out, and number-keying
+ * a result out. All four came from the same preventive block, which cancelled
+ * whole classes of interaction because they *might* put an item in a locked
+ * slot.
  *
- * The existing guard test could not catch it: it stubbed the classification
- * seam with a null type, so it never distinguished CRAFTING from WORKBENCH.
- * These assert the classification itself, on real InventoryType values.
+ * Capacity is now an invariant maintained by repair, so the rule the guard
+ * enforces is only about slot indices. These assert that rule directly.
  */
 class CraftingAccessTest {
 
-    @Test void theOwnInventoryCraftingGridIsNotAGuardedTemporaryMenu() {
-        // The regression: guarding this is what blocked baseline crafting.
-        assertFalse(InventoryGuard.guardsTemporaryMenu("CRAFTING"),
-                "the player's own 2x2 grid must stay usable at partial capacity");
+    @Test void lockedStorageIsExactlyTheSlotsAtOrAboveCapacity() {
+        assertFalse(InventoryGuard.isLockedStorageSlot(0, 9));
+        assertFalse(InventoryGuard.isLockedStorageSlot(8, 9));
+        assertTrue(InventoryGuard.isLockedStorageSlot(9, 9));
+        assertTrue(InventoryGuard.isLockedStorageSlot(35, 9));
     }
 
-    @Test void realTemporaryMenusAreStillGuarded() {
-        for (String t : new String[]{"WORKBENCH", "ANVIL", "ENCHANTING", "GRINDSTONE",
-                "SMITHING", "LOOM", "CARTOGRAPHY", "STONECUTTER", "MERCHANT"}) {
-            assertTrue(InventoryGuard.guardsTemporaryMenu(t), t + " must remain guarded");
-        }
+    @Test void fullCapacityLocksNothing() {
+        for (int slot = 0; slot < 36; slot++)
+            assertFalse(InventoryGuard.isLockedStorageSlot(slot, 36), "slot " + slot);
+    }
+
+    @Test void armourAndOffhandAreNotLockedStorage() {
+        // Slots 36-40 are equipment. Capacity does not govern them, and treating
+        // them as locked storage would block armour at low levels.
+        for (int slot = 36; slot <= 40; slot++)
+            assertFalse(InventoryGuard.isLockedStorageSlot(slot, 9), "slot " + slot);
+    }
+
+    @Test void craftingGridAndResultAreNotPlayerStorageSlots() {
+        // A click outside the player's inventory reports a negative converted
+        // slot or belongs to the top inventory. Either way it is not locked
+        // storage, which is what makes the 2x2 grid, a crafting table, and
+        // taking a result all ordinary vanilla again.
+        assertFalse(InventoryGuard.isLockedStorageSlot(-1, 9));
     }
 
     @Test void craftingStillReturnsItsContentsOnClose() {
-        // The exemption is about interaction, not about pretending the grid
-        // does not empty itself on close. safeToReduce still checks it before
-        // lowering a player's capacity.
+        // safeToReduce still checks an open grid before lowering capacity, so
+        // this classification must survive even though it no longer cancels
+        // clicks.
         assertTrue(InventoryGuard.returnsOnClose("CRAFTING"));
-    }
-
-    @Test void ordinaryStorageIsNeitherGuardedNorReturned() {
-        for (String t : new String[]{"CHEST", "HOPPER", "BARREL", "SHULKER_BOX"}) {
-            assertFalse(InventoryGuard.guardsTemporaryMenu(t));
-            assertFalse(InventoryGuard.returnsOnClose(t));
-        }
+        assertTrue(InventoryGuard.returnsOnClose("WORKBENCH"));
+        assertFalse(InventoryGuard.returnsOnClose("CHEST"));
     }
 }

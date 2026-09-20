@@ -54,30 +54,61 @@ class InventoryGuardTest {
         when(offhand.getWhoClicked()).thenReturn(player); when(offhand.getClick()).thenReturn(ClickType.SWAP_OFFHAND);
         guard.click(offhand); verify(offhand).setCancelled(true);
     }
-    @Test void temporaryMenuInsertionAndUnsafeExternalCursorPickupAreCancelled() {
+    /**
+     * A click in a crafting surface must pass through at partial capacity.
+     *
+     * This replaces a test that asserted the opposite. That test encoded the
+     * crafting blocker as intended behaviour: it cancelled any click whose
+     * clicked inventory was the top one, which is the 2x2 grid on the player's
+     * own screen and the grid of a crafting table.
+     */
+    @Test void craftingSurfaceClicksPassThroughAtPartialCapacity() {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
         when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
         var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
         when(view.getTopInventory()).thenReturn(top);
-        // Registry-backed InventoryType needs a live server; stub only that classification seam.
-        // The classification itself is covered by CraftingAccessTest, which is
-        // what this stub hid: it never distinguished one menu type from another.
-        try (var policy=mockStatic(InventoryGuard.class)) {
-        policy.when(() -> InventoryGuard.guardsTemporaryMenu((org.bukkit.event.inventory.InventoryType) null)).thenReturn(true);
-        var insert=mock(InventoryClickEvent.class);
-        when(insert.getWhoClicked()).thenReturn(player); when(insert.getView()).thenReturn(view);
-        when(insert.getClickedInventory()).thenReturn(top); when(insert.getHotbarButton()).thenReturn(-1);
-        guard.click(insert); verify(insert).setCancelled(true);
-        policy.when(() -> InventoryGuard.guardsTemporaryMenu((org.bukkit.event.inventory.InventoryType) null)).thenReturn(false);
-        var inv=mock(PlayerInventory.class); when(player.getInventory()).thenReturn(inv);
-        when(inv.getMaxStackSize()).thenReturn(64);
-        var incoming=stack(64);
-        for(int n=0;n<6;n++) { var full=stack(64); when(inv.getItem(n)).thenReturn(full); }
-        var pickup=mock(InventoryClickEvent.class);
-        when(pickup.getWhoClicked()).thenReturn(player); when(pickup.getView()).thenReturn(view);
-        when(pickup.getClickedInventory()).thenReturn(top); when(pickup.getHotbarButton()).thenReturn(-1);
-        when(pickup.getAction()).thenReturn(InventoryAction.PICKUP_ALL); when(pickup.getCurrentItem()).thenReturn(incoming);
-        guard.click(pickup); verify(pickup).setCancelled(true);
-        }
+        var click=mock(InventoryClickEvent.class);
+        when(click.getWhoClicked()).thenReturn(player); when(click.getView()).thenReturn(view);
+        when(click.getClickedInventory()).thenReturn(top); when(click.getHotbarButton()).thenReturn(-1);
+        when(click.getAction()).thenReturn(InventoryAction.PLACE_ALL);
+        guard.click(click);
+        verify(click,never()).setCancelled(true);
+    }
+
+    /** Shift-clicking a crafting result out must work; it is how you craft. */
+    @Test void shiftClickFromACraftingResultIsNotCancelled() {
+        var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
+        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
+        when(view.getTopInventory()).thenReturn(top);
+        var click=mock(InventoryClickEvent.class);
+        when(click.getWhoClicked()).thenReturn(player); when(click.getView()).thenReturn(view);
+        when(click.getClickedInventory()).thenReturn(top); when(click.getHotbarButton()).thenReturn(-1);
+        when(click.isShiftClick()).thenReturn(true);
+        when(click.getAction()).thenReturn(InventoryAction.MOVE_TO_OTHER_INVENTORY);
+        guard.click(click);
+        verify(click,never()).setCancelled(true);
+    }
+
+    /** A number key may take a result, but never into a locked slot. */
+    @Test void numberKeyIsAllowedToAnUnlockedSlotAndRefusedToALockedOne() {
+        var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
+        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
+        when(view.getTopInventory()).thenReturn(top);
+
+        var allowed=mock(InventoryClickEvent.class);
+        when(allowed.getWhoClicked()).thenReturn(player); when(allowed.getView()).thenReturn(view);
+        when(allowed.getClickedInventory()).thenReturn(top); when(allowed.getHotbarButton()).thenReturn(2);
+        when(allowed.getAction()).thenReturn(InventoryAction.HOTBAR_SWAP);
+        guard.click(allowed);
+        verify(allowed,never()).setCancelled(true);
+
+        var refused=mock(InventoryClickEvent.class);
+        when(refused.getWhoClicked()).thenReturn(player); when(refused.getView()).thenReturn(view);
+        when(refused.getClickedInventory()).thenReturn(top); when(refused.getHotbarButton()).thenReturn(7);
+        when(refused.getAction()).thenReturn(InventoryAction.HOTBAR_SWAP);
+        guard.click(refused);
+        verify(refused).setCancelled(true);
     }
 }
