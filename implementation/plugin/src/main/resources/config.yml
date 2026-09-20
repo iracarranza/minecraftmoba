@@ -82,9 +82,30 @@ features:
     enabled: true
     material: SKELETON_SKULL
 
-# Task progression. classes.md fixes the families and the Tier III ceiling;
-# these coefficients are placeholders and are explicitly not balance.
+durability:
+  targetBaseUses: {}
+
+classes:
+  test:
+    # Eligibility is AUTHORED PER CLASS and may be asymmetric: several options,
+    # one, or none. It is not inherited from archetype tags. The full class x
+    # infrastructure matrix is [OPEN]; the discussion examples are Mole with
+    # Route/Construct and Kitfighter with Monster Combat only, and neither is
+    # settled. The harness class gets a deliberately mixed set for testing.
+    infrastructureEligibility:
+      - ROUTE
+      - CONSTRUCT
+      - MONSTER_COMBAT
+    displayName: "Test Class"
+    blurb:
+      - "Harness class. Not a design."
+      - "F = A1   Sneak+F = A2   Sprint+F = channel ult"
+      - "Drop = ultimate. Swap again to stop casting."
+
+# Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
 progression:
+  maxLevel: 30
+  xpPerLevel: 100
   task:
     tierMax: 3
     efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
@@ -92,13 +113,13 @@ progression:
     yieldExtraChancePerTier: 0.25
     # Efficiency covers Unbreaking as well as block-breaking speed.
     efficiencyGrantsUnbreaking: true
-  # The Level 6 fork: one class-compatible Infrastructure form, or Monster Combat.
-  contributionForkLevel: 6
     # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
     # then a choice at L9, L14 and L19. Automatic grants:
     automatic:
       4: { domain: EFFICIENCY, tier: 1 }
       7: { domain: YIELD, tier: 1 }
+  # The Level 6 fork: one class-compatible Infrastructure form, or Monster Combat.
+  contributionForkLevel: 6
 
 # Equipment wear. Follows the family-wide doctrine in manuscript 15.1.2:
 #     L_e = D_e * U_e / R_e
@@ -124,30 +145,6 @@ progression:
 #     stone:  { tool: 36 }
 #     copper: { tool: 60 }
 #     iron:   { tool: 96 }
-durability:
-  targetBaseUses: {}
-
-classes:
-  test:
-    # Eligibility is AUTHORED PER CLASS and may be asymmetric: several options,
-    # one, or none. It is not inherited from archetype tags. The full class x
-    # infrastructure matrix is [OPEN]; the discussion examples are Mole with
-    # Route/Construct and Kitfighter with Monster Combat only, and neither is
-    # settled. The harness class gets a deliberately mixed set for testing.
-    infrastructureEligibility:
-      - ROUTE
-      - CONSTRUCT
-      - MONSTER_COMBAT
-    displayName: "Test Class"
-    blurb:
-      - "Harness class. Not a design."
-      - "F = A1   Sneak+F = A2   Sprint+F = channel ult"
-      - "Drop = ultimate. Swap again to stop casting."
-
-# Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
-progression:
-  maxLevel: 30
-  xpPerLevel: 100
 capacity:
   enforceTicks: 1
   health: { start: 9, growthUnit: 1, cap: 20 }
