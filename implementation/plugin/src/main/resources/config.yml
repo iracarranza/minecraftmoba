@@ -167,6 +167,11 @@ abilities:
     a2: RIGHT_CLICK
     ult: DROP
   modeTimeoutTicks: 50
+  # Level at which each slot becomes usable, from the classes.md working
+  # breakpoint table: Ability 1 at 1, Ability 2 at 2, Ultimate at 15. The
+  # Ultimate's timing is recorded there as unresolved, so 15 is that table's
+  # working value rather than a decision taken in code.
+  unlockLevels: { a1: 1, a2: 2, ult: 15 }
   logExecutions: true
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:

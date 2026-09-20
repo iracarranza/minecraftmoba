@@ -21,6 +21,8 @@ public final class AbilityInputs implements Listener {
     private final Map<UUID, Channel> channels = new HashMap<>();
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
     private final Input modeInput;
+    /** Input -> the slot it drives, so an unlock level can be looked up. */
+    private final Map<Input, String> slotOf = new EnumMap<>(Input.class);
     private final long timeout;
     private long tick;
     public AbilityInputs(MobaPlugin plugin, Provenance provenance) {
@@ -29,8 +31,10 @@ public final class AbilityInputs implements Listener {
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
         Set<Input> bindings = new HashSet<>(); bindings.add(modeInput);
         for (String slot : List.of("a1","a2","ult")) {
-            if (!bindings.add(Input.valueOf(c.getString("abilities.bindings." + slot))))
+            Input bound = Input.valueOf(c.getString("abilities.bindings." + slot));
+            if (!bindings.add(bound))
                 throw new IllegalArgumentException("Ability input bindings must be distinct");
+            slotOf.put(bound, slot);
         }
         var classes=Objects.requireNonNull(c.getConfigurationSection("abilities.classes"));
         for (String id : classes.getKeys(false)) {
@@ -63,6 +67,14 @@ public final class AbilityInputs implements Listener {
         if (kit == null) return true;
         Ability ability=kit.get(input);
         if (ability == null) return true;
+        int required=unlockLevel(slotOf.get(input));
+        if (d.level < required) {
+            // Refuse rather than silently doing nothing: an ability that is not
+            // yet earned should say so, and the mode should not be spent on it.
+            p.sendActionBar(net.kyori.adventure.text.Component.text(
+                    org.bukkit.ChatColor.GRAY + ability.id() + " unlocks at level " + required + "."));
+            return true;
+        }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
@@ -90,6 +102,23 @@ public final class AbilityInputs implements Listener {
     private void disarm(Player p) {
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
         p.sendActionBar(Component.empty());
+    }
+
+    /**
+     * The level at which a slot becomes usable.
+     *
+     * classes.md's working breakpoint table: Ability 1 at level 1, Ability 2 at
+     * level 2, Ultimate at 15. Before this, every slot in a configured kit
+     * worked from level 1, so a fresh player had their whole kit immediately
+     * and the progression table described nothing the game enforced.
+     *
+     * The Ultimate's timing is marked unresolved in classes.md ("The exact
+     * Ultimate unlock level remains unresolved"), so 15 is the table's working
+     * value carried into config rather than a decision made here.
+     */
+    public int unlockLevel(String slot) {
+        if (slot == null) return 1;
+        return plugin.getConfig().getInt("abilities.unlockLevels." + slot, 1);
     }
 
     public void exit(Player p, boolean silent) {
