@@ -11,6 +11,7 @@
         0,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 623,
       "fauna": {
         "chicken": 8,
@@ -33,6 +34,10 @@
         "cow",
         "horse"
       ],
+      "sampled_centroid": [
+        -2418,
+        -466
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 181,
@@ -51,6 +56,7 @@
         0,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 443,
       "fauna": {
         "chicken": 4,
@@ -73,6 +79,10 @@
         "cow",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        -338
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 462,
@@ -91,6 +101,7 @@
         0,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 639,
       "fauna": {
         "chicken": 4,
@@ -116,6 +127,10 @@
         "goat",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        -210
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -135,6 +150,7 @@
         0,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 482,
       "fauna": {
         "goat": 6,
@@ -158,6 +174,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        -82
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -177,6 +197,7 @@
         0,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 234,
       "fauna": {
         "cow": 10,
@@ -199,6 +220,10 @@
         "fox",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        46
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -218,6 +243,7 @@
         0,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 241,
       "fauna": {
         "pig": 4,
@@ -239,6 +265,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        174
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -258,6 +288,7 @@
         0,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 582,
       "fauna": {
         "cow": 15,
@@ -280,6 +311,10 @@
         "pumpkin",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "pumpkin": 1
@@ -301,6 +336,7 @@
         0,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 286,
       "fauna": {
         "chicken": 8,
@@ -324,6 +360,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2418,
+        430
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 8,
@@ -343,6 +383,7 @@
         0,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 45,
       "fauna": {},
       "hostiles": {},
@@ -358,6 +399,10 @@
         "redstone": 26
       },
       "regenerative_vocabulary": [],
+      "sampled_centroid": [
+        -2418,
+        510
+      ],
       "sampled_columns": 256,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -376,6 +421,7 @@
         1,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 474,
       "fauna": {
         "chicken": 4,
@@ -399,6 +445,10 @@
         "horse",
         "sugar_cane"
       ],
+      "sampled_centroid": [
+        -2290,
+        -466
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "sugar_cane": 2
@@ -419,6 +469,7 @@
         1,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 651,
       "fauna": {
         "chicken": 4,
@@ -443,6 +494,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2290,
+        -338
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 222,
@@ -461,6 +516,7 @@
         1,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 748,
       "fauna": {
         "chicken": 8,
@@ -485,6 +541,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2290,
+        -210
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -504,6 +564,7 @@
         1,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 530,
       "fauna": {
         "donkey": 2,
@@ -525,6 +586,10 @@
         "donkey",
         "rabbit"
       ],
+      "sampled_centroid": [
+        -2290,
+        -82
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 1,
@@ -544,6 +609,7 @@
         1,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 522,
       "fauna": {
         "pig": 4
@@ -561,6 +627,10 @@
       },
       "regenerative_vocabulary": [
         "pig"
+      ],
+      "sampled_centroid": [
+        -2290,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -581,6 +651,7 @@
         1,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 526,
       "fauna": {
         "chicken": 16,
@@ -603,6 +674,10 @@
         "horse",
         "pig"
       ],
+      "sampled_centroid": [
+        -2290,
+        174
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 292,
@@ -622,6 +697,7 @@
         1,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 114,
       "fauna": {
         "donkey": 2,
@@ -647,6 +723,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2290,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -666,6 +746,7 @@
         1,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 37,
       "fauna": {
         "horse": 3,
@@ -689,6 +770,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2290,
+        430
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -708,6 +793,7 @@
         1,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 23,
       "fauna": {
         "horse": 3
@@ -727,6 +813,10 @@
       "regenerative_vocabulary": [
         "horse"
       ],
+      "sampled_centroid": [
+        -2290,
+        510
+      ],
       "sampled_columns": 256,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -744,6 +834,7 @@
         2,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 729,
       "fauna": {
         "chicken": 4,
@@ -772,6 +863,10 @@
         "sheep",
         "wheat"
       ],
+      "sampled_centroid": [
+        -2162,
+        -466
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "carrots": 1,
@@ -794,6 +889,7 @@
         2,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 702,
       "fauna": {
         "cow": 4,
@@ -816,6 +912,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        -338
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -833,6 +933,7 @@
         2,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 794,
       "fauna": {
         "horse": 5,
@@ -855,6 +956,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        -210
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -873,6 +978,7 @@
         2,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 722,
       "fauna": {
         "chicken": 4,
@@ -897,6 +1003,10 @@
         "donkey",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        -82
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 1,
@@ -916,6 +1026,7 @@
         2,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 638,
       "fauna": {
         "chicken": 8,
@@ -938,6 +1049,10 @@
         "horse",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        46
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 240,
@@ -957,6 +1072,7 @@
         2,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 206,
       "fauna": {
         "chicken": 4,
@@ -982,6 +1098,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        174
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1001,6 +1121,7 @@
         2,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 131,
       "fauna": {
         "donkey": 2,
@@ -1026,6 +1147,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1044,6 +1169,7 @@
         2,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 427,
       "fauna": {
         "sheep": 10
@@ -1063,6 +1189,10 @@
       "regenerative_vocabulary": [
         "sheep"
       ],
+      "sampled_centroid": [
+        -2162,
+        430
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 2,
@@ -1081,6 +1211,7 @@
         2,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 122,
       "fauna": {},
       "hostiles": {},
@@ -1095,6 +1226,10 @@
         "redstone": 34
       },
       "regenerative_vocabulary": [],
+      "sampled_centroid": [
+        -2162,
+        510
+      ],
       "sampled_columns": 256,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1113,6 +1248,7 @@
         3,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 714,
       "fauna": {
         "chicken": 7,
@@ -1137,6 +1273,10 @@
         "horse",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        -466
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 83,
@@ -1154,6 +1294,7 @@
         3,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 713,
       "fauna": {
         "chicken": 5,
@@ -1178,6 +1319,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        -338
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1195,6 +1340,7 @@
         3,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 764,
       "fauna": {
         "chicken": 6,
@@ -1219,6 +1365,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        -210
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1237,6 +1387,7 @@
         3,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 721,
       "fauna": {
         "cow": 6,
@@ -1261,6 +1412,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        -82
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 45,
@@ -1280,6 +1435,7 @@
         3,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 581,
       "fauna": {
         "cow": 4,
@@ -1302,6 +1458,10 @@
         "horse",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        46
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 241,
@@ -1321,6 +1481,7 @@
         3,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 402,
       "fauna": {
         "horse": 3,
@@ -1344,6 +1505,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        174
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 1,
@@ -1362,6 +1527,7 @@
         3,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 691,
       "fauna": {
         "horse": 4,
@@ -1385,6 +1551,10 @@
         "rabbit",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 21,
@@ -1403,6 +1573,7 @@
         3,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 701,
       "fauna": {
         "chicken": 4,
@@ -1427,6 +1598,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -2034,
+        430
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 59,
@@ -1445,6 +1620,7 @@
         3,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 145,
       "fauna": {
         "chicken": 4
@@ -1462,6 +1638,10 @@
       },
       "regenerative_vocabulary": [
         "chicken"
+      ],
+      "sampled_centroid": [
+        -2034,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {},
@@ -1482,6 +1662,7 @@
         4,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 250,
       "fauna": {
         "chicken": 4,
@@ -1507,6 +1688,10 @@
         "sheep",
         "sugar_cane"
       ],
+      "sampled_centroid": [
+        -1906,
+        -466
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "sugar_cane": 2
@@ -1528,6 +1713,7 @@
         4,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 511,
       "fauna": {
         "chicken": 4
@@ -1546,6 +1732,10 @@
       "regenerative_vocabulary": [
         "chicken",
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1568,6 +1758,7 @@
         4,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 608,
       "fauna": {
         "horse": 2,
@@ -1588,6 +1779,10 @@
         "horse",
         "kelp",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1610,6 +1805,7 @@
         4,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 614,
       "fauna": {
         "chicken": 7,
@@ -1632,6 +1828,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -1906,
+        -82
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 16,
@@ -1651,6 +1851,7 @@
         4,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 358,
       "fauna": {
         "chicken": 2,
@@ -1675,6 +1876,10 @@
         "sheep",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1906,
+        46
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 197,
@@ -1693,6 +1898,7 @@
         4,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 392,
       "fauna": {
         "wolf": 5
@@ -1710,6 +1916,10 @@
       },
       "regenerative_vocabulary": [
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1906,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1730,6 +1940,7 @@
         4,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 473,
       "fauna": {
         "pig": 1,
@@ -1753,6 +1964,10 @@
         "sheep",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1906,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "pumpkin": 1
@@ -1774,6 +1989,7 @@
         4,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 484,
       "fauna": {
         "horse": 2,
@@ -1796,6 +2012,10 @@
         "pig",
         "sheep"
       ],
+      "sampled_centroid": [
+        -1906,
+        430
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 222,
@@ -1814,6 +2034,7 @@
         4,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 116,
       "fauna": {
         "chicken": 8
@@ -1831,6 +2052,10 @@
       },
       "regenerative_vocabulary": [
         "chicken"
+      ],
+      "sampled_centroid": [
+        -1906,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {},
@@ -1851,6 +2076,7 @@
         5,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 191,
       "fauna": {
         "sheep": 3
@@ -1869,6 +2095,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1891,6 +2121,7 @@
         5,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 414,
       "fauna": {
         "sheep": 5,
@@ -1911,6 +2142,10 @@
         "sheep",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1778,
+        -338
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 232,
@@ -1930,6 +2165,7 @@
         5,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 238,
       "fauna": {},
       "hostiles": {},
@@ -1945,6 +2181,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1967,6 +2207,7 @@
         5,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 79,
       "fauna": {},
       "hostiles": {},
@@ -1982,6 +2223,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -2004,6 +2249,7 @@
         5,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 147,
       "fauna": {
         "cow": 6,
@@ -2024,6 +2270,10 @@
         "cow",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1778,
+        46
+      ],
       "sampled_columns": 1024,
       "vegetation": {},
       "water_surface_samples": 359,
@@ -2042,6 +2292,7 @@
         5,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 391,
       "fauna": {
         "chicken": 8,
@@ -2065,6 +2316,10 @@
         "mushrooms",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1778,
+        174
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "mushrooms": 2
@@ -2086,6 +2341,7 @@
         5,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 286,
       "fauna": {
         "chicken": 4,
@@ -2111,6 +2367,10 @@
         "sugar_cane",
         "wolf"
       ],
+      "sampled_centroid": [
+        -1778,
+        302
+      ],
       "sampled_columns": 1024,
       "vegetation": {
         "sugar_cane": 2
@@ -2132,6 +2392,7 @@
         5,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 126,
       "fauna": {},
       "hostiles": {},
@@ -2148,6 +2409,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -1778,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -2170,6 +2435,7 @@
         5,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 18,
       "fauna": {},
       "hostiles": {},
@@ -2185,6 +2451,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {
@@ -2207,6 +2477,7 @@
         6,
         0
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 79,
       "fauna": {},
       "hostiles": {},
@@ -2223,6 +2494,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -466
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2246,6 +2521,7 @@
         6,
         1
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 8,
       "fauna": {},
       "hostiles": {},
@@ -2261,6 +2537,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -338
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2282,6 +2562,7 @@
         6,
         2
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 22,
       "fauna": {},
       "hostiles": {},
@@ -2297,6 +2578,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -210
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2319,6 +2604,7 @@
         6,
         3
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 39,
       "fauna": {
         "chicken": 3
@@ -2337,6 +2623,10 @@
       "regenerative_vocabulary": [
         "chicken",
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -82
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2359,6 +2649,7 @@
         6,
         4
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 327,
       "fauna": {
         "fox": 1,
@@ -2380,6 +2671,10 @@
         "pig",
         "pumpkin",
         "sweet_berries"
+      ],
+      "sampled_centroid": [
+        -1666,
+        46
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2403,6 +2698,7 @@
         6,
         5
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 240,
       "fauna": {
         "wolf": 4
@@ -2421,6 +2717,10 @@
       "regenerative_vocabulary": [
         "sweet_berries",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1666,
+        174
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2443,6 +2743,7 @@
         6,
         6
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 19,
       "fauna": {
         "turtle": 3
@@ -2461,6 +2762,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "turtle"
+      ],
+      "sampled_centroid": [
+        -1666,
+        302
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2483,6 +2788,7 @@
         6,
         7
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 4,
       "fauna": {},
       "hostiles": {},
@@ -2498,6 +2804,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        430
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2519,6 +2829,7 @@
         6,
         8
       ],
+      "coverage": 0.1875,
       "farmable_surface_samples": 4,
       "fauna": {},
       "hostiles": {},
@@ -2534,6 +2845,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        510
       ],
       "sampled_columns": 192,
       "vegetation": {

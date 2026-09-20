@@ -102,6 +102,7 @@ def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1):
         'hostiles': Counter(), 'biomes': Counter(),
         'farmable_surface': 0, 'water_surface': 0, 'sampled_columns': 0,
         'surface_y_sum': 0, 'surface_y_samples': 0,
+        'sample_x_sum': 0, 'sample_z_sum': 0,
     })
     consumed = {}
 
@@ -138,6 +139,10 @@ def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1):
                         if not mask.include_block(x, min(hi, 70), z): continue
                         cell = cells[cell_of(x, z, cell_size, origin)]
                         cell['sampled_columns'] += 1
+                        # Centroid of the columns actually inside the volume.
+                        # An edge cell's geometric centre can be outside it, and
+                        # anything sited there cannot be written.
+                        cell['sample_x_sum'] += x; cell['sample_z_sum'] += z
                         top = surface(chunk, x, z, lo, hi)
                         if top is None: continue
                         name, y = top
@@ -192,6 +197,13 @@ def summarise(cells, origin, cell_size):
             'sampled_columns': c['sampled_columns'],
             'mean_surface_y': (round(c['surface_y_sum'] / c['surface_y_samples'], 1)
                                if c['surface_y_samples'] else None),
+            # Fraction of the cell that lies inside the volume. A cell on the
+            # boundary is a partial sample and must not be ranked as if it were
+            # a whole one.
+            'coverage': round(c['sampled_columns'] / ((cell_size // 4) ** 2), 4),
+            'sampled_centroid': ([round(c['sample_x_sum'] / c['sampled_columns']),
+                                  round(c['sample_z_sum'] / c['sampled_columns'])]
+                                 if c['sampled_columns'] else None),
             'biomes': dict(c['biomes'].most_common(3)),
             # Canon's terms, measured rather than assigned.
             'candidate_density': sum(c['ore'].values()) + sum(c['vegetation'].values())

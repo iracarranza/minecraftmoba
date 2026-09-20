@@ -11,6 +11,7 @@
         0,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 623,
       "fauna": {
         "chicken": 8,
@@ -18,6 +19,7 @@
         "horse": 1
       },
       "hostiles": {},
+      "mean_surface_y": 74.2,
       "ore": {
         "coal": 397,
         "copper": 335,
@@ -31,6 +33,10 @@
         "chicken",
         "cow",
         "horse"
+      ],
+      "sampled_centroid": [
+        -2418,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -50,6 +56,7 @@
         0,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 443,
       "fauna": {
         "chicken": 4,
@@ -57,6 +64,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 70.5,
       "ore": {
         "coal": 281,
         "copper": 278,
@@ -70,6 +78,10 @@
         "chicken",
         "cow",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -89,6 +101,7 @@
         0,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 639,
       "fauna": {
         "chicken": 4,
@@ -97,6 +110,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 85.4,
       "ore": {
         "coal": 487,
         "copper": 366,
@@ -112,6 +126,10 @@
         "donkey",
         "goat",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -132,6 +150,7 @@
         0,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 482,
       "fauna": {
         "goat": 6,
@@ -139,6 +158,7 @@
         "sheep": 1
       },
       "hostiles": {},
+      "mean_surface_y": 91.8,
       "ore": {
         "coal": 641,
         "copper": 404,
@@ -153,6 +173,10 @@
         "goat",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -173,6 +197,7 @@
         0,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 234,
       "fauna": {
         "cow": 10,
@@ -180,6 +205,7 @@
         "sheep": 6
       },
       "hostiles": {},
+      "mean_surface_y": 98.2,
       "ore": {
         "coal": 764,
         "copper": 471,
@@ -193,6 +219,10 @@
         "cow",
         "fox",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -213,12 +243,14 @@
         0,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 241,
       "fauna": {
         "pig": 4,
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 98.0,
       "ore": {
         "coal": 661,
         "copper": 839,
@@ -232,6 +264,10 @@
       "regenerative_vocabulary": [
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -252,12 +288,14 @@
         0,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 582,
       "fauna": {
         "cow": 15,
         "sheep": 1
       },
       "hostiles": {},
+      "mean_surface_y": 94.3,
       "ore": {
         "coal": 673,
         "copper": 894,
@@ -272,6 +310,10 @@
         "cow",
         "pumpkin",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -294,6 +336,7 @@
         0,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 286,
       "fauna": {
         "chicken": 8,
@@ -301,6 +344,7 @@
         "sheep": 2
       },
       "hostiles": {},
+      "mean_surface_y": 98.1,
       "ore": {
         "coal": 650,
         "copper": 964,
@@ -315,6 +359,10 @@
         "chicken",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2418,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -335,9 +383,11 @@
         0,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 45,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 98.4,
       "ore": {
         "coal": 163,
         "copper": 238,
@@ -349,6 +399,10 @@
         "redstone": 26
       },
       "regenerative_vocabulary": [],
+      "sampled_centroid": [
+        -2418,
+        510
+      ],
       "sampled_columns": 256,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -367,6 +421,7 @@
         1,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 474,
       "fauna": {
         "chicken": 4,
@@ -374,6 +429,7 @@
         "horse": 4
       },
       "hostiles": {},
+      "mean_surface_y": 63.8,
       "ore": {
         "coal": 246,
         "copper": 318,
@@ -388,6 +444,10 @@
         "cow",
         "horse",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -2290,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -409,6 +469,7 @@
         1,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 651,
       "fauna": {
         "chicken": 4,
@@ -417,6 +478,7 @@
         "sheep": 6
       },
       "hostiles": {},
+      "mean_surface_y": 72.7,
       "ore": {
         "coal": 390,
         "copper": 302,
@@ -431,6 +493,10 @@
         "cow",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2290,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -450,6 +516,7 @@
         1,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 748,
       "fauna": {
         "chicken": 8,
@@ -458,6 +525,7 @@
         "sheep": 16
       },
       "hostiles": {},
+      "mean_surface_y": 74.8,
       "ore": {
         "coal": 402,
         "copper": 313,
@@ -472,6 +540,10 @@
         "horse",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2290,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -492,12 +564,14 @@
         1,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 530,
       "fauna": {
         "donkey": 2,
         "rabbit": 4
       },
       "hostiles": {},
+      "mean_surface_y": 88.4,
       "ore": {
         "coal": 492,
         "copper": 317,
@@ -511,6 +585,10 @@
       "regenerative_vocabulary": [
         "donkey",
         "rabbit"
+      ],
+      "sampled_centroid": [
+        -2290,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -531,11 +609,13 @@
         1,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 522,
       "fauna": {
         "pig": 4
       },
       "hostiles": {},
+      "mean_surface_y": 76.1,
       "ore": {
         "coal": 373,
         "copper": 483,
@@ -547,6 +627,10 @@
       },
       "regenerative_vocabulary": [
         "pig"
+      ],
+      "sampled_centroid": [
+        -2290,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -567,6 +651,7 @@
         1,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 526,
       "fauna": {
         "chicken": 16,
@@ -574,6 +659,7 @@
         "pig": 5
       },
       "hostiles": {},
+      "mean_surface_y": 78.7,
       "ore": {
         "coal": 425,
         "copper": 766,
@@ -587,6 +673,10 @@
         "chicken",
         "horse",
         "pig"
+      ],
+      "sampled_centroid": [
+        -2290,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -607,6 +697,7 @@
         1,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 114,
       "fauna": {
         "donkey": 2,
@@ -615,6 +706,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 99.2,
       "ore": {
         "coal": 805,
         "copper": 1239,
@@ -630,6 +722,10 @@
         "pig",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2290,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -650,6 +746,7 @@
         1,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 37,
       "fauna": {
         "horse": 3,
@@ -657,6 +754,7 @@
         "sheep": 2
       },
       "hostiles": {},
+      "mean_surface_y": 99.8,
       "ore": {
         "coal": 654,
         "copper": 783,
@@ -671,6 +769,10 @@
         "horse",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2290,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -691,11 +793,13 @@
         1,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 23,
       "fauna": {
         "horse": 3
       },
       "hostiles": {},
+      "mean_surface_y": 100.0,
       "ore": {
         "coal": 188,
         "copper": 125,
@@ -708,6 +812,10 @@
       },
       "regenerative_vocabulary": [
         "horse"
+      ],
+      "sampled_centroid": [
+        -2290,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {},
@@ -726,7 +834,8 @@
         2,
         0
       ],
-      "farmable_surface_samples": 726,
+      "coverage": 1.0,
+      "farmable_surface_samples": 729,
       "fauna": {
         "chicken": 4,
         "horse": 2,
@@ -734,6 +843,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 68.9,
       "ore": {
         "coal": 331,
         "copper": 348,
@@ -752,6 +862,10 @@
         "pumpkin",
         "sheep",
         "wheat"
+      ],
+      "sampled_centroid": [
+        -2162,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -775,13 +889,15 @@
         2,
         1
       ],
-      "farmable_surface_samples": 701,
+      "coverage": 1.0,
+      "farmable_surface_samples": 702,
       "fauna": {
         "cow": 4,
         "pig": 8,
         "sheep": 8
       },
       "hostiles": {},
+      "mean_surface_y": 76.9,
       "ore": {
         "coal": 400,
         "copper": 303,
@@ -795,6 +911,10 @@
         "cow",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -813,6 +933,7 @@
         2,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 794,
       "fauna": {
         "horse": 5,
@@ -820,6 +941,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 75.5,
       "ore": {
         "coal": 370,
         "copper": 274,
@@ -833,6 +955,10 @@
         "horse",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -852,6 +978,7 @@
         2,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 722,
       "fauna": {
         "chicken": 4,
@@ -860,6 +987,7 @@
         "sheep": 6
       },
       "hostiles": {},
+      "mean_surface_y": 90.0,
       "ore": {
         "coal": 515,
         "copper": 298,
@@ -874,6 +1002,10 @@
         "cow",
         "donkey",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -894,6 +1026,7 @@
         2,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 638,
       "fauna": {
         "chicken": 8,
@@ -901,6 +1034,7 @@
         "sheep": 1
       },
       "hostiles": {},
+      "mean_surface_y": 71.7,
       "ore": {
         "coal": 353,
         "copper": 515,
@@ -914,6 +1048,10 @@
         "chicken",
         "horse",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -934,6 +1072,7 @@
         2,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 206,
       "fauna": {
         "chicken": 4,
@@ -942,6 +1081,7 @@
         "sheep": 6
       },
       "hostiles": {},
+      "mean_surface_y": 97.4,
       "ore": {
         "coal": 727,
         "copper": 1121,
@@ -957,6 +1097,10 @@
         "horse",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -977,6 +1121,7 @@
         2,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 131,
       "fauna": {
         "donkey": 2,
@@ -985,6 +1130,7 @@
         "sheep": 2
       },
       "hostiles": {},
+      "mean_surface_y": 99.2,
       "ore": {
         "coal": 799,
         "copper": 1212,
@@ -1000,6 +1146,10 @@
         "pig",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1019,11 +1169,13 @@
         2,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 427,
       "fauna": {
         "sheep": 10
       },
       "hostiles": {},
+      "mean_surface_y": 93.5,
       "ore": {
         "coal": 637,
         "copper": 576,
@@ -1036,6 +1188,10 @@
       },
       "regenerative_vocabulary": [
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2162,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1055,9 +1211,11 @@
         2,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 122,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 92.9,
       "ore": {
         "coal": 139,
         "copper": 85,
@@ -1068,6 +1226,10 @@
         "redstone": 34
       },
       "regenerative_vocabulary": [],
+      "sampled_centroid": [
+        -2162,
+        510
+      ],
       "sampled_columns": 256,
       "vegetation": {},
       "water_surface_samples": 0,
@@ -1086,6 +1248,7 @@
         3,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 714,
       "fauna": {
         "chicken": 7,
@@ -1094,6 +1257,7 @@
         "sheep": 12
       },
       "hostiles": {},
+      "mean_surface_y": 67.6,
       "ore": {
         "coal": 335,
         "copper": 309,
@@ -1108,6 +1272,10 @@
         "cow",
         "horse",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1126,6 +1294,7 @@
         3,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 713,
       "fauna": {
         "chicken": 5,
@@ -1134,6 +1303,7 @@
         "sheep": 4
       },
       "hostiles": {},
+      "mean_surface_y": 69.7,
       "ore": {
         "coal": 346,
         "copper": 289,
@@ -1148,6 +1318,10 @@
         "cow",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1166,6 +1340,7 @@
         3,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 764,
       "fauna": {
         "chicken": 6,
@@ -1174,6 +1349,7 @@
         "sheep": 8
       },
       "hostiles": {},
+      "mean_surface_y": 73.4,
       "ore": {
         "coal": 289,
         "copper": 242,
@@ -1188,6 +1364,10 @@
         "cow",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1207,6 +1387,7 @@
         3,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 721,
       "fauna": {
         "cow": 6,
@@ -1215,6 +1396,7 @@
         "sheep": 8
       },
       "hostiles": {},
+      "mean_surface_y": 67.2,
       "ore": {
         "coal": 303,
         "copper": 270,
@@ -1229,6 +1411,10 @@
         "horse",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1249,6 +1435,7 @@
         3,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 581,
       "fauna": {
         "cow": 4,
@@ -1256,6 +1443,7 @@
         "sheep": 8
       },
       "hostiles": {},
+      "mean_surface_y": 66.6,
       "ore": {
         "coal": 362,
         "copper": 297,
@@ -1269,6 +1457,10 @@
         "cow",
         "horse",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1289,6 +1481,7 @@
         3,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 402,
       "fauna": {
         "horse": 3,
@@ -1296,6 +1489,7 @@
         "sheep": 8
       },
       "hostiles": {},
+      "mean_surface_y": 94.1,
       "ore": {
         "coal": 648,
         "copper": 588,
@@ -1310,6 +1504,10 @@
         "horse",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1329,6 +1527,7 @@
         3,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 691,
       "fauna": {
         "horse": 4,
@@ -1336,6 +1535,7 @@
         "sheep": 19
       },
       "hostiles": {},
+      "mean_surface_y": 90.3,
       "ore": {
         "coal": 564,
         "copper": 639,
@@ -1350,6 +1550,10 @@
         "horse",
         "rabbit",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1369,7 +1573,8 @@
         3,
         7
       ],
-      "farmable_surface_samples": 692,
+      "coverage": 1.0,
+      "farmable_surface_samples": 701,
       "fauna": {
         "chicken": 4,
         "horse": 7,
@@ -1377,6 +1582,7 @@
         "sheep": 1
       },
       "hostiles": {},
+      "mean_surface_y": 69.2,
       "ore": {
         "coal": 311,
         "copper": 313,
@@ -1391,6 +1597,10 @@
         "horse",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -2034,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1410,11 +1620,13 @@
         3,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 145,
       "fauna": {
         "chicken": 4
       },
       "hostiles": {},
+      "mean_surface_y": 64.5,
       "ore": {
         "coal": 81,
         "copper": 47,
@@ -1426,6 +1638,10 @@
       },
       "regenerative_vocabulary": [
         "chicken"
+      ],
+      "sampled_centroid": [
+        -2034,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {},
@@ -1446,6 +1662,7 @@
         4,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 250,
       "fauna": {
         "chicken": 4,
@@ -1454,6 +1671,7 @@
         "sheep": 14
       },
       "hostiles": {},
+      "mean_surface_y": 64.3,
       "ore": {
         "coal": 287,
         "copper": 274,
@@ -1469,6 +1687,10 @@
         "pig",
         "sheep",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1491,11 +1713,13 @@
         4,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 511,
       "fauna": {
         "chicken": 4
       },
       "hostiles": {},
+      "mean_surface_y": 65.9,
       "ore": {
         "coal": 311,
         "copper": 308,
@@ -1508,6 +1732,10 @@
       "regenerative_vocabulary": [
         "chicken",
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1530,12 +1758,14 @@
         4,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 608,
       "fauna": {
         "horse": 2,
         "sheep": 5
       },
       "hostiles": {},
+      "mean_surface_y": 68.3,
       "ore": {
         "coal": 288,
         "copper": 288,
@@ -1549,6 +1779,10 @@
         "horse",
         "kelp",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1571,6 +1805,7 @@
         4,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 614,
       "fauna": {
         "chicken": 7,
@@ -1578,6 +1813,7 @@
         "sheep": 6
       },
       "hostiles": {},
+      "mean_surface_y": 71.5,
       "ore": {
         "coal": 375,
         "copper": 289,
@@ -1591,6 +1827,10 @@
         "chicken",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1906,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1611,6 +1851,7 @@
         4,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 358,
       "fauna": {
         "chicken": 2,
@@ -1619,6 +1860,7 @@
         "wolf": 4
       },
       "hostiles": {},
+      "mean_surface_y": 65.5,
       "ore": {
         "coal": 260,
         "copper": 263,
@@ -1633,6 +1875,10 @@
         "pig",
         "sheep",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1906,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1652,11 +1898,13 @@
         4,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 392,
       "fauna": {
         "wolf": 5
       },
       "hostiles": {},
+      "mean_surface_y": 79.5,
       "ore": {
         "coal": 462,
         "copper": 354,
@@ -1668,6 +1916,10 @@
       },
       "regenerative_vocabulary": [
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1906,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1688,6 +1940,7 @@
         4,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 473,
       "fauna": {
         "pig": 1,
@@ -1695,6 +1948,7 @@
         "wolf": 4
       },
       "hostiles": {},
+      "mean_surface_y": 79.6,
       "ore": {
         "coal": 356,
         "copper": 349,
@@ -1709,6 +1963,10 @@
         "pumpkin",
         "sheep",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1906,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1731,6 +1989,7 @@
         4,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 484,
       "fauna": {
         "horse": 2,
@@ -1738,6 +1997,7 @@
         "sheep": 9
       },
       "hostiles": {},
+      "mean_surface_y": 66.3,
       "ore": {
         "coal": 278,
         "copper": 266,
@@ -1751,6 +2011,10 @@
         "horse",
         "pig",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1906,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1770,11 +2034,13 @@
         4,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 116,
       "fauna": {
         "chicken": 8
       },
       "hostiles": {},
+      "mean_surface_y": 66.1,
       "ore": {
         "coal": 73,
         "copper": 80,
@@ -1786,6 +2052,10 @@
       },
       "regenerative_vocabulary": [
         "chicken"
+      ],
+      "sampled_centroid": [
+        -1906,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {},
@@ -1806,11 +2076,13 @@
         5,
         0
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 191,
       "fauna": {
         "sheep": 3
       },
       "hostiles": {},
+      "mean_surface_y": 63.7,
       "ore": {
         "coal": 278,
         "copper": 301,
@@ -1823,6 +2095,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sheep"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -466
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1845,12 +2121,14 @@
         5,
         1
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 414,
       "fauna": {
         "sheep": 5,
         "wolf": 4
       },
       "hostiles": {},
+      "mean_surface_y": 75.8,
       "ore": {
         "coal": 361,
         "copper": 340,
@@ -1863,6 +2141,10 @@
       "regenerative_vocabulary": [
         "sheep",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -338
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1883,9 +2165,11 @@
         5,
         2
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 238,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 68.6,
       "ore": {
         "coal": 260,
         "copper": 256,
@@ -1897,6 +2181,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -210
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1919,9 +2207,11 @@
         5,
         3
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 79,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 63.8,
       "ore": {
         "coal": 222,
         "copper": 217,
@@ -1933,6 +2223,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        -82
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -1955,12 +2249,14 @@
         5,
         4
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 147,
       "fauna": {
         "cow": 6,
         "wolf": 2
       },
       "hostiles": {},
+      "mean_surface_y": 64.9,
       "ore": {
         "coal": 224,
         "copper": 234,
@@ -1973,6 +2269,10 @@
       "regenerative_vocabulary": [
         "cow",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1778,
+        46
       ],
       "sampled_columns": 1024,
       "vegetation": {},
@@ -1992,6 +2292,7 @@
         5,
         5
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 391,
       "fauna": {
         "chicken": 8,
@@ -1999,6 +2300,7 @@
         "wolf": 8
       },
       "hostiles": {},
+      "mean_surface_y": 78.3,
       "ore": {
         "coal": 442,
         "copper": 429,
@@ -2013,6 +2315,10 @@
         "cow",
         "mushrooms",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1778,
+        174
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -2035,6 +2341,7 @@
         5,
         6
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 286,
       "fauna": {
         "chicken": 4,
@@ -2043,6 +2350,7 @@
         "wolf": 1
       },
       "hostiles": {},
+      "mean_surface_y": 69.5,
       "ore": {
         "coal": 265,
         "copper": 252,
@@ -2058,6 +2366,10 @@
         "sheep",
         "sugar_cane",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1778,
+        302
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -2080,9 +2392,11 @@
         5,
         7
       ],
+      "coverage": 1.0,
       "farmable_surface_samples": 126,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 64.2,
       "ore": {
         "coal": 196,
         "copper": 216,
@@ -2095,6 +2409,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -1778,
+        430
       ],
       "sampled_columns": 1024,
       "vegetation": {
@@ -2117,9 +2435,11 @@
         5,
         8
       ],
+      "coverage": 0.25,
       "farmable_surface_samples": 18,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 62.1,
       "ore": {
         "coal": 37,
         "copper": 61,
@@ -2131,6 +2451,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1778,
+        510
       ],
       "sampled_columns": 256,
       "vegetation": {
@@ -2153,9 +2477,11 @@
         6,
         0
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 79,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 63.3,
       "ore": {
         "coal": 166,
         "copper": 177,
@@ -2168,6 +2494,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "sugar_cane"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -466
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2191,9 +2521,11 @@
         6,
         1
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 8,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 62.1,
       "ore": {
         "coal": 177,
         "copper": 159,
@@ -2205,6 +2537,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -338
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2226,9 +2562,11 @@
         6,
         2
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 22,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 62.0,
       "ore": {
         "coal": 176,
         "copper": 148,
@@ -2240,6 +2578,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -210
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2262,11 +2604,13 @@
         6,
         3
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 39,
       "fauna": {
         "chicken": 3
       },
       "hostiles": {},
+      "mean_surface_y": 64.8,
       "ore": {
         "coal": 175,
         "copper": 174,
@@ -2279,6 +2623,10 @@
       "regenerative_vocabulary": [
         "chicken",
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        -82
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2301,12 +2649,14 @@
         6,
         4
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 327,
       "fauna": {
         "fox": 1,
         "pig": 1
       },
       "hostiles": {},
+      "mean_surface_y": 76.4,
       "ore": {
         "coal": 310,
         "copper": 224,
@@ -2321,6 +2671,10 @@
         "pig",
         "pumpkin",
         "sweet_berries"
+      ],
+      "sampled_centroid": [
+        -1666,
+        46
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2344,11 +2698,13 @@
         6,
         5
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 240,
       "fauna": {
         "wolf": 4
       },
       "hostiles": {},
+      "mean_surface_y": 68.0,
       "ore": {
         "coal": 201,
         "copper": 206,
@@ -2361,6 +2717,10 @@
       "regenerative_vocabulary": [
         "sweet_berries",
         "wolf"
+      ],
+      "sampled_centroid": [
+        -1666,
+        174
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2383,11 +2743,13 @@
         6,
         6
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 19,
       "fauna": {
         "turtle": 3
       },
       "hostiles": {},
+      "mean_surface_y": 62.4,
       "ore": {
         "coal": 139,
         "copper": 141,
@@ -2400,6 +2762,10 @@
       "regenerative_vocabulary": [
         "kelp",
         "turtle"
+      ],
+      "sampled_centroid": [
+        -1666,
+        302
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2422,9 +2788,11 @@
         6,
         7
       ],
+      "coverage": 0.75,
       "farmable_surface_samples": 4,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 62.0,
       "ore": {
         "coal": 114,
         "copper": 152,
@@ -2436,6 +2804,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        430
       ],
       "sampled_columns": 768,
       "vegetation": {
@@ -2457,9 +2829,11 @@
         6,
         8
       ],
+      "coverage": 0.1875,
       "farmable_surface_samples": 4,
       "fauna": {},
       "hostiles": {},
+      "mean_surface_y": 62.6,
       "ore": {
         "coal": 32,
         "copper": 48,
@@ -2471,6 +2845,10 @@
       },
       "regenerative_vocabulary": [
         "kelp"
+      ],
+      "sampled_centroid": [
+        -1666,
+        510
       ],
       "sampled_columns": 192,
       "vegetation": {
@@ -2496,19 +2874,19 @@
   "source_files_sha256": {
     "entities/r.-4.-1.mca": "6d45604609becea4403fa55369068eaed1a7e88b71561deb52a5b0b1d44a851f",
     "entities/r.-4.-2.mca": "041bdb330b2a08b370a18dd921630e777d334b6925e9bf49f269eaef0d5d9abb",
-    "entities/r.-4.0.mca": "41f261421311d0d7f99c08f3a46ed29e56254304237ba95b04c2bfcfe01a4843",
+    "entities/r.-4.0.mca": "5028416e494b0f0705f8609c089f8960f8dcd8e832f8bf5763c561f90f71835a",
     "entities/r.-4.1.mca": "9ad91d11d4236abf77d3556acc9a4e851e16df921931945d6c88f03dc19a80c6",
-    "entities/r.-5.-1.mca": "8fb0e697220fbe5e2cfb6d9c5f070ae8962ab4bc2bf2470380435b7f512db15d",
-    "entities/r.-5.-2.mca": "bfa3363aa970c287202da61c50869de69eb0c8d20ecf5a7d4b03d8f5a1a90e3b",
-    "entities/r.-5.0.mca": "b89ab64ef5afa9b5b4ef6cb45de7d3a93d4d794aa9c21651d355d1773e2e7bd1",
+    "entities/r.-5.-1.mca": "0617a839d3d8524cd74eebc135ab9b47ec10c3fc07a452e735827fd321e6612f",
+    "entities/r.-5.-2.mca": "6536cb6046968fa848b6a205e82d6614ad646b832409a80b0a63bdf4327bc827",
+    "entities/r.-5.0.mca": "5876da65689f76b099434f5840e3edaf1490a2d12dcfce58c39fbc8a7cd11dda",
     "entities/r.-5.1.mca": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "region/r.-4.-1.mca": "e29cda32deb4a0eec7e78b693f6ec557f34a92e8de5eca81ad8e31890ed485c8",
     "region/r.-4.-2.mca": "6aea6c5487f34ec919600dd317ac2c5568cdde9b058c97fe074035914805c38b",
-    "region/r.-4.0.mca": "4d78a575ab7e19dcaf203c14e83c2ea86349807b354289cea9a0c6059651f816",
+    "region/r.-4.0.mca": "c4e9e115645ad50a4d17892c82751284291c76374d8d1f26f599c44d59bdab9c",
     "region/r.-4.1.mca": "8839d2871ea23d6f795af6596d0ad9c57d661b68668ef222dd853daf3f3ceadf",
-    "region/r.-5.-1.mca": "f1c8bb4774182e80151ccf9ee35db2cb809904c1464f7c37d939f5fec181db9a",
-    "region/r.-5.-2.mca": "327c510f3b41e4f63cc4164d149e602c9033db435d490b7f9c3de5ee2e86ae72",
-    "region/r.-5.0.mca": "6566f002b8b7d90f607b3d98fabcd18cd9c3a3321887aff6798f95d5339c5f1f",
+    "region/r.-5.-1.mca": "1f8dfb3ba574564e1f0461dc5721ab1a1178d01b01216ad934200914239e52af",
+    "region/r.-5.-2.mca": "be4a413843890106cf6e4d7cd002475e273273081d8799d075eb3ab4baf0c0b9",
+    "region/r.-5.0.mca": "4df5366756e298214b2757efd1b60aa7cc210a4f7deb33a658e0957ca215bc2f",
     "region/r.-5.1.mca": "e9b3df938d3989bb3814f90e6b958a86142fbca700d05324fb8deb9ab4752d63"
   },
   "stride": 3,
