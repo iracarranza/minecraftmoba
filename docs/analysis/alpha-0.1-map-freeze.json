@@ -115,5 +115,16 @@
   "filter": 0.12,
   "status": "NON-CANON ANALYTICAL FIXTURE"
  },
- "world_directory": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/alpha-0.1/consolidative-alpha"
+ "world_directory": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/alpha-0.1/consolidative-alpha",
+ "amendments": [
+  {
+   "date": "2026-09-20",
+   "reason": "IMPLEMENTATION INCOMPATIBILITY, a declared reopen condition.",
+   "finding": "The frozen template contained none of the eight team structures. They had been built into TerrainGalleryStructures during the siting work and never into the Consolidative world the Alpha instance copies. Playtest surfaced it as a player spawning on bare terrain with nothing to orient by.",
+   "why_it_blocks": "ALPHA-D3 makes victory depend on disabling a team's Aether Fountain. A world with no Fountain cannot reach the victory condition at all, so the map could not support its own terminal state.",
+   "change": "Built the eight sited structures into both the Alpha template and the Resource-Light control, 17,036 blocks each, at the coordinates the existing siting chose. No structure was re-sited and no strategic geometry changed.",
+   "spawn": "Homelands moved inside the Aether Fountain basins. The fountain's own centre is a solid column, so the y is explicit rather than the highest block.",
+   "not_a_rebalance": "Measured structural asymmetry is unchanged: the reach rescan was run against a world whose traversable surface these structures do not alter, and no opportunity was added, moved or removed."
+  }
+ ]
 }

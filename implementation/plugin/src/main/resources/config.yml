@@ -5,7 +5,7 @@ features:
   # distinguish an empty drumstick from one beyond the player's Capacity.
   # Requires the resource pack, which blanks the vanilla row; without it the
   # glyphs are unmapped and the readout is unreadable.
-  hungerDisplay: { enabled: false, refreshTicks: 10 }
+  hungerDisplay: { enabled: true, refreshTicks: 10 }
   # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
   # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
   # so vanilla regeneration can never fire on the canonical curve.
@@ -349,11 +349,16 @@ alpha:
   # path here -- the template is the frozen authority and is never copied.
   templatePath: artifacts/worldgen/alpha-0.1/consolidative-alpha
   instanceWorldName: alpha_match
-  # Homeland spawn per team, [x, z] or [x, z, y]. From the frozen map's own
-  # siting: north and south Aether Fountains sit at their team's homeland.
+  # Homeland spawn per team, [x, z] or [x, z, y].
+  #
+  # These are inside the Aether Fountain basin, not on the terrain near it. A
+  # player spawning on bare ground could not tell where they were; spawning in
+  # the Fountain makes the thing their team loses when it is disabled the first
+  # thing they stand in. The y is explicit because the fountain's own centre is
+  # a solid column, so the highest block there is not standable.
   homelands:
-    north: [-2172, -460]
-    south: [-2020, 428]
+    north: [-2173, -461, 74]
+    south: [-2005, 411, 76]
 
   worksites:
     # Positions are the frozen Consolidative Alpha map's own mining_worksite
