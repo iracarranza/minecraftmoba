@@ -130,10 +130,6 @@ class SiteFlatteningTests(unittest.TestCase):
         self.assertEqual(next(sites_of(cfg))['detail'], 'south')
 
 
-if __name__ == '__main__':
-    unittest.main()
-
-
 class RouteTests(unittest.TestCase):
     """The contract says author physical path quality, not a marker."""
 
@@ -298,3 +294,27 @@ class OptimizerSpilloverTests(unittest.TestCase):
                'direct_n': 50.0, 'direct_s': 50.0}
         self.assertLess(self.mod.spillover_reach(near, 'north', cfg), near['n'])
         self.assertEqual(self.mod.spillover_reach(far, 'north', cfg), far['n'])
+
+    def test_effective_balance_is_worst_raw_or_spillover_case(self):
+        north = {'center': [50, 0], 'n': 60.0, 's': 180.0, 'gap': 120.0,
+                 'min': 60.0, 'bias': 'north', 'direct_n': 10.0, 'direct_s': 30.0}
+        south = {'center': [50, 100], 'n': 180.0, 's': 60.0, 'gap': 120.0,
+                 'min': 60.0, 'bias': 'south', 'direct_n': 30.0, 'direct_s': 10.0}
+        north_target = {**north, 'center': [100, 0]}
+        south_target = {**south, 'center': [100, 100]}
+        cfg = {
+            'founders': [north, south],
+            'renewables': [north, south],
+            'worksites': [north, south],
+            'pois': [north, south],
+            'route_targets': {'north': [north_target], 'south': [south_target]},
+        }
+        got = self.mod.metrics(cfg)
+        self.assertEqual(
+            got['effective_balance_asymmetry'],
+            max(got['balance_asymmetry'],
+                got['route_spillover_balance_asymmetry']))
+
+
+if __name__ == '__main__':
+    unittest.main()
