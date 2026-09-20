@@ -1,0 +1,90 @@
+{
+  "schema": "minecraft_moba_claude_authoring_handoff/1",
+  "map_seed": 930012642,
+  "status": "AUTHORING ENTRYPOINT",
+  "purpose": "Give Claude every repository-resident input, rule, and command needed to regenerate the full candidate/frontier handoff and perform block-exact authoring.",
+  "critical_warning": {
+    "snapshot_hostiles": 0,
+    "interpretation": "INVALID AS SAFETY EVIDENCE: fresh-world/entity-snapshot artefact",
+    "underground_hazard": "UNRESOLVED",
+    "forbidden_inference": "hostiles == 0 -> underground is safe",
+    "required_behavior": "Do not certify Extraction balance until hostile exposure is measured or explicitly sensitivity-tested."
+  },
+  "authoritative_inputs": {
+    "export_root": "implementation/worldgen/reports/expedition_2026-09-20/export",
+    "opportunity_map": "implementation/worldgen/reports/expedition_2026-09-20/export/data/opportunity-map.json",
+    "travel_matrix": "implementation/worldgen/reports/expedition_2026-09-20/export/data/travel-matrix.json",
+    "packing": "implementation/worldgen/reports/expedition_2026-09-20/export/data/packing.json",
+    "caves": "implementation/worldgen/reports/expedition_2026-09-20/export/data/caves.json",
+    "structure_siting": "implementation/worldgen/reports/expedition_2026-09-20/export/data/structure-siting.json",
+    "structures_built": "implementation/worldgen/reports/expedition_2026-09-20/export/data/structures-built.json",
+    "vanilla_constants": "implementation/worldgen/reports/expedition_2026-09-20/export/data/vanilla-constants.json",
+    "map_manifest": "implementation/worldgen/reports/expedition_2026-09-20/export/data/map-manifest.json"
+  },
+  "analysis_and_rules": {
+    "optimizer": "tools/analysis/map_authoring_optimizer.py",
+    "design_document": "docs/analysis/authored-strategic-opportunity-optimizer.md",
+    "realized_map_run": "docs/analysis/2026-09-20-map-authoring-optimizer-run.md",
+    "hazard_guard": "docs/analysis/map-authoring-optimizer/unresolved-hazards.json",
+    "optimizer_config": "docs/analysis/map-authoring-optimizer/optimizer-config.json"
+  },
+  "reproducible_run": {
+    "note": "The optimizer currently accepts a ZIP whose root contains data/. Build that ZIP from the committed export directory; do not alter the JSON inputs.",
+    "commands": [
+      "cd implementation/worldgen/reports/expedition_2026-09-20/export && zip -qr /tmp/realized-map-export.zip README.md data && cd -",
+      "python tools/analysis/map_authoring_optimizer.py /tmp/realized-map-export.zip --out /tmp/map-authoring-optimizer-output --samples 1200 --seed 20260920"
+    ],
+    "expected_outputs": [
+      "/tmp/map-authoring-optimizer-output/candidate_catalog.json",
+      "/tmp/map-authoring-optimizer-output/scenario_frontier.json",
+      "/tmp/map-authoring-optimizer-output/unresolved_hazards.json"
+    ],
+    "expected_candidate_counts_from_reference_run": {
+      "founder_stock": 74,
+      "renewable_manifestations": 110,
+      "worksites": 35,
+      "pois": 35,
+      "route_targets_north": 32,
+      "route_targets_south": 31
+    }
+  },
+  "reference_run": {
+    "samples_per_profile": 1200,
+    "random_seed": 20260920,
+    "balance_filter": 0.12,
+    "filter_status": "NON-CANON ANALYTICAL FIXTURE",
+    "profiles": {
+      "balanced_baseline": {"balanced_samples": 114, "preferred_balance_asymmetry": 0.047401},
+      "exploration_centric": {"balanced_samples": 116, "preferred_balance_asymmetry": 0.067165},
+      "consolidative": {"balanced_samples": 115, "preferred_balance_asymmetry": 0.093518},
+      "resource_dense": {"balanced_samples": 158, "preferred_balance_asymmetry": 0.060442},
+      "resource_light": {"balanced_samples": 74, "preferred_balance_asymmetry": 0.061608},
+      "contested_core": {"balanced_samples": 146, "preferred_balance_asymmetry": 0.062782},
+      "peripheral_specialization": {"balanced_samples": 99, "preferred_balance_asymmetry": 0.044789},
+      "route_centric": {"balanced_samples": 122, "preferred_balance_asymmetry": 0.060835}
+    },
+    "metric_warning": "balance_asymmetry is an internal normalized search measure, not a win probability or percent team advantage"
+  },
+  "authoring_contract": {
+    "regional_first": "Optimizer selects qualifying 128x128 regions and complete strategic portfolios; Claude selects exact blocks/clearings/pads/paths only after inspecting the realized terrain.",
+    "renewables": "Use species already observed in the selected ecological region. Do not sprinkle arbitrary animals into ecologically empty cells merely to satisfy balance.",
+    "founder_stock": "Carrot/potato founder patches may be authored introductions in qualifying farmable regions.",
+    "worksites": "Keep dormant Worksite candidates generic. Do not pre-bind them to Mining Site or Industrial Factory before activation.",
+    "routes": "Author physical path quality; do not implement an intrinsic movement-speed bonus.",
+    "fallbacks": "If exact terrain invalidates a regional finalist, return to another optimizer finalist rather than inventing an untested strategic placement.",
+    "rescan": "Every exact authored placement and Route must be rescanned. Replace regional reach proxies with measured exact-world values before freezing the map.",
+    "combat": "Combat outcome resolution is outside this balancing pass."
+  },
+  "recommended_first_physical_set": [
+    "balanced_baseline",
+    "exploration_centric",
+    "consolidative",
+    "resource_light"
+  ],
+  "provenance": {
+    "MAP_MEASUREMENT": "directly observed from realized-world export",
+    "DERIVED": "calculated from measurements",
+    "NON_CANON_FIXTURE": "scenario count, threshold, or weight chosen only for analysis",
+    "UNRESOLVED": "must remain missing until measured or explicitly sensitivity-tested"
+  }
+}
