@@ -22,8 +22,14 @@ Four reach values per opportunity per team:
 
 Two differences matter, and they are not the same thing:
 
-    predicted saving = regional_raw - regional_spillover
-    actual saving    = exact_bare  - exact_authored
+    predicted saving = regional_raw    - regional_spillover
+    actual saving    = exact_sites_only - exact_authored
+
+The baseline is deliberately the **sites-only** world, not the bare one. An
+authored world differs from bare by 32 site pads as well as by corridors, and
+each pad clears and flattens terrain. Measuring against bare attributes the pad
+effect to the Routes -- roughly half of the total saving, as it turns out -- and
+would judge the spillover model against an effect it does not claim to predict.
 
 The model is judged on the second pair, not on whether its absolute reach was
 right. A model can be wrong about how long a trip takes and still be right about
@@ -106,7 +112,7 @@ def compare(opt, cfg, bare: dict, authored: dict):
                     'kind': kind, 'cell': list(cell), 'team': team,
                     'regional_raw': round(raw, 3),
                     'regional_spillover': round(spill, 3),
-                    'exact_bare': round(eb, 3),
+                    'exact_baseline': round(eb, 3),
                     'exact_authored': round(ea, 3),
                     'predicted_saving': round(raw - spill, 3),
                     'actual_saving': round(eb - ea, 3),
@@ -171,7 +177,8 @@ def summarise(rows):
 
 
 def run(repo: Path, frontier_path: Path, profile: str, rank: int,
-        bare_path: Path, authored_path: Path, output: Path) -> dict:
+        bare_path: Path, authored_path: Path, output: Path,
+        baseline_path: Path | None = None) -> dict:
     opt = optimizer_module(repo)
     frontier = json.loads(frontier_path.read_text())
     profiles = frontier.get('profiles', frontier)
@@ -179,13 +186,18 @@ def run(repo: Path, frontier_path: Path, profile: str, rank: int,
     cfg = finalist['configuration']
     bare = json.loads(bare_path.read_text())
     authored = json.loads(authored_path.read_text())
+    # Routes are isolated against the sites-only world when one is supplied.
+    baseline = json.loads(baseline_path.read_text()) if baseline_path else bare
 
-    rows = compare(opt, cfg, bare, authored)
+    rows = compare(opt, cfg, baseline, authored)
     doc = {
         'schema': SCHEMA,
         'evidence_state': 'DERIVED FROM RAW WORLD OBSERVATION',
         'profile': profile, 'finalist_rank': rank,
         'frontier_sha256': authored.get('frontier_sha256'),
+        'baseline': ('sites_only' if baseline_path else 'bare'),
+        'baseline_note': 'actual saving is measured against the sites-only world, '
+                         'so site-pad terrain clearing is not attributed to Routes',
         'spillover_parameters': {
             'radius_blocks': getattr(opt, 'ROUTE_SPILLOVER_RADIUS', None),
             'scale': getattr(opt, 'ROUTE_SPILLOVER_SCALE', None),
@@ -196,6 +208,7 @@ def run(repo: Path, frontier_path: Path, profile: str, rank: int,
             'regional_spillover': finalist['metrics']['route_spillover_balance_asymmetry'],
             'regional_effective': finalist['metrics']['effective_balance_asymmetry'],
             'exact_bare': bare['balance']['measured'].get('balance_asymmetry'),
+            'exact_baseline': baseline['balance']['measured'].get('balance_asymmetry'),
             'exact_authored': authored['balance']['measured'].get('balance_asymmetry'),
         },
         'summary': summarise(rows),
@@ -220,9 +233,12 @@ def main(argv=None):
     a.add_argument('--rank', type=int, default=0)
     a.add_argument('--bare', type=Path, required=True)
     a.add_argument('--authored', type=Path, required=True)
+    a.add_argument('--baseline', type=Path,
+                   help='sites-only rescan; isolates Routes from site pads')
     a.add_argument('--output', type=Path, required=True)
     n = a.parse_args(argv)
-    d = run(n.repo, n.frontier, n.profile, n.rank, n.bare, n.authored, n.output)
+    d = run(n.repo, n.frontier, n.profile, n.rank, n.bare, n.authored, n.output,
+            n.baseline)
     s, b = d['summary'], d['balance']
     print(f"{n.profile:22s} samples={s['samples']:3d}  "
           f"predicted {s['predicted_saving_s']['mean']:+7.2f}s  "
@@ -233,7 +249,7 @@ def main(argv=None):
     print(f"  detection: tp={d_['true_positive']} fp={d_['false_positive']} "
           f"fn={d_['false_negative']} tn={d_['true_negative']}")
     print(f"  balance: raw {b['regional_raw']:.4f} spill {b['regional_spillover']:.4f} "
-          f"| bare {b['exact_bare']:.4f} authored {b['exact_authored']:.4f}")
+          f"| base {b['exact_baseline']:.4f} authored {b['exact_authored']:.4f}")
 
 
 if __name__ == '__main__':

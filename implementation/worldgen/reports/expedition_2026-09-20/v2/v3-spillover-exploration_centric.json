@@ -1,0 +1,1126 @@
+{
+ "balance": {
+  "exact_authored": 0.1258517269568712,
+  "exact_bare": 0.14181625913396895,
+  "exact_baseline": 0.12947989742789284,
+  "regional_effective": 0.080807285,
+  "regional_raw": 0.07593248,
+  "regional_spillover": 0.080807285
+ },
+ "baseline": "sites_only",
+ "baseline_note": "actual saving is measured against the sites-only world, so site-pad terrain clearing is not attributed to Routes",
+ "evidence_state": "DERIVED FROM RAW WORLD OBSERVATION",
+ "finalist_rank": 0,
+ "frontier_sha256": "30c2d9e6a7e0bb1a0fe0127a147ac6388add4b325606fafb911bd2505114af71",
+ "not_covered": [
+  "whether the corridor geometry this validates is the only sensible one; a different Route width or routing rule would move the actuals",
+  "hostile exposure, which remains UNRESOLVED",
+  "reach from anywhere but the two homelands"
+ ],
+ "per_opportunity": [
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 145.024,
+   "exact_baseline": 145.024,
+   "kind": "founder_crop",
+   "predicted_saving": 0.0,
+   "regional_raw": 155.178,
+   "regional_spillover": 155.178,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 2.822,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 367.185,
+   "exact_baseline": 370.007,
+   "kind": "founder_crop",
+   "predicted_saving": 0.0,
+   "regional_raw": 406.301,
+   "regional_spillover": 406.301,
+   "saving_error": -2.822,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    1
+   ],
+   "exact_authored": 35.271,
+   "exact_baseline": 35.271,
+   "kind": "founder_crop",
+   "predicted_saving": 8.511,
+   "regional_raw": 36.259,
+   "regional_spillover": 27.748,
+   "saving_error": 8.511,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    2,
+    1
+   ],
+   "exact_authored": 258.572,
+   "exact_baseline": 287.581,
+   "kind": "founder_crop",
+   "predicted_saving": 0.0,
+   "regional_raw": 301.738,
+   "regional_spillover": 301.738,
+   "saving_error": -29.009,
+   "team": "south"
+  },
+  {
+   "actual_saving": 21.243,
+   "cell": [
+    3,
+    5
+   ],
+   "exact_authored": 200.433,
+   "exact_baseline": 221.676,
+   "kind": "founder_crop",
+   "predicted_saving": 0.0,
+   "regional_raw": 230.05,
+   "regional_spillover": 230.05,
+   "saving_error": -21.243,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    3,
+    5
+   ],
+   "exact_authored": 114.101,
+   "exact_baseline": 114.101,
+   "kind": "founder_crop",
+   "predicted_saving": 15.053,
+   "regional_raw": 103.436,
+   "regional_spillover": 88.383,
+   "saving_error": 15.053,
+   "team": "south"
+  },
+  {
+   "actual_saving": 21.243,
+   "cell": [
+    3,
+    5
+   ],
+   "exact_authored": 222.284,
+   "exact_baseline": 243.527,
+   "kind": "founder_crop",
+   "predicted_saving": 0.0,
+   "regional_raw": 230.05,
+   "regional_spillover": 230.05,
+   "saving_error": -21.243,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    3,
+    5
+   ],
+   "exact_authored": 91.069,
+   "exact_baseline": 91.069,
+   "kind": "founder_crop",
+   "predicted_saving": 15.053,
+   "regional_raw": 103.436,
+   "regional_spillover": 88.383,
+   "saving_error": 15.053,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    0
+   ],
+   "exact_authored": 162.856,
+   "exact_baseline": 162.856,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 231.744,
+   "regional_spillover": 231.744,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 2.822,
+   "cell": [
+    0,
+    0
+   ],
+   "exact_authored": 383.334,
+   "exact_baseline": 386.156,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 557.256,
+   "regional_spillover": 557.256,
+   "saving_error": -2.822,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 157.811,
+   "exact_baseline": 157.811,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 196.027,
+   "regional_spillover": 196.027,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 239.901,
+   "exact_baseline": 239.901,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 246.727,
+   "regional_spillover": 246.727,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    6
+   ],
+   "exact_authored": 238.88,
+   "exact_baseline": 238.88,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 287.922,
+   "regional_spillover": 287.922,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    6
+   ],
+   "exact_authored": 164.39,
+   "exact_baseline": 164.39,
+   "kind": "mining_worksite",
+   "predicted_saving": 84.346,
+   "regional_raw": 191.658,
+   "regional_spillover": 107.312,
+   "saving_error": 84.346,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 294.058,
+   "exact_baseline": 294.058,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 335.746,
+   "regional_spillover": 335.746,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 136.247,
+   "exact_baseline": 136.247,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 170.206,
+   "regional_spillover": 170.206,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 6.292,
+   "cell": [
+    1,
+    6
+   ],
+   "exact_authored": 244.431,
+   "exact_baseline": 250.723,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 301.056,
+   "regional_spillover": 301.056,
+   "saving_error": -6.292,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    1,
+    6
+   ],
+   "exact_authored": 109.183,
+   "exact_baseline": 109.183,
+   "kind": "mining_worksite",
+   "predicted_saving": 39.191,
+   "regional_raw": 130.517,
+   "regional_spillover": 91.325,
+   "saving_error": 39.191,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.591,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 164.196,
+   "exact_baseline": 164.787,
+   "kind": "mining_worksite",
+   "predicted_saving": 54.59,
+   "regional_raw": 177.406,
+   "regional_spillover": 122.816,
+   "saving_error": 53.999,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 178.35,
+   "exact_baseline": 178.35,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 174.372,
+   "regional_spillover": 174.372,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    3,
+    3
+   ],
+   "exact_authored": 103.755,
+   "exact_baseline": 103.755,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 111.8,
+   "regional_spillover": 111.8,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    3,
+    3
+   ],
+   "exact_authored": 181.189,
+   "exact_baseline": 210.198,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 213.107,
+   "regional_spillover": 213.107,
+   "saving_error": -29.009,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    4,
+    1
+   ],
+   "exact_authored": 73.301,
+   "exact_baseline": 73.301,
+   "kind": "mining_worksite",
+   "predicted_saving": 9.105,
+   "regional_raw": 76.755,
+   "regional_spillover": 67.65,
+   "saving_error": 9.105,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    4,
+    1
+   ],
+   "exact_authored": 255.346,
+   "exact_baseline": 284.355,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 301.789,
+   "regional_spillover": 301.789,
+   "saving_error": -29.009,
+   "team": "south"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    4,
+    4
+   ],
+   "exact_authored": 144.096,
+   "exact_baseline": 173.105,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 187.407,
+   "regional_spillover": 187.407,
+   "saving_error": -29.009,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    4,
+    4
+   ],
+   "exact_authored": 146.011,
+   "exact_baseline": 146.011,
+   "kind": "mining_worksite",
+   "predicted_saving": 46.375,
+   "regional_raw": 156.778,
+   "regional_spillover": 110.403,
+   "saving_error": 46.375,
+   "team": "south"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    5,
+    5
+   ],
+   "exact_authored": 208.894,
+   "exact_baseline": 237.903,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.0,
+   "regional_raw": 249.527,
+   "regional_spillover": 249.527,
+   "saving_error": -29.009,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    5,
+    5
+   ],
+   "exact_authored": 128.12,
+   "exact_baseline": 128.12,
+   "kind": "mining_worksite",
+   "predicted_saving": 0.537,
+   "regional_raw": 148.573,
+   "regional_spillover": 148.036,
+   "saving_error": 0.537,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 172.463,
+   "exact_baseline": 172.463,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 196.027,
+   "regional_spillover": 196.027,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 241.917,
+   "exact_baseline": 241.917,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 246.727,
+   "regional_spillover": 246.727,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 258.888,
+   "exact_baseline": 258.888,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 335.746,
+   "regional_spillover": 335.746,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 162.813,
+   "exact_baseline": 162.813,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 170.206,
+   "regional_spillover": 170.206,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 12.394,
+   "cell": [
+    3,
+    4
+   ],
+   "exact_authored": 160.591,
+   "exact_baseline": 172.985,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 182.811,
+   "regional_spillover": 182.811,
+   "saving_error": -12.394,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    3,
+    4
+   ],
+   "exact_authored": 152.13,
+   "exact_baseline": 152.13,
+   "kind": "poi",
+   "predicted_saving": 8.096,
+   "regional_raw": 152.201,
+   "regional_spillover": 144.105,
+   "saving_error": 8.096,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    5,
+    1
+   ],
+   "exact_authored": 127.816,
+   "exact_baseline": 127.816,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 132.552,
+   "regional_spillover": 132.552,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    5,
+    1
+   ],
+   "exact_authored": 273.734,
+   "exact_baseline": 302.743,
+   "kind": "poi",
+   "predicted_saving": 0.0,
+   "regional_raw": 325.125,
+   "regional_spillover": 325.125,
+   "saving_error": -29.009,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 143.759,
+   "exact_baseline": 143.759,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 155.178,
+   "regional_spillover": 155.178,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 2.822,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 350.1,
+   "exact_baseline": 352.922,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 406.301,
+   "regional_spillover": 406.301,
+   "saving_error": -2.822,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 112.735,
+   "exact_baseline": 112.735,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 155.178,
+   "regional_spillover": 155.178,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 1.641,
+   "cell": [
+    0,
+    1
+   ],
+   "exact_authored": 318.932,
+   "exact_baseline": 320.573,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 406.301,
+   "regional_spillover": 406.301,
+   "saving_error": -1.641,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 187.604,
+   "exact_baseline": 187.604,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 196.027,
+   "regional_spillover": 196.027,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    4
+   ],
+   "exact_authored": 233.954,
+   "exact_baseline": 233.954,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 246.727,
+   "regional_spillover": 246.727,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 281.035,
+   "exact_baseline": 281.035,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 335.746,
+   "regional_spillover": 335.746,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 164.614,
+   "exact_baseline": 164.614,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 170.206,
+   "regional_spillover": 170.206,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 269.824,
+   "exact_baseline": 269.824,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 335.746,
+   "regional_spillover": 335.746,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    7
+   ],
+   "exact_authored": 133.834,
+   "exact_baseline": 133.834,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 170.206,
+   "regional_spillover": 170.206,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    1,
+    1
+   ],
+   "exact_authored": 46.979,
+   "exact_baseline": 46.979,
+   "kind": "renewable_range",
+   "predicted_saving": 3.824,
+   "regional_raw": 65.475,
+   "regional_spillover": 61.652,
+   "saving_error": 3.824,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.01,
+   "cell": [
+    1,
+    1
+   ],
+   "exact_authored": 279.516,
+   "exact_baseline": 308.526,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 334.384,
+   "regional_spillover": 334.384,
+   "saving_error": -29.01,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 144.433,
+   "exact_baseline": 144.433,
+   "kind": "renewable_range",
+   "predicted_saving": 54.59,
+   "regional_raw": 177.406,
+   "regional_spillover": 122.816,
+   "saving_error": 54.59,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 197.574,
+   "exact_baseline": 197.574,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 174.372,
+   "regional_spillover": 174.372,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 15.039,
+   "cell": [
+    2,
+    5
+   ],
+   "exact_authored": 247.69,
+   "exact_baseline": 262.729,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 278.202,
+   "regional_spillover": 278.202,
+   "saving_error": -15.039,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    5
+   ],
+   "exact_authored": 118.866,
+   "exact_baseline": 118.866,
+   "kind": "renewable_range",
+   "predicted_saving": 0.0,
+   "regional_raw": 137.502,
+   "regional_spillover": 137.502,
+   "saving_error": 0.0,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    6
+   ],
+   "exact_authored": 245.641,
+   "exact_baseline": 245.641,
+   "kind": "route_target",
+   "predicted_saving": 0.0,
+   "regional_raw": 287.922,
+   "regional_spillover": 287.922,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    0,
+    6
+   ],
+   "exact_authored": 170.316,
+   "exact_baseline": 170.316,
+   "kind": "route_target",
+   "predicted_saving": 84.346,
+   "regional_raw": 191.658,
+   "regional_spillover": 107.312,
+   "saving_error": 84.346,
+   "team": "south"
+  },
+  {
+   "actual_saving": 35.593,
+   "cell": [
+    1,
+    5
+   ],
+   "exact_authored": 232.518,
+   "exact_baseline": 268.111,
+   "kind": "route_target",
+   "predicted_saving": 96.301,
+   "regional_raw": 257.294,
+   "regional_spillover": 160.992,
+   "saving_error": 60.708,
+   "team": "north"
+  },
+  {
+   "actual_saving": 12.347,
+   "cell": [
+    1,
+    5
+   ],
+   "exact_authored": 212.45,
+   "exact_baseline": 224.797,
+   "kind": "route_target",
+   "predicted_saving": 0.0,
+   "regional_raw": 168.721,
+   "regional_spillover": 168.721,
+   "saving_error": -12.347,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 125.26,
+   "exact_baseline": 125.26,
+   "kind": "route_target",
+   "predicted_saving": 54.59,
+   "regional_raw": 177.406,
+   "regional_spillover": 122.816,
+   "saving_error": 54.59,
+   "team": "north"
+  },
+  {
+   "actual_saving": 18.645,
+   "cell": [
+    2,
+    4
+   ],
+   "exact_authored": 194.141,
+   "exact_baseline": 212.786,
+   "kind": "route_target",
+   "predicted_saving": 0.0,
+   "regional_raw": 174.372,
+   "regional_spillover": 174.372,
+   "saving_error": -18.645,
+   "team": "south"
+  },
+  {
+   "actual_saving": 0.0,
+   "cell": [
+    4,
+    3
+   ],
+   "exact_authored": 124.729,
+   "exact_baseline": 124.729,
+   "kind": "route_target",
+   "predicted_saving": 0.0,
+   "regional_raw": 122.955,
+   "regional_spillover": 122.955,
+   "saving_error": 0.0,
+   "team": "north"
+  },
+  {
+   "actual_saving": 29.009,
+   "cell": [
+    4,
+    3
+   ],
+   "exact_authored": 181.261,
+   "exact_baseline": 210.27,
+   "kind": "route_target",
+   "predicted_saving": 81.786,
+   "regional_raw": 212.282,
+   "regional_spillover": 130.496,
+   "saving_error": 52.777,
+   "team": "south"
+  },
+  {
+   "actual_saving": 79.708,
+   "cell": [
+    5,
+    3
+   ],
+   "exact_authored": 166.251,
+   "exact_baseline": 245.959,
+   "kind": "route_target",
+   "predicted_saving": 11.438,
+   "regional_raw": 151.36,
+   "regional_spillover": 139.923,
+   "saving_error": -68.27,
+   "team": "north"
+  },
+  {
+   "actual_saving": 111.582,
+   "cell": [
+    5,
+    3
+   ],
+   "exact_authored": 219.931,
+   "exact_baseline": 331.513,
+   "kind": "route_target",
+   "predicted_saving": 87.704,
+   "regional_raw": 228.706,
+   "regional_spillover": 141.003,
+   "saving_error": -23.878,
+   "team": "south"
+  },
+  {
+   "actual_saving": 63.755,
+   "cell": [
+    6,
+    3
+   ],
+   "exact_authored": 230.71,
+   "exact_baseline": 294.465,
+   "kind": "route_target",
+   "predicted_saving": 41.383,
+   "regional_raw": 192.86,
+   "regional_spillover": 151.477,
+   "saving_error": -22.372,
+   "team": "north"
+  },
+  {
+   "actual_saving": 87.429,
+   "cell": [
+    6,
+    3
+   ],
+   "exact_authored": 256.909,
+   "exact_baseline": 344.338,
+   "kind": "route_target",
+   "predicted_saving": 0.0,
+   "regional_raw": 254.53,
+   "regional_spillover": 254.53,
+   "saving_error": -87.429,
+   "team": "south"
+  }
+ ],
+ "profile": "exploration_centric",
+ "schema": "route_spillover_validation/1",
+ "spillover_parameters": {
+  "radius_blocks": 112.0,
+  "scale": 0.85,
+  "status": "NON-CANON ANALYTICAL FIXTURE",
+  "target_path_stretch": 1.25
+ },
+ "summary": {
+  "actual_saving_s": {
+   "max_abs": 111.582,
+   "mean": 11.376,
+   "median": 0.0,
+   "n": 64
+  },
+  "by_kind": {
+   "founder_crop": {
+    "actual_saving": {
+     "max_abs": 29.009,
+     "mean": 9.29,
+     "median": 1.411,
+     "n": 8
+    },
+    "predicted_saving": {
+     "max_abs": 15.053,
+     "mean": 4.827,
+     "median": 0.0,
+     "n": 8
+    },
+    "samples": 8,
+    "saving_error": {
+     "max_abs": 29.009,
+     "mean": -4.462,
+     "median": -1.411,
+     "n": 8
+    }
+   },
+   "mining_worksite": {
+    "actual_saving": {
+     "max_abs": 29.009,
+     "mean": 6.287,
+     "median": 0.0,
+     "n": 20
+    },
+    "predicted_saving": {
+     "max_abs": 84.346,
+     "mean": 11.707,
+     "median": 0.0,
+     "n": 20
+    },
+    "samples": 20,
+    "saving_error": {
+     "max_abs": 84.346,
+     "mean": 5.42,
+     "median": 0.0,
+     "n": 20
+    }
+   },
+   "poi": {
+    "actual_saving": {
+     "max_abs": 29.009,
+     "mean": 5.175,
+     "median": 0.0,
+     "n": 8
+    },
+    "predicted_saving": {
+     "max_abs": 8.096,
+     "mean": 1.012,
+     "median": 0.0,
+     "n": 8
+    },
+    "samples": 8,
+    "saving_error": {
+     "max_abs": 29.009,
+     "mean": -4.163,
+     "median": 0.0,
+     "n": 8
+    }
+   },
+   "renewable_range": {
+    "actual_saving": {
+     "max_abs": 29.01,
+     "mean": 3.032,
+     "median": 0.0,
+     "n": 16
+    },
+    "predicted_saving": {
+     "max_abs": 54.59,
+     "mean": 3.651,
+     "median": 0.0,
+     "n": 16
+    },
+    "samples": 16,
+    "saving_error": {
+     "max_abs": 54.59,
+     "mean": 0.619,
+     "median": 0.0,
+     "n": 16
+    }
+   },
+   "route_target": {
+    "actual_saving": {
+     "max_abs": 111.582,
+     "mean": 36.506,
+     "median": 23.827,
+     "n": 12
+    },
+    "predicted_saving": {
+     "max_abs": 96.301,
+     "mean": 38.129,
+     "median": 26.411,
+     "n": 12
+    },
+    "samples": 12,
+    "saving_error": {
+     "max_abs": 87.429,
+     "mean": 1.623,
+     "median": -6.173,
+     "n": 12
+    }
+   }
+  },
+  "correlation_over_active_cases": 0.1145,
+  "detection": {
+   "false_negative": 19,
+   "false_positive": 13,
+   "note": "an effect is counted when a saving exceeds 1 second",
+   "true_negative": 27,
+   "true_positive": 5
+  },
+  "predicted_saving_s": {
+   "max_abs": 96.301,
+   "mean": 12.45,
+   "median": 0.0,
+   "n": 64
+  },
+  "samples": 64,
+  "saving_error_s": {
+   "max_abs": 87.429,
+   "mean": 1.075,
+   "median": 0.0,
+   "n": 64
+  }
+ }
+}
