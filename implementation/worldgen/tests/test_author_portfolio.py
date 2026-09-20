@@ -229,3 +229,33 @@ class RescanTests(unittest.TestCase):
         # faster because decking and clearing removed real terrain penalties.
         src = (WORLDGEN / 'terrain_harvest' / 'rescan.py').read_text()
         self.assertNotIn('dirt_path', src.split('"""', 2)[2])
+
+
+class PublishTests(unittest.TestCase):
+    def test_every_class_has_a_colour(self):
+        from terrain_harvest.publish_world import CLASSES, MATERIAL, classify
+        for label, _ in MATERIAL:
+            self.assertIn(label, CLASSES)
+        for label in ('water', 'wood', 'other'):
+            self.assertIn(label, CLASSES)
+
+    def test_classify_is_total(self):
+        from terrain_harvest.publish_world import CLASSES, classify
+        for name in ('minecraft:water', 'minecraft:dirt_path', 'minecraft:wheat',
+                     'minecraft:oak_log', 'minecraft:something_new'):
+            self.assertIn(classify(name), CLASSES)
+
+    def test_authored_blocks_classify_distinctly(self):
+        from terrain_harvest.publish_world import classify
+        # A Route must not read as ordinary ground, or the render hides it.
+        self.assertEqual(classify('minecraft:dirt_path'), 'route')
+        self.assertEqual(classify('minecraft:oak_planks'), 'route_deck')
+        self.assertNotEqual(classify('minecraft:dirt_path'),
+                            classify('minecraft:grass_block'))
+
+    def test_every_site_kind_has_a_marker_colour(self):
+        from terrain_harvest.author_portfolio import template_for
+        from terrain_harvest.publish_world import SITE_COLOUR
+        for kind in ('founder_crop', 'renewable_range', 'mining_worksite',
+                     'poi', 'route_target', 'homeland'):
+            self.assertIn(kind, SITE_COLOUR)
