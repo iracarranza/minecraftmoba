@@ -1,0 +1,73 @@
+{
+ "schema": "alpha_decisions/1",
+ "status": "DESIGN AUTHORITY for Alpha 0.1",
+ "date": "2026-09-20",
+ "scope": "Binding for Alpha 0.1 implementation. An Alpha-scope decision does not promote itself to canon; where a decision is deliberately narrowed to Alpha, the narrowing is stated.",
+ "audit": "docs/analysis/alpha-0.1-implementation-audit.md",
+ "map": "docs/analysis/alpha-0.1-map-freeze.json",
+ "decisions": [
+  {
+   "id": "ALPHA-D1",
+   "topic": "Teams",
+   "status": "DECIDED",
+   "decision": "Every participating player has exactly one match-team assignment, North or South. The assignment is total and exclusive: no player is unassigned and no player holds more than one.",
+   "alpha_scope": "Admin/debug assignment only. Automatic team formation, balancing, queueing and party handling are out of scope for Alpha 0.1.",
+   "unblocks": "P0.3 team-state semantics",
+   "implementation_consequences": [
+    "PlayerData gains an authoritative team field, as match-scoped state rather than a persistent player property.",
+    "Contributions.capitalize(worksiteId, team) currently takes a bare String; it should consume the authoritative team type once one exists.",
+    "Team assignment is cleared by match reset, per ALPHA-D2."
+   ],
+   "not_decided": [
+    "how teams are formed outside Alpha",
+    "whether team is ever persistent across matches",
+    "team size limits or enforcement"
+   ]
+  },
+  {
+   "id": "ALPHA-D2",
+   "topic": "Match reset",
+   "status": "DECIDED",
+   "decision": "Each match operates on a disposable, restorable instance of the frozen Consolidative Alpha world. Reset returns the world to its pristine Alpha template and clears all match-scoped plugin and player state.",
+   "explicitly_rejected": "Piecemeal block rollback. Reset is not defined as undoing individual world edits.",
+   "unblocks": "P0.7 reset semantics",
+   "implementation_consequences": [
+    "The Alpha world becomes a TEMPLATE plus a per-match INSTANCE. Loading a match and resetting a match are then the same mechanism: unload the instance, copy the template, load it. This merges audit items P0.2 and P0.7 into one instance-lifecycle component.",
+    "The template lives at artifacts/worldgen/alpha-0.1/consolidative-alpha and must be treated as read-only in practice.",
+    "Match-scoped plugin state to clear: team assignment, match state, renewable population, Route designations, Worksite state, infra mode.",
+    "Player progression state is match-scoped for Alpha and is therefore cleared. This follows from 'all match-scoped plugin/player state' and is recorded explicitly so the implementation does not have to infer it.",
+    "Paper cannot replace a loaded world in place, so the instance must be unloaded before the template is copied over it.",
+    "Disk cost is roughly 28 MB per instance; instances are disposable and should not be committed."
+   ],
+   "not_decided": [
+    "whether any player state survives a match in later versions",
+    "how many instances may exist at once"
+   ]
+  },
+  {
+   "id": "ALPHA-D3",
+   "topic": "Victory condition",
+   "status": "UNRESOLVED - DO NOT IMPLEMENT",
+   "decision": null,
+   "instruction": "Do not invent or implement a victory condition. P0.6 remains design-blocked and the P0 implementation pass is held until this is decided.",
+   "canon_reference": "objectives.md:233 - 'The exact transition from a disabled Fountain to final match victory also remains subject to objective-system development.'",
+   "blocks": [
+    "P0.6 victory",
+    "P0.7 match end: the end trigger, though no longer the reset mechanism"
+   ],
+   "must_be_decided": [
+    "what state terminates a match",
+    "whether disabling a Fountain is sufficient, or a precondition for something further",
+    "whether elimination with no respawn is the terminal state",
+    "what happens at the 48-minute analytical horizon if neither side has won"
+   ]
+  }
+ ],
+ "still_open_after_these_decisions": [
+  "ALPHA-D3 victory (P0)",
+  "respawn destination and denial (P1); Recall.java:83 records the recall destination as unresolved and the same question governs respawn",
+  "Fountain disable mechanics: reactivation, repair, ordering (P1); objectives.md:225-233",
+  "class x contribution matrix (P2); Contributions.java:29"
+ ],
+ "implementation_hold": "The P0 implementation pass does not begin until ALPHA-D3 is decided."
+}

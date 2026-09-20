@@ -2,6 +2,9 @@
 
 Status: **Audit. No fixes applied.**
 Date: 20 September 2026
+Amended: 20 September 2026 — three Alpha decisions recorded, see
+[`alpha-0.1-decisions.json`](alpha-0.1-decisions.json). P0.3 and P0.7 are no
+longer design-blocked; the P0 pass is held pending victory (ALPHA-D3).
 Question: *What specifically prevents a fresh checkout from launching, completing, ending, resetting and replaying a solo Alpha 0.1 match?*
 
 ---
@@ -236,20 +239,30 @@ Dependency-ordered. The hypothesised ordering held, with two corrections noted.
 |---|---|---|---|
 | **P0.0** | JDK 21 + pin `jvmToolchain(21)` in `build.gradle.kts` | ENVIRONMENT | — |
 | **P0.1** | Merge `codex/phase1-plugin` → `main`, gated on tests | INTEGRATION | P0.0 |
-| **P0.2** | Alpha world loading: install/load the frozen Consolidative world by name | CODE + CONTENT | P0.1 |
-| **P0.3** | Authoritative match + team + participation state; add a team to `PlayerData` | CODE | P0.1 |
+| **P0.2** | **World instance lifecycle**: template → instance, load, unload, restore | CODE + CONTENT | P0.1 |
+| **P0.3** | Authoritative match + team + participation state; team field on `PlayerData` | CODE | P0.1 |
 | **P0.4** | Match bootstrap: `/moba match start`, homeland spawn from worldgen coordinates | CODE | P0.2, P0.3 |
 | **P0.5** | Match clock: 6m day / 6m night, sunsets at 6/18/30/42 | CODE (spec exists) | P0.4 |
-| **P0.6** | **Victory condition** | **DESIGN DECISION**, then CODE | P0.3 |
-| **P0.7** | Match end + cleanup/reset + replay | CODE + DESIGN DECISION | P0.5, P0.6 |
+| **P0.6** | **Victory condition** | **DESIGN-BLOCKED** (ALPHA-D3), then CODE | P0.3 |
+| **P0.7** | Match end + replay | CODE; end *trigger* blocked on P0.6 | P0.2, P0.5, P0.6 |
 
-**Correction to the hypothesis:** world loading (P0.2) must precede match
-bootstrap, since spawning into a homeland requires the Alpha world to be the one
-loaded. And "integration of existing systems with match state" is **not P0** —
-a solo match can complete without Worksites activating. It is P1.
+**Corrections to the hypothesis:**
+
+- World loading (P0.2) must precede match bootstrap, since spawning into a
+  homeland requires the Alpha world to be the loaded one.
+- "Integration of existing systems with match state" is **not P0** — a solo
+  match can complete without Worksites activating. It is P1.
+- **ALPHA-D2 merges reset into world loading.** Because reset is defined as
+  restoring a pristine template rather than rolling back blocks, loading a match
+  and resetting one are the same operation: unload the instance, copy the
+  template, load it. P0.7 is consequently much smaller than first estimated —
+  it retains the match-scoped state clearing and the end trigger, but the world
+  half of it is P0.2.
 
 **Shortest dependency chain to a first complete solo match:**
 P0.0 → P0.1 → P0.2 → P0.3 → P0.4 → P0.6 → P0.7.
+Of these, only **P0.6 is design-blocked**; P0.0–P0.5 and the reset half of P0.7
+are implementable as soon as the hold lifts.
 P0.5 is not strictly required to *finish* a match, but without it the match has
 no phases, so it is retained in P0 as the thing that makes the match a match.
 
@@ -278,16 +291,19 @@ Alpha map re-validation.
 
 Blocking implementation. **No mechanics are proposed here.**
 
-1. **P0 — Victory condition.** `objectives.md:233`: *"The exact transition from a
-   disabled Fountain to final match victory also remains subject to
-   objective-system development."* Must be decided before P0.6: what state ends
-   a match, whether Fountain disable is sufficient or a precondition, and whether
-   elimination-with-no-respawn is the terminal state.
-2. **P0 — Match reset scope.** What a reset restores: world terrain, renewable
-   populations, player progression, Routes, Worksite state. Blocks P0.7.
-3. **P0 — Team assignment rule.** Nothing in canon specifies how players are
-   assigned. For solo Alpha an admin command suffices, but the persistent model
-   must be decided before `PlayerData` gains a team field.
+1. **P0 — Victory condition. STILL OPEN (ALPHA-D3).** `objectives.md:233`: *"The
+   exact transition from a disabled Fountain to final match victory also remains
+   subject to objective-system development."* Must be decided before P0.6: what
+   state ends a match, whether Fountain disable is sufficient or a precondition,
+   whether elimination-with-no-respawn is terminal, and what happens at the
+   48-minute horizon if neither side has won. **The P0 pass is held on this.**
+2. ~~**P0 — Match reset scope.**~~ **DECIDED (ALPHA-D2).** Each match runs on a
+   disposable, restorable instance of the frozen Alpha world; reset restores the
+   pristine template and clears all match-scoped plugin and player state.
+   Piecemeal block rollback is explicitly rejected.
+3. ~~**P0 — Team assignment rule.**~~ **DECIDED (ALPHA-D1).** Every participating
+   player holds exactly one North/South assignment, total and exclusive. Alpha
+   requires only admin/debug assignment; automatic formation is out of scope.
 4. **P1 — Respawn destination and denial.** `Recall.java:83` records the recall
    destination as unresolved; the same question governs respawn.
 5. **P1 — Fountain disable mechanics.** `objectives.md:225-233` lists
