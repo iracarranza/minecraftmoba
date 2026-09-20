@@ -53,6 +53,10 @@ public final class Renewables implements Listener {
         public int available() { return available; }
         public int capacity() { return capacity; }
         public String kind() { return kind; }
+        public int x() { return x; }
+        public int y() { return y; }
+        public int z() { return z; }
+        public UUID world() { return world; }
     }
 
     private final MobaPlugin plugin;

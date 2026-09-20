@@ -25,6 +25,11 @@ public final class InventoryGuard implements Listener {
         if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
         boolean partial = plugin.unlockedSlots(p) < 36;
         boolean own = e.getClickedInventory() instanceof PlayerInventory;
+        // Lifting the tome out of the offhand is the recall gesture. The item
+        // is never actually removed; the click is consumed instead.
+        if (own && e.getSlot() == 40 && plugin.recall() != null
+                && plugin.offhandMap().isMap(p.getInventory().getItemInOffHand())
+                && plugin.recall().beginFromOffhandClick(p)) { e.setCancelled(true); return; }
         if ((own && (locked(p, e.getSlot()) || e.getSlot() == 40))
                 || (e.getHotbarButton() >= 0 && locked(p, e.getHotbarButton()))
                 || e.getClick() == ClickType.SWAP_OFFHAND

@@ -97,6 +97,7 @@ classes:
       - CONSTRUCT
       - MONSTER_COMBAT
     displayName: "Test Class"
+    tomeName: "Tome of the Test Class"
     blurb:
       - "Harness class. Not a design."
       - "F = A1   Sneak+F = A2   Sprint+F = channel ult"

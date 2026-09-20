@@ -31,7 +31,13 @@ public final class OffhandMap implements Listener {
             return true;
         }
         if (!held.getType().isAir()) return false;
-        if (plugin.sentinel() != null && plugin.sentinel().enabled()) {
+        // Tome mode: the map item also carries the sentinel identity and the
+        // class blurb, so one offhand item is the map surface, the swap
+        // sentinel and the class text. The swap input is cancelled elsewhere,
+        // so the tome never reaches the main hand and the corner map stays
+        // visible even while an ability mode is active.
+        if (!plugin.getConfig().getBoolean("features.tome.enabled")
+                && plugin.sentinel() != null && plugin.sentinel().enabled()) {
             var d = plugin.data(p);
             String classId = (d == null || d.classId == null) ? "test" : d.classId;
             p.getInventory().setItemInOffHand(plugin.sentinel().create(classId));
@@ -43,14 +49,23 @@ public final class OffhandMap implements Listener {
         var meta = (MapMeta)item.getItemMeta();
         meta.setMapView(view);
         meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte)1);
+        if (plugin.getConfig().getBoolean("features.tome.enabled") && plugin.sentinel() != null) {
+            var d = plugin.data(p);
+            plugin.sentinel().brand(meta, (d == null || d.classId == null) ? "test" : d.classId);
+        }
         item.setItemMeta(meta);
         p.getInventory().setItemInOffHand(item); // fresh issuance only; never replaces a player item
         return true;
     }
     private void stub(MapView view) {
-        if (view.getRenderers().stream().anyMatch(r -> r instanceof StubRenderer)) return;
+        boolean live = plugin.getConfig().getBoolean("features.minimap.enabled");
+        Class<?> wanted = live ? Minimap.class : StubRenderer.class;
+        if (view.getRenderers().stream().anyMatch(wanted::isInstance)) return;
         view.getRenderers().forEach(view::removeRenderer);
-        view.addRenderer(new StubRenderer(plugin));
+        // Vanilla terrain must not draw underneath: every pixel is ours.
+        view.setTrackingPosition(false);
+        view.setUnlimitedTracking(false);
+        view.addRenderer(live ? new Minimap(plugin) : new StubRenderer(plugin));
     }
     private static final class StubRenderer extends MapRenderer {
         private final JavaPlugin plugin;

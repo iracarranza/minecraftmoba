@@ -54,6 +54,21 @@ public final class Sentinel {
         return item;
     }
 
+    /** Stamp sentinel identity and the class blurb onto an existing item's meta. */
+    public void brand(org.bukkit.inventory.meta.ItemMeta meta, String classId) {
+        String base = "classes." + classId + ".";
+        meta.setDisplayName(plugin.getConfig().getString(base + "tomeName",
+                plugin.getConfig().getString(base + "displayName", classId)));
+        var lore = new ArrayList<String>(plugin.getConfig().getStringList(base + "blurb"));
+        if (lore.isEmpty()) lore.add("No blurb configured for " + classId);
+        lore.add("");
+        lore.add("Lift from the offhand slot to recall");
+        meta.setLore(lore);
+        var pdc = meta.getPersistentDataContainer();
+        pdc.set(markerKey, PersistentDataType.BYTE, (byte) 1);
+        pdc.set(classKey, PersistentDataType.STRING, classId);
+    }
+
     /** Persistent data only: material is cosmetic and must not confer identity. */
     public boolean isSentinel(ItemStack item) {
         return item != null && item.hasItemMeta()

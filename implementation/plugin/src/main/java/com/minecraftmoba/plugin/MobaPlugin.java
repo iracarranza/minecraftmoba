@@ -47,6 +47,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public HungerRegen hungerRegen() { return hungerRegen; }
     private HealthDisplay healthDisplay;
     public HealthDisplay healthDisplay() { return healthDisplay; }
+    private Recall recall;
+    public Recall recall() { return recall; }
+    public OffhandMap offhandMap() { return offhandMap; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
     public int effectiveHunger(Player p) {
         return Math.min(20, capacity(data(p)).effectiveHunger());
@@ -74,6 +77,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         healthDisplay = new HealthDisplay(this);
+        recall = new Recall(this);
+        getServer().getPluginManager().registerEvents(recall, this);
         getServer().getPluginManager().registerEvents(healthDisplay, this);
         getServer().getPluginManager().registerEvents(lockedSlots, this);
         durability = new Durability(this);
@@ -280,6 +285,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
             }
             return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("recall")) {
+            if (!(sender instanceof Player rp)) { sender.sendMessage("Player only"); return true; }
+            sender.sendMessage(recall.report(rp)); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("health")) {
             if (!(sender instanceof Player hp)) { sender.sendMessage("Player only"); return true; }
