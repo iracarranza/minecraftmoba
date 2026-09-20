@@ -75,6 +75,11 @@ public final class LockedSlots implements Listener {
     public void refresh(Player p) {
         var inv = p.getInventory();
         if (!enabled()) { clear(p); return; }
+        // A player who has not enrolled has no progression, so no slot is
+        // locked. Being unenrolled is an ordinary lobby state, not an error:
+        // PlayerJoinEvent fires for everyone, and requiring enrolment merely to
+        // avoid a null was what produced the NPE here.
+        if (!plugin.enrolled(p)) { clear(p); return; }
         int unlocked = plugin.unlockedSlots(p);
         for (int slot = 0; slot < 36; slot++) {
             ItemStack current = inv.getItem(slot);

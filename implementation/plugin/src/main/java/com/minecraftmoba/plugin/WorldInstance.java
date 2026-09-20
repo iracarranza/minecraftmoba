@@ -7,7 +7,9 @@ import org.bukkit.WorldCreator;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * The disposable Alpha world instance (ALPHA-D2).
@@ -29,9 +31,45 @@ public final class WorldInstance {
     public WorldInstance(MobaPlugin plugin) {
         this.plugin = plugin;
         var cfg = plugin.getConfig();
-        this.template = Paths.get(cfg.getString("alpha.templatePath",
-                "artifacts/worldgen/alpha-0.1/consolidative-alpha"));
+        this.template = resolveTemplate(plugin,
+                cfg.getString("alpha.templatePath",
+                        "artifacts/worldgen/alpha-0.1/consolidative-alpha"));
         this.instanceName = cfg.getString("alpha.instanceWorldName", "alpha_match");
+    }
+
+    /**
+     * Find the frozen template without moving or copying it.
+     *
+     * A server is normally run from its own directory, not the repository root,
+     * so a repo-relative path in config does not resolve. Rather than
+     * duplicating the template next to the server -- which would create a
+     * second authority for a deliberately frozen artefact -- search the places
+     * it legitimately is: an absolute path as given, then relative to the server
+     * directory, the plugin's data folder, and each ancestor of the server
+     * directory. The first existing match wins; if none exists the configured
+     * path is returned unchanged so the error names what was configured.
+     */
+    static Path resolveTemplate(MobaPlugin plugin, String configured) {
+        Path given = Paths.get(configured);
+        if (given.isAbsolute()) return given;
+        List<Path> roots = new ArrayList<>();
+        Path serverDir = Bukkit.getWorldContainer().toPath().toAbsolutePath().normalize();
+        roots.add(serverDir);
+        roots.add(plugin.getDataFolder().toPath().toAbsolutePath().normalize());
+        for (Path up = serverDir.getParent(); up != null; up = up.getParent()) roots.add(up);
+        for (Path root : roots) {
+            Path candidate = root.resolve(given);
+            if (Files.isDirectory(candidate)) return candidate.normalize();
+        }
+        // A relative path can only be found if the server sits inside the
+        // repository. When it does not -- the normal deployment -- there is no
+        // way to locate an arbitrary directory, so fail with the search path
+        // rather than pretending a default location exists.
+        plugin.getLogger().warning("alpha.templatePath '" + configured
+                + "' was not found relative to " + roots.size()
+                + " candidate root(s); use an absolute path when the server is"
+                + " outside the repository.");
+        return given.toAbsolutePath().normalize();
     }
 
     public String instanceName() { return instanceName; }
@@ -47,7 +85,9 @@ public final class WorldInstance {
     public void materialize() throws IOException {
         if (!templateAvailable())
             throw new IOException("Alpha template missing at " + template.toAbsolutePath()
-                    + "; set alpha.templatePath");
+                    + ". Set alpha.templatePath to an absolute path to the frozen"
+                    + " Consolidative world (artifacts/worldgen/alpha-0.1/"
+                    + "consolidative-alpha in the repository).");
         if (world() != null)
             throw new IllegalStateException("instance '" + instanceName
                     + "' is loaded; unload before materializing");

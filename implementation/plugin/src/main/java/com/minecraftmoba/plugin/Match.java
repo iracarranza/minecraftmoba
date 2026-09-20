@@ -148,12 +148,19 @@ public final class Match implements Listener {
     }
 
     private void onSunset(int ordinal) {
-        announce("Sunset " + ordinal + " (" + MatchClock.minutes(elapsed) + "m): Worksites would activate.");
-        plugin.getLogger().info("[match] sunset " + ordinal + " at " + MatchClock.minutes(elapsed) + "m");
+        var opened = plugin.worksites().onSunset(ordinal);
+        announce("Sunset " + ordinal + " (" + MatchClock.minutes(elapsed) + "m): "
+                + (opened.isEmpty() ? "no Worksites activated"
+                   : opened.size() + " Worksite(s) activated: "
+                     + opened.stream().map(w -> w.id).toList()));
+        plugin.getLogger().info("[match] sunset " + ordinal + " at "
+                + MatchClock.minutes(elapsed) + "m, activated " + opened.size());
     }
 
     private void onSunrise() {
-        announce("Sunrise (" + MatchClock.minutes(elapsed) + "m): Worksites would close.");
+        var closed = plugin.worksites().onSunrise();
+        announce("Sunrise (" + MatchClock.minutes(elapsed) + "m): "
+                + closed.size() + " Worksite(s) closed.");
     }
 
     /**
@@ -262,8 +269,11 @@ public final class Match implements Listener {
             }
         }
         resetFields();
+        plugin.worksites().reset();
+        int renewables = plugin.resetRenewables();
         worldInstance.restore();
-        return "Match reset: state cleared and world restored from template.";
+        return "Match reset: state cleared (worksites, " + renewables
+                + " renewable source(s)), world restored from template.";
     }
 
     // ---- events ----------------------------------------------------------

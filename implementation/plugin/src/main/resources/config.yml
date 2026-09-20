@@ -211,6 +211,10 @@ renewables:
 # A match runs on a disposable copy named by instanceWorldName; reset replaces
 # that copy from the template rather than rolling back blocks (ALPHA-D2).
 alpha:
+  # Repo-relative works when the server runs inside the repository; it is also
+  # searched against the server directory, the plugin data folder and their
+  # ancestors. A server deployed outside the repository must give an ABSOLUTE
+  # path here -- the template is the frozen authority and is never copied.
   templatePath: artifacts/worldgen/alpha-0.1/consolidative-alpha
   instanceWorldName: alpha_match
   # Homeland spawn per team, [x, z] or [x, z, y]. From the frozen map's own
@@ -218,3 +222,46 @@ alpha:
   homelands:
     north: [-2172, -460]
     south: [-2020, 428]
+
+  worksites:
+    # Positions are the frozen Consolidative Alpha map's own mining_worksite
+    # placements (docs/analysis/alpha-0.1-map-freeze.json), not invented sites.
+    #
+    # activationsPerSunset is a NON-CANON ANALYTICAL FIXTURE. objectives.md says
+    # the number of simultaneously active Worksites "depends on match phase" but
+    # does not supply the series, so it is declared here rather than guessed in
+    # code. One entry per sunset: 6m, 18m, 30m, 42m.
+    activationsPerSunset: [2, 2, 3, 3]
+    # 0 means a fresh Random each run; set non-zero for reproducible activation.
+    randomSeed: 0
+    sites:
+      - id: ws_0_0
+        xyz: [-2416, 74, -464]
+        bias: north
+      - id: ws_0_5
+        xyz: [-2384, 98, 144]
+        bias: neutral
+      - id: ws_0_6
+        xyz: [-2384, 94, 272]
+        bias: south
+      - id: ws_1_2
+        xyz: [-2288, 75, -208]
+        bias: north
+      - id: ws_1_7
+        xyz: [-2288, 100, 432]
+        bias: south
+      - id: ws_2_5
+        xyz: [-2160, 97, 176]
+        bias: south
+      - id: ws_3_2
+        xyz: [-2032, 73, -208]
+        bias: north
+      - id: ws_3_3
+        xyz: [-2032, 67, -80]
+        bias: north
+      - id: ws_5_5
+        xyz: [-1776, 78, 176]
+        bias: south
+      - id: ws_6_4
+        xyz: [-1698, 76, 14]
+        bias: neutral

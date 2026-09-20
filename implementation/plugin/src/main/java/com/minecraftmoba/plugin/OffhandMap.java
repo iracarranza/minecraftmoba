@@ -25,9 +25,16 @@ public final class OffhandMap implements Listener {
     }
     public boolean ensure(Player p) {
         ItemStack held = p.getInventory().getItemInOffHand();
+        // `isMap` answers "is this the offhand item", and the offhand item has
+        // two representations: a filled map, or Sentinel's skull. Only the map
+        // representation owns a MapView, so only it has a renderer to refresh.
+        // Casting both to MapMeta is what produced the CraftMetaSkull crash.
+        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(held)) return true;
         if (isMap(held)) {
-            MapMeta meta = (MapMeta) held.getItemMeta();
-            if (meta.hasMapView() && meta.getMapView() != null) stub(meta.getMapView());
+            if (held.getItemMeta() instanceof MapMeta meta
+                    && meta.hasMapView() && meta.getMapView() != null) {
+                stub(meta.getMapView());
+            }
             return true;
         }
         if (!held.getType().isAir()) return false;

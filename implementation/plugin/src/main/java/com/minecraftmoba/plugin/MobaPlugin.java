@@ -41,6 +41,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Durability durability() { return durability; }
     private Contributions contributions;
     private WorldInstance worldInstance;
+    private Worksites worksites;
     private Match match;
     public Contributions contributions() { return contributions; }
     private LockedSlots lockedSlots;
@@ -76,6 +77,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hud = new Hud(this);
         renewAuthoring = new RenewableAuthoring(this);
         worldInstance = new WorldInstance(this);
+        worksites = new Worksites(this);
         match = new Match(this, worldInstance);
         getServer().getPluginManager().registerEvents(match, this);
         infraMode = new InfraMode(this);
@@ -128,6 +130,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
     public Match match() { return match; }
+    public Worksites worksites() { return worksites; }
+
+    /** Rebuild renewable state for a new match; returns the source count. */
+    public int resetRenewables() {
+        return renewables == null ? 0 : renewables.resetForNewMatch();
+    }
+
     public WorldInstance worldInstance() { return worldInstance; }
 
     /**
@@ -139,6 +148,35 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         var fresh = new PlayerData(p.getUniqueId());
         players.put(fresh.uuid, fresh);
         save(p, fresh);
+    }
+
+    /**
+     * Worksite administration. Capitalization is explicit because canon defers
+     * the qualifying-Construct rule; this forces the real state transition and
+     * the real shared-opportunity award rather than a parallel mechanism.
+     */
+    private boolean worksiteCommand(CommandSender sender, String[] args) {
+        String sub = args.length > 1 ? args[1].toLowerCase(java.util.Locale.ROOT) : "status";
+        try {
+            switch (sub) {
+                case "status" -> worksites.report().forEach(sender::sendMessage);
+                case "list" -> worksites.all().forEach(w -> sender.sendMessage("  " + w));
+                case "capitalize" -> {
+                    if (args.length != 4) {
+                        sender.sendMessage("/moba worksite capitalize <id> <north|south>"); return true;
+                    }
+                    sender.sendMessage(worksites.capitalize(args[2], Team.parse(args[3]), contributions));
+                }
+                case "exploit" -> {
+                    if (args.length != 3) { sender.sendMessage("/moba worksite exploit <id>"); return true; }
+                    sender.sendMessage(worksites.exploit(args[2]));
+                }
+                default -> sender.sendMessage("/moba worksite <status|list|capitalize|exploit>");
+            }
+        } catch (Exception ex) {
+            sender.sendMessage("worksite: " + ex.getMessage());
+        }
+        return true;
     }
 
     /**
@@ -202,7 +240,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public PlayerData data(Player p) { return players.get(p.getUniqueId()); }
     public boolean enrolled(Player p) { return players.containsKey(p.getUniqueId()); }
     public boolean isMap(org.bukkit.inventory.ItemStack item) { return offhandMap.isMap(item); }
-    public int unlockedSlots(Player p) { return capacity(players.get(p.getUniqueId())).unlockedSlots(); }
+    /** Unlocked slots, or the full inventory for an unenrolled lobby player. */
+    public int unlockedSlots(Player p) {
+        var d = players.get(p.getUniqueId());
+        return d == null ? 36 : capacity(d).unlockedSlots();
+    }
     private void load(Player p) {
         if (!InventoryGuard.safeToReduce(p)) {
             p.sendMessage("Empty the cursor and temporary crafting/menu slots yourself, then /moba join.");
@@ -301,6 +343,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
         if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
+        if (args.length >= 1 && args[0].equalsIgnoreCase("worksite")) return worksiteCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("renew")) return renewAuthoring.handle(sender, args);
         if (args.length >= 2 && args[0].equalsIgnoreCase("infra")) {
             if (!(sender instanceof Player ip)) { sender.sendMessage("Player only"); return true; }

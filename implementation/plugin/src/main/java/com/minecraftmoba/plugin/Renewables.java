@@ -115,6 +115,28 @@ public final class Renewables implements Listener {
         }
     }
 
+    /**
+     * Discard all match-scoped renewable state and rebuild from config.
+     *
+     * Two things make this necessary rather than optional. A source's
+     * `available` and `recoveringUntil` live in the plugin, so without this a
+     * depleted source stays depleted across a reset even though the world has
+     * been restored pristine. And a restored world is a *new* world with a new
+     * UUID, so sources bound to the old instance would no longer resolve.
+     *
+     * ALPHA-D2 specifies that reset clears all match-scoped plugin state, so
+     * rebuilding to full capacity follows from the decision rather than
+     * inventing a recovery rule.
+     */
+    public int resetForNewMatch() {
+        sources.clear();
+        pendingPersist.clear();
+        pendingRestore.clear();
+        harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
+        loadConfigured();
+        return sources.size();
+    }
+
     public void register(Source s) {
         if (sources.putIfAbsent(s.id, s) != null) throw new IllegalArgumentException("duplicate source id " + s.id);
         // onEnable runs before any chunk is loaded, so saved state cannot be read
