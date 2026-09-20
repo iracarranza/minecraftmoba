@@ -47,6 +47,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private LockedSlots lockedSlots;
     public LockedSlots lockedSlots() { return lockedSlots; }
     private HungerRegen hungerRegen;
+    private HungerDisplay hungerDisplay;
+    public HungerDisplay hungerDisplay() { return hungerDisplay; }
     public HungerRegen hungerRegen() { return hungerRegen; }
     private HealthDisplay healthDisplay;
     public HealthDisplay healthDisplay() { return healthDisplay; }
@@ -87,6 +89,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
+        hungerDisplay = new HungerDisplay(this);
+        getServer().getPluginManager().registerEvents(hungerDisplay, this);
         healthDisplay = new HealthDisplay(this);
         pings = new Pings(this);
         testBed = new TestBed(this);

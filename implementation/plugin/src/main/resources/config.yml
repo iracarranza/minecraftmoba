@@ -1,6 +1,11 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # The plugin draws the Hunger readout because the vanilla row cannot
+  # distinguish an empty drumstick from one beyond the player's Capacity.
+  # Requires the resource pack, which blanks the vanilla row; without it the
+  # glyphs are unmapped and the readout is unreadable.
+  hungerDisplay: { enabled: false, refreshTicks: 10 }
   # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
   # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
   # so vanilla regeneration can never fire on the canonical curve.

@@ -130,6 +130,19 @@ def build(registry: dict, out: Path):
             "textures": {"layer0": f"moba:{texture}"}
         })
 
+    # Hide the vanilla hunger row.
+    #
+    # A resource pack can only change a sprite, never decide per-icon whether a
+    # drumstick is empty-but-available or beyond the player's Capacity: both are
+    # the same client-side state. So the vanilla row is blanked entirely and the
+    # plugin draws the readout from the hunger glyphs above, which is the only
+    # way the three states can differ. These overrides live under
+    # assets/minecraft, not assets/moba, because they replace vanilla sprites.
+    hidden = registry.get("hidden_vanilla_sprites", {}).get("paths", [])
+    for sprite in hidden:
+        png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites" / f"{sprite}.png",
+                 9, 9, [(0, 0, 0, 0)] * 81)
+
     write_json(out / "GLYPH_MANIFEST.json", {
         "schema": "moba_glyph_manifest/1",
         "note": "Generated. The plugin must emit exactly these codepoints; a mismatch renders "
@@ -137,6 +150,7 @@ def build(registry: dict, out: Path):
         "glyphs": manifest,
         "negative_space": {"base": "U+F001", "range": f"1..{NEGATIVE_SPACE_MAX} px",
                            "usage": "U+F000+n advances -n pixels"},
+        "hidden_vanilla_sprites": hidden,
     })
     return manifest
 
