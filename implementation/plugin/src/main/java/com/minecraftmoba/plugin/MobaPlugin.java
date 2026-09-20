@@ -344,6 +344,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }
         if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("worksite")) return worksiteCommand(sender, args);
+        if (args.length >= 1 && args[0].equalsIgnoreCase("route")) {
+            sender.sendMessage("routes=" + routes.routes().size()
+                    + " pendingDesignations=" + routes.pendingCount()
+                    + " inInfraMode=" + infraMode.activeCount());
+            routes.routes().forEach(r -> sender.sendMessage(
+                    "  " + r.id() + " world=" + r.world() + " points=" + r.path().size()));
+            return true;
+        }
         if (args.length >= 1 && args[0].equalsIgnoreCase("renew")) return renewAuthoring.handle(sender, args);
         if (args.length >= 2 && args[0].equalsIgnoreCase("infra")) {
             if (!(sender instanceof Player ip)) { sender.sendMessage("Player only"); return true; }

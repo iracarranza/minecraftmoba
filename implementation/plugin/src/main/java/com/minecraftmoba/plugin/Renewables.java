@@ -146,6 +146,17 @@ public final class Renewables implements Listener {
         return sources.size();
     }
 
+    /** Per-source availability, so depletion and recovery are observable. */
+    public java.util.List<String> status() {
+        var out = new java.util.ArrayList<String>();
+        out.add("renewable sources=" + sources.size() + " harvests=" + harvests
+                + " depletions=" + depletions + " recoveries=" + recoveries);
+        for (Source s : sources.values())
+            out.add("  " + s.id + " kind=" + s.kind + " available=" + available(s)
+                    + "/" + s.capacity + " at " + s.x + "," + s.y + "," + s.z);
+        return out;
+    }
+
     public void register(Source s) {
         if (sources.putIfAbsent(s.id, s) != null) throw new IllegalArgumentException("duplicate source id " + s.id);
         // onEnable runs before any chunk is loaded, so saved state cannot be read

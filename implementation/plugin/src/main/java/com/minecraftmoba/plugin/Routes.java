@@ -51,6 +51,28 @@ public final class Routes implements Listener {
     public void discardPending(Player p) { pending.remove(p.getUniqueId()); }
     public List<Route> routes() { return Collections.unmodifiableList(routes); }
 
+    /**
+     * Discard all match-scoped Route state (ALPHA-D2).
+     *
+     * Every Route holds a world UUID plus Locations into the match instance,
+     * and every Pending holds a start Location and a recorded path. A restored
+     * world is a new world, so surviving Routes would be inert -- `nearRoute`
+     * compares world UUIDs and would simply never match -- while still holding
+     * references to an unloaded world and inflating the id counter that
+     * "route_" + routes.size() depends on.
+     *
+     * Routes are physical infrastructure built inside a match; the world they
+     * were built in no longer exists, so neither do they.
+     */
+    public int pendingCount() { return pending.size(); }
+
+    public int reset() {
+        int discarded = routes.size() + pending.size();
+        routes.clear();
+        pending.clear();
+        return discarded;
+    }
+
     private boolean isBanner(Block b) { return Tag.BANNERS.isTagged(b.getType()); }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

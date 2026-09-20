@@ -103,6 +103,25 @@ public final class Contributions {
         return null;
     }
 
+    /**
+     * Discard match-scoped contribution state (ALPHA-D2).
+     *
+     * Infrastructure is a recognized persistent contribution *within* a match,
+     * not cross-match progression, so shared opportunities and the
+     * first-capitalization record both end with the match. Without this, a
+     * Worksite capitalized in match 1 is refused in match 2 as "already
+     * capitalized" even though the world has been restored.
+     *
+     * A player's own Level 6 contribution choice lives in PlayerData and is
+     * cleared with the rest of that player's match-scoped state.
+     */
+    public int reset() {
+        int discarded = capitalized.size();
+        shared.clear();
+        capitalized.clear();
+        return discarded;
+    }
+
     /** Allocates an unassigned shared opportunity to any Infrastructure form. */
     public String allocate(String team, Form form) {
         if (form == Form.MONSTER_COMBAT) return "Monster Combat is not an Infrastructure form";

@@ -29,11 +29,16 @@ public final class RenewableAuthoring {
 
     public boolean handle(CommandSender sender, String[] args) {
         if (!enabled()) { sender.sendMessage("features.renewableAuthoring.enabled is false"); return true; }
-        if (!(sender instanceof Player p)) { sender.sendMessage("Player only"); return true; }
         if (args.length < 2) { usage(sender); return true; }
+        if (args[1].equalsIgnoreCase("status")) {
+            plugin.renewables().status().forEach(sender::sendMessage);
+            return true;
+        }
+        if (!(sender instanceof Player p)) { sender.sendMessage("Player only"); return true; }
 
         switch (args[1].toLowerCase(Locale.ROOT)) {
             case "kinds" -> sender.sendMessage("Kinds: " + String.join(", ", RenewableKinds.ids()));
+            case "status" -> plugin.renewables().status().forEach(sender::sendMessage);
             case "spawn" -> spawn(p, args);
             case "capture" -> capture(p, args);
             case "remove" -> {
@@ -46,6 +51,7 @@ public final class RenewableAuthoring {
     }
 
     private void usage(CommandSender s) {
+        s.sendMessage("/moba renew status");
         s.sendMessage("/moba renew kinds");
         s.sendMessage("/moba renew spawn <kind> [radius] [capacity]   (fixture tool)");
         s.sendMessage("/moba renew capture <kind> [radius]            (recognize what is there)");

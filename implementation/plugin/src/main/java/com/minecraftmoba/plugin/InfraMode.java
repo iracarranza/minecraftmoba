@@ -52,6 +52,25 @@ public final class InfraMode implements Listener {
 
     public void toggle(Player p) { if (isActive(p)) exit(p); else enter(p); }
 
+    /**
+     * Clear Infrastructure Mode for everyone at match reset.
+     *
+     * Routed through forceClear so a player's bossbar and pending designation
+     * are released the same way they are on death, rather than by dropping the
+     * set and leaving the HUD showing a mode nobody is in.
+     */
+    public int activeCount() { return active.size(); }
+
+    public int reset() {
+        int cleared = active.size();
+        for (java.util.UUID id : new java.util.HashSet<>(active)) {
+            Player p = org.bukkit.Bukkit.getPlayer(id);
+            if (p != null) forceClear(p); else active.remove(id);
+        }
+        active.clear();
+        return cleared;
+    }
+
     private void forceClear(Player p) {
         if (!active.remove(p.getUniqueId())) return;
         if (plugin.routes() != null) plugin.routes().discardPending(p);

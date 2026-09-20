@@ -272,13 +272,20 @@ public final class Match implements Listener {
         }
         resetFields();
         plugin.worksites().reset();
+        // Routes, Infrastructure Mode and contributions are all match-scoped and
+        // hold references into the instance world, so they are discarded before
+        // that world is replaced.
+        int routes = plugin.routes() != null ? plugin.routes().reset() : 0;
+        int infra = plugin.infraMode() != null ? plugin.infraMode().reset() : 0;
+        int contrib = plugin.contributions() != null ? plugin.contributions().reset() : 0;
         worldInstance.restore();
         // Renewables bind to a world UUID, and restore() produces a *new* world.
         // Rebuilding before the restore would rebind to the world about to be
         // discarded, which is the stale-binding bug this is meant to prevent.
         int renewables = plugin.resetRenewables();
-        return "Match reset: state cleared (worksites, " + renewables
-                + " renewable source(s)), world restored from template.";
+        return "Match reset: world restored; cleared worksites, " + renewables
+                + " renewable source(s), " + routes + " route(s)/pending, "
+                + infra + " in infra mode, " + contrib + " capitalization(s).";
     }
 
     // ---- events ----------------------------------------------------------
