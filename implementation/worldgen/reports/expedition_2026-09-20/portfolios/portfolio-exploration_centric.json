@@ -40,6 +40,7 @@
    "coverage": 1.0,
    "detail": "potato",
    "kind": "founder_crop",
+   "radius": 13,
    "recentred": false,
    "world_xyz": [
     -2416,
@@ -58,6 +59,7 @@
    "coverage": 1.0,
    "detail": "goat",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": false,
    "world_xyz": [
     -2416,
@@ -76,6 +78,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "poi",
+   "radius": 25,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -94,6 +97,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -112,6 +116,7 @@
    "coverage": 1.0,
    "detail": "pig",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -130,6 +135,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -148,6 +154,7 @@
    "coverage": 1.0,
    "detail": "north",
    "kind": "route_target",
+   "radius": 1,
    "recentred": true,
    "world_xyz": [
     -2384,
@@ -166,6 +173,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "poi",
+   "radius": 25,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -184,6 +192,7 @@
    "coverage": 1.0,
    "detail": "carrot",
    "kind": "founder_crop",
+   "radius": 13,
    "recentred": true,
    "world_xyz": [
     -2448,
@@ -202,6 +211,7 @@
    "coverage": 1.0,
    "detail": "south",
    "kind": "route_target",
+   "radius": 1,
    "recentred": true,
    "world_xyz": [
     -2384,
@@ -220,6 +230,7 @@
    "coverage": 1.0,
    "detail": "pig",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": false,
    "world_xyz": [
     -2288,
@@ -238,6 +249,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -2288,
@@ -256,6 +268,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "poi",
+   "radius": 25,
    "recentred": true,
    "world_xyz": [
     -2320,
@@ -274,6 +287,7 @@
    "coverage": 1.0,
    "detail": "north",
    "kind": "route_target",
+   "radius": 1,
    "recentred": true,
    "world_xyz": [
     -2320,
@@ -292,6 +306,7 @@
    "coverage": 1.0,
    "detail": "south",
    "kind": "route_target",
+   "radius": 1,
    "recentred": false,
    "world_xyz": [
     -2288,
@@ -310,6 +325,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -2288,
@@ -328,6 +344,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -2160,
@@ -346,6 +363,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "poi",
+   "radius": 25,
    "recentred": false,
    "world_xyz": [
     -2160,
@@ -364,6 +382,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -2160,
@@ -382,6 +401,7 @@
    "coverage": 1.0,
    "detail": "sheep",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": false,
    "world_xyz": [
     -2160,
@@ -400,6 +420,7 @@
    "coverage": 1.0,
    "detail": "north",
    "kind": "route_target",
+   "radius": 1,
    "recentred": false,
    "world_xyz": [
     -2032,
@@ -418,6 +439,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -2032,
@@ -436,6 +458,7 @@
    "coverage": 1.0,
    "detail": "chicken",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": false,
    "world_xyz": [
     -1904,
@@ -454,6 +477,7 @@
    "coverage": 1.0,
    "detail": "potato",
    "kind": "founder_crop",
+   "radius": 13,
    "recentred": false,
    "world_xyz": [
     -1904,
@@ -472,6 +496,7 @@
    "coverage": 1.0,
    "detail": "pig",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": false,
    "world_xyz": [
     -1904,
@@ -490,6 +515,7 @@
    "coverage": 0.25,
    "detail": "potato",
    "kind": "founder_crop",
+   "radius": 13,
    "recentred": true,
    "world_xyz": [
     -1906,
@@ -508,6 +534,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -1776,
@@ -526,6 +553,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": false,
    "world_xyz": [
     -1776,
@@ -544,6 +572,7 @@
    "coverage": 1.0,
    "detail": "pig",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": true,
    "world_xyz": [
     -1808,
@@ -562,6 +591,7 @@
    "coverage": 1.0,
    "detail": null,
    "kind": "mining_worksite",
+   "radius": 17,
    "recentred": true,
    "world_xyz": [
     -1808,
@@ -580,6 +610,7 @@
    "coverage": 0.75,
    "detail": "south",
    "kind": "route_target",
+   "radius": 1,
    "recentred": true,
    "world_xyz": [
     -1666,
@@ -598,6 +629,7 @@
    "coverage": 0.75,
    "detail": "turtle",
    "kind": "renewable_range",
+   "radius": 21,
    "recentred": true,
    "world_xyz": [
     -1666,

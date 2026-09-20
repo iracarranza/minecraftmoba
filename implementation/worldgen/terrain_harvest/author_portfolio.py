@@ -240,6 +240,8 @@ def author(frontier: dict, profile: str, rank: int, opportunity: dict,
                 'coverage': site['coverage'],
                 'recentred': [x, z] != site['centre'],
                 'cell_neighbours': len(sites) - 1,
+                # Carried so Route authoring can report corridor crossings.
+                'radius': site['radius'],
                 'world_xyz': [x, int(round(site['surface_y'])), z],
                 'template': site['template']})
         for site in rejected:

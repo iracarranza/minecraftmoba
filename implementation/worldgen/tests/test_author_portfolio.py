@@ -132,3 +132,55 @@ class SiteFlatteningTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class RouteTests(unittest.TestCase):
+    """The contract says author physical path quality, not a marker."""
+
+    def test_densify_walks_one_block_at_a_time(self):
+        from terrain_harvest.routes import densify
+        line = densify([(0, 0), (8, 0), (8, 8)])
+        self.assertEqual(line[0], (0, 0))
+        self.assertEqual(line[-1], (8, 8))
+        for a, b in zip(line, line[1:]):
+            self.assertLessEqual(max(abs(a[0] - b[0]), abs(a[1] - b[1])), 1)
+
+    def test_densify_has_no_duplicate_columns(self):
+        from terrain_harvest.routes import densify
+        line = densify([(0, 0), (4, 0), (4, 0), (4, 4)])
+        self.assertEqual(len(line), len(set(line)))
+
+    def test_crossings_report_sites_the_corridor_runs_through(self):
+        from terrain_harvest.routes import crossings_of
+        sites = [{'kind': 'poi', 'detail': None, 'cell': [0, 0],
+                  'world_xyz': [10, 70, 0], 'radius': 25},
+                 {'kind': 'poi', 'detail': None, 'cell': [9, 9],
+                  'world_xyz': [9000, 70, 9000], 'radius': 25}]
+        hit = crossings_of([(0, 0), (1, 0)], sites)
+        self.assertEqual(len(hit), 1)
+        self.assertEqual(hit[0]['world_xz'], [10, 0])
+
+    def test_route_authoring_grants_no_speed(self):
+        # The contract forbids an intrinsic movement-speed bonus, so the module
+        # must not reference one at all.
+        src = (WORLDGEN / 'terrain_harvest' / 'routes.py').read_text()
+        for token in ('movement_speed', 'MOVEMENT_SPEED', 'speed_bonus',
+                      'GENERIC_MOVEMENT'):
+            self.assertNotIn(token, src)
+
+
+class ContractTests(unittest.TestCase):
+    """Clauses from claude-authoring-handoff.json that code can enforce."""
+
+    def test_no_module_consumes_hostile_counts(self):
+        # hostiles == 0 -> underground is safe is a forbidden inference, so the
+        # authoring path must not read the field at all.
+        for name in ('terrain_harvest/author_portfolio.py',
+                     'terrain_harvest/routes.py',
+                     'terrain_harvest/massing.py'):
+            self.assertNotIn("'hostiles'", (WORLDGEN / name).read_text(), name)
+
+    def test_worksite_massing_is_generic(self):
+        src = (WORLDGEN / 'terrain_harvest' / 'massing.py').read_text()
+        for token in ('mining_site', 'MiningSite', 'industrial_factory'):
+            self.assertNotIn(token, src)

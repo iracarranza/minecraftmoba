@@ -1,0 +1,254 @@
+{
+ "blocks_pending": 42036,
+ "blocks_written": 42036,
+ "corridor_width": 3,
+ "cost_model": "vanilla_search.task_a.Terrain, the graph that sited the team structures and produced the travel matrix",
+ "crossings": [
+  {
+   "cell": [
+    3,
+    3
+   ],
+   "detail": "pig",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2064,
+    -112
+   ]
+  },
+  {
+   "cell": [
+    3,
+    4
+   ],
+   "detail": null,
+   "kind": "poi",
+   "world_xz": [
+    -2064,
+    16
+   ]
+  },
+  {
+   "cell": [
+    6,
+    1
+   ],
+   "detail": "north",
+   "kind": "route_target",
+   "world_xz": [
+    -1666,
+    -338
+   ]
+  },
+  {
+   "cell": [
+    1,
+    6
+   ],
+   "detail": "rabbit",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2288,
+    304
+   ]
+  }
+ ],
+ "dry_run": false,
+ "evidence_state": "RAW WORLD OBSERVATION",
+ "headroom": 3,
+ "nature": "physical path quality only: surfacing, clearing and decking. No movement-speed effect is granted or implied.",
+ "not_covered": [
+  "stairs or grading on steep steps; the corridor follows terrain",
+  "what the Route does to Practical Reach, which only the rescan measures",
+  "Route width, surface material and headroom as design decisions; these are authoring fixtures, not canon",
+  "diverting a corridor around an authored site; crossings are recorded rather than avoided, because rerouting would alter the strategic geometry the optimizer selected"
+ ],
+ "routes": [
+  {
+   "bridged": 0,
+   "cell": [
+    3,
+    4
+   ],
+   "columns": 529,
+   "crosses": [
+    {
+     "cell": [
+      3,
+      3
+     ],
+     "detail": "pig",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2064,
+      -112
+     ]
+    },
+    {
+     "cell": [
+      3,
+      4
+     ],
+     "detail": null,
+     "kind": "poi",
+     "world_xz": [
+      -2064,
+      16
+     ]
+    }
+   ],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 67,
+   "surfaced": 4761,
+   "team": "north",
+   "to": [
+    -2036,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1027.5
+  },
+  {
+   "bridged": 622,
+   "cell": [
+    6,
+    1
+   ],
+   "columns": 521,
+   "crosses": [
+    {
+     "cell": [
+      6,
+      1
+     ],
+     "detail": "north",
+     "kind": "route_target",
+     "world_xz": [
+      -1666,
+      -338
+     ]
+    }
+   ],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 66,
+   "surfaced": 4067,
+   "team": "north",
+   "to": [
+    -1652,
+    -340
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1892.3
+  },
+  {
+   "bridged": 503,
+   "cell": [
+    6,
+    0
+   ],
+   "columns": 585,
+   "crosses": [],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 74,
+   "surfaced": 4762,
+   "team": "north",
+   "to": [
+    -1652,
+    -468
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1600.7
+  },
+  {
+   "bridged": 18,
+   "cell": [
+    2,
+    4
+   ],
+   "columns": 513,
+   "crosses": [],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 65,
+   "surfaced": 4599,
+   "team": "south",
+   "to": [
+    -2164,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1057.1
+  },
+  {
+   "bridged": 151,
+   "cell": [
+    5,
+    4
+   ],
+   "columns": 465,
+   "crosses": [],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 59,
+   "surfaced": 4034,
+   "team": "south",
+   "to": [
+    -1780,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1345.5
+  },
+  {
+   "bridged": 0,
+   "cell": [
+    0,
+    5
+   ],
+   "columns": 481,
+   "crosses": [
+    {
+     "cell": [
+      1,
+      6
+     ],
+     "detail": "rabbit",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2288,
+      304
+     ]
+    }
+   ],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 61,
+   "surfaced": 4329,
+   "team": "south",
+   "to": [
+    -2420,
+    172
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1229.7
+  }
+ ],
+ "schema": "map_routes_authored/1",
+ "skipped": [],
+ "world": "/tmp/profile-worlds/resource_light"
+}

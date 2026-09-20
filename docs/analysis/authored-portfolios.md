@@ -73,9 +73,46 @@ chunk per coordinate.
 
 29 unit tests cover allocation, preflight and template selection.
 
-## Not done
+## Audit against the full authoring handoff
 
-- **Routes are targets, not paths.** Only the waypoints are marked.
+After chat pushed `claude-authoring-handoff.json`, `CLAUDE.md` and the optimizer
+report, every authored placement was re-checked against each contract clause
+that code can enforce. 19 checks, 1 conflict.
+
+Passed: renewables use only species observed in their own cell, across all four
+profiles; founder stock is carrot/potato only, all in farmable regions;
+Worksites stay generic with no Mining Site or Industrial Factory binding; no
+movement-speed effect anywhere; no module reads hostile counts, so the forbidden
+`hostiles == 0 -> safe` inference cannot enter through the authoring path; all
+124 placements sit inside their prescribed cells.
+
+Failed, and redone: **Routes.** The contract says *author physical path
+quality*, and the design document evaluates Route targets by how path quality
+changes Practical Reach. The first pass wrote cairns at the targets and no path,
+which is a marker, not a Route.
+
+`terrain_harvest/routes.py` now authors corridors -- 3 wide, `dirt_path` over
+land, a plank deck over water, 3 blocks of headroom cleared -- following the
+same terrain-weighted graph that sited the team structures, so a Route runs
+where the analysis already said the cheapest crossing is. Six routes per
+profile, 2,822-3,230 columns, 37,204-42,396 blocks. No speed is granted; what
+the Route does to Practical Reach is for the rescan to measure.
+
+A corridor crossing an authored site is recorded rather than diverted. Diverting
+would alter the strategic geometry the optimizer selected, and the design
+document values POIs partly for the traffic they attract. Three crossings per
+profile, listed in each Route report. The first verification pass found one as a
+POI foundation replaced by path; it is now declared instead of discovered.
+
+## Verification
+
+`terrain_harvest/verify_portfolio.py` reads both passes back out of the region
+files: **346 assertions across four worlds, 0 failures**. A crossing recorded in
+a Route report is accepted; an unrecorded one fails.
+
+35 unit tests, including contract clauses expressed as tests.
+
+## Not done
 - **Animals are not written.** They are entities, manifested at runtime.
 - **No rescan yet.** This is step 2 — the authored worlds still need their exact
   coordinates and path costs measured, replacing the regional reach
