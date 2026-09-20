@@ -259,3 +259,42 @@ class PublishTests(unittest.TestCase):
         for kind in ('founder_crop', 'renewable_range', 'mining_worksite',
                      'poi', 'route_target', 'homeland'):
             self.assertIn(kind, SITE_COLOUR)
+
+
+class PublishRoundTripTests(unittest.TestCase):
+    def test_rle_round_trip_is_exact(self):
+        from terrain_harvest.publish_world import CLASSES, decode_rows, encode_rows
+        labels = sorted(CLASSES)
+        grid = [[(64, 'grass'), (64, 'grass'), None],
+                [(63, 'water'), (65, 'route'), (65, 'route')]]
+        self.assertEqual(decode_rows(encode_rows(grid, labels), labels), grid)
+
+    def test_publisher_preserves_full_crossing_metadata(self):
+        src = (WORLDGEN / 'terrain_harvest' / 'publish_world.py').read_text()
+        self.assertIn("'crosses': r.get('crosses', [])", src)
+        self.assertNotIn("[c['kind'] for c in r.get('crosses', [])]", src)
+
+
+class OptimizerSpilloverTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import importlib.util
+        path = WORLDGEN.parents[1] / 'tools' / 'analysis' / 'map_authoring_optimizer.py'
+        spec = importlib.util.spec_from_file_location('map_authoring_optimizer', path)
+        cls.mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.mod)
+
+    def test_rng_is_cross_language_deterministic(self):
+        r = self.mod.DeterministicRNG(1)
+        self.assertEqual([r.randbelow(1000) for _ in range(3)], [236, 369, 504])
+
+    def test_near_route_can_change_reach_but_far_site_does_not(self):
+        target = {'center': [100, 0], 'n': 60.0, 's': 100.0,
+                  'direct_n': 10.0, 'direct_s': 10.0}
+        cfg = {'route_targets': {'north': [target], 'south': []}}
+        near = {'center': [50, 0], 'n': 55.0, 's': 100.0,
+                'direct_n': 5.0, 'direct_s': 10.0}
+        far = {'center': [50, 500], 'n': 55.0, 's': 100.0,
+               'direct_n': 50.0, 'direct_s': 50.0}
+        self.assertLess(self.mod.spillover_reach(near, 'north', cfg), near['n'])
+        self.assertEqual(self.mod.spillover_reach(far, 'north', cfg), far['n'])

@@ -1,78 +1,43 @@
-# Realized-map authored-opportunity search — seed 930012642
+# 2026-09-20 realized-map authoring optimizer run
 
-**Run date:** 2026-09-20  
-**Status:** NEW SENSITIVITY / tooling output. Not canon.
+## Authority
 
-## Critical hazard guard
+The committed Python optimizer and generated artifacts in docs/analysis/map-authoring-optimizer are now one provenance chain. Earlier divergent handoff/frontier values are superseded. The corrupt candidate-catalog.json.gz is removed and replaced by candidate-catalog.json.
 
-The export's zero hostile counts are a **fresh-world snapshot artefact**. They are excluded from scoring. Underground hostile exposure remains **UNRESOLVED**, so this pass does not certify natural Extraction balance.
+## V2 change: Route spillover enters search
 
-## Candidate space
+Exact-world rescans showed that a physical Route can improve intended Route-target parity while simultaneously changing renewable, Worksite, founder, and POI access. V2 screens collateral corridor effects during configuration search rather than treating a Route as an isolated edge.
 
-- 74 founder-stock candidates
-- 110 renewable-manifestation candidates
-- 35 Worksite candidates
-- 35 POI candidates
-- 32 North Route targets
-- 31 South Route targets
+The regional spillover model is a sensitivity layer; exact authored paths and rescans remain authoritative.
 
-The optimizer searches complete portfolios rather than selecting each opportunity independently.
+## V2 reference run
 
-## Regional reach approximation
+Seed 20260920; 1200 configurations/profile; working effective-balance filter 0.12.
 
-Opportunity-cell Practical Reach is reconstructed from the measured terrain-weighted travel sites. Leave-one-out validation:
+| Profile | Balanced found | Raw | Spillover | Effective |
+|---|---:|---:|---:|---:|
+| balanced_baseline | 97 | 0.036159 | 0.034075 | 0.036159 |
+| exploration_centric | 80 | 0.075932 | 0.080807 | 0.080807 |
+| consolidative | 102 | 0.074903 | 0.046994 | 0.074903 |
+| resource_dense | 140 | 0.054456 | 0.039447 | 0.054456 |
+| resource_light | 59 | 0.054303 | 0.059896 | 0.059896 |
+| contested_core | 95 | 0.061960 | 0.072513 | 0.072513 |
+| peripheral_specialization | 98 | 0.048202 | 0.039556 | 0.048202 |
+| route_centric | 106 | 0.058306 | 0.040163 | 0.058306 |
 
-- North median absolute error: ~9.6 s
-- South median absolute error: ~7.5 s
-- median relative error: roughly 7–8%
+Candidate space remains 74 / 110 / 35 / 35 / 32 / 31 for founder / renewable / Worksite / POI / North Route / South Route candidates.
 
-Use this only for regional ranking. Exact authored sites and Route paths must be rescanned.
+## Prior exact-world evidence retained
 
-## Search results
+Current authored/rescanned worlds were produced from frontier SHA-256 444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5, not this v2 frontier. They remain valid evidence that the old reach proxy understated asymmetry and that Route spillover can help or hurt balance, but they do not validate the new finalists.
 
-Each profile sampled 1,200 complete configurations.
+Observed old-frontier exact-world asymmetry:
 
-| Profile | Balanced samples | Preferred balance asymmetry |
-|---|---:|---:|
-| Balanced Baseline | 114 | 0.047401 |
-| Exploration-Centric | 116 | 0.067165 |
-| Consolidative | 115 | 0.093518 |
-| Resource-Dense | 158 | 0.060442 |
-| Resource-Light | 74 | 0.061608 |
-| Contested Core | 146 | 0.062782 |
-| Peripheral Specialization | 99 | 0.044789 |
-| Route-Centric | 122 | 0.060835 |
+- Balanced Baseline: bare 0.091868 → authored Routes 0.116614 (delta +0.024746)
+- Exploration-Centric: 0.145640 → 0.192482 (delta +0.046842)
+- Consolidative: 0.156139 → 0.106757 (delta -0.049382)
+- Resource-Light: 0.099620 → 0.050488 (delta -0.049133)
 
-The current structural-balance filter is `balance_asymmetry <= 0.12`. That threshold, the number of Worksites/renewables in each scenario profile, and profile objective weights are **NON-CANON ANALYTICAL FIXTURES**.
+## Next validation
 
-The balance metric is a normalized search measure over reach/labor dimensions. It is not a win probability and must not be described as a percentage advantage.
-
-## Design development
-
-This run changes the map-authoring workflow in five important ways.
-
-1. **Authored resources are optimized as portfolios.** A good individual placement can still create a bad map when combined with other opportunities.
-2. **Balance and match character are separated.** Configurations first need acceptable structural parity; among those, the search can preserve exploration-heavy, consolidative, dense, light, contested, peripheral, or Route-centric alternatives.
-3. **Generated geography remains authoritative.** Renewables are selected from measured ecology; founder stock can be introduced where the intended economy requires it; Routes change relationships to existing geography.
-4. **Exact siting is deferred deliberately.** The optimizer chooses qualifying 128×128 regions. World-authoring tooling chooses exact terrain and must then rescan it.
-5. **Missing hazard evidence stays missing.** The entity snapshot cannot silently become a zero-hazard assumption.
-
-## Next physical validation
-
-A useful playtest/authoring set is:
-
-- Balanced Baseline
-- Exploration-Centric
-- Consolidative
-- Resource-Light
-
-These expose meaningfully different economic traffic patterns without requiring different underlying system rules.
-
-For each selected finalist:
-
-1. instantiate exact Worksite pads, renewable manifestations, founder patches, POIs and Routes;
-2. rescan exact coordinates and path costs;
-3. measure/derive hostile exposure separately;
-4. rerun the non-combat 7v7 model with measured values;
-5. retain fallbacks when exact terrain invalidates a preferred regional candidate;
-6. freeze only after the authored world, rather than its regional approximation, passes validation.
+Author v2 finalist rank 0 for the four physical test profiles, rescan exact sites and Routes, compare measured spillover against the regional sensitivity, and only then revise the spillover constants or freeze a map.

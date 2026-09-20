@@ -1,34 +1,14 @@
-# Regional authored-opportunity optimizer — realized map 930012642
+# V2 authored-opportunity optimizer
 
-This pass searches authored **regional relationships**, not block-exact placement.
-Exact placement and exact Route geometry still require world authoring + rescan.
+Underground hazard remains UNRESOLVED. Route spillover is now screened during regional search.
 
-## Critical hazard guard
-
-The export's zero hostile counts are a **fresh-world snapshot artefact**. They are excluded from scoring.
-Underground hostile exposure remains **UNRESOLVED**, so this tool does not certify natural Extraction balance.
-
-## Reach proxy
-
-- north: median absolute leave-one-out error 9.6s; median relative error approximately 7–8%.
-- south: median absolute leave-one-out error 7.5s; median relative error approximately 7–8%.
-- Use: regional ranking only. Large local terrain outliers still require block-exact rescan.
-
-## Scenario finalists
-
-| Profile | Balance asymmetry | Exploration | Consolidation | Resource density | Contest | Route dependence | Peripheral specialization |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| balanced_baseline | 0.047 | 0.55 target family | moderate | moderate | moderate | moderate | moderate |
-| exploration_centric | 0.067 | 0.682 | low | moderate | moderate | moderate | moderate |
-| consolidative | 0.094 | moderate | 0.632 | moderate | moderate | moderate | moderate |
-| resource_dense | 0.060 | moderate | moderate | 0.777 | moderate | moderate | moderate |
-| resource_light | 0.062 | moderate | low | 0.069 | moderate | moderate | moderate |
-| contested_core | 0.063 | moderate | moderate | moderate | 0.346 | moderate | moderate |
-| peripheral_specialization | 0.045 | moderate | moderate | moderate | lower | moderate | 0.890 |
-| route_centric | 0.061 | moderate | moderate | moderate | moderate | 1.000 | moderate |
-
-All scenario resource counts are **NON-CANON ANALYTICAL FIXTURES**. Balance is evaluated as a vector of reach/labor asymmetries; the profile score then selects different strategic characters among structurally viable configurations.
-
-## Claude handoff
-
-Use `claude-authoring-handoff.json`. Each profile should be regenerated/inspected with the committed optimizer and realized-map export. Claude should choose exact terrain within prescribed cells, build paths/pads/patches, then rescan the authored world. Do not improvise a strategic location outside the supplied configuration unless it is returned to the optimizer for evaluation.
+| Profile | Balanced | Raw | Spillover | Effective |
+|---|---:|---:|---:|---:|
+| balanced_baseline | 97 | 0.036159 | 0.034075 | 0.036159 |
+| exploration_centric | 80 | 0.075932 | 0.080807 | 0.080807 |
+| consolidative | 102 | 0.074903 | 0.046994 | 0.074903 |
+| resource_dense | 140 | 0.054456 | 0.039447 | 0.054456 |
+| resource_light | 59 | 0.054303 | 0.059896 | 0.059896 |
+| contested_core | 95 | 0.061960 | 0.072513 | 0.072513 |
+| peripheral_specialization | 98 | 0.048202 | 0.039556 | 0.048202 |
+| route_centric | 106 | 0.058306 | 0.040163 | 0.058306 |

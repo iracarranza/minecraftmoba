@@ -185,3 +185,12 @@ exact blocks / paths / pads / patches
 The map-balancing pipeline can now terminate in **Authored Strategic Opportunity Reconciliation**. The goal is not to make both halves equivalent. It is to use coherent authored relationships around generated geography so both teams have viable, distinct, interactable economic paths across the match.
 
 Combat resolution remains intentionally outside this pass.
+
+
+## Route spillover after exact-world validation
+
+The first block-exact authored worlds established that a Route is not only an edge to its selected target. Surfacing, clearing and decking a corridor changes Practical Reach to every opportunity that the corridor passes or makes cheaper to approach. In the old-frontier rescans, Route-target parity could improve while renewable or Worksite parity worsened.
+
+The optimizer therefore now carries a **regional Route-spillover sensitivity** during configuration search. It estimates collateral reach changes for selected opportunities near plausible homeland-to-target corridors and filters on the worse of raw regional asymmetry and spillover-sensitive asymmetry. The radius, path-stretch floor and scale are analysis fixtures, not canon.
+
+This does not replace block-exact authoring. Physical Routes still follow real terrain; every crossing must be recorded and every authored world rescanned. The sensitivity exists to reject fragile portfolios before expensive authoring.

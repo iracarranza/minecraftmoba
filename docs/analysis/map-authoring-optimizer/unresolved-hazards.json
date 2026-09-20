@@ -1,13 +1,5 @@
 {
-  "snapshot_contains_hostiles": false,
-  "interpretation": "INVALID AS SAFETY EVIDENCE: zero-hostiles fresh-world snapshot artefact",
-  "optimizer_behavior": "hostile snapshot is excluded from opportunity scoring",
+  "snapshot_hostiles": "DO NOT USE AS SAFETY EVIDENCE",
   "underground_hazard": "UNRESOLVED",
-  "required_future_measurement": [
-    "hostile-spawn-eligible substrate",
-    "light / spawn-rule context",
-    "connected cave volume and topology",
-    "entrance/descent exposure"
-  ],
   "forbidden_inference": "hostiles == 0 -> underground is safe"
 }

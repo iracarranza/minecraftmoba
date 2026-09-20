@@ -148,6 +148,32 @@ def render(xs, zs, grid, sites, out: Path, scale: int):
     return {'width': w, 'height': h, 'y_range': [lo, hi]}
 
 
+def encode_rows(grid, labels):
+    rows = []
+    for row in grid:
+        out, run = [], None
+        for cell in row:
+            key = None if cell is None else [cell[0], labels.index(cell[1])]
+            if run and run[0] == key:
+                run[1] += 1
+            else:
+                run = [key, 1]
+                out.append(run)
+        rows.append(out)
+    return rows
+
+
+def decode_rows(rows, labels):
+    grid = []
+    for row in rows:
+        out = []
+        for key, count in row:
+            value = None if key is None else (key[0], labels[key[1]])
+            out.extend([value] * count)
+        grid.append(out)
+    return grid
+
+
 def run(world: Path, candidate: Path, portfolio: Path, routes: Path | None,
         outdir: Path, name: str, spacing: int, scale: int) -> dict:
     cand = json.loads(candidate.read_text())
@@ -166,18 +192,12 @@ def run(world: Path, candidate: Path, portfolio: Path, routes: Path | None,
     png = outdir / f'{name}-map.png'
     meta = render(xs, zs, grid, sites, png, scale)
 
-    # Run-length encode each row; a surface map is mostly runs of one class.
+    # Encode then decode every sample; refuse a publication that does not round-trip.
     labels = sorted(CLASSES)
-    rows = []
-    for row in grid:
-        out, run = [], None
-        for cell in row:
-            key = None if cell is None else [cell[0], labels.index(cell[1])]
-            if run and run[0] == key:
-                run[1] += 1
-            else:
-                run = [key, 1]; out.append(run)
-        rows.append(out)
+    rows = encode_rows(grid, labels)
+    decoded = decode_rows(rows, labels)
+    if decoded != grid:
+        raise AssertionError('published grid RLE does not round-trip to sampled world')
 
     doc = {
         'schema': SCHEMA,
@@ -193,11 +213,14 @@ def run(world: Path, candidate: Path, portfolio: Path, routes: Path | None,
         'row_encoding': 'run-length: [[[y, class_index] | null, count], ...] '
                         'per row, rows north to south, samples west to east',
         'rows': rows,
+        'verification': {'round_trip_matches_source_grid': True,
+                         'decoded_samples': len(xs) * len(zs),
+                         'all_rows_match_declared_width': all(len(r) == len(xs) for r in decoded)},
         'sites': sites,
         'routes': [{'team': r['team'], 'cell': r['cell'], 'from': r['from'],
                     'to': r['to'], 'columns': r['columns'],
                     'weighted_cost': r['weighted_cost'],
-                    'crosses': [c['kind'] for c in r.get('crosses', [])]}
+                    'crosses': r.get('crosses', [])}
                    for r in (rts or {}).get('routes', [])],
         'render': {'file': png.name, **meta,
                    'site_colours': {k: list(v) for k, v in SITE_COLOUR.items()},

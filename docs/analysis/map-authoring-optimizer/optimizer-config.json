@@ -4,15 +4,44 @@
   "samples_per_profile": 1200,
   "random_seed": 20260920,
   "balance_filter": 0.12,
-  "status": "scenario counts, filter, and profile weights are NON-CANON ANALYTICAL FIXTURES",
+  "deterministic_rng": "32-bit LCG",
+  "route_spillover": {
+    "radius_blocks": 112,
+    "target_path_stretch": 1.25,
+    "scale": 0.85
+  },
   "profiles": {
-    "balanced_baseline": {"worksites": 10, "renewables": 8},
-    "exploration_centric": {"worksites": 10, "renewables": 8},
-    "consolidative": {"worksites": 10, "renewables": 8},
-    "resource_dense": {"worksites": 12, "renewables": 12},
-    "resource_light": {"worksites": 8, "renewables": 6},
-    "contested_core": {"worksites": 10, "renewables": 8},
-    "peripheral_specialization": {"worksites": 10, "renewables": 8},
-    "route_centric": {"worksites": 10, "renewables": 8}
+    "balanced_baseline": {
+      "worksites": 10,
+      "renewables": 8
+    },
+    "exploration_centric": {
+      "worksites": 10,
+      "renewables": 8
+    },
+    "consolidative": {
+      "worksites": 10,
+      "renewables": 8
+    },
+    "resource_dense": {
+      "worksites": 12,
+      "renewables": 12
+    },
+    "resource_light": {
+      "worksites": 8,
+      "renewables": 6
+    },
+    "contested_core": {
+      "worksites": 10,
+      "renewables": 8
+    },
+    "peripheral_specialization": {
+      "worksites": 10,
+      "renewables": 8
+    },
+    "route_centric": {
+      "worksites": 10,
+      "renewables": 8
+    }
   }
 }
