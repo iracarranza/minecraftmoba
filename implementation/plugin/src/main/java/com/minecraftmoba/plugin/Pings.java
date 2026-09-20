@@ -31,6 +31,11 @@ import java.util.*;
  *   sneak + either  DANGER   avoid, or incoming
  *   ctrl + either   ASSIST   requesting help there
  *
+ * One contextual exception: sneak + pick on a **banner or copper chest** —
+ * the anchors for Routes and Supply Lines — toggles Infrastructure Mode rather
+ * than pinging. The gesture is shared and the meaning follows the target, which
+ * is the smart-ping model rather than an extra binding to learn.
+ *
  * Ctrl arrives as isIncludeData(), vanilla's copy-with-data modifier, so the
  * second axis is free rather than a new binding.
  *
@@ -63,7 +68,22 @@ public final class Pings implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPickBlock(PlayerPickBlockEvent e) {
+        // Sneak + pick on an infrastructure anchor toggles Infrastructure Mode
+        // instead of pinging. The gesture is shared but the meaning follows the
+        // target, which is the smart-ping model rather than a second binding.
+        if (e.getPlayer().isSneaking() && isInfrastructureAnchor(e.getBlock().getType())
+                && plugin.infraMode() != null && plugin.infraMode().enabled()) {
+            plugin.infraMode().toggle(e.getPlayer());
+            e.setCancelled(true);
+            return;
+        }
         if (handle(e.getPlayer(), e, e.getBlock().getLocation().add(0.5, 0.5, 0.5), false)) e.setCancelled(true);
+    }
+
+    /** Banners anchor Routes; copper chests anchor Supply Lines. */
+    private boolean isInfrastructureAnchor(org.bukkit.Material m) {
+        if (org.bukkit.Tag.BANNERS.isTagged(m)) return true;
+        return m.name().equals("COPPER_CHEST") || m.name().endsWith("_COPPER_CHEST");
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

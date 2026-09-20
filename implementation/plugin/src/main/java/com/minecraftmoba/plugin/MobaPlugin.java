@@ -51,6 +51,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Recall recall() { return recall; }
     private Pings pings;
     public Pings pings() { return pings; }
+    private TestBed testBed;
     public OffhandMap offhandMap() { return offhandMap; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
     public int effectiveHunger(Player p) {
@@ -80,6 +81,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         healthDisplay = new HealthDisplay(this);
         pings = new Pings(this);
+        testBed = new TestBed(this);
         getServer().getPluginManager().registerEvents(pings, this);
         recall = new Recall(this);
         getServer().getPluginManager().registerEvents(recall, this);
@@ -290,6 +292,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
             }
             return true;
+        }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("testbed")) {
+            if (!(sender instanceof Player tp)) { sender.sendMessage("Player only"); return true; }
+            return testBed.build(sender, tp, args.length > 1 ? args[1] : "all");
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("pings")) {
             sender.sendMessage(pings.report()); return true;
