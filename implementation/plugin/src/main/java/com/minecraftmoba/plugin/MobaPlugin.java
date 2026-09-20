@@ -307,7 +307,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         enforceHunger(p, c);
         if (taskEffects != null) taskEffects.applyAutomaticGrants(p, data(p));
         p.setLevel(d.level);
-        p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / settings.xpPerLevel()));
+        // The vanilla bar must read against the band cost, not the flat
+        // fallback, or it fills at the wrong rate for every level past 6.
+        int cost = workPoints != null ? workPoints.costOf(d.level) : settings.xpPerLevel();
+        p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / Math.max(1, cost)));
         save(p, d);
         rewards.refresh(p);
     }

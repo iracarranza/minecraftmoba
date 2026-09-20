@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.*;
@@ -23,10 +24,16 @@ import java.util.*;
  *
  * Two consequences are load-bearing here.
  *
- * **Yield does not multiply Extraction.** "WHAT YOU GOT" is the material
- * economy; "WHAT IT TOOK TO GET IT" is Extraction progression. A Fortune pick
- * produces more ore from the same acquisition, so the WP is per block broken
- * and never per item dropped.
+ * **Extraction is opportunity plus harvest**, WP = A(O) + qH. A(O) credits
+ * exploiting one physical opportunity and is paid once per ore block broken.
+ * H is the qualifying harvest actually obtained and q converts it to points.
+ *
+ * Fortune moves H and never A(O). One ore block does not become 2.2 ore blocks
+ * because a pick is enchanted -- the opportunity was singular -- but the extra
+ * material really was extracted, and that is additional Extraction work. This
+ * is what makes Yield a progression specialization rather than only an item
+ * enchantment, alongside Efficiency buying opportunities per unit time and
+ * Unbreaking buying sustained exploitation.
  *
  * **Placing a block you just mined is not new work.** Provenance already tracks
  * player-placed blocks, so a block a player put down earns no Extraction credit
@@ -49,6 +56,8 @@ public final class WorkPoints implements Listener {
 
     private final MobaPlugin plugin;
     private final Map<UUID, Map<Domain, Long>> earned = new HashMap<>();
+    /** Ore blocks broken this tick, awaiting their drops for the harvest half. */
+    private final Map<org.bukkit.Location, String> harvestable = new HashMap<>();
 
     public WorkPoints(MobaPlugin plugin) { this.plugin = plugin; }
 
@@ -82,20 +91,40 @@ public final class WorkPoints implements Listener {
      * Levelling consumes the band cost of the level being left, so a player
      * crossing several bands in one award pays each band's own price.
      */
+    /**
+     * Whether a player's actions can currently constitute work.
+     *
+     * Creative and Spectator hand a player material without labour, so neither
+     * produces progression. Adventure is excluded too: it cannot break the
+     * blocks these sources credit.
+     */
+    public static boolean counts(Player p) {
+        return p.getGameMode() == org.bukkit.GameMode.SURVIVAL;
+    }
+
     public void award(Player p, Domain domain, int wp, String source) {
-        if (!enabled() || wp <= 0 || !plugin.enrolled(p)) return;
+        if (!enabled() || wp <= 0 || !plugin.enrolled(p) || !counts(p)) return;
         var d = plugin.data(p);
         if (d == null) return;
         earned.computeIfAbsent(p.getUniqueId(), k -> new EnumMap<>(Domain.class))
               .merge(domain, (long) wp, Long::sum);
 
+        int max = plugin.settings().maxLevel();
+        if (d.level >= max) {
+            // At the cap there is nothing to progress toward, so WP is still
+            // attributed for diagnostics but the counter does not grow without
+            // bound behind a denominator that no longer means anything.
+            d.xp = 0;
+            feedback(p, domain, wp, source + " (max level)", d);
+            return;
+        }
         long total = (long) d.xp + wp;
         int before = d.level;
-        while (d.level < plugin.settings().maxLevel() && total >= costOf(d.level)) {
+        while (d.level < max && total >= costOf(d.level)) {
             total -= costOf(d.level);
             d.level++;
         }
-        d.xp = (int) Math.min(total, Integer.MAX_VALUE);
+        d.xp = d.level >= max ? 0 : (int) Math.min(total, Integer.MAX_VALUE);
         plugin.applyProgression(p, d, before);
         feedback(p, domain, wp, source, d);
     }
@@ -117,7 +146,7 @@ public final class WorkPoints implements Listener {
         return earned.getOrDefault(p.getUniqueId(), Map.of());
     }
 
-    public void reset() { earned.clear(); }
+    public void reset() { earned.clear(); harvestable.clear(); }
 
     // ---- live sources ----------------------------------------------------
 
@@ -136,22 +165,61 @@ public final class WorkPoints implements Listener {
     }
 
     /**
-     * Extraction: per ore block broken, never per item dropped, so Fortune
-     * changes the material economy and not the progression.
+     * Extraction, opportunity half: A(O), once per ore block exploited.
      *
-     * A block the player placed earns nothing: Provenance knows it is not new
-     * acquisition, which is what stops a place-and-break loop from farming.
+     * Read at HIGHEST because Provenance clears its mark at MONITOR (SPEC
+     * section 7.1). A consumer listening at MONITOR asks after the answer has
+     * been erased and sees every block as natural, which would have paid for
+     * ore a player placed themselves.
      */
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void breakBlock(BlockBreakEvent e) {
         if (!enabled()) return;
         var provenance = plugin.provenance();
         if (provenance != null && provenance.isPlayerPlaced(e.getBlock())) return;
         String kind = oreKind(e.getBlock().getType());
         if (kind == null) return;
-        int wp = plugin.getConfig().getInt("progression.work.oreExtraction." + kind,
-                 plugin.getConfig().getInt("progression.work.oreExtraction.default", 0));
-        award(e.getPlayer(), Domain.EXTRACTION, wp, kind);
+        int opportunity = plugin.getConfig().getInt("progression.work.extraction.opportunity." + kind,
+                plugin.getConfig().getInt("progression.work.extraction.opportunity.default", 0));
+        // Remember the block so the harvest half can be attributed to it once
+        // the drops are known. Cleared by the drop handler, or by the next
+        // break of the same position.
+        harvestable.put(e.getBlock().getLocation(), kind);
+        award(e.getPlayer(), Domain.EXTRACTION, opportunity, kind + " opportunity");
+    }
+
+    /**
+     * Extraction, harvest half: qH, from the material actually obtained.
+     *
+     * Using the drops rather than a predicted yield is what makes Fortune count
+     * without being modelled: whatever the break really produced is what the
+     * player really extracted. Silk touch yields the ore block itself, which is
+     * one qualifying item, because the opportunity was exploited but the
+     * material was deferred rather than multiplied.
+     */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void drops(BlockDropItemEvent e) {
+        if (!enabled()) return;
+        String kind = harvestable.remove(e.getBlock().getLocation());
+        if (kind == null) return;
+        boolean silk = e.getItems().stream().anyMatch(
+                item -> oreKind(item.getItemStack().getType()) != null);
+        if (silk) {
+            // UNRESOLVED IN AUTHORITY. Nothing in canon says how Silk Touch maps
+            // to H: the opportunity was exploited but the material was deferred
+            // rather than obtained, and whether deferral is harvest is a design
+            // question. The default credits no harvest, and the choice is
+            // configurable and labelled rather than decided here.
+            int h = plugin.getConfig().getInt("progression.work.extraction.silkTouchHarvest", 0);
+            if (h > 0) award(e.getPlayer(), Domain.EXTRACTION, h, kind + " silk-touch (UNRESOLVED)");
+            return;
+        }
+        int harvested = e.getItems().stream()
+                .mapToInt(item -> item.getItemStack().getAmount()).sum();
+        if (harvested <= 0) return;
+        int q = plugin.getConfig().getInt("progression.work.extraction.harvestCoefficient", 1);
+        award(e.getPlayer(), Domain.EXTRACTION, q * harvested,
+                kind + " harvest x" + harvested);
     }
 
     /** The resource an ore block yields, or null if the block is not ore. */

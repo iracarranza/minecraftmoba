@@ -132,15 +132,21 @@ progression:
   # Block placement 2 WP total. Those are explicitly not canon until
   # undertaking throughput is tested.
   #
-  # Extraction has a specified RULE -- progression measures what it took to
-  # acquire, never what was obtained, so Fortune must not multiply it -- but no
-  # published coefficient. These magnitudes are therefore NON-CANON ALPHA
-  # FIXTURES, set so that a block costing more work is worth more, and nothing
-  # here is a balance claim.
-  work:
-    ordinaryPlacement: 1
-    constructionBlockPlacement: 2
-    oreExtraction:
+  # Extraction is opportunity plus harvest: WP = A(O) + qH.
+  #
+  # A(O) credits exploiting one physical opportunity and is paid once per ore
+  # block broken. H is the qualifying harvest actually obtained, read from the
+  # real drops, and q converts it to points. Fortune therefore raises H and
+  # never A(O): one ore block does not become 2.2 opportunities, but the extra
+  # material really was extracted and is additional Extraction work.
+  #
+  # Both A and q are NON-CANON ALPHA FIXTURES. Note the consequence of q=1:
+  # multi-drop ores (redstone 4-5, lapis 4-9, copper 2-5) accrue more harvest
+  # WP than single-drop ores, which is a calibration question rather than a
+  # model question and is deliberately not tuned away here.
+  extraction:
+    harvestCoefficient: 1
+    opportunity:
       default: 0
       coal: 1
       copper: 1
