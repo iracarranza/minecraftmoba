@@ -278,6 +278,7 @@ public final class Match implements Listener {
         int routes = plugin.routes() != null ? plugin.routes().reset() : 0;
         int infra = plugin.infraMode() != null ? plugin.infraMode().reset() : 0;
         int contrib = plugin.contributions() != null ? plugin.contributions().reset() : 0;
+        if (plugin.workPoints() != null) plugin.workPoints().reset();
         worldInstance.restore();
         // Renewables bind to a world UUID, and restore() produces a *new* world.
         // Rebuilding before the restore would rebind to the world about to be

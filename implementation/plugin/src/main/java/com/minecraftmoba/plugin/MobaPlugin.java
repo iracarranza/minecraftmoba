@@ -48,6 +48,19 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public LockedSlots lockedSlots() { return lockedSlots; }
     private HungerRegen hungerRegen;
     private HungerDisplay hungerDisplay;
+    private WorkPoints workPoints;
+    public WorkPoints workPoints() { return workPoints; }
+    public Settings settings() { return settings; }
+
+    /**
+     * Apply everything a level change implies: rewards, automatic grants, HUD.
+     * Shared so gameplay progression and the admin grant take the same path.
+     */
+    public void applyProgression(Player p, PlayerData d, int levelBefore) {
+        for (int lvl = levelBefore + 1; lvl <= d.level; lvl++) rewards.levelUp(p, lvl);
+        sync(p, d);
+        rewards.invalidate(p);
+    }
     public HungerDisplay hungerDisplay() { return hungerDisplay; }
     public HungerRegen hungerRegen() { return hungerRegen; }
     private HealthDisplay healthDisplay;
@@ -89,6 +102,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
+        workPoints = new WorkPoints(this);
+        getServer().getPluginManager().registerEvents(workPoints, this);
         hungerDisplay = new HungerDisplay(this);
         getServer().getPluginManager().registerEvents(hungerDisplay, this);
         healthDisplay = new HealthDisplay(this);
@@ -349,6 +364,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         }
         if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("worksite")) return worksiteCommand(sender, args);
+        if (args.length >= 1 && args[0].equalsIgnoreCase("work")) {
+            Player target = args.length > 1 ? org.bukkit.Bukkit.getPlayerExact(args[1])
+                          : (sender instanceof Player sp ? sp : null);
+            if (target == null) { sender.sendMessage("/moba work [player]"); return true; }
+            workPoints.report(target).forEach(sender::sendMessage);
+            return true;
+        }
         if (args.length >= 1 && args[0].equalsIgnoreCase("route")) {
             sender.sendMessage("routes=" + routes.routes().size()
                     + " pendingDesignations=" + routes.pendingCount()
@@ -522,11 +544,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     int amount = Integer.parseInt(args[2]);
                     if (amount < 0) throw new IllegalArgumentException("XP amount must be nonnegative.");
                     long total = (long)d.xp + amount;
-                    while (total >= settings.xpPerLevel() && d.level < settings.maxLevel()) {
-                        total -= settings.xpPerLevel(); d.level++;
-                        rewards.levelUp(p, d.level);
+                    int before = d.level;
+                    while (d.level < settings.maxLevel() && total >= workPoints.costOf(d.level)) {
+                        total -= workPoints.costOf(d.level); d.level++;
                     }
                     d.xp = (int)Math.min(total, Integer.MAX_VALUE);
+                    for (int lvl = before + 1; lvl <= d.level; lvl++) rewards.levelUp(p, lvl);
                 }
                 default -> { return false; }
             }

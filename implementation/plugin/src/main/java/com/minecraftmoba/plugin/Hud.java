@@ -58,8 +58,11 @@ public final class Hud implements Listener {
 
         int line = 10;
         var task = plugin.taskEffects();
+        var wp = plugin.workPoints();
+        String progress = wp == null ? String.valueOf(d.xp)
+                : d.xp + "" + ChatColor.DARK_GRAY + "/" + ChatColor.WHITE + wp.costOf(d.level);
         set(obj, line--, ChatColor.GRAY + "Level " + ChatColor.WHITE + d.level
-                + ChatColor.GRAY + "  XP " + ChatColor.WHITE + d.xp);
+                + ChatColor.GRAY + "  WP " + ChatColor.WHITE + progress);
         set(obj, line--, ChatColor.GRAY + "Class " + ChatColor.WHITE + (d.classId == null ? "none" : d.classId));
         set(obj, line--, " ");
         set(obj, line--, ChatColor.GRAY + "Health  " + ChatColor.WHITE + fmt(p.getMaxHealth()));

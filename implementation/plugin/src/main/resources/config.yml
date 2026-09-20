@@ -1,6 +1,10 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # Work Points: gameplay-driven progression. Only domains whose contribution
+  # rule is specified enough to implement are wired; see
+  # docs/analysis/alpha-0.1-progression.md.
+  workPoints: { enabled: true, announce: true }
   # The plugin draws the Hunger readout because the vanilla row cannot
   # distinguish an empty drumstick from one beyond the player's Capacity.
   # Requires the resource pack, which blanks the vanilla row; without it the
@@ -111,7 +115,42 @@ classes:
 # Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
 progression:
   maxLevel: 30
+  # Retained as the fallback when a level falls outside every band.
   xpPerLevel: 100
+  # WP required to leave each level. ALPHA CALIBRATION, supplied for the
+  # progression integration pass; not derived here and not canon.
+  bands:
+    "1-6": 40
+    "7-12": 54
+    "13-19": 75
+    "20-24": 103
+    "25-30": 130
+  # WP per recognized action.
+  #
+  # Construction uses the manuscript's own initial sensitivity fixtures
+  # (UAU supplement section 11): ordinary useful placement 1 WP, Construction
+  # Block placement 2 WP total. Those are explicitly not canon until
+  # undertaking throughput is tested.
+  #
+  # Extraction has a specified RULE -- progression measures what it took to
+  # acquire, never what was obtained, so Fortune must not multiply it -- but no
+  # published coefficient. These magnitudes are therefore NON-CANON ALPHA
+  # FIXTURES, set so that a block costing more work is worth more, and nothing
+  # here is a balance claim.
+  work:
+    ordinaryPlacement: 1
+    constructionBlockPlacement: 2
+    oreExtraction:
+      default: 0
+      coal: 1
+      copper: 1
+      iron: 2
+      gold: 3
+      redstone: 2
+      lapis: 2
+      diamond: 4
+      emerald: 4
+      ancient_debris: 6
   task:
     tierMax: 3
     efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
