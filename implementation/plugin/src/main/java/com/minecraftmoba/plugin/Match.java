@@ -80,6 +80,8 @@ public final class Match implements Listener {
         resetFields();
         World w = worldInstance.load();
         loadHomelands(w);
+        int renewables = plugin.resetRenewables();
+        plugin.getLogger().info("[match] bound " + renewables + " renewable source(s)");
         state = State.IDLE;
         return "Alpha instance '" + w.getName() + "' loaded. Homelands: "
                 + homelands.keySet() + ". Add players, then /moba match start.";
@@ -270,8 +272,11 @@ public final class Match implements Listener {
         }
         resetFields();
         plugin.worksites().reset();
-        int renewables = plugin.resetRenewables();
         worldInstance.restore();
+        // Renewables bind to a world UUID, and restore() produces a *new* world.
+        // Rebuilding before the restore would rebind to the world about to be
+        // discarded, which is the stale-binding bug this is meant to prevent.
+        int renewables = plugin.resetRenewables();
         return "Match reset: state cleared (worksites, " + renewables
                 + " renewable source(s)), world restored from template.";
     }

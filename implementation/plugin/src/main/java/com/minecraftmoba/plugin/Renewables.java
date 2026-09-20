@@ -98,7 +98,16 @@ public final class Renewables implements Listener {
             String base = "renewables.sources." + id + ".";
             String worldName = plugin.getConfig().getString(base + "world");
             World w = worldName == null ? null : Bukkit.getWorld(worldName);
-            if (w == null) throw new IllegalArgumentException(base + "world is not a loaded world");
+            if (w == null) {
+                // The Alpha instance is not loaded until a match opens, so a
+                // source bound to it cannot resolve at startup. That is an
+                // ordering fact rather than a bad config, and sources are
+                // rebuilt once the world exists. A genuinely wrong world name
+                // shows up here by never being bound.
+                plugin.getLogger().warning("renewable source '" + id + "' references world '"
+                        + worldName + "', which is not loaded; skipped for now");
+                continue;
+            }
             Type type;
             try { type = Type.valueOf(plugin.getConfig().getString(base + "type", "").toUpperCase(Locale.ROOT)); }
             catch (IllegalArgumentException ex) { throw new IllegalArgumentException(base + "type must be CROP, ANIMAL or SWARM"); }

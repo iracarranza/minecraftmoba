@@ -1,0 +1,17 @@
+[17:34:43 WARN]: renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:43 WARN]: renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
+[17:34:55 INFO]: [match] bound 12 renewable source(s)
+[17:34:55 INFO]: Alpha instance 'alpha_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.
+[17:35:17 INFO]: Match reset: state cleared (worksites, 12 renewable source(s)), world restored from template.
+[17:35:35 INFO]: [match] bound 12 renewable source(s)
+[17:35:35 INFO]: Alpha instance 'alpha_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.

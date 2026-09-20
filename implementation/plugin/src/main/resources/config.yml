@@ -203,7 +203,134 @@ provenance:
 # registers sources it is given; it never generates them.
 renewables:
   sampleTicks: 200
-  sources: {}
+  # Sources are the frozen Consolidative Alpha map's own authored placements:
+  # renewable_range pens and founder_crop patches, at the coordinates the map
+  # was built with. They bind to the match instance world, so they resolve only
+  # once a match has opened and are rebuilt on reset.
+  #
+  # capacity and recoverTicks are NON-CANON ANALYTICAL FIXTURES: canon settles
+  # that renewable sources deplete and recover, not the magnitudes.
+  sources:
+    rabbit_0_3:
+      world: alpha_match
+      type: ANIMAL
+      kind: rabbit
+      x: -2448
+      y: 92
+      z: -48
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_0_5:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2448
+      y: 98
+      z: 208
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    cow_0_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: cow
+      x: -2448
+      y: 94
+      z: 336
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_2_3:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2192
+      y: 90
+      z: -112
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_2_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2160
+      y: 99
+      z: 304
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    rabbit_3_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: rabbit
+      x: -2032
+      y: 90
+      z: 304
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    chicken_4_1:
+      world: alpha_match
+      type: ANIMAL
+      kind: chicken
+      x: -1904
+      y: 66
+      z: -336
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_4_4:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -1936
+      y: 66
+      z: 16
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    carrots_0_3:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -2384
+      y: 92
+      z: -112
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    potatoes_0_6:
+      world: alpha_match
+      type: CROP
+      kind: potatoes
+      x: -2384
+      y: 94
+      z: 336
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    carrots_2_3:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -2192
+      y: 90
+      z: -48
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    carrots_4_8:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -1906
+      y: 66
+      z: 510
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
 
 # Alpha 0.1 match lifecycle.
 #
