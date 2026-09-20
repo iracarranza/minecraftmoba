@@ -14,11 +14,17 @@ import java.util.*;
 /**
  * Progression readout.
  *
- * A plugin cannot add HUD elements — only a resource pack can draw new overlays.
- * What is available is the sidebar, the boss bar and the action bar, so this
- * uses a sidebar for persistent state and a boss bar for active modes. It is a
- * readout on vanilla surfaces, not a custom HUD, and naming it otherwise would
- * overstate what was built.
+ * This is the plain-text baseline, deliberately usable with no resource pack.
+ *
+ * A plugin alone cannot add HUD elements, but a resource pack turns a bossbar
+ * title into an arbitrary drawing surface: private-use codepoints mapped to
+ * image glyphs, positioned with negative-space glyphs, render icons, panels and
+ * meters inside what is nominally text. Large servers do exactly this. Position
+ * stays fixed to the bossbar strip and the sidebar column, which is the limit
+ * that remains real.
+ *
+ * The drawn layer belongs behind its own flag so a missing or mismatched pack
+ * degrades to legible text rather than tofu boxes. See PHASE2-DRAFT.md §1.
  *
  * Disable with features.hud.enabled.
  */

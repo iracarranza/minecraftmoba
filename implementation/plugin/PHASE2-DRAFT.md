@@ -72,18 +72,48 @@ Not offered: anything infrastructure-recognizing, which stays out of Phase 2.
 
 ## 1. Custom inventory HUD
 
-**Honest constraint first.** A plugin cannot add new HUD elements. Only a
-resource pack can draw custom overlays. What a plugin *can* drive:
+**Corrected 20 September 2026.** An earlier draft said a plugin cannot add HUD
+elements and proposed a plain sidebar. That was true of the plugin *alone* and
+misleading in context, because this project already ships a resource pack.
 
-| Surface | Use | Cost |
-| --- | --- | --- |
-| Action bar | transient state (mode, cooldown) | free, ephemeral |
-| Boss bar | persistent bar with label and colour | one bar slot |
-| Sidebar objective | persistent multi-line readout | blocks other sidebar use |
-| Inventory slot locking | already implemented in `Capacity` | — |
+With a resource pack, **a bossbar title is an arbitrary drawing surface.** Map
+private-use codepoints to image glyphs, use negative-space glyphs to position
+them, and a title component can render icons, panels and bars — not just text.
+A Hypixel Blockwars screenshot shows the technique in production: stacked
+bossbars carrying a strip of player heads, a round counter, team icons and a
+status banner, each sitting on a drawn background panel, with a conventional
+scoreboard sidebar alongside.
 
-Proposed: a **sidebar** showing capacity as numbers plus a **boss bar** used only
-while a mode is active. Both off by default behind `features.hud.enabled`.
+### What each surface can actually do
+
+| Surface | With plain text | With resource-pack glyphs | Cost |
+| --- | --- | --- | --- |
+| Boss bar | label + coloured bar | arbitrary pixels in the title strip | one bar slot each, stacks vertically |
+| Action bar | transient text | icon row, drawn meters | ephemeral, one line |
+| Sidebar objective | multi-line text | glyph columns, suppressed numbers | blocks other sidebar use |
+| Inventory slot locking | — | — | already implemented in `Capacity` |
+
+### The limits that remain real
+
+- **Position is fixed.** Bossbars occupy the top-centre strip and the sidebar
+  the right column. Glyphs can draw anything *within* those regions; they cannot
+  move a readout to an arbitrary screen coordinate, anchor it to the hotbar, or
+  overlay the inventory screen.
+- **Bar slots are finite in practice.** Each stacked bossbar pushes the next
+  down and eats vertical space.
+- **Sidebar numbers** need 1.20.3+ blank number formatting to suppress.
+- **It is a shared dependency.** The pack and the plugin must agree on the
+  codepoint map, so a pack version mismatch produces tofu boxes rather than a
+  degraded readout. The plugin should therefore send text that is *readable
+  without* the pack wherever possible.
+
+### Proposed, revised
+
+Keep `features.hud.enabled` gating a plain-text sidebar and a mode bossbar as
+the **baseline that works with no pack at all**, and add
+`features.hud.glyphs.enabled` as a separate flag layering the drawn version on
+top. That keeps the pack dependency revertible on its own and means a missing
+or mismatched pack degrades to legible text instead of breaking the readout.
 
 ```
 on join / on capacity change / on level change:
@@ -94,15 +124,30 @@ on join / on capacity change / on level change:
         "Hunger   " + curMaxHunger + "/" + capMax,
         "Slots    " + unlockedSlots + "/36",
         "Eff " + effTier + "  Yield " + yieldTier + "  Dmg " + dmgTier,
-        pendingChoices > 0 ? "! " + pendingChoices + " reward(s) — press G" : ""
+        pendingChoices > 0 ? "! " + pendingChoices + " reward(s) - press G" : ""
     ])
 
 on mode enter(kind):  bossbar(player).show(kind.label, kind.colour)
 on mode exit:         bossbar(player).hide()
+
+# Layered, only when a pack is present and features.hud.glyphs.enabled:
+on refresh(player):
+    bossbar("status").title(
+        glyph.panel()                      # drawn background
+      + glyph.icon(class)                  # class sigil
+      + glyph.meter("capacity", used, max) # drawn bar, not text
+      + glyph.space(-4)                    # negative space for alignment
+      + text(level)
+    )
 ```
 
-`[OPEN]` Whether the sidebar is the right surface at all, since it is the only
-one and infrastructure may want it later.
+`[OPEN]` Whether the drawn version replaces the sidebar or sits above it, and
+whether ability cooldowns belong in the bossbar strip or the action bar. Neither
+is settled, and the glyph flag lets both be tried without disturbing the
+baseline.
+
+`[OPEN]` The codepoint map itself is resource-pack content and is not designed
+here.
 
 ## 2. Advancement tree for level-up rewards
 
@@ -382,7 +427,7 @@ state with nothing to clear it between matches.
 1. Sentinel skull (smallest, self-contained, immediately visible)
 2. Genuine level-up rewards + task effects
 3. Advancement tree
-4. HUD
+4. HUD baseline (text), then the glyph layer separately
 5. Renewable kinds, particles, authoring commands
 6. Infrastructure Mode + Quick Actions dialog
 7. Routes + sprint efficiency
