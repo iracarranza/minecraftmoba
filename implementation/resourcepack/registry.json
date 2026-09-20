@@ -1,0 +1,32 @@
+{
+  "schema": "moba_glyph_registry/1",
+  "note": "The contract between the plugin and the resource pack. The plugin emits these codepoints; the pack draws them. Nothing here is a visual decision: it assigns identities and sizes, not appearances.",
+  "private_use_base": "U+E000",
+  "glyph_height": 16,
+  "glyph_ascent": 12,
+  "groups": {
+    "status": {
+      "purpose": "Status and stack icons shown beside a readout.",
+      "ids": ["status_placeholder_1", "status_placeholder_2", "status_placeholder_3",
+              "status_placeholder_4", "status_placeholder_5", "status_placeholder_6"]
+    },
+    "ability": {
+      "purpose": "Ability slots. Count follows the harness class inputs: A1, A2, ultimate.",
+      "ids": ["ability_a1", "ability_a2", "ability_ult", "ability_placeholder_4"]
+    },
+    "capacity": {
+      "purpose": "Capacity and progression readout pieces.",
+      "ids": ["capacity_full", "capacity_empty", "capacity_partial",
+              "slot_locked", "slot_unlocked"]
+    },
+    "panel": {
+      "purpose": "Background panel pieces for a bossbar title strip.",
+      "ids": ["panel_left", "panel_fill", "panel_right"]
+    },
+    "infrastructure": {
+      "purpose": "The four recognized forms plus the Level 6 alternative.",
+      "ids": ["form_construct", "form_development_zone", "form_route",
+              "form_supply_line", "form_monster_combat"]
+    }
+  }
+}
