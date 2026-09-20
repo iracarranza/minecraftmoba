@@ -49,10 +49,17 @@ ORE = {
     'minecraft:ancient_debris': 'ancient_debris',
 }
 
-# Naturally generated plants. Crops are excluded on purpose: wheat and potatoes
-# do not generate outside villages, so counting them would measure structures
-# rather than ecology.
+# Plant opportunity. Naturally generated plants, plus authored crops.
+#
+# An earlier version excluded crops on the grounds that wheat and potatoes do
+# not generate outside villages. That reasoning was wrong for this project:
+# crop patches are authored content here, exactly as herds and swarms are, so a
+# crop block in the world is a placed opportunity and counting it is the point.
+# Farmable land is still counted separately, as the candidate for an unplaced
+# patch.
 VEGETATION = {
+    'minecraft:wheat': 'wheat', 'minecraft:potatoes': 'potatoes',
+    'minecraft:carrots': 'carrots', 'minecraft:beetroots': 'beetroot',
     'minecraft:sugar_cane': 'sugar_cane', 'minecraft:bamboo': 'bamboo',
     'minecraft:kelp': 'kelp', 'minecraft:kelp_plant': 'kelp',
     'minecraft:sweet_berry_bush': 'sweet_berries', 'minecraft:cactus': 'cactus',
