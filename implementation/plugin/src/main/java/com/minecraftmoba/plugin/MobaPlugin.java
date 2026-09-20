@@ -43,6 +43,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Contributions contributions() { return contributions; }
     private LockedSlots lockedSlots;
     public LockedSlots lockedSlots() { return lockedSlots; }
+    private HungerRegen hungerRegen;
+    public HungerRegen hungerRegen() { return hungerRegen; }
+    /** Effective maximum Hunger for a player, for rules expressed relative to it. */
+    public int effectiveHunger(Player p) {
+        return Math.min(20, capacity(data(p)).effectiveHunger());
+    }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private PacketInputs packets;
@@ -64,6 +70,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         rewardAdvancements = new RewardAdvancements(this);
         contributions = new Contributions(this);
         lockedSlots = new LockedSlots(this);
+        hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(lockedSlots, this);
         durability = new Durability(this);
         getServer().getPluginManager().registerEvents(durability, this);
@@ -264,6 +271,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
             }
             return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("regen")) {
+            if (!(sender instanceof Player rp)) { sender.sendMessage("Player only"); return true; }
+            sender.sendMessage(hungerRegen.report(rp)); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("slots")) {
             if (!(sender instanceof Player sp)) { sender.sendMessage("Player only"); return true; }

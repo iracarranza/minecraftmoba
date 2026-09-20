@@ -1,6 +1,17 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
+  # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
+  # so vanilla regeneration can never fire on the canonical curve. pointsBelowMax
+  # of 2 reproduces vanilla's own relationship (18 of 20) at any maximum.
+  # The 6-food sprint cutoff is vanilla and is deliberately NOT reimplemented.
+  hungerRegen:
+    enabled: true
+    pointsBelowMax: 2
+    intervalTicks: 80
+    healAmount: 1.0
+    exhaustionPerHeal: 6.0
   lockedSlots:
     enabled: true
     # Must be unobtainable in survival: a material a player can hold would let

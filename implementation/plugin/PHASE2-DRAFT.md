@@ -385,13 +385,16 @@ player holding an ordinary skull.
 
 Drafted as pseudocode for review, not queued for build:
 
-**a. Hunger-gated sprint cutoff.** classes.md fixes sprinting unavailable at
-**6 Hunger or below** and builds the whole reserve model on it. Nothing
-implements it.
+**a. ~~Hunger-gated sprint cutoff~~ — not needed; corrected 20 September.**
+The 6-food sprint cutoff is **vanilla behaviour**, not something to reimplement.
+Three drumsticks is the fixed floor the Hunger reserve is measured against, and
+it is absolute by design.
 
-```
-every tick (throttled): if foodLevel <= config.hunger.sprintCutoff: cancel sprint
-```
+The real defect next door was regeneration. Vanilla natural regeneration
+requires food >= 18, and Capacity caps food at effectiveHunger, which starts at
+**9**. Those two absolutes are incompatible: a player on the canonical curve
+could never regenerate health at all. Regeneration is now expressed relative to
+the player's own maximum — implemented in `HungerRegen`.
 
 **b. Restricted material categories.** classes.md defines Primary Materials
 (iron, gold, diamond, netherite, leather) and Construction Blocks with
