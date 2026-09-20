@@ -184,3 +184,48 @@ class ContractTests(unittest.TestCase):
         src = (WORLDGEN / 'terrain_harvest' / 'massing.py').read_text()
         for token in ('mining_site', 'MiningSite', 'industrial_factory'):
             self.assertNotIn(token, src)
+
+
+class RescanTests(unittest.TestCase):
+    """The rescan must be comparable to the proxy, not merely plausible."""
+
+    def test_cost_model_is_the_unchanged_shared_parameters(self):
+        from terrain_harvest import rescan
+        from vanilla_search.task_a import PARAMETERS
+        # Comparing measured reach against the proxy is only meaningful if both
+        # use the weights that sited the structures. A local copy would drift.
+        self.assertIs(rescan.PARAMETERS, PARAMETERS)
+
+    def test_reach_is_reported_in_the_optimizer_s_units(self):
+        from terrain_harvest import rescan
+        self.assertAlmostEqual(rescan.SPRINT, 5.612)
+
+    def test_ndiff_matches_the_optimizer_definition(self):
+        from terrain_harvest.rescan import ndiff
+        self.assertEqual(ndiff(0, 0), 0.0)
+        self.assertAlmostEqual(ndiff(100, 200), 2 / 3)
+        self.assertAlmostEqual(ndiff(50, 50), 0.0)
+
+    def test_rebalance_is_unresolved_when_sites_are_missing(self):
+        from terrain_harvest.rescan import rebalance
+        cfg = {'founders': [{'cell': [0, 0], 'bias': 'north'}], 'renewables': [],
+               'worksites': [], 'pois': [], 'route_targets': {'north': [], 'south': []}}
+        self.assertIn('unresolved', rebalance(cfg, []))
+
+    def test_rotated_grid_is_refused_not_silently_compared(self):
+        from terrain_harvest.rescan import measure
+        candidate = {'orientation': {'rotation_degrees_clockwise': 90,
+                                     'east_west_reflected': False}}
+        with self.assertRaises(ValueError):
+            measure(Path('/nonexistent'), candidate, {'placements': []}, None)
+
+    def test_water_and_lava_are_not_buildable(self):
+        from terrain_harvest import rescan
+        self.assertIn('minecraft:water', rescan.WATER)
+        self.assertIn('minecraft:lava', rescan.NONBUILDABLE)
+
+    def test_dirt_path_gets_no_intrinsic_bonus(self):
+        # The contract forbids a movement-speed bonus. A Route may only measure
+        # faster because decking and clearing removed real terrain penalties.
+        src = (WORLDGEN / 'terrain_harvest' / 'rescan.py').read_text()
+        self.assertNotIn('dirt_path', src.split('"""', 2)[2])
