@@ -438,3 +438,36 @@ Source: World and Match Systems, Infrastructure System New Design Handoff, 10 Se
 A depth-Z region MNOP can become well supplied while remaining exposed to traffic attracted by Q, including a nearby objective or an approach through the region. Recognition and logistical efficiency do not automatically remove contestability. Low-exposure remote settlements remain valid. Strategic Exposure is not a recognition-invalidity test; existing systemic versus emergent disruption rules still govern.
 
 **Working modeling direction.** Measure actual upstream deposits, batch timing, utilization, delivery and demand satisfaction. Carrying capacity, production, deposit, transport and consumption are different quantities; no stock is created when a source is empty. This adds no new Flow Weight formula, pulse cadence, carrier commitment, or transfer execution rule. The existing authored-versus-derived Flow Weight conflict remains Open. Regenerative world opportunity is also distinct from recognized redistribution of already acquired items.
+
+
+---
+
+## 19 September 2026 reconciliation — personal contributions and Worksite capacity
+
+**Working canon.** This section supersedes earlier current-facing language that treats Level 6 primarily as receipt of a fungible generic Infrastructure slot. The four established Infrastructure forms remain **Construct, Development Zone, Route, and Supply Line**, with their existing recognition grammars intact.
+
+### Personal Infrastructure contribution
+
+At Level 6, a player's authored progression may fork between **Infrastructure contribution** and **Monster Combat**. Choosing Infrastructure allows that player to contribute **one class-compatible Infrastructure form** to the team. Later individual upgrades may increase the quantity and/or quality of that player's chosen contribution. Multiple players may choose the same form, allowing deliberate concentration rather than merely unlocking categories once per team.
+
+Eligibility is authored per class and may be asymmetric. It is not automatically inherited from archetype tags, and classes need not receive equal option counts. Current examples under discussion are Mole with plausible Route/Construct eligibility and Kitfighter with Monster Combat only; these examples do **not** settle the complete compatibility matrix.
+
+The common progression grammar is therefore:
+
+> choose a persistent contribution → exercise it through Minecraft-native evidence and recognition → later improve that player's contribution
+
+Do not force every Infrastructure form into an identical numerical quantity/quality formula. Construct scale/count, Route reach/network extent, Supply Line network/throughput capability, and Development Zone supported productive state may express advancement differently.
+
+### Monster Combat branch
+
+Monster Combat is the alternative to Infrastructure contribution, not a fifth Infrastructure type. Smite, Bane of Arthropods, and related otherwise-underused monster-facing enchantment vocabulary are candidates for this branch. Exact branches and Mob-Swarm interactions remain **[OPEN]**.
+
+### Shared Worksite Infrastructure opportunity
+
+First capitalization of an activated Worksite grants the first team **one bonus shared Infrastructure opportunity**. This is team-owned organizational capacity, distinct from any player's class-bounded personal contribution.
+
+Current direction is that the shared opportunity can be allocated flexibly to an eligible Infrastructure form, allowing a team to broaden or reinforce its infrastructure portfolio and potentially compensate for class-composition limitations. Exact allocation, reassignment, ownership UI, and how a shared opportunity receives later quality/quantity advancement remain **[OPEN]**.
+
+**First Capture is not Exclusive Control.** The team that first capitalizes a Worksite permanently retains the earned shared Infrastructure opportunity, while later control and exploitation of the Worksite can change hands.
+
+The reward does not itself award flat Work Points or XP. Its value is persistent Work Stock: greater future Infrastructure breadth/capability can expand Practical Reach and future useful Work Flow.

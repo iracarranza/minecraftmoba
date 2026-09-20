@@ -2126,3 +2126,151 @@ Keep design, implementation, and validation status separate. Update cross-refere
 **[WB] WAMS Handoff: Infrastructure Benefits and Logistics / Supply Line Redefinition.** 11 September 2026, working-canon handoff, supplied complete. Supersedes the origin-first Supply Line formulation and selects Structural Integrity as the preferred intrinsic Construct benefit. See docs/reconciliation/2026-09-11-logistics.md.
 
 **[WI] Infrastructure System New Design Handoff.** World and Match Systems, 10 September 2026, working-canon handoff. Retrieved text covers sections 1–19 and begins section 20; the retrieval truncates there. Integration context was independently available in the preceding framework discussion and canonical class/objective text. [VERIFY RECENCY] Any unseen continuation beyond that retrieval is not claimed as incorporated. [Source conversation](https://chatgpt.com/c/6aa1edb8-4594-83e9-98cb-fd0870e52b5b).
+
+---
+
+# 15. Current Reconciliation — 19 September 2026
+
+This section records later explicit design decisions and supersedes conflicting earlier manuscript passages while preserving them as historical record.
+
+## 15.1 Copper equipment tier
+
+**Working canon.** Copper is a **Primary Material**. Earlier manuscript/root language excluding Copper from Primary Materials is superseded.
+
+Copper equipment is the intentional buffer between Stone and Iron:
+
+> **Stone — disposable → Copper — replaceable / field-standard metal → Iron — stable / reliable → Diamond — high-value capital → Netherite — premier late-game capital**
+
+Copper therefore creates room to compress the early durability economy around Stone and Copper while allowing Iron to occupy a distinctly more stable equipment position. Exact durability values remain **[OPEN]**. Previously discussed numerical durability lifetimes are sensitivity fixtures, not canon.
+
+This is an equipment-economy relationship rather than a claim that every tier must have evenly spaced durability. Retaining durability remains important where equipment wear can create meaningful replacement/Production demand, but armor, tools, and weapons may require different match-scale curves.
+
+## 15.2 Level 6 Infrastructure / Monster Combat fork
+
+**Working canon.** At Level 6, authored class progression may offer a choice between contributing one **class-compatible Infrastructure form** to the team and specializing into **Monster Combat**.
+
+An Infrastructure chooser contributes one persistent form rather than receiving a freely interchangeable generic slot. Later personal progression may improve the quantity and/or quality of that contribution. Multiple players can choose the same Infrastructure form to concentrate team capability.
+
+Eligibility is partially class-authored and asymmetric; archetype tags do not automatically grant every corresponding Infrastructure system. Classes need not have equal option counts. Current examples — Mole plausibly choosing Route or Construct, Kitfighter potentially Monster Combat only — are examples of the model, not a completed compatibility matrix.
+
+Monster Combat is not a fifth Infrastructure form. Smite, Bane of Arthropods, and related monster-facing enchantment vocabulary belong on that side of the fork as candidates; exact mechanics remain **[OPEN]**.
+
+## 15.3 Worksite-earned shared Infrastructure
+
+Personal Infrastructure contribution is distinct from the reward for first-capitalizing an activated Worksite.
+
+The first team to capitalize a Worksite gains **one shared team Infrastructure opportunity**. It belongs to the team rather than the individual capturer and is currently intended to be flexibly allocable so Worksite success can broaden or reinforce the team's Infrastructure portfolio beyond personal class restrictions. Exact allocation and later advancement rules remain **[OPEN]**.
+
+The reward is persistent organizational capacity / Work Stock, not a direct XP award. **First Capture is not Exclusive Control:** the earned team opportunity persists even if the opposing team later controls or exploits the Worksite.
+
+
+### 15.1.1 Current durability calibration candidate
+
+**NON-CANON BALANCE-TEST CANDIDATE.** The qualitative Copper tier above has already been tested against a compressed pickaxe durability curve. Preserve this as the current sensitivity model rather than treating durability as wholly unspecified:
+
+| Tier | Candidate base uses | Expected uses with Unbreaking I | Approx. operations at ~40 uses/op |
+|---|---:|---:|---:|
+| Wood | 16 | ~32 | ~0.8 |
+| Stone | 36 | ~72 | ~1.8 |
+| Copper | 60 | ~120 | ~3.0 |
+| Iron | 96 | ~192 | ~4.8 |
+
+For a player continuing the Efficiency/Unbreaking task family, the same Iron fixture reaches roughly **288 effective uses with Unbreaking II (~7.2 operations)** and **384 with Unbreaking III (~9.6 operations)**.
+
+These values are a calibration fixture, **not canon durability values**. Their purpose is to test the intended economic spacing:
+
+> **Wood temporary → Stone disposable → Copper replaceable legitimate equipment → Iron reliable equipment**
+
+Copper is what allows meaningful early equipment churn to occur primarily across Stone and Copper without requiring Iron to become the first merely serviceable/disposable metal tier.
+
+Do **not** automatically apply the 16/36/60/96 curve to every equipment category. Tools, weapons, and armor have different match-scale replacement pressures. Earlier 48-minute analysis indicates the working relationship **armor acquisition capital >> armor replacement**, while occupational pick consumption is more economically significant than ordinary sword replacement. Weapon and armor durability therefore require their own calibration while preserving the same broad tier identity where appropriate.
+
+For comparison, longer vanilla/current weapon durability values discussed during calibration (Wood 59, Stone 131, Copper 190, Iron 250, Diamond 1561, Netherite 2031) are reference points, not targets for the compressed match economy.
+
+
+### 15.1.2 Family-wide durability doctrine
+
+**Working design direction, 19 September 2026.** The durability economy applies to the **material equipment family as a whole**, even though identical raw durability values need not be assigned to every equipment category.
+
+The shared material identity remains:
+
+> **Wood temporary → Stone disposable → Copper replaceable legitimate equipment → Iron reliable equipment → Diamond high-value capital → Netherite premier late-game capital**
+
+Tools, weapons, and armor should preserve that relative economic relationship. The category-specific durability stat is a means of producing the intended match-scale lifetime, not the identity itself.
+
+A useful balancing model is:
+
+[
+L_e = \frac{D_e \times U_e}{R_e}
+]
+
+where:
+
+- (L_e) = expected useful match-scale lifetime for equipment category (e);
+- (D_e) = base durability;
+- (U_e) = expected effective-life multiplier from Unbreaking or equivalent persistence;
+- (R_e) = representative durability-consumption rate under the item's actual workload.
+
+This explains why the current **16 / 36 / 60 / 96** Wood/Stone/Copper/Iron curve can be a useful pickaxe/tool calibration without requiring a Stone sword, Copper sword, Iron sword, and every armor piece to use those exact same raw durability values. A mining tool can spend dozens of durability points during one meaningful extraction operation; weapons and armor experience different consumption patterns and therefore may require different raw durability to express the same material-tier lifetime.
+
+The family-wide target is behavioral:
+
+- **Stone** equipment should feel expendable and plausibly replaced during ordinary play.
+- **Copper** equipment should be legitimate field equipment but remain sufficiently replaceable that wear and replacement participate in the Production/material economy.
+- **Iron** equipment should mark a clear transition to reliable gear expected to survive repeated meaningful operations.
+- **Diamond** should behave as high-value capital rather than ordinary replacement stock.
+- **Netherite** should behave as premier late-game capital.
+
+Accordingly, do not interpret category-specific calibration as an exception to the material ladder. **The ladder is universal; raw durability is category-calibrated.**
+
+The existing 48-minute finding that **armor acquisition capital >> armor replacement** and that occupational pick consumption exceeds ordinary sword replacement is evidence for different category-specific raw curves, not for abandoning family-wide durability identity. Exact weapon and armor curves remain **[OPEN]** and should be derived from representative combat/damage workloads rather than copied mechanically from pickaxe uses.
+
+
+### 15.1.2 Family-wide durability doctrine
+
+**Working design doctrine.** The durability hierarchy belongs to the **material equipment family as a whole**, even when the literal durability stat does not.
+
+The intended material identity is:
+
+> **Stone — disposable → Copper — replaceable field equipment → Iron — reliable repeated-operation equipment → Diamond — high-value capital → Netherite — premier late-game capital**
+
+Tools, weapons, and armor should all communicate that ordering through their expected useful lifetime. Copper should therefore function as the family-wide buffer between Stone and Iron, not only as a pickaxe-specific tier. Its presence allows Stone/Copper to absorb most ordinary early replacement pressure while Iron marks a meaningful transition toward equipment expected to persist through repeated useful operations.
+
+Raw durability should be calibrated by **equipment workload**, rather than requiring every item made from a material to share one numerical durability value. A useful conceptual measure is:
+
+[
+L_e = \frac{D_e U_e}{R_e}
+]
+
+where:
+
+- (L_e) = expected useful lifetime of equipment category (e);
+- (D_e) = base durability;
+- (U_e) = expected effective-lifetime multiplier from Unbreaking;
+- (R_e) = durability-consumption rate under that category's relevant match workload.
+
+The purpose of this model is not to establish a final continuous-time formula. It states the balancing target: **material identity should be comparable in expected useful lifetime character, while raw durability can differ because mining tools, weapons, and armor consume durability through different workloads.**
+
+Accordingly:
+
+- a Stone pick should feel disposable as a mining implement;
+- Stone combat equipment should likewise feel disposable within its own combat workload;
+- Copper equipment should be legitimate field equipment that remains economically replaceable;
+- Iron equipment should normally survive repeated relevant operations and feel materially more stable than Copper;
+- Diamond and Netherite should increasingly behave as capital equipment rather than routine churn.
+
+The current **Wood 16 / Stone 36 / Copper 60 / Iron 96** fixture remains the concrete **non-canon pick/tool calibration candidate**, not a universal stat line for swords and armor. It demonstrates the desired spacing under a high-use occupational workload. Weapons and armor should be calibrated separately to produce the same broad material-tier identity under their own wear patterns.
+
+This distinction is economically important. A 96-use Iron pick can still represent reliable equipment because mining can consume tens of durability uses during one substantial operation, especially once universal Unbreaking is included. A 96-durability sword would face a different use rate and therefore need not represent the same lifetime. Armor distributes wear across multiple pieces and follows a different durability-consumption model again.
+
+Thus the current rule is:
+
+[
+\boxed{\text{shared material lifetime identity} \neq \text{necessarily shared raw durability}}
+]
+
+The design target is family-wide; the numerical curves are category-specific.
+
+Earlier match-scale analysis further suggests that **armor acquisition capital >> armor replacement**, while occupational tool wear is a stronger recurring equipment sink than ordinary sword replacement. This does not exempt armor or weapons from the family-wide durability identity; it means their category-specific curves may produce fewer replacements during a match while still preserving Stone → Copper → Iron → Diamond → Netherite as a legible stability progression.
+
+**[OPEN]** Final weapon and armor durability curves, the appropriate workload units for each category, and whether some closely related tool types can share one calibrated curve remain unresolved.
