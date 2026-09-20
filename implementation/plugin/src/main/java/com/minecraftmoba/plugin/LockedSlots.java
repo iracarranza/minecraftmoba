@@ -85,10 +85,42 @@ public final class LockedSlots implements Listener {
             ItemStack current = inv.getItem(slot);
             if (slot >= unlocked) {
                 if (current == null || current.getType().isAir()) inv.setItem(slot, marker());
+                else if (!isMarker(current)) evict(p, slot, current, unlocked);
             } else if (isMarker(current)) {
                 inv.setItem(slot, null);
             }
         }
+    }
+
+    /**
+     * Move a real item out of a locked slot, or drop it at the player's feet.
+     *
+     * Capacity is enforced by eviction rather than by forbidding interactions
+     * that might reach a locked slot. That distinction matters: the previous
+     * approach blanket-cancelled clicks on the player's own 2x2 crafting grid,
+     * which made baseline crafting impossible below full inventory capacity.
+     *
+     * Nothing is destroyed. The item goes to an unlocked slot when one has
+     * room, and otherwise to the ground, so an over-capacity player loses
+     * access to the item but never the item.
+     */
+    private void evict(Player p, int slot, ItemStack item, int unlocked) {
+        var inv = p.getInventory();
+        for (int target = 0; target < unlocked; target++) {
+            ItemStack dest = inv.getItem(target);
+            if (dest == null || dest.getType().isAir()) {
+                inv.setItem(target, item); inv.setItem(slot, marker()); return;
+            }
+            if (dest.isSimilar(item) && dest.getAmount() < dest.getMaxStackSize()) {
+                int room = dest.getMaxStackSize() - dest.getAmount();
+                int moved = Math.min(room, item.getAmount());
+                dest.setAmount(dest.getAmount() + moved);
+                item.setAmount(item.getAmount() - moved);
+                if (item.getAmount() <= 0) { inv.setItem(slot, marker()); return; }
+            }
+        }
+        inv.setItem(slot, marker());
+        p.getWorld().dropItemNaturally(p.getLocation(), item);
     }
 
     public void clear(Player p) {

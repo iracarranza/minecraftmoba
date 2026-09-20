@@ -60,13 +60,15 @@ class InventoryGuardTest {
         var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
         when(view.getTopInventory()).thenReturn(top);
         // Registry-backed InventoryType needs a live server; stub only that classification seam.
+        // The classification itself is covered by CraftingAccessTest, which is
+        // what this stub hid: it never distinguished one menu type from another.
         try (var policy=mockStatic(InventoryGuard.class)) {
-        policy.when(() -> InventoryGuard.returnsOnClose(null)).thenReturn(true);
+        policy.when(() -> InventoryGuard.guardsTemporaryMenu((org.bukkit.event.inventory.InventoryType) null)).thenReturn(true);
         var insert=mock(InventoryClickEvent.class);
         when(insert.getWhoClicked()).thenReturn(player); when(insert.getView()).thenReturn(view);
         when(insert.getClickedInventory()).thenReturn(top); when(insert.getHotbarButton()).thenReturn(-1);
         guard.click(insert); verify(insert).setCancelled(true);
-        policy.when(() -> InventoryGuard.returnsOnClose(null)).thenReturn(false);
+        policy.when(() -> InventoryGuard.guardsTemporaryMenu((org.bukkit.event.inventory.InventoryType) null)).thenReturn(false);
         var inv=mock(PlayerInventory.class); when(player.getInventory()).thenReturn(inv);
         when(inv.getMaxStackSize()).thenReturn(64);
         var incoming=stack(64);

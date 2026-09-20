@@ -38,7 +38,7 @@ public final class InventoryGuard implements Listener {
         }
         if (partial) {
             // Temporary menu contents are returned on close, outside cancellable transfer events.
-            if (returnsOnClose(e.getView().getTopInventory().getType())
+            if (guardsTemporaryMenu(e.getView().getTopInventory().getType())
                     && e.getClickedInventory() == e.getView().getTopInventory()) {
                 e.setCancelled(true); return;
             }
@@ -67,10 +67,14 @@ public final class InventoryGuard implements Listener {
             }
         }
         // Shift insertion does not expose its destination. Do not guess or relocate.
-        // From storage to a real external inventory is safe; armor/crafting -> player is not.
+        // From storage to a real external inventory is safe; armor -> player is not.
+        // The player's own inventory screen is exempt: shift-clicking between
+        // hotbar and storage, and shift-crafting out of the 2x2 result, are
+        // baseline actions. A locked slot cannot receive them because
+        // LockedSlots keeps a marker in it, and anything that does land in one
+        // is evicted on the next refresh.
         if (e.isShiftClick() && plugin.unlockedSlots(p) < 36
-                && (!own || e.getView().getTopInventory().getType() == InventoryType.CRAFTING
-                    || e.getView().getTopInventory().getType() == InventoryType.CREATIVE)) {
+                && (!own || e.getView().getTopInventory().getType() == InventoryType.CREATIVE)) {
             e.setCancelled(true); return;
         }
         // Double-click collection can consume stacks from locked slots or the map.
@@ -81,7 +85,7 @@ public final class InventoryGuard implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void drag(InventoryDragEvent e) {
         if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
-        if (plugin.unlockedSlots(p)<36 && returnsOnClose(e.getView().getTopInventory().getType())
+        if (plugin.unlockedSlots(p)<36 && guardsTemporaryMenu(e.getView().getTopInventory().getType())
                 && e.getRawSlots().stream().anyMatch(s->s<e.getView().getTopInventory().getSize())) {
             e.setCancelled(true); return;
         }
@@ -120,13 +124,52 @@ public final class InventoryGuard implements Listener {
         }
         return mergeRoom(inventory.getItemInOffHand(), item, inventory.getMaxStackSize()) > 0;
     }
+    /**
+     * Whether a temporary menu's contents must be guarded against capacity bypass.
+     *
+     * Every {@link #returnsOnClose} type returns its contents to the player when
+     * it closes, outside any cancellable transfer event, so a player with locked
+     * slots could park items there and have them come back into locked storage.
+     *
+     * CRAFTING is the exception, and treating it like the rest was a real bug:
+     * it is not a menu the player opens, it is the 2x2 grid on their own
+     * inventory screen. Guarding it blanket-cancelled every click on the
+     * crafting inputs and the result, which made baseline crafting impossible
+     * for anyone below full inventory capacity -- that is, every player at the
+     * start of a match. Capacity there is enforced by marker occupancy and by
+     * LockedSlots evicting anything that reaches a locked slot, not by
+     * forbidding the interaction.
+     */
+    public static boolean guardsTemporaryMenu(InventoryType type) {
+        return guardsTemporaryMenu(type.name());
+    }
+
+    /**
+     * The same policy keyed by type name, so it is testable.
+     *
+     * InventoryType is an enum whose static initializer reaches a registry that
+     * only exists on a running server, so a unit test cannot name its constants.
+     * That is why the original guard test stubbed this classification out
+     * entirely and never distinguished CRAFTING from WORKBENCH -- which is how
+     * the crafting blocker survived. Keying the policy by name makes the real
+     * decision assertable off-server.
+     */
+    static boolean guardsTemporaryMenu(String typeName) {
+        return !"CRAFTING".equals(typeName) && returnsOnClose(typeName);
+    }
+
     public static boolean returnsOnClose(InventoryType type) {
-        return switch(type) {
-            case CRAFTING, WORKBENCH, ANVIL, SMITHING, ENCHANTING, GRINDSTONE, CARTOGRAPHY,
-                 STONECUTTER, LOOM, MERCHANT -> true;
+        return returnsOnClose(type.name());
+    }
+
+    static boolean returnsOnClose(String typeName) {
+        return switch (typeName) {
+            case "CRAFTING", "WORKBENCH", "ANVIL", "SMITHING", "ENCHANTING", "GRINDSTONE",
+                 "CARTOGRAPHY", "STONECUTTER", "LOOM", "MERCHANT" -> true;
             default -> false;
         };
     }
+
     public static boolean safeToReduce(Player p) {
         if (!p.getItemOnCursor().isEmpty()) return false;
         Inventory top=p.getOpenInventory().getTopInventory();

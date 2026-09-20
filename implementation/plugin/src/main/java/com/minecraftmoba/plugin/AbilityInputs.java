@@ -72,9 +72,26 @@ public final class AbilityInputs implements Listener {
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
                 plugin.getLogger().info("ABILITY player="+p.getName()+" id="+ability.id()+" tick="+tick);
+            disarm(p); return true;
         }
         bar(p); return true;
     }
+
+    /**
+     * Drop out of ability mode after a cast.
+     *
+     * One arming buys one ability. Casting m1 puts the HUD away, and m2 or q
+     * needs a fresh arming rather than chaining off the same one.
+     *
+     * Unlike {@link #exit}, this does not abort an in-flight channel. A channel
+     * is the ability still resolving, not an input state, so a channelled cast
+     * survives its own disarm; a deliberate exit still cancels it.
+     */
+    private void disarm(Player p) {
+        if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
+        p.sendActionBar(Component.empty());
+    }
+
     public void exit(Player p, boolean silent) {
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
         channels.remove(p.getUniqueId());
@@ -95,7 +112,10 @@ public final class AbilityInputs implements Listener {
             if (active(p) && tick > plugin.data(p).modeState.expiresAt) exit(p,true);
             Channel channel=channels.get(p.getUniqueId());
             if (channel != null) {
-                if (!active(p) || p.isDead() || !p.getWorld().equals(channel.origin.getWorld())
+                // Mode is deliberately not a condition here: a cast disarms the
+                // player, and that must not abort the cast it just started.
+                // exit() removes the channel itself for a deliberate cancel.
+                if (p.isDead() || !p.getWorld().equals(channel.origin.getWorld())
                         || p.getLocation().distanceSquared(channel.origin)>channel.distanceSquared) {
                     channels.remove(p.getUniqueId()); p.sendMessage("Channel aborted");
                 } else if (tick>=channel.end) {
