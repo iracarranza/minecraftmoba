@@ -82,7 +82,7 @@ class ScoringTests(unittest.TestCase):
 
 class SymmetryTests(unittest.TestCase):
     def test_identical_terrain_reports_small_gaps(self):
-        result = evaluate(candidate(), {'a': (6, 6), 'b': (17, 17)}, per_layer=3)
+        result = evaluate(candidate(w=96, h=24), {'a': (8, 12), 'b': (87, 12)}, per_layer=3)
         self.assertEqual(len(result['symmetry']), len(LAYERS))
         for row in result['symmetry']:
             self.assertIn('quality_gap', row)
@@ -209,3 +209,35 @@ class BehindBaseTests(unittest.TestCase):
                     idx = site['sample'][1] * t.w + site['sample'][0]
                     self.assertLessEqual(costs[rival].get(idx, math.inf), limit + 1e-6,
                                          f"{team}/{layer['id']} sits behind its own base")
+
+
+class BalanceTests(unittest.TestCase):
+    """Pairing trades absolute quality for equivalence, and shows the cost."""
+
+    def test_pairing_narrows_the_gap_versus_independent_bests(self):
+        c = candidate(w=96, h=24, hill=True)
+        homes = {'a': (8, 12), 'b': (87, 12)}
+        balanced = evaluate(c, homes, per_layer=1, balance_weight=4.0)
+        greedy = evaluate(c, homes, per_layer=1, balance_weight=0.0)
+        bal = {r['layer']: r.get('quality_gap') for r in balanced['symmetry']}
+        grd = {r['layer']: r.get('quality_gap') for r in greedy['symmetry']}
+        for layer, gap in bal.items():
+            if gap is None or grd.get(layer) is None: continue
+            self.assertLessEqual(gap, grd[layer] + 1e-9,
+                                 f'{layer}: balancing widened the gap')
+
+    def test_unconstrained_best_is_reported_so_the_cost_is_visible(self):
+        result = evaluate(candidate(w=96, h=24), {'a': (8, 12), 'b': (87, 12)},
+                          per_layer=1, balance_weight=4.0)
+        for team in ('a', 'b'):
+            for layer in LAYERS:
+                entry = result['teams'][team][layer['id']]
+                if not entry['candidates']: continue
+                self.assertIn('best_ignoring_rival_and_clearance', entry)
+                self.assertIn('balance_cost', entry)
+                self.assertGreaterEqual(entry['best_ignoring_rival_and_clearance'],
+                                        entry['candidates'][0]['quality'] - 1e-9)
+
+    def test_pairing_is_declared_in_the_record(self):
+        result = evaluate(candidate(w=96, h=24), {'a': (8, 12), 'b': (87, 12)}, per_layer=1)
+        self.assertIn('equivalent baseline opportunity', result['pairing'])

@@ -155,6 +155,55 @@ def corridor_cells(t: Terrain, home: int, rival_home: int, radius: int):
     return near
 
 
+def pools_for_team(t: Terrain, home: int, pool_size: int, rival_costs=None,
+                   corridor=None, corridor_from_depth=0.45):
+    """Rank sites per layer without choosing, so the two teams can be paired.
+
+    Choosing each team's independent best maximises quality per team but not
+    equivalence between them, and maps.md asks for equivalent baseline
+    opportunity rather than the best available ground for each side.
+    """
+    costs = shortest(t.adj, {home: 0.0})[0]
+    advance = {}
+    for i in range(t.n):
+        a = advance_of(costs.get(i, math.inf),
+                       None if rival_costs is None else rival_costs.get(i, math.inf))
+        if a is not None: advance[i] = a
+    home_to_rival = math.inf if rival_costs is None else rival_costs.get(home, math.inf)
+    own_half = {i for i, a in advance.items()
+                if a <= 0.5
+                and (rival_costs is None or not math.isfinite(home_to_rival)
+                     or rival_costs.get(i, math.inf) <= home_to_rival)}
+    pools = {}
+    for layer in LAYERS:
+        eligible = own_half
+        if corridor is not None and layer['depth'] >= corridor_from_depth:
+            narrowed = own_half & corridor
+            if narrowed: eligible = narrowed
+        scored = []
+        for i in eligible:
+            site = score_site(t, i, layer, costs.get(i, math.inf), advance.get(i))
+            if site is not None: scored.append(site)
+        scored.sort(key=lambda s: -s['quality'])
+        # Keep a deep pool, cheaply scored. Clearance can only be applied once
+        # earlier layers have chosen, so a pool trimmed here would leave a layer
+        # with nothing when its best sites all sit beside an existing structure
+        # — which is exactly what a 24-entry pool did on the real candidate.
+        # Defensibility costs a Dijkstra each, so it is measured after selection
+        # rather than across the pool; its weight in the score is negligible.
+        pools[layer['id']] = scored[:pool_size]
+    return pools, own_half
+
+
+def enrich(t: Terrain, site, layer, costs, advance):
+    """Measure defensibility for a chosen site and restate its quality."""
+    idx = site.get('centre_index')
+    if idx is None: return site
+    approach = approach_cost(t, idx, layer['radius_samples'])
+    full = score_site(t, idx, layer, costs.get(idx, math.inf), advance.get(idx), approach)
+    return full if full is not None else site
+
+
 def sites_for_team(t: Terrain, home: int, per_layer: int, rival_costs=None,
                    corridor=None, corridor_from_depth=0.45):
     """Sites stay on the team's own side, and forward means toward the rival.
@@ -251,25 +300,122 @@ def symmetry(a, b):
     return rows
 
 
-def evaluate(candidate, homelands, per_layer=5, parameters=None):
+def clear_of(site, taken, radius):
+    cx, cz = site['sample']
+    return not any(max(abs(cx - tx), abs(cz - tz)) <= radius + 2 + tr for tx, tz, tr in taken)
+
+
+def select_balanced(pools, per_layer, balance_weight):
+    """Pick the pair that is both good and comparable, rear layers first.
+
+    Objective is min(qa, qb) - weight * |qa - qb|: a pair is only as strong as
+    its weaker side, and a gap between the sides is a cost. Each team's
+    unconstrained best is reported alongside, so what equivalence cost in
+    absolute quality stays visible instead of being hidden by the choice.
+    """
+    teams = list(pools)
+    chosen = {team: {} for team in teams}
+    taken = {team: [] for team in teams}
+    for layer in sorted(LAYERS, key=lambda l: l['depth']):
+        lid = layer['id']
+        options = {team: [s for s in pools[team][lid]
+                          if clear_of(s, taken[team], layer['radius_samples'])]
+                   for team in teams}
+        if len(teams) != 2 or any(not options[team] for team in teams):
+            for team in teams:
+                picks = options[team][:per_layer]
+                chosen[team][lid] = picks
+                if picks: taken[team].append((*picks[0]['sample'], layer['radius_samples']))
+            continue
+        a, b = teams
+        best = None
+        for sa in options[a]:
+            for sb in options[b]:
+                value = min(sa['quality'], sb['quality']) \
+                        - balance_weight * abs(sa['quality'] - sb['quality'])
+                if best is None or value > best[0]: best = (value, sa, sb)
+        _, sa, sb = best
+        for team, pick in ((a, sa), (b, sb)):
+            rest = [s for s in options[team] if s is not pick][:max(0, per_layer - 1)]
+            chosen[team][lid] = [pick] + rest
+            taken[team].append((*pick['sample'], layer['radius_samples']))
+    return chosen
+
+
+def evaluate(candidate, homelands, per_layer=5, parameters=None, balance_weight=1.0,
+             pool_size=600):
     t = Terrain(candidate, parameters)
     homes = {team: hs[1] * t.w + hs[0] for team, hs in homelands.items()}
     all_costs = {team: shortest(t.adj, {h: 0.0})[0] for team, h in homes.items()}
-    teams = {}
-    bands = {}
+    pools = {}
     halves = {}
+    bands = {}
     for team, home in homes.items():
         rival_team = next((o for o in homes if o != team), None)
         rival = all_costs[rival_team] if rival_team else None
         corridor = (corridor_cells(t, home, homes[rival_team],
                                    int(t.p.get('homeland_radius_samples', 4)) + 2)
                     if rival_team else None)
-        teams[team], bands[team], halves[team] = sites_for_team(t, home, per_layer, rival, corridor)
+        pools[team], own_half = pools_for_team(t, home, pool_size, rival, corridor)
+        halves[team] = len(own_half)
+        finite = [all_costs[team][i] for i in own_half if math.isfinite(all_costs[team].get(i, math.inf))]
+        bands[team] = max(finite) if finite else 0.0
+
+    picked = select_balanced(pools, per_layer, balance_weight)
+    # Defensibility is measured only for what was actually chosen.
+    advances = {}
+    for team, home in homes.items():
+        rival_team = next((o for o in homes if o != team), None)
+        rival = all_costs[rival_team] if rival_team else None
+        advances[team] = {i: advance_of(all_costs[team].get(i, math.inf),
+                                        None if rival is None else rival.get(i, math.inf))
+                          for i in range(t.n)}
+    for team in picked:
+        for layer in LAYERS:
+            picked[team][layer['id']] = [enrich(t, s, layer, all_costs[team], advances[team])
+                                         for s in picked[team][layer['id']]]
+    # Measured the same way as the chosen site, so the comparison is like for like.
+    unconstrained = {}
+    for team, layers in pools.items():
+        unconstrained[team] = {}
+        for layer in LAYERS:
+            pool = layers[layer['id']]
+            best = enrich(t, dict(pool[0]), layer, all_costs[team], advances[team]) if pool else None
+            unconstrained[team][layer['id']] = best['quality'] if best else None
+    teams = {}
+    for team in pools:
+        teams[team] = {}
+        for layer in LAYERS:
+            lid = layer['id']
+            sites = picked[team][lid]
+            for s in sites: s.pop('centre_index', None)
+            entry = {'label': layer['label'], 'radius_samples': layer['radius_samples'],
+                     'intended_depth_fraction': layer['depth'], 'candidates': sites}
+            if not sites:
+                # Distinguish crowded out from unbuildable: an empty list alone
+                # cannot, and that ambiguity cost real debugging time before.
+                entry['refusal'] = ('all viable ground lies within an already-placed structure\'s '
+                                    'clearance' if pools[team][lid] else
+                                    'no sample on this team\'s side accepts the footprint')
+                entry['scored_before_clearance'] = len(pools[team][lid])
+            else:
+                entry['best_ignoring_rival_and_clearance'] = unconstrained[team][lid]
+                entry['balance_cost'] = (None if unconstrained[team][lid] is None else
+                                         round(unconstrained[team][lid] - sites[0]['quality'], 4))
+            teams[team][lid] = entry
     result = {'schema': 'team_structure_sites/1', 'evidence_state': 'DERIVED MEASUREMENT',
               'resolution_blocks': t.s,
               'method': 'homeland-relative depth bands over the existing oriented feature grid',
               'teams': teams, 'travel_band': {k: round(v, 3) for k, v in bands.items()},
               'own_half_samples': halves,
+              'balance_weight': balance_weight,
+              'pairing': 'sites are chosen as a pair per layer, maximising min(quality) minus the '
+                         'gap between the two teams, because equivalent baseline opportunity is '
+                         'the requirement rather than each team\'s own best ground. Each entry '
+                         'reports best_ignoring_rival_and_clearance, which is that team\'s top '
+                         'pool entry disregarding BOTH the rival and any ground already taken by '
+                         'an earlier structure, so balance_cost is an upper bound on what '
+                         'equivalence actually cost rather than an exact figure.',
               'corridor': 'forward layers are constrained to the cheapest route between the two '
                           'homelands, so they sit on ground an attacker crosses rather than merely '
                           'on ground the rival finds expensive',
@@ -293,6 +439,10 @@ if __name__ == '__main__':
     p.add_argument('--home', action='append', required=True, metavar='TEAM=X,Z',
                    help='homeland sample coordinate per team, repeatable')
     p.add_argument('--per-layer', type=int, default=5)
+    p.add_argument('--balance-weight', type=float, default=1.0,
+                   help='cost applied to the quality gap between the two teams; 0 picks each '
+                        'team\'s own best and widens the gap')
+    p.add_argument('--pool-size', type=int, default=600)
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
     homes = {}
@@ -300,7 +450,8 @@ if __name__ == '__main__':
         team, coord = entry.split('=', 1)
         x, z = coord.split(',')
         homes[team] = (int(x), int(z))
-    result = evaluate(json.loads(a.candidate.read_text()), homes, a.per_layer)
+    result = evaluate(json.loads(a.candidate.read_text()), homes, a.per_layer,
+                      balance_weight=a.balance_weight, pool_size=a.pool_size)
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(result, indent=2, sort_keys=True) + '\n')
     for row in result['symmetry']:
