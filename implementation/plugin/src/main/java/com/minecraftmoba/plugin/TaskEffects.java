@@ -52,8 +52,14 @@ public final class TaskEffects implements Listener {
         return d == null ? 0 : d.task.getOrDefault(domain.name(), 0);
     }
 
+    public boolean has(PlayerData d) { return d != null; }
+
     /** Grants are capped at the generic ceiling; a config asking for more is clamped. */
     public void grant(Player p, PlayerData d, Domain domain, int tier) {
+        // An unenrolled player has no data. Granting silently created a null
+        // dereference that surfaced only as "an unexpected error occurred".
+        if (d == null) throw new IllegalStateException(
+                p.getName() + " is not enrolled; run /moba join first");
         int capped = Math.max(0, Math.min(tier, tierMax()));
         int current = tier(d, domain);
         if (capped <= current) return;

@@ -202,6 +202,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (args.length == 2 && args[0].equalsIgnoreCase("task")) {
             var target = org.bukkit.Bukkit.getPlayerExact(args[1]);
             if (target == null) { sender.sendMessage("No such player"); return true; }
+            if (data(target) == null) { sender.sendMessage(args[1] + " is not enrolled."); return true; }
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
         if (args.length == 4 && args[0].equalsIgnoreCase("grant")) {
@@ -210,6 +211,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             TaskEffects.Domain domain;
             try { domain = TaskEffects.Domain.valueOf(args[2].toUpperCase(java.util.Locale.ROOT)); }
             catch (IllegalArgumentException ex) { sender.sendMessage("Domain must be EFFICIENCY, YIELD or DAMAGE"); return true; }
+            if (data(target) == null) {
+                sender.sendMessage(args[1] + " is not enrolled. Run: /moba join  (as that player)");
+                return true;
+            }
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
