@@ -1,8 +1,13 @@
 package com.minecraftmoba.plugin;
 
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 /**
  * Health regeneration expressed relative to maximum Hunger.
@@ -36,12 +41,39 @@ import org.bukkit.entity.Player;
  *
  * Disable with features.hungerRegen.enabled.
  */
-public final class HungerRegen {
+public final class HungerRegen implements Listener {
     /** Vanilla's own natural-regeneration food threshold. */
     public static final int VANILLA_REGEN_FOOD = 18;
 
     private final MobaPlugin plugin;
     private long healed;
+
+    /**
+     * Refuse to eat at the Hunger cap, the way vanilla refuses at full.
+     *
+     * Vanilla blocks eating at 20 food. Capacity caps a player far below that
+     * -- 9 on the canonical curve -- so vanilla kept permitting the meal and
+     * `enforceHunger` clamped the result away a tick later. The food was spent
+     * for nothing, which reads as a bug in a survival game.
+     *
+     * The exception is vanilla's own: an item whose food component says
+     * canAlwaysEat is edible at full hunger, so it stays edible at the cap.
+     * That keeps golden apples and chorus fruit working as they do in vanilla
+     * rather than inventing a new rule about them. Items with no food component
+     * at all -- milk, potions -- are not hunger items and are never refused.
+     */
+    @EventHandler
+    public void consume(PlayerItemConsumeEvent e) {
+        Player p = e.getPlayer();
+        if (!plugin.enrolled(p)) return;
+        var food = e.getItem().getData(DataComponentTypes.FOOD);
+        if (food == null || food.canAlwaysEat()) return;
+        int cap = plugin.effectiveHunger(p);
+        if (p.getFoodLevel() < cap) return;
+        e.setCancelled(true);
+        p.sendActionBar(net.kyori.adventure.text.Component.text(
+                ChatColor.GRAY + "Hunger is full at " + cap + "."));
+    }
 
     public HungerRegen(MobaPlugin plugin) {
         this.plugin = plugin;

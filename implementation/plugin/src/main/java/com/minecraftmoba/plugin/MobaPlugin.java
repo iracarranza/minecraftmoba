@@ -86,6 +86,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         contributions = new Contributions(this);
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
+        getServer().getPluginManager().registerEvents(hungerRegen, this);
         healthDisplay = new HealthDisplay(this);
         pings = new Pings(this);
         testBed = new TestBed(this);
