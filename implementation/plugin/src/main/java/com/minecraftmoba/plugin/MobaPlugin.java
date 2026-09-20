@@ -171,6 +171,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         attribute.setBaseValue(c.maxHealth());
         if (p.getHealth() > attribute.getValue()) p.setHealth(attribute.getValue());
         enforceHunger(p, c);
+        if (taskEffects != null) taskEffects.applyAutomaticGrants(p, data(p));
         p.setLevel(d.level);
         p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / settings.xpPerLevel()));
         save(p, d);
@@ -285,6 +286,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 default -> sender.sendMessage("/moba contrib <options|choose|capitalize|allocate|status>");
             }
             return true;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("materials")) {
+            sender.sendMessage(MaterialCategories.report()); return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("recall")) {
             if (!(sender instanceof Player rp)) { sender.sendMessage("Player only"); return true; }

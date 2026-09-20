@@ -70,6 +70,32 @@ public final class TaskEffects implements Listener {
                 plugin.rewardAdvancements().grant(p, domain.name().toLowerCase(Locale.ROOT) + "_" + t);
     }
 
+    /**
+     * Applies the canon universal cadence: Efficiency I at level 4 and Yield I
+     * at level 7. The config declared these and nothing read them, so the
+     * cadence classes.md specifies was not happening at all.
+     */
+    public void applyAutomaticGrants(Player p, PlayerData d) {
+        if (!enabled() || d == null) return;
+        var section = plugin.getConfig().getConfigurationSection("progression.task.automatic");
+        if (section == null) return;
+        for (String key : section.getKeys(false)) {
+            int level;
+            try { level = Integer.parseInt(key); }
+            catch (NumberFormatException ex) {
+                throw new IllegalArgumentException("progression.task.automatic key is not a level: " + key);
+            }
+            if (d.level < level) continue;
+            String base = "progression.task.automatic." + key + ".";
+            Domain domain;
+            try { domain = Domain.valueOf(plugin.getConfig().getString(base + "domain", "").toUpperCase(Locale.ROOT)); }
+            catch (IllegalArgumentException ex) {
+                throw new IllegalArgumentException(base + "domain must be EFFICIENCY, YIELD or DAMAGE");
+            }
+            grant(p, d, domain, plugin.getConfig().getInt(base + "tier", 1));
+        }
+    }
+
     public void reapply(Player p, PlayerData d) {
         if (!enabled()) { clear(p); return; }
         applyModifier(p, Attribute.BLOCK_BREAK_SPEED, speedKey,
