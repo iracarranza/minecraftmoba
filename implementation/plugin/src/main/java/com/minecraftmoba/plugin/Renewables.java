@@ -1,6 +1,7 @@
 package com.minecraftmoba.plugin;
 
 import org.bukkit.*;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
@@ -64,7 +65,7 @@ public final class Renewables implements Listener {
     private final Map<String, Source> sources = new LinkedHashMap<>();
     private final Path csv;
     private long harvests, recoveries, recoveryChecks, depletions, harvestNanos, harvestCalls;
-    private long restoresApplied, persistsDeferred;
+    private long restoresApplied, persistsDeferred, remanifested;
     /** Sources whose chunk was not loaded when state changed or registration ran. */
     private final Set<String> pendingPersist = new HashSet<>();
     private final Set<String> pendingRestore = new HashSet<>();
@@ -159,6 +160,8 @@ public final class Renewables implements Listener {
             s.recoveringUntil = 0;
             recoveries++;
             persist(s);
+            // Restore the opportunity itself, not only the counter.
+            remanifested += manifest(s);
         }
         return s.available;
     }
@@ -276,6 +279,84 @@ public final class Renewables implements Listener {
             }
         } catch (IOException ex) { throw new IllegalStateException(ex); }
         return bytes.toByteArray();
+    }
+
+    /**
+     * Physically realise a source up to its remaining availability.
+     *
+     * Availability is a counter; the opportunity is the thing in the world. A
+     * recovered herd with no animals in it, or a recovered patch with no crops,
+     * restores nothing a player can act on — canon's "renewal restores world
+     * opportunity" means the crops and the animals come back, and the player
+     * still has to go and take them.
+     *
+     * Tops up rather than replacing, so an author's own placement survives and
+     * nothing is duplicated.
+     */
+    public int manifest(Source s) {
+        World w = Bukkit.getWorld(s.world);
+        if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) return 0;
+        if (s.kind == null) return 0;
+        var kind = RenewableKinds.require(s.kind);
+        int present = count(s, kind);
+        int wanted = Math.max(0, available(s) - present);
+        if (wanted <= 0) return 0;
+        return kind.type() == Type.CROP ? placeCrops(w, s, kind, wanted)
+                                        : spawnFauna(w, s, kind, wanted);
+    }
+
+    /** What already exists, so a top-up never duplicates. */
+    private int count(Source s, RenewableKinds.Kind kind) {
+        World w = Bukkit.getWorld(s.world);
+        if (w == null) return 0;
+        if (kind.type() == Type.CROP) {
+            int n = 0;
+            for (int x = s.x - s.radius; x <= s.x + s.radius; x++)
+                for (int y = s.y - s.radius; y <= s.y + s.radius; y++)
+                    for (int z = s.z - s.radius; z <= s.z + s.radius; z++)
+                        if (kind.blocks().contains(w.getBlockAt(x, y, z).getType())) n++;
+            return n;
+        }
+        int n = 0;
+        for (var e : w.getNearbyEntities(new Location(w, s.x + 0.5, s.y + 0.5, s.z + 0.5),
+                s.radius, s.radius, s.radius))
+            if (kind.entities().contains(e.getType())) n++;
+        return n;
+    }
+
+    private int placeCrops(World w, Source s, RenewableKinds.Kind kind, int wanted) {
+        Material material = kind.blocks().iterator().next();
+        int placed = 0;
+        for (int x = s.x - s.radius; x <= s.x + s.radius && placed < wanted; x++)
+            for (int z = s.z - s.radius; z <= s.z + s.radius && placed < wanted; z++)
+                for (int y = s.y - s.radius; y <= s.y + s.radius && placed < wanted; y++) {
+                    var cell = w.getBlockAt(x, y, z);
+                    if (!cell.getType().isAir()) continue;
+                    var below = w.getBlockAt(x, y - 1, z).getType();
+                    if (below != Material.FARMLAND && below != Material.GRASS_BLOCK
+                            && below != Material.DIRT) continue;
+                    cell.setType(material, false);
+                    // Server-placed, so BlockPlaceEvent never fires and the
+                    // patch correctly reads as wild rather than player-farmed.
+                    placed++;
+                }
+        return placed;
+    }
+
+    private int spawnFauna(World w, Source s, RenewableKinds.Kind kind, int wanted) {
+        var types = new ArrayList<>(kind.entities());
+        if (types.isEmpty()) return 0;
+        int spawned = 0;
+        for (int i = 0; i < wanted; i++) {
+            var type = types.get(i % types.size());
+            var at = new Location(w, s.x + 0.5 + (Math.random() - 0.5) * s.radius,
+                    s.y + 1, s.z + 0.5 + (Math.random() - 0.5) * s.radius);
+            var ground = w.getHighestBlockYAt(at.getBlockX(), at.getBlockZ());
+            at.setY(Math.max(s.y, Math.min(s.y + s.radius, ground + 1)));
+            try { w.spawnEntity(at, type); spawned++; }
+            catch (IllegalArgumentException ex) { /* peaceful difficulty refuses hostiles */ }
+        }
+        return spawned;
     }
 
     /** Legibility, not decoration: a depleted source shows nothing. */

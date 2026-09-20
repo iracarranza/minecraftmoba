@@ -83,8 +83,13 @@ public final class RenewableAuthoring {
                 b.getX(), b.getY(), b.getZ(), radius,
                 Math.max(1, kind.type() == Renewables.Type.CROP ? Math.max(1, laid) : capacity),
                 plugin.getConfig().getLong("features.renewableAuthoring.recoverTicks", 200L));
+        // Herds and swarms are authored content too: a registered volume with
+        // no animals in it is not an opportunity.
+        int manifested = plugin.renewables().manifest(s);
         p.sendMessage("Spawned " + s.id() + " kind=" + kind.id() + " type=" + s.type()
-                + " capacity=" + s.capacity() + (laid > 0 ? " (laid " + laid + " blocks)" : ""));
+                + " capacity=" + s.capacity()
+                + (laid > 0 ? " (laid " + laid + " blocks)" : "")
+                + (manifested > 0 ? " (manifested " + manifested + ")" : ""));
         p.sendMessage(ChatColor.GRAY + "Fixture tool. Populating a map this way is the node-sprinkling "
                 + "maps.md forbids; use capture on real geography.");
     }
