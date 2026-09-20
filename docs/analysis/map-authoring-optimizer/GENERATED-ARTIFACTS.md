@@ -1,21 +1,11 @@
 # Generated optimizer artifacts
 
-The reference-run candidate catalog is committed as:
+Claude can inspect the generated artifacts directly:
 
-- `candidate-catalog.json.gz`
+- `candidate-catalog.json.gz` — compressed reference-run candidate catalog.
+- `scenario-frontier.json` — full committed scenario frontier with ten finalists per strategic profile.
+- `optimizer-report.md` — human-readable optimizer report.
 
-The reference-run scenario frontier is larger and is committed as four byte-for-byte gzip segments:
+The previously staged split frontier segments are intentionally removed; `scenario-frontier.json` is the usable artifact.
 
-- `scenario-frontier.json.gz.part-000`
-- `scenario-frontier.json.gz.part-001`
-- `scenario-frontier.json.gz.part-002`
-- `scenario-frontier.json.gz.part-003`
-
-Reconstruct it with:
-
-```bash
-cat scenario-frontier.json.gz.part-* > scenario-frontier.json.gz
-gzip -dc scenario-frontier.json.gz > scenario-frontier.json
-```
-
-These are generated reference-run artifacts. The optimizer and realized-map export remain the authoritative reproducible source. The zero-hostiles snapshot must not be interpreted as zero underground hazard.
+The optimizer and realized-map export remain the authoritative reproducible source. The committed frontier records its generator provenance. The zero-hostiles snapshot must never be interpreted as zero underground hazard.
