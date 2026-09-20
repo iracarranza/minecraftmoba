@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:multi_action",
+  "title": "Team calls",
+  "external_title": "Team calls",
+  "body": [
+    {
+      "type": "minecraft:plain_message",
+      "contents": "Calls with no world target, sent from your position. Aim and middle-click instead for a location or an enemy.",
+      "width": 260
+    }
+  ],
+  "columns": 2,
+  "actions": [
+    {
+      "label": "Danger",
+      "tooltip": "Threat at my position",
+      "action": { "type": "minecraft:run_command", "command": "moba ping danger" }
+    },
+    {
+      "label": "Retreat",
+      "tooltip": "Fall back",
+      "action": { "type": "minecraft:run_command", "command": "moba ping retreat" }
+    },
+    {
+      "label": "Group",
+      "tooltip": "Regroup on me",
+      "action": { "type": "minecraft:run_command", "command": "moba ping group" }
+    },
+    {
+      "label": "Hold",
+      "tooltip": "Hold position",
+      "action": { "type": "minecraft:run_command", "command": "moba ping hold" }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:experience_bottle" },
+    "title": "Progression",
+    "description": "Level-up rewards chosen this match",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/deepslate.png"
+  },
+  "criteria": { "granted": { "trigger": "minecraft:impossible" } }
+}

@@ -11,6 +11,7 @@ dependencies {
     testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     testImplementation("org.mockito:mockito-core:5.18.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.12.2")
+    testImplementation("org.yaml:snakeyaml:2.3")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)) }

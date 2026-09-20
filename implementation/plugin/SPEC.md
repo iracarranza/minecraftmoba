@@ -324,6 +324,38 @@ bounds it.
 `[OPEN]` Blocks placed then covered, moved by pistons, or destroyed by
 explosions. Record behaviour; do not invent policy.
 
+### 7.1 Read ordering — a constraint on every dependent system
+
+**Reclamation destroys the answer.** `unmarkPlaced` runs inside Provenance's own
+`BlockBreakEvent` handler at `MONITOR`, and Provenance is registered first in
+`onEnable`. Any consumer that also listens at `MONITOR` therefore asks
+`isPlayerPlaced` *after* the mark is gone, and every player-placed block reads
+as world-generated.
+
+```
+on BlockBreakEvent(e):
+    priority HIGHEST   -> consumers read isPlayerPlaced(e.block)   // mark intact
+    priority MONITOR   -> Provenance.unmarkPlaced(e.block)         // mark cleared
+```
+
+**Rule.** A system that needs block provenance *during a break* must listen at a
+priority earlier than `MONITOR` — `HIGHEST` is the conventional choice, with
+`ignoreCancelled = true` so a cancelled break is not counted. Reading at
+`MONITOR` alongside Provenance is a silent wrong answer, not an error.
+
+This is not local to one feature. All five dependent systems inherit it, and the
+failure is invisible at both call sites because the ordering lives in
+registration order in `MobaPlugin.onEnable`, not in either handler.
+
+Found live: the Regenerative Sources seam counted a player's own farm as a wild
+patch because it read at `MONITOR`. See `validation/plugin/renewables-status.md`.
+A break handler that only ever sees world-generated blocks will pass every test
+written with world-generated blocks, so a dependent system needs at least one
+case that breaks a *player-placed* block and asserts the negative.
+
+`[OPEN]` Whether reclamation should be deferred by a tick, or moved behind an
+explicit "consumers have read" phase, so ordering stops being load-bearing.
+
 ---
 
 ## 8. Deliberately left open — provide the seam, not the content

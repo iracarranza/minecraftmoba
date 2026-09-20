@@ -11,6 +11,12 @@ import org.bukkit.inventory.*;
 public final class InventoryGuard implements Listener {
     private final MobaPlugin plugin;
     public InventoryGuard(MobaPlugin plugin) { this.plugin = plugin; }
+    /** A locked-slot marker is furniture; nothing may pick it up or move it. */
+    private boolean marker(Player p, int slot) {
+        return plugin.lockedSlots() != null
+                && plugin.lockedSlots().isMarker(p.getInventory().getItem(slot));
+    }
+
     private boolean locked(Player p, int slot) {
         return slot >= plugin.unlockedSlots(p) && slot < 36;
     }
@@ -19,6 +25,11 @@ public final class InventoryGuard implements Listener {
         if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
         boolean partial = plugin.unlockedSlots(p) < 36;
         boolean own = e.getClickedInventory() instanceof PlayerInventory;
+        // Lifting the tome out of the offhand is the recall gesture. The item
+        // is never actually removed; the click is consumed instead.
+        if (own && e.getSlot() == 40 && plugin.recall() != null
+                && plugin.offhandMap().isMap(p.getInventory().getItemInOffHand())
+                && plugin.recall().beginFromOffhandClick(p)) { e.setCancelled(true); return; }
         if ((own && (locked(p, e.getSlot()) || e.getSlot() == 40))
                 || (e.getHotbarButton() >= 0 && locked(p, e.getHotbarButton()))
                 || e.getClick() == ClickType.SWAP_OFFHAND

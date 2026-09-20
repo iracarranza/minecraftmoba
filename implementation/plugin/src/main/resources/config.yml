@@ -1,7 +1,151 @@
+# Feature flags. Each Phase 2 feature is independently switchable; turning one
+# off must never require touching another.
+features:
+  # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
+  # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
+  # so vanilla regeneration can never fire on the canonical curve.
+  #
+  # Two empty drumsticks block regeneration. A drumstick is two food points, so
+  # regeneration stops once 4 or more points are missing: at a maximum of 20
+  # that blocks at 16, eight drumsticks or fewer, and permits from 17 up.
+  #
+  # Named for the BLOCKING condition on purpose. "Four below maximum" and
+  # "eight or fewer drumsticks" differ by one point depending on which side the
+  # comparison sits, and that is easy to encode backwards.
+  #
+  # The 6-food sprint cutoff is vanilla and is deliberately NOT reimplemented.
+  hungerRegen:
+    enabled: true
+    blockedWhenPointsMissing: 4
+    intervalTicks: 80
+    healAmount: 1.0
+    exhaustionPerHeal: 6.0
+  lockedSlots:
+    enabled: true
+    # Must be unobtainable in survival: a material a player can hold would let
+    # vanilla merge a pickup into the marker stack. BARRIER also reads as
+    # blocked with no resource pack, and a pack can give it a subtle
+    # slot-shaped texture instead.
+    material: BARRIER
+    label: "Locked slot"
+    refreshTicks: 20
+  contributions:
+    enabled: true
+  durability:
+    enabled: true
+  hubLobby:
+    enabled: true
+    originX: 0
+    originY: 65
+    originZ: 0
+    spacing: 8
+    floorMaterial: POLISHED_DEEPSLATE
+    frameMaterial: POLISHED_BLACKSTONE_BRICKS
+    cooldownMillis: 3000
+    # Ships EMPTY. Which maps are offered is a selection decision, not a
+    # plugin default. Each entry needs a label and the command to run.
+    # Example, using the terrain gallery's own navigation:
+    #   candidate_a:
+    #     label: "930012642"
+    #     command: "function harvest:visit/tv_ef56852eda10acc88342e5ee"
+    destinations: {}
+  rewardAdvancements:
+    enabled: true
+  infraMode:
+    enabled: true
+  routes:
+    enabled: true
+    minLength: 16.0            # endpoints closer than this are refused
+    sampleEveryBlocks: 4.0
+    maxSamples: 512
+    keepEverySample: 2         # coarse retention; canon leaves geometry OPEN
+    maxDesignationTicks: 24000
+    corridorRadius: 6.0
+    effectTicks: 20
+    exhaustionRelief: 0.1      # sprint efficiency, never added speed
+  renewableParticles:
+    enabled: true
+    ticks: 20
+    pointsPerRing: 16
+  renewableAuthoring:
+    enabled: true
+    reach: 48
+    defaultRadius: 3
+    defaultCapacity: 5
+    recoverTicks: 200
+  hud:
+    enabled: true
+    refreshTicks: 20
+  taskProgression:
+    enabled: true
+  sentinelSkull:
+    enabled: true
+    material: SKELETON_SKULL
+
+durability:
+  targetBaseUses: {}
+
+classes:
+  test:
+    # Eligibility is AUTHORED PER CLASS and may be asymmetric: several options,
+    # one, or none. It is not inherited from archetype tags. The full class x
+    # infrastructure matrix is [OPEN]; the discussion examples are Mole with
+    # Route/Construct and Kitfighter with Monster Combat only, and neither is
+    # settled. The harness class gets a deliberately mixed set for testing.
+    infrastructureEligibility:
+      - ROUTE
+      - CONSTRUCT
+      - MONSTER_COMBAT
+    displayName: "Test Class"
+    tomeName: "Tome of the Test Class"
+    blurb:
+      - "Harness class. Not a design."
+      - "F = A1   Sneak+F = A2   Sprint+F = channel ult"
+      - "Drop = ultimate. Swap again to stop casting."
+
 # Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
 progression:
   maxLevel: 30
   xpPerLevel: 100
+  task:
+    tierMax: 3
+    efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
+    damagePerTier: 1.0           # flat ATTACK_DAMAGE per tier
+    yieldExtraChancePerTier: 0.25
+    # Efficiency covers Unbreaking as well as block-breaking speed.
+    efficiencyGrantsUnbreaking: true
+    # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
+    # then a choice at L9, L14 and L19. Automatic grants:
+    automatic:
+      4: { domain: EFFICIENCY, tier: 1 }
+      7: { domain: YIELD, tier: 1 }
+  # The Level 6 fork: one class-compatible Infrastructure form, or Monster Combat.
+  contributionForkLevel: 6
+
+# Equipment wear. Follows the family-wide doctrine in manuscript 15.1.2:
+#     L_e = D_e * U_e / R_e
+# expected useful lifetime = base durability * Unbreaking multiplier /
+# consumption rate under that category's workload. Identity belongs to the
+# material FAMILY, so targets are per material and per equipment category
+# rather than one number per material.
+#
+# Ladder: Wood temporary -> Stone disposable -> Copper replaceable legitimate
+# equipment -> Iron reliable -> Diamond capital -> Netherite premier.
+# Copper became a Primary Material on 19 September 2026.
+#
+# Ships EMPTY, which is vanilla. 15.1.1 is labelled a NON-CANON BALANCE-TEST
+# CANDIDATE and exact values remain OPEN, so its numbers are commented below
+# rather than defaulted. Uncomment to run the sensitivity test.
+#
+# Unbreaking needs no coefficient: vanilla's 1/(level+1) already reproduces the
+# 15.1.1 column, with Iron 96 reaching ~192, ~288 and ~384 at Unbreaking I-III.
+#
+# durability:
+#   targetBaseUses:
+#     wood:   { tool: 16 }
+#     stone:  { tool: 36 }
+#     copper: { tool: 60 }
+#     iron:   { tool: 96 }
 capacity:
   enforceTicks: 1
   health: { start: 9, growthUnit: 1, cap: 20 }
@@ -52,3 +196,11 @@ mapStub:
 
 provenance:
   sampleTicks: 200
+
+# Regenerative Sources. Ships EMPTY on purpose: canon records the depth
+# gradient, regional tables, species, cadence, XP and drop scaling as [OPEN],
+# and forbids sprinkling nodes to satisfy a density target. The plugin
+# registers sources it is given; it never generates them.
+renewables:
+  sampleTicks: 200
+  sources: {}

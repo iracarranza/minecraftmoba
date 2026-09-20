@@ -1,0 +1,19 @@
+{
+  "parent": "moba:rewards/yield_1",
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_ingot"
+    },
+    "title": "Yield II",
+    "description": "Material obtained from resource-producing actions (generic ceiling is Tier III)",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "granted": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}
