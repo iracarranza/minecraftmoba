@@ -220,7 +220,8 @@ def main(argv=None):
     p.add_argument('--apply', action='store_true')
     a = p.parse_args(argv)
     frontier = json.loads(a.frontier.read_text())
-    cfg = frontier[a.profile]['finalists'][a.rank]['configuration']
+    profiles = frontier.get('profiles', frontier)
+    cfg = profiles[a.profile]['finalists'][a.rank]['configuration']
     placements = (json.loads(a.placements.read_text())['placements']
                   if a.placements else None)
     r = author(json.loads(a.candidate.read_text()), cfg, a.world, a.report,

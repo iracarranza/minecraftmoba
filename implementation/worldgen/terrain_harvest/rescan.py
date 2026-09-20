@@ -225,7 +225,8 @@ def run(world: Path, candidate_path: Path, portfolio_path: Path,
     portfolio = json.loads(portfolio_path.read_text())
     routes = json.loads(routes_path.read_text()) if routes_path else None
     frontier = json.loads(frontier_path.read_text())
-    finalist = frontier[portfolio['profile']]['finalists'][portfolio['finalist_rank']]
+    profiles = frontier.get('profiles', frontier)
+    finalist = profiles[portfolio['profile']]['finalists'][portfolio['finalist_rank']]
 
     graph, measured, unreachable = measure(world, candidate, portfolio, routes)
 

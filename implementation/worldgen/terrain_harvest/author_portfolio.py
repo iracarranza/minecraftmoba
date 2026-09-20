@@ -188,6 +188,16 @@ def allocate(sites, cell_size: int, chunks, margin: int = 4):
     return placed, rejected
 
 
+def profiles_of(frontier: dict) -> dict:
+    """Profiles from a frontier document, v1 flat or v2 wrapped.
+
+    The v2 optimizer wraps its profiles under a "profiles" key alongside
+    provenance. Accepting both keeps a historical frontier readable without a
+    second code path.
+    """
+    return frontier.get('profiles', frontier)
+
+
 def provenance(obj) -> str:
     """Stable digest of the frontier a world was authored from.
 
@@ -203,10 +213,11 @@ def provenance(obj) -> str:
 def author(frontier: dict, profile: str, rank: int, opportunity: dict,
            world: Path | None, report: Path, dry_run: bool = True,
            chunks: set | None = None) -> dict:
-    if profile not in frontier:
+    profiles = profiles_of(frontier)
+    if profile not in profiles:
         raise KeyError(f'no profile {profile!r} in frontier '
-                       f'(have: {sorted(frontier)})')
-    finalists = frontier[profile]['finalists']
+                       f'(have: {sorted(profiles)})')
+    finalists = profiles[profile]['finalists']
     if rank >= len(finalists):
         raise IndexError(f'{profile} has {len(finalists)} finalists, '
                          f'rank {rank} requested')
@@ -326,7 +337,7 @@ def author_best(frontier: dict, profile: str, opportunity: dict, world: Path,
     something about the profile, not about the tooling.
     """
     chunks = present_chunks(world)
-    n = len(frontier[profile]['finalists'])
+    n = len(profiles_of(frontier)[profile]['finalists'])
     limit = n if max_rank is None else min(n, max_rank + 1)
     rejected = []
     for rank in range(limit):
