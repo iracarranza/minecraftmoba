@@ -79,6 +79,7 @@ public final class Match implements Listener {
         if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
         resetFields();
         World w = worldInstance.load();
+        w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
         loadHomelands(w);
         int renewables = plugin.resetRenewables();
         plugin.getLogger().info("[match] bound " + renewables + " renewable source(s)");
@@ -116,6 +117,11 @@ public final class Match implements Listener {
         state = State.RUNNING; elapsed = 0; winner = null;
         World w = worldInstance.world();
         w.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        // Respawning is instant: the match clock does not stop for a death
+        // screen, and the Fountain -- not a button -- is what decides whether a
+        // player comes back. Elimination still runs, so a player whose Fountain
+        // is disabled respawns and is immediately put into spectator.
+        w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
         for (Participant part : participants.values()) {
             Player p = Bukkit.getPlayer(part.uuid);
             if (p != null) spawn(p, part.team);
@@ -306,7 +312,14 @@ public final class Match implements Listener {
         if (!running()) return;
         Participant part = participants.get(e.getPlayer().getUniqueId());
         if (part == null) return;
-        if (!part.alive) return;
+        if (!part.alive) {
+            // An eliminated player still respawns, because the respawn is
+            // immediate and cannot be refused. Spectator is reapplied on the
+            // next tick, after the respawn has finished setting game mode.
+            Bukkit.getScheduler().runTask(plugin,
+                    () -> e.getPlayer().setGameMode(GameMode.SPECTATOR));
+            return;
+        }
         Location home = homelands.get(part.team);
         if (home != null) e.setRespawnLocation(home);
     }
