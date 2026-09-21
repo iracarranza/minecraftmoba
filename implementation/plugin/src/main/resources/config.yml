@@ -104,8 +104,56 @@ features:
   taskProgression:
     enabled: true
   sentinelSkull:
+    # Superseded by the tome while features.tome.enabled is true. Kept as the
+    # fallback representation: a separate skull carrying the sentinel identity,
+    # with no map surface.
     enabled: true
     material: SKELETON_SKULL
+  # The tome: ONE offhand item that is the sentinel, the class text and the map.
+  #
+  # SPEC section 11 requires the offhand item to be a FILLED_MAP from the start,
+  # which is exactly what makes this possible: identity lives in persistent
+  # data, the class blurb lives in name and lore, and the map view is the
+  # minimap surface. The skull's appearance is the only thing given up, and a
+  # resource pack can restyle the map item's icon.
+  tome:
+    enabled: true
+  # The minimap drawn on the tome's surface. Every pixel is computed by
+  # Minimap; vanilla tracking is off so no map terrain draws underneath.
+  # Disabled, this falls back to the stub renderer rather than to vanilla.
+  minimap:
+    enabled: true
+    blocksPerPixel: 4        # 128px surface, so 4 gives ~512 blocks of coverage
+    terrainRefreshTicks: 40  # sampling 16k columns per frame is not affordable
+    playerRange: 256.0
+  # Recall, begun by lifting the tome out of the offhand slot in the inventory.
+  # The gesture is deliberate and already dangerous in a fight, so unlike a
+  # keybind it cannot fire by accident; the tome is never actually removed.
+  #
+  # channelTicks and moveTolerance are NON-CANON ALPHA FIXTURES.
+  recall:
+    enabled: true
+    channelTicks: 100        # 5s
+    moveTolerance: 1.5
+    # Destination resolves to the player's own Aether Fountain during a match
+    # (ALPHA-D3/D4 make the homeland the Fountain). Set destination.x/y/z to
+    # override; fallbackToWorldSpawn applies only outside a match.
+    fallbackToWorldSpawn: true
+  # Defined at their CURRENT LIVE VALUES so the file stops disagreeing with the
+  # code. These read as disabled today because the keys were absent and the
+  # Java fallback is false -- writing them down changes nothing and is not an
+  # endorsement of the value. Flip deliberately, not by discovering them.
+  healthDisplay:
+    enabled: false
+    refreshTicks: 10
+  pings:
+    enabled: false
+    cooldownMillis: 1500
+    audienceRadius: 96.0
+    markerSeconds: 8
+  testbed:
+    enabled: false
+    constructsArePlayerPlaced: false
 
 durability:
   targetBaseUses: {}

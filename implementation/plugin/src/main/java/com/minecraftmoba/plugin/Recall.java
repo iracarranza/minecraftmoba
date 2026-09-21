@@ -72,7 +72,7 @@ public final class Recall implements Listener {
         if (plugin.hud() != null) plugin.hud().hideMode(p);
         Location target = destination(p);
         if (target == null) {
-            p.sendMessage(ChatColor.RED + "No recall destination configured for you.");
+            p.sendMessage(ChatColor.RED + "Nowhere to recall to: your Fountain is gone.");
             return;
         }
         p.teleport(target);
@@ -80,9 +80,19 @@ public final class Recall implements Listener {
     }
 
     /**
-     * Where a team recalls to is unresolved: the Aether Fountain is the obvious
-     * candidate but its position is a map-selection decision. Config first,
-     * world spawn as the only fallback, and nothing invented.
+     * Where a recall lands: the player's own Aether Fountain.
+     *
+     * This was left unresolved when recall was written, on the grounds that the
+     * Fountain's position was a map-selection decision. It no longer is. The
+     * frozen Alpha map fixes both homelands, ALPHA-D3 makes the Fountain the
+     * thing that decides whether a player comes back at all, and ALPHA-D4 makes
+     * it where a player reconstructs. Recalling to it is the same fact stated
+     * once more, so a recall now lands somewhere that then rebuilds the player
+     * rather than merely being a safe corner of the map.
+     *
+     * An explicit config destination still wins, and the world spawn remains
+     * the only fallback outside a match. Nothing is invented for a player with
+     * no team.
      */
     private Location destination(Player p) {
         String base = "features.recall.destination.";
@@ -91,6 +101,18 @@ public final class Recall implements Listener {
             if (w != null) return new Location(w,
                     plugin.getConfig().getDouble(base + "x"), plugin.getConfig().getDouble(base + "y"),
                     plugin.getConfig().getDouble(base + "z"));
+        }
+        Match match = plugin.match();
+        if (match != null && match.running()) {
+            var part = match.participant(p.getUniqueId());
+            if (part != null) {
+                Location home = match.homeland(part.team);
+                // A disabled Fountain is not a destination. It has stopped
+                // being the team's infrastructure, and recalling to a ruin
+                // would be the one Fountain interaction that still worked.
+                if (home != null && !match.fountainDisabled(part.team)) return home;
+                return null;
+            }
         }
         return plugin.getConfig().getBoolean("features.recall.fallbackToWorldSpawn", true)
                 ? p.getWorld().getSpawnLocation() : null;

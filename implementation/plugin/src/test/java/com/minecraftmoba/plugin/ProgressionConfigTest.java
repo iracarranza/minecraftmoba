@@ -7,8 +7,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,13 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * key that happens to equal the default. Nothing crashed and nothing warned;
  * the file simply was not the authority it looked like.
  *
- * A key-by-key scan of the source is the only check that catches this class of
- * bug without a running server, so the scan is the test.
+ * The scan that catches this generally now lives in ConfigKeysDefinedTest,
+ * which covers every class rather than this one. What stays here is the part
+ * specific to progression: that the file carries values the fallbacks do not,
+ * and that the band curve is the calibration it claims to be.
  */
 class ProgressionConfigTest {
-
-    private static final Path SOURCE =
-            Path.of("src/main/java/com/minecraftmoba/plugin/WorkPoints.java");
 
     @SuppressWarnings("unchecked")
     private Map<String, Object> config() throws Exception {
@@ -47,30 +44,6 @@ class ProgressionConfigTest {
             if (node == null) return null;
         }
         return node;
-    }
-
-    /** Config paths WorkPoints reads, including the prefix of a computed one. */
-    private List<String> pathsRead() throws Exception {
-        String src = Files.readString(SOURCE);
-        Pattern p = Pattern.compile("get(?:Int|Long|Double|Boolean|String|ConfigurationSection)\\(\\s*\"(progression\\.[^\"]+)\"");
-        Matcher m = p.matcher(src);
-        List<String> out = new ArrayList<>();
-        while (m.find()) out.add(m.group(1));
-        assertFalse(out.isEmpty(), "found no progression config reads; has the source moved?");
-        return out;
-    }
-
-    @Test void everyProgressionKeyTheCodeReadsIsDefined() throws Exception {
-        var cfg = config();
-        List<String> missing = new ArrayList<>();
-        for (String path : pathsRead()) {
-            // A path ending in '.' is a computed lookup such as
-            // "...opportunity." + kind; the section must exist even though the
-            // leaf is chosen at runtime.
-            String check = path.endsWith(".") ? path.substring(0, path.length() - 1) : path;
-            if (at(cfg, check) == null) missing.add(path);
-        }
-        assertTrue(missing.isEmpty(), "WorkPoints reads keys config.yml does not define: " + missing);
     }
 
     @Test void configuredValuesDifferFromTheJavaFallbacks() throws Exception {
