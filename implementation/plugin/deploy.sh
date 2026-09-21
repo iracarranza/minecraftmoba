@@ -31,5 +31,29 @@ if pgrep -f "paper.jar" >/dev/null 2>&1; then
 fi
 
 cp "$JAR" "$SERVER/plugins/"
-cp src/main/resources/config.yml "$SERVER/plugins/MinecraftMoba/config.yml"
+
+# alpha.templatePath is repo-relative in config.yml, which is right for the
+# repository and unresolvable from a server that lives outside it -- and the
+# frozen template is not in git (worlds are gitignored), so it exists only in
+# the main checkout, never in a worktree. Rewrite the key to an absolute path
+# on the way out rather than committing a machine-specific one.
+#
+# This matters more than it looks: with a wrong template path, materializing
+# fails, and until 2026-09-21 load() silently skipped materializing whenever an
+# instance directory already existed. The two defects cancelled into "the world
+# never resets", which is what was actually reported.
+MAIN_CHECKOUT="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
+TEMPLATE="$MAIN_CHECKOUT/artifacts/worldgen/alpha-0.1/consolidative-alpha"
+if [ ! -d "$TEMPLATE" ]; then
+    echo "REFUSED: no Alpha template at $TEMPLATE" >&2
+    echo "Every match open and every reset would fail. Build or restore it first." >&2
+    exit 1
+fi
+sed "s|^  templatePath:.*|  templatePath: \"$TEMPLATE\"|" \
+    src/main/resources/config.yml > "$SERVER/plugins/MinecraftMoba/config.yml"
+grep -q "templatePath: \"$TEMPLATE\"" "$SERVER/plugins/MinecraftMoba/config.yml" || {
+    echo "REFUSED: could not rewrite alpha.templatePath; check its key in config.yml" >&2
+    exit 1
+}
 echo "deployed $(basename "$JAR") and config.yml to $SERVER"
+echo "  template -> $TEMPLATE"

@@ -102,11 +102,35 @@ public final class WorldInstance {
         deleteTree(dest.resolve("advancements"));
     }
 
-    /** Load the instance, materializing it first when absent. */
+    /**
+     * Whether loading must replace what is on disk.
+     *
+     * An instance directory sitting on disk while nothing is loaded is not a
+     * world to resume: it is the LEFTOVER of a previous match. Treating its
+     * presence as "already materialized" is what made `match open` after a
+     * server restart hand back the last session's world, holes and all, while
+     * every piece of match state around it had been cleared.
+     *
+     * So presence on disk is deliberately not consulted. The only question is
+     * whether a world is currently loaded.
+     */
+    static boolean mustMaterialize(boolean loaded, boolean presentOnDisk) {
+        return !loaded;
+    }
+
+    /**
+     * Load a FRESH instance.
+     *
+     * ALPHA-D2 says loading a match and resetting one are the same mechanism --
+     * unload, copy the template, load -- and this is the half that was not.
+     * Anything already on disk is discarded, because a match never resumes: its
+     * plugin and player state are match-scoped and gone, so resuming the terrain
+     * alone would produce a world that agrees with nothing.
+     */
     public World load() throws IOException {
         World existing = world();
         if (existing != null) return existing;
-        if (!Files.isDirectory(instancePath())) materialize();
+        if (mustMaterialize(false, Files.isDirectory(instancePath()))) materialize();
         World w = Bukkit.createWorld(new WorldCreator(instanceName));
         if (w == null) throw new IOException("Bukkit refused to load " + instanceName);
         return w;
@@ -126,12 +150,14 @@ public final class WorldInstance {
         return Bukkit.unloadWorld(w, false);
     }
 
-    /** Unload, replace from the template, and load again. */
+    /**
+     * Unload and load again, which now IS the replacement: load() materializes.
+     * Keeping a separate materialize() call here would copy the template twice.
+     */
     public World restore() throws IOException {
         if (!unload())
             throw new IOException("could not unload '" + instanceName
                     + "'; world not restored");
-        materialize();
         return load();
     }
 
