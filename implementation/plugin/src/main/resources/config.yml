@@ -14,6 +14,9 @@ features:
     radius: 8.0
     healthPerInterval: 1.0
     foodPerInterval: 1
+    # A player reappears reconstructing, not restored.
+    respawnHealth: 1.0
+    respawnFood: 1
   # Work Points: gameplay-driven progression. Only domains whose contribution
   # rule is specified enough to implement are wired; see
   # docs/analysis/alpha-0.1-progression.md.

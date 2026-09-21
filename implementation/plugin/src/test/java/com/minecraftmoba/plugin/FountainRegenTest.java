@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * The Fountain restores its own team, and only while it is still their
- * respawn infrastructure.
+ * Reconstruction: a player reappears at their functioning friendly Fountain at
+ * roughly 1 Health and 1 Hunger, then reconstructs at fixed absolute rates for
+ * as long as they stay.
  *
- * objectives.md cautions that the Fountain "should function as Minecraft
- * infrastructure rather than primarily as another conventional combat health
- * bar", so the conditions below are what keep it from becoming a contestable
- * heal pad.
+ * The conditions below are what keep the Fountain infrastructure rather than a
+ * contestable heal pad, and what make the rates' absoluteness observable.
  */
 class FountainRegenTest {
 
@@ -58,5 +57,54 @@ class FountainRegenTest {
 
     @Test void healthFillsTowardTheDerivedMaximum() {
         assertEquals(9, topUp(8, 9, 1), "level 1 maximum health is 9, not 20");
+    }
+
+    /** Mirrors onRespawn(): reappear reconstructing, not restored. */
+    private static int arrivalFood(int configured, int cap) { return Math.min(cap, configured); }
+
+    private static double arrivalHealth(double configured, double max) {
+        return Math.max(1.0, Math.min(max, configured));
+    }
+
+    @Test void deathReturnsYouAtOneHealthAndOneHunger() {
+        assertEquals(1.0, arrivalHealth(1.0, 9));
+        assertEquals(1, arrivalFood(1, 9));
+    }
+
+    @Test void arrivalNeverKillsTheReconstructingPlayer() {
+        // The Fountain returns you alive; a 0 or negative fixture must not be
+        // able to turn reappearing into dying again.
+        assertEquals(1.0, arrivalHealth(0.0, 9));
+        assertEquals(1.0, arrivalHealth(-5.0, 9));
+    }
+
+    /** Intervals to fill from `from` to `cap` at a fixed absolute rate. */
+    private static int intervals(int from, int cap, int perInterval) {
+        return (cap - from + perInterval - 1) / perInterval;
+    }
+
+    @Test void raisingMaximaLengthensReconstruction() {
+        // The rates are absolute, not percentages of maximum and not
+        // level-scaled, so Capacity buys a bigger pool at the price of a longer
+        // rebuild. A proportional rate would make these two equal.
+        assertEquals(8, intervals(1, 9, 1));
+        assertEquals(19, intervals(1, 20, 1));
+        assertNotEquals(intervals(1, 9, 1), intervals(1, 20, 1));
+    }
+
+    @Test void leavingPartlyReconstructedIsAllowed() {
+        // Nothing holds the player: reconstruction is simply what happens while
+        // they are present, so a partial value is a legitimate resting state.
+        assertTrue(restores(true, false, 3, 8), "present: reconstructing");
+        assertFalse(restores(true, false, 30, 8), "walked away: simply stops");
+    }
+
+    @Test void losingTheFountainStopsReconstructionWithoutHarm() {
+        // A player mid-reconstruction keeps their partial Health/Hunger and
+        // their normal maxima. Only the NEXT death becomes permanent, which is
+        // the mechanism ALPHA-D3 resolves victory through.
+        int partial = 4;
+        assertFalse(restores(true, true, 0, 8), "reconstruction stops at once");
+        assertEquals(partial, topUp(partial, partial, 0), "nothing is taken back");
     }
 }

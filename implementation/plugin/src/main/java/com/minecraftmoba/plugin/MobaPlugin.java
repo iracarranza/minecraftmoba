@@ -105,6 +105,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
         fountainRegen = new FountainRegen(this);
+        getServer().getPluginManager().registerEvents(fountainRegen, this);
         workPoints = new WorkPoints(this);
         getServer().getPluginManager().registerEvents(workPoints, this);
         hungerDisplay = new HungerDisplay(this);

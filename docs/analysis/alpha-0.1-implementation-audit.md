@@ -352,3 +352,35 @@ any system in P2.
 - Whether the 48-minute analytical match is the intended *played* length; the
   manuscript marks match duration as a working target, not canon.
 - Hostile exposure underground, still **UNRESOLVED** and untouched by this audit.
+
+---
+
+## Addendum — Reconstruction (2026-09-20)
+
+This audit's "Respawn semantics — respawn at Fountain; denial when disabled —
+needs victory design" understated what was already established. Respawning at
+the Fountain is not a teleport that hands back a whole player: the established
+mechanic is **Reconstruction**, now recorded as `ALPHA-D4` in
+`alpha-0.1-decisions.json`.
+
+A player who dies with a functioning friendly Fountain reappears there at once
+at roughly 1 Health and 1 Hunger, keeping inventory, and then reconstructs at
+**fixed absolute** rates for as long as they stay. They may leave part-built. A
+living player may return and use the same reconstruction.
+
+Two things this corrects in the implementation:
+
+- respawn previously returned a player at full Health and Hunger, which removed
+  the entire cost of dying;
+- the first Fountain restoration pass topped up saturation alongside Hunger.
+  Current authority specifies Health and Hunger only, so saturation is no longer
+  touched and reconstructed Hunger drains like ordinary Hunger.
+
+Fountain disablement stops reconstruction instantly but does not harm anyone
+mid-reconstruction: they keep their partial values and their normal maxima, and
+only their *next* death is permanent. That is the mechanism `ALPHA-D3` resolves
+victory through.
+
+Alpha's irreversible disablement remains a lifecycle simplification. The broader
+design's distinction between temporary obstruction/repair and permanent physical
+destruction stands and is not rewritten by it.

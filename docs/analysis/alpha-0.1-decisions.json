@@ -66,6 +66,28 @@
     "P0.6 victory",
     "P0.7 match end trigger"
    ]
+  },
+  {
+   "id": "ALPHA-D4",
+   "topic": "Reconstruction at the Aether Fountain",
+   "status": "DECIDED",
+   "provenance": "Not a new decision. This records an already-established mechanic that the Alpha implementation notes had not recognized, and which an earlier Alpha implementation had approximated as a plain restoration field.",
+   "decision": "Death with a functioning friendly Aether Fountain returns the player to that Fountain immediately, retaining ordinary inventory under the existing KeepInventory model, at approximately 1 Health and 1 Hunger. Health and Hunger then RECONSTRUCT at fixed absolute rates while the player remains at the Fountain. The player may leave voluntarily at any point, including before fully reconstructed. A living player who returns to their functioning friendly Fountain uses the same free reconstruction.",
+   "rates": "Fixed absolute rates. NOT percentages of maximum and NOT level-scaled. It follows that raising Health/Hunger maxima lengthens full reconstruction rather than leaving it constant, so Capacity carries a cost as well as a benefit.",
+   "nonfunctioning_fountain": [
+    "Reconstruction stops immediately.",
+    "A player already reconstructing remains ALIVE with their current partial Health/Hunger and their normal maxima. The Fountain falling neither kills nor diminishes anyone.",
+    "Subsequent deaths cannot respawn or reconstruct and are permanent."
+   ],
+   "feeds": "ALPHA-D3: Fountain disabled -> respawns cease -> existing survivors remain -> subsequent deaths permanently eliminate them -> eliminate all survivors for victory.",
+   "saturation": "Out of scope. Current authority specifies Health and Hunger only; reconstructed Hunger is ordinary unsaturated Hunger and drains normally once the player leaves. Do not add saturation reconstruction unless separately established.",
+   "alpha_scope": "Exact Health/sec and Hunger/sec values, the arrival values, and the Fountain radius remain unresolved balance parameters and are NON-CANON ALPHA FIXTURES in config (features.fountainRegen). Alpha also continues to treat Fountain disablement as irreversible per ALPHA-D3.",
+   "preserved_distinction": "The broader design distinguishes temporary Fountain obstruction/repair from permanent physical destruction. Alpha's irreversible disablement is a lifecycle SIMPLIFICATION of that distinction, not a replacement for it; the distinction is not to be rewritten out of the broader design.",
+   "still_unresolved": [
+    "the reconstruction rates themselves",
+    "obstruction/repair vs permanent destruction as distinct Fountain states outside Alpha",
+    "whether reconstruction interacts with combat (e.g. interruption on damage)"
+   ]
   }
  ],
  "still_open_after_these_decisions": [
