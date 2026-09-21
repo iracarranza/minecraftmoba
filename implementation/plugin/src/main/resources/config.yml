@@ -535,6 +535,22 @@ renewables:
     minDisplacement: 12.0       # from the previous manifestation, so a region is not a camp
     playerExclusion: 24.0       # an opportunity is discovered, not materialised underfoot
     rejectPlayerPlaced: true    # Development can push a manifestation elsewhere in its region
+    # Ground a wild manifestation may occupy. Read by BOTH the plugin and the
+    # offline simulation in implementation/worldgen, because the simulation
+    # reproduces this predicate and two copies of a rule drift. Edit here only.
+    naturalGround:
+      - grass_block
+      - dirt
+      - coarse_dirt
+      - rooted_dirt
+      - podzol
+      - mycelium
+      - moss_block
+      - sand
+      - red_sand
+      - gravel
+      - stone
+      - snow_block
   # Half-span of the square region migrated from an authored origin+radius when
   # a source declares no explicit cells. A coarse search area, not a site.
   migratedRegionHalfSpan: 48

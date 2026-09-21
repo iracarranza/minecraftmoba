@@ -450,7 +450,7 @@ public final class Renewables implements Listener {
         String base = "renewables.eligibility.";
         return new Eligibility.Rules(
                 cfg.getInt(base + "headroom", 2),
-                Eligibility.NATURAL_GROUND,
+                Eligibility.groundFrom(cfg.getStringList(base + "naturalGround")),
                 cfg.getInt(base + "sampleStride", 4),
                 cfg.getDouble(base + "minDisplacement", 12.0),
                 cfg.getDouble(base + "playerExclusion", 24.0),

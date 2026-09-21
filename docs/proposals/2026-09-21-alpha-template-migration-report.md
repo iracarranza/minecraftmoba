@@ -75,7 +75,50 @@ occurrence and a prepared field.
 
 ## 5. Terrain restoration after removing farm infrastructure
 
-**This is the real cost, and it is not symmetrical.**
+### MEASURED, 21 September — this section's original claim was overstated
+
+The original text asserted that leaving a pen's floor would "bias the
+eligibility query" back onto the old site. That was an assertion. It has now
+been measured by running the real predicate against the real template
+(`implementation/worldgen/reports/regenerative_2026-09-21/`), and the claim is
+**directionally right and much weaker than stated**:
+
+| Opportunity | Eligible loci | On legacy pad | Pad share | If uniform | Bias |
+|---|---|---|---|---|---|
+| rabbit_0_3 | 256 | 53 | 20.7% | 17.0% | 1.22x |
+| sheep_0_5 | 271 | 66 | 24.4% | 17.0% | 1.43x |
+| cow_0_6 | 412 | 92 | 22.3% | 17.0% | 1.31x |
+| sheep_2_3 | 503 | 91 | 18.1% | 17.0% | 1.06x |
+| sheep_2_6 | 490 | 89 | 18.2% | 17.0% | 1.07x |
+| rabbit_3_6 | 507 | 94 | 18.5% | 17.0% | 1.09x |
+| chicken_4_1 | 329 | 87 | 26.4% | 17.0% | 1.56x |
+| sheep_4_4 | 282 | 76 | 27.0% | 17.0% | 1.59x |
+| carrots_0_3 | 288 | 18 | 6.3% | 6.1% | 1.02x |
+| potatoes_0_6 | 379 | 25 | 6.6% | 6.1% | 1.08x |
+| carrots_2_3 | 498 | 39 | 7.8% | 6.1% | 1.28x |
+| **carrots_4_8** | 206 | 40 | **19.4%** | 6.1% | **3.17x** |
+
+Three findings, none of which was available by argument:
+
+1. **The pads are over-represented but nowhere near dominant.** Most regions sit
+   between 1.0x and 1.3x of what uniform placement would give. A manifestation
+   landing on the old pen floor is somewhat more likely than chance, not the
+   default.
+2. **`carrots_4_8` is a genuine outlier at 3.17x**, and it is also the region
+   with the fewest eligible loci (206). Its ecology is the one where the
+   authored pad really is a large share of the usable ground.
+3. **Every region has hundreds of eligible loci** -- 206 at the lowest. §9's
+   worry that a region might have NO eligible locus once its pad is gone is
+   refuted for all twelve: removing the pads removes at most 27% of the
+   candidates.
+
+The consequence for migration is that pad removal is **less urgent than stated**
+and remains worth doing: a 1.2x-1.6x pull toward a flattened rectangle is still
+a visible artefact in a system whose whole claim is that the manifestation moves.
+
+The original cost argument below stands unchanged.
+
+**The restoration cost is real, and it is not symmetrical.**
 
 - **Fields.** Removing farmland/water/crops leaves 625 columns of authored
   `dirt` — the pad the field was laid on. Reverting it needs the pre-authoring
@@ -134,8 +177,10 @@ authored region geometry.
 3. `publish_world.py` — PNG/RLE exports;
 4. the Alpha lifecycle check — open, start, reset, replay on the new template;
 5. a renewables smoke test — that every Region still offers at least one
-   eligible locus after the pads are gone. **A region whose only flat ground was
-   the pad may now have none**, which is a genuine finding rather than a bug.
+   eligible locus after the pads are gone. **Already measured and passing**: the
+   thinnest region has 206 eligible loci against 40 on its pad, so no region is
+   at risk of being emptied. Rerun it after re-authoring to confirm the number
+   rather than to discover it.
 
 ## 10. Downstream snapshots and tests to regenerate
 

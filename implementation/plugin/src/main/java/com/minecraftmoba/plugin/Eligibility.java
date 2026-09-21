@@ -53,7 +53,26 @@ public final class Eligibility {
 
     private Eligibility() {}
 
-    /** Natural ground a wild manifestation can plausibly occupy. An Alpha fixture. */
+    /** The ground set as configured, falling back to the built-in Alpha fixture. */
+    public static Set<Material> groundFrom(java.util.List<String> configured) {
+        if (configured == null || configured.isEmpty()) return NATURAL_GROUND;
+        var set = new java.util.HashSet<Material>();
+        for (String name : configured) {
+            Material m = Material.matchMaterial(name);
+            if (m == null) throw new IllegalArgumentException(
+                    "renewables.eligibility.naturalGround: not a material: " + name);
+            set.add(m);
+        }
+        return Set.copyOf(set);
+    }
+
+    /**
+     * Natural ground a wild manifestation can plausibly occupy. An Alpha fixture.
+     *
+     * Held in config as well, because the offline simulation reproduces this
+     * predicate in Python and two copies of a rule drift. The list is the thing
+     * most likely to be edited, so it is the thing both sides read.
+     */
     public static final Set<Material> NATURAL_GROUND = Set.of(
             Material.GRASS_BLOCK, Material.DIRT, Material.COARSE_DIRT, Material.ROOTED_DIRT,
             Material.PODZOL, Material.MYCELIUM, Material.MOSS_BLOCK, Material.SAND,
