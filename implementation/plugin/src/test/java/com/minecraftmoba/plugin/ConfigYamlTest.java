@@ -64,7 +64,7 @@ class ConfigYamlTest {
 
     @Test void carriesEveryFeatureFlag() throws Exception {
         var root = load();
-        for (String flag : List.of("sentinelSkull", "taskProgression", "hud", "renewableParticles",
+        for (String flag : List.of("sentinelSkull", "taskProgression", "hud", "renewableMarkers",
                 "renewableAuthoring", "infraMode", "routes", "rewardAdvancements", "hubLobby",
                 "durability", "contributions", "lockedSlots", "hungerRegen")) {
             assertInstanceOf(Boolean.class, at(root, "features." + flag + ".enabled"),

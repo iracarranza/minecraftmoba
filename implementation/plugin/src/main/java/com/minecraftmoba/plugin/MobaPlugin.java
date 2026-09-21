@@ -22,6 +22,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Renewables renewables;
     public Provenance provenance() { return provenance; }
     public Renewables renewables() { return renewables; }
+    private RenewableMarkers renewableMarkers;
+    public RenewableMarkers renewableMarkers() { return renewableMarkers; }
     private Sentinel sentinel;
     public Sentinel sentinel() { return sentinel; }
     private TaskEffects taskEffects;
@@ -104,6 +106,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
+        renewableMarkers = new RenewableMarkers(this);
         fountainRegen = new FountainRegen(this);
         getServer().getPluginManager().registerEvents(fountainRegen, this);
         workPoints = new WorkPoints(this);

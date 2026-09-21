@@ -88,10 +88,29 @@ features:
     corridorRadius: 6.0
     effectTicks: 20
     exhaustionRelief: 0.1      # sprint efficiency, never added speed
-  renewableParticles:
+  # Mark the renewable resources THEMSELVES, not the region they sit in.
+  #
+  # This replaces a ring of particles drawn at the source's radius: a 40-block
+  # circle at one fixed height, which answered "a source is somewhere around
+  # here". Animals move, so a fixed ring stops describing a herd the moment it
+  # wanders, and what a player has to recognise is the sheep rather than the pen.
+  #
+  # Animals and swarms GLOW -- a silhouette that tracks the entity, which no
+  # particle emitter can do. Crops get a particle per qualifying block, because
+  # blocks cannot glow. A depleted source marks nothing, so a mark means
+  # "available" and not merely "exists".
+  #
+  # OPEN: vanilla glow renders through terrain for every player on both teams.
+  # Good for Alpha legibility, but it makes a herd public information the moment
+  # it exists. Per-viewer glow needs packet work and is not attempted.
+  renewableMarkers:
     enabled: true
     ticks: 20
-    pointsPerRing: 16
+    # Nothing is marked unless a player is within this range of the source.
+    viewRadius: 64.0
+    # Crop membership costs an O(radius^3) volume scan, so it is cached and
+    # refreshed on this cadence rather than every tick.
+    rescanTicks: 200
   renewableAuthoring:
     enabled: true
     reach: 48

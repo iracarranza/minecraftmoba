@@ -2,7 +2,6 @@ package com.minecraftmoba.plugin;
 
 import org.bukkit.*;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
@@ -57,6 +56,7 @@ public final class Renewables implements Listener {
         public int x() { return x; }
         public int y() { return y; }
         public int z() { return z; }
+        public int radius() { return radius; }
         public UUID world() { return world; }
     }
 
@@ -69,6 +69,8 @@ public final class Renewables implements Listener {
     /** Sources whose chunk was not loaded when state changed or registration ran. */
     private final Set<String> pendingPersist = new HashSet<>();
     private final Set<String> pendingRestore = new HashSet<>();
+    /** Sources whose chunk was not loaded when they were asked to manifest. */
+    private final Set<String> pendingManifest = new HashSet<>();
     /** Must stay zero. A nonzero value means this became passive income. */
     private long grantedByRenewal;
 
@@ -86,8 +88,6 @@ public final class Renewables implements Listener {
         long period = plugin.getConfig().getLong("renewables.sampleTicks");
         if (period <= 0) throw new IllegalArgumentException("renewables.sampleTicks must be positive");
         Bukkit.getScheduler().runTaskTimer(plugin, this::sample, period, period);
-        long pt = plugin.getConfig().getLong("features.renewableParticles.ticks", 20L);
-        if (pt > 0) Bukkit.getScheduler().runTaskTimer(plugin, this::particles, pt, pt);
     }
 
     /** Ships empty. An absent or empty list is the expected state, not an error. */
@@ -141,6 +141,7 @@ public final class Renewables implements Listener {
         sources.clear();
         pendingPersist.clear();
         pendingRestore.clear();
+        pendingManifest.clear();
         harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
         loadConfigured();
         return sources.size();
@@ -162,6 +163,21 @@ public final class Renewables implements Listener {
         // onEnable runs before any chunk is loaded, so saved state cannot be read
         // yet. Defer to ChunkLoadEvent rather than force-loading during startup.
         if (!restore(s)) pendingRestore.add(s.id);
+        // A source is a claim about the world, not a counter. It was only ever
+        // manifested on RECOVERY, which needs available < capacity -- so a fresh
+        // source, constructed at full availability, never manifested at all.
+        // Every animal pen in the Alpha map reported 6/6 while standing empty,
+        // and nothing could be harvested, bred or marked in any of them.
+        if (manifest(s) == 0 && !Bukkit.isPrimaryThread()) pendingManifest.add(s.id);
+        else if (!manifested(s)) pendingManifest.add(s.id);
+    }
+
+    /** Whether the world actually holds what the source says it holds. */
+    private boolean manifested(Source s) {
+        if (s.kind == null) return true;
+        World w = Bukkit.getWorld(s.world);
+        if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) return false;
+        return count(s, RenewableKinds.require(s.kind)) >= available(s);
     }
 
     /** Saved state only becomes readable once the owning chunk loads. */
@@ -173,6 +189,8 @@ public final class Renewables implements Listener {
             if ((s.x >> 4) != c.getX() || (s.z >> 4) != c.getZ()) continue;
             if (pendingRestore.remove(s.id) && restore(s)) restoresApplied++;
             if (pendingPersist.remove(s.id)) persist(s);
+            // The chunk is loaded now, so the pen can finally be filled.
+            if (pendingManifest.contains(s.id) && manifest(s) > 0) pendingManifest.remove(s.id);
         }
     }
 
@@ -399,26 +417,6 @@ public final class Renewables implements Listener {
             catch (IllegalArgumentException ex) { /* peaceful difficulty refuses hostiles */ }
         }
         return spawned;
-    }
-
-    /** Legibility, not decoration: a depleted source shows nothing. */
-    private void particles() {
-        if (!plugin.getConfig().getBoolean("features.renewableParticles.enabled")) return;
-        for (Source s : sources.values()) {
-            World w = Bukkit.getWorld(s.world);
-            if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) continue;
-            int avail = available(s);
-            if (avail <= 0) continue;
-            int points = Math.max(4, (int) Math.round(
-                    plugin.getConfig().getDouble("features.renewableParticles.pointsPerRing", 16)
-                            * ((double) avail / s.capacity)));
-            for (int i = 0; i < points; i++) {
-                double angle = 2 * Math.PI * i / points;
-                w.spawnParticle(Particle.END_ROD,
-                        s.x + 0.5 + Math.cos(angle) * s.radius, s.y + 1.2,
-                        s.z + 0.5 + Math.sin(angle) * s.radius, 1, 0, 0, 0, 0);
-            }
-        }
     }
 
     private void sample() {
