@@ -92,19 +92,26 @@ public final class WorkPoints implements Listener {
     /**
      * WP required to advance out of a level.
      *
-     * ALPHA CALIBRATION, supplied for this pass rather than derived here:
-     * Lv1-6 40, Lv7-12 54, Lv13-19 75, Lv20-24 103, Lv25-30 130. Held in config
-     * so a recalibration is a config edit and not a code change.
+     * The curve is a per-level sawtooth rather than five flat bands:
+     *
+     *     cost(b, i) = 300 * bandMultiplier[b] * 1.15^i
+     *
+     * with i counting advancements within an economic band from 0. Requirements
+     * compound by about 15% inside a phase and then *drop* on entering the next
+     * one, because each phase restarts from its own multiplier. That drop is
+     * the design, not a rounding artefact: reaching a new economic phase should
+     * feel like a widened economy, while the phase itself gets steadily more
+     * expensive than the one before it ever became.
+     *
+     * The table is held per level in config so the curve is inspectable and a
+     * recalibration is a config edit. The 300 baseline and the 1.15 factor are
+     * WORKING ALPHA CALIBRATION and not canon.
      */
     public int costOf(int level) {
         var cfg = plugin.getConfig();
-        for (String band : cfg.getConfigurationSection("progression.bands").getKeys(false)) {
-            String[] range = band.split("-");
-            int lo = Integer.parseInt(range[0]);
-            int hi = Integer.parseInt(range[range.length - 1]);
-            if (level >= lo && level <= hi) return cfg.getInt("progression.bands." + band);
-        }
-        return plugin.getConfig().getInt("progression.xpPerLevel", 100);
+        if (cfg.isSet("progression.levelCosts." + level))
+            return cfg.getInt("progression.levelCosts." + level);
+        return cfg.getInt("progression.xpPerLevel", 100);
     }
 
     // ---- awarding --------------------------------------------------------

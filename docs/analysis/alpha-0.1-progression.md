@@ -378,3 +378,125 @@ that definition here would fix the cheapest reading of it in code.
 
 Still unattached from the first pass: the **+64 WP Construct recognition
 premium**, which remains blocked on what qualifies as a Construct.
+
+---
+
+# Third pass — higher-resolution curve and source recalibration
+
+## The level requirement function
+
+    cost(b, i) = 300 * bandMultiplier[b] * 1.15^i
+
+`i` counts advancements **within** an economic band from 0. The band
+multipliers are the established relative requirement indices, unchanged:
+Bootstrap 1.000, Established 1.350, Developed 1.875, Advanced 2.575,
+Endgame 3.250. Values round to 5-WP steps.
+
+The **300 baseline and the 1.15 in-band factor are WORKING ALPHA CALIBRATION,
+not canon.**
+
+| Band | Levels | First | Last |
+|---|---|---|---|
+| Bootstrap | 1→2 … 6→7 | 300 | 605 |
+| Established | 7→8 … 12→13 | 405 | 815 |
+| Developed | 13→14 … 19→20 | 560 | 1300 |
+| Advanced | 20→21 … 24→25 | 770 | 1350 |
+| Endgame | 25→26 … 29→30 | 975 | 1705 |
+
+The requirement **drops** at each boundary. That is the design: a new economic
+phase restarts from its own multiplier and then compounds within itself, so
+entering a phase is a step down in per-level cost and a step up in the cost that
+phase will eventually reach. Three tests pin this, because `605` followed by
+`405` reads like a transcription bug and would be "fixed" by the next person to
+look at it: one checks every entry against the generating formula, one asserts
+the drop at all four boundaries, one asserts each band peaks above the last.
+
+The table is stored per level (`progression.levelCosts`) rather than as ranges,
+so the curve is inspectable and a recalibration stays a config edit.
+
+## Source recalibration
+
+Fixtures were calibrated against a 40-WP level. The scaling is **not** a flat
+10×, because the point of the new resolution is that 1 WP can remain the
+minimum accounting unit for a genuinely small action while substantive work
+occupies the tens.
+
+| Source | Old | New | Note |
+|---|---|---|---|
+| Ordinary placement | 0 | 0 | UNRESOLVED, see below |
+| Construction Block placement | 2 | 20 | |
+| Extraction A(O), coal/copper | 1 | 10 | |
+| Extraction A(O), iron/redstone/lapis | 2 | 20 | |
+| Extraction A(O), gold | 3 | 30 | |
+| Extraction A(O), diamond/emerald | 4 | 40 | |
+| Extraction A(O), ancient debris | 6 | 60 | |
+| Extraction q (harvest coefficient) | 1 | 10 | |
+| Production tool | 3 | 30 | |
+| Production equipment | 4 | 40 | |
+| Production utility | 1 | **1** | held at the floor |
+| Production consumable | 1 | **6** | below 10×, arrives in stacks |
+| Production strategic input | 2 | 20 | |
+| Production Construction Block | 2 | 20 | |
+| Mature crop harvest | 2 | 20 | |
+| Successful breeding | 8 | 80 | |
+| First Worksite resolution | 6 | 60 | |
+
+Three deliberate departures from 10×:
+
+- **Utility stays at 1.** It is the category that arrives four at a time from
+  one piece of coal. It is the clearest case of an action that is real but
+  small, which is exactly what the 1-WP floor exists for.
+- **Consumable is 6, not 10.** Food is smelted and crafted in stacks; at 10, one
+  stack of cooked meat would outweigh a bred animal several times over.
+- **Ordinary placement stays 0.** See below.
+
+**Extraction was rescaled, not replaced.** `WP = A(O) + qH` is intact, with both
+A and q raised together so Fortune still moves H and never A(O), and so Yield
+remains the same fraction of a break as it was rather than being quietly
+demoted by scaling A alone. The known q-asymmetry survives too: multi-drop ores
+still accrue more harvest WP than single-drop ones. Per-ore q would be a new
+design decision, so it stays flagged rather than tuned away.
+
+### Ordinary placement: 0 is a blocked question, not a conclusion
+
+The blocker is **qualification, not magnitude**, and the new resolution changes
+the magnitude argument entirely. At 40 WP/level, a 1-WP placement was 1/40th of
+a level and any blanket placement rule was economically absurd on its face. At
+300 WP/level it is 1/300th, which makes a future *"ordinary **useful**
+placement = 1 WP"* rule economically plausible — a player placing 300 blocks of
+genuine structure earning one level is a defensible claim in a way it was not
+before. What is still missing is a test for *useful*. When one exists, the
+fixture is a single config edit.
+
+## Modelled opening composition under the new curve
+
+Same conventional opening as the second pass (wood → stone tools → coal → iron
+→ cooked food → a small wheat farm and one breeding pair), recomputed against
+the recalibrated fixtures. **Modelled, not measured** — no live session has been
+run.
+
+| Domain | Detail | WP |
+|---|---|---|
+| Extraction | 10 coal (20 each), 8 iron (30 each) | 440 |
+| Production | table, 4 tools, 2 weapons, furnace, 16 torches, 8 ingots, 8 steak | 426 |
+| Development | 9 mature wheat, one breeding | 260 |
+| Exploration | 1–2 Worksites resolved in passing | 60–120 |
+| Construction | no Construction Blocks made or placed | 0 |
+
+**Total ≈ 1,186–1,246 WP → Lv4, roughly a third to a half of the way to Lv5.**
+
+Cumulative requirements for reference: Lv2 at 300, Lv3 at 645, Lv4 at 1,040,
+Lv5 at 1,495, Lv7 at 2,625.
+
+The curve was **not** tuned to reproduce the old Lv1→Lv3 result; the recalibrated
+sources happen to land one level further, and that is reported rather than
+corrected. Two observations worth carrying into a live session:
+
+- Extraction and Production are now near-equal contributors (440 vs 426), where
+  Extraction previously dominated. That is mostly the 8 smelted ingots at 20
+  each — refinement is now a large share of an opening, which may be right or
+  may mean `strategic_input` is too high.
+- Construction still contributes **nothing** to an opening that never produces
+  bricks, terracotta, concrete or glass. That remains the single most likely
+  place the model is wrong, and it is the same question as the unresolved
+  ordinary-placement rule above.

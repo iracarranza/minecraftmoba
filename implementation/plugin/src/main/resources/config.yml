@@ -181,80 +181,153 @@ progression:
   maxLevel: 30
   # Retained as the fallback when a level falls outside every band.
   xpPerLevel: 100
-  # WP required to leave each level. ALPHA CALIBRATION, supplied for the
-  # progression integration pass; not derived here and not canon.
-  bands:
-    "1-6": 40
-    "7-12": 54
-    "13-19": 75
-    "20-24": 103
-    "25-30": 130
+  # WP required to leave each level.
+  #
+  #     cost(b, i) = 300 * bandMultiplier[b] * 1.15^i
+  #
+  # where b is the economic band and i counts advancements WITHIN that band
+  # from 0. The band multipliers are the established relative requirement
+  # indices and are unchanged:
+  #
+  #     Bootstrap 1.000  Established 1.350  Developed 1.875
+  #     Advanced  2.575  Endgame     3.250
+  #
+  # The 300 baseline and the 1.15 in-band factor are WORKING ALPHA
+  # CALIBRATION, not canon. Values are rounded to convenient 5-WP steps.
+  #
+  # The requirement DROPS at each band boundary, which is intentional and not a
+  # rounding artefact: each economic phase restarts from its own multiplier and
+  # then compounds within itself, so entering a new phase is a step down in
+  # per-level cost and a step up in the cost the phase will reach.
+  levelCosts:
+    # Bootstrap (x1.000)
+    "1": 300
+    "2": 345
+    "3": 395
+    "4": 455
+    "5": 525
+    "6": 605
+    # Established (x1.350)
+    "7": 405
+    "8": 465
+    "9": 535
+    "10": 615
+    "11": 710
+    "12": 815
+    # Developed (x1.875)
+    "13": 560
+    "14": 645
+    "15": 745
+    "16": 855
+    "17": 985
+    "18": 1130
+    "19": 1300
+    # Advanced (x2.575)
+    "20": 770
+    "21": 890
+    "22": 1020
+    "23": 1175
+    "24": 1350
+    # Endgame (x3.250)
+    "25": 975
+    "26": 1120
+    "27": 1290
+    "28": 1485
+    "29": 1705
+    # Lv30 is the cap; there is no cost to leave it.
+  # The band each level belongs to, kept so the curve can be checked against
+  # the formula that generated it rather than only against itself.
+  bandMultipliers:
+    bootstrap: 1.000
+    established: 1.350
+    developed: 1.875
+    advanced: 2.575
+    endgame: 3.250
   # WP per recognized action, all under progression.work.* so that every key
-  # the plugin reads is the key this file defines. It was previously split
-  # between progression.work.* in Java and progression.extraction.* here, which
-  # meant the live Extraction values silently came from Java fallbacks rather
-  # than from this file; ConfigYamlTest now fails if that ever drifts again.
+  # the plugin reads is the key this file defines.
+  #
+  # RESOLUTION. These were calibrated against a 40-WP level and are now scaled
+  # for a 300-WP one. The point of the higher resolution is NOT a flat 10x: it
+  # is that 1 WP can stay the minimum accounting unit for a genuinely small
+  # action while materially significant work moves into the tens. So the scale
+  # is applied to substantive work and deliberately not to the small end --
+  # production utility stays at 1, and consumables sit below 10x because they
+  # arrive in stacks.
   #
   # Every number below is a NON-CANON ALPHA FIXTURE.
   work:
     # -- Construction ---------------------------------------------------
-    # The UAU supplement's sensitivity fixtures are ordinary useful placement
-    # 1 WP and Construction Block placement 2 WP total. "Useful" is doing real
-    # work in that sentence and nothing here can currently test for it, so
-    # ordinary placement ships at 0 and is flagged UNRESOLVED rather than being
-    # read as "every BlockPlaceEvent is Construction". Set it to 1 to restore
-    # the fixture once a usefulness test exists.
-    constructionBlockPlacement: 2
+    # The UAU supplement's sensitivity fixtures were ordinary useful placement
+    # 1 WP and Construction Block placement 2 WP total, against a 40-WP level.
+    # "Useful" is doing real work in that sentence and nothing here can test
+    # for it, so ordinary placement stays at 0 and stays flagged UNRESOLVED.
+    #
+    # 0 is NOT the design conclusion. At the old resolution a 1-WP placement
+    # was 1/40th of a level, which made any blanket placement rule economically
+    # absurd; at 300 WP/level it is 1/300th, and a future "ordinary USEFUL
+    # placement = 1 WP" rule becomes economically plausible the moment a
+    # usefulness test exists. The blocker is qualification, not magnitude.
+    constructionBlockPlacement: 20
     ordinaryPlacement: 0          # UNRESOLVED: usefulness is not detectable
     # -- Extraction: WP = A(O) + qH -------------------------------------
     #
+    # Rescaled into the new resolution, NOT replaced by a flat per-ore award.
     # A(O) credits exploiting one physical opportunity and is paid once per ore
-    # block broken. H is the qualifying harvest actually obtained, read from the
-    # real drops, and q converts it to points. Fortune therefore raises H and
-    # never A(O): one ore block does not become 2.2 opportunities, but the extra
-    # material really was extracted and is additional Extraction work.
+    # block broken; H is the qualifying harvest actually obtained, read from the
+    # real drops; q converts it to points. Fortune therefore still raises H and
+    # never A(O), and raising q with A keeps Yield worth the same fraction of a
+    # break as before rather than quietly demoting it.
     #
-    # Note the consequence of q=1: multi-drop ores (redstone 4-5, lapis 4-9,
-    # copper 2-5) accrue more harvest WP than single-drop ores, which is a
-    # calibration question rather than a model question and is deliberately not
-    # tuned away here.
+    # The q=10 flat coefficient keeps the known asymmetry it had at q=1:
+    # multi-drop ores (redstone 4-5, lapis 4-9, copper 2-5) accrue more harvest
+    # WP than single-drop ores. That is a calibration question rather than a
+    # model question, and per-ore q would be a new design decision, so it is
+    # still flagged rather than tuned away.
     extraction:
-      harvestCoefficient: 1
+      harvestCoefficient: 10
       silkTouchHarvest: 0         # UNRESOLVED: whether deferral is harvest
       opportunity:
         default: 0
-        coal: 1
-        copper: 1
-        iron: 2
-        gold: 3
-        redstone: 2
-        lapis: 2
-        diamond: 4
-        emerald: 4
-        ancient_debris: 6
+        coal: 10
+        copper: 10
+        iron: 20
+        gold: 30
+        redstone: 20
+        lapis: 20
+        diamond: 40
+        emerald: 40
+        ancient_debris: 60
     # -- Production: completed transformations --------------------------
     # Per output item. Categories are enumerated in ProductionRecipes; a recipe
     # outside them is UNRESOLVED and pays nothing rather than being guessed at.
     # Storage-block compression pays nothing in the crafting direction, which is
     # what stops ingot <-> block from being an unbounded loop.
+    #
+    # utility stays at 1 on purpose. It is the category that arrives four at a
+    # time from one coal, and it is the clearest case of an action that is real
+    # but small -- exactly what the 1-WP floor exists for.
+    #
+    # consumable is 6, inside the 5-10 band rather than a 10x 10, because food
+    # is smelted and crafted in stacks: at 10 a single stack of cooked meat
+    # would outweigh a bred animal several times over.
     production:
-      tool: 3
-      equipment: 4
+      tool: 30
+      equipment: 40
       utility: 1
-      consumable: 1
-      strategic_input: 2
-      construction_block: 2
+      consumable: 6
+      strategic_input: 20
+      construction_block: 20
     # -- Development: improved productive renewable state ----------------
     # Both events are gated by real time (a breeding cooldown, a growth cycle)
     # rather than by a cooldown imposed here.
     development:
-      breeding: 8
-      matureCropHarvest: 2
+      breeding: 80
+      matureCropHarvest: 20
     # -- Exploration: novel Reach ----------------------------------------
     # Credited once per player per registered Worksite per match. Distance
     # walked, chunks entered and re-crossed geography pay nothing.
     exploration:
-      siteResolved: 6
+      siteResolved: 60
       radius: 24.0
       intervalTicks: 20
   task:
