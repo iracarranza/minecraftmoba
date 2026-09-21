@@ -107,8 +107,10 @@ public final class RenewableMarkers {
 
     private void markFauna(World w, Renewables.Source s, RenewableKinds.Kind kind, Set<UUID> keep) {
         Location centre = new Location(w, s.x() + 0.5, s.y() + 0.5, s.z() + 0.5);
+        // Membership, not type-in-radius: a player's own livestock standing in
+        // the region is their economy and must not be marked as a wild herd.
         for (Entity e : w.getNearbyEntities(centre, s.radius(), s.radius(), s.radius())) {
-            if (!kind.entities().contains(e.getType()) || !(e instanceof LivingEntity)) continue;
+            if (!plugin.renewables().isMember(e, s) || !(e instanceof LivingEntity)) continue;
             keep.add(e.getUniqueId());
             if (marked.add(e.getUniqueId()) || !e.isGlowing()) e.setGlowing(true);
         }

@@ -499,6 +499,17 @@ provenance:
 # registers sources it is given; it never generates them.
 renewables:
   sampleTicks: 200
+  # Manifestation membership. A member that leaves its region stops being part
+  # of the wild population and stays alive as an ordinary animal in the team's
+  # economy -- it is never despawned, then or when the opportunity regenerates.
+  #
+  # UNRESOLVED: "left the region" is the narrowest defensible reading of when
+  # captured livestock ceases to be wild. Whether capture should instead be
+  # recognised by leashing, naming, fencing, or distance from the manifestation
+  # site is a design decision. See
+  # docs/proposals/2026-09-21-regenerative-opportunity-model.md D.1.
+  membership:
+    revokeOnLeavingRegion: true
   # Sources are the frozen Consolidative Alpha map's own authored placements:
   # renewable_range pens and founder_crop patches, at the coordinates the map
   # was built with. They bind to the match instance world, so they resolve only

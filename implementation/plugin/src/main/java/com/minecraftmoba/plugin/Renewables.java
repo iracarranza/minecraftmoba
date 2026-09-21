@@ -28,11 +28,24 @@ import java.util.*;
 public final class Renewables implements Listener {
     public enum Type { CROP, ANIMAL, SWARM }
 
+    /**
+     * The opportunity's lifecycle, stated rather than inferred.
+     *
+     * It was previously implied by two integers, so "is there a manifestation
+     * standing in the world right now" had no answer that did not involve
+     * counting things in a volume. That is the question the no-stacking rule
+     * turns on, so it is now a field.
+     */
+    public enum State { MANIFESTED, DEPLETED, RECOVERING }
+
     /** Availability state only. Nothing here is an inventory, a drop or a reward. */
     public static final class Source {
         final String id; final Type type; final UUID world; final String kind;
         final int x, y, z, radius, capacity; final long recoverTicks;
         int available; long recoveringUntil;
+        State state = State.RECOVERING;   // nothing has manifested yet
+        /** Members spawned into the current manifestation, so ones that LEAVE can still be found. */
+        final Set<UUID> members = new HashSet<>();
         Source(String id, Type type, UUID world, int x, int y, int z,
                int radius, int capacity, long recoverTicks) {
             this(id, type, world, x, y, z, radius, capacity, recoverTicks, null);
@@ -58,10 +71,13 @@ public final class Renewables implements Listener {
         public int z() { return z; }
         public int radius() { return radius; }
         public UUID world() { return world; }
+        public State state() { return state; }
     }
 
     private final MobaPlugin plugin;
     private final NamespacedKey key;
+    /** Stamped on every entity the system manifests, naming its opportunity. */
+    private final NamespacedKey memberKey;
     private final Map<String, Source> sources = new LinkedHashMap<>();
     private final Path csv;
     private long harvests, recoveries, recoveryChecks, depletions, harvestNanos, harvestCalls;
@@ -77,6 +93,7 @@ public final class Renewables implements Listener {
     public Renewables(MobaPlugin plugin) {
         this.plugin = plugin;
         this.key = new NamespacedKey(plugin, "renewable_sources_v1");
+        this.memberKey = new NamespacedKey(plugin, "manifestation_member");
         csv = plugin.getDataFolder().toPath().resolve("measurements")
                 .resolve("renewables-" + Instant.now().toEpochMilli() + ".csv");
         try {
@@ -218,6 +235,8 @@ public final class Renewables implements Listener {
                 && Bukkit.getWorld(s.world).getFullTime() >= s.recoveringUntil) {
             s.available = s.capacity;
             s.recoveringUntil = 0;
+            s.state = State.RECOVERING;
+            s.members.clear();
             recoveries++;
             persist(s);
             // Restore the opportunity itself, not only the counter.
@@ -239,6 +258,7 @@ public final class Renewables implements Listener {
         harvests++;
         if (s.available == 0) {
             depletions++;
+            s.state = State.DEPLETED;
             World w = Bukkit.getWorld(s.world);
             s.recoveringUntil = (w == null ? 0 : w.getFullTime()) + s.recoverTicks;
         }
@@ -276,12 +296,13 @@ public final class Renewables implements Listener {
         try {
             LivingEntity victim = e.getEntity();
             if (victim.getKiller() == null) return;   // only player-caused harvest counts
-            var loc = victim.getLocation();
-            at(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
-                    victim instanceof Monster ? Type.SWARM : Type.ANIMAL).ifPresent(s -> {
-                if (s.kind != null && !RenewableKinds.require(s.kind).entities().contains(victim.getType())) return;
-                harvest(s);
-            });
+            // Membership, not position. An ordinary animal a player kills to
+            // stand in a region is not a harvest of that region's herd.
+            String owner = victim.getPersistentDataContainer()
+                    .get(memberKey, PersistentDataType.STRING);
+            if (owner == null) return;
+            Source s = sources.get(owner);
+            if (s != null) harvest(s);
         } finally { harvestCalls++; harvestNanos += System.nanoTime() - t0; }
     }
 
@@ -358,14 +379,63 @@ public final class Renewables implements Listener {
         if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) return 0;
         if (s.kind == null) return 0;
         var kind = RenewableKinds.require(s.kind);
+        // ONE MANIFESTATION AT A TIME. This used to top up to capacity, so a
+        // half-harvested herd was quietly refilled where it stood -- which makes
+        // an ignored opportunity an animal printer and makes the region a camp
+        // coordinate. A new manifestation is created only when there is no
+        // current one; otherwise the standing manifestation IS the current one
+        // and nothing happens.
         int present = count(s, kind);
-        int wanted = Math.max(0, available(s) - present);
+        if (present > 0) { s.state = State.MANIFESTED; return 0; }
+        int wanted = available(s);
         if (wanted <= 0) return 0;
-        return kind.type() == Type.CROP ? placeCrops(w, s, kind, wanted)
-                                        : spawnFauna(w, s, kind, wanted);
+        // SITE SELECTION IS NOT IMPLEMENTED. The manifestation appears at the
+        // authored origin, which is exactly the fixed decorative spawn pad the
+        // design rejects. It waits on two decisions that are architectural
+        // rather than numeric -- what a region IS, and whether the map tool or
+        // the plugin owns eligibility -- and is marked here so it cannot be
+        // mistaken for the intended behaviour.
+        // See docs/proposals/2026-09-21-regenerative-opportunity-model.md F.
+        int made = kind.type() == Type.CROP ? placeCrops(w, s, kind, wanted)
+                                            : spawnFauna(w, s, kind, wanted);
+        if (made > 0) s.state = State.MANIFESTED;
+        return made;
     }
 
-    /** What already exists, so a top-up never duplicates. */
+    /** Whether this entity is a member of this opportunity's manifestation. */
+    public boolean isMember(org.bukkit.entity.Entity e, Source s) {
+        if (e == null) return false;
+        String owner = e.getPersistentDataContainer().get(memberKey, PersistentDataType.STRING);
+        return s.id.equals(owner);
+    }
+
+    /** Whether this entity belongs to ANY manifestation. */
+    public boolean isMember(org.bukkit.entity.Entity e) {
+        return e != null && e.getPersistentDataContainer().has(memberKey, PersistentDataType.STRING);
+    }
+
+    /**
+     * Stop treating an entity as wild WITHOUT touching the entity.
+     *
+     * This is the whole point of explicit membership: a captured animal leaves
+     * the wild population and stays alive, becoming an ordinary part of the
+     * team's economy. Nothing is despawned, then or when the opportunity later
+     * regenerates.
+     */
+    public void revoke(org.bukkit.entity.Entity e) {
+        if (e != null) e.getPersistentDataContainer().remove(memberKey);
+    }
+
+    /**
+     * What of this manifestation is still standing.
+     *
+     * Membership is explicit, never positional. Counting "entities of the right
+     * type inside the radius" made a player's bred sheep a wild herd member, a
+     * wild sheep that wandered 25 blocks not one, and any naturally spawned
+     * zombie a member of a Swarm. Blocks use Provenance, which the repo already
+     * has: a manifestation block is one the SYSTEM placed, so a player's farm
+     * inside the region is excluded for free.
+     */
     private int count(Source s, RenewableKinds.Kind kind) {
         World w = Bukkit.getWorld(s.world);
         if (w == null) return 0;
@@ -373,15 +443,32 @@ public final class Renewables implements Listener {
             int n = 0;
             for (int x = s.x - s.radius; x <= s.x + s.radius; x++)
                 for (int y = s.y - s.radius; y <= s.y + s.radius; y++)
-                    for (int z = s.z - s.radius; z <= s.z + s.radius; z++)
-                        if (kind.blocks().contains(w.getBlockAt(x, y, z).getType())) n++;
+                    for (int z = s.z - s.radius; z <= s.z + s.radius; z++) {
+                        Block b = w.getBlockAt(x, y, z);
+                        if (!kind.blocks().contains(b.getType())) continue;
+                        // A player-planted crop is production, not the wild
+                        // patch, and counting it suppressed regeneration.
+                        if (plugin.provenance() != null && plugin.provenance().isPlayerPlaced(b)) continue;
+                        n++;
+                    }
             return n;
         }
         int n = 0;
         for (var e : w.getNearbyEntities(new Location(w, s.x + 0.5, s.y + 0.5, s.z + 0.5),
                 s.radius, s.radius, s.radius))
-            if (kind.entities().contains(e.getType())) n++;
+            if (isMember(e, s)) n++;
         return n;
+    }
+
+    /** Members of this opportunity currently inside its region. */
+    public java.util.List<org.bukkit.entity.Entity> membersOf(Source s) {
+        World w = Bukkit.getWorld(s.world);
+        var out = new ArrayList<org.bukkit.entity.Entity>();
+        if (w == null) return out;
+        for (var e : w.getNearbyEntities(new Location(w, s.x + 0.5, s.y + 0.5, s.z + 0.5),
+                s.radius, s.radius, s.radius))
+            if (isMember(e, s)) out.add(e);
+        return out;
     }
 
     private int placeCrops(World w, Source s, RenewableKinds.Kind kind, int wanted) {
@@ -413,13 +500,56 @@ public final class Renewables implements Listener {
                     s.y + 1, s.z + 0.5 + (Math.random() - 0.5) * s.radius);
             var ground = w.getHighestBlockYAt(at.getBlockX(), at.getBlockZ());
             at.setY(Math.max(s.y, Math.min(s.y + s.radius, ground + 1)));
-            try { w.spawnEntity(at, type); spawned++; }
-            catch (IllegalArgumentException ex) { /* peaceful difficulty refuses hostiles */ }
+            try {
+                var spawnedEntity = w.spawnEntity(at, type);
+                // Marked at birth: membership is a fact about the entity, not
+                // about where it happens to be standing.
+                spawnedEntity.getPersistentDataContainer()
+                        .set(memberKey, PersistentDataType.STRING, s.id);
+                s.members.add(spawnedEntity.getUniqueId());
+                spawned++;
+            } catch (IllegalArgumentException ex) { /* peaceful difficulty refuses hostiles */ }
         }
         return spawned;
     }
 
+    /**
+     * A member that has left its region stops being wild, and stays alive.
+     *
+     * This is the captured-livestock case: two sheep led home are no longer
+     * part of the wild herd, so the remaining wild population is three and the
+     * opportunity can eventually recover -- but the two sheep are ordinary
+     * animals in the team's economy and are never despawned, then or later.
+     *
+     * THE RULE IS UNRESOLVED. "Left the region" is the narrowest defensible
+     * reading and is what ships; whether capture should instead be recognised
+     * by leashing, naming, fencing or distance from the manifestation site is a
+     * design decision, not a number. See the model proposal, D.1.
+     */
+    private void sweepMembership() {
+        if (!plugin.getConfig().getBoolean("renewables.membership.revokeOnLeavingRegion", true)) return;
+        for (Source s : sources.values()) {
+            if (s.members.isEmpty()) continue;
+            var gone = new ArrayList<UUID>();
+            for (UUID id : s.members) {
+                var e = Bukkit.getEntity(id);
+                if (e == null) continue;              // unloaded: decide nothing
+                if (!e.getWorld().getUID().equals(s.world) || !s.contains(
+                        e.getLocation().getBlockX(), e.getLocation().getBlockY(),
+                        e.getLocation().getBlockZ())) {
+                    revoke(e);
+                    gone.add(id);
+                    // Leaving the wild population is depletion of the wild
+                    // opportunity, exactly as killing would be.
+                    harvest(s);
+                }
+            }
+            s.members.removeAll(gone);
+        }
+    }
+
     private void sample() {
+        sweepMembership();
         // Settle recovery for every source so the sample reflects real state.
         for (Source s : sources.values()) available(s);
         String line = Instant.now() + "," + sources.size() + "," + harvests + "," + depletions + ","
