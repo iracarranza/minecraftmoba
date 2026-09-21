@@ -131,12 +131,23 @@ public final class Match implements Listener {
         return "Match started with " + participants.size() + " participant(s).";
     }
 
+    /**
+     * Put a player at their homeland at full strength.
+     *
+     * "Full" means the player's OWN derived maxima, not vanilla's 20. At level
+     * one those are 9 and 9, and setting 20 handed every player eleven hunger
+     * points that the Capacity model says they do not have -- invisible in the
+     * custom readout, and slowly spent back down to the cap.
+     */
     private void spawn(Player p, Team team) {
         Location home = homelands.get(team);
         if (home != null) p.teleport(home);
         p.setGameMode(GameMode.SURVIVAL);
-        p.setHealth(Math.min(20.0, p.getMaxHealth()));
-        p.setFoodLevel(20);
+        var max = p.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
+        p.setHealth(max == null ? 20.0 : max.getValue());
+        int hunger = plugin.effectiveHunger(p);
+        p.setFoodLevel(hunger);
+        p.setSaturation(hunger);
     }
 
     private void tick() {

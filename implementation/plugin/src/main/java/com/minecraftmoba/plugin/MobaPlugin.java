@@ -171,7 +171,42 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         inputs.forget(p);
         var fresh = new PlayerData(p.getUniqueId());
         players.put(fresh.uuid, fresh);
-        save(p, fresh);
+
+        // The INVENTORY is match-scoped player state, and this is the part that
+        // was missing. Every item in it was extracted, crafted or picked up in
+        // the world that reset is discarding, so carrying it forward starts the
+        // next match with the previous one's work already banked -- which makes
+        // progression meaningless from match two onward. ALPHA-D2 already says
+        // reset clears match-scoped player state; this is that clause applied
+        // to the state a player can actually see.
+        var inv = p.getInventory();
+        inv.clear();
+        inv.setArmorContents(null);
+        inv.setItemInOffHand(null);
+        p.setItemOnCursor(null);
+        // Vanilla XP is not our progression, but it is still state this match
+        // produced, and a stale bar reads as a level the player no longer has.
+        p.setTotalExperience(0);
+        p.setExp(0f);
+        p.setLevel(0);
+        for (var effect : p.getActivePotionEffects()) p.removePotionEffect(effect.getType());
+        p.setFireTicks(0);
+
+        // Task modifiers are removed and re-added from the FRESH data rather
+        // than left to applyAutomaticGrants, which only ever grants upward and
+        // so would leave a previous match's Efficiency and Damage modifiers
+        // attached to a level 1 player.
+        if (taskEffects != null) taskEffects.reapply(p, fresh);
+        // sync() rather than save(): saving alone persisted the reset data while
+        // leaving the live player carrying the old match's maximum health and
+        // level display.
+        sync(p, fresh);
+
+        // Re-issue what a player is supposed to start with. Both have to run
+        // after the clear: locked-slot markers go into slots the clear emptied,
+        // and the tome is only issued into an EMPTY offhand.
+        if (lockedSlots != null) lockedSlots.refresh(p);
+        if (offhandMap != null) offhandMap.ensure(p);
     }
 
     /**
