@@ -137,8 +137,30 @@ public final class WorkPoints implements Listener {
         return p.getGameMode() == org.bukkit.GameMode.SURVIVAL;
     }
 
+    /**
+     * Whether this player is somewhere their actions can be match work.
+     *
+     * Progression is match-scoped (ALPHA-D2), and the hub is not the match.
+     * Without this, placing blocks in the lobby while waiting to join earned
+     * Construction WP that then carried into the match -- a player could arrive
+     * at the starting line several levels up, having done none of the work the
+     * match is meant to measure.
+     *
+     * The test is participation in a RUNNING match, not merely standing in the
+     * instance world, so spectators and players who have not been added earn
+     * nothing either.
+     */
+    private boolean inMatch(Player p) {
+        Match match = plugin.match();
+        if (match == null || !match.running()) return false;
+        Match.Participant part = match.participant(p.getUniqueId());
+        if (part == null || !part.alive) return false;
+        var world = plugin.worldInstance() == null ? null : plugin.worldInstance().world();
+        return world != null && p.getWorld().equals(world);
+    }
+
     public void award(Player p, Domain domain, int wp, String source) {
-        if (!enabled() || wp <= 0 || !plugin.enrolled(p) || !counts(p)) return;
+        if (!enabled() || wp <= 0 || !plugin.enrolled(p) || !counts(p) || !inMatch(p)) return;
         var d = plugin.data(p);
         if (d == null) return;
         earned.computeIfAbsent(p.getUniqueId(), k -> new EnumMap<>(Domain.class))

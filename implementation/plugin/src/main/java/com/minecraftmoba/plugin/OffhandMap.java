@@ -25,18 +25,30 @@ public final class OffhandMap implements Listener {
     }
     public boolean ensure(Player p) {
         ItemStack held = p.getInventory().getItemInOffHand();
-        // `isMap` answers "is this the offhand item", and the offhand item has
-        // two representations: a filled map, or Sentinel's skull. Only the map
-        // representation owns a MapView, so only it has a renderer to refresh.
-        // Casting both to MapMeta is what produced the CraftMetaSkull crash.
-        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(held)) return true;
-        if (isMap(held)) {
-            if (held.getItemMeta() instanceof MapMeta meta
-                    && meta.hasMapView() && meta.getMapView() != null) {
-                stub(meta.getMapView());
-            }
+        // Anything holding a MapView gets its renderer refreshed FIRST.
+        //
+        // The sentinel check used to come first and returned early, which was
+        // correct while the sentinel was a separate skull and wrong the moment
+        // the tome became both. A tome is a sentinel AND a map, so it took the
+        // early return and stub() never ran on it.
+        //
+        // That is invisible until a restart. MapViews persist in world data but
+        // their RENDERERS do not, so after every restart the tome came back
+        // carrying a plain vanilla map with our Minimap renderer gone -- and it
+        // drew exactly what a vanilla map of unexplored ground draws, which is
+        // nothing. The map "stopped working" with the item still in place and
+        // nothing in the log.
+        //
+        // Only the map representation owns a MapView; casting a skull to
+        // MapMeta is what produced the CraftMetaSkull crash, so the instanceof
+        // is doing real work here.
+        if (held.getItemMeta() instanceof MapMeta meta
+                && meta.hasMapView() && meta.getMapView() != null) {
+            stub(meta.getMapView());
             return true;
         }
+        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(held)) return true;
+        if (isMap(held)) return true;
         if (!held.getType().isAir()) return false;
         // Tome mode: the map item also carries the sentinel identity and the
         // class blurb, so one offhand item is the map surface, the swap

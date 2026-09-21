@@ -113,6 +113,12 @@ features:
   # added to it, so 32 lights a 20-radius pen when a player is about 32 blocks
   # from its edge: close enough to be working it. It must stay well inside the
   # tracking range above, or the gate stops gating anything.
+  # A player who is not a living participant of a RUNNING match takes no damage,
+  # loses no hunger and is not targeted. Waiting to join is not gameplay, and
+  # dying to a creeper on the way to the lobby is an interruption of the one
+  # thing the player is trying to do.
+  lobbySafety:
+    enabled: true
   renewableMarkers:
     enabled: true
     ticks: 20

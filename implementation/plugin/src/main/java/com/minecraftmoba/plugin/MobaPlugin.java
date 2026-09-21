@@ -1,6 +1,7 @@
 package com.minecraftmoba.plugin;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -24,6 +25,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Renewables renewables() { return renewables; }
     private RenewableMarkers renewableMarkers;
     public RenewableMarkers renewableMarkers() { return renewableMarkers; }
+    private LobbySafety lobbySafety;
+    public LobbySafety lobbySafety() { return lobbySafety; }
     private Sentinel sentinel;
     public Sentinel sentinel() { return sentinel; }
     private TaskEffects taskEffects;
@@ -107,6 +110,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
         renewableMarkers = new RenewableMarkers(this);
+        lobbySafety = new LobbySafety(this);
+        getServer().getPluginManager().registerEvents(lobbySafety, this);
         fountainRegen = new FountainRegen(this);
         getServer().getPluginManager().registerEvents(fountainRegen, this);
         workPoints = new WorkPoints(this);
@@ -146,16 +151,38 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getScheduler().runTaskTimer(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) if (enrolled(p)) enforceHunger(p, capacity(data(p)));
         }, getConfig().getLong("capacity.enforceTicks"), getConfig().getLong("capacity.enforceTicks"));
+        // Enrollment pauses when the offhand is blocked, and RESUMES when it is
+        // free again. It used to only pause: the player was dropped, told once
+        // in chat, and then never checked again, because the check itself was
+        // behind `enrolled(p)`. Miss that one message and the tome, the map,
+        // abilities and progression are all simply gone with nothing to say so
+        // -- which is exactly how it was reported: "map seems to not be working
+        // anymore".
         getServer().getScheduler().runTaskTimer(this, () -> {
             for (Player p : getServer().getOnlinePlayers()) {
-                if (enrolled(p) && !offhandMap.ensure(p)) {
+                if (enrolled(p)) {
+                    if (offhandMap.ensure(p)) continue;
                     PlayerData d = players.remove(p.getUniqueId());
                     d.modeState.clear(); save(p, d);
-                    p.sendMessage("MOBA enrollment paused: empty your offhand, then /moba join.");
+                    paused.add(p.getUniqueId());
+                    p.sendMessage(ChatColor.YELLOW
+                            + "MOBA paused: your offhand is occupied. Empty it and this resumes by itself.");
+                    getLogger().info("enrollment paused for " + p.getName() + ": offhand occupied");
+                } else if (paused.contains(p.getUniqueId()) && InventoryGuard.safeToReduce(p)
+                        && p.getInventory().getItemInOffHand().getType().isAir()) {
+                    load(p);
+                    if (enrolled(p)) {
+                        paused.remove(p.getUniqueId());
+                        p.sendMessage(ChatColor.GREEN + "MOBA resumed.");
+                    }
                 }
             }
         }, getConfig().getLong("mapStub.checkTicks"), getConfig().getLong("mapStub.checkTicks"));
     }
+    /** Players whose enrollment is paused, so it can be resumed automatically. */
+    private final java.util.Set<java.util.UUID> paused = new java.util.HashSet<>();
+    public boolean enrollmentPaused(Player p) { return paused.contains(p.getUniqueId()); }
+
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
 
