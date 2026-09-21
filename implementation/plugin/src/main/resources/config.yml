@@ -1,6 +1,19 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # The Aether Fountain restores its own team's Health and Hunger.
+  #
+  # Only a team's own Fountain restores that team, and a disabled Fountain
+  # restores nothing, so recovery follows the respawn role rather than turning
+  # the structure into a contestable heal pad. Radius and rates are NON-CANON
+  # ALPHA FIXTURES; canon fixes the Fountain's relationship to respawning, not
+  # how fast standing in one heals.
+  fountainRegen:
+    enabled: true
+    intervalTicks: 20
+    radius: 8.0
+    healthPerInterval: 1.0
+    foodPerInterval: 1
   # Work Points: gameplay-driven progression. Only domains whose contribution
   # rule is specified enough to implement are wired; see
   # docs/analysis/alpha-0.1-progression.md.

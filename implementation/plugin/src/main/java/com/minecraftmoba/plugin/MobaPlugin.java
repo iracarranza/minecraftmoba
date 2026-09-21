@@ -49,6 +49,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private HungerRegen hungerRegen;
     private HungerDisplay hungerDisplay;
     private WorkPoints workPoints;
+    private FountainRegen fountainRegen;
+    public FountainRegen fountainRegen() { return fountainRegen; }
     public WorkPoints workPoints() { return workPoints; }
     public Settings settings() { return settings; }
 
@@ -102,6 +104,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lockedSlots = new LockedSlots(this);
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
+        fountainRegen = new FountainRegen(this);
         workPoints = new WorkPoints(this);
         getServer().getPluginManager().registerEvents(workPoints, this);
         hungerDisplay = new HungerDisplay(this);
