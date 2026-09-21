@@ -167,3 +167,214 @@ untested, because the live run reached 32 WP and not 40.
 this match in WP and UAU, and a per-domain breakdown. An action bar names the
 domain and source of each award. The HUD line shows `WP n/cost`. This is
 Alpha/debug presentation, not permanent UX.
+
+---
+
+# Second pass — corrections, then Production / Development / Exploration
+
+## 1. Corrections made first
+
+### Construction category vs Construction work
+
+`MaterialCategories` was correct and is untouched. The handler was not.
+
+`WorkPoints.place` paid **2 WP for a Construction Block and 1 WP for every other
+placed block**, which read the UAU supplement's "ordinary useful placement = 1
+WP" as "every `BlockPlaceEvent` = 1 WP". The supplement does not say that. The
+word doing the work in that sentence is *useful*, and nothing available here
+distinguishes a wall from a dirt block dropped underfoot to climb one step.
+
+Two separate defects followed:
+
+- **Logs, torches, dirt and crafting tables generated Construction
+  progression.** That is not a category error in `MaterialCategories` — those
+  materials are correctly *not* Construction Blocks — it is the handler treating
+  the non-Construction-Block branch as automatically useful.
+- **`place → break → place` was an unbounded loop.** No material was consumed,
+  no time passed, and nothing was built, yet WP accrued on every cycle.
+
+Fixed as two independent changes, because they are two independent questions:
+
+1. **Ordinary placement is flagged UNRESOLVED and ships at `0`.** The 1 WP
+   fixture is preserved in `config.yml` behind a comment saying what would have
+   to exist to turn it back on. Understating Construction is recoverable;
+   asserting that all placement is useful is not.
+2. **Credit attaches to a position, not to an event.** A player is paid for a
+   block position they have not built at before. Rebuilding the same position
+   pays nothing, forever.
+
+The position rule is deliberately *not* a cooldown or a diminishing return.
+Both of those would also punish someone legitimately laying a fifty-block wall,
+which is exactly the legitimate repetition the common rule protects. Building
+somewhere new pays in full every time and as fast as the player likes; the only
+thing that pays nothing is rebuilding ground already built.
+
+Construction Block membership is unchanged. No log or torch was reclassified.
+
+### Config path mismatch
+
+`WorkPoints` read `progression.work.extraction.*`; `config.yml` defined
+`progression.extraction.*` and defined neither Construction key at all. Because
+`getInt(path, default)` cannot distinguish a missing key from a key that equals
+the default, **every live Extraction value came from the Java fallback** —
+silently, with no warning at load and no crash. The documented Alpha fixture was
+not the thing being played.
+
+Everything now lives under `progression.work.*`, and `ProgressionConfigTest`
+scans `WorkPoints.java` for config reads and fails if any key it reads is
+undefined. A second test asserts values that exist only because the file says so
+(iron opportunity 2 against a Java fallback of 0), so the scan cannot pass
+against a file that merely repeats the defaults.
+
+### Level curve
+
+Unchanged and now asserted. The sawtooth instantiates the established relative
+requirement indices exactly:
+
+| Band | Index | 40 × index | Config |
+|---|---|---|---|
+| Lv1–6 | 1.000 | 40 | 40 |
+| Lv7–12 | 1.350 | 54 | 54 |
+| Lv13–19 | 1.875 | 75 | 75 |
+| Lv20–24 | 2.575 | 103 | 103 |
+| Lv25–30 | 3.250 | 130 | 130 |
+
+**40 WP is the Bootstrap per-level cost, not a universal per-level cost.** Kept
+labelled ALPHA CALIBRATION.
+
+---
+
+## 2. Sources implemented from existing authority
+
+### PRODUCTION — completed transformations into strategically useful outputs
+
+Classification is enumerated per established category in `ProductionRecipes`,
+by **result material**, split by how the result was obtained.
+
+| Category | Examples | WP/item |
+|---|---|---|
+| Tool | pickaxe, axe, shovel, hoe | 3 |
+| Equipment/weapon | sword, bow, shield, armour | 4 |
+| Utility item | furnace, chest, torch, bucket, rail, minecart | 1 |
+| Food/consumable | bread, cooked meats, golden apple | 1 |
+| Strategic input | smelted ingots, scrap, charcoal, brick | 2 |
+| Construction Block | bricks, terracotta, concrete, glass | 2 |
+
+Shift-click crafting completes many transformations in one event, so the real
+count is derived from the scarcest ingredient rather than assumed to be one.
+
+### DEVELOPMENT — improvement of productive renewable state
+
+| Event | WP | Why it cannot be spammed |
+|---|---|---|
+| Successful animal breeding (`EntityBreedEvent`) | 8 | Fires only on an actual pairing; a failed or cooling-down attempt never reaches it |
+| Harvesting a **mature** crop | 2 | Maturity costs growth time that no amount of clicking shortens |
+
+Credit deliberately attaches to harvesting a mature crop rather than to planting
+a seed. Planting is the interaction a player can repeat as fast as they can
+click; the mature crop, not the seed in the ground, is the improved productive
+state. Player-placed provenance is deliberately *not* consulted here — for ore
+it marks an opportunity already counted, but for a crop the player having
+planted it is the entire point.
+
+### EXPLORATION — novel Reach
+
+Credited once per player per **registered Worksite** resolved, 6 WP, within 24
+blocks. The registry is the frozen Alpha map's own, not an invented POI list.
+
+Explicitly paying nothing: distance walked, chunks entered, re-crossing known
+geography, and using a resolved Route. Resolution is remembered per player for
+the match, so leaving and re-entering the same site pays nothing on return.
+Per player rather than per team, because Reach is something a player has.
+
+---
+
+## 3. NON-CANON ALPHA FIXTURES introduced
+
+Every number in §2 is a fixture. Those worth naming because they are the ones
+most likely to be wrong:
+
+- **Production per-item rates** (3 / 4 / 1 / 1 / 2 / 2). The category *set* is
+  established; the magnitudes are not.
+- **Utility at 1 WP/item interacts badly with stacked outputs.** One coal plus
+  one stick makes four torches, so a coal ore (1 opportunity + 1 harvest = 2 WP)
+  becomes 4 WP of torches. That is a calibration question, flagged rather than
+  tuned away by special-casing torches.
+- **Breeding 8 WP** against **mature crop 2 WP**.
+- **Exploration 6 WP per site, 24-block resolution radius, 1s survey interval.**
+- **Construction `ordinaryPlacement: 0`** — a fixture standing in for an
+  unresolved question, not a balance choice.
+
+---
+
+## 4. Actions intentionally excluded as ambiguous
+
+- **All unenumerated recipes**, including planks, sticks, wool, slabs and stone
+  bricks. Understating Production is recoverable; guessing a classification for
+  the long tail is not.
+- **Ordinary block placement** — see §1.
+- **Sugar cane, bamboo, kelp and cactus harvesting.** Age-based like crops, but
+  they regrow from a stalk that is never replanted, so "mature" does not mean
+  the same thing and the anti-spam argument does not transfer.
+- **Silk Touch → H**, still unresolved from the first pass and still defaulting
+  to 0.
+- **Smelted results that are also craftable**, where the crafting direction is
+  reversible: paid on smelting only.
+
+## 5. Exploit loops tested
+
+| Loop | Result |
+|---|---|
+| `place → break → place` at one position | 0 WP after the first placement, verified for 100 cycles |
+| Ingot → storage block → ingot | 0 WP in both directions; the direction that could loop is exactly the direction that pays |
+| Every storage block and recoverable unit (iron, gold, copper, diamond, emerald, coal, redstone, lapis, wheat, bone meal, raw ores, slime, hay, dried kelp) | 0 WP crafted |
+| Dried kelp both directions | pays smelted, not crafted |
+| Plant seed → break seed | 0 WP; only maturity pays |
+| Leave and re-enter a resolved site | 0 WP after the first resolution |
+| Construction Block derivatives (panes, slabs) | still not Construction Blocks |
+
+All by unit test. **Not yet verified on a live server** — see §6.
+
+## 6. Normal-play WP composition — MODELLED, not measured
+
+A live fresh-Survival opening has **not** been run for this pass. The following
+is arithmetic over the fixtures for a conventional opening (wood → tools →
+stone → coal → iron → a small farm), and should be read as a prediction to
+check against a real session, not as a measurement:
+
+| Domain | Opening activity | Approx. WP |
+|---|---|---|
+| Production | table, 2 stone tools, furnace, torches, 3 iron tools/armour pieces | ~25–35 |
+| Extraction | ~10 coal (2 each), ~8 iron (2+1) | ~45 |
+| Development | one wheat harvest cycle, one breeding pair | ~15 |
+| Exploration | 1–2 Worksites resolved in passing | ~6–12 |
+| Construction | 0 unless the player makes and places Construction Blocks | 0 |
+
+Roughly 90–110 WP, or Lv1 → ~Lv3 in a first session, with Extraction still the
+largest single contributor and Construction now contributing nothing to an
+opening that never produces bricks, terracotta, concrete or glass. Whether that
+last point is correct or merely conservative is the main thing a live session
+should judge.
+
+---
+
+## Reported candidates, not implemented
+
+**LOGISTICS.** Two existing recognized events are genuine candidates and neither
+was wired: Route recognition in `Routes` (an actual established connectivity
+relationship rather than item-distance), and Worksite **capitalization** in
+`Contributions.capitalize`, which is already a real availability relationship
+between a team and a site. Generic item-distance WP was not implemented and
+should not be. Capitalization in particular may belong to Logistics, to
+Construction, or to its own recognition premium; that is a design question, not
+an implementation one.
+
+**COMBAT.** Currently detectable candidates: a player kill (`PlayerDeathEvent`
+with a player killer), damage dealt while inside a contested Worksite radius,
+and a monster killed within a Worksite or Development Zone. Each is detectable
+today. None was implemented, because all three reduce to damage or kills unless
+"value secured or contested under threat" is given a definition, and inventing
+that definition here would fix the cheapest reading of it in code.
+
+Still unattached from the first pass: the **+64 WP Construct recognition
+premium**, which remains blocked on what qualifies as a Construct.

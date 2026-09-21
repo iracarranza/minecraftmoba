@@ -141,38 +141,74 @@ progression:
     "13-19": 75
     "20-24": 103
     "25-30": 130
-  # WP per recognized action.
+  # WP per recognized action, all under progression.work.* so that every key
+  # the plugin reads is the key this file defines. It was previously split
+  # between progression.work.* in Java and progression.extraction.* here, which
+  # meant the live Extraction values silently came from Java fallbacks rather
+  # than from this file; ConfigYamlTest now fails if that ever drifts again.
   #
-  # Construction uses the manuscript's own initial sensitivity fixtures
-  # (UAU supplement section 11): ordinary useful placement 1 WP, Construction
-  # Block placement 2 WP total. Those are explicitly not canon until
-  # undertaking throughput is tested.
-  #
-  # Extraction is opportunity plus harvest: WP = A(O) + qH.
-  #
-  # A(O) credits exploiting one physical opportunity and is paid once per ore
-  # block broken. H is the qualifying harvest actually obtained, read from the
-  # real drops, and q converts it to points. Fortune therefore raises H and
-  # never A(O): one ore block does not become 2.2 opportunities, but the extra
-  # material really was extracted and is additional Extraction work.
-  #
-  # Both A and q are NON-CANON ALPHA FIXTURES. Note the consequence of q=1:
-  # multi-drop ores (redstone 4-5, lapis 4-9, copper 2-5) accrue more harvest
-  # WP than single-drop ores, which is a calibration question rather than a
-  # model question and is deliberately not tuned away here.
-  extraction:
-    harvestCoefficient: 1
-    opportunity:
-      default: 0
-      coal: 1
-      copper: 1
-      iron: 2
-      gold: 3
-      redstone: 2
-      lapis: 2
-      diamond: 4
-      emerald: 4
-      ancient_debris: 6
+  # Every number below is a NON-CANON ALPHA FIXTURE.
+  work:
+    # -- Construction ---------------------------------------------------
+    # The UAU supplement's sensitivity fixtures are ordinary useful placement
+    # 1 WP and Construction Block placement 2 WP total. "Useful" is doing real
+    # work in that sentence and nothing here can currently test for it, so
+    # ordinary placement ships at 0 and is flagged UNRESOLVED rather than being
+    # read as "every BlockPlaceEvent is Construction". Set it to 1 to restore
+    # the fixture once a usefulness test exists.
+    constructionBlockPlacement: 2
+    ordinaryPlacement: 0          # UNRESOLVED: usefulness is not detectable
+    # -- Extraction: WP = A(O) + qH -------------------------------------
+    #
+    # A(O) credits exploiting one physical opportunity and is paid once per ore
+    # block broken. H is the qualifying harvest actually obtained, read from the
+    # real drops, and q converts it to points. Fortune therefore raises H and
+    # never A(O): one ore block does not become 2.2 opportunities, but the extra
+    # material really was extracted and is additional Extraction work.
+    #
+    # Note the consequence of q=1: multi-drop ores (redstone 4-5, lapis 4-9,
+    # copper 2-5) accrue more harvest WP than single-drop ores, which is a
+    # calibration question rather than a model question and is deliberately not
+    # tuned away here.
+    extraction:
+      harvestCoefficient: 1
+      silkTouchHarvest: 0         # UNRESOLVED: whether deferral is harvest
+      opportunity:
+        default: 0
+        coal: 1
+        copper: 1
+        iron: 2
+        gold: 3
+        redstone: 2
+        lapis: 2
+        diamond: 4
+        emerald: 4
+        ancient_debris: 6
+    # -- Production: completed transformations --------------------------
+    # Per output item. Categories are enumerated in ProductionRecipes; a recipe
+    # outside them is UNRESOLVED and pays nothing rather than being guessed at.
+    # Storage-block compression pays nothing in the crafting direction, which is
+    # what stops ingot <-> block from being an unbounded loop.
+    production:
+      tool: 3
+      equipment: 4
+      utility: 1
+      consumable: 1
+      strategic_input: 2
+      construction_block: 2
+    # -- Development: improved productive renewable state ----------------
+    # Both events are gated by real time (a breeding cooldown, a growth cycle)
+    # rather than by a cooldown imposed here.
+    development:
+      breeding: 8
+      matureCropHarvest: 2
+    # -- Exploration: novel Reach ----------------------------------------
+    # Credited once per player per registered Worksite per match. Distance
+    # walked, chunks entered and re-crossed geography pay nothing.
+    exploration:
+      siteResolved: 6
+      radius: 24.0
+      intervalTicks: 20
   task:
     tierMax: 3
     efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
