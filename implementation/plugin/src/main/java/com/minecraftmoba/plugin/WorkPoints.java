@@ -78,6 +78,10 @@ public final class WorkPoints implements Listener {
     private final Map<UUID, Set<Long>> built = new HashMap<>();
     /** Geography each player has already resolved this match. */
     private final Map<UUID, Set<String>> discovered = new HashMap<>();
+    /** Output types each player has already begun producing this match. */
+    private final Map<UUID, Set<Material>> undertaken = new HashMap<>();
+    /** Per-player decomposition of the totals, so a coefficient can be calibrated. */
+    private final Map<UUID, WorkLedger> ledgers = new HashMap<>();
 
     public WorkPoints(MobaPlugin plugin) {
         this.plugin = plugin;
@@ -177,8 +181,13 @@ public final class WorkPoints implements Listener {
         return earned.getOrDefault(p.getUniqueId(), Map.of());
     }
 
+    public WorkLedger ledger(Player p) {
+        return ledgers.computeIfAbsent(p.getUniqueId(), k -> new WorkLedger());
+    }
+
     public void reset() {
         earned.clear(); harvestable.clear(); built.clear(); discovered.clear();
+        undertaken.clear(); ledgers.clear();
     }
 
     // ---- live sources ----------------------------------------------------
@@ -214,6 +223,7 @@ public final class WorkPoints implements Listener {
                 : plugin.getConfig().getInt("progression.work.ordinaryPlacement", 0);
         if (wp <= 0) return;
         if (!firstTime(built, e.getPlayer().getUniqueId(), key(e.getBlockPlaced().getLocation()))) return;
+        ledger(e.getPlayer()).placed(wp);
         award(e.getPlayer(), Domain.CONSTRUCTION, wp, m.name().toLowerCase());
     }
 
@@ -255,7 +265,9 @@ public final class WorkPoints implements Listener {
         // the drops are known. Cleared by the drop handler, or by the next
         // break of the same position.
         harvestable.put(e.getBlock().getLocation(), kind);
-        award(e.getPlayer(), Domain.EXTRACTION, opportunity, kind + " opportunity");
+        long wp = WorkLedger.opportunityWp(1, opportunity);
+        ledger(e.getPlayer()).extraction(kind, 1, wp, 0, 0);
+        award(e.getPlayer(), Domain.EXTRACTION, (int) wp, kind + " opportunity");
     }
 
     /**
@@ -287,9 +299,10 @@ public final class WorkPoints implements Listener {
         int harvested = e.getItems().stream()
                 .mapToInt(item -> item.getItemStack().getAmount()).sum();
         if (harvested <= 0) return;
-        int q = plugin.getConfig().getInt("progression.work.extraction.harvestCoefficient", 1);
-        award(e.getPlayer(), Domain.EXTRACTION, q * harvested,
-                kind + " harvest x" + harvested);
+        int q = harvestCoefficient(kind);
+        long wp = WorkLedger.harvestWp(harvested, q);
+        ledger(e.getPlayer()).extraction(kind, 0, 0, harvested, wp);
+        award(e.getPlayer(), Domain.EXTRACTION, (int) wp, kind + " harvest x" + harvested);
     }
 
     // ---- production ------------------------------------------------------
@@ -325,12 +338,37 @@ public final class WorkPoints implements Listener {
         awardProduction(e.getPlayer(), output, e.getItemAmount(), e.getItemType());
     }
 
+    /**
+     * Production value: WP_P = A(P) + qQ.
+     *
+     * A(P) is the undertaking -- the value of performing a meaningful
+     * transformation at all -- and is paid the first time a player produces a
+     * given output in a match. q is the marginal value of each additional unit.
+     *
+     * This exists because purely linear per-output value made bulk consumables
+     * behave like capital. Forty-eight loaves of bread paid sixteen times three
+     * loaves, and a stack of smelted ingots outweighed a full set of armour,
+     * which says producing bread at scale is the same KIND of accomplishment as
+     * equipping a player and merely more of it.
+     *
+     * The split is general rather than a bread exception, and discrete durables
+     * come out ahead without being special-cased: a pickaxe is one undertaking
+     * for one item, so A(P) dominates it, while a hundred loaves asymptote to q.
+     * It is also the same shape the other domains already use -- Construction
+     * pays per new position, Exploration per first resolution -- so "first time
+     * is worth more than the repetition" is now one idea and not three.
+     */
     private void awardProduction(Player p, ProductionRecipes.Output output, int made, Material m) {
-        int per = plugin.getConfig().getInt(
-                "progression.work.production." + output.name().toLowerCase(), 0);
-        if (per <= 0) return;
-        award(p, Domain.PRODUCTION, per * made,
-                m.name().toLowerCase() + (made > 1 ? " x" + made : ""));
+        String base = "progression.work.production." + output.name().toLowerCase();
+        int perOutput = plugin.getConfig().getInt(base + ".perOutput",
+                plugin.getConfig().getInt(base, 0));
+        int undertaking = plugin.getConfig().getInt(base + ".undertaking", 0);
+        boolean first = undertaken.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>()).add(m);
+        long wp = WorkLedger.productionWp(first, undertaking, perOutput, made);
+        if (wp <= 0) return;
+        ledger(p).produced(output.name().toLowerCase(), m.name().toLowerCase(), made, wp, first);
+        award(p, Domain.PRODUCTION, (int) wp, m.name().toLowerCase()
+                + (made > 1 ? " x" + made : "") + (first ? " (undertaking)" : ""));
     }
 
     /**
@@ -363,9 +401,9 @@ public final class WorkPoints implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void breed(EntityBreedEvent e) {
         if (!enabled() || !(e.getBreeder() instanceof Player p)) return;
-        award(p, Domain.DEVELOPMENT,
-                plugin.getConfig().getInt("progression.work.development.breeding", 8),
-                e.getEntityType().name().toLowerCase() + " bred");
+        int wp = plugin.getConfig().getInt("progression.work.development.breeding", 8);
+        ledger(p).developed(wp);
+        award(p, Domain.DEVELOPMENT, wp, e.getEntityType().name().toLowerCase() + " bred");
     }
 
     /**
@@ -385,8 +423,9 @@ public final class WorkPoints implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void harvest(BlockBreakEvent e) {
         if (!enabled() || !isMatureCrop(e.getBlock())) return;
-        award(e.getPlayer(), Domain.DEVELOPMENT,
-                plugin.getConfig().getInt("progression.work.development.matureCropHarvest", 2),
+        int wp = plugin.getConfig().getInt("progression.work.development.matureCropHarvest", 2);
+        ledger(e.getPlayer()).developed(wp);
+        award(e.getPlayer(), Domain.DEVELOPMENT, wp,
                 e.getBlock().getType().name().toLowerCase() + " harvested");
     }
 
@@ -435,9 +474,26 @@ public final class WorkPoints implements Listener {
                 Location at = site.location(p.getWorld());
                 if (p.getLocation().distanceSquared(at) > r2) continue;
                 mine.add(site.id);
+                ledger(p).explored(wp);
                 award(p, Domain.EXPLORATION, wp, site.id + " resolved");
             }
         }
+    }
+
+    /**
+     * q for one ore kind.
+     *
+     * A single flat q made the harvest term proportional to an ore's DROP
+     * COUNT, which is a property of the block and not of the work: one copper
+     * ore breaks like one iron ore but drops two to five raw copper, so at q=10
+     * it paid three to five times as much harvest. Per-kind q lets that be
+     * corrected without touching the model -- Fortune still raises H, and
+     * greater actual yield is still worth more; what changes is that yield is
+     * measured against what the ore normally gives.
+     */
+    int harvestCoefficient(String kind) {
+        return plugin.getConfig().getInt("progression.work.extraction.harvest." + kind,
+                plugin.getConfig().getInt("progression.work.extraction.harvestCoefficient", 1));
     }
 
     /** The resource an ore block yields, or null if the block is not ore. */
@@ -458,6 +514,8 @@ public final class WorkPoints implements Listener {
         out.add("  earned this match=" + total + " WP (" + String.format("%.2f", total / (double) WP_PER_UAU) + " UAU)");
         for (Domain dom : Domain.values())
             out.add("  " + dom.name().toLowerCase() + " = " + mine.getOrDefault(dom, 0L));
+        // The decomposition, so a total can be explained rather than only seen.
+        ledger(p).report().forEach(line -> out.add("  " + line));
         return out;
     }
 }

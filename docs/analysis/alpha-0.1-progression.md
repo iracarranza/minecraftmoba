@@ -549,3 +549,122 @@ Still Lv4; the level position did not move, which is the point. What changed is
 that Construction stopped reading as zero for a player who spent the session
 building, and the domain breakdown a tester sees in `/moba` now reflects what
 they actually did.
+
+---
+
+# Fourth pass — decomposing the live opening, and calibrating sources
+
+## The benchmark
+
+Live, 2026-09-21 ~12:00, one opening mining expedition: **Lv8, 3,365 WP**
+(Construction 36, Extraction 2,220, Production 1,109). The player judged this
+clearly too fast. The curve was **not** touched; this pass calibrates sources.
+
+`OpeningBenchmarkTest` replays the reported workload — ~95 raw copper from ~30
+blocks, 44 coal, 3 iron, near-full copper armour, four tools, a bucket, 48 bread
+— through `WorkLedger`'s own scoring functions, the same ones the live handlers
+call. Against the shipped coefficients it reproduced **Extraction 2,220 and
+Production 1,109 exactly**, which is what makes the decomposition below evidence
+rather than estimation.
+
+## Extraction: 2,220 = A(O) 800 + qH 1,420
+
+| Ore | Blocks | Units | Units/block | A(O) | qH | Total |
+|---|---|---|---|---|---|---|
+| copper | 30 | 95 | 3.17 | 300 | 950 | **1,250** |
+| coal | 44 | 44 | 1.00 | 440 | 440 | 880 |
+| iron | 3 | 3 | 1.00 | 60 | 30 | 90 |
+
+**qH was 64% of Extraction, and copper alone was 56% of it from 25% of the
+blocks broken.** The cause is structural, not a magnitude error: a single flat
+`q` made the harvest term proportional to an ore's **drop count**, which is a
+property of the block and not of the work. Breaking one copper ore is the same
+physical act as breaking one coal ore, but it paid 41.7 WP against 20 — and
+nearly as much as a diamond block's 50.
+
+## Production: 1,109
+
+| Category | Outputs | WP | Share |
+|---|---|---|---|
+| strategic input | 27 ingots | 540 | 49% |
+| consumable | 48 bread | 288 | 26% |
+| equipment | 4 armour | 160 | 14% |
+| tool | 4 | 120 | 11% |
+| utility | 1 bucket | 1 | 0% |
+
+Linear per-output valuation made bulk consumables behave like capital: **48
+loaves outweighed a full set of copper armour, 288 to 160**, and 27 smelted
+ingots outweighed everything else combined. That says feeding yourself at scale
+is the same *kind* of accomplishment as equipping yourself and merely more of it.
+
+## Construction is not the inflation source
+
+36 / 3,365 = **1.1%**. Zeroing mundane placement would not have addressed any of
+this and would have cost the atomic floor for no gain. Ordinary first-time
+placement stays at **1 WP**, with the position anti-recycling rule unchanged.
+
+## Implementation bugs found
+
+None. Both totals reproduced exactly from the shipped coefficients, so the
+counting was correct and the problem was entirely in the coefficients and in the
+shape of the Production rule.
+
+## Candidates
+
+All under the already-implemented curve, no curve changes.
+
+| | Construction | Extraction | Production | Total | Level |
+|---|---|---|---|---|---|
+| shipped (live) | 36 | 2,220 | 1,109 | 3,365 | **Lv8** (335/465) |
+| **1 structural only** | 36 | 1,555 | 465 | **2,056** | **Lv6** (36/605) |
+| 2 structural + extraction ×0.5 | 36 | 825 | 465 | 1,326 | Lv4 (286/455) |
+| 3 candidate 2 + leaner marginal production | 36 | 825 | 429 | 1,290 | Lv4 (250/455) |
+
+**Implemented: candidate 1**, because it is the only one whose changes are
+justified by the decomposition rather than by the total.
+
+Its two changes each correct an identified defect:
+
+- **Per-ore q**, `q ≈ 10 / expected drops` (copper 3, redstone 2, lapis 2,
+  single-drop ores 10). A block of any ore now yields comparable harvest WP for
+  the same act: copper 19.5 WP/block against coal 20.0. Fortune still raises H
+  and still pays; yield is simply measured against what the ore normally gives.
+- **`WP_P = A(P) + qQ`**, with A(P) — the undertaking — paid once per output
+  type per match, and q marginal per unit. 48 bread now pays 68 rather than 288;
+  a full set of armour pays 168. Bulk production is sublinear, not worthless:
+  48 loaves > 3 loaves, but not 16×. Discrete durables come out ahead without
+  being special-cased, because one undertaking for one item is dominated by
+  A(P). This is also the shape Construction (per new position) and Exploration
+  (per first resolution) already use, so "the first time is worth more than the
+  repetition" is now one idea rather than three.
+
+Candidates 2 and 3 add a global halving of Extraction. That is arithmetic, not
+evidence: nothing in the decomposition says an opportunity is worth 5 rather
+than 10. They are recorded as ready config edits if Lv6 still reads too fast in
+play — which is a live judgement, not one to make from a spreadsheet.
+
+Two things change the reading of Lv6 before that judgement is made: the match is
+now 80 minutes rather than 48, so the same expedition is a smaller fraction of
+it; and Exploration and Development both contributed **zero** here, so a fuller
+opening reaches Lv6 by a broader route than mining alone.
+
+## World clock: vanilla restored
+
+24,000 ticks, twenty real minutes, sunset at tick 12,000. Match ticks now run
+1:1 with world ticks, so there is no conversion at all and mob spawning, sunset
+and moonrise land exactly where vanilla instincts expect.
+
+The old 6-minute day compressed the first Worksite activation window to six
+minutes, which a first mining expedition simply outlasts — the window opened and
+closed while the player was underground. A macro pulse a normal opening cannot
+attend to is not pacing the match.
+
+Sunsets now fall at **10, 30, 50, 70 minutes**. Match length follows from two
+constraints rather than being chosen: activation stays aligned to sunset, and
+the activation series still has four entries, so four sunsets at vanilla spacing
+need eighty minutes. Activation counts and packages are unchanged.
+
+Vanilla timing is the **baseline/control**, not settled canon. The right
+response to a long opening is better directionality, Route usability and
+opportunity readability — then observe whether the first expedition shortens on
+its own.

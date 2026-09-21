@@ -1,22 +1,43 @@
 package com.minecraftmoba.plugin;
 
 /**
- * The match clock (Economic Calibration Supplement, 14 September).
+ * The match clock, restored to vanilla day/night timing.
  *
- * Day lasts 6 minutes and night lasts 6 minutes, a 12-minute cycle, over a
- * 48-minute analytical match: Day 0-6, Night 6-12, Day 12-18, ... Night 42-48.
- * Worksites open at sunset, giving macro pulses at 6, 18, 30 and 42 minutes.
+ * A full cycle is 24,000 ticks -- twenty real minutes -- and match ticks run
+ * 1:1 with world ticks, so the world's phases are vanilla's own rather than a
+ * compression of them. Sunset falls at tick 12,000 of each cycle: ten, thirty,
+ * fifty and seventy minutes into a match.
+ *
+ * It previously ran a 6-minute day and a 6-minute night, and that compression
+ * was not neutral. In live play on 2026-09-21 the entire first Worksite
+ * activation window opened and closed while the player was still on their first
+ * mining expedition, which is evidence about the clock rather than about the
+ * player: a macro pulse that a normal opening cannot attend to is not pacing
+ * the match, it is passing it by.
+ *
+ * Vanilla timing is the BASELINE/CONTROL here, not settled canon. The honest
+ * comparison is against the timing every Minecraft player already has in their
+ * hands, and the right response to a long opening is to make the opening
+ * better -- directionality, Route usability, opportunity readability -- rather
+ * than to shorten the day until the opening fits.
+ *
+ * MATCH_MINUTES follows from two constraints rather than being chosen: Worksite
+ * activation stays aligned to sunset, and the activation series still has four
+ * entries. Four sunsets at vanilla spacing need eighty minutes.
  *
  * This is arithmetic over elapsed ticks, not a second source of truth: the
- * match owns the tick count and asks the clock what it means. The world's own
- * daylight cycle is driven from here so that what a player sees matches the
- * phase the economy is in.
+ * match owns the tick count and asks the clock what it means.
  */
 public final class MatchClock {
-    public static final long PHASE_MINUTES = 6;
-    public static final long PHASE_TICKS = PHASE_MINUTES * 60 * 20;
-    public static final long CYCLE_TICKS = PHASE_TICKS * 2;
-    public static final long MATCH_MINUTES = 48;
+    /** Vanilla: a full day/night cycle is 24,000 ticks, i.e. 20 minutes. */
+    public static final long CYCLE_TICKS = 24000;
+    /** Vanilla sunset begins at tick 12,000 of the cycle. */
+    public static final long SUNSET_TICK = 12000;
+    /** Day and night are each half the cycle in vanilla tick terms. */
+    public static final long PHASE_TICKS = SUNSET_TICK;
+    public static final long PHASE_MINUTES = PHASE_TICKS / (60 * 20);
+    /** Four sunsets at vanilla spacing: 10m, 30m, 50m, 70m. */
+    public static final long MATCH_MINUTES = 80;
     public static final long MATCH_TICKS = MATCH_MINUTES * 60 * 20;
 
     public enum Phase { DAY, NIGHT }
@@ -24,25 +45,25 @@ public final class MatchClock {
     private MatchClock() {}
 
     public static Phase phaseAt(long elapsedTicks) {
-        return (elapsedTicks % CYCLE_TICKS) < PHASE_TICKS ? Phase.DAY : Phase.NIGHT;
+        return (elapsedTicks % CYCLE_TICKS) < SUNSET_TICK ? Phase.DAY : Phase.NIGHT;
     }
 
-    /** Zero-based index of the phase, so Day 0-6 is 0 and Night 6-12 is 1. */
+    /** Zero-based index of the phase, so the opening day is 0 and its night 1. */
     public static long phaseIndex(long elapsedTicks) { return elapsedTicks / PHASE_TICKS; }
 
-    /** True on the exact tick a sunset begins: 6, 18, 30, 42 minutes. */
+    /** True on the exact tick a sunset begins: 10, 30, 50, 70 minutes. */
     public static boolean isSunsetBoundary(long elapsedTicks) {
-        return elapsedTicks > 0 && elapsedTicks % CYCLE_TICKS == PHASE_TICKS;
+        return elapsedTicks > 0 && elapsedTicks % CYCLE_TICKS == SUNSET_TICK;
     }
 
-    /** True on the exact tick a sunrise begins: 12, 24, 36 minutes. */
+    /** True on the exact tick a sunrise begins: 20, 40, 60 minutes. */
     public static boolean isSunriseBoundary(long elapsedTicks) {
         return elapsedTicks > 0 && elapsedTicks % CYCLE_TICKS == 0;
     }
 
     /** Which sunset this is, 1-based; 0 before the first. */
     public static int sunsetOrdinal(long elapsedTicks) {
-        return (int) ((elapsedTicks + CYCLE_TICKS - PHASE_TICKS) / CYCLE_TICKS);
+        return (int) ((elapsedTicks + CYCLE_TICKS - SUNSET_TICK) / CYCLE_TICKS);
     }
 
     public static long minutes(long elapsedTicks) { return elapsedTicks / (60 * 20); }
@@ -50,16 +71,11 @@ public final class MatchClock {
     public static boolean pastHorizon(long elapsedTicks) { return elapsedTicks >= MATCH_TICKS; }
 
     /**
-     * Vanilla time for a compressed phase. Day runs 0..12000 and night
-     * 12000..24000 in vanilla ticks; a 6-minute phase covers that range in
-     * 7200 real ticks, so the world reads as a full day without accelerating
-     * anything else in the simulation.
+     * World time is now the elapsed time. At vanilla rate there is nothing to
+     * convert: a match tick IS a world tick, so sunset, moonrise and mob
+     * spawning all happen exactly when a player's instincts expect.
      */
-    public static long worldTime(long elapsedTicks) {
-        long within = elapsedTicks % PHASE_TICKS;
-        long base = phaseAt(elapsedTicks) == Phase.DAY ? 0 : 12000;
-        return base + (within * 12000 / PHASE_TICKS);
-    }
+    public static long worldTime(long elapsedTicks) { return elapsedTicks % CYCLE_TICKS; }
 
     public static String describe(long elapsedTicks) {
         return String.format("%s %d:%02d (%s, phase %d)",

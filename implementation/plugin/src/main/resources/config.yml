@@ -288,8 +288,26 @@ progression:
     # model question, and per-ore q would be a new design decision, so it is
     # still flagged rather than tuned away.
     extraction:
-      harvestCoefficient: 10
-      silkTouchHarvest: 0         # UNRESOLVED: whether deferral is harvest
+      # q, the harvest coefficient. Per ore kind, because a single flat q made
+      # the harvest term proportional to an ore's DROP COUNT, which is a
+      # property of the block and not of the work. Breaking one copper ore is
+      # the same physical act as breaking one coal ore, but copper drops 2-5
+      # raw copper, so at a flat q=10 one copper block paid 45 WP against
+      # coal's 20 -- and very nearly as much as a diamond block's 50.
+      #
+      # Live evidence (2026-09-21): 30 copper blocks produced 1,250 WP, 56% of
+      # a 2,220 WP expedition, from 25% of the blocks broken.
+      #
+      # The rule is q ~= 10 / expected drops, so a block of any ore yields
+      # roughly the same harvest WP for the same act. Fortune still raises H
+      # and still pays; what changed is that yield is now measured against what
+      # the ore normally gives rather than against a flat scale.
+      harvestCoefficient: 10        # single-drop default
+      harvest:
+        copper: 3                   # 2-5 raw copper per block
+        redstone: 2                 # 4-5
+        lapis: 2                    # 4-9
+      silkTouchHarvest: 0           # UNRESOLVED: whether deferral is harvest
       opportunity:
         default: 0
         coal: 10
@@ -301,26 +319,37 @@ progression:
         diamond: 40
         emerald: 40
         ancient_debris: 60
-    # -- Production: completed transformations --------------------------
-    # Per output item. Categories are enumerated in ProductionRecipes; a recipe
-    # outside them is UNRESOLVED and pays nothing rather than being guessed at.
-    # Storage-block compression pays nothing in the crafting direction, which is
-    # what stops ingot <-> block from being an unbounded loop.
+    # -- Production: WP_P = A(P) + qQ ------------------------------------
     #
-    # utility stays at 1 on purpose. It is the category that arrives four at a
-    # time from one coal, and it is the clearest case of an action that is real
-    # but small -- exactly what the 1-WP floor exists for.
+    # A(P) is the UNDERTAKING -- the value of performing a meaningful
+    # transformation at all -- paid once per output type per match. perOutput is
+    # the marginal value of each additional unit.
     #
-    # consumable is 6, inside the 5-10 band rather than a 10x 10, because food
-    # is smelted and crafted in stacks: at 10 a single stack of cooked meat
-    # would outweigh a bred animal several times over.
+    # Purely linear per-output value made bulk consumables behave like capital:
+    # in live play 48 loaves of bread paid 288 WP against 160 for a full set of
+    # copper armour, and 27 smelted ingots paid 540. That says producing bread
+    # at scale is the same KIND of accomplishment as equipping a player and
+    # merely more of it.
+    #
+    # The split is general rather than a bread exception, and discrete durables
+    # come out ahead without being special-cased: a pickaxe is one undertaking
+    # for one item, so A(P) dominates it, while a hundred loaves asymptote to
+    # perOutput. It is also the shape the other domains already use --
+    # Construction pays per new position, Exploration per first resolution -- so
+    # "the first time is worth more than the repetition" is now one idea rather
+    # than three.
+    #
+    # Categories are enumerated in ProductionRecipes; a recipe outside them is
+    # UNRESOLVED and pays nothing rather than being guessed at. Storage-block
+    # compression pays nothing in the crafting direction, which is what stops
+    # ingot <-> block from being an unbounded loop.
     production:
-      tool: 30
-      equipment: 40
-      utility: 1
-      consumable: 6
-      strategic_input: 20
-      construction_block: 20
+      tool:               { undertaking: 30, perOutput: 1 }
+      equipment:          { undertaking: 40, perOutput: 2 }
+      utility:            { undertaking: 10, perOutput: 1 }
+      consumable:         { undertaking: 20, perOutput: 1 }
+      strategic_input:    { undertaking: 20, perOutput: 2 }
+      construction_block: { undertaking: 20, perOutput: 2 }
     # -- Development: improved productive renewable state ----------------
     # Both events are gated by real time (a breeding cooldown, a growth cycle)
     # rather than by a cooldown imposed here.
