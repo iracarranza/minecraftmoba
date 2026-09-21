@@ -48,27 +48,33 @@ class RenewableMarkerTest {
         return Files.readString(Path.of("src/main/java/com/minecraftmoba/plugin/Renewables.java"));
     }
 
-    @Test void registeringASourceManifestsIt() throws Exception {
-        // The phantom-herd bug. A source is a claim about the world, not a
-        // counter, and before this the claim was never made true.
+    @Test void registeringASourceStartsItsLifecycleRatherThanSpawningAtOnce() throws Exception {
+        // The phantom-herd bug was that manifestation ran ONLY on recovery,
+        // which needs available < capacity, so a fresh source never manifested.
+        // The fix is no longer "manifest on register": an opportunity now begins
+        // an initial delay and the lifecycle tick manifests it when it is due
+        // and a locus is eligible. Manifesting on register would put the herd in
+        // the world on the first tick of the match, which is the opening the
+        // regenerative economy is meant to follow rather than race.
         String src = renewables();
         int register = src.indexOf("public void register(Source s)");
         assertTrue(register > 0, "register has been renamed");
         String body = src.substring(register, src.indexOf("\n    }", register));
-        assertTrue(body.contains("manifest(s)"),
-                "a fresh source must put its animals or crops in the world; "
-                        + "recovery alone never fires at full availability");
+        assertTrue(body.contains("beginInitialDelay"),
+                "a fresh source must enter the lifecycle, not sit at full availability forever");
+        assertFalse(body.contains("manifest(s)"),
+                "manifesting on register bypasses the initial delay and the eligibility query");
     }
 
-    @Test void aChunkLoadingLateStillFillsThePen() throws Exception {
-        // Sources bind before their chunks load, and manifest cannot spawn into
-        // an unloaded chunk, so a deferred path has to exist or the fix only
-        // works for whichever pens happen to be near spawn.
+    @Test void theLifecycleRetriesRatherThanDeferringOnce() throws Exception {
+        // Sources bind before their chunks load and a query cannot answer for an
+        // unloaded column. The old fix was a pendingManifest set drained on
+        // ChunkLoadEvent; the lifecycle tick now retries on its own cadence,
+        // which also covers a region that becomes eligible again later.
         String src = renewables();
-        assertTrue(src.contains("pendingManifest"), "no deferral for unloaded chunks");
-        int onChunk = src.indexOf("public void onChunkLoad");
-        String body = src.substring(onChunk, src.indexOf("\n    }", onChunk));
-        assertTrue(body.contains("pendingManifest"), "the deferral is never drained");
+        assertTrue(src.contains("tickOpportunities"), "no lifecycle tick");
+        assertTrue(src.contains("readyToManifest()"),
+                "attempts must be gated on the lifecycle state, not on a one-shot deferral");
     }
 
     @Test void theBoundaryRingIsGone() throws Exception {

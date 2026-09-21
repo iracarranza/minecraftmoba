@@ -73,20 +73,25 @@ class ManifestationMembershipTest {
 
     @Test void regenerationDoesNotStackOntoAStandingManifestation() throws Exception {
         // An ignored opportunity must not become an animal printer, and the
-        // region must not become a camp coordinate.
+        // region must not become a camp coordinate. The guard used to be a
+        // count of what was standing; it now lives in the lifecycle, where
+        // MANIFESTED simply is not a state that manifests again.
         String manifest = body(renewables(), "public int manifest(Source s)");
-        assertTrue(manifest.contains("if (present > 0)"),
-                "a standing manifestation IS the current one; nothing is added to it");
+        assertTrue(manifest.contains("readyToManifest()"),
+                "only a recovered, unmanifested opportunity may manifest");
         assertFalse(manifest.contains("available(s) - present"),
                 "topping up to capacity is the stacking behaviour that was removed");
     }
 
-    @Test void siteSelectionIsMarkedAsNotImplemented() throws Exception {
-        // It waits on two architectural decisions. Shipping the authored origin
-        // silently would leave the rejected fixed-pad behaviour looking
-        // intentional.
+    @Test void siteSelectionQueriesTheWorldAndRefusesRatherThanFallingBack() throws Exception {
+        // Previously a marked placeholder; now implemented. The property that
+        // matters is that a failed query is an answer: no authored origin, no
+        // forced spawn, no widened region.
         String manifest = body(renewables(), "public int manifest(Source s)");
-        assertTrue(manifest.contains("SITE SELECTION IS NOT IMPLEMENTED"),
-                "the placeholder must say so at the point it applies");
+        assertTrue(manifest.contains("Eligibility.loci("), "the query must run against the live world");
+        assertTrue(manifest.contains("noEligibleLocus()"),
+                "nowhere eligible must be recorded as state, not worked around");
+        assertFalse(manifest.contains("s.x") && manifest.contains("s.z"),
+                "the authored origin must not be used as a manifestation site");
     }
 }

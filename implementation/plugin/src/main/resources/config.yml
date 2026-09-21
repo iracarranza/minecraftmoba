@@ -499,6 +499,49 @@ provenance:
 # registers sources it is given; it never generates them.
 renewables:
   sampleTicks: 200
+  # How often the opportunity lifecycle advances: recovery progress, and a
+  # manifestation attempt when one is due.
+  lifecycleTicks: 20
+  # --- Temporal model -------------------------------------------------------
+  # Everything here is a fraction of the Temporal Phase P (one day OR one
+  # night), never a number of minutes. P has already changed once -- the clock
+  # moved from a 6-minute phase to vanilla's 10-minute one -- and relationships
+  # written in absolute minutes silently re-tune themselves when it does.
+  #
+  # ALL VALUES ARE WORKING CALIBRATION, NOT CANON. The night multiplier has two
+  # live candidates (0.73 and 0.67) and neither is settled.
+  temporal:
+    # P itself. Defaults to the match clock's own phase, so it follows the clock
+    # rather than asserting a second opinion about how long a day is.
+    phaseTicks: 12000
+    # First manifestation of a match. The regenerative economy is meant to
+    # follow the opening rather than race it.
+    initialFraction: 0.4
+    # Recovery in daylight, after a manifestation is FULLY resolved.
+    dayFraction: 0.33
+    # Peaceful night recovery, relative to the daytime baseline. 0.73 is the
+    # lighter candidate; 0.67 is the stronger alternative.
+    nightRate: 0.73
+    # Swarms are NOT assumed to follow the peaceful night slowdown: the design
+    # direction is that they change at night rather than regenerate more slowly.
+    # Exact nighttime Swarm behaviour is unresolved; 1.0 asserts nothing.
+    swarmNightRate: 1.0
+  # --- Eligibility: MINIMAL ALPHA FIXTURES ----------------------------------
+  # These exist to exercise the architecture, not to settle what terrain suits
+  # sheep or carrots. Exact predicates by resource kind are unresolved.
+  eligibility:
+    headroom: 2                 # air blocks needed above the ground block
+    sampleStride: 4             # columns sampled inside the region
+    minDisplacement: 12.0       # from the previous manifestation, so a region is not a camp
+    playerExclusion: 24.0       # an opportunity is discovered, not materialised underfoot
+    rejectPlayerPlaced: true    # Development can push a manifestation elsewhere in its region
+  # Half-span of the square region migrated from an authored origin+radius when
+  # a source declares no explicit cells. A coarse search area, not a site.
+  migratedRegionHalfSpan: 48
+  patch:
+    spread: 6                   # how far an irregular patch may wander from its locus
+  herd:
+    cluster: 5                  # how tightly members gather at the locus
   # Manifestation membership. A member that leaves its region stops being part
   # of the wild population and stays alive as an ordinary animal in the team's
   # economy -- it is never despawned, then or when the opportunity regenerates.

@@ -43,7 +43,16 @@ public final class Renewables implements Listener {
         final String id; final Type type; final UUID world; final String kind;
         final int x, y, z, radius, capacity; final long recoverTicks;
         int available; long recoveringUntil;
-        State state = State.RECOVERING;   // nothing has manifested yet
+        State state = State.RECOVERING;   // legacy field; see opportunity
+        /**
+         * The coarse authored ecology, and the live lifecycle.
+         *
+         * `radius` survives only as the migration of authored origin+radius data
+         * into a square region, and as the volume harvest detection still scans.
+         * Nothing chooses a manifestation site from it any more.
+         */
+        OpportunityRegion region;
+        final Opportunity opportunity = Opportunity.fresh();
         /** Members spawned into the current manifestation, so ones that LEAVE can still be found. */
         final Set<UUID> members = new HashSet<>();
         Source(String id, Type type, UUID world, int x, int y, int z,
@@ -61,6 +70,8 @@ public final class Renewables implements Listener {
         boolean contains(int bx, int by, int bz) {
             return Math.abs(bx - x) <= radius && Math.abs(by - y) <= radius && Math.abs(bz - z) <= radius;
         }
+        public OpportunityRegion region() { return region; }
+        public Opportunity opportunity() { return opportunity; }
         public String id() { return id; }
         public Type type() { return type; }
         public int available() { return available; }
@@ -79,14 +90,13 @@ public final class Renewables implements Listener {
     /** Stamped on every entity the system manifests, naming its opportunity. */
     private final NamespacedKey memberKey;
     private final Map<String, Source> sources = new LinkedHashMap<>();
+    private final java.util.Random random = new java.util.Random();
     private final Path csv;
     private long harvests, recoveries, recoveryChecks, depletions, harvestNanos, harvestCalls;
     private long restoresApplied, persistsDeferred, remanifested;
     /** Sources whose chunk was not loaded when state changed or registration ran. */
     private final Set<String> pendingPersist = new HashSet<>();
     private final Set<String> pendingRestore = new HashSet<>();
-    /** Sources whose chunk was not loaded when they were asked to manifest. */
-    private final Set<String> pendingManifest = new HashSet<>();
     /** Must stay zero. A nonzero value means this became passive income. */
     private long grantedByRenewal;
 
@@ -105,6 +115,9 @@ public final class Renewables implements Listener {
         long period = plugin.getConfig().getLong("renewables.sampleTicks");
         if (period <= 0) throw new IllegalArgumentException("renewables.sampleTicks must be positive");
         Bukkit.getScheduler().runTaskTimer(plugin, this::sample, period, period);
+        long lifecycle = plugin.getConfig().getLong("renewables.lifecycleTicks", 20L);
+        if (lifecycle > 0) Bukkit.getScheduler().runTaskTimer(plugin,
+                () -> tickOpportunities(lifecycle), lifecycle, lifecycle);
     }
 
     /** Ships empty. An absent or empty list is the expected state, not an error. */
@@ -135,9 +148,13 @@ public final class Renewables implements Listener {
                 throw new IllegalArgumentException(base + "radius, capacity and recoverTicks must be positive");
             String kind = plugin.getConfig().getString(base + "kind");
             if (kind != null) RenewableKinds.require(kind);   // fail loudly on an unknown kind
-            register(new Source(id, type, w.getUID(),
-                    plugin.getConfig().getInt(base + "x"), plugin.getConfig().getInt(base + "y"),
-                    plugin.getConfig().getInt(base + "z"), radius, capacity, recover, kind));
+            int sx = plugin.getConfig().getInt(base + "x");
+            int sy = plugin.getConfig().getInt(base + "y");
+            int sz = plugin.getConfig().getInt(base + "z");
+            var source = new Source(id, type, w.getUID(), sx, sy, sz,
+                    radius, capacity, recover, kind);
+            source.region = regionFor(base, sx, sz, radius);
+            register(source);
         }
     }
 
@@ -155,10 +172,12 @@ public final class Renewables implements Listener {
      * inventing a recovery rule.
      */
     public int resetForNewMatch() {
+        // Manifestations are match state and are discarded with the world; the
+        // Opportunities themselves are authored and are rebuilt from config.
+        for (Source s : sources.values()) s.opportunity.discardManifestation();
         sources.clear();
         pendingPersist.clear();
         pendingRestore.clear();
-        pendingManifest.clear();
         harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
         loadConfigured();
         return sources.size();
@@ -170,8 +189,8 @@ public final class Renewables implements Listener {
         out.add("renewable sources=" + sources.size() + " harvests=" + harvests
                 + " depletions=" + depletions + " recoveries=" + recoveries);
         for (Source s : sources.values())
-            out.add("  " + s.id + " kind=" + s.kind + " available=" + available(s)
-                    + "/" + s.capacity + " at " + s.x + "," + s.y + "," + s.z);
+            out.add("  " + s.id + " kind=" + s.kind + " " + s.opportunity
+                    + " capacity=" + s.capacity + " " + s.region);
         return out;
     }
 
@@ -185,16 +204,31 @@ public final class Renewables implements Listener {
         // source, constructed at full availability, never manifested at all.
         // Every animal pen in the Alpha map reported 6/6 while standing empty,
         // and nothing could be harvested, bred or marked in any of them.
-        if (manifest(s) == 0 && !Bukkit.isPrimaryThread()) pendingManifest.add(s.id);
-        else if (!manifested(s)) pendingManifest.add(s.id);
+        s.opportunity.beginInitialDelay();
     }
 
-    /** Whether the world actually holds what the source says it holds. */
-    private boolean manifested(Source s) {
-        if (s.kind == null) return true;
-        World w = Bukkit.getWorld(s.world);
-        if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) return false;
-        return count(s, RenewableKinds.require(s.kind)) >= available(s);
+    /**
+     * The authored Opportunity Region.
+     *
+     * Explicit cells are preferred, because that is the shape the worldgen
+     * analysis works in and an ecology worth calling a region often spans
+     * several adjacent ones. A source with no cells falls back to a square
+     * around its authored point -- which is a MIGRATION of the old origin+radius
+     * data into the new shape, not an endorsement of it. The square is a coarse
+     * search area; nothing selects a manifestation site from its centre.
+     */
+    private OpportunityRegion regionFor(String base, int x, int z, int radius) {
+        var cells = plugin.getConfig().getMapList(base + "region");
+        if (cells != null && !cells.isEmpty()) {
+            var parsed = new ArrayList<OpportunityRegion.Cell>();
+            for (var cell : cells)
+                parsed.add(new OpportunityRegion.Cell(
+                        ((Number) cell.get("minX")).intValue(), ((Number) cell.get("minZ")).intValue(),
+                        ((Number) cell.get("maxX")).intValue(), ((Number) cell.get("maxZ")).intValue()));
+            return new OpportunityRegion(parsed);
+        }
+        int half = plugin.getConfig().getInt("renewables.migratedRegionHalfSpan", 0);
+        return OpportunityRegion.square(x, z, half > 0 ? half : radius * 3);
     }
 
     /** Saved state only becomes readable once the owning chunk loads. */
@@ -206,8 +240,6 @@ public final class Renewables implements Listener {
             if ((s.x >> 4) != c.getX() || (s.z >> 4) != c.getZ()) continue;
             if (pendingRestore.remove(s.id) && restore(s)) restoresApplied++;
             if (pendingPersist.remove(s.id)) persist(s);
-            // The chunk is loaded now, so the pen can finally be filled.
-            if (pendingManifest.contains(s.id) && manifest(s) > 0) pendingManifest.remove(s.id);
         }
     }
 
@@ -253,14 +285,14 @@ public final class Renewables implements Listener {
 
     /** Returns true when the harvest counted against a source. */
     private boolean harvest(Source s) {
-        if (available(s) <= 0) return false;
-        s.available--;
+        if (s.opportunity.state() != Opportunity.State.MANIFESTED
+                || s.opportunity.remaining() <= 0) return false;
+        s.opportunity.memberRemoved();
+        s.available = s.opportunity.remaining();
         harvests++;
-        if (s.available == 0) {
+        if (s.opportunity.state() == Opportunity.State.RECOVERING) {
             depletions++;
             s.state = State.DEPLETED;
-            World w = Bukkit.getWorld(s.world);
-            s.recoveringUntil = (w == null ? 0 : w.getFullTime()) + s.recoverTicks;
         }
         persist(s);
         return true;
@@ -374,32 +406,90 @@ public final class Renewables implements Listener {
      * Tops up rather than replacing, so an author's own placement survives and
      * nothing is duplicated.
      */
+    /**
+     * Attempt one manifestation: query the CURRENT world, select a locus, create
+     * a finite manifestation there.
+     *
+     * Every call re-queries. Nothing is cached and nothing falls back: if the
+     * region currently offers nowhere eligible, the opportunity stays ready and
+     * says so, because forcing a spawn or reusing the authored origin would make
+     * the query decorative.
+     */
     public int manifest(Source s) {
         World w = Bukkit.getWorld(s.world);
-        if (w == null || !w.isChunkLoaded(s.x >> 4, s.z >> 4)) return 0;
-        if (s.kind == null) return 0;
+        if (w == null || s.kind == null) return 0;
+        if (!s.opportunity.readyToManifest()) return 0;
         var kind = RenewableKinds.require(s.kind);
-        // ONE MANIFESTATION AT A TIME. This used to top up to capacity, so a
-        // half-harvested herd was quietly refilled where it stood -- which makes
-        // an ignored opportunity an animal printer and makes the region a camp
-        // coordinate. A new manifestation is created only when there is no
-        // current one; otherwise the standing manifestation IS the current one
-        // and nothing happens.
-        int present = count(s, kind);
-        if (present > 0) { s.state = State.MANIFESTED; return 0; }
-        int wanted = available(s);
-        if (wanted <= 0) return 0;
-        // SITE SELECTION IS NOT IMPLEMENTED. The manifestation appears at the
-        // authored origin, which is exactly the fixed decorative spawn pad the
-        // design rejects. It waits on two decisions that are architectural
-        // rather than numeric -- what a region IS, and whether the map tool or
-        // the plugin owns eligibility -- and is marked here so it cannot be
-        // mistaken for the intended behaviour.
-        // See docs/proposals/2026-09-21-regenerative-opportunity-model.md F.
-        int made = kind.type() == Type.CROP ? placeCrops(w, s, kind, wanted)
-                                            : spawnFauna(w, s, kind, wanted);
-        if (made > 0) s.state = State.MANIFESTED;
+
+        var terrain = new WorldTerrain(w, plugin.provenance());
+        var rules = eligibilityRules();
+        var candidates = Eligibility.loci(s.region, terrain, rules);
+        var locus = Eligibility.select(candidates, rules, s.opportunity.previousLocus(),
+                terrain, random);
+        if (locus == null) {
+            // Explicit, diagnosable, and not an error: the ecology is currently
+            // unavailable, which is a thing players can cause and undo.
+            s.opportunity.noEligibleLocus();
+            return 0;
+        }
+
+        int wanted = s.capacity;
+        int made = kind.type() == Type.CROP ? placeCrops(w, s, kind, locus, wanted)
+                                            : spawnFauna(w, s, kind, locus, wanted);
+        if (made > 0) {
+            s.opportunity.manifested(locus, made);
+            s.available = made;
+            s.state = State.MANIFESTED;
+        }
         return made;
+    }
+
+    /** ALPHA FIXTURES. Exact predicates by resource kind are unresolved. */
+    private Eligibility.Rules eligibilityRules() {
+        var cfg = plugin.getConfig();
+        String base = "renewables.eligibility.";
+        return new Eligibility.Rules(
+                cfg.getInt(base + "headroom", 2),
+                Eligibility.NATURAL_GROUND,
+                cfg.getInt(base + "sampleStride", 4),
+                cfg.getDouble(base + "minDisplacement", 12.0),
+                cfg.getDouble(base + "playerExclusion", 24.0),
+                cfg.getBoolean(base + "rejectPlayerPlaced", true));
+    }
+
+    /** WORKING CALIBRATION, expressed as fractions of the Temporal Phase P. */
+    private Recovery.Rates ratesFor(Source s) {
+        var cfg = plugin.getConfig();
+        String base = "renewables.temporal.";
+        double nightRate = s.type == Type.SWARM
+                ? cfg.getDouble(base + "swarmNightRate", 1.0)
+                : cfg.getDouble(base + "nightRate", 0.73);
+        // The first manifestation of a match waits longer than a recovery does:
+        // the regenerative economy is meant to follow the opening, not race it.
+        double fraction = s.opportunity.hasManifested()
+                ? cfg.getDouble(base + "dayFraction", 0.33)
+                : cfg.getDouble(base + "initialFraction", 0.4);
+        return new Recovery.Rates(
+                cfg.getLong(base + "phaseTicks", MatchClock.PHASE_TICKS),
+                fraction, nightRate);
+    }
+
+    /**
+     * Advance every opportunity's lifecycle by one sample interval.
+     *
+     * Recovery accumulates at the CURRENT world's rate rather than being a
+     * duration chosen when the last resource was taken, so a recovery that
+     * begins in daylight and runs past sunset keeps what it earned and continues
+     * more slowly.
+     */
+    private void tickOpportunities(long ticks) {
+        for (Source s : sources.values()) {
+            World w = Bukkit.getWorld(s.world);
+            if (w == null) continue;
+            boolean night = WorldTerrain.isNight(w);
+            s.opportunity.tickRecovery(ticks, night, ratesFor(s));
+            if (s.opportunity.readyToManifest()) remanifested += manifest(s);
+        }
     }
 
     /** Whether this entity is a member of this opportunity's manifestation. */
@@ -471,35 +561,59 @@ public final class Renewables implements Listener {
         return out;
     }
 
-    private int placeCrops(World w, Source s, RenewableKinds.Kind kind, int wanted) {
+    /**
+     * A wild Patch: an irregular, terrain-conforming concentration.
+     *
+     * Each crop gets the minimum substrate it needs to exist -- one farmland
+     * block directly beneath it, unmoistened -- and nothing else. No prepared
+     * field, no water source, no flattening. That single-block conversion is the
+     * accommodation a resource needs in order to be there; a broad tilled
+     * rectangle with irrigation is a farm, which is what players are supposed to
+     * build and what the world must not hand them.
+     */
+    private int placeCrops(World w, Source s, RenewableKinds.Kind kind,
+                           Eligibility.Locus locus, int wanted) {
         Material material = kind.blocks().iterator().next();
+        int spread = plugin.getConfig().getInt("renewables.patch.spread", 6);
         int placed = 0;
-        for (int x = s.x - s.radius; x <= s.x + s.radius && placed < wanted; x++)
-            for (int z = s.z - s.radius; z <= s.z + s.radius && placed < wanted; z++)
-                for (int y = s.y - s.radius; y <= s.y + s.radius && placed < wanted; y++) {
-                    var cell = w.getBlockAt(x, y, z);
-                    if (!cell.getType().isAir()) continue;
-                    var below = w.getBlockAt(x, y - 1, z).getType();
-                    if (below != Material.FARMLAND && below != Material.GRASS_BLOCK
-                            && below != Material.DIRT) continue;
-                    cell.setType(material, false);
-                    // Server-placed, so BlockPlaceEvent never fires and the
-                    // patch correctly reads as wild rather than player-farmed.
-                    placed++;
-                }
+        for (int[] column : PatchShape.columns(locus.x(), locus.z(), wanted, spread, random)) {
+            if (placed >= wanted) break;
+            int x = column[0], z = column[1];
+            if (!w.isChunkLoaded(x >> 4, z >> 4)) continue;
+            int groundY = w.getHighestBlockYAt(x, z);
+            var ground = w.getBlockAt(x, groundY, z);
+            if (!Eligibility.NATURAL_GROUND.contains(ground.getType())) continue;
+            var cell = w.getBlockAt(x, groundY + 1, z);
+            if (!cell.getType().isAir()) continue;
+            if (material.createBlockData() instanceof org.bukkit.block.data.Ageable
+                    && ground.getType() != Material.FARMLAND)
+                ground.setType(Material.FARMLAND, false);   // minimum substrate, one block
+            cell.setType(material, false);
+            var data = cell.getBlockData();
+            if (data instanceof org.bukkit.block.data.Ageable age) {
+                age.setAge(age.getMaximumAge());
+                cell.setBlockData(age, false);
+            }
+            // Server-placed, so BlockPlaceEvent never fires and the patch
+            // correctly reads as wild rather than player-farmed.
+            placed++;
+        }
         return placed;
     }
 
-    private int spawnFauna(World w, Source s, RenewableKinds.Kind kind, int wanted) {
+    /** A Herd or Swarm: members clustered at the selected locus, nothing built. */
+    private int spawnFauna(World w, Source s, RenewableKinds.Kind kind,
+                           Eligibility.Locus locus, int wanted) {
         var types = new ArrayList<>(kind.entities());
         if (types.isEmpty()) return 0;
+        int cluster = plugin.getConfig().getInt("renewables.herd.cluster", 5);
         int spawned = 0;
         for (int i = 0; i < wanted; i++) {
             var type = types.get(i % types.size());
-            var at = new Location(w, s.x + 0.5 + (Math.random() - 0.5) * s.radius,
-                    s.y + 1, s.z + 0.5 + (Math.random() - 0.5) * s.radius);
+            var at = new Location(w, locus.x() + 0.5 + (random.nextDouble() - 0.5) * cluster,
+                    locus.y(), locus.z() + 0.5 + (random.nextDouble() - 0.5) * cluster);
             var ground = w.getHighestBlockYAt(at.getBlockX(), at.getBlockZ());
-            at.setY(Math.max(s.y, Math.min(s.y + s.radius, ground + 1)));
+            at.setY(ground + 1);
             try {
                 var spawnedEntity = w.spawnEntity(at, type);
                 // Marked at birth: membership is a fact about the entity, not
