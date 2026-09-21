@@ -58,11 +58,12 @@ class ProgressionConfigTest {
         assertEquals(0, at(cfg, "progression.work.extraction.opportunity.default"));
     }
 
-    @Test void ordinaryPlacementIsFlaggedUnresolvedRatherThanAssumedUseful() throws Exception {
-        // Paying every BlockPlaceEvent made logs, torches and dirt into
-        // Construction progression. The fixture is preserved in the file; what
-        // is not asserted is that placement is useful.
-        assertEquals(0, at(config(), "progression.work.ordinaryPlacement"));
+    @Test void ordinaryPlacementIsWorthTheAtomicWorkPoint() throws Exception {
+        // 1 is the smallest legible unit of progression, not a provisional
+        // value. Mundane work should become insufficient via the cost curve,
+        // not worthless via a zero award -- so a regression to 0 is a change of
+        // claim about the economy and not a tuning tweak.
+        assertEquals(1, at(config(), "progression.work.ordinaryPlacement"));
         assertEquals(20, at(config(), "progression.work.constructionBlockPlacement"));
     }
 

@@ -257,18 +257,22 @@ progression:
   # Every number below is a NON-CANON ALPHA FIXTURE.
   work:
     # -- Construction ---------------------------------------------------
-    # The UAU supplement's sensitivity fixtures were ordinary useful placement
-    # 1 WP and Construction Block placement 2 WP total, against a 40-WP level.
-    # "Useful" is doing real work in that sentence and nothing here can test
-    # for it, so ordinary placement stays at 0 and stays flagged UNRESOLVED.
+    # 1 WP is the ATOMIC Work Point: the smallest legible unit of progression,
+    # not an exceptional or provisional value. Placing a block is mundane
+    # legitimate Minecraft activity and earns exactly one of those.
     #
-    # 0 is NOT the design conclusion. At the old resolution a 1-WP placement
-    # was 1/40th of a level, which made any blanket placement rule economically
-    # absurd; at 300 WP/level it is 1/300th, and a future "ordinary USEFUL
-    # placement = 1 WP" rule becomes economically plausible the moment a
-    # usefulness test exists. The blocker is qualification, not magnitude.
+    # Mundane work is not supposed to become worthless -- it is supposed to
+    # become insufficient. That job belongs to the level-cost curve, where a
+    # 1 WP placement is 1/300th of a Bootstrap level and 1/1705th of an Endgame
+    # one. Setting the award to 0 would have made the same point by deleting the
+    # activity from the economy instead of by pricing it, which is a different
+    # and worse claim.
+    #
+    # What stops this being a farm is the anti-recycling rule, not the
+    # magnitude: credit attaches to a block POSITION a player has not built at
+    # before, so place -> break -> place pays once. See ConstructionWorkTest.
     constructionBlockPlacement: 20
-    ordinaryPlacement: 0          # UNRESOLVED: usefulness is not detectable
+    ordinaryPlacement: 1          # the atomic Work Point
     # -- Extraction: WP = A(O) + qH -------------------------------------
     #
     # Rescaled into the new resolution, NOT replaced by a flat per-ore award.

@@ -500,3 +500,52 @@ corrected. Two observations worth carrying into a live session:
   bricks, terracotta, concrete or glass. That remains the single most likely
   place the model is wrong, and it is the same question as the unresolved
   ordinary-placement rule above.
+
+## Correction — ordinary placement is 1 WP, and 1 WP is atomic
+
+The previous two passes shipped `ordinaryPlacement: 0` and called it an
+unresolved fixture awaiting a usefulness test. That framing was wrong, and the
+value is now **1**.
+
+**1 WP is the atomic Work Point**: the smallest legible unit of progression, not
+a provisional or exceptional value. Placing a block is mundane legitimate
+Minecraft activity, and mundane legitimate activity earns exactly one of those.
+
+The reasoning the 0 replaced: mundane work is supposed to become
+**insufficient**, not **worthless**, and the thing that makes it insufficient is
+the level-cost curve. The same 1 WP placement is 1/300th of a Bootstrap level
+and 1/1705th of an Endgame one, so primitive activity prices itself out of
+competitiveness on its own, across two and a half orders of magnitude, without
+ever being declared not to be work. Awarding 0 made that same point by deleting
+the activity from the economy instead of pricing it — a different and worse
+claim, and one that left an early player's most common action reading as
+literally valueless.
+
+This does **not** reopen the farming question, because the magnitude was never
+what closed it. The anti-recycling rule is what closes it: credit attaches to a
+block **position** the player has not built at before, so `place → break →
+place` pays once and building somewhere new always pays in full
+(`ConstructionWorkTest`). That rule is unchanged and was not relaxed here.
+
+Construction Block placement remains 20. Membership remains classes.md's.
+
+### Modelled opening, revised
+
+Construction now contributes. A conventional opening places torches, a table, a
+furnace, a chest, some covering and scaffolding, and a small farm's worth of
+farmland and fencing — call it 60–100 first-time positions.
+
+| Domain | WP |
+|---|---|
+| Extraction | 440 |
+| Production | 426 |
+| Development | 260 |
+| Exploration | 60–120 |
+| Construction | 60–100 |
+
+**Total ≈ 1,246–1,346 WP → Lv4, roughly half to two-thirds of the way to Lv5.**
+
+Still Lv4; the level position did not move, which is the point. What changed is
+that Construction stopped reading as zero for a player who spent the session
+building, and the domain breakdown a tester sees in `/moba` now reflects what
+they actually did.

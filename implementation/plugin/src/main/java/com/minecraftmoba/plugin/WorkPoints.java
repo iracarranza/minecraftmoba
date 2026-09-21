@@ -184,21 +184,25 @@ public final class WorkPoints implements Listener {
     // ---- live sources ----------------------------------------------------
 
     /**
-     * Construction: placing a Construction Block where nothing of yours stood.
+     * Construction: building at a position the player has not built at before.
      *
-     * The UAU supplement gives two sensitivity fixtures -- ordinary useful
-     * placement 1 WP, Construction Block placement 2 WP total -- and it is
-     * tempting to read the first as "every BlockPlaceEvent". It does not say
-     * that. It says *useful* placement, and nothing available here distinguishes
-     * a wall from a dirt block dropped underfoot to climb one step. Paying
-     * every placement made torches, ladders and scaffolding into Construction
-     * progression, so ordinary placement is flagged UNRESOLVED and ships at 0
-     * rather than being pretended into usefulness. The fixture is preserved in
-     * config for the day a usefulness test exists.
+     * Ordinary placement is worth 1 WP and a Construction Block 20. The 1 is the
+     * atomic Work Point -- the smallest legible unit of progression -- and
+     * placing a block is exactly the kind of mundane legitimate activity that
+     * unit exists for.
      *
-     * Construction Block membership is untouched and stays exactly as
-     * classes.md enumerates it; what qualifies as Construction *work* is a
-     * separate question, and this is the part being answered.
+     * It is deliberately not 0. Mundane work should become *insufficient*, not
+     * worthless, and the level-cost curve is what makes it so: the same
+     * placement is 1/300th of a Bootstrap level and 1/1705th of an Endgame one,
+     * so primitive activity prices itself out of competitiveness without ever
+     * being declared not to be work.
+     *
+     * What prevents farming is the position rule rather than the magnitude. A
+     * player is paid for a block position they have not built at before, so
+     * place/break/place pays once and building somewhere new always pays in
+     * full. Construction Block membership is classes.md's and is untouched;
+     * what counts as Construction *work* is the separate question answered
+     * here.
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void place(BlockPlaceEvent e) {
