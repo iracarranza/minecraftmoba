@@ -100,14 +100,24 @@ features:
   # blocks cannot glow. A depleted source marks nothing, so a mark means
   # "available" and not merely "exists".
   #
-  # OPEN: vanilla glow renders through terrain for every player on both teams.
-  # Good for Alpha legibility, but it makes a herd public information the moment
-  # it exists. Per-viewer glow needs packet work and is not attempted.
+  # Glow renders through terrain, but NOT across the map: a client is never sent
+  # an entity outside its tracking range, so the real exposure is spigot.yml's
+  # entity-tracking-range.animals, 96 blocks here. It is not public information.
+  #
+  # Marking is therefore tuned for LEGIBILITY rather than concealment. Two
+  # opposing players meeting at the same herd already implies one of them is in
+  # contested or enemy ground, and at that range hiding the herd solves nothing
+  # while costing every player the clarity the mark exists for.
+  #
+  # viewRadius is measured from the source centre and the source's own radius is
+  # added to it, so 32 lights a 20-radius pen when a player is about 32 blocks
+  # from its edge: close enough to be working it. It must stay well inside the
+  # tracking range above, or the gate stops gating anything.
   renewableMarkers:
     enabled: true
     ticks: 20
     # Nothing is marked unless a player is within this range of the source.
-    viewRadius: 64.0
+    viewRadius: 32.0
     # Crop membership costs an O(radius^3) volume scan, so it is cached and
     # refreshed on this cadence rather than every tick.
     rescanTicks: 200

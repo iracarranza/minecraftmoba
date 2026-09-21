@@ -84,8 +84,13 @@ class RenewableMarkerTest {
         // Marking every source in the world every tick, and rescanning an
         // O(radius^3) volume to find crops, are both affordable only because
         // they do not happen.
-        assertNotNull(at("features.renewableMarkers.viewRadius"),
-                "without a view radius this runs world-wide every tick");
+        Object view = at("features.renewableMarkers.viewRadius");
+        assertNotNull(view, "without a view radius this runs world-wide every tick");
+        // A gate wider than the client's entity tracking range is not a gate:
+        // beyond it the entity is never sent, so the glow cannot render however
+        // the marker is configured. spigot.yml ships animals at 96.
+        assertTrue(((Number) view).doubleValue() <= 96.0,
+                "viewRadius must stay inside entity-tracking-range.animals");
         assertNotNull(at("features.renewableMarkers.rescanTicks"),
                 "without a rescan cadence the crop scan runs per tick");
         String src = Files.readString(
