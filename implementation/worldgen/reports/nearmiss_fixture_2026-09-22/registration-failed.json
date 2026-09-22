@@ -1,0 +1,54 @@
+{
+  "scope": "Disposable preflight; admin repositioning is not task traversal evidence",
+  "checks": [
+    {
+      "name": "forced map applied",
+      "ok": true,
+      "detail": {
+        "authored_from": "authored",
+        "base": "base-terrain",
+        "base_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+        "blocks": 71148,
+        "name": "resource_light",
+        "note": "930010639 experimental fixture; no balance inference",
+        "schema": "moba_map_diff/1"
+      }
+    },
+    {
+      "name": "10 sources bound",
+      "ok": false,
+      "detail": null
+    }
+  ],
+  "snapshots": [
+    {
+      "command": "moba match open"
+    },
+    {
+      "response": "> \r  \r[11:19:23 INFO]: Loading 0 persistent chunks for world 'minecraft:nearmiss_match'...\n> \r  \r[11:19:23 INFO]: Prepared spawn area in 0 ms\n> \r  \r\u001b[33;1m[11:19:23 WARN]: *************************************************************************************\n\u001b[m> \r  \r\u001b[33;1m[11:19:23 WARN]: You are running the latest build for your Minecraft version (1.21.11)\n\u001b[m> \r  \r\u001b[33;1m[11:19:23 WARN]: However, you are 4 release(s) behind the latest stable release (26.2)!\n\u001b[m> \r  \r\u001b[33;1m[11:19:23 WARN]: It is recommended that you update as soon as possible\n\u001b[m> \r  \r\u001b[33;1m[11:19:23 WARN]: https://papermc.io/downloads/paper\n\u001b[m> \r  \r\u001b[33;1m[11:19:23 WARN]: *************************************************************************************\n\u001b[m> \r  \r[11:19:25 INFO]: [MinecraftMoba] applied map 'resource_light': 71148 blocks in 1692 ms\n> \r  \r[11:19:25 INFO]: match: Unknown renewable kind: goat (known: wheat, potatoes, carrots, beetroot, melon, pumpkin, sugar_cane, bamboo, kelp, sweet_berries, cocoa, mushrooms, copper, iron, coal, redstone, lapis, diamond, emerald, gravel, sand, clay, sheep, rabbit, chicken, cow, pig, horse, cod, salmon, squid, bee, turtle, spiders, creepers, undead, slimes, witches, pillagers, guardians, ravagers)\n> "
+    },
+    {
+      "command": "moba maps"
+    },
+    {
+      "response": "> \r  \r[11:19:38 INFO]: MAPS enabled=true catalogue=1 applied=resource_light\n> \r  \r[11:19:38 INFO]:   resource_light (71148 blocks, base 5729f939)  <- this match\n> "
+    },
+    {
+      "command": "moba renew status"
+    },
+    {
+      "response": "> \r  \r[11:19:39 INFO]: renewable sources=1 harvests=0 depletions=0 recoveries=0\n> \r  \r[11:19:39 INFO]:   rabbit_2 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> "
+    },
+    {
+      "command": "moba worksite status"
+    },
+    {
+      "response": "> \r  \r[11:19:40 INFO]: worksites=8 active=0\n> \r  \r[11:19:40 INFO]:   {DORMANT=8, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}\n> "
+    },
+    {
+      "command": "stop"
+    }
+  ],
+  "error": "Error: Fixture load/registration failed; no player/task preflight is permitted\n    at main (/private/tmp/minecraftmoba-terrain-audit/implementation/plugin/experiments/nearmiss_preflight.cjs:29:44)\n    at async /private/tmp/minecraftmoba-terrain-audit/implementation/plugin/experiments/nearmiss_preflight.cjs:65:7",
+  "pass": false
+}

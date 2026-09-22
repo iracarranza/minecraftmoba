@@ -1,190 +1,128 @@
-# Handoff — Minecraft MOBA, 22 September 2026
+# Handoff — 930010639 resource_light fixture, 22 September 2026
 
-Continuation from `7cae5ae` / `faa6748`; this handoff supersedes their proposed
-next step. Audit branch: `codex/terrain-gameplay-audit`. The live test server is
-at `/private/tmp/alpha-server`; this audit did not operate or change it.
+**Materialized and loadable, but NOT cleared for the paired experiment.**
+Continue from the fixture report below. Do not run the 16 trials yet, add
+telemetry, or change balance, screening or authoring semantics.
 
-Read [docs/alpha-server-runbook.md](docs/alpha-server-runbook.md) first — it has
-the deploy cycle, the resource-pack host, map configurations and resetting.
+The earlier audit commit **4244b39 was fast-forwarded to remote main** before
+this continuation. The original dirty checkout and the live Alpha server at
+`/private/tmp/alpha-server` were preserved. Every fixture server was disposable
+and has been stopped.
 
----
+## Read first
 
-## The one rule this codebase keeps breaking
+- [Fixture report and exact reproduction commands](implementation/worldgen/reports/nearmiss_fixture_2026-09-22/REPORT.md)
+- [Audit and proposed paired tasks](docs/audit/2026-09-22-terrain-gameplay-comparison.md)
+- [Alpha server runbook](docs/alpha-server-runbook.md)
 
-**Two implementations of one idea.** It has shipped five times, always the same
-way: a fix lands on one copy, the other stays wrong, and the symptom is always
-"the thing you did had no effect."
+The report supersedes the audit's fixture assumptions; the audit remains the
+experiment proposal. This task produced no gameplay/economic balance finding.
 
-| | what happened |
-|---|---|
-| config keys | plugin read `progression.work.*`, file defined `progression.extraction.*`; every value silently came from a Java fallback |
-| world loading | `load()` reused a stale instance, `restore()` rebuilt — so `match open` handed back last session's world |
-| reset | `/moba match reset` cleared everything, `/moba reset <player>` cleared almost nothing |
-| hunger units | Capacity became a rate, but four call sites still used it as a ceiling |
-| eligibility predicate | deliberately duplicated in Python; kept honest by a shared fixture both sides must reproduce |
+## What succeeded
 
-Tests now pin the *property* rather than the behaviour: no command may rebuild
-`PlayerData` by hand, nothing outside the seam may call `effectiveHunger`, and
-`ConfigKeysDefinedTest` scans every class for config reads the file does not
-define. **Prefer that style over asserting a value.**
+- Built seed **930010639**, volume `tv_51a79e3b1bee05ea7559e799`, using the
+  near-miss candidate, siting, opportunity map and frontier from `faa6748`.
+- Existing portfolio → routes → structures → verification → diff/export
+  machinery; **resource_light rank 0, 28 placements, zero skipped**. Six physical
+  Route corridors and eight team structures. All structure template block
+  identities match final readback. No terrain ranking or placement rule changed.
+- Runtime catalogue contains only **resource_light**, forced by the existing
+  config key. **71,148 diff blocks** apply successfully; reset reapplies it.
+- **Ten sources and eight Worksites registered**. Sources: four potatoes,
+  three rabbit, one goat, one pig, one chicken. Runtime `goat` → `GOAT` identity
+  mapping was missing and is now added, with no tuning or authoring change.
+- Both teams pass Survival spawn, quartz support, movement away from the
+  fountain, and respawn after finite lethal damage. No gathering, processing,
+  delivery, full-route traversal or task rehearsal was run.
+- Base fingerprint unchanged through builds/server use; archive file hashes
+  verified; two fresh builds produce identical decompressed diff payloads.
+  Runtime seed is confirmed as 930010639. Plugin build: **205 tests pass**.
 
-Second recurring failure: **pipeline steps that exist and get skipped.**
-Re-authoring once shipped maps with no Aether Fountains because building the
-team structures is a separate command. `terrain_harvest.reauthor` now runs all
-four steps and gates on the two failures that are silent.
+### Coordinates — keep the three meanings distinct
 
----
+| Team | Candidate homeland X,Z | Selected fountain X,Y,Z | Runtime spawn X,Y,Z |
+|---|---|---|---|
+| North | 1812, -244 | 1828, 67, -244 | 1830.5, 71, -243.5 |
+| South | 2348, -20 | 2212, 78, 76 | 2214.5, 82, 76.5 |
 
-## State of the work
+Siting rank 0 is preserved. Spawn is on a standable fountain plinth column with
+headroom. Config order is **[x,z,y]**, not XYZ. The logical orientation is rotated
+90°; raw-world Z does not by itself identify north/south. Prior travel matrices
+start at candidate centers, not these runtime fountain positions.
 
-### Live and working
-- **Map configurations.** A match's world is base terrain plus one authored
-  configuration, drawn at random on world load. Four in the catalogue. A
-  configuration is a ~250KB block diff, not a 28MB world.
-- **Vitals scaling.** Health and hunger bars are always twenty points; Capacity
-  decides what a point is worth. Display normalization, not a balance change —
-  `VitalsTest` proves fractions are preserved.
-- **Lobby world** `moba_lobby`: void, built, peaceful, no exit.
-- **Resource pack** pushed by the server on join, hosted on `127.0.0.1:25580`.
-- **Regenerative opportunities** manifest at runtime on eligible terrain;
-  membership is an explicit PDC mark, never position-and-type.
-- **Routes** fitted to a walkable profile: 0% unclimbable along the centreline,
-  against 7.7% in the frozen map.
+## Remaining blockers / limits
 
-### Decided but not built
-- **Class-selection GUI** — answered in full, explicitly parked. Chest GUI plus
-  glyph art; the right panel cannot update on hover without a client mod.
-- **Map vote/ban** — the eventual intent. It already settles that map balance is
-  scored per named configuration rather than per family.
+1. **Existing Route endpoint verifier fails.** At north destination
+   **(1804, 308)** the top is **ice at Y62**, while
+   `verify_portfolio.check_routes` requires dirt path or oak planks. The writer
+   deliberately surfaces selectively and may retain natural ground. Its six
+   modeled profiles all report zero unclimbable steps / worst step 1, but that
+   does not waive a failed final-block check. Neither authoring nor the verifier
+   was changed. `build.json.ready_for_playtest` and `preflight.json.pass` remain
+   **false**, and the build/probe correctly exit 1.
+2. **Task B as specified is impossible here:** no authored wheat source.
+   All four founder crops are potatoes. Do not add wheat or silently substitute
+   potatoes or village hay. A common-resource task must be selected explicitly
+   against both configurations before this experiment is run.
+3. **Task A feasibility remains unestablished on an accepted fixture.** No
+   resource-to-useful-output undertaking was attempted. Registration alone also
+   does not prove manifested supply or harvestable yield; normal initial source
+   delay is unchanged.
+4. An initial `/kill` probe did not confirm death. The corrected finite-damage
+   probe confirms death events and proper N/S respawns. Preserve this as an
+   administrative-command limitation; do not change vitals/balance to fix the
+   fixture test. Rendering and full-match playability are not certified.
 
-### Seed generalization, team-axis diagnosis, and the first rescue test
+## Smallest next step
 
-**Keep the axes straight.** W–E is the REGIONAL axis and contrast there is
-intentional (forest/arid, frozen/open). N–S is the TEAM axis and must be
-competitive. A pairing never means one team gets forest and the other arid.
+Reconcile **that endpoint verification contract** with the current selective
+surfacing semantics while retaining real surface/headroom/traversal safety
+checks. Re-run final readback and a short traversal at the failed endpoint;
+do not pave/move it or loosen checks to manufacture success. Then explicitly
+revise Task B to a shared authored resource present in both fixed configurations,
+and perform only the audit's minimal Task A/B feasibility rehearsal. The 16-trial
+comparison and telemetry remain later work.
 
-- **`vanilla_search/coarse.c --regions`** — region-CHARACTER screen. 20,000
-  seeds → 8,425 accepted across 12 pairings, against one composition before.
-  → `docs/analysis/2026-09-22-region-character-screen.md`
-- **`terrain_harvest.compare_seeds`** — diagnoses each seed's N–S deficit and
-  names its kind by comparing components between teams. No absolute thresholds.
-  → `docs/analysis/2026-09-22-team-axis-deficits-and-intervention.md`
-- **First rescue test, seed 930010639 (`frozen/open`)** — full pipeline run.
-  → `docs/analysis/2026-09-22-nearmiss-rescue-930010639.md`
-  → artifacts in `implementation/worldgen/reports/nearmiss_930010639_2026-09-22/`
+The land gap **0.3173 remains a terrain descriptor**, not a demonstrated economic
+penalty. Do not introduce deficit weighting or a screening gate from these
+fixture results.
 
-**The finding that should govern what happens next:**
+## Implementation / artifacts
 
-> **A near-miss passes the balance filter without its deficit being repaired.**
+- `implementation/worldgen/experiments/nearmiss_fixture.py`: explicit-input
+  build driver. Existing core fountain/step checks plus final block readback;
+  exports a diagnostic diff and fails readiness when checks fail.
+- `implementation/plugin/experiments/prepare_nearmiss_server.py`: isolated
+  server/config packager. **Bukkit merges bundled defaults**: an external source
+  table alone resurrected Alpha entries. This packages the same generated config
+  in the disposable jar and external file, preserving all other jar bytes.
+  Do not reuse Alpha's `deploy.sh` for this seed.
+- `implementation/plugin/experiments/nearmiss_preflight.cjs`: load, registration,
+  spawn, local movement, finite-damage respawn and reset acceptance probe.
+  No economic task recorder.
+- `implementation/worldgen/reports/nearmiss_fixture_2026-09-22/`: reports,
+  configuration diff, generated server config, hashes, logs, pass/failure evidence.
+- `artifacts/worldgen/nearmiss_fixture_2026-09-22/packages/base-terrain.tar.gz`:
+  published experimental base snapshot. Reproduction no longer depends on an
+  untracked harvest existing on another machine. Not a playable-map release.
 
-930010639 went in with an accessible-land gap of 0.3173 (south short of
-near-depth workable land) and came out at `balance_asymmetry` 0.0161 — better
-than the map we are playing. The accessible-land gap is **still 0.3173**,
-unchanged *by construction*: `balance_asymmetry` measures travel-cost equality
-to the opportunities authoring places, while the deficit is which depth bands
-the terrain has. Authoring places opportunities; it does not create depth bands.
+Base fingerprint:
+`5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a`.
+**Not compatible with Alpha's base.** Pristine means unchanged retained harvest
+for this fixture, not independently proven untouched native generation.
 
-Placement confirms it directly. South-biased share of placements is 0.38–0.42 on
-the deficient seed against 0.36–0.41 on the balanced one — **no steering toward
-the deficient team at all**.
+Last disposable server: `/tmp/nearmiss-fixture-930010639/final/server`, port
+25639, stopped. Source worlds under its sibling `worlds/` are separate from
+reports and implementation. Use a fresh directory when replaying the commands.
 
-**Do not read `balance_asymmetry` as evidence about a diagnosed deficit.** It is
-a real property (equal access to what was placed) and it is not that one.
+## Preserved operating constraints
 
-**Other results worth keeping:**
-
-- Minimum successful intervention on the near-miss is **28 opportunities**
-  (0.0333); best is 32 (0.0161). Spending 38 does worse. Balance is bought by
-  placement, not quantity — consistent with the −0.21 cost/balance correlation
-  measured over Alpha's 80 finalists.
-- The near-miss is **43% as authorable**: 991 qualifying configurations against
-  Alpha's 2,285 per 9,600 samples. The best-case scalar hides this entirely.
-- Structure siting already equalises teams by construction (quality gaps
-  0.0016–0.0058), so a team-axis deficit never lives in the team structures.
-- `land_asymmetry` was degenerate (0.0000 everywhere) and is replaced by
-  accessible land plus connected workable land. Do not resurrect it.
-
-### Next step — measure a task before changing balance
-
-**The 0.3173 gap is terrain evidence, not an established gameplay penalty.**
-Do not change balance, authoring or screening logic. Neither deficit-aware
-weighting nor a new rejection gate is justified by this audit.
-
-Read [the gameplay/economic audit](docs/audit/2026-09-22-terrain-gameplay-comparison.md)
-for the implementation inventory, exact protocol and observation requirements.
-Its source-level qualifications supersede the shorthand above:
-
-- `accessible_land` counts dry Wilderness samples in selected depth bands,
-  excluding homelands; it does not establish usable production area.
-- Alpha is seed **930012642**, volume `tv_ef56852eda10acc88342e5ee`;
-  near-miss is **930010639**, volume `tv_51a79e3b1bee05ea7559e799`.
-- The near-miss has **63 resource manifestations in nine scanned cells**.
-  Its `structures-built.json` is a positional stub; the rescue analysis did
-  **not** physically build a playable map.
-- Extraction benchmarks pool cells, travel matrices model surface cost, and
-  the runtime ledger records work. None measures a complete timed expedition.
-  Existing provenance/renewable CSVs are aggregate diagnostics without team/task
-  attribution. No new telemetry was implemented.
-
-**Recommended implementation/experiment, in order:**
-
-1. Pin both existing **resource_light** configurations (same 28-opportunity
-   budget), plugin/config and world inputs. Use a disposable Paper 1.21.11 /
-   Java 21 server and existing Anvil/diff pipeline. Materialize the missing
-   near-miss with the existing portfolio → routes → structures modules and
-   verification/export functions, driven by explicit seed-specific inputs. The
-   `reauthor` wrapper hard-codes Alpha fountain coordinates: use the small external
-   driver specified in the audit, preserving all checks. Verify fountains,
-   Routes, sources, spawn coordinates and base/diff
-   compatibility. Force the named configuration through the existing test config
-   key; never compare random Alpha selection to a cherry-picked near-miss.
-2. Rehearse two tasks with video and existing `/moba work` and `/moba debug`
-   snapshots: **acquire/process six iron into an iron pickaxe and bucket, return
-   both to homeland**; **use an authored wheat source to deliver three bread and
-   establish four hydrated planted wheat blocks at homeland**. Preflight the
-   shared wheat source; absence is a content mismatch, not permission to inject
-   it. Exact kits, milestones and reset requirements are in the audit.
-3. Run **16 trials**: two operators × two maps × N/S × two tasks, counterbalanced,
-   fresh state per trial, 20-minute cap and five-minute checkpoints. Record actual
-   acquisition/processing/delivery times, travel, all break/place actions by
-   purpose, source utilization, stock and WP/level history. Retain failures.
-4. Only if manual observation is insufficient, implement the bounded
-   `TaskTrialRecorder` specified in the audit: participant/task markers,
-   timestamped successful actions, sampled state, and snapshots of existing
-   ledger results. Reuse membership and scoring seams. Do not build a survival
-   bot, full simulator or alternate economic model.
-5. Compare S minus N on each map, then the difference between those paired gaps.
-   Lead with useful output and access burden, not WP alone. Replicate any delay
-   on a second existing profile before attributing it to terrain. Two operators
-   establish feasibility, not full competitive fairness or causality of 0.3173.
-
-No physical-failure arm is added. Preserve the previous rescue result and its
-artifacts for traceability; its balance/screening alternatives remain pending.
-
-### Unresolved, do not decide silently
-- Natural regeneration is held OFF (`features.vitalsScaling.naturalRegeneration`).
-  Uncapping hunger would switch vanilla regen on for the first time; that is a
-  design decision, not a side effect of a bar-length change.
-- Silk Touch → H in the Extraction model.
-- Logistics and Combat WP: candidates reported, none implemented.
-- Whether Routes should curve around structures rather than merely spare them.
-- Re-freezing the Alpha template. Not done, deliberately.
-
----
-
-## Things that will bite you
-
-- **Never copy the jar into a running server.** Paper opens it lazily; classes
-  not yet loaded become permanently unloadable and the server keeps running,
-  throwing `NoClassDefFoundError` from whichever path is touched first. It
-  presents as a game bug. `deploy.sh` refuses.
-- **The server has no console window.** `start-alpha.sh` pipes a file into
-  stdin: `echo "moba maps" >> /private/tmp/alpha-server/cmds`.
-- **Resource-pack hash.** Clients cache by it, so a rebuilt pack behind a stale
-  hash is silently ignored. `publish.py` writes both together.
-- **Artifacts are gitignored.** `artifacts/worldgen/alpha-0.1/` holds the base
-  terrain, the authored maps and the configuration diffs; none of it is in git.
-  `base-terrain` is the parent of everything and was verified pristine.
-- **The measurement usually exists.** Before arguing about whether Routes are
-  jagged or whether pads bias the eligibility query, check — both turned out to
-  be computable, and both corrected an assertion of mine.
+- Never copy a plugin jar into a running server. No live redeploy occurred here.
+- Keep balance/authoring/screening frozen; no new telemetry and no 16-trial run.
+- Runtime recognized Routes still require player designation/traversal. Authored
+  corridors do not automatically grant recognized Route benefits.
+- Do not re-freeze Alpha or revive the retired `land_asymmetry` score.
+- Natural regen stays governed by existing config; Silk Touch harvest semantics,
+  Logistics/Combat WP and class-selection GUI remain unresolved/parked as before.
+- Prefer one implementation of a rule, and preserve all steps of the existing
+  build pipeline. The fixture adapter supplies inputs; it does not redefine rules.

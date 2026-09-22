@@ -1,0 +1,112 @@
+{
+  "blocks_written": 17031,
+  "dry_run": false,
+  "evidence_state": "RAW WORLD OBSERVATION",
+  "nature": "greybox massing in vanilla-native palettes, not final architecture",
+  "not_covered": [
+    "exposure, disable conditions, obstruction, validation, reactivation and repair, all unresolved in objectives.md",
+    "interiors, defender placement and spawners",
+    "redstone or any functional machinery",
+    "terrain sculpting beyond a levelled pad under each structure"
+  ],
+  "schema": "team_structures_built/1",
+  "structures": [
+    {
+      "blocks": 302,
+      "footprint_radius": 7,
+      "height": 6,
+      "structure": "aether_fountain",
+      "team": "north",
+      "world_xyz": [
+        1828,
+        67,
+        -244
+      ]
+    },
+    {
+      "blocks": 572,
+      "footprint_radius": 6,
+      "height": 21,
+      "structure": "end_tower",
+      "team": "north",
+      "world_xyz": [
+        1884,
+        79,
+        -92
+      ]
+    },
+    {
+      "blocks": 690,
+      "footprint_radius": 7,
+      "height": 12,
+      "structure": "nether_bastion",
+      "team": "north",
+      "world_xyz": [
+        1844,
+        69,
+        -188
+      ]
+    },
+    {
+      "blocks": 314,
+      "footprint_radius": 4,
+      "height": 15,
+      "structure": "pillager_outpost",
+      "team": "north",
+      "world_xyz": [
+        1876,
+        78,
+        -140
+      ]
+    },
+    {
+      "blocks": 302,
+      "footprint_radius": 7,
+      "height": 6,
+      "structure": "aether_fountain",
+      "team": "south",
+      "world_xyz": [
+        2212,
+        78,
+        76
+      ]
+    },
+    {
+      "blocks": 572,
+      "footprint_radius": 6,
+      "height": 21,
+      "structure": "end_tower",
+      "team": "south",
+      "world_xyz": [
+        1972,
+        71,
+        -172
+      ]
+    },
+    {
+      "blocks": 690,
+      "footprint_radius": 7,
+      "height": 12,
+      "structure": "nether_bastion",
+      "team": "south",
+      "world_xyz": [
+        2308,
+        77,
+        -20
+      ]
+    },
+    {
+      "blocks": 314,
+      "footprint_radius": 4,
+      "height": 15,
+      "structure": "pillager_outpost",
+      "team": "south",
+      "world_xyz": [
+        2324,
+        78,
+        28
+      ]
+    }
+  ],
+  "world": "/private/tmp/nearmiss-fixture-930010639/final/worlds/authored"
+}

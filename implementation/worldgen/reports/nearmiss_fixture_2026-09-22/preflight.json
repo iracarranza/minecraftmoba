@@ -1,0 +1,275 @@
+{
+  "scope": "Disposable preflight; admin repositioning is not task traversal evidence",
+  "checks": [
+    {
+      "name": "forced map applied",
+      "ok": true,
+      "detail": {
+        "authored_from": "authored",
+        "base": "base-terrain",
+        "base_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+        "blocks": 71148,
+        "name": "resource_light",
+        "note": "930010639 experimental fixture; no balance inference",
+        "schema": "moba_map_diff/1"
+      }
+    },
+    {
+      "name": "10 sources bound",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "name": "north spawn",
+      "ok": true,
+      "detail": {
+        "actual": {
+          "x": 1830.5,
+          "y": 71,
+          "z": -243.5
+        },
+        "wanted": {
+          "x": 1830.5,
+          "y": 71,
+          "z": -243.5
+        },
+        "mode": "survival"
+      }
+    },
+    {
+      "name": "north fountain support",
+      "ok": true,
+      "detail": "chiseled_quartz_block"
+    },
+    {
+      "name": "north can leave spawn",
+      "ok": true,
+      "detail": {
+        "from": {
+          "x": 1830.5,
+          "y": 71,
+          "z": -243.5
+        },
+        "to": {
+          "x": 1830.5,
+          "y": 67.3923924205378,
+          "z": -239.31139055608762
+        }
+      }
+    },
+    {
+      "name": "north respawn",
+      "ok": true,
+      "detail": {
+        "actual": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        },
+        "wanted": {
+          "x": 1830.5,
+          "y": 71,
+          "z": -243.5
+        }
+      }
+    },
+    {
+      "name": "south spawn",
+      "ok": true,
+      "detail": {
+        "actual": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        },
+        "wanted": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        },
+        "mode": "survival"
+      }
+    },
+    {
+      "name": "south fountain support",
+      "ok": true,
+      "detail": "chiseled_quartz_block"
+    },
+    {
+      "name": "south can leave spawn",
+      "ok": true,
+      "detail": {
+        "from": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        },
+        "to": {
+          "x": 2214.5,
+          "y": 78.3923924205378,
+          "z": 80.68860944391243
+        }
+      }
+    },
+    {
+      "name": "south respawn",
+      "ok": true,
+      "detail": {
+        "actual": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        },
+        "wanted": {
+          "x": 2214.5,
+          "y": 82,
+          "z": 76.5
+        }
+      }
+    },
+    {
+      "name": "Task B has no registered wheat",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "static readback ready",
+      "ok": false,
+      "detail": [
+        "route north to 1804,308 not surfaced: ('minecraft:ice', 62)"
+      ]
+    }
+  ],
+  "snapshots": [
+    {
+      "command": "moba match open"
+    },
+    {
+      "response": "> \r  \r[16:19:23 INFO]: Loading 0 persistent chunks for world 'minecraft:nearmiss_match'...\n> \r  \r[16:19:23 INFO]: Prepared spawn area in 0 ms\n> \r  \r\u001b[33;1m[16:19:23 WARN]: *************************************************************************************\n\u001b[m> \r  \r\u001b[33;1m[16:19:23 WARN]: You are running the latest build for your Minecraft version (1.21.11)\n\u001b[m> \r  \r\u001b[33;1m[16:19:23 WARN]: However, you are 4 release(s) behind the latest stable release (26.2)!\n\u001b[m> \r  \r\u001b[33;1m[16:19:23 WARN]: It is recommended that you update as soon as possible\n\u001b[m> \r  \r\u001b[33;1m[16:19:23 WARN]: https://papermc.io/downloads/paper\n\u001b[m> \r  \r\u001b[33;1m[16:19:23 WARN]: *************************************************************************************\n\u001b[m> \r  \r[16:19:25 INFO]: [MinecraftMoba] applied map 'resource_light': 71148 blocks in 1523 ms\n> \r  \r[16:19:25 INFO]: [MinecraftMoba] [match] bound 10 renewable source(s)\n> \r  \r[16:19:25 INFO]: Alpha instance 'nearmiss_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.\n> "
+    },
+    {
+      "command": "moba maps"
+    },
+    {
+      "response": "> \r  \r[16:19:38 INFO]: MAPS enabled=true catalogue=1 applied=resource_light\n> \r  \r[16:19:38 INFO]:   resource_light (71148 blocks, base 5729f939)  <- this match\n> "
+    },
+    {
+      "command": "moba renew status"
+    },
+    {
+      "response": "> \r  \r[16:19:39 INFO]: renewable sources=10 harvests=0 depletions=0 recoveries=0\n> \r  \r[16:19:39 INFO]:   rabbit_2 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   goat_3 kind=goat RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   pig_4 kind=pig RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   potatoes_5 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   potatoes_7 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   rabbit_11 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   rabbit_19 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   potatoes_23 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   potatoes_25 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:19:39 INFO]:   chicken_27 kind=chicken RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> "
+    },
+    {
+      "command": "moba worksite status"
+    },
+    {
+      "response": "> \r  \r[16:19:40 INFO]: worksites=8 active=0\n> \r  \r[16:19:40 INFO]:   {DORMANT=8, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}\n> "
+    },
+    {
+      "command": "op NearPreflight"
+    },
+    {
+      "response": "> \r  \r[16:19:42 INFO]: \u001b[91mNothing changed. The player already is an operator\u001b[0m\n> "
+    },
+    {
+      "command": "moba match add NearPreflight north"
+    },
+    {
+      "response": "> \r  \r[16:19:44 INFO]: NearPreflight joined north.\n> "
+    },
+    {
+      "command": "moba match start"
+    },
+    {
+      "event": "client_respawn"
+    },
+    {
+      "response": "> \r  \r[16:19:45 INFO]: [MinecraftMoba] [match] Match started. DAY 0:00 (day, phase 0)\n> \r  \r[16:19:45 INFO]: Match started with 1 participant(s).\n> "
+    },
+    {
+      "command": "damage NearPreflight 100 minecraft:generic"
+    },
+    {
+      "event": "client_death"
+    },
+    {
+      "event": "client_respawn"
+    },
+    {
+      "response": "> \r  \r[16:19:49 INFO]: NearPreflight died\n> \r  \r[16:19:49 INFO]: Applied 100.0 damage to NearPreflight\n> "
+    },
+    {
+      "command": "data get entity NearPreflight Health"
+    },
+    {
+      "response": "> \r  \r[16:19:50 INFO]: NearPreflight has the following entity data: \u001b[33m4.4444447\u001b[91mf\u001b[0m\n> "
+    },
+    {
+      "command": "moba match add NearPreflight south"
+    },
+    {
+      "response": "> \r  \r[16:19:51 INFO]: NearPreflight joined south.\n> \r  \r\u001b[33;1m[16:19:51 WARN]: NearPreflight moved too quickly! -384.0,-11.0,-320.0\n\u001b[m> "
+    },
+    {
+      "command": "damage NearPreflight 100 minecraft:generic"
+    },
+    {
+      "event": "client_death"
+    },
+    {
+      "event": "client_respawn"
+    },
+    {
+      "response": "> \r  \r[16:19:55 INFO]: NearPreflight died\n> \r  \r[16:19:55 INFO]: Applied 100.0 damage to NearPreflight\n> "
+    },
+    {
+      "command": "data get entity NearPreflight Health"
+    },
+    {
+      "response": "> \r  \r[16:19:56 INFO]: NearPreflight has the following entity data: \u001b[33m4.4444447\u001b[91mf\u001b[0m\n> "
+    },
+    {
+      "command": "moba match status"
+    },
+    {
+      "response": "> \r  \r[16:19:56 INFO]: state=RUNNING\n> \r  \r[16:19:56 INFO]: clock=DAY 0:11 (day, phase 0) sunsets=0\n> \r  \r[16:19:56 INFO]: world: template=/private/tmp/nearmiss-fixture-930010639/final/worlds/base-terrain (present) instance=nearmiss_match (loaded)\n> \r  \r[16:19:56 INFO]: north: 0 living of 0, fountain active, homeland 1830,-244\n> \r  \r[16:19:56 INFO]: south: 1 living of 1, fountain active, homeland 2214,76\n> "
+    },
+    {
+      "command": "moba work NearPreflight"
+    },
+    {
+      "response": "> \r  \r[16:19:57 INFO]: WORK enabled=true level=1 wp=0/300 to Lv2\n> \r  \r[16:19:57 INFO]:   earned this match=0 WP (0.00 UAU)\n> \r  \r[16:19:57 INFO]:   construction = 0\n> \r  \r[16:19:57 INFO]:   extraction = 0\n> \r  \r[16:19:57 INFO]:   exploration = 0\n> \r  \r[16:19:57 INFO]:   production = 0\n> \r  \r[16:19:57 INFO]:   development = 0\n> \r  \r[16:19:57 INFO]:   logistics = 0\n> \r  \r[16:19:57 INFO]:   combat = 0\n> \r  \r[16:19:57 INFO]:   EXTRACTION 0 WP = A(O) 0 + qH 0  (harvest share 0%)\n> \r  \r[16:19:57 INFO]:     0 opportunities, 0 harvested units\n> \r  \r[16:19:57 INFO]:   PRODUCTION 0 WP\n> \r  \r[16:19:57 INFO]:   CONSTRUCTION 0 WP from 0 first-time placements\n> \r  \r[16:19:57 INFO]:   DEVELOPMENT 0 WP   EXPLORATION 0 WP\n> \r  \r[16:19:57 INFO]:   TOTAL 0 WP\n> "
+    },
+    {
+      "command": "moba match reset"
+    },
+    {
+      "event": "client_respawn"
+    },
+    {
+      "response": "> \r  \r[16:19:58 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'nearmiss_match'\n> \r  \r[16:19:58 INFO]: [ChunkHolderManager] Halted chunk system for world 'nearmiss_match'\n> \r  \r[16:19:58 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'nearmiss_match'\n> \r  \r[16:19:58 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'nearmiss_match'\n> \r  \r[16:19:59 INFO]: Loading 0 persistent chunks for world 'minecraft:nearmiss_match'...\n> \r  \r[16:19:59 INFO]: Prepared spawn area in 5 ms\n> \r  \r[16:19:59 INFO]: [MinecraftMoba] applied map 'resource_light': 71148 blocks in 663 ms\n> \r  \r[16:19:59 INFO]: Match reset: world restored; cleared worksites, 10 renewable source(s), 0 route(s)/pending, 0 in infra mode, 0 capitalization(s).\n> "
+    },
+    {
+      "command": "moba maps"
+    },
+    {
+      "response": "> \r  \r[16:20:13 INFO]: MAPS enabled=true catalogue=1 applied=resource_light\n> \r  \r[16:20:13 INFO]:   resource_light (71148 blocks, base 5729f939)  <- this match\n> "
+    },
+    {
+      "command": "moba renew status"
+    },
+    {
+      "response": "> \r  \r[16:20:14 INFO]: renewable sources=10 harvests=0 depletions=0 recoveries=0\n> \r  \r[16:20:14 INFO]:   rabbit_2 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   goat_3 kind=goat RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   pig_4 kind=pig RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   potatoes_5 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   potatoes_7 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   rabbit_11 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   rabbit_19 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   potatoes_23 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   potatoes_25 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]\n> \r  \r[16:20:14 INFO]:   chicken_27 kind=chicken RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]\n> "
+    },
+    {
+      "command": "save-all flush"
+    },
+    {
+      "response": "> \r  \r[16:20:15 INFO]: Saving the game (this may take a moment!)\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage (nearmiss_match): All chunks are saved\n> \r  \r[16:20:16 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved\n> \r  \r[16:20:16 INFO]: Saved the game\n> "
+    },
+    {
+      "command": "stop"
+    }
+  ],
+  "pass": false
+}

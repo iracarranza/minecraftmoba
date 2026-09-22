@@ -1,0 +1,550 @@
+Starting org.bukkit.craftbukkit.Main
+[11:23:30 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.7+6-LTS; Microsoft Microsoft-11369939) on Mac OS X 15.7.4 (aarch64)
+[11:23:30 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[11:23:31 INFO]: [PluginInitializerManager] Initializing plugins...
+[11:23:31 INFO]: [PluginInitializerManager] Initialized 1 plugin
+[11:23:31 INFO]: [PluginInitializerManager] Bukkit plugins (1):
+ - MinecraftMoba (0.1.0)
+[11:23:34 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[11:23:35 INFO]: Loaded 1470 recipes
+[11:23:35 INFO]: Loaded 1584 advancements
+[11:23:35 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[11:23:35 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 223.4ms
+[11:23:35 INFO]: Starting minecraft server version 1.21.11
+[11:23:35 INFO]: Loading properties
+[11:23:35 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[11:23:35 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[11:23:35 INFO]: Using 4 threads for Netty based IO
+[11:23:35 INFO]: Server Ping Player Sample Count: 12
+[11:23:36 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
+[11:23:36 INFO]: Default game type: SURVIVAL
+[11:23:36 INFO]: Generating keypair
+>
+
+[11:23:36 INFO]: Starting Minecraft server on 127.0.0.1:25639
+>
+
+[11:23:36 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
+>
+
+[11:23:36 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
+>
+
+[11:23:36 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
+>
+
+[11:23:36 INFO]: Server permissions file permissions.yml is empty, ignoring it
+>
+
+[11:23:36 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+>
+
+[11:23:36 WARN]: The server will make no attempt to authenticate usernames. Beware.
+>
+
+[11:23:36 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+>
+
+[11:23:36 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+>
+
+[11:23:36 INFO]: Preparing level "world"
+>
+
+[11:23:36 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>
+
+[11:23:36 INFO]: Preparing spawn area: 100%
+>
+
+[11:23:36 INFO]: Prepared spawn area in 1 ms
+>
+
+[11:23:36 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>
+
+[11:23:36 INFO]: Prepared spawn area in 0 ms
+>
+
+[11:23:36 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>
+
+[11:23:36 INFO]: Prepared spawn area in 0 ms
+>
+
+[11:23:36 INFO]: Done preparing level "world" (0.196s)
+>
+
+[11:23:36 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
+>
+
+[11:23:37 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
+>
+
+[11:23:37 INFO]: Prepared spawn area in 0 ms
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'rabbit_2' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'goat_3' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'pig_4' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'potatoes_5' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'potatoes_7' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'rabbit_11' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'rabbit_19' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'potatoes_23' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'potatoes_25' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 WARN]: [MinecraftMoba] renewable source 'chicken_27' references world 'nearmiss_match', which is not loaded; skipped for now
+>
+
+[11:23:37 INFO]: [MinecraftMoba] Registered ability kits: [test]
+>
+
+[11:23:37 INFO]: [spark] Starting background profiler...
+>
+
+[11:23:37 INFO]: Running delayed init tasks
+>
+
+[11:23:37 INFO]: Done (7.487s)! For help, type "help"
+> >
+
+[11:23:37 INFO]: Loading 0 persistent chunks for world 'minecraft:nearmiss_match'...
+>
+
+[11:23:37 INFO]: Prepared spawn area in 0 ms
+>
+
+[11:23:38 WARN]: *************************************************************************************
+>
+
+[11:23:38 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+>
+
+[11:23:38 WARN]: However, you are 4 release(s) behind the latest stable release (26.2)!
+>
+
+[11:23:38 WARN]: It is recommended that you update as soon as possible
+>
+
+[11:23:38 WARN]: https://papermc.io/downloads/paper
+>
+
+[11:23:38 WARN]: *************************************************************************************
+>
+
+[11:23:39 INFO]: [MinecraftMoba] applied map 'resource_light': 71148 blocks in 1865 ms
+>
+
+[11:23:39 INFO]: [MinecraftMoba] [match] bound 10 renewable source(s)
+>
+
+[11:23:39 INFO]: Alpha instance 'nearmiss_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.
+> >
+
+[11:23:52 INFO]: MAPS enabled=true catalogue=1 applied=resource_light
+>
+
+[11:23:52 INFO]:   resource_light (71148 blocks, base 5729f939)  <- this match
+> >
+
+[11:23:53 INFO]: renewable sources=10 harvests=0 depletions=0 recoveries=0
+>
+
+[11:23:53 INFO]:   rabbit_2 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   goat_3 kind=goat RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   pig_4 kind=pig RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   potatoes_5 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   potatoes_7 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   rabbit_11 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   rabbit_19 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   potatoes_23 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   potatoes_25 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:23:53 INFO]:   chicken_27 kind=chicken RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+> >
+
+[11:23:54 INFO]: worksites=8 active=0
+>
+
+[11:23:54 INFO]:   {DORMANT=8, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}
+>
+
+[11:23:56 INFO]: UUID of player NearPreflight is b0dfe7a5-0d9b-36d6-bf68-7ffe14a7ebc9
+>
+
+[11:23:56 WARN]: [MinecraftMoba] features.resourcePack.sha1 is missing or not a SHA-1; run implementation/resourcepack/publish.py to write it
+>
+
+[11:23:56 INFO]: NearPreflight joined the game
+>
+
+[11:23:56 INFO]: NearPreflight[/127.0.0.1:54418] logged in with entity id 79 at ([world]-8.5, -60.0, -6.5)
+>
+
+[11:23:56 INFO]: Map color cache not found, building it in the background
+> >
+
+[11:23:56 INFO]: Made NearPreflight a server operator
+>
+
+[11:23:57 INFO]: NearPreflight issued server command: /moba join
+> >
+
+[11:23:58 INFO]: NearPreflight joined north.
+> >
+
+[11:23:59 INFO]: [MinecraftMoba] [match] Match started. DAY 0:00 (day, phase 0)
+>
+
+[11:23:59 INFO]: Match started with 1 participant(s).
+>
+
+[11:24:04 INFO]: Map color cache build successfully
+> >
+
+[11:24:04 INFO]: Killed NearPreflight
+> >
+
+[11:24:15 INFO]: NearPreflight joined south.
+> >
+
+[11:24:19 INFO]: Killed NearPreflight
+> >
+
+[11:24:30 INFO]: state=RUNNING
+>
+
+[11:24:30 INFO]: clock=DAY 0:31 (day, phase 0) sunsets=0
+>
+
+[11:24:30 INFO]: world: template=/private/tmp/nearmiss-fixture-930010639/final/worlds/base-terrain (present) instance=nearmiss_match (loaded)
+>
+
+[11:24:30 INFO]: north: 0 living of 0, fountain active, homeland 1830,-244
+>
+
+[11:24:30 INFO]: south: 1 living of 1, fountain active, homeland 2214,76
+> >
+
+[11:24:31 INFO]: WORK enabled=true level=1 wp=0/300 to Lv2
+>
+
+[11:24:31 INFO]:   earned this match=0 WP (0.00 UAU)
+>
+
+[11:24:31 INFO]:   construction = 0
+>
+
+[11:24:31 INFO]:   extraction = 0
+>
+
+[11:24:31 INFO]:   exploration = 0
+>
+
+[11:24:31 INFO]:   production = 0
+>
+
+[11:24:31 INFO]:   development = 0
+>
+
+[11:24:31 INFO]:   logistics = 0
+>
+
+[11:24:31 INFO]:   combat = 0
+>
+
+[11:24:31 INFO]:   EXTRACTION 0 WP = A(O) 0 + qH 0  (harvest share 0%)
+>
+
+[11:24:31 INFO]:     0 opportunities, 0 harvested units
+>
+
+[11:24:31 INFO]:   PRODUCTION 0 WP
+>
+
+[11:24:31 INFO]:   CONSTRUCTION 0 WP from 0 first-time placements
+>
+
+[11:24:31 INFO]:   DEVELOPMENT 0 WP   EXPLORATION 0 WP
+>
+
+[11:24:31 INFO]:   TOTAL 0 WP
+> >
+
+[11:24:32 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'nearmiss_match'
+>
+
+[11:24:32 INFO]: [ChunkHolderManager] Halted chunk system for world 'nearmiss_match'
+>
+
+[11:24:32 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'nearmiss_match'
+>
+
+[11:24:32 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'nearmiss_match'
+>
+
+[11:24:32 INFO]: Loading 0 persistent chunks for world 'minecraft:nearmiss_match'...
+>
+
+[11:24:32 INFO]: Prepared spawn area in 5 ms
+>
+
+[11:24:33 INFO]: [MinecraftMoba] applied map 'resource_light': 71148 blocks in 851 ms
+>
+
+[11:24:33 INFO]: Match reset: world restored; cleared worksites, 10 renewable source(s), 0 route(s)/pending, 0 in infra mode, 0 capitalization(s).
+> >
+
+[11:24:47 INFO]: MAPS enabled=true catalogue=1 applied=resource_light
+>
+
+[11:24:47 INFO]:   resource_light (71148 blocks, base 5729f939)  <- this match
+> >
+
+[11:24:48 INFO]: renewable sources=10 harvests=0 depletions=0 recoveries=0
+>
+
+[11:24:48 INFO]:   rabbit_2 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   goat_3 kind=goat RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   pig_4 kind=pig RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   potatoes_5 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   potatoes_7 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   rabbit_11 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   rabbit_19 kind=rabbit RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   potatoes_23 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   potatoes_25 kind=potatoes RECOVERING 6% capacity=24 Region[1 cell(s), 9409 columns]
+>
+
+[11:24:48 INFO]:   chicken_27 kind=chicken RECOVERING 6% capacity=6 Region[1 cell(s), 9409 columns]
+> >
+
+[11:24:49 INFO]: Saving the game (this may take a moment!)
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage (nearmiss_match): All chunks are saved
+>
+
+[11:24:49 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>
+
+[11:24:49 INFO]: Saved the game
+> >
+
+[11:24:52 INFO]: NearPreflight lost connection: Disconnected
+>
+
+[11:24:52 INFO]: NearPreflight left the game
+>
+
+[11:24:52 INFO]: Stopping the server
+>
+
+[11:24:52 INFO]: Stopping server
+>
+
+[11:24:52 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
+>
+
+[11:24:52 INFO]: Saving players
+>
+
+[11:24:52 INFO]: Saving worlds
+>
+
+[11:24:52 INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted chunk system for world 'world'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'world' in 0.01s
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world'
+>
+
+[11:24:52 INFO]: Saving chunks for level 'ServerLevel[world_nether]'/minecraft:the_nether
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_nether'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted chunk system for world 'world_nether'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_nether'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'world_nether' in 0.00s
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world_nether'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world_nether'
+>
+
+[11:24:52 INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'world_the_end'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted chunk system for world 'world_the_end'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'world_the_end'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'world_the_end' in 0.00s
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'world_the_end'
+>
+
+[11:24:52 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'world_the_end'
+>
+
+[11:24:53 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Saved 1584 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.17s
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
+>
+
+[11:24:53 INFO]: Saving chunks for level 'ServerLevel[nearmiss_match]'/minecraft:nearmiss_match
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'nearmiss_match'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Halted chunk system for world 'nearmiss_match'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'nearmiss_match'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'nearmiss_match' in 0.01s
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'nearmiss_match'
+>
+
+[11:24:53 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'nearmiss_match'
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage (nearmiss_match): All chunks are saved
+>
+
+[11:24:53 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>
+
+[11:24:53 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>
+
+[11:24:53 INFO]: All RegionFile I/O tasks to complete
+>
+
+[11:24:53 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>
+
+[11:24:53 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+>

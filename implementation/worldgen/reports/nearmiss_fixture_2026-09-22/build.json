@@ -1,0 +1,83 @@
+{
+  "base_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+  "diff": {
+    "authored_from": "authored",
+    "base": "base-terrain",
+    "base_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+    "blocks": 71148,
+    "name": "resource_light",
+    "note": "930010639 experimental fixture; no balance inference",
+    "schema": "moba_map_diff/1"
+  },
+  "diff_stats": {
+    "sections_expanded": 494,
+    "sections_skipped": 98514
+  },
+  "failures": [],
+  "finalist_rank": 0,
+  "homelands": {
+    "north": {
+      "candidate_center_xz": [
+        1812,
+        -244
+      ],
+      "fountain_xyz": [
+        1828,
+        67,
+        -244
+      ],
+      "spawn_xzy": [
+        1830,
+        -244,
+        71
+      ]
+    },
+    "south": {
+      "candidate_center_xz": [
+        2348,
+        -20
+      ],
+      "fountain_xyz": [
+        2212,
+        78,
+        76
+      ],
+      "spawn_xzy": [
+        2214,
+        76,
+        82
+      ]
+    }
+  },
+  "inputs": {
+    "candidate": {
+      "path": "/private/tmp/minecraftmoba-terrain-audit/implementation/worldgen/results/staged_default_2026-09-09/finalists/930010639/candidate.json",
+      "sha256": "de0dcba9a99b79d10c07b3ef1752d03afbc92a941c35215c25502305d17f5a50"
+    },
+    "frontier": {
+      "path": "/private/tmp/minecraftmoba-terrain-audit/implementation/worldgen/reports/nearmiss_930010639_2026-09-22/scenario-frontier.json",
+      "sha256": "e94fd8afae7ba3eff3de70d7265c872f0741340898fd1280ffb28c1dc0c30e7d"
+    },
+    "opportunity": {
+      "path": "/private/tmp/minecraftmoba-terrain-audit/implementation/worldgen/reports/nearmiss_930010639_2026-09-22/opportunity-map.json",
+      "sha256": "cf9744474daa7e25c30c2ec0a01601564f209b80bdb55d2088c5104023513ce4"
+    },
+    "siting": {
+      "path": "/private/tmp/minecraftmoba-terrain-audit/implementation/worldgen/reports/nearmiss_930010639_2026-09-22/siting.json",
+      "sha256": "1c1b52633797730c127e4aea1c6d185374f412c5fb1793f36aa73c9027fd61e2"
+    },
+    "source_level": {
+      "path": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/staged_default_2026-09-09/worlds/Default_930010639_2048_0/level.dat",
+      "sha256": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374"
+    }
+  },
+  "placed": 28,
+  "profile": "resource_light",
+  "readback_failures": [
+    "route north to 1804,308 not surfaced: ('minecraft:ice', 62)"
+  ],
+  "ready_for_playtest": false,
+  "seed": 930010639,
+  "source_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+  "volume_id": "tv_51a79e3b1bee05ea7559e799"
+}

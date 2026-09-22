@@ -1,0 +1,1210 @@
+{
+  "config_changes": {
+    "alpha.configurations.directory": {
+      "after": "/private/tmp/nearmiss-fixture-930010639/final/server/maps",
+      "before": "maps"
+    },
+    "alpha.configurations.force": {
+      "after": "resource_light",
+      "before": ""
+    },
+    "alpha.configurations.include": {
+      "after": [
+        "resource_light"
+      ],
+      "before": [
+        "consolidative_v2",
+        "resource_light_v2",
+        "consolidative",
+        "resource_light"
+      ]
+    },
+    "alpha.homelands.north": {
+      "after": [
+        1830,
+        -244,
+        71
+      ],
+      "before": [
+        -2173,
+        -461,
+        74
+      ]
+    },
+    "alpha.homelands.south": {
+      "after": [
+        2214,
+        76,
+        82
+      ],
+      "before": [
+        -2005,
+        411,
+        76
+      ]
+    },
+    "alpha.instanceWorldName": {
+      "after": "nearmiss_match",
+      "before": "alpha_match"
+    },
+    "alpha.templatePath": {
+      "after": "/private/tmp/nearmiss-fixture-930010639/final/worlds/base-terrain",
+      "before": "artifacts/worldgen/alpha-0.1/base-terrain"
+    },
+    "alpha.worksites.sites": {
+      "after": [
+        {
+          "bias": "north",
+          "id": "ws_1",
+          "xyz": [
+            1680,
+            79,
+            176
+          ]
+        },
+        {
+          "bias": "north",
+          "id": "ws_6",
+          "xyz": [
+            1776,
+            86,
+            16
+          ]
+        },
+        {
+          "bias": "neutral",
+          "id": "ws_8",
+          "xyz": [
+            1808,
+            72,
+            176
+          ]
+        },
+        {
+          "bias": "neutral",
+          "id": "ws_12",
+          "xyz": [
+            1806,
+            110,
+            510
+          ]
+        },
+        {
+          "bias": "north",
+          "id": "ws_15",
+          "xyz": [
+            1936,
+            73,
+            -80
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_18",
+          "xyz": [
+            1904,
+            106,
+            272
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_20",
+          "xyz": [
+            1934,
+            100,
+            510
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_22",
+          "xyz": [
+            2062,
+            110,
+            510
+          ]
+        }
+      ],
+      "before": [
+        {
+          "bias": "north",
+          "id": "ws_0_0",
+          "xyz": [
+            -2416,
+            74,
+            -464
+          ]
+        },
+        {
+          "bias": "neutral",
+          "id": "ws_0_5",
+          "xyz": [
+            -2384,
+            98,
+            144
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_0_6",
+          "xyz": [
+            -2384,
+            94,
+            272
+          ]
+        },
+        {
+          "bias": "north",
+          "id": "ws_1_2",
+          "xyz": [
+            -2288,
+            75,
+            -208
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_1_7",
+          "xyz": [
+            -2288,
+            100,
+            432
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_2_5",
+          "xyz": [
+            -2160,
+            97,
+            176
+          ]
+        },
+        {
+          "bias": "north",
+          "id": "ws_3_2",
+          "xyz": [
+            -2032,
+            73,
+            -208
+          ]
+        },
+        {
+          "bias": "north",
+          "id": "ws_3_3",
+          "xyz": [
+            -2032,
+            67,
+            -80
+          ]
+        },
+        {
+          "bias": "south",
+          "id": "ws_5_5",
+          "xyz": [
+            -1776,
+            78,
+            176
+          ]
+        },
+        {
+          "bias": "neutral",
+          "id": "ws_6_4",
+          "xyz": [
+            -1698,
+            76,
+            14
+          ]
+        }
+      ]
+    },
+    "renewables.sources.carrots_0_3.capacity": {
+      "after": null,
+      "before": 24
+    },
+    "renewables.sources.carrots_0_3.kind": {
+      "after": null,
+      "before": "carrots"
+    },
+    "renewables.sources.carrots_0_3.radius": {
+      "after": null,
+      "before": 12
+    },
+    "renewables.sources.carrots_0_3.recoverTicks": {
+      "after": null,
+      "before": 1200
+    },
+    "renewables.sources.carrots_0_3.type": {
+      "after": null,
+      "before": "CROP"
+    },
+    "renewables.sources.carrots_0_3.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.carrots_0_3.x": {
+      "after": null,
+      "before": -2384
+    },
+    "renewables.sources.carrots_0_3.y": {
+      "after": null,
+      "before": 92
+    },
+    "renewables.sources.carrots_0_3.z": {
+      "after": null,
+      "before": -112
+    },
+    "renewables.sources.carrots_2_3.capacity": {
+      "after": null,
+      "before": 24
+    },
+    "renewables.sources.carrots_2_3.kind": {
+      "after": null,
+      "before": "carrots"
+    },
+    "renewables.sources.carrots_2_3.radius": {
+      "after": null,
+      "before": 12
+    },
+    "renewables.sources.carrots_2_3.recoverTicks": {
+      "after": null,
+      "before": 1200
+    },
+    "renewables.sources.carrots_2_3.type": {
+      "after": null,
+      "before": "CROP"
+    },
+    "renewables.sources.carrots_2_3.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.carrots_2_3.x": {
+      "after": null,
+      "before": -2192
+    },
+    "renewables.sources.carrots_2_3.y": {
+      "after": null,
+      "before": 90
+    },
+    "renewables.sources.carrots_2_3.z": {
+      "after": null,
+      "before": -48
+    },
+    "renewables.sources.carrots_4_8.capacity": {
+      "after": null,
+      "before": 24
+    },
+    "renewables.sources.carrots_4_8.kind": {
+      "after": null,
+      "before": "carrots"
+    },
+    "renewables.sources.carrots_4_8.radius": {
+      "after": null,
+      "before": 12
+    },
+    "renewables.sources.carrots_4_8.recoverTicks": {
+      "after": null,
+      "before": 1200
+    },
+    "renewables.sources.carrots_4_8.type": {
+      "after": null,
+      "before": "CROP"
+    },
+    "renewables.sources.carrots_4_8.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.carrots_4_8.x": {
+      "after": null,
+      "before": -1906
+    },
+    "renewables.sources.carrots_4_8.y": {
+      "after": null,
+      "before": 66
+    },
+    "renewables.sources.carrots_4_8.z": {
+      "after": null,
+      "before": 510
+    },
+    "renewables.sources.chicken_27.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.chicken_27.kind": {
+      "after": "chicken",
+      "before": null
+    },
+    "renewables.sources.chicken_27.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.chicken_27.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.chicken_27.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.chicken_27.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.chicken_27.x": {
+      "after": 2430,
+      "before": null
+    },
+    "renewables.sources.chicken_27.y": {
+      "after": 72,
+      "before": null
+    },
+    "renewables.sources.chicken_27.z": {
+      "after": 46,
+      "before": null
+    },
+    "renewables.sources.chicken_4_1.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.chicken_4_1.kind": {
+      "after": null,
+      "before": "chicken"
+    },
+    "renewables.sources.chicken_4_1.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.chicken_4_1.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.chicken_4_1.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.chicken_4_1.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.chicken_4_1.x": {
+      "after": null,
+      "before": -1904
+    },
+    "renewables.sources.chicken_4_1.y": {
+      "after": null,
+      "before": 66
+    },
+    "renewables.sources.chicken_4_1.z": {
+      "after": null,
+      "before": -336
+    },
+    "renewables.sources.cow_0_6.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.cow_0_6.kind": {
+      "after": null,
+      "before": "cow"
+    },
+    "renewables.sources.cow_0_6.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.cow_0_6.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.cow_0_6.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.cow_0_6.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.cow_0_6.x": {
+      "after": null,
+      "before": -2448
+    },
+    "renewables.sources.cow_0_6.y": {
+      "after": null,
+      "before": 94
+    },
+    "renewables.sources.cow_0_6.z": {
+      "after": null,
+      "before": 336
+    },
+    "renewables.sources.goat_3.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.goat_3.kind": {
+      "after": "goat",
+      "before": null
+    },
+    "renewables.sources.goat_3.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.goat_3.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.goat_3.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.goat_3.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.goat_3.x": {
+      "after": 1678,
+      "before": null
+    },
+    "renewables.sources.goat_3.y": {
+      "after": 153,
+      "before": null
+    },
+    "renewables.sources.goat_3.z": {
+      "after": 510,
+      "before": null
+    },
+    "renewables.sources.pig_4.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.pig_4.kind": {
+      "after": "pig",
+      "before": null
+    },
+    "renewables.sources.pig_4.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.pig_4.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.pig_4.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.pig_4.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.pig_4.x": {
+      "after": 1808,
+      "before": null
+    },
+    "renewables.sources.pig_4.y": {
+      "after": 73,
+      "before": null
+    },
+    "renewables.sources.pig_4.z": {
+      "after": -208,
+      "before": null
+    },
+    "renewables.sources.potatoes_0_6.capacity": {
+      "after": null,
+      "before": 24
+    },
+    "renewables.sources.potatoes_0_6.kind": {
+      "after": null,
+      "before": "potatoes"
+    },
+    "renewables.sources.potatoes_0_6.radius": {
+      "after": null,
+      "before": 12
+    },
+    "renewables.sources.potatoes_0_6.recoverTicks": {
+      "after": null,
+      "before": 1200
+    },
+    "renewables.sources.potatoes_0_6.type": {
+      "after": null,
+      "before": "CROP"
+    },
+    "renewables.sources.potatoes_0_6.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.potatoes_0_6.x": {
+      "after": null,
+      "before": -2384
+    },
+    "renewables.sources.potatoes_0_6.y": {
+      "after": null,
+      "before": 94
+    },
+    "renewables.sources.potatoes_0_6.z": {
+      "after": null,
+      "before": 336
+    },
+    "renewables.sources.potatoes_23.capacity": {
+      "after": 24,
+      "before": null
+    },
+    "renewables.sources.potatoes_23.kind": {
+      "after": "potatoes",
+      "before": null
+    },
+    "renewables.sources.potatoes_23.radius": {
+      "after": 12,
+      "before": null
+    },
+    "renewables.sources.potatoes_23.recoverTicks": {
+      "after": 1200,
+      "before": null
+    },
+    "renewables.sources.potatoes_23.type": {
+      "after": "CROP",
+      "before": null
+    },
+    "renewables.sources.potatoes_23.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.potatoes_23.x": {
+      "after": 2192,
+      "before": null
+    },
+    "renewables.sources.potatoes_23.y": {
+      "after": 70,
+      "before": null
+    },
+    "renewables.sources.potatoes_23.z": {
+      "after": -80,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.capacity": {
+      "after": 24,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.kind": {
+      "after": "potatoes",
+      "before": null
+    },
+    "renewables.sources.potatoes_25.radius": {
+      "after": 12,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.recoverTicks": {
+      "after": 1200,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.type": {
+      "after": "CROP",
+      "before": null
+    },
+    "renewables.sources.potatoes_25.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.potatoes_25.x": {
+      "after": 2320,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.y": {
+      "after": 90,
+      "before": null
+    },
+    "renewables.sources.potatoes_25.z": {
+      "after": 176,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.capacity": {
+      "after": 24,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.kind": {
+      "after": "potatoes",
+      "before": null
+    },
+    "renewables.sources.potatoes_5.radius": {
+      "after": 12,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.recoverTicks": {
+      "after": 1200,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.type": {
+      "after": "CROP",
+      "before": null
+    },
+    "renewables.sources.potatoes_5.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.potatoes_5.x": {
+      "after": 1808,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.y": {
+      "after": 94,
+      "before": null
+    },
+    "renewables.sources.potatoes_5.z": {
+      "after": -80,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.capacity": {
+      "after": 24,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.kind": {
+      "after": "potatoes",
+      "before": null
+    },
+    "renewables.sources.potatoes_7.radius": {
+      "after": 12,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.recoverTicks": {
+      "after": 1200,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.type": {
+      "after": "CROP",
+      "before": null
+    },
+    "renewables.sources.potatoes_7.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.potatoes_7.x": {
+      "after": 1776,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.y": {
+      "after": 86,
+      "before": null
+    },
+    "renewables.sources.potatoes_7.z": {
+      "after": 80,
+      "before": null
+    },
+    "renewables.sources.rabbit_0_3.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.rabbit_0_3.kind": {
+      "after": null,
+      "before": "rabbit"
+    },
+    "renewables.sources.rabbit_0_3.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.rabbit_0_3.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.rabbit_0_3.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.rabbit_0_3.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.rabbit_0_3.x": {
+      "after": null,
+      "before": -2448
+    },
+    "renewables.sources.rabbit_0_3.y": {
+      "after": null,
+      "before": 92
+    },
+    "renewables.sources.rabbit_0_3.z": {
+      "after": null,
+      "before": -48
+    },
+    "renewables.sources.rabbit_11.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.rabbit_11.kind": {
+      "after": "rabbit",
+      "before": null
+    },
+    "renewables.sources.rabbit_11.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.rabbit_11.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.rabbit_11.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.rabbit_11.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.rabbit_11.x": {
+      "after": 1808,
+      "before": null
+    },
+    "renewables.sources.rabbit_11.y": {
+      "after": 99,
+      "before": null
+    },
+    "renewables.sources.rabbit_11.z": {
+      "after": 432,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.kind": {
+      "after": "rabbit",
+      "before": null
+    },
+    "renewables.sources.rabbit_19.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.rabbit_19.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.rabbit_19.x": {
+      "after": 1904,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.y": {
+      "after": 106,
+      "before": null
+    },
+    "renewables.sources.rabbit_19.z": {
+      "after": 336,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.capacity": {
+      "after": 6,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.kind": {
+      "after": "rabbit",
+      "before": null
+    },
+    "renewables.sources.rabbit_2.radius": {
+      "after": 20,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.recoverTicks": {
+      "after": 2400,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.type": {
+      "after": "ANIMAL",
+      "before": null
+    },
+    "renewables.sources.rabbit_2.world": {
+      "after": "nearmiss_match",
+      "before": null
+    },
+    "renewables.sources.rabbit_2.x": {
+      "after": 1680,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.y": {
+      "after": 94,
+      "before": null
+    },
+    "renewables.sources.rabbit_2.z": {
+      "after": 304,
+      "before": null
+    },
+    "renewables.sources.rabbit_3_6.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.rabbit_3_6.kind": {
+      "after": null,
+      "before": "rabbit"
+    },
+    "renewables.sources.rabbit_3_6.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.rabbit_3_6.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.rabbit_3_6.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.rabbit_3_6.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.rabbit_3_6.x": {
+      "after": null,
+      "before": -2032
+    },
+    "renewables.sources.rabbit_3_6.y": {
+      "after": null,
+      "before": 90
+    },
+    "renewables.sources.rabbit_3_6.z": {
+      "after": null,
+      "before": 304
+    },
+    "renewables.sources.sheep_0_5.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.sheep_0_5.kind": {
+      "after": null,
+      "before": "sheep"
+    },
+    "renewables.sources.sheep_0_5.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.sheep_0_5.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.sheep_0_5.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.sheep_0_5.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.sheep_0_5.x": {
+      "after": null,
+      "before": -2448
+    },
+    "renewables.sources.sheep_0_5.y": {
+      "after": null,
+      "before": 98
+    },
+    "renewables.sources.sheep_0_5.z": {
+      "after": null,
+      "before": 208
+    },
+    "renewables.sources.sheep_2_3.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.sheep_2_3.kind": {
+      "after": null,
+      "before": "sheep"
+    },
+    "renewables.sources.sheep_2_3.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.sheep_2_3.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.sheep_2_3.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.sheep_2_3.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.sheep_2_3.x": {
+      "after": null,
+      "before": -2192
+    },
+    "renewables.sources.sheep_2_3.y": {
+      "after": null,
+      "before": 90
+    },
+    "renewables.sources.sheep_2_3.z": {
+      "after": null,
+      "before": -112
+    },
+    "renewables.sources.sheep_2_6.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.sheep_2_6.kind": {
+      "after": null,
+      "before": "sheep"
+    },
+    "renewables.sources.sheep_2_6.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.sheep_2_6.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.sheep_2_6.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.sheep_2_6.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.sheep_2_6.x": {
+      "after": null,
+      "before": -2160
+    },
+    "renewables.sources.sheep_2_6.y": {
+      "after": null,
+      "before": 99
+    },
+    "renewables.sources.sheep_2_6.z": {
+      "after": null,
+      "before": 304
+    },
+    "renewables.sources.sheep_4_4.capacity": {
+      "after": null,
+      "before": 6
+    },
+    "renewables.sources.sheep_4_4.kind": {
+      "after": null,
+      "before": "sheep"
+    },
+    "renewables.sources.sheep_4_4.radius": {
+      "after": null,
+      "before": 20
+    },
+    "renewables.sources.sheep_4_4.recoverTicks": {
+      "after": null,
+      "before": 2400
+    },
+    "renewables.sources.sheep_4_4.type": {
+      "after": null,
+      "before": "ANIMAL"
+    },
+    "renewables.sources.sheep_4_4.world": {
+      "after": null,
+      "before": "alpha_match"
+    },
+    "renewables.sources.sheep_4_4.x": {
+      "after": null,
+      "before": -1936
+    },
+    "renewables.sources.sheep_4_4.y": {
+      "after": null,
+      "before": 66
+    },
+    "renewables.sources.sheep_4_4.z": {
+      "after": null,
+      "before": 16
+    }
+  },
+  "server": "/private/tmp/nearmiss-fixture-930010639/final/server",
+  "sha256": {
+    "/private/tmp/alpha-server/paper.jar": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+    "/private/tmp/minecraftmoba-terrain-audit/implementation/plugin/build/libs/minecraft-moba-0.1.0-SNAPSHOT.jar": "c6b268c5809c8de428dee2336bff99f6b236d17e199b3204022d70388befda43",
+    "/private/tmp/minecraftmoba-terrain-audit/implementation/plugin/src/main/resources/config.yml": "cb8029b58b11f0d041fa95991664c3e9f84d764c8e1efd1db110daec4bbd862e",
+    "/private/tmp/nearmiss-fixture-930010639/final/server/plugins/minecraft-moba-0.1.0-SNAPSHOT.jar": "1e8a1a8d7c3a972236fd114fc5352e64ed73ae8f83c33c0956d33665576d22b9",
+    "/private/tmp/nearmiss-fixture-930010639/final/worlds/base-terrain/level.dat": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374"
+  },
+  "sources": {
+    "chicken_27": {
+      "capacity": 6,
+      "kind": "chicken",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 2430,
+      "y": 72,
+      "z": 46
+    },
+    "goat_3": {
+      "capacity": 6,
+      "kind": "goat",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 1678,
+      "y": 153,
+      "z": 510
+    },
+    "pig_4": {
+      "capacity": 6,
+      "kind": "pig",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 1808,
+      "y": 73,
+      "z": -208
+    },
+    "potatoes_23": {
+      "capacity": 24,
+      "kind": "potatoes",
+      "radius": 12,
+      "recoverTicks": 1200,
+      "type": "CROP",
+      "world": "nearmiss_match",
+      "x": 2192,
+      "y": 70,
+      "z": -80
+    },
+    "potatoes_25": {
+      "capacity": 24,
+      "kind": "potatoes",
+      "radius": 12,
+      "recoverTicks": 1200,
+      "type": "CROP",
+      "world": "nearmiss_match",
+      "x": 2320,
+      "y": 90,
+      "z": 176
+    },
+    "potatoes_5": {
+      "capacity": 24,
+      "kind": "potatoes",
+      "radius": 12,
+      "recoverTicks": 1200,
+      "type": "CROP",
+      "world": "nearmiss_match",
+      "x": 1808,
+      "y": 94,
+      "z": -80
+    },
+    "potatoes_7": {
+      "capacity": 24,
+      "kind": "potatoes",
+      "radius": 12,
+      "recoverTicks": 1200,
+      "type": "CROP",
+      "world": "nearmiss_match",
+      "x": 1776,
+      "y": 86,
+      "z": 80
+    },
+    "rabbit_11": {
+      "capacity": 6,
+      "kind": "rabbit",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 1808,
+      "y": 99,
+      "z": 432
+    },
+    "rabbit_19": {
+      "capacity": 6,
+      "kind": "rabbit",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 1904,
+      "y": 106,
+      "z": 336
+    },
+    "rabbit_2": {
+      "capacity": 6,
+      "kind": "rabbit",
+      "radius": 20,
+      "recoverTicks": 2400,
+      "type": "ANIMAL",
+      "world": "nearmiss_match",
+      "x": 1680,
+      "y": 94,
+      "z": 304
+    }
+  },
+  "task_b_wheat_sources": [],
+  "worksites": [
+    {
+      "bias": "north",
+      "id": "ws_1",
+      "xyz": [
+        1680,
+        79,
+        176
+      ]
+    },
+    {
+      "bias": "north",
+      "id": "ws_6",
+      "xyz": [
+        1776,
+        86,
+        16
+      ]
+    },
+    {
+      "bias": "neutral",
+      "id": "ws_8",
+      "xyz": [
+        1808,
+        72,
+        176
+      ]
+    },
+    {
+      "bias": "neutral",
+      "id": "ws_12",
+      "xyz": [
+        1806,
+        110,
+        510
+      ]
+    },
+    {
+      "bias": "north",
+      "id": "ws_15",
+      "xyz": [
+        1936,
+        73,
+        -80
+      ]
+    },
+    {
+      "bias": "south",
+      "id": "ws_18",
+      "xyz": [
+        1904,
+        106,
+        272
+      ]
+    },
+    {
+      "bias": "south",
+      "id": "ws_20",
+      "xyz": [
+        1934,
+        100,
+        510
+      ]
+    },
+    {
+      "bias": "south",
+      "id": "ws_22",
+      "xyz": [
+        2062,
+        110,
+        510
+      ]
+    }
+  ]
+}

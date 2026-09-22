@@ -1,0 +1,252 @@
+{
+ "blocks_pending": 27583,
+ "blocks_written": 27583,
+ "corridor_width": 3,
+ "cost_model": "vanilla_search.task_a.Terrain, the graph that sited the team structures and produced the travel matrix",
+ "crossings": [
+  {
+   "cell": [
+    1,
+    6
+   ],
+   "detail": null,
+   "kind": "poi",
+   "world_xz": [
+    1776,
+    272
+   ]
+  }
+ ],
+ "dry_run": false,
+ "evidence_state": "RAW WORLD OBSERVATION",
+ "headroom": 2,
+ "nature": "physical path quality only: surfacing, clearing and decking. No movement-speed effect is granted or implied.",
+ "not_covered": [
+  "stairs or grading on steep steps; the corridor follows terrain",
+  "what the Route does to Practical Reach, which only the rescan measures",
+  "Route width, surface material and headroom as design decisions; these are authoring fixtures, not canon",
+  "diverting a corridor around an authored site; crossings are recorded rather than avoided, because rerouting would alter the strategic geometry the optimizer selected"
+ ],
+ "routes": [
+  {
+   "assimilated": 560,
+   "bridged": 100,
+   "cell": [
+    0,
+    0
+   ],
+   "cleared": 3778,
+   "columns": 241,
+   "constructed": 9,
+   "crosses": [],
+   "felled": 0,
+   "filled": 166,
+   "from": [
+    1812,
+    -244
+   ],
+   "nodes": 31,
+   "shaved": 387,
+   "spared_structure": 0,
+   "surfaced": 955,
+   "team": "north",
+   "to": [
+    1676,
+    -460
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 23,
+   "walk_pairs": 240,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 545.0,
+   "worn": 1320
+  },
+  {
+   "assimilated": 143,
+   "bridged": 877,
+   "cell": [
+    2,
+    0
+   ],
+   "cleared": 3522,
+   "columns": 225,
+   "constructed": 10,
+   "crosses": [],
+   "felled": 0,
+   "filled": 53,
+   "from": [
+    1812,
+    -244
+   ],
+   "nodes": 29,
+   "shaved": 100,
+   "spared_structure": 0,
+   "surfaced": 391,
+   "team": "north",
+   "to": [
+    1932,
+    -460
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 6,
+   "walk_pairs": 224,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 1982.9,
+   "worn": 1608
+  },
+  {
+   "assimilated": 1877,
+   "bridged": 25,
+   "cell": [
+    1,
+    6
+   ],
+   "cleared": 10844,
+   "columns": 705,
+   "constructed": 902,
+   "crosses": [
+    {
+     "cell": [
+      1,
+      6
+     ],
+     "detail": null,
+     "kind": "poi",
+     "world_xz": [
+      1776,
+      272
+     ]
+    }
+   ],
+   "felled": 5893,
+   "filled": 1294,
+   "from": [
+    1812,
+    -244
+   ],
+   "nodes": 89,
+   "shaved": 1460,
+   "spared_structure": 91,
+   "surfaced": 3660,
+   "team": "north",
+   "to": [
+    1804,
+    308
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 243,
+   "walk_pairs": 704,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 1722.0,
+   "worn": 2677
+  },
+  {
+   "assimilated": 980,
+   "bridged": 312,
+   "cell": [
+    3,
+    2
+   ],
+   "cleared": 7922,
+   "columns": 505,
+   "constructed": 1,
+   "crosses": [],
+   "felled": 0,
+   "filled": 434,
+   "from": [
+    2348,
+    -20
+   ],
+   "nodes": 64,
+   "shaved": 537,
+   "spared_structure": 0,
+   "surfaced": 1874,
+   "team": "south",
+   "to": [
+    2060,
+    -204
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 55,
+   "walk_pairs": 504,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 1303.9,
+   "worn": 2980
+  },
+  {
+   "assimilated": 1233,
+   "bridged": 47,
+   "cell": [
+    2,
+    2
+   ],
+   "cleared": 7554,
+   "columns": 481,
+   "constructed": 2,
+   "crosses": [],
+   "felled": 0,
+   "filled": 582,
+   "from": [
+    2348,
+    -20
+   ],
+   "nodes": 61,
+   "shaved": 653,
+   "spared_structure": 0,
+   "surfaced": 2076,
+   "team": "south",
+   "to": [
+    1932,
+    -204
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 67,
+   "walk_pairs": 480,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 810.1,
+   "worn": 2542
+  },
+  {
+   "assimilated": 452,
+   "bridged": 2318,
+   "cell": [
+    6,
+    0
+   ],
+   "cleared": 7170,
+   "columns": 457,
+   "constructed": 30,
+   "crosses": [],
+   "felled": 0,
+   "filled": 186,
+   "from": [
+    2348,
+    -20
+   ],
+   "nodes": 58,
+   "shaved": 270,
+   "spared_structure": 0,
+   "surfaced": 728,
+   "team": "south",
+   "to": [
+    2444,
+    -460
+   ],
+   "unwritable_columns": 0,
+   "walk_jumps": 30,
+   "walk_pairs": 456,
+   "walk_unclimbable": 0,
+   "walk_worst_step": 1,
+   "weighted_cost": 4647.4,
+   "worn": 3103
+  }
+ ],
+ "schema": "map_routes_authored/1",
+ "skipped": [],
+ "world": "/private/tmp/nearmiss-fixture-930010639/final/worlds/authored"
+}

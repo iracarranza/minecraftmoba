@@ -59,6 +59,8 @@ public final class RenewableKinds {
                 blocks("clay", Material.CLAY),
                 // Animal populations.
                 animals("sheep", EntityType.SHEEP),
+                // Already authored by the portfolio vocabulary (e.g. 930010639).
+                animals("goat", EntityType.GOAT),
                 animals("rabbit", EntityType.RABBIT),
                 animals("chicken", EntityType.CHICKEN),
                 animals("cow", EntityType.COW),

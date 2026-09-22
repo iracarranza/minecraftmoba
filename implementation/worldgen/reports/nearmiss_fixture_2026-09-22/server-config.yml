@@ -1,0 +1,532 @@
+features:
+  fountainRegen:
+    enabled: true
+    intervalTicks: 20
+    radius: 8.0
+    healthPerInterval: 1.0
+    foodPerInterval: 1
+    respawnHealth: 1.0
+    respawnFood: 1
+  workPoints:
+    enabled: true
+    announce: true
+  hungerDisplay:
+    enabled: false
+    refreshTicks: 10
+  hungerRegen:
+    enabled: true
+    blockedWhenPointsMissing: 4
+    intervalTicks: 80
+    healAmount: 1.0
+    exhaustionPerHeal: 6.0
+  lockedSlots:
+    enabled: true
+    material: BARRIER
+    label: Locked slot
+    refreshTicks: 20
+  contributions:
+    enabled: true
+  durability:
+    enabled: true
+  hubLobby:
+    enabled: true
+    originX: 0
+    originY: 65
+    originZ: 0
+    spacing: 8
+    floorMaterial: POLISHED_DEEPSLATE
+    frameMaterial: POLISHED_BLACKSTONE_BRICKS
+    cooldownMillis: 3000
+    destinations: {}
+  rewardAdvancements:
+    enabled: true
+  infraMode:
+    enabled: true
+  routes:
+    enabled: true
+    minLength: 16.0
+    sampleEveryBlocks: 4.0
+    maxSamples: 512
+    keepEverySample: 2
+    maxDesignationTicks: 24000
+    corridorRadius: 6.0
+    effectTicks: 20
+    exhaustionRelief: 0.1
+  vitalsScaling:
+    enabled: true
+    sampleTicks: 2
+    naturalRegeneration: false
+  lobbySafety:
+    enabled: true
+  lobbyWorld:
+    enabled: true
+    name: moba_lobby
+    radius: 16
+    floorY: 64
+    height: 8
+    lightSpacing: 6
+    sendOnJoin: true
+    adventureMode: true
+    floorMaterial: SMOOTH_STONE
+    wallMaterial: STONE_BRICKS
+    ceilingMaterial: STONE_BRICKS
+    lightMaterial: SEA_LANTERN
+    platformMaterial: POLISHED_ANDESITE
+  renewableMarkers:
+    enabled: true
+    ticks: 20
+    viewRadius: 32.0
+    rescanTicks: 200
+  renewableAuthoring:
+    enabled: true
+    reach: 48
+    defaultRadius: 3
+    defaultCapacity: 5
+    recoverTicks: 200
+  hud:
+    enabled: true
+    refreshTicks: 20
+  taskProgression:
+    enabled: true
+  sentinelSkull:
+    enabled: true
+    material: SKELETON_SKULL
+  resourcePack:
+    enabled: true
+    url: http://127.0.0.1:25580/moba-pack.zip
+    sha1: ''
+    required: false
+    prompt: Minecraft MOBA uses a resource pack for its HUD.
+  abilityPanelProbe:
+    enabled: false
+    itemModel: moba:ability_panel
+  tome:
+    enabled: true
+  minimap:
+    enabled: true
+    blocksPerPixel: 4
+    terrainRefreshTicks: 40
+    playerRange: 256.0
+  recall:
+    enabled: true
+    channelTicks: 100
+    moveTolerance: 1.5
+    fallbackToWorldSpawn: true
+  healthDisplay:
+    enabled: false
+    refreshTicks: 10
+  pings:
+    enabled: false
+    cooldownMillis: 1500
+    audienceRadius: 96.0
+    markerSeconds: 8
+  testbed:
+    enabled: false
+    constructsArePlayerPlaced: false
+durability:
+  targetBaseUses: {}
+classes:
+  test:
+    infrastructureEligibility:
+    - ROUTE
+    - CONSTRUCT
+    - MONSTER_COMBAT
+    displayName: Test Class
+    tomeName: Tome of the Test Class
+    blurb:
+    - Harness class. Not a design.
+    - F = A1   Sneak+F = A2   Sprint+F = channel ult
+    - Drop = ultimate. Swap again to stop casting.
+progression:
+  maxLevel: 30
+  xpPerLevel: 100
+  levelCosts:
+    '1': 300
+    '2': 345
+    '3': 395
+    '4': 455
+    '5': 525
+    '6': 605
+    '7': 405
+    '8': 465
+    '9': 535
+    '10': 615
+    '11': 710
+    '12': 815
+    '13': 560
+    '14': 645
+    '15': 745
+    '16': 855
+    '17': 985
+    '18': 1130
+    '19': 1300
+    '20': 770
+    '21': 890
+    '22': 1020
+    '23': 1175
+    '24': 1350
+    '25': 975
+    '26': 1120
+    '27': 1290
+    '28': 1485
+    '29': 1705
+  bandMultipliers:
+    bootstrap: 1.0
+    established: 1.35
+    developed: 1.875
+    advanced: 2.575
+    endgame: 3.25
+  work:
+    constructionBlockPlacement: 20
+    ordinaryPlacement: 1
+    extraction:
+      harvestCoefficient: 10
+      harvest:
+        copper: 3
+        redstone: 2
+        lapis: 2
+      silkTouchHarvest: 0
+      opportunity:
+        default: 0
+        coal: 10
+        copper: 10
+        iron: 20
+        gold: 30
+        redstone: 20
+        lapis: 20
+        diamond: 40
+        emerald: 40
+        ancient_debris: 60
+    production:
+      tool:
+        undertaking: 30
+        perOutput: 1
+      equipment:
+        undertaking: 40
+        perOutput: 2
+      utility:
+        undertaking: 10
+        perOutput: 1
+      consumable:
+        undertaking: 20
+        perOutput: 1
+      strategic_input:
+        undertaking: 20
+        perOutput: 2
+      construction_block:
+        undertaking: 20
+        perOutput: 2
+    development:
+      breeding: 80
+      matureCropHarvest: 20
+    exploration:
+      siteResolved: 60
+      radius: 24.0
+      intervalTicks: 20
+  task:
+    tierMax: 3
+    efficiencyPerTier: 0.3
+    damagePerTier: 1.0
+    yieldExtraChancePerTier: 0.25
+    efficiencyGrantsUnbreaking: true
+    automatic:
+      4:
+        domain: EFFICIENCY
+        tier: 1
+      7:
+        domain: YIELD
+        tier: 1
+  contributionForkLevel: 6
+capacity:
+  enforceTicks: 1
+  health:
+    start: 9
+    growthUnit: 1
+    cap: 20
+  hunger:
+    start: 9
+    growthUnit: 1
+    cap: 20
+  slots:
+    start: 6
+    growthUnit: 3
+    cap: 36
+  growthLevels:
+  - 2
+  - 4
+  - 7
+  - 8
+  - 9
+  - 11
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+rewards:
+  levels: {}
+  toast:
+    fadeInTicks: 5
+    stayTicks: 30
+    fadeOutTicks: 10
+abilities:
+  bindings:
+    mode: SWAP_HAND
+    a1: LEFT_CLICK
+    a2: RIGHT_CLICK
+    ult: DROP
+  modeTimeoutTicks: 50
+  unlockLevels:
+    a1: 1
+    a2: 2
+    ult: 15
+  logExecutions: true
+  classes:
+    test:
+      a1: lunge
+      a2: sinkhole_lite
+      ult: channel_ult
+  definitions:
+    lunge:
+      displayName: Lunge
+      cooldownTicks: 10
+      power: 0.8
+    sinkhole_lite:
+      displayName: SinkholeLite
+      cooldownTicks: 10
+      radius: 3
+      maxSelectionBlocks: 4096
+      rayDistance: 12
+      blocksPerStage: 12
+      stageTicks: 2
+    channel_ult:
+      displayName: ChannelUlt
+      cooldownTicks: 10
+      channelTicks: 30
+      movementThreshold: 0.25
+  feedback:
+    enter:
+      sound: minecraft:block.note_block.pling
+      volume: 0.5
+      pitch: 1.2
+    exit:
+      sound: minecraft:block.note_block.pling
+      volume: 0.5
+      pitch: 0.8
+mapStub:
+  text: MOBA
+  textX: 8
+  textY: 60
+  checkTicks: 20
+provenance:
+  sampleTicks: 200
+renewables:
+  sampleTicks: 200
+  lifecycleTicks: 20
+  temporal:
+    phaseTicks: 12000
+    initialFraction: 0.4
+    dayFraction: 0.33
+    nightRate: 0.73
+    swarmNightRate: 1.0
+  eligibility:
+    headroom: 2
+    sampleStride: 4
+    minDisplacement: 12.0
+    playerExclusion: 24.0
+    rejectPlayerPlaced: true
+    naturalGround:
+    - grass_block
+    - dirt
+    - coarse_dirt
+    - rooted_dirt
+    - podzol
+    - mycelium
+    - moss_block
+    - sand
+    - red_sand
+    - gravel
+    - stone
+    - snow_block
+  migratedRegionHalfSpan: 48
+  patch:
+    spread: 6
+  herd:
+    cluster: 5
+  membership:
+    revokeOnLeavingRegion: true
+  sources:
+    rabbit_2:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: rabbit
+      x: 1680
+      y: 94
+      z: 304
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    goat_3:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: goat
+      x: 1678
+      y: 153
+      z: 510
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    pig_4:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: pig
+      x: 1808
+      y: 73
+      z: -208
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    potatoes_5:
+      world: nearmiss_match
+      type: CROP
+      kind: potatoes
+      x: 1808
+      y: 94
+      z: -80
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    potatoes_7:
+      world: nearmiss_match
+      type: CROP
+      kind: potatoes
+      x: 1776
+      y: 86
+      z: 80
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    rabbit_11:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: rabbit
+      x: 1808
+      y: 99
+      z: 432
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    rabbit_19:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: rabbit
+      x: 1904
+      y: 106
+      z: 336
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    potatoes_23:
+      world: nearmiss_match
+      type: CROP
+      kind: potatoes
+      x: 2192
+      y: 70
+      z: -80
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    potatoes_25:
+      world: nearmiss_match
+      type: CROP
+      kind: potatoes
+      x: 2320
+      y: 90
+      z: 176
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    chicken_27:
+      world: nearmiss_match
+      type: ANIMAL
+      kind: chicken
+      x: 2430
+      y: 72
+      z: 46
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+alpha:
+  templatePath: /private/tmp/nearmiss-fixture-930010639/final/worlds/base-terrain
+  configurations:
+    enabled: true
+    directory: /private/tmp/nearmiss-fixture-930010639/final/server/maps
+    include:
+    - resource_light
+    force: resource_light
+  instanceWorldName: nearmiss_match
+  homelands:
+    north:
+    - 1830
+    - -244
+    - 71
+    south:
+    - 2214
+    - 76
+    - 82
+  worksites:
+    activationsPerSunset:
+    - 2
+    - 2
+    - 3
+    - 3
+    randomSeed: 0
+    sites:
+    - id: ws_1
+      xyz:
+      - 1680
+      - 79
+      - 176
+      bias: north
+    - id: ws_6
+      xyz:
+      - 1776
+      - 86
+      - 16
+      bias: north
+    - id: ws_8
+      xyz:
+      - 1808
+      - 72
+      - 176
+      bias: neutral
+    - id: ws_12
+      xyz:
+      - 1806
+      - 110
+      - 510
+      bias: neutral
+    - id: ws_15
+      xyz:
+      - 1936
+      - 73
+      - -80
+      bias: north
+    - id: ws_18
+      xyz:
+      - 1904
+      - 106
+      - 272
+      bias: south
+    - id: ws_20
+      xyz:
+      - 1934
+      - 100
+      - 510
+      bias: south
+    - id: ws_22
+      xyz:
+      - 2062
+      - 110
+      - 510
+      bias: south
