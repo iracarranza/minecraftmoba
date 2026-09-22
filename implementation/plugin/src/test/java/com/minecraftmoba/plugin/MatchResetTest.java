@@ -72,16 +72,24 @@ class MatchResetTest {
                         + "Efficiency and Damage modifiers would stay attached at level 1");
     }
 
-    @Test void spawnUsesTheDerivedMaximaRatherThanVanillaTwenty() throws Exception {
-        // A level 1 player's maxima are 9 and 9. setFoodLevel(20) handed out
-        // eleven hunger points the Capacity model says they do not have, which
-        // the custom readout cannot even display.
+    @Test void spawnGoesThroughTheVitalsSeamRatherThanHardcodingANumber() throws Exception {
+        // This used to assert the opposite -- that spawn must NOT use vanilla's
+        // 20, because a level-one player's maxima were 9 and 9 and handing out
+        // 20 gave them points the Capacity model said they did not have.
+        //
+        // Under scaling 20 is the right answer: the bar is always twenty long
+        // and Capacity decides what a point is worth. The rule the old test was
+        // really protecting survives, and is now "ask the seam" rather than
+        // "avoid the number" -- foodCeiling is 20 when scaling and the Capacity
+        // when not, so spawn is correct under either.
         String spawn = source("Match.java");
         int start = spawn.indexOf("private void spawn(Player p, Team team)");
         assertTrue(start > 0);
         String body = spawn.substring(start, spawn.indexOf("\n    }", start));
-        assertFalse(body.contains("setFoodLevel(20)"), "vanilla hunger cap, not the player's");
-        assertTrue(body.contains("effectiveHunger(p)"));
-        assertTrue(body.contains("MAX_HEALTH"));
+        assertFalse(body.contains("setFoodLevel(20)"),
+                "a bare 20 is right only by accident; it must come from the seam");
+        assertTrue(body.contains("foodCeiling(p)"), "spawn must ask what the ceiling is");
+        assertTrue(body.contains("MAX_HEALTH"), "health comes from the attribute, not a literal");
     }
+
 }

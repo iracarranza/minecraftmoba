@@ -92,8 +92,22 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         return d == null ? Vitals.DISPLAY_MAX : capacity(d).maxHealth();
     }
 
+    /**
+     * Hunger Capacity: a RATE parameter under scaling, not a ceiling.
+     *
+     * Callers that mean "how full can this bar get" want {@link #foodCeiling},
+     * which is the distinction that matters and the one four call sites got
+     * wrong -- the bar visibly stopped at 9 because eating, spawning and
+     * Fountain restoration each used the Capacity as a maximum.
+     */
     public int effectiveHunger(Player p) {
         return Math.min(20, capacity(data(p)).effectiveHunger());
+    }
+
+    /** How full the hunger bar can get. Twenty under scaling; the Capacity otherwise. */
+    public int foodCeiling(Player p) {
+        return getConfig().getBoolean("features.vitalsScaling.enabled")
+                ? (int) Vitals.DISPLAY_MAX : effectiveHunger(p);
     }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;

@@ -155,7 +155,7 @@ public final class Match implements Listener {
         p.setGameMode(GameMode.SURVIVAL);
         var max = p.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
         p.setHealth(max == null ? 20.0 : max.getValue());
-        int hunger = plugin.effectiveHunger(p);
+        int hunger = plugin.foodCeiling(p);
         p.setFoodLevel(hunger);
         p.setSaturation(hunger);
     }

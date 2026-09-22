@@ -80,7 +80,7 @@ public final class HungerDisplay implements Listener {
 
     public void refresh(Player p) {
         if (!enabled() || !plugin.enrolled(p)) { clear(p); return; }
-        int cap = plugin.effectiveHunger(p);
+        int cap = plugin.foodCeiling(p);
         Component title = Component.text(render(p.getFoodLevel(), cap, 20))
                 .style(Style.style().font(FONT).build());
         BossBar bar = bars.get(p.getUniqueId());
@@ -106,7 +106,7 @@ public final class HungerDisplay implements Listener {
     @EventHandler public void onQuit(PlayerQuitEvent e) { bars.remove(e.getPlayer().getUniqueId()); }
 
     public String report(Player p) {
-        int cap = plugin.effectiveHunger(p);
+        int cap = plugin.foodCeiling(p);
         return "HUNGER_DISPLAY enabled=" + enabled() + " food=" + p.getFoodLevel()
                 + " cap=" + cap + " drumsticks=full/half/empty/unavailable"
                 + " render=" + render(p.getFoodLevel(), cap, 20)

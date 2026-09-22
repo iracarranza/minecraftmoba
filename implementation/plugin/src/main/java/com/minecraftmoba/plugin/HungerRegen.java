@@ -68,7 +68,7 @@ public final class HungerRegen implements Listener {
         if (!plugin.enrolled(p)) return;
         var food = e.getItem().getData(DataComponentTypes.FOOD);
         if (food == null || food.canAlwaysEat()) return;
-        int cap = plugin.effectiveHunger(p);
+        int cap = plugin.foodCeiling(p);
         if (p.getFoodLevel() < cap) return;
         e.setCancelled(true);
         p.sendActionBar(net.kyori.adventure.text.Component.text(
@@ -90,7 +90,7 @@ public final class HungerRegen implements Listener {
 
     /** The lowest food level that still regenerates. */
     public int thresholdFor(Player p) {
-        return Math.max(1, plugin.effectiveHunger(p) - blockedWhenPointsMissing() + 1);
+        return Math.max(1, plugin.foodCeiling(p) - blockedWhenPointsMissing() + 1);
     }
 
     public boolean eligible(Player p) {
@@ -122,7 +122,7 @@ public final class HungerRegen implements Listener {
     }
 
     public String report(Player p) {
-        int max = plugin.effectiveHunger(p);
+        int max = plugin.foodCeiling(p);
         return "HUNGER_REGEN enabled=" + enabled()
                 + " food=" + p.getFoodLevel() + "/" + max
                 + " missing=" + (max - p.getFoodLevel())
