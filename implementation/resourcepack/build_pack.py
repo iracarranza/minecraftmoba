@@ -43,6 +43,51 @@ def png_rgba(path: Path, width: int, height: int, pixels: list[tuple[int, int, i
                      + chunk(b"IEND", b""))
 
 
+def state_glyph(shape: str, index: int, size: int = 16):
+    """A placeholder that still distinguishes one STATE from another.
+
+    The default placeholder is identical for every glyph by design, so a wrong
+    codepoint reads as a wrong icon. That is right for plumbing and wrong for a
+    readout: ten hunger glyphs drawn as ten identical outlines is a hunger bar
+    you cannot read, which is how the first live pack presented -- the vanilla
+    row correctly hidden and the replacement correctly drawn and completely
+    illegible.
+
+    So a glyph may declare a shape. These are still placeholders and still
+    monochrome: they carry no palette, no icon language and no artwork, only
+    the minimum difference needed for a state to be distinguishable from its
+    neighbours.
+
+    The exception is "blank". A state meaning "there is nothing here" -- a
+    drumstick beyond the player's Capacity -- renders as nothing, and that is
+    the finished appearance rather than something awaiting art. It keeps its
+    advance, so the row stays ten drumsticks wide and Capacity fills it from
+    the left the way the vanilla row does.
+    """
+    white = (255, 255, 255, 255)
+    clear = (0, 0, 0, 0)
+    pixels = []
+    for y in range(size):
+        for x in range(size):
+            border = x in (0, size - 1) or y in (0, size - 1)
+            interior = 1 < x < size - 2 and 1 < y < size - 2
+            if shape == "blank":
+                pixels.append(clear)
+            elif border:
+                pixels.append(white)
+            elif y == 2 and 2 <= x < 2 + 8 and (index >> (x - 2)) & 1:
+                pixels.append(white)              # index bits, as ever
+            elif shape == "solid" and interior:
+                pixels.append(white)
+            elif shape == "half" and interior:
+                pixels.append(white if x < size // 2 else clear)
+            elif shape == "blank":
+                pixels.append(clear)              # see blank_note in the registry
+            else:
+                pixels.append(clear)
+    return pixels
+
+
 def placeholder_glyph(index: int, size: int = 16):
     """A hollow square with the glyph's index in binary along the top edge.
 
@@ -129,11 +174,13 @@ def build(registry: dict, out: Path):
     index = 0
     providers = []
     manifest = {}
+    shapes = registry.get("placeholder_shapes", {}).get("shapes", {})
     for group_name, group in registry["groups"].items():
         for glyph_id in group["ids"]:
             cp = codepoint(index)
+            shape = shapes.get(glyph_id)
             png_rgba(assets / "textures" / "font" / f"{glyph_id}.png", 16, 16,
-                     placeholder_glyph(index))
+                     state_glyph(shape, index) if shape else placeholder_glyph(index))
             providers.append({
                 "type": "bitmap",
                 "file": f"moba:font/{glyph_id}.png",
@@ -147,6 +194,7 @@ def build(registry: dict, out: Path):
                 "group": group_name,
                 "index": index,
                 "placeholder": True,
+                "shape": shape,
             }
             index += 1
     write_json(assets / "font" / "glyphs.json", {"providers": providers})
