@@ -89,7 +89,18 @@ echo "moba maps" >> /private/tmp/alpha-server/cmds
 To pin one for a controlled test, set `alpha.configurations.force` in the
 deployed config to `consolidative` or `resource_light` and restart.
 
-To add a configuration, author it, then export it against the base:
+To re-author the existing configurations after changing the authoring code:
+
+```bash
+cd ~/minecraftmoba/.claude/worktrees/datapack-class-mechanics-3735c1/implementation/worldgen && python3 -m terrain_harvest.reauthor --profile consolidative:consolidative_v2 --profile resource_light:resource_light_v2
+```
+
+That runs all four steps in order — portfolio, Routes, team structures, export —
+and refuses to publish a map whose Fountains are missing or whose Routes have an
+unclimbable step. Both failures are otherwise silent: a world missing a pipeline
+step still exports cleanly. Takes about 75 seconds per configuration.
+
+To add a configuration by hand, author it, then export it against the base:
 
 ```bash
 cd ~/minecraftmoba/.claude/worktrees/datapack-class-mechanics-3735c1/implementation/worldgen && python3 -m terrain_harvest.map_diff --base ~/minecraftmoba/artifacts/worldgen/alpha-0.1/base-terrain --authored <authored-world> --name <name> --out ~/minecraftmoba/artifacts/worldgen/alpha-0.1/maps/<name>.json.gz
