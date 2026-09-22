@@ -15,6 +15,41 @@ static int high(int b) { return b==meadow || b==grove || b==snowy_slopes || b==j
 static int alpine(int b) { return b==grove || b==snowy_slopes || b==jagged_peaks || b==frozen_peaks; }
 static int openland(int b) { return b==plains || b==sunflower_plains || b==meadow || b==savanna || b==snowy_plains; }
 static int woods(int b) { return b==forest || b==birch_forest || b==dark_forest || b==taiga || b==snowy_taiga || b==old_growth_pine_taiga || b==old_growth_spruce_taiga || b==jungle || b==bamboo_jungle || b==pale_garden || b==cherry_grove || b==grove; }
+/* --- region character -------------------------------------------------
+ *
+ * The staged screen gates on ocean in the east and highland in the west, which
+ * is one instance of a general shape rather than the shape itself: two
+ * contrasting regional characters, separated across the map, with the team axis
+ * kept fair. Naming the biomes made "mesa / desert / jungle" or "snowy peaks /
+ * valley / stonelands" unfindable even when they would satisfy every structural
+ * measure downstream.
+ *
+ * So a third of a window is CATEGORIZED rather than tested. The categories are
+ * coarse on purpose: they are meant to say that two ends of a map feel
+ * different, not to describe an ecology.
+ */
+enum { CH_OCEANIC, CH_ALPINE, CH_FROZEN, CH_ARID, CH_FOREST, CH_OPEN, CH_WET, CH_N };
+static const char *CHARACTER[CH_N] = {"oceanic","alpine","frozen","arid","forest","open","wet"};
+
+static int arid(int b) { return b==desert || b==badlands || b==eroded_badlands
+    || b==wooded_badlands || b==savanna || b==savanna_plateau || b==windswept_savanna; }
+static int frozen(int b) { return b==snowy_plains || b==ice_spikes || b==snowy_taiga
+    || b==snowy_beach || b==frozen_river || b==frozen_peaks || b==snowy_slopes; }
+static int wet(int b) { return b==swamp || b==mangrove_swamp || b==river; }
+
+/* One block's character. Order matters: a frozen peak is alpine before it is
+ * frozen, because what a player has to cross is the slope. */
+static int character_of(int b) {
+    if (isOceanic(b)) return CH_OCEANIC;
+    if (alpine(b) || b==stony_peaks || b==windswept_hills
+        || b==windswept_gravelly_hills) return CH_ALPINE;
+    if (frozen(b)) return CH_FROZEN;
+    if (arid(b)) return CH_ARID;
+    if (woods(b)) return CH_FOREST;
+    if (wet(b)) return CH_WET;
+    return CH_OPEN;
+}
+
 static double now(void) { struct timespec t; timespec_get(&t,TIME_UTC); return t.tv_sec+t.tv_nsec/1e9; }
 int main(int argc,char **argv) {
     if(argc==2 && !strcmp(argv[1],"--refine")) {
@@ -45,7 +80,69 @@ int main(int argc,char **argv) {
         }
         return 0;
     }
-    if(argc!=3) { fprintf(stderr,"usage: coarse START_SEED SEED_COUNT\n"); return 2; }
+    if(argc==4 && !strcmp(argv[1],"--regions")) {
+        /* Same window and rotation search as the staged screen, but the two
+         * ends only have to DIFFER in character rather than be ocean and
+         * highland. The team axis keeps its own gate unchanged: both ends
+         * workable land, which is what stops a map being unfair rather than
+         * merely uniform. */
+        int64_t start=strtoll(argv[2],0,10); int count=atoi(argv[3]);
+        Generator g; setupGenerator(&g,MC_1_21,0);
+        const int centers[5][2]={{0,0},{2048,0},{-2048,0},{0,2048},{0,-2048}};
+        long searched=0,ranked=0,reject_same=0,reject_land=0,reject_weak=0;
+        double begin=now();
+        for(int s2=0;s2<count;s2++) {
+            applySeed(&g,DIM_OVERWORLD,(uint64_t)(start+s2));
+            for(int region=0;region<5;region++) {
+                int cx=centers[region][0],cz=centers[region][1];
+                searched++;
+                int grid[33][27];
+                for(int z=0;z<33;z++) for(int x=0;x<27;x++)
+                    grid[z][x]=getBiomeAt(&g,4,(cx-416+x*32)/4,24,(cz-512+z*32)/4);
+                double best=-1e9; int bestrot=0,bw=0,be=0; double bhn=0,bhs=0,bcontrast=0,bop=0;
+                for(int r=0;r<4;r++) {
+                    int w=r%2?33:27,ht=r%2?27:33;
+                    int wch[CH_N]={0},ech[CH_N]={0};
+                    int nw=0,ne=0,nhn=0,nhs=0; double hn=0,hs=0,op=0;
+                    for(int z=0;z<ht;z++) for(int x=0;x<w;x++) {
+                        int rx,rz;
+                        if(r==0){rx=x;rz=z;} else if(r==1){rx=z;rz=32-x;}
+                        else if(r==2){rx=26-x;rz=32-z;} else{rx=26-z;rz=x;}
+                        int b=grid[rz][rx]; int c=character_of(b); op+=openland(b);
+                        if(x<w/3){nw++;wch[c]++;}
+                        if(x>=2*w/3){ne++;ech[c]++;}
+                        if(x>=w/4&&x<3*w/4) {
+                            /* The team axis. Unchanged in meaning: both ends
+                             * must be ground a team can actually work. */
+                            if(z<ht/3){nhn++;hn+=!isOceanic(b)&&!high(b);}
+                            if(z>=2*ht/3){nhs++;hs+=!isOceanic(b)&&!high(b);}
+                        }
+                    }
+                    hn/=nhn;hs/=nhs;op/=891;
+                    int wtop=0,etop=0;
+                    for(int c=1;c<CH_N;c++){ if(wch[c]>wch[wtop])wtop=c; if(ech[c]>ech[etop])etop=c; }
+                    double wfrac=(double)wch[wtop]/nw, efrac=(double)ech[etop]/ne;
+                    if(wtop==etop) { continue; }                 /* ends must differ */
+                    if(hn<.30||hs<.30) { continue; }             /* team axis fairness */
+                    double contrast=wfrac<efrac?wfrac:efrac;     /* the weaker end sets it */
+                    if(contrast<.35) { continue; }               /* both ends distinctive */
+                    double score=60*contrast+18*op+10*(hn<hs?hn:hs);
+                    if(score>best){best=score;bestrot=r*90;bw=wtop;be=etop;bhn=hn;bhs=hs;bcontrast=contrast;bop=op;}
+                }
+                if(best<-1e8) { reject_weak++; continue; }
+                ranked++;
+                printf("{\"seed\":%" PRId64 ",\"center\":[%d,%d],\"rotation\":%d,\"score\":%.5f,"
+                       "\"west\":\"%s\",\"east\":\"%s\",\"contrast\":%.4f,"
+                       "\"open\":%.4f,\"north_land\":%.4f,\"south_land\":%.4f}\n",
+                       start+s2,cx,cz,bestrot,best,CHARACTER[bw],CHARACTER[be],bcontrast,bop,bhn,bhs);
+            }
+        }
+        fprintf(stderr,"{\"mode\":\"regions\",\"seeds\":%d,\"windows\":%ld,\"accepted\":%ld,"
+                       "\"rejected\":%ld,\"wall_seconds\":%.6f}\n",
+                count,searched,ranked,reject_weak,now()-begin);
+        return 0;
+    }
+    if(argc!=3) { fprintf(stderr,"usage: coarse START_SEED SEED_COUNT | coarse --regions START COUNT\n"); return 2; }
     int64_t start=strtoll(argv[1],0,10); int count=atoi(argv[2]);
     if(count<1) return 2;
     Generator g; setupGenerator(&g,MC_1_21,0);
