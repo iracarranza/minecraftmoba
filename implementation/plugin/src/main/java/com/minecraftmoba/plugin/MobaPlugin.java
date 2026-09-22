@@ -29,6 +29,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public LobbySafety lobbySafety() { return lobbySafety; }
     private LobbyWorld lobbyWorld;
     public LobbyWorld lobbyWorld() { return lobbyWorld; }
+    private VitalsScaling vitalsScaling;
+    public VitalsScaling vitalsScaling() { return vitalsScaling; }
     private ApplyBench applyBench;
     private ResourcePackPush resourcePackPush;
     public ResourcePackPush resourcePackPush() { return resourcePackPush; }
@@ -84,6 +86,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private TestBed testBed;
     public OffhandMap offhandMap() { return offhandMap; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
+    /** The player's Capacity health: what a full bar is WORTH, not how long it is. */
+    public double effectiveMaxHealth(Player p) {
+        var d = data(p);
+        return d == null ? Vitals.DISPLAY_MAX : capacity(d).maxHealth();
+    }
+
     public int effectiveHunger(Player p) {
         return Math.min(20, capacity(data(p)).effectiveHunger());
     }
@@ -115,6 +123,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
         renewableMarkers = new RenewableMarkers(this);
+        vitalsScaling = new VitalsScaling(this);
+        getServer().getPluginManager().registerEvents(vitalsScaling, this);
         applyBench = new ApplyBench(this);
         resourcePackPush = new ResourcePackPush(this);
         getServer().getPluginManager().registerEvents(resourcePackPush, this);
@@ -429,6 +439,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         return Capacity.recompute(d.level, d.choices, settings.capacity());
     }
     private void enforceHunger(Player p, Capacity.DerivedCapacity c) {
+        // Under scaling there is no ceiling to enforce: Hunger Capacity is a
+        // rate, so the bar fills to twenty and empties faster.
+        if (getConfig().getBoolean("features.vitalsScaling.enabled")) return;
         int capped=Math.min(p.getFoodLevel(), Math.min(20,c.effectiveHunger()));
         if (p.getFoodLevel()!=capped) p.setFoodLevel(capped);
         if (p.getSaturation()>capped) p.setSaturation(capped);
@@ -437,7 +450,15 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private void sync(Player p, PlayerData d) {
         var c = capacity(d);
         var attribute = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH));
-        attribute.setBaseValue(c.maxHealth());
+        // The bar is always twenty points long. Capacity decides what a point
+        // is worth, applied as damage and healing scaling, so a player with 9
+        // effective health and one with 24 read the same full bar and the same
+        // hit takes a bigger bite out of the smaller pool. Setting the maximum
+        // from Capacity instead is what made the bar shrink -- and made a
+        // half-length health bar the normal sight at level one.
+        boolean scaled = getConfig().getBoolean("features.vitalsScaling.enabled");
+        double barLength = scaled ? Vitals.DISPLAY_MAX : c.maxHealth();
+        attribute.setBaseValue(barLength);
         if (p.getHealth() > attribute.getValue()) p.setHealth(attribute.getValue());
         enforceHunger(p, c);
         if (taskEffects != null) taskEffects.applyAutomaticGrants(p, data(p));
@@ -467,7 +488,18 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             if (d != null) sync(e.getPlayer(), d);
         });
     }
+    /**
+     * Hunger's ceiling, or its absence.
+     *
+     * Vanilla always draws ten drumsticks, so a Hunger Capacity below twenty
+     * could only ever be expressed by refusing to fill part of the row -- which
+     * is where "drumsticks you can never reach" came from, and the whole reason
+     * a parallel glyph readout was ever built. Under scaling the Capacity is a
+     * RATE instead: the bar fills completely and empties faster, and every
+     * position is reachable.
+     */
     @EventHandler(ignoreCancelled = true) public void hunger(FoodLevelChangeEvent e) {
+        if (getConfig().getBoolean("features.vitalsScaling.enabled")) return;
         if (e.getEntity() instanceof Player p && players.containsKey(p.getUniqueId()))
             e.setFoodLevel(Math.min(e.getFoodLevel(), Math.min(20, capacity(players.get(p.getUniqueId())).effectiveHunger())));
     }

@@ -120,6 +120,27 @@ features:
   # loses no hunger and is not targeted. Waiting to join is not gameplay, and
   # dying to a creeper on the way to the lobby is an interruption of the one
   # thing the player is trying to do.
+  # Health and hunger as fixed-length bars.
+  #
+  # The bar is always twenty points -- ten hearts, ten drumsticks -- for every
+  # player, and Capacity decides what a point is WORTH rather than how many
+  # there are. A hit of 3 against Capacity 9 removes a third of the player
+  # either way; what changes is that the bar stops shrinking, so a level-one
+  # player no longer looks at a half-length health bar.
+  #
+  # For hunger this also dissolves the unreachable-drumstick problem outright:
+  # Capacity becomes an exhaustion RATE, the row fills completely, and a smaller
+  # Capacity simply empties it faster.
+  #
+  # naturalRegeneration is held OFF on purpose. Vanilla regen needs food >= 18,
+  # which a Hunger Capacity of 9 made unreachable, so it has never fired and
+  # HungerRegen was written to be the rule instead. Uncapping hunger would
+  # switch vanilla's on as a side effect of a display change; that is a design
+  # decision and is not taken here.
+  vitalsScaling:
+    enabled: true
+    sampleTicks: 2
+    naturalRegeneration: false
   lobbySafety:
     enabled: true
   # A dedicated lobby world, built rather than generated.

@@ -81,7 +81,8 @@ public final class FountainRegen implements Listener {
         int food = plugin.getConfig().getInt("features.fountainRegen.respawnFood", 1);
         Bukkit.getScheduler().runTask(plugin, () -> {
             if (!p.isOnline()) return;
-            p.setHealth(Math.max(1.0, Math.min(maxHealth(p), health)));
+            p.setHealth(Math.max(1.0, Math.min(maxHealth(p),
+                    Vitals.scaleHealing(health, plugin.effectiveMaxHealth(p)))));
             p.setFoodLevel(Math.min(plugin.effectiveHunger(p), food));
             p.setSaturation(0f);
         });
@@ -114,7 +115,12 @@ public final class FountainRegen implements Listener {
 
     private void reconstruct(Player p, double health, int food) {
         double max = maxHealth(p);
-        if (p.getHealth() < max) p.setHealth(Math.min(max, p.getHealth() + health));
+        // The configured rate is in EFFECTIVE points, because ALPHA-D4 states
+        // it absolutely: raising maxima must lengthen reconstruction. Converted
+        // to bar units, a larger Capacity fills a smaller fraction per tick,
+        // which is the same rule expressed on a fixed-length bar.
+        double step = Vitals.scaleHealing(health, plugin.effectiveMaxHealth(p));
+        if (p.getHealth() < max) p.setHealth(Math.min(max, p.getHealth() + step));
         int cap = plugin.effectiveHunger(p);
         if (p.getFoodLevel() < cap) p.setFoodLevel(Math.min(cap, p.getFoodLevel() + food));
     }

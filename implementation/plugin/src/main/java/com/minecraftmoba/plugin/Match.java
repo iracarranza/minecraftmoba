@@ -117,6 +117,16 @@ public final class Match implements Listener {
         state = State.RUNNING; elapsed = 0; winner = null;
         World w = worldInstance.world();
         w.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        // Vanilla regeneration needs food >= 18, which a Hunger Capacity of 9
+        // made unreachable -- so it has never once fired, and HungerRegen was
+        // written to be the regeneration rule instead. Uncapping hunger for the
+        // fixed-length bar would switch vanilla's on for the first time, as a
+        // side effect of a display change. Held off deliberately: the Fountain
+        // and HungerRegen stay the ways health comes back until that is decided
+        // on its own terms. Flip features.vitalsScaling.naturalRegeneration to
+        // hand it to vanilla.
+        w.setGameRule(GameRule.NATURAL_REGENERATION,
+                plugin.getConfig().getBoolean("features.vitalsScaling.naturalRegeneration", false));
         // Respawning is instant: the match clock does not stop for a death
         // screen, and the Fountain -- not a button -- is what decides whether a
         // player comes back. Elimination still runs, so a player whose Fountain

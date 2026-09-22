@@ -60,7 +60,10 @@ public final class HealthDisplay implements Listener {
     }
 
     /** Health rounded up, so a player on a sliver still reads as 1 rather than 0. */
-    private int shown(Player p) { return (int) Math.ceil(p.getHealth()); }
+    /** Effective health: what the design means by a point, not what the bar draws. */
+    private int shown(Player p) {
+        return (int) Math.ceil(Vitals.toEffective(p.getHealth(), plugin.effectiveMaxHealth(p)));
+    }
 
     public void refresh(Player viewer) {
         if (!enabled()) { clear(viewer); return; }

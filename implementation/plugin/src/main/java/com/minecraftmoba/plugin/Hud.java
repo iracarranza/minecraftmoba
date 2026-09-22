@@ -65,7 +65,10 @@ public final class Hud implements Listener {
                 + ChatColor.GRAY + "  WP " + ChatColor.WHITE + progress);
         set(obj, line--, ChatColor.GRAY + "Class " + ChatColor.WHITE + (d.classId == null ? "none" : d.classId));
         set(obj, line--, " ");
-        set(obj, line--, ChatColor.GRAY + "Health  " + ChatColor.WHITE + fmt(p.getMaxHealth()));
+        // Effective health, not the bar length: under scaling the bar is always
+        // twenty and the number is the only place Capacity is visible.
+        set(obj, line--, ChatColor.GRAY + "Health  " + ChatColor.WHITE
+                + fmt(plugin.effectiveMaxHealth(p)));
         set(obj, line--, ChatColor.GRAY + "Slots   " + ChatColor.WHITE + plugin.unlockedSlots(p));
         if (task != null && task.enabled())
             set(obj, line--, ChatColor.GRAY + "Eff " + ChatColor.WHITE + task.tier(d, TaskEffects.Domain.EFFICIENCY)

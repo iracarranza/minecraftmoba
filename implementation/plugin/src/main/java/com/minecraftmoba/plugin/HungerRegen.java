@@ -104,11 +104,15 @@ public final class HungerRegen implements Listener {
 
     private void tick() {
         if (!enabled()) return;
-        double amount = plugin.getConfig().getDouble("features.hungerRegen.healAmount", 1.0);
+        double configured = plugin.getConfig().getDouble("features.hungerRegen.healAmount", 1.0);
         float exhaustion = (float) plugin.getConfig().getDouble("features.hungerRegen.exhaustionPerHeal", 6.0);
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (!eligible(p)) continue;
             var attr = p.getAttribute(Attribute.MAX_HEALTH);
+            // Stated in effective points, like every other configured rate, so
+            // it means the same fraction of a player whatever their Capacity --
+            // which is why it is converted per player rather than once.
+            double amount = Vitals.scaleHealing(configured, plugin.effectiveMaxHealth(p));
             p.setHealth(Math.min(attr.getValue(), p.getHealth() + amount));
             // Vanilla charges exhaustion for healing; without it, regeneration
             // would be free and Hunger would stop mattering once nearly full.
