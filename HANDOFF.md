@@ -1,7 +1,8 @@
 # Handoff — Minecraft MOBA, 22 September 2026
 
-Branch `plugin-assess`, pushed to `main` on `github.com/iracarranza/minecraftmoba`.
-Everything below is committed. The live test server is at `/private/tmp/alpha-server`.
+Continuation from `7cae5ae` / `faa6748`; this handoff supersedes their proposed
+next step. Audit branch: `codex/terrain-gameplay-audit`. The live test server is
+at `/private/tmp/alpha-server`; this audit did not operate or change it.
 
 Read [docs/alpha-server-runbook.md](docs/alpha-server-runbook.md) first — it has
 the deploy cycle, the resource-pack host, map configurations and resetting.
@@ -103,24 +104,62 @@ a real property (equal access to what was placed) and it is not that one.
 - `land_asymmetry` was degenerate (0.0000 everywhere) and is replaced by
   accessible land plus connected workable land. Do not resurrect it.
 
-### Next step — a design decision, not a measurement
+### Next step — measure a task before changing balance
 
-Two options, and they are different claims about what balance means:
+**The 0.3173 gap is terrain evidence, not an established gameplay penalty.**
+Do not change balance, authoring or screening logic. Neither deficit-aware
+weighting nor a new rejection gate is justified by this audit.
 
-1. **Make the objective deficit-aware.** Weight placements in
-   `balance_asymmetry` by the receiving team's accessible-land shortfall, so
-   compensating placement is what the optimizer rewards. A change to an existing
-   objective, not a new system — but it redefines balance and should be taken
-   deliberately.
-2. **Treat terrain deficit as a screening gate**, alongside the physical arm.
-   That rejects 930010639 despite its 0.0161.
+Read [the gameplay/economic audit](docs/audit/2026-09-22-terrain-gameplay-comparison.md)
+for the implementation inventory, exact protocol and observation requirements.
+Its source-level qualifications supersede the shorthand above:
 
-Choosing between them needs the one thing no analysis here can supply: **whether
-a 0.3173 accessible-land gap is actually felt in play.** That is a playtest
-question.
+- `accessible_land` counts dry Wilderness samples in selected depth bands,
+  excluding homelands; it does not establish usable production area.
+- Alpha is seed **930012642**, volume `tv_ef56852eda10acc88342e5ee`;
+  near-miss is **930010639**, volume `tv_51a79e3b1bee05ea7559e799`.
+- The near-miss has **63 resource manifestations in nine scanned cells**.
+  Its `structures-built.json` is a positional stub; the rescue analysis did
+  **not** physically build a playable map.
+- Extraction benchmarks pool cells, travel matrices model surface cost, and
+  the runtime ledger records work. None measures a complete timed expedition.
+  Existing provenance/renewable CSVs are aggregate diagnostics without team/task
+  attribution. No new telemetry was implemented.
 
-**Not pursued, as instructed:** the physical-failure arm. No seed in the sample
-exhibits it, because the staged screen gated on homeland buildability upstream.
+**Recommended implementation/experiment, in order:**
+
+1. Pin both existing **resource_light** configurations (same 28-opportunity
+   budget), plugin/config and world inputs. Use a disposable Paper 1.21.11 /
+   Java 21 server and existing Anvil/diff pipeline. Materialize the missing
+   near-miss with the existing portfolio → routes → structures modules and
+   verification/export functions, driven by explicit seed-specific inputs. The
+   `reauthor` wrapper hard-codes Alpha fountain coordinates: use the small external
+   driver specified in the audit, preserving all checks. Verify fountains,
+   Routes, sources, spawn coordinates and base/diff
+   compatibility. Force the named configuration through the existing test config
+   key; never compare random Alpha selection to a cherry-picked near-miss.
+2. Rehearse two tasks with video and existing `/moba work` and `/moba debug`
+   snapshots: **acquire/process six iron into an iron pickaxe and bucket, return
+   both to homeland**; **use an authored wheat source to deliver three bread and
+   establish four hydrated planted wheat blocks at homeland**. Preflight the
+   shared wheat source; absence is a content mismatch, not permission to inject
+   it. Exact kits, milestones and reset requirements are in the audit.
+3. Run **16 trials**: two operators × two maps × N/S × two tasks, counterbalanced,
+   fresh state per trial, 20-minute cap and five-minute checkpoints. Record actual
+   acquisition/processing/delivery times, travel, all break/place actions by
+   purpose, source utilization, stock and WP/level history. Retain failures.
+4. Only if manual observation is insufficient, implement the bounded
+   `TaskTrialRecorder` specified in the audit: participant/task markers,
+   timestamped successful actions, sampled state, and snapshots of existing
+   ledger results. Reuse membership and scoring seams. Do not build a survival
+   bot, full simulator or alternate economic model.
+5. Compare S minus N on each map, then the difference between those paired gaps.
+   Lead with useful output and access burden, not WP alone. Replicate any delay
+   on a second existing profile before attributing it to terrain. Two operators
+   establish feasibility, not full competitive fairness or causality of 0.3173.
+
+No physical-failure arm is added. Preserve the previous rescue result and its
+artifacts for traceability; its balance/screening alternatives remain pending.
 
 ### Unresolved, do not decide silently
 - Natural regeneration is held OFF (`features.vitalsScaling.naturalRegeneration`).
