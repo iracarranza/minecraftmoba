@@ -62,6 +62,20 @@ class MapConfigurationTest {
                 "two maps drawn for the same match series must apply to the same terrain");
     }
 
+    @Test void everyPlayableConfigurationPlacesTheFountains() throws Exception {
+        // A map without Fountains is unplayable: alpha.homelands is pinned in
+        // config, ALPHA-D3 decides victory by Fountain state and ALPHA-D4 makes
+        // it where a player reconstructs. Re-authoring once shipped without
+        // them, because building the team structures is a separate step from
+        // authoring the portfolio, and the symptom was spawning in a field.
+        if (!Files.isDirectory(MAPS)) return;
+        for (String name : List.of("consolidative_v2", "resource_light_v2")) {
+            String json = read(MAPS.resolve(name + ".json.gz"));
+            assertTrue(json.contains("chiseled_quartz_block"),
+                    name + " has no Fountain material; the team structures step was skipped");
+        }
+    }
+
     @Test void theFingerprintCheckRefusesRatherThanWarns() throws Exception {
         // The silent-failure case: a diff on the wrong terrain is a world that
         // looks fine and is wrong everywhere.
