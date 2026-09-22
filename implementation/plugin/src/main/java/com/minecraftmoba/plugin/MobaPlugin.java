@@ -29,6 +29,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public LobbySafety lobbySafety() { return lobbySafety; }
     private LobbyWorld lobbyWorld;
     public LobbyWorld lobbyWorld() { return lobbyWorld; }
+    private ApplyBench applyBench;
     private ResourcePackPush resourcePackPush;
     public ResourcePackPush resourcePackPush() { return resourcePackPush; }
     private Sentinel sentinel;
@@ -114,6 +115,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
         renewableMarkers = new RenewableMarkers(this);
+        applyBench = new ApplyBench(this);
         resourcePackPush = new ResourcePackPush(this);
         getServer().getPluginManager().registerEvents(resourcePackPush, this);
         lobbyWorld = new LobbyWorld(this);
@@ -498,6 +500,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("bench")) return applyBench.handle(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("reset")) return resetCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("worksite")) return worksiteCommand(sender, args);
