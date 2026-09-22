@@ -56,40 +56,69 @@ four steps and gates on the two failures that are silent.
 - **Map vote/ban** — the eventual intent. It already settles that map balance is
   scored per named configuration rather than per family.
 
-### Seed generalization — done far enough to hand over
+### Seed generalization and team-axis diagnosis — current front
+
+**Keep the axes straight.** W–E is the REGIONAL axis and contrast there is
+intentional (forest/arid, peaks/valley). N–S is the TEAM axis and must be
+competitive. A pairing never means one team gets forest and the other arid.
 
 - **`vanilla_search/coarse.c --regions`** replaces "ocean east, highland west"
-  with a region-CHARACTER classifier. 20,000 seeds give 8,425 accepted across
-  12 pairings, against one composition by construction. The staged screen is
-  untouched and still reproducible.
+  with a region-CHARACTER classifier. 20,000 seeds → 8,425 accepted across 12
+  pairings. The staged screen is untouched and reproducible.
   → `docs/analysis/2026-09-22-region-character-screen.md`
-- **`terrain_harvest.compare_seeds`** then showed the balance machinery is
-  composition-agnostic in practice: Task A's fit ran unmodified over eight
-  candidates in six pairings. The current Alpha seed has the best homeland
-  asymmetry of the eight (0.0645); forest/frozen (0.0886) and forest/open
-  (0.0983) are close behind.
-  → `docs/analysis/2026-09-22-cross-composition-balance.md`
+- **`terrain_harvest.compare_seeds`** diagnoses the N–S deficit of each finalist
+  and names its kind by comparing components between teams — no absolute
+  threshold, and none taken from 930015734.
+  → `docs/analysis/2026-09-22-team-axis-deficits-and-intervention.md`
 
-**The next experiment is specified and blocked on one thing.** Seed 930015734
-is the mesa-and-jungle case, homeland quality 0.950 north against 0.468 south —
-asymmetry 0.3397, the worst of the eight. Authoring exists to make a near-miss
-competitive, so the question is whether authored opportunities can close a 0.34
-homeland gap. Run the optimizer over that seed to get a scenario frontier, then
-`author_portfolio` and read `balance_asymmetry`, comparing against the current
-map's 0.0685.
+**Findings that should shape the next move:**
 
-Blocked because the optimizer takes an `export.zip` per seed and only the Alpha
-volume has one. That export is the whole of the remaining work; everything
-downstream already runs.
+- **930015734 (forest/arid) is an authoring target, not a rejection.**
+  `severe_grade_fraction` and `water_fraction` are 0.0 on both homelands; the
+  south is under 51.9% canopy with a third less near-depth workable land.
+- **Authoring cost does not buy balance.** Over 80 stored optimizer finalists,
+  cost-vs-balance correlates −0.21; 28 opportunities achieves 0.0182 where 38
+  achieves 0.0211. Balance comes from placement, not quantity.
+- **`land_asymmetry` was degenerate and is replaced** by accessible land
+  (near-depth bands, excluding `deep_core_350_plus`) plus connected workable
+  land. Do not resurrect the old one.
 
-If the gap closes, the screen can afford far more geography than it accepts. If
-it does not, homeland asymmetry becomes a screening gate rather than an
-authoring problem — which is worth knowing before broadening the search.
+**Two limits stated rather than hidden:**
 
-**One metric in that comparison is broken and labelled as such.**
-`land_asymmetry` reads 0.0000 for every seed because land band counts are summed
-over halves with equal sample counts by construction. Do not read it as balance.
-Per-team land wants buildable fraction or depth-weighted land instead.
+- No seed in the sample diagnoses `physical`, because the staged screen gated on
+  homeland buildability upstream. "Severe geography justifies rejection" is
+  untested, not supported.
+- The cost-vs-balance figures come from configurations that already passed the
+  balance filter, on a volume that was well chosen. They do not show that
+  authoring can lift a deficient seed to parity.
+
+### The next step, and its blocker
+
+Answer whether minimal authoring rescues a genuine N–S near-miss.
+
+930015734's world was deleted — only server scaffolding remains and it is not in
+the gallery. **Use `tv_51a79e3b1bee05ea7559e799` instead**: seed 930010639,
+`frozen/open`, homeland gap 0.1370, accessible land gap 0.3173, deficit kind
+`opportunity`, already harvested at full 3,808 chunks. Different regional
+character from the Alpha map, same deficit kind, no world generation needed.
+
+The optimizer takes a zip containing exactly `data/opportunity-map.json` and
+`data/travel-matrix.json`.
+
+1. `terrain_harvest.opportunity_map --gallery <TerrainGallery> --volume-id
+   tv_51a79e3b1bee05ea7559e799 --source <that volume's dir> --output ...` —
+   **runnable today**.
+2. `expedition.travel` needs `--structures` and `--manifest`, and the
+   structure-siting and map-manifest records exist only for the Alpha volume.
+   **This is the gap.** Both are produced by existing modules that have not been
+   run for this volume.
+3. Then zip, run `tools/analysis/map_authoring_optimizer.py`, and read
+   `balance_asymmetry` out of `author_portfolio`'s metrics — comparing against
+   the Alpha map's 0.0685.
+
+If minimal authoring closes a 0.32 accessible-land gap, the screen can accept
+far more geography than it does. If it cannot, N–S deficit becomes a screening
+gate rather than an authoring problem.
 
 ### Unresolved, do not decide silently
 - Natural regeneration is held OFF (`features.vitalsScaling.naturalRegeneration`).
