@@ -77,6 +77,28 @@ cd /private/tmp/alpha-server && nohup ./start-alpha.sh > /dev/null 2>&1 &
 `nohup ... &` is what makes it survive closing the Terminal window. Give it
 about twenty seconds, then connect to `localhost:25599`.
 
+### Resetting
+
+One command, and it says which scope it means:
+
+```bash
+echo "moba reset" >> /private/tmp/alpha-server/cmds
+```
+
+That resets the match: the world is rebuilt from the template and every
+participant is cleared. `moba match reset` is the same thing under its old name.
+
+To clear one player without rebuilding the world:
+
+```bash
+echo "moba reset player inspiralc" >> /private/tmp/alpha-server/cmds
+```
+
+Clearing a player means inventory, armour, offhand, vanilla XP, potion effects,
+task modifiers and progression, then re-issuing the tome and the locked-slot
+markers. A match reset is that applied to every participant, plus the world and
+the other match-scoped systems.
+
 ### 6. Set the match up again
 
 The world instance is rebuilt from the template on `open`, so match state never

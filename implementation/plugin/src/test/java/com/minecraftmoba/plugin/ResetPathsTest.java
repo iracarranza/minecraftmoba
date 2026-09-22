@@ -26,19 +26,39 @@ class ResetPathsTest {
         return Files.readString(Path.of("src/main/java/com/minecraftmoba/plugin/MobaPlugin.java"));
     }
 
-    @Test void theAdminResetGoesThroughTheSharedPath() throws Exception {
-        String src = plugin();
-        // Anchored on the admin branch's own message: there are two `case
-        // "reset"` labels and the first belongs to /moba match, which is
-        // exactly the confusion this test exists about.
-        int marker = src.indexOf("Empty cursor and temporary menu slots before reset.");
-        assertTrue(marker > 0, "the admin reset subcommand has been renamed");
-        int reset = src.lastIndexOf("case \"reset\" ->", marker);
-        String body = src.substring(reset, src.indexOf("\n                }", reset));
-        assertTrue(body.contains("clearMatchScopedState(p)"),
-                "admin reset must use the same clearing as match reset");
+    private static String resetCommand(String src) {
+        int i = src.indexOf("private boolean resetCommand");
+        assertTrue(i > 0, "resetCommand has been renamed or removed");
+        return src.substring(i, src.indexOf("\n    }", i));
+    }
+
+    @Test void oneCommandResetsAndItsScopeIsNamed() throws Exception {
+        // The bug was grammar, not logic: one verb meaning two scopes, and
+        // which one you got depended on where you typed it.
+        String body = resetCommand(plugin());
+        assertTrue(body.contains("case \"match\""), "no match scope");
+        assertTrue(body.contains("case \"player\""), "no player scope");
+        assertTrue(body.contains("clearMatchScopedState(target)"),
+                "the player scope must use the shared clearing");
         assertFalse(body.contains("new PlayerData("),
-                "rebuilding PlayerData here forks reset into two meanings");
+                "rebuilding PlayerData here forks reset into two meanings again");
+    }
+
+    @Test void bareResetMeansTheMatch() throws Exception {
+        // Almost always what is wanted, and the scope that used to require
+        // knowing it lived under a different command.
+        String body = resetCommand(plugin());
+        assertTrue(body.contains("args.length >= 2 ? args[1]") && body.contains("\"match\";"),
+                "bare /moba reset must default to the match scope");
+    }
+
+    @Test void resettingOnePlayerHasToBeAskedFor() throws Exception {
+        // The narrower, more surprising scope is the one you have to spell out.
+        String body = resetCommand(plugin());
+        int player = body.indexOf("case \"player\"");
+        String branch = body.substring(player, body.indexOf("}", body.indexOf("{", player)));
+        assertTrue(branch.contains("args.length != 3"),
+                "a player reset must name its player explicitly");
     }
 
     @Test void onlyTheSharedPathConstructsFreshPlayerData() throws Exception {
@@ -53,9 +73,11 @@ class ResetPathsTest {
                         + "another place that means something slightly different by reset");
     }
 
-    @Test void matchResetAndAdminResetClearTheSameThings() throws Exception {
-        // Both routes end in clearMatchScopedState, so the list of what reset
-        // means lives in exactly one method.
+    @Test void bothScopesClearTheSameThings() throws Exception {
+        // A match reset IS the player clear applied to every participant, plus
+        // the world and the other match-scoped systems. Containment, not two
+        // implementations -- so the list of what clearing means lives in
+        // exactly one method.
         String src = plugin();
         int clear = src.indexOf("public void clearMatchScopedState");
         String body = src.substring(clear, src.indexOf("\n    }", clear));

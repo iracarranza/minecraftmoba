@@ -192,6 +192,61 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private final java.util.Set<java.util.UUID> paused = new java.util.HashSet<>();
     public boolean enrollmentPaused(Player p) { return paused.contains(p.getUniqueId()); }
 
+    /**
+     * One reset, with its scope named.
+     *
+     * There were two commands and one verb. `/moba match reset` rebuilt the
+     * world and cleared every participant; `/moba reset <player>` cleared one
+     * player -- and for a while cleared rather less than that, which is how a
+     * reset that visibly did nothing shipped.
+     *
+     * They were never two implementations of one operation. A match reset IS
+     * the player clear applied to every participant, plus the world and the
+     * other match-scoped systems, so the relationship is containment. What was
+     * wrong was the grammar: the same word meant two different scopes and which
+     * one you got depended on where you typed it.
+     *
+     * So the scope is now said out loud. Bare `/moba reset` is the match, since
+     * that is what is almost always meant, and a single player has to be asked
+     * for. `/moba match reset` still works, because it is the form in the
+     * runbook and in muscle memory, and it runs the same code.
+     */
+    private boolean resetCommand(CommandSender sender, String[] args) {
+        String scope = args.length >= 2 ? args[1].toLowerCase(Locale.ROOT) : "match";
+        try {
+            switch (scope) {
+                case "match" -> {
+                    if (match == null) { sender.sendMessage("No match to reset."); return true; }
+                    sender.sendMessage(match.reset());
+                }
+                case "player" -> {
+                    if (args.length != 3) {
+                        sender.sendMessage("/moba reset player <name>"); return true;
+                    }
+                    Player target = org.bukkit.Bukkit.getPlayerExact(args[2]);
+                    if (target == null) {
+                        sender.sendMessage("No such player online: " + args[2]); return true;
+                    }
+                    if (!InventoryGuard.safeToReduce(target)) {
+                        sender.sendMessage(target.getName()
+                                + " must empty their cursor and temporary menu slots first.");
+                        return true;
+                    }
+                    clearMatchScopedState(target);
+                    var d = data(target);
+                    sender.sendMessage("Reset " + target.getName() + ": level=" + d.level
+                            + " xp=" + d.xp + " class=" + d.classId + ", inventory cleared.");
+                }
+                default -> sender.sendMessage(
+                        "/moba reset [match] | /moba reset player <name>"
+                        + "  -- bare 'reset' resets the match");
+            }
+        } catch (Exception ex) {
+            sender.sendMessage("reset: " + ex.getMessage());
+        }
+        return true;
+    }
+
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
 
@@ -314,7 +369,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     if (args.length != 3) { sender.sendMessage("/moba match skip <minutes>"); return true; }
                     sender.sendMessage(match.skipMinutes(Integer.parseInt(args[2])));
                 }
-                case "reset" -> sender.sendMessage(match.reset());
+                case "reset" -> sender.sendMessage(match.reset());   // alias of /moba reset
                 default -> sender.sendMessage(
                     "/moba match <open|add|start|status|skip|fountain|kill|reset>");
             }
@@ -443,6 +498,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
         }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("reset")) return resetCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("match")) return matchCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("worksite")) return worksiteCommand(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("work")) {
@@ -599,19 +655,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                         + " choices=" + d.choices + " capacity=" + capacity(d) + " mode=" + d.modeState.active + " " + inputs.debug(p));
                     return true;
                 }
-                case "reset" -> {
-                    if (args.length != 2) return false;
-                    if (!InventoryGuard.safeToReduce(p)) throw new IllegalArgumentException("Empty cursor and temporary menu slots before reset.");
-                    // ONE reset, not two. This used to swap PlayerData and stop
-                    // there -- no inventory, no vanilla XP, no task modifiers,
-                    // no re-issued tome -- so "reset" meant something different
-                    // depending on which command you typed. Match reset was
-                    // taught to clear all of that; this was left behind, and
-                    // since this is the one an admin actually types, resetting
-                    // visibly did nothing to items or levels.
-                    clearMatchScopedState(p);
-                    d = data(p);
-                }
+
                 case "setclass" -> {
                     if (args.length != 3) return false;
                     if (args[2].isBlank()) throw new IllegalArgumentException("Class ID cannot be blank.");
