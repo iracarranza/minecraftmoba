@@ -39,6 +39,9 @@ CROP_BLOCK = {'wheat': 'wheat', 'carrot': 'carrots', 'potato': 'potatoes',
 
 # Renewable species the optimizer can select, mapped to the pen fence that
 # reads as that kind of range. Animals themselves are spawned at runtime.
+# Opportunities the map records but does not BUILD. See template_for.
+UNAUTHORED = {'renewable_range', 'founder_crop'}
+
 SPECIES_FENCE = {
     'sheep': 'oak_fence', 'cow': 'oak_fence', 'pig': 'oak_fence',
     'chicken': 'birch_fence', 'rabbit': 'birch_fence',
@@ -80,17 +83,18 @@ def sites_of(configuration: dict):
 def template_for(site: dict):
     """Blocks for a site, or None with a reason if it cannot be authored."""
     kind, detail = site['kind'], site['detail']
-    if kind == 'founder_crop':
-        crop = CROP_BLOCK.get(detail)
-        if crop is None:
-            return None, f'unknown crop {detail!r}'
-        return crop_patch(span=24, crop=crop), None
-    if kind == 'renewable_range':
-        fence = SPECIES_FENCE.get(detail)
-        if fence is None:
-            # A species with no pen mapping is a real gap, not a default.
-            return None, f'no range massing defined for species {detail!r}'
-        return pen(span=40, post=fence), None
+    if kind in UNAUTHORED:
+        # Regenerative opportunities are NOT built. A pen is prebuilt
+        # containment and an irrigated field is player production geography, and
+        # both make the world's own manifestation indistinguishable from the
+        # thing players are supposed to create. The opportunity survives as
+        # authored geography -- the cell the optimizer chose, which the runtime
+        # reads as an Opportunity Region -- and its current manifestation is
+        # placed at match time on terrain that is eligible then.
+        #
+        # An empty template is deliberate rather than a failure: the placement
+        # is still recorded, so the opportunity is still part of the map.
+        return {}, None
     if kind == 'mining_worksite':
         return worksite(span=32), None
     if kind == 'poi':
@@ -121,9 +125,21 @@ def present_chunks(world: Path) -> set[tuple[int, int]]:
     return out
 
 
+def radius_of(template) -> int:
+    """How far a placement reaches. An UNAUTHORED opportunity reaches nowhere.
+
+    Zero is the honest answer for something that builds nothing: it needs no
+    chunk to be writable, claims no slot against its neighbours, and levels no
+    pad. Treating it as a structure with an invisible footprint would keep
+    reserving ground for a pen that is never coming.
+    """
+    if not template:
+        return 0
+    return max(max(abs(dx), abs(dz)) for dx, _, dz in template) + 1
+
 def footprint_chunks(x: int, z: int, template) -> set[tuple[int, int]]:
     """Every chunk a placement's blocks and its foundation pad would touch."""
-    r = max(max(abs(dx), abs(dz)) for dx, _, dz in template) + 1
+    r = radius_of(template)
     return {(cx, cz)
             for cx in range((x - r) >> 4, ((x + r) >> 4) + 1)
             for cz in range((z - r) >> 4, ((z + r) >> 4) + 1)}
@@ -133,9 +149,6 @@ def unwritable(x: int, z: int, template, chunks) -> list:
     """Chunks a placement needs that the world does not have."""
     return sorted(footprint_chunks(x, z, template) - chunks)
 
-
-def radius_of(template) -> int:
-    return max(max(abs(dx), abs(dz)) for dx, _, dz in template) + 1
 
 
 def allocate(sites, cell_size: int, chunks, margin: int = 4):
@@ -281,6 +294,11 @@ def author(frontier: dict, profile: str, rank: int, opportunity: dict,
         for p in placements:
             t = p['template']
             x, y, z = p['world_xyz']
+            if not t:
+                # Nothing to build, and nothing to level either: clearing a pad
+                # for a structure that is not coming is exactly the decorative
+                # spawn pad the regenerative model rejects.
+                continue
             r = max(max(abs(dx), abs(dz)) for dx, _, dz in t) + 1
             h = max(dy for _, dy, _ in t) + 2
             clear_and_foundation(editor, x, y, z, r, h, block('dirt'))
