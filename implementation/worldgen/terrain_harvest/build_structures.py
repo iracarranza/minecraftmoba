@@ -179,16 +179,59 @@ TEMPLATES = {
 }
 
 
-def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation):
-    """Level a pad so the massing reads, without sculpting surrounding terrain."""
+def _column_reader(world: Path):
+    """Read blocks back out of the world being written, for obstacle checks."""
+    from serialization.nbt import plain
+    from serialization.region import read_region
+    from vanilla_search.extract import VanillaChunk
+    chunks = {}
+    for f in sorted((world / 'region').glob('*.mca')):
+        for cx, cz, _, root in read_region(f):
+            chunks[(cx, cz)] = VanillaChunk(plain(root))
+
+    def at(x, y, z):
+        c = chunks.get((x >> 4, z >> 4))
+        if c is None:
+            return None
+        try:
+            return c.block(x, y, z)
+        except Exception:
+            return None
+    return at
+
+
+def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, column=None):
+    """Level a pad so the massing reads, without sculpting surrounding terrain.
+
+    Clearing a fixed height used to cut every tree inside the pad off at that
+    height and leave its canopy hanging in the air -- the trunk was in the
+    cleared volume and the leaves were above it. A tree in the way is felled
+    whole instead, so the site reads as cleared rather than as damaged.
+
+    `column` is optional because the caller may not have a world reader; without
+    it the old behaviour stands, and the floating leaves with it.
+    """
+    from .respect import fell, is_leaf, is_log, is_structure
     for dx, dz in _disc(radius):
+        x, z = cx + dx, cz + dz
         for dy in range(0, headroom):
-            editor.set(cx + dx, cy + dy, cz + dz, AIR)
-        editor.set(cx + dx, cy - 1, cz + dz, foundation)
+            y = cy + dy
+            here = column(x, y, z) if column else None
+            if here is not None and is_structure(here):
+                continue          # a building is not terrain
+            if here is not None and is_leaf(here):
+                editor.set(x, y, z, AIR)     # brush the branch aside
+                continue
+            if here is not None and is_log(here):
+                fell(editor, column, x, y, z, AIR)   # a trunk comes down whole
+                continue
+            editor.set(x, y, z, AIR)
+        editor.set(x, cy - 1, z, foundation)
 
 
 def build(world: Path, placements, report: Path, dry_run=False):
     editor = WorldEditor(world)
+    reader = _column_reader(world)
     built = []
     for p in placements:
         kind = p['structure']
@@ -199,7 +242,7 @@ def build(world: Path, placements, report: Path, dry_run=False):
         radius = max(abs(dx) for dx, _, _ in template) + 1
         height = max(dy for _, dy, _ in template) + 2
         clear_and_foundation(editor, x, y, z, radius + 1, height,
-                             block('polished_deepslate'))
+                             block('polished_deepslate'), column=reader)
         for (dx, dy, dz), state in template.items():
             editor.set(x + dx, y + dy, z + dz, state)
         built.append({'structure': kind, 'team': p.get('team'), 'world_xyz': [x, y, z],

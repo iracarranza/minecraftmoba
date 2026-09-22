@@ -33,6 +33,7 @@ from vanilla_search.extract import VanillaChunk
 from vanilla_search.task_a import Terrain, path_to, shortest
 
 from .build_structures import WorldEditor
+from .respect import fell, is_leaf, is_log, is_structure
 
 SCHEMA = 'map_routes_authored/1'
 
@@ -170,7 +171,7 @@ def carve(editor, chunks, centreline):
     profile = walkable_profile(raw)
     stats = {'surfaced': 0, 'bridged': 0, 'filled': 0, 'shaved': 0,
              'unwritable_columns': 0, 'worn': 0, 'assimilated': 0, 'constructed': 0,
-             'cleared': 0}
+             'cleared': 0, 'spared_structure': 0, 'felled': 0}
     # The acceptance measure, recorded where it is actually known.
     #
     # Counting steps between adjacent route COLUMNS over-reports, because two
@@ -197,6 +198,12 @@ def carve(editor, chunks, centreline):
                     stats['unwritable_columns'] += 1
                     continue
                 name, ty = top
+                # A village is not terrain. A corridor may run past a building
+                # and must not run through one, and the old carve had no way to
+                # tell a wall from a hillside -- so a Route demolished a house.
+                if is_structure(name):
+                    stats['spared_structure'] += 1
+                    continue
                 deviation = y - ty
                 stats[treatment(deviation)] += 1
 
@@ -225,9 +232,30 @@ def carve(editor, chunks, centreline):
                     stats['surfaced'] += 1
 
                 # Headroom at the WALKING height, not three above each column's
-                # own top. That is what cut stepped notches through slopes and
-                # bulldozed every tree the centreline passed near.
+                # own top. That is what cut stepped notches through slopes.
                 for dy in range(1, HEADROOM + 1):
+                    above = column(chunks, cx, cz, hi=y + dy, lo=y + dy)
+                    here = above[0] if above and above[1] == y + dy else None
+                    if is_structure(here):
+                        stats['spared_structure'] += 1
+                        continue
+                    if is_leaf(here):
+                        # Minimal foliage clearance: a branch at head height is
+                        # brushed aside and the tree it belongs to is left
+                        # standing. Felling for a leaf turned a corridor through
+                        # a forest into a clear-cut -- 186,226 blocks of one.
+                        editor.set(cx, y + dy, cz, AIR)
+                        stats['cleared'] += 1
+                        continue
+                    if is_log(here):
+                        # A trunk genuinely blocks the walk, and taking only the
+                        # part in the way is what leaves a canopy hanging. So
+                        # the tree comes down whole.
+                        stats['felled'] += fell(
+                            editor, lambda bx, by, bz: (lambda t: t[0] if t and t[1] == by else None)(
+                                column(chunks, bx, bz, hi=by, lo=by)),
+                            cx, cz, y + dy, AIR)
+                        continue
                     editor.set(cx, y + dy, cz, AIR)
                     stats['cleared'] += 1
     return stats
