@@ -1,0 +1,2085 @@
+{
+ "cell_size_blocks": 48,
+ "coverage": {
+  "cells_scanned": 9,
+  "not_covered": [
+   "whether a cave connects to the surface, which needs a flood fill from open sky",
+   "travel difficulty along a cave, as distinct from straight-line depth",
+   "structures, ravines and mineshafts as distinct from natural cave",
+   "what any of these values SHOULD be; maps.md leaves the gradient OPEN"
+  ]
+ },
+ "destinations": [
+  {
+   "id": "north_aether_fountain",
+   "kind": "aether_fountain",
+   "position": [
+    1828,
+    -244
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "north",
+   "y": 67
+  },
+  {
+   "id": "north_end_tower",
+   "kind": "end_tower",
+   "position": [
+    1884,
+    -92
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "north",
+   "y": 79
+  },
+  {
+   "id": "north_nether_bastion",
+   "kind": "nether_bastion",
+   "position": [
+    1844,
+    -188
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "north",
+   "y": 69
+  },
+  {
+   "id": "north_pillager_outpost",
+   "kind": "pillager_outpost",
+   "position": [
+    1876,
+    -140
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "north",
+   "y": 78
+  },
+  {
+   "id": "south_aether_fountain",
+   "kind": "aether_fountain",
+   "position": [
+    2212,
+    76
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "south",
+   "y": 78
+  },
+  {
+   "id": "south_end_tower",
+   "kind": "end_tower",
+   "position": [
+    1972,
+    -172
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "south",
+   "y": 71
+  },
+  {
+   "id": "south_nether_bastion",
+   "kind": "nether_bastion",
+   "position": [
+    2308,
+    -20
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "south",
+   "y": 77
+  },
+  {
+   "id": "south_pillager_outpost",
+   "kind": "pillager_outpost",
+   "position": [
+    2324,
+    28
+   ],
+   "source": "MAP MEASUREMENT",
+   "team": "south",
+   "y": 78
+  }
+ ],
+ "evidence_state": "DERIVED FROM RAW WORLD OBSERVATION",
+ "infrastructure": [],
+ "manifestations": [
+  {
+   "best_band": {
+    "density": 0.015219,
+    "ore": 102,
+    "solid": 6702,
+    "y": 39
+   },
+   "blocks_buried": 489,
+   "blocks_exposed": 15,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.0,
+   "discovery": "unknown",
+   "id": "coal_1616_-528",
+   "mean_y": 34.5,
+   "physical_blocks": 504,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.007947,
+    "ore": 53,
+    "solid": 6669,
+    "y": 37
+   },
+   "blocks_buried": 528,
+   "blocks_exposed": 4,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.1165,
+   "discovery": "unknown",
+   "id": "copper_1616_-528",
+   "mean_y": 22.5,
+   "physical_blocks": 532,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.007406,
+    "ore": 51,
+    "solid": 6886,
+    "y": -58
+   },
+   "blocks_buried": 250,
+   "blocks_exposed": 8,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 1.0,
+   "discovery": "unknown",
+   "id": "diamond_1616_-528",
+   "mean_y": -36.0,
+   "physical_blocks": 258,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.004905,
+    "ore": 32,
+    "solid": 6524,
+    "y": -19
+   },
+   "blocks_buried": 200,
+   "blocks_exposed": 10,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.7524,
+   "discovery": "unknown",
+   "id": "gold_1616_-528",
+   "mean_y": -10.0,
+   "physical_blocks": 210,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.010992,
+    "ore": 75,
+    "solid": 6823,
+    "y": 22
+   },
+   "blocks_buried": 657,
+   "blocks_exposed": 17,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.2745,
+   "discovery": "unknown",
+   "id": "iron_1616_-528",
+   "mean_y": 13.7,
+   "physical_blocks": 674,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.004119,
+    "ore": 28,
+    "solid": 6797,
+    "y": 20
+   },
+   "blocks_buried": 203,
+   "blocks_exposed": 5,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.6923,
+   "discovery": "unknown",
+   "id": "lapis_1616_-528",
+   "mean_y": -7.2,
+   "physical_blocks": 208,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.006657,
+    "ore": 46,
+    "solid": 6910,
+    "y": -52
+   },
+   "blocks_buried": 300,
+   "blocks_exposed": 4,
+   "cave": {
+    "components": 38,
+    "explorable_volume": 47830,
+    "exposed_ore_per_1k_cave": 1.32,
+    "largest_component": 33064,
+    "mean_y": 30.9
+   },
+   "deepslate_fraction": 0.9408,
+   "discovery": "unknown",
+   "id": "redstone_1616_-528",
+   "mean_y": -39.5,
+   "physical_blocks": 304,
+   "position": [
+    1640,
+    -504
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1640_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.030019,
+    "ore": 16,
+    "solid": 533,
+    "y": 84
+   },
+   "blocks_buried": 848,
+   "blocks_exposed": 31,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.0,
+   "discovery": "unknown",
+   "id": "coal_1616_-177",
+   "mean_y": 44.1,
+   "physical_blocks": 879,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.016529,
+    "ore": 10,
+    "solid": 605,
+    "y": 81
+   },
+   "blocks_buried": 834,
+   "blocks_exposed": 27,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.0708,
+   "discovery": "unknown",
+   "id": "copper_1616_-177",
+   "mean_y": 34.5,
+   "physical_blocks": 861,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003885,
+    "ore": 26,
+    "solid": 6692,
+    "y": -24
+   },
+   "blocks_buried": 212,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.9953,
+   "discovery": "unknown",
+   "id": "diamond_1616_-177",
+   "mean_y": -32.8,
+   "physical_blocks": 212,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003086,
+    "ore": 21,
+    "solid": 6805,
+    "y": -26
+   },
+   "blocks_buried": 234,
+   "blocks_exposed": 11,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.9184,
+   "discovery": "unknown",
+   "id": "gold_1616_-177",
+   "mean_y": -25.6,
+   "physical_blocks": 245,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.01233,
+    "ore": 76,
+    "solid": 6164,
+    "y": 28
+   },
+   "blocks_buried": 644,
+   "blocks_exposed": 42,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.2595,
+   "discovery": "unknown",
+   "id": "iron_1616_-177",
+   "mean_y": 13.1,
+   "physical_blocks": 686,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003413,
+    "ore": 21,
+    "solid": 6153,
+    "y": 14
+   },
+   "blocks_buried": 205,
+   "blocks_exposed": 6,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.564,
+   "discovery": "unknown",
+   "id": "lapis_1616_-177",
+   "mean_y": -8.5,
+   "physical_blocks": 211,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.009725,
+    "ore": 62,
+    "solid": 6375,
+    "y": -60
+   },
+   "blocks_buried": 265,
+   "blocks_exposed": 7,
+   "cave": {
+    "components": 74,
+    "explorable_volume": 12825,
+    "exposed_ore_per_1k_cave": 9.67,
+    "largest_component": 3097,
+    "mean_y": 13.9
+   },
+   "deepslate_fraction": 0.9522,
+   "discovery": "unknown",
+   "id": "redstone_1616_-177",
+   "mean_y": -39.2,
+   "physical_blocks": 272,
+   "position": [
+    1640,
+    -153
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 67.3,
+   "travel_site_id": "cave_1640_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.029512,
+    "ore": 173,
+    "solid": 5862,
+    "y": 63
+   },
+   "blocks_buried": 1193,
+   "blocks_exposed": 31,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.0,
+   "discovery": "unknown",
+   "id": "coal_1616_174",
+   "mean_y": 50.3,
+   "physical_blocks": 1224,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.012996,
+    "ore": 89,
+    "solid": 6848,
+    "y": 49
+   },
+   "blocks_buried": 738,
+   "blocks_exposed": 45,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.0856,
+   "discovery": "unknown",
+   "id": "copper_1616_174",
+   "mean_y": 37.4,
+   "physical_blocks": 783,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.003906,
+    "ore": 27,
+    "solid": 6912,
+    "y": -48
+   },
+   "blocks_buried": 214,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 1.0,
+   "discovery": "unknown",
+   "id": "diamond_1616_174",
+   "mean_y": -37.5,
+   "physical_blocks": 214,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.004919,
+    "ore": 34,
+    "solid": 6912,
+    "y": -38
+   },
+   "blocks_buried": 231,
+   "blocks_exposed": 6,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.8776,
+   "discovery": "unknown",
+   "id": "gold_1616_174",
+   "mean_y": -23.1,
+   "physical_blocks": 237,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.009368,
+    "ore": 27,
+    "solid": 2882,
+    "y": 17
+   },
+   "blocks_buried": 585,
+   "blocks_exposed": 41,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.3738,
+   "discovery": "unknown",
+   "id": "iron_1616_174",
+   "mean_y": 10.7,
+   "physical_blocks": 626,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.001991,
+    "ore": 13,
+    "solid": 6529,
+    "y": 1
+   },
+   "blocks_buried": 201,
+   "blocks_exposed": 3,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.5539,
+   "discovery": "unknown",
+   "id": "lapis_1616_174",
+   "mean_y": 1.0,
+   "physical_blocks": 204,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.007378,
+    "ore": 51,
+    "solid": 6912,
+    "y": -53
+   },
+   "blocks_buried": 311,
+   "blocks_exposed": 3,
+   "cave": {
+    "components": 183,
+    "explorable_volume": 23881,
+    "exposed_ore_per_1k_cave": 5.4,
+    "largest_component": 16099,
+    "mean_y": 32.7
+   },
+   "deepslate_fraction": 0.9618,
+   "discovery": "unknown",
+   "id": "redstone_1616_174",
+   "mean_y": -37.9,
+   "physical_blocks": 314,
+   "position": [
+    1640,
+    198
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 76.7,
+   "travel_site_id": "cave_1640_198"
+  },
+  {
+   "best_band": {
+    "density": 0.006897,
+    "ore": 45,
+    "solid": 6525,
+    "y": 22
+   },
+   "blocks_buried": 265,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.0376,
+   "discovery": "unknown",
+   "id": "coal_1903_-528",
+   "mean_y": 25.4,
+   "physical_blocks": 266,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.008113,
+    "ore": 53,
+    "solid": 6533,
+    "y": 21
+   },
+   "blocks_buried": 526,
+   "blocks_exposed": 23,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.1475,
+   "discovery": "unknown",
+   "id": "copper_1903_-528",
+   "mean_y": 20.3,
+   "physical_blocks": 549,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.006859,
+    "ore": 42,
+    "solid": 6123,
+    "y": -53
+   },
+   "blocks_buried": 232,
+   "blocks_exposed": 4,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.9958,
+   "discovery": "unknown",
+   "id": "diamond_1903_-528",
+   "mean_y": -39.1,
+   "physical_blocks": 236,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.003364,
+    "ore": 22,
+    "solid": 6539,
+    "y": -38
+   },
+   "blocks_buried": 218,
+   "blocks_exposed": 18,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.7712,
+   "discovery": "unknown",
+   "id": "gold_1903_-528",
+   "mean_y": -20.7,
+   "physical_blocks": 236,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.012252,
+    "ore": 82,
+    "solid": 6693,
+    "y": 8
+   },
+   "blocks_buried": 599,
+   "blocks_exposed": 38,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.3438,
+   "discovery": "unknown",
+   "id": "iron_1903_-528",
+   "mean_y": 7.4,
+   "physical_blocks": 637,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.004095,
+    "ore": 27,
+    "solid": 6594,
+    "y": -1
+   },
+   "blocks_buried": 203,
+   "blocks_exposed": 10,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.784,
+   "discovery": "unknown",
+   "id": "lapis_1903_-528",
+   "mean_y": -12.7,
+   "physical_blocks": 213,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.005564,
+    "ore": 36,
+    "solid": 6470,
+    "y": -45
+   },
+   "blocks_buried": 300,
+   "blocks_exposed": 10,
+   "cave": {
+    "components": 49,
+    "explorable_volume": 51800,
+    "exposed_ore_per_1k_cave": 2.01,
+    "largest_component": 36757,
+    "mean_y": 32.5
+   },
+   "deepslate_fraction": 0.929,
+   "discovery": "unknown",
+   "id": "redstone_1903_-528",
+   "mean_y": -35.0,
+   "physical_blocks": 310,
+   "position": [
+    1927,
+    -504
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_1927_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.015875,
+    "ore": 107,
+    "solid": 6740,
+    "y": 44
+   },
+   "blocks_buried": 410,
+   "blocks_exposed": 24,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.0369,
+   "discovery": "unknown",
+   "id": "coal_1903_-177",
+   "mean_y": 35.3,
+   "physical_blocks": 434,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.009169,
+    "ore": 60,
+    "solid": 6544,
+    "y": 21
+   },
+   "blocks_buried": 619,
+   "blocks_exposed": 20,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.1393,
+   "discovery": "unknown",
+   "id": "copper_1903_-177",
+   "mean_y": 25.8,
+   "physical_blocks": 639,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.00565,
+    "ore": 39,
+    "solid": 6903,
+    "y": -60
+   },
+   "blocks_buried": 227,
+   "blocks_exposed": 2,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.9869,
+   "discovery": "unknown",
+   "id": "diamond_1903_-177",
+   "mean_y": -38.7,
+   "physical_blocks": 229,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.004136,
+    "ore": 25,
+    "solid": 6045,
+    "y": -23
+   },
+   "blocks_buried": 229,
+   "blocks_exposed": 3,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.8276,
+   "discovery": "unknown",
+   "id": "gold_1903_-177",
+   "mean_y": -19.5,
+   "physical_blocks": 232,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.012313,
+    "ore": 83,
+    "solid": 6741,
+    "y": 11
+   },
+   "blocks_buried": 723,
+   "blocks_exposed": 27,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.2707,
+   "discovery": "unknown",
+   "id": "iron_1903_-177",
+   "mean_y": 11.4,
+   "physical_blocks": 750,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003272,
+    "ore": 22,
+    "solid": 6723,
+    "y": -4
+   },
+   "blocks_buried": 220,
+   "blocks_exposed": 2,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.509,
+   "discovery": "unknown",
+   "id": "lapis_1903_-177",
+   "mean_y": -0.5,
+   "physical_blocks": 222,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.0074,
+    "ore": 50,
+    "solid": 6757,
+    "y": -47
+   },
+   "blocks_buried": 342,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 36,
+    "explorable_volume": 26576,
+    "exposed_ore_per_1k_cave": 2.93,
+    "largest_component": 14879,
+    "mean_y": 25.9
+   },
+   "deepslate_fraction": 0.9503,
+   "discovery": "unknown",
+   "id": "redstone_1903_-177",
+   "mean_y": -37.6,
+   "physical_blocks": 342,
+   "position": [
+    1927,
+    -153
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.3,
+   "travel_site_id": "cave_1927_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.014979,
+    "ore": 67,
+    "solid": 4473,
+    "y": 45
+   },
+   "blocks_buried": 461,
+   "blocks_exposed": 22,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.0331,
+   "discovery": "unknown",
+   "id": "coal_1903_174",
+   "mean_y": 32.8,
+   "physical_blocks": 483,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.010417,
+    "ore": 72,
+    "solid": 6912,
+    "y": 23
+   },
+   "blocks_buried": 617,
+   "blocks_exposed": 9,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.0719,
+   "discovery": "unknown",
+   "id": "copper_1903_174",
+   "mean_y": 27.0,
+   "physical_blocks": 626,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.003497,
+    "ore": 22,
+    "solid": 6291,
+    "y": -40
+   },
+   "blocks_buried": 187,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.9734,
+   "discovery": "unknown",
+   "id": "diamond_1903_174",
+   "mean_y": -35.8,
+   "physical_blocks": 188,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.004621,
+    "ore": 25,
+    "solid": 5410,
+    "y": -26
+   },
+   "blocks_buried": 232,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.8966,
+   "discovery": "unknown",
+   "id": "gold_1903_174",
+   "mean_y": -23.9,
+   "physical_blocks": 232,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.008558,
+    "ore": 58,
+    "solid": 6777,
+    "y": 26
+   },
+   "blocks_buried": 681,
+   "blocks_exposed": 15,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.283,
+   "discovery": "unknown",
+   "id": "iron_1903_174",
+   "mean_y": 12.5,
+   "physical_blocks": 696,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.003201,
+    "ore": 22,
+    "solid": 6872,
+    "y": -1
+   },
+   "blocks_buried": 232,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.6223,
+   "discovery": "unknown",
+   "id": "lapis_1903_174",
+   "mean_y": -2.6,
+   "physical_blocks": 233,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.006944,
+    "ore": 48,
+    "solid": 6912,
+    "y": -56
+   },
+   "blocks_buried": 320,
+   "blocks_exposed": 3,
+   "cave": {
+    "components": 12,
+    "explorable_volume": 34664,
+    "exposed_ore_per_1k_cave": 1.47,
+    "largest_component": 23316,
+    "mean_y": 28.8
+   },
+   "deepslate_fraction": 0.8793,
+   "discovery": "unknown",
+   "id": "redstone_1903_174",
+   "mean_y": -34.9,
+   "physical_blocks": 323,
+   "position": [
+    1927,
+    198
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.4,
+   "travel_site_id": "cave_1927_198"
+  },
+  {
+   "best_band": {
+    "density": 0.012761,
+    "ore": 63,
+    "solid": 4937,
+    "y": 32
+   },
+   "blocks_buried": 202,
+   "blocks_exposed": 10,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.0,
+   "discovery": "unknown",
+   "id": "coal_2190_-528",
+   "mean_y": 30.5,
+   "physical_blocks": 212,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.013567,
+    "ore": 34,
+    "solid": 2506,
+    "y": 38
+   },
+   "blocks_buried": 308,
+   "blocks_exposed": 35,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.1866,
+   "discovery": "unknown",
+   "id": "copper_2190_-528",
+   "mean_y": 19.4,
+   "physical_blocks": 343,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.005208,
+    "ore": 36,
+    "solid": 6912,
+    "y": -49
+   },
+   "blocks_buried": 216,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.9861,
+   "discovery": "unknown",
+   "id": "diamond_2190_-528",
+   "mean_y": -43.1,
+   "physical_blocks": 216,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.004526,
+    "ore": 31,
+    "solid": 6849,
+    "y": -29
+   },
+   "blocks_buried": 195,
+   "blocks_exposed": 10,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.9122,
+   "discovery": "unknown",
+   "id": "gold_2190_-528",
+   "mean_y": -24.9,
+   "physical_blocks": 205,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.009949,
+    "ore": 39,
+    "solid": 3920,
+    "y": 14
+   },
+   "blocks_buried": 363,
+   "blocks_exposed": 72,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.3701,
+   "discovery": "unknown",
+   "id": "iron_2190_-528",
+   "mean_y": 5.8,
+   "physical_blocks": 435,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.00436,
+    "ore": 14,
+    "solid": 3211,
+    "y": 5
+   },
+   "blocks_buried": 166,
+   "blocks_exposed": 15,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.7127,
+   "discovery": "unknown",
+   "id": "lapis_2190_-528",
+   "mean_y": -17.0,
+   "physical_blocks": 181,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.00651,
+    "ore": 45,
+    "solid": 6912,
+    "y": -56
+   },
+   "blocks_buried": 234,
+   "blocks_exposed": 8,
+   "cave": {
+    "components": 25,
+    "explorable_volume": 97489,
+    "exposed_ore_per_1k_cave": 1.54,
+    "largest_component": 80150,
+    "mean_y": 30.6
+   },
+   "deepslate_fraction": 0.9752,
+   "discovery": "unknown",
+   "id": "redstone_2190_-528",
+   "mean_y": -41.5,
+   "physical_blocks": 242,
+   "position": [
+    2214,
+    -504
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 62.0,
+   "travel_site_id": "cave_2214_-504"
+  },
+  {
+   "best_band": {
+    "density": 0.024232,
+    "ore": 41,
+    "solid": 1692,
+    "y": 61
+   },
+   "blocks_buried": 591,
+   "blocks_exposed": 4,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.0034,
+   "discovery": "unknown",
+   "id": "coal_2190_-177",
+   "mean_y": 37.3,
+   "physical_blocks": 595,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.011567,
+    "ore": 20,
+    "solid": 1729,
+    "y": 60
+   },
+   "blocks_buried": 643,
+   "blocks_exposed": 11,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.1177,
+   "discovery": "unknown",
+   "id": "copper_2190_-177",
+   "mean_y": 27.2,
+   "physical_blocks": 654,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.005593,
+    "ore": 38,
+    "solid": 6794,
+    "y": -52
+   },
+   "blocks_buried": 254,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 1.0,
+   "discovery": "unknown",
+   "id": "diamond_2190_-177",
+   "mean_y": -36.3,
+   "physical_blocks": 255,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003911,
+    "ore": 26,
+    "solid": 6648,
+    "y": -32
+   },
+   "blocks_buried": 261,
+   "blocks_exposed": 5,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.8947,
+   "discovery": "unknown",
+   "id": "gold_2190_-177",
+   "mean_y": -20.4,
+   "physical_blocks": 266,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.010299,
+    "ore": 69,
+    "solid": 6700,
+    "y": 6
+   },
+   "blocks_buried": 739,
+   "blocks_exposed": 14,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.3586,
+   "discovery": "unknown",
+   "id": "iron_2190_-177",
+   "mean_y": 8.1,
+   "physical_blocks": 753,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.003008,
+    "ore": 5,
+    "solid": 1662,
+    "y": 62
+   },
+   "blocks_buried": 214,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.5721,
+   "discovery": "unknown",
+   "id": "lapis_2190_-177",
+   "mean_y": -3.5,
+   "physical_blocks": 215,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.004919,
+    "ore": 34,
+    "solid": 6912,
+    "y": -60
+   },
+   "blocks_buried": 299,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 17,
+    "explorable_volume": 25626,
+    "exposed_ore_per_1k_cave": 1.44,
+    "largest_component": 21245,
+    "mean_y": 42.8
+   },
+   "deepslate_fraction": 0.9367,
+   "discovery": "unknown",
+   "id": "redstone_2190_-177",
+   "mean_y": -35.8,
+   "physical_blocks": 300,
+   "position": [
+    2214,
+    -153
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 64.0,
+   "travel_site_id": "cave_2214_-153"
+  },
+  {
+   "best_band": {
+    "density": 0.031283,
+    "ore": 179,
+    "solid": 5722,
+    "y": 88
+   },
+   "blocks_buried": 1529,
+   "blocks_exposed": 43,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.0337,
+   "discovery": "unknown",
+   "id": "coal_2190_174",
+   "mean_y": 55.4,
+   "physical_blocks": 1572,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "coal",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.013727,
+    "ore": 92,
+    "solid": 6702,
+    "y": 29
+   },
+   "blocks_buried": 829,
+   "blocks_exposed": 64,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.0616,
+   "discovery": "unknown",
+   "id": "copper_2190_174",
+   "mean_y": 37.9,
+   "physical_blocks": 893,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "copper",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.006323,
+    "ore": 41,
+    "solid": 6484,
+    "y": -24
+   },
+   "blocks_buried": 285,
+   "blocks_exposed": 0,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.9895,
+   "discovery": "unknown",
+   "id": "diamond_2190_174",
+   "mean_y": -37.0,
+   "physical_blocks": 285,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "diamond",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.005092,
+    "ore": 35,
+    "solid": 6874,
+    "y": -11
+   },
+   "blocks_buried": 259,
+   "blocks_exposed": 6,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.9472,
+   "discovery": "unknown",
+   "id": "gold_2190_174",
+   "mean_y": -19.4,
+   "physical_blocks": 265,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "gold",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.008681,
+    "ore": 60,
+    "solid": 6912,
+    "y": 10
+   },
+   "blocks_buried": 687,
+   "blocks_exposed": 35,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.3199,
+   "discovery": "unknown",
+   "id": "iron_2190_174",
+   "mean_y": 13.3,
+   "physical_blocks": 722,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "iron",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.00357,
+    "ore": 24,
+    "solid": 6722,
+    "y": -20
+   },
+   "blocks_buried": 222,
+   "blocks_exposed": 2,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.692,
+   "discovery": "unknown",
+   "id": "lapis_2190_174",
+   "mean_y": -8.9,
+   "physical_blocks": 224,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "lapis",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  },
+  {
+   "best_band": {
+    "density": 0.006944,
+    "ore": 48,
+    "solid": 6912,
+    "y": -59
+   },
+   "blocks_buried": 353,
+   "blocks_exposed": 1,
+   "cave": {
+    "components": 21,
+    "explorable_volume": 34120,
+    "exposed_ore_per_1k_cave": 4.43,
+    "largest_component": 25345,
+    "mean_y": 51.7
+   },
+   "deepslate_fraction": 0.9068,
+   "discovery": "unknown",
+   "id": "redstone_2190_174",
+   "mean_y": -31.7,
+   "physical_blocks": 354,
+   "position": [
+    2214,
+    198
+   ],
+   "resource": "redstone",
+   "route_from": null,
+   "source": "MAP MEASUREMENT",
+   "surface_y": 87.9,
+   "travel_site_id": "cave_2214_198"
+  }
+ ],
+ "not_covered": [
+  "traversable route length from any destination to any cave mouth; the cave scan measures volume, not paths",
+  "which cave components actually reach open sky",
+  "hostile pressure underground, which the opportunity map reads as zero",
+  "Worksite and Supply Line state, which no map artefact yet emits"
+ ],
+ "schema": "expedition_map_manifest/1",
+ "source_files": {
+  "caves": {
+   "region/r.3.-1.mca": "6d71532ec908bc5c91c2fba19a6a9c6453e756553f45eb1e2b31813dac857d4d",
+   "region/r.3.-2.mca": "997de9b48e7ce143712fa8ab1deb364dbcfb7113250dcf05b95f1b5aa48d33f9",
+   "region/r.3.0.mca": "0c4f7ed5eabc096afeda9ac7c1529598199fa5474520f8d542f5ad9ee9f63c01",
+   "region/r.3.1.mca": "c6fa1af32b78c2f8fcb9cf087fd1128cf5f0fa9330d3e05829ac4b06bf5f1c78",
+   "region/r.4.-1.mca": "6beae667d87ceeb9788d4711d37bdea7bb520c695a33723783d05ed1b5db033f",
+   "region/r.4.-2.mca": "ca29caaf22bcfc113bf201f8b8a65cedaac41415e4389078239ec78d19238868",
+   "region/r.4.0.mca": "0d88eaf2dd08e2727f077f8461b7b557ca247f9f6448a2a3b716b377e9d19888",
+   "region/r.4.1.mca": "8dcc16ec0dd066f741070f587c80f9852bf390819a1b3effe8af15fa37507657"
+  },
+  "structures": null
+ },
+ "volume_id": "tv_51a79e3b1bee05ea7559e799",
+ "worksites": [],
+ "y_range": [
+  -60,
+  90
+ ]
+}
