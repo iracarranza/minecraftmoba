@@ -67,6 +67,33 @@ public final class Sentinel {
         var pdc = meta.getPersistentDataContainer();
         pdc.set(markerKey, PersistentDataType.BYTE, (byte) 1);
         pdc.set(classKey, PersistentDataType.STRING, classId);
+        applyAbilityPanelProbe(meta);
+    }
+
+    /**
+     * PROBE, not a feature. Answers two questions no documentation settles.
+     *
+     * A GUI item model is not scissored to its slot, so scaling and translating
+     * one should push art LEFT out of the offhand slot into the empty HUD space
+     * beside it -- which is the only way to put custom art at that exact
+     * position, since glyphs can only be placed on the action bar line above.
+     *
+     * The decisive question is the second one: the corner minimap renders
+     * BECAUSE a FILLED_MAP is held in the offhand, and overriding that item's
+     * model may suppress it. If it does, the tome cannot also be the ability
+     * row and the row moves to glyphs.
+     *
+     * Off by default. Turning it on visibly changes the tome, and it is meant
+     * to be looked at once and then decided, not left running.
+     */
+    private void applyAbilityPanelProbe(org.bukkit.inventory.meta.ItemMeta meta) {
+        if (!plugin.getConfig().getBoolean("features.abilityPanelProbe.enabled")) return;
+        String model = plugin.getConfig().getString(
+                "features.abilityPanelProbe.itemModel", "moba:ability_panel");
+        var key = NamespacedKey.fromString(model);
+        if (key == null) throw new IllegalArgumentException(
+                "features.abilityPanelProbe.itemModel is not a key: " + model);
+        meta.setItemModel(key);
     }
 
     /** Persistent data only: material is cosmetic and must not confer identity. */

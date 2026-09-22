@@ -171,6 +171,21 @@ features:
     # with no map surface.
     enabled: true
     material: SKELETON_SKULL
+  # PROBE, not a feature. Overrides the tome's GUI model with a scaled, offset
+  # placeholder that should overflow the offhand slot to the LEFT, into the
+  # empty HUD space beside it.
+  #
+  # It answers two questions: whether art can be placed at that exact position
+  # at all -- glyphs can only sit on the action bar line above the hotbar -- and
+  # whether overriding the item's model SUPPRESSES THE CORNER MINIMAP, which
+  # renders because a FILLED_MAP is in the offhand. If the minimap dies, the
+  # tome cannot carry an ability row and the row goes to glyphs instead.
+  #
+  # Off by default: it visibly changes the tome and is meant to be looked at
+  # once and then decided, not left running.
+  abilityPanelProbe:
+    enabled: false
+    itemModel: "moba:ability_panel"
   # The tome: ONE offhand item that is the sentinel, the class text and the map.
   #
   # SPEC section 11 requires the offhand item to be a FILLED_MAP from the start,

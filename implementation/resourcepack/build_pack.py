@@ -69,6 +69,38 @@ def placeholder_glyph(index: int, size: int = 16):
     return pixels
 
 
+def ability_panel_probe(size: int = 64):
+    """Three outlined cells on a baseline. A ruler, not artwork.
+
+    Drawn into the upper band of a square texture so the rendered quad reads as
+    a wide strip: the transparent remainder does not render, and a square source
+    avoids the non-square generated-model handling.
+    """
+    white = (255, 255, 255, 255)
+    dim = (255, 255, 255, 70)
+    clear = (0, 0, 0, 0)
+    pixels = [clear] * (size * size)
+
+    def put(x, y, colour):
+        if 0 <= x < size and 0 <= y < size:
+            pixels[y * size + x] = colour
+
+    # Three 18x18 cells with a 2px gutter, left-aligned in a 24..42 band.
+    for cell in range(3):
+        x0 = 2 + cell * 20
+        for i in range(18):
+            put(x0 + i, 24, white); put(x0 + i, 41, white)      # top and bottom
+            put(x0, 24 + i, white); put(x0 + 17, 24 + i, white)  # sides
+        for ix in range(x0 + 2, x0 + 16):
+            for iy in range(26, 40):
+                put(ix, iy, dim)
+        # cell index as bars along the inside top edge, so 1/2/3 is legible
+        for bar in range(cell + 1):
+            for iy in range(27, 30):
+                put(x0 + 3 + bar * 3, iy, white)
+    return pixels
+
+
 def codepoint(index: int) -> str:
     return chr(0xE000 + index)
 
@@ -129,6 +161,35 @@ def build(registry: dict, out: Path):
             "parent": "minecraft:item/generated",
             "textures": {"layer0": f"moba:{texture}"}
         })
+
+    # ---- ability panel probe -------------------------------------------
+    #
+    # A test of one question the documentation cannot answer: whether a GUI item
+    # model can be scaled and pushed LEFT out of the offhand slot into the empty
+    # HUD space beside it, and -- decisively -- whether doing that suppresses the
+    # corner minimap, which renders because a FILLED_MAP is held in the offhand.
+    #
+    # If the minimap survives, the ability row can live exactly where the offhand
+    # slot is. If it does not, the tome cannot carry it and the row moves to
+    # glyphs in the action bar.
+    #
+    # Deliberately ugly: three outlined cells and a baseline, so alignment and
+    # extent are readable and nobody mistakes it for a design.
+    png_rgba(assets / "textures" / "item" / "ability_panel.png", 64, 64,
+             ability_panel_probe())
+    write_json(assets / "models" / "item" / "ability_panel.json", {
+        "parent": "minecraft:item/generated",
+        "textures": {"layer0": "moba:item/ability_panel"},
+        # scale and translation are the whole point of the probe. GUI item
+        # rendering is not scissored to the slot, so this should overflow it.
+        "display": {"gui": {"rotation": [0, 0, 0],
+                            "translation": [-11, 0, 0],
+                            "scale": [2.4, 2.4, 2.4]}}
+    })
+    # The 1.21.4+ item definition the minecraft:item_model component resolves.
+    write_json(assets / "items" / "ability_panel.json", {
+        "model": {"type": "minecraft:model", "model": "moba:item/ability_panel"}
+    })
 
     # Hide the vanilla hunger row.
     #
