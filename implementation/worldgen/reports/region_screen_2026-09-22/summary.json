@@ -1,0 +1,30 @@
+{
+ "schema": "region_character_screen/1",
+ "date": "2026-09-22",
+ "seeds_swept": 20000,
+ "accepted_windows": 35151,
+ "distinct_seeds": 11087,
+ "pairings": {
+  "forest/oceanic": 8049,
+  "forest/open": 7391,
+  "oceanic/open": 4655,
+  "arid/forest": 3045,
+  "arid/oceanic": 2793,
+  "forest/frozen": 1836,
+  "frozen/oceanic": 1783,
+  "arid/open": 1739,
+  "frozen/open": 972,
+  "forest/wet": 603,
+  "oceanic/wet": 590,
+  "open/wet": 391,
+  "alpine/frozen": 331,
+  "alpine/forest": 277,
+  "arid/wet": 243,
+  "alpine/oceanic": 181,
+  "alpine/open": 152,
+  "frozen/wet": 103,
+  "alpine/arid": 11,
+  "alpine/wet": 6
+ },
+ "note": "Accepted windows only. Full JSONL is reproducible with coarse --regions 930001000 20000."
+}

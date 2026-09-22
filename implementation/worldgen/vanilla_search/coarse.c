@@ -119,13 +119,30 @@ int main(int argc,char **argv) {
                         }
                     }
                     hn/=nhn;hs/=nhs;op/=891;
-                    int wtop=0,etop=0;
-                    for(int c=1;c<CH_N;c++){ if(wch[c]>wch[wtop])wtop=c; if(ech[c]>ech[etop])etop=c; }
-                    double wfrac=(double)wch[wtop]/nw, efrac=(double)ech[etop]/ne;
+                    /* GRADIENT, not dominance.
+                     *
+                     * The staged screen's real test was `eo > wo` -- ocean
+                     * INCREASES eastward -- which is a gradient and can be
+                     * strong without either end being made of ocean. Reading it
+                     * as "each end is dominated by some character" looked
+                     * equivalent and is not: highland almost never dominates a
+                     * third, so the current Alpha map came back classified
+                     * open/forest at a window its own screen never chose.
+                     *
+                     * So: find the character that most increases west-to-east
+                     * and the one that most increases east-to-west. Those two
+                     * name the map's poles, and their gradients are its
+                     * contrast, whatever the biomes happen to be. */
+                    int wtop=0,etop=0; double wgrad=-1,egrad=-1;
+                    for(int c=0;c<CH_N;c++) {
+                        double wf=(double)wch[c]/nw, ef=(double)ech[c]/ne;
+                        if(wf-ef>wgrad){wgrad=wf-ef;wtop=c;}
+                        if(ef-wf>egrad){egrad=ef-wf;etop=c;}
+                    }
                     if(wtop==etop) { continue; }                 /* ends must differ */
                     if(hn<.30||hs<.30) { continue; }             /* team axis fairness */
-                    double contrast=wfrac<efrac?wfrac:efrac;     /* the weaker end sets it */
-                    if(contrast<.35) { continue; }               /* both ends distinctive */
+                    double contrast=wgrad<egrad?wgrad:egrad;     /* the weaker pole sets it */
+                    if(contrast<.20) { continue; }               /* the contrast must be real */
                     double score=60*contrast+18*op+10*(hn<hs?hn:hs);
                     if(score>best){best=score;bestrot=r*90;bw=wtop;be=etop;bhn=hn;bhs=hs;bcontrast=contrast;bop=op;}
                 }
