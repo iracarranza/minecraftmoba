@@ -56,12 +56,40 @@ four steps and gates on the two failures that are silent.
 - **Map vote/ban** — the eventual intent. It already settles that map balance is
   scored per named configuration rather than per family.
 
-### In flight when this handoff was written
-- **Generalized seed screening.** `vanilla_search/coarse.c --regions` replaces
-  "ocean east, highland west" with a region-CHARACTER classifier, so
-  mesa/desert/jungle or peaks/valley/stonelands can pass the same gate. The
-  staged screen is untouched and still reproducible. See
-  `docs/analysis/2026-09-22-region-character-screen.md`.
+### Seed generalization — done far enough to hand over
+
+- **`vanilla_search/coarse.c --regions`** replaces "ocean east, highland west"
+  with a region-CHARACTER classifier. 20,000 seeds give 8,425 accepted across
+  12 pairings, against one composition by construction. The staged screen is
+  untouched and still reproducible.
+  → `docs/analysis/2026-09-22-region-character-screen.md`
+- **`terrain_harvest.compare_seeds`** then showed the balance machinery is
+  composition-agnostic in practice: Task A's fit ran unmodified over eight
+  candidates in six pairings. The current Alpha seed has the best homeland
+  asymmetry of the eight (0.0645); forest/frozen (0.0886) and forest/open
+  (0.0983) are close behind.
+  → `docs/analysis/2026-09-22-cross-composition-balance.md`
+
+**The next experiment is specified and blocked on one thing.** Seed 930015734
+is the mesa-and-jungle case, homeland quality 0.950 north against 0.468 south —
+asymmetry 0.3397, the worst of the eight. Authoring exists to make a near-miss
+competitive, so the question is whether authored opportunities can close a 0.34
+homeland gap. Run the optimizer over that seed to get a scenario frontier, then
+`author_portfolio` and read `balance_asymmetry`, comparing against the current
+map's 0.0685.
+
+Blocked because the optimizer takes an `export.zip` per seed and only the Alpha
+volume has one. That export is the whole of the remaining work; everything
+downstream already runs.
+
+If the gap closes, the screen can afford far more geography than it accepts. If
+it does not, homeland asymmetry becomes a screening gate rather than an
+authoring problem — which is worth knowing before broadening the search.
+
+**One metric in that comparison is broken and labelled as such.**
+`land_asymmetry` reads 0.0000 for every seed because land band counts are summed
+over halves with equal sample counts by construction. Do not read it as balance.
+Per-team land wants buildable fraction or depth-weighted land instead.
 
 ### Unresolved, do not decide silently
 - Natural regeneration is held OFF (`features.vitalsScaling.naturalRegeneration`).
