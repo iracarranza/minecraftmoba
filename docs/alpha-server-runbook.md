@@ -88,6 +88,45 @@ cd /private/tmp/alpha-server && for c in "moba match open" "moba match add inspi
 
 ---
 
+## The resource pack
+
+The server hands the pack to every player who joins, so there is nothing to
+install by hand and nothing to select in the client's resource-pack list. It
+arrives on connect.
+
+`deploy.sh` does the whole chain: builds the pack, zips it, hashes it, writes
+the hash into the deployed config, and starts a small HTTP host on
+`127.0.0.1:25580` if one is not already up. The hash matters — clients cache by
+it, so a rebuilt pack behind a stale hash is silently ignored and looks exactly
+like the pack not working.
+
+Check it is being served:
+
+```bash
+curl -sI http://127.0.0.1:25580/moba-pack.zip | head -1
+```
+
+Confirm the served file matches the hash the server is advertising:
+
+```bash
+curl -s http://127.0.0.1:25580/moba-pack.zip | shasum
+```
+
+If a player declines or the download fails, the plugin logs it:
+
+```bash
+grep -i "resource pack" /private/tmp/alpha-server/logs/latest.log
+```
+
+The pack host survives server restarts, because it is a separate process. To
+stop it:
+
+```bash
+lsof -ti :25580 | xargs kill
+```
+
+---
+
 ## Checking the plugin actually loaded
 
 ```bash

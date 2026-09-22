@@ -55,5 +55,24 @@ grep -q "templatePath: \"$TEMPLATE\"" "$SERVER/plugins/MinecraftMoba/config.yml"
     echo "REFUSED: could not rewrite alpha.templatePath; check its key in config.yml" >&2
     exit 1
 }
+# Build, zip and hash the resource pack, and write the hash into the config we
+# just deployed. The pack and its hash must ship together: clients cache by
+# hash, so a rebuilt pack behind a stale hash is silently not applied, and the
+# symptom is indistinguishable from the pack not working at all.
+PACK_DIR="$SERVER/pack"
+python3 "$(dirname "$0")/../resourcepack/publish.py" \
+    --serve-dir "$PACK_DIR" \
+    --config "$SERVER/plugins/MinecraftMoba/config.yml" | sed 's/^/  /'
+
+# The pack has to be reachable over HTTP for the server to hand it out.
+if ! lsof -ti :25580 >/dev/null 2>&1; then
+    (cd "$PACK_DIR" && nohup python3 -m http.server 25580 --bind 127.0.0.1 \
+        > "$PACK_DIR/http.log" 2>&1 &)
+    sleep 1
+    echo "  started the pack host on 127.0.0.1:25580"
+else
+    echo "  pack host already running on 127.0.0.1:25580"
+fi
+
 echo "deployed $(basename "$JAR") and config.yml to $SERVER"
 echo "  template -> $TEMPLATE"

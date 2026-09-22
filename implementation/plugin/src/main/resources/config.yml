@@ -171,6 +171,24 @@ features:
     # with no map surface.
     enabled: true
     material: SKELETON_SKULL
+  # The server hands every arriving player the pack.
+  #
+  # It has to: the plugin blanks vanilla sprites and draws replacements from
+  # private-use codepoints, so a client without the pack sees missing hunger
+  # icons and tofu rather than a degraded version of the intended HUD. Before
+  # this, build_pack.py wrote to wherever --output pointed and nothing ever put
+  # the result in front of a client at all.
+  #
+  # sha1 is written by implementation/resourcepack/publish.py, which builds the
+  # zip and the hash together. Clients cache by hash, so a rebuilt pack with a
+  # stale hash is silently not applied -- a failure that looks exactly like the
+  # pack not working.
+  resourcePack:
+    enabled: true
+    url: "http://127.0.0.1:25580/moba-pack.zip"
+    sha1: ""
+    required: false
+    prompt: "Minecraft MOBA uses a resource pack for its HUD."
   # PROBE, not a feature. Overrides the tome's GUI model with a scaled, offset
   # placeholder that should overflow the offhand slot to the LEFT, into the
   # empty HUD space beside it.
