@@ -77,6 +77,26 @@ cd /private/tmp/alpha-server && nohup ./start-alpha.sh > /dev/null 2>&1 &
 `nohup ... &` is what makes it survive closing the Terminal window. Give it
 about twenty seconds, then connect to `localhost:25599`.
 
+### Map configurations
+
+A match's world is the base terrain plus one authored configuration, drawn at
+random each time a world loads — so every `moba reset` also redraws the map.
+
+```bash
+echo "moba maps" >> /private/tmp/alpha-server/cmds
+```
+
+To pin one for a controlled test, set `alpha.configurations.force` in the
+deployed config to `consolidative` or `resource_light` and restart.
+
+To add a configuration, author it, then export it against the base:
+
+```bash
+cd ~/minecraftmoba/.claude/worktrees/datapack-class-mechanics-3735c1/implementation/worldgen && python3 -m terrain_harvest.map_diff --base ~/minecraftmoba/artifacts/worldgen/alpha-0.1/base-terrain --authored <authored-world> --name <name> --out ~/minecraftmoba/artifacts/worldgen/alpha-0.1/maps/<name>.json.gz
+```
+
+Then add its name to `alpha.configurations.include` and redeploy.
+
 ### Resetting
 
 One command, and it says which scope it means:

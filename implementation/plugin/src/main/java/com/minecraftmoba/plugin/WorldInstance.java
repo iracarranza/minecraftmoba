@@ -119,6 +119,12 @@ public final class WorldInstance {
     }
 
     /**
+     * The base the instance is copied from, before any configuration is applied.
+     * Exposed so the fingerprint check can see what it is verifying against.
+     */
+    public java.nio.file.Path basePath() { return template; }
+
+    /**
      * Load a FRESH instance.
      *
      * ALPHA-D2 says loading a match and resetting one are the same mechanism --
@@ -133,6 +139,11 @@ public final class WorldInstance {
         if (mustMaterialize(false, Files.isDirectory(instancePath()))) materialize();
         World w = Bukkit.createWorld(new WorldCreator(instanceName));
         if (w == null) throw new IOException("Bukkit refused to load " + instanceName);
+        // A match's map is the base plus one authored configuration, chosen
+        // fresh each time. Applying here rather than in Match means a reset gets
+        // a new draw too, because reset IS load.
+        var maps = plugin.mapConfigurations();
+        if (maps != null && maps.enabled()) maps.applyTo(w, template);
         return w;
     }
 

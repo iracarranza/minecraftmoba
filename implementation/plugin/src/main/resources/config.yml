@@ -792,7 +792,25 @@ alpha:
   # searched against the server directory, the plugin data folder and their
   # ancestors. A server deployed outside the repository must give an ABSOLUTE
   # path here -- the template is the frozen authority and is never copied.
-  templatePath: artifacts/worldgen/alpha-0.1/consolidative-alpha
+  # The BASE terrain. A match's map is a copy of this with one authored
+  # configuration applied, so this is pristine ground and holds no authored
+  # structures at all. deploy.sh rewrites the path for the running server.
+  templatePath: artifacts/worldgen/alpha-0.1/base-terrain
+  # Map configurations: each is every block that configuration changes about the
+  # base, exported by terrain_harvest.map_diff. A configuration is a 300KB file
+  # rather than a 28MB world, so a second one costs nothing to add, and every
+  # structure stays defined once -- in the Python authoring, where the terrain
+  # analysis lives.
+  #
+  # One is drawn at random per match, from a catalogue whose members were each
+  # authored and measured offline. Set `force` to pin one for a controlled test.
+  configurations:
+    enabled: true
+    directory: maps
+    include:
+      - consolidative
+      - resource_light
+    force: ""
   instanceWorldName: alpha_match
   # Homeland spawn per team, [x, z] or [x, z, y].
   #

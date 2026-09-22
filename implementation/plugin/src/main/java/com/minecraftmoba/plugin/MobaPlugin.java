@@ -125,6 +125,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         taskEffects = new TaskEffects(this);
         hud = new Hud(this);
         renewAuthoring = new RenewableAuthoring(this);
+        mapConfigurations = new MapConfigurations(this);
+        mapConfigurations.reload();
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
         match = new Match(this, worldInstance);
@@ -282,6 +284,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
 
     public WorldInstance worldInstance() { return worldInstance; }
+    private MapConfigurations mapConfigurations;
+    public MapConfigurations mapConfigurations() { return mapConfigurations; }
 
     /**
      * Clear a player's match-scoped state (ALPHA-D2 confirmation: progression
@@ -545,6 +549,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             }
             taskEffects.grant(target, data(target), domain, Integer.parseInt(args[3]));
             sender.sendMessage(taskEffects.report(data(target))); return true;
+        }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("maps")) {
+            mapConfigurations.report().forEach(sender::sendMessage); return true;
         }
         if (args.length >= 1 && args[0].equalsIgnoreCase("bench")) return applyBench.handle(sender, args);
         if (args.length >= 1 && args[0].equalsIgnoreCase("reset")) return resetCommand(sender, args);

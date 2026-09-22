@@ -43,12 +43,22 @@ cp "$JAR" "$SERVER/plugins/"
 # instance directory already existed. The two defects cancelled into "the world
 # never resets", which is what was actually reported.
 MAIN_CHECKOUT="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
-TEMPLATE="$MAIN_CHECKOUT/artifacts/worldgen/alpha-0.1/consolidative-alpha"
+TEMPLATE="$MAIN_CHECKOUT/artifacts/worldgen/alpha-0.1/base-terrain"
+MAPS="$MAIN_CHECKOUT/artifacts/worldgen/alpha-0.1/maps"
 if [ ! -d "$TEMPLATE" ]; then
-    echo "REFUSED: no Alpha template at $TEMPLATE" >&2
+    echo "REFUSED: no base terrain at $TEMPLATE" >&2
     echo "Every match open and every reset would fail. Build or restore it first." >&2
     exit 1
 fi
+if [ ! -d "$MAPS" ]; then
+    echo "REFUSED: no map configurations at $MAPS" >&2
+    echo "Export them with terrain_harvest.map_diff first." >&2
+    exit 1
+fi
+# Map configurations are small enough to live beside the server rather than be
+# searched for, and they must travel with the jar that reads them.
+mkdir -p "$SERVER/maps" && cp "$MAPS"/*.json.gz "$SERVER/maps/" 2>/dev/null
+echo "  maps -> $(ls "$SERVER/maps" | tr '\n' ' ')"
 sed "s|^  templatePath:.*|  templatePath: \"$TEMPLATE\"|" \
     src/main/resources/config.yml > "$SERVER/plugins/MinecraftMoba/config.yml"
 grep -q "templatePath: \"$TEMPLATE\"" "$SERVER/plugins/MinecraftMoba/config.yml" || {
