@@ -602,8 +602,15 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 case "reset" -> {
                     if (args.length != 2) return false;
                     if (!InventoryGuard.safeToReduce(p)) throw new IllegalArgumentException("Empty cursor and temporary menu slots before reset.");
-                    inputs.forget(p);
-                    d = new PlayerData(p.getUniqueId()); players.put(d.uuid, d);
+                    // ONE reset, not two. This used to swap PlayerData and stop
+                    // there -- no inventory, no vanilla XP, no task modifiers,
+                    // no re-issued tome -- so "reset" meant something different
+                    // depending on which command you typed. Match reset was
+                    // taught to clear all of that; this was left behind, and
+                    // since this is the one an admin actually types, resetting
+                    // visibly did nothing to items or levels.
+                    clearMatchScopedState(p);
+                    d = data(p);
                 }
                 case "setclass" -> {
                     if (args.length != 3) return false;
