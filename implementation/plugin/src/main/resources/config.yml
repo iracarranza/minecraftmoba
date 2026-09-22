@@ -808,14 +808,17 @@ alpha:
     enabled: true
     directory: maps
     include:
-      # Re-authored 2026-09-22 with terrain-fitted Routes. Zero unclimbable
-      # steps along the centreline against the frozen map's 7.7%.
+      # Re-authored 2026-09-22: terrain-fitted Routes, and regenerative
+      # opportunities recorded but not built. Same base terrain, different
+      # opportunity layouts -- 10 worksites / 8 renewables against 8 / 6, and
+      # only 8 of their placement positions in common.
       - consolidative_v2
-      - resource_light
-      # The frozen map, kept as a control: its Routes are the ones with a jump
-      # every two and a half columns, which is worth being able to compare
-      # against rather than only remember.
+      - resource_light_v2
+      # The frozen maps, kept as controls: their Routes are the ones with a jump
+      # every two and a half columns and their pens and fields are still built,
+      # which is worth being able to walk rather than only remember.
       - consolidative
+      - resource_light
     force: ""
   instanceWorldName: alpha_match
   # Homeland spawn per team, [x, z] or [x, z, y].
