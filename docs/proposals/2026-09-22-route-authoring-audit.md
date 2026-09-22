@@ -141,7 +141,59 @@ server:
 That turns "does it feel like parkour" into a number that can fail a build. The
 same measurement already produced §B, so the harness exists.
 
-## F. Not done here
+## F. Implemented and measured, 22 September
 
-No generation change, no re-authoring, no re-freeze. The Alpha map still has the
-routes described in §B.
+`walkable_profile` now fits a single height sequence to the centreline: the raw
+ground is median-filtered over seven columns, then step-limited to one block.
+Both halves are load-bearing. Limiting alone still permits a jump at *every*
+column, which on ordinary noisy ground is worse than the map has today; the
+median removes the wobble and leaves a genuine slope untouched, because a slope
+is the median of itself.
+
+`carve` then takes each column's height from the profile rather than from
+itself, fills hollows with coarse dirt, shaves protrusions, decks only actual
+water, surfaces selectively rather than continuously, drifts its width, and
+clears headroom at the walking height instead of three blocks above every
+column's own top.
+
+### Against the real map
+
+The same statistic as §B, computed over the actual Route lines, with the new
+profile fitted to the **base terrain** the corridors were cut into:
+
+| | adjacent pairs | requires a jump | unclimbable | worst step |
+|---|---|---|---|---|
+| frozen map today | 1,322 | 35.9% | **6.3%** | **16 blocks** |
+| profile-fitted | 1,322 | **23.5%** | **0.0%** | **1 block** |
+
+Unclimbable steps are gone outright, and jumps fall by a third. 23.5% is not
+zero and is not meant to be: these transects cross real slopes, and a slope
+legitimately steps. The brief's failure condition is repeated interruption, not
+elevation change.
+
+### What it costs in terrain
+
+| | mean deviation from natural ground | worst |
+|---|---|---|
+| old authored | 0.34 blocks | 16 |
+| profile-fitted | 0.43 blocks | 9 |
+
+**The corrected Route modifies more ground on average and much less at the
+extremes**, which is the intended trade: it stops following cliffs down and
+starts making up small hollows. Treatment mix along real lines:
+
+| treatment | share |
+|---|---|
+| worn — terrain is the Route | **72.7%** |
+| assimilated — local fill or shave | 23.5% |
+| constructed — genuinely earned | **3.8%** |
+
+Constructed treatment was 100% of the old representation. It is now under four
+per cent, which is the point of the priority order.
+
+### Still not done
+
+Not applied to the Alpha map, not re-authored, not re-frozen. Tree avoidance is
+reduced to headroom-at-walking-height rather than a lateral nudge of the
+centreline, and water treatment does not yet vary by crossing length -- both are
+in §D and neither is implemented.

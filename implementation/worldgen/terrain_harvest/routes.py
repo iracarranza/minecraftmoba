@@ -42,8 +42,13 @@ AIR = block('air')
 WATER = {'minecraft:water', 'minecraft:flowing_water'}
 SKIP = {'minecraft:air', 'minecraft:cave_air', 'minecraft:void_air'}
 
-HALF_WIDTH = 1      # a 3-wide corridor
-HEADROOM = 3        # blocks cleared above the walking surface
+HALF_WIDTH = 1      # an approximate 3-wide corridor, not an exact cross-section
+HEADROOM = 2        # a player's body, cleared at the WALKING height
+MAX_STEP = 1        # the largest rise a walker takes without jumping repeatedly
+SMOOTH = 7          # columns of median filter: removes noise, keeps the slope
+ASSIMILATE = 2      # deviation the ground is nudged to meet the profile
+FILL = block('coarse_dirt')      # what a small hollow is made up with
+BRIDGE = block('oak_planks')     # only where terrain genuinely cannot carry a walker
 
 
 def load_chunks(world: Path) -> dict:
@@ -85,28 +90,136 @@ def densify(points):
     return unique
 
 
-def carve(editor, chunks, centreline):
-    """Surface, clear and bridge a corridor. Returns per-segment statistics."""
-    laid = bridged = missing = 0
+def raw_profile(chunks, centreline):
+    """The terrain height under each centreline column, or None where unknown."""
+    out = []
     for x, z in centreline:
-        for dx in range(-HALF_WIDTH, HALF_WIDTH + 1):
-            for dz in range(-HALF_WIDTH, HALF_WIDTH + 1):
+        top = column(chunks, x, z)
+        out.append(None if top is None else top[1])
+    return out
+
+
+def median_filter(values, window=SMOOTH):
+    """Remove terrain NOISE while keeping terrain SHAPE.
+
+    Bounding the step size is not enough on its own. A one-block step is
+    climbable but still a jump, so ground that wobbles by a block every column
+    -- which is most natural ground -- would hand a walker a jump every column,
+    which is worse than the map has today. A median takes out the wobble and
+    leaves a genuine slope untouched, because a slope is the median of itself.
+    """
+    half = window // 2
+    out = []
+    for i in range(len(values)):
+        near = sorted(values[max(0, i - half):i + half + 1])
+        out.append(near[len(near) // 2])
+    return out
+
+
+def walkable_profile(raw, max_step=MAX_STEP):
+    """A height sequence that never rises or falls more than a walker can take.
+
+    This is the whole correction. The previous pass gave every column its own
+    terrain height, so a Route inherited terrain NOISE as well as terrain shape:
+    40.8% of adjacent columns in the frozen map differ by a block, and 7.6%
+    differ by two or more, which cannot be climbed at all. A corridor that
+    follows a cliff edge laid path blocks down the face.
+
+    A profile is fitted instead: the ground is median-filtered so its noise goes
+    and its shape stays, then step-limited so it never rises more than
+    `max_step`. Both halves are needed -- limiting alone still permits a jump at
+    every single column, which is worse than the map has today. Where the ground
+    then deviates from it, that deviation is the signal for how much work the
+    Route needs -- which is where worn, assimilated and constructed come from,
+    rather than being imposed as categories.
+
+    Unknown columns are carried through rather than guessed at.
+    """
+    known = [y for y in raw if y is not None]
+    if not known:
+        return list(raw)
+    profile = median_filter([known[0] if y is None else y for y in raw])
+    for _ in range(2):                      # forward then backward, twice
+        for i in range(1, len(profile)):
+            profile[i] = clamp_step(profile[i - 1], profile[i], max_step)
+        for i in range(len(profile) - 2, -1, -1):
+            profile[i] = clamp_step(profile[i + 1], profile[i], max_step)
+    return profile
+
+
+def clamp_step(previous, wanted, max_step):
+    if wanted > previous + max_step:
+        return previous + max_step
+    if wanted < previous - max_step:
+        return previous - max_step
+    return wanted
+
+
+def treatment(deviation):
+    """How much intervention this column needs, from a number already computed."""
+    if deviation == 0:
+        return 'worn'
+    if abs(deviation) <= ASSIMILATE:
+        return 'assimilated'
+    return 'constructed'
+
+
+def carve(editor, chunks, centreline):
+    """Fit a walkable corridor to the terrain. Returns per-segment statistics."""
+    raw = raw_profile(chunks, centreline)
+    profile = walkable_profile(raw)
+    stats = {'surfaced': 0, 'bridged': 0, 'filled': 0, 'shaved': 0,
+             'unwritable_columns': 0, 'worn': 0, 'assimilated': 0, 'constructed': 0,
+             'cleared': 0}
+
+    for i, (x, z) in enumerate(centreline):
+        y = profile[i]
+        # Width drifts rather than being an exact cross-section every step, so
+        # the corridor reads as a trail fitted to the ground instead of a
+        # continuous replacement surface.
+        half = HALF_WIDTH if (i % 7) else 0
+        for dx in range(-half, half + 1):
+            for dz in range(-half, half + 1):
                 cx, cz = x + dx, z + dz
                 top = column(chunks, cx, cz)
                 if top is None:
-                    missing += 1
+                    stats['unwritable_columns'] += 1
                     continue
-                name, y = top
+                name, ty = top
+                deviation = y - ty
+                stats[treatment(deviation)] += 1
+
                 if name in WATER:
-                    # Deck at water level rather than filling the water in.
-                    editor.set(cx, y, cz, DECK)
-                    bridged += 1
-                else:
+                    # Constructed only where the crossing actually is water.
+                    editor.set(cx, y, cz, BRIDGE)
+                    stats['bridged'] += 1
+                elif deviation > 0:
+                    # A hollow: make it up with natural material rather than
+                    # laying path into the pit.
+                    for fy in range(ty + 1, y + 1):
+                        editor.set(cx, fy, cz, FILL)
+                    stats['filled'] += 1
+                elif deviation < 0:
+                    # A protrusion: take it down to the walking height.
+                    for sy in range(y + 1, ty + 1):
+                        editor.set(cx, sy, cz, AIR)
+                    stats['shaved'] += 1
+
+                # Surface selectively. On ground the profile already matches,
+                # the terrain IS the Route and only needs enough treatment to
+                # stay legible; every column surfaced is what made the old
+                # corridor look built.
+                if name not in WATER and (deviation != 0 or (i + dx + dz) % 3 == 0):
                     editor.set(cx, y, cz, SURFACE)
-                    laid += 1
+                    stats['surfaced'] += 1
+
+                # Headroom at the WALKING height, not three above each column's
+                # own top. That is what cut stepped notches through slopes and
+                # bulldozed every tree the centreline passed near.
                 for dy in range(1, HEADROOM + 1):
                     editor.set(cx, y + dy, cz, AIR)
-    return {'surfaced': laid, 'bridged': bridged, 'unwritable_columns': missing}
+                    stats['cleared'] += 1
+    return stats
 
 
 def crossings_of(line, placements, pad: int = 2):
