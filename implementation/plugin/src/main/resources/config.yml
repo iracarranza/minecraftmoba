@@ -25,7 +25,10 @@ features:
   # distinguish an empty drumstick from one beyond the player's Capacity.
   # Requires the resource pack, which blanks the vanilla row; without it the
   # glyphs are unmapped and the readout is unreadable.
-  hungerDisplay: { enabled: true, refreshTicks: 10 }
+  # Retired: the native hunger row is repainted as a bar by the pack, in its own
+  # HUD position, so a parallel boss-bar readout is no longer what makes hunger
+  # legible. Left switchable rather than deleted until the bar is judged in play.
+  hungerDisplay: { enabled: false, refreshTicks: 10 }
   # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
   # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
   # so vanilla regeneration can never fire on the canonical curve.

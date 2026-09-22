@@ -146,6 +146,40 @@ def ability_panel_probe(size: int = 64):
     return pixels
 
 
+def bar_segment(fill: str, size: int = 9):
+    """One cell of a continuous bar, drawn into a native heart/drumstick sprite.
+
+    The native rows are ten sprites side by side, so segments that tile read as
+    a single bar in the HUD's own position -- with the client doing the filling,
+    which means no plugin, no boss bar, no action-bar fade and nothing to
+    contend over.
+
+    Column 8 is left clear. The sprites are 9 wide but spaced 8 apart, so a
+    segment that used its full width would overlap its neighbour by a pixel and
+    the bar would show a seam every cell.
+    """
+    lit = (255, 255, 255, 255)
+    rim = (255, 255, 255, 170)
+    hollow = (0, 0, 0, 120)
+    clear = (0, 0, 0, 0)
+    pixels = []
+    for y in range(size):
+        for x in range(size):
+            if x == size - 1 or y in (0, size - 1):
+                pixels.append(clear)          # the spacing column and a margin
+                continue
+            edge = y in (1, size - 2)
+            if fill == "full":
+                pixels.append(lit)
+            elif fill == "half_left":
+                pixels.append(lit if x < 4 else (rim if edge else hollow))
+            elif fill == "half_right":
+                pixels.append(lit if x >= 4 else (rim if edge else hollow))
+            else:
+                pixels.append(rim if edge else hollow)
+    return pixels
+
+
 def codepoint(index: int) -> str:
     return chr(0xE000 + index)
 
@@ -238,6 +272,17 @@ def build(registry: dict, out: Path):
     write_json(assets / "items" / "ability_panel.json", {
         "model": {"type": "minecraft:model", "model": "moba:item/ability_panel"}
     })
+
+    # Repaint the native health and hunger rows as bar segments.
+    #
+    # These are vanilla sprite replacements, so they live under
+    # assets/minecraft. The client keeps deciding which segments are filled;
+    # the pack only decides what a segment looks like. That is why this needs
+    # no plugin support at all, and why it cannot change how MANY segments are
+    # drawn -- vanilla derives the health row's length from max health.
+    for sprite, fill in registry.get("bar_segments", {}).get("sprites", {}).items():
+        png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites" / f"{sprite}.png",
+                 9, 9, bar_segment(fill))
 
     # Hide the vanilla hunger row.
     #
