@@ -119,6 +119,33 @@ features:
   # thing the player is trying to do.
   lobbySafety:
     enabled: true
+  # A dedicated lobby world, built rather than generated.
+  #
+  # The lobby used to be the server's default world: a vanilla superflat with a
+  # vanilla village in it, which nobody authored and nobody chose. It also meant
+  # the lobby shared a world with the terrain gallery, so "make the lobby safe"
+  # could only be a listener cancelling damage -- setting that world peaceful
+  # would have decided mob spawning and sleeping for the gallery too.
+  #
+  # Its own world makes the safety structural instead: nothing spawns, the
+  # weather never changes, the sun never sets, and the room has no exit.
+  #
+  # Materials are a GREYBOX. Extent, enclosure and lighting are function and are
+  # decided in code; what the room looks like is a design decision and is not.
+  lobbyWorld:
+    enabled: true
+    name: moba_lobby
+    radius: 16              # interior half-span, so the hall is 33 across
+    floorY: 64
+    height: 8               # interior headroom
+    lightSpacing: 6
+    sendOnJoin: true
+    adventureMode: true
+    floorMaterial: SMOOTH_STONE
+    wallMaterial: STONE_BRICKS
+    ceilingMaterial: STONE_BRICKS
+    lightMaterial: SEA_LANTERN
+    platformMaterial: POLISHED_ANDESITE
   renewableMarkers:
     enabled: true
     ticks: 20

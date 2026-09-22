@@ -144,6 +144,12 @@ public final class WorldInstance {
         World w = world();
         if (w == null) return true;
         for (var p : w.getPlayers()) {
+            // The lobby is where a player belongs when there is no match. Before
+            // this they were dropped at "the first other world's spawn", which
+            // on this server is the superflat's origin -- an arbitrary place
+            // nobody chose, and the reason a match reset stranded people.
+            var lobby = plugin.lobbyWorld();
+            if (lobby != null && lobby.spawn() != null) { lobby.send(p); continue; }
             var fallback = Bukkit.getWorlds().stream().filter(o -> o != w).findFirst();
             fallback.ifPresent(o -> p.teleport(o.getSpawnLocation()));
         }

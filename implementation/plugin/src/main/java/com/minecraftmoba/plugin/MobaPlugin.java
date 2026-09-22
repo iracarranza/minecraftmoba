@@ -27,6 +27,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public RenewableMarkers renewableMarkers() { return renewableMarkers; }
     private LobbySafety lobbySafety;
     public LobbySafety lobbySafety() { return lobbySafety; }
+    private LobbyWorld lobbyWorld;
+    public LobbyWorld lobbyWorld() { return lobbyWorld; }
     private Sentinel sentinel;
     public Sentinel sentinel() { return sentinel; }
     private TaskEffects taskEffects;
@@ -110,6 +112,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hungerRegen = new HungerRegen(this);
         getServer().getPluginManager().registerEvents(hungerRegen, this);
         renewableMarkers = new RenewableMarkers(this);
+        lobbyWorld = new LobbyWorld(this);
+        getServer().getPluginManager().registerEvents(lobbyWorld, this);
+        lobbyWorld.ensure();
         lobbySafety = new LobbySafety(this);
         getServer().getPluginManager().registerEvents(lobbySafety, this);
         fountainRegen = new FountainRegen(this);
