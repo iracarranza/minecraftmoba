@@ -56,69 +56,71 @@ four steps and gates on the two failures that are silent.
 - **Map vote/ban** — the eventual intent. It already settles that map balance is
   scored per named configuration rather than per family.
 
-### Seed generalization and team-axis diagnosis — current front
+### Seed generalization, team-axis diagnosis, and the first rescue test
 
 **Keep the axes straight.** W–E is the REGIONAL axis and contrast there is
-intentional (forest/arid, peaks/valley). N–S is the TEAM axis and must be
+intentional (forest/arid, frozen/open). N–S is the TEAM axis and must be
 competitive. A pairing never means one team gets forest and the other arid.
 
-- **`vanilla_search/coarse.c --regions`** replaces "ocean east, highland west"
-  with a region-CHARACTER classifier. 20,000 seeds → 8,425 accepted across 12
-  pairings. The staged screen is untouched and reproducible.
+- **`vanilla_search/coarse.c --regions`** — region-CHARACTER screen. 20,000
+  seeds → 8,425 accepted across 12 pairings, against one composition before.
   → `docs/analysis/2026-09-22-region-character-screen.md`
-- **`terrain_harvest.compare_seeds`** diagnoses the N–S deficit of each finalist
-  and names its kind by comparing components between teams — no absolute
-  threshold, and none taken from 930015734.
+- **`terrain_harvest.compare_seeds`** — diagnoses each seed's N–S deficit and
+  names its kind by comparing components between teams. No absolute thresholds.
   → `docs/analysis/2026-09-22-team-axis-deficits-and-intervention.md`
+- **First rescue test, seed 930010639 (`frozen/open`)** — full pipeline run.
+  → `docs/analysis/2026-09-22-nearmiss-rescue-930010639.md`
+  → artifacts in `implementation/worldgen/reports/nearmiss_930010639_2026-09-22/`
 
-**Findings that should shape the next move:**
+**The finding that should govern what happens next:**
 
-- **930015734 (forest/arid) is an authoring target, not a rejection.**
-  `severe_grade_fraction` and `water_fraction` are 0.0 on both homelands; the
-  south is under 51.9% canopy with a third less near-depth workable land.
-- **Authoring cost does not buy balance.** Over 80 stored optimizer finalists,
-  cost-vs-balance correlates −0.21; 28 opportunities achieves 0.0182 where 38
-  achieves 0.0211. Balance comes from placement, not quantity.
-- **`land_asymmetry` was degenerate and is replaced** by accessible land
-  (near-depth bands, excluding `deep_core_350_plus`) plus connected workable
-  land. Do not resurrect the old one.
+> **A near-miss passes the balance filter without its deficit being repaired.**
 
-**Two limits stated rather than hidden:**
+930010639 went in with an accessible-land gap of 0.3173 (south short of
+near-depth workable land) and came out at `balance_asymmetry` 0.0161 — better
+than the map we are playing. The accessible-land gap is **still 0.3173**,
+unchanged *by construction*: `balance_asymmetry` measures travel-cost equality
+to the opportunities authoring places, while the deficit is which depth bands
+the terrain has. Authoring places opportunities; it does not create depth bands.
 
-- No seed in the sample diagnoses `physical`, because the staged screen gated on
-  homeland buildability upstream. "Severe geography justifies rejection" is
-  untested, not supported.
-- The cost-vs-balance figures come from configurations that already passed the
-  balance filter, on a volume that was well chosen. They do not show that
-  authoring can lift a deficient seed to parity.
+Placement confirms it directly. South-biased share of placements is 0.38–0.42 on
+the deficient seed against 0.36–0.41 on the balanced one — **no steering toward
+the deficient team at all**.
 
-### The next step, and its blocker
+**Do not read `balance_asymmetry` as evidence about a diagnosed deficit.** It is
+a real property (equal access to what was placed) and it is not that one.
 
-Answer whether minimal authoring rescues a genuine N–S near-miss.
+**Other results worth keeping:**
 
-930015734's world was deleted — only server scaffolding remains and it is not in
-the gallery. **Use `tv_51a79e3b1bee05ea7559e799` instead**: seed 930010639,
-`frozen/open`, homeland gap 0.1370, accessible land gap 0.3173, deficit kind
-`opportunity`, already harvested at full 3,808 chunks. Different regional
-character from the Alpha map, same deficit kind, no world generation needed.
+- Minimum successful intervention on the near-miss is **28 opportunities**
+  (0.0333); best is 32 (0.0161). Spending 38 does worse. Balance is bought by
+  placement, not quantity — consistent with the −0.21 cost/balance correlation
+  measured over Alpha's 80 finalists.
+- The near-miss is **43% as authorable**: 991 qualifying configurations against
+  Alpha's 2,285 per 9,600 samples. The best-case scalar hides this entirely.
+- Structure siting already equalises teams by construction (quality gaps
+  0.0016–0.0058), so a team-axis deficit never lives in the team structures.
+- `land_asymmetry` was degenerate (0.0000 everywhere) and is replaced by
+  accessible land plus connected workable land. Do not resurrect it.
 
-The optimizer takes a zip containing exactly `data/opportunity-map.json` and
-`data/travel-matrix.json`.
+### Next step — a design decision, not a measurement
 
-1. `terrain_harvest.opportunity_map --gallery <TerrainGallery> --volume-id
-   tv_51a79e3b1bee05ea7559e799 --source <that volume's dir> --output ...` —
-   **runnable today**.
-2. `expedition.travel` needs `--structures` and `--manifest`, and the
-   structure-siting and map-manifest records exist only for the Alpha volume.
-   **This is the gap.** Both are produced by existing modules that have not been
-   run for this volume.
-3. Then zip, run `tools/analysis/map_authoring_optimizer.py`, and read
-   `balance_asymmetry` out of `author_portfolio`'s metrics — comparing against
-   the Alpha map's 0.0685.
+Two options, and they are different claims about what balance means:
 
-If minimal authoring closes a 0.32 accessible-land gap, the screen can accept
-far more geography than it does. If it cannot, N–S deficit becomes a screening
-gate rather than an authoring problem.
+1. **Make the objective deficit-aware.** Weight placements in
+   `balance_asymmetry` by the receiving team's accessible-land shortfall, so
+   compensating placement is what the optimizer rewards. A change to an existing
+   objective, not a new system — but it redefines balance and should be taken
+   deliberately.
+2. **Treat terrain deficit as a screening gate**, alongside the physical arm.
+   That rejects 930010639 despite its 0.0161.
+
+Choosing between them needs the one thing no analysis here can supply: **whether
+a 0.3173 accessible-land gap is actually felt in play.** That is a playtest
+question.
+
+**Not pursued, as instructed:** the physical-failure arm. No seed in the sample
+exhibits it, because the staged screen gated on homeland buildability upstream.
 
 ### Unresolved, do not decide silently
 - Natural regeneration is held OFF (`features.vitalsScaling.naturalRegeneration`).
