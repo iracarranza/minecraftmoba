@@ -171,6 +171,17 @@ def carve(editor, chunks, centreline):
     stats = {'surfaced': 0, 'bridged': 0, 'filled': 0, 'shaved': 0,
              'unwritable_columns': 0, 'worn': 0, 'assimilated': 0, 'constructed': 0,
              'cleared': 0}
+    # The acceptance measure, recorded where it is actually known.
+    #
+    # Counting steps between adjacent route COLUMNS over-reports, because two
+    # corridor segments passing each other on a hillside are adjacent without
+    # anyone ever stepping between them. The walk a player takes is along the
+    # centreline, so that is what is measured here.
+    walk = [abs(b - a) for a, b in zip(profile, profile[1:])]
+    stats['walk_pairs'] = len(walk)
+    stats['walk_jumps'] = sum(1 for d in walk if d >= 1)
+    stats['walk_unclimbable'] = sum(1 for d in walk if d >= 2)
+    stats['walk_worst_step'] = max(walk) if walk else 0
 
     for i, (x, z) in enumerate(centreline):
         y = profile[i]

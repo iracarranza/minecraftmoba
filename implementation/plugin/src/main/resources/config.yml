@@ -808,8 +808,14 @@ alpha:
     enabled: true
     directory: maps
     include:
-      - consolidative
+      # Re-authored 2026-09-22 with terrain-fitted Routes. Zero unclimbable
+      # steps along the centreline against the frozen map's 7.7%.
+      - consolidative_v2
       - resource_light
+      # The frozen map, kept as a control: its Routes are the ones with a jump
+      # every two and a half columns, which is worth being able to compare
+      # against rather than only remember.
+      - consolidative
     force: ""
   instanceWorldName: alpha_match
   # Homeland spawn per team, [x, z] or [x, z, y].

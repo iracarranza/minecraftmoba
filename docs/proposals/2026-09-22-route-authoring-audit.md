@@ -191,9 +191,44 @@ starts making up small hollows. Treatment mix along real lines:
 Constructed treatment was 100% of the old representation. It is now under four
 per cent, which is the point of the priority order.
 
+### Re-authored, 22 September
+
+Authored from the base terrain with the corrected code, as configuration
+`consolidative_v2`. Sites reproduced exactly -- 32 placements, 178,358 blocks,
+the same as the frozen run -- so the only change is the corridors.
+
+Measured along the centreline, which is the walk a player actually takes and is
+now recorded by the authoring itself:
+
+| | steps | requires a jump | unclimbable | worst step |
+|---|---|---|---|---|
+| frozen map | 15,240 | 40.8% | **7.7%** | **34 blocks** |
+| re-authored | 2,816 | 25.1% | **0.0%** | **1 block** |
+
+Corridor work fell from 42,396 blocks to 33,452, and its composition inverted:
+
+| | old | new |
+|---|---|---|
+| surfaced columns | 24,068 | 13,235 |
+| filled / shaved | 0 | 3,938 / 5,484 |
+| worn | 0 | 12,654 |
+| assimilated | 0 | 8,040 |
+| constructed | 0 | 1,448 |
+
+Nearly half as much surfacing, because terrain that was already walkable is now
+left as the Route instead of being replaced.
+
+**A caveat about the earlier figures.** §B counted steps between adjacent route
+COLUMNS, which over-reports: two corridor segments passing each other on a
+hillside are adjacent without anyone stepping between them. On that same basis
+the re-authored map is 20.1% jumps and 1.7% unclimbable, better than the frozen
+map's 40.8% and 7.7% but not zero. The centreline figure above is the honest
+one, and the authoring now records it so it cannot drift unmeasured.
+
 ### Still not done
 
-Not applied to the Alpha map, not re-authored, not re-frozen. Tree avoidance is
+Not re-frozen. `consolidative_v2` is a catalogue entry drawn alongside the
+others, and the frozen map stays in the catalogue as a control. Tree avoidance is
 reduced to headroom-at-walking-height rather than a lateral nudge of the
 centreline, and water treatment does not yet vary by crossing length -- both are
 in §D and neither is implemented.
