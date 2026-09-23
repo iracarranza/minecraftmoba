@@ -185,6 +185,18 @@ removed before the blocks land on them.
    which is this project's recurring defect — two implementations of one idea.
    The siting stage should refuse a footprint containing built blocks, and then
    neither needs a policy.
+[CORRECTED] The felling rule is **not** general, and a commit message claiming
+it was generalized from Routes is wrong. `routes.carve` brushes an overhanging
+leaf and leaves its tree standing, on measured grounds: felling for a leaf along
+a corridor "turned a corridor through a forest into a clear-cut -- 186,226
+blocks of one". A pad is a compact disc that is levelled anyway, so a felled
+tree reads as clearing and a bisected one as damage; a corridor is a thin line
+through standing forest, so felling everything that overhangs destroys the
+forest it runs through. **The shared rule is that authoring must look like work
+someone did; what that implies differs by the shape of the work.** The
+structure-sparing rule IS general -- a corridor routes past a building, a pad
+refuses the site.
+
 2. **Overhanging canopy was sliced flat at the pad boundary.** Leaves inside the
    disc were brushed to air while the trunk outside it was untouched, so the
    north Outpost stood in a ring of trees cut in half. Fixed: a leaf now fells

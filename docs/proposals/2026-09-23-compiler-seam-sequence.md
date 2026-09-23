@@ -100,16 +100,34 @@ is ours rather than the map's. Never restore a config fallback.
 | --- | --- | --- | --- |
 | 1 | **Natural resource placement validity** | Step 1 + Step 2 | **yes, fully.** `opportunity_map` gives kind and position; `caves` gives accessibility; the cell grid gives depth. Extends `opening_ceiling`. *Open:* the rules — "Diamond near the Hinterland", "equipment-sufficient Iron" — need an equipment target that does not exist. |
 | 2 | **Opening Hinterland floor** | Step 1 + Step 2 | **partly.** Ore and cave measurement exist; nothing measures whether each fundamental verb is *possible*. Construction/Extraction are reachable from existing data; Logistics, Production, Combat are not. *Open:* what evidence counts as "permits a verb". |
-| 3 | **Opening access certification** | Homebase/Hinterland stages only | **no.** Needs a new traversability probe from Core to Hinterland edge. Small. *Settled:* equivalent exit capacity, not identical geometry; **not** a Routes stage. |
+| 3 | **Opening access certification** | Step 2 (shares the terrain graph) | **yes, more than any other seam.** `routes.author` already walks `shortest(t.adj, {home: 0})` from each homeland, carves a corridor fitted to a walkable profile, spares built structures, fells trunks whole, and records `skipped` with "no path from homeland in the terrain graph" -- a binary reachability verdict. `rescan.measure` then reports per-team reach **in seconds** off the authored world. *Missing:* it runs on authored configurations rather than compiled maps, its targets are strategic destinations, and there is no equivalent-exit-capacity comparison between teams. |
 | 4 | **Practical traversability** | Step 2 | **yes.** `expedition/travel.py` already produces cost matrices. *Open:* what bound, and the standing warning that equal travel time is not the target. |
 | 5 | **Bounded authorability verdict** | 1–4, and the portfolio | **yes, fragments.** `integration_cost`, `max_levelling_moved_per_column`, socket viability. Needs aggregation into "correctable within doctrine, or reject". *Open:* the intervention budget. |
 | 6 | **Discovered classification** | everything above | n/a — it classifies what the others measured. *Open:* both metrics. Currently honest at `unmeasured`. |
 
-Note that **1, 2, 4 and 5 all reuse measurement that already exists** and are
-blocked on the same two prerequisites: the characterize stage and the cell grid.
-Those two pieces unblock four seams, which is why they come first.
+**All five reuse measurement that already exists**, and 1, 2, 4 and 5 are
+blocked on the same two prerequisites -- the characterize stage and the cell
+grid. Those two pieces unblock four seams, which is why they come first. Seam 3
+shares the terrain graph with them rather than standing apart, so it is not
+independent either.
 
-Seam 3 is independent and could proceed in parallel.
+### The real characterisation of this repo's state
+
+`caves.py`, `opportunity_map.py`, `rescan.py` and `routes.py` are all built,
+all proven against the Alpha map, and **none is reachable from a compiled
+realization.** The work is not building measurement. It is wiring measurement
+that exists to a compiler that was developed separately from it. That is a much
+smaller estimate than "six missing seams" implies, and it explains why the same
+pattern -- measured, good, unconnected -- keeps surfacing.
+
+### What seam 3 must NOT reuse
+
+`routes.author` takes `route_targets` from a configuration: **strategic
+destinations**. That is precisely the extension into Wilderness that generated
+maps do not owe. Retargeting it at the Hinterland edge is a change of inputs,
+not of mechanism -- and the carving, sparing and felling behaviour transfers
+unchanged. The targeting model in code is still the old one; the correction
+lives only in `maps.md`.
 
 ---
 

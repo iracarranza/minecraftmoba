@@ -396,15 +396,25 @@ def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, colum
                     f'built structure {here} at {[x, y, z]} inside an authoring '
                     f'footprint; this site should have been refused, not cleared')
             if here is not None and is_leaf(here):
-                # Fell the tree this leaf belongs to, not the leaf.
+                # A PAD fells; a CORRIDOR brushes. The difference is measured.
                 #
                 # Brushing the branch sliced every overhanging canopy flat at
                 # the pad boundary: a tree whose trunk stands outside the disc
-                # lost exactly the part that reached in, so the authored
-                # Outpost sat in a ring of trees cut in half. A felled tree
-                # reads as clearing; a bisected one reads as damage, and
-                # doctrine's whole point about authoring is that it should look
-                # like work someone did rather than like a bug.
+                # lost exactly the part that reached in, so the authored Outpost
+                # sat in a ring of trees cut in half.
+                #
+                # `routes.carve` deliberately does the OPPOSITE, and is right
+                # to: felling for a leaf along a corridor "turned a corridor
+                # through a forest into a clear-cut -- 186,226 blocks of one".
+                #
+                # So this is NOT the Route rule generalized, and an earlier
+                # commit message here claiming it was is wrong. A pad is a
+                # compact disc that is levelled anyway, where a felled tree
+                # reads as clearing and a bisected one as damage. A corridor is
+                # a thin line through standing forest, where felling everything
+                # that overhangs destroys the forest the corridor runs through.
+                # The shared rule is that authoring must look like work someone
+                # did; what that implies differs by the shape of the work.
                 fell(editor, column, x, y, z, AIR)
                 continue
             if here is not None and is_log(here):
