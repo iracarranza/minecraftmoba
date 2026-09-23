@@ -96,8 +96,12 @@ class SymmetryTests(unittest.TestCase):
                 self.assertLessEqual(len(result['teams'][team][layer['id']]['candidates']), 2)
 
     def test_a_crowded_layer_states_why_it_has_no_site(self):
-        # Four layers cannot be separated on a narrow board; the record must say so.
-        result = evaluate(candidate(w=40, h=16), {'a': (4, 8), 'b': (35, 8)}, per_layer=1)
+        # Four layers cannot be separated on a narrow board; the record must say
+        # so. The board is narrower than it used to be, because the End Spike's
+        # footprint came down from a placeholder radius of 2 to the measured
+        # radius of 1 -- an eleven-block arena pillar genuinely needs less
+        # clearance than the greybox tower did, so less crowding follows.
+        result = evaluate(candidate(w=24, h=12), {'a': (3, 6), 'b': (20, 6)}, per_layer=1)
         empty = [e for team in result['teams'].values() for e in team.values()
                  if not e['candidates']]
         self.assertTrue(empty, 'expected at least one crowded-out layer on a narrow board')
@@ -171,7 +175,7 @@ class AdvanceAxisTests(unittest.TestCase):
 
     def test_forward_layers_sit_nearer_the_rival_than_rear_layers(self):
         result = evaluate(candidate(w=96, h=24), {'a': (8, 12), 'b': (87, 12)}, per_layer=1)
-        order = ['aether_fountain', 'end_tower', 'nether_bastion', 'pillager_outpost']
+        order = ['aether_fountain', 'end_spike', 'nether_bastion', 'pillager_outpost']
         for team in ('a', 'b'):
             advances = []
             for layer_id in order:

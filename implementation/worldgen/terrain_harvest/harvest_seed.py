@@ -22,6 +22,7 @@ from pathlib import Path
 from successor.grid import rle
 from vanilla_search import DATA_VERSION, GENERATOR, SERVER_SHA1, VERSION
 from vanilla_search.evaluate import evaluate_region
+from vanilla_search.fit import enrich
 from vanilla_search.extract import extract_region
 from vanilla_search.pipeline import CHUNK_BOUNDS, _public
 
@@ -31,6 +32,12 @@ def harvest(world: Path, seed: int, server_jar: Path | None = None,
     started = time.perf_counter()
     extracted = extract_region(world, chunk_bounds)
     candidate = evaluate_region(extracted)
+    # evaluate_region emits only the forest/buildable/highland masks. The
+    # canopy and open-ground masks -- which Task A's Terrain requires, and
+    # without which it raises KeyError on `canopy_mask_rle` -- come from the
+    # stage-C enrichment. The screened finalists carry them because they went
+    # through this step; a freshly harvested world has to as well.
+    enrich(candidate)
     sha = (hashlib.sha1(Path(server_jar).read_bytes()).hexdigest()
            if server_jar and Path(server_jar).exists() else None)
     candidate.update({

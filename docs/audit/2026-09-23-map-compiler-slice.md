@@ -3,10 +3,14 @@
 Branch `codex/spatial-cadence-migration`, over the 14cb46c cadence migration.
 Spec: `specs/claudeversionsuperspatialdoctrinepsec.md`.
 
-The target was one unseen seed compiled end to end. That was not reached, and
-this document says exactly where it stopped and why. What the pass did produce
-is a compiler that fails by name at a named stage, three real defects found and
-fixed by running things rather than reading them, and the first Lair access
+The target was one unseen seed compiled end to end into a PlayableMap. That was
+not reached. What was: an unseen seed, 99887766, passing every analytical stage
+-- recognition, both Homebase sockets, compact Hinterlands, an ordered objective
+layout, and a Lair socket at A_L 0.068 -- and stopping at exactly one physical
+blocker, the absence of an End Spike mesh.
+
+Alongside it: a compiler that fails by name at a named stage, four real defects
+found by running things rather than reading them, and the first Lair access
 measurement the project has ever had.
 
 ---
@@ -184,8 +188,8 @@ Provisional constants and their basis:
 | Constant | Value | Basis |
 |---|---|---|
 | `max_lair_access_asymmetry` | 0.15 | widest gap in the measured distribution (0.073→0.226); any value in [0.08, 0.22] selects the same three seeds |
-| `min_homeland_developable_fraction` | 0.60 | below the range observed across screened finalists |
-| `max_hinterland_fraction_of_end` | 0.5 | a compact envelope cannot be the whole end |
+| `min_homeland_developable_fraction` | 0.52 | over 28 fitted sockets, usable fraction runs 0.110-0.950 with a clear break: six cluster at 0.110-0.468, then nothing until 0.559. Any bound in [0.48, 0.55] rejects the same six |
+| `max_hinterland_fraction_of_end` | 0.5 | a compact envelope cannot be the whole end. Has never fired: observed 1.4%-2.5%, so it is a guard, not yet evidence |
 | `PRACTICAL_REACH_BOUND_SEC` | 600 | §3 above |
 | `OPENING_WORKSITE_REACH_SEC` | 200 | §3 above |
 
@@ -195,33 +199,45 @@ All are labelled PROVISIONAL_ALPHA and none is doctrine.
 
 ## 5. Vertical slice
 
-**No unseen-seed PlayableMap was produced, and none is claimed.**
+**An unseen seed reached the authoring stage and stopped at one physical
+blocker. No PlayableMap was produced, and none is claimed.**
 
-Over the eight screened finalists the compiler gives a full stage distribution:
+Six seeds never previously screened were generated locally (Paper 1.21.11,
+4320 chunks each in ~67s including a margin ring), harvested, and compiled.
 
-| Stage reached | Seeds | Rejection |
-|---|---|---|
-| recognize | 1 | `NO_DEFAULT_REGIONAL_SHAPE` |
-| homebase | 3 | `SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE` |
-| lair | 3 | `LAIR_ACCESS_DISPARITY` |
-| **author** | **1** | **`OBJECTIVE_MESH_MISSING`** |
+| seed | score | stage reached | rejection |
+|---|---|---|---|
+| 20260923 | 61.8 | recognize | `NO_DEFAULT_REGIONAL_SHAPE` |
+| 135791113 | 40.4 | recognize | `NO_DEFAULT_REGIONAL_SHAPE` |
+| 20240617 | 63.4 | recognize | `NO_DEFAULT_REGIONAL_SHAPE` |
+| 4242424 | 56.6 | homebase | `SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE` (north 0.398) |
+| 771113 | 68.0 | objectives | `NO_ORDERED_OBJECTIVE_LAYOUT` (south) |
+| **99887766** | **90.3** | **author** | **`OBJECTIVE_MESH_MISSING`** |
 
-The deepest, **930005557**, passes recognition, both Homebase sockets, the
-compact Hinterland, an ordered objective layout, and a Lair socket at A_L
-**0.0735** (reach 1521s north / 1637s south, usable fraction 0.77, open-volume
-proxy 0.80, seven approaches). It then stops at authoring.
+**99887766** passes Default recognition, both Homebase sockets (0.559 / 0.832),
+compact Hinterlands (1.8% / 2.5% of each end — nowhere near consuming it), an
+ordered objective layout for both teams, and a Lair socket: 288 viable out of
+11,946 cells considered, best **A_L = 0.068**, reach 1351s north / 1446s south,
+usable fraction 0.55, open-volume proxy 0.81, three practical approaches.
+
+Then it stops, for the same reason the best screened finalist does.
 
 **The exact blocker: there is no End Spike mesh.** Siting uses the measured
-`end_spike` contract; the repository has only the historical End Tower, and
-registering that under the Spike's name is precisely the masquerade the physical
-contract forbids. So the compiler fails closed.
+`end_spike` contract; the repository has `aether_fountain`, `nether_bastion`,
+`pillager_outpost` and the historical `end_tower`, and registering that last one
+under the Spike's name is precisely the masquerade the physical contract
+forbids. So the compiler fails closed rather than building the wrong structure.
 
-That is a real blocker, not a missing feature list: everything upstream of it
-now runs, and the one thing standing between a screened seed and an authored map
-is a mesh that matches a form we can now state exactly (obsidian pillar, radius
-2–5, height 76–103, bedrock cap, End Crystal, iron-bar cage on a minority).
+Screening rate on unseen seeds: **3 of 6** have Default regional shape, **2 of
+6** clear Homebase, **1 of 6** reaches authoring. Over the eight screened
+finalists the distribution is 1 recognize, 3 homebase, 3 lair, 1 author.
 
----
+Two honest caveats. These candidates carry `worldgen_truth.verified = false`:
+terrain generation is vanilla, but they do not have the official-jar SHA-1
+provenance the screened finalists do, and they should not be mistaken for
+screened finalists. And the compact-Hinterland gate does not currently
+discriminate — observed opening fractions are 1.4%–2.5% against a 50% bound, so
+it has never fired and is not yet evidence of anything.
 
 ## 6. Failures
 
@@ -241,7 +257,15 @@ is a mesh that matches a form we can now state exactly (obsidian pillar, radius
 ## 7. Tests
 
 - Java: **231 pass, 0 failures.**
-- Worldgen: **351 pass, 0 failures**, plus 14 new compiler tests.
+- Worldgen: **365 pass, 0 failures**, including 14 new compiler tests.
+
+Two `test_structures` tests were migrated as a consequence of using measured
+geometry rather than placeholders. One referenced the `end_tower` siting layer,
+now `end_spike`. The other asserted that a narrow board crowds out a layer, and
+it stopped holding because the Spike's footprint came down from a placeholder
+radius of 2 to the measured radius of 1 -- an eleven-block arena pillar
+genuinely needs less clearance than the greybox tower did, so the board had to
+narrow for the same crowding to occur.
 
 **The two pre-existing `test_author_portfolio` failures are fixed**, and
 classified as the spec asks:

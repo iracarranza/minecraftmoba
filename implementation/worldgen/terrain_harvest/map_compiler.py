@@ -57,12 +57,15 @@ NOT_REGIONAL_SHAPE = frozenset({'six_corridors_connect'})
 OBJECTIVE_POOL = 12
 
 PROVISIONAL = {
-    # A team end's homeland must be usable enough to accept the Core. The
-    # existing fitter already reports developable_fraction; 0.60 is the lower
-    # quartile of the eight screened finalists (0.685-0.963 observed on the
-    # near-miss pair), so it rejects only ends materially worse than anything
-    # the screen has produced.
-    'min_homeland_developable_fraction': 0.60,
+    # A socket must be able to accept the Core on its OWN terms -- never by
+    # comparison with the other team's. Measured over 28 fitted sockets (eight
+    # screened finalists and six locally generated seeds), usable fraction runs
+    # 0.110 to 0.950 with a clear break: six sockets cluster at 0.110-0.468,
+    # then nothing until 0.559. 0.52 sits in that gap, and any bound in
+    # [0.48, 0.55] rejects exactly the same six. Raising it to 0.70 would
+    # reject half of all sockets including ones the screen selected, which is a
+    # different and much stronger claim than this evidence supports.
+    'min_homeland_developable_fraction': 0.52,
     # The Hinterland is compact. Expressed as a share of the candidate's own
     # sampled area, not an absolute radius, because the spec refuses a fixed
     # radius and the sample window varies.

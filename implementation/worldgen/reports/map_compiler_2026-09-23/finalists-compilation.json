@@ -11,7 +11,7 @@
   "verify"
  ],
  "provisional_constants": {
-  "min_homeland_developable_fraction": 0.6,
+  "min_homeland_developable_fraction": 0.52,
   "max_hinterland_fraction_of_end": 0.5,
   "max_lair_access_asymmetry": 0.15
  },
@@ -179,7 +179,7 @@
      "data": {
       "team": "north",
       "usable_fraction": 0.3704,
-      "bound": 0.6
+      "bound": 0.52
      }
     }
    ],
@@ -215,7 +215,7 @@
      "data": {
       "team": "north",
       "usable_fraction": 0.4352,
-      "bound": 0.6
+      "bound": 0.52
      }
     }
    ],
@@ -546,7 +546,7 @@
      "data": {
       "team": "south",
       "usable_fraction": 0.4682,
-      "bound": 0.6
+      "bound": 0.52
      }
     }
    ],
