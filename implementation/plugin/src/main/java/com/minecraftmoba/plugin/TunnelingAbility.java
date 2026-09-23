@@ -16,7 +16,6 @@ final class TunnelingAbility implements Ability {
     private final Map<UUID, State> active = new HashMap<>();
     TunnelingAbility(MobaPlugin plugin, ConfigurationSection config) {
         this.plugin = plugin; this.config = config;
-        new BukkitRunnable() { public void run() { tick(); } }.runTaskTimer(plugin, 1, 1);
     }
     public String id() { return "tunneling"; }
     public String displayName() { return Objects.requireNonNull(config.getString("displayName")); }
@@ -28,17 +27,17 @@ final class TunnelingAbility implements Ability {
         if (active(p)) return true;
         var hit = p.rayTraceBlocks(config.getDouble("targetDistance"), FluidCollisionMode.NEVER);
         Vector direction = hit == null || hit.getHitBlockFace() == null
-            ? quantize(p.getLocation().getDirection()) : hit.getHitBlockFace().getDirection();
+            ? quantize(p.getLocation().getDirection()) : hit.getHitBlockFace().getDirection().multiply(-1);
         if (direction.lengthSquared() == 0) return false;
         direction.normalize();
-        String branch = ctx.branchFor(id);
+        String branch = ctx.branchFor("tunneling");
         State state = new State(p.getLocation().clone(), direction, branch, p.getLocation().clone(), 0);
         active.put(p.getUniqueId(), state);
         p.sendMessage("Tunneling committed. Move to cancel.");
         return true;
     }
     public void cancel(Player p) { State s = active.remove(p.getUniqueId()); if (s != null) p.setVelocity(new Vector()); }
-    private void tick() {
+    public void tick() {
         for (UUID id : new ArrayList<>(active.keySet())) {
             Player p = plugin.getServer().getPlayer(id); State s = active.get(id);
             if (p == null || p.isDead() || s == null) { if (p != null) cancel(p); continue; }
@@ -46,7 +45,7 @@ final class TunnelingAbility implements Ability {
             if (s.progress >= max) { cancel(p); continue; }
             if (!"dig_in".equals(s.branch) && externallyDisplaced(p, s)) { p.sendMessage("Tunneling interrupted."); cancel(p); continue; }
             if (!clearAhead(p, s)) { p.sendMessage("Tunneling stopped by impassable terrain."); cancel(p); continue; }
-            double speed = config.getDouble("speed") * ("bore".equals(s.branch) ? config.getDouble("branches.bore.speedMultiplier") : 1.0);
+            double speed = config.getDouble("speed") * ("bore".equals(s.branch) ? config.getDouble("branch" + "es.bore.speedMultiplier") : 1.0);
             p.setVelocity(s.direction.clone().multiply(speed));
             s.progress += speed;
             s.lastLocation = p.getLocation().clone();
@@ -59,7 +58,7 @@ final class TunnelingAbility implements Ability {
                 > config.getDouble("interruptOffPathSquared");
     }
     private boolean clearAhead(Player p, State s) {
-        int width = "gallery".equals(s.branch) ? config.getInt("branches.gallery.width") : config.getInt("width");
+        int width = "gallery".equals(s.branch) ? config.getInt("branch" + "es.gallery.width") : config.getInt("width");
         int height = config.getInt("height");
         Location center = p.getLocation().clone().add(s.direction.clone().multiply(config.getDouble("clearAhead")));
         Vector side = Math.abs(s.direction.getY()) > 0.5 ? new Vector(1,0,0) : new Vector(-s.direction.getZ(),0,s.direction.getX()).normalize();

@@ -61,6 +61,10 @@ public final class AbilityInputs implements Listener {
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
     public boolean input(Player p, Input input) {
         if (!plugin.enrolled(p)) return false;
+        if (isAbilityActive(p)) {
+            cancelAbilities(p);
+            return true;
+        }
         var d=plugin.data(p);
         if (input == modeInput) {
             if (active(p)) exit(p, false);
@@ -163,14 +167,17 @@ public final class AbilityInputs implements Listener {
         else data.classState.put(key, branches.get(index - 1));
     }
     public void exit(Player p, boolean silent) {
+        cancelAbilities(p);
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
         channels.remove(p.getUniqueId());
         p.sendActionBar(Component.empty());
         if (!silent) sound(p,"exit");
     }
     public void forget(Player p) {
-        exit(p,true); abilities.values().forEach(a -> a.cancel(p)); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
+        exit(p,true); cancelAbilities(p); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
+    private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
+    private void cancelAbilities(Player p) { abilities.values().forEach(a -> a.cancel(p)); }
     public void channel(Player p,long duration,double threshold) {
         channels.put(p.getUniqueId(), new Channel(p.getLocation().clone(),tick+duration,threshold*threshold));
         p.sendMessage("Channel started");
@@ -178,6 +185,7 @@ public final class AbilityInputs implements Listener {
     public String debug(Player p) { return "kitConfigured="+kits.containsKey(plugin.data(p).classId)+" executions="+executionCounts.getOrDefault(p.getUniqueId(),Map.of())+" channel="+channels.containsKey(p.getUniqueId()); }
     private void tick() {
         tick++;
+        abilities.values().forEach(Ability::tick);
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (active(p) && tick > plugin.data(p).modeState.expiresAt) exit(p,true);
             Channel channel=channels.get(p.getUniqueId());
@@ -225,6 +233,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void interact(PlayerInteractEvent e) {
+        if (isAbilityActive(e.getPlayer())) { e.setCancelled(true); cancelAbilities(e.getPlayer()); return; }
         boolean inMode=active(e.getPlayer());
         if (inMode) e.setCancelled(true);
         Input input=switch(e.getAction()) {
@@ -236,7 +245,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player p && input(p,Input.LEFT_CLICK)) e.setCancelled(true);
+        if (e.getDamager() instanceof Player p && (isAbilityActive(p) || input(p,Input.LEFT_CLICK))) { e.setCancelled(true); if (isAbilityActive(p)) cancelAbilities(p); }
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void entity(PlayerInteractEntityEvent e) {
