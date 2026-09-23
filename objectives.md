@@ -353,6 +353,39 @@ than two candidates are free the feature declines rather than picking a
 colliding colour. First run chose `cherry_grove` for north and `swamp` for
 south.
 
+**The tint is terrain-dependent, and some map types cannot use it at all.**
+Raised as a question about caves and mushroom islands, and the answer is that
+the concern is correct and has no workaround at the biome or resource-pack
+level. MEASURED against the 1.21.11 client jar: exactly **33 block models in
+the whole game carry a `tintindex`**, which is the only way a block takes a
+biome's colour —
+
+> grass_block, leaves, vine, lily_pad, tall grass and ferns, flowerbed, leaf
+> litter, bamboo leaves, stems, redstone dust, cauldron water
+
+— and everything else, including **stone, deepslate, mycelium, sand, dirt and
+wood**, renders a fixed texture. A resource pack cannot change this: adding a
+`tintindex` to a model does nothing unless Minecraft's Java-side colour-provider
+registry has an entry for that block, and a pack cannot add one.
+
+The biome cannot compensate either. The whole vanilla effects schema in this
+version is `grass_color`, `foliage_color`, `dry_foliage_color`, `water_color`
+and `grass_color_modifier` — **no fog, no sky, no particle option**, and no
+vanilla biome uses one. There is no biome-level lever that reaches bare stone.
+
+So a Cave or Mushroom Island map type would get **no tint at all**, while the
+runtime reported the same "painted N cells" as a meadow. The feature now
+measures what fraction of sampled surface in its volumes can take a colour and
+says so, warning loudly at zero — a clean log must not be readable as a working
+tint.
+
+[OPEN] What marks controlled ground where nothing is tintable. The glow box is
+already terrain-independent and would be the only signature there. A
+plugin-driven particle field is the obvious complement — arbitrary RGB, works
+over any terrain, sent per viewer — and was prototyped earlier in the same
+session; it is not built. Authored coloured blocks are the other option and cost
+authoring rather than runtime.
+
 Constraints, none of them chosen:
 
 - **only biome-tinted blocks change** -- grass, ferns, leaves, vines, sugar

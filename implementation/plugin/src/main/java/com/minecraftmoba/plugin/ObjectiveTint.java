@@ -83,6 +83,32 @@ public final class ObjectiveTint implements Listener {
     /** How far apart to sample when surveying which biomes a map uses. */
     private static final int SURVEY_STEP = 32;
 
+    /**
+     * Blocks a biome colour can actually reach.
+     *
+     * MEASURED, not chosen: these are the block models in the 1.21.11 client
+     * jar that carry a `tintindex`, which is the only way a block takes a
+     * biome's colour. Thirty-three models in the whole game. Everything else --
+     * stone, deepslate, MYCELIUM, sand, dirt, wood, terracotta -- renders a
+     * fixed texture and cannot be tinted by any means available to a datapack
+     * or a resource pack, because the colour-provider registry is Java-side.
+     *
+     * So the tint is terrain-DEPENDENT, and on a map built into a cave or onto
+     * a mushroom island it would mark nothing at all while reporting success.
+     * The set exists so coverage can be measured and that case reported rather
+     * than shipped.
+     */
+    private static final Set<String> TINTABLE_SUFFIX = Set.of(
+            "GRASS_BLOCK", "SHORT_GRASS", "TALL_GRASS", "FERN", "LARGE_FERN",
+            "VINE", "LILY_PAD", "SUGAR_CANE", "BAMBOO", "MELON_STEM",
+            "PUMPKIN_STEM", "ATTACHED_MELON_STEM", "ATTACHED_PUMPKIN_STEM",
+            "WATER", "BUBBLE_COLUMN");
+
+    private static boolean tintable(org.bukkit.Material m) {
+        String n = m.name();
+        return TINTABLE_SUFFIX.contains(n) || n.endsWith("_LEAVES");
+    }
+
     private record Cell(int x, int y, int z) {}
 
     private final MobaPlugin plugin;
@@ -90,6 +116,27 @@ public final class ObjectiveTint implements Listener {
     private final Map<Cell, Biome> original = new LinkedHashMap<>();
     private final EnumMap<Team, Biome> chosen = new EnumMap<>(Team.class);
     private Set<Biome> surveyed = Set.of();
+    private double coverage = -1.0;
+
+    /**
+     * What fraction of the sampled surface in these volumes can take a colour.
+     *
+     * The number the feature was missing. Without it a cave map reports the same
+     * "painted N cells" as a meadow, and the log looks identical whether the
+     * ground changed colour or not.
+     */
+    private double measureCoverage(World w, Collection<Location> volumes, int radius) {
+        int sampled = 0, colourable = 0;
+        for (Location at : volumes)
+            for (int dx = -radius; dx <= radius; dx += 4)
+                for (int dz = -radius; dz <= radius; dz += 4) {
+                    int x = at.getBlockX() + dx, z = at.getBlockZ() + dz;
+                    var block = w.getHighestBlockAt(x, z);
+                    sampled++;
+                    if (tintable(block.getType())) colourable++;
+                }
+        return sampled == 0 ? 0.0 : (double) colourable / sampled;
+    }
     private World world;
 
     public ObjectiveTint(MobaPlugin plugin) { this.plugin = plugin; }
@@ -187,6 +234,17 @@ public final class ObjectiveTint implements Listener {
                                 at.getBlockZ() + dz), team);
         }
         for (org.bukkit.Chunk c : w.getLoadedChunks()) paint(c);
+        coverage = measureCoverage(w, volumes.keySet(), radius);
+        if (coverage == 0.0)
+            plugin.getLogger().warning("[tint] NOTHING IN THESE VOLUMES CAN TAKE A BIOME "
+                    + "COLOUR. Only vegetation and water carry a tintindex; stone, "
+                    + "deepslate, mycelium, sand and wood cannot be tinted by any means "
+                    + "a datapack has. On this map the tint marks nothing, and the glow "
+                    + "is the only signature. Do not read a clean log as a working tint.");
+        else if (coverage < 0.15)
+            plugin.getLogger().warning(String.format("[tint] only %.0f%% of sampled surface "
+                    + "in these volumes can take a biome colour; the tint will read weakly",
+                    coverage * 100));
         plugin.getLogger().info("[tint] " + report());
         return planned.size();
     }
@@ -238,6 +296,7 @@ public final class ObjectiveTint implements Listener {
                         : chosen.get(Team.NORTH).getKey().getKey())
                 + " south=" + (chosen.get(Team.SOUTH) == null ? "none"
                         : chosen.get(Team.SOUTH).getKey().getKey())
-                + " surrounding=" + surveyed.size() + " biome(s)";
+                + " surrounding=" + surveyed.size() + " biome(s)"
+                + (coverage < 0 ? "" : String.format(" tintable_surface=%.0f%%", coverage * 100));
     }
 }
