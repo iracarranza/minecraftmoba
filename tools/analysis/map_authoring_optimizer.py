@@ -9,10 +9,33 @@ underground hazard. Hazard remains UNRESOLVED until spawn-pressure evidence or
 an explicit sensitivity model exists.
 
 Scenario counts/weights/thresholds in this file are NON-CANON analysis fixtures.
-22 September doctrine: far Route targets and map-wide travel parity are legacy
-search assumptions pending re-scoping to Core exits/hinterlands. This does not
-implement Socket checks, opening floor/ceiling, or a depth/character richness
-policy. Keep emitted metrics descriptive; see docs/audit/2026-09-22-spatial-doctrine.md.
+
+WHAT CHANGED, 23 September 2026 -- the optimization TARGET.
+
+This tool used to optimize `balance_asymmetry`: the mean normalised difference
+between the two teams' travel reach to the opportunities a portfolio placed.
+The objective was `character - 5.5*b - 25*max(0, b-0.14)`, so balance dominated
+every profile, and a portfolio was only kept at all if `b <= 0.12`.
+
+That target is superseded. Doctrine now says functional opportunity is balanced
+while Wilderness is not mirrored, and a difference between the two team ends is
+not a competitive deficit without evidence of a relevant gameplay consequence.
+The near-miss rescue test on 930010639 showed what optimizing it actually buys:
+authoring drove the scalar to 0.0161 while leaving the map's 0.3173
+accessible-land gap exactly where it was, because the scalar measures
+travel-cost equality to the opportunities authoring places, not the terrain.
+
+The MEASUREMENTS are kept -- every balance component is still computed and
+still reported -- and only the interpretation changed. The shape is now:
+
+    HARD GATES (viability)  then  OPTIMIZATION AMONG VIABLE CANDIDATES
+
+The gate is reachability, not equality. An opportunity one team cannot attend
+to at all is a structural failure; an opportunity that is simply nearer one
+team is ordinary competitive geography. Optimization then runs on profile
+character and real authoring cost, with balance demoted to a reported number.
+
+See docs/audit/2026-09-23-map-compiler-slice.md.
 """
 from __future__ import annotations
 import argparse, json, math, statistics, zipfile
@@ -20,7 +43,30 @@ from pathlib import Path
 
 SPRINT = 5.612
 HOMES = {"north": (-2172.0, -460.0), "south": (-2020.0, 428.0)}
-BALANCE_FILTER = 0.12
+# SUPERSEDED as a filter, retained as the historical value so old frontier
+# files stay interpretable. Nothing gates on it any more.
+HISTORICAL_BALANCE_FILTER = 0.12
+
+# PROVISIONAL_ALPHA. The worst-placed team's travel reach to an authored
+# opportunity, in seconds. An opportunity beyond this cannot be attended to by
+# that team inside the ten-minute night that opens it, which is a structural
+# argument rather than a preference -- and it is where the measured data sits:
+# across the two realized maps (126 cells, Alpha and near-miss 930010639) the
+# worst-team reach has p90 400s, p95 491s and max 864s, so 600s excludes 2.4%
+# of placements as pathological and leaves ordinary difference alone.
+# Tightening to 400s would reject a tenth of real placements; loosening to 900s
+# gates nothing at all. Configurable; NOT canon.
+PRACTICAL_REACH_BOUND_SEC = 600.0
+
+# PROVISIONAL_ALPHA. A team with no authored Worksite this close cannot take
+# part in the Worksite night at all, which is functional opportunity failing --
+# not terrain differing. Measured the same way: across both realized maps and
+# 800 sampled portfolios, each team's NEAREST Worksite sits at 73-168s (Alpha
+# north median 76s / south 96s; near-miss north 74s / south 87s), so 200s
+# accepts everything real geography produced with room to spare and fires only
+# when a portfolio strands a team entirely. Tightening to 150s starts rejecting
+# ordinary southern placements on both maps. Configurable; NOT canon.
+OPENING_WORKSITE_REACH_SEC = 200.0
 ROUTE_TARGET_STRETCH = 1.25
 ROUTE_SPILLOVER_RADIUS = 112.0
 ROUTE_SPILLOVER_SCALE = 0.85
@@ -257,6 +303,9 @@ def metrics(cfg):
     density=min(1,(len(cfg["renewables"])+len(cfg["worksites"])-14)/10)
     peripheral=min(1,statistics.mean(x["gap"] for x in cfg["renewables"])/220)
     return {
+        # Retained MEASUREMENT. Nothing optimizes or gates on these any more;
+        # they describe how reach differs between the ends, which doctrine
+        # permits. See the module docstring.
         "balance_asymmetry":balance,
         "components":comps,
         "route_spillover_balance_asymmetry":spill_balance,
@@ -264,6 +313,7 @@ def metrics(cfg):
         "route_spillover_delta":spill_balance-balance,
         "effective_balance_asymmetry":max(balance,spill_balance),
         "route_spillover":spillover_summary(cfg),
+        "authoring_cost":authoring_cost(cfg),
         "contest_pressure":contest,
         "exploration_pressure":exploration,
         "consolidation_pressure":consolidation,
@@ -271,8 +321,63 @@ def metrics(cfg):
         "peripheral_specialization":peripheral,
     }
 
+def viability(cfg,m,reach_bound=PRACTICAL_REACH_BOUND_SEC,
+              opening_bound=OPENING_WORKSITE_REACH_SEC):
+    """Hard gates, with machine-readable reasons. Empty means viable.
+
+    Deliberately short. These are structural failures, not preferences, and a
+    gate that fires on ordinary terrain difference would be the superseded
+    balance target wearing a new name.
+    """
+    reasons=[]
+    placed=cfg["founders"]+cfg["renewables"]+cfg["worksites"]+cfg["pois"]
+    unreachable=[x for x in placed if max(x["n"],x["s"])>reach_bound]
+    if unreachable:
+        reasons.append({
+            "code":"OPPORTUNITY_UNREACHABLE",
+            "count":len(unreachable),
+            "worst_reach_sec":max(max(x["n"],x["s"]) for x in unreachable),
+            "bound_sec":reach_bound,
+            "detail":"a team cannot attend to this opportunity within the night "
+                     "that opens it; this is unreachability, not inequality",
+        })
+    for team,key in (("north","n"),("south","s")):
+        if not any(x[key]<=opening_bound for x in cfg["worksites"]):
+            reasons.append({
+                "code":"NO_OPENING_WORKSITE",
+                "team":team,
+                "bound_sec":opening_bound,
+                "nearest_sec":min(x[key] for x in cfg["worksites"]),
+                "detail":"no authored Worksite inside opening reach for this team; "
+                         "this team cannot take part in the Worksite night at all",
+            })
+    return reasons
+
+def authoring_cost(cfg):
+    """What this portfolio actually asks to be built and reached.
+
+    A real cost, not a proxy for balance: how many placements, how far the
+    average one sits from the nearer team, and how much repeated use is made of
+    the same cells.
+    """
+    placed=cfg["founders"]+cfg["renewables"]+cfg["worksites"]+cfg["pois"]
+    unique=len({tuple(x["cell"]) for x in placed})
+    return {
+        "placements":len(placed),
+        "distinct_cells":unique,
+        "mean_nearer_team_reach_sec":statistics.mean(x["min"] for x in placed),
+        "max_worst_team_reach_sec":max(max(x["n"],x["s"]) for x in placed),
+    }
+
 def objective(profile,m):
-    b=m["effective_balance_asymmetry"]
+    """Optimize character and cost among VIABLE candidates.
+
+    Balance is no longer here. It was worth -5.5 per unit plus a -25 cliff,
+    which made it the only term that mattered; it is now a reported measurement
+    and nothing else. The cost term is small on purpose -- it breaks ties
+    toward portfolios that ask for less reaching, without becoming a second
+    disguised balance score.
+    """
     if profile=="exploration_centric":
         char=m["exploration_pressure"]
     elif profile=="consolidative":
@@ -289,7 +394,8 @@ def objective(profile,m):
         char=.5*m["exploration_pressure"]+.3*m["contest_pressure"]
     else:
         char=-(abs(m["contest_pressure"]-.28)+abs(m["exploration_pressure"]-.55))
-    return char-5.5*b-25*max(0,b-.14)
+    reach=m["authoring_cost"]["mean_nearer_team_reach_sec"]
+    return char-0.15*(reach/PRACTICAL_REACH_BOUND_SEC)
 
 def normalize(v):
     if isinstance(v,float):
@@ -327,7 +433,12 @@ def main():
         "generator":"tools/analysis/map_authoring_optimizer.py",
         "samples_per_profile":a.samples,
         "random_seed":a.seed,
-        "balance_filter":BALANCE_FILTER,
+        "gating":"viability gates, not a balance filter",
+        "practical_reach_bound_sec":PRACTICAL_REACH_BOUND_SEC,
+        "opening_worksite_reach_sec":OPENING_WORKSITE_REACH_SEC,
+        "practical_reach_bound_status":"PROVISIONAL_ALPHA, measured; see module docstring",
+        "historical_balance_filter":HISTORICAL_BALANCE_FILTER,
+        "historical_balance_filter_status":"SUPERSEDED; retained so older frontier files stay interpretable",
         "route_spillover_model":{
             "radius_blocks":ROUTE_SPILLOVER_RADIUS,
             "target_path_stretch":ROUTE_TARGET_STRETCH,
@@ -340,10 +451,18 @@ def main():
         for _ in range(a.samples):
             c=config(cats,profile,rng)
             m=metrics(c)
-            rows.append({"objective":objective(profile,m),"metrics":m,"configuration":c})
+            rejections=viability(c,m)
+            rows.append({"objective":objective(profile,m),"metrics":m,
+                         "viable":not rejections,"rejections":rejections,
+                         "configuration":c})
         rows.sort(key=lambda x:x["objective"],reverse=True)
-        good=[x for x in rows if x["metrics"]["effective_balance_asymmetry"]<=BALANCE_FILTER]
-        frontier[profile]={"samples":a.samples,"balanced_found":len(good),
+        good=[x for x in rows if x["viable"]]
+        codes={}
+        for x in rows:
+            for r in x["rejections"]:
+                codes[r["code"]]=codes.get(r["code"],0)+1
+        frontier[profile]={"samples":a.samples,"viable_found":len(good),
+                           "rejection_codes":codes,
                            "finalists":(good or rows)[:10]}
     frontier=normalize(frontier)
     catalog=normalize({"_meta":{
@@ -362,11 +481,13 @@ def main():
     (a.out/"unresolved-hazards.json").write_text(json.dumps(hazard,indent=2)+"\n")
     print(json.dumps({
         "candidate_counts":candidate_counts(cats),
+        "practical_reach_bound_sec":PRACTICAL_REACH_BOUND_SEC,
         "profiles":{p:{
-            "balanced_found":frontier[p]["balanced_found"],
-            "best_raw":frontier[p]["finalists"][0]["metrics"]["balance_asymmetry"],
-            "best_spillover":frontier[p]["finalists"][0]["metrics"]["route_spillover_balance_asymmetry"],
-            "best_effective":frontier[p]["finalists"][0]["metrics"]["effective_balance_asymmetry"],
+            "viable_found":frontier[p]["viable_found"],
+            "rejection_codes":frontier[p]["rejection_codes"],
+            "best_objective":frontier[p]["finalists"][0]["objective"],
+            "best_authoring_cost":frontier[p]["finalists"][0]["metrics"]["authoring_cost"],
+            "measured_balance_asymmetry":frontier[p]["finalists"][0]["metrics"]["balance_asymmetry"],
         } for p in PROFILES},
     },indent=2))
 

@@ -8,7 +8,7 @@ WORLDGEN = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORLDGEN))
 
 from terrain_harvest import massing
-from terrain_harvest.author_portfolio import (CROP_BLOCK, SPECIES_FENCE, allocate,
+from terrain_harvest.author_portfolio import (UNAUTHORED, allocate,
                                               cell_index, footprint_chunks,
                                               radius_of, sites_of, template_for,
                                               unwritable)
@@ -23,20 +23,26 @@ def site(kind, detail=None, origin=(0, 0), cell=(0, 0)):
 
 
 class TemplateSelectionTests(unittest.TestCase):
-    def test_every_optimizer_crop_maps_to_a_block(self):
-        for crop in CROP_BLOCK:
-            t, reason = template_for({'kind': 'founder_crop', 'detail': crop})
-            self.assertIsNotNone(t, reason)
+    def test_regenerative_opportunities_author_no_blocks_at_all(self):
+        # These tests used to assert that every crop mapped to a block and
+        # every species to a FENCE. The regenerative manifestation doctrine
+        # rejects fences, rectangular layouts and prepared farmland: a Patch is
+        # a resource occurrence, not infrastructure implying the site is
+        # already Developed. So nothing is authored, and the mapping tables
+        # they asserted over are gone rather than left as a trap.
+        for kind in UNAUTHORED:
+            for detail in ('wheat', 'sheep', 'axolotl', None):
+                t, reason = template_for({'kind': kind, 'detail': detail})
+                self.assertEqual({}, t, f'{kind}/{detail} must author no blocks')
+                self.assertIsNone(reason)
 
-    def test_every_mapped_species_authors_a_range(self):
-        for species in SPECIES_FENCE:
-            t, reason = template_for({'kind': 'renewable_range', 'detail': species})
-            self.assertIsNotNone(t, reason)
-
-    def test_unmapped_species_is_a_reported_gap_not_a_default(self):
-        t, reason = template_for({'kind': 'renewable_range', 'detail': 'axolotl'})
-        self.assertIsNone(t)
-        self.assertIn('axolotl', reason)
+    def test_the_placement_still_exists_even_though_nothing_is_built(self):
+        # Empty is deliberate, not a failure: the cell the optimizer chose is
+        # still the opportunity, and the runtime manifests it at match time on
+        # terrain that is eligible then.
+        t, reason = template_for({'kind': 'renewable_range', 'detail': 'cow'})
+        self.assertIsNotNone(t)
+        self.assertIsNone(reason)
 
     def test_unknown_kind_is_reported(self):
         t, reason = template_for({'kind': 'sawmill', 'detail': None})
@@ -295,10 +301,12 @@ class OptimizerSpilloverTests(unittest.TestCase):
         self.assertLess(self.mod.spillover_reach(near, 'north', cfg), near['n'])
         self.assertEqual(self.mod.spillover_reach(far, 'north', cfg), far['n'])
 
-    def test_effective_balance_is_worst_raw_or_spillover_case(self):
-        north = {'center': [50, 0], 'n': 60.0, 's': 180.0, 'gap': 120.0,
+    def test_balance_is_still_measured_but_no_longer_decides_anything(self):
+        # `cell` is required: metrics() counts distinct cells, and the fixture
+        # predated that. A real export always carries both.
+        north = {'center': [50, 0], 'cell': [0, 0], 'n': 60.0, 's': 180.0, 'gap': 120.0,
                  'min': 60.0, 'bias': 'north', 'direct_n': 10.0, 'direct_s': 30.0}
-        south = {'center': [50, 100], 'n': 180.0, 's': 60.0, 'gap': 120.0,
+        south = {'center': [50, 100], 'cell': [0, 1], 'n': 180.0, 's': 60.0, 'gap': 120.0,
                  'min': 60.0, 'bias': 'south', 'direct_n': 30.0, 'direct_s': 10.0}
         north_target = {**north, 'center': [100, 0]}
         south_target = {**south, 'center': [100, 100]}
@@ -310,10 +318,61 @@ class OptimizerSpilloverTests(unittest.TestCase):
             'route_targets': {'north': [north_target], 'south': [south_target]},
         }
         got = self.mod.metrics(cfg)
+        # The measurement survives unchanged.
         self.assertEqual(
             got['effective_balance_asymmetry'],
             max(got['balance_asymmetry'],
                 got['route_spillover_balance_asymmetry']))
+        # What changed is that nothing consumes it. The objective used to be
+        # char - 5.5*b - 25*max(0, b-0.14), which made balance the only term
+        # that mattered; two portfolios differing only in balance must now
+        # score identically.
+        low = dict(got, balance_asymmetry=0.01, effective_balance_asymmetry=0.01)
+        high = dict(got, balance_asymmetry=0.40, effective_balance_asymmetry=0.40)
+        self.assertEqual(self.mod.objective('balanced_baseline', low),
+                         self.mod.objective('balanced_baseline', high))
+
+    def test_the_gate_is_unreachability_not_inequality(self):
+        # An opportunity strongly biased toward one team is fine. One neither
+        # team can attend to inside the night that opens it is not.
+        lopsided = {'center': [0, 0], 'cell': [0, 0], 'n': 40.0, 's': 400.0,
+                    'gap': 360.0, 'min': 40.0, 'bias': 'north',
+                    'direct_n': 10.0, 'direct_s': 90.0}
+        remote = dict(lopsided, cell=[1, 1], n=900.0, s=950.0, min=900.0)
+        # Both teams must still be able to reach a Worksite: a team with none
+        # in opening reach cannot take part in the Worksite night at all, which
+        # is functional opportunity failing rather than terrain differing.
+        near_ws = dict(lopsided, cell=[2, 2], n=80.0, s=120.0, min=80.0)
+        cfg = {'founders': [lopsided], 'renewables': [lopsided],
+               'worksites': [near_ws], 'pois': [lopsided],
+               'route_targets': {'north': [lopsided], 'south': [lopsided]}}
+        self.assertEqual([], self.mod.viability(cfg, self.mod.metrics(cfg)),
+                         'a lopsided but reachable portfolio is viable')
+        cfg['pois'] = [remote]
+        codes = [r['code'] for r in self.mod.viability(cfg, self.mod.metrics(cfg))]
+        self.assertIn('OPPORTUNITY_UNREACHABLE', codes)
+
+    def test_a_team_with_no_worksite_in_opening_reach_is_rejected(self):
+        ok = {'center': [0, 0], 'cell': [0, 0], 'n': 80.0, 's': 120.0, 'gap': 40.0,
+              'min': 80.0, 'bias': 'north', 'direct_n': 10.0, 'direct_s': 20.0}
+        stranded = dict(ok, cell=[3, 3], s=500.0)
+        cfg = {'founders': [ok], 'renewables': [ok], 'worksites': [stranded],
+               'pois': [ok], 'route_targets': {'north': [ok], 'south': [ok]}}
+        reasons = self.mod.viability(cfg, self.mod.metrics(cfg))
+        self.assertEqual(['NO_OPENING_WORKSITE'], [r['code'] for r in reasons])
+        self.assertEqual('south', reasons[0]['team'])
+
+    def test_rejections_are_machine_readable(self):
+        far = {'center': [0, 0], 'cell': [0, 0], 'n': 900.0, 's': 950.0,
+               'gap': 50.0, 'min': 900.0, 'bias': 'north',
+               'direct_n': 90.0, 'direct_s': 95.0}
+        cfg = {'founders': [far], 'renewables': [far], 'worksites': [far],
+               'pois': [far], 'route_targets': {'north': [far], 'south': [far]}}
+        reasons = self.mod.viability(cfg, self.mod.metrics(cfg))
+        self.assertTrue(reasons)
+        for r in reasons:
+            self.assertIn('code', r)
+            self.assertEqual(r['code'], r['code'].upper())
 
 
 if __name__ == '__main__':

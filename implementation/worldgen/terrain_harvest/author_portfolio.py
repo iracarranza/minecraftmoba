@@ -34,21 +34,17 @@ from .massing import crop_patch, pen, poi, worksite
 SCHEMA = 'map_portfolio_authored/1'
 
 # The optimizer names crops in the singular; vanilla blocks are plural.
-CROP_BLOCK = {'wheat': 'wheat', 'carrot': 'carrots', 'potato': 'potatoes',
-              'beetroot': 'beetroots'}
 
 # Renewable species the optimizer can select, mapped to the pen fence that
 # reads as that kind of range. Animals themselves are spawned at runtime.
 # Opportunities the map records but does not BUILD. See template_for.
+# Renewable ranges and founder crops are NOT built as blocks. There used to be
+# a CROP_BLOCK table and a SPECIES_FENCE table here, mapping each species to a
+# fence type -- and the regenerative manifestation doctrine rejects fences,
+# rectangular layouts and prepared farmland outright, because infrastructure
+# implies the site has already been Developed. Once nothing is authored, the
+# tables had no caller left; they are removed rather than kept as a trap.
 UNAUTHORED = {'renewable_range', 'founder_crop'}
-
-SPECIES_FENCE = {
-    'sheep': 'oak_fence', 'cow': 'oak_fence', 'pig': 'oak_fence',
-    'chicken': 'birch_fence', 'rabbit': 'birch_fence',
-    'horse': 'spruce_fence', 'donkey': 'spruce_fence',
-    'goat': 'dark_oak_fence', 'fox': 'dark_oak_fence', 'wolf': 'dark_oak_fence',
-    'turtle': 'jungle_fence',
-}
 
 
 def cell_index(opportunity: dict) -> dict:
