@@ -483,6 +483,16 @@ def author_into(out: Compilation, world):
     """
     from .build_structures import TEMPLATES, build
     sites = out.evidence.get('objective_world_xz') or {}
+    # A missing build world is a caller error, not a property of the map.
+    # Without this it surfaced as AUTHORING_SITE_UNGENERATED -- "no terrain
+    # under it" -- for sites whose terrain was plainly there, and was counted
+    # against the geography.
+    if not Path(world).is_dir() or not (Path(world) / 'region').is_dir():
+        return out.fail('author', 'BUILD_WORLD_MISSING',
+                        f'no world to author into at {world}; the caller must copy '
+                        f'the generated world before authoring, because authoring '
+                        f'writes blocks and must never touch the original',
+                        build_world=str(world))
     reader = column_scan.World(Path(world))
     placements = []
     for team, objs in sites.items():

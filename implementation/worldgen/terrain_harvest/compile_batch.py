@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import collections
 import json
+import shutil
 from pathlib import Path
 
 from .map_compiler import STAGES, compile_candidate
@@ -21,7 +22,22 @@ def run(candidates, worlds=None, build_root=None):
         world = (worlds or {}).get(seed)
         build = None
         if build_root and world:
+            # MATERIALIZE the build world, do not merely name it.
+            #
+            # This passed a path that was never created, so `author_into` read
+            # an empty directory, every surface came back None, and the map was
+            # rejected with AUTHORING_SITE_UNGENERATED -- "no terrain under it"
+            # for a site whose terrain was demonstrably there, since the
+            # candidate had just been harvested from it.
+            #
+            # It looked like a geography failure and was counted as one. It also
+            # made 2718281 unmeasurable this morning and inflated two rejections
+            # in the screened batch. `foundry.job` has always copied first; the
+            # batch runner simply never did the same thing.
             build = Path(build_root) / f'build-{seed}'
+            if build.exists():
+                shutil.rmtree(build)
+            shutil.copytree(world, build)
         runs.append(compile_candidate(c, world, build).as_dict())
     stages = collections.Counter(r['deepest_stage_reached'] for r in runs)
     codes = collections.Counter(x['code'] for r in runs for x in r['rejections'])

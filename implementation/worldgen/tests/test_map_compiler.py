@@ -214,3 +214,25 @@ class AuthoringContract(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class BuildWorldIsMaterialized(unittest.TestCase):
+    """Authoring writes blocks, so it needs a world that exists."""
+
+    def test_a_missing_build_world_is_a_caller_error_not_bad_geography(self):
+        # compile_batch passed a build path it never created, so author_into
+        # read an empty directory, every surface came back None, and the map
+        # was rejected with AUTHORING_SITE_UNGENERATED -- "no terrain under it"
+        # for a site whose terrain had just been harvested. It looked like a
+        # geography failure and was counted as one.
+        from terrain_harvest import map_compiler as mc
+        out = mc.author_into(mc.Compilation(seed=1), '/tmp/moba-no-such-world')
+        self.assertEqual(['BUILD_WORLD_MISSING'], [r.code for r in out.rejections])
+
+    def test_the_batch_runner_copies_before_authoring(self):
+        # foundry.job always copied; the batch runner named a path and did not.
+        import inspect
+        from terrain_harvest import compile_batch
+        src = inspect.getsource(compile_batch.run)
+        self.assertIn('copytree', src,
+                      'the batch runner must materialize the build world, not just name it')
