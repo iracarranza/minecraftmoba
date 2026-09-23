@@ -84,15 +84,45 @@ class Objectives(unittest.TestCase):
         evidence = of.missing_evidence('end_tower')
         self.assertIn('superseded by end_spike', evidence[0])
 
-    def test_every_current_form_is_measured_from_minecraft_itself(self):
+    def test_every_defensive_form_is_measured_from_minecraft_itself(self):
         # These were unmeasured, and certification failed closed for all three.
         # They are now read from the game: the Outpost and Bastion out of the
         # client jar's structure NBT, the End Spike out of a real generated End
         # dimension, because vanilla builds the arena spikes in code.
-        for sid, form in of.FORMS.items():
+        #
+        # Scoped to DEFENSIVE rather than to all of FORMS. The three defensive
+        # objectives depict things Minecraft builds, so a contract for them that
+        # was not read from Minecraft is a guess wearing a measurement's name --
+        # which is the failure this guards. The Fountain depicts nothing; see
+        # below.
+        for sid in of.DEFENSIVE:
+            form = of.FORMS[sid]
             self.assertEqual('measured', form['evidence'], sid)
             self.assertIsNotNone(form['span_samples'], sid)
             self.assertEqual([], of.missing_evidence(sid), sid)
+
+    def test_the_fountain_is_authored_evidence_and_is_not_a_defensive_objective(self):
+        # The Fountain is this project's own mesh. There is no vanilla
+        # structure for it to be measured against, so 'authored' is the
+        # strongest claim available rather than a weaker one -- the template IS
+        # the definition. It must still be verifiable, because it was authored
+        # into worlds unverified until 23 September and that is how a map
+        # certified READY with a village 68 blocks from a Fountain.
+        form = of.FORMS['aether_fountain']
+        self.assertEqual('authored', form['evidence'])
+        self.assertEqual('build_structures.TEMPLATES[aether_fountain]', form['source'])
+        self.assertTrue(of.site_requirements('aether_fountain')['known'],
+                        'the Fountain must have a contract, or verification skips it silently')
+        self.assertNotIn('aether_fountain', of.DEFENSIVE,
+                         'the Fountain is not a defensive objective and must not '
+                         'become a fourth link in the ordinal chain')
+
+    def test_no_form_may_claim_measurement_it_does_not_have(self):
+        # The general rule the two tests above split: every current form states
+        # where its contract came from, and nothing is left at 'missing'.
+        for sid, form in of.FORMS.items():
+            self.assertIn(form['evidence'], ('measured', 'authored'), sid)
+            self.assertIsNotNone(form['span_samples'], sid)
 
     def test_the_three_contracts_differ_in_kind_not_only_in_size(self):
         # Collapsing these to one bounding box would hide the constraint most

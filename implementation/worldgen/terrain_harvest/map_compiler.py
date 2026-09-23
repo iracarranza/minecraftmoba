@@ -648,12 +648,43 @@ def verify(out: Compilation, world=None):
     if world is None:
         return out.fail('verify', 'PHYSICAL_VERIFICATION_UNAVAILABLE',
                         'no world supplied; the column-level facts stay unestablished')
+    # The Fountain is verified with the objectives, not after them.
+    #
+    # It was authored into the world and never checked, because nothing supplied
+    # a requirement to check it against and `verify_placements` skips what it
+    # has no contract for -- silently. That is how a map certified READY with a
+    # savanna village 68 blocks from one Fountain and none within 728 of the
+    # other. It stays out of DEFENSIVE, because it is not a defensive objective
+    # and the ordinal chain must not gain a fourth link; it is added here, to
+    # the set of things that must survive a column scan.
+    sites = {team: dict(objs) for team, objs in sites.items()}
+    for team, xyz in (out.evidence.get('fountains') or {}).items():
+        if team in sites:
+            sites[team]['aether_fountain'] = [xyz[0], xyz[2]]
     requirements = {k: objective_forms.site_requirements(k)
-                    for k in objective_forms.DEFENSIVE}
+                    for k in (*objective_forms.DEFENSIVE, 'aether_fountain')}
     result = column_scan.verify_placements(
         Path(world), sites, requirements,
         max_moved_per_column=PROVISIONAL['max_levelling_moved_per_column'])
     out.evidence['physical_verification'] = result
+
+    # The Opening ceiling, on the PRISTINE world.
+    #
+    # It must run here and not after authoring, or it reads our own objectives
+    # back as buildings. maps.md has excluded villages from the Opening
+    # Hinterland since 22 September and said a serious violation should reject
+    # a socket; nothing implemented it, and 99887766 certified READY with a
+    # savanna village 68 blocks from one Fountain and none within 728 of the
+    # other.
+    from . import opening_ceiling as _ceiling
+    ceiling = _ceiling.certify(Path(world), out.evidence.get('fountains') or {})
+    out.evidence['opening_ceiling'] = ceiling
+    if not ceiling['certified']:
+        out.fail('verify', 'OPENING_CEILING_VIOLATED',
+                 'the Opening Hinterland contains built structure, which doctrine '
+                 'excludes because it skips meaningful early progression',
+                 problems=ceiling['problems'])
+
     if not result['verified']:
         out.fail('verify', 'PHYSICAL_VERIFICATION_FAILED',
                  'sited objectives do not survive a column scan',

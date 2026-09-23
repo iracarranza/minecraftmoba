@@ -147,6 +147,31 @@ FORMS = {
     ),
 }
 
+# The Aether Fountain.
+#
+# Kept OUT of DEFENSIVE, because it is not a defensive objective and the
+# ordinal chain must not acquire a fourth link. But it is authored into the
+# world like one, and until 23 September it was authored without being verified
+# at all -- there was no requirement to verify it against, so `verify_placements`
+# skipped it silently. That is how a map certified READY with a savanna village
+# 68 blocks from one Fountain and none within 728 of the other.
+#
+# Its evidence is 'authored': unlike the vanilla forms, whose dimensions had to
+# be reconciled against the real structure's NBT, this mesh IS the definition.
+# There is nothing external for it to disagree with.
+FOUNTAIN = _contract(
+    'aether_fountain',
+    excludes=(),
+    needs=('level ground for the basin', 'open sky over the source',
+           'approach from the surrounding Hinterland'),
+    multilevel=False,
+)
+FOUNTAIN['evidence'] = 'authored'
+FOUNTAIN['source'] = 'build_structures.TEMPLATES[aether_fountain]'
+FOUNTAIN['form'] = 'tiered basin with a central plinth and a source above'
+FOUNTAIN.setdefault('vertical_clearance', FOUNTAIN.get('height'))
+FORMS['aether_fountain'] = FOUNTAIN
+
 # Built meshes that predate the selection above. They still place, and the
 # artifacts that used them remain readable; they just do not certify.
 HISTORICAL = {
@@ -233,7 +258,12 @@ def site_requirements(structure_id: str) -> dict:
     contact and a multilevel interior.
     """
     form = FORMS.get(structure_id)
-    if form is None or form['evidence'] != 'measured':
+    # 'authored' counts alongside 'measured'. For a mesh this project wrote,
+    # the template is the definition rather than an approximation of something
+    # external, so there is nothing for it to be measured AGAINST. Refusing it
+    # here would mean the Fountain could be built but never verified, which is
+    # the state that let a village sit inside one.
+    if form is None or form['evidence'] not in ('measured', 'authored'):
         return {'known': False, 'why': missing_evidence(structure_id)}
     return {
         'known': True,

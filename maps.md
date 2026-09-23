@@ -132,7 +132,24 @@ opening resource. Judging it needs a declared equipment target, which does not
 yet exist, so the measurement stays **UNMEASURED** rather than passing by
 default.
 
-[UNIMPLEMENTED — found in play, 23 September 2026] **No compiler stage checks
+[IMPLEMENTED for villages, 23 September 2026 — see `terrain_harvest/opening_ceiling.py`.]
+The `verify` stage now surveys each Fountain's opening envelope on the
+**pristine** world, before authoring, and rejects a map whose opening stands on
+built structure. Run against 99887766 it finds 12 sampled columns of village
+inside south's envelope — bells, hay blocks, acacia stairs, terracotta — and
+**zero** inside north's, which is the asymmetry stated below. **99887766 would
+no longer certify.**
+
+The envelope radius is a NON-CANON PROVISIONAL **96 blocks**: doctrine says the
+Opening Hinterland is "compact" and gives no number, so it is a parameter with a
+declared default rather than a constant pretending to be canon. Raising it makes
+the compiler stricter and rejects more maps; that trade is unmeasured.
+
+**Carrots and accessible iron remain unchecked**, and the module says so rather
+than staying silent, because silence would look like coverage. The iron rule
+still needs a declared equipment target that does not exist.
+
+[Original finding, 23 September 2026] **No compiler stage checked
 any of this.** The first live playtest found a savanna village **68 blocks**
 from the south Fountain, inside its Opening Hinterland, on a map that passed
 physical verification and certified READY. The nearest village to the north
