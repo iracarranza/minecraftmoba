@@ -1,0 +1,9 @@
+{
+  "base_fingerprint": "5729f9396dbb0dc4d1e1b94d81b3d8f40cf3e0dcc56fa168273d58db5ea3486a",
+  "base_unchanged_after_runtime": true,
+  "packaged_files_verified": 16,
+  "runtime_saved_seed": 930010639,
+  "scope": "archive roundtrip hashes plus actual server diff fingerprint gate; not an economic result",
+  "alpha_base_fingerprint": "d131aff3c5f9523a21424dee76f3722b52e85d6cf243eb84607a45887d52008d",
+  "alpha_base_is_incompatible": true
+}

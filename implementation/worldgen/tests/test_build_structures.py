@@ -71,8 +71,24 @@ class EditorTests(unittest.TestCase):
 
 class TemplateTests(unittest.TestCase):
     def test_every_named_structure_has_a_template(self):
-        self.assertEqual(set(TEMPLATES), {'aether_fountain', 'pillager_outpost',
-                                          'nether_bastion', 'end_tower'})
+        self.assertEqual(set(TEMPLATES), {
+            'aether_fountain', 'pillager_outpost', 'nether_bastion', 'end_spike',
+            # Historical, kept under its own name so old artifacts stay readable.
+            'end_tower',
+            # The hand-modelled massing the vanilla NBT replaced, kept for quick
+            # greybox work but no longer what gets built.
+            'pillager_outpost_greybox', 'nether_bastion_greybox'})
+
+    def test_the_current_forms_are_vanilla_geometry_not_massing(self):
+        # The greybox Outpost was a 7x7 dark oak box standing in for a 15x15
+        # watchtower, so a site was verified against the measured contract and
+        # then authored to a different size. Real NBT removes the disagreement.
+        tower = TEMPLATES['pillager_outpost']()
+        self.assertEqual(1156, len(tower), 'the vanilla watchtower, block for block')
+        xs = [d[0] for d in tower]
+        self.assertEqual(15, max(xs) - min(xs) + 1)
+        self.assertGreater(len(TEMPLATES['nether_bastion']()),
+                           len(TEMPLATES['nether_bastion_greybox']()) * 10)
 
     def test_fountain_is_water_lined_with_glowstone(self):
         t = aether_fountain()
@@ -82,10 +98,15 @@ class TemplateTests(unittest.TestCase):
         self.assertEqual(t[(0, 4, 0)], block('water', level='0'))   # the source
 
     def test_templates_are_nonempty_and_bounded(self):
+        # The old ceiling was 40, written when every template was greybox
+        # massing. The measured forms are taller than that on purpose: the
+        # Bastion body is two stacked vanilla pieces and the arena spike is
+        # 76-103 blocks by measurement. The bound is now the tallest thing the
+        # measured contract admits.
         for name, fn in TEMPLATES.items():
             cells = fn()
             self.assertGreater(len(cells), 50, name)
-            self.assertLess(max(dy for _, dy, _ in cells), 40, name)
+            self.assertLessEqual(max(dy for _, dy, _ in cells), 110, name)
 
 
 class BuildTests(unittest.TestCase):

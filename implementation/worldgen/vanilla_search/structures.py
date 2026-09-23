@@ -1,4 +1,4 @@
-"""Score and propose sites for the four team structures, symmetrically.
+"""Score and propose paired sites for the four team structures (analytical fixture).
 
 objectives.md gives each team a Pillager Outpost, a Nether Bastion, an End
 Tower and an Aether Fountain, with the End Tower named as the final defensive
@@ -15,7 +15,9 @@ What this can and cannot do, stated plainly:
     footprint, not whether something already stands there.
   - It reports symmetry as a measured difference between the two teams rather
     than forcing a mirror. maps.md requires asymmetric natural geography with
-    equivalent baseline opportunity, so a numeric gap is the honest output.
+    functional opening opportunity. A numeric pad-score gap is descriptive:
+    it does not verify the clarified mirrored Core/interface contract or bounded
+    Socket integration. Existing layer offsets remain fixtures, not Core bounds.
 
 No structure is selected here and no site is accepted. Every score is a
 DERIVED MEASUREMENT over an ANALYTICAL FIXTURE footprint.
@@ -37,12 +39,33 @@ from .task_a import Terrain, path_to, shortest
 # forward layer into a far map corner, pointing away from the contested ground.
 #
 # ANALYTICAL FIXTURE: objectives.md fixes the ordering, not these numbers.
+# Radii now come from the MEASURED forms rather than from placeholders: the
+# watchtower is 15 blocks across, the bastion body 32, the arena spike 11, at
+# eight blocks per sample. See terrain_harvest/objective_forms.py.
+#
+# `end_spike` replaces the `end_tower` LAYER because a layer is a SITING slot,
+# not a mesh. The mesh is still the historical End stone shaft, and
+# build_structures deliberately has no `end_spike` template -- so authoring
+# fails closed rather than siting an End Spike and quietly building an End
+# Tower in its place. Old artifacts keep their `end_tower` key.
+#
+# ANALYTICAL FIXTURE: objectives.md fixes the ordering, not the depths.
 LAYERS = [
     {'id': 'pillager_outpost', 'radius_samples': 1, 'depth': 0.75, 'label': 'Pillager Outpost'},
     {'id': 'nether_bastion',   'radius_samples': 2, 'depth': 0.55, 'label': 'Nether Bastion'},
-    {'id': 'end_tower',        'radius_samples': 2, 'depth': 0.35, 'label': 'End Tower'},
+    {'id': 'end_spike',        'radius_samples': 1, 'depth': 0.35, 'label': 'End Spike'},
     {'id': 'aether_fountain',  'radius_samples': 2, 'depth': 0.15, 'label': 'Aether Fountain'},
 ]
+
+# What the measured contracts need that an eight-block sample grid cannot prove.
+# The Spike's binding constraint is up to 103 blocks of clear sky, and nothing
+# in the committed feature grid describes the column above the surface.
+UNVERIFIABLE_FROM_SAMPLES = {
+    'end_spike': 'vertical clearance (measured 76-103 blocks) cannot be verified '
+                 'from an 8-block surface sample grid; it needs a column scan',
+    'nether_bastion': 'multilevel interior fit and 506 columns of ground contact '
+                      'are not provable from sampled surface height alone',
+}
 
 
 def footprint(t: Terrain, centre: int, radius: int):

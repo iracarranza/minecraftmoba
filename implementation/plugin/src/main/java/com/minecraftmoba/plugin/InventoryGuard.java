@@ -11,69 +11,74 @@ import org.bukkit.inventory.*;
 public final class InventoryGuard implements Listener {
     private final MobaPlugin plugin;
     public InventoryGuard(MobaPlugin plugin) { this.plugin = plugin; }
+    /** A locked-slot marker is furniture; nothing may pick it up or move it. */
+    private boolean marker(Player p, int slot) {
+        return plugin.lockedSlots() != null
+                && plugin.lockedSlots().isMarker(p.getInventory().getItem(slot));
+    }
+
     private boolean locked(Player p, int slot) {
-        return slot >= plugin.unlockedSlots(p) && slot < 36;
+        return isLockedStorageSlot(slot, plugin.unlockedSlots(p));
+    }
+
+    /**
+     * Whether a player-inventory slot index is locked storage.
+     *
+     * This is the whole of the capacity rule as the guard enforces it: storage
+     * is slots 0-35, and anything at or above the unlocked count is locked.
+     * Slots 36-40 are armour and offhand, which capacity does not govern, and a
+     * negative index means the click was not in the player's inventory at all.
+     *
+     * Expressed as a static so it can be asserted without a server. The version
+     * of this guard that shipped the crafting blocker hid its decision behind a
+     * mocked seam, and nothing could tell CRAFTING from WORKBENCH.
+     */
+    static boolean isLockedStorageSlot(int slot, int unlocked) {
+        return slot >= unlocked && slot >= 0 && slot < 36;
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void click(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
-        boolean partial = plugin.unlockedSlots(p) < 36;
         boolean own = e.getClickedInventory() instanceof PlayerInventory;
+        // Lifting the tome out of the offhand is the recall gesture. The item
+        // is never actually removed; the click is consumed instead.
+        if (own && e.getSlot() == 40 && plugin.recall() != null
+                && plugin.offhandMap().isMap(p.getInventory().getItemInOffHand())
+                && plugin.recall().beginFromOffhandClick(p)) { e.setCancelled(true); return; }
         if ((own && (locked(p, e.getSlot()) || e.getSlot() == 40))
                 || (e.getHotbarButton() >= 0 && locked(p, e.getHotbarButton()))
                 || e.getClick() == ClickType.SWAP_OFFHAND
                 || plugin.isMap(e.getCurrentItem()) || plugin.isMap(e.getCursor())) {
             e.setCancelled(true); return;
         }
-        if (partial) {
-            // Temporary menu contents are returned on close, outside cancellable transfer events.
-            if (returnsOnClose(e.getView().getTopInventory().getType())
-                    && e.getClickedInventory() == e.getView().getTopInventory()) {
-                e.setCancelled(true); return;
-            }
-            if (e.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD) {
-                e.setCancelled(true); return;
-            }
-            boolean cursor = e.getCursor() != null && !e.getCursor().isEmpty();
-            if (cursor && e.getAction() != InventoryAction.PLACE_ALL && e.getAction() != InventoryAction.PLACE_ONE
-                    && e.getAction() != InventoryAction.PLACE_SOME && e.getAction() != InventoryAction.DROP_ALL_CURSOR
-                    && e.getAction() != InventoryAction.DROP_ONE_CURSOR && e.getAction() != InventoryAction.NOTHING) {
-                e.setCancelled(true); return;
-            }
-            InventoryAction action=e.getAction();
-            if (!cursor && (action==InventoryAction.PICKUP_ALL || action==InventoryAction.PICKUP_HALF
-                    || action==InventoryAction.PICKUP_ONE || action==InventoryAction.PICKUP_SOME)) {
-                ItemStack item=e.getCurrentItem();
-                if (item != null && !item.isEmpty()) {
-                    boolean storageSource=own && e.getSlot()>=0 && e.getSlot()<plugin.unlockedSlots(p);
-                    if (!storageSource && !canAccept(p.getInventory(),item,plugin.unlockedSlots(p))) {
-                        e.setCancelled(true); return;
-                    }
-                    if (storageSource && unsafeMerge(p.getInventory(),item,plugin.unlockedSlots(p))) {
-                        e.setCancelled(true); return;
-                    }
-                }
-            }
-        }
-        // Shift insertion does not expose its destination. Do not guess or relocate.
-        // From storage to a real external inventory is safe; armor/crafting -> player is not.
-        if (e.isShiftClick() && plugin.unlockedSlots(p) < 36
-                && (!own || e.getView().getTopInventory().getType() == InventoryType.CRAFTING
-                    || e.getView().getTopInventory().getType() == InventoryType.CREATIVE)) {
-            e.setCancelled(true); return;
-        }
-        // Double-click collection can consume stacks from locked slots or the map.
-        if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR && plugin.unlockedSlots(p) < 36)
-            e.setCancelled(true);
+        // Everything below the direct-slot rules above is ordinary vanilla.
+        //
+        // This block used to cancel, at partial capacity: any click inside a
+        // temporary menu, HOTBAR_MOVE_AND_READD, most cursor actions, unsafe
+        // pickups, every shift-click outside the player's own inventory, and
+        // double-click collection. It was written as prevention, before
+        // anything repaired a locked slot. The first playtest found what that
+        // cost: the 2x2 grid, the crafting table, shift-clicking a result and
+        // number-keying a result out were all unusable for any player below
+        // full capacity, which is every player at the start of a match.
+        //
+        // Capacity is now an invariant maintained by repair rather than by
+        // forbidding interactions that might reach a locked slot:
+        //   - a locked slot cannot be clicked directly (above);
+        //   - a number key cannot target a locked slot (above);
+        //   - LockedSlots keeps a marker in every empty locked slot, so
+        //     vanilla's own placement never chooses one;
+        //   - anything that lands in a locked slot anyway is evicted on the
+        //     next refresh, into unlocked space or onto the ground;
+        //   - ground pickup is still capacity-checked, so a player cannot
+        //     passively acquire more than they can hold.
+        // The worst case is that a player holds a few extra items for under a
+        // second before eviction. Nothing is duplicated and nothing is lost.
         if (e.getAction() == InventoryAction.UNKNOWN) e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void drag(InventoryDragEvent e) {
         if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
-        if (plugin.unlockedSlots(p)<36 && returnsOnClose(e.getView().getTopInventory().getType())
-                && e.getRawSlots().stream().anyMatch(s->s<e.getView().getTopInventory().getSize())) {
-            e.setCancelled(true); return;
-        }
         if (plugin.isMap(e.getOldCursor())) { e.setCancelled(true); return; }
         for (int raw : e.getRawSlots()) {
             if (e.getView().getInventory(raw) instanceof PlayerInventory) {
@@ -109,13 +114,34 @@ public final class InventoryGuard implements Listener {
         }
         return mergeRoom(inventory.getItemInOffHand(), item, inventory.getMaxStackSize()) > 0;
     }
+    /**
+     * Whether a temporary menu's contents must be guarded against capacity bypass.
+     *
+     * Every {@link #returnsOnClose} type returns its contents to the player when
+     * it closes, outside any cancellable transfer event, so a player with locked
+     * slots could park items there and have them come back into locked storage.
+     *
+     * CRAFTING is the exception, and treating it like the rest was a real bug:
+     * it is not a menu the player opens, it is the 2x2 grid on their own
+     * inventory screen. Guarding it blanket-cancelled every click on the
+     * crafting inputs and the result, which made baseline crafting impossible
+     * for anyone below full inventory capacity -- that is, every player at the
+     * start of a match. Capacity there is enforced by marker occupancy and by
+     * LockedSlots evicting anything that reaches a locked slot, not by
+     * forbidding the interaction.
+     */
     public static boolean returnsOnClose(InventoryType type) {
-        return switch(type) {
-            case CRAFTING, WORKBENCH, ANVIL, SMITHING, ENCHANTING, GRINDSTONE, CARTOGRAPHY,
-                 STONECUTTER, LOOM, MERCHANT -> true;
+        return returnsOnClose(type.name());
+    }
+
+    static boolean returnsOnClose(String typeName) {
+        return switch (typeName) {
+            case "CRAFTING", "WORKBENCH", "ANVIL", "SMITHING", "ENCHANTING", "GRINDSTONE",
+                 "CARTOGRAPHY", "STONECUTTER", "LOOM", "MERCHANT" -> true;
             default -> false;
         };
     }
+
     public static boolean safeToReduce(Player p) {
         if (!p.getItemOnCursor().isEmpty()) return false;
         Inventory top=p.getOpenInventory().getTopInventory();

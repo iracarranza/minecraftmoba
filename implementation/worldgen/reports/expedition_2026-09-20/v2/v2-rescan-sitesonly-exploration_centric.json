@@ -1,0 +1,1333 @@
+{
+ "balance": {
+  "measured": {
+   "balance_asymmetry": 0.12947989742789284,
+   "components": {
+    "founder": 0.23455251813354802,
+    "poi": 0.1601389661097341,
+    "renewable": 0.15256108308123625,
+    "route": 0.03466303792676093,
+    "worksite": 0.06548388188818498
+   }
+  },
+  "proxy": {
+   "balance_asymmetry": 0.07593248,
+   "components": {
+    "founder": 0.077502252,
+    "poi": 0.054120062,
+    "renewable": 0.178977712,
+    "route": 0.008071697,
+    "worksite": 0.060990677
+   }
+  }
+ },
+ "cost_model": "vanilla_search.task_a.PARAMETERS, unchanged",
+ "evidence_state": "RAW WORLD OBSERVATION",
+ "finalist_rank": 0,
+ "frontier_sha256": "30c2d9e6a7e0bb1a0fe0127a147ac6388add4b325606fafb911bd2505114af71",
+ "graph_nodes": 14256,
+ "measured": [
+  {
+   "cell": [
+    0,
+    0
+   ],
+   "detail": null,
+   "gap": 223.3,
+   "kind": "mining_worksite",
+   "min": 162.856,
+   "n": 162.856,
+   "s": 386.156,
+   "world_xz": [
+    -2416,
+    -464
+   ]
+  },
+  {
+   "cell": [
+    0,
+    1
+   ],
+   "detail": "cow",
+   "gap": 209.163,
+   "kind": "renewable_range",
+   "min": 143.759,
+   "n": 143.759,
+   "s": 352.922,
+   "world_xz": [
+    -2448,
+    -368
+   ]
+  },
+  {
+   "cell": [
+    0,
+    1
+   ],
+   "detail": "chicken",
+   "gap": 207.838,
+   "kind": "renewable_range",
+   "min": 112.735,
+   "n": 112.735,
+   "s": 320.573,
+   "world_xz": [
+    -2448,
+    -304
+   ]
+  },
+  {
+   "cell": [
+    0,
+    1
+   ],
+   "detail": "potato",
+   "gap": 224.983,
+   "kind": "founder_crop",
+   "min": 145.024,
+   "n": 145.024,
+   "s": 370.007,
+   "world_xz": [
+    -2384,
+    -368
+   ]
+  },
+  {
+   "cell": [
+    0,
+    4
+   ],
+   "detail": null,
+   "gap": 69.454,
+   "kind": "poi",
+   "min": 172.463,
+   "n": 172.463,
+   "s": 241.917,
+   "world_xz": [
+    -2448,
+    16
+   ]
+  },
+  {
+   "cell": [
+    0,
+    4
+   ],
+   "detail": "cow",
+   "gap": 46.35,
+   "kind": "renewable_range",
+   "min": 187.604,
+   "n": 187.604,
+   "s": 233.954,
+   "world_xz": [
+    -2448,
+    80
+   ]
+  },
+  {
+   "cell": [
+    0,
+    4
+   ],
+   "detail": null,
+   "gap": 82.09,
+   "kind": "mining_worksite",
+   "min": 157.811,
+   "n": 157.811,
+   "s": 239.901,
+   "world_xz": [
+    -2384,
+    16
+   ]
+  },
+  {
+   "cell": [
+    0,
+    6
+   ],
+   "detail": null,
+   "gap": 74.49,
+   "kind": "mining_worksite",
+   "min": 164.39,
+   "n": 238.88,
+   "s": 164.39,
+   "world_xz": [
+    -2448,
+    272
+   ]
+  },
+  {
+   "cell": [
+    0,
+    6
+   ],
+   "detail": "south",
+   "gap": 75.325,
+   "kind": "route_target",
+   "min": 170.316,
+   "n": 245.641,
+   "s": 170.316,
+   "world_xz": [
+    -2448,
+    336
+   ]
+  },
+  {
+   "cell": [
+    0,
+    7
+   ],
+   "detail": null,
+   "gap": 96.075,
+   "kind": "poi",
+   "min": 162.813,
+   "n": 258.888,
+   "s": 162.813,
+   "world_xz": [
+    -2448,
+    400
+   ]
+  },
+  {
+   "cell": [
+    0,
+    7
+   ],
+   "detail": "rabbit",
+   "gap": 116.421,
+   "kind": "renewable_range",
+   "min": 164.614,
+   "n": 281.035,
+   "s": 164.614,
+   "world_xz": [
+    -2448,
+    464
+   ]
+  },
+  {
+   "cell": [
+    0,
+    7
+   ],
+   "detail": "sheep",
+   "gap": 135.99,
+   "kind": "renewable_range",
+   "min": 133.834,
+   "n": 269.824,
+   "s": 133.834,
+   "world_xz": [
+    -2384,
+    400
+   ]
+  },
+  {
+   "cell": [
+    0,
+    7
+   ],
+   "detail": null,
+   "gap": 157.811,
+   "kind": "mining_worksite",
+   "min": 136.247,
+   "n": 294.058,
+   "s": 136.247,
+   "world_xz": [
+    -2384,
+    464
+   ]
+  },
+  {
+   "cell": [
+    1,
+    1
+   ],
+   "detail": "pig",
+   "gap": 261.547,
+   "kind": "renewable_range",
+   "min": 46.979,
+   "n": 46.979,
+   "s": 308.526,
+   "world_xz": [
+    -2288,
+    -336
+   ]
+  },
+  {
+   "cell": [
+    1,
+    5
+   ],
+   "detail": "north",
+   "gap": 43.314,
+   "kind": "route_target",
+   "min": 224.797,
+   "n": 268.111,
+   "s": 224.797,
+   "world_xz": [
+    -2288,
+    176
+   ]
+  },
+  {
+   "cell": [
+    1,
+    6
+   ],
+   "detail": null,
+   "gap": 141.54,
+   "kind": "mining_worksite",
+   "min": 109.183,
+   "n": 250.723,
+   "s": 109.183,
+   "world_xz": [
+    -2288,
+    304
+   ]
+  },
+  {
+   "cell": [
+    2,
+    1
+   ],
+   "detail": "potato",
+   "gap": 252.31,
+   "kind": "founder_crop",
+   "min": 35.271,
+   "n": 35.271,
+   "s": 287.581,
+   "world_xz": [
+    -2160,
+    -336
+   ]
+  },
+  {
+   "cell": [
+    2,
+    4
+   ],
+   "detail": "sheep",
+   "gap": 53.141,
+   "kind": "renewable_range",
+   "min": 144.433,
+   "n": 144.433,
+   "s": 197.574,
+   "world_xz": [
+    -2192,
+    16
+   ]
+  },
+  {
+   "cell": [
+    2,
+    4
+   ],
+   "detail": null,
+   "gap": 13.563,
+   "kind": "mining_worksite",
+   "min": 164.787,
+   "n": 164.787,
+   "s": 178.35,
+   "world_xz": [
+    -2192,
+    80
+   ]
+  },
+  {
+   "cell": [
+    2,
+    4
+   ],
+   "detail": "north",
+   "gap": 87.526,
+   "kind": "route_target",
+   "min": 125.26,
+   "n": 125.26,
+   "s": 212.786,
+   "world_xz": [
+    -2128,
+    16
+   ]
+  },
+  {
+   "cell": [
+    2,
+    5
+   ],
+   "detail": "sheep",
+   "gap": 143.863,
+   "kind": "renewable_range",
+   "min": 118.866,
+   "n": 262.729,
+   "s": 118.866,
+   "world_xz": [
+    -2160,
+    176
+   ]
+  },
+  {
+   "cell": [
+    3,
+    3
+   ],
+   "detail": null,
+   "gap": 106.443,
+   "kind": "mining_worksite",
+   "min": 103.755,
+   "n": 103.755,
+   "s": 210.198,
+   "world_xz": [
+    -2032,
+    -80
+   ]
+  },
+  {
+   "cell": [
+    3,
+    4
+   ],
+   "detail": null,
+   "gap": 20.855,
+   "kind": "poi",
+   "min": 152.13,
+   "n": 172.985,
+   "s": 152.13,
+   "world_xz": [
+    -2032,
+    48
+   ]
+  },
+  {
+   "cell": [
+    3,
+    5
+   ],
+   "detail": "carrot",
+   "gap": 107.575,
+   "kind": "founder_crop",
+   "min": 114.101,
+   "n": 221.676,
+   "s": 114.101,
+   "world_xz": [
+    -2064,
+    144
+   ]
+  },
+  {
+   "cell": [
+    3,
+    5
+   ],
+   "detail": "potato",
+   "gap": 152.458,
+   "kind": "founder_crop",
+   "min": 91.069,
+   "n": 243.527,
+   "s": 91.069,
+   "world_xz": [
+    -2064,
+    208
+   ]
+  },
+  {
+   "cell": [
+    4,
+    1
+   ],
+   "detail": null,
+   "gap": 211.054,
+   "kind": "mining_worksite",
+   "min": 73.301,
+   "n": 73.301,
+   "s": 284.355,
+   "world_xz": [
+    -1904,
+    -336
+   ]
+  },
+  {
+   "cell": [
+    4,
+    3
+   ],
+   "detail": "south",
+   "gap": 85.541,
+   "kind": "route_target",
+   "min": 124.729,
+   "n": 124.729,
+   "s": 210.27,
+   "world_xz": [
+    -1904,
+    -80
+   ]
+  },
+  {
+   "cell": [
+    4,
+    4
+   ],
+   "detail": null,
+   "gap": 27.094,
+   "kind": "mining_worksite",
+   "min": 146.011,
+   "n": 173.105,
+   "s": 146.011,
+   "world_xz": [
+    -1904,
+    48
+   ]
+  },
+  {
+   "cell": [
+    5,
+    1
+   ],
+   "detail": null,
+   "gap": 174.927,
+   "kind": "poi",
+   "min": 127.816,
+   "n": 127.816,
+   "s": 302.743,
+   "world_xz": [
+    -1776,
+    -336
+   ]
+  },
+  {
+   "cell": [
+    5,
+    3
+   ],
+   "detail": "south",
+   "gap": 85.554,
+   "kind": "route_target",
+   "min": 245.959,
+   "n": 245.959,
+   "s": 331.513,
+   "world_xz": [
+    -1776,
+    -80
+   ]
+  },
+  {
+   "cell": [
+    5,
+    5
+   ],
+   "detail": null,
+   "gap": 109.783,
+   "kind": "mining_worksite",
+   "min": 128.12,
+   "n": 237.903,
+   "s": 128.12,
+   "world_xz": [
+    -1776,
+    176
+   ]
+  },
+  {
+   "cell": [
+    6,
+    3
+   ],
+   "detail": "north",
+   "gap": 49.873,
+   "kind": "route_target",
+   "min": 294.465,
+   "n": 294.465,
+   "s": 344.338,
+   "world_xz": [
+    -1666,
+    -82
+   ]
+  }
+ ],
+ "not_covered": [
+  "reach from anywhere other than the two homelands",
+  "underground travel; this is a surface graph",
+  "hostile exposure, which remains UNRESOLVED and is not reach",
+  "whether the measured balance passes any threshold; the 0.12 filter is a NON-CANON ANALYTICAL FIXTURE"
+ ],
+ "profile": "exploration_centric",
+ "proxy_error": {
+  "max_absolute_s": 171.1,
+  "median_absolute_s": 19.544,
+  "median_relative": 0.1072,
+  "per_site": [
+   {
+    "absolute_s": -68.888,
+    "cell": [
+     0,
+     0
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 162.856,
+    "proxy_s": 231.744,
+    "relative": -0.2973,
+    "team": "north"
+   },
+   {
+    "absolute_s": -171.1,
+    "cell": [
+     0,
+     0
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 386.156,
+    "proxy_s": 557.256,
+    "relative": -0.307,
+    "team": "south"
+   },
+   {
+    "absolute_s": -11.419,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 143.759,
+    "proxy_s": 155.178,
+    "relative": -0.0736,
+    "team": "north"
+   },
+   {
+    "absolute_s": -53.379,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 352.922,
+    "proxy_s": 406.301,
+    "relative": -0.1314,
+    "team": "south"
+   },
+   {
+    "absolute_s": -42.443,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 112.735,
+    "proxy_s": 155.178,
+    "relative": -0.2735,
+    "team": "north"
+   },
+   {
+    "absolute_s": -85.728,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 320.573,
+    "proxy_s": 406.301,
+    "relative": -0.211,
+    "team": "south"
+   },
+   {
+    "absolute_s": -10.154,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "founder_crop",
+    "measured_s": 145.024,
+    "proxy_s": 155.178,
+    "relative": -0.0654,
+    "team": "north"
+   },
+   {
+    "absolute_s": -36.294,
+    "cell": [
+     0,
+     1
+    ],
+    "kind": "founder_crop",
+    "measured_s": 370.007,
+    "proxy_s": 406.301,
+    "relative": -0.0893,
+    "team": "south"
+   },
+   {
+    "absolute_s": -23.564,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "poi",
+    "measured_s": 172.463,
+    "proxy_s": 196.027,
+    "relative": -0.1202,
+    "team": "north"
+   },
+   {
+    "absolute_s": -4.81,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "poi",
+    "measured_s": 241.917,
+    "proxy_s": 246.727,
+    "relative": -0.0195,
+    "team": "south"
+   },
+   {
+    "absolute_s": -8.423,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "renewable_range",
+    "measured_s": 187.604,
+    "proxy_s": 196.027,
+    "relative": -0.043,
+    "team": "north"
+   },
+   {
+    "absolute_s": -12.773,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "renewable_range",
+    "measured_s": 233.954,
+    "proxy_s": 246.727,
+    "relative": -0.0518,
+    "team": "south"
+   },
+   {
+    "absolute_s": -38.216,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 157.811,
+    "proxy_s": 196.027,
+    "relative": -0.195,
+    "team": "north"
+   },
+   {
+    "absolute_s": -6.826,
+    "cell": [
+     0,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 239.901,
+    "proxy_s": 246.727,
+    "relative": -0.0277,
+    "team": "south"
+   },
+   {
+    "absolute_s": -49.042,
+    "cell": [
+     0,
+     6
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 238.88,
+    "proxy_s": 287.922,
+    "relative": -0.1703,
+    "team": "north"
+   },
+   {
+    "absolute_s": -27.268,
+    "cell": [
+     0,
+     6
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 164.39,
+    "proxy_s": 191.658,
+    "relative": -0.1423,
+    "team": "south"
+   },
+   {
+    "absolute_s": -42.281,
+    "cell": [
+     0,
+     6
+    ],
+    "kind": "route_target",
+    "measured_s": 245.641,
+    "proxy_s": 287.922,
+    "relative": -0.1468,
+    "team": "north"
+   },
+   {
+    "absolute_s": -21.342,
+    "cell": [
+     0,
+     6
+    ],
+    "kind": "route_target",
+    "measured_s": 170.316,
+    "proxy_s": 191.658,
+    "relative": -0.1114,
+    "team": "south"
+   },
+   {
+    "absolute_s": -76.858,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "poi",
+    "measured_s": 258.888,
+    "proxy_s": 335.746,
+    "relative": -0.2289,
+    "team": "north"
+   },
+   {
+    "absolute_s": -7.393,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "poi",
+    "measured_s": 162.813,
+    "proxy_s": 170.206,
+    "relative": -0.0434,
+    "team": "south"
+   },
+   {
+    "absolute_s": -54.711,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "renewable_range",
+    "measured_s": 281.035,
+    "proxy_s": 335.746,
+    "relative": -0.163,
+    "team": "north"
+   },
+   {
+    "absolute_s": -5.592,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "renewable_range",
+    "measured_s": 164.614,
+    "proxy_s": 170.206,
+    "relative": -0.0329,
+    "team": "south"
+   },
+   {
+    "absolute_s": -65.922,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "renewable_range",
+    "measured_s": 269.824,
+    "proxy_s": 335.746,
+    "relative": -0.1963,
+    "team": "north"
+   },
+   {
+    "absolute_s": -36.372,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "renewable_range",
+    "measured_s": 133.834,
+    "proxy_s": 170.206,
+    "relative": -0.2137,
+    "team": "south"
+   },
+   {
+    "absolute_s": -41.688,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 294.058,
+    "proxy_s": 335.746,
+    "relative": -0.1242,
+    "team": "north"
+   },
+   {
+    "absolute_s": -33.959,
+    "cell": [
+     0,
+     7
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 136.247,
+    "proxy_s": 170.206,
+    "relative": -0.1995,
+    "team": "south"
+   },
+   {
+    "absolute_s": -18.496,
+    "cell": [
+     1,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 46.979,
+    "proxy_s": 65.475,
+    "relative": -0.2825,
+    "team": "north"
+   },
+   {
+    "absolute_s": -25.858,
+    "cell": [
+     1,
+     1
+    ],
+    "kind": "renewable_range",
+    "measured_s": 308.526,
+    "proxy_s": 334.384,
+    "relative": -0.0773,
+    "team": "south"
+   },
+   {
+    "absolute_s": 10.817,
+    "cell": [
+     1,
+     5
+    ],
+    "kind": "route_target",
+    "measured_s": 268.111,
+    "proxy_s": 257.294,
+    "relative": 0.042,
+    "team": "north"
+   },
+   {
+    "absolute_s": 56.076,
+    "cell": [
+     1,
+     5
+    ],
+    "kind": "route_target",
+    "measured_s": 224.797,
+    "proxy_s": 168.721,
+    "relative": 0.3324,
+    "team": "south"
+   },
+   {
+    "absolute_s": -50.333,
+    "cell": [
+     1,
+     6
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 250.723,
+    "proxy_s": 301.056,
+    "relative": -0.1672,
+    "team": "north"
+   },
+   {
+    "absolute_s": -21.334,
+    "cell": [
+     1,
+     6
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 109.183,
+    "proxy_s": 130.517,
+    "relative": -0.1635,
+    "team": "south"
+   },
+   {
+    "absolute_s": -0.988,
+    "cell": [
+     2,
+     1
+    ],
+    "kind": "founder_crop",
+    "measured_s": 35.271,
+    "proxy_s": 36.259,
+    "relative": -0.0273,
+    "team": "north"
+   },
+   {
+    "absolute_s": -14.157,
+    "cell": [
+     2,
+     1
+    ],
+    "kind": "founder_crop",
+    "measured_s": 287.581,
+    "proxy_s": 301.738,
+    "relative": -0.0469,
+    "team": "south"
+   },
+   {
+    "absolute_s": -32.973,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "renewable_range",
+    "measured_s": 144.433,
+    "proxy_s": 177.406,
+    "relative": -0.1859,
+    "team": "north"
+   },
+   {
+    "absolute_s": 23.202,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "renewable_range",
+    "measured_s": 197.574,
+    "proxy_s": 174.372,
+    "relative": 0.1331,
+    "team": "south"
+   },
+   {
+    "absolute_s": -12.619,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 164.787,
+    "proxy_s": 177.406,
+    "relative": -0.0711,
+    "team": "north"
+   },
+   {
+    "absolute_s": 3.978,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 178.35,
+    "proxy_s": 174.372,
+    "relative": 0.0228,
+    "team": "south"
+   },
+   {
+    "absolute_s": -52.146,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "route_target",
+    "measured_s": 125.26,
+    "proxy_s": 177.406,
+    "relative": -0.2939,
+    "team": "north"
+   },
+   {
+    "absolute_s": 38.414,
+    "cell": [
+     2,
+     4
+    ],
+    "kind": "route_target",
+    "measured_s": 212.786,
+    "proxy_s": 174.372,
+    "relative": 0.2203,
+    "team": "south"
+   },
+   {
+    "absolute_s": -15.473,
+    "cell": [
+     2,
+     5
+    ],
+    "kind": "renewable_range",
+    "measured_s": 262.729,
+    "proxy_s": 278.202,
+    "relative": -0.0556,
+    "team": "north"
+   },
+   {
+    "absolute_s": -18.636,
+    "cell": [
+     2,
+     5
+    ],
+    "kind": "renewable_range",
+    "measured_s": 118.866,
+    "proxy_s": 137.502,
+    "relative": -0.1355,
+    "team": "south"
+   },
+   {
+    "absolute_s": -8.045,
+    "cell": [
+     3,
+     3
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 103.755,
+    "proxy_s": 111.8,
+    "relative": -0.072,
+    "team": "north"
+   },
+   {
+    "absolute_s": -2.909,
+    "cell": [
+     3,
+     3
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 210.198,
+    "proxy_s": 213.107,
+    "relative": -0.0136,
+    "team": "south"
+   },
+   {
+    "absolute_s": -9.826,
+    "cell": [
+     3,
+     4
+    ],
+    "kind": "poi",
+    "measured_s": 172.985,
+    "proxy_s": 182.811,
+    "relative": -0.0538,
+    "team": "north"
+   },
+   {
+    "absolute_s": -0.071,
+    "cell": [
+     3,
+     4
+    ],
+    "kind": "poi",
+    "measured_s": 152.13,
+    "proxy_s": 152.201,
+    "relative": -0.0005,
+    "team": "south"
+   },
+   {
+    "absolute_s": -8.374,
+    "cell": [
+     3,
+     5
+    ],
+    "kind": "founder_crop",
+    "measured_s": 221.676,
+    "proxy_s": 230.05,
+    "relative": -0.0364,
+    "team": "north"
+   },
+   {
+    "absolute_s": 10.665,
+    "cell": [
+     3,
+     5
+    ],
+    "kind": "founder_crop",
+    "measured_s": 114.101,
+    "proxy_s": 103.436,
+    "relative": 0.1031,
+    "team": "south"
+   },
+   {
+    "absolute_s": 13.477,
+    "cell": [
+     3,
+     5
+    ],
+    "kind": "founder_crop",
+    "measured_s": 243.527,
+    "proxy_s": 230.05,
+    "relative": 0.0586,
+    "team": "north"
+   },
+   {
+    "absolute_s": -12.367,
+    "cell": [
+     3,
+     5
+    ],
+    "kind": "founder_crop",
+    "measured_s": 91.069,
+    "proxy_s": 103.436,
+    "relative": -0.1196,
+    "team": "south"
+   },
+   {
+    "absolute_s": -3.454,
+    "cell": [
+     4,
+     1
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 73.301,
+    "proxy_s": 76.755,
+    "relative": -0.045,
+    "team": "north"
+   },
+   {
+    "absolute_s": -17.434,
+    "cell": [
+     4,
+     1
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 284.355,
+    "proxy_s": 301.789,
+    "relative": -0.0578,
+    "team": "south"
+   },
+   {
+    "absolute_s": 1.774,
+    "cell": [
+     4,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 124.729,
+    "proxy_s": 122.955,
+    "relative": 0.0144,
+    "team": "north"
+   },
+   {
+    "absolute_s": -2.012,
+    "cell": [
+     4,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 210.27,
+    "proxy_s": 212.282,
+    "relative": -0.0095,
+    "team": "south"
+   },
+   {
+    "absolute_s": -14.302,
+    "cell": [
+     4,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 173.105,
+    "proxy_s": 187.407,
+    "relative": -0.0763,
+    "team": "north"
+   },
+   {
+    "absolute_s": -10.767,
+    "cell": [
+     4,
+     4
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 146.011,
+    "proxy_s": 156.778,
+    "relative": -0.0687,
+    "team": "south"
+   },
+   {
+    "absolute_s": -4.736,
+    "cell": [
+     5,
+     1
+    ],
+    "kind": "poi",
+    "measured_s": 127.816,
+    "proxy_s": 132.552,
+    "relative": -0.0357,
+    "team": "north"
+   },
+   {
+    "absolute_s": -22.382,
+    "cell": [
+     5,
+     1
+    ],
+    "kind": "poi",
+    "measured_s": 302.743,
+    "proxy_s": 325.125,
+    "relative": -0.0688,
+    "team": "south"
+   },
+   {
+    "absolute_s": 94.599,
+    "cell": [
+     5,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 245.959,
+    "proxy_s": 151.36,
+    "relative": 0.625,
+    "team": "north"
+   },
+   {
+    "absolute_s": 102.807,
+    "cell": [
+     5,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 331.513,
+    "proxy_s": 228.706,
+    "relative": 0.4495,
+    "team": "south"
+   },
+   {
+    "absolute_s": -11.624,
+    "cell": [
+     5,
+     5
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 237.903,
+    "proxy_s": 249.527,
+    "relative": -0.0466,
+    "team": "north"
+   },
+   {
+    "absolute_s": -20.453,
+    "cell": [
+     5,
+     5
+    ],
+    "kind": "mining_worksite",
+    "measured_s": 128.12,
+    "proxy_s": 148.573,
+    "relative": -0.1377,
+    "team": "south"
+   },
+   {
+    "absolute_s": 101.605,
+    "cell": [
+     6,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 294.465,
+    "proxy_s": 192.86,
+    "relative": 0.5268,
+    "team": "north"
+   },
+   {
+    "absolute_s": 89.808,
+    "cell": [
+     6,
+     3
+    ],
+    "kind": "route_target",
+    "measured_s": 344.338,
+    "proxy_s": 254.53,
+    "relative": 0.3528,
+    "team": "south"
+   }
+  ],
+  "samples": 64
+ },
+ "reach_units": "seconds, weighted cost / 5.612 sprint blocks per second",
+ "route_columns": 0,
+ "routes_present": false,
+ "sample_spacing_blocks": 8,
+ "schema": "map_reach_rescan/1",
+ "unreachable": [],
+ "world": "/tmp/sites-only/exploration_centric"
+}

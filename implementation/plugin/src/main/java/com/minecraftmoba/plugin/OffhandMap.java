@@ -18,31 +18,73 @@ public final class OffhandMap implements Listener {
     private final NamespacedKey key;
     public OffhandMap(MobaPlugin plugin) { this.plugin = plugin; key = new NamespacedKey(plugin, "offhand_map"); }
     public boolean isMap(ItemStack item) {
+        // A sentinel skull is also "the offhand item" for every caller that asks.
+        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(item)) return true;
         return item != null && item.getType() == Material.FILLED_MAP && item.hasItemMeta()
             && item.getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.BYTE);
     }
     public boolean ensure(Player p) {
         ItemStack held = p.getInventory().getItemInOffHand();
-        if (isMap(held)) {
-            MapMeta meta = (MapMeta) held.getItemMeta();
-            if (meta.hasMapView() && meta.getMapView() != null) stub(meta.getMapView());
+        // Anything holding a MapView gets its renderer refreshed FIRST.
+        //
+        // The sentinel check used to come first and returned early, which was
+        // correct while the sentinel was a separate skull and wrong the moment
+        // the tome became both. A tome is a sentinel AND a map, so it took the
+        // early return and stub() never ran on it.
+        //
+        // That is invisible until a restart. MapViews persist in world data but
+        // their RENDERERS do not, so after every restart the tome came back
+        // carrying a plain vanilla map with our Minimap renderer gone -- and it
+        // drew exactly what a vanilla map of unexplored ground draws, which is
+        // nothing. The map "stopped working" with the item still in place and
+        // nothing in the log.
+        //
+        // Only the map representation owns a MapView; casting a skull to
+        // MapMeta is what produced the CraftMetaSkull crash, so the instanceof
+        // is doing real work here.
+        if (held.getItemMeta() instanceof MapMeta meta
+                && meta.hasMapView() && meta.getMapView() != null) {
+            stub(meta.getMapView());
             return true;
         }
+        if (plugin.sentinel() != null && plugin.sentinel().isSentinel(held)) return true;
+        if (isMap(held)) return true;
         if (!held.getType().isAir()) return false;
+        // Tome mode: the map item also carries the sentinel identity and the
+        // class blurb, so one offhand item is the map surface, the swap
+        // sentinel and the class text. The swap input is cancelled elsewhere,
+        // so the tome never reaches the main hand and the corner map stays
+        // visible even while an ability mode is active.
+        if (!plugin.getConfig().getBoolean("features.tome.enabled")
+                && plugin.sentinel() != null && plugin.sentinel().enabled()) {
+            var d = plugin.data(p);
+            String classId = (d == null || d.classId == null) ? "test" : d.classId;
+            p.getInventory().setItemInOffHand(plugin.sentinel().create(classId));
+            return true;
+        }
         var view = Bukkit.createMap(p.getWorld());
         stub(view);
         var item = new ItemStack(Material.FILLED_MAP);
         var meta = (MapMeta)item.getItemMeta();
         meta.setMapView(view);
         meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte)1);
+        if (plugin.getConfig().getBoolean("features.tome.enabled") && plugin.sentinel() != null) {
+            var d = plugin.data(p);
+            plugin.sentinel().brand(meta, (d == null || d.classId == null) ? "test" : d.classId);
+        }
         item.setItemMeta(meta);
         p.getInventory().setItemInOffHand(item); // fresh issuance only; never replaces a player item
         return true;
     }
     private void stub(MapView view) {
-        if (view.getRenderers().stream().anyMatch(r -> r instanceof StubRenderer)) return;
+        boolean live = plugin.getConfig().getBoolean("features.minimap.enabled");
+        Class<?> wanted = live ? Minimap.class : StubRenderer.class;
+        if (view.getRenderers().stream().anyMatch(wanted::isInstance)) return;
         view.getRenderers().forEach(view::removeRenderer);
-        view.addRenderer(new StubRenderer(plugin));
+        // Vanilla terrain must not draw underneath: every pixel is ours.
+        view.setTrackingPosition(false);
+        view.setUnlimitedTracking(false);
+        view.addRenderer(live ? new Minimap(plugin) : new StubRenderer(plugin));
     }
     private static final class StubRenderer extends MapRenderer {
         private final JavaPlugin plugin;

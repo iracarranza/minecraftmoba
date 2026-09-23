@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AbilityInputsTest {
+    /**
+     * One arming buys one cast. Casting m1 disarms immediately, so m2 or q
+     * needs a fresh arming rather than chaining off the same one.
+     */
     @Test void fiftyDuplicateClickPairsResolveOnceAndTimeoutClearsMode() throws Exception {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class); var scheduler=mock(BukkitScheduler.class);
         var defaults=YamlConfiguration.loadConfiguration(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/config.yml"))));
@@ -35,11 +39,12 @@ class AbilityInputsTest {
             inputs.input(player,AbilityInputs.Input.SWAP_HAND);
             for(int i=0;i<50;i++) {
                 inputs.input(player,AbilityInputs.Input.LEFT_CLICK);
+                // One arming buys one cast: the second click finds the player
+                // already disarmed and must not fire again.
+                assertFalse(data.modeState.active, "casting must disarm immediately");
                 inputs.input(player,AbilityInputs.Input.LEFT_CLICK);
-                // Reset expiry as a real sequence of mode exit/entry would.
-                inputs.input(player,AbilityInputs.Input.SWAP_HAND);
                 for(int t=0;t<config.getInt("abilities.definitions.lunge.cooldownTicks");t++) runnable.getValue().run();
-                inputs.input(player,AbilityInputs.Input.SWAP_HAND);
+                inputs.input(player,AbilityInputs.Input.SWAP_HAND);   // re-arm
             }
             verify(player,times(50)).setVelocity(any());
             verify(player,never()).getInventory();

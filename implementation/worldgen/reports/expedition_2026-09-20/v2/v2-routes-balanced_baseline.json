@@ -1,0 +1,376 @@
+{
+ "blocks_pending": 46980,
+ "blocks_written": 46980,
+ "corridor_width": 3,
+ "cost_model": "vanilla_search.task_a.Terrain, the graph that sited the team structures and produced the travel matrix",
+ "crossings": [
+  {
+   "cell": [
+    1,
+    5
+   ],
+   "detail": null,
+   "kind": "mining_worksite",
+   "world_xz": [
+    -2320,
+    144
+   ]
+  },
+  {
+   "cell": [
+    3,
+    1
+   ],
+   "detail": "cow",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2032,
+    -336
+   ]
+  },
+  {
+   "cell": [
+    4,
+    4
+   ],
+   "detail": null,
+   "kind": "poi",
+   "world_xz": [
+    -1936,
+    16
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "detail": "sheep",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2032,
+    432
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "detail": "sheep",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2032,
+    432
+   ]
+  },
+  {
+   "cell": [
+    4,
+    6
+   ],
+   "detail": "pig",
+   "kind": "renewable_range",
+   "world_xz": [
+    -1904,
+    304
+   ]
+  },
+  {
+   "cell": [
+    6,
+    4
+   ],
+   "detail": "pig",
+   "kind": "renewable_range",
+   "world_xz": [
+    -1698,
+    14
+   ]
+  },
+  {
+   "cell": [
+    1,
+    6
+   ],
+   "detail": null,
+   "kind": "mining_worksite",
+   "world_xz": [
+    -2288,
+    304
+   ]
+  },
+  {
+   "cell": [
+    3,
+    7
+   ],
+   "detail": "sheep",
+   "kind": "renewable_range",
+   "world_xz": [
+    -2032,
+    432
+   ]
+  }
+ ],
+ "dry_run": false,
+ "evidence_state": "RAW WORLD OBSERVATION",
+ "headroom": 3,
+ "nature": "physical path quality only: surfacing, clearing and decking. No movement-speed effect is granted or implied.",
+ "not_covered": [
+  "stairs or grading on steep steps; the corridor follows terrain",
+  "what the Route does to Practical Reach, which only the rescan measures",
+  "Route width, surface material and headroom as design decisions; these are authoring fixtures, not canon",
+  "diverting a corridor around an authored site; crossings are recorded rather than avoided, because rerouting would alter the strategic geometry the optimizer selected"
+ ],
+ "routes": [
+  {
+   "bridged": 225,
+   "cell": [
+    1,
+    5
+   ],
+   "columns": 673,
+   "crosses": [
+    {
+     "cell": [
+      1,
+      5
+     ],
+     "detail": null,
+     "kind": "mining_worksite",
+     "world_xz": [
+      -2320,
+      144
+     ]
+    }
+   ],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 85,
+   "surfaced": 5832,
+   "team": "north",
+   "to": [
+    -2292,
+    172
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1968.3
+  },
+  {
+   "bridged": 342,
+   "cell": [
+    0,
+    0
+   ],
+   "columns": 281,
+   "crosses": [],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 36,
+   "surfaced": 2187,
+   "team": "north",
+   "to": [
+    -2420,
+    -468
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1012.6
+  },
+  {
+   "bridged": 69,
+   "cell": [
+    4,
+    4
+   ],
+   "columns": 545,
+   "crosses": [
+    {
+     "cell": [
+      3,
+      1
+     ],
+     "detail": "cow",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2032,
+      -336
+     ]
+    },
+    {
+     "cell": [
+      4,
+      4
+     ],
+     "detail": null,
+     "kind": "poi",
+     "world_xz": [
+      -1936,
+      16
+     ]
+    }
+   ],
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 69,
+   "surfaced": 4836,
+   "team": "north",
+   "to": [
+    -1908,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1025.8
+  },
+  {
+   "bridged": 454,
+   "cell": [
+    5,
+    3
+   ],
+   "columns": 561,
+   "crosses": [
+    {
+     "cell": [
+      3,
+      7
+     ],
+     "detail": "sheep",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2032,
+      432
+     ]
+    }
+   ],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 71,
+   "surfaced": 4595,
+   "team": "south",
+   "to": [
+    -1780,
+    -84
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1963.5
+  },
+  {
+   "bridged": 9,
+   "cell": [
+    6,
+    4
+   ],
+   "columns": 569,
+   "crosses": [
+    {
+     "cell": [
+      3,
+      7
+     ],
+     "detail": "sheep",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2032,
+      432
+     ]
+    },
+    {
+     "cell": [
+      4,
+      6
+     ],
+     "detail": "pig",
+     "kind": "renewable_range",
+     "world_xz": [
+      -1904,
+      304
+     ]
+    },
+    {
+     "cell": [
+      6,
+      4
+     ],
+     "detail": "pig",
+     "kind": "renewable_range",
+     "world_xz": [
+      -1698,
+      14
+     ]
+    }
+   ],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 72,
+   "surfaced": 5112,
+   "team": "south",
+   "to": [
+    -1652,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1665.2
+  },
+  {
+   "bridged": 0,
+   "cell": [
+    0,
+    5
+   ],
+   "columns": 481,
+   "crosses": [
+    {
+     "cell": [
+      1,
+      6
+     ],
+     "detail": null,
+     "kind": "mining_worksite",
+     "world_xz": [
+      -2288,
+      304
+     ]
+    },
+    {
+     "cell": [
+      3,
+      7
+     ],
+     "detail": "sheep",
+     "kind": "renewable_range",
+     "world_xz": [
+      -2032,
+      432
+     ]
+    }
+   ],
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 61,
+   "surfaced": 4329,
+   "team": "south",
+   "to": [
+    -2420,
+    172
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1229.7
+  }
+ ],
+ "schema": "map_routes_authored/1",
+ "skipped": [],
+ "world": "/tmp/v2-worlds/balanced_baseline"
+}

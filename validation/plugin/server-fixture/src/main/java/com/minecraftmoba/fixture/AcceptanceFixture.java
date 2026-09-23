@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /** TEST ONLY: dispatches real server events; never transports or repairs any item. */
 public final class AcceptanceFixture extends JavaPlugin {
     @Override public void onEnable() {
+        getServer().getPluginManager().registerEvents(new HungerProbe(this), this);
         Objects.requireNonNull(getCommand("mobafixture")).setExecutor(this);
     }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -26,6 +27,9 @@ public final class AcceptanceFixture extends JavaPlugin {
         try {
             if (args.length != 1) return false;
             switch (args[0]) {
+                case "hunger-watch" -> HungerProbe.watch(this, p);
+                case "hunger-drain" -> { p.setSaturation(0); p.setExhaustion(3.9f); }
+                case "hunger-full" -> { p.setFoodLevel(20); p.setSaturation(0); p.setExhaustion(0); }
                 case "transfer-partial" -> transfers(p, true);
                 case "transfer-full" -> transfers(p, false);
                 case "denied-place" -> deniedPlace(p);

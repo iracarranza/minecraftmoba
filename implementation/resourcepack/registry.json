@@ -7,26 +7,102 @@
   "groups": {
     "status": {
       "purpose": "Status and stack icons shown beside a readout.",
-      "ids": ["status_placeholder_1", "status_placeholder_2", "status_placeholder_3",
-              "status_placeholder_4", "status_placeholder_5", "status_placeholder_6"]
+      "ids": [
+        "status_placeholder_1",
+        "status_placeholder_2",
+        "status_placeholder_3",
+        "status_placeholder_4",
+        "status_placeholder_5",
+        "status_placeholder_6"
+      ]
     },
     "ability": {
       "purpose": "Ability slots. Count follows the harness class inputs: A1, A2, ultimate.",
-      "ids": ["ability_a1", "ability_a2", "ability_ult", "ability_placeholder_4"]
+      "ids": [
+        "ability_a1",
+        "ability_a2",
+        "ability_ult",
+        "ability_placeholder_4"
+      ]
     },
     "capacity": {
       "purpose": "Capacity and progression readout pieces.",
-      "ids": ["capacity_full", "capacity_empty", "capacity_partial",
-              "slot_locked", "slot_unlocked"]
+      "ids": [
+        "capacity_full",
+        "capacity_empty",
+        "capacity_partial",
+        "slot_locked",
+        "slot_unlocked"
+      ]
     },
     "panel": {
       "purpose": "Background panel pieces for a bossbar title strip.",
-      "ids": ["panel_left", "panel_fill", "panel_right"]
+      "ids": [
+        "panel_left",
+        "panel_fill",
+        "panel_right"
+      ]
     },
     "infrastructure": {
       "purpose": "The four recognized forms plus the Level 6 alternative.",
-      "ids": ["form_construct", "form_development_zone", "form_route",
-              "form_supply_line", "form_monster_combat"]
+      "ids": [
+        "form_construct",
+        "form_development_zone",
+        "form_route",
+        "form_supply_line",
+        "form_monster_combat"
+      ]
+    },
+    "hunger": {
+      "purpose": "Hunger readout. The vanilla row is hidden by this pack because a static texture cannot tell an empty drumstick a player could refill from one their Capacity does not grant. Three states are therefore drawn here, plus a half step.",
+      "ids": [
+        "hunger_full",
+        "hunger_half",
+        "hunger_empty",
+        "hunger_unavailable"
+      ]
     }
+  },
+  "hidden_vanilla_sprites": {
+    "purpose": "Nothing is hidden any more. The hunger row used to be blanked so the plugin could draw a glyph readout that distinguished a refillable empty drumstick from one beyond the player's Capacity. Repainting the row as a bar makes it legible in its native position instead, and the Capacity question moves to a number in the sidebar.",
+    "paths": []
+  },
+  "placeholder_shapes": {
+    "purpose": "Which SHAPE a glyph gets. These distinguish STATES from one another so a readout is legible, and encode no palette, icon language or artwork. A glyph with no entry gets the default index-marked outline, which is deliberately identical everywhere so a wrong codepoint reads as a wrong icon.",
+    "vocabulary": {
+      "solid": "filled",
+      "half": "filled on the left, outlined on the right",
+      "outline": "outline only",
+      "blank": "nothing at all, but still occupying its width"
+    },
+    "shapes": {
+      "hunger_full": "solid",
+      "hunger_half": "half",
+      "hunger_empty": "outline",
+      "hunger_unavailable": "blank",
+      "capacity_full": "solid",
+      "capacity_partial": "half",
+      "capacity_empty": "outline"
+    },
+    "blank_note": "'blank' is not a placeholder. A state whose meaning is 'there is nothing here' renders as nothing, and that is the finished appearance rather than something waiting to be drawn. It keeps its advance so the row stays a fixed ten drumsticks wide and Capacity fills it from the left, exactly as the vanilla row behaves."
+  },
+  "bar_segments": {
+    "purpose": "The native health and hunger rows, repainted as segments of a continuous bar. Each row is ten sprites drawn side by side, so a segment design tiles into a bar in the native HUD position with the native fill logic -- no plugin, no boss bar, no action bar, and nothing to fade or contend over.",
+    "geometry": "Sprites are 9x9 and spaced 8px apart, so the ninth column must stay clear or adjacent segments overlap by a pixel and the bar shows seams. The food row is drawn RIGHT TO LEFT from the right edge, which is why its half segment fills the opposite side from the heart one.",
+    "sprites": {
+      "hud/heart/container": "empty",
+      "hud/heart/full": "full",
+      "hud/heart/half": "half_left",
+      "hud/heart/container_blinking": "empty",
+      "hud/heart/full_blinking": "full",
+      "hud/heart/half_blinking": "half_left",
+      "hud/food_empty": "empty",
+      "hud/food_full": "full",
+      "hud/food_half": "half_right",
+      "hud/food_empty_hunger": "empty",
+      "hud/food_full_hunger": "full",
+      "hud/food_half_hunger": "half_right"
+    },
+    "unstyled_variants": "poisoned, withered, frozen, absorbing and vehicle hearts keep their vanilla art. They will read as drumsticks-and-hearts among bars when they appear, which is a visible gap rather than a hidden one."
   }
 }

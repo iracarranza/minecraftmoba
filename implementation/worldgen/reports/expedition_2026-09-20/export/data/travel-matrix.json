@@ -1,0 +1,745 @@
+{
+ "block_bounds": [
+  -2480,
+  -1617,
+  -528,
+  527
+ ],
+ "cost_matrix": {
+  "cave_-1882_-153": {
+   "cave_-1882_-153": 0.0,
+   "cave_-1882_-504": 930.6,
+   "cave_-1882_198": 885.9,
+   "cave_-2169_-153": 548.0,
+   "cave_-2169_-504": 641.3,
+   "cave_-2169_198": 1249.3,
+   "cave_-2456_-153": 962.7,
+   "cave_-2456_-504": 2147.2,
+   "cave_-2456_198": 1661.5,
+   "north_aether_fountain": 588.2,
+   "north_end_tower": 236.6,
+   "north_homeland": 588.2,
+   "north_nether_bastion": 145.2,
+   "north_pillager_outpost": 278.4,
+   "south_aether_fountain": 1342.0,
+   "south_end_tower": 1280.3,
+   "south_homeland": 1362.0,
+   "south_nether_bastion": 624.5,
+   "south_pillager_outpost": 633.3
+  },
+  "cave_-1882_-504": {
+   "cave_-1882_-153": 930.6,
+   "cave_-1882_-504": 0.0,
+   "cave_-1882_198": 1781.6,
+   "cave_-2169_-153": 1118.9,
+   "cave_-2169_-504": 779.4,
+   "cave_-2169_198": 2116.1,
+   "cave_-2456_-153": 1452.9,
+   "cave_-2456_-504": 2248.1,
+   "cave_-2456_198": 2151.7,
+   "north_aether_fountain": 805.5,
+   "north_end_tower": 761.3,
+   "north_homeland": 805.5,
+   "north_nether_bastion": 1020.0,
+   "north_pillager_outpost": 1061.0,
+   "south_aether_fountain": 2237.7,
+   "south_end_tower": 2176.0,
+   "south_homeland": 2257.7,
+   "south_nether_bastion": 1520.2,
+   "south_pillager_outpost": 1528.9
+  },
+  "cave_-1882_198": {
+   "cave_-1882_-153": 885.9,
+   "cave_-1882_-504": 1781.6,
+   "cave_-1882_198": 0.0,
+   "cave_-2169_-153": 1084.5,
+   "cave_-2169_-504": 1398.3,
+   "cave_-2169_198": 834.1,
+   "cave_-2456_-153": 1557.5,
+   "cave_-2456_-504": 2865.2,
+   "cave_-2456_198": 1615.6,
+   "north_aether_fountain": 1345.1,
+   "north_end_tower": 1060.1,
+   "north_homeland": 1345.1,
+   "north_nether_bastion": 793.2,
+   "north_pillager_outpost": 748.1,
+   "south_aether_fountain": 669.7,
+   "south_end_tower": 570.3,
+   "south_homeland": 689.7,
+   "south_nether_bastion": 282.7,
+   "south_pillager_outpost": 363.9
+  },
+  "cave_-2169_-153": {
+   "cave_-1882_-153": 548.0,
+   "cave_-1882_-504": 1118.9,
+   "cave_-1882_198": 1084.5,
+   "cave_-2169_-153": 0.0,
+   "cave_-2169_-504": 550.3,
+   "cave_-2169_198": 1329.6,
+   "cave_-2456_-153": 520.9,
+   "cave_-2456_-504": 1972.0,
+   "cave_-2456_198": 1154.9,
+   "north_aether_fountain": 496.9,
+   "north_end_tower": 441.3,
+   "north_homeland": 496.9,
+   "north_nether_bastion": 484.3,
+   "north_pillager_outpost": 353.7,
+   "south_aether_fountain": 1540.5,
+   "south_end_tower": 1478.8,
+   "south_homeland": 1560.5,
+   "south_nether_bastion": 823.0,
+   "south_pillager_outpost": 825.5
+  },
+  "cave_-2169_-504": {
+   "cave_-1882_-153": 641.3,
+   "cave_-1882_-504": 779.4,
+   "cave_-1882_198": 1398.3,
+   "cave_-2169_-153": 550.3,
+   "cave_-2169_-504": 0.0,
+   "cave_-2169_198": 1670.9,
+   "cave_-2456_-153": 776.7,
+   "cave_-2456_-504": 1535.0,
+   "cave_-2456_198": 1480.2,
+   "north_aether_fountain": 53.4,
+   "north_end_tower": 409.4,
+   "north_homeland": 53.4,
+   "north_nether_bastion": 636.7,
+   "north_pillager_outpost": 670.1,
+   "south_aether_fountain": 1854.4,
+   "south_end_tower": 1792.7,
+   "south_homeland": 1874.4,
+   "south_nether_bastion": 1136.9,
+   "south_pillager_outpost": 1145.6
+  },
+  "cave_-2169_198": {
+   "cave_-1882_-153": 1249.3,
+   "cave_-1882_-504": 2116.1,
+   "cave_-1882_198": 834.1,
+   "cave_-2169_-153": 1329.6,
+   "cave_-2169_-504": 1670.9,
+   "cave_-2169_198": 0.0,
+   "cave_-2456_-153": 1370.8,
+   "cave_-2456_-504": 3117.7,
+   "cave_-2456_198": 932.6,
+   "north_aether_fountain": 1617.5,
+   "north_end_tower": 1400.6,
+   "north_homeland": 1617.5,
+   "north_nether_bastion": 1156.6,
+   "north_pillager_outpost": 1062.8,
+   "south_aether_fountain": 730.7,
+   "south_end_tower": 890.3,
+   "south_homeland": 734.4,
+   "south_nether_bastion": 670.3,
+   "south_pillager_outpost": 618.5
+  },
+  "cave_-2456_-153": {
+   "cave_-1882_-153": 962.7,
+   "cave_-1882_-504": 1452.9,
+   "cave_-1882_198": 1557.5,
+   "cave_-2169_-153": 520.9,
+   "cave_-2169_-504": 776.7,
+   "cave_-2169_198": 1370.8,
+   "cave_-2456_-153": 0.0,
+   "cave_-2456_-504": 2063.1,
+   "cave_-2456_198": 875.6,
+   "north_aether_fountain": 727.6,
+   "north_end_tower": 779.6,
+   "north_homeland": 727.6,
+   "north_nether_bastion": 921.3,
+   "north_pillager_outpost": 822.8,
+   "south_aether_fountain": 1762.3,
+   "south_end_tower": 1926.9,
+   "south_homeland": 1750.6,
+   "south_nether_bastion": 1296.1,
+   "south_pillager_outpost": 1220.3
+  },
+  "cave_-2456_-504": {
+   "cave_-1882_-153": 2147.2,
+   "cave_-1882_-504": 2248.1,
+   "cave_-1882_198": 2865.2,
+   "cave_-2169_-153": 1972.0,
+   "cave_-2169_-504": 1535.0,
+   "cave_-2169_198": 3117.7,
+   "cave_-2456_-153": 2063.1,
+   "cave_-2456_-504": 0.0,
+   "cave_-2456_198": 2866.0,
+   "north_aether_fountain": 1563.0,
+   "north_end_tower": 1915.2,
+   "north_homeland": 1563.0,
+   "north_nether_bastion": 2142.5,
+   "north_pillager_outpost": 2130.6,
+   "south_aether_fountain": 3321.3,
+   "south_end_tower": 3259.6,
+   "south_homeland": 3341.3,
+   "south_nether_bastion": 2603.8,
+   "south_pillager_outpost": 2612.6
+  },
+  "cave_-2456_198": {
+   "cave_-1882_-153": 1661.5,
+   "cave_-1882_-504": 2151.7,
+   "cave_-1882_198": 1615.6,
+   "cave_-2169_-153": 1154.9,
+   "cave_-2169_-504": 1480.2,
+   "cave_-2169_198": 932.6,
+   "cave_-2456_-153": 875.6,
+   "cave_-2456_-504": 2866.0,
+   "cave_-2456_198": 0.0,
+   "north_aether_fountain": 1431.1,
+   "north_end_tower": 1478.4,
+   "north_homeland": 1431.1,
+   "north_nether_bastion": 1605.8,
+   "north_pillager_outpost": 1471.3,
+   "south_aether_fountain": 1313.2,
+   "south_end_tower": 1502.7,
+   "south_homeland": 1301.5,
+   "south_nether_bastion": 1363.5,
+   "south_pillager_outpost": 1276.9
+  },
+  "north_aether_fountain": {
+   "cave_-1882_-153": 588.2,
+   "cave_-1882_-504": 805.5,
+   "cave_-1882_198": 1345.1,
+   "cave_-2169_-153": 496.9,
+   "cave_-2169_-504": 53.4,
+   "cave_-2169_198": 1617.5,
+   "cave_-2456_-153": 727.6,
+   "cave_-2456_-504": 1563.0,
+   "cave_-2456_198": 1431.1,
+   "north_aether_fountain": 0.0,
+   "north_end_tower": 356.3,
+   "north_homeland": 0.0,
+   "north_nether_bastion": 583.5,
+   "north_pillager_outpost": 616.7,
+   "south_aether_fountain": 1801.2,
+   "south_end_tower": 1739.5,
+   "south_homeland": 1821.2,
+   "south_nether_bastion": 1083.7,
+   "south_pillager_outpost": 1092.5
+  },
+  "north_end_tower": {
+   "cave_-1882_-153": 236.6,
+   "cave_-1882_-504": 761.3,
+   "cave_-1882_198": 1060.1,
+   "cave_-2169_-153": 441.3,
+   "cave_-2169_-504": 409.4,
+   "cave_-2169_198": 1400.6,
+   "cave_-2456_-153": 779.6,
+   "cave_-2456_-504": 1915.2,
+   "cave_-2456_198": 1478.4,
+   "north_aether_fountain": 356.3,
+   "north_end_tower": 0.0,
+   "north_homeland": 356.3,
+   "north_nether_bastion": 270.0,
+   "north_pillager_outpost": 339.6,
+   "south_aether_fountain": 1516.2,
+   "south_end_tower": 1454.5,
+   "south_homeland": 1536.2,
+   "south_nether_bastion": 798.7,
+   "south_pillager_outpost": 807.5
+  },
+  "north_homeland": {
+   "cave_-1882_-153": 588.2,
+   "cave_-1882_-504": 805.5,
+   "cave_-1882_198": 1345.1,
+   "cave_-2169_-153": 496.9,
+   "cave_-2169_-504": 53.4,
+   "cave_-2169_198": 1617.5,
+   "cave_-2456_-153": 727.6,
+   "cave_-2456_-504": 1563.0,
+   "cave_-2456_198": 1431.1,
+   "north_aether_fountain": 0.0,
+   "north_end_tower": 356.3,
+   "north_homeland": 0.0,
+   "north_nether_bastion": 583.5,
+   "north_pillager_outpost": 616.7,
+   "south_aether_fountain": 1801.2,
+   "south_end_tower": 1739.5,
+   "south_homeland": 1821.2,
+   "south_nether_bastion": 1083.7,
+   "south_pillager_outpost": 1092.5
+  },
+  "north_nether_bastion": {
+   "cave_-1882_-153": 145.2,
+   "cave_-1882_-504": 1020.0,
+   "cave_-1882_198": 793.2,
+   "cave_-2169_-153": 484.3,
+   "cave_-2169_-504": 636.7,
+   "cave_-2169_198": 1156.6,
+   "cave_-2456_-153": 921.3,
+   "cave_-2456_-504": 2142.5,
+   "cave_-2456_198": 1605.8,
+   "north_aether_fountain": 583.5,
+   "north_end_tower": 270.0,
+   "north_homeland": 583.5,
+   "north_nether_bastion": 0.0,
+   "north_pillager_outpost": 134.5,
+   "south_aether_fountain": 1249.3,
+   "south_end_tower": 1187.6,
+   "south_homeland": 1269.3,
+   "south_nether_bastion": 531.8,
+   "south_pillager_outpost": 540.5
+  },
+  "north_pillager_outpost": {
+   "cave_-1882_-153": 278.4,
+   "cave_-1882_-504": 1061.0,
+   "cave_-1882_198": 748.1,
+   "cave_-2169_-153": 353.7,
+   "cave_-2169_-504": 670.1,
+   "cave_-2169_198": 1062.8,
+   "cave_-2456_-153": 822.8,
+   "cave_-2456_-504": 2130.6,
+   "cave_-2456_198": 1471.3,
+   "north_aether_fountain": 616.7,
+   "north_end_tower": 339.6,
+   "north_homeland": 616.7,
+   "north_nether_bastion": 134.5,
+   "north_pillager_outpost": 0.0,
+   "south_aether_fountain": 1204.2,
+   "south_end_tower": 1142.5,
+   "south_homeland": 1224.2,
+   "south_nether_bastion": 486.7,
+   "south_pillager_outpost": 495.5
+  },
+  "south_aether_fountain": {
+   "cave_-1882_-153": 1342.0,
+   "cave_-1882_-504": 2237.7,
+   "cave_-1882_198": 669.7,
+   "cave_-2169_-153": 1540.5,
+   "cave_-2169_-504": 1854.4,
+   "cave_-2169_198": 730.7,
+   "cave_-2456_-153": 1762.3,
+   "cave_-2456_-504": 3321.3,
+   "cave_-2456_198": 1313.2,
+   "north_aether_fountain": 1801.2,
+   "north_end_tower": 1516.2,
+   "north_homeland": 1801.2,
+   "north_nether_bastion": 1249.3,
+   "north_pillager_outpost": 1204.2,
+   "south_aether_fountain": 0.0,
+   "south_end_tower": 204.8,
+   "south_homeland": 28.3,
+   "south_nether_bastion": 733.5,
+   "south_pillager_outpost": 807.7
+  },
+  "south_end_tower": {
+   "cave_-1882_-153": 1280.3,
+   "cave_-1882_-504": 2176.0,
+   "cave_-1882_198": 570.3,
+   "cave_-2169_-153": 1478.8,
+   "cave_-2169_-504": 1792.7,
+   "cave_-2169_198": 890.3,
+   "cave_-2456_-153": 1926.9,
+   "cave_-2456_-504": 3259.6,
+   "cave_-2456_198": 1502.7,
+   "north_aether_fountain": 1739.5,
+   "north_end_tower": 1454.5,
+   "north_homeland": 1739.5,
+   "north_nether_bastion": 1187.6,
+   "north_pillager_outpost": 1142.5,
+   "south_aether_fountain": 204.8,
+   "south_end_tower": 0.0,
+   "south_homeland": 233.0,
+   "south_nether_bastion": 671.8,
+   "south_pillager_outpost": 746.0
+  },
+  "south_homeland": {
+   "cave_-1882_-153": 1362.0,
+   "cave_-1882_-504": 2257.7,
+   "cave_-1882_198": 689.7,
+   "cave_-2169_-153": 1560.5,
+   "cave_-2169_-504": 1874.4,
+   "cave_-2169_198": 734.4,
+   "cave_-2456_-153": 1750.6,
+   "cave_-2456_-504": 3341.3,
+   "cave_-2456_198": 1301.5,
+   "north_aether_fountain": 1821.2,
+   "north_end_tower": 1536.2,
+   "north_homeland": 1821.2,
+   "north_nether_bastion": 1269.3,
+   "north_pillager_outpost": 1224.2,
+   "south_aether_fountain": 28.3,
+   "south_end_tower": 233.0,
+   "south_homeland": 0.0,
+   "south_nether_bastion": 753.5,
+   "south_pillager_outpost": 827.7
+  },
+  "south_nether_bastion": {
+   "cave_-1882_-153": 624.5,
+   "cave_-1882_-504": 1520.2,
+   "cave_-1882_198": 282.7,
+   "cave_-2169_-153": 823.0,
+   "cave_-2169_-504": 1136.9,
+   "cave_-2169_198": 670.3,
+   "cave_-2456_-153": 1296.1,
+   "cave_-2456_-504": 2603.8,
+   "cave_-2456_198": 1363.5,
+   "north_aether_fountain": 1083.7,
+   "north_end_tower": 798.7,
+   "north_homeland": 1083.7,
+   "north_nether_bastion": 531.8,
+   "north_pillager_outpost": 486.7,
+   "south_aether_fountain": 733.5,
+   "south_end_tower": 671.8,
+   "south_homeland": 753.5,
+   "south_nether_bastion": 0.0,
+   "south_pillager_outpost": 94.9
+  },
+  "south_pillager_outpost": {
+   "cave_-1882_-153": 633.3,
+   "cave_-1882_-504": 1528.9,
+   "cave_-1882_198": 363.9,
+   "cave_-2169_-153": 825.5,
+   "cave_-2169_-504": 1145.6,
+   "cave_-2169_198": 618.5,
+   "cave_-2456_-153": 1220.3,
+   "cave_-2456_-504": 2612.6,
+   "cave_-2456_198": 1276.9,
+   "north_aether_fountain": 1092.5,
+   "north_end_tower": 807.5,
+   "north_homeland": 1092.5,
+   "north_nether_bastion": 540.5,
+   "north_pillager_outpost": 495.5,
+   "south_aether_fountain": 807.7,
+   "south_end_tower": 746.0,
+   "south_homeland": 827.7,
+   "south_nether_bastion": 94.9,
+   "south_pillager_outpost": 0.0
+  }
+ },
+ "cost_model": {
+  "parameters": {
+   "canopy_cost": 0.5,
+   "departure_separation_samples": 3,
+   "fountain_max_grade_y": 2,
+   "homeland_radius_samples": 4,
+   "nonbuildable_cost": 0.35,
+   "regional_core_min_samples": 12,
+   "reuse_search_penalty": 3.0,
+   "rise_cost": 0.5,
+   "severe_rise_cost": 0.8,
+   "severe_rise_y": 8,
+   "shortcut_ratio": 0.85,
+   "starter_soft_max": 76.0,
+   "starter_soft_min": 58.0,
+   "starter_target": 65.0,
+   "target_min_depth": 110.0,
+   "target_reference_depth": 250.0,
+   "water_cost": 10.0
+  },
+  "source": "vanilla_search.task_a.Terrain, the same weighted graph used to site the team structures"
+ },
+ "cost_units": "terrain-weighted blocks",
+ "evidence_state": "DERIVED MEASUREMENT",
+ "not_covered": [
+  "a weighted-cost unit is converted to seconds as if it were a walked block; the weighting already inflates for terrain, so this is a travel-time proxy, not a measured traversal",
+  "vertical descent into a cave, which the surface graph does not model",
+  "boats, Routes, and any infrastructure that changes traversal",
+  "contested ground; costs are the same for both teams"
+ ],
+ "sample_spacing_blocks": 8,
+ "schema": "expedition_travel_matrix/1",
+ "seed": 930012642,
+ "sites": [
+  {
+   "id": "north_homeland",
+   "kind": "homeland",
+   "node": 902,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -2172,
+    -460
+   ],
+   "team": "north",
+   "world_xz": [
+    -2172,
+    -460
+   ]
+  },
+  {
+   "id": "south_homeland",
+   "kind": "homeland",
+   "node": 12909,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -2020,
+    428
+   ],
+   "team": "south",
+   "world_xz": [
+    -2020,
+    428
+   ]
+  },
+  {
+   "id": "north_aether_fountain",
+   "kind": "structure",
+   "node": 902,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -2172,
+    -460
+   ],
+   "team": "north",
+   "world_xz": [
+    -2172,
+    -460
+   ]
+  },
+  {
+   "id": "north_end_tower",
+   "kind": "structure",
+   "node": 3304,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -1964,
+    -284
+   ],
+   "team": "north",
+   "world_xz": [
+    -1964,
+    -284
+   ]
+  },
+  {
+   "id": "north_nether_bastion",
+   "kind": "structure",
+   "node": 5465,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -1956,
+    -124
+   ],
+   "team": "north",
+   "world_xz": [
+    -1956,
+    -124
+   ]
+  },
+  {
+   "id": "north_pillager_outpost",
+   "kind": "structure",
+   "node": 5889,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -2020,
+    -92
+   ],
+   "team": "north",
+   "world_xz": [
+    -2020,
+    -92
+   ]
+  },
+  {
+   "id": "south_aether_fountain",
+   "kind": "structure",
+   "node": 12695,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -2004,
+    412
+   ],
+   "team": "south",
+   "world_xz": [
+    -2004,
+    412
+   ]
+  },
+  {
+   "id": "south_end_tower",
+   "kind": "structure",
+   "node": 11953,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -1892,
+    356
+   ],
+   "team": "south",
+   "world_xz": [
+    -1892,
+    356
+   ]
+  },
+  {
+   "id": "south_nether_bastion",
+   "kind": "structure",
+   "node": 8383,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -1940,
+    92
+   ],
+   "team": "south",
+   "world_xz": [
+    -1940,
+    92
+   ]
+  },
+  {
+   "id": "south_pillager_outpost",
+   "kind": "structure",
+   "node": 7945,
+   "node_offset_blocks": 0.0,
+   "node_world_xz": [
+    -1988,
+    60
+   ],
+   "team": "south",
+   "world_xz": [
+    -1988,
+    60
+   ]
+  },
+  {
+   "id": "cave_-2456_-504",
+   "kind": "cave_cell",
+   "node": 218,
+   "node_offset_blocks": 5.7,
+   "node_world_xz": [
+    -2460,
+    -508
+   ],
+   "surface_y": 66.2,
+   "team": null,
+   "world_xz": [
+    -2456,
+    -504
+   ]
+  },
+  {
+   "id": "cave_-2456_-153",
+   "kind": "cave_cell",
+   "node": 4970,
+   "node_offset_blocks": 5.0,
+   "node_world_xz": [
+    -2460,
+    -156
+   ],
+   "surface_y": 88.6,
+   "team": null,
+   "world_xz": [
+    -2456,
+    -153
+   ]
+  },
+  {
+   "id": "cave_-2456_198",
+   "kind": "cave_cell",
+   "node": 9722,
+   "node_offset_blocks": 4.5,
+   "node_world_xz": [
+    -2460,
+    196
+   ],
+   "surface_y": 89.9,
+   "team": null,
+   "world_xz": [
+    -2456,
+    198
+   ]
+  },
+  {
+   "id": "cave_-2169_-504",
+   "kind": "cave_cell",
+   "node": 254,
+   "node_offset_blocks": 5.0,
+   "node_world_xz": [
+    -2172,
+    -508
+   ],
+   "surface_y": 66.5,
+   "team": null,
+   "world_xz": [
+    -2169,
+    -504
+   ]
+  },
+  {
+   "id": "cave_-2169_-153",
+   "kind": "cave_cell",
+   "node": 5006,
+   "node_offset_blocks": 4.2,
+   "node_world_xz": [
+    -2172,
+    -156
+   ],
+   "surface_y": 80.0,
+   "team": null,
+   "world_xz": [
+    -2169,
+    -153
+   ]
+  },
+  {
+   "id": "cave_-2169_198",
+   "kind": "cave_cell",
+   "node": 9758,
+   "node_offset_blocks": 3.6,
+   "node_world_xz": [
+    -2172,
+    196
+   ],
+   "surface_y": 90.0,
+   "team": null,
+   "world_xz": [
+    -2169,
+    198
+   ]
+  },
+  {
+   "id": "cave_-1882_-504",
+   "kind": "cave_cell",
+   "node": 290,
+   "node_offset_blocks": 4.5,
+   "node_world_xz": [
+    -1884,
+    -508
+   ],
+   "surface_y": 66.8,
+   "team": null,
+   "world_xz": [
+    -1882,
+    -504
+   ]
+  },
+  {
+   "id": "cave_-1882_-153",
+   "kind": "cave_cell",
+   "node": 5042,
+   "node_offset_blocks": 3.6,
+   "node_world_xz": [
+    -1884,
+    -156
+   ],
+   "surface_y": 73.6,
+   "team": null,
+   "world_xz": [
+    -1882,
+    -153
+   ]
+  },
+  {
+   "id": "cave_-1882_198",
+   "kind": "cave_cell",
+   "node": 9794,
+   "node_offset_blocks": 2.8,
+   "node_world_xz": [
+    -1884,
+    196
+   ],
+   "surface_y": 85.3,
+   "team": null,
+   "world_xz": [
+    -1882,
+    198
+   ]
+  }
+ ],
+ "sites_outside_analysed_region": [],
+ "speeds_blocks_per_second": {
+  "sprint": 5.612,
+  "walk": 4.317
+ },
+ "unreachable_pairs": [],
+ "volume_id": "tv_ef56852eda10acc88342e5ee"
+}

@@ -1,0 +1,35 @@
+[17:28:09 INFO]: Alpha instance 'alpha_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.
+[17:28:20 INFO]: [match] Match started. DAY 0:00 (day, phase 0)
+[17:28:23 INFO]: worksites=10 active=0
+[17:28:23 INFO]:   {DORMANT=10, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}
+[17:28:26 INFO]: [match] Sunset 1 (6m): 2 Worksite(s) activated: [ws_1_2, ws_3_3]
+[17:28:26 INFO]: [match] sunset 1 at 6m, activated 2
+[17:28:29 INFO]: worksites=10 active=2
+[17:28:29 INFO]:   {DORMANT=8, ACTIVATED=2, CAPITALIZED=0, EXPLOITED=0}
+[17:28:29 INFO]:   ws_1_2@-2288,-208 ACTIVATED
+[17:28:29 INFO]:   ws_3_3@-2032,-80 ACTIVATED
+[17:28:31 INFO]: [match] Sunrise (12m): 2 Worksite(s) closed.
+[17:28:31 INFO]: [match] Sunset 2 (18m): 2 Worksite(s) activated: [ws_3_2, ws_6_4]
+[17:28:31 INFO]: [match] sunset 2 at 18m, activated 2
+[17:28:34 INFO]: worksites=10 active=2
+[17:28:34 INFO]:   {DORMANT=8, ACTIVATED=2, CAPITALIZED=0, EXPLOITED=0}
+[17:28:34 INFO]:   ws_3_2@-2032,-208 ACTIVATED
+[17:28:34 INFO]:   ws_6_4@-1698,14 ACTIVATED
+[17:28:37 INFO]:   ws_3_2@-2032,-208 ACTIVATED
+[17:28:37 INFO]:   ws_6_4@-1698,14 ACTIVATED
+[17:28:42 INFO]: worksites=10 active=2
+[17:28:42 INFO]:   {DORMANT=8, ACTIVATED=2, CAPITALIZED=0, EXPLOITED=0}
+[17:28:42 INFO]:   ws_3_2@-2032,-208 ACTIVATED
+[17:28:42 INFO]:   ws_6_4@-1698,14 ACTIVATED
+[17:28:45 INFO]: [match] south Aether Fountain disabled: south can no longer respawn.
+[17:28:50 INFO]: [match] AlphaTester eliminated (admin).
+[17:28:50 INFO]: [match] north wins: south Fountain disabled and no survivors remain.
+[17:28:53 INFO]: state=ENDED winner=north
+[17:28:59 INFO]: Match reset: state cleared (worksites, 0 renewable source(s)), world restored from template.
+[17:29:11 INFO]: worksites=10 active=0
+[17:29:11 INFO]:   {DORMANT=10, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}
+[17:29:13 INFO]: Alpha instance 'alpha_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.
+[17:29:28 INFO]: [match] Match started. DAY 0:00 (day, phase 0)
+[17:29:31 INFO]: state=RUNNING
+[17:29:33 INFO]: worksites=10 active=0
+[17:29:33 INFO]:   {DORMANT=10, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}

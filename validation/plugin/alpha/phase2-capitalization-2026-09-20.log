@@ -1,0 +1,14 @@
+[17:30:17 INFO]: Nothing changed. The player already is an operator
+[17:30:36 INFO]: [match] Sunset 1 (6m): 2 Worksite(s) activated: [ws_1_2, ws_3_3]
+[17:30:39 INFO]:   ws_1_2@-2288,-208 ACTIVATED
+[17:30:39 INFO]:   ws_3_3@-2032,-80 ACTIVATED
+[17:30:41 INFO]: ws_1_2 capitalized by north (shared opportunity earned)
+[17:30:44 INFO]: worksites=10 active=2
+[17:30:44 INFO]:   {DORMANT=8, ACTIVATED=1, CAPITALIZED=1, EXPLOITED=0}
+[17:30:44 INFO]:   ws_1_2@-2288,-208 CAPITALIZED by north
+[17:30:44 INFO]:   ws_3_3@-2032,-80 ACTIVATED
+[17:30:49 INFO]: ws_1_2 is CAPITALIZED; only an activated Worksite can be capitalized
+[17:30:51 INFO]: [match] Sunrise (12m): 1 Worksite(s) closed.
+[17:30:54 INFO]: worksites=10 active=0
+[17:30:54 INFO]:   {DORMANT=9, ACTIVATED=0, CAPITALIZED=1, EXPLOITED=0}
+[17:30:54 INFO]:   ws_1_2@-2288,-208 CAPITALIZED by north

@@ -1,0 +1,213 @@
+{
+  "checks": [
+    {
+      "name": "Alpha configuration applied",
+      "ok": true
+    },
+    {
+      "name": "test platform built",
+      "ok": true
+    },
+    {
+      "name": "standing on test platform",
+      "ok": true,
+      "detail": {
+        "x": -2099.5,
+        "y": 150,
+        "z": 0.5
+      }
+    },
+    {
+      "name": "unmodified match spawn reserve",
+      "ok": true,
+      "detail": {
+        "label": "full",
+        "food": 20,
+        "saturation": 20,
+        "health": 20,
+        "bread": 16,
+        "position": {
+          "x": -2099.5,
+          "y": 150,
+          "z": 0.5
+        }
+      }
+    },
+    {
+      "name": "ordinary food refused while actually full",
+      "ok": true,
+      "detail": {
+        "label": "full bread attempt",
+        "food": 20,
+        "saturation": 20,
+        "health": 20,
+        "bread": 16,
+        "position": {
+          "x": -2099.5,
+          "y": 150,
+          "z": 0.5
+        }
+      }
+    },
+    {
+      "name": "activity depletes actual Hunger",
+      "ok": true,
+      "detail": {
+        "label": "natural activity",
+        "food": 19,
+        "saturation": 0,
+        "health": 20,
+        "bread": 16,
+        "position": {
+          "x": -2118.233415874428,
+          "y": 150,
+          "z": -8.322360295995576
+        }
+      }
+    },
+    {
+      "name": "stayed alive away from Fountain",
+      "ok": true,
+      "detail": {
+        "label": "natural activity",
+        "food": 19,
+        "saturation": 0,
+        "health": 20,
+        "bread": 16,
+        "position": {
+          "x": -2118.233415874428,
+          "y": 150,
+          "z": -8.322360295995576
+        }
+      }
+    },
+    {
+      "name": "ordinary food restores depleted Hunger",
+      "ok": true,
+      "detail": {
+        "label": "bread after natural depletion",
+        "food": 20,
+        "saturation": 6,
+        "health": 20,
+        "bread": 15,
+        "position": {
+          "x": -2118.233415874428,
+          "y": 150,
+          "z": -8.322360295995576
+        }
+      }
+    },
+    {
+      "name": "vanilla exhaustion rollover reduces food",
+      "ok": true,
+      "detail": {
+        "label": "zero saturation activity",
+        "food": 18,
+        "saturation": 0,
+        "health": 20,
+        "bread": 15,
+        "position": {
+          "x": -2118.233415874428,
+          "y": 150,
+          "z": -15.389753983757995
+        }
+      }
+    },
+    {
+      "name": "food usable after rollover",
+      "ok": true,
+      "detail": {
+        "label": "bread after rollover",
+        "food": 20,
+        "saturation": 6,
+        "health": 20,
+        "bread": 14,
+        "position": {
+          "x": -2118.233415874428,
+          "y": 150,
+          "z": -15.389753983757995
+        }
+      }
+    },
+    {
+      "name": "food decrease reached event monitor uncancelled",
+      "ok": true
+    }
+  ],
+  "snapshots": [
+    {
+      "label": "full",
+      "food": 20,
+      "saturation": 20,
+      "health": 20,
+      "bread": 16,
+      "position": {
+        "x": -2099.5,
+        "y": 150,
+        "z": 0.5
+      }
+    },
+    {
+      "label": "full bread attempt",
+      "food": 20,
+      "saturation": 20,
+      "health": 20,
+      "bread": 16,
+      "position": {
+        "x": -2099.5,
+        "y": 150,
+        "z": 0.5
+      }
+    },
+    {
+      "label": "natural activity",
+      "food": 19,
+      "saturation": 0,
+      "health": 20,
+      "bread": 16,
+      "position": {
+        "x": -2118.233415874428,
+        "y": 150,
+        "z": -8.322360295995576
+      }
+    },
+    {
+      "label": "bread after natural depletion",
+      "food": 20,
+      "saturation": 6,
+      "health": 20,
+      "bread": 15,
+      "position": {
+        "x": -2118.233415874428,
+        "y": 150,
+        "z": -8.322360295995576
+      }
+    },
+    {
+      "label": "zero saturation activity",
+      "food": 18,
+      "saturation": 0,
+      "health": 20,
+      "bread": 15,
+      "position": {
+        "x": -2118.233415874428,
+        "y": 150,
+        "z": -15.389753983757995
+      }
+    },
+    {
+      "label": "bread after rollover",
+      "food": 20,
+      "saturation": 6,
+      "health": 20,
+      "bread": 14,
+      "position": {
+        "x": -2118.233415874428,
+        "y": 150,
+        "z": -15.389753983757995
+      }
+    }
+  ],
+  "secondsToFirstDepletion": 100,
+  "pass": true
+}

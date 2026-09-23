@@ -1,0 +1,190 @@
+{
+ "schema": "seed_balance_comparison/1",
+ "seeds": [
+  {
+   "seed": "930005557",
+   "homeland_quality": {
+    "north": 0.7617,
+    "south": 0.6254
+   },
+   "homeland_asymmetry": 0.09826256218008801,
+   "land_samples": {
+    "north": 10156,
+    "south": 10156
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "south: insufficient early Route divergence"
+   ],
+   "pairing": "forest/open",
+   "contrast": 0.5152
+  },
+  {
+   "seed": "930006815",
+   "homeland_quality": {
+    "north": 0.3704,
+    "south": 0.7594
+   },
+   "homeland_asymmetry": 0.3443087272083554,
+   "land_samples": {
+    "north": 6360,
+    "south": 6360
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "north-2: no_handoff_in_soft_range"
+   ],
+   "pairing": "open/oceanic",
+   "contrast": 0.569
+  },
+  {
+   "seed": "930007222",
+   "homeland_quality": {
+    "north": 0.4352,
+    "south": 0.7733
+   },
+   "homeland_asymmetry": 0.2797683078196111,
+   "land_samples": {
+    "north": 8240,
+    "south": 8240
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2"
+   ],
+   "pairing": "open/oceanic",
+   "contrast": 0.4242
+  },
+  {
+   "seed": "930010639",
+   "homeland_quality": {
+    "north": 0.903,
+    "south": 0.6854
+   },
+   "homeland_asymmetry": 0.13699320070511206,
+   "land_samples": {
+    "north": 8566,
+    "south": 8566
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "weak central/interior network connectivity"
+   ],
+   "pairing": "frozen/open",
+   "contrast": 0.5118
+  },
+  {
+   "seed": "930012642",
+   "homeland_quality": {
+    "north": 0.9416,
+    "south": 0.8275
+   },
+   "homeland_asymmetry": 0.06449607144875925,
+   "land_samples": {
+    "north": 11003,
+    "south": 11003
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "south-1: no_handoff_in_soft_range",
+    "weak central/interior network connectivity"
+   ],
+   "pairing": "forest/open",
+   "contrast": 0.3737
+  },
+  {
+   "seed": "930015734",
+   "homeland_quality": {
+    "north": 0.95,
+    "south": 0.4682
+   },
+   "homeland_asymmetry": 0.3397264137639261,
+   "land_samples": {
+    "north": 9436,
+    "south": 9436
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "south-2: severe_starter_construction",
+    "weak central/interior network connectivity"
+   ],
+   "pairing": "forest/arid",
+   "contrast": 0.5589
+  },
+  {
+   "seed": "930016664",
+   "homeland_quality": {
+    "north": 0.6925,
+    "south": 0.9253
+   },
+   "homeland_asymmetry": 0.14389912226480406,
+   "land_samples": {
+    "north": 12148,
+    "south": 12148
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "north-2: no_handoff_in_soft_range",
+    "south: insufficient early Route divergence",
+    "weak central/interior network connectivity"
+   ],
+   "pairing": "frozen/oceanic",
+   "contrast": 0.9596
+  },
+  {
+   "seed": "930019528",
+   "homeland_quality": {
+    "north": 0.8042,
+    "south": 0.6733
+   },
+   "homeland_asymmetry": 0.08859560067681896,
+   "land_samples": {
+    "north": 10162,
+    "south": 10162
+   },
+   "land_asymmetry": 0.0,
+   "routes_fitted": {
+    "north": 3,
+    "south": 3
+   },
+   "failures": [
+    "north-2: no_handoff_in_soft_range",
+    "weak central/interior network connectivity"
+   ],
+   "pairing": "forest/frozen",
+   "contrast": 0.6128
+  }
+ ]
+}

@@ -2,6 +2,19 @@
 
 This is the active quantitative design specification for converting generated geography into realized human economic activity. Established spatial principles live in [maps.md](../maps.md#spatial-opportunities-and-initial-balancing); this document owns the proposed experiment and its assumptions, not final game balance. Read it with [infrastructure.md](../infrastructure.md), the [manuscript](manuscript/Minecraft-MOBA-Design.md), and the [reconciliation](reconciliation/2026-09-12-worldgen-balancing.md).
 
+## Spatial terminology reconciliation — 22 September 2026
+
+Use **Strategic Depth** for outward Homebase/opening relationship and **Regional
+Character** for Map Type geographic composition. Earlier "regional depth" here
+means the former, not the Ocean-to-Alpine regional gradient. Keep both separate
+from current travel cost. The [Core/Socket contract](../maps.md#competitive-spatial-contract--established-clarification-22-september-2026)
+controls symmetry only inside the Core/interface. Natural hinterlands supply a
+distributed opening floor and concentration ceiling; Wilderness asymmetry is not
+a deficit without gameplay evidence. Depth allows richness in quantity/
+concentration as well as novelty; actual candidate density need not rise
+monotonically. Existing X/T observations and no-quota rules survive. The model
+below remains a proposal, not a generic gradient already implemented.
+
 ## CANON / ESTABLISHED principles
 
 Worldgen creates spatial opportunities, not income rates. Depth's existing access costs and resource rewards remain, with regenerative eligibility and vocabulary additive. Candidate Density, Regenerative Eligibility, and Regenerative Vocabulary are distinct. X/T at shallow A and Y/T at deeper Z, Y/T > X/T, express an emergent eligible-candidate share; neither is a node-placement quota. Ecology/geology determine actual candidates, which need not become denser with depth. T may differ between regions.

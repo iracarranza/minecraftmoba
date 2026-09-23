@@ -1,0 +1,24 @@
+{
+  "package": "artifacts/worldgen/nearmiss_fixture_2026-09-22/packages/base-terrain.tar.gz",
+  "sha256": "6bb00deee4cc6515cbd80b75ad03edaddb713cb6e7557e4684933901bf2c2574",
+  "bytes": 18174729,
+  "files": {
+    "entities/r.3.-1.mca": "99cf6c6e18b285942f95c32e7723ab94ea72ac94c13ce39123fbf7e4761dcc68",
+    "entities/r.3.0.mca": "99a2c9171166335534f5d854a8207389f71e2097262d1f075d36832329644ed4",
+    "entities/r.3.1.mca": "c43ba84c0c28222500ac5a5240704b6b94545a27aafb410dd54f5699580e6a1c",
+    "entities/r.4.-1.mca": "8cda8a92bc4ca7fa7f705d0fddc92b97f1ce19deefc6ca3310b81ddb08b7abb5",
+    "entities/r.4.0.mca": "ca2bc0a158e4aa1012d9dfd32378e541ff24ae5c9a14d2e7377a5f754aa021f0",
+    "entities/r.4.1.mca": "f5040d22ebfee239b3130abed100ca6325dbcbbf99c23cef15ac465ec692a922",
+    "level.dat": "50456efca7245189ca8b1f9d65fcb0db392d1593d2eafb53258e1b6d27ed2374",
+    "region/r.3.-1.mca": "6d71532ec908bc5c91c2fba19a6a9c6453e756553f45eb1e2b31813dac857d4d",
+    "region/r.3.-2.mca": "997de9b48e7ce143712fa8ab1deb364dbcfb7113250dcf05b95f1b5aa48d33f9",
+    "region/r.3.0.mca": "0c4f7ed5eabc096afeda9ac7c1529598199fa5474520f8d542f5ad9ee9f63c01",
+    "region/r.3.1.mca": "c6fa1af32b78c2f8fcb9cf087fd1128cf5f0fa9330d3e05829ac4b06bf5f1c78",
+    "region/r.4.-1.mca": "6beae667d87ceeb9788d4711d37bdea7bb520c695a33723783d05ed1b5db033f",
+    "region/r.4.-2.mca": "ca29caaf22bcfc113bf201f8b8a65cedaac41415e4389078239ec78d19238868",
+    "region/r.4.0.mca": "0d88eaf2dd08e2727f077f8461b7b557ca247f9f6448a2a3b716b377e9d19888",
+    "region/r.4.1.mca": "8dcc16ec0dd066f741070f587c80f9852bf390819a1b3effe8af15fa37507657",
+    "terrain_volume.json": "184bde558f4517313ba3a1bc5bceae0642dde51cea69d4753d87dde686450408"
+  },
+  "scope": "Unplayed harvested terrain plus original seed-specific level.dat; no claim of pristine native generation equivalence"
+}

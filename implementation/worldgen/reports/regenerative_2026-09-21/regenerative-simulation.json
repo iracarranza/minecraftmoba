@@ -1,0 +1,1360 @@
+{
+ "schema": "regenerative_simulation/1",
+ "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/alpha-0.1/consolidative-alpha",
+ "note": "Eligibility predicates are NON-CANON ALPHA FIXTURES. This reports what they currently imply about the frozen template, not what the design has settled. The template is pristine, so player-placed rejection is not exercised. Full loci lists omitted for size; regenerate with terrain_harvest.simulate_regenerative.",
+ "rules": {
+  "headroom": 2,
+  "sampleStride": 4,
+  "minDisplacement": 12.0,
+  "playerExclusion": 24.0,
+  "naturalGround": [
+   "minecraft:coarse_dirt",
+   "minecraft:dirt",
+   "minecraft:grass_block",
+   "minecraft:gravel",
+   "minecraft:moss_block",
+   "minecraft:mycelium",
+   "minecraft:podzol",
+   "minecraft:red_sand",
+   "minecraft:rooted_dirt",
+   "minecraft:sand",
+   "minecraft:snow_block",
+   "minecraft:stone"
+  ],
+  "migratedRegionHalfSpan": 48
+ },
+ "opportunities": [
+  {
+   "id": "rabbit_0_3",
+   "type": "ANIMAL",
+   "kind": "rabbit",
+   "authoredPoint": [
+    -2448,
+    92,
+    -48
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2496,
+      "minZ": -96,
+      "maxX": -2400,
+      "maxZ": 0
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 256,
+   "eligibleOnLegacyPad": 53,
+   "padShare": 0.207,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -2440,
+     92,
+     -64
+    ],
+    [
+     -2476,
+     87,
+     -76
+    ],
+    [
+     -2460,
+     109,
+     -16
+    ],
+    [
+     -2472,
+     87,
+     -76
+    ]
+   ],
+   "lociSample": [
+    [
+     -2480,
+     88,
+     -96
+    ],
+    [
+     -2480,
+     89,
+     -92
+    ],
+    [
+     -2480,
+     88,
+     -80
+    ],
+    [
+     -2480,
+     88,
+     -76
+    ],
+    [
+     -2480,
+     91,
+     -72
+    ],
+    [
+     -2480,
+     93,
+     -68
+    ],
+    [
+     -2476,
+     88,
+     -96
+    ],
+    [
+     -2476,
+     88,
+     -92
+    ],
+    [
+     -2476,
+     88,
+     -84
+    ],
+    [
+     -2476,
+     87,
+     -76
+    ],
+    [
+     -2476,
+     90,
+     -72
+    ],
+    [
+     -2476,
+     92,
+     -68
+    ]
+   ],
+   "lociCount": 256
+  },
+  {
+   "id": "sheep_0_5",
+   "type": "ANIMAL",
+   "kind": "sheep",
+   "authoredPoint": [
+    -2448,
+    98,
+    208
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2496,
+      "minZ": 160,
+      "maxX": -2400,
+      "maxZ": 256
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 271,
+   "eligibleOnLegacyPad": 66,
+   "padShare": 0.2435,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -2436,
+     115,
+     212
+    ],
+    [
+     -2472,
+     104,
+     232
+    ],
+    [
+     -2440,
+     101,
+     224
+    ],
+    [
+     -2472,
+     102,
+     236
+    ]
+   ],
+   "lociSample": [
+    [
+     -2480,
+     124,
+     212
+    ],
+    [
+     -2480,
+     104,
+     232
+    ],
+    [
+     -2480,
+     100,
+     236
+    ],
+    [
+     -2480,
+     94,
+     244
+    ],
+    [
+     -2480,
+     93,
+     256
+    ],
+    [
+     -2476,
+     122,
+     212
+    ],
+    [
+     -2476,
+     119,
+     216
+    ],
+    [
+     -2476,
+     109,
+     228
+    ],
+    [
+     -2476,
+     107,
+     232
+    ],
+    [
+     -2476,
+     101,
+     236
+    ],
+    [
+     -2476,
+     95,
+     240
+    ],
+    [
+     -2476,
+     94,
+     248
+    ]
+   ],
+   "lociCount": 271
+  },
+  {
+   "id": "cow_0_6",
+   "type": "ANIMAL",
+   "kind": "cow",
+   "authoredPoint": [
+    -2448,
+    94,
+    336
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2496,
+      "minZ": 288,
+      "maxX": -2400,
+      "maxZ": 384
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 412,
+   "eligibleOnLegacyPad": 92,
+   "padShare": 0.2233,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -2456,
+     94,
+     352
+    ],
+    [
+     -2480,
+     97,
+     376
+    ],
+    [
+     -2460,
+     94,
+     344
+    ],
+    [
+     -2476,
+     97,
+     380
+    ]
+   ],
+   "lociSample": [
+    [
+     -2480,
+     90,
+     292
+    ],
+    [
+     -2480,
+     90,
+     296
+    ],
+    [
+     -2480,
+     90,
+     300
+    ],
+    [
+     -2480,
+     88,
+     304
+    ],
+    [
+     -2480,
+     91,
+     308
+    ],
+    [
+     -2480,
+     92,
+     312
+    ],
+    [
+     -2480,
+     93,
+     316
+    ],
+    [
+     -2480,
+     93,
+     324
+    ],
+    [
+     -2480,
+     93,
+     328
+    ],
+    [
+     -2480,
+     93,
+     336
+    ],
+    [
+     -2480,
+     93,
+     340
+    ],
+    [
+     -2480,
+     93,
+     344
+    ]
+   ],
+   "lociCount": 412
+  },
+  {
+   "id": "sheep_2_3",
+   "type": "ANIMAL",
+   "kind": "sheep",
+   "authoredPoint": [
+    -2192,
+    90,
+    -112
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2240,
+      "minZ": -160,
+      "maxX": -2144,
+      "maxZ": -64
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 503,
+   "eligibleOnLegacyPad": 91,
+   "padShare": 0.1809,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -2156,
+     106,
+     -80
+    ],
+    [
+     -2220,
+     113,
+     -84
+    ],
+    [
+     -2240,
+     109,
+     -64
+    ],
+    [
+     -2220,
+     76,
+     -160
+    ]
+   ],
+   "lociSample": [
+    [
+     -2240,
+     72,
+     -160
+    ],
+    [
+     -2240,
+     73,
+     -152
+    ],
+    [
+     -2240,
+     69,
+     -148
+    ],
+    [
+     -2240,
+     70,
+     -144
+    ],
+    [
+     -2240,
+     70,
+     -140
+    ],
+    [
+     -2240,
+     70,
+     -136
+    ],
+    [
+     -2240,
+     75,
+     -132
+    ],
+    [
+     -2240,
+     82,
+     -128
+    ],
+    [
+     -2240,
+     85,
+     -124
+    ],
+    [
+     -2240,
+     88,
+     -116
+    ],
+    [
+     -2240,
+     90,
+     -112
+    ],
+    [
+     -2240,
+     91,
+     -108
+    ]
+   ],
+   "lociCount": 503
+  },
+  {
+   "id": "sheep_2_6",
+   "type": "ANIMAL",
+   "kind": "sheep",
+   "authoredPoint": [
+    -2160,
+    99,
+    304
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2208,
+      "minZ": 256,
+      "maxX": -2112,
+      "maxZ": 352
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 490,
+   "eligibleOnLegacyPad": 89,
+   "padShare": 0.1816,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -2120,
+     101,
+     324
+    ],
+    [
+     -2184,
+     125,
+     292
+    ],
+    [
+     -2204,
+     128,
+     256
+    ],
+    [
+     -2188,
+     129,
+     316
+    ]
+   ],
+   "lociSample": [
+    [
+     -2208,
+     127,
+     256
+    ],
+    [
+     -2208,
+     128,
+     260
+    ],
+    [
+     -2208,
+     128,
+     264
+    ],
+    [
+     -2208,
+     126,
+     268
+    ],
+    [
+     -2208,
+     120,
+     272
+    ],
+    [
+     -2208,
+     120,
+     276
+    ],
+    [
+     -2208,
+     127,
+     280
+    ],
+    [
+     -2208,
+     127,
+     284
+    ],
+    [
+     -2208,
+     127,
+     288
+    ],
+    [
+     -2208,
+     126,
+     292
+    ],
+    [
+     -2208,
+     127,
+     296
+    ],
+    [
+     -2208,
+     128,
+     304
+    ]
+   ],
+   "lociCount": 490
+  },
+  {
+   "id": "rabbit_3_6",
+   "type": "ANIMAL",
+   "kind": "rabbit",
+   "authoredPoint": [
+    -2032,
+    90,
+    304
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2080,
+      "minZ": 256,
+      "maxX": -1984,
+      "maxZ": 352
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 507,
+   "eligibleOnLegacyPad": 94,
+   "padShare": 0.1854,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -1996,
+     72,
+     344
+    ],
+    [
+     -2060,
+     94,
+     352
+    ],
+    [
+     -2080,
+     86,
+     344
+    ],
+    [
+     -2060,
+     93,
+     292
+    ]
+   ],
+   "lociSample": [
+    [
+     -2080,
+     111,
+     256
+    ],
+    [
+     -2080,
+     111,
+     260
+    ],
+    [
+     -2080,
+     110,
+     264
+    ],
+    [
+     -2080,
+     108,
+     268
+    ],
+    [
+     -2080,
+     106,
+     272
+    ],
+    [
+     -2080,
+     103,
+     276
+    ],
+    [
+     -2080,
+     101,
+     288
+    ],
+    [
+     -2080,
+     102,
+     292
+    ],
+    [
+     -2080,
+     103,
+     300
+    ],
+    [
+     -2080,
+     102,
+     304
+    ],
+    [
+     -2080,
+     94,
+     308
+    ],
+    [
+     -2080,
+     88,
+     312
+    ]
+   ],
+   "lociCount": 507
+  },
+  {
+   "id": "chicken_4_1",
+   "type": "ANIMAL",
+   "kind": "chicken",
+   "authoredPoint": [
+    -1904,
+    66,
+    -336
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -1952,
+      "minZ": -384,
+      "maxX": -1856,
+      "maxZ": -288
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 329,
+   "eligibleOnLegacyPad": 87,
+   "padShare": 0.2644,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -1920,
+     66,
+     -324
+    ],
+    [
+     -1952,
+     68,
+     -296
+    ],
+    [
+     -1924,
+     64,
+     -364
+    ],
+    [
+     -1944,
+     69,
+     -376
+    ]
+   ],
+   "lociSample": [
+    [
+     -1952,
+     70,
+     -376
+    ],
+    [
+     -1952,
+     71,
+     -372
+    ],
+    [
+     -1952,
+     71,
+     -368
+    ],
+    [
+     -1952,
+     63,
+     -364
+    ],
+    [
+     -1952,
+     64,
+     -360
+    ],
+    [
+     -1952,
+     67,
+     -356
+    ],
+    [
+     -1952,
+     65,
+     -352
+    ],
+    [
+     -1952,
+     64,
+     -348
+    ],
+    [
+     -1952,
+     64,
+     -340
+    ],
+    [
+     -1952,
+     64,
+     -336
+    ],
+    [
+     -1952,
+     64,
+     -332
+    ],
+    [
+     -1952,
+     66,
+     -328
+    ]
+   ],
+   "lociCount": 329
+  },
+  {
+   "id": "sheep_4_4",
+   "type": "ANIMAL",
+   "kind": "sheep",
+   "authoredPoint": [
+    -1936,
+    66,
+    16
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -1984,
+      "minZ": -32,
+      "maxX": -1888,
+      "maxZ": 64
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 282,
+   "eligibleOnLegacyPad": 76,
+   "padShare": 0.2695,
+   "padShareIfUniform": 0.17,
+   "manifestationSequence": [
+    [
+     -1944,
+     66,
+     4
+    ],
+    [
+     -1980,
+     72,
+     56
+    ],
+    [
+     -1948,
+     66,
+     28
+    ],
+    [
+     -1972,
+     64,
+     32
+    ]
+   ],
+   "lociSample": [
+    [
+     -1984,
+     63,
+     -32
+    ],
+    [
+     -1984,
+     63,
+     12
+    ],
+    [
+     -1984,
+     63,
+     16
+    ],
+    [
+     -1984,
+     63,
+     20
+    ],
+    [
+     -1984,
+     63,
+     28
+    ],
+    [
+     -1984,
+     67,
+     36
+    ],
+    [
+     -1984,
+     70,
+     40
+    ],
+    [
+     -1984,
+     71,
+     44
+    ],
+    [
+     -1980,
+     63,
+     -32
+    ],
+    [
+     -1980,
+     63,
+     8
+    ],
+    [
+     -1980,
+     63,
+     12
+    ],
+    [
+     -1980,
+     63,
+     20
+    ]
+   ],
+   "lociCount": 282
+  },
+  {
+   "id": "carrots_0_3",
+   "type": "CROP",
+   "kind": "carrots",
+   "authoredPoint": [
+    -2384,
+    92,
+    -112
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2432,
+      "minZ": -160,
+      "maxX": -2336,
+      "maxZ": -64
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 288,
+   "eligibleOnLegacyPad": 18,
+   "padShare": 0.0625,
+   "padShareIfUniform": 0.0612,
+   "manifestationSequence": [
+    [
+     -2404,
+     85,
+     -152
+    ],
+    [
+     -2428,
+     94,
+     -132
+    ],
+    [
+     -2408,
+     92,
+     -112
+    ],
+    [
+     -2424,
+     83,
+     -84
+    ]
+   ],
+   "lociSample": [
+    [
+     -2432,
+     82,
+     -144
+    ],
+    [
+     -2432,
+     90,
+     -140
+    ],
+    [
+     -2432,
+     94,
+     -132
+    ],
+    [
+     -2432,
+     92,
+     -128
+    ],
+    [
+     -2432,
+     92,
+     -124
+    ],
+    [
+     -2432,
+     92,
+     -120
+    ],
+    [
+     -2432,
+     92,
+     -116
+    ],
+    [
+     -2432,
+     92,
+     -112
+    ],
+    [
+     -2432,
+     92,
+     -108
+    ],
+    [
+     -2432,
+     92,
+     -104
+    ],
+    [
+     -2432,
+     92,
+     -100
+    ],
+    [
+     -2432,
+     92,
+     -96
+    ]
+   ],
+   "lociCount": 288
+  },
+  {
+   "id": "potatoes_0_6",
+   "type": "CROP",
+   "kind": "potatoes",
+   "authoredPoint": [
+    -2384,
+    94,
+    336
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2432,
+      "minZ": 288,
+      "maxX": -2336,
+      "maxZ": 384
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 379,
+   "eligibleOnLegacyPad": 25,
+   "padShare": 0.066,
+   "padShareIfUniform": 0.0612,
+   "manifestationSequence": [
+    [
+     -2408,
+     102,
+     324
+    ],
+    [
+     -2432,
+     100,
+     376
+    ],
+    [
+     -2412,
+     108,
+     348
+    ],
+    [
+     -2428,
+     102,
+     384
+    ]
+   ],
+   "lociSample": [
+    [
+     -2432,
+     94,
+     288
+    ],
+    [
+     -2432,
+     93,
+     292
+    ],
+    [
+     -2432,
+     94,
+     296
+    ],
+    [
+     -2432,
+     94,
+     308
+    ],
+    [
+     -2432,
+     94,
+     312
+    ],
+    [
+     -2432,
+     94,
+     320
+    ],
+    [
+     -2432,
+     94,
+     324
+    ],
+    [
+     -2432,
+     94,
+     328
+    ],
+    [
+     -2432,
+     97,
+     332
+    ],
+    [
+     -2432,
+     97,
+     336
+    ],
+    [
+     -2432,
+     97,
+     340
+    ],
+    [
+     -2432,
+     94,
+     344
+    ]
+   ],
+   "lociCount": 379
+  },
+  {
+   "id": "carrots_2_3",
+   "type": "CROP",
+   "kind": "carrots",
+   "authoredPoint": [
+    -2192,
+    90,
+    -48
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -2240,
+      "minZ": -96,
+      "maxX": -2144,
+      "maxZ": 0
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 498,
+   "eligibleOnLegacyPad": 39,
+   "padShare": 0.0783,
+   "padShareIfUniform": 0.0612,
+   "manifestationSequence": [
+    [
+     -2152,
+     111,
+     -64
+    ],
+    [
+     -2216,
+     105,
+     -52
+    ],
+    [
+     -2236,
+     103,
+     -96
+    ],
+    [
+     -2220,
+     102,
+     -36
+    ]
+   ],
+   "lociSample": [
+    [
+     -2240,
+     104,
+     -92
+    ],
+    [
+     -2240,
+     107,
+     -88
+    ],
+    [
+     -2240,
+     108,
+     -84
+    ],
+    [
+     -2240,
+     110,
+     -72
+    ],
+    [
+     -2240,
+     109,
+     -64
+    ],
+    [
+     -2240,
+     110,
+     -60
+    ],
+    [
+     -2240,
+     111,
+     -56
+    ],
+    [
+     -2240,
+     104,
+     -52
+    ],
+    [
+     -2240,
+     104,
+     -48
+    ],
+    [
+     -2240,
+     104,
+     -44
+    ],
+    [
+     -2240,
+     104,
+     -40
+    ],
+    [
+     -2240,
+     104,
+     -36
+    ]
+   ],
+   "lociCount": 498
+  },
+  {
+   "id": "carrots_4_8",
+   "type": "CROP",
+   "kind": "carrots",
+   "authoredPoint": [
+    -1906,
+    66,
+    510
+   ],
+   "region": {
+    "cells": [
+     {
+      "minX": -1954,
+      "minZ": 462,
+      "maxX": -1858,
+      "maxZ": 558
+     }
+    ],
+    "columns": 9409
+   },
+   "sampledColumns": 625,
+   "eligibleLoci": 206,
+   "eligibleOnLegacyPad": 40,
+   "padShare": 0.1942,
+   "padShareIfUniform": 0.0612,
+   "manifestationSequence": [
+    [
+     -1906,
+     65,
+     526
+    ],
+    [
+     -1926,
+     63,
+     498
+    ],
+    [
+     -1906,
+     66,
+     518
+    ],
+    [
+     -1918,
+     67,
+     494
+    ]
+   ],
+   "lociSample": [
+    [
+     -1950,
+     63,
+     462
+    ],
+    [
+     -1946,
+     63,
+     462
+    ],
+    [
+     -1942,
+     64,
+     462
+    ],
+    [
+     -1942,
+     63,
+     466
+    ],
+    [
+     -1938,
+     64,
+     462
+    ],
+    [
+     -1930,
+     63,
+     462
+    ],
+    [
+     -1926,
+     64,
+     486
+    ],
+    [
+     -1926,
+     64,
+     490
+    ],
+    [
+     -1926,
+     64,
+     494
+    ],
+    [
+     -1926,
+     63,
+     498
+    ],
+    [
+     -1922,
+     64,
+     482
+    ],
+    [
+     -1922,
+     65,
+     486
+    ]
+   ],
+   "lociCount": 206
+  }
+ ]
+}

@@ -1,0 +1,112 @@
+{
+  "blocks_written": 17036,
+  "dry_run": false,
+  "evidence_state": "RAW WORLD OBSERVATION",
+  "nature": "greybox massing in vanilla-native palettes, not final architecture",
+  "not_covered": [
+    "exposure, disable conditions, obstruction, validation, reactivation and repair, all unresolved in objectives.md",
+    "interiors, defender placement and spawners",
+    "redstone or any functional machinery",
+    "terrain sculpting beyond a levelled pad under each structure"
+  ],
+  "schema": "team_structures_built/1",
+  "structures": [
+    {
+      "blocks": 302,
+      "footprint_radius": 7,
+      "height": 6,
+      "structure": "aether_fountain",
+      "team": "north",
+      "world_xyz": [
+        -2172,
+        70,
+        -460
+      ]
+    },
+    {
+      "blocks": 572,
+      "footprint_radius": 6,
+      "height": 21,
+      "structure": "end_tower",
+      "team": "north",
+      "world_xyz": [
+        -1964,
+        71,
+        -284
+      ]
+    },
+    {
+      "blocks": 690,
+      "footprint_radius": 7,
+      "height": 12,
+      "structure": "nether_bastion",
+      "team": "north",
+      "world_xyz": [
+        -1956,
+        77,
+        -124
+      ]
+    },
+    {
+      "blocks": 314,
+      "footprint_radius": 4,
+      "height": 15,
+      "structure": "pillager_outpost",
+      "team": "north",
+      "world_xyz": [
+        -2020,
+        67,
+        -92
+      ]
+    },
+    {
+      "blocks": 302,
+      "footprint_radius": 7,
+      "height": 6,
+      "structure": "aether_fountain",
+      "team": "south",
+      "world_xyz": [
+        -2004,
+        72,
+        412
+      ]
+    },
+    {
+      "blocks": 572,
+      "footprint_radius": 6,
+      "height": 21,
+      "structure": "end_tower",
+      "team": "south",
+      "world_xyz": [
+        -1892,
+        69,
+        356
+      ]
+    },
+    {
+      "blocks": 690,
+      "footprint_radius": 7,
+      "height": 12,
+      "structure": "nether_bastion",
+      "team": "south",
+      "world_xyz": [
+        -1940,
+        68,
+        92
+      ]
+    },
+    {
+      "blocks": 314,
+      "footprint_radius": 4,
+      "height": 15,
+      "structure": "pillager_outpost",
+      "team": "south",
+      "world_xyz": [
+        -1988,
+        73,
+        60
+      ]
+    }
+  ],
+  "world": "artifacts/worldgen/terrain_harvest_2026-09-18/worlds/TerrainGalleryStructures/dimensions/harvest/tv_ef56852eda10acc88342e5ee"
+}

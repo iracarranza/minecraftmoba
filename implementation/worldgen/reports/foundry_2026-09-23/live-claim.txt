@@ -1,0 +1,11 @@
+enabled=true dir=/tmp/pool
+before: pool=/tmp/pool entries=2 READY=2 IN_USE=0 USED=0
+entries=2
+  2718281-93d1fb5c9f seed=2718281 state=READY
+  99887766-6966b36836 seed=99887766 state=READY
+claim1=2718281-93d1fb5c9f state=IN_USE
+claim2=99887766-6966b36836
+distinct=true
+claim3 (pool exhausted)=NONE
+after retire: pool=/tmp/pool entries=2 READY=0 IN_USE=1 USED=1 (EMPTY: run the foundry, or matches fall back to the template)
+first state now=USED

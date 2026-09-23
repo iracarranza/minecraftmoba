@@ -1,7 +1,526 @@
+# Feature flags. Each Phase 2 feature is independently switchable; turning one
+# off must never require touching another.
+features:
+  # The Aether Fountain restores its own team's Health and Hunger.
+  #
+  # Only a team's own Fountain restores that team, and a disabled Fountain
+  # restores nothing, so recovery follows the respawn role rather than turning
+  # the structure into a contestable heal pad. Radius and rates are NON-CANON
+  # ALPHA FIXTURES; canon fixes the Fountain's relationship to respawning, not
+  # how fast standing in one heals.
+  fountainRegen:
+    enabled: true
+    intervalTicks: 20
+    radius: 8.0
+    healthPerInterval: 1.0
+    foodPerInterval: 1
+    # A player reappears reconstructing, not restored.
+    respawnHealth: 1.0
+    respawnFood: 1
+  # Work Points: gameplay-driven progression. Only domains whose contribution
+  # rule is specified enough to implement are wired; see
+  # docs/analysis/alpha-0.1-progression.md.
+  workPoints: { enabled: true, announce: true }
+  # The plugin draws the Hunger readout because the vanilla row cannot
+  # distinguish an empty drumstick from one beyond the player's Capacity.
+  # Requires the resource pack, which blanks the vanilla row; without it the
+  # glyphs are unmapped and the readout is unreadable.
+  # Retired: the native hunger row is repainted as a bar by the pack, in its own
+  # HUD position, so a parallel boss-bar readout is no longer what makes hunger
+  # legible. Left switchable rather than deleted until the bar is judged in play.
+  hungerDisplay: { enabled: false, refreshTicks: 10 }
+  # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
+  # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
+  # so vanilla regeneration can never fire on the canonical curve.
+  #
+  # Two empty drumsticks block regeneration. A drumstick is two food points, so
+  # regeneration stops once 4 or more points are missing: at a maximum of 20
+  # that blocks at 16, eight drumsticks or fewer, and permits from 17 up.
+  #
+  # Named for the BLOCKING condition on purpose. "Four below maximum" and
+  # "eight or fewer drumsticks" differ by one point depending on which side the
+  # comparison sits, and that is easy to encode backwards.
+  #
+  # The 6-food sprint cutoff is vanilla and is deliberately NOT reimplemented.
+  hungerRegen:
+    enabled: true
+    blockedWhenPointsMissing: 4
+    intervalTicks: 80
+    healAmount: 1.0
+    exhaustionPerHeal: 6.0
+  lockedSlots:
+    enabled: true
+    # Must be unobtainable in survival: a material a player can hold would let
+    # vanilla merge a pickup into the marker stack. BARRIER also reads as
+    # blocked with no resource pack, and a pack can give it a subtle
+    # slot-shaped texture instead.
+    material: BARRIER
+    label: "Locked slot"
+    refreshTicks: 20
+  contributions:
+    enabled: true
+  durability:
+    enabled: true
+  hubLobby:
+    enabled: true
+    originX: 0
+    originY: 65
+    originZ: 0
+    spacing: 8
+    floorMaterial: POLISHED_DEEPSLATE
+    frameMaterial: POLISHED_BLACKSTONE_BRICKS
+    cooldownMillis: 3000
+    # Ships EMPTY. Which maps are offered is a selection decision, not a
+    # plugin default. Each entry needs a label and the command to run.
+    # Example, using the terrain gallery's own navigation:
+    #   candidate_a:
+    #     label: "930012642"
+    #     command: "function harvest:visit/tv_ef56852eda10acc88342e5ee"
+    destinations: {}
+  rewardAdvancements:
+    enabled: true
+  infraMode:
+    enabled: true
+  routes:
+    enabled: true
+    minLength: 16.0            # endpoints closer than this are refused
+    sampleEveryBlocks: 4.0
+    maxSamples: 512
+    keepEverySample: 2         # coarse retention; canon leaves geometry OPEN
+    maxDesignationTicks: 24000
+    corridorRadius: 6.0
+    effectTicks: 20
+    exhaustionRelief: 0.1      # sprint efficiency, never added speed
+  # Mark the renewable resources THEMSELVES, not the region they sit in.
+  #
+  # This replaces a ring of particles drawn at the source's radius: a 40-block
+  # circle at one fixed height, which answered "a source is somewhere around
+  # here". Animals move, so a fixed ring stops describing a herd the moment it
+  # wanders, and what a player has to recognise is the sheep rather than the pen.
+  #
+  # Animals and swarms GLOW -- a silhouette that tracks the entity, which no
+  # particle emitter can do. Crops get a particle per qualifying block, because
+  # blocks cannot glow. A depleted source marks nothing, so a mark means
+  # "available" and not merely "exists".
+  #
+  # Glow renders through terrain, but NOT across the map: a client is never sent
+  # an entity outside its tracking range, so the real exposure is spigot.yml's
+  # entity-tracking-range.animals, 96 blocks here. It is not public information.
+  #
+  # Marking is therefore tuned for LEGIBILITY rather than concealment. Two
+  # opposing players meeting at the same herd already implies one of them is in
+  # contested or enemy ground, and at that range hiding the herd solves nothing
+  # while costing every player the clarity the mark exists for.
+  #
+  # viewRadius is measured from the source centre and the source's own radius is
+  # added to it, so 32 lights a 20-radius pen when a player is about 32 blocks
+  # from its edge: close enough to be working it. It must stay well inside the
+  # tracking range above, or the gate stops gating anything.
+  # A player who is not a living participant of a RUNNING match takes no damage,
+  # loses no hunger and is not targeted. Waiting to join is not gameplay, and
+  # dying to a creeper on the way to the lobby is an interruption of the one
+  # thing the player is trying to do.
+  # Health and hunger as fixed-length bars.
+  #
+  # The bar is always twenty points -- ten hearts, ten drumsticks -- for every
+  # player, and Capacity decides what a point is WORTH rather than how many
+  # there are. A hit of 3 against Capacity 9 removes a third of the player
+  # either way; what changes is that the bar stops shrinking, so a level-one
+  # player no longer looks at a half-length health bar.
+  #
+  # For hunger this also dissolves the unreachable-drumstick problem outright:
+  # Capacity becomes an exhaustion RATE, the row fills completely, and a smaller
+  # Capacity simply empties it faster.
+  #
+  # naturalRegeneration is held OFF on purpose. Vanilla regen needs food >= 18,
+  # which a Hunger Capacity of 9 made unreachable, so it has never fired and
+  # HungerRegen was written to be the rule instead. Uncapping hunger would
+  # switch vanilla's on as a side effect of a display change; that is a design
+  # decision and is not taken here.
+  vitalsScaling:
+    enabled: true
+    sampleTicks: 2
+    naturalRegeneration: false
+  lobbySafety:
+    enabled: true
+  # A dedicated lobby world, built rather than generated.
+  #
+  # The lobby used to be the server's default world: a vanilla superflat with a
+  # vanilla village in it, which nobody authored and nobody chose. It also meant
+  # the lobby shared a world with the terrain gallery, so "make the lobby safe"
+  # could only be a listener cancelling damage -- setting that world peaceful
+  # would have decided mob spawning and sleeping for the gallery too.
+  #
+  # Its own world makes the safety structural instead: nothing spawns, the
+  # weather never changes, the sun never sets, and the room has no exit.
+  #
+  # Materials are a GREYBOX. Extent, enclosure and lighting are function and are
+  # decided in code; what the room looks like is a design decision and is not.
+  lobbyWorld:
+    enabled: true
+    name: moba_lobby
+    radius: 16              # interior half-span, so the hall is 33 across
+    floorY: 64
+    height: 8               # interior headroom
+    lightSpacing: 6
+    sendOnJoin: true
+    adventureMode: true
+    floorMaterial: SMOOTH_STONE
+    wallMaterial: STONE_BRICKS
+    ceilingMaterial: STONE_BRICKS
+    lightMaterial: SEA_LANTERN
+    platformMaterial: POLISHED_ANDESITE
+  renewableMarkers:
+    enabled: true
+    ticks: 20
+    # Nothing is marked unless a player is within this range of the source.
+    viewRadius: 32.0
+    # Crop membership costs an O(radius^3) volume scan, so it is cached and
+    # refreshed on this cadence rather than every tick.
+    rescanTicks: 200
+  renewableAuthoring:
+    enabled: true
+    reach: 48
+    defaultRadius: 3
+    defaultCapacity: 5
+    recoverTicks: 200
+  hud:
+    enabled: true
+    refreshTicks: 20
+  taskProgression:
+    enabled: true
+  sentinelSkull:
+    # Superseded by the tome while features.tome.enabled is true. Kept as the
+    # fallback representation: a separate skull carrying the sentinel identity,
+    # with no map surface.
+    enabled: true
+    material: SKELETON_SKULL
+  # The server hands every arriving player the pack.
+  #
+  # It has to: the plugin blanks vanilla sprites and draws replacements from
+  # private-use codepoints, so a client without the pack sees missing hunger
+  # icons and tofu rather than a degraded version of the intended HUD. Before
+  # this, build_pack.py wrote to wherever --output pointed and nothing ever put
+  # the result in front of a client at all.
+  #
+  # sha1 is written by implementation/resourcepack/publish.py, which builds the
+  # zip and the hash together. Clients cache by hash, so a rebuilt pack with a
+  # stale hash is silently not applied -- a failure that looks exactly like the
+  # pack not working.
+  resourcePack:
+    enabled: true
+    url: "http://127.0.0.1:25580/moba-pack.zip"
+    sha1: ""
+    required: false
+    prompt: "Minecraft MOBA uses a resource pack for its HUD."
+  # PROBE, not a feature. Overrides the tome's GUI model with a scaled, offset
+  # placeholder that should overflow the offhand slot to the LEFT, into the
+  # empty HUD space beside it.
+  #
+  # It answers two questions: whether art can be placed at that exact position
+  # at all -- glyphs can only sit on the action bar line above the hotbar -- and
+  # whether overriding the item's model SUPPRESSES THE CORNER MINIMAP, which
+  # renders because a FILLED_MAP is in the offhand. If the minimap dies, the
+  # tome cannot carry an ability row and the row goes to glyphs instead.
+  #
+  # Off by default: it visibly changes the tome and is meant to be looked at
+  # once and then decided, not left running.
+  abilityPanelProbe:
+    enabled: false
+    itemModel: "moba:ability_panel"
+  # The tome: ONE offhand item that is the sentinel, the class text and the map.
+  #
+  # SPEC section 11 requires the offhand item to be a FILLED_MAP from the start,
+  # which is exactly what makes this possible: identity lives in persistent
+  # data, the class blurb lives in name and lore, and the map view is the
+  # minimap surface. The skull's appearance is the only thing given up, and a
+  # resource pack can restyle the map item's icon.
+  tome:
+    enabled: true
+  # The minimap drawn on the tome's surface. Every pixel is computed by
+  # Minimap; vanilla tracking is off so no map terrain draws underneath.
+  # Disabled, this falls back to the stub renderer rather than to vanilla.
+  minimap:
+    enabled: true
+    blocksPerPixel: 4        # 128px surface, so 4 gives ~512 blocks of coverage
+    terrainRefreshTicks: 40  # sampling 16k columns per frame is not affordable
+    playerRange: 256.0
+  # Recall, begun by lifting the tome out of the offhand slot in the inventory.
+  # The gesture is deliberate and already dangerous in a fight, so unlike a
+  # keybind it cannot fire by accident; the tome is never actually removed.
+  #
+  # channelTicks and moveTolerance are NON-CANON ALPHA FIXTURES.
+  recall:
+    enabled: true
+    channelTicks: 100        # 5s
+    moveTolerance: 1.5
+    # Destination resolves to the player's own Aether Fountain during a match
+    # (ALPHA-D3/D4 make the homeland the Fountain). Set destination.x/y/z to
+    # override; fallbackToWorldSpawn applies only outside a match.
+    fallbackToWorldSpawn: true
+  # Defined at their CURRENT LIVE VALUES so the file stops disagreeing with the
+  # code. These read as disabled today because the keys were absent and the
+  # Java fallback is false -- writing them down changes nothing and is not an
+  # endorsement of the value. Flip deliberately, not by discovering them.
+  healthDisplay:
+    enabled: false
+    refreshTicks: 10
+  pings:
+    enabled: false
+    cooldownMillis: 1500
+    audienceRadius: 96.0
+    markerSeconds: 8
+  testbed:
+    enabled: false
+    constructsArePlayerPlaced: false
+
+durability:
+  targetBaseUses: {}
+
+classes:
+  test:
+    # Eligibility is AUTHORED PER CLASS and may be asymmetric: several options,
+    # one, or none. It is not inherited from archetype tags. The full class x
+    # infrastructure matrix is [OPEN]; the discussion examples are Mole with
+    # Route/Construct and Kitfighter with Monster Combat only, and neither is
+    # settled. The harness class gets a deliberately mixed set for testing.
+    infrastructureEligibility:
+      - ROUTE
+      - CONSTRUCT
+      - MONSTER_COMBAT
+    displayName: "Test Class"
+    tomeName: "Tome of the Test Class"
+    blurb:
+      - "Harness class. Not a design."
+      - "F = A1   Sneak+F = A2   Sprint+F = channel ult"
+      - "Drop = ultimate. Swap again to stop casting."
+
 # Prototype parameters, not final balance. Paper 1.21.11 / Java 21.
 progression:
   maxLevel: 30
+  # Retained as the fallback when a level falls outside every band.
   xpPerLevel: 100
+  # WP required to leave each level.
+  #
+  #     cost(b, i) = 300 * bandMultiplier[b] * 1.15^i
+  #
+  # where b is the economic band and i counts advancements WITHIN that band
+  # from 0. The band multipliers are the established relative requirement
+  # indices and are unchanged:
+  #
+  #     Bootstrap 1.000  Established 1.350  Developed 1.875
+  #     Advanced  2.575  Endgame     3.250
+  #
+  # The 300 baseline and the 1.15 in-band factor are WORKING ALPHA
+  # CALIBRATION, not canon. Values are rounded to convenient 5-WP steps.
+  #
+  # The requirement DROPS at each band boundary, which is intentional and not a
+  # rounding artefact: each economic phase restarts from its own multiplier and
+  # then compounds within itself, so entering a new phase is a step down in
+  # per-level cost and a step up in the cost the phase will reach.
+  levelCosts:
+    # Bootstrap (x1.000)
+    "1": 300
+    "2": 345
+    "3": 395
+    "4": 455
+    "5": 525
+    "6": 605
+    # Established (x1.350)
+    "7": 405
+    "8": 465
+    "9": 535
+    "10": 615
+    "11": 710
+    "12": 815
+    # Developed (x1.875)
+    "13": 560
+    "14": 645
+    "15": 745
+    "16": 855
+    "17": 985
+    "18": 1130
+    "19": 1300
+    # Advanced (x2.575)
+    "20": 770
+    "21": 890
+    "22": 1020
+    "23": 1175
+    "24": 1350
+    # Endgame (x3.250)
+    "25": 975
+    "26": 1120
+    "27": 1290
+    "28": 1485
+    "29": 1705
+    # Lv30 is the cap; there is no cost to leave it.
+  # The band each level belongs to, kept so the curve can be checked against
+  # the formula that generated it rather than only against itself.
+  bandMultipliers:
+    bootstrap: 1.000
+    established: 1.350
+    developed: 1.875
+    advanced: 2.575
+    endgame: 3.250
+  # WP per recognized action, all under progression.work.* so that every key
+  # the plugin reads is the key this file defines.
+  #
+  # RESOLUTION. These were calibrated against a 40-WP level and are now scaled
+  # for a 300-WP one. The point of the higher resolution is NOT a flat 10x: it
+  # is that 1 WP can stay the minimum accounting unit for a genuinely small
+  # action while materially significant work moves into the tens. So the scale
+  # is applied to substantive work and deliberately not to the small end --
+  # production utility stays at 1, and consumables sit below 10x because they
+  # arrive in stacks.
+  #
+  # Every number below is a NON-CANON ALPHA FIXTURE.
+  work:
+    # -- Construction ---------------------------------------------------
+    # 1 WP is the ATOMIC Work Point: the smallest legible unit of progression,
+    # not an exceptional or provisional value. Placing a block is mundane
+    # legitimate Minecraft activity and earns exactly one of those.
+    #
+    # Mundane work is not supposed to become worthless -- it is supposed to
+    # become insufficient. That job belongs to the level-cost curve, where a
+    # 1 WP placement is 1/300th of a Bootstrap level and 1/1705th of an Endgame
+    # one. Setting the award to 0 would have made the same point by deleting the
+    # activity from the economy instead of by pricing it, which is a different
+    # and worse claim.
+    #
+    # What stops this being a farm is the anti-recycling rule, not the
+    # magnitude: credit attaches to a block POSITION a player has not built at
+    # before, so place -> break -> place pays once. See ConstructionWorkTest.
+    constructionBlockPlacement: 20
+    ordinaryPlacement: 1          # the atomic Work Point
+    # -- Extraction: WP = A(O) + qH -------------------------------------
+    #
+    # Rescaled into the new resolution, NOT replaced by a flat per-ore award.
+    # A(O) credits exploiting one physical opportunity and is paid once per ore
+    # block broken; H is the qualifying harvest actually obtained, read from the
+    # real drops; q converts it to points. Fortune therefore still raises H and
+    # never A(O), and raising q with A keeps Yield worth the same fraction of a
+    # break as before rather than quietly demoting it.
+    #
+    # The q=10 flat coefficient keeps the known asymmetry it had at q=1:
+    # multi-drop ores (redstone 4-5, lapis 4-9, copper 2-5) accrue more harvest
+    # WP than single-drop ores. That is a calibration question rather than a
+    # model question, and per-ore q would be a new design decision, so it is
+    # still flagged rather than tuned away.
+    extraction:
+      # q, the harvest coefficient. Per ore kind, because a single flat q made
+      # the harvest term proportional to an ore's DROP COUNT, which is a
+      # property of the block and not of the work. Breaking one copper ore is
+      # the same physical act as breaking one coal ore, but copper drops 2-5
+      # raw copper, so at a flat q=10 one copper block paid 45 WP against
+      # coal's 20 -- and very nearly as much as a diamond block's 50.
+      #
+      # Live evidence (2026-09-21): 30 copper blocks produced 1,250 WP, 56% of
+      # a 2,220 WP expedition, from 25% of the blocks broken.
+      #
+      # The rule is q ~= 10 / expected drops, so a block of any ore yields
+      # roughly the same harvest WP for the same act. Fortune still raises H
+      # and still pays; what changed is that yield is now measured against what
+      # the ore normally gives rather than against a flat scale.
+      harvestCoefficient: 10        # single-drop default
+      harvest:
+        copper: 3                   # 2-5 raw copper per block
+        redstone: 2                 # 4-5
+        lapis: 2                    # 4-9
+      silkTouchHarvest: 0           # UNRESOLVED: whether deferral is harvest
+      opportunity:
+        default: 0
+        coal: 10
+        copper: 10
+        iron: 20
+        gold: 30
+        redstone: 20
+        lapis: 20
+        diamond: 40
+        emerald: 40
+        ancient_debris: 60
+    # -- Production: WP_P = A(P) + qQ ------------------------------------
+    #
+    # A(P) is the UNDERTAKING -- the value of performing a meaningful
+    # transformation at all -- paid once per output type per match. perOutput is
+    # the marginal value of each additional unit.
+    #
+    # Purely linear per-output value made bulk consumables behave like capital:
+    # in live play 48 loaves of bread paid 288 WP against 160 for a full set of
+    # copper armour, and 27 smelted ingots paid 540. That says producing bread
+    # at scale is the same KIND of accomplishment as equipping a player and
+    # merely more of it.
+    #
+    # The split is general rather than a bread exception, and discrete durables
+    # come out ahead without being special-cased: a pickaxe is one undertaking
+    # for one item, so A(P) dominates it, while a hundred loaves asymptote to
+    # perOutput. It is also the shape the other domains already use --
+    # Construction pays per new position, Exploration per first resolution -- so
+    # "the first time is worth more than the repetition" is now one idea rather
+    # than three.
+    #
+    # Categories are enumerated in ProductionRecipes; a recipe outside them is
+    # UNRESOLVED and pays nothing rather than being guessed at. Storage-block
+    # compression pays nothing in the crafting direction, which is what stops
+    # ingot <-> block from being an unbounded loop.
+    production:
+      tool:               { undertaking: 30, perOutput: 1 }
+      equipment:          { undertaking: 40, perOutput: 2 }
+      utility:            { undertaking: 10, perOutput: 1 }
+      consumable:         { undertaking: 20, perOutput: 1 }
+      strategic_input:    { undertaking: 20, perOutput: 2 }
+      construction_block: { undertaking: 20, perOutput: 2 }
+    # -- Development: improved productive renewable state ----------------
+    # Both events are gated by real time (a breeding cooldown, a growth cycle)
+    # rather than by a cooldown imposed here.
+    development:
+      breeding: 80
+      matureCropHarvest: 20
+    # -- Exploration: novel Reach ----------------------------------------
+    # Credited once per player per registered Worksite per match. Distance
+    # walked, chunks entered and re-crossed geography pay nothing.
+    exploration:
+      siteResolved: 60
+      radius: 24.0
+      intervalTicks: 20
+  task:
+    tierMax: 3
+    efficiencyPerTier: 0.30      # BLOCK_BREAK_SPEED multiplier per tier
+    damagePerTier: 1.0           # flat ATTACK_DAMAGE per tier
+    yieldExtraChancePerTier: 0.25
+    # Efficiency covers Unbreaking as well as block-breaking speed.
+    efficiencyGrantsUnbreaking: true
+    # Canon cadence: L4 Efficiency I universal, L7 Yield I universal,
+    # then a choice at L9, L14 and L19. Automatic grants:
+    automatic:
+      4: { domain: EFFICIENCY, tier: 1 }
+      7: { domain: YIELD, tier: 1 }
+  # The Level 6 fork: one class-compatible Infrastructure form, or Monster Combat.
+  contributionForkLevel: 6
+
+# Equipment wear. Follows the family-wide doctrine in manuscript 15.1.2:
+#     L_e = D_e * U_e / R_e
+# expected useful lifetime = base durability * Unbreaking multiplier /
+# consumption rate under that category's workload. Identity belongs to the
+# material FAMILY, so targets are per material and per equipment category
+# rather than one number per material.
+#
+# Ladder: Wood temporary -> Stone disposable -> Copper replaceable legitimate
+# equipment -> Iron reliable -> Diamond capital -> Netherite premier.
+# Copper became a Primary Material on 19 September 2026.
+#
+# Ships EMPTY, which is vanilla. 15.1.1 is labelled a NON-CANON BALANCE-TEST
+# CANDIDATE and exact values remain OPEN, so its numbers are commented below
+# rather than defaulted. Uncomment to run the sensitivity test.
+#
+# Unbreaking needs no coefficient: vanilla's 1/(level+1) already reproduces the
+# 15.1.1 column, with Iron 96 reaching ~192, ~288 and ~384 at Unbreaking I-III.
+#
+# durability:
+#   targetBaseUses:
+#     wood:   { tool: 16 }
+#     stone:  { tool: 36 }
+#     copper: { tool: 60 }
+#     iron:   { tool: 96 }
 capacity:
   enforceTicks: 1
   health: { start: 9, growthUnit: 1, cap: 20 }
@@ -18,6 +537,11 @@ abilities:
     a2: RIGHT_CLICK
     ult: DROP
   modeTimeoutTicks: 50
+  # Level at which each slot becomes usable, from the classes.md working
+  # breakpoint table: Ability 1 at 1, Ability 2 at 2, Ultimate at 15. The
+  # Ultimate's timing is recorded there as unresolved, so 15 is that table's
+  # working value rather than a decision taken in code.
+  unlockLevels: { a1: 1, a2: 2, ult: 15 }
   logExecutions: true
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:
@@ -52,3 +576,350 @@ mapStub:
 
 provenance:
   sampleTicks: 200
+
+# Regenerative Sources. The original seam shipped empty; the table below now
+# supplies Alpha analytical fixtures. The plugin registers supplied sources and
+# manages manifestations, not a generic Strategic Depth / Regional Character
+# richness policy. Exact tiers/species/cadence remain OPEN; no density quota.
+renewables:
+  sampleTicks: 200
+  # How often the opportunity lifecycle advances: recovery progress, and a
+  # manifestation attempt when one is due.
+  lifecycleTicks: 20
+  # --- Temporal model -------------------------------------------------------
+  # Everything here is a fraction of the Temporal Phase P (one day OR one
+  # night), never a number of minutes. P has already changed once -- the clock
+  # moved from a 6-minute phase to vanilla's 10-minute one -- and relationships
+  # written in absolute minutes silently re-tune themselves when it does.
+  #
+  # ALL VALUES ARE WORKING CALIBRATION, NOT CANON. The night multiplier has two
+  # live candidates (0.73 and 0.67) and neither is settled.
+  temporal:
+    # P itself. Defaults to the match clock's own phase, so it follows the clock
+    # rather than asserting a second opinion about how long a day is.
+    phaseTicks: 12000
+    # First manifestation of a match. The regenerative economy is meant to
+    # follow the opening rather than race it.
+    initialFraction: 0.4
+    # Recovery in daylight, after a manifestation is FULLY resolved.
+    dayFraction: 0.33
+    # Peaceful night recovery, relative to the daytime baseline. 0.73 is the
+    # lighter candidate; 0.67 is the stronger alternative.
+    nightRate: 0.73
+    # Swarms are NOT assumed to follow the peaceful night slowdown: the design
+    # direction is that they change at night rather than regenerate more slowly.
+    # Exact nighttime Swarm behaviour is unresolved; 1.0 asserts nothing.
+    swarmNightRate: 1.0
+  # --- Eligibility: MINIMAL ALPHA FIXTURES ----------------------------------
+  # These exist to exercise the architecture, not to settle what terrain suits
+  # sheep or carrots. Exact predicates by resource kind are unresolved.
+  eligibility:
+    headroom: 2                 # air blocks needed above the ground block
+    sampleStride: 4             # columns sampled inside the region
+    minDisplacement: 12.0       # from the previous manifestation, so a region is not a camp
+    playerExclusion: 24.0       # an opportunity is discovered, not materialised underfoot
+    rejectPlayerPlaced: true    # Development can push a manifestation elsewhere in its region
+    # Ground a wild manifestation may occupy. Read by BOTH the plugin and the
+    # offline simulation in implementation/worldgen, because the simulation
+    # reproduces this predicate and two copies of a rule drift. Edit here only.
+    naturalGround:
+      - grass_block
+      - dirt
+      - coarse_dirt
+      - rooted_dirt
+      - podzol
+      - mycelium
+      - moss_block
+      - sand
+      - red_sand
+      - gravel
+      - stone
+      - snow_block
+  # Half-span of the square region migrated from an authored origin+radius when
+  # a source declares no explicit cells. A coarse search area, not a site.
+  migratedRegionHalfSpan: 48
+  patch:
+    spread: 6                   # how far an irregular patch may wander from its locus
+  herd:
+    cluster: 5                  # how tightly members gather at the locus
+  # Manifestation membership. A member that leaves its region stops being part
+  # of the wild population and stays alive as an ordinary animal in the team's
+  # economy -- it is never despawned, then or when the opportunity regenerates.
+  #
+  # UNRESOLVED: "left the region" is the narrowest defensible reading of when
+  # captured livestock ceases to be wild. Whether capture should instead be
+  # recognised by leashing, naming, fencing, or distance from the manifestation
+  # site is a design decision. See
+  # docs/proposals/2026-09-21-regenerative-opportunity-model.md D.1.
+  membership:
+    revokeOnLeavingRegion: true
+  # Sources are the frozen Consolidative Alpha map's own authored placements:
+  # renewable_range and founder_crop opportunities at authored coordinates.
+  # Current authoring records them without prebuilding pens or irrigated fields. They bind to the match instance world, so they resolve only
+  # once a match has opened and are rebuilt on reset.
+  #
+  # capacity and recoverTicks are NON-CANON ANALYTICAL FIXTURES: canon settles
+  # that renewable sources deplete and recover, not the magnitudes.
+  sources:
+    rabbit_0_3:
+      world: alpha_match
+      type: ANIMAL
+      kind: rabbit
+      x: -2448
+      y: 92
+      z: -48
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_0_5:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2448
+      y: 98
+      z: 208
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    cow_0_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: cow
+      x: -2448
+      y: 94
+      z: 336
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_2_3:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2192
+      y: 90
+      z: -112
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_2_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -2160
+      y: 99
+      z: 304
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    rabbit_3_6:
+      world: alpha_match
+      type: ANIMAL
+      kind: rabbit
+      x: -2032
+      y: 90
+      z: 304
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    chicken_4_1:
+      world: alpha_match
+      type: ANIMAL
+      kind: chicken
+      x: -1904
+      y: 66
+      z: -336
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    sheep_4_4:
+      world: alpha_match
+      type: ANIMAL
+      kind: sheep
+      x: -1936
+      y: 66
+      z: 16
+      radius: 20
+      capacity: 6
+      recoverTicks: 2400
+    carrots_0_3:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -2384
+      y: 92
+      z: -112
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    potatoes_0_6:
+      world: alpha_match
+      type: CROP
+      kind: potatoes
+      x: -2384
+      y: 94
+      z: 336
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    carrots_2_3:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -2192
+      y: 90
+      z: -48
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+    carrots_4_8:
+      world: alpha_match
+      type: CROP
+      kind: carrots
+      x: -1906
+      y: 66
+      z: 510
+      radius: 12
+      capacity: 24
+      recoverTicks: 1200
+
+# Alpha 0.1 match lifecycle.
+#
+# The template is the frozen Consolidative world (docs/analysis/alpha-0.1-map-freeze.json).
+# A match runs on a disposable copy named by instanceWorldName; reset replaces
+# that copy from the template rather than rolling back blocks (ALPHA-D2).
+alpha:
+  # Repo-relative works when the server runs inside the repository; it is also
+  # searched against the server directory, the plugin data folder and their
+  # ancestors. A server deployed outside the repository must give an ABSOLUTE
+  # path here -- the template is the frozen authority and is never copied.
+  # The BASE terrain. A match's map is a copy of this with one authored
+  # configuration applied, so this is pristine ground and holds no authored
+  # structures at all. deploy.sh rewrites the path for the running server.
+  templatePath: artifacts/worldgen/alpha-0.1/base-terrain
+  # Map configurations: each is every block that configuration changes about the
+  # base, exported by terrain_harvest.map_diff. A configuration is a 300KB file
+  # rather than a 28MB world, so a second one costs nothing to add, and every
+  # structure stays defined once -- in the Python authoring, where the terrain
+  # analysis lives.
+  #
+  # One is drawn at random per match, from a catalogue whose members were each
+  # authored and measured offline. Set `force` to pin one for a controlled test.
+  configurations:
+    enabled: true
+    directory: maps
+    include:
+      # Re-authored 2026-09-22: terrain-fitted Routes, and regenerative
+      # opportunities recorded but not built. Same base terrain, different
+      # opportunity layouts -- 10 worksites / 8 renewables against 8 / 6, and
+      # only 8 of their placement positions in common.
+      - consolidative_v2
+      - resource_light_v2
+      # The frozen maps, kept as controls: their Routes are the ones with a jump
+      # every two and a half columns and their pens and fields are still built,
+      # which is worth being able to walk rather than only remember.
+      - consolidative
+      - resource_light
+    force: ""
+  instanceWorldName: alpha_match
+  # Homeland spawn per team, [x, z] or [x, z, y].
+  #
+  # These are inside the Aether Fountain basin, not on the terrain near it. A
+  # player spawning on bare ground could not tell where they were; spawning in
+  # the Fountain makes the thing their team loses when it is disabled the first
+  # thing they stand in. The y is explicit because the fountain's own centre is
+  # a solid column, so the highest block there is not standable.
+  homelands:
+    north: [-2173, -461, 74]
+    south: [-2005, 411, 76]
+
+  # The READY map pool the foundry writes into.
+  #
+  # DISABLED BY DEFAULT. With the pool off, every match runs on the frozen
+  # Consolidative template, which is the current known-good behaviour. Turning
+  # it on means match start claims a previously compiled, verified, unused map
+  # instead -- and falls back to the template with a message when the pool is
+  # empty, because an empty pool is an operational state (the foundry has not
+  # run recently enough), not an error.
+  #
+  # Populate it offline with:
+  #   python3 -m terrain_harvest.foundry --pool <dir> --candidate <candidate.json>
+  # A map is only published if it compiled, authored and verified, so claiming
+  # is unconditional: everything in the pool already passed.
+  pool:
+    enabled: false
+    directory: map-pool
+
+  # The single permanent Giant Monster Lair: one site for the whole match, its
+  # occupant succeeding Giant -> Ghast -> Ender Dragon on Lair nights.
+  #
+  # EMPTY BY DESIGN. No map in this repository has a certified Lair socket yet:
+  # socket search wants encounter volume, vertical room, several practical
+  # approaches, landmark readability and near-equal initial reach from both
+  # teams, and none of that has been measured on the Alpha map. The runtime
+  # therefore reports lair=UNBOUND rather than picking the coordinate centre or
+  # flattening a stadium, because an invented site would be a silent design
+  # decision about the one place where team access parity genuinely matters.
+  #
+  # Set to [x, y, z] to bind a socket.
+  lair:
+    site: []
+
+  worksites:
+    # Positions are the frozen Consolidative Alpha map's own mining_worksite
+    # placements (docs/analysis/alpha-0.1-map-freeze.json), not invented sites.
+    #
+    # activationsPerTier is a NON-CANON ANALYTICAL FIXTURE. objectives.md says
+    # the number of simultaneously active Worksites "depends on match phase" but
+    # does not supply the series, so it is declared here rather than guessed in
+    # code.
+    #
+    # "Phase" is now the Worksite TIER. Worksites open on the Worksite nights of
+    # the alternating cadence -- I, II, III at nights 1, 3 and 5 -- and not on
+    # the Lair nights between them. The superseded activationsPerSunset list was
+    # indexed by sunset ordinal, which assumed every sunset was a Worksite
+    # sunset and repeated its last entry for the rest of the match. It is still
+    # honoured if present, with a deprecation warning, so an existing server
+    # does not change behaviour silently.
+    #
+    # The tier's resource/facility package is NOT configured here and is not
+    # granted: Worksite I's iron/coal + Blast Furnace/Smoker and II's
+    # Enchanting Table/Anvil are design anchors, III is OPEN, and the existing
+    # Mining Outpost / Industrial Enchanter work is the specific form. The
+    # runtime records the tier and reports the package as unresolved.
+    activationsPerTier:
+      I: 2
+      II: 2
+      III: 3
+    # 0 means a fresh Random each run; set non-zero for reproducible activation.
+    randomSeed: 0
+    sites:
+      - id: ws_0_0
+        xyz: [-2416, 74, -464]
+        bias: north
+      - id: ws_0_5
+        xyz: [-2384, 98, 144]
+        bias: neutral
+      - id: ws_0_6
+        xyz: [-2384, 94, 272]
+        bias: south
+      - id: ws_1_2
+        xyz: [-2288, 75, -208]
+        bias: north
+      - id: ws_1_7
+        xyz: [-2288, 100, 432]
+        bias: south
+      - id: ws_2_5
+        xyz: [-2160, 97, 176]
+        bias: south
+      - id: ws_3_2
+        xyz: [-2032, 73, -208]
+        bias: north
+      - id: ws_3_3
+        xyz: [-2032, 67, -80]
+        bias: north
+      - id: ws_5_5
+        xyz: [-1776, 78, 176]
+        bias: south
+      - id: ws_6_4
+        xyz: [-1698, 76, 14]
+        bias: neutral

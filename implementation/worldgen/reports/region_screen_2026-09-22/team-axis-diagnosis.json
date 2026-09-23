@@ -1,0 +1,322 @@
+{
+ "schema": "seed_team_axis_diagnosis/1",
+ "axes": {
+  "W-E": "regional, contrast intentional",
+  "N-S": "team, must be competitive"
+ },
+ "seeds": [
+  {
+   "seed": "930005557",
+   "homeland_quality": {
+    "north": 0.7617,
+    "south": 0.6254
+   },
+   "homeland_gap": 0.09826256218008801,
+   "accessible_land_samples": {
+    "north": 1428,
+    "south": 2072
+   },
+   "accessible_land_gap": 0.184,
+   "connected_workable_samples": {
+    "north": 9245,
+    "south": 9192
+   },
+   "connected_workable_gap": 0.0028746542279112653,
+   "homeland_usable_blocks2": {
+    "north": 4736,
+    "south": 3968
+   },
+   "diagnosis": {
+    "weaker_team": "south",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.0494,
+     "physical_water": 0.0,
+     "clearable_canopy": -0.1728,
+     "clearable_open": -0.0864,
+     "usable_extent": 0.1622
+    }
+   },
+   "failures": [
+    "south: insufficient early Route divergence"
+   ],
+   "regional_pairing": "forest/open"
+  },
+  {
+   "seed": "930006815",
+   "homeland_quality": {
+    "north": 0.3704,
+    "south": 0.7594
+   },
+   "homeland_gap": 0.3443087272083554,
+   "accessible_land_samples": {
+    "north": 1026,
+    "south": 1681
+   },
+   "accessible_land_gap": 0.24196527521241226,
+   "connected_workable_samples": {
+    "north": 5793,
+    "south": 5065
+   },
+   "connected_workable_gap": 0.06704733836802358,
+   "homeland_usable_blocks2": {
+    "north": 3264,
+    "south": 4480
+   },
+   "diagnosis": {
+    "weaker_team": "north",
+    "deficit_kind": "clearable",
+    "dominant_component": "clearable_open",
+    "components": {
+     "physical_grade": 0.0123,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.4815,
+     "clearable_open": 0.642,
+     "usable_extent": 0.2714
+    }
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "north-2: no_handoff_in_soft_range"
+   ],
+   "regional_pairing": "open/oceanic"
+  },
+  {
+   "seed": "930007222",
+   "homeland_quality": {
+    "north": 0.4352,
+    "south": 0.7733
+   },
+   "homeland_gap": 0.2797683078196111,
+   "accessible_land_samples": {
+    "north": 1123,
+    "south": 653
+   },
+   "accessible_land_gap": 0.26463963963963966,
+   "connected_workable_samples": {
+    "north": 6392,
+    "south": 7226
+   },
+   "connected_workable_gap": 0.061242473197238946,
+   "homeland_usable_blocks2": {
+    "north": 3072,
+    "south": 4800
+   },
+   "diagnosis": {
+    "weaker_team": "north",
+    "deficit_kind": "opportunity",
+    "dominant_component": "usable_extent",
+    "components": {
+     "physical_grade": 0.0,
+     "physical_water": 0.0,
+     "clearable_canopy": -0.2839,
+     "clearable_open": -0.3333,
+     "usable_extent": 0.36
+    }
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2"
+   ],
+   "regional_pairing": "open/oceanic"
+  },
+  {
+   "seed": "930010639",
+   "homeland_quality": {
+    "north": 0.903,
+    "south": 0.6854
+   },
+   "homeland_gap": 0.13699320070511206,
+   "accessible_land_samples": {
+    "north": 865,
+    "south": 1669
+   },
+   "accessible_land_gap": 0.31728492501973166,
+   "connected_workable_samples": {
+    "north": 7847,
+    "south": 7423
+   },
+   "connected_workable_gap": 0.027766863130320892,
+   "homeland_usable_blocks2": {
+    "north": 4992,
+    "south": 3968
+   },
+   "diagnosis": {
+    "weaker_team": "south",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.037,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.0,
+     "clearable_open": 0.0741,
+     "usable_extent": 0.2051
+    }
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "weak central/interior network connectivity"
+   ],
+   "regional_pairing": "frozen/open"
+  },
+  {
+   "seed": "930012642",
+   "homeland_quality": {
+    "north": 0.9416,
+    "south": 0.8275
+   },
+   "homeland_gap": 0.06449607144875925,
+   "accessible_land_samples": {
+    "north": 1708,
+    "south": 1046
+   },
+   "accessible_land_gap": 0.2403776325344953,
+   "connected_workable_samples": {
+    "north": 9476,
+    "south": 9798
+   },
+   "connected_workable_gap": 0.016706443914081145,
+   "homeland_usable_blocks2": {
+    "north": 5056,
+    "south": 4672
+   },
+   "diagnosis": {
+    "weaker_team": "south",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.0617,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.0,
+     "clearable_open": 0.0865,
+     "usable_extent": 0.0759
+    }
+   },
+   "failures": [
+    "south-1: no_handoff_in_soft_range",
+    "weak central/interior network connectivity"
+   ],
+   "regional_pairing": "forest/open"
+  },
+  {
+   "seed": "930015734",
+   "homeland_quality": {
+    "north": 0.95,
+    "south": 0.4682
+   },
+   "homeland_gap": 0.3397264137639261,
+   "accessible_land_samples": {
+    "north": 1435,
+    "south": 317
+   },
+   "accessible_land_gap": 0.6381278538812786,
+   "connected_workable_samples": {
+    "north": 6601,
+    "south": 8691
+   },
+   "connected_workable_gap": 0.13667277007585665,
+   "homeland_usable_blocks2": {
+    "north": 5184,
+    "south": 3648
+   },
+   "diagnosis": {
+    "weaker_team": "south",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.0,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.5185,
+     "clearable_open": 0.2222,
+     "usable_extent": 0.2963
+    }
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "south-2: severe_starter_construction",
+    "weak central/interior network connectivity"
+   ],
+   "regional_pairing": "forest/arid"
+  },
+  {
+   "seed": "930016664",
+   "homeland_quality": {
+    "north": 0.6925,
+    "south": 0.9253
+   },
+   "homeland_gap": 0.14389912226480406,
+   "accessible_land_samples": {
+    "north": 820,
+    "south": 1301
+   },
+   "accessible_land_gap": 0.2267798208392268,
+   "connected_workable_samples": {
+    "north": 11524,
+    "south": 11357
+   },
+   "connected_workable_gap": 0.007298632052794895,
+   "homeland_usable_blocks2": {
+    "north": 4160,
+    "south": 5056
+   },
+   "diagnosis": {
+    "weaker_team": "north",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.0617,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.0,
+     "clearable_open": -0.4074,
+     "usable_extent": 0.1772
+    }
+   },
+   "failures": [
+    "homeland terrain-quality disparity exceeds 0.2",
+    "north-2: no_handoff_in_soft_range",
+    "south: insufficient early Route divergence",
+    "weak central/interior network connectivity"
+   ],
+   "regional_pairing": "frozen/oceanic"
+  },
+  {
+   "seed": "930019528",
+   "homeland_quality": {
+    "north": 0.8042,
+    "south": 0.6733
+   },
+   "homeland_gap": 0.08859560067681896,
+   "accessible_land_samples": {
+    "north": 1287,
+    "south": 1574
+   },
+   "accessible_land_gap": 0.10031457532331353,
+   "connected_workable_samples": {
+    "north": 7737,
+    "south": 8309
+   },
+   "connected_workable_gap": 0.03564751339897794,
+   "homeland_usable_blocks2": {
+    "north": 4480,
+    "south": 4800
+   },
+   "diagnosis": {
+    "weaker_team": "south",
+    "deficit_kind": "opportunity",
+    "dominant_component": "accessible_land",
+    "components": {
+     "physical_grade": 0.0,
+     "physical_water": 0.0,
+     "clearable_canopy": 0.642,
+     "clearable_open": 0.9877,
+     "usable_extent": -0.0714
+    }
+   },
+   "failures": [
+    "north-2: no_handoff_in_soft_range",
+    "weak central/interior network connectivity"
+   ],
+   "regional_pairing": "forest/frozen"
+  }
+ ]
+}

@@ -1,0 +1,673 @@
+{
+ "blocks_written": 178358,
+ "complete": true,
+ "dry_run": false,
+ "evidence_state": "RAW WORLD OBSERVATION",
+ "finalist_rank": 0,
+ "finalist_sha256": "6207399037816ca71064aedf5e01279ce4e29ad5e658db76ae289047ea956fff",
+ "frontier_sha256": "30c2d9e6a7e0bb1a0fe0127a147ac6388add4b325606fafb911bd2505114af71",
+ "metrics": {
+  "balance_asymmetry": 0.036158646,
+  "components": {
+   "founder": 0.048790526,
+   "poi": 0.06143252,
+   "renewable": 0.044214604,
+   "route": 0.019645976,
+   "worksite": 0.006709605
+  },
+  "consolidation_pressure": 0.32967033,
+  "contest_pressure": 0.230769231,
+  "effective_balance_asymmetry": 0.036158646,
+  "exploration_pressure": 0.473944386,
+  "peripheral_specialization": 0.876296823,
+  "resource_density": 0.4,
+  "route_spillover": {
+   "north": {
+    "affected_opportunities": 9,
+    "max_saving_sec": 96.301441176,
+    "mean_saving_sec_if_affected": 25.583410928,
+    "total_selected_opportunities": 26
+   },
+   "south": {
+    "affected_opportunities": 12,
+    "max_saving_sec": 98.553017087,
+    "mean_saving_sec_if_affected": 35.180234334,
+    "total_selected_opportunities": 26
+   }
+  },
+  "route_spillover_balance_asymmetry": 0.034074517,
+  "route_spillover_components": {
+   "founder": 0.061336568,
+   "poi": 0.029823683,
+   "renewable": 0.017710899,
+   "route": 0.043708589,
+   "worksite": 0.017792845
+  },
+  "route_spillover_delta": -0.002084129
+ },
+ "nature": "greybox massing in vanilla-native palettes, not final architecture",
+ "not_covered": [
+  "animals, which are entities manifested at runtime by the plugin",
+  "Route paths between targets; only the targets themselves are marked",
+  "whether the exact centre block is buildable -- the optimizer scored a 128x128 region on average and defers exact siting to a rescan",
+  "underground hostile exposure, which the optimizer records as UNRESOLVED and which zero-hostile snapshot counts cannot establish"
+ ],
+ "objective": -0.324158938,
+ "placed": 32,
+ "placements": [
+  {
+   "bias": "north",
+   "blocks": 4,
+   "cell": [
+    0,
+    0
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "north",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": false,
+   "world_xyz": [
+    -2416,
+    74,
+    -464
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 705,
+   "cell": [
+    0,
+    2
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "carrot",
+   "kind": "founder_crop",
+   "radius": 13,
+   "recentred": false,
+   "world_xyz": [
+    -2416,
+    85,
+    -208
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 256,
+   "cell": [
+    0,
+    3
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    92,
+    -112
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 705,
+   "cell": [
+    0,
+    3
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "potato",
+   "kind": "founder_crop",
+   "radius": 13,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    92,
+    -48
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 1837,
+   "cell": [
+    0,
+    5
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "pig",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    98,
+    144
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 4,
+   "cell": [
+    0,
+    5
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "south",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    98,
+    208
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 256,
+   "cell": [
+    0,
+    6
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    94,
+    272
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 705,
+   "cell": [
+    0,
+    6
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "carrot",
+   "kind": "founder_crop",
+   "radius": 13,
+   "recentred": true,
+   "world_xyz": [
+    -2448,
+    94,
+    336
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 56,
+   "cell": [
+    0,
+    8
+   ],
+   "cell_neighbours": 0,
+   "coverage": 0.25,
+   "detail": null,
+   "kind": "poi",
+   "radius": 25,
+   "recentred": true,
+   "world_xyz": [
+    -2418,
+    98,
+    510
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 256,
+   "cell": [
+    1,
+    5
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": true,
+   "world_xyz": [
+    -2320,
+    79,
+    144
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 4,
+   "cell": [
+    1,
+    5
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "north",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": true,
+   "world_xyz": [
+    -2320,
+    79,
+    208
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 256,
+   "cell": [
+    1,
+    6
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -2288,
+    99,
+    304
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 1837,
+   "cell": [
+    2,
+    1
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "pig",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -2160,
+    77,
+    -336
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 1837,
+   "cell": [
+    2,
+    2
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "pig",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -2160,
+    76,
+    -208
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 256,
+   "cell": [
+    2,
+    3
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -2160,
+    90,
+    -80
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 56,
+   "cell": [
+    2,
+    4
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "poi",
+   "radius": 25,
+   "recentred": false,
+   "world_xyz": [
+    -2160,
+    72,
+    48
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 256,
+   "cell": [
+    2,
+    5
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -2160,
+    97,
+    176
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 1837,
+   "cell": [
+    3,
+    1
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "cow",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -2032,
+    70,
+    -336
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 256,
+   "cell": [
+    3,
+    2
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -2032,
+    73,
+    -208
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 256,
+   "cell": [
+    3,
+    3
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -2032,
+    67,
+    -80
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 1837,
+   "cell": [
+    3,
+    7
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "sheep",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -2032,
+    69,
+    432
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 56,
+   "cell": [
+    4,
+    4
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "poi",
+   "radius": 25,
+   "recentred": true,
+   "world_xyz": [
+    -1936,
+    66,
+    16
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 4,
+   "cell": [
+    4,
+    4
+   ],
+   "cell_neighbours": 1,
+   "coverage": 1.0,
+   "detail": "north",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": true,
+   "world_xyz": [
+    -1936,
+    66,
+    80
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 1837,
+   "cell": [
+    4,
+    6
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "pig",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -1904,
+    80,
+    304
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 705,
+   "cell": [
+    4,
+    8
+   ],
+   "cell_neighbours": 0,
+   "coverage": 0.25,
+   "detail": "potato",
+   "kind": "founder_crop",
+   "radius": 13,
+   "recentred": true,
+   "world_xyz": [
+    -1906,
+    66,
+    510
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 56,
+   "cell": [
+    5,
+    1
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "poi",
+   "radius": 25,
+   "recentred": false,
+   "world_xyz": [
+    -1776,
+    76,
+    -336
+   ]
+  },
+  {
+   "bias": "north",
+   "blocks": 4,
+   "cell": [
+    5,
+    3
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "south",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": false,
+   "world_xyz": [
+    -1776,
+    64,
+    -80
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 256,
+   "cell": [
+    5,
+    4
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": false,
+   "world_xyz": [
+    -1776,
+    65,
+    48
+   ]
+  },
+  {
+   "bias": "south",
+   "blocks": 1837,
+   "cell": [
+    5,
+    6
+   ],
+   "cell_neighbours": 0,
+   "coverage": 1.0,
+   "detail": "chicken",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": false,
+   "world_xyz": [
+    -1776,
+    70,
+    304
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 1837,
+   "cell": [
+    6,
+    4
+   ],
+   "cell_neighbours": 2,
+   "coverage": 0.75,
+   "detail": "pig",
+   "kind": "renewable_range",
+   "radius": 21,
+   "recentred": true,
+   "world_xyz": [
+    -1698,
+    76,
+    14
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 256,
+   "cell": [
+    6,
+    4
+   ],
+   "cell_neighbours": 2,
+   "coverage": 0.75,
+   "detail": null,
+   "kind": "mining_worksite",
+   "radius": 17,
+   "recentred": true,
+   "world_xyz": [
+    -1698,
+    76,
+    78
+   ]
+  },
+  {
+   "bias": "neutral",
+   "blocks": 4,
+   "cell": [
+    6,
+    4
+   ],
+   "cell_neighbours": 2,
+   "coverage": 0.75,
+   "detail": "south",
+   "kind": "route_target",
+   "radius": 1,
+   "recentred": true,
+   "world_xyz": [
+    -1634,
+    76,
+    14
+   ]
+  }
+ ],
+ "preflighted": true,
+ "profile": "balanced_baseline",
+ "rejected_ranks": [],
+ "schema": "map_portfolio_authored/1",
+ "skipped": [],
+ "world": "/tmp/sites-only/balanced_baseline"
+}

@@ -1,0 +1,88 @@
+{
+  "blocks_written": 90296,
+  "dry_run": false,
+  "evidence_state": "RAW WORLD OBSERVATION",
+  "nature": "greybox massing in vanilla-native palettes, not final architecture",
+  "not_covered": [
+    "exposure, disable conditions, obstruction, validation, reactivation and repair, all unresolved in objectives.md",
+    "interiors, defender placement and spawners",
+    "redstone or any functional machinery",
+    "terrain sculpting beyond a levelled pad under each structure"
+  ],
+  "schema": "team_structures_built/1",
+  "structures": [
+    {
+      "blocks": 1156,
+      "footprint_radius": 8,
+      "height": 22,
+      "structure": "pillager_outpost",
+      "team": "north",
+      "world_xyz": [
+        -60,
+        64,
+        172
+      ]
+    },
+    {
+      "blocks": 22721,
+      "footprint_radius": 9,
+      "height": 65,
+      "structure": "nether_bastion",
+      "team": "north",
+      "world_xyz": [
+        -132,
+        70,
+        108
+      ]
+    },
+    {
+      "blocks": 3257,
+      "footprint_radius": 4,
+      "height": 90,
+      "structure": "end_spike",
+      "team": "north",
+      "world_xyz": [
+        -188,
+        64,
+        140
+      ]
+    },
+    {
+      "blocks": 1156,
+      "footprint_radius": 8,
+      "height": 22,
+      "structure": "pillager_outpost",
+      "team": "south",
+      "world_xyz": [
+        236,
+        71,
+        196
+      ]
+    },
+    {
+      "blocks": 22721,
+      "footprint_radius": 9,
+      "height": 65,
+      "structure": "nether_bastion",
+      "team": "south",
+      "world_xyz": [
+        228,
+        70,
+        140
+      ]
+    },
+    {
+      "blocks": 3257,
+      "footprint_radius": 4,
+      "height": 90,
+      "structure": "end_spike",
+      "team": "south",
+      "world_xyz": [
+        268,
+        72,
+        108
+      ]
+    }
+  ],
+  "world": "/tmp/mm-authored"
+}

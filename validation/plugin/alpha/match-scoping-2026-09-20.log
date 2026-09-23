@@ -1,0 +1,12 @@
+paper processes: 2
+CROP SOURCE BEFORE: carrots_0_3 kind=carrots available=24/24 at -2384,92,-112
+crop blocks broken by player: 0
+CROP AFTER: available=24/24 (was 24); harvests=0 depletions=0
+INFRA AFTER PLAYER COMMAND: routes=0 pendingDesignations=0 inInfraMode=1
+RESET: Match reset: world restored; cleared worksites, 12 renewable source(s), 0 route(s)/pending, 1 in infra mode, 1 capitalization(s).
+M2 RENEW: renewable sources=12 harvests=0 depletions=0 recoveries=0
+M2 ROUTES/INFRA: routes=0 pendingDesignations=0 inInfraMode=0
+M2 WORKSITES: {DORMANT=10, ACTIVATED=0, CAPITALIZED=0, EXPLOITED=0}
+M2 RECAPITALIZE: ws_1_2 is DORMANT; only an activated Worksite can be capitalized
+
+[exited with code 0]

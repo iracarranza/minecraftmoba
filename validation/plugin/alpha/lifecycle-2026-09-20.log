@@ -1,0 +1,45 @@
+2026-09-20T21:07:39.276814Z ServerMain WARN Advanced terminal features are not available in this environment
+[17:07:54 INFO]: state=IDLE
+[17:07:54 INFO]: clock=DAY 0:00 (day, phase 0) sunsets=0
+[17:07:54 INFO]: north: 0 living of 0, fountain active, homeland UNSET
+[17:07:54 INFO]: south: 0 living of 0, fountain active, homeland UNSET
+[17:08:01 INFO]: Alpha instance 'alpha_match' loaded. Homelands: [NORTH, SOUTH]. Add players, then /moba match start.
+[17:08:11 INFO]: [match] Match started. DAY 0:00 (day, phase 0)
+[17:08:15 INFO]: state=RUNNING
+[17:08:15 INFO]: clock=DAY 0:04 (day, phase 0) sunsets=0
+[17:08:15 INFO]: north: 1 living of 1, fountain active, homeland -2172,-460
+[17:08:15 INFO]: south: 0 living of 0, fountain active, homeland -2020,428
+[17:08:17 INFO]: [match] Sunset 1 (6m): Worksites would activate.
+[17:08:17 INFO]: [match] sunset 1 at 6m
+[17:08:17 INFO]: Advanced to NIGHT 7:06 (night, phase 1).
+[17:08:21 INFO]: [match] Sunrise (12m): Worksites would close.
+[17:08:21 INFO]: [match] Sunset 2 (18m): Worksites would activate.
+[17:08:21 INFO]: [match] sunset 2 at 18m
+[17:08:21 INFO]: Advanced to NIGHT 19:10 (night, phase 3).
+[17:08:25 INFO]: [match] Sunrise (24m): Worksites would close.
+[17:08:25 INFO]: [match] Sunset 3 (30m): Worksites would activate.
+[17:08:25 INFO]: [match] sunset 3 at 30m
+[17:08:25 INFO]: [match] Sunrise (36m): Worksites would close.
+[17:08:25 INFO]: [match] Sunset 4 (42m): Worksites would activate.
+[17:08:25 INFO]: [match] sunset 4 at 42m
+[17:08:25 INFO]: Advanced to NIGHT 43:14 (night, phase 7).
+[17:08:31 INFO]: state=RUNNING
+[17:08:31 INFO]: clock=NIGHT 43:20 (night, phase 7) sunsets=4
+[17:08:31 INFO]: north: 1 living of 1, fountain active, homeland -2172,-460
+[17:08:31 INFO]: south: 0 living of 0, fountain active, homeland -2020,428
+[17:08:36 INFO]: [match] south Aether Fountain disabled: south can no longer respawn.
+[17:08:39 INFO]: state=RUNNING
+[17:08:39 INFO]: clock=NIGHT 43:28 (night, phase 7) sunsets=4
+[17:08:39 INFO]: north: 0 living of 0, fountain active, homeland -2172,-460
+[17:08:39 INFO]: south: 1 living of 1, fountain DISABLED, homeland -2020,428
+[17:08:41 INFO]: [match] AlphaTester eliminated (admin).
+[17:08:41 INFO]: [match] north wins: south Fountain disabled and no survivors remain.
+[17:08:44 INFO]: state=ENDED winner=north
+[17:08:44 INFO]: clock=NIGHT 43:30 (night, phase 7) sunsets=4
+[17:08:44 INFO]: north: 0 living of 0, fountain active, homeland -2172,-460
+[17:08:44 INFO]: south: 0 living of 1, fountain DISABLED, homeland -2020,428
+[17:08:51 INFO]: Match reset: state cleared and world restored from template.
+[17:09:02 INFO]: state=IDLE
+[17:09:02 INFO]: clock=DAY 0:00 (day, phase 0) sunsets=0
+[17:09:02 INFO]: north: 0 living of 0, fountain active, homeland -2172,-460
+[17:09:02 INFO]: south: 0 living of 0, fountain active, homeland -2020,428

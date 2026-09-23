@@ -1,0 +1,843 @@
+{
+  "cell_size_blocks": 128,
+  "cells_by_role": {
+    "buildable": 48,
+    "development": 37,
+    "extraction": 54
+  },
+  "cells_measured": 63,
+  "consumers_demanded": 54,
+  "cross_type_margin_blocks": 8,
+  "cross_type_rule": "half of each footprint plus the margin; same-type pairs use the declared separation instead",
+  "evidence_state": "DERIVED MEASUREMENT",
+  "fits": true,
+  "not_covered": [
+    "terrain shape within a cell; a cell is treated as uniform",
+    "vertical space, caves and overhangs",
+    "whether a consumer is desirable where it fits",
+    "route corridors, which are linear and not cell-shaped",
+    "placement order is by declared priority, which is an authoring choice"
+  ],
+  "note": "Footprints, separations and counts are ANALYTICAL FIXTURES. maps.md supplies the list of consumers and the concern about separation; it does not supply sizes, and final scale remains unresolved there.",
+  "placed": [
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_fraction": 0.775,
+      "id": "homeland",
+      "instance": 1,
+      "ore_blocks": 5153,
+      "role_used": "development",
+      "world_origin": [
+        -2188,
+        -236
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_fraction": 0.676,
+      "id": "homeland",
+      "instance": 2,
+      "ore_blocks": 2987,
+      "role_used": "development",
+      "world_origin": [
+        -2060,
+        404
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_fraction": 0.775,
+      "id": "aether_fountain",
+      "instance": 1,
+      "ore_blocks": 5153,
+      "role_used": "development",
+      "world_origin": [
+        -2144,
+        -264
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_fraction": 0.676,
+      "id": "aether_fountain",
+      "instance": 2,
+      "ore_blocks": 2987,
+      "role_used": "development",
+      "world_origin": [
+        -2016,
+        376
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_fraction": 0.775,
+      "id": "nether_bastion",
+      "instance": 1,
+      "ore_blocks": 5153,
+      "role_used": "buildable",
+      "world_origin": [
+        -2120,
+        -264
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_fraction": 0.73,
+      "id": "nether_bastion",
+      "instance": 2,
+      "ore_blocks": 5050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2344,
+        -264
+      ]
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "farmable_fraction": 0.746,
+      "id": "end_tower",
+      "instance": 1,
+      "ore_blocks": 4050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2089,
+        -265
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_fraction": 0.73,
+      "id": "end_tower",
+      "instance": 2,
+      "ore_blocks": 5050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2321,
+        -265
+      ]
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "farmable_fraction": 0.746,
+      "id": "pillager_outpost",
+      "instance": 1,
+      "ore_blocks": 4050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2067,
+        -267
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_fraction": 0.73,
+      "id": "pillager_outpost",
+      "instance": 2,
+      "ore_blocks": 5050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2299,
+        -267
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_fraction": 0.775,
+      "id": "village",
+      "instance": 1,
+      "ore_blocks": 5153,
+      "role_used": "development",
+      "world_origin": [
+        -2128,
+        -200
+      ]
+    },
+    {
+      "cell": [
+        2,
+        0
+      ],
+      "farmable_fraction": 0.708,
+      "id": "village",
+      "instance": 2,
+      "ore_blocks": 3650,
+      "role_used": "development",
+      "world_origin": [
+        -2200,
+        -504
+      ]
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "farmable_fraction": 0.746,
+      "id": "major_poi",
+      "instance": 1,
+      "ore_blocks": 4050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2024,
+        -248
+      ]
+    },
+    {
+      "cell": [
+        2,
+        0
+      ],
+      "farmable_fraction": 0.708,
+      "id": "major_poi",
+      "instance": 2,
+      "ore_blocks": 3650,
+      "role_used": "buildable",
+      "world_origin": [
+        -2128,
+        -504
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_fraction": 0.676,
+      "id": "major_poi",
+      "instance": 3,
+      "ore_blocks": 2987,
+      "role_used": "buildable",
+      "world_origin": [
+        -2000,
+        440
+      ]
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "farmable_fraction": 0.624,
+      "id": "major_poi",
+      "instance": 4,
+      "ore_blocks": 7736,
+      "role_used": "buildable",
+      "world_origin": [
+        -2456,
+        -248
+      ]
+    },
+    {
+      "cell": [
+        2,
+        2
+      ],
+      "farmable_fraction": 0.775,
+      "id": "mining_worksite",
+      "instance": 1,
+      "ore_blocks": 5153,
+      "role_used": "extraction",
+      "world_origin": [
+        -2208,
+        -176
+      ]
+    },
+    {
+      "cell": [
+        3,
+        0
+      ],
+      "farmable_fraction": 0.697,
+      "id": "mining_worksite",
+      "instance": 2,
+      "ore_blocks": 2822,
+      "role_used": "extraction",
+      "world_origin": [
+        -2080,
+        -512
+      ]
+    },
+    {
+      "cell": [
+        2,
+        1
+      ],
+      "farmable_fraction": 0.685,
+      "id": "mining_worksite",
+      "instance": 3,
+      "ore_blocks": 5348,
+      "role_used": "extraction",
+      "world_origin": [
+        -2208,
+        -384
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_fraction": 0.676,
+      "id": "mining_worksite",
+      "instance": 4,
+      "ore_blocks": 2987,
+      "role_used": "extraction",
+      "world_origin": [
+        -1984,
+        384
+      ]
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "farmable_fraction": 0.675,
+      "id": "mining_worksite",
+      "instance": 5,
+      "ore_blocks": 9688,
+      "role_used": "extraction",
+      "world_origin": [
+        -2080,
+        256
+      ]
+    },
+    {
+      "cell": [
+        0,
+        2
+      ],
+      "farmable_fraction": 0.624,
+      "id": "mining_worksite",
+      "instance": 6,
+      "ore_blocks": 7736,
+      "role_used": "extraction",
+      "world_origin": [
+        -2400,
+        -256
+      ]
+    },
+    {
+      "cell": [
+        3,
+        2
+      ],
+      "farmable_fraction": 0.746,
+      "id": "livestock_range",
+      "instance": 1,
+      "ore_blocks": 4050,
+      "role_used": "development",
+      "world_origin": [
+        -2076,
+        -232
+      ]
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "farmable_fraction": 0.705,
+      "id": "livestock_range",
+      "instance": 2,
+      "ore_blocks": 9619,
+      "role_used": "development",
+      "world_origin": [
+        -2204,
+        -124
+      ]
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "farmable_fraction": 0.7,
+      "id": "livestock_range",
+      "instance": 3,
+      "ore_blocks": 2516,
+      "role_used": "development",
+      "world_origin": [
+        -2076,
+        -124
+      ]
+    },
+    {
+      "cell": [
+        3,
+        0
+      ],
+      "farmable_fraction": 0.697,
+      "id": "livestock_range",
+      "instance": 4,
+      "ore_blocks": 2822,
+      "role_used": "development",
+      "world_origin": [
+        -2036,
+        -508
+      ]
+    },
+    {
+      "cell": [
+        3,
+        1
+      ],
+      "farmable_fraction": 0.691,
+      "id": "livestock_range",
+      "instance": 5,
+      "ore_blocks": 3508,
+      "role_used": "development",
+      "world_origin": [
+        -2076,
+        -380
+      ]
+    },
+    {
+      "cell": [
+        3,
+        7
+      ],
+      "farmable_fraction": 0.676,
+      "id": "livestock_range",
+      "instance": 6,
+      "ore_blocks": 2987,
+      "role_used": "development",
+      "world_origin": [
+        -2076,
+        468
+      ]
+    },
+    {
+      "cell": [
+        3,
+        6
+      ],
+      "farmable_fraction": 0.675,
+      "id": "livestock_range",
+      "instance": 7,
+      "ore_blocks": 9688,
+      "role_used": "development",
+      "world_origin": [
+        -2036,
+        260
+      ]
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "farmable_fraction": 0.635,
+      "id": "livestock_range",
+      "instance": 8,
+      "ore_blocks": 4146,
+      "role_used": "development",
+      "world_origin": [
+        -2332,
+        -380
+      ]
+    },
+    {
+      "cell": [
+        2,
+        3
+      ],
+      "farmable_fraction": 0.705,
+      "id": "horse_range",
+      "instance": 1,
+      "ore_blocks": 9619,
+      "role_used": "development",
+      "world_origin": [
+        -2144,
+        -124
+      ]
+    },
+    {
+      "cell": [
+        3,
+        1
+      ],
+      "farmable_fraction": 0.691,
+      "id": "horse_range",
+      "instance": 2,
+      "ore_blocks": 3508,
+      "role_used": "development",
+      "world_origin": [
+        -2016,
+        -380
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_fraction": 0.73,
+      "id": "minor_poi",
+      "instance": 1,
+      "ore_blocks": 5050,
+      "role_used": "buildable",
+      "world_origin": [
+        -2268,
+        -260
+      ]
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "farmable_fraction": 0.7,
+      "id": "minor_poi",
+      "instance": 2,
+      "ore_blocks": 2516,
+      "role_used": "buildable",
+      "world_origin": [
+        -2036,
+        -132
+      ]
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "farmable_fraction": 0.635,
+      "id": "minor_poi",
+      "instance": 3,
+      "ore_blocks": 4146,
+      "role_used": "buildable",
+      "world_origin": [
+        -2292,
+        -388
+      ]
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "farmable_fraction": 0.623,
+      "id": "minor_poi",
+      "instance": 4,
+      "ore_blocks": 3702,
+      "role_used": "buildable",
+      "world_origin": [
+        -2212,
+        -4
+      ]
+    },
+    {
+      "cell": [
+        0,
+        0
+      ],
+      "farmable_fraction": 0.608,
+      "id": "minor_poi",
+      "instance": 5,
+      "ore_blocks": 4466,
+      "role_used": "buildable",
+      "world_origin": [
+        -2468,
+        -516
+      ]
+    },
+    {
+      "cell": [
+        4,
+        2
+      ],
+      "farmable_fraction": 0.593,
+      "id": "minor_poi",
+      "instance": 6,
+      "ore_blocks": 2418,
+      "role_used": "buildable",
+      "world_origin": [
+        -1956,
+        -260
+      ]
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "farmable_fraction": 0.568,
+      "id": "minor_poi",
+      "instance": 7,
+      "ore_blocks": 13419,
+      "role_used": "buildable",
+      "world_origin": [
+        -2468,
+        252
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "farmable_fraction": 0.567,
+      "id": "minor_poi",
+      "instance": 8,
+      "ore_blocks": 2754,
+      "role_used": "buildable",
+      "world_origin": [
+        -2084,
+        -4
+      ]
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "farmable_fraction": 0.566,
+      "id": "minor_poi",
+      "instance": 9,
+      "ore_blocks": 476,
+      "role_used": "buildable",
+      "world_origin": [
+        -2084,
+        508
+      ]
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "farmable_fraction": 0.518,
+      "id": "minor_poi",
+      "instance": 10,
+      "ore_blocks": 8491,
+      "role_used": "buildable",
+      "world_origin": [
+        -2340,
+        -132
+      ]
+    },
+    {
+      "cell": [
+        1,
+        2
+      ],
+      "farmable_fraction": 0.73,
+      "id": "crop_patch",
+      "instance": 1,
+      "ore_blocks": 5050,
+      "role_used": "development",
+      "world_origin": [
+        -2340,
+        -236
+      ]
+    },
+    {
+      "cell": [
+        3,
+        3
+      ],
+      "farmable_fraction": 0.7,
+      "id": "crop_patch",
+      "instance": 2,
+      "ore_blocks": 2516,
+      "role_used": "development",
+      "world_origin": [
+        -2000,
+        -132
+      ]
+    },
+    {
+      "cell": [
+        1,
+        1
+      ],
+      "farmable_fraction": 0.635,
+      "id": "crop_patch",
+      "instance": 3,
+      "ore_blocks": 4146,
+      "role_used": "development",
+      "world_origin": [
+        -2256,
+        -388
+      ]
+    },
+    {
+      "cell": [
+        2,
+        4
+      ],
+      "farmable_fraction": 0.623,
+      "id": "crop_patch",
+      "instance": 4,
+      "ore_blocks": 3702,
+      "role_used": "development",
+      "world_origin": [
+        -2176,
+        -4
+      ]
+    },
+    {
+      "cell": [
+        0,
+        0
+      ],
+      "farmable_fraction": 0.608,
+      "id": "crop_patch",
+      "instance": 5,
+      "ore_blocks": 4466,
+      "role_used": "development",
+      "world_origin": [
+        -2432,
+        -516
+      ]
+    },
+    {
+      "cell": [
+        4,
+        2
+      ],
+      "farmable_fraction": 0.593,
+      "id": "crop_patch",
+      "instance": 6,
+      "ore_blocks": 2418,
+      "role_used": "development",
+      "world_origin": [
+        -1920,
+        -260
+      ]
+    },
+    {
+      "cell": [
+        0,
+        6
+      ],
+      "farmable_fraction": 0.568,
+      "id": "crop_patch",
+      "instance": 7,
+      "ore_blocks": 13419,
+      "role_used": "development",
+      "world_origin": [
+        -2432,
+        252
+      ]
+    },
+    {
+      "cell": [
+        3,
+        4
+      ],
+      "farmable_fraction": 0.567,
+      "id": "crop_patch",
+      "instance": 8,
+      "ore_blocks": 2754,
+      "role_used": "development",
+      "world_origin": [
+        -2048,
+        -4
+      ]
+    },
+    {
+      "cell": [
+        3,
+        8
+      ],
+      "farmable_fraction": 0.566,
+      "id": "crop_patch",
+      "instance": 9,
+      "ore_blocks": 476,
+      "role_used": "development",
+      "world_origin": [
+        -2048,
+        508
+      ]
+    },
+    {
+      "cell": [
+        1,
+        3
+      ],
+      "farmable_fraction": 0.518,
+      "id": "crop_patch",
+      "instance": 10,
+      "ore_blocks": 8491,
+      "role_used": "development",
+      "world_origin": [
+        -2304,
+        -132
+      ]
+    },
+    {
+      "cell": [
+        1,
+        5
+      ],
+      "farmable_fraction": 0.514,
+      "id": "crop_patch",
+      "instance": 11,
+      "ore_blocks": 5801,
+      "role_used": "development",
+      "world_origin": [
+        -2340,
+        124
+      ]
+    },
+    {
+      "cell": [
+        1,
+        4
+      ],
+      "farmable_fraction": 0.51,
+      "id": "crop_patch",
+      "instance": 12,
+      "ore_blocks": 4264,
+      "role_used": "development",
+      "world_origin": [
+        -2340,
+        -4
+      ]
+    }
+  ],
+  "schema": "terrain_packing_analysis/1",
+  "source_opportunity_map": "/private/tmp/opp-map.json",
+  "superseded_reference": {
+    "earlier_fountain_separation": "900-1100 blocks",
+    "earlier_map_target": "1300 x 1000 blocks",
+    "status": "explicitly superseded in maps.md; recorded for comparison only"
+  },
+  "unplaced": [],
+  "volume_id": "tv_ef56852eda10acc88342e5ee"
+}

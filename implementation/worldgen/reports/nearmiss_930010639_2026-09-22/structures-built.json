@@ -1,0 +1,85 @@
+{
+ "schema": "team_structures_built/1",
+ "evidence_state": "DERIVED MEASUREMENT",
+ "nature": "positions taken from structure-siting rank 0; no blocks were written, because the travel matrix needs only where the structures are",
+ "structures": [
+  {
+   "structure": "aether_fountain",
+   "team": "north",
+   "world_xyz": [
+    1828,
+    67,
+    -244
+   ]
+  },
+  {
+   "structure": "end_tower",
+   "team": "north",
+   "world_xyz": [
+    1884,
+    79,
+    -92
+   ]
+  },
+  {
+   "structure": "nether_bastion",
+   "team": "north",
+   "world_xyz": [
+    1844,
+    69,
+    -188
+   ]
+  },
+  {
+   "structure": "pillager_outpost",
+   "team": "north",
+   "world_xyz": [
+    1876,
+    78,
+    -140
+   ]
+  },
+  {
+   "structure": "aether_fountain",
+   "team": "south",
+   "world_xyz": [
+    2212,
+    78,
+    76
+   ]
+  },
+  {
+   "structure": "end_tower",
+   "team": "south",
+   "world_xyz": [
+    1972,
+    71,
+    -172
+   ]
+  },
+  {
+   "structure": "nether_bastion",
+   "team": "south",
+   "world_xyz": [
+    2308,
+    77,
+    -20
+   ]
+  },
+  {
+   "structure": "pillager_outpost",
+   "team": "south",
+   "world_xyz": [
+    2324,
+    78,
+    28
+   ]
+  }
+ ],
+ "blocks_written": 0,
+ "dry_run": true,
+ "world": null,
+ "not_covered": [
+  "the authored builds themselves"
+ ]
+}

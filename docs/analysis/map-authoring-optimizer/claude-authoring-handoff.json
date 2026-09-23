@@ -1,0 +1,167 @@
+{
+  "schema": "minecraft_moba_claude_authoring_handoff/2",
+  "map_seed": 930012642,
+  "status": "AUTHORING ENTRYPOINT",
+  "critical_warning": {
+    "snapshot_hostiles": 0,
+    "underground_hazard": "UNRESOLVED",
+    "forbidden_inference": "hostiles == 0 -> underground is safe"
+  },
+  "authoritative_inputs": {
+    "candidate_catalog": "docs/analysis/map-authoring-optimizer/candidate-catalog.json",
+    "scenario_frontier": "docs/analysis/map-authoring-optimizer/scenario-frontier.json",
+    "optimizer": "tools/analysis/map_authoring_optimizer.py"
+  },
+  "run": {
+    "samples_per_profile": 1200,
+    "random_seed": 20260920,
+    "balance_filter": 0.12,
+    "candidate_counts": {
+      "founder_stock": 74,
+      "renewable_manifestations": 110,
+      "worksites": 35,
+      "pois": 35,
+      "route_targets_north": 32,
+      "route_targets_south": 31
+    },
+    "deterministic_rng": "32-bit LCG"
+  },
+  "route_spillover_sensitivity": {
+    "status": "NON-CANON ANALYTICAL FIXTURE",
+    "radius_blocks": 112,
+    "target_path_stretch": 1.25,
+    "scale": 0.85
+  },
+  "profiles": {
+    "balanced_baseline": {
+      "balanced_found": 97,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.036158646,
+        "route_spillover_balance_asymmetry": 0.034074517,
+        "effective_balance_asymmetry": 0.036158646,
+        "route_spillover_delta": -0.002084129
+      }
+    },
+    "exploration_centric": {
+      "balanced_found": 80,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.07593248,
+        "route_spillover_balance_asymmetry": 0.080807285,
+        "effective_balance_asymmetry": 0.080807285,
+        "route_spillover_delta": 0.004874805
+      }
+    },
+    "consolidative": {
+      "balanced_found": 102,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.074903131,
+        "route_spillover_balance_asymmetry": 0.046994442,
+        "effective_balance_asymmetry": 0.074903131,
+        "route_spillover_delta": -0.027908689
+      }
+    },
+    "resource_dense": {
+      "balanced_found": 140,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.054456273,
+        "route_spillover_balance_asymmetry": 0.039446968,
+        "effective_balance_asymmetry": 0.054456273,
+        "route_spillover_delta": -0.015009306
+      }
+    },
+    "resource_light": {
+      "balanced_found": 59,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.054303372,
+        "route_spillover_balance_asymmetry": 0.059896473,
+        "effective_balance_asymmetry": 0.059896473,
+        "route_spillover_delta": 0.005593102
+      }
+    },
+    "contested_core": {
+      "balanced_found": 95,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.061959751,
+        "route_spillover_balance_asymmetry": 0.072512722,
+        "effective_balance_asymmetry": 0.072512722,
+        "route_spillover_delta": 0.010552971
+      }
+    },
+    "peripheral_specialization": {
+      "balanced_found": 98,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.048202369,
+        "route_spillover_balance_asymmetry": 0.039555706,
+        "effective_balance_asymmetry": 0.048202369,
+        "route_spillover_delta": -0.008646662
+      }
+    },
+    "route_centric": {
+      "balanced_found": 106,
+      "preferred_rank": 0,
+      "fallback_ranks": [
+        1,
+        2,
+        3
+      ],
+      "preferred_metrics": {
+        "balance_asymmetry": 0.05830643,
+        "route_spillover_balance_asymmetry": 0.040162684,
+        "effective_balance_asymmetry": 0.05830643,
+        "route_spillover_delta": -0.018143747
+      }
+    }
+  },
+  "current_exact_world_evidence": {
+    "frontier_sha256": "444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5",
+    "status": "HISTORICAL PRE-V2 VALIDATION ONLY"
+  },
+  "recommended_first_physical_set": [
+    "balanced_baseline",
+    "exploration_centric",
+    "consolidative",
+    "resource_light"
+  ]
+}

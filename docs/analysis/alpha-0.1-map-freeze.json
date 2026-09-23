@@ -1,0 +1,130 @@
+{
+ "alternate_control_map": {
+  "exact_authored_structural_asymmetry": 0.06732040844492695,
+  "map": "Resource-Light V2 rank 0",
+  "role": "primary alternate / control"
+ },
+ "authoring_is_consequential": {
+  "pad_effect_s": 6.89,
+  "reading": "Exact rescan is not merely correcting travel-model error. Authoring changes the terrain the economy runs on, so exact validation belongs in the pipeline permanently.",
+  "route_effect_s": 7.32
+ },
+ "composition": {
+  "blocks_written_routes": 41136,
+  "blocks_written_sites": 178358,
+  "placements": 32,
+  "route_columns": 3222,
+  "route_crossings": [
+   {
+    "cell": [
+     4,
+     4
+    ],
+    "detail": "sheep",
+    "kind": "renewable_range",
+    "world_xz": [
+     -1936,
+     16
+    ]
+   },
+   {
+    "cell": [
+     1,
+     2
+    ],
+    "detail": null,
+    "kind": "mining_worksite",
+    "world_xz": [
+     -2288,
+     -208
+    ]
+   },
+   {
+    "cell": [
+     1,
+     5
+    ],
+    "detail": null,
+    "kind": "poi",
+    "world_xz": [
+     -2320,
+     144
+    ]
+   },
+   {
+    "cell": [
+     4,
+     4
+    ],
+    "detail": "sheep",
+    "kind": "renewable_range",
+    "world_xz": [
+     -1936,
+     16
+    ]
+   }
+  ],
+  "routes": 6
+ },
+ "date": "2026-09-20",
+ "designation": "ALPHA 0.1 MAP",
+ "exact_authored_structural_asymmetry": 0.10808037247282687,
+ "map": "Consolidative V2 rank 0",
+ "metric_caveat": "This is structural Practical-Reach asymmetry, not win probability. The gap between 0.0673 and 0.1081 is not evidence that either map plays better.",
+ "not_a_reopen_condition": "finding a configuration with a better analytical score",
+ "provenance": {
+  "finalist_rank": 0,
+  "finalist_sha256": "f4defa5655a458cd1b2fe261991d8049bfdaef288069496088f16524bd6aaa90",
+  "frontier_sha256": "30c2d9e6a7e0bb1a0fe0127a147ac6388add4b325606fafb911bd2505114af71",
+  "optimizer": "tools/analysis/map_authoring_optimizer.py, seed 20260920, 1200 samples, 32-bit LCG",
+  "seed": 930012642,
+  "volume_id": "tv_ef56852eda10acc88342e5ee"
+ },
+ "rationale": "Chosen as the better test specimen rather than the safer balance specimen. Resource-Light measures 0.0673 but buys part of that by having fewer strategic opportunities capable of producing asymmetry (8 worksites / 6 renewables vs 10 / 8). Consolidative gives the denser opportunity economy the Alpha needs in order to make Development, Logistics, Production, Construction, Extraction and Exploration actually collide.",
+ "rebuild": [
+  "python3 tools/analysis/map_authoring_optimizer.py <export.zip> --out <dir> --samples 1200 --seed 20260920",
+  "python3 -m terrain_harvest.author_portfolio --frontier <dir>/scenario-frontier.json --opportunity <opportunity-map> --profile consolidative --world <world> --report <report> --best --apply",
+  "python3 -m terrain_harvest.routes --candidate <candidate.json> --frontier <dir>/scenario-frontier.json --profile consolidative --world <world> --report <report> --placements <portfolio report> --apply",
+  "python3 -m terrain_harvest.verify_portfolio --world <world> --portfolio <portfolio> --routes <routes>"
+ ],
+ "reopen_conditions": [
+  "observed playtest failure",
+  "implementation incompatibility",
+  "a demonstrated structural defect"
+ ],
+ "route_spillover": {
+  "decision": "CLOSED. effective_balance_asymmetry = max(raw, spillover) is removed as an authoritative filtering criterion for Alpha selection. The model and its validation artifacts are preserved as evidence of a useful failed experiment.",
+  "measured_precision": {
+   "false_negative": 2,
+   "false_positive": 16,
+   "note": "an effect is counted when a saving exceeds 1 second",
+   "true_negative": 43,
+   "true_positive": 3
+  },
+  "note": "A predictor at 16.2% precision must not decide which configurations count as balanced."
+ },
+ "schema": "alpha_map_freeze/1",
+ "status": "Frozen for implementation and playtesting, NOT canonically declared balanced.",
+ "verification": {
+  "proxy_error_median_relative": 0.1343,
+  "readback_assertions": 88,
+  "readback_failures": 0,
+  "rescan_graph_nodes": 14256
+ },
+ "working_envelope": {
+  "filter": 0.12,
+  "status": "NON-CANON ANALYTICAL FIXTURE"
+ },
+ "world_directory": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/alpha-0.1/consolidative-alpha",
+ "amendments": [
+  {
+   "date": "2026-09-20",
+   "reason": "IMPLEMENTATION INCOMPATIBILITY, a declared reopen condition.",
+   "finding": "The frozen template contained none of the eight team structures. They had been built into TerrainGalleryStructures during the siting work and never into the Consolidative world the Alpha instance copies. Playtest surfaced it as a player spawning on bare terrain with nothing to orient by.",
+   "why_it_blocks": "ALPHA-D3 makes victory depend on disabling a team's Aether Fountain. A world with no Fountain cannot reach the victory condition at all, so the map could not support its own terminal state.",
+   "change": "Built the eight sited structures into both the Alpha template and the Resource-Light control, 17,036 blocks each, at the coordinates the existing siting chose. No structure was re-sited and no strategic geometry changed.",
+   "spawn": "Homelands moved inside the Aether Fountain basins. The fountain's own centre is a solid column, so the y is explicit rather than the highest block.",
+   "not_a_rebalance": "Measured structural asymmetry is unchanged: the reach rescan was run against a world whose traversable surface these structures do not alter, and no opportunity was added, moved or removed."
+  }
+ ]
+}

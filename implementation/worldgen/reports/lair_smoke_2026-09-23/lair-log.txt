@@ -1,0 +1,2 @@
+[00:17:36 INFO]: [MinecraftMoba] [lair] occupant 39946175-5d6d-4929-9219-65f4335f6ac6 is in an unloaded chunk; queued for removal on chunk load
+[00:17:39 INFO]: [MinecraftMoba] [lair] removed stale occupant on chunk load

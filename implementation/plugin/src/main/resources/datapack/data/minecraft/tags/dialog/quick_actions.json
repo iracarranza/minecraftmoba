@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "moba:infra_mode",
+    "moba:pings"
+  ]
+}

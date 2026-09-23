@@ -1,0 +1,146 @@
+{
+ "blocks_pending": 37204,
+ "blocks_written": 0,
+ "corridor_width": 3,
+ "cost_model": "vanilla_search.task_a.Terrain, the graph that sited the team structures and produced the travel matrix",
+ "dry_run": true,
+ "evidence_state": "DERIVED MEASUREMENT",
+ "headroom": 3,
+ "nature": "physical path quality only: surfacing, clearing and decking. No movement-speed effect is granted or implied.",
+ "not_covered": [
+  "stairs or grading on steep steps; the corridor follows terrain",
+  "what the Route does to Practical Reach, which only the rescan measures",
+  "Route width, surface material and headroom as design decisions; these are authoring fixtures, not canon"
+ ],
+ "routes": [
+  {
+   "bridged": 105,
+   "cell": [
+    2,
+    4
+   ],
+   "columns": 545,
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 69,
+   "surfaced": 4800,
+   "team": "north",
+   "to": [
+    -2164,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1048.7
+  },
+  {
+   "bridged": 0,
+   "cell": [
+    1,
+    4
+   ],
+   "columns": 545,
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 69,
+   "surfaced": 4905,
+   "team": "north",
+   "to": [
+    -2292,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1089.4
+  },
+  {
+   "bridged": 109,
+   "cell": [
+    3,
+    4
+   ],
+   "columns": 529,
+   "from": [
+    -2172,
+    -460
+   ],
+   "nodes": 67,
+   "surfaced": 4652,
+   "team": "north",
+   "to": [
+    -2036,
+    44
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1027.5
+  },
+  {
+   "bridged": 36,
+   "cell": [
+    4,
+    3
+   ],
+   "columns": 529,
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 67,
+   "surfaced": 4725,
+   "team": "south",
+   "to": [
+    -1908,
+    -84
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1241.8
+  },
+  {
+   "bridged": 0,
+   "cell": [
+    0,
+    7
+   ],
+   "columns": 401,
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 51,
+   "surfaced": 3609,
+   "team": "south",
+   "to": [
+    -2420,
+    428
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 962.6
+  },
+  {
+   "bridged": 195,
+   "cell": [
+    1,
+    5
+   ],
+   "columns": 433,
+   "from": [
+    -2020,
+    428
+   ],
+   "nodes": 55,
+   "surfaced": 3702,
+   "team": "south",
+   "to": [
+    -2292,
+    172
+   ],
+   "unwritable_columns": 0,
+   "weighted_cost": 1566.4
+  }
+ ],
+ "schema": "map_routes_authored/1",
+ "skipped": [],
+ "world": "/tmp/profile-worlds/balanced_baseline"
+}

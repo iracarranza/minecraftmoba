@@ -1,0 +1,5 @@
+{
+  "snapshot_hostiles": "DO NOT USE AS SAFETY EVIDENCE",
+  "underground_hazard": "UNRESOLVED",
+  "forbidden_inference": "hostiles == 0 -> underground is safe"
+}

@@ -108,6 +108,79 @@ def aether_fountain(radius=6):
     return out
 
 
+def from_vanilla_nbt(entry, *, jar=None, centre=True, skip_air=True):
+    """Place an actual vanilla structure, block for block, from its own NBT.
+
+    Preferred over hand-modelled massing wherever Minecraft ships the thing.
+    The greybox `pillager_outpost` below was a seven-by-seven dark oak box
+    standing in for a fifteen-by-fifteen watchtower, which meant the compiler
+    verified a site against the MEASURED contract and then authored something a
+    different size onto it -- the verifier and the builder disagreeing about
+    what was being built.
+
+    `structure_void` is dropped as vanilla does (it means "leave what is
+    there"), and air is dropped by default so a structure does not punch a
+    rectangular hole in a hillside; the pad has already been cleared.
+    """
+    from .vanilla_assets import DEFAULT_JAR, read_structure
+    doc = read_structure(Path(jar) if jar else DEFAULT_JAR, entry)
+    palette = doc['palette']
+    size = [int(v) for v in doc['size']]
+    ox, oz = (size[0] // 2, size[2] // 2) if centre else (0, 0)
+    out = {}
+    for b in doc['blocks']:
+        entry_state = palette[int(b['state'])]
+        name = str(entry_state['Name'])
+        if name == 'minecraft:structure_void':
+            continue
+        if skip_air and name in ('minecraft:air', 'minecraft:cave_air', 'minecraft:void_air'):
+            continue
+        props = {str(k): str(v) for k, v in (entry_state.get('Properties') or {}).items()}
+        x, y, z = (int(v) for v in b['pos'])
+        out[(x - ox, y, z - oz)] = block(name.removeprefix('minecraft:'), **props)
+    return out
+
+
+def pillager_outpost_watchtower(jar=None):
+    """The vanilla watchtower, and only the watchtower.
+
+    Vanilla ships the cages, tents, log piles, targets and plates as separate
+    feature_*.nbt files, so "watchtower only" is a file-level cut rather than a
+    judgement about one mesh.
+    """
+    return from_vanilla_nbt('data/minecraft/structure/pillager_outpost/watchtower.nbt', jar=jar)
+
+
+def nether_bastion_body(jar=None):
+    """The Bridge Bastion's central body: the entrance piece over its base.
+
+    The long projecting bridge and the legs that carry it are separate vanilla
+    pieces and are not placed. The ramparts are also separate, and vanilla
+    assembles them by jigsaw connection, which is NOT reproduced here -- what is
+    placed is the starting body, and the rampart ring is recorded as unbuilt
+    rather than faked with a guessed offset.
+    """
+    base = from_vanilla_nbt(
+        'data/minecraft/structure/bastion/bridge/starting_pieces/entrance_base.nbt', jar=jar)
+    top = from_vanilla_nbt(
+        'data/minecraft/structure/bastion/bridge/starting_pieces/entrance.nbt', jar=jar)
+    lift = max(dy for _, dy, _ in base) + 1
+    out = dict(base)
+    for (dx, dy, dz), state in top.items():
+        out[(dx, dy + lift, dz)] = state
+    return out
+
+
+# What the vanilla-native placements do NOT reproduce, stated rather than left
+# to be discovered. Consumed by the compiler's evidence, so a map never claims
+# more than was actually built.
+VANILLA_PLACEMENT_GAPS = {
+    'nether_bastion': 'the rampart ring is a separate set of jigsaw pieces; vanilla '
+                      'connects them procedurally and that assembly is not reproduced. '
+                      'The central body is placed; the ramparts are not.',
+}
+
+
 def pillager_outpost(height=12):
     """Dark oak tower massing, matching the vanilla outpost silhouette."""
     out = {}
@@ -153,8 +226,94 @@ def nether_bastion(height=9):
     return out
 
 
+# The measured vanilla End Spike, reproduced rather than approximated.
+#
+# Every number here came out of a generated vanilla End dimension
+# (reports/objective_forms_2026-09-23/), not out of a guess:
+#
+#   - Ten spikes, pillar radius 2-5, height 76-103 above the island surface.
+#   - Radius and height co-vary. The ten measured spikes are exactly
+#     (2, 76) (2, 79) (2, 82) (3, 85) (3, 88) (3, 91) (4, 94) (4, 97) (4, 100)
+#     (5, 103) -- height = 76 + 3i for i = 0..9, radius = 2 + i // 3.
+#   - The pillar is a disc under `dx^2 + dz^2 <= r^2 + 1`, which reproduces the
+#     measured column counts 21 / 37 / 57 / 89 exactly for r = 2 / 3 / 4 / 5.
+#     A plain `<= r^2` gives 13 / 29 / 49 / 81 and is wrong for every radius.
+#   - A SINGLE bedrock block caps the centre at top + 1 -- not a bedrock layer.
+#   - Caged spikes carry a 5x5 iron-bar box: walls at top+1..top+3, roof at
+#     top+4. Two of the ten measured spikes were caged.
+SPIKE_HEIGHTS = tuple(76 + 3 * i for i in range(10))
+SPIKE_RADII = tuple(2 + i // 3 for i in range(10))
+
+
+def spike_disc(radius):
+    """Vanilla's pillar cross-section. See the note above for why `+ 1`."""
+    return [(dx, dz)
+            for dx in range(-radius, radius + 1)
+            for dz in range(-radius, radius + 1)
+            if dx * dx + dz * dz <= radius * radius + 1]
+
+
+def end_spike(radius=3, height=88, caged=False):
+    # The defaults are the MEDIAN of the ten measured spikes, not a preference:
+    # radii run 2,2,2,3,3,3,4,4,4,5 and heights 76..103 in steps of three, so
+    # (3, 88) is the middle of both. Vanilla varies them per spike; a map that
+    # wants that variation passes it in. Choosing the median is a parameter
+    # choice inside a measured range, not a new constant.
+    """An Ender Dragon arena End Spike: obsidian pillar, bedrock cap, cage.
+
+    The End Crystal itself is an ENTITY, not a block, so it is not authored
+    here. That is a seam, not an omission: the runtime already spawns the Lair's
+    occupant, and the crystal belongs to the same layer. `end_spike_entities`
+    reports where it goes so nothing has to rediscover it.
+
+    `height` is measured from the pillar's base upward, so the caller places the
+    base on the ground and the spike rises from it, exactly as vanilla's do from
+    the island surface.
+    """
+    if not 2 <= radius <= 5:
+        raise ValueError(f'measured pillar radius is 2-5, got {radius}')
+    if not 76 <= height <= 103:
+        raise ValueError(f'measured spike height is 76-103, got {height}')
+    out = {}
+    disc = spike_disc(radius)
+    for dy in range(height):
+        for dx, dz in disc:
+            out[(dx, dy, dz)] = block('obsidian')
+    top = height - 1
+    out[(0, top + 1, 0)] = block('bedrock')       # one block, the crystal's base
+    if caged:
+        for dy in range(top + 1, top + 4):        # three courses of wall
+            for dx in range(-2, 3):
+                for dz in range(-2, 3):
+                    if abs(dx) == 2 or abs(dz) == 2:
+                        out[(dx, dy, dz)] = block('iron_bars')
+        for dx in range(-2, 3):                   # and a roof
+            for dz in range(-2, 3):
+                out[(dx, top + 4, dz)] = block('iron_bars')
+    return out
+
+
+def end_spike_entities(radius=3, height=88, caged=False):
+    """Where the End Crystal goes, for whatever spawns entities.
+
+    Reported rather than placed. Region-file authoring writes blocks; entities
+    live elsewhere in the save and, in this project, are the plugin's job.
+    """
+    return [{'type': 'minecraft:end_crystal',
+             'offset_xyz': [0.5, height + 1, 0.5],
+             'note': 'sits on the bedrock cap; ShowBottom false in vanilla arenas'}]
+
+
 def end_tower(height=18):
-    """End stone shaft with an obsidian core and a purpur crown."""
+    """End stone shaft with an obsidian core and a purpur crown.
+
+    HISTORICAL. The current form is the End Spike from the Ender Dragon arena:
+    an obsidian pillar with an End Crystal, and a cage where applicable. This is
+    the generic End Tower geometry the spec names and rejects. It still builds,
+    under its own name, so existing maps and their artifacts stay readable --
+    but `terrain_harvest.objective_forms.certify` will not pass a placement that
+    uses it, and no End Spike has been measured to replace it with.
+    """
     out = {}
     for dx, dz in _disc(5):
         out[(dx, -1, dz)] = block('end_stone_bricks')
@@ -173,22 +332,75 @@ def end_tower(height=18):
 
 TEMPLATES = {
     'aether_fountain': aether_fountain,
-    'pillager_outpost': pillager_outpost,
-    'nether_bastion': nether_bastion,
+    # Real vanilla geometry where Minecraft ships it. The hand-modelled
+    # `pillager_outpost` and `nether_bastion` below are kept under GREYBOX
+    # names: they are still useful for quick massing, and old artifacts that
+    # reference them stay readable, but they are not what gets built.
+    'pillager_outpost': pillager_outpost_watchtower,
+    'nether_bastion': nether_bastion_body,
+    # The measured arena spike. `end_tower` remains registered under its OWN
+    # name only: it is historical geometry, it is not what the current contract
+    # describes, and old artifacts that reference it stay readable.
+    'end_spike': end_spike,
     'end_tower': end_tower,
+    'pillager_outpost_greybox': pillager_outpost,
+    'nether_bastion_greybox': nether_bastion,
 }
 
 
-def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation):
-    """Level a pad so the massing reads, without sculpting surrounding terrain."""
+def _column_reader(world: Path):
+    """Read blocks back out of the world being written, for obstacle checks."""
+    from serialization.nbt import plain
+    from serialization.region import read_region
+    from vanilla_search.extract import VanillaChunk
+    chunks = {}
+    for f in sorted((world / 'region').glob('*.mca')):
+        for cx, cz, _, root in read_region(f):
+            chunks[(cx, cz)] = VanillaChunk(plain(root))
+
+    def at(x, y, z):
+        c = chunks.get((x >> 4, z >> 4))
+        if c is None:
+            return None
+        try:
+            return c.block(x, y, z)
+        except Exception:
+            return None
+    return at
+
+
+def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, column=None):
+    """Level a pad so the massing reads, without sculpting surrounding terrain.
+
+    Clearing a fixed height used to cut every tree inside the pad off at that
+    height and leave its canopy hanging in the air -- the trunk was in the
+    cleared volume and the leaves were above it. A tree in the way is felled
+    whole instead, so the site reads as cleared rather than as damaged.
+
+    `column` is optional because the caller may not have a world reader; without
+    it the old behaviour stands, and the floating leaves with it.
+    """
+    from .respect import fell, is_leaf, is_log, is_structure
     for dx, dz in _disc(radius):
+        x, z = cx + dx, cz + dz
         for dy in range(0, headroom):
-            editor.set(cx + dx, cy + dy, cz + dz, AIR)
-        editor.set(cx + dx, cy - 1, cz + dz, foundation)
+            y = cy + dy
+            here = column(x, y, z) if column else None
+            if here is not None and is_structure(here):
+                continue          # a building is not terrain
+            if here is not None and is_leaf(here):
+                editor.set(x, y, z, AIR)     # brush the branch aside
+                continue
+            if here is not None and is_log(here):
+                fell(editor, column, x, y, z, AIR)   # a trunk comes down whole
+                continue
+            editor.set(x, y, z, AIR)
+        editor.set(x, cy - 1, z, foundation)
 
 
 def build(world: Path, placements, report: Path, dry_run=False):
     editor = WorldEditor(world)
+    reader = _column_reader(world)
     built = []
     for p in placements:
         kind = p['structure']
@@ -199,7 +411,7 @@ def build(world: Path, placements, report: Path, dry_run=False):
         radius = max(abs(dx) for dx, _, _ in template) + 1
         height = max(dy for _, dy, _ in template) + 2
         clear_and_foundation(editor, x, y, z, radius + 1, height,
-                             block('polished_deepslate'))
+                             block('polished_deepslate'), column=reader)
         for (dx, dy, dz), state in template.items():
             editor.set(x + dx, y + dy, z + dz, state)
         built.append({'structure': kind, 'team': p.get('team'), 'world_xyz': [x, y, z],

@@ -1,0 +1,31 @@
+{
+  "schema": "frontier_provenance_audit/2",
+  "date": "2026-09-20",
+  "state": "RESOLVED FOR V2",
+  "canonical": {
+    "generator": "tools/analysis/map_authoring_optimizer.py",
+    "candidate_catalog": "docs/analysis/map-authoring-optimizer/candidate-catalog.json",
+    "scenario_frontier": "docs/analysis/map-authoring-optimizer/scenario-frontier.json",
+    "optimizer_report": "docs/analysis/map-authoring-optimizer/optimizer-report.md",
+    "handoff": "docs/analysis/map-authoring-optimizer/claude-authoring-handoff.json",
+    "candidate_counts": {
+      "founder_stock": 74,
+      "renewable_manifestations": 110,
+      "worksites": 35,
+      "pois": 35,
+      "route_targets_north": 32,
+      "route_targets_south": 31
+    },
+    "run": {
+      "samples": 1200,
+      "seed": 20260920,
+      "balance_filter": 0.12
+    }
+  },
+  "superseded": {
+    "corrupt_candidate_catalog_gzip": "docs/analysis/map-authoring-optimizer/candidate-catalog.json.gz (removed)",
+    "old_authored_world_frontier_sha256": "444594cd47198c08354d2829d8e96a2b97243e5c757aa3eb67b226d138699ab5",
+    "old_exact_world_status": "retain as historical evidence; not validation of v2 finalists"
+  },
+  "reason": "Prior frontier descriptions diverged. V2 makes the committed optimizer, candidate catalog, scenario frontier, report, and handoff one deterministic provenance chain."
+}

@@ -1,0 +1,133 @@
+Extract: every Hunger sample, food/consume event; first exhaustion event per reason; setup confirmations. ANSI removed.
+[17:35:31 INFO]: [MinecraftMoba] applied map 'resource_light_v2': 60387 blocks in 1551 ms
+[17:35:41 INFO]: [MinecraftMoba] [match] Match started. DAY 0:00 (day, phase 0)
+[17:35:41 INFO]: Match started with 1 participant(s).
+[17:35:45 INFO]: Successfully filled 3721 block(s)
+[17:35:47 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=0.5533565 health=20.0 mode=SURVIVAL
+[17:35:48 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=0.5533565 health=20.0 mode=SURVIVAL
+[17:35:49 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=0.5533565 health=20.0 mode=SURVIVAL
+[17:35:50 INFO]: [MobaAcceptanceFixture] HUNGER_EXHAUST reason=JUMP_SPRINT amount=0.2 cancelled=false player=HungerProbe food=20 saturation=20.0 exhaustion=0.5533565 health=20.0 mode=SURVIVAL
+[17:35:50 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=0.99780095 health=20.0 mode=SURVIVAL
+[17:35:50 INFO]: [MobaAcceptanceFixture] HUNGER_EXHAUST reason=SPRINT amount=0.024999999 cancelled=false player=HungerProbe food=20 saturation=20.0 exhaustion=0.99780095 health=20.0 mode=SURVIVAL
+[17:35:51 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=1.497801 health=20.0 mode=SURVIVAL
+[17:35:52 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=2.515579 health=20.0 mode=SURVIVAL
+[17:35:53 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=20.0 exhaustion=3.5333574 health=20.0 mode=SURVIVAL
+[17:35:54 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=19.0 exhaustion=0.04224634 health=20.0 mode=SURVIVAL
+[17:35:55 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=19.0 exhaustion=1.0622462 health=20.0 mode=SURVIVAL
+[17:35:56 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=19.0 exhaustion=2.0800242 health=20.0 mode=SURVIVAL
+[17:35:57 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=19.0 exhaustion=2.5889134 health=20.0 mode=SURVIVAL
+[17:35:58 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=19.0 exhaustion=3.608914 health=20.0 mode=SURVIVAL
+[17:35:59 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=18.0 exhaustion=0.1822477 health=20.0 mode=SURVIVAL
+[17:36:00 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=18.0 exhaustion=1.135581 health=20.0 mode=SURVIVAL
+[17:36:01 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=18.0 exhaustion=2.1555812 health=20.0 mode=SURVIVAL
+[17:36:02 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=18.0 exhaustion=2.728915 health=20.0 mode=SURVIVAL
+[17:36:03 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=18.0 exhaustion=3.6822488 health=20.0 mode=SURVIVAL
+[17:36:04 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=17.0 exhaustion=0.70224893 health=20.0 mode=SURVIVAL
+[17:36:05 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=17.0 exhaustion=1.2755822 health=20.0 mode=SURVIVAL
+[17:36:06 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=17.0 exhaustion=2.228916 health=20.0 mode=SURVIVAL
+[17:36:07 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=17.0 exhaustion=3.2489164 health=20.0 mode=SURVIVAL
+[17:36:08 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=17.0 exhaustion=3.8222501 health=20.0 mode=SURVIVAL
+[17:36:09 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=16.0 exhaustion=0.531139 health=20.0 mode=SURVIVAL
+[17:36:10 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=16.0 exhaustion=1.551139 health=20.0 mode=SURVIVAL
+[17:36:11 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=16.0 exhaustion=2.1244724 health=20.0 mode=SURVIVAL
+[17:36:12 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=16.0 exhaustion=3.0778062 health=20.0 mode=SURVIVAL
+[17:36:13 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=15.0 exhaustion=0.09780645 health=20.0 mode=SURVIVAL
+[17:36:14 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=15.0 exhaustion=0.6711398 health=20.0 mode=SURVIVAL
+[17:36:15 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=15.0 exhaustion=1.6244732 health=20.0 mode=SURVIVAL
+[17:36:16 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=15.0 exhaustion=2.6444736 health=20.0 mode=SURVIVAL
+[17:36:17 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=15.0 exhaustion=3.2178073 health=20.0 mode=SURVIVAL
+[17:36:18 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=14.0 exhaustion=0.17114115 health=20.0 mode=SURVIVAL
+[17:36:19 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=14.0 exhaustion=1.1911411 health=20.0 mode=SURVIVAL
+[17:36:20 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=14.0 exhaustion=2.208919 health=20.0 mode=SURVIVAL
+[17:36:21 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=14.0 exhaustion=2.7178082 health=20.0 mode=SURVIVAL
+[17:36:22 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=14.0 exhaustion=3.7355866 health=20.0 mode=SURVIVAL
+[17:36:23 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=13.0 exhaustion=0.7533649 health=20.0 mode=SURVIVAL
+[17:36:24 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=13.0 exhaustion=1.2622539 health=20.0 mode=SURVIVAL
+[17:36:25 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=13.0 exhaustion=2.2822542 health=20.0 mode=SURVIVAL
+[17:36:26 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=13.0 exhaustion=3.3000326 health=20.0 mode=SURVIVAL
+[17:36:27 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=13.0 exhaustion=3.8089218 health=20.0 mode=SURVIVAL
+[17:36:28 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=12.0 exhaustion=0.58225524 health=20.0 mode=SURVIVAL
+[17:36:29 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=12.0 exhaustion=1.1555885 health=20.0 mode=SURVIVAL
+[17:36:30 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=12.0 exhaustion=2.1089222 health=20.0 mode=SURVIVAL
+[17:36:31 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=12.0 exhaustion=3.1289227 health=20.0 mode=SURVIVAL
+[17:36:32 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=12.0 exhaustion=3.7022564 health=20.0 mode=SURVIVAL
+[17:36:33 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=11.0 exhaustion=0.65558976 health=20.0 mode=SURVIVAL
+[17:36:34 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=11.0 exhaustion=1.6755897 health=20.0 mode=SURVIVAL
+[17:36:35 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=11.0 exhaustion=2.248923 health=20.0 mode=SURVIVAL
+[17:36:36 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=11.0 exhaustion=3.202257 health=20.0 mode=SURVIVAL
+[17:36:37 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=10.0 exhaustion=0.22225714 health=20.0 mode=SURVIVAL
+[17:36:38 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=10.0 exhaustion=0.79559046 health=20.0 mode=SURVIVAL
+[17:36:39 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=10.0 exhaustion=1.7489239 health=20.0 mode=SURVIVAL
+[17:36:40 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=10.0 exhaustion=2.768924 health=20.0 mode=SURVIVAL
+[17:36:41 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=10.0 exhaustion=3.7867024 health=20.0 mode=SURVIVAL
+[17:36:42 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=9.0 exhaustion=0.051146984 health=20.0 mode=SURVIVAL
+[17:36:43 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=9.0 exhaustion=1.0689247 health=20.0 mode=SURVIVAL
+[17:36:44 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=9.0 exhaustion=2.0867026 health=20.0 mode=SURVIVAL
+[17:36:45 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=9.0 exhaustion=2.5955918 health=20.0 mode=SURVIVAL
+[17:36:46 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=9.0 exhaustion=3.6155922 health=20.0 mode=SURVIVAL
+[17:36:47 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=8.0 exhaustion=0.6333703 health=20.0 mode=SURVIVAL
+[17:36:48 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=8.0 exhaustion=1.1422591 health=20.0 mode=SURVIVAL
+[17:36:49 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=8.0 exhaustion=2.160037 health=20.0 mode=SURVIVAL
+[17:36:50 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=8.0 exhaustion=3.1778154 health=20.0 mode=SURVIVAL
+[17:36:51 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=8.0 exhaustion=3.6867046 health=20.0 mode=SURVIVAL
+[17:36:52 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=7.0 exhaustion=0.7044829 health=20.0 mode=SURVIVAL
+[17:36:53 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=7.0 exhaustion=1.7222607 health=20.0 mode=SURVIVAL
+[17:36:54 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=7.0 exhaustion=2.23115 health=20.0 mode=SURVIVAL
+[17:36:55 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=7.0 exhaustion=3.2511504 health=20.0 mode=SURVIVAL
+[17:36:56 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=7.0 exhaustion=3.824484 health=20.0 mode=SURVIVAL
+[17:36:57 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=0.533373 health=20.0 mode=SURVIVAL
+[17:36:58 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=1.5511508 health=20.0 mode=SURVIVAL
+[17:36:59 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=2.124484 health=20.0 mode=SURVIVAL
+[17:37:00 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=3.077818 health=20.0 mode=SURVIVAL
+[17:37:01 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=5.0 exhaustion=0.09559631 health=20.0 mode=SURVIVAL
+[17:37:02 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=5.0 exhaustion=0.6689296 health=20.0 mode=SURVIVAL
+[17:37:03 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=5.0 exhaustion=1.6222631 health=20.0 mode=SURVIVAL
+[17:37:04 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=5.0 exhaustion=2.6422634 health=20.0 mode=SURVIVAL
+[17:37:05 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=5.0 exhaustion=3.6600418 health=20.0 mode=SURVIVAL
+[17:37:06 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=4.0 exhaustion=0.168931 health=20.0 mode=SURVIVAL
+[17:37:07 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=4.0 exhaustion=1.188931 health=20.0 mode=SURVIVAL
+[17:37:08 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=4.0 exhaustion=2.206709 health=20.0 mode=SURVIVAL
+[17:37:09 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=4.0 exhaustion=2.715598 health=20.0 mode=SURVIVAL
+[17:37:10 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=4.0 exhaustion=3.7355986 health=20.0 mode=SURVIVAL
+[17:37:11 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=3.0 exhaustion=0.30893236 health=20.0 mode=SURVIVAL
+[17:37:12 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=3.0 exhaustion=1.2622657 health=20.0 mode=SURVIVAL
+[17:37:13 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=3.0 exhaustion=2.2822657 health=20.0 mode=SURVIVAL
+[17:37:14 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=3.0 exhaustion=2.8555994 health=20.0 mode=SURVIVAL
+[17:37:15 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=3.0 exhaustion=3.8089333 health=20.0 mode=SURVIVAL
+[17:37:16 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=2.0 exhaustion=0.82893354 health=20.0 mode=SURVIVAL
+[17:37:17 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=2.0 exhaustion=1.4022667 health=20.0 mode=SURVIVAL
+[17:37:18 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=2.0 exhaustion=2.3556 health=20.0 mode=SURVIVAL
+[17:37:19 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=2.0 exhaustion=3.3756006 health=20.0 mode=SURVIVAL
+[17:37:20 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=2.0 exhaustion=3.9489343 health=20.0 mode=SURVIVAL
+[17:37:21 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=1.0 exhaustion=0.65782326 health=20.0 mode=SURVIVAL
+[17:37:22 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=1.0 exhaustion=1.6778232 health=20.0 mode=SURVIVAL
+[17:37:23 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=1.0 exhaustion=2.2533789 health=20.0 mode=SURVIVAL
+[17:37:24 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=1.0 exhaustion=3.2067127 health=20.0 mode=SURVIVAL
+[17:37:25 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=0.22671318 health=20.0 mode=SURVIVAL
+[17:37:26 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=0.8000465 health=20.0 mode=SURVIVAL
+[17:37:27 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=1.75338 health=20.0 mode=SURVIVAL
+[17:37:28 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=2.7733803 health=20.0 mode=SURVIVAL
+[17:37:29 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=3.346714 health=20.0 mode=SURVIVAL
+[17:37:29 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_BEFORE target=19 cancelled=false player=HungerProbe food=20 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:29 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_AFTER target=19 cancelled=false player=HungerProbe food=20 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:30 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:30 INFO]: [MobaAcceptanceFixture] HUNGER_EXHAUST reason=WALK amount=0.0 cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:31 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:32 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:32 INFO]: [MobaAcceptanceFixture] HUNGER_CONSUME item=BREAD cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:32 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_BEFORE target=24 cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:32 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_AFTER target=24 cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:33 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=0.30004787 health=20.0 mode=SURVIVAL
+[17:37:34 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=0.0 exhaustion=0.0 health=20.0 mode=SURVIVAL
+[17:37:34 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_BEFORE target=19 cancelled=false player=HungerProbe food=20 saturation=0.0 exhaustion=4.666667 health=20.0 mode=SURVIVAL
+[17:37:34 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_AFTER target=19 cancelled=false player=HungerProbe food=20 saturation=0.0 exhaustion=4.666667 health=20.0 mode=SURVIVAL
+[17:37:34 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_BEFORE target=18 cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.666667 health=20.0 mode=SURVIVAL
+[17:37:34 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_AFTER target=18 cancelled=false player=HungerProbe food=19 saturation=0.0 exhaustion=0.666667 health=20.0 mode=SURVIVAL
+[17:37:35 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=18 saturation=0.0 exhaustion=1.1111114 health=20.0 mode=SURVIVAL
+[17:37:36 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:37 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:38 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:38 INFO]: [MobaAcceptanceFixture] HUNGER_CONSUME item=BREAD cancelled=false player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:38 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_BEFORE target=23 cancelled=false player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:38 INFO]: [MobaAcceptanceFixture] HUNGER_FOOD_AFTER target=23 cancelled=false player=HungerProbe food=18 saturation=0.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL
+[17:37:39 INFO]: [MobaAcceptanceFixture] HUNGER_SAMPLE player=HungerProbe food=20 saturation=6.0 exhaustion=1.6111114 health=20.0 mode=SURVIVAL

@@ -1,0 +1,12 @@
+{
+  "tests": 205,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_suites": 38,
+  "command": "JAVA_HOME=<Minecraft Java 21 home> ./gradlew build",
+  "source_sha256": {
+    "implementation/plugin/src/main/java/com/minecraftmoba/plugin/RenewableKinds.java": "135ece2d01f4d4a86ddcc8ac4e5b7be1f2b94749d90f2c820c24c961f22febd7",
+    "implementation/plugin/src/main/resources/config.yml": "cb8029b58b11f0d041fa95991664c3e9f84d764c8e1efd1db110daec4bbd862e"
+  }
+}

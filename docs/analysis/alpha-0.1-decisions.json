@@ -1,0 +1,105 @@
+{
+ "schema": "alpha_decisions/1",
+ "status": "DESIGN AUTHORITY for Alpha 0.1",
+ "date": "2026-09-20",
+ "scope": "Binding for Alpha 0.1 implementation. An Alpha-scope decision does not promote itself to canon; where a decision is deliberately narrowed to Alpha, the narrowing is stated.",
+ "audit": "docs/analysis/alpha-0.1-implementation-audit.md",
+ "map": "docs/analysis/alpha-0.1-map-freeze.json",
+ "decisions": [
+  {
+   "id": "ALPHA-D1",
+   "topic": "Teams",
+   "status": "DECIDED",
+   "decision": "Every participating player has exactly one match-team assignment, North or South. The assignment is total and exclusive: no player is unassigned and no player holds more than one.",
+   "alpha_scope": "Admin/debug assignment only. Automatic team formation, balancing, queueing and party handling are out of scope for Alpha 0.1.",
+   "unblocks": "P0.3 team-state semantics",
+   "implementation_consequences": [
+    "PlayerData gains an authoritative team field, as match-scoped state rather than a persistent player property.",
+    "Contributions.capitalize(worksiteId, team) currently takes a bare String; it should consume the authoritative team type once one exists.",
+    "Team assignment is cleared by match reset, per ALPHA-D2."
+   ],
+   "not_decided": [
+    "how teams are formed outside Alpha",
+    "whether team is ever persistent across matches",
+    "team size limits or enforcement"
+   ]
+  },
+  {
+   "id": "ALPHA-D2",
+   "topic": "Match reset",
+   "status": "DECIDED",
+   "decision": "Each match operates on a disposable, restorable instance of the frozen Consolidative Alpha world. Reset returns the world to its pristine Alpha template and clears all match-scoped plugin and player state.",
+   "explicitly_rejected": "Piecemeal block rollback. Reset is not defined as undoing individual world edits.",
+   "unblocks": "P0.7 reset semantics",
+   "implementation_consequences": [
+    "The Alpha world becomes a TEMPLATE plus a per-match INSTANCE. Loading a match and resetting a match are then the same mechanism: unload the instance, copy the template, load it. This merges audit items P0.2 and P0.7 into one instance-lifecycle component.",
+    "The template lives at artifacts/worldgen/alpha-0.1/consolidative-alpha and must be treated as read-only in practice.",
+    "Match-scoped plugin state to clear: team assignment, match state, renewable population, Route designations, Worksite state, infra mode.",
+    "Player progression state is match-scoped for Alpha and is therefore cleared. This follows from 'all match-scoped plugin/player state' and is recorded explicitly so the implementation does not have to infer it.",
+    "Paper cannot replace a loaded world in place, so the instance must be unloaded before the template is copied over it.",
+    "Disk cost is roughly 28 MB per instance; instances are disposable and should not be committed."
+   ],
+   "not_decided": [
+    "whether any player state survives a match in later versions",
+    "how many instances may exist at once"
+   ]
+  },
+  {
+   "id": "ALPHA-D3",
+   "topic": "Victory condition",
+   "status": "DECIDED",
+   "decision": "A team wins when the opposing team has no remaining living participating players while that team's Aether Fountain is disabled.",
+   "canon_reference": "objectives.md:233 - superseded for Alpha by this decision; the Fountain-to-victory transition is now specified for Alpha 0.1.",
+   "blocks": [],
+   "fountain_semantics": "Fountain disable is not itself victory. It disables that team's ability to respawn. Players already alive remain active and must subsequently be eliminated.",
+   "terminal_sequence": [
+    "breach/expose Fountain",
+    "disable Fountain",
+    "enemy respawning ceases",
+    "eliminate all surviving enemy participating players",
+    "victory"
+   ],
+   "alpha_scope": "Fountain disable is irreversible for the remainder of the match. Repair and reactivation remain unresolved and must not be invented now.",
+   "still_unresolved": "The prerequisite/exposure relationship between Pillager Outpost, Nether Bastion, End Tower and Aether Fountain. Do not canonize an exposure rule merely to implement Alpha lifecycle testing; debug/admin controls may force Fountain availability and disable state.",
+   "implementation_rule": "Implement the real victory predicate even though Alpha is solo-tested. Debug/admin tooling may create or force the state needed to exercise the predicate; it must not replace the actual victory rule with a solo-only win button.",
+   "unblocks": [
+    "P0.6 victory",
+    "P0.7 match end trigger"
+   ]
+  },
+  {
+   "id": "ALPHA-D4",
+   "topic": "Reconstruction at the Aether Fountain",
+   "status": "DECIDED",
+   "provenance": "Not a new decision. This records an already-established mechanic that the Alpha implementation notes had not recognized, and which an earlier Alpha implementation had approximated as a plain restoration field.",
+   "decision": "Death with a functioning friendly Aether Fountain returns the player to that Fountain immediately, retaining ordinary inventory under the existing KeepInventory model, at approximately 1 Health and 1 Hunger. Health and Hunger then RECONSTRUCT at fixed absolute rates while the player remains at the Fountain. The player may leave voluntarily at any point, including before fully reconstructed. A living player who returns to their functioning friendly Fountain uses the same free reconstruction.",
+   "rates": "Fixed absolute rates. NOT percentages of maximum and NOT level-scaled. It follows that raising Health/Hunger maxima lengthens full reconstruction rather than leaving it constant, so Capacity carries a cost as well as a benefit.",
+   "nonfunctioning_fountain": [
+    "Reconstruction stops immediately.",
+    "A player already reconstructing remains ALIVE with their current partial Health/Hunger and their normal maxima. The Fountain falling neither kills nor diminishes anyone.",
+    "Subsequent deaths cannot respawn or reconstruct and are permanent."
+   ],
+   "feeds": "ALPHA-D3: Fountain disabled -> respawns cease -> existing survivors remain -> subsequent deaths permanently eliminate them -> eliminate all survivors for victory.",
+   "saturation": "Out of scope. Current authority specifies Health and Hunger only; reconstructed Hunger is ordinary unsaturated Hunger and drains normally once the player leaves. Do not add saturation reconstruction unless separately established.",
+   "alpha_scope": "Exact Health/sec and Hunger/sec values, the arrival values, and the Fountain radius remain unresolved balance parameters and are NON-CANON ALPHA FIXTURES in config (features.fountainRegen). Alpha also continues to treat Fountain disablement as irreversible per ALPHA-D3.",
+   "preserved_distinction": "The broader design distinguishes temporary Fountain obstruction/repair from permanent physical destruction. Alpha's irreversible disablement is a lifecycle SIMPLIFICATION of that distinction, not a replacement for it; the distinction is not to be rewritten out of the broader design.",
+   "still_unresolved": [
+    "the reconstruction rates themselves",
+    "obstruction/repair vs permanent destruction as distinct Fountain states outside Alpha",
+    "whether reconstruction interacts with combat (e.g. interruption on damage)"
+   ]
+  }
+ ],
+ "still_open_after_these_decisions": [
+  "Fountain exposure/prerequisite relationship with Outpost, Bastion and Tower (P1); must not be invented for lifecycle testing",
+  "Fountain repair and reactivation (P1); irreversible for Alpha 0.1",
+  "respawn destination (P1); Recall.java:83 records the recall destination as unresolved",
+  "class x contribution matrix (P2); Contributions.java:29"
+ ],
+ "implementation_hold": "LIFTED 20 September 2026. The P0 pass proceeds in dependency order.",
+ "confirmations": [
+  "Player progression and levels are match-scoped and reset between matches.",
+  "The pristine-template world-instance lifecycle is authoritative for Alpha reset.",
+  "An instance must be unloaded before restoration or replacement. This is an implementation constraint, not a game mechanic."
+ ]
+}

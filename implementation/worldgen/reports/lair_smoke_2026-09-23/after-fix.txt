@@ -1,0 +1,14 @@
+bound site=200,66,200 state=DORMANT
+night=1 stage=WORKSITE_I state=DORMANT scheduled=null occupantChanged=false entity=NONE previousStillAlive=false
+night=2 stage=GIANT state=ALIVE scheduled=GIANT occupantChanged=true entity=GIANT previousStillAlive=false
+night=3 stage=WORKSITE_II state=ALIVE scheduled=GIANT occupantChanged=false entity=GIANT previousStillAlive=true
+night=4 stage=GHAST state=ALIVE scheduled=GHAST occupantChanged=true entity=GHAST previousStillAlive=false
+night=4 moved Ghast to 500,500 (away from socket)
+night=5 stage=WORKSITE_III state=ALIVE scheduled=GHAST occupantChanged=false entity=NONE previousStillAlive=false
+night=5 ghastLifecycleAlive=true reachable=false entityLookup=false
+night=6 stage=DRAGON state=ALIVE scheduled=ENDER_DRAGON occupantChanged=true entity=ENDER_DRAGON previousStillAlive=false
+reloaded far chunk; pendingRemovals=0
+pendingRemovals=0 report=lair=DORMANT pendingRemovals=0 site=200.0,66.0,200.0 scheduled=ENDER_DRAGON occupant=null lastVictory=SiegeOpportunity[boss=ENDER_DRAGON, victoriousTeam=null, pairedObjective=END_SPIKE] siegeAdvantage=UNRESOLVED
+kill occupant resolved=true state=DORMANT lastVictory=SiegeOpportunity[boss=ENDER_DRAGON, victoriousTeam=null, pairedObjective=END_SPIKE]
+sweepTagged removed=0
+leftover bosses after reset=0

@@ -1,0 +1,345 @@
+{
+  "balance_weight": 2.0,
+  "containment": "each team's sites are restricted to samples closer to its own homeland than to the rival, and no further from the rival than the homeland itself, so nothing is proposed in enemy territory or behind its own base",
+  "corridor": "forward layers are constrained to the cheapest route between the two homelands, so they sit on ground an attacker crosses rather than merely on ground the rival finds expensive",
+  "evidence_state": "DERIVED MEASUREMENT",
+  "method": "homeland-relative depth bands over the existing oriented feature grid",
+  "not_covered": [
+    "block-exact placement; proposals are candidate regions at sample resolution",
+    "sightlines, verticality and interior layout",
+    "the authored builds themselves, including the Fountain water and glowstone",
+    "disable conditions, exposure and reactivation, which objectives.md leaves unresolved",
+    "final selection or acceptance of any site"
+  ],
+  "own_half_samples": {
+    "north": 4838,
+    "south": 4514
+  },
+  "pairing": "sites are chosen as a pair per layer, maximising min(quality) minus the gap between the two teams, because equivalent baseline opportunity is the requirement rather than each team's own best ground. Each entry reports best_ignoring_rival_and_clearance, which is that team's top pool entry disregarding BOTH the rival and any ground already taken by an earlier structure, so balance_cost is an upper bound on what equivalence actually cost rather than an exact figure.",
+  "resolution_blocks": 8,
+  "schema": "team_structure_sites/1",
+  "symmetry": [
+    {
+      "home_distance_gap": 211.058,
+      "layer": "pillager_outpost",
+      "note": "equivalent baseline opportunity is the requirement; identical geography is not",
+      "quality_gap": 0.0046
+    },
+    {
+      "home_distance_gap": 169.928,
+      "layer": "nether_bastion",
+      "note": "equivalent baseline opportunity is the requirement; identical geography is not",
+      "quality_gap": 0.0066
+    },
+    {
+      "home_distance_gap": 123.226,
+      "layer": "end_tower",
+      "note": "equivalent baseline opportunity is the requirement; identical geography is not",
+      "quality_gap": 0.0055
+    },
+    {
+      "home_distance_gap": 28.284,
+      "layer": "aether_fountain",
+      "note": "equivalent baseline opportunity is the requirement; identical geography is not",
+      "quality_gap": 0.0013
+    }
+  ],
+  "teams": {
+    "north": {
+      "aether_fountain": {
+        "balance_cost": 0.051,
+        "best_ignoring_rival_and_clearance": 1.7928,
+        "candidates": [
+          {
+            "advance": 0.0,
+            "approach": {
+              "approach_spread": 26.627,
+              "cheapest_approach_mean": 33.657,
+              "ring_samples": 32
+            },
+            "depth_error": 0.15,
+            "home_distance": 0.0,
+            "pad": {
+              "buildable_fraction": 1.0,
+              "canopy_fraction": 0.0,
+              "cells": 25,
+              "relief_y": 1,
+              "water_fraction": 0.0
+            },
+            "quality": 1.7418,
+            "sample": [
+              38,
+              8
+            ],
+            "world_xyz": [
+              -2172,
+              70,
+              -460
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.15,
+        "label": "Aether Fountain",
+        "radius_samples": 2
+      },
+      "end_tower": {
+        "balance_cost": 0.78,
+        "best_ignoring_rival_and_clearance": 1.9492,
+        "candidates": [
+          {
+            "advance": 0.1883,
+            "approach": {
+              "approach_spread": 311.457,
+              "cheapest_approach_mean": 37.971,
+              "ring_samples": 32
+            },
+            "depth_error": 0.0265,
+            "home_distance": 356.262,
+            "pad": {
+              "buildable_fraction": 0.72,
+              "canopy_fraction": 0.0,
+              "cells": 25,
+              "relief_y": 5,
+              "water_fraction": 0.0
+            },
+            "quality": 1.1692,
+            "sample": [
+              64,
+              30
+            ],
+            "world_xyz": [
+              -1964,
+              71,
+              -284
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.35,
+        "label": "End Tower",
+        "radius_samples": 2
+      },
+      "nether_bastion": {
+        "balance_cost": 0.8761,
+        "best_ignoring_rival_and_clearance": 1.6917,
+        "candidates": [
+          {
+            "advance": 0.315,
+            "approach": {
+              "approach_spread": 54.571,
+              "cheapest_approach_mean": 50.906,
+              "ring_samples": 32
+            },
+            "depth_error": 0.0799,
+            "home_distance": 583.539,
+            "pad": {
+              "buildable_fraction": 0.68,
+              "canopy_fraction": 0.0,
+              "cells": 25,
+              "relief_y": 9,
+              "water_fraction": 0.0
+            },
+            "quality": 0.8156,
+            "sample": [
+              65,
+              50
+            ],
+            "world_xyz": [
+              -1956,
+              77,
+              -124
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.55,
+        "label": "Nether Bastion",
+        "radius_samples": 2
+      },
+      "pillager_outpost": {
+        "balance_cost": 0.171,
+        "best_ignoring_rival_and_clearance": 1.9635,
+        "candidates": [
+          {
+            "advance": 0.335,
+            "approach": {
+              "approach_spread": 152.371,
+              "cheapest_approach_mean": 25.105,
+              "ring_samples": 24
+            },
+            "depth_error": 0.08,
+            "home_distance": 616.681,
+            "pad": {
+              "buildable_fraction": 1.0,
+              "canopy_fraction": 0.0,
+              "cells": 9,
+              "relief_y": 2,
+              "water_fraction": 0.0
+            },
+            "quality": 1.7925,
+            "sample": [
+              57,
+              54
+            ],
+            "world_xyz": [
+              -2020,
+              67,
+              -92
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.75,
+        "label": "Pillager Outpost",
+        "radius_samples": 1
+      }
+    },
+    "south": {
+      "aether_fountain": {
+        "balance_cost": 0.0,
+        "best_ignoring_rival_and_clearance": 1.7405,
+        "candidates": [
+          {
+            "advance": 0.0155,
+            "approach": {
+              "approach_spread": 45.995,
+              "cheapest_approach_mean": 38.314,
+              "ring_samples": 32
+            },
+            "depth_error": 0.1191,
+            "home_distance": 28.284,
+            "pad": {
+              "buildable_fraction": 1.0,
+              "canopy_fraction": 0.0,
+              "cells": 25,
+              "relief_y": 2,
+              "water_fraction": 0.0
+            },
+            "quality": 1.7405,
+            "sample": [
+              59,
+              117
+            ],
+            "world_xyz": [
+              -2004,
+              72,
+              412
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.15,
+        "label": "Aether Fountain",
+        "radius_samples": 2
+      },
+      "end_tower": {
+        "balance_cost": 0.2658,
+        "best_ignoring_rival_and_clearance": 1.4405,
+        "candidates": [
+          {
+            "advance": 0.1181,
+            "approach": {
+              "approach_spread": 285.695,
+              "cheapest_approach_mean": 50.484,
+              "ring_samples": 32
+            },
+            "depth_error": 0.1137,
+            "home_distance": 233.036,
+            "pad": {
+              "buildable_fraction": 0.92,
+              "canopy_fraction": 0.32,
+              "cells": 25,
+              "relief_y": 4,
+              "water_fraction": 0.0
+            },
+            "quality": 1.1747,
+            "sample": [
+              73,
+              110
+            ],
+            "world_xyz": [
+              -1892,
+              69,
+              356
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.35,
+        "label": "End Tower",
+        "radius_samples": 2
+      },
+      "nether_bastion": {
+        "balance_cost": 0.3315,
+        "best_ignoring_rival_and_clearance": 1.1405,
+        "candidates": [
+          {
+            "advance": 0.4101,
+            "approach": {
+              "approach_spread": 173.964,
+              "cheapest_approach_mean": 48.749,
+              "ring_samples": 32
+            },
+            "depth_error": 0.2702,
+            "home_distance": 753.467,
+            "pad": {
+              "buildable_fraction": 0.88,
+              "canopy_fraction": 0.32,
+              "cells": 25,
+              "relief_y": 5,
+              "water_fraction": 0.0
+            },
+            "quality": 0.809,
+            "sample": [
+              67,
+              77
+            ],
+            "world_xyz": [
+              -1940,
+              68,
+              92
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.55,
+        "label": "Nether Bastion",
+        "radius_samples": 2
+      },
+      "pillager_outpost": {
+        "balance_cost": 0.0,
+        "best_ignoring_rival_and_clearance": 1.7971,
+        "candidates": [
+          {
+            "advance": 0.4311,
+            "approach": {
+              "approach_spread": 322.371,
+              "cheapest_approach_mean": 30.676,
+              "ring_samples": 24
+            },
+            "depth_error": 0.1121,
+            "home_distance": 827.739,
+            "pad": {
+              "buildable_fraction": 1.0,
+              "canopy_fraction": 0.0,
+              "cells": 9,
+              "relief_y": 1,
+              "water_fraction": 0.0
+            },
+            "quality": 1.7971,
+            "sample": [
+              61,
+              73
+            ],
+            "world_xyz": [
+              -1988,
+              73,
+              60
+            ]
+          }
+        ],
+        "intended_depth_fraction": 0.75,
+        "label": "Pillager Outpost",
+        "radius_samples": 1
+      }
+    }
+  },
+  "travel_band": {
+    "north": 1783.869,
+    "south": 1775.575
+  }
+}
