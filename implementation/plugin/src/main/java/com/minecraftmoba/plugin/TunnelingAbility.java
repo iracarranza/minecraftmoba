@@ -26,8 +26,7 @@ final class TunnelingAbility implements Ability {
     public boolean execute(Player p, AbilityContext ctx) {
         if (active(p)) return true;
         var hit = p.rayTraceBlocks(config.getDouble("targetDistance"), FluidCollisionMode.NEVER);
-        Vector direction = hit == null || hit.getHitBlockFace() == null
-            ? quantize(p.getLocation().getDirection()) : hit.getHitBlockFace().getDirection().multiply(-1);
+        Vector direction = quantize(p.getLocation().getDirection());
         if (direction.lengthSquared() == 0) return false;
         direction.normalize();
         String branch = ctx.branchFor("tunneling");
@@ -45,6 +44,7 @@ final class TunnelingAbility implements Ability {
             if (s.progress >= max) { cancel(p); continue; }
             if (!"dig_in".equals(s.branch) && externallyDisplaced(p, s)) { p.sendMessage("Tunneling interrupted."); cancel(p); continue; }
             if (!clearAhead(p, s)) { p.sendMessage("Tunneling stopped by impassable terrain."); cancel(p); continue; }
+            if (!s.readyToMove) { p.setVelocity(new Vector()); continue; }
             double speed = config.getDouble("speed") * ("bore".equals(s.branch) ? config.getDouble("branch" + "es.bore.speedMultiplier") : 1.0);
             p.setVelocity(s.direction.clone().multiply(speed));
             s.progress += speed;
@@ -53,9 +53,10 @@ final class TunnelingAbility implements Ability {
     }
     private boolean externallyDisplaced(Player p, State s) {
         Vector moved = p.getLocation().toVector().subtract(s.lastLocation.toVector());
-        return moved.lengthSquared() > config.getDouble("interruptDisplacementSquared")
-            && moved.clone().subtract(s.direction.clone().multiply(moved.dot(s.direction))).lengthSquared()
-                > config.getDouble("interruptOffPathSquared");
+        double along = moved.dot(s.direction);
+        Vector lateral = moved.clone().subtract(s.direction.clone().multiply(along));
+        return (along < -0.025 || lateral.lengthSquared() > config.getDouble("interruptOffPathSquared"))
+            && moved.lengthSquared() > 0.0025;
     }
     private boolean clearAhead(Player p, State s) {
         int width = "gallery".equals(s.branch) ? config.getInt("branch" + "es.gallery.width") : config.getInt("width");
@@ -71,8 +72,25 @@ final class TunnelingAbility implements Ability {
             if (b.getType().getHardness() < 0 || plugin.provenance().isPlayerPlaced(b)) return false;
             blocks.add(b);
         }
-        for (Block b : blocks) if (!b.breakNaturally(tool)) return false;
+        if (blocks.isEmpty()) { s.target = null; s.miningTicks = 0; s.readyToMove = true; return true; }
+        Block target = blocks.get(0);
+        if (s.target == null || !s.target.getLocation().equals(target.getLocation())) { s.target = target; s.miningTicks = 0; }
+        int required = Math.max(1, (int) Math.ceil(target.getType().getHardness() * 6.0 / toolFactor(tool)));
+        s.miningTicks++;
+        if (s.miningTicks < required) { s.readyToMove = false; return true; }
+        if (!target.breakNaturally(tool)) return false;
+        s.target = null; s.miningTicks = 0; s.readyToMove = true;
         return true;
+    }
+    private double toolFactor(ItemStack tool) {
+        String name = tool.getType().name();
+        if (name.contains("NETHERITE")) return 8.0;
+        if (name.contains("DIAMOND")) return 7.0;
+        if (name.contains("IRON")) return 5.0;
+        if (name.contains("GOLDEN")) return 12.0;
+        if (name.contains("STONE")) return 2.0;
+        if (name.contains("WOODEN")) return 1.0;
+        return 0.5;
     }
     private Vector quantize(Vector v) {
         if (Math.abs(v.getY()) > Math.max(Math.abs(v.getX()), Math.abs(v.getZ()))) return new Vector(0, Math.signum(v.getY()), 0);
@@ -80,6 +98,7 @@ final class TunnelingAbility implements Ability {
     }
     private static final class State {
         final Location origin; final Vector direction; final String branch; Location lastLocation; double progress;
+        Block target; int miningTicks; boolean readyToMove = true;
         State(Location origin, Vector direction, String branch, Location lastLocation, double progress) { this.origin=origin; this.direction=direction; this.branch=branch; this.lastLocation=lastLocation; this.progress=progress; }
     }
 }
