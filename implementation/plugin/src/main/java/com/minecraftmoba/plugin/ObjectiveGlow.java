@@ -69,6 +69,24 @@ public final class ObjectiveGlow implements Listener {
      */
     private record Box(Location at, int side, int tall, Team team) {}
 
+    /**
+     * How exactly a ground slab follows the terrain under it, in blocks.
+     *
+     * MEASURED on 99887766, whose eight volumes span 14,792 surface columns:
+     * exact hugging needs 2,157 display entities, +/-1 needs 760, +/-2 needs
+     * 401, +/-3 needs 288. Terrain is locally flat, so a small tolerance
+     * collapses the count fast.
+     *
+     * 1 is chosen because the cost of tolerance is visible: a slab sits at its
+     * rectangle's highest column, so a wider tolerance leaves it floating over
+     * the dips it spans. At +/-1 that reads as contour banding; at +/-3 it
+     * reads as ill-fitting plates. NON-CANON FIXTURE -- an appearance value.
+     */
+    private static final int GROUND_TOLERANCE = 1;
+
+    /** How far above the surface the slab sits, and how thick it is. */
+    private static final float SLAB_LIFT = 1.02f, SLAB_THICKNESS = 0.08f;
+
     /** Half-extents and height of each authored form, from its template. */
     private record Extent(int halfWidth, int height) {}
 
@@ -93,6 +111,8 @@ public final class ObjectiveGlow implements Listener {
     private final MobaPlugin plugin;
     private final List<Box> plan = new ArrayList<>();
     private final Map<Box, UUID> live = new LinkedHashMap<>();
+    private final List<UUID> ground = new ArrayList<>();
+    private final Map<UUID, Team> groundTeam = new LinkedHashMap<>();
 
     public ObjectiveGlow(MobaPlugin plugin) { this.plugin = plugin; }
 
@@ -130,6 +150,7 @@ public final class ObjectiveGlow implements Listener {
             if (fountain != null) box(world, fountain, FOUNTAIN, team);
         }
         for (Box box : plan) draw(box);
+        for (org.bukkit.Chunk c : world.getLoadedChunks()) groundSlabs(c);
         for (Player p : Bukkit.getOnlinePlayers()) apply(p);
         return plan.size();
     }
@@ -151,8 +172,9 @@ public final class ObjectiveGlow implements Listener {
             UUID existing = live.get(box);
             if (existing != null && Bukkit.getEntity(existing) != null) continue;
             draw(box);
-            for (Player p : Bukkit.getOnlinePlayers()) apply(p);
         }
+        groundSlabs(e.getChunk());
+        for (Player p : Bukkit.getOnlinePlayers()) apply(p);
     }
 
     /** Plan one box, centred on the structure's footprint. */
@@ -163,6 +185,89 @@ public final class ObjectiveGlow implements Listener {
         plan.add(new Box(new Location(world,
                 centre.getBlockX(), centre.getBlockY(), centre.getBlockZ()),
                 side, tall, team));
+    }
+
+    /**
+     * Terrain-hugging glow across the ground a team controls.
+     *
+     * The biome tint could not do this. A block only takes a biome colour if it
+     * carries a `tintindex` -- 33 models in the whole game, all vegetation and
+     * water -- so on stone, deepslate or mycelium the tint marked nothing at
+     * all while reporting the same painted-cell count as a meadow. Rendered
+     * geometry does not care what the ground is made of.
+     *
+     * Built per chunk rather than per volume, for the reason the tint's first
+     * survey had to be rewritten: reading surface heights across a whole volume
+     * at bind time forces chunk loads and stalls the main thread. Here the
+     * chunk is already loaded, so the heights are free.
+     *
+     * The structure's own footprint is skipped -- marking the ground is the
+     * point, and outlining the building is what the box already does.
+     */
+    private void groundSlabs(org.bukkit.Chunk chunk) {
+        World world = chunk.getWorld();
+        for (Box box : plan) {
+            if (!world.equals(box.at().getWorld())) continue;
+            int half = box.side() / 2;
+            int cx0 = chunk.getX() << 4, cz0 = chunk.getZ() << 4;
+            int x0 = Math.max(box.at().getBlockX() - half, cx0);
+            int x1 = Math.min(box.at().getBlockX() + half, cx0 + 15);
+            int z0 = Math.max(box.at().getBlockZ() - half, cz0);
+            int z1 = Math.min(box.at().getBlockZ() + half, cz0 + 15);
+            if (x0 > x1 || z0 > z1) continue;
+            int keepOut = Math.max(0, half - MARGIN);   // the structure's own span
+            int w = x1 - x0 + 1, d = z1 - z0 + 1;
+            int[][] height = new int[w][d];
+            boolean[][] taken = new boolean[w][d];
+            for (int i = 0; i < w; i++)
+                for (int j = 0; j < d; j++) {
+                    int x = x0 + i, z = z0 + j;
+                    boolean inStructure = Math.abs(x - box.at().getBlockX()) <= keepOut
+                            && Math.abs(z - box.at().getBlockZ()) <= keepOut;
+                    taken[i][j] = inStructure;
+                    height[i][j] = inStructure ? 0 : world.getHighestBlockYAt(x, z);
+                }
+            for (int i = 0; i < w; i++)
+                for (int j = 0; j < d; j++) {
+                    if (taken[i][j]) continue;
+                    int base = height[i][j], top = base, rw = 0;
+                    while (j + rw < d && !taken[i][j + rw]
+                            && Math.abs(height[i][j + rw] - base) <= GROUND_TOLERANCE) {
+                        top = Math.max(top, height[i][j + rw]); rw++;
+                    }
+                    int rd = 1;
+                    outer:
+                    while (i + rd < w) {
+                        for (int c = 0; c < rw; c++)
+                            if (taken[i + rd][j + c]
+                                    || Math.abs(height[i + rd][j + c] - base) > GROUND_TOLERANCE)
+                                break outer;
+                        for (int c = 0; c < rw; c++) top = Math.max(top, height[i + rd][j + c]);
+                        rd++;
+                    }
+                    for (int a = i; a < i + rd; a++)
+                        for (int b = j; b < j + rw; b++) taken[a][b] = true;
+                    slab(world, x0 + i, top, z0 + j, rw, rd, box.team());
+                }
+        }
+    }
+
+    /** One flat glowing patch lying just above the ground. */
+    private void slab(World world, int x, int y, int z, int w, int d, Team team) {
+        BlockDisplay display = world.spawn(new Location(world, x, y, z), BlockDisplay.class, e -> {
+            e.setBlock(Material.GLASS.createBlockData());
+            e.setGlowing(true);
+            e.setPersistent(false);
+            e.setBrightness(new Display.Brightness(15, 15));
+            e.addScoreboardTag(TAG);
+            e.setTransformation(new Transformation(
+                    new Vector3f(0f, SLAB_LIFT, 0f),
+                    new AxisAngle4f(0f, 0f, 0f, 1f),
+                    new Vector3f(d, SLAB_THICKNESS, w),
+                    new AxisAngle4f(0f, 0f, 0f, 1f)));
+        });
+        ground.add(display.getUniqueId());
+        groundTeam.put(display.getUniqueId(), team);
     }
 
     /** Spawn the entity that draws a planned box. */
@@ -218,6 +323,12 @@ public final class ObjectiveGlow implements Listener {
             var scoreboardTeam = teams.get(entry.getKey().team());
             if (scoreboardTeam != null) scoreboardTeam.addEntry(entry.getValue().toString());
         }
+        for (var entry : groundTeam.entrySet()) {
+            Entity e = Bukkit.getEntity(entry.getKey());
+            if (e == null || !e.getScoreboardTags().contains(TAG)) continue;
+            var scoreboardTeam = teams.get(entry.getValue());
+            if (scoreboardTeam != null) scoreboardTeam.addEntry(entry.getKey().toString());
+        }
     }
 
     /** Forget the plan and remove every box. Sweeps by tag for orphans. */
@@ -226,7 +337,13 @@ public final class ObjectiveGlow implements Listener {
             Entity e = Bukkit.getEntity(id);
             if (e != null) e.remove();
         }
+        for (UUID id : ground) {
+            Entity e = Bukkit.getEntity(id);
+            if (e != null) e.remove();
+        }
         live.clear();
+        ground.clear();
+        groundTeam.clear();
         plan.clear();
         for (World w : Bukkit.getWorlds())
             for (Entity e : w.getEntitiesByClass(BlockDisplay.class))
@@ -257,7 +374,7 @@ public final class ObjectiveGlow implements Listener {
     public String report() {
         long drawn = live.values().stream().filter(id -> Bukkit.getEntity(id) != null).count();
         return "OBJECTIVE_GLOW enabled=" + enabled() + " planned=" + plan.size()
-                + " drawn=" + drawn
+                + " drawn=" + drawn + " groundSlabs=" + ground.size()
                 + " colours={north=" + colour(Team.NORTH) + ", south=" + colour(Team.SOUTH) + "}";
     }
 }
