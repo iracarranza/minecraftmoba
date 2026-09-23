@@ -829,6 +829,21 @@ The intent is multiple competing nighttime opportunities rather than one mandato
 
 # 17B. Regenerative Sources
 
+**Established spatial clarification, 22 September 2026:** Strategic Depth is
+Homebase/opening-relative and governs permitted richness/novelty; Regional
+Character governs ecologically/geographically sensible kinds. Lower depth
+supports less-rich opportunity in quantity/concentration **and** specialization;
+deeper Wilderness may support larger concentrations, specialized kinds, or both.
+The Homebase-supported region provides distributed useful opening opportunity,
+not a nearby dominant full-team regenerative objective. Equal N/S species and
+source counts are not required. Exact tiers, richness, species assignment and
+recovery curves remain **Open**. See [maps.md](maps.md#competitive-spatial-contract--established-clarification-22-september-2026).
+
+Current runtime Source/Kind/depletion/recovery/manifestation is implemented;
+the generic depth/character authoring policy is not. Configured capacities and
+recovery magnitudes are analytical fixtures, not that policy. Preserve the
+runtime machinery. `RenewableKinds` intentionally has no depth/value/region.
+
 **Working direction, 12 September 2026.** The regenerative-resource system has three top-level buckets: **crops and plant resources**, **animal populations**, and **hostile Mob Swarms**. They are generated with a spatial depth and value gradient; the spatial rules belong to [maps.md](maps.md#regenerative-source-depth-gradient--working) and the economic role belongs here.
 
 The core rule is that regenerating resources increase in **economic specificity** with distance from the midpoint and base regions. Do not read this as farther meaning simply more XP, or the same resource in larger stacks. Near and core resources solve broad universal needs; deeper resources are newer, rarer, more specialized or composition-dependent, and support narrower but stronger strategies. Distance therefore increases specialization, niche utility, strategic value and sometimes challenge.
@@ -1315,6 +1330,6 @@ Do not reintroduce the following as current rules without new discussion:
 The objective system should concentrate conflict around meaningful Minecraft opportunities while preserving the broader sandbox as part of the competitive game.
 ## Strategic locations and surrounding traffic
 
-**Established secondary map-design function, 12 September Worldgen and Initial System Balancing branch.** A POI, Worksite, team objective, village or important junction/crossing can act as Q: a reason for recurring entry into or passage through region MNOP. Evaluate the resulting Strategic Exposure along terrain and approach connections as well as inside the objective footprint. Q need not overlap a resource to make its exploitation or remote infrastructure contestable. Exposure is not universally monotonic with regional depth, and low-exposure remote economic settlements remain legitimate. See [maps.md](maps.md#spatial-opportunities-and-initial-balancing).
+**Established secondary map-design function, 12 September Worldgen and Initial System Balancing branch.** A POI, Worksite, team objective, village or important junction/crossing can act as Q: a reason for recurring entry into or passage through region MNOP. Evaluate the resulting Strategic Exposure along terrain and approach connections as well as inside the objective footprint. Q need not overlap a resource to make its exploitation or remote infrastructure contestable. Exposure is not universally monotonic with Strategic Depth, and low-exposure remote economic settlements remain legitimate. See [maps.md](maps.md#spatial-opportunities-and-initial-balancing).
 
 This function does not make every Q a formal objective or regenerative resource. Existing Mining Outpost finite generated-ore behavior and Industrial Enchanter/Silo activation, finite-window and delivery contracts remain in force. Renewal of world opportunity does not add passive player income, reset Worksites automatically, or dispense objective rewards without their specified human work. Exact traffic modeling is Working; no universal Q radius or visitation rate is selected.

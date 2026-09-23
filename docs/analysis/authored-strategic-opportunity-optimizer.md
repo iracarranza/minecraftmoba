@@ -1,5 +1,13 @@
 # Authored Strategic Opportunity Optimizer
 
+**22 September scope clarification:** preserve Practical Reach, Route spillover
+and physical rescans as measurements. Initial Routes primarily serve Core exits
+and hinterlands; distant target selection and full-map parity objectives are
+prototype assumptions requiring later re-scoping, not guarantees of deep
+Wilderness convenience. Profile counts and weighted travel parity do not prove
+Core/Socket compliance, opening floor/ceiling, or competitive equivalence. See
+[spatial doctrine audit](../audit/2026-09-22-spatial-doctrine.md).
+
 **Status:** Working analysis/tooling. Strategic-profile counts and optimization weights are **NON-CANON ANALYTICAL FIXTURES** unless separately promoted.
 
 ## Purpose

@@ -1,5 +1,14 @@
 # Team-axis deficits, and what authoring can be expected to fix
 
+**22 September doctrine correction:** `deficit`, `opportunity`, `clearable`
+and `physical` below are historical classifier labels, not validated competitive
+diagnoses. N/S Wilderness may differ. `accessible land` counts selected dry
+sampled depth bands outside both homeland footprints, not proven workable or
+productive area. Opportunity count is not cut/fill/clearing or Socket integration
+cost. No terrain compensation or screening gate follows from these numbers.
+Read the [current audit](../audit/2026-09-22-spatial-doctrine.md). Measurements and
+old hypotheses below are retained for traceability, not current prescriptions.
+
 ## The axes, restated because they are easy to collapse
 
 **W–E is the REGIONAL axis.** Contrast there is intentional: forest against

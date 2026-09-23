@@ -18,12 +18,14 @@ import java.util.*;
  * Regenerative Sources seam. Renewal restores availability at a location and
  * grants nothing to anyone; see docs/proposals/2026-09-19-regenerative-sources-seam.md.
  *
- * Source tables ship empty. This registers sources it is given and never
- * generates them, because the depth gradient, regional tables, species and
- * cadence are all recorded [OPEN] in canon.
+ * Source tables began empty; current main supplies Alpha analytical fixtures.
+ * This registers supplied sources and manages their manifestations, not a
+ * generic Strategic Depth / Regional Character authoring policy. Kind vocabulary
+ * carries no depth, value or region; exact policy and cadence remain [OPEN].
  *
- * Recovery is evaluated lazily on access, so cost follows interaction rather
- * than the number of sources in the world. All access is on the server thread.
+ * Current opportunities advance through the scheduled lifecycle; legacy
+ * availability access also has a lazy recovery path. All access is on the
+ * server thread. See docs/audit/2026-09-22-spatial-doctrine.md.
  */
 public final class Renewables implements Listener {
     public enum Type { CROP, ANIMAL, SWARM }

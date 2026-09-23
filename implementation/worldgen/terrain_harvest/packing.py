@@ -7,8 +7,10 @@ ordinary and exceptional geology, major and minor POIs, and snow ecology.
 
 That list is answered **per cell** rather than in aggregate, because a global
 percentage hides the thing that actually bites. Forty percent usable land is
-useless if it is all on one side of the map, and two consumers wanting the same
-cell is a collision that an area total will never show.
+insufficient to decide whether the declared consumers fit; two consumers wanting
+one cell can collide even when the area total looks sufficient. Natural N/S
+area asymmetry is not itself a defect. These historical consumer counts are a
+prototype demand scenario, not the clarified Core/Socket contract.
 
 Method: consume the measured opportunity map, classify each cell by what it can
 host, then fit the declared consumers into cells greedily by suitability and

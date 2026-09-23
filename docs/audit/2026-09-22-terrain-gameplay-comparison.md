@@ -5,6 +5,22 @@
 `faa67483eeb685958f540c9a78585e72dd9b21dd`. No balance, authoring, screening,
 runtime telemetry, or canonical design changes. No gameplay comparison was run.
 
+## 22 September doctrine reconciliation
+
+The question is now explicitly: **Does this permitted wilderness asymmetry
+cause a competitive consequence that the authored-opportunity model fails to
+capture?** Natural N/S difference is allowed; the symmetry guarantee ends at the
+Homebase Core/interface. Task A/B remains a useful contingent comparison of
+opening activity and access burden, not a test of whether terrain statistics
+have been equalized. There is no presumption that S is disadvantaged.
+
+The later [fixture report](../../implementation/worldgen/reports/nearmiss_fixture_2026-09-22/REPORT.md)
+materializes the near-miss but leaves the Route endpoint check and missing wheat
+blocking trials. The [doctrine audit](2026-09-22-spatial-doctrine.md) further
+requires identifying the tested Core/interface and supported-region scope before
+interpreting opening outcomes. Existing coordinates, counts and task definitions
+remain unchanged. Do not run the 16 trials or inject a Task B source in this pass.
+
 ## Finding
 
 **The existing evidence cannot establish an actual gameplay disadvantage.** It
@@ -14,11 +30,13 @@ actual access work and delivered output. A paired human opening-task experiment
 is smaller and more informative than implementing the proposed full expedition
 simulator or adding a new balance score.
 
-The rescue finding remains valid: equal weighted travel to placed opportunities
-does not demonstrate removal of the diagnosed terrain difference. It also does
+The measurement distinction remains valid: equal weighted travel to placed
+opportunities does not describe the natural terrain distribution. Removing that
+difference is not an authoring requirement. It also does
 not establish that compensation or rejection is necessary. Leave both proposed
 design interventions pending evidence. The 991/2,285 qualifying-configuration
-ratio measures this search's authorability, not economic disadvantage in play.
+ratio measures this search's acceptance frequency, not general authorability or
+economic disadvantage in play.
 
 ### What 0.3173 actually measures
 
@@ -30,9 +48,10 @@ excluding both homeland footprints**. It does not test every counted sample for
 buildability, reachable ore, or useful production. “Near-depth workable land” in
 the earlier handoff is shorthand stronger than this implementation warrants.
 Depth-band geography and the player's operating cost are distinct in
-[maps.md](../../maps.md) (regional depth); [infrastructure.md](../../infrastructure.md)
-requires actual transport capability. No canonical contradiction is resolved here;
-this clarifies the analytical implementation, so no design reconciliation is needed.
+[maps.md](../../maps.md) (Strategic Depth); [infrastructure.md](../../infrastructure.md)
+requires actual transport capability. The original audit only clarified analytical implementation. The later explicit
+[spatial reconciliation](../reconciliation/2026-09-22-spatial-doctrine.md) resolves
+the broader design interpretation.
 
 ## Existing measurements and limits
 
@@ -269,7 +288,7 @@ paired differences and their spread; two operators are a feasibility pilot,
 not a statistical fairness certification. Separate resource stock, travel,
 access work, output, and WP—no combined penalty score.
 
-A repeatable near-miss S delay in delivery/setup, explained by more travel or
+A repeatable side-specific delay (either N or S) in delivery/setup, explained by more travel or
 access work and persisting across operators, supports a disadvantage **for these
 configurations and tasks**. Extra WP with slower delivery can still be economic
 harm. Different terrain with similar output times and burdens supplies no harm

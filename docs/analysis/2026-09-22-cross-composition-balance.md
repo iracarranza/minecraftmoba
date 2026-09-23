@@ -1,5 +1,12 @@
 # Does the balance machinery work on seeds that are not ocean-and-highland?
 
+**22 September doctrine correction:** the table measures sampled homeland-pad
+scores and gaps, not competitive map quality. Alpha's smaller gap does not prove
+it was better chosen; 930015734 is not proven unbalanced. The old proposal to
+compensate or screen on that gap alone is superseded. Natural N/S Wilderness
+asymmetry is permitted. Read the [current audit](../audit/2026-09-22-spatial-doctrine.md)
+for the Core/Socket boundary. Numeric results below remain historical evidence.
+
 Yes. Task A's existing fit ran unmodified over eight finalist candidates
 spanning six region pairings, and produced comparable numbers for all of them.
 Nothing in it needed to know what the biomes were.

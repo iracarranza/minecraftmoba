@@ -1,5 +1,14 @@
 # Regenerative Sources — plugin seam
 
+**Historical seam snapshot; implementation clarification, 22 September 2026.**
+The original empty-table/lazy-availability model below records intent at this
+commit, not today's entire runtime. Main now supplies Alpha fixture sources,
+Opportunity Regions, scheduled lifecycle recovery, terrain-queried manifestations
+and membership/provenance. `RenewableKinds` still deliberately carries no
+depth/value/region; source capacities/recovery and temporal/eligibility defaults
+are fixtures, not a generic Strategic Depth × Regional Character policy.
+See [current implementation audit](../audit/2026-09-22-spatial-doctrine.md).
+
 **Working / Prototype-test, 19 September 2026. No content, no balance.**
 This follows SPEC §8's rule: provide the seam, not the content. Source tables
 ship **empty**, exactly as `rewards.levels` does.

@@ -9,6 +9,10 @@ underground hazard. Hazard remains UNRESOLVED until spawn-pressure evidence or
 an explicit sensitivity model exists.
 
 Scenario counts/weights/thresholds in this file are NON-CANON analysis fixtures.
+22 September doctrine: far Route targets and map-wide travel parity are legacy
+search assumptions pending re-scoping to Core exits/hinterlands. This does not
+implement Socket checks, opening floor/ceiling, or a depth/character richness
+policy. Keep emitted metrics descriptive; see docs/audit/2026-09-22-spatial-doctrine.md.
 """
 from __future__ import annotations
 import argparse, json, math, statistics, zipfile

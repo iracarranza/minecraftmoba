@@ -36,6 +36,73 @@ generated Minecraft world
 This is an emergent ecosystem rather than a required linear sequence.
 
 
+## Competitive spatial contract — Established clarification, 22 September 2026
+
+This explicit design clarification supersedes broader homeland-symmetry and
+map-wide starter-Route assumptions below. It does not retune existing fixtures.
+Source and reconciliation: [spatial doctrine record](docs/reconciliation/2026-09-22-spatial-doctrine.md).
+
+A competitive map has three relevant spatial layers:
+
+| Layer | Contract |
+|---|---|
+| **Homebase Core** | A relatively small, heavily authored competitive symmetry kernel. North and South receive functionally mirrored geometry: Aether Fountain, spawn/reconstruction space, required immediate defensive geometry, and explicit wilderness-facing interface/exit(s). Natural terrain may be replaced inside the Core. No accidental natural economic jackpot belongs inside it. |
+| **Homebase-supported region / hinterland** | Predominantly natural terrain surrounding the Core, selected for clean integration and a viable opening. It is **not mirrored**. Distributed low-richness/basic opportunities support useful opening activity, without a single nearby concentration normally making an immediate full-team expedition obviously dominant. Initial Route support primarily serves exits and this region. |
+| **Wilderness** | Natural geography may be substantially asymmetric in canopy, elevation, flat land, caves, resources, biomes and coastline. Strategic opportunities and player-created Infrastructure inhabit it; they do not normalize it. Wilderness may be larger, harsher and less conveniently traversable than earlier prototypes assumed. |
+
+**The symmetry guarantee ends at the Homebase Core/interface.** Functional
+opening opportunity beyond it matters; matching terrain statistics does not.
+A natural difference is not a competitive deficit without evidence of a relevant
+gameplay consequence. Neither lower historical `homeland asymmetry` nor equal
+renewable species/counts is a general quality requirement.
+
+### Homebase Socket
+
+A **Homebase Socket** is a candidate natural area capable of accepting the same
+standardized Core with low, bounded integration cost. Seedfinding seeks two such
+areas, not two naturally mirrored terrain patches. Evaluate:
+
+- physical footprint fit, support and headroom;
+- limited cut/fill/clearing requirement;
+- viable exit/interface into natural terrain;
+- an opening economic floor and an opening opportunity ceiling;
+- a smooth transition from supported terrain into unrestricted Wilderness.
+
+Reject a socket that requires major terrain surgery or a large procedural
+transition halo. Prefer terrain that permits simple reliable authoring over a
+more powerful authorer that forces arbitrary terrain into compliance. The
+transition should require only bounded, terrain-conforming work.
+
+**Open:** exact Core footprint, required immediate defensive elements, exit
+contract, bounds on integration work, and opening floor/ceiling acceptance
+criteria. Existing structure offsets, pad scores and homeland footprints are
+Prototype/test evidence, not an implemented standardized Core/Socket contract.
+This clarification does not relocate the established team objectives or decide
+that all defensive layers must fit inside the Core.
+
+### Two independent spatial axes
+
+**Strategic Depth** is the outward relationship to a team's Homebase/opening
+space. **Regional Character** is position within a Map Type's geographic
+composition. Strategic Depth asks how rich/novel an opportunity may be;
+Regional Character asks which kinds make ecological/geographic sense there.
+Neither is the player's current travel cost after building Infrastructure.
+
+For the emerging **Default Map Type**, Regional Character tends approximately
+from **Ocean → Coast → Open Land → central interior → Forest → Rugged Uplands →
+Alpine/Frozen Peaks**. These are tendencies and gradients, not seven rectangular
+biome stripes. Central interior is not synonymous with deep Wilderness relative
+to either team. The existing east-coast/west-highland orientation is a Working
+Default arrangement, not a rule for every Map Type or a guarantee of identical
+N/S regional composition.
+
+**Working future pipeline, not implemented Map Types:** Map Type macro-geography
+→ team topology → viable Homebase socket pair → wilderness viability →
+authorability → physical verification → PlayableMap. A future Default recognizer
+should seek its intended Overworld gradient; other Map Types will define their
+own macro-geographic search contracts.
+
+
 # Default map
 
 ## Default map thesis — Established direction
@@ -76,7 +143,7 @@ This orthogonality is deliberate.
 - North homeland
 - South homeland
 - team opposition
-- authored Routes projecting from each homeland into the Wilderness
+- initial authored Routes supporting Core exits and hinterlands
 
 ### West
 
@@ -114,9 +181,11 @@ development resources, including:
 - the Aether Fountain;
 - appropriate team defensive objectives.
 
-Baseline homeland opportunity should be **competitively equivalent**.
-
-Literal block-for-block mirroring is not required.
+Baseline opening opportunity should be **functionally competitive**, with a
+useful distributed floor and a ceiling on dominant opening concentrations.
+This resource vocabulary is not a promise of identical species, counts, caves,
+or local richness. The Core/interface receives functionally mirrored geometry;
+the surrounding supported region remains natural and is not mirrored.
 
 The important requirement is that neither team begins with a structurally
 inferior version of the fundamental Minecraft resource vocabulary.
@@ -180,20 +249,20 @@ Meaningful empty connective terrain is part of the map.
 
 ## Authored Routes — Working
 
-Each team has **three major authored Route branches** projecting from its
-homeland.
+Initial/map-authored Routes primarily support Homebase exits and hinterlands.
+They are physical Minecraft infrastructure, not invisible MOBA lanes. They should
+not routinely create convenient highways deep into unrestricted Wilderness or
+directly solve access to distant strategic opportunities. Player-created
+Exploration Infrastructure can subsequently extend useful Route networks deeper
+into the world.
 
-These are physical Minecraft infrastructure, not invisible MOBA lanes.
-
-Villages and major POIs have visible authored Route infrastructure leading
-toward them.
-
-A destination does not necessarily sit directly on a Route, and players remain
-free to approach it off-route, but the Route relationship is an intentional
-part of Default's generated infrastructure rather than merely likely
-proximity.
-
-Routes may also lead toward other strategically useful Wilderness areas.
+The older three-branches-per-team layout and promised authored links toward
+villages/major POIs are **Historical/prototype assumptions**, not the general
+contract. Preserve their measurements and existing fixtures; do not retune Route
+lengths in this doctrine pass. Terrain-weighted paths, Practical Reach, physical
+corridor quality and Route distance remain useful observations, scoped to the
+connection they actually describe rather than a mandate to equalize map-wide
+access.
 
 Players remain free to leave the Routes at any time.
 
@@ -333,8 +402,8 @@ The increase in difficulty should initially be gradual and then become more
 pronounced toward the deep west.
 
 As off-Route western terrain becomes increasingly expensive to traverse,
-authored western Routes should become correspondingly more strategically
-valuable even before accounting for any explicit Route locomotion-efficiency
+player-created western Routes and useful existing starter segments can become
+more strategically valuable even before accounting for any explicit Route locomotion-efficiency
 mechanic.
 
 The mountain must have **depth**.
@@ -480,7 +549,8 @@ The full Wilderness does **not** require literal mirroring.
 
 Current preference:
 
-- baseline homeland opportunity is competitively equivalent;
+- Core/interface geometry is functionally mirrored; natural hinterlands have a
+  viable distributed opening floor and no dominant opening concentration;
 - Wilderness terrain may be asymmetric;
 - resource opportunity may be asymmetric;
 - villages may be asymmetric;
@@ -490,8 +560,8 @@ Current preference:
 Three useful opportunity categories remain:
 
 1. **Baseline**
-   Fundamental starting access whose competitive value is deliberately
-   equivalent.
+   The controlled Core contract plus viable functional opening opportunity in
+   natural supported terrain; no terrain-statistic or species/count matching.
 
 2. **Allocated opportunity**
    Independently generated content whose overall strategic availability is
@@ -673,7 +743,7 @@ Also distinguish whether a resource is:
 
 **Candidate Density** is how many candidate resource opportunities the geography supports per stated spatial unit. Ecology, geology, biome, terrain, and actual resource instances determine the candidate population. **Regenerative Eligibility** identifies which of those opportunities can participate in regeneration. **Regenerative Vocabulary** is the set of resource or encounter kinds eligible to recur in that geography. Vocabulary eligibility does not promise every eligible kind appears in every region.
 
-Regional depth increases both regenerative vocabulary and the fraction of candidate opportunities eligible to regenerate. In the branch's symbolic comparison, shallow A has X/T and deeper Z has Y/T, where Y/T > X/T. X and Y describe eligible subsets, not quotas the generator must fill. The result emerges from candidate resource density, ecology/geology, and eligibility conditions. Identify real candidate opportunities, evaluate their regional conditions, and observe the eligible subset; do not sprinkle enough regenerative nodes onto empty cells to satisfy a percentage.
+Strategic Depth increases both regenerative vocabulary and the fraction of candidate opportunities eligible to regenerate. In the branch's symbolic comparison, shallow A has X/T and deeper Z has Y/T, where Y/T > X/T. X and Y describe eligible subsets, not quotas the generator must fill. The result emerges from candidate resource density, ecology/geology, and eligibility conditions. Identify real candidate opportunities, evaluate their regional conditions, and observe the eligible subset; do not sprinkle enough regenerative nodes onto empty cells to satisfy a percentage.
 
 T is not held equal between real regions. For an implementation using opportunity counts, report X_A/T_A and Y_Z/T_Z with a consistent candidate unit. A depth band is an analytical grouping, not an authored resource polygon. The intended gradient does not require every stochastic region at a greater depth to exceed every shallower region; the comparison scope and acceptance tolerance remain Open. Sparse deep geography may have a high eligible fraction and very few actual recurring sites. At matching spatial units, eligible density is candidate density times the observed eligible fraction; currently available density additionally depends on depletion and renewal state.
 
@@ -683,7 +753,7 @@ T is not held equal between real regions. For an implementation using opportunit
 
 The established reasons for depth and difficulty remain: travel and round-trip commitment, Hunger/provisioning, difficult terrain, danger, uncertainty, search, extraction and return burden, limited immediate access to homeland stores, logistics, infrastructure investment, and specialized regional resource vocabulary. Broader regenerative eligibility and vocabulary add recurring potential to this existing exchange. They do not replace finite rewards, simplify all costs to distance, or assign higher drops automatically.
 
-Regional depth is not simply radial distance from a Fountain. Existing effective-distance factors include terrain, elevation, usable paths, food, Hunger, movement methods, cargo, classes, and infrastructure. Separate the regional generation descriptor from the player's changing operating cost; whether eligibility itself is recalculated after development remains Open.
+Strategic Depth is not simply radial distance from a Fountain. Existing effective-distance factors include terrain, elevation, usable paths, food, Hunger, movement methods, cargo, classes, and infrastructure. Keep the team-relative Strategic Depth descriptor, Regional Character and the player's changing operating cost separate; whether eligibility itself is recalculated after development remains Open.
 
 Raw candidate density, actual resource density, Strategic Exposure, and defensibility are **not monotonic with depth**. Their causes differ. Ecology/geology may produce a sparse mountain, dense forest, or economically weak connective terrain at the same depth. Empty or weak deep terrain is legitimate; each deep region need not contain a standardized reward package. Existing map resource guarantees remain vocabulary/functionality guarantees, not blanket abundance or regenerative quotas.
 
@@ -806,13 +876,37 @@ Exact replenishment behavior remains unresolved.
 
 **Working direction, 12 September 2026.** The three regenerative buckets — crops and plant resources, animal populations, and hostile Mob Swarms — should be generated with a spatial depth and value gradient. The economic framing belongs to [objectives.md](objectives.md#17b-regenerative-sources); the spatial rule is recorded here.
 
-Regenerating resources increase in **economic specificity** with distance from the midpoint and base regions. This does not mean farther equals more XP, or the same resource in larger stacks. Near and core resources solve broad universal needs; deeper resources are newer, rarer, more specialized or composition-dependent, and support narrower but stronger strategies. Distance increases specialization, niche utility, strategic value and sometimes challenge.
+**Established clarification, 22 September 2026:** Strategic Depth answers
+**how rich/novel may an opportunity be?** Regional Character answers **which
+kinds fit this geography/ecology?** Lower Strategic Depth generally supports
+less-rich regenerative opportunities in both quantity/concentration and
+novelty/specialization. Deeper Wilderness may support larger concentrations,
+more specialized kinds, or both. This is not a monotonic guarantee of actual
+resource density in every region, nor an instruction to fill a quota.
+
+The supported region supplies distributed useful subsistence/opportunity without
+a nearby renewable normally becoming an obvious full-team opening objective.
+North and South need neither identical species nor identical source counts.
+Functional opening opportunity is the concern. The former "distance from the
+midpoint" rule conflated Regional Character with Strategic Depth and is
+**superseded**. Exact depth tiers, richness values, species tables and recovery
+curves remain **Open**.
+
+**Implementation status, 22 September 2026:** runtime Source/Kind,
+depletion/recovery and manifestation machinery exists. `RenewableKinds`
+deliberately carries identity/type/harvest vocabulary, **no depth, value or
+region**. Current source capacities/recoverTicks and temporal/eligibility values
+are analytical fixtures or Working calibration, not a generic depth-gradient
+implementation. Portfolio species selection and equal-count profile constraints
+also remain prototype heuristics, not this doctrine implemented. See the
+[audit](docs/audit/2026-09-22-spatial-doctrine.md).
 
 ### Crops and plant resources
 
 Near, basic and staple candidates are wheat, carrots, potatoes and beetroot, serving food, the basic renewable economy, and common Development opportunity. Intermediate and specialized candidates include pumpkin, melon, sugar cane, cocoa beans and sweet berries, which begin to carry more specific downstream value through recipes, class interactions, utility, biome identity and production inputs. Deep and niche candidates include bamboo, cactus, nether wart, glow berries, torchflower and pitcher plant.
 
-These lists are neither canon nor exhaustive. Deep resources should only matter if they have real match utility: do not populate deep plant sites with vanilla resources nobody has reason to value. Deep regenerative resources are a good home for narrower class-specific demand.
+These inherited lists are **Historical illustrative candidates**, neither canon
+nor exhaustive; their near/intermediate/deep grouping is not a species table. Deep resources should only matter if they have real match utility: do not populate deep plant sites with vanilla resources nobody has reason to value. Deep regenerative resources are a good home for narrower class-specific demand.
 
 Do not automatically treat all renewable vegetation as crop sites. Trees, logs and flowers enter this bucket only where they function as deliberately valuable renewable plant resources.
 
@@ -820,7 +914,7 @@ Do not automatically treat all renewable vegetation as crop sites. Trees, logs a
 
 "Herds" remains useful player-facing language, but the underlying system is better treated internally as **animal populations**, which also covers schools, colonies, biome-specific populations and aquatic populations.
 
-Near and common candidates are cows, pigs, sheep and chickens, solving general needs such as food, leather, wool, feathers and eggs — consistent with the existing livestock prototype contract above. Intermediate and specialized candidates include rabbits, bees, horses, donkeys and goats, providing mobility, transport, honey and wax, class interactions and specialized drops. Deep and niche candidates include llamas, squid, glow squid, turtles, frogs, axolotls and other biome-specific or unusual populations.
+**Historical illustrative candidates, not assigned tiers:** Near and common candidates are cows, pigs, sheep and chickens, solving general needs such as food, leather, wool, feathers and eggs — consistent with the existing livestock prototype contract above. Intermediate and specialized candidates include rabbits, bees, horses, donkeys and goats, providing mobility, transport, honey and wax, class interactions and specialized drops. Deep and niche candidates include llamas, squid, glow squid, turtles, frogs, axolotls and other biome-specific or unusual populations.
 
 [OPEN] Exact placement and distance tier for each species is not settled. The system should support region-specific populations such as ocean and coast resources, mountain-specific animals, and biome-specific utility species.
 
@@ -1234,24 +1328,28 @@ terrain generators.
 
 ## Preferred Default generation pipeline — Working
 
-1. Generate terrain.
-2. Locate/classify natural POIs and structures.
-3. Identify/place competitively equivalent homelands.
-4. Identify actual resource instances.
-5. Derive resource regions from those instances.
-6. Build/select authored Route relationships.
-7. Evaluate strategic opportunity.
-8. Modestly adjust resources, ecology, loot, or opportunity where useful.
-9. Integrate competitive objectives.
-10. Validate.
-11. Accept or reject the seed.
+Use the future pipeline stated in the competitive spatial contract:
 
-If extensive correction is required, reject the seed.
+1. Recognize the selected Map Type's macro-geography.
+2. Evaluate its team topology.
+3. Find two viable Homebase Sockets for the same Core/interface contract.
+4. Evaluate natural Wilderness viability, actual resources/POIs and geographic character.
+5. Establish authorability with bounded Core integration, supported-region Route
+   scope, and functional opening opportunity; derive resource regions from real
+   instances rather than statistical mirroring.
+6. Physically verify the authored result and its interfaces.
+7. Produce a PlayableMap only with declared checks and remaining uncertainties.
+
+These are future responsibilities, not new recognizers or gates implemented by
+this document. Reject unsuitable sockets rather than expanding terrain surgery.
 
 
 ## Validation — Working
 
-Validation should measure strategic opportunity rather than geometry alone.
+Validation should distinguish the controlled Core/Socket contract from natural
+terrain observations and demonstrated gameplay consequences. Geometry checks
+inside the Core are binding; a Wilderness N/S terrain gap alone is not a failed
+competitive test. Preserve raw terrain, travel and opportunity measurements.
 
 Potential dimensions include:
 
@@ -1270,7 +1368,8 @@ Potential dimensions include:
 - mountain depth;
 - POI accessibility;
 - contestability;
-- homeland equivalence;
+- Core/interface equivalence and socket integration bounds;
+- supported-region opening floor and concentration ceiling;
 - artificial correction required.
 
 Long-term, straight-line distance should be replaced by movement-aware
@@ -1526,10 +1625,11 @@ It is not canonical.
 
 # Next Default-map prototype
 
-## Minecraft_MOBA_Default_Scale_Test — Immediate implementation target
+## Minecraft_MOBA_Default_Scale_Test — Historical prototype target
 
-The next intended artifact is a **new independent Minecraft Java Default-map
-prototype**.
+The historical target below was a **new independent Minecraft Java Default-map
+prototype**. Its dimensions, counts and Route reach remain prototype context,
+not instructions to override the clarified Core/Socket contract.
 
 Do not modify P2D in place.
 
@@ -1667,6 +1767,10 @@ an approximation unless a more exact implementation method is found.
 
 # Next spatial analysis
 
+**22 September 2026 scope correction:** the packing list below is a historical
+prototype demand scenario. Core, supported-region and Wilderness requirements
+are distinct; asymmetric usable terrain is not itself a packing failure.
+
 After or alongside the first +25% scale prototype, perform a **resource-packing
 analysis**.
 
@@ -1730,6 +1834,10 @@ than replacing them with generic MOBA camps or tokens.
 
 
 # Working map archetypes
+
+These are future **Map Types** (earlier terminology: archetypes), not implemented
+recognizers. Default's regional gradient is its own search contract, not a
+universal composition constraint.
 
 ## Valley / Default
 

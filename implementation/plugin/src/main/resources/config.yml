@@ -577,10 +577,10 @@ mapStub:
 provenance:
   sampleTicks: 200
 
-# Regenerative Sources. Ships EMPTY on purpose: canon records the depth
-# gradient, regional tables, species, cadence, XP and drop scaling as [OPEN],
-# and forbids sprinkling nodes to satisfy a density target. The plugin
-# registers sources it is given; it never generates them.
+# Regenerative Sources. The original seam shipped empty; the table below now
+# supplies Alpha analytical fixtures. The plugin registers supplied sources and
+# manages manifestations, not a generic Strategic Depth / Regional Character
+# richness policy. Exact tiers/species/cadence remain OPEN; no density quota.
 renewables:
   sampleTicks: 200
   # How often the opportunity lifecycle advances: recovery progress, and a
@@ -654,8 +654,8 @@ renewables:
   membership:
     revokeOnLeavingRegion: true
   # Sources are the frozen Consolidative Alpha map's own authored placements:
-  # renewable_range pens and founder_crop patches, at the coordinates the map
-  # was built with. They bind to the match instance world, so they resolve only
+  # renewable_range and founder_crop opportunities at authored coordinates.
+  # Current authoring records them without prebuilding pens or irrigated fields. They bind to the match instance world, so they resolve only
   # once a match has opened and are rebuilt on reset.
   #
   # capacity and recoverTicks are NON-CANON ANALYTICAL FIXTURES: canon settles

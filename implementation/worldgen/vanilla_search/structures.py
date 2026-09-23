@@ -1,4 +1,4 @@
-"""Score and propose sites for the four team structures, symmetrically.
+"""Score and propose paired sites for the four team structures (analytical fixture).
 
 objectives.md gives each team a Pillager Outpost, a Nether Bastion, an End
 Tower and an Aether Fountain, with the End Tower named as the final defensive
@@ -15,7 +15,9 @@ What this can and cannot do, stated plainly:
     footprint, not whether something already stands there.
   - It reports symmetry as a measured difference between the two teams rather
     than forcing a mirror. maps.md requires asymmetric natural geography with
-    equivalent baseline opportunity, so a numeric gap is the honest output.
+    functional opening opportunity. A numeric pad-score gap is descriptive:
+    it does not verify the clarified mirrored Core/interface contract or bounded
+    Socket integration. Existing layer offsets remain fixtures, not Core bounds.
 
 No structure is selected here and no site is accepted. Every score is a
 DERIVED MEASUREMENT over an ANALYTICAL FIXTURE footprint.

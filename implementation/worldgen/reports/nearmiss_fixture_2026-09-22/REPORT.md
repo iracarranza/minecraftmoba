@@ -1,5 +1,12 @@
 # 930010639 resource_light experimental fixture — 22 September 2026
 
+**Doctrine interpretation update, 22 September 2026:** this fixture tests the
+existing prototype's physical/runtime machinery, not compliance with a finalized
+Homebase Core/Socket contract. 0.3173 is a permitted Wilderness terrain gap, not a
+proven competitive deficit. Existing structures and Routes have not been
+relocated or re-scoped. The endpoint-readback and Task B wheat blockers below
+remain. See [spatial doctrine audit](../../../../docs/audit/2026-09-22-spatial-doctrine.md).
+
 **Prototype/test. Materialized and runtime-loadable; NOT cleared for the paired
 experiment.** One existing block-readback check fails, and Task B's specified
 wheat opportunity does not exist. No balance result, task rehearsal, new telemetry

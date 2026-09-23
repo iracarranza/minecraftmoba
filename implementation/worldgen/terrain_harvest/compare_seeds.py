@@ -1,32 +1,11 @@
-"""Diagnose the N-S (TEAM axis) deficit of a seed, and say whether authoring can fix it.
+"""Compare historical N/S terrain diagnostics under the Task A analytical fit.
 
-Two axes, and they are not interchangeable:
-
-    W-E   the REGIONAL axis. Contrast here is intentional -- forest against
-          arid, peaks against valley. It is the map having distinct places.
-    N-S   the TEAM axis. Both teams must get a competitive start. A deficit
-          here is the thing that decides whether a seed is usable.
-
-A regional pairing like forest/arid does NOT mean one team gets forest and the
-other arid. It means the map runs forest-to-arid across the axis the teams do
-not sit on, so both face the same gradient side-on.
-
-The question this answers is not "is this seed balanced". Authoring exists to
-make a near-miss competitive, so the question is what KIND of N-S deficit a seed
-has:
-
-    OPPORTUNITY   one team has less workable near-depth land, with no physical
-                  cause. Worksites, POIs and regenerative opportunities are
-                  placed by authoring, so this is an authoring target.
-    CLEARABLE     a homeland under canopy, or short of open ground. The terrain
-                  is fine; something is standing on it.
-    PHYSICAL      severe grade or water in the homeland. Authoring places
-                  opportunities; it does not move mountains, so this is where
-                  rejection may be justified.
-
-Everything measured here comes from Task A's own fit. No new thresholds are
-introduced: components are compared BETWEEN teams and the largest gap names the
-deficit.
+22 September spatial doctrine: natural Wilderness differences are permitted.
+The emitted deficit/opportunity/clearable/physical labels are legacy hypotheses,
+not demonstrated competitive deficits or screening/compensation instructions.
+The Core/interface contract and bounded Socket integration must be assessed
+separately. No output schema, classifier or threshold is changed in this audit.
+See docs/audit/2026-09-22-spatial-doctrine.md.
 """
 from __future__ import annotations
 
@@ -42,8 +21,8 @@ FINALISTS = HERE / 'results' / 'staged_default_2026-09-09' / 'finalists'
 # The band that swamps every comparison. `deep_core_350_plus` is most of the
 # map for both teams, so summing all bands made land_asymmetry read 0.0000 for
 # every seed -- eight zeros that looked like eight balanced maps and were a
-# degenerate statistic. The bands below are the ones a team can actually reach
-# and work, which is what "usable land" has to mean if it is to differ at all.
+# degenerate statistic. The selected bands count dry sampled Wilderness outside
+# both homeland footprints; they do not prove buildability or economic use.
 ACCESSIBLE_BANDS = ('opening', 'fringe', 'secondary_core', 'secondary_transition',
                     'tertiary_core', 'deep_transition', 'deep_core')
 

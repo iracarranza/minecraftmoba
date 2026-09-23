@@ -1,5 +1,12 @@
 # Generalizing the seed screen from one composition to region character
 
+**22 September scope clarification:** cross-composition measurements remain
+useful, but composition-agnostic scoring is not a replacement for a future
+Map Type macro-geography contract. Default seeks its intended Overworld regional
+gradient; other types may seek different geography. No new recognizer or screen
+is implemented here. N/S natural terrain similarity is not a fairness gate.
+See [spatial doctrine audit](../audit/2026-09-22-spatial-doctrine.md).
+
 ## What the staged screen actually tested
 
 `vanilla_search/coarse.c` stage A rejects a window unless it contains ocean and

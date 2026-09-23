@@ -134,6 +134,17 @@ Unlike a Construct, a Development Zone should be periodically re-evaluated. A Co
 
 ## Player recognized Routes
 
+**Established scope clarification, 22 September 2026:** map-authored Starter
+Routes primarily serve Homebase Core exits and natural supported regions. They
+do not promise convenient deep-Wilderness highways or equal map-wide access.
+Player-created Exploration Infrastructure can extend useful Route networks
+outward. Terrain-weighted paths, Practical Reach, Route distance and physical
+corridor proof remain useful; scope them to the actual connection and distinguish
+initial support from later player development. No length, benefit, recognition
+or transport-proof rule is changed by this clarification. The symmetry guarantee
+ends at the Core/interface; natural geography beyond it need not match.
+See [maps.md](maps.md#competitive-spatial-contract--established-clarification-22-september-2026).
+
 **Working.** A Route proves traversal through a physical connection. Terrain, roads, bridges, tunnels, waterways, and other movement infrastructure may support it. Early independent benefits still favor movement efficiency over unconditional speed. Maximum length/reach and branching/network complexity are separate progression dimensions; exact values remain open.
 
 A dangerous, enemy-controlled, monster-infested, or ambush-prone Route remains valid if the objective traversal capability exists. Destruction of the only traversable connection can invalidate it. [OPEN] How altered paths are revalidated, whether replacement traversal requires new proof, submission details, ownership, shared use, width, and progression metrics remain unresolved.

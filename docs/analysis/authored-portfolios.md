@@ -1,5 +1,11 @@
 # Authored portfolios — the four playtest finalists
 
+**22 September scope clarification:** these portfolios remain prototype
+artifacts. Initial authored Routes are now scoped primarily to Core exits and
+hinterlands; measured corridor effects and rescans remain useful without a
+map-wide access-equalization mandate. Exact source counts/species are not N/S
+fairness requirements. See [spatial doctrine audit](../audit/2026-09-22-spatial-doctrine.md).
+
 Status: **Authored and verified; rescan outstanding**
 Date: 20 September 2026
 
