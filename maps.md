@@ -132,6 +132,20 @@ opening resource. Judging it needs a declared equipment target, which does not
 yet exist, so the measurement stays **UNMEASURED** rather than passing by
 default.
 
+[UNIMPLEMENTED — found in play, 23 September 2026] **No compiler stage checks
+any of this.** The first live playtest found a savanna village **68 blocks**
+from the south Fountain, inside its Opening Hinterland, on a map that passed
+physical verification and certified READY. The nearest village to the north
+Fountain is **728 blocks** away. So the exclusion above is violated, and it is
+violated asymmetrically — one team opens beside a village and the other does
+not.
+
+`respect.py` already recognises village blocks, for Routes that must not run
+through a house, so the recogniser exists and the ceiling check simply was never
+written. Until it is, "serious ceiling violations should reject a socket" is a
+statement about what the compiler ought to do and not a description of what it
+does. The carrot and iron exclusions are equally unchecked.
+
 This list is **not exhaustive** — it is a seam. Useful questions for a new
 candidate exclusion: does it scale strongly with multiple players, compress
 several opening verbs, impose major competitive cost if delayed, or skip an

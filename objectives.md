@@ -321,7 +321,17 @@ like a jungle. So the recolour swaps the biome rather than inventing a rendering
 path. Verified legible in play.
 
 **The two tints are drawn from biomes the map does not contain**, surveyed
-around each volume at bind time. Contrast has to be a property of the map rather
+around each volume at bind time.
+
+[BROKEN — found in play] Absence is the wrong test, and the implementation
+proves it twice. `CHERRY_GROVE` was picked first because a cherry grove reads as
+pink; that pink is cherry leaf and log BLOCKS and its grass colour is close to
+plains, so it would have tinted nothing. `BADLANDS` was then picked for south
+because no badlands existed on the map — but the south Fountain sits in savanna,
+whose grass is already dry tan, so the tint was invisible against the ground it
+was meant to distinguish itself from. **The test must be colour distance from
+the surrounding terrain's rendered grass and foliage tint, not the absence of a
+biome identifier.** Two biomes can be different biomes and the same colour. Contrast has to be a property of the map rather
 than a guess: a tint matching nearby terrain communicates nothing, and which
 colours are free depends on what the generated map already looks like. If fewer
 than two candidates are free the feature declines rather than picking a
@@ -369,6 +379,54 @@ capture, so "controls" presently means "was authored for".
 Nothing else is decided, and no brightness, radius or particle is asserted. The
 rest of the settled part is only that **objectives and the Fountain should be
 recognisable as one team system by looking at them**.
+
+---
+
+## Objective depth is unconstrained — found in play, 23 September 2026
+
+**The compiler gates the ORDER of the three defensive objectives and nothing
+else about where they sit.** `order_constrained` says so in as many words:
+"Lateral displacement and gap size are never considered: both are explicitly
+free, and only the order is invariant." It then picks the combination with the
+best summed site quality, and site quality has no depth term. There is also **no
+comparison between the two teams** at any point.
+
+Measured on the first playable generated map, distances in blocks:
+
+| | own Fountain | enemy Fountain |
+| --- | --- | --- |
+| north Outpost / Bastion / Spike | 290 / 272 / 211 | 361 / 433 / 488 |
+| south Outpost / Bastion / Spike | **85 / 72 / 45** | 563 / 569 / 617 |
+
+Both chains satisfy the ordinal. But north's three objectives stand 211–290
+blocks out from its Fountain and 361–488 from the enemy's, while south's huddle
+**45–85** blocks from its own Fountain and 563–617 from the enemy's. South's
+entire defensive chain is 40 blocks deep; north's is 79, and sits more than
+twice as far forward.
+
+In play this reads exactly as it measures: from the south Fountain all three of
+its objectives and the Fountain are visible at once, as a single cluster.
+
+What this costs is not symmetry for its own sake — Wilderness is deliberately
+not mirrored — but the structure the objectives exist to create. Objectives are
+supposed to organise where teams go. A team whose three objectives are a
+one-minute walk from its respawn defends all of them from one position and
+fights on interior lines; a team whose objectives are 280 blocks out must choose
+between them and cannot hold them from home. Nothing in doctrine chose that, and
+nothing in the compiler noticed it.
+
+[OPEN] What the constraint should be. Candidates: a minimum gap between
+successive objectives in a chain; a minimum depth from the team's own Fountain;
+a bound on the disparity between the two teams' depth profiles, in the manner of
+A_L for Lair access. None is asserted, and the right bound is a measurement
+question — the distribution over compiled maps has never been looked at, because
+nothing was recording it.
+
+**Objective depth must not be confused with the Lair's A_L.** A_L gates access
+to the one indivisible shared objective and is deliberately the single place
+parity is enforced. This is a different claim: not that the two teams' defensive
+geometries must match, but that neither should be degenerate, and that the
+compiler currently cannot tell.
 
 ---
 
