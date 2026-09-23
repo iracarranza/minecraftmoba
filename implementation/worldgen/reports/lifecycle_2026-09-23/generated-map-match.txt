@@ -1,0 +1,69 @@
+pool: pool=/tmp/pool3 entries=2 READY=2 IN_USE=0 USED=0
+open -> Match created; PRE_MATCH. Add players and teams, then resolve the map selection. pool=/tmp/pool3 entries=2 READY=2 IN_USE=0 USED=0
+state=PRE_MATCH preMatch=true
+options=[2718281-93d1fb5c9f, 99887766-6966b36836]
+world bound before selection? false
+select(2718281-93d1fb5c9f) -> Selected pool map 2718281-93d1fb5c9f (seed 2718281); world 'alpha_match' bound. Homelands: [NORTH, SOUTH]. bindings: fountains=2 objectives=2 lair=anchored worksites=12. Then /moba match start.
+state=PRE_MATCH
+claimed map state: pool=/tmp/pool3 entries=2 READY=1 IN_USE=1 USED=0
+bound world=alpha_match
+homeland north = alpha_match -180,68,292
+homeland south = alpha_match 236,65,44
+  objectives north={PILLAGER_OUTPOST=STANDING, NETHER_BASTION=STANDING, END_SPIKE=STANDING} sited=3/3 (concurrent; ordering is spatial, not prerequisite)
+  objectives south={PILLAGER_OUTPOST=STANDING, NETHER_BASTION=STANDING, END_SPIKE=STANDING} sited=3/3 (concurrent; ordering is spatial, not prerequisite)
+  objective north/PILLAGER_OUTPOST @ alpha_match 28,64,300
+  objective north/NETHER_BASTION @ alpha_match 20,64,276
+  objective north/END_SPIKE @ alpha_match -84,64,260
+  objective south/PILLAGER_OUTPOST @ alpha_match 140,64,188
+  objective south/NETHER_BASTION @ alpha_match 204,71,132
+  objective south/END_SPIKE @ alpha_match 156,68,-4
+lair: lair=DORMANT pendingRemovals=0 site=380.5,64.0,468.5 scheduled=null occupant=null lastVictory=null siegeAdvantage=UNRESOLVED
+worksites bound=12
+  defensive capacity (PROVISIONAL_ALPHA weights; capacity from built blocks)
+    north/PILLAGER_OUTPOST 92/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    north/NETHER_BASTION 1818/1818 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    north/END_SPIKE 261/261 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    south/PILLAGER_OUTPOST 92/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    south/NETHER_BASTION 1818/1818 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    south/END_SPIKE 261/261 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+start-test -> Match started with 0 participant(s).
+state after start=RUNNING
+skip 10m -> Advanced to NIGHT 10:01 (night, phase 1).
+  night 1 stage=WORKSITE_I active worksites=2 | lair=DORMANT pendingRemovals=0 site=380.5,64.0,468.5 scheduled=null occupant=null lastVictory=null siegeAdvantage=UNRESOLVED
+skip 20m -> Advanced to NIGHT 30:02 (night, phase 3).
+  night 2 stage=GIANT active worksites=0 | lair=ALIVE pendingRemovals=0 site=380.5,64.0,468.5 scheduled=GIANT occupant=bf7e4b29-c99e-41cb-a3a4-8059b2b44fcc lastVictory=null siegeAdvantage=UNRESOLVED
+  occupant=GIANT at 380,468
+  killed by north; lastVictory=SiegeOpportunity[boss=GIANT, victoriousTeam=NORTH, pairedObjective=PILLAGER_OUTPOST]
+  LAIR ASSAULT -> south/PILLAGER_OUTPOST 42/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=50.864000000000004}
+skip 20m -> Advanced to NIGHT 50:03 (night, phase 5).
+  night 3 stage=WORKSITE_II active worksites=2 | lair=DORMANT pendingRemovals=0 site=380.5,64.0,468.5 scheduled=GIANT occupant=null lastVictory=SiegeOpportunity[boss=GIANT, victoriousTeam=NORTH, pairedObjective=PILLAGER_OUTPOST] siegeAdvantage=UNRESOLVED
+skip 20m -> Advanced to NIGHT 70:04 (night, phase 7).
+  night 4 stage=GHAST active worksites=0 | lair=ALIVE pendingRemovals=0 site=380.5,64.0,468.5 scheduled=GHAST occupant=cb74f4fd-e3b6-4466-8c16-8c6a91b1ee1c lastVictory=SiegeOpportunity[boss=GIANT, victoriousTeam=NORTH, pairedObjective=PILLAGER_OUTPOST] siegeAdvantage=UNRESOLVED
+  occupant=GHAST at 380,468
+  killed by north; lastVictory=SiegeOpportunity[boss=GHAST, victoriousTeam=NORTH, pairedObjective=NETHER_BASTION]
+  LAIR ASSAULT -> south/NETHER_BASTION 818/1818 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=999.7240000000002}
+skip 20m -> Advanced to NIGHT 90:05 (night, phase 9).
+  night 5 stage=WORKSITE_III active worksites=3 | lair=DORMANT pendingRemovals=0 site=380.5,64.0,468.5 scheduled=GHAST occupant=null lastVictory=SiegeOpportunity[boss=GHAST, victoriousTeam=NORTH, pairedObjective=NETHER_BASTION] siegeAdvantage=UNRESOLVED
+skip 20m -> Advanced to NIGHT 110:06 (night, phase 11).
+  night 6 stage=DRAGON active worksites=0 | lair=ALIVE pendingRemovals=0 site=380.5,64.0,468.5 scheduled=ENDER_DRAGON occupant=29143afe-1581-43c7-8b96-1855c2bbf88f lastVictory=SiegeOpportunity[boss=GHAST, victoriousTeam=NORTH, pairedObjective=NETHER_BASTION] siegeAdvantage=UNRESOLVED
+  occupant=ENDER_DRAGON at 380,468
+siege combat x5 -> south/NETHER_BASTION 636/1818 (STANDING) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=999.7240000000002}
+siege structural x4000 -> south/NETHER_BASTION 316/1818 (STANDING) by {COMBAT=181.768, STRUCTURAL=320.00000000000006, SIGNATURE=0.0, LAIR_ASSAULT=999.7240000000002}
+siege signature -> south/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=320.00000000000006, SIGNATURE=316.1879999999997, LAIR_ASSAULT=999.7240000000002}
+  contributions={COMBAT=181.768, STRUCTURAL=320.00000000000006, SIGNATURE=316.1879999999997, LAIR_ASSAULT=999.7240000000002} remaining=0/1818
+siege combat x40 -> south/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=320.00000000000006, SIGNATURE=316.1879999999997, LAIR_ASSAULT=999.7240000000002}
+  state=TOPPLED objectives report:
+    objectives north={PILLAGER_OUTPOST=STANDING, NETHER_BASTION=STANDING, END_SPIKE=STANDING} sited=3/3 (concurrent; ordering is spatial, not prerequisite)
+    objectives south={PILLAGER_OUTPOST=STANDING, NETHER_BASTION=TOPPLED, END_SPIKE=STANDING} sited=3/3 (concurrent; ordering is spatial, not prerequisite)
+siege structural x8000 on south spike -> south/END_SPIKE 0/261 (TOPPLED) by {COMBAT=0.0, STRUCTURAL=260.56, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+lair assault Dragon/north -> south/END_SPIKE 0/261 (TOPPLED) by {COMBAT=0.0, STRUCTURAL=260.56, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+  defensive capacity (PROVISIONAL_ALPHA weights; capacity from built blocks)
+    north/PILLAGER_OUTPOST 92/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    north/NETHER_BASTION 1818/1818 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    north/END_SPIKE 261/261 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+    south/PILLAGER_OUTPOST 42/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=50.864000000000004}
+    south/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=320.00000000000006, SIGNATURE=316.1879999999997, LAIR_ASSAULT=999.7240000000002}
+    south/END_SPIKE 0/261 (TOPPLED) by {COMBAT=0.0, STRUCTURAL=260.56, SIGNATURE=0.0, LAIR_ASSAULT=0.0}
+end -> north wins.
+pool after end: pool=/tmp/pool3 entries=2 READY=1 IN_USE=0 USED=1
+options after end: [99887766-6966b36836]

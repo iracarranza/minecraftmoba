@@ -1,0 +1,387 @@
+{
+ "schema": "moba_map_pool_entry/1",
+ "map_id": "2718281-93d1fb5c9f",
+ "state": "READY",
+ "published_utc": "2026-09-23T06:34:35Z",
+ "provenance": {
+  "seed": 2718281,
+  "map_type": "default",
+  "authoring_version": "2026-09-23",
+  "worldgen_truth": null,
+  "compiler_constants": {
+   "min_homeland_developable_fraction": 0.52,
+   "max_hinterland_fraction_of_end": 0.5,
+   "max_lair_access_asymmetry": 0.15,
+   "max_levelling_moved_per_column": 10.0
+  },
+  "objective_forms": [
+   "aether_fountain",
+   "end_spike",
+   "end_tower",
+   "nether_bastion",
+   "nether_bastion_greybox",
+   "pillager_outpost",
+   "pillager_outpost_greybox"
+  ],
+  "not_reproduced": {
+   "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+  }
+ },
+ "runtime_bindings": {
+  "world": {
+   "name": "foundry-2718281",
+   "map_type": "default"
+  },
+  "homelands": {
+   "north": [
+    -208,
+    -137,
+    256,
+    327
+   ],
+   "south": [
+    200,
+    271,
+    -8,
+    63
+   ]
+  },
+  "fountains": {
+   "north": [
+    -180,
+    68,
+    292
+   ],
+   "south": [
+    236,
+    65,
+    44
+   ]
+  },
+  "objectives": {
+   "north": {
+    "pillager_outpost": [
+     28,
+     300
+    ],
+    "nether_bastion": [
+     20,
+     276
+    ],
+    "end_spike": [
+     -84,
+     260
+    ]
+   },
+   "south": {
+    "pillager_outpost": [
+     140,
+     188
+    ],
+    "nether_bastion": [
+     204,
+     132
+    ],
+    "end_spike": [
+     156,
+     -4
+    ]
+   }
+  },
+  "lair": {
+   "anchor": {
+    "xyz": [
+     380,
+     64,
+     468
+    ],
+    "surface_y": 62,
+    "note": "spawn/binding anchor; the plinth top plus one, so an occupant appears in open air rather than inside the marker"
+   },
+   "centre_xz": [
+    380,
+    468
+   ],
+   "count": 1,
+   "access_asymmetry": 0.0001,
+   "treatment": "PROVISIONAL: irregular standing stones and a plinth. Art direction is open; this is a legible placeholder, not a decision that the Lair is a stone circle."
+  },
+  "worksites": [
+   {
+    "id": "ws_38_65",
+    "sample": [
+     38,
+     65
+    ],
+    "world_xz": [
+     92,
+     220
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 371.4,
+     "south": 368.53
+    }
+   },
+   {
+    "id": "ws_32_65",
+    "sample": [
+     32,
+     65
+    ],
+    "world_xz": [
+     92,
+     268
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 360.49,
+     "south": 406.47
+    }
+   },
+   {
+    "id": "ws_41_71",
+    "sample": [
+     41,
+     71
+    ],
+    "world_xz": [
+     140,
+     196
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 428.37,
+     "south": 304.93
+    }
+   },
+   {
+    "id": "ws_32_59",
+    "sample": [
+     32,
+     59
+    ],
+    "world_xz": [
+     44,
+     268
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 304.49,
+     "south": 442.07
+    }
+   },
+   {
+    "id": "ws_33_53",
+    "sample": [
+     33,
+     53
+    ],
+    "world_xz": [
+     -4,
+     260
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 249.17,
+     "south": 484.13
+    }
+   },
+   {
+    "id": "ws_26_59",
+    "sample": [
+     26,
+     59
+    ],
+    "world_xz": [
+     44,
+     316
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 324.37,
+     "south": 487.11
+    }
+   },
+   {
+    "id": "ws_49_79",
+    "sample": [
+     49,
+     79
+    ],
+    "world_xz": [
+     204,
+     132
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 573.99,
+     "south": 159.31
+    }
+   },
+   {
+    "id": "ws_38_45",
+    "sample": [
+     38,
+     45
+    ],
+    "world_xz": [
+     -68,
+     220
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 185.14,
+     "south": 575.11
+    }
+   },
+   {
+    "id": "ws_20_60",
+    "sample": [
+     20,
+     60
+    ],
+    "world_xz": [
+     52,
+     364
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 400.6,
+     "south": 576.02
+    }
+   },
+   {
+    "id": "ws_33_39",
+    "sample": [
+     33,
+     39
+    ],
+    "world_xz": [
+     -116,
+     260
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 109.03,
+     "south": 625.93
+    }
+   },
+   {
+    "id": "ws_39_39",
+    "sample": [
+     39,
+     39
+    ],
+    "world_xz": [
+     -116,
+     212
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 140.17,
+     "south": 626.43
+    }
+   },
+   {
+    "id": "ws_21_70",
+    "sample": [
+     21,
+     70
+    ],
+    "world_xz": [
+     132,
+     356
+    ],
+    "workable_samples": 9,
+    "reach": {
+     "north": 511.89,
+     "south": 631.53
+    }
+   }
+  ]
+ },
+ "characteristics": {
+  "map_type": "default",
+  "map_scale": "normal",
+  "resource_density": "unmeasured",
+  "note": "Resource Density is a discovered property and is not yet measured; it is recorded as unmeasured rather than guessed."
+ },
+ "evidence": {
+  "homelands": {
+   "north": 0.7365,
+   "south": 0.8498
+  },
+  "hinterland": {
+   "north": 0.0253,
+   "south": 0.0301
+  },
+  "objective_world_xz": {
+   "north": {
+    "pillager_outpost": [
+     28,
+     300
+    ],
+    "nether_bastion": [
+     20,
+     276
+    ],
+    "end_spike": [
+     -84,
+     260
+    ]
+   },
+   "south": {
+    "pillager_outpost": [
+     140,
+     188
+    ],
+    "nether_bastion": [
+     204,
+     132
+    ],
+    "end_spike": [
+     156,
+     -4
+    ]
+   }
+  },
+  "lair_site": {
+   "sample": [
+    7,
+    101
+   ],
+   "world_xz": [
+    380,
+    468
+   ],
+   "reach": {
+    "north": 950.8,
+    "south": 950.88
+   },
+   "access_asymmetry": 0.0001,
+   "usable_fraction": 0.6568,
+   "open_volume_proxy": 0.7737,
+   "approaches": 5
+  },
+  "physical_verification": true,
+  "readback": true,
+  "lair_verification": {
+   "anchor_block": "minecraft:air",
+   "anchor_support": "minecraft:chiseled_deepslate",
+   "markers_standing": 9,
+   "markers": 9,
+   "problems": [],
+   "proves": "physical and runtime feasibility only; encounter quality is empirical"
+  },
+  "readiness": true,
+  "blocks_written": 90330
+ },
+ "world_fingerprint": "813c0bfa9149a3a4b3071dbf8cf3244c42929bd267e9c44cbdba5e04b4221af0",
+ "history": [
+  {
+   "state": "READY",
+   "at": "2026-09-23T06:34:35Z"
+  }
+ ]
+}

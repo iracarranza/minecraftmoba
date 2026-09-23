@@ -1,0 +1,36 @@
+[02:41:53 INFO]: [MinecraftMoba] [pool] claimed 2718281-93d1fb5c9f (seed 2718281)
+[02:41:53 INFO]: [MinecraftMoba] [match] bound 12 renewable source(s)
+[02:41:53 INFO]: [MinecraftMoba] [match] lair=DORMANT pendingRemovals=0 site=380.5,64.0,468.5 scheduled=null occupant=null lastVictory=null siegeAdvantage=UNRESOLVED
+[02:41:53 INFO]: [MinecraftMoba] [match] bound 12 worksite(s)
+[02:41:53 INFO]: [MinecraftMoba] [match] Match started. DAY 0:00 (day, phase 0)
+[02:41:54 INFO]: [MinecraftMoba] [match] Night 1 (10m, WORKSITE_I): Worksite I: 2 activated [ws_39_39, ws_33_53]
+[02:41:54 INFO]: [MinecraftMoba] [match] night 1 WORKSITE_I at 10m: Worksite I: 2 activated [ws_39_39, ws_33_53]
+[02:41:55 INFO]: [MinecraftMoba] [match] Sunrise (20m): 2 Worksite(s) closed.
+[02:41:55 INFO]: [MinecraftMoba] [match] Night 2 (30m, GIANT): Lair: GIANT ALIVE
+[02:41:55 INFO]: [MinecraftMoba] [match] night 2 GIANT at 30m: Lair: GIANT ALIVE
+[02:41:55 INFO]: [MinecraftMoba] [match] Siege (lair) on south PILLAGER_OUTPOST at 140,188: 42/92
+[02:41:55 INFO]: [MinecraftMoba] [match] north defeated the GIANT; it assaults south PILLAGER_OUTPOST.
+[02:41:55 INFO]: [MinecraftMoba] [lair] SiegeOpportunity[boss=GIANT, victoriousTeam=NORTH, pairedObjective=PILLAGER_OUTPOST] -> south/PILLAGER_OUTPOST 42/92 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=50.864000000000004}
+[02:41:56 INFO]: [MinecraftMoba] [match] Sunrise (40m): 0 Worksite(s) closed.
+[02:41:56 INFO]: [MinecraftMoba] [match] Night 3 (50m, WORKSITE_II): Worksite II: 2 activated [ws_38_45, ws_21_70]
+[02:41:56 INFO]: [MinecraftMoba] [match] night 3 WORKSITE_II at 50m: Worksite II: 2 activated [ws_38_45, ws_21_70]
+[02:41:57 INFO]: [MinecraftMoba] [match] Sunrise (60m): 2 Worksite(s) closed.
+[02:41:57 INFO]: [MinecraftMoba] [match] Night 4 (70m, GHAST): Lair: GHAST ALIVE
+[02:41:57 INFO]: [MinecraftMoba] [match] night 4 GHAST at 70m: Lair: GHAST ALIVE
+[02:41:57 INFO]: [MinecraftMoba] [match] Siege (lair) on south NETHER_BASTION at 204,132: 818/1818
+[02:41:57 INFO]: [MinecraftMoba] [match] north defeated the GHAST; it assaults south NETHER_BASTION.
+[02:41:57 INFO]: [MinecraftMoba] [lair] SiegeOpportunity[boss=GHAST, victoriousTeam=NORTH, pairedObjective=NETHER_BASTION] -> south/NETHER_BASTION 818/1818 (STANDING) by {COMBAT=0.0, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=999.7240000000002}
+[02:41:58 INFO]: [MinecraftMoba] [match] Sunrise (80m): 0 Worksite(s) closed.
+[02:41:58 INFO]: [MinecraftMoba] [match] Night 5 (90m, WORKSITE_III): Worksite III: 3 activated [ws_26_59, ws_32_59, ws_41_71]
+[02:41:58 INFO]: [MinecraftMoba] [match] night 5 WORKSITE_III at 90m: Worksite III: 3 activated [ws_26_59, ws_32_59, ws_41_71]
+[02:41:59 INFO]: [MinecraftMoba] [match] Sunrise (100m): 3 Worksite(s) closed.
+[02:41:59 INFO]: [MinecraftMoba] [match] Night 6 (110m, DRAGON): Lair: ENDER_DRAGON ALIVE
+[02:41:59 INFO]: [MinecraftMoba] [match] night 6 DRAGON at 110m: Lair: ENDER_DRAGON ALIVE
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (combat) on south NETHER_BASTION at 204,132: 636/1818
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (structural) on south NETHER_BASTION at 204,132: 316/1818
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (signature) on south NETHER_BASTION at 204,132: 0/1818 -- TOPPLED
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (combat) on south NETHER_BASTION at 204,132: 0/1818
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (structural) on south END_SPIKE at 156,-4: 0/261 -- TOPPLED
+[02:42:01 INFO]: [MinecraftMoba] [match] Siege (lair) on south END_SPIKE at 156,-4: 0/261
+[02:42:01 INFO]: [MinecraftMoba] [match] north defeated the ENDER_DRAGON; it assaults south END_SPIKE.
+[02:42:01 INFO]: [MinecraftMoba] [match] north wins: south Fountain disabled and no survivors remain.

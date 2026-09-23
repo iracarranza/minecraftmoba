@@ -26,7 +26,22 @@ import java.util.*;
  * commands force the state that feeds it rather than short-circuiting it.
  */
 public final class Match implements Listener {
-    public enum State { IDLE, RUNNING, ENDED }
+    /**
+     * The match lifecycle, including the pre-match doctrine establishes.
+     *
+     * `/moba match start` begins the match and its PRE-MATCH process; it does
+     * not teleport anyone. Between creating a match and playing one there is a
+     * drafting step in which teams choose a map option and only then is a
+     * compatible hidden READY realization claimed. Collapsing that into "claim
+     * the first READY map and go" would make the draft impossible to add later
+     * and would quietly become the production rule.
+     *
+     * So PRE_MATCH is a real state with a real exit, and the exit is a
+     * selection. The production selection rules -- ban order, option counts,
+     * whether class or map drafting comes first -- are explicitly open, so what
+     * exists is the state machine and a clearly-marked test path through it.
+     */
+    public enum State { IDLE, PRE_MATCH, RUNNING, ENDED }
 
     /** A participant is alive until eliminated; eliminated is terminal in a match. */
     public static final class Participant {
@@ -46,6 +61,8 @@ public final class Match implements Listener {
     private long elapsed;
     private Team winner;
     private BukkitTask ticker;
+    /** Positions read from the claimed realization, or null on the template. */
+    private MapBindings bindings;
 
     public Match(MobaPlugin plugin, WorldInstance worldInstance) {
         this.plugin = plugin;
@@ -56,10 +73,12 @@ public final class Match implements Listener {
     private void resetFields() {
         participants.clear();
         for (Team t : Team.values()) fountainDisabled.put(t, false);
-        state = State.IDLE; elapsed = 0; winner = null;
+        state = State.IDLE; elapsed = 0; winner = null; bindings = null;
     }
 
     public State state() { return state; }
+    public MapBindings bindings() { return bindings; }
+    public boolean preMatch() { return state == State.PRE_MATCH; }
     public long elapsedTicks() { return elapsed; }
     public Team winner() { return winner; }
     public boolean running() { return state == State.RUNNING; }
@@ -74,39 +93,105 @@ public final class Match implements Listener {
 
     // ---- lifecycle -------------------------------------------------------
 
-    /** Load the Alpha instance and open enrolment. Does not start the clock. */
-    public String open() throws IOException {
+    /**
+     * Create the match and enter PRE-MATCH. Claims nothing and loads nothing.
+     *
+     * This used to load a world immediately, which made the map decision
+     * invisible: there was nowhere for a draft to happen because the map was
+     * already chosen by the time anyone was asked.
+     */
+    public String open() {
         if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
         resetFields();
-        // Claim before loading: the claim decides WHICH world gets copied into
-        // place, so doing it after would load the template and then discover
-        // there was a pool map available.
-        var claimed = worldInstance.claim(UUID.randomUUID().toString());
+        state = State.PRE_MATCH;
+        var pool = plugin.mapPool();
+        return "Match created; PRE_MATCH. Add players and teams, then resolve the map"
+                + " selection. " + (pool == null ? "" : pool.report());
+    }
+
+    /** The map options a draft could offer: broad classification only. */
+    public List<String> options() {
+        var pool = plugin.mapPool();
+        if (pool == null || !pool.enabled()) return List.of();
+        List<String> out = new ArrayList<>();
+        for (var e : pool.entries())
+            if (MapPool.READY.equals(e.state())) out.add(e.mapId());
+        return out;
+    }
+
+    /**
+     * TEST/DEBUG map resolution. Not the production draft rule.
+     *
+     * The real selection comes out of a ban/counterpick process over Map Type,
+     * Scale and Resource Density that is explicitly undecided. This exists so
+     * the architecture downstream of the decision -- claim, bind, play, retire --
+     * can be exercised end to end before those rules exist, and it is named so
+     * that "first READY map wins" cannot quietly become the answer.
+     */
+    public String resolveSelectionForTest(String mapId) throws IOException {
+        if (state != State.PRE_MATCH)
+            throw new IllegalStateException("Not in PRE_MATCH; run /moba match open first.");
+        var pool = plugin.mapPool();
+        if (pool != null && pool.enabled() && mapId == null && options().isEmpty())
+            plugin.getLogger().warning("[match] pool enabled but empty; falling back to template");
+        var claimed = worldInstance.claim(UUID.randomUUID().toString(), mapId);
         World w = worldInstance.load();
         w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+        bindings = MapBindings.of(claimed);
         loadHomelands(w);
         int renewables = plugin.resetRenewables();
         plugin.getLogger().info("[match] bound " + renewables + " renewable source(s)");
-        if (plugin.teamObjectives() != null) plugin.teamObjectives().reset();
+        bindObjectives(w);
         if (plugin.lair() != null) {
-            plugin.lair().bind(w);
+            plugin.lair().bind(w, bindings);
             plugin.getLogger().info("[match] " + plugin.lair().report());
         }
-        state = State.IDLE;
-        return "Instance '" + w.getName() + "' loaded"
-                + (claimed != null ? " from pool map " + claimed.mapId()
-                                     + " (seed " + claimed.seed() + ")"
-                                   : " from the configured template (no pool map claimed)")
-                + ". Homelands: " + homelands.keySet()
-                + ". Add players, then /moba match start.";
+        if (plugin.worksites() != null) {
+            int sites = plugin.worksites().bind(bindings, w);
+            plugin.getLogger().info("[match] bound " + sites + " worksite(s)");
+        }
+        return "Selected " + (claimed != null ? "pool map " + claimed.mapId()
+                                                + " (seed " + claimed.seed() + ")"
+                                              : "the configured template")
+                + "; world '" + w.getName() + "' bound. Homelands: " + homelands.keySet()
+                + (bindings != null ? ". " + bindings.report() : "")
+                + ". Then /moba match start.";
     }
 
+    /**
+     * Register all six defensive objectives against the generated map.
+     *
+     * Capacity comes from the structure that was actually authored, so nothing
+     * maintains a second table of numbers that can drift away from the meshes.
+     */
+    private void bindObjectives(World w) {
+        var objectives = plugin.teamObjectives();
+        var capacity = plugin.defensiveCapacity();
+        if (objectives != null) objectives.reset();
+        if (capacity == null) return;
+        capacity.reset();
+        for (Team team : Team.values()) {
+            for (TeamObjectives.Kind kind : TeamObjectives.Kind.values()) {
+                Location at = bindings == null ? null : bindings.objective(w, team, kind.name().toLowerCase(java.util.Locale.ROOT));
+                if (at != null && objectives != null) objectives.place(team, kind, at);
+                capacity.register(team, kind, TeamObjectives.authoredBlocks(kind));
+            }
+        }
+    }
+
+    /**
+     * Where each team spawns and respawns.
+     *
+     * The claimed realization answers first. Config is the fallback for the
+     * Alpha template, not the default -- reading `alpha.homelands` on a
+     * generated map would put both teams at coordinates from a different world.
+     */
     private void loadHomelands(World w) {
         homelands.clear();
-        var cfg = plugin.getConfig();
         for (Team t : Team.values()) {
-            String key = "alpha.homelands." + t.lower();
-            List<Integer> xz = cfg.getIntegerList(key);
+            Location fountain = bindings == null ? null : bindings.fountain(w, t);
+            if (fountain != null) { homelands.put(t, fountain); continue; }
+            List<Integer> xz = plugin.getConfig().getIntegerList("alpha.homelands." + t.lower());
             if (xz.size() < 2) continue;
             int x = xz.get(0), z = xz.get(1);
             int y = xz.size() > 2 ? xz.get(2) : w.getHighestBlockYAt(x, z) + 1;
@@ -121,13 +206,30 @@ public final class Match implements Listener {
         return p.getName() + " joined " + team.lower() + ".";
     }
 
+    /**
+     * TEST/DEBUG start with no participants.
+     *
+     * The participant requirement is a real production rule -- a match without
+     * players is not a match -- so this bypasses that ONE check and nothing
+     * else, and is named so it cannot drift into the production path. It exists
+     * because the cadence, the objectives and the Lair are all server-side, and
+     * proving they run on a generated map should not require simulating humans.
+     */
+    public String startForTest() {
+        testStart = true;
+        try { return start(); } finally { testStart = false; }
+    }
+
+    private boolean testStart;
+
     public String start() {
         if (state == State.RUNNING) throw new IllegalStateException("Already running.");
         if (worldInstance.world() == null)
-            throw new IllegalStateException("No Alpha instance loaded; run /moba match open.");
-        if (participants.isEmpty())
+            throw new IllegalStateException("No world bound; create the match and resolve "
+                    + "the map selection first.");
+        if (participants.isEmpty() && !testStart)
             throw new IllegalStateException("No participants; add at least one player.");
-        state = State.RUNNING; elapsed = 0; winner = null;
+        state = State.RUNNING; elapsed = 0; winner = null;   // ACTIVE PLAY
         World w = worldInstance.world();
         w.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
         // Vanilla regeneration needs food >= 18, which a Hunger Capacity of 9
@@ -220,6 +322,9 @@ public final class Match implements Listener {
             plugin.lair().onNight(ordinal);
             if (stage.boss() != null) notes.add("Lair: " + stage.boss() + " "
                     + plugin.lair().lifecycle().state());
+            // The paired siege fires on the kill, in Lair.resolveVictory, not
+            // here: comparing lastVictory across nights never fired, because
+            // replacing an occupant does not change the recorded victory.
         }
         if (notes.isEmpty()) notes.add("no scheduled opportunity (post-Dragon cadence is OPEN)");
         announce("Night " + ordinal + " (" + MatchClock.minutes(elapsed) + "m, " + stage + "): "
@@ -247,6 +352,75 @@ public final class Match implements Listener {
         if (minutes <= 0) throw new IllegalArgumentException("Minutes must be positive.");
         advance(minutes * 60L * 20L);
         return "Advanced to " + MatchClock.describe(elapsed) + ".";
+    }
+
+    /**
+     * Apply one siege act to a generated objective.
+     *
+     * The routes are deliberately not separate systems: combat, structural and
+     * signature all reduce the same Defensive Capacity, so a team that fights a
+     * wave, breaks a wall and takes the signature target is conducting one
+     * siege rather than choosing between three minigames.
+     *
+     * This is the admin/integration entry point. The player-facing paths --
+     * killing a defender, breaking usable structure, stealing the Allay --
+     * route to the same calls, which is the point: there is one state.
+     */
+    public String siege(Team team, String objectiveName, String route, int amount) {
+        if (!running()) throw new IllegalStateException("No match running.");
+        var capacity = plugin.defensiveCapacity();
+        if (capacity == null) throw new IllegalStateException("No defensive capacity state.");
+        TeamObjectives.Kind kind = switch (objectiveName.toLowerCase(java.util.Locale.ROOT)) {
+            case "outpost", "pillager_outpost" -> TeamObjectives.Kind.PILLAGER_OUTPOST;
+            case "bastion", "nether_bastion" -> TeamObjectives.Kind.NETHER_BASTION;
+            case "spike", "end_spike" -> TeamObjectives.Kind.END_SPIKE;
+            default -> throw new IllegalArgumentException("unknown objective " + objectiveName);
+        };
+        var objective = capacity.get(team, kind);
+        if (objective == null)
+            throw new IllegalStateException(team.lower() + " " + kind
+                    + " is not bound on this map");
+        boolean toppled = switch (route.toLowerCase(java.util.Locale.ROOT)) {
+            case "combat" -> {
+                boolean last = false;
+                for (int i = 0; i < amount; i++) last = capacity.defenderKilled(team, kind);
+                yield last;
+            }
+            case "structural" -> capacity.structureDestroyed(team, kind, amount);
+            case "signature" -> capacity.signature(team, kind);
+            case "lair" -> capacity.lairAssault(team, kind);
+            default -> throw new IllegalArgumentException("unknown siege route " + route);
+        };
+        if (toppled && plugin.teamObjectives() != null)
+            plugin.teamObjectives().recordValidatedToppling(team, kind);
+        Location at = plugin.teamObjectives() == null ? null
+                : plugin.teamObjectives().site(team, kind);
+        String where = at == null ? "UNBOUND"
+                : at.getBlockX() + "," + at.getBlockZ();
+        announce("Siege (" + route + ") on " + team.lower() + " " + kind + " at " + where
+                + ": " + String.format("%.0f", objective.remaining()) + "/"
+                + String.format("%.0f", objective.initial)
+                + (toppled ? " -- TOPPLED" : ""));
+        return objective.toString();
+    }
+
+    /**
+     * A defeated Lair monster performs its siege on the paired enemy objective.
+     *
+     * Not an abstract buff and not a separate objective-health model: the
+     * monster does, at scale, what players already do, and it reduces the same
+     * capacity. Because it acts on the objective's real current state, it can
+     * finish one players have already weakened -- which is the setup the design
+     * explicitly permits.
+     */
+    public String lairAssault(OpportunityCadence.Boss boss, Team victor) {
+        if (victor == null) return "Lair victory unattributed; no siege performed.";
+        var kind = TeamObjectives.pairedObjective(boss);
+        Team defender = victor.other();
+        String result = siege(defender, kind.name(), "lair", 1);
+        announce(victor.lower() + " defeated the " + boss + "; it assaults "
+                 + defender.lower() + " " + kind + ".");
+        return result;
     }
 
     // ---- fountains and elimination ---------------------------------------
@@ -415,6 +589,8 @@ public final class Match implements Listener {
         if (plugin.mapPool() != null) out.add(plugin.mapPool().report());
         if (plugin.lair() != null) out.add(plugin.lair().report());
         if (plugin.teamObjectives() != null) out.addAll(plugin.teamObjectives().report());
+        if (plugin.defensiveCapacity() != null) out.addAll(plugin.defensiveCapacity().report());
+        if (bindings != null) out.add(bindings.report());
         for (Team t : Team.values())
             out.add(t.lower() + ": " + living(t).size() + " living of "
                     + participants.values().stream().filter(p -> p.team == t).count()

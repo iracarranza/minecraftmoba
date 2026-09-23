@@ -14,11 +14,25 @@ def world(root: Path):
     return root
 
 
-def compilation(playable=True, stage='verify'):
+def compilation(playable=True, stage='ready', ready=True, bindings=True):
     return {
         'playable': playable,
+        'verified': playable,
+        'ready': ready,
         'deepest_stage_reached': stage,
         'evidence': {
+            'runtime_bindings': {
+                'world': {'name': 'gen', 'map_type': 'default'},
+                'homelands': {'north': [0, 0, 0, 0], 'south': [1, 1, 1, 1]},
+                'fountains': {'north': [0, 64, 0], 'south': [1, 64, 1]},
+                'objectives': {t: {k: [0, 0] for k in
+                                   ('pillager_outpost', 'nether_bastion', 'end_spike')}
+                               for t in ('north', 'south')},
+                'lair': {'anchor': {'xyz': [5, 65, 5]}, 'count': 1},
+                'worksites': [{'id': f'ws_{i}'} for i in range(12)],
+            } if bindings else None,
+            'readiness': {'certified': ready,
+                          'problems': [] if ready else [{'code': 'LAIR_UNCONFIGURED'}]},
             'homelands': {'north': 0.74, 'south': 0.85},
             'hinterland': {'north': 0.02, 'south': 0.03},
             'objective_world_xz': {'north': {'end_spike': [1, 2]}},
@@ -43,8 +57,38 @@ class Publishing(unittest.TestCase):
         # The pool's whole value is that claiming is unconditional. A map that
         # might be fine does not belong in it.
         with self.assertRaises(ValueError):
-            foundry.publish(self.pool, 1, self.src, compilation(playable=False, stage='lair'))
+            foundry.publish(self.pool, 1, self.src,
+                            compilation(playable=False, stage='lair', ready=False))
         self.assertFalse(self.pool.exists())
+
+    def test_a_verified_but_unready_map_is_refused(self):
+        # The distinction this pass exists for. A map can satisfy every physical
+        # check and still be unusable -- an unmanifested Lair would have reached
+        # UNCONFIGURED on night 2 of a map the pool called READY.
+        with self.assertRaises(ValueError) as caught:
+            foundry.publish(self.pool, 1, self.src,
+                            compilation(stage='verify', ready=False))
+        self.assertIn('NOT READY', str(caught.exception))
+        self.assertIn('LAIR_UNCONFIGURED', str(caught.exception))
+
+    def test_a_ready_map_without_bindings_is_refused(self):
+        with self.assertRaises(ValueError):
+            foundry.publish(self.pool, 1, self.src, compilation(bindings=False))
+
+    def test_the_entry_carries_everything_a_match_needs_to_bind(self):
+        m = foundry.publish(self.pool, 1, self.src, compilation())
+        b = m['runtime_bindings']
+        self.assertEqual({'world', 'homelands', 'fountains', 'objectives',
+                          'lair', 'worksites'}, set(b))
+        self.assertIsNotNone(b['lair']['anchor'])
+
+    def test_characteristics_are_broad_classification_only(self):
+        # Players know the classification and discover the realization, so the
+        # seed, the geography and the Lair location stay out of what a draft
+        # could show.
+        c = foundry.publish(self.pool, 1, self.src, compilation())['characteristics']
+        self.assertEqual({'map_type', 'map_scale', 'resource_density', 'note'}, set(c))
+        self.assertEqual('unmeasured', c['resource_density'])
 
     def test_a_published_entry_is_ready_and_carries_provenance(self):
         m = foundry.publish(self.pool, 99887766, self.src, compilation())

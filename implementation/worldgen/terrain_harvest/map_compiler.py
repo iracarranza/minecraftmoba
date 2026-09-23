@@ -27,11 +27,12 @@ from pathlib import Path
 
 from vanilla_search.task_a import fit
 from vanilla_search import structures
-from . import build_structures, column_scan, lair_socket, objective_forms, spatial_contract
+from . import (build_structures, column_scan, lair_mark, lair_socket,
+               objective_forms, readiness, spatial_contract, worksite_portfolio)
 
 # Stage names, in order. A candidate reaches at most one past where it fails.
 STAGES = ('recognize', 'homebase', 'hinterland', 'objectives', 'lair',
-          'select', 'author', 'verify')
+          'select', 'author', 'verify', 'ready')
 
 # PROVISIONAL_ALPHA constants. Each is measured or derived from a measurement,
 # never chosen from intuition; see docs/audit/2026-09-23-map-compiler-slice.md.
@@ -117,8 +118,20 @@ class Compilation:
     evidence: dict = field(default_factory=dict)
 
     @property
+    def verified(self) -> bool:
+        """The compiler's own result: the geography satisfies the contract."""
+        return self.reached in ('verify', 'ready') and not self.rejections
+
+    @property
+    def ready(self) -> bool:
+        """Claimable for a real match. Strictly stronger than verified."""
+        return self.reached == 'ready' and not self.rejections
+
+    @property
     def playable(self) -> bool:
-        return self.reached == 'verify' and not self.rejections
+        # Retained name; it means VERIFIED, and it is deliberately NOT the same
+        # thing as claimable. See readiness.py.
+        return self.verified
 
     def fail(self, stage, code, detail, **data):
         self.rejections.append(Rejection(stage, code, detail, data))
@@ -129,6 +142,8 @@ class Compilation:
             'schema': 'map_compilation/1',
             'seed': self.seed,
             'deepest_stage_reached': self.reached,
+            'verified': self.verified,
+            'ready': self.ready,
             'playable': self.playable,
             'rejections': [r.as_dict() for r in self.rejections],
             'evidence': self.evidence,
@@ -184,6 +199,12 @@ def homebase(result, out: Compilation):
                      f'{team} socket cannot accept the Core with bounded integration',
                      team=team, usable_fraction=quality, bound=bound)
     out.evidence['homelands'] = {t: h.get('quality') for t, h in homes.items()}
+    # The Fountain is Core geometry and the respawn/reconstruction anchor, so its
+    # world position is a runtime binding rather than a diagnostic.
+    out.evidence['fountains'] = {
+        t: h['fountain']['world_xyz'] for t, h in homes.items() if h.get('fountain')}
+    out.evidence['homeland_world'] = {
+        t: h.get('world_bounds') for t, h in homes.items()}
     return out
 
 
@@ -374,6 +395,10 @@ def lair(candidate, result, out: Compilation):
                         considered=found['considered'])
     site = found['selected']
     out.evidence['lair_site'] = site
+    # The Worksite portfolio is chosen here because it must avoid the Lair: the
+    # two systems exist to pull teams in different directions.
+    out.evidence['worksites'] = worksite_portfolio.choose(
+        candidate, fountains, lair_xz=site['sample'])
     bound = PROVISIONAL['max_lair_access_asymmetry']
     if site['access_asymmetry'] is not None and site['access_asymmetry'] > bound:
         out.fail('lair', 'LAIR_ACCESS_DISPARITY',
@@ -456,6 +481,22 @@ def author_into(out: Compilation, world):
                                 f'{team}/{kind} has no terrain under it')
             placements.append({'structure': kind, 'team': team,
                                'world_xyz': [x, surface + 1, z]})
+    # The Lair, which is the whole reason a map could reach READY unusable.
+    # Authored in the same pass as the objectives so a verified world is a
+    # complete one rather than one missing the system nobody checked.
+    site = out.evidence.get('lair_site')
+    if site:
+        from .build_structures import WorldEditor
+        editor = WorldEditor(Path(world))
+        record = lair_mark.build(editor, reader.surface,
+                                 site['world_xz'][0], site['world_xz'][1],
+                                 seed=out.seed or 0)
+        if record is None:
+            return out.fail('author', 'LAIR_SITE_UNGENERATED',
+                            'the chosen Lair socket has no terrain under it')
+        editor.flush()
+        record['count'] = 1
+        out.evidence['lair_manifestation'] = record
     built = build(Path(world), placements, Path(world) / 'structures-built.json')
     out.evidence['authored'] = {
         'blocks_written': built['blocks_written'],
@@ -467,9 +508,98 @@ def author_into(out: Compilation, world):
     back = column_scan.readback(Path(world), built['structures'], TEMPLATES)
     out.evidence['readback'] = back
     if not back['verified']:
-        out.fail('author', 'AUTHORED_BLOCKS_MISSING',
-                 'blocks that were authored are not in the world',
-                 problems=back['problems'])
+        return out.fail('author', 'AUTHORED_BLOCKS_MISSING',
+                        'blocks that were authored are not in the world',
+                        problems=back['problems'])
+    verify_lair(out, world)
+    if out.rejections:
+        return out
+    ready(out, world)
+    return out
+
+
+def verify_lair(out: Compilation, world):
+    """Confirm the Lair is physically where the manifest will say it is.
+
+    Reads the world back rather than trusting the write, and checks the facts a
+    runtime binding depends on: the anchor exists, it is open air rather than
+    inside the plinth, and the markers actually stand on the ground.
+    """
+    record = out.evidence.get('lair_manifestation')
+    if not record:
+        return out.fail('verify', 'LAIR_NOT_MANIFESTED',
+                        'the Lair socket was chosen but nothing was built there')
+    reader = column_scan.World(Path(world))
+    x, y, z = record['anchor']['xyz']
+    at_anchor = reader.block(x, y, z)
+    below = reader.block(x, y - 1, z)
+    problems = []
+    if at_anchor not in column_scan.TRANSPARENT:
+        problems.append(f'the spawn anchor at {[x, y, z]} is {at_anchor}, not open air; '
+                        f'an occupant would suffocate')
+    if below in column_scan.TRANSPARENT or below is None:
+        problems.append(f'nothing solid under the spawn anchor at {[x, y, z]}')
+    standing = sum(1 for m in record['markers']
+                   if reader.block(m['xz'][0], m['base_y'] + 1, m['xz'][1])
+                   not in column_scan.TRANSPARENT)
+    if standing < len(record['markers']):
+        problems.append(f'{len(record["markers"]) - standing} Lair markers are not '
+                        f'standing on the ground they were placed on')
+    out.evidence['lair_verification'] = {
+        'anchor_block': at_anchor, 'anchor_support': below,
+        'markers_standing': standing, 'markers': len(record['markers']),
+        'problems': problems,
+        'proves': 'physical and runtime feasibility only; encounter quality is empirical',
+    }
+    if problems:
+        out.fail('verify', 'LAIR_PHYSICALLY_INVALID',
+                 'the Lair manifestation does not survive a readback',
+                 problems=problems)
+    return out
+
+
+def bindings(out: Compilation, world) -> dict:
+    """Everything the match runtime must resolve, from this realization alone.
+
+    No Alpha coordinates, no config fallback: if a value is not here, the map is
+    not claimable, which is what readiness certification then enforces.
+    """
+    e = out.evidence
+    lair = e.get('lair_manifestation') or {}
+    site = e.get('lair_site') or {}
+    return {
+        'world': {'name': Path(world).name, 'map_type': 'default'},
+        'homelands': e.get('homeland_world') or {},
+        'fountains': e.get('fountains') or {},
+        'objectives': e.get('objective_world_xz') or {},
+        'lair': {
+            'anchor': lair.get('anchor'),
+            'centre_xz': lair.get('centre_xz') or site.get('world_xz'),
+            'count': lair.get('count', 0),
+            'access_asymmetry': site.get('access_asymmetry'),
+            'treatment': lair.get('treatment'),
+        },
+        'worksites': e.get('worksites') or [],
+    }
+
+
+def ready(out: Compilation, world):
+    """READY certification: can every match system bind to this realization?
+
+    A separate stage from `verify` on purpose. Verification is about the map;
+    this is about whether the runtime can use it, and they are different
+    questions that came apart badly enough to produce a claimable map whose
+    Lair had never been established.
+    """
+    out.reached = 'ready'
+    resolved = bindings(out, world)
+    out.evidence['runtime_bindings'] = resolved
+    certified = readiness.certify(resolved)
+    out.evidence['readiness'] = certified
+    if not certified['certified']:
+        out.fail('ready', 'NOT_READY',
+                 'the map is verified but a match cannot start on it',
+                 problems=certified['problems'])
     return out
 
 

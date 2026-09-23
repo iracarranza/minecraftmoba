@@ -62,13 +62,26 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
     not a pool; the whole value of the foundry is that claiming is unconditional
     because everything in it already passed.
     """
-    if not compilation.get('playable'):
-        raise ValueError(f'seed {seed} is not a PlayableMap; the pool holds only '
-                         f'verified maps (reached {compilation.get("deepest_stage_reached")})')
+    # VERIFIED is not READY. A map can satisfy every physical check and still be
+    # unusable -- that is exactly how a realization with an unmanifested Lair
+    # entered the pool and would have reached UNCONFIGURED on night 2.
+    if not compilation.get('verified', compilation.get('playable')):
+        raise ValueError(f'seed {seed} is not a VerifiedMap '
+                         f'(reached {compilation.get("deepest_stage_reached")})')
+    if not compilation.get('ready'):
+        problems = (compilation['evidence'].get('readiness') or {}).get('problems', [])
+        raise ValueError(f'seed {seed} is verified but NOT READY: '
+                         f'{[p.get("code") for p in problems]}. The pool holds only '
+                         f'realizations a match can actually start on.')
+    resolved = compilation['evidence'].get('runtime_bindings')
+    if not resolved:
+        raise ValueError(f'seed {seed} carries no runtime bindings')
     ident = map_id(seed, compilation)
     entry = Path(pool) / ident
     if entry.exists():
         raise FileExistsError(f'{ident} is already in the pool')
+    if copy and not Path(source_world).is_dir():
+        raise FileNotFoundError(f'no authored world at {source_world}')
     entry.mkdir(parents=True)
     world = entry / 'world'
     if copy:
@@ -88,6 +101,19 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
             'objective_forms': sorted(build_structures.TEMPLATES),
             'not_reproduced': dict(build_structures.VANILLA_PLACEMENT_GAPS),
         },
+        # Everything the match runtime resolves, so a claim does not rediscover
+        # the map. No Alpha coordinates and no config fallback.
+        'runtime_bindings': resolved,
+        'characteristics': {
+            # What a future draft may show players. Broad classification only --
+            # players know the classification and discover the realization -- so
+            # seed, geography, POIs and Lair location stay out of it.
+            'map_type': 'default',
+            'map_scale': 'normal',
+            'resource_density': 'unmeasured',
+            'note': 'Resource Density is a discovered property and is not yet '
+                    'measured; it is recorded as unmeasured rather than guessed.',
+        },
         'evidence': {
             'homelands': evidence.get('homelands'),
             'hinterland': evidence.get('hinterland'),
@@ -95,6 +121,8 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
             'lair_site': evidence.get('lair_site'),
             'physical_verification': (evidence.get('physical_verification') or {}).get('verified'),
             'readback': (evidence.get('readback') or {}).get('verified'),
+            'lair_verification': evidence.get('lair_verification'),
+            'readiness': (evidence.get('readiness') or {}).get('certified'),
             'blocks_written': (evidence.get('authored') or {}).get('blocks_written'),
         },
         'world_fingerprint': _fingerprint(world) if copy else None,
@@ -141,10 +169,11 @@ def main(argv=None):
             shutil.rmtree(build)
         shutil.copytree(world, build)
         result = compile_candidate(c, world, build).as_dict()
-        if result['playable']:
+        if result.get('ready'):
             published.append(publish(a.pool, seed, build, result))
         else:
             rejected.append({'seed': seed, 'stage': result['deepest_stage_reached'],
+                             'verified': result.get('verified'),
                              'codes': [x['code'] for x in result['rejections']]})
         shutil.rmtree(build, ignore_errors=True)
     print(json.dumps({'published': [m['map_id'] for m in published],

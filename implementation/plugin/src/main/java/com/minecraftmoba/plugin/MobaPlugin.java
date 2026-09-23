@@ -56,6 +56,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Worksites worksites;
     private Lair lair;
     private MapPool mapPool;
+    private DefensiveCapacity defensiveCapacity;
     private TeamObjectives teamObjectives;
     private Match match;
     public Contributions contributions() { return contributions; }
@@ -131,6 +132,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         mapConfigurations = new MapConfigurations(this);
         mapConfigurations.reload();
         mapPool = new MapPool(this);
+        defensiveCapacity = new DefensiveCapacity();
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
         teamObjectives = new TeamObjectives();
@@ -288,6 +290,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Lair lair() { return lair; }
     /** The READY map pool the foundry writes into. */
     public MapPool mapPool() { return mapPool; }
+    /** The shared siege state every toppling method reduces. */
+    public DefensiveCapacity defensiveCapacity() { return defensiveCapacity; }
     /** All three defensive objectives, standing concurrently, per team. */
     public TeamObjectives teamObjectives() { return teamObjectives; }
 
@@ -388,7 +392,27 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         try {
             switch (sub) {
                 case "open" -> sender.sendMessage(match.open());
+                case "options" -> {
+                    var options = match.options();
+                    sender.sendMessage(options.isEmpty()
+                            ? "No READY realizations. Run the foundry, or the match "
+                              + "falls back to the configured template."
+                            : "READY options: " + options);
+                }
+                case "select" -> {
+                    // TEST/DEBUG. The production draft is a ban/counterpick over
+                    // Map Type, Scale and Resource Density and is undecided; this
+                    // resolves the choice so the rest of the lifecycle can run.
+                    sender.sendMessage("[TEST PATH] resolving map selection directly; "
+                            + "the production draft is not implemented.");
+                    sender.sendMessage(match.resolveSelectionForTest(
+                            args.length > 2 ? args[2] : null));
+                }
                 case "start" -> sender.sendMessage(match.start());
+                case "start-test" -> {
+                    sender.sendMessage("[TEST PATH] starting with no participants.");
+                    sender.sendMessage(match.startForTest());
+                }
                 case "status" -> match.report().forEach(sender::sendMessage);
                 case "add" -> {
                     if (args.length != 4) { sender.sendMessage("/moba match add <player> <north|south>"); return true; }
@@ -412,9 +436,20 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     if (args.length != 3) { sender.sendMessage("/moba match skip <minutes>"); return true; }
                     sender.sendMessage(match.skipMinutes(Integer.parseInt(args[2])));
                 }
+                case "siege" -> {
+                    if (args.length < 5) {
+                        sender.sendMessage("/moba match siege <north|south> "
+                                + "<outpost|bastion|spike> <combat|structural|signature|lair> "
+                                + "[amount]");
+                        return true;
+                    }
+                    sender.sendMessage(match.siege(Team.parse(args[2]), args[3], args[4],
+                            args.length > 5 ? Integer.parseInt(args[5]) : 1));
+                }
                 case "reset" -> sender.sendMessage(match.reset());   // alias of /moba reset
                 default -> sender.sendMessage(
-                    "/moba match <open|add|start|status|skip|fountain|kill|reset>");
+                    "/moba match <open|options|select|add|start|start-test|status|skip|siege"
+                    + "|fountain|kill|reset>");
             }
         } catch (Exception ex) {
             sender.sendMessage("match: " + ex.getMessage());

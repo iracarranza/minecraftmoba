@@ -97,9 +97,11 @@ public final class WorldInstance {
     }
 
     /** Claim a pool map for this match, if the pool is enabled and has one. */
-    public MapPool.Entry claim(String matchId) {
+    public MapPool.Entry claim(String matchId) { return claim(matchId, null); }
+
+    public MapPool.Entry claim(String matchId, String mapId) {
         MapPool pool = plugin.mapPool();
-        claimed = (pool != null && pool.enabled()) ? pool.claim(matchId) : null;
+        claimed = (pool != null && pool.enabled()) ? pool.claim(matchId, mapId) : null;
         return claimed;
     }
 

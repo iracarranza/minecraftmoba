@@ -38,10 +38,24 @@ public final class Lair implements Listener {
      * restart mid-match does not resume: an untracked boss from before the
      * restart would otherwise still be standing in the world.
      */
-    public void bind(World world) {
+    public void bind(World world) { bind(world, null); }
+
+    /**
+     * Bind to the claimed realization's Lair, or to the configured socket.
+     *
+     * The manifest answers first. A generated map carries its own anchor, and
+     * `alpha.lair.site` describes the Alpha template -- which is why a
+     * generated map used to reach UNCONFIGURED: it was being asked about a
+     * socket belonging to a different world.
+     */
+    public void bind(World world, MapBindings bindings) {
         lifecycle.reset();
         site = null;
         sweepTagged();
+        if (bindings != null) {
+            Location anchor = bindings.lairAnchor(world);
+            if (anchor != null) { site = anchor; return; }
+        }
         var xyz = plugin.getConfig().getDoubleList("alpha.lair.site");
         if (xyz.isEmpty()) return; // explicit OPEN socket; never default to the map centre
         if (xyz.size() != 3 || xyz.stream().anyMatch(v -> !Double.isFinite(v)))
@@ -155,10 +169,33 @@ public final class Lair implements Listener {
         Player killer = e.getEntity().getKiller();
         Match.Participant p = killer == null ? null : plugin.match().participant(killer.getUniqueId());
         if (lifecycle.killed(e.getEntity().getUniqueId(), p != null && p.alive ? p.team : null)) {
-            plugin.getLogger().info("[lair] " + lifecycle.lastVictory()
-                    + "; paired siege advantage and boss XP unresolved (no custom award)");
+            resolveVictory();
         }
     }
+    /**
+     * The monster is dead: perform its siege on the paired enemy objective.
+     *
+     * At the moment of the kill, not at the next Lair turnover. An earlier
+     * version compared `lastVictory` across `onNight` and never fired, because
+     * replacing an occupant does not change the recorded victory -- the reward
+     * was recorded and then silently dropped. Doctrine also puts it here: the
+     * monster performs the siege after being defeated.
+     *
+     * Public so a test harness can drive a kill it staged itself.
+     */
+    public String resolveVictory() {
+        var victory = lifecycle.lastVictory();
+        if (victory == null || victory.victoriousTeam() == null) {
+            plugin.getLogger().info("[lair] occupant defeated, attribution unknown; "
+                    + "no siege performed rather than guessing a team");
+            return null;
+        }
+        if (plugin.match() == null || !plugin.match().running()) return null;
+        String result = plugin.match().lairAssault(victory.boss(), victory.victoriousTeam());
+        plugin.getLogger().info("[lair] " + victory + " -> " + result);
+        return result;
+    }
+
     /** Drop the occupant and the socket. Called before the world is replaced. */
     public void reset() {
         lifecycle.reset(); sweepTagged(); site = null; lastKnown = null;
@@ -172,6 +209,8 @@ public final class Lair implements Listener {
                 + " pendingRemovals=" + stale.size()
                 + " site=" + (site == null ? "UNCONFIGURED" : site.toVector())
                 + " scheduled=" + lifecycle.scheduled() + " occupant=" + lifecycle.occupant()
-                + " lastVictory=" + lifecycle.lastVictory() + " siegeAdvantage=UNRESOLVED";
+                + " lastVictory=" + lifecycle.lastVictory()
+                + " pairedSiege=" + (lifecycle.lastVictory() == null ? "none"
+                    : lifecycle.lastVictory().pairedObjective() + " (performed on the kill)");
     }
 }

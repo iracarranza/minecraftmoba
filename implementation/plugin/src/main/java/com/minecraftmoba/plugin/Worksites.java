@@ -80,6 +80,29 @@ public final class Worksites {
         reload();
     }
 
+    /**
+     * Take the Worksite portfolio from a claimed realization.
+     *
+     * Config positions belong to the frozen Alpha map, so on a generated map
+     * they name places in a different world. The manifest answers first and
+     * config remains the template's fallback.
+     */
+    public int bind(MapBindings bindings, org.bukkit.World world) {
+        if (bindings == null) { reload(); return sites.size(); }
+        var portfolio = bindings.worksites(world);
+        if (portfolio.isEmpty()) { reload(); return sites.size(); }
+        sites.clear(); activeNow.clear();
+        for (var site : portfolio) {
+            String id = String.valueOf(site.get("id"));
+            sites.put(id, new Worksite(id,
+                    ((Number) site.get("x")).intValue(),
+                    ((Number) site.get("y")).intValue(),
+                    ((Number) site.get("z")).intValue(),
+                    "neutral"));
+        }
+        return sites.size();
+    }
+
     /** Load the registry from config. Positions come from the frozen Alpha map. */
     public void reload() {
         sites.clear(); activeNow.clear();

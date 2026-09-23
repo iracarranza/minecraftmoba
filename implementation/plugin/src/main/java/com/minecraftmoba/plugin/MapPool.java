@@ -129,9 +129,19 @@ public final class MapPool {
      * foundry has not run recently enough -- not a bug, and the caller can fall
      * back to the configured template and say so.
      */
-    public Entry claim(String matchId) {
+    public Entry claim(String matchId) { return claim(matchId, null); }
+
+    /**
+     * Take an unused map, optionally a named one.
+     *
+     * The name matters: a draft resolves to a specific option, and claiming
+     * "whatever is first" would make the selection meaningless. Passing null
+     * takes any READY map, which is the test path rather than the draft rule.
+     */
+    public Entry claim(String matchId, String mapId) {
         for (Entry e : entries()) {
             if (!READY.equals(e.state())) continue;
+            if (mapId != null && !mapId.equals(e.mapId())) continue;
             try {
                 Files.writeString(e.directory().resolve("claim"),
                         matchId + "\n" + System.currentTimeMillis() + "\n",

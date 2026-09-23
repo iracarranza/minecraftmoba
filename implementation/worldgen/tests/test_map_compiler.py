@@ -18,7 +18,20 @@ class Stages(unittest.TestCase):
 
     def test_stages_run_outermost_first(self):
         self.assertEqual(('recognize', 'homebase', 'hinterland', 'objectives',
-                          'lair', 'select', 'author', 'verify'), mc.STAGES)
+                          'lair', 'select', 'author', 'verify', 'ready'), mc.STAGES)
+
+    def test_verified_and_ready_are_different_claims(self):
+        # A compiler result is not an inventory state. They came apart badly
+        # enough to produce a claimable map whose Lair had never been built.
+        out = mc.Compilation(seed=1)
+        out.reached = 'verify'
+        self.assertTrue(out.verified)
+        self.assertFalse(out.ready)
+        out.reached = 'ready'
+        self.assertTrue(out.ready)
+        out.fail('ready', 'NOT_READY', 'no lair')
+        self.assertFalse(out.ready)
+        self.assertFalse(out.verified)
 
     def test_the_corridor_warning_does_not_reject_regional_shape(self):
         # It fires on all eight screened finalists and is the straight-line
