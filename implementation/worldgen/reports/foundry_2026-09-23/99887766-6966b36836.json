@@ -1,0 +1,98 @@
+{
+ "schema": "moba_map_pool_entry/1",
+ "map_id": "99887766-6966b36836",
+ "state": "READY",
+ "published_utc": "2026-09-23T06:05:33Z",
+ "provenance": {
+  "seed": 99887766,
+  "map_type": "default",
+  "authoring_version": "2026-09-23",
+  "worldgen_truth": null,
+  "compiler_constants": {
+   "min_homeland_developable_fraction": 0.52,
+   "max_hinterland_fraction_of_end": 0.5,
+   "max_lair_access_asymmetry": 0.15,
+   "max_levelling_moved_per_column": 10.0
+  },
+  "objective_forms": [
+   "aether_fountain",
+   "end_spike",
+   "end_tower",
+   "nether_bastion",
+   "nether_bastion_greybox",
+   "pillager_outpost",
+   "pillager_outpost_greybox"
+  ],
+  "not_reproduced": {
+   "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+  }
+ },
+ "evidence": {
+  "homelands": {
+   "north": 0.5594,
+   "south": 0.8315
+  },
+  "hinterland": {
+   "north": 0.018,
+   "south": 0.0252
+  },
+  "objective_world_xz": {
+   "north": {
+    "pillager_outpost": [
+     -60,
+     172
+    ],
+    "nether_bastion": [
+     -132,
+     108
+    ],
+    "end_spike": [
+     -188,
+     140
+    ]
+   },
+   "south": {
+    "pillager_outpost": [
+     236,
+     196
+    ],
+    "nether_bastion": [
+     228,
+     140
+    ],
+    "end_spike": [
+     268,
+     108
+    ]
+   }
+  },
+  "lair_site": {
+   "sample": [
+    43,
+    72
+   ],
+   "world_xz": [
+    148,
+    -180
+   ],
+   "reach": {
+    "north": 1350.74,
+    "south": 1445.88
+   },
+   "access_asymmetry": 0.068,
+   "usable_fraction": 0.5503,
+   "open_volume_proxy": 0.8064,
+   "approaches": 3
+  },
+  "physical_verification": true,
+  "readback": true,
+  "blocks_written": 90296
+ },
+ "world_fingerprint": "fe476cbe8268edd89db0dee067e109467260b70af78055cf2f68de238bb8a804",
+ "history": [
+  {
+   "state": "READY",
+   "at": "2026-09-23T06:05:33Z"
+  }
+ ]
+}

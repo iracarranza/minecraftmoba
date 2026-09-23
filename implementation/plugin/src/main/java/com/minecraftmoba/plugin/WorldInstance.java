@@ -27,6 +27,8 @@ public final class WorldInstance {
     private final MobaPlugin plugin;
     private final Path template;
     private final String instanceName;
+    /** The claimed pool map for the current match, or null when using the template. */
+    private MapPool.Entry claimed;
 
     public WorldInstance(MobaPlugin plugin) {
         this.plugin = plugin;
@@ -81,19 +83,50 @@ public final class WorldInstance {
         return Bukkit.getWorldContainer().toPath().resolve(instanceName);
     }
 
+    /**
+     * The world this match should be built from: a claimed pool map, or the
+     * configured template.
+     *
+     * The template is the fallback rather than the default. A pool map is a
+     * verified, previously unused map with provenance; the template is one
+     * frozen world that every match has shared, which is what the foundry
+     * exists to replace.
+     */
+    private Path source() {
+        return claimed != null ? claimed.world() : template;
+    }
+
+    /** Claim a pool map for this match, if the pool is enabled and has one. */
+    public MapPool.Entry claim(String matchId) {
+        MapPool pool = plugin.mapPool();
+        claimed = (pool != null && pool.enabled()) ? pool.claim(matchId) : null;
+        return claimed;
+    }
+
+    public MapPool.Entry claimed() { return claimed; }
+
+    /** Retire the claimed map. A played map never returns to READY. */
+    public void release(String result) {
+        if (claimed != null && plugin.mapPool() != null) plugin.mapPool().retire(claimed, result);
+        claimed = null;
+    }
+
     /** Copy the template into place, replacing any existing instance. */
     public void materialize() throws IOException {
-        if (!templateAvailable())
-            throw new IOException("Alpha template missing at " + template.toAbsolutePath()
-                    + ". Set alpha.templatePath to an absolute path to the frozen"
-                    + " Consolidative world (artifacts/worldgen/alpha-0.1/"
-                    + "consolidative-alpha in the repository).");
+        Path from = source();
+        if (!Files.isDirectory(from))
+            throw new IOException(claimed != null
+                    ? "claimed pool map " + claimed.mapId() + " has no world at " + from
+                    : "Alpha template missing at " + template.toAbsolutePath()
+                      + ". Set alpha.templatePath to an absolute path to the frozen"
+                      + " Consolidative world (artifacts/worldgen/alpha-0.1/"
+                      + "consolidative-alpha in the repository).");
         if (world() != null)
             throw new IllegalStateException("instance '" + instanceName
                     + "' is loaded; unload before materializing");
         Path dest = instancePath();
         deleteTree(dest);
-        copyTree(template, dest);
+        copyTree(from, dest);
         // A copied world must not inherit the template's session lock or its
         // player data; the lock makes Bukkit refuse the load.
         Files.deleteIfExists(dest.resolve("session.lock"));
@@ -202,7 +235,10 @@ public final class WorldInstance {
     }
 
     public String report() {
-        return "template=" + template + (templateAvailable() ? " (present)" : " (MISSING)")
+        return (claimed != null
+                ? "map=" + claimed.mapId() + " (pool, seed " + claimed.seed() + ") "
+                : "map=template (no pool map claimed) ")
+                + "template=" + template + (templateAvailable() ? " (present)" : " (MISSING)")
                 + " instance=" + instanceName
                 + (world() != null ? " (loaded)" : Files.isDirectory(instancePath())
                     ? " (on disk, unloaded)" : " (absent)");

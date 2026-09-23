@@ -55,6 +55,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private WorldInstance worldInstance;
     private Worksites worksites;
     private Lair lair;
+    private MapPool mapPool;
     private TeamObjectives teamObjectives;
     private Match match;
     public Contributions contributions() { return contributions; }
@@ -129,6 +130,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         renewAuthoring = new RenewableAuthoring(this);
         mapConfigurations = new MapConfigurations(this);
         mapConfigurations.reload();
+        mapPool = new MapPool(this);
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
         teamObjectives = new TeamObjectives();
@@ -284,6 +286,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Worksites worksites() { return worksites; }
     /** The single permanent Lair. Reports UNBOUND until a socket is configured. */
     public Lair lair() { return lair; }
+    /** The READY map pool the foundry writes into. */
+    public MapPool mapPool() { return mapPool; }
     /** All three defensive objectives, standing concurrently, per team. */
     public TeamObjectives teamObjectives() { return teamObjectives; }
 

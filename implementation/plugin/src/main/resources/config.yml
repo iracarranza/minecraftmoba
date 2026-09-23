@@ -832,6 +832,23 @@ alpha:
     north: [-2173, -461, 74]
     south: [-2005, 411, 76]
 
+  # The READY map pool the foundry writes into.
+  #
+  # DISABLED BY DEFAULT. With the pool off, every match runs on the frozen
+  # Consolidative template, which is the current known-good behaviour. Turning
+  # it on means match start claims a previously compiled, verified, unused map
+  # instead -- and falls back to the template with a message when the pool is
+  # empty, because an empty pool is an operational state (the foundry has not
+  # run recently enough), not an error.
+  #
+  # Populate it offline with:
+  #   python3 -m terrain_harvest.foundry --pool <dir> --candidate <candidate.json>
+  # A map is only published if it compiled, authored and verified, so claiming
+  # is unconditional: everything in the pool already passed.
+  pool:
+    enabled: false
+    directory: map-pool
+
   # The single permanent Giant Monster Lair: one site for the whole match, its
   # occupant succeeding Giant -> Ghast -> Ender Dragon on Lair nights.
   #

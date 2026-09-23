@@ -78,6 +78,10 @@ public final class Match implements Listener {
     public String open() throws IOException {
         if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
         resetFields();
+        // Claim before loading: the claim decides WHICH world gets copied into
+        // place, so doing it after would load the template and then discover
+        // there was a pool map available.
+        var claimed = worldInstance.claim(UUID.randomUUID().toString());
         World w = worldInstance.load();
         w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
         loadHomelands(w);
@@ -89,8 +93,12 @@ public final class Match implements Listener {
             plugin.getLogger().info("[match] " + plugin.lair().report());
         }
         state = State.IDLE;
-        return "Alpha instance '" + w.getName() + "' loaded. Homelands: "
-                + homelands.keySet() + ". Add players, then /moba match start.";
+        return "Instance '" + w.getName() + "' loaded"
+                + (claimed != null ? " from pool map " + claimed.mapId()
+                                     + " (seed " + claimed.seed() + ")"
+                                   : " from the configured template (no pool map claimed)")
+                + ". Homelands: " + homelands.keySet()
+                + ". Add players, then /moba match start.";
     }
 
     private void loadHomelands(World w) {
@@ -307,6 +315,9 @@ public final class Match implements Listener {
         if (state != State.RUNNING) throw new IllegalStateException("No match running.");
         state = State.ENDED; winner = victor;
         if (ticker != null) { ticker.cancel(); ticker = null; }
+        // A played map never returns to READY: players changed it, and a pool
+        // entry is only worth anything while it is pristine.
+        worldInstance.release(victor == null ? "no-victor" : victor.lower() + "-wins");
         announce(victor == null ? "Match ended with no victor."
                 : victor.lower() + " wins: " + victor.other().lower()
                   + " Fountain disabled and no survivors remain.");
@@ -330,6 +341,7 @@ public final class Match implements Listener {
         // its occupant is removed before the restore rather than orphaned in a
         // world nobody will load again.
         if (plugin.lair() != null) plugin.lair().reset();
+        worldInstance.release("reset");
         if (plugin.teamObjectives() != null) plugin.teamObjectives().reset();
         // Routes, Infrastructure Mode and contributions are all match-scoped and
         // hold references into the instance world, so they are discarded before
@@ -400,6 +412,7 @@ public final class Match implements Listener {
                 + " stage=" + OpportunityCadence.atNight(night)
                 + " next=" + OpportunityCadence.atNight(night + 1));
         out.add("world: " + worldInstance.report());
+        if (plugin.mapPool() != null) out.add(plugin.mapPool().report());
         if (plugin.lair() != null) out.add(plugin.lair().report());
         if (plugin.teamObjectives() != null) out.addAll(plugin.teamObjectives().report());
         for (Team t : Team.values())
