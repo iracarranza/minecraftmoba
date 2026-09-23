@@ -42,7 +42,15 @@ from .task_a import Terrain, path_to, shortest
 LAYERS = [
     {'id': 'pillager_outpost', 'radius_samples': 1, 'depth': 0.75, 'label': 'Pillager Outpost'},
     {'id': 'nether_bastion',   'radius_samples': 2, 'depth': 0.55, 'label': 'Nether Bastion'},
-    {'id': 'end_tower',        'radius_samples': 2, 'depth': 0.35, 'label': 'End Tower'},
+    # HISTORICAL GEOMETRY. Canon selects the End Spike -- obsidian pillar, End
+    # Crystal, cage where applicable -- and explicitly rejects the generic End
+    # Tower. The id is NOT renamed: renaming would assert a compliance the mesh
+    # does not have, and would retroactively relabel every artifact already
+    # written. See terrain_harvest/objective_forms.py, which refuses to certify
+    # it. The Outpost and Bastion entries likewise predate their selected
+    # vanilla forms (watchtower only; rampart without the projecting bridge)
+    # and their footprints remain unmeasured.
+    {'id': 'end_tower',        'radius_samples': 2, 'depth': 0.35, 'label': 'End Tower (historical)'},
     {'id': 'aether_fountain',  'radius_samples': 2, 'depth': 0.15, 'label': 'Aether Fountain'},
 ]
 

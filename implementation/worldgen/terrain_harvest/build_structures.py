@@ -154,7 +154,15 @@ def nether_bastion(height=9):
 
 
 def end_tower(height=18):
-    """End stone shaft with an obsidian core and a purpur crown."""
+    """End stone shaft with an obsidian core and a purpur crown.
+
+    HISTORICAL. The current form is the End Spike from the Ender Dragon arena:
+    an obsidian pillar with an End Crystal, and a cage where applicable. This is
+    the generic End Tower geometry the spec names and rejects. It still builds,
+    under its own name, so existing maps and their artifacts stay readable --
+    but `terrain_harvest.objective_forms.certify` will not pass a placement that
+    uses it, and no End Spike has been measured to replace it with.
+    """
     out = {}
     for dx, dz in _disc(5):
         out[(dx, -1, dz)] = block('end_stone_bricks')
@@ -175,6 +183,7 @@ TEMPLATES = {
     'aether_fountain': aether_fountain,
     'pillager_outpost': pillager_outpost,
     'nether_bastion': nether_bastion,
+    # Historical; see objective_forms.HISTORICAL. Not renamed to 'end_spike'.
     'end_tower': end_tower,
 }
 

@@ -38,6 +38,7 @@ CONSUMERS = [
     # should sit near a homeland, not 400 blocks from it.
     {'id': 'homeland',          'count': 2,  'span': 72, 'needs': 'development', 'separation': 400, 'priority': 0},
     {'id': 'aether_fountain', 'priority': 0,   'count': 2,  'span': 16, 'needs': 'development', 'separation': 400},
+    # Historical geometry pending an End Spike measurement (objective_forms).
     {'id': 'end_tower', 'priority': 1,         'count': 2,  'span': 14, 'needs': 'buildable',   'separation': 120},
     {'id': 'nether_bastion', 'priority': 1,    'count': 2,  'span': 16, 'needs': 'buildable',   'separation': 120},
     {'id': 'pillager_outpost', 'priority': 1,  'count': 2,  'span': 10, 'needs': 'buildable',   'separation': 120},
