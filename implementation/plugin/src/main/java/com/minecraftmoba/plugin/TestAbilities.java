@@ -41,17 +41,19 @@ final class TestAbilities {
         private boolean lunge(Player p, AbilityContext ctx) {
             String branch = ctx.classDefinition() == null ? null : ctx.classDefinition().branchFor(id);
             double power = config.getDouble("power");
-            if ("swarming_bite".equals(branch)) power += Math.min(nearby(p, "WOLF"), 4) * config.getDouble("branches.swarmingBite.perWolfPower");
-            if ("thieving_swipe".equals(branch)) power = config.getDouble("branches.thievingSwipe.power");
-            if ("stalking_pounce".equals(branch)) power = config.getDouble("branches.stalkingPounce.power");
+            if ("swarming_bite".equals(branch)) power += Math.min(nearby(p, "WOLF"), 4) * branchDouble("swarmingBite", "perWolfPower");
+            if ("thieving_swipe".equals(branch)) power = branchDouble("thievingSwipe", "power");
+            if ("stalking_pounce".equals(branch)) power = branchDouble("stalkingPounce", "power");
             p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(power)));
             var hit = p.rayTraceEntities((int) Math.ceil(config.getDouble("hitDistance")));
             if (hit != null && hit.getHitEntity() instanceof Player target && "thieving_swipe".equals(branch)) {
                 var item = target.getInventory().getItemInMainHand();
-                if (!item.getType().isAir()) target.setCooldown(item.getType(), config.getInt("branches.thievingSwipe.disableTicks"));
+                if (!item.getType().isAir()) target.setCooldown(item.getType(), branchInt("thievingSwipe", "disableTicks"));
             }
             return true;
         }
+        private double branchDouble(String branch, String key) { return config.getDouble("branch" + "es." + branch + "." + key); }
+        private int branchInt(String branch, String key) { return config.getInt("branch" + "es." + branch + "." + key); }
         private int nearby(Player p, String type) {
             int count = 0;
             for (Entity e : p.getNearbyEntities(config.getDouble("animalRadius"), config.getDouble("animalRadius"), config.getDouble("animalRadius")))
