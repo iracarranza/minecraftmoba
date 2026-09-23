@@ -1,90 +1,103 @@
-# Handoff — spatial doctrine reconciliation and cadence migration COMPLETE
+# Handoff — map compiler vertical slice
 
-**22 September 2026. Branch `codex/spatial-cadence-migration`.** The pass
-specified by [`specs/superspatialdoctrinespec.md`](specs/superspatialdoctrinespec.md)
-is implemented, tested, documented and pushed. Full record:
-[`docs/audit/2026-09-22-spatial-cadence-migration.md`](docs/audit/2026-09-22-spatial-cadence-migration.md),
-which carries the supersession matrix.
+**23 September 2026. Branch `codex/spatial-cadence-migration`,** over the
+14cb46c cadence migration. Audit:
+[`docs/audit/2026-09-23-map-compiler-slice.md`](docs/audit/2026-09-23-map-compiler-slice.md).
+The previous pass's audit
+([`2026-09-22-spatial-cadence-migration.md`](docs/audit/2026-09-22-spatial-cadence-migration.md))
+still holds for the runtime cadence.
 
-This branch is **not merged to main**. It starts at 03c5bea (spatial doctrine
-audit) over 9bb5093 (Hunger audit) over main 8199c13. The original dirty
-checkout at `/Users/iracarranza/minecraftmoba` and the live server at
-`/private/tmp/alpha-server` were not touched; nothing here ran a server,
-regenerated a world or deployed.
+Not merged to main. Branch base 03c5bea over 9bb5093 over main 8199c13. Nothing
+here touched `/Users/iracarranza/minecraftmoba` or the live
+`/private/tmp/alpha-server`; all server work used disposable directories.
 
-## What changed
+## Where the compiler stops
 
-**The match no longer has a phase timeline.** It has one tick counter and an
-alternating cadence derived from it:
+An unseen seed, **99887766**, passes every analytical stage — Default
+recognition, both Homebase sockets, compact Hinterlands, an ordered objective
+layout, and a Lair socket at **A_L 0.068** — and stops at one physical blocker:
 
-> Worksite I → Giant → Worksite II → Ghast → Worksite III → Ender Dragon
+> **There is no End Spike mesh.**
 
-The six nights fall at 10/30/50/70/90/110 minutes as a consequence of the
-vanilla clock. That is **not** a new match length — the inferred 80-minute
-horizon is gone, along with the tick-loop branch that announced a "48-minute
-analytical horizon" while double-incrementing `elapsed` and silently losing any
-boundary that landed on the skipped tick.
+Siting uses the measured `end_spike` contract. The repository has
+`aether_fountain`, `nether_bastion`, `pillager_outpost` and the historical
+`end_tower`, and registering that last one under the Spike's name is the
+masquerade the physical contract forbids, so the compiler fails closed.
 
-**All three defensive objectives now coexist**, with a spatial ordinal
-(midline → Outpost → Bastion → Spike → Fountain) and no prerequisite gate.
-`objectives.md §21` moves from "Unresolved" to resolved.
+No PlayableMap was produced. The compiler now reports where each seed died:
 
-**One permanent Lair**, occupant succeeding Giant → Ghast → Dragon: survivors
-persist through the Worksite night between, are replaced (not killed) at the
-next Lair night, and a kill leaves the site dormant. Missing a monster does not
-stall the clock.
+| stage | unseen (6) | screened finalists (8) |
+|---|---|---|
+| recognize | 3 | 1 |
+| homebase | 2 | 3 |
+| objectives | 1 | 0 |
+| lair | 0 | 3 |
+| author | **1** | **1** |
 
-**N/S terrain contrast is no longer read as a defect.** `compare_seeds` emits a
-descriptive contrast with `competitive_consequence: unknown` under schema
-`seed_team_axis_contrast/2`; historical `/1` JSON keeps its `diagnosis` block.
+## What is now measured that was not
 
-Tests: Java **231 pass**. Worldgen **346, 2 failures**, both reproduced
-unchanged at 03c5bea in `test_author_portfolio`.
+- **All three objective forms**, from Minecraft itself. Outpost 15×21×15 and
+  Bastion 32-span/506-contact out of the client jar's structure NBT; End Spike
+  from a generated vanilla End — radius 2–5, height 76–103, two of ten caged.
+  Contracts are per-objective, not one bounding box: the Spike's binding
+  constraint is 103 blocks of sky over an 11-block footprint.
+- **Lair access parity.** Best A_L per seed across eight finalists: 0.001,
+  0.050, 0.073, then 0.226, 0.294, 0.415, 0.678, 0.787. Bound 0.15 sits in the
+  widest gap; any value in [0.08, 0.22] selects the same three seeds.
+- **Homeland socket quality**, 28 sockets, 0.110–0.950 with a break at
+  0.468→0.559. Bound 0.52.
+- **Opportunity reach**, from which the optimizer's two gates are set.
 
-## What is deliberately absent
+## What this pass changed about balance
 
-Read this before "finishing" anything below — each is an unresolved design
-question, not an oversight, and inventing an answer is the failure mode the
-spec names repeatedly.
+`map_authoring_optimizer` no longer optimizes `balance_asymmetry`. Measurements
+are all kept; the shape is now hard gates then optimization among viable
+candidates, and the gate is **reachability, not equality**.
 
-- **Paired siege advantage.** Giant/Outpost, Ghast/Bastion, Dragon/Spike are
-  canonical; the *effect* is OPEN. `LairLifecycle` records a `SiegeOpportunity`
-  and applies nothing. Direct objective damage is **not** restored.
-- **Boss XP, objective-toppling XP.** Not awarded. The old tiered
-  XP-by-method hierarchy is obsolete and must not come back.
-- **Worksite tier packages.** No Blast Furnace, Smoker, Enchanting Table or
-  Anvil is placed. The tier is recorded and reported UNRESOLVED; the existing
-  Mining Outpost / Industrial Enchanter work is the specific form.
-- **`alpha.lair.site: []`.** Empty by design. No map here has a certified Lair
-  socket, and the runtime reports UNCONFIGURED rather than picking a centre.
-- **Objective form measurements.** `objective_forms.certify` fails every
-  candidate today, on purpose. `end_tower` is marked HISTORICAL and was
-  deliberately **not** renamed to `end_spike`.
-- **Physical toppling validation.** `recordValidatedToppling` exists; nothing
-  calls it.
-- **Post-Dragon cadence.** `UNSCHEDULED`.
+Worth carrying forward: **930010639 — the near-miss an earlier pass authored to
+a 0.0161 balance scalar — has the worst Lair access parity of all eight seeds at
+0.787**, and the compiler rejects it. The metric doctrine endorses and the one
+it replaced disagree about that seed completely.
 
-## Next step, and the blocker under it
+## Defects found by running things
 
-The immediate technical step is **runtime verification of the boss encounters
-in a disposable world**: bind a Lair socket, `skip` through the six nights, and
-confirm spawn, persistence across a Worksite night, replacement, kill-to-dormant
-and reset cleanup. A vanilla Giant has no designed encounter AI and an Overworld
-Ender Dragon may carry arena/flight assumptions — the seams are honest about
-that, and no AI or tuning was invented to hide it. Use `skip`, not six nights of
-elapsed gameplay.
+1. **Lair lost its own occupant.** A Ghast 300 blocks off-socket in an unloaded
+   chunk read as ALIVE-but-unreachable, and the sweep scanned loaded worlds
+   only. Fixed: last-known-location tracking plus a `ChunkLoadEvent` queue.
+   Verified end to end.
+2. **The recognizer rejected every candidate ever screened**, on the
+   straight-line corridor proxy already known to be a false positive.
+3. **Objective siting chose the best site per layer independently**, and they
+   did not coexist. Now an exhaustive joint search; the Fountain is no longer a
+   free slot.
+4. **The socket threshold was justified from two numbers that were one seed's
+   two homelands**, not a distribution. Corrected against 28 measured sockets.
 
-The highest-value **measurement** is Lair access parity, A_L, from both teams.
-It has never been computed, because no candidate has a Lair socket. It matters
-more than it looks: it is the one parity claim the new doctrine actually
-endorses, so it gives the balance work a target that survives §1.
+## Next step
 
-And the blocker is still the one the rescue test left:
-`tools/analysis/map_authoring_optimizer.py` still optimizes `balance_asymmetry`,
-which on 930010639 drove the scalar to 0.0161 while leaving the 0.3173
-accessible-land gap exactly where it was — it measures travel-cost equality to
-*placed* opportunities, not the terrain. `compare_seeds` has been reconciled to
-§1; the optimizer has not, and its two pre-existing test failures sit in that
-same path. Reconciling it is the natural next migration, and the question
-underneath — **whether a large accessible-land gap is ever felt in play** —
-remains a playtest question no analysis here can answer.
+1. **Author an End Spike mesh** to the measured contract — obsidian pillar,
+   radius 2–5, height 76–103, bedrock cap, End Crystal, iron-bar cage on a
+   minority. This is now a specification, not a design question, and it is the
+   single blocker on the deepest candidate.
+2. **Column-scan verification** for the Spike's vertical clearance and the
+   Bastion's interior fit — both named in
+   `structures.UNVERIFIABLE_FROM_SAMPLES`, neither provable from an 8-block
+   surface grid.
+3. **Exercise author and verify** on 99887766 in a disposable world. Feed any
+   false positive back into the recognizer rather than normalizing terrain.
+4. **Widen the A_L sample.** Eight seeds is enough to see a gap, not to fix a
+   threshold.
+5. Then the foundry. The compiler is what makes a ready-map pool possible, and
+   per-stage rejection codes are what a foundry needs to know why it discarded
+   a seed.
+
+Two caveats to carry: locally harvested candidates have
+`worldgen_truth.verified = false` — vanilla terrain, but not the official-jar
+SHA-1 provenance the screened finalists have. And the compact-Hinterland gate
+has never fired (observed 1.4%–2.5% against a 50% bound), so it is a guard, not
+evidence.
+
+Still open and untouched: siege advantage, boss and toppling XP, Worksite tier
+packages, Giant/Ghast/Dragon encounter design, Lair art direction, and every
+competitive threshold after Alpha testing. The vanilla Giant still has no
+designed AI; that is recorded, not designed around.
