@@ -10,7 +10,19 @@ Copper is now a **Primary Material**. Current set: Copper, Iron, Gold, Diamond, 
 ### No functional offhand
 The game has **no functional offhand slot**. Shields, buckets, food, light sources, maps, utility and class items compete with weapons, tools, blocks, resources, provisioning and cargo in ordinary inventory/active-item handling. Any class ability requiring vanilla offhand functionality requires redesign rather than an exception silently being assumed.
 
-### Match clock
+### Match clock — TEMPORAL PORTION SUPERSEDED, 22 September 2026
+**The timing in this subsection is historical.** The 6-minute day/night
+compression was reverted to vanilla on 2026-09-21 after a live match in which
+the entire first Worksite window opened and closed during the player's first
+mining expedition. The 48-minute analytical horizon is removed entirely — no
+timed draw or timed victory is canonical — and the four-pulse series is
+superseded by six opportunity nights at 10/30/50/70/90/110 minutes carrying the
+alternating Worksite/Lair cadence (objectives.md §17C). The six nights are a
+consequence of the vanilla clock, **not** a new fixed match duration.
+
+The economic and material content of this document is unaffected; only its
+temporal claims are superseded. Retained below as written.
+
 Day is **6 minutes** and night is **6 minutes**; a full cycle is 12 minutes. In a 48-minute analytical match: 0–6 Day 1; 6–12 Night 1; 12–18 Day 2; 18–24 Night 2; 24–30 Day 3; 30–36 Night 3; 36–42 Day 4; 42–48 Night 4. Worksites open at sunset, so natural pulses are **6, 18, 30, 42 minutes**. This supersedes older vanilla-length, 10-minute-cycle, and first-sunset-near-10m assumptions.
 
 ## 2. Inventory economy
@@ -68,7 +80,10 @@ A full Diamond armor+sword investment costs 26 Diamond. Target result is roughly
 Ancient Debris is not Fortune-amplified. Four Debris are required per Netherite ingot/item upgrade before Gold, template, and Smithing-capability constraints. Combined fixture supports roughly 3–5 individual Netherite upgrades in sufficiently long/developed matches, not teamwide saturation.
 
 ## 9. Sunset Worksite economy
-Corrected sunset pulses: 6, 18, 30, 42 minutes. A specific Worksite is not guaranteed each sunset; current direction selects a phase-dependent subset from an eligible pool. Availability and intensity are separate tuning axes.
+**Superseded timing (22 September 2026):** Worksites now open on the cadence's
+three Worksite nights — I, II and III at 10, 50 and 90 minutes — and not on the
+Lair nights between them. The eligible-pool selection below still stands.
+Historical text: Corrected sunset pulses: 6, 18, 30, 42 minutes. A specific Worksite is not guaranteed each sunset; current direction selects a phase-dependent subset from an eligible pool. Availability and intensity are separate tuning axes.
 
 Useful **test vocabulary, not mandatory contents**: 6m Copper/Coal/opening industry; 18m Iron/enchanting transition; 30m Gold/Lapis/Diamond/advanced capability; 42m apex resources/Ancient Debris/Smithing relationships.
 
@@ -100,4 +115,7 @@ Recoverable state immediately before the lost discussion:
 The next XP pass should reconstruct UAU explicitly from first principles, mark every assumption, and test whether plausible XP values produce the desired match progression rather than tuning rewards merely to force predetermined timestamps.
 
 ## 13. Superseded assumptions to reject
-Do not reintroduce: Copper excluded from Primary Materials; a functional/free offhand; vanilla-length day/night timing; a 6-minute entire day/night cycle; first sunset near 10m or second near 30m; Copper opportunity based on near-1:1 drops; Efficiency as a physical-resource multiplier; universal 247-Iron mature-kit demand; large routine sword/armor replacement as the main Copper/Iron sink; Worksites as mandatory tier permission; normalized minute-to-level sensitivity as canonical progression timing; or an invented UAU formula attributed to the lost conversation.
+Do not reintroduce (temporal entries updated 22 September 2026: the day/night
+compression here is itself superseded, so "vanilla-length day/night timing" and
+"first sunset near 10m" are now the CURRENT behaviour and must not be treated as
+regressions): Copper excluded from Primary Materials; a functional/free offhand; vanilla-length day/night timing; a 6-minute entire day/night cycle; first sunset near 10m or second near 30m; Copper opportunity based on near-1:1 drops; Efficiency as a physical-resource multiplier; universal 247-Iron mature-kit demand; large routine sword/armor replacement as the main Copper/Iron sink; Worksites as mandatory tier permission; normalized minute-to-level sensitivity as canonical progression timing; or an invented UAU formula attributed to the lost conversation.

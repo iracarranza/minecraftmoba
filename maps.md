@@ -80,6 +80,103 @@ Prototype/test evidence, not an implemented standardized Core/Socket contract.
 This clarification does not relocate the established team objectives or decide
 that all defensive layers must fit inside the Core.
 
+### The Opening Hinterland is small — Canonical, 22 September 2026
+
+An important correction. The Opening Hinterland is a **compact natural
+envelope** around the Core. It is **not**:
+
+- the team's half or end of the map;
+- everything between the Fountain and the midline;
+- a giant radial homeland;
+- a fixed-radius circle;
+- the region enclosed by the initial Routes.
+
+**Wilderness may exist on every side of it** — toward the midline, east and
+west, and **behind the Homebase, toward that team's own N–S pole.** Poleward
+Wilderness is the case the earlier vocabulary could not express, because it
+assumed a team's end of the map was that team's ground.
+
+```
+                 WILDERNESS
+
+             ┌──────────────┐
+             │  HINTERLAND  │
+  WILDERNESS │     CORE     │ WILDERNESS
+             └──────────────┘
+
+                 WILDERNESS
+```
+
+The ellipse describes a spatial **role**, not a literal mask or radius.
+
+**Opening floor.** The Hinterland must let a team *begin* every fundamental
+verb — Construction, Extraction, Development, Production, Exploration, the
+movement and organization Logistics needs, and ordinary Combat/PvE. It is
+qualitative: this is deliberately **not** one quota per archetype, and invents
+no counts of trees, animals or ore.
+
+> **The Hinterland must permit every fundamental verb, but should not resolve
+> any of them.**
+
+**Opening ceiling.** It supplies distributed subsistence, not concentrated
+windfalls, and should exclude opportunities that skip meaningful early
+progression. Known exclusions:
+
+- **villages**;
+- **carrots**;
+- **enough accessible iron to equip a player.**
+
+The iron rule is **not** "no iron". Basic Extraction must remain possible; what
+the Hinterland should not do is hand over an equipment-sufficient package as an
+opening resource. Judging it needs a declared equipment target, which does not
+yet exist, so the measurement stays **UNMEASURED** rather than passing by
+default.
+
+This list is **not exhaustive** — it is a seam. Useful questions for a new
+candidate exclusion: does it scale strongly with multiple players, compress
+several opening verbs, impose major competitive cost if delayed, or skip an
+intended economic step? Serious ceiling violations should **reject a socket**,
+before authoring starts deleting natural Minecraft features.
+
+Small **floor** deficiencies may sometimes be corrected with existing authored
+opportunity systems. Ceiling violations are a rejection, not a repair.
+
+### The singular Giant Monster Lair — Canonical, 22 September 2026
+
+There is exactly **one** Lair in the world: a massive, permanent, conspicuous
+landmark whose occupant succeeds Giant → Ghast → Ender Dragon. See
+[objectives.md §17C](objectives.md) for the lifecycle.
+
+A valid Lair socket should supply, in terrain-appropriate form: enough 3D
+encounter volume for all three encounters; usable ground for players, building,
+retreat and PvP; meaningful vertical volume, especially for Ghast and Dragon;
+multiple practical approaches; enough visibility that it reads as a landmark;
+terrain already broadly suitable, needing bounded authoring rather than large
+excavation; and room for players to modify it over the match.
+
+The Ender Dragon is likely the limiting physical-volume case. That does **not**
+make the Lair flat, circular, an artificial stadium, biome-neutral or
+geometrically centred. A mountain basin, a frozen amphitheatre, a major clearing
+or an unusual valley may all be valid; terrain should shape the encounter.
+
+**Centrality is competitive, not coordinate.** Its W–E/regional position may
+vary widely — on Default it might sit near the literal centre, in Forest, in
+Rugged Uplands, or even in the alpine extreme — provided team access stays as
+near equal as practicable. Evaluate initial Practical Reach from both teams:
+
+> **A_L = |Reach_N − Reach_S| / mean(Reach_N, Reach_S)**
+
+Minimise it. **No acceptable threshold is established**, and none is invented
+here. This is the sharp distinction the spatial doctrine turns on:
+
+> asymmetric Wilderness terrain is **allowed**; one team having structurally
+> privileged access to the singular shared major objective is a **genuine
+> competitive concern**.
+
+**Open:** exact Lair dimensions, the access-parity threshold, and any
+anti-cheese rules. No map in this repository has a certified Lair socket; the
+runtime reports the site UNCONFIGURED rather than choosing a centre.
+
 ### Two independent spatial axes
 
 **Strategic Depth** is the outward relationship to a team's Homebase/opening

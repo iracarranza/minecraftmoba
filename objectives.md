@@ -754,6 +754,16 @@ Exact neutral-boss XP is unresolved.
 
 # 17. Match Escalation and Flavor
 
+**Canonical, 22 September 2026.** The escalation below is THEMATIC VOCABULARY,
+not the match's temporal state machine. This section previously read as the
+top-level temporal organizer, and both doctrine and runtime treated it that way.
+It is superseded in that role by the alternating Worksite/Lair cadence in §17C.
+
+What that means concretely: **all three team defensive objectives exist at the
+same time, from the opening.** Overworld/Nether/End no longer decide which
+objective is present, reachable or attackable. They describe what an encounter
+feels like and what materials it speaks in.
+
 The current objective set supports an implicit thematic escalation.
 
 ## Early — Pillager / Giant Zombie
@@ -785,7 +795,84 @@ This produces a Minecraft-flavored progression:
 
 > Overworld → Nether → End → Aether
 
-without requiring literal vanilla dimensional progression.
+without requiring literal vanilla dimensional progression, and — **as of 22
+September 2026** — without governing availability. See §17C.
+
+---
+
+# 17C. Exceptional Opportunity Cadence — Canonical, 22 September 2026
+
+**This is the top-level temporal model.** It supersedes the phase timeline for
+the purpose of deciding what exists and when.
+
+Exceptional opportunity alternates and escalates across successive opportunity
+nights:
+
+> **Worksite I → Giant → Worksite II → Ghast → Worksite III → Ender Dragon**
+
+Odd nights are Worksite nights; even nights are Lair nights. At the current
+vanilla clock those are nights 1–6, at 10, 30, 50, 70, 90 and 110 minutes. The
+canonical requirement is the **alternation and the escalation**, not those
+minute values, and the six nights do **not** define a match length: nothing in
+canon ends a match on a clock. Victory remains the Fountain predicate.
+
+The two systems are deliberately opposite in shape. A Worksite night pulls teams
+toward **distributed** sites; a Lair night concentrates value at the **single
+shared landmark**. That contrast is the point — it stops every important night
+resolving to "go middle". Worksites are therefore never clustered around the
+Lair.
+
+**Post-Dragon cadence is OPEN.** The runtime reports UNSCHEDULED rather than
+looping or repeating the last entry.
+
+## Worksite tiers — Working
+
+- **Worksite I** — iron/coal-scale mining opportunity; Blast Furnace; Smoker.
+- **Worksite II** — second-tier mining/resource opportunity; Enchanting Table;
+  Anvil. Exact enchant behaviour is not settled.
+- **Worksite III** — OPEN.
+
+These are anchors, not a reward spec. The existing **Mining Outpost** and
+**Industrial Enchanter** work is the specific form and is not replaced by free
+grants; the runtime records the tier and reports the package as unresolved.
+
+## Lair occupant lifecycle — Canonical
+
+There is exactly **one** Giant Monster Lair in the world: a massive, permanent,
+conspicuous landmark, in the same place all match. Its **occupant** changes,
+not its location. It is not one Lair per monster, per team, or per night.
+
+- A monster that survives its night **stays**, through dawn and through the
+  Worksite night after it, until the next **Lair** night.
+- At that Lair night it is **replaced**. Replacement is not a kill and earns no
+  siege advantage.
+- A monster that is killed leaves the Lair **dormant** — the place remains, the
+  occupant does not — until the next scheduled occupant arrives.
+- **Missing a monster does not stall the progression.** Players can miss an
+  opportunity; the match clock continues.
+
+Team knowledge of the Lair is simply whether players have found it. There is no
+scheduled global reveal, and none is needed: every major monster appears there,
+so Exploration and later Route investment keep persistent value.
+
+Ordinary Minecraft modification of the Lair — building, mining, approaches,
+defences, staging, terrain change — remains valid. Preparation that grants
+advantage is strategy; geometry that trivially nullifies an encounter is a
+**playtest/balance** concern, and no protections are invented ahead of it.
+
+## Monster ↔ objective pairing — Canonical, effect OPEN
+
+> **Giant → enemy Pillager Outpost · Ghast → enemy Nether Bastion ·
+> Ender Dragon → enemy End Spike**
+
+Killing the monster gives the victorious team a meaningful advantage toward
+toppling the paired enemy objective. **How that advantage works is OPEN.**
+Historical material described literal direct objective damage; that is not
+restored. No damage percentage, HP debuff, defender reduction, structural
+weakness, timed vulnerability window or signature-verb assistance is asserted.
+The only requirement is that it should materially help the siege without making
+direct objective interaction irrelevant. The runtime records the siege
+opportunity and applies nothing.
 
 ---
 
@@ -1181,21 +1268,39 @@ Objective and encounter design should therefore be evaluated partly on whether w
 
 # 21. Key Risks / Open Questions
 
-## Team Structure sequence
+## Team Structure sequence — RESOLVED, 22 September 2026
 
-Is:
+Formerly open: whether Outpost → Bastion → End Tower was strictly sequential,
+whether later structures were protected until earlier ones fell, and whether
+Minecraft-native approaches could bypass layers.
 
-Pillager Outpost  
-→ Nether Bastion  
-→ End Tower
+**Resolved.** The ordering is **spatial, not mechanical**. All three defensive
+objectives stand concurrently and each may be attacked at any point, subject
+only to actually reaching it. Nothing makes the Bastion invulnerable until the
+Outpost falls, or the Spike invulnerable until the Bastion falls.
 
-strictly sequential?
+For a team, moving from the midline toward its own Fountain:
 
-Are later structures merely protected until earlier ones fall?
+> **midline → Pillager Outpost → Nether Bastion → End Spike → Aether Fountain**
 
-Can difficult Minecraft-native approaches bypass layers?
+The **ordinal is the invariant**. W–E position and N–S spacing are variable;
+no straight lane, equal gaps, mirrored coordinates or matching surrounding
+terrain are required. All three are **Wilderness** structures — none belongs
+inside the opening Hinterland.
 
-Unresolved.
+Bypassing an outer defense through alternate terrain, tunnelling, bridging,
+Routes, an unusual approach or a coordinated expedition is **valid Minecraft
+play**.
+
+Current forms, superseding earlier geometry: the Outpost is the **watchtower
+only** (not the cages, tents, log piles or wider compound); the Bastion is the
+Bridge Bastion's **rampart/central body** with the projecting bridge removed
+(not the older Treasure Room); and the third is the **End Spike** — obsidian
+pillar, End Crystal, cage where applicable — **not** an End City tower and not
+the generic End Tower geometry the repository currently builds. Exact retained
+dimensions must be **measured** from the selected form, and have not been; see
+`implementation/worldgen/terrain_harvest/objective_forms.py`, which refuses
+certification rather than guessing.
 
 ## Aether exposure
 
