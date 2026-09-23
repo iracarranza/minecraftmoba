@@ -4,6 +4,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 
@@ -12,6 +13,10 @@ public final class Lair implements Listener {
     private final MobaPlugin plugin;
     private final NamespacedKey memberKey;
     private Location site;
+    /** Where the occupant was last seen. A Ghast does not stay over its socket. */
+    private Location lastKnown;
+    /** Occupants the runtime could not reach to remove; cleaned on chunk load. */
+    private final Set<UUID> stale = new HashSet<>();
     private final LairLifecycle lifecycle;
     public Lair(MobaPlugin plugin) {
         this.plugin = plugin;
@@ -56,12 +61,45 @@ public final class Lair implements Listener {
      */
     private void removeOccupant(UUID id) {
         Entity entity = id == null ? null : Bukkit.getEntity(id);
-        if (entity == null && site != null) {
-            site.getChunk().load();
-            if (id != null) entity = Bukkit.getEntity(id);
+        // Then where it actually was, not where it was spawned. A disposable-world
+        // smoke test on 2026-09-23 caught this: a Ghast moved 300 blocks from its
+        // socket, its chunk unloaded, and `Bukkit.getEntity` returned null while
+        // the lifecycle still reported ALIVE. Loading the SOCKET chunk -- the only
+        // fallback there used to be -- looks in the one place the occupant is
+        // least likely to be once it can fly.
+        if (entity == null && id != null && lastKnown != null) {
+            lastKnown.getChunk().load();
+            entity = Bukkit.getEntity(id);
         }
         if (entity != null) { entity.remove(); return; }
-        sweepTagged();
+        if (sweepTagged() > 0) return;
+        // Unreachable is not gone. An entity in an unloaded chunk is still there,
+        // and pretending otherwise is how a replaced Ghast ends up sharing the
+        // Lair with the Dragon that replaced it. Remember it, and remove it the
+        // moment its chunk comes back.
+        if (id != null) {
+            stale.add(id);
+            plugin.getLogger().info("[lair] occupant " + id + " is in an unloaded chunk; "
+                    + "queued for removal on chunk load");
+        }
+    }
+
+    /**
+     * Sweep stale occupants as their chunks come back.
+     *
+     * This is the half that makes removal durable. The entity is persistent by
+     * design -- it must survive a night -- so it cannot be left to vanish on its
+     * own, and match state is memory-only, so nothing else would ever look for
+     * it again.
+     */
+    @EventHandler
+    public void chunkLoad(ChunkLoadEvent e) {
+        if (stale.isEmpty()) return;
+        for (Entity entity : e.getChunk().getEntities())
+            if (stale.remove(entity.getUniqueId())) {
+                entity.remove();
+                plugin.getLogger().info("[lair] removed stale occupant on chunk load");
+            }
     }
 
     /** Remove every entity still carrying this plugin's Lair tag. */
@@ -87,13 +125,31 @@ public final class Lair implements Listener {
             e.setPersistent(true);
             if (e instanceof LivingEntity living) living.setRemoveWhenFarAway(false);
             e.getPersistentDataContainer().set(memberKey, PersistentDataType.STRING, boss.name());
+            lastKnown = e.getLocation();
             return e.getUniqueId();
         } catch (RuntimeException failure) {
             plugin.getLogger().warning("Lair manifestation blocked: " + failure.getMessage());
             return null;
         }
     }
-    public void onNight(int ordinal) { lifecycle.onNight(ordinal); }
+    public void onNight(int ordinal) {
+        // Refresh the occupant's position before any replacement decision, so a
+        // boss that has moved is removed where it is rather than where it began.
+        UUID occupant = lifecycle.occupant();
+        if (occupant != null) {
+            Entity entity = Bukkit.getEntity(occupant);
+            if (entity != null) lastKnown = entity.getLocation();
+        }
+        lifecycle.onNight(ordinal);
+    }
+
+    /** Whether the runtime can currently see its own occupant. */
+    public boolean occupantReachable() {
+        UUID id = lifecycle.occupant();
+        return id != null && Bukkit.getEntity(id) != null;
+    }
+
+    public int pendingRemovals() { return stale.size(); }
     @EventHandler(priority = EventPriority.MONITOR)
     public void death(EntityDeathEvent e) {
         Player killer = e.getEntity().getKiller();
@@ -104,9 +160,17 @@ public final class Lair implements Listener {
         }
     }
     /** Drop the occupant and the socket. Called before the world is replaced. */
-    public void reset() { lifecycle.reset(); sweepTagged(); site = null; }
+    public void reset() {
+        lifecycle.reset(); sweepTagged(); site = null; lastKnown = null;
+        // Queued removals do not survive a match: the world itself is replaced.
+        stale.clear();
+    }
     public String report() {
-        return "lair=" + lifecycle.state() + " site=" + (site == null ? "UNCONFIGURED" : site.toVector())
+        return "lair=" + lifecycle.state()
+                + (lifecycle.state() == LairLifecycle.State.ALIVE && !occupantReachable()
+                   ? " (occupant unloaded)" : "")
+                + " pendingRemovals=" + stale.size()
+                + " site=" + (site == null ? "UNCONFIGURED" : site.toVector())
                 + " scheduled=" + lifecycle.scheduled() + " occupant=" + lifecycle.occupant()
                 + " lastVictory=" + lifecycle.lastVictory() + " siegeAdvantage=UNRESOLVED";
     }
