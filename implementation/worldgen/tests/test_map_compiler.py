@@ -121,21 +121,74 @@ class LairParity(unittest.TestCase):
         self.assertIn('UNVERIFIED', source)
 
 
-class AuthorFailsClosed(unittest.TestCase):
+class AuthoringContract(unittest.TestCase):
 
-    def test_no_historical_mesh_may_stand_in_for_a_current_form(self):
+    def test_every_current_form_now_has_a_mesh(self):
+        # This used to fail closed: siting used the measured end_spike contract
+        # and no End Spike mesh existed, so the compiler stopped rather than
+        # building an End Tower under the Spike's name. The mesh exists now.
         out = mc.Compilation(seed=1)
         mc.author(out)
-        self.assertEqual(['OBJECTIVE_MESH_MISSING'], [r.code for r in out.rejections])
-        self.assertIn('end_spike', out.rejections[0].data['missing'])
+        self.assertEqual([], out.rejections)
 
-    def test_siting_uses_end_spike_while_building_still_has_only_end_tower(self):
-        from vanilla_search.structures import LAYERS
+    def test_the_historical_mesh_is_still_not_the_current_one(self):
         from terrain_harvest.build_structures import TEMPLATES
-        self.assertIn('end_spike', [l['id'] for l in LAYERS])
-        self.assertNotIn('end_spike', TEMPLATES)
+        self.assertIn('end_spike', TEMPLATES)
         self.assertIn('end_tower', TEMPLATES)
+        self.assertIsNot(TEMPLATES['end_spike'], TEMPLATES['end_tower'])
         self.assertTrue(of.is_historical('end_tower'))
+        self.assertFalse(of.is_historical('end_spike'))
+
+    def test_the_spike_reproduces_the_measured_vanilla_geometry(self):
+        from terrain_harvest.build_structures import (SPIKE_HEIGHTS, SPIKE_RADII,
+                                                      end_spike, spike_disc)
+        # Column counts measured from a real generated End: 21 / 37 / 57 / 89.
+        self.assertEqual([21, 37, 57, 89], [len(spike_disc(r)) for r in (2, 3, 4, 5)])
+        self.assertEqual((2, 2, 2, 3, 3, 3, 4, 4, 4, 5), SPIKE_RADII)
+        self.assertEqual(76, SPIKE_HEIGHTS[0])
+        self.assertEqual(103, SPIKE_HEIGHTS[-1])
+        # A single bedrock block caps the centre -- not a bedrock layer.
+        t = end_spike(3, 88)
+        bedrock = [k for k, v in t.items() if 'bedrock' in str(v)]
+        self.assertEqual(1, len(bedrock))
+        self.assertEqual((0, 88, 0), bedrock[0])
+        for bad in ((1, 88), (6, 88), (3, 40), (3, 200)):
+            with self.assertRaises(ValueError):
+                end_spike(*bad)
+
+    def test_the_crystal_is_a_seam_not_a_block(self):
+        from terrain_harvest.build_structures import end_spike, end_spike_entities
+        t = end_spike(3, 88)
+        self.assertNotIn('end_crystal', str(set(map(str, t.values()))))
+        self.assertEqual('minecraft:end_crystal', end_spike_entities()[0]['type'])
+
+    def test_the_contract_is_measured_from_what_actually_gets_built(self):
+        # The contract and the builder used to be two measurement paths and
+        # they drifted: the Bastion's recorded height was its tallest single
+        # piece while the assembled body is two stacked.
+        from terrain_harvest.build_structures import TEMPLATES
+        for name in of.DEFENSIVE:
+            req = of.site_requirements(name)
+            cells = TEMPLATES[name]()
+            ys = [d[1] for d in cells]
+            self.assertEqual(max(ys) - min(ys) + 1, req['vertical_clearance'], name)
+            self.assertEqual(len(cells), of.FORMS[name]['solid_blocks'], name)
+
+    def test_overlapping_footprints_are_rejected_at_authored_span(self):
+        # Siting reasons in 8-block samples; the Bastion is 32 blocks across.
+        # A Bastion and an Outpost 11 blocks apart both passed every analytic
+        # check, and the one built second overwrote the first.
+        def site(advance, x, z):
+            return {'advance': advance, 'quality': 1.0, 'world_xyz': [x, 64, z]}
+        far = {'pillager_outpost': [site(0.9, 0, 0)],
+               'nether_bastion': [site(0.6, 200, 0)],
+               'end_spike': [site(0.3, 400, 0)]}
+        self.assertIsNotNone(mc.order_constrained(far))
+        near = {'pillager_outpost': [site(0.9, 0, 0)],
+                'nether_bastion': [site(0.6, 8, 8)],
+                'end_spike': [site(0.3, 400, 0)]}
+        self.assertIsNone(mc.order_constrained(near),
+                          'an Outpost inside the Bastion footprint is not a layout')
 
 
 if __name__ == '__main__':

@@ -27,7 +27,7 @@ from pathlib import Path
 
 from vanilla_search.task_a import fit
 from vanilla_search import structures
-from . import build_structures, lair_socket, objective_forms, spatial_contract
+from . import build_structures, column_scan, lair_socket, objective_forms, spatial_contract
 
 # Stage names, in order. A candidate reaches at most one past where it fails.
 STAGES = ('recognize', 'homebase', 'hinterland', 'objectives', 'lair',
@@ -54,7 +54,13 @@ NOT_REGIONAL_SHAPE = frozenset({'six_corridors_connect'})
 # How many candidate sites per objective the joint ordinal search may choose
 # among. One is what the siting search used to return, and one per layer cannot
 # satisfy a joint constraint except by luck.
-OBJECTIVE_POOL = 12
+#
+# Raised from 12 to 24 once footprint separation joined the ordinal as a
+# constraint: the two together are tight enough that 12 candidates left one of
+# 99887766's two teams with no legal layout, while 24 gives both one and 40
+# adds nothing. The cost is a few thousand more combinations in an exhaustive
+# search that already runs in well under a second.
+OBJECTIVE_POOL = 24
 
 PROVISIONAL = {
     # A socket must be able to accept the Core on its OWN terms -- never by
@@ -80,6 +86,14 @@ PROVISIONAL = {
     # three times its own width. Tightening below 0.05 would keep one seed in
     # eight; loosening past 0.30 stops discriminating.
     'max_lair_access_asymmetry': 0.15,
+    # PROVISIONAL_ALPHA. Blocks of cut plus fill per footprint column to level a
+    # site, measured over 1800 random footprints across three generated worlds:
+    # median 2.20, p75 3.86, p90 6.26, p95 8.16, max 21.5, and the distribution
+    # is stable world to world (p90 6.0-6.9). 10.0 accepts 97.2% and rejects the
+    # worst 3% as genuine terrain surgery, which is the doctrine rule -- reject a
+    # socket rather than repair it -- applied to the cases it was written for
+    # rather than to ordinary undulation. 8.0 would reject 5.6%, 12.0 only 1.7%.
+    'max_levelling_moved_per_column': 10.0,
 }
 
 
@@ -251,7 +265,8 @@ def objectives(candidate, result, out: Compilation):
             best = {k: v[0]['advance'] for k, v in pools.items()}
             out.fail('objectives', 'NO_ORDERED_OBJECTIVE_LAYOUT',
                      f'{team} has no combination of sited objectives that runs '
-                     f'midline -> Outpost -> Bastion -> Spike -> Fountain',
+                     f'midline -> Outpost -> Bastion -> Spike -> Fountain '
+                     f'without their authored footprints overlapping',
                      team=team,
                      pool_sizes={k: len(v) for k, v in pools.items()},
                      best_unconstrained=best,
@@ -260,8 +275,40 @@ def objectives(candidate, result, out: Compilation):
         placements[team] = {k: v['advance'] for k, v in chosen.items()}
         out.evidence.setdefault('objective_quality', {})[team] = {
             k: v.get('quality') for k, v in chosen.items()}
+        # World coordinates, so authoring and column verification have somewhere
+        # to go. Without these the sited objectives exist only as fractions.
+        out.evidence.setdefault('objective_world_xz', {})[team] = {
+            k: [v['world_xyz'][0], v['world_xyz'][2]] for k, v in chosen.items()
+            if v.get('world_xyz')}
     out.evidence['objective_sites'] = placements
     return out
+
+
+def _footprint_radius(objective):
+    """Half the authored template's span, in blocks."""
+    req = objective_forms.site_requirements(objective)
+    return (req['span_samples'] / 2.0) if req.get('known') else 0.0
+
+
+def _overlaps(chain, combo):
+    """Do any two of these footprints occupy the same ground?
+
+    Checked at the AUTHORED span, not at the siting search's sample radius. The
+    search reasons in eight-block samples and allowed a Bastion and an Outpost
+    eleven blocks apart; the built Bastion is thirty-two blocks across and
+    simply overwrote the Outpost, which a block-level readback caught and
+    nothing upstream did.
+    """
+    for i, a in enumerate(chain):
+        for b in chain[i + 1:]:
+            pa, pb = combo[chain.index(a)], combo[chain.index(b)]
+            wa, wb = pa.get('world_xyz'), pb.get('world_xyz')
+            if not wa or not wb:
+                continue
+            need = _footprint_radius(a) + _footprint_radius(b)
+            if math.dist((wa[0], wa[2]), (wb[0], wb[2])) < need:
+                return f'{a} and {b} footprints overlap'
+    return None
 
 
 def order_constrained(pools):
@@ -291,6 +338,8 @@ def order_constrained(pools):
         if any(a <= 0 for a in advances):
             continue
         if any(x <= y for x, y in zip(advances, advances[1:])):
+            continue
+        if _overlaps(chain, list(combo)):
             continue
         quality = sum(c.get('quality') or 0.0 for c in combo)
         if quality > best_quality:
@@ -335,7 +384,7 @@ def lair(candidate, result, out: Compilation):
     return out
 
 
-def compile_candidate(candidate) -> Compilation:
+def compile_candidate(candidate, world=None, build_world=None) -> Compilation:
     """Run the stages a candidate can currently reach.
 
     Stops at the first stage with no way forward, so `deepest_stage_reached`
@@ -360,18 +409,22 @@ def compile_candidate(candidate) -> Compilation:
     lair(candidate, result, out)
     if out.rejections:
         return out
-    author(out)
+    author(out, world)
+    if out.rejections:
+        return out
+    verify(out, world)
+    if out.rejections or build_world is None:
+        return out
+    author_into(out, build_world)
     return out
 
 
-def author(out: Compilation):
+def author(out: Compilation, world=None):
     """Can every sited objective actually be built?
 
-    Fails closed on purpose. Siting now uses the measured `end_spike` contract,
-    and no End Spike mesh exists -- the repository only has the historical End
-    Tower. Building that under the Spike's name would be exactly the
-    masquerade the physical contract forbids, so the compiler stops here
-    instead.
+    Fails closed on missing geometry. Nothing historical may stand in for a
+    current form -- building an End Tower under the Spike's name is the
+    masquerade the physical contract forbids.
     """
     out.reached = 'author'
     missing = [k for k in objective_forms.DEFENSIVE
@@ -385,16 +438,86 @@ def author(out: Compilation):
     return out
 
 
+def author_into(out: Compilation, world):
+    """Actually build the sited objectives into a world, then read them back.
+
+    Separated from `author`, which only asks whether a mesh exists. This writes
+    blocks, so it is only ever given a disposable copy by the caller.
+    """
+    from .build_structures import TEMPLATES, build
+    sites = out.evidence.get('objective_world_xz') or {}
+    reader = column_scan.World(Path(world))
+    placements = []
+    for team, objs in sites.items():
+        for kind, (x, z) in objs.items():
+            surface = reader.surface(x, z)
+            if surface is None:
+                return out.fail('author', 'AUTHORING_SITE_UNGENERATED',
+                                f'{team}/{kind} has no terrain under it')
+            placements.append({'structure': kind, 'team': team,
+                               'world_xyz': [x, surface + 1, z]})
+    built = build(Path(world), placements, Path(world) / 'structures-built.json')
+    out.evidence['authored'] = {
+        'blocks_written': built['blocks_written'],
+        'structures': built['structures'],
+        'not_reproduced': dict(getattr(__import__(
+            'terrain_harvest.build_structures', fromlist=['x']),
+            'VANILLA_PLACEMENT_GAPS', {})),
+    }
+    back = column_scan.readback(Path(world), built['structures'], TEMPLATES)
+    out.evidence['readback'] = back
+    if not back['verified']:
+        out.fail('author', 'AUTHORED_BLOCKS_MISSING',
+                 'blocks that were authored are not in the world',
+                 problems=back['problems'])
+    return out
+
+
+def verify(out: Compilation, world=None):
+    """Read the actual columns, for what surface samples cannot establish.
+
+    The candidate grid samples one surface height every eight blocks, which
+    cannot answer whether a 103-block spike has 103 blocks of sky above it or
+    whether a footprint spans a ravine. This reads the world.
+
+    Without a world there is nothing to read, and that is reported as
+    unverified rather than passed. An unverifiable claim is not a true one.
+    """
+    out.reached = 'verify'
+    sites = out.evidence.get('objective_world_xz')
+    if not sites:
+        return out.fail('verify', 'PHYSICAL_VERIFICATION_UNAVAILABLE',
+                        'no world coordinates were recorded for the sited objectives')
+    if world is None:
+        return out.fail('verify', 'PHYSICAL_VERIFICATION_UNAVAILABLE',
+                        'no world supplied; the column-level facts stay unestablished')
+    requirements = {k: objective_forms.site_requirements(k)
+                    for k in objective_forms.DEFENSIVE}
+    result = column_scan.verify_placements(
+        Path(world), sites, requirements,
+        max_moved_per_column=PROVISIONAL['max_levelling_moved_per_column'])
+    out.evidence['physical_verification'] = result
+    if not result['verified']:
+        out.fail('verify', 'PHYSICAL_VERIFICATION_FAILED',
+                 'sited objectives do not survive a column scan',
+                 problems=result['problems'])
+    return out
+
+
 def main(argv=None):
     import argparse
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('candidate', type=Path, nargs='+')
     p.add_argument('--out', type=Path)
+    p.add_argument('--world', type=Path,
+                   help='world directory for column-level physical verification')
+    p.add_argument('--build-world', type=Path,
+                   help='DISPOSABLE world copy to author into and read back')
     a = p.parse_args(argv)
     runs = []
     for path in a.candidate:
         c = json.loads(path.read_text())
-        runs.append(compile_candidate(c).as_dict())
+        runs.append(compile_candidate(c, a.world, a.build_world).as_dict())
         r = runs[-1]
         print(f"seed={r['seed']} reached={r['deepest_stage_reached']} "
               f"playable={r['playable']} "

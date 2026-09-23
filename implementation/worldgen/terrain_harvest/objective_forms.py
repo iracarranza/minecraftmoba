@@ -60,12 +60,49 @@ def _load() -> dict:
 _MEASURED = _load()
 
 
+def _authored_geometry(key) -> dict | None:
+    """Measure the template that actually gets built.
+
+    The contract used to come from a separate measurement pass over the source
+    NBT, and the builder from its own template, and the two drifted: the
+    Bastion's recorded height was the tallest single piece (32) while the
+    assembled body is two pieces stacked (64). A site was then verified against
+    one number and built to another.
+
+    Deriving the contract from `build_structures.TEMPLATES` removes the class of
+    bug rather than the instance. Provenance still comes from the measurement
+    file -- what the form IS, and where it came from -- but its dimensions come
+    from the thing that will be placed.
+    """
+    from . import build_structures
+    template = build_structures.TEMPLATES.get(key)
+    if template is None:
+        return None
+    blocks = template()
+    if not blocks:
+        return None
+    xs = [d[0] for d in blocks]
+    ys = [d[1] for d in blocks]
+    zs = [d[2] for d in blocks]
+    floor = min(ys)
+    contact = {(d[0], d[2]) for d in blocks if d[1] == floor}
+    return {
+        'span_samples': max(max(xs) - min(xs), max(zs) - min(zs)) + 1,
+        'height': max(ys) - min(ys) + 1,
+        'vertical_clearance': max(ys) - min(ys) + 1,
+        'ground_contact_columns': len(contact),
+        'solid_blocks': len(blocks),
+    }
+
+
 def _contract(key, **extra) -> dict:
     m = _MEASURED.get(key, {})
+    built = _authored_geometry(key)
     out = {
         'evidence': m.get('evidence', 'missing'),
         'source': m.get('source'),
         'form': m.get('form'),
+        'dimensions_from': 'authored template' if built else 'measurement file',
         'span_samples': m.get('span_samples'),
         'height': m.get('height') or m.get('vertical_clearance'),
         'vertical_clearance': m.get('vertical_clearance'),
@@ -73,6 +110,8 @@ def _contract(key, **extra) -> dict:
         'solid_blocks': m.get('solid_blocks'),
         'interior_navigation': m.get('interior_navigation'),
     }
+    if built:
+        out.update(built)
     out.update(extra)
     return out
 
