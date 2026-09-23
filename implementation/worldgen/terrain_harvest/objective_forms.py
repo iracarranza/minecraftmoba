@@ -1,8 +1,6 @@
-"""What the three defensive objectives physically are, and what is not yet known.
+"""What the three defensive objectives physically are, measured from the game.
 
-The repository can build four greybox meshes: `aether_fountain`,
-`pillager_outpost`, `nether_bastion` and `end_tower`. Canon has since selected
-specific vanilla forms, and two of the three no longer match what is built:
+Canon selects specific vanilla forms:
 
   PILLAGER OUTPOST  the WATCHTOWER ONLY. Cages, tents, log piles and the rest
                     of the compound are not part of the objective footprint.
@@ -12,46 +10,102 @@ specific vanilla forms, and two of the three no longer match what is built:
                     Crystal, and the cage where applicable. NOT an End City
                     tower, and NOT the generic End Tower geometry.
 
-`end_tower` is an End stone shaft with a purpur crown. That is the generic End
-Tower the spec names and rejects. It is kept, under its own id, as HISTORICAL:
-renaming it `end_spike` would be the cheapest possible way to make the
-repository look compliant while still placing the wrong structure, and every
-artifact already written against it would silently acquire a claim it cannot
-support.
+All three are now MEASURED rather than guessed, and the measurements come from
+Minecraft itself (`reports/objective_forms_2026-09-23/measurements.json`, from
+`terrain_harvest.vanilla_assets`):
 
-None of the three current forms has been MEASURED. The spec is explicit that
-retained dimensions "should be measured from the selected form, not guessed",
-so this module holds the requirement and the absence of evidence rather than a
-plausible number. A candidate cannot be certified against the current contract
-until the measurements exist; `certify` says so, by name, instead of passing.
+  - The Outpost and Bastion are read out of the client jar's own structure NBT.
+    "Watchtower only" is a clean cut because vanilla already ships the
+    peripheral pieces as separate files; dropping the projecting bridge is
+    likewise a file-level exclusion, not a judgement about one mesh.
+  - The End Spike is not a structure file at all -- vanilla generates the arena
+    spikes in code -- so it was measured from a real generated End dimension on
+    a disposable server. Ten spikes, radius 2-5, height 76-103, two of ten
+    caged.
+
+The three contracts are deliberately NOT one bounding-box concept. What a socket
+has to provide differs in kind:
+
+  OUTPOST     modest footprint, modest height, real interior navigation, the
+              whole thing meets the ground.
+  BASTION     large irregular multilevel body, heavy ground contact, real
+              interior navigation and approach requirements.
+  END SPIKE   tiny footprint and essentially no interior, but an enormous
+              vertical requirement -- up to 103 blocks of clear sky. That is
+              the measurement most likely to reject a socket, and it would have
+              been invisible under a single span number.
+
+`end_tower` -- the End stone shaft with a purpur crown this repository builds --
+is the generic End Tower geometry the spec names and rejects. It is kept, under
+its own id, as HISTORICAL. Renaming it `end_spike` would be the cheapest
+possible way to look compliant while still placing the wrong structure, and
+every artifact already written against it would silently acquire a claim it
+cannot support.
 """
 from __future__ import annotations
 
-# The canonical current forms. `span_samples` stays None until someone measures
-# the selected vanilla structure; a guess here would propagate into siting,
-# clearance and separation as though it were evidence.
+import json
+from pathlib import Path
+
+MEASUREMENTS = (Path(__file__).resolve().parents[1]
+                / 'reports' / 'objective_forms_2026-09-23' / 'measurements.json')
+
+
+def _load() -> dict:
+    if not MEASUREMENTS.exists():
+        return {}
+    return json.loads(MEASUREMENTS.read_text()).get('forms', {})
+
+
+_MEASURED = _load()
+
+
+def _contract(key, **extra) -> dict:
+    m = _MEASURED.get(key, {})
+    out = {
+        'evidence': m.get('evidence', 'missing'),
+        'source': m.get('source'),
+        'form': m.get('form'),
+        'span_samples': m.get('span_samples'),
+        'height': m.get('height') or m.get('vertical_clearance'),
+        'vertical_clearance': m.get('vertical_clearance'),
+        'ground_contact_columns': m.get('ground_contact_columns'),
+        'solid_blocks': m.get('solid_blocks'),
+        'interior_navigation': m.get('interior_navigation'),
+    }
+    out.update(extra)
+    return out
+
+
+# The current canonical forms, with the physical contract a socket recognizer
+# actually needs from each. `needs` names what terrain must supply; it is not a
+# uniform bounding box.
 FORMS = {
-    'pillager_outpost': {
-        'label': 'Pillager Outpost',
-        'form': 'watchtower only',
-        'excludes': ('cages', 'tents', 'log piles', 'peripheral compound'),
-        'span_samples': None,
-        'source': 'vanilla pillager outpost watchtower',
-    },
-    'nether_bastion': {
-        'label': 'Nether Bastion',
-        'form': 'bridge bastion rampart / central body',
-        'excludes': ('projecting bridge', 'treasure room'),
-        'span_samples': None,
-        'source': 'vanilla bastion remnant, bridge variant',
-    },
-    'end_spike': {
-        'label': 'End Spike',
-        'form': 'obsidian pillar + End Crystal (+ cage where applicable)',
-        'excludes': ('End City tower', 'generic End Tower shaft'),
-        'span_samples': None,
-        'source': 'vanilla Ender Dragon arena end spike',
-    },
+    'pillager_outpost': _contract(
+        'pillager_outpost',
+        excludes=('cages', 'tents', 'log piles', 'peripheral compound'),
+        needs=('footprint support', 'terrain contact across the base',
+               'one usable entrance approach', 'modest vertical clearance'),
+        multilevel=False,
+    ),
+    'nether_bastion': _contract(
+        'nether_bastion',
+        excludes=('projecting bridge', 'supporting legs', 'treasure room'),
+        needs=('large irregular footprint', 'heavy terrain contact',
+               'multilevel interior navigation', 'several approach faces',
+               'clearance around the rampart'),
+        multilevel=True,
+    ),
+    'end_spike': _contract(
+        'end_spike',
+        excludes=('End City tower', 'generic End Tower shaft'),
+        needs=('small ground footprint', 'very large vertical clearance',
+               'exposure/visibility', 'one approach to the base'),
+        multilevel=False,
+        pillar_radius_range=_MEASURED.get('end_spike', {}).get('pillar_radius_range'),
+        height_range=_MEASURED.get('end_spike', {}).get('height_range'),
+        caged_fraction=_MEASURED.get('end_spike', {}).get('caged_fraction'),
+    ),
 }
 
 # Built meshes that predate the selection above. They still place, and the
@@ -72,6 +126,8 @@ HISTORICAL = {
 # bridging or a Route is ordinary Minecraft play.
 MIDLINE_TO_FOUNTAIN = ('pillager_outpost', 'nether_bastion', 'end_spike', 'aether_fountain')
 
+DEFENSIVE = ('pillager_outpost', 'nether_bastion', 'end_spike')
+
 
 def is_historical(structure_id: str) -> bool:
     return structure_id in HISTORICAL
@@ -86,9 +142,11 @@ def missing_evidence(structure_id: str) -> list[str]:
     form = FORMS.get(structure_id)
     if form is None:
         return [f'{structure_id} is not a current defensive objective form']
-    if form['span_samples'] is None:
-        return [f"{structure_id} footprint unmeasured: the {form['form']} has not been "
-                f"measured from {form['source']}, and the spec forbids guessing it"]
+    if form['evidence'] != 'measured':
+        return [f"{structure_id} is not measured ({form['evidence']}): the spec "
+                f"forbids guessing a footprint, so it cannot be certified"]
+    if form['span_samples'] is None or form['vertical_clearance'] is None:
+        return [f'{structure_id} measurement is incomplete']
     return []
 
 
@@ -98,7 +156,7 @@ def certify(structure_ids) -> dict:
     problems = []
     for sid in ids:
         problems.extend(missing_evidence(sid))
-    for required in ('pillager_outpost', 'nether_bastion', 'end_spike'):
+    for required in DEFENSIVE:
         if required not in ids:
             problems.append(f'{required} absent: all three defensive objectives coexist')
     return {
@@ -116,7 +174,7 @@ def ordinal_ok(placements) -> list[str]:
     `placements` maps structure id to its distance-toward-midline fraction, where
     1 is at the midline and 0 is at the team's own Fountain. Only the ORDER is
     checked: equal gaps, a straight lane and mirrored coordinates are all
-    explicitly not required.
+    explicitly not required, and neither is lateral (W-E) proximity.
     """
     ordered = [s for s in MIDLINE_TO_FOUNTAIN if s in placements]
     problems = []
@@ -125,3 +183,25 @@ def ordinal_ok(placements) -> list[str]:
             problems.append(f'{near} must lie closer to the midline than {far} '
                             f'({placements[near]:.3f} vs {placements[far]:.3f})')
     return problems
+
+
+def site_requirements(structure_id: str) -> dict:
+    """What a candidate socket must physically provide for this objective.
+
+    Separated per objective on purpose. Collapsing these into one span would
+    hide the fact that the End Spike's binding constraint is 103 blocks of sky
+    over an 11-block footprint, while the Bastion's is 506 columns of ground
+    contact and a multilevel interior.
+    """
+    form = FORMS.get(structure_id)
+    if form is None or form['evidence'] != 'measured':
+        return {'known': False, 'why': missing_evidence(structure_id)}
+    return {
+        'known': True,
+        'span_samples': form['span_samples'],
+        'vertical_clearance': form['vertical_clearance'],
+        'ground_contact_columns': form['ground_contact_columns'],
+        'interior_navigation': form['interior_navigation'],
+        'multilevel': form.get('multilevel', False),
+        'needs': list(form['needs']),
+    }

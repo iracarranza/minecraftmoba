@@ -84,13 +84,44 @@ class Objectives(unittest.TestCase):
         evidence = of.missing_evidence('end_tower')
         self.assertIn('superseded by end_spike', evidence[0])
 
-    def test_no_current_form_has_a_guessed_footprint(self):
-        # The spec says dimensions must be measured from the selected vanilla
-        # form. An invented span here would travel into siting and clearance
-        # wearing the clothes of evidence.
+    def test_every_current_form_is_measured_from_minecraft_itself(self):
+        # These were unmeasured, and certification failed closed for all three.
+        # They are now read from the game: the Outpost and Bastion out of the
+        # client jar's structure NBT, the End Spike out of a real generated End
+        # dimension, because vanilla builds the arena spikes in code.
         for sid, form in of.FORMS.items():
-            self.assertIsNone(form['span_samples'], sid)
-            self.assertTrue(of.missing_evidence(sid))
+            self.assertEqual('measured', form['evidence'], sid)
+            self.assertIsNotNone(form['span_samples'], sid)
+            self.assertEqual([], of.missing_evidence(sid), sid)
+
+    def test_the_three_contracts_differ_in_kind_not_only_in_size(self):
+        # Collapsing these to one bounding box would hide the constraint most
+        # likely to reject a socket: the Spike needs a hundred blocks of sky
+        # over an eleven-block footprint and has no interior at all, while the
+        # Bastion needs five hundred columns of ground contact and a multilevel
+        # interior.
+        spike = of.site_requirements('end_spike')
+        bastion = of.site_requirements('nether_bastion')
+        self.assertFalse(spike['interior_navigation'])
+        self.assertTrue(bastion['interior_navigation'])
+        self.assertTrue(bastion['multilevel'])
+        self.assertGreater(spike['vertical_clearance'], bastion['vertical_clearance'])
+        self.assertLess(spike['span_samples'], bastion['span_samples'])
+        self.assertGreater(bastion['ground_contact_columns'], spike['ground_contact_columns'])
+
+    def test_the_measured_spike_is_the_arena_pillar_not_a_tower(self):
+        spike = of.FORMS['end_spike']
+        self.assertEqual([2.0, 5.0], spike['pillar_radius_range'])
+        low, high = spike['height_range']
+        self.assertGreaterEqual(low, 70)
+        self.assertLessEqual(high, 110)
+        # Vanilla cages a minority of spikes; "where applicable" is a real
+        # fraction, not every one.
+        self.assertGreater(spike['caged_fraction'], 0)
+        self.assertLess(spike['caged_fraction'], 1)
+
+    def test_the_three_measured_forms_now_certify(self):
+        self.assertTrue(of.certify(of.DEFENSIVE)['certified'])
 
 
 class LairAndCeiling(unittest.TestCase):
