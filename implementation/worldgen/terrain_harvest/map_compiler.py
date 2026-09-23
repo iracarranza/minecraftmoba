@@ -525,6 +525,11 @@ def author_into(out: Compilation, world):
         record['count'] = 1
         out.evidence['lair_manifestation'] = record
     built = build(Path(world), placements, Path(world) / 'structures-built.json')
+    if built.get('refused'):
+        return out.fail('author', 'AUTHORING_SITE_BUILT_ON',
+                        'one or more sites stand on structure that already exists; '
+                        'authoring refuses rather than demolishing or absorbing it',
+                        refused=built['refused'])
     out.evidence['authored'] = {
         'blocks_written': built['blocks_written'],
         'structures': built['structures'],

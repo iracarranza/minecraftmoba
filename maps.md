@@ -172,7 +172,12 @@ only Routes were obeying it.
 
 Three failures, in descending order of seriousness:
 
-1. **Structures inside a pad are skipped, not refused.** `clear_and_foundation`
+[FIXED 23 September 2026 — `terrain_harvest/clearance.py`.] All three below are
+now addressed: sites standing on built structure are refused before anything is
+written, overhanging canopy is felled whole, and entities inside a footprint are
+removed before the blocks land on them.
+
+1. **Structures inside a pad were skipped, not refused.** `clear_and_foundation`
    treats a built block as "not terrain" and leaves it standing, so an objective
    authored over a village house builds *around* the house and embeds it.
    Meanwhile `column_scan` **fails hard** on structures when verifying a site.
@@ -185,9 +190,12 @@ Three failures, in descending order of seriousness:
    north Outpost stood in a ring of trees cut in half. Fixed: a leaf now fells
    the tree it belongs to, the same call the trunk case already used. A felled
    tree reads as clearing; a bisected one reads as damage.
-3. **Entities in the footprint are not moved.** A sheep was apparently
-   suffocated by the Bastion. Minor in effect, but it is the same omission:
-   authoring considers blocks and nothing else.
+3. **Entities in the footprint were not moved.** A sheep was suffocated by the
+   Bastion. Minor in effect, but the same omission stated again: authoring
+   considered blocks and nothing else. They are now deleted rather than
+   displaced — displacing means choosing a destination and there is no
+   non-arbitrary one — and entities live in their own region files, so they are
+   edited there rather than hoped about.
 
 The principle, stated once so it stops being re-derived per subsystem:
 

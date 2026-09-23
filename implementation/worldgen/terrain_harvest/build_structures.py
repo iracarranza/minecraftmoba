@@ -387,7 +387,14 @@ def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, colum
             y = cy + dy
             here = column(x, y, z) if column else None
             if here is not None and is_structure(here):
-                continue          # a building is not terrain
+                # Unreachable in the normal path: build() refuses a site with
+                # standing structure before any writing starts. Kept as the
+                # last line of defence for a caller that bypasses that, and it
+                # still refuses to overwrite rather than silently skipping --
+                # a skip is what embedded a village house in an objective.
+                raise ValueError(
+                    f'built structure {here} at {[x, y, z]} inside an authoring '
+                    f'footprint; this site should have been refused, not cleared')
             if here is not None and is_leaf(here):
                 # Fell the tree this leaf belongs to, not the leaf.
                 #
@@ -407,9 +414,49 @@ def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, colum
         editor.set(x, cy - 1, z, foundation)
 
 
+def _extents(placements):
+    """Footprint half-width and headroom per structure, from its own template."""
+    out = {}
+    for p in placements:
+        kind = p['structure']
+        template = TEMPLATES.get(kind)
+        if template is None:
+            continue
+        blocks = template()
+        half = max(abs(dx) for dx, _, _ in blocks) + 2
+        headroom = max(dy for _, dy, _ in blocks) + 2
+        out[kind] = (half, headroom)
+    return out
+
+
 def build(world: Path, placements, report: Path, dry_run=False):
     editor = WorldEditor(world)
     reader = _column_reader(world)
+
+    # Refuse before writing, not around what is there.
+    #
+    # clear_and_foundation used to step over a built block as "not terrain",
+    # which meant an objective sited on a village house was built AROUND the
+    # house. column_scan.verify_site fails the same condition, so the builder
+    # and the verifier held opposite policies and which applied depended on
+    # which ran. The verifier is right. Every offending site is reported at
+    # once and nothing is written, because a partial build leaves a world that
+    # is neither the old one nor the new one.
+    from .clearance import refuse_built_sites, evict_entities
+    extents = _extents(placements)
+    refusals = refuse_built_sites(reader, placements, extents)
+    if refusals:
+        return {'schema': 'team_structures_built/1',
+                'evidence_state': 'RAW WORLD OBSERVATION',
+                'world': str(world), 'dry_run': dry_run,
+                'blocks_written': 0, 'structures': [], 'refused': refusals,
+                'note': 'nothing was written: one or more sites stand on built '
+                        'structure, and authoring refuses rather than absorbing it'}
+
+    # Animals standing in a footprint are removed before the blocks land on
+    # them. A sheep was entombed by the Bastion because nothing looked.
+    evicted = {'removed': 0} if dry_run else evict_entities(Path(world), placements, extents)
+
     built = []
     for p in placements:
         kind = p['structure']
@@ -428,7 +475,8 @@ def build(world: Path, placements, report: Path, dry_run=False):
     if not dry_run:
         editor.flush()
     result = {'schema': 'team_structures_built/1', 'evidence_state': 'RAW WORLD OBSERVATION',
-              'world': str(world), 'dry_run': dry_run,
+              'world': str(world), 'dry_run': dry_run, 'refused': [],
+              'entities_evicted': evicted,
               'blocks_written': editor.written, 'structures': built,
               'nature': 'greybox massing in vanilla-native palettes, not final architecture',
               'not_covered': ['exposure, disable conditions, obstruction, validation, reactivation '
