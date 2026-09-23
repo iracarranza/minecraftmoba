@@ -117,4 +117,51 @@ class MapPoolTest {
         assertTrue(p.report().contains("EMPTY"),
                 "an empty pool must be visible in status, not discovered at match start");
     }
+
+    /**
+     * An abandoned PRE_MATCH gives its map back.
+     *
+     * The leak was silent and permanent: a second `/moba match open` discarded
+     * a PRE_MATCH that had already resolved its selection, the claim file
+     * stayed on disk, and that map read IN_USE for the life of the server. One
+     * map per abandoned match, until the pool ran dry and selection fell back
+     * to the template.
+     */
+    @Test void anUnplayedClaimCanBeReleasedBackToReady() throws IOException {
+        Path dir = pool("111");
+        MapPool p = new MapPool(dir);
+        var claimed = p.claim("match-1");
+        assertNotNull(claimed);
+        assertEquals(MapPool.IN_USE, p.entries().get(0).state());
+
+        assertTrue(p.unclaim(claimed), "an unplayed claim is released");
+        assertEquals(MapPool.READY, p.entries().get(0).state(),
+                "the map returns to the pool, because it was never played");
+        assertNotNull(p.claim("match-2"), "and can be claimed by the next match");
+    }
+
+    /**
+     * Releasing must never resurrect a played map.
+     *
+     * This is the reason unclaim is a separate verb from retire rather than a
+     * flag on it: a fix for a leak that could hand out a played map again
+     * would be worse than the leak.
+     */
+    @Test void aPlayedMapIsNeverReleasedBackToReady() throws IOException {
+        Path dir = pool("222");
+        MapPool p = new MapPool(dir);
+        var claimed = p.claim("match-1");
+        p.retire(claimed, "north");
+        assertEquals(MapPool.USED, p.entries().get(0).state());
+
+        assertFalse(p.unclaim(claimed), "a played map refuses to be released");
+        assertEquals(MapPool.USED, p.entries().get(0).state());
+        assertNull(p.claim("match-2"), "and is not claimable again");
+    }
+
+    @Test void releasingSomethingNeverClaimedIsNotAnError() throws IOException {
+        MapPool p = new MapPool(pool("333"));
+        assertFalse(p.unclaim(null));
+        assertEquals(MapPool.READY, p.entries().get(0).state());
+    }
 }

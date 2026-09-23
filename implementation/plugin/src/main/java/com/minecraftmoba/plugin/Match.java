@@ -106,12 +106,20 @@ public final class Match implements Listener {
      */
     public String open() {
         if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
+        // A PRE_MATCH that already resolved its selection is holding a claim on
+        // a map that was never played. Discarding it without giving the claim
+        // back leaked one map per abandoned match: the entry stayed IN_USE for
+        // the life of the server, and once the pool ran dry the next selection
+        // silently fell back to the template.
+        boolean released = state == State.PRE_MATCH && worldInstance.abandon();
         resetFields();
         state = State.PRE_MATCH;
         record = new MatchRecord();
         var pool = plugin.mapPool();
         return "Match created; PRE_MATCH. Add players and teams, then resolve the map"
-                + " selection. " + (pool == null ? "" : pool.report());
+                + " selection. "
+                + (released ? "Released the previous PRE_MATCH's unplayed map. " : "")
+                + (pool == null ? "" : pool.report());
     }
 
     /** The map options a draft could offer: broad classification only. */
@@ -163,8 +171,33 @@ public final class Match implements Listener {
         }
         for (Team t : Team.values())
             record.prediction("fountain_" + t.lower(), String.valueOf(homelands.get(t)));
-        if (plugin.lair() != null && plugin.lair().report().contains("UNCONFIGURED"))
-            record.problem("lair UNCONFIGURED after binding");
+        // Certify what was BOUND, not where it came from.
+        //
+        // readiness.certify makes a map unable to reach READY with an
+        // unmanifested Lair, and that was reported as closing the defect. It
+        // did not: a match does not have to come from the pool. An empty pool
+        // fell back to the configured template, whose `alpha.lair.site` is
+        // EMPTY BY DESIGN, and produced exactly the UNCONFIGURED cadence the
+        // pool contract exists to prevent -- in one step, by the path that
+        // bypasses the contract.
+        var problems = BindingContract.certify(plugin, w, bindings);
+        if (!problems.isEmpty()) {
+            for (var problem : problems) record.problem(problem.toString());
+            if (!BindingContract.incompleteAllowed(plugin)) {
+                worldInstance.abandon();   // never played; give the map back
+                bindings = null;
+                state = State.PRE_MATCH;
+                throw new IllegalStateException(
+                        "This realization cannot be played:"
+                        + BindingContract.describe(problems)
+                        + "\nNothing was bound. Run the foundry to stock the pool, or set "
+                        + "alpha.pool.allowIncompleteBinding: true to test on an incomplete "
+                        + "realization deliberately.");
+            }
+            plugin.getLogger().warning("[match] PLAYING AN INCOMPLETE REALIZATION because "
+                    + "alpha.pool.allowIncompleteBinding is set:"
+                    + BindingContract.describe(problems));
+        }
         return "Selected " + (claimed != null ? "pool map " + claimed.mapId()
                                                 + " (seed " + claimed.seed() + ")"
                                               : "the configured template")
@@ -279,8 +312,49 @@ public final class Match implements Listener {
      * points that the Capacity model says they do not have -- invisible in the
      * custom readout, and slowly spent back down to the cap.
      */
+    /**
+     * Where in the Fountain a player appears.
+     *
+     * The Fountain's bound coordinate is its CENTRE, and its centre is a solid
+     * chiseled-quartz plinth four blocks tall. Spawning on the coordinate
+     * therefore put players inside the plinth, where they suffocated, respawned
+     * at the same coordinate, and suffocated again -- the Fountain is the
+     * respawn anchor, so the loop had no exit.
+     *
+     * Players belong in the POOL, not on the plinth and not merely beside the
+     * structure: standing in the Fountain's water is the reading canon wants of
+     * reconstruction, and it is inside the thing that defines the spawn.
+     *
+     * The ring is searched outward from the plinth rather than at one fixed
+     * offset, because terrain, later authoring or player construction can fill
+     * any single cell. Falls back to the bound coordinate only if no passable
+     * cell exists at all, which is a broken Fountain and should look like one
+     * rather than be silently papered over somewhere else.
+     */
+    static Location fountainSpawn(Location centre) {
+        if (centre == null) return null;
+        World w = centre.getWorld();
+        if (w == null) return centre;
+        // Outside the radius-2 plinth, inside the radius-5 pool.
+        for (int r = 3; r <= 5; r++) {
+            for (int dx = -r; dx <= r; dx++) {
+                for (int dz = -r; dz <= r; dz++) {
+                    if (dx * dx + dz * dz > r * r) continue;
+                    if (dx * dx + dz * dz <= 4) continue;              // the plinth
+                    Location cell = centre.clone().add(dx, 0, dz);
+                    if (!cell.getBlock().isPassable()) continue;
+                    if (!cell.clone().add(0, 1, 0).getBlock().isPassable()) continue;
+                    Location at = cell.toCenterLocation();
+                    at.setY(cell.getBlockY());
+                    return at;
+                }
+            }
+        }
+        return centre;
+    }
+
     private void spawn(Player p, Team team) {
-        Location home = homelands.get(team);
+        Location home = fountainSpawn(homelands.get(team));
         if (home != null) p.teleport(home);
         p.setGameMode(GameMode.SURVIVAL);
         var max = p.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
@@ -600,7 +674,11 @@ public final class Match implements Listener {
                     () -> e.getPlayer().setGameMode(GameMode.SPECTATOR));
             return;
         }
-        Location home = homelands.get(part.team);
+        // The same pool cell the initial spawn uses. This is the half that made
+        // the plinth fatal rather than merely wrong: respawn is immediate and
+        // the Fountain is the anchor, so a player who suffocated in the plinth
+        // respawned inside it and suffocated again, with no way out.
+        Location home = fountainSpawn(homelands.get(part.team));
         if (home != null) e.setRespawnLocation(home);
     }
 

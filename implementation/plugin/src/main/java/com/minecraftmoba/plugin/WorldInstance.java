@@ -107,6 +107,19 @@ public final class WorldInstance {
 
     public MapPool.Entry claimed() { return claimed; }
 
+    /**
+     * Give back a claim for a match that never started. Not a retirement.
+     *
+     * Returns true when a map was actually released, so a caller can say so
+     * rather than guess.
+     */
+    public boolean abandon() {
+        if (claimed == null || plugin.mapPool() == null) { claimed = null; return false; }
+        boolean released = plugin.mapPool().unclaim(claimed);
+        claimed = null;
+        return released;
+    }
+
     /** Retire the claimed map. A played map never returns to READY. */
     public void release(String result) {
         if (claimed != null && plugin.mapPool() != null) plugin.mapPool().retire(claimed, result);

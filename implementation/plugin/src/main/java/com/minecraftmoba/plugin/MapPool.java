@@ -158,6 +158,37 @@ public final class MapPool {
         return null;
     }
 
+    /**
+     * Return a claimed-but-never-played map to READY.
+     *
+     * The opposite of {@link #retire}, and the distinction is the whole point:
+     * retire means "this was played", unclaim means "this was never played".
+     * A PRE_MATCH that is discarded -- by a second `open`, or by a reset --
+     * used to keep its claim file forever, so the map was IN_USE for the rest
+     * of the server's life and the pool leaked one map per abandoned match.
+     * The next selection then found nothing READY and fell back to the
+     * template.
+     *
+     * Refuses a map that has been retired. A played map never returns to the
+     * pool, and an unclaim that could resurrect one would be worse than the
+     * leak it fixes.
+     */
+    public boolean unclaim(Entry entry) {
+        if (entry == null) return false;
+        if (Files.exists(entry.directory().resolve("used"))) {
+            warn("[pool] refusing to unclaim " + entry.mapId() + ": it has been played");
+            return false;
+        }
+        try {
+            boolean had = Files.deleteIfExists(entry.directory().resolve("claim"));
+            if (had) info("[pool] released " + entry.mapId() + " back to READY (never played)");
+            return had;
+        } catch (IOException io) {
+            warn("[pool] could not release " + entry.mapId() + ": " + io);
+            return false;
+        }
+    }
+
     /** Retire a claimed map. Terminal: a played map is never READY again. */
     public void retire(Entry entry, String result) {
         if (entry == null) return;

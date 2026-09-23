@@ -848,6 +848,20 @@ alpha:
   pool:
     enabled: false
     directory: map-pool
+    # Play on a realization that cannot satisfy the runtime contract.
+    #
+    # OFF, and it should stay off. With the pool empty the selection falls back
+    # to the configured template, and this template's `alpha.lair.site` is
+    # EMPTY BY DESIGN -- so the fallback produced a match whose Lair reported
+    # UNCONFIGURED and whose three Lair nights did nothing. That is the exact
+    # state the READY contract exists to prevent, reached by the one path that
+    # does not go through it.
+    #
+    # Selection now certifies what was BOUND rather than where it came from,
+    # and refuses. This key exists so deliberate partial testing stays possible
+    # without reinstating a silent fallback: the difference that matters is
+    # that someone had to write it down. It logs loudly when set.
+    allowIncompleteBinding: false
 
   # The single permanent Giant Monster Lair: one site for the whole match, its
   # occupant succeeding Giant -> Ghast -> Ender Dragon on Lair nights.
