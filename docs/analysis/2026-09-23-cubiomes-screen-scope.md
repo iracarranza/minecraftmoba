@@ -1,7 +1,9 @@
 # Scoping a server-free seed screen (cubiomes)
 
 **Date:** 2026-09-23
-**Status:** SCOPE ONLY. Nothing built, nothing decided.
+**Status:** SPIKE RUN AND WIRED IN, same day. See
+`terrain_harvest/seed_screen.py` and `native/cubiomes/`. Results at the foot of
+this document; the scope below is kept as written, and was mostly right.
 **Motivation:** the regional-shape gate rejects 82.5% of random seeds, and every
 rejection currently pays a full world generation first. The lattice pre-screen
 measured this afternoon is a *net loss* (19% more expensive; break-even needs a
@@ -120,3 +122,53 @@ measured discard rate. Do not wire anything into the foundry until the
 false-negative rate is zero on that set and the discard rate is reported. The
 lattice screen is exactly what happens when a plausible optimisation is adopted
 on the strength of a rate that was never multiplied by its cost.
+
+
+---
+
+# Result, 23 September 2026
+
+Built, measured, wired in.
+
+**Speed.** 14,256 cells in **0.23 s** against 65-170 s to generate the same
+window. Roughly 500x, and `mapApproxHeight` returns biome and height together.
+
+**Surface height, 61,479 samples over 69 generated worlds.** Unbiased and
+heavy-tailed:
+
+    mean -0.27   stdev 6.43   median +0.5
+    |err| <= 2   41.3%
+    |err| <= 5   81.2%
+    |err| <= 10  93.0%
+    p0 -118.2    p100 +111.8
+
+The open cubiomes-viewer issue titled "'approximate' surface height is very
+generous" is **overstated for a mean and understated for a tail**. The worst
+seed, 179190514, is 85% ocean and runs a mean of -6.7 with a p05 of -30.5 --
+deep water is where it diverges, which is a bounded and explainable failure
+rather than noise. **Elevation is therefore not screened on**, even though it
+would raise the discard rate.
+
+**False negatives: zero, at every margin tried.**
+
+    margin   discard   false negatives
+    0.00       26%           0
+    0.02       25%           0
+    0.05       20%           0
+    0.08       16%           0
+
+0.05 is shipped. Zero at margin 0.00 is the stronger result, but only 13 of the
+69 seeds were positives, so the evidence for "never discards a good seed" rests
+on 13 cases; four points of discard is cheap headroom against seeds that set has
+not seen.
+
+**What the scope got right:** that only the two ocean checks are exactly
+reachable, that validation needed no new generation, and that stage D was the
+gate. **What it got wrong:** the ceiling. It estimated ~45% discard from the
+biome checks alone, on the basis that 45% of the 40 unseen seeds failed eastern
+ocean *or* ocean gradient. The shipped screen requires **both** to miss, which
+is the conservative construction, and it discards 20-26%.
+
+**What has not changed.** Rejection is now nearly free; maps are not commoner.
+82.5% of seeds still fail the real gate, on a conjunction of six requirements
+each near the median of random terrain. This buys throughput, not yield.
