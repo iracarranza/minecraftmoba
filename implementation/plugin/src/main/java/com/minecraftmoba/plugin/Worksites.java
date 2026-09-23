@@ -13,6 +13,13 @@ import java.util.*;
  * simultaneously active Worksites depends on match phase, and which eligible
  * Worksites activate is chosen randomly from the eligible pool."
  *
+ * "Depends on match phase" is now read as the Worksite TIER, not the sunset
+ * count. Worksites no longer open on every sunset: they open on the Worksite
+ * nights of the alternating cadence (I, II, III), and the Lair nights between
+ * them open nothing here. That is what keeps the two systems' spatial rhythms
+ * in contrast -- distributed sites on one night, the single shared landmark on
+ * the next -- instead of every important night resolving to "go middle".
+ *
  * The lifecycle is Dormant -> Activated -> Capitalized -> Exploited, and the
  * distinction that matters is that **activation does not grant
  * capitalization**. Activation makes a Worksite available; capitalization is a
@@ -27,8 +34,15 @@ import java.util.*;
  *  - what physically qualifies as capitalization. objectives.md defers it to
  *    the Construct system, so capitalization is triggered explicitly rather
  *    than inferred from a player's build.
- *  - the per-phase activation count, which config supplies as a declared
+ *  - the per-tier activation count, which config supplies as a declared
  *    NON-CANON ANALYTICAL FIXTURE rather than a silent default.
+ *  - the tier packages themselves. Worksite I anchors iron/coal with a Blast
+ *    Furnace and Smoker, II second-tier resources with an Enchanting Table and
+ *    Anvil, and III is OPEN. None of those are granted as stock contents here:
+ *    the tier is recorded on the activated site and the package is reported as
+ *    unresolved, because handing out a facility would be inventing the reward
+ *    design rather than implementing it, and the existing Mining Outpost /
+ *    Industrial Enchanter work is more specific than a bullet list of items.
  */
 public final class Worksites {
     /** Canon's lifecycle. Exploited is terminal within a match. */
@@ -40,12 +54,15 @@ public final class Worksites {
         public final String bias;
         public State state = State.DORMANT;
         public String capitalizedBy;
+        /** The tier of the night that activated it; null while never activated. */
+        public OpportunityCadence.WorksiteTier tier;
         Worksite(String id, int x, int y, int z, String bias) {
             this.id = id; this.x = x; this.y = y; this.z = z; this.bias = bias;
         }
         public Location location(World w) { return new Location(w, x + 0.5, y, z + 0.5); }
         @Override public String toString() {
             return id + "@" + x + "," + z + " " + state
+                    + (tier != null ? " tier " + tier + " (package UNRESOLVED)" : "")
                     + (capitalizedBy != null ? " by " + capitalizedBy : "");
         }
     }
@@ -54,6 +71,7 @@ public final class Worksites {
     private final Map<String, Worksite> sites = new LinkedHashMap<>();
     private final Random random;
     private final List<String> activeNow = new ArrayList<>();
+    private boolean legacyWarned;
 
     public Worksites(MobaPlugin plugin) {
         this.plugin = plugin;
@@ -86,16 +104,32 @@ public final class Worksites {
     }
 
     /**
-     * How many activate at this sunset.
+     * How many activate on this tier's night.
      *
      * NON-CANON ANALYTICAL FIXTURE. Canon says the count "depends on match
-     * phase" but does not supply the series, so it is configured per sunset and
+     * phase" but does not supply the series, so it is configured per tier and
      * labelled rather than guessed inline.
+     *
+     * The old key was a list indexed by sunset ordinal, which quietly assumed
+     * every sunset was a Worksite sunset and repeated its last value forever
+     * afterwards. It is still read if present, mapped I/II/III to its first
+     * three entries, so an existing deployment does not silently change
+     * behaviour -- but it warns, because the shape it encodes is superseded.
      */
-    public int countForSunset(int ordinal) {
-        var counts = plugin.getConfig().getIntegerList("alpha.worksites.activationsPerSunset");
-        if (counts.isEmpty()) return 0;
-        return counts.get(Math.min(Math.max(ordinal, 1), counts.size()) - 1);
+    public int countForTier(OpportunityCadence.WorksiteTier tier) {
+        var cfg = plugin.getConfig();
+        String key = "alpha.worksites.activationsPerTier." + tier.name();
+        if (cfg.isInt(key)) return cfg.getInt(key);
+        var legacy = cfg.getIntegerList("alpha.worksites.activationsPerSunset");
+        if (legacy.isEmpty()) return 0;
+        if (!legacyWarned) {
+            legacyWarned = true;
+            plugin.getLogger().warning("alpha.worksites.activationsPerSunset is deprecated: "
+                    + "Worksites now open on cadence tier nights, not every sunset. "
+                    + "Migrate to alpha.worksites.activationsPerTier.{I,II,III}.");
+        }
+        int index = tier.ordinal();
+        return legacy.get(Math.min(index, legacy.size() - 1));
     }
 
     /**
@@ -108,15 +142,22 @@ public final class Worksites {
      */
     public List<Worksite> eligible() { return inState(State.DORMANT); }
 
-    /** Sunset: activate a limited number from the eligible pool. */
-    public List<Worksite> onSunset(int ordinal) {
-        int want = countForSunset(ordinal);
+    /**
+     * A Worksite night: activate a limited number from the eligible pool.
+     *
+     * Only the cadence calls this, and only on a Worksite night, so a Lair
+     * night cannot open Worksites even by accident: there is no ordinal here
+     * to get the arithmetic wrong with.
+     */
+    public List<Worksite> onOpportunityNight(OpportunityCadence.WorksiteTier tier) {
+        int want = countForTier(tier);
         List<Worksite> pool = new ArrayList<>(eligible());
         Collections.shuffle(pool, random);
         List<Worksite> opened = new ArrayList<>();
         for (Worksite w : pool) {
             if (opened.size() >= want) break;
             w.state = State.ACTIVATED;
+            w.tier = tier;
             activeNow.add(w.id);
             opened.add(w);
         }
@@ -182,7 +223,9 @@ public final class Worksites {
 
     /** Return every Worksite to Dormant. Called by match reset. */
     public void reset() {
-        for (Worksite w : sites.values()) { w.state = State.DORMANT; w.capitalizedBy = null; }
+        for (Worksite w : sites.values()) {
+            w.state = State.DORMANT; w.capitalizedBy = null; w.tier = null;
+        }
         activeNow.clear();
     }
 

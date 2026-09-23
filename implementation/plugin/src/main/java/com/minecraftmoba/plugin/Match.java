@@ -83,6 +83,11 @@ public final class Match implements Listener {
         loadHomelands(w);
         int renewables = plugin.resetRenewables();
         plugin.getLogger().info("[match] bound " + renewables + " renewable source(s)");
+        if (plugin.teamObjectives() != null) plugin.teamObjectives().reset();
+        if (plugin.lair() != null) {
+            plugin.lair().bind(w);
+            plugin.getLogger().info("[match] " + plugin.lair().report());
+        }
         state = State.IDLE;
         return "Alpha instance '" + w.getName() + "' loaded. Homelands: "
                 + homelands.keySet() + ". Add players, then /moba match start.";
@@ -160,30 +165,59 @@ public final class Match implements Listener {
         p.setSaturation(hunger);
     }
 
-    private void tick() {
-        if (state != State.RUNNING) return;
-        elapsed++;
+    private void tick() { advance(1); }
+
+    /**
+     * Advance the counter, firing every boundary crossed exactly once.
+     *
+     * The ticker and {@link #skipMinutes} both come through here. They used to
+     * be two copies of the same loop, which is the repeated defect in this
+     * codebase -- two implementations of one idea -- and it had already drifted:
+     * only the ticker carried the obsolete horizon branch, and that branch
+     * incremented {@code elapsed} a second time, so a boundary landing on the
+     * skipped tick was silently lost.
+     */
+    private void advance(long ticks) {
+        for (long i = 0; i < ticks && state == State.RUNNING; i++) {
+            elapsed++;
+            if (MatchClock.isSunsetBoundary(elapsed)) onSunset(MatchClock.sunsetOrdinal(elapsed));
+            else if (MatchClock.isSunriseBoundary(elapsed)) onSunrise();
+        }
         World w = worldInstance.world();
         if (w != null) w.setTime(MatchClock.worldTime(elapsed));
-        if (MatchClock.isSunsetBoundary(elapsed)) onSunset(MatchClock.sunsetOrdinal(elapsed));
-        else if (MatchClock.isSunriseBoundary(elapsed)) onSunrise();
-        if (MatchClock.pastHorizon(elapsed)) {
-            // The 48-minute figure is an analytical horizon, not a timed draw.
-            // Nothing in canon ends a match on it, so the clock is announced and
-            // the match continues until the victory predicate is satisfied.
-            announce("48-minute analytical horizon reached; match continues.");
-            elapsed++; // announce once
-        }
     }
 
+    /**
+     * A sunset is an opportunity night, and which one it is decides what opens.
+     *
+     * The cadence alternates Worksite and Lair (OpportunityCadence): a Worksite
+     * night activates sites of that tier and leaves the Lair's occupant alone,
+     * and a Lair night installs the next boss and activates no Worksites. The
+     * Lair is told the ordinal on every night regardless, because "leave the
+     * occupant alone" is a decision its lifecycle has to make rather than one
+     * made by not calling it -- that is what lets a surviving Giant persist
+     * through Worksite II and still be replaced when Ghast's night arrives.
+     */
     private void onSunset(int ordinal) {
-        var opened = plugin.worksites().onSunset(ordinal);
-        announce("Sunset " + ordinal + " (" + MatchClock.minutes(elapsed) + "m): "
-                + (opened.isEmpty() ? "no Worksites activated"
-                   : opened.size() + " Worksite(s) activated: "
-                     + opened.stream().map(w -> w.id).toList()));
-        plugin.getLogger().info("[match] sunset " + ordinal + " at "
-                + MatchClock.minutes(elapsed) + "m, activated " + opened.size());
+        var stage = OpportunityCadence.atNight(ordinal);
+        List<String> notes = new ArrayList<>();
+        if (stage.tier() != null) {
+            var opened = plugin.worksites().onOpportunityNight(stage.tier());
+            notes.add(opened.isEmpty()
+                    ? "Worksite " + stage.tier() + ": no eligible site activated"
+                    : "Worksite " + stage.tier() + ": " + opened.size() + " activated "
+                      + opened.stream().map(w -> w.id).toList());
+        }
+        if (plugin.lair() != null) {
+            plugin.lair().onNight(ordinal);
+            if (stage.boss() != null) notes.add("Lair: " + stage.boss() + " "
+                    + plugin.lair().lifecycle().state());
+        }
+        if (notes.isEmpty()) notes.add("no scheduled opportunity (post-Dragon cadence is OPEN)");
+        announce("Night " + ordinal + " (" + MatchClock.minutes(elapsed) + "m, " + stage + "): "
+                + String.join("; ", notes));
+        plugin.getLogger().info("[match] night " + ordinal + " " + stage + " at "
+                + MatchClock.minutes(elapsed) + "m: " + String.join("; ", notes));
     }
 
     private void onSunrise() {
@@ -195,22 +229,15 @@ public final class Match implements Listener {
     /**
      * Advance the clock by whole minutes, firing every boundary crossed.
      *
-     * This is how one person exercises a 48-minute lifecycle without waiting
-     * out 48 minutes. It advances the same counter the ticker advances and
-     * runs the same sunset/sunrise handlers, so a skipped sunset is a real
-     * sunset rather than a simulated one.
+     * This is how one person exercises the whole six-night cadence without
+     * sitting through 110 minutes of it. It advances the same counter the
+     * ticker advances through the same {@link #advance} path, so a skipped
+     * night is a real night rather than a simulated one.
      */
     public String skipMinutes(int minutes) {
         if (!running()) throw new IllegalStateException("No match running.");
         if (minutes <= 0) throw new IllegalArgumentException("Minutes must be positive.");
-        long target = elapsed + minutes * 60L * 20L;
-        while (elapsed < target && state == State.RUNNING) {
-            elapsed++;
-            if (MatchClock.isSunsetBoundary(elapsed)) onSunset(MatchClock.sunsetOrdinal(elapsed));
-            else if (MatchClock.isSunriseBoundary(elapsed)) onSunrise();
-        }
-        World w = worldInstance.world();
-        if (w != null) w.setTime(MatchClock.worldTime(elapsed));
+        advance(minutes * 60L * 20L);
         return "Advanced to " + MatchClock.describe(elapsed) + ".";
     }
 
@@ -299,6 +326,11 @@ public final class Match implements Listener {
         }
         resetFields();
         plugin.worksites().reset();
+        // The Lair holds a live entity in the world about to be discarded, so
+        // its occupant is removed before the restore rather than orphaned in a
+        // world nobody will load again.
+        if (plugin.lair() != null) plugin.lair().reset();
+        if (plugin.teamObjectives() != null) plugin.teamObjectives().reset();
         // Routes, Infrastructure Mode and contributions are all match-scoped and
         // hold references into the instance world, so they are discarded before
         // that world is replaced.
@@ -363,9 +395,13 @@ public final class Match implements Listener {
     public List<String> report() {
         List<String> out = new ArrayList<>();
         out.add("state=" + state + (winner != null ? " winner=" + winner.lower() : ""));
-        out.add("clock=" + MatchClock.describe(elapsed)
-                + " sunsets=" + MatchClock.sunsetOrdinal(elapsed));
+        int night = MatchClock.sunsetOrdinal(elapsed);
+        out.add("clock=" + MatchClock.describe(elapsed) + " night=" + night
+                + " stage=" + OpportunityCadence.atNight(night)
+                + " next=" + OpportunityCadence.atNight(night + 1));
         out.add("world: " + worldInstance.report());
+        if (plugin.lair() != null) out.add(plugin.lair().report());
+        if (plugin.teamObjectives() != null) out.addAll(plugin.teamObjectives().report());
         for (Team t : Team.values())
             out.add(t.lower() + ": " + living(t).size() + " living of "
                     + participants.values().stream().filter(p -> p.team == t).count()

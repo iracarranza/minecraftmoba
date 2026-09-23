@@ -48,12 +48,14 @@ class MatchClockTest {
         assertEquals(10, window / (60 * 20), "the window is ten minutes, not six");
     }
 
-    @Test void exactlyFourSunsetsInAMatch() {
-        // The activation series still has four entries, and that is what sets
-        // the match length rather than the other way round.
+    @Test void theSixOpportunityNightsAreSpacedTwentyMinutesApart() {
+        // Six nights carry the cadence, but they do not define a match length:
+        // the match ends on the Fountain predicate, not the clock.
+        long[] expected = {10, 30, 50, 70, 90, 110};
         int count = 0;
-        for (long t = 1; t <= MATCH_TICKS; t++) if (isSunsetBoundary(t)) count++;
-        assertEquals(4, count);
+        for (long t = 1; t <= atMinute(110); t++)
+            if (isSunsetBoundary(t)) assertEquals(atMinute(expected[count++]), t);
+        assertEquals(6, count);
     }
 
     @Test void sunsetsAreNumberedInOrder() {
@@ -61,6 +63,8 @@ class MatchClockTest {
         assertEquals(2, sunsetOrdinal(atMinute(30)));
         assertEquals(3, sunsetOrdinal(atMinute(50)));
         assertEquals(4, sunsetOrdinal(atMinute(70)));
+        assertEquals(5, sunsetOrdinal(atMinute(90)));
+        assertEquals(6, sunsetOrdinal(atMinute(110)));
     }
 
     @Test void sunrisesFireAtTwentyFortySixty() {
@@ -69,10 +73,24 @@ class MatchClockTest {
         assertFalse(isSunriseBoundary(0), "match start is not a sunrise");
     }
 
-    @Test void theMatchIsEightyMinutes() {
-        assertEquals(80 * 60 * 20, MATCH_TICKS);
-        assertFalse(pastHorizon(MATCH_TICKS - 1));
-        assertTrue(pastHorizon(MATCH_TICKS));
+    @Test void theClockHasNoHorizonToPass() {
+        // MATCH_TICKS / pastHorizon are gone. The tick loop used to announce a
+        // "48-minute analytical horizon" past them and increment elapsed a
+        // second time to announce it once, which skipped whatever boundary
+        // landed on the skipped tick.
+        assertFalse(java.util.Arrays.stream(MatchClock.class.getDeclaredFields())
+                .anyMatch(f -> f.getName().contains("MATCH")),
+                "no match-length constant: nothing in canon ends a match on a clock");
+        assertFalse(java.util.Arrays.stream(MatchClock.class.getDeclaredMethods())
+                .anyMatch(m -> m.getName().equals("pastHorizon")));
+    }
+
+    @Test void sunsetsKeepCountingPastTheOldHorizon() {
+        // The old horizon was 80 minutes, so Worksite III and Dragon are both
+        // beyond it. They must still be numbered.
+        assertEquals(5, sunsetOrdinal(atMinute(90)));
+        assertEquals(6, sunsetOrdinal(atMinute(110)));
+        assertTrue(isSunsetBoundary(atMinute(110)));
     }
 
     @Test void worldTimeIsElapsedTimeWithNoCompression() {

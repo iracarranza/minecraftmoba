@@ -21,9 +21,14 @@ package com.minecraftmoba.plugin;
  * better -- directionality, Route usability, opportunity readability -- rather
  * than to shorten the day until the opening fits.
  *
- * MATCH_MINUTES follows from two constraints rather than being chosen: Worksite
- * activation stays aligned to sunset, and the activation series still has four
- * entries. Four sunsets at vanilla spacing need eighty minutes.
+ * The match has no scheduled end. An earlier MATCH_MINUTES=80 was inferred
+ * from an activation series that happened to have four entries, and the tick
+ * loop then announced a "48-minute analytical horizon" past it while
+ * double-incrementing the counter -- so boundaries after the horizon were
+ * skipped outright. Nothing in canon ends a match on a clock; victory is the
+ * Fountain predicate. The horizon is gone rather than renumbered, and in
+ * particular the six-event opportunity cadence does NOT establish a new
+ * 120-minute duration.
  *
  * This is arithmetic over elapsed ticks, not a second source of truth: the
  * match owns the tick count and asks the clock what it means.
@@ -36,10 +41,6 @@ public final class MatchClock {
     /** Day and night are each half the cycle in vanilla tick terms. */
     public static final long PHASE_TICKS = SUNSET_TICK;
     public static final long PHASE_MINUTES = PHASE_TICKS / (60 * 20);
-    /** Four sunsets at vanilla spacing: 10m, 30m, 50m, 70m. */
-    public static final long MATCH_MINUTES = 80;
-    public static final long MATCH_TICKS = MATCH_MINUTES * 60 * 20;
-
     public enum Phase { DAY, NIGHT }
 
     private MatchClock() {}
@@ -51,7 +52,7 @@ public final class MatchClock {
     /** Zero-based index of the phase, so the opening day is 0 and its night 1. */
     public static long phaseIndex(long elapsedTicks) { return elapsedTicks / PHASE_TICKS; }
 
-    /** True on the exact tick a sunset begins: 10, 30, 50, 70 minutes. */
+    /** True on the exact tick a sunset begins: 10, 30, 50, 70, 90, 110 minutes. */
     public static boolean isSunsetBoundary(long elapsedTicks) {
         return elapsedTicks > 0 && elapsedTicks % CYCLE_TICKS == SUNSET_TICK;
     }
@@ -61,14 +62,19 @@ public final class MatchClock {
         return elapsedTicks > 0 && elapsedTicks % CYCLE_TICKS == 0;
     }
 
-    /** Which sunset this is, 1-based; 0 before the first. */
+    /**
+     * Which sunset this is, 1-based; 0 before the first.
+     *
+     * This is also the opportunity-night ordinal {@link OpportunityCadence}
+     * reads. The cadence derives its stage from this arithmetic rather than
+     * keeping a counter of its own, so there is exactly one temporal source of
+     * truth and {@code skip} cannot desynchronize it.
+     */
     public static int sunsetOrdinal(long elapsedTicks) {
         return (int) ((elapsedTicks + CYCLE_TICKS - SUNSET_TICK) / CYCLE_TICKS);
     }
 
     public static long minutes(long elapsedTicks) { return elapsedTicks / (60 * 20); }
-
-    public static boolean pastHorizon(long elapsedTicks) { return elapsedTicks >= MATCH_TICKS; }
 
     /**
      * World time is now the elapsed time. At vanilla rate there is nothing to

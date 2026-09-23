@@ -54,6 +54,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Contributions contributions;
     private WorldInstance worldInstance;
     private Worksites worksites;
+    private Lair lair;
+    private TeamObjectives teamObjectives;
     private Match match;
     public Contributions contributions() { return contributions; }
     private LockedSlots lockedSlots;
@@ -129,6 +131,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         mapConfigurations.reload();
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
+        teamObjectives = new TeamObjectives();
+        lair = new Lair(this);
+        getServer().getPluginManager().registerEvents(lair, this);
         match = new Match(this, worldInstance);
         getServer().getPluginManager().registerEvents(match, this);
         infraMode = new InfraMode(this);
@@ -277,6 +282,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
 
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
+    /** The single permanent Lair. Reports UNBOUND until a socket is configured. */
+    public Lair lair() { return lair; }
+    /** All three defensive objectives, standing concurrently, per team. */
+    public TeamObjectives teamObjectives() { return teamObjectives; }
 
     /** Rebuild renewable state for a new match; returns the source count. */
     public int resetRenewables() {
@@ -410,6 +419,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
 
     @Override public void onDisable() {
+        // A boss is a persistent entity in a world that outlives the plugin, so
+        // leaving it there would strand an unowned Giant across a reload.
+        if (lair != null) lair.reset();
         if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
         if (packets != null) packets.close();
         if (inputs != null) getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true));

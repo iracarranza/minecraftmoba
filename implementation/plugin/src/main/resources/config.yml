@@ -832,15 +832,47 @@ alpha:
     north: [-2173, -461, 74]
     south: [-2005, 411, 76]
 
+  # The single permanent Giant Monster Lair: one site for the whole match, its
+  # occupant succeeding Giant -> Ghast -> Ender Dragon on Lair nights.
+  #
+  # EMPTY BY DESIGN. No map in this repository has a certified Lair socket yet:
+  # socket search wants encounter volume, vertical room, several practical
+  # approaches, landmark readability and near-equal initial reach from both
+  # teams, and none of that has been measured on the Alpha map. The runtime
+  # therefore reports lair=UNBOUND rather than picking the coordinate centre or
+  # flattening a stadium, because an invented site would be a silent design
+  # decision about the one place where team access parity genuinely matters.
+  #
+  # Set to [x, y, z] to bind a socket.
+  lair:
+    site: []
+
   worksites:
     # Positions are the frozen Consolidative Alpha map's own mining_worksite
     # placements (docs/analysis/alpha-0.1-map-freeze.json), not invented sites.
     #
-    # activationsPerSunset is a NON-CANON ANALYTICAL FIXTURE. objectives.md says
+    # activationsPerTier is a NON-CANON ANALYTICAL FIXTURE. objectives.md says
     # the number of simultaneously active Worksites "depends on match phase" but
     # does not supply the series, so it is declared here rather than guessed in
-    # code. One entry per sunset: 6m, 18m, 30m, 42m.
-    activationsPerSunset: [2, 2, 3, 3]
+    # code.
+    #
+    # "Phase" is now the Worksite TIER. Worksites open on the Worksite nights of
+    # the alternating cadence -- I, II, III at nights 1, 3 and 5 -- and not on
+    # the Lair nights between them. The superseded activationsPerSunset list was
+    # indexed by sunset ordinal, which assumed every sunset was a Worksite
+    # sunset and repeated its last entry for the rest of the match. It is still
+    # honoured if present, with a deprecation warning, so an existing server
+    # does not change behaviour silently.
+    #
+    # The tier's resource/facility package is NOT configured here and is not
+    # granted: Worksite I's iron/coal + Blast Furnace/Smoker and II's
+    # Enchanting Table/Anvil are design anchors, III is OPEN, and the existing
+    # Mining Outpost / Industrial Enchanter work is the specific form. The
+    # runtime records the tier and reports the package as unresolved.
+    activationsPerTier:
+      I: 2
+      II: 2
+      III: 3
     # 0 means a fresh Random each run; set non-zero for reproducible activation.
     randomSeed: 0
     sites:
