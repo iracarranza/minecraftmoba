@@ -152,6 +152,7 @@ public final class Match implements Listener {
         w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
         bindings = MapBindings.of(claimed);
         loadHomelands(w);
+        if (plugin.renewables() != null) plugin.renewables().bind(bindings);
         int renewables = plugin.resetRenewables();
         plugin.getLogger().info("[match] bound " + renewables + " renewable source(s)");
         bindObjectives(w);

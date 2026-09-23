@@ -108,11 +108,27 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
             # What a future draft may show players. Broad classification only --
             # players know the classification and discover the realization -- so
             # seed, geography, POIs and Lair location stay out of it.
+            # Map Type is the only one of the three that is actually decided:
+            # the compiler recognizes Default regional shape and nothing else.
             'map_type': 'default',
-            'map_scale': 'normal',
+            # [CORRECTED 23 September 2026] map_scale was the literal string
+            # 'normal' for every realization, never derived from anything. A
+            # hardcoded value wearing the costume of a measurement is worse than
+            # an honest gap, because nothing downstream can tell the difference.
+            #
+            # Scale is a DISCOVERED property and no metric for it exists.
+            # Deliberately not defined as playable block area: a physically huge
+            # but easily traversed map does not play larger than a smaller
+            # rugged one, so the strategically relevant quantity is closer to
+            # Homebase separation, traversal cost, Wilderness extent and the
+            # objective/Lair/Worksite travel relationships. Leaving it open.
+            'map_scale': 'unmeasured',
             'resource_density': 'unmeasured',
-            'note': 'Resource Density is a discovered property and is not yet '
-                    'measured; it is recorded as unmeasured rather than guessed.',
+            'note': 'Map Scale and Resource Density are DISCOVERED properties '
+                    'of a realization, not inputs. Neither has a derived metric '
+                    'yet, so both are recorded unmeasured rather than guessed. '
+                    'Do not populate them with a classifier invented to fill '
+                    'the field.',
         },
         'evidence': {
             'homelands': evidence.get('homelands'),

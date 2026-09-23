@@ -173,6 +173,30 @@ public final class Renewables implements Listener {
      * rebuilding to full capacity follows from the decision rather than
      * inventing a recovery rule.
      */
+    /**
+     * Whether a generated map is bound, in which case config sources are wrong.
+     *
+     * Config's renewable coordinates belong to the frozen Alpha map. The match
+     * world instance is named `alpha_match` whether it holds the Alpha template
+     * or a claimed pool map, so those coordinates were being applied to
+     * generated terrain that has never seen them -- Alpha's rabbits and carrot
+     * patches landing wherever they happen to fall on a different world.
+     *
+     * This is the same defect {@link MapBindings} was built to fix for
+     * Fountains, objectives, the Lair and Worksites. Renewables were never
+     * migrated, because the compiler emits no renewable layer at all: a
+     * generated map's `runtime_bindings` has no `renewables` key, and
+     * `readiness` does not require one.
+     *
+     * So this cannot silently do the right thing -- there is nothing to bind
+     * to. It refuses to do the wrong one, and says why.
+     */
+    private boolean generatedMap;
+
+    public void bind(MapBindings bindings) {
+        generatedMap = bindings != null;
+    }
+
     public int resetForNewMatch() {
         // Manifestations are match state and are discarded with the world; the
         // Opportunities themselves are authored and are rebuilt from config.
@@ -181,6 +205,15 @@ public final class Renewables implements Listener {
         pendingPersist.clear();
         pendingRestore.clear();
         harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
+        if (generatedMap) {
+            plugin.getLogger().warning("[renewables] this map has NO regenerative layer. "
+                    + "Config's sources are the Alpha map's coordinates and applying them "
+                    + "to generated terrain would place opportunities on ground that was "
+                    + "never authored for them. maps.md says every viable map carries a "
+                    + "baseline regenerative layer; the compiler does not yet author one, "
+                    + "so the honest state is none rather than Alpha's.");
+            return 0;
+        }
         loadConfigured();
         return sources.size();
     }

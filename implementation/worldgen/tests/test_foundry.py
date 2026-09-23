@@ -88,6 +88,13 @@ class Publishing(unittest.TestCase):
         # could show.
         c = foundry.publish(self.pool, 1, self.src, compilation())['characteristics']
         self.assertEqual({'map_type', 'map_scale', 'resource_density', 'note'}, set(c))
+        # Discovered properties must not be fabricated. map_scale was the
+        # literal string 'normal' on every realization, which is a hardcoded
+        # value wearing the costume of a measurement -- nothing downstream
+        # could tell it from a real one.
+        self.assertEqual('unmeasured', c['map_scale'],
+                         'no scale metric exists; do not invent a classifier to fill it')
+        self.assertEqual('unmeasured', c['resource_density'])
         self.assertEqual('unmeasured', c['resource_density'])
 
     def test_a_published_entry_is_ready_and_carries_provenance(self):
