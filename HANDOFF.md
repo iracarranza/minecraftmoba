@@ -1,68 +1,41 @@
-# Handoff — spatial doctrine reconciled, 22 September 2026
+# Claude handoff — spatial doctrine / cadence migration PAUSED
 
-**Complete: documentation/terminology/audit pass. No algorithms or fixtures
-changed.** Read the [spatial audit](docs/audit/2026-09-22-spatial-doctrine.md),
-[reconciliation](docs/reconciliation/2026-09-22-spatial-doctrine.md), and
-[source spec](specs/auditworldgenrecoverspatialmodel.md).
+**User-requested pause, 22 September 2026. This spec is NOT complete.**
+The user asked: “after next command/tooluse/etc, pause, create a handoff for
+claude explaining your progress on the given spec, and push”. Implementation
+stopped. Continue on **codex/spatial-cadence-migration**, worktree
+`/tmp/minecraftmoba-spatial-cadence` (real path `/private/tmp/...`).
 
-Canonical maps.md now separates the functionally mirrored **Homebase Core /
-interface**, bounded-integration **Homebase Socket**, natural non-mirrored
-**supported region / hinterland**, and asymmetric **Wilderness**. The opening
-region needs distributed useful opportunity and a concentration ceiling, not
-identical terrain or species/counts. Strategic Depth and Regional Character are
-separate axes; future Map Types own their macro-geographic search contracts.
+## Read first
 
-Initial Route support primarily belongs at Core exits and in hinterlands.
-Terrain-weighted paths, Practical Reach, physical corridor checks and Route
-spillover measurements survive, without a deep-map convenience or equalization
-mandate. Player-created Exploration Infrastructure can extend the network.
+1. [Full active spec](specs/superspatialdoctrinespec.md), all 36 sections.
+2. [Detailed continuation handoff](docs/handoffs/2026-09-22-claude-spatial-cadence.md).
+3. [Completed previous spatial audit](docs/audit/2026-09-22-spatial-doctrine.md).
 
-Regenerative Source/Kind/depletion/recovery/manifestation machinery survives.
-`RenewableKinds` deliberately has no depth/value/region. Runtime regions and
-lifecycle are implemented; generic depth/character richness authoring is not.
-Source capacity/recovery and temporal/eligibility values remain fixtures or
-Working calibration. Stale empty-table/lazy-only comments were corrected.
+This branch starts at **03c5bea** (completed doctrine-only audit), which includes
+**9bb5093** (completed Hunger audit), atop main **8199c13**. Remote main was still
+8199c13 at the start. Neither prior branch nor this work has been merged to main
+by this continuation. Do not reset/clean the original dirty checkout.
 
-## Smallest next decision and later implementation
+## Current state
 
-1. Define the shared Core footprint, immediate defenses and exit/interface
-   contract, bounded Socket integration, and opening economic floor/ceiling.
-   Do not invent thresholds or make terrain surgery more powerful.
-2. Add a contract record and exact integration/readback evidence at existing
-   siting/authoring seams. Old sampled homeland quality is not this contract.
-3. Before another seed search, replace Alpha origins in both optimizer `HOMES`
-   and `idw_reach_model` with explicit seed-specific inputs and provenance.
-   Stored near-miss scores remain historical; they are not silently recomputed.
-4. Only after supported scope is defined, re-scope initial Route targets and
-   eventually add the two-axis richness policy outside Kind/runtime identity.
+- Traced the actual runtime clock and immediate consumers; recovered existing
+  objective / Worksite documentation and relevant older history.
+- Copied the full supplied spec into this branch.
+- Added FOUR **draft, unwired, uncompiled and untested** Java classes:
+  `OpportunityCadence`, `TeamObjectives`, `LairLifecycle`, `Lair`.
+- No existing runtime class, config, test, map fixture or canonical doctrine has
+  yet been migrated for the new spec. The current plugin still behaves as before.
+- No server was run, no world regenerated, no live deployment, no gameplay trial.
+- Draft code requires review, especially Lair entity unload/replacement cleanup,
+  physical encounter behavior and attribution; see detailed handoff.
 
-Exact bounds, species assignments, richness values, recovery curves and Map Type
-recognizers remain Open. No implementation for them was added.
+The next coherent implementation step is to finish the clock/Worksite/Lair
+integration with focused tests, then implement the spatial contract data seam
+and reconcile canonical docs. Do not mistake the presence of new classes for a
+finished migration. Do not invent unresolved siege rewards, tier quantities,
+Core/Lair dimensions, opening iron quota or post-Dragon cadence.
 
-## 930010639 experiment remains pending
-
-**0.3173 is a natural Wilderness metric difference, not a proven competitive
-deficit.** The old rescue/compensate/reject interpretation is superseded.
-Task A/B remains a Prototype/test proposal asking whether permitted Wilderness
-asymmetry has a competitive consequence missing from the authored-opportunity
-model, with no presumption of a harmed side.
-
-The [fixture report](implementation/worldgen/reports/nearmiss_fixture_2026-09-22/REPORT.md)
-still records a materialized, runtime-loadable 28-opportunity `resource_light`
-fixture, with 10 sources and 8 Worksites. Its north Route endpoint ice readback
-conflict and missing authored wheat for Task B remain blockers. Task A has no
-completed accepted-fixture rehearsal. No worlds were regenerated, 930010639 was
-not altered, and no 16-trial experiment or new telemetry was run. Existing
-fixtures are not certified against the as-yet-unfinalized Core/Socket contract.
-
-## Prior Hunger task and workspace
-
-The user considers the Hunger issue solved. Audit/test commit **9bb5093** is
-retained; no gameplay fix was made. Its 11 server assertions and 205 unit tests
-passed before this doctrine pass. Do not resume that investigation without a
-new symptom. See [Hunger audit](docs/audit/2026-09-22-hunger-authority.md).
-
-Work began from pushed main **8199c13** plus the completed Hunger audit, in an
-isolated worktree. Original dirty work and the live Alpha server were preserved.
-This pass validates links and unchanged executable/config semantics; it does
-not rerun gameplay tests or claim new gameplay outcomes.
+The 930010639 fixture remains unchanged and blocked by its Route endpoint ice
+readback and missing Task B wheat. No 16-trial experiment is authorized by this
+continuation. The user considers the earlier Hunger issue solved.
