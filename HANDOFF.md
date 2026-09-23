@@ -1,3 +1,30 @@
+# Handoff — independent Hunger investigation, 22 September 2026
+
+**User reports the Hunger issue now appears solved. The freeze was not
+reproduced on current main; no gameplay fix or balance change was made.** Continue from the
+[authority audit](docs/audit/2026-09-22-hunger-authority.md) and
+[disposable acceptance runner](validation/plugin/hunger/README.md).
+
+The audit traces every production food/saturation/exhaustion writer and the
+consumption/display paths. There is no separate current-Hunger store or repeated
+HUD projection overwriting food. Hidden starting saturation is 20 after
+`456fdad`; real activity drains it before the visible food bar falls. The
+controlled test then permits bread normally and refuses it at actual full food.
+The original live-session cause remains unconfirmed; the user considers the issue solved. Smallest next step if it
+recurs: capture existing match status, actual food/saturation/exhaustion, location,
+and activity duration for the affected player; do not alter Hunger to make the
+symptom disappear.
+
+Validation: all 11 disposable-server assertions and 205 unit tests passed.
+First natural depletion took 100 seconds of the tested sprint/jump pattern.
+The test servers are stopped.
+
+All diagnostics are confined to the separate acceptance-test plugin. The live
+server and pre-existing dirty worktrees were preserved. The near-miss fixture
+status below remains unchanged; no paired trials were run.
+
+---
+
 # Handoff — 930010639 resource_light fixture, 22 September 2026
 
 **Materialized and loadable, but NOT cleared for the paired experiment.**

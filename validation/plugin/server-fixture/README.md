@@ -22,3 +22,8 @@ physically feeding a player.
 
 The denied-placement case dispatches canBuild=false without cancellation and
 asserts unchanged chunk provenance. It places no real block.
+
+The separate [Hunger acceptance runner](../hunger/README.md) uses
+`hunger-watch`, `hunger-full`, and `hunger-drain` to observe activity and prepare
+one controlled exhaustion boundary. The latter two deliberately alter test
+player vitals; they must only be used in the disposable server.

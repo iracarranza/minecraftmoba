@@ -1,0 +1,38 @@
+{
+  "base_commit": "8199c138676ba88a889e8654b8971a306ec981c4",
+  "live_class_bytes_equal": {
+    "MobaPlugin": true,
+    "VitalsScaling": true,
+    "HungerRegen": true,
+    "HungerDisplay": true,
+    "FountainRegen": true,
+    "Match": true
+  },
+  "sha256": {
+    "/private/tmp/minecraftmoba-hunger/implementation/plugin/build/libs/minecraft-moba-0.1.0-SNAPSHOT.jar": "2c5ef76cd608cac9ef15e390a6da7a8751e79552a32c6804684093fa838d3509",
+    "/private/tmp/minecraftmoba-hunger/validation/plugin/server-fixture/build/libs/acceptance-fixture-0.1.0.jar": "48efb9c9f4dfb428418305e0b0261f21ba74e981f4cd5b12b6a86154ba71d849",
+    "/tmp/hunger-acceptance/server/paper.jar": "5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba",
+    "/tmp/hunger-acceptance/server/plugins/MinecraftMoba/config.yml": "8cfcf60b48683511ac3b99588526b86f55817875505fe40ee54846f3706f3c03",
+    "/tmp/hunger-acceptance/server/maps/resource_light_v2.json.gz": "1d890714b33f9a9eda0431f1e2151f97ccfd4c2d2a869b993a4f43c8230cc969",
+    "/tmp/hunger-acceptance/server/server.properties": "61041e69f2b4ddc8cdeb263dc2ee9c34d5c0840b7c4070cac6132b2eb2ece8f1"
+  },
+  "unit_tests": {
+    "tests": 205,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime": {
+    "java": "21",
+    "paper": "1.21.11",
+    "mineflayer": "4.39.0",
+    "PyYAML": "6.0.3",
+    "difficulty": "easy",
+    "port": 25640
+  },
+  "base": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/alpha-0.1/base-terrain",
+  "raw_server_log": {
+    "path": "/tmp/hunger-acceptance/report-final/server.log",
+    "sha256": "c0355d71542485caf9d58ba09e36bf742a4c009dd0f680f11a3ae251d451f5b7"
+  }
+}
