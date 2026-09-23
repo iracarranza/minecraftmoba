@@ -367,11 +367,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     }
                     sender.sendMessage(worksites.capitalize(args[2], Team.parse(args[3]), contributions));
                 }
-                case "exploit" -> {
-                    if (args.length != 3) { sender.sendMessage("/moba worksite exploit <id>"); return true; }
-                    sender.sendMessage(worksites.exploit(args[2]));
+                case "deplete", "exploit" -> {   // "exploit" retained as an alias
+
+                    if (args.length != 3) { sender.sendMessage("/moba worksite deplete <id>"); return true; }
+                    sender.sendMessage(worksites.deplete(args[2]));
                 }
-                default -> sender.sendMessage("/moba worksite <status|list|capitalize|exploit>");
+                default -> sender.sendMessage("/moba worksite <status|list|capitalize|deplete>");
             }
         } catch (Exception ex) {
             sender.sendMessage("worksite: " + ex.getMessage());

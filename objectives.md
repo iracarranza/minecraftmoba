@@ -411,7 +411,9 @@ The Mining Outpost tests Extraction, supported by Construction that establishes 
 
 ## Nighttime activation — Working, 12 September 2026
 
-**Worksites open only at sunset.** At sunset a limited number of Worksites activate; at sunrise the active Worksites close. The number of simultaneously active Worksites depends on match phase, and which eligible Worksites activate is chosen randomly from the eligible pool.
+**Worksites open only at sunset.** At sunset a limited number of Worksites activate. The number that activate depends on match phase, and which eligible Worksites activate is chosen randomly from the eligible pool.
+
+[HISTORICAL — superseded 23 September 2026] This passage previously continued "at sunrise the active Worksites close." Sunrise closure is superseded: sunset is an activation event, not an availability window, and an activated Worksite remains active for the rest of the match. See §17C, *Worksite activation is permanent*.
 
 This exists to create positive nighttime opportunity rather than a global nighttime stat modifier: scarcity, unpredictable but legible convergence, and a reason not to script the same route every night.
 
@@ -451,6 +453,17 @@ a developed Worksite.
 ---
 
 # 12. Worksite Apparatus
+
+[OPEN — conflict recorded 23 September 2026] The 23 September Worksite economy
+handoff states that "the apparatus model is obsolete" and that a Mining Site must
+not be an ore dispenser, chest, automatic mine or abstract loot payout, while
+still requiring that "a qualifying **Construct** capitalizes the Mining Site."
+The three layers below are a Construction-established topology, not a dispenser,
+so they satisfy the second requirement and contradict the first only in
+vocabulary. The section is therefore retained unchanged and the contradiction is
+recorded rather than resolved: whether "apparatus" is merely renamed to
+"Construct" or the layered model itself is withdrawn is an unresolved design
+decision. Do not silently delete this section on the strength of one word.
 
 The current Construction-established apparatus model, developed for the Mining Outpost, separates three layers. It is not a universal prerequisite for every Worksite; the Industrial Enchanter uses the Logistics gate described in section 14A.
 
@@ -825,16 +838,161 @@ Lair.
 **Post-Dragon cadence is OPEN.** The runtime reports UNSCHEDULED rather than
 looping or repeating the last entry.
 
-## Worksite tiers — Working
+## Worksite tiers — Working, reconciled 23 September 2026
 
-- **Worksite I** — iron/coal-scale mining opportunity; Blast Furnace; Smoker.
-- **Worksite II** — second-tier mining/resource opportunity; Enchanting Table;
-  Anvil. Exact enchant behaviour is not settled.
-- **Worksite III** — OPEN.
+Each Worksite night carries a paired economic identity: a **Mining Site**
+(Construction enables, Extraction pays off) and an **Industrial Factory**
+(Logistics enables, Production pays off).
+
+| Tier | Mining Site | Industrial Factory | Economic role |
+| --- | --- | --- | --- |
+| **I** | Iron + Coal | Blast Furnace + Smoker | bulk material / processing |
+| **II** | Diamond + Lapis | Enchanting Table | strategic capital / enhancement |
+| **III** | Ancient Debris + Diamond | Smithing Table | apex material / conversion |
+
+Read down the columns, the progression is:
+
+> Mining: **Iron + Coal → Diamond + Lapis → Ancient Debris + Diamond**
+> Factory: **PROCESSING → ENHANCEMENT → APEX CONVERSION**
+
+**The escalation is not volume.** Worksite I is higher-volume foundational
+material; II is lower-volume, higher-value strategic capital; III is very-low-
+volume apex conversion material. A later Mining Site may contain *fewer*
+physical ore blocks while being far more consequential. Factory progression is
+likewise processing → enhancement → conversion, not fast → faster → fastest.
+
+[HISTORICAL — superseded 23 September 2026] The four-tier economic ladder
+**Copper → Iron → Diamond → Ancient Debris**, paired with **Blast Furnace/Smoker
+→ TBD intermediate Factory → Enchanting → Smithing**, is superseded by the three
+tiers above, because the cadence has three Worksite nights. Specifically:
+
+- the **Copper Worksite tier is removed**. Copper is abundant in the ordinary
+  opening economy and its material identity is *replaceable / field-standard
+  metal*; it does not need an exceptional injection to establish. This also fits
+  Opening Hinterland doctrine, which wants fundamental Minecraft verbs available
+  in the opening without the Hinterland resolving later strategic-resource
+  questions. Copper's broader role in the world economy is **unchanged**;
+- the **TBD intermediate Factory is removed rather than filled**. It was never
+  defined, and no workstation is invented to occupy the slot;
+- **Diamond + Gold** as the guaranteed Worksite II backbone is superseded by
+  **Diamond + Lapis**, because Diamond is equipment capital, Lapis is the
+  enchantment input, and the Enchanting Table is the conversion — the paired
+  opportunities then speak one economic language without either being sufficient
+  alone. Gold remains an ordinary-world resource and is not deleted;
+- **Worksite III is no longer OPEN.** It is the constrained Netherite economy;
+- the **Anvil** no longer appears in the Worksite II identity. [OPEN] Whether an
+  Anvil belongs anywhere in the Factory progression is unresolved; it is not
+  asserted here, and its earlier mention is not evidence that it was decided.
+
+**Worksites are not tier permission.** Ordinary Extraction of Iron, Diamond and
+Lapis remains possible throughout, and ordinary-world Ancient Debris opportunity
+may exist where map/resource doctrine permits. Winning Worksite II must not turn
+"we cannot participate in Diamond/enchanting" into "now we can"; it turns scarce
+ordinary participation into a substantially stronger concentration of strategic
+capital.
+
+Worksite III is deliberately **networked**: Ancient Debris plus the existing Gold
+economy plus existing Diamond equipment plus Logistics convergence, through the
+Smithing Factory, yields limited Netherite upgrades. A team can hold the Mining
+Site without the Factory, the Factory without Debris, or the chain without the
+transport to use it. Netherite is premier late-game capital, not a universal
+final equipment tier for the whole team.
+
+**Specialization is systemic, not a multiplier.** The same ten physical Diamond
+ore yield differently according to a team's Fortune/Yield investment. Do not
+implement "Extractor gets +50% Worksite loot" or a "+20% quality" Factory perk:
+the opportunity is physically shared, and prior specialization determines how
+efficiently it is realized.
+
+[NON-CANON / PROVISIONAL CALIBRATION — not balance, not worldgen quotas] Earlier
+sensitivity work suggests ~40–50 physical Iron ore at tier I; ~8–12 Worksite
+Diamond against ~14–18 ordinary (≈26 total, about one major Diamond investment
+without Yield and approaching two with a strong Yield economy); ~8–12 Ancient
+Debris at tier III against ~4–8 ordinary, giving roughly 3–5 Netherite upgrades
+since Fortune does not multiply Debris; and ~6–10 secondary Diamond at tier III.
+These are hypotheses retained for calibration. They must not become production
+constants merely because they are numerically convenient. Exact Iron, Coal,
+Diamond, Lapis, Ancient Debris and secondary-Diamond quantities, Factory
+throughput, Factory supply thresholds, enchant behaviour, Smithing/Netherite
+recipe treatment, whether vanilla Smithing Templates are retained, and the exact
+Worksite count per tier all remain **[OPEN]**.
 
 These are anchors, not a reward spec. The existing **Mining Outpost** and
 **Industrial Enchanter** work is the specific form and is not replaced by free
-grants; the runtime records the tier and reports the package as unresolved.
+grants; the runtime records the tier and its declared economic identity, and
+reports the physical package as unresolved.
+
+## Worksite activation is permanent — Canonical, 23 September 2026
+
+**Sunset is an activation event, not an availability window.** This explicitly
+supersedes every older rule, comment, config, test and documentation statement
+saying that Worksites deactivate, close, reset or become dormant again at
+sunrise. Sunrise has **no** deactivation effect.
+
+The lifecycle is not `dormant → sunset → active during night → sunrise
+deactivation`. It is:
+
+> dormant → selected at its scheduled Worksite sunset → **ACTIVE** → remains
+> active across every subsequent day/night cycle
+
+**Mining Site:** DORMANT → *scheduled sunset activation* → ACTIVE / PROSPECTIVE →
+*qualifying Construct* → CAPITALIZED / MANIFESTED → *physical extraction* →
+PARTIALLY DEPLETED → DEPLETED. The site remains an active world location until
+its finite exceptional opportunity is depleted. Resources left unmined at sunrise
+stay there and stay contestable, and the manifestation is **never** regenerated
+or replaced merely because another day/night cycle occurred.
+
+**Industrial Factory:** DORMANT → *scheduled sunset activation* → ACTIVE /
+EXPOSED → *qualifying Logistics supply* → CAPITALIZED / OPERATIONAL → PERSISTENT
+ACTIVE FACTORY. Factories do not deplete like Mining Sites. Distinguish *ACTIVE*
+from *currently SUPPLIED / OPERATIONAL*: an activated Factory with insufficient
+inputs is still activated, and players can restore the supply relationship later.
+No artificial expiration rule is introduced.
+
+**Worksite geography therefore accumulates.** After Worksite III activates the
+world may simultaneously contain partially depleted tier I Mining Sites, active
+tier I Blast Furnace/Smoker Factories, partially depleted tier II Mining Sites,
+active Enchanting Factories, and fresh tier III Debris sites and Smithing
+Factories. Tiers are **not** mutually exclusive global phases, and a later
+activation never deactivates or supersedes an earlier physical Worksite. Night 1
+/ 3 / 5 identify *when* new Worksites activate, not how long they remain
+available. Continued relevance is decided by remaining resources, current supply,
+geography, player infrastructure, Routes and Practical Reach, strategic demand
+and physical control — not by whether it is currently night.
+
+This matters because the match should accumulate an economic history and an
+industrial geography rather than replacing one Worksite phase with the next.
+
+## Worksite capitalization and contest — Working
+
+Activation, capitalization and exploitation stay three distinct layers, and
+capitalization does not create ownership. Physical Worksite access, remaining
+Mining Site resources, and Factory access and supply all remain contestable
+after first capitalization.
+
+The current **experimental** first-capitalization reward is **+1 permanent team
+Infrastructure Slot**, to the first qualifying team — the first qualifying
+Construct at a Mining Site, the first qualifying supply relationship at a
+Factory. The intended reading is that bringing a new Worksite into the team's
+economy expands the team's organizational capacity. It is permanent and is
+separate state from current physical control.
+
+The caveat is load-bearing: the project does **not** have a realized enough
+Infrastructure model for the economic value or final semantics of Infrastructure
+Slots to be considered settled, and very little Infrastructure gameplay exists
+relative to the design architecture. Preserve the reward in documentation,
+config and runtime seams; do not build large systems on assumptions about its
+final value; treat slot counts, allocation, reassignment, saturation and
+licensing semantics as unresolved; leave clean seams. See
+[infrastructure.md](infrastructure.md).
+
+## Worksites and the Lair remain distinct
+
+Worksites are distributed, economic, drawn from multiple candidate sites and
+activated over the match. The Lair is exactly one permanent conspicuous landmark
+whose occupants arrive on schedule and whose defeat produces the paired
+objective siege. Do **not** cluster Worksites around the Lair merely because
+their nights alternate.
 
 ## Lair occupant lifecycle — Canonical
 
@@ -884,7 +1042,7 @@ During daytime, established world state compounds most efficiently. Constructs a
 
 Night is not simply a combat phase. It changes the relative economic environment: infrastructure becomes less efficient, hostile world pressure increases, Mob Swarms become stronger and more specialized and more valuable, a limited selection of Worksites activates, and teams are encouraged to leave stable economic loops and respond to temporary opportunities. PvP should emerge from overlapping demand for those opportunities and from weaker economic projection.
 
-The conceptual loop is: day accumulates, builds, develops, extracts, produces, connects and distributes; at sunset limited Worksites activate, Mob Swarms transform to nighttime forms, and infrastructure enters its reduced-efficiency state; at night teams evaluate opportunities, provision, project outward, secure, exploit, contest, fight mobs and possibly players, and raid, defend, ambush or siege where worthwhile; at sunrise Worksites close, Swarms revert, infrastructure returns to full efficiency, and teams integrate nighttime gains into the daytime economy.
+The conceptual loop is: day accumulates, builds, develops, extracts, produces, connects and distributes; at sunset limited Worksites activate, Mob Swarms transform to nighttime forms, and infrastructure enters its reduced-efficiency state; at night teams evaluate opportunities, provision, project outward, secure, exploit, contest, fight mobs and possibly players, and raid, defend, ambush or siege where worthwhile; at sunrise Swarms revert, infrastructure returns to full efficiency, and teams integrate nighttime gains into the daytime economy. [HISTORICAL — superseded 23 September 2026] This loop previously began the sunrise clause with "Worksites close"; activated Worksites now persist. See §17C.
 
 [OPEN] Exact day and night duration is unresolved.
 

@@ -881,11 +881,26 @@ alpha:
     # honoured if present, with a deprecation warning, so an existing server
     # does not change behaviour silently.
     #
-    # The tier's resource/facility package is NOT configured here and is not
-    # granted: Worksite I's iron/coal + Blast Furnace/Smoker and II's
-    # Enchanting Table/Anvil are design anchors, III is OPEN, and the existing
-    # Mining Outpost / Industrial Enchanter work is the specific form. The
-    # runtime records the tier and reports the package as unresolved.
+    # Sunset activates; SUNRISE CLOSES NOTHING. Activation is permanent
+    # (objectives.md 17C, 23 September 2026), so Worksite geography accumulates
+    # over the match: a tier III night does not retire the tier I sites. There
+    # is deliberately no deactivation or expiry key here to set.
+    #
+    # The tier's economic IDENTITY is fixed in code, on
+    # OpportunityCadence.WorksiteTier, because it is doctrine rather than a
+    # deployment choice:
+    #
+    #   I   Iron + Coal              / Blast Furnace + Smoker
+    #   II  Diamond + Lapis          / Enchanting Table
+    #   III Ancient Debris + Diamond / Smithing Table
+    #
+    # The physical PACKAGE is NOT configured here and is not granted. Every
+    # quantity -- iron, coal, diamond, lapis, ancient debris, the secondary
+    # tier III diamond, factory throughput and supply thresholds -- is OPEN,
+    # and the existing Mining Outpost / Industrial Enchanter work is the
+    # specific form. The runtime records the tier and its identity and reports
+    # the physical package as unresolved. Do not add quantities here to make
+    # the seam look finished.
     activationsPerTier:
       I: 2
       II: 2

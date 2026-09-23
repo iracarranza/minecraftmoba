@@ -329,8 +329,10 @@ public final class Match implements Listener {
         if (stage.tier() != null) {
             var opened = plugin.worksites().onOpportunityNight(stage.tier());
             notes.add(opened.isEmpty()
-                    ? "Worksite " + stage.tier() + ": no eligible site activated"
-                    : "Worksite " + stage.tier() + ": " + opened.size() + " activated "
+                    ? "Worksite " + stage.tier() + " (" + stage.tier().identity()
+                      + "): no eligible site activated"
+                    : "Worksite " + stage.tier() + " (" + stage.tier().identity() + ", "
+                      + stage.tier().economicRole() + "): " + opened.size() + " activated "
                       + opened.stream().map(w -> w.id).toList());
         }
         if (plugin.lair() != null) {
@@ -352,10 +354,20 @@ public final class Match implements Listener {
                 + MatchClock.minutes(elapsed) + "m: " + String.join("; ", notes));
     }
 
+    /**
+     * Sunrise.
+     *
+     * [HISTORICAL] This used to close the night's Worksites and announce how
+     * many. Sunrise closure is superseded (objectives.md 17C): activation is
+     * permanent, so sunrise takes nothing away and the announcement now says
+     * so rather than reporting a zero it would once have reported as news.
+     * Swarm reversion and infrastructure efficiency, which canon does put at
+     * sunrise, are not implemented, so nothing is asserted about them here.
+     */
     private void onSunrise() {
-        var closed = plugin.worksites().onSunrise();
         announce("Sunrise (" + MatchClock.minutes(elapsed) + "m): "
-                + closed.size() + " Worksite(s) closed.");
+                + plugin.worksites().inState(Worksites.State.ACTIVATED).size()
+                + " Worksite(s) remain active — activation is permanent.");
     }
 
     /**

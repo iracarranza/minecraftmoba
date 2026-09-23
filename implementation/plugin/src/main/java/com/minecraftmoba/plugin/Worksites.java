@@ -9,9 +9,17 @@ import java.util.*;
  * Worksite state and the sunset/sunrise transitions canon specifies.
  *
  * objectives.md: "Worksites open only at sunset. At sunset a limited number of
- * Worksites activate; at sunrise the active Worksites close. The number of
- * simultaneously active Worksites depends on match phase, and which eligible
- * Worksites activate is chosen randomly from the eligible pool."
+ * Worksites activate. The number that activate depends on match phase, and
+ * which eligible Worksites activate is chosen randomly from the eligible pool."
+ *
+ * SUNSET IS AN ACTIVATION EVENT, NOT AN AVAILABILITY WINDOW. [HISTORICAL] This
+ * class used to close activated Worksites at sunrise, returning them to
+ * Dormant, and the class comment quoted a canon sentence that said so. Both are
+ * superseded (objectives.md 17C, 23 September 2026): an activated Worksite
+ * stays active for the rest of the match, so Worksite geography accumulates
+ * instead of one tier replacing the last. There is no sunrise hook here at all
+ * now -- not an empty one -- because an empty hook is an invitation to put
+ * closure back into it.
  *
  * "Depends on match phase" is now read as the Worksite TIER, not the sunset
  * count. Worksites no longer open on every sunset: they open on the Worksite
@@ -36,17 +44,34 @@ import java.util.*;
  *    than inferred from a player's build.
  *  - the per-tier activation count, which config supplies as a declared
  *    NON-CANON ANALYTICAL FIXTURE rather than a silent default.
- *  - the tier packages themselves. Worksite I anchors iron/coal with a Blast
- *    Furnace and Smoker, II second-tier resources with an Enchanting Table and
- *    Anvil, and III is OPEN. None of those are granted as stock contents here:
- *    the tier is recorded on the activated site and the package is reported as
- *    unresolved, because handing out a facility would be inventing the reward
- *    design rather than implementing it, and the existing Mining Outpost /
- *    Industrial Enchanter work is more specific than a bullet list of items.
+ *  - the tier packages themselves. The tier's economic IDENTITY is now known
+ *    and is carried on {@link OpportunityCadence.WorksiteTier} -- I is
+ *    Iron + Coal with a Blast Furnace and Smoker, II Diamond + Lapis with an
+ *    Enchanting Table, III Ancient Debris + Diamond with a Smithing Table --
+ *    and the activated site records and reports it. The physical PACKAGE is
+ *    still not granted: every quantity is OPEN, handing out a facility would be
+ *    inventing the reward design rather than implementing it, and the existing
+ *    Mining Outpost / Industrial Enchanter work is more specific than a bullet
+ *    list of items. Identity without quantity is the honest seam.
  */
 public final class Worksites {
-    /** Canon's lifecycle. Exploited is terminal within a match. */
-    public enum State { DORMANT, ACTIVATED, CAPITALIZED, EXPLOITED }
+    /**
+     * Canon's lifecycle. Depleted is terminal within a match.
+     *
+     * Mining Site:       DORMANT -> ACTIVATED -> CAPITALIZED/MANIFESTED -> DEPLETED
+     * Industrial Factory: DORMANT -> ACTIVATED -> CAPITALIZED/OPERATIONAL -> (persists)
+     *
+     * [HISTORICAL] The terminal state was named EXPLOITED. It is DEPLETED,
+     * which is what canon calls it and which says the thing that is actually
+     * true of it: the finite exceptional opportunity is gone. A Factory never
+     * reaches it, because Factories do not deplete -- an activated Factory with
+     * no current inputs is still an activated Factory.
+     *
+     * PARTIALLY_DEPLETED is deliberately absent. Canon names it, but nothing
+     * here manifests physical ore, so there is no producer for that state and
+     * adding it would be a label with no mechanism behind it.
+     */
+    public enum State { DORMANT, ACTIVATED, CAPITALIZED, DEPLETED }
 
     public static final class Worksite {
         public final String id;
@@ -62,7 +87,8 @@ public final class Worksites {
         public Location location(World w) { return new Location(w, x + 0.5, y, z + 0.5); }
         @Override public String toString() {
             return id + "@" + x + "," + z + " " + state
-                    + (tier != null ? " tier " + tier + " (package UNRESOLVED)" : "")
+                    + (tier != null ? " tier " + tier + " [" + tier.identity()
+                        + "] (physical package UNRESOLVED)" : "")
                     + (capitalizedBy != null ? " by " + capitalizedBy : "");
         }
     }
@@ -188,24 +214,6 @@ public final class Worksites {
     }
 
     /**
-     * Sunrise: active Worksites close.
-     *
-     * Closing returns an Activated Worksite to Dormant. A Worksite that was
-     * capitalized while open keeps that status: capitalization is described as
-     * permanent for the team that first took it, so sunrise must not undo it.
-     */
-    public List<Worksite> onSunrise() {
-        List<Worksite> closed = new ArrayList<>();
-        for (String id : new ArrayList<>(activeNow)) {
-            Worksite w = sites.get(id);
-            if (w == null) continue;
-            if (w.state == State.ACTIVATED) { w.state = State.DORMANT; closed.add(w); }
-        }
-        activeNow.clear();
-        return closed;
-    }
-
-    /**
      * Capitalize an activated Worksite for a team.
      *
      * The shared-opportunity award is delegated to {@link Contributions}, which
@@ -234,14 +242,20 @@ public final class Worksites {
      */
     public static boolean canCapitalize(State state) { return state == State.ACTIVATED; }
 
-    /** Mark a capitalized Worksite exhausted. Terminal within a match. */
-    public String exploit(String id) {
+    /**
+     * Mark a capitalized Mining Site's finite opportunity exhausted. Terminal.
+     *
+     * Nothing calls this from world state yet, because nothing manifests the
+     * physical ore whose removal would drive it; it is driven by command. That
+     * is the seam, and it is named rather than faked.
+     */
+    public String deplete(String id) {
         Worksite w = sites.get(id);
         if (w == null) return "no such worksite: " + id;
         if (w.state != State.CAPITALIZED) return id + " is " + w.state + ", not capitalized";
-        w.state = State.EXPLOITED;
+        w.state = State.DEPLETED;
         activeNow.remove(id);
-        return id + " exploited";
+        return id + " depleted";
     }
 
     /** Return every Worksite to Dormant. Called by match reset. */
@@ -254,7 +268,8 @@ public final class Worksites {
 
     public List<String> report() {
         List<String> out = new ArrayList<>();
-        out.add("worksites=" + sites.size() + " active=" + activeNow.size());
+        out.add("worksites=" + sites.size() + " active=" + activeNow.size()
+                + " (activation is permanent; sunrise closes nothing)");
         var counts = new EnumMap<State, Integer>(State.class);
         for (State s : State.values()) counts.put(s, 0);
         for (Worksite w : sites.values()) counts.merge(w.state, 1, Integer::sum);

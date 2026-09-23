@@ -11,8 +11,11 @@ the runtime already chooses randomly from the eligible pool each night; what the
 map owes is a portfolio both teams can reach, not one that is symmetric.
 
 The count is a runtime requirement rather than a preference: the cadence has
-three Worksite nights and `activationsPerTier` opens two or three sites per
-night, so a portfolio smaller than that would leave a night opening nothing.
+three Worksite nights, `activationsPerTier` opens two or three sites per night,
+and ACTIVATION IS PERMANENT -- sunrise returns nothing to the eligible pool, so
+the pool drains monotonically across the match. Seven sites are consumed at the
+configured 2/2/3, and a portfolio that only covered one night at a time would
+open nothing on night 5. See `readiness.MIN_WORKSITES`.
 """
 from __future__ import annotations
 

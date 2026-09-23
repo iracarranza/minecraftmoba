@@ -23,6 +23,16 @@ from . import objective_forms
 
 # Every binding a match start requires. Named rather than implied, because the
 # failure mode here is a system nobody remembered to check.
+# The three Worksite nights consume this many sites between them.
+#
+# It used to be 3 -- one per night -- which was correct only while sunrise
+# returned an activated Worksite to Dormant and refilled the eligible pool.
+# Activation is now permanent (objectives.md 17C), so the pool drains and never
+# refills: at the configured 2/2/3 activations the match needs seven distinct
+# sites, and a map with three would open nothing on night 5. The number tracks
+# `alpha.worksites.activationsPerTier`, which is itself a NON-CANON FIXTURE.
+MIN_WORKSITES = 7
+
 REQUIRED = (
     'world',
     'homelands',
@@ -80,12 +90,13 @@ def certify(bindings: dict) -> dict:
                                    f"{lair.get('count')}"})
 
     sites = bindings.get('worksites') or []
-    if len(sites) < 3:
-        # Three Worksite nights, and a night with no eligible site opens nothing.
+    if len(sites) < MIN_WORKSITES:
         problems.append({'code': 'WORKSITE_PORTFOLIO_TOO_SMALL',
                          'count': len(sites),
-                         'detail': 'the cadence has three Worksite nights and needs '
-                                   'eligible sites for each'})
+                         'minimum': MIN_WORKSITES,
+                         'detail': 'activation is permanent, so the eligible pool only '
+                                   'shrinks; the three Worksite nights consume '
+                                   f'{MIN_WORKSITES} sites between them and none return'})
 
     return {
         'certified': not problems,

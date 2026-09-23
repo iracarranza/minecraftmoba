@@ -53,6 +53,15 @@ class Readiness(unittest.TestCase):
         self.assertIn('WORKSITE_PORTFOLIO_TOO_SMALL',
                       self.codes(bindings(worksites=[{'id': 'only'}])))
 
+    def test_permanent_activation_drains_the_pool_so_three_sites_is_not_enough(self):
+        # Three sites passed while sunrise returned an activated Worksite to
+        # Dormant and refilled the eligible pool. Activation is permanent now,
+        # so the pool only shrinks: a three-site map opens nothing on night 5.
+        three = [{'id': f'ws_{i}'} for i in range(3)]
+        self.assertIn('WORKSITE_PORTFOLIO_TOO_SMALL', self.codes(bindings(worksites=three)))
+        seven = [{'id': f'ws_{i}'} for i in range(readiness.MIN_WORKSITES)]
+        self.assertNotIn('WORKSITE_PORTFOLIO_TOO_SMALL', self.codes(bindings(worksites=seven)))
+
     def test_nothing_missing_is_silently_defaulted(self):
         codes = self.codes({})
         self.assertIn('MISSING_BINDING', codes)
