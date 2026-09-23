@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Animals;
 
 final class TestAbilities {
     private TestAbilities() {}
@@ -27,14 +29,34 @@ final class TestAbilities {
         public long cooldownTicks() { return config.getLong("cooldownTicks"); }
         public boolean execute(Player p, AbilityContext ctx) {
             return switch (id) {
-                case "lunge" -> {
-                    p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(config.getDouble("power"))));
-                    yield true;
-                }
+                case "lunge" -> lunge(p, ctx);
                 case "sinkhole_lite" -> sinkhole(p, ctx);
                 case "channel_ult" -> { ctx.inputs().channel(p, config.getLong("channelTicks"), config.getDouble("movementThreshold")); yield true; }
                 default -> throw new IllegalStateException("Unknown test ability");
             };
+        }
+        public Map<String, String> branches() {
+            return id.equals("lunge") ? Map.of("swarming_bite", "Swarming Bite", "thieving_swipe", "Thieving Swipe", "stalking_pounce", "Stalking Pounce") : Map.of();
+        }
+        private boolean lunge(Player p, AbilityContext ctx) {
+            String branch = ctx.classDefinition() == null ? null : ctx.classDefinition().branchFor(id);
+            double power = config.getDouble("power");
+            if ("swarming_bite".equals(branch)) power += Math.min(nearby(p, "WOLF"), 4) * config.getDouble("branches.swarmingBite.perWolfPower");
+            if ("thieving_swipe".equals(branch)) power = config.getDouble("branches.thievingSwipe.power");
+            if ("stalking_pounce".equals(branch)) power = config.getDouble("branches.stalkingPounce.power");
+            p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(power)));
+            var hit = p.rayTraceEntities((int) Math.ceil(config.getDouble("hitDistance")));
+            if (hit != null && hit.getHitEntity() instanceof Player target && "thieving_swipe".equals(branch)) {
+                var item = target.getInventory().getItemInMainHand();
+                if (!item.getType().isAir()) target.setCooldown(item.getType(), config.getInt("branches.thievingSwipe.disableTicks"));
+            }
+            return true;
+        }
+        private int nearby(Player p, String type) {
+            int count = 0;
+            for (Entity e : p.getNearbyEntities(config.getDouble("animalRadius"), config.getDouble("animalRadius"), config.getDouble("animalRadius")))
+                if (e.getType().name().equals(type) && e instanceof Animals) count++;
+            return count;
         }
         private boolean sinkhole(Player p, AbilityContext ctx) {
             var hit = p.rayTraceBlocks(config.getDouble("rayDistance"), FluidCollisionMode.NEVER);
