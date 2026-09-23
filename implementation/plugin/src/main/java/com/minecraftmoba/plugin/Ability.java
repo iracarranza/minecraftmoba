@@ -12,6 +12,8 @@ public interface Ability {
     boolean execute(Player player, AbilityContext context);
     default Map<String, String> branches() { return Map.of(); }
     default List<String> branchIds() { return List.copyOf(branches().keySet()); }
+    default boolean active(Player player) { return false; }
+    default void cancel(Player player) {}
     record AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
                            ClassDefinition classDefinition, PlayerData playerData) {
         public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs) {

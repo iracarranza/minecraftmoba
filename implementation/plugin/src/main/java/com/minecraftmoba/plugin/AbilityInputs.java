@@ -27,7 +27,9 @@ public final class AbilityInputs implements Listener {
     private final long timeout;
     private long tick;
     public AbilityInputs(MobaPlugin plugin, Provenance provenance) {
-        this.plugin=plugin; this.provenance=provenance; abilities=TestAbilities.create(plugin);
+        this.plugin=plugin; this.provenance=provenance; abilities=new HashMap<>(TestAbilities.create(plugin));
+        var tunnel = plugin.getConfig().getConfigurationSection("abilities.definitions.tunneling");
+        if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
         Set<Input> bindings = new HashSet<>(); bindings.add(modeInput);
@@ -167,7 +169,7 @@ public final class AbilityInputs implements Listener {
         if (!silent) sound(p,"exit");
     }
     public void forget(Player p) {
-        exit(p,true); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
+        exit(p,true); abilities.values().forEach(a -> a.cancel(p)); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
     public void channel(Player p,long duration,double threshold) {
         channels.put(p.getUniqueId(), new Channel(p.getLocation().clone(),tick+duration,threshold*threshold));

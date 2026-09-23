@@ -611,6 +611,16 @@ abilities:
       a1: lunge
       a2: sinkhole_lite
       ult: channel_ult
+    mole:
+      displayName: Mole
+      passiveHook: mole_digging
+      statGrowthProfile: mole
+      infrastructureProgression: { level6: constructs, level12: excavation_expression }
+      branches: { tunneling: bore }
+      persistentStateDefaults: { tunnelingBranch: bore }
+      a1: tunneling
+      a2: sinkhole_lite
+      ult: channel_ult
   definitions:
     lunge:
       displayName: Lunge
@@ -635,6 +645,20 @@ abilities:
       cooldownTicks: 10
       channelTicks: 30
       movementThreshold: 0.25
+    tunneling:
+      displayName: Tunneling
+      cooldownTicks: 10
+      targetDistance: 12
+      maxDistance: 16
+      clearAhead: 1.2
+      speed: 0.08
+      width: 1
+      height: 2
+      interruptDisplacementSquared: 0.36
+      interruptOffPathSquared: 0.25
+      branches:
+        bore: { speedMultiplier: 1.6 }
+        gallery: { width: 3 }
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }
