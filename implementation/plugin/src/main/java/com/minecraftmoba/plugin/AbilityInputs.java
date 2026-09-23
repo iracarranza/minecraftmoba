@@ -206,9 +206,16 @@ public final class AbilityInputs implements Listener {
             Ability ability=kit==null?null:kit.get(input);
             String label=switch(input) { case LEFT_CLICK -> "M1"; case RIGHT_CLICK -> "M2"; case DROP -> "Q"; case SWAP_HAND -> "F"; };
             boolean cooling=ability!=null && cooldowns.getOrDefault(p.getUniqueId(),Map.of()).getOrDefault(ability.id(),0L)>tick;
-            bar=bar.append(Component.text(label+" "+(ability==null?"—":ability.displayName())+"   ",cooling?NamedTextColor.GRAY:NamedTextColor.WHITE));
+            String name = ability == null ? "—" : ability.displayName() + branchSuffix(p, ability);
+            bar=bar.append(Component.text(label+" "+name+"   ",cooling?NamedTextColor.GRAY:NamedTextColor.WHITE));
         }
         p.sendActionBar(bar);
+    }
+    private String branchSuffix(Player p, Ability ability) {
+        String selected = plugin.data(p).classState.get("branch." + ability.id());
+        if (selected == null) return "";
+        return ability.branches().getOrDefault(selected, " (" + selected + ")")
+            .transform(label -> " — " + label);
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void swap(PlayerSwapHandItemsEvent e) {

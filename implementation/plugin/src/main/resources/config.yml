@@ -621,7 +621,7 @@ abilities:
       branches:
         swarmingBite: { perWolfPower: 0.03 }
         thievingSwipe: { power: 1.0, disableTicks: 30 }
-        stalkingPounce: { power: 1.6 }
+        stalkingPounce: { power: 1.6, windupTicks: 12 }
     sinkhole_lite:
       displayName: SinkholeLite
       cooldownTicks: 10

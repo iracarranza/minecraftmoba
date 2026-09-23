@@ -10,6 +10,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Animals;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 final class TestAbilities {
     private TestAbilities() {}
@@ -43,17 +45,34 @@ final class TestAbilities {
         }
         private boolean lunge(Player p, AbilityContext ctx) {
             String branch = ctx.branchFor(id);
+            if ("stalking_pounce".equals(branch)) {
+                int windup = config.getInt("branch" + "es.stalkingPounce.windupTicks");
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, windup + 2, 4, false, false, true));
+                p.sendActionBar(Component.text("Stalking Pounce — coiling..."));
+                new BukkitRunnable() {
+                    @Override public void run() {
+                        if (p.isOnline() && !p.isDead()) {
+                            p.removePotionEffect(PotionEffectType.SLOWNESS);
+                            leap(p, branchDouble("stalkingPounce", "power"));
+                        }
+                    }
+                }.runTaskLater(ctx.plugin(), windup);
+                return true;
+            }
             double power = config.getDouble("power");
             if ("swarming_bite".equals(branch)) power += Math.min(nearby(p, "WOLF"), 4) * branchDouble("swarmingBite", "perWolfPower");
             if ("thieving_swipe".equals(branch)) power = branchDouble("thievingSwipe", "power");
             if ("stalking_pounce".equals(branch)) power = branchDouble("stalkingPounce", "power");
-            p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(power)));
+            leap(p, power);
             var hit = p.rayTraceEntities((int) Math.ceil(config.getDouble("hitDistance")));
             if (hit != null && hit.getHitEntity() instanceof Player target && "thieving_swipe".equals(branch)) {
                 var item = target.getInventory().getItemInMainHand();
                 if (!item.getType().isAir()) target.setCooldown(item.getType(), branchInt("thievingSwipe", "disableTicks"));
             }
             return true;
+        }
+        private void leap(Player p, double power) {
+            p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(power)));
         }
         private double branchDouble(String branch, String key) { return config.getDouble("branch" + "es." + branch + "." + key); }
         private int branchInt(String branch, String key) { return config.getInt("branch" + "es." + branch + "." + key); }
