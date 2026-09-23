@@ -55,6 +55,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private WorldInstance worldInstance;
     private Worksites worksites;
     private ObjectiveGlow objectiveGlow;
+    private ObjectiveTint objectiveTint;
     private Lair lair;
     private MapPool mapPool;
     private DefensiveCapacity defensiveCapacity;
@@ -137,6 +138,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
         objectiveGlow = new ObjectiveGlow(this);
+        objectiveTint = new ObjectiveTint(this);
         teamObjectives = new TeamObjectives();
         lair = new Lair(this);
         getServer().getPluginManager().registerEvents(lair, this);
@@ -291,6 +293,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Worksites worksites() { return worksites; }
     /** Team-coloured glow marking objectives and Fountains as one team system. */
     public ObjectiveGlow objectiveGlow() { return objectiveGlow; }
+    /** Team-coloured ground, borrowed from biomes the map does not use. */
+    public ObjectiveTint objectiveTint() { return objectiveTint; }
     /** The single permanent Lair. Reports UNBOUND until a socket is configured. */
     public Lair lair() { return lair; }
     /** The READY map pool the foundry writes into. */

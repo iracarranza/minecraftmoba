@@ -1,6 +1,36 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # Team-coloured GROUND inside each objective and Fountain volume.
+  #
+  # The glowing box cannot be read from inside it, and the ground around an
+  # objective is exactly where a defender stands -- so the volume stays and the
+  # representation changes. Minecraft already tints terrain per biome, which is
+  # why a swamp does not look like a jungle, so this recolours by swapping the
+  # biome rather than inventing a rendering path.
+  #
+  # The two tints are drawn from biomes the MAP DOES NOT CONTAIN, surveyed at
+  # bind time: contrast has to be a property of the map rather than a guess, and
+  # a tint matching nearby terrain communicates nothing. If fewer than two
+  # candidates are free the feature declines rather than picking a colliding
+  # colour.
+  #
+  # Only biome-tinted blocks change: grass, ferns, leaves, vines, sugar cane,
+  # water. Dirt, stone and wood never will. Biome cells are 4x4x4, so the edge
+  # snaps to a four-block grid.
+  #
+  # [OPEN] Biome carries mob spawns, weather and ambience, so this silently
+  # changes what spawns on tinted ground. Absent biomes confine that rather than
+  # removing it; a datapack biome overriding only colours, or per-viewer biome
+  # packets, would remove it properly. OFF until that is resolved.
+  objectiveTint:
+    enabled: false
+    # How far AROUND EACH VOLUME to survey, not a map-wide sweep. The tint has
+    # to contrast with the terrain beside it; a biome 500 blocks away has no
+    # bearing on whether an objective's ground reads as claimed. The first
+    # version swept the whole map and forced thousands of synchronous chunk
+    # loads, which stalled the server hard enough for Paper to dump threads.
+    surveyRadius: 64
   # A team-coloured glow around each defensive objective and Aether Fountain,
   # so a player can tell by looking that they are one team system.
   #

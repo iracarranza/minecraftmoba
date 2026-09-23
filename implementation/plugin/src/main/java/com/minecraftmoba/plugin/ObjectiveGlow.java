@@ -233,6 +233,27 @@ public final class ObjectiveGlow implements Listener {
                 if (e.getScoreboardTags().contains(TAG)) e.remove();
     }
 
+    /**
+     * The planned volumes, as centre -> owning team.
+     *
+     * Shared with {@link ObjectiveTint} on purpose. The glow and the tint mark
+     * the SAME areas, and two lists of "where the objectives are" would drift
+     * -- which is this codebase's recurring defect, two implementations of one
+     * idea.
+     */
+    public Map<Location, Team> volumes() {
+        Map<Location, Team> out = new LinkedHashMap<>();
+        for (Box box : plan) out.put(box.at(), box.team());
+        return out;
+    }
+
+    /** Half-width of the widest planned box, for a tint that matches its extent. */
+    public int widestHalfWidth() {
+        int widest = 0;
+        for (Box box : plan) widest = Math.max(widest, box.side() / 2);
+        return widest;
+    }
+
     public String report() {
         long drawn = live.values().stream().filter(id -> Bukkit.getEntity(id) != null).count();
         return "OBJECTIVE_GLOW enabled=" + enabled() + " planned=" + plan.size()

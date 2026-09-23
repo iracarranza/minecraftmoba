@@ -308,6 +308,41 @@ white because glow colour resolves against the scoreboard the **viewing client**
 holds, and the HUD hands every player a private one, so a team registered on the
 main board did not exist for them. This was ours, not Minecraft's.
 
+### Ground tint — Working, 23 September 2026
+
+**The signature is the controlled GROUND, not a container around it.** The box
+stays the size it is -- the area outside the structure is controlled area and
+just as much the thing being defended -- but the glass volume becomes
+conceptual, and what the player sees is the terrain inside it wearing the team's
+colour. The objective's own blocks keep their appearance.
+
+Minecraft already tints terrain per biome; that is why a swamp does not look
+like a jungle. So the recolour swaps the biome rather than inventing a rendering
+path. Verified legible in play.
+
+**The two tints are drawn from biomes the map does not contain**, surveyed
+around each volume at bind time. Contrast has to be a property of the map rather
+than a guess: a tint matching nearby terrain communicates nothing, and which
+colours are free depends on what the generated map already looks like. If fewer
+than two candidates are free the feature declines rather than picking a
+colliding colour. First run chose `cherry_grove` for north and `swamp` for
+south.
+
+Constraints, none of them chosen:
+
+- **only biome-tinted blocks change** -- grass, ferns, leaves, vines, sugar
+  cane, water. Dirt, stone, wood and planks have fixed textures and never will,
+  which is why the structure keeps its own colour;
+- **biome cells are 4x4x4**, so the edge snaps to a four-block grid;
+- **biome is not only colour.** It carries mob spawn lists, weather, ambient
+  sound and fog, so tinting silently changes what spawns on the tinted ground.
+  Choosing absent biomes confines that rather than removing it.
+
+[OPEN] The spawn side effect must be resolved before this is on by default. Two
+routes: a datapack biome copying the local one and overriding only the colours,
+or sending biome data per viewer so the server's world never changes -- which
+would also allow an ally and an enemy to see different colours. Neither is done.
+
 **A glowing box cannot be read from inside it.** Observed in play at the
 Fountain, whose box is large enough to stand in. Faces are culled from within
 and the outline is traced from rendered faces, so a player standing inside sees

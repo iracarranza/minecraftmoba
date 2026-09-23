@@ -166,6 +166,11 @@ public final class Match implements Listener {
         if (plugin.objectiveGlow() != null) {
             int boxes = plugin.objectiveGlow().rebuild(w);
             if (boxes > 0) plugin.getLogger().info("[match] " + plugin.objectiveGlow().report());
+            // The tint marks the same volumes the glow plans, from the same
+            // list, so the two cannot disagree about where an objective is.
+            if (plugin.objectiveTint() != null)
+                plugin.objectiveTint().apply(w, plugin.objectiveGlow().volumes(),
+                        plugin.objectiveGlow().widestHalfWidth(), 12);
         }
         record.matchBound(claimed == null ? null : claimed.mapId(),
                 claimed == null ? 0 : claimed.seed(), bindings);
