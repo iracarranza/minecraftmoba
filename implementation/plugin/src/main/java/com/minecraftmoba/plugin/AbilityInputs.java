@@ -17,6 +17,7 @@ public final class AbilityInputs implements Listener {
     private final Provenance provenance;
     private final Map<String, Ability> abilities;
     private final Map<String, Map<Input, Ability>> kits = new HashMap<>();
+    private final Map<String, ClassDefinition> classes = new HashMap<>();
     private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>(), lastFire = new HashMap<>();
     private final Map<UUID, Channel> channels = new HashMap<>();
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
@@ -38,6 +39,11 @@ public final class AbilityInputs implements Listener {
         }
         var classes=Objects.requireNonNull(c.getConfigurationSection("abilities.classes"));
         for (String id : classes.getKeys(false)) {
+            var classSection = classes.getConfigurationSection(id);
+            var definition = new ClassDefinition(id, classSection.getString("displayName"), classSection.getString("passiveHook"),
+                classSection.getString("statGrowthProfile"), stringMap(classSection.getConfigurationSection("infrastructureProgression")),
+                stringMap(classSection.getConfigurationSection("branches")), stringMap(classSection.getConfigurationSection("persistentStateDefaults")));
+            this.classes.put(id, definition);
             Map<Input, Ability> kit = new EnumMap<>(Input.class);
             for (String slot : List.of("a1","a2","ult")) {
                 String abilityId=classes.getString(id+"."+slot);
@@ -79,7 +85,7 @@ public final class AbilityInputs implements Listener {
         var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
         last.put(ability.id(), tick);
-        if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this))) {
+        if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId)))) {
             ready.put(ability.id(),tick+ability.cooldownTicks());
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
@@ -121,6 +127,12 @@ public final class AbilityInputs implements Listener {
         return plugin.getConfig().getInt("abilities.unlockLevels." + slot, 1);
     }
 
+    private static Map<String, String> stringMap(org.bukkit.configuration.ConfigurationSection section) {
+        if (section == null) return Map.of();
+        Map<String,String> result = new HashMap<>();
+        for (String key : section.getKeys(false)) result.put(key, Objects.requireNonNull(section.getString(key)));
+        return result;
+    }
     public void exit(Player p, boolean silent) {
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
         channels.remove(p.getUniqueId());

@@ -601,11 +601,27 @@ abilities:
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
+    lightfooted:
+      displayName: Lightfooted
+      passiveHook: animal_senses
+      statGrowthProfile: lightfooted
+      infrastructureProgression: { level6: routes, level12: traversal_expression }
+      branches: { lunge: swarming_bite }
+      persistentStateDefaults: { lungeBranch: swarming_bite }
+      a1: lunge
+      a2: sinkhole_lite
+      ult: channel_ult
   definitions:
     lunge:
       displayName: Lunge
       cooldownTicks: 10
       power: 0.8
+      hitDistance: 2.5
+      animalRadius: 12
+      branches:
+        swarmingBite: { perWolfPower: 0.03 }
+        thievingSwipe: { power: 1.0, disableTicks: 30 }
+        stalkingPounce: { power: 1.6 }
     sinkhole_lite:
       displayName: SinkholeLite
       cooldownTicks: 10

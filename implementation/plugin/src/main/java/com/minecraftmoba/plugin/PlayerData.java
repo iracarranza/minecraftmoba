@@ -3,6 +3,8 @@ package com.minecraftmoba.plugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map;
+import java.util.HashMap;
 
 /** Authoritative persistent state; mode never contains item state. */
 public final class PlayerData {
@@ -16,6 +18,8 @@ public final class PlayerData {
     public final java.util.Map<String,Integer> task = new java.util.HashMap<>();
     /** Level 6 fork result: an Infrastructure form, or MONSTER_COMBAT. Null until chosen. */
     public String contribution;
+    /** Opaque, class-owned persistent state. The class framework owns its namespace, not its schema. */
+    public final Map<String, String> classState = new HashMap<>();
     public final ModeState modeState = new ModeState();
     public PlayerData(UUID uuid) { this.uuid = uuid; }
     public static final class ModeState {
