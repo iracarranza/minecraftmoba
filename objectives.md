@@ -234,6 +234,54 @@ The exact transition from a disabled Fountain to final match victory also remain
 
 ---
 
+## Objective legibility — Working, 23 September 2026
+
+**Raised from the first live playtest.** Standing beside an authored Pillager
+Outpost, the structure read as scenery rather than as *the thing this team is
+supposed to defend*. Nothing about it says whose it is, that it is contestable,
+or that it belongs to the same system as the team's Fountain. A player who has
+not read the design cannot tell an objective from a village.
+
+This is a real design problem, not presentation polish. Objectives are meant to
+organise where teams go and what they protect, and an objective nobody
+recognises cannot do that work.
+
+**Working direction: a shared visual signature.** Each defensive objective and
+the team's Aether Fountain — including the ground immediately around it — carry
+the *same* light or glow signature. The shared treatment is the point: it should
+read as one system, so that finding an objective tells a player it is connected
+to the Fountain they respawn at, without a tutorial or a HUD marker saying so.
+
+Minecraft-native means are preferred over invented UI, consistent with the rest
+of this document: emitted light, particles, a vertical beam, coloured glow. A
+beacon beam was tried as a throwaway prototype during the same session purely to
+judge whether a vertical light signature reads at distance; it is **not** a
+proposal to put beacons in objectives.
+
+[OPEN] Everything about the form:
+
+- **whether the signature is team-coloured**, and if so whether an enemy sees
+  your colour or only that something is there;
+- **whether it is visible at range or only near.** A signature visible across
+  the map is a permanent position broadcast and interacts with Exploration's
+  value — knowing where things are is supposed to be earned. A Fountain beacon
+  visible from the enemy Hinterland gives away more than legibility requires;
+- **whether it changes with state.** Defensive Capacity is a finite quantity
+  being reduced by four routes; a signature that dims, changes colour or breaks
+  as capacity falls would make the siege legible at a glance. It could equally
+  be too much information for free;
+- **whether the Lair shares it.** The Lair is neutral and conspicuous by
+  design, so it may want a *different* signature rather than the team one —
+  the contrast may be more useful than the consistency;
+- whether the Fountain's surrounding area is marked by the same means as the
+  structure, or by a weaker/derived one.
+
+Nothing here is decided, and no brightness, radius, colour or particle is
+asserted. The settled part is only that **objectives and the Fountain should be
+recognisable as one team system by looking at them**.
+
+---
+
 # 8. Objective Methods and XP
 
 The previous objective-method XP hierarchy is superseded.
