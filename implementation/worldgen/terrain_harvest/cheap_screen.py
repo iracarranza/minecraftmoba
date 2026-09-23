@@ -23,12 +23,48 @@ eight orientations before judging -- and it discarded 99887766, which went on to
 become one of the two maps that compiled. Hence `best_gradient`, which takes the
 best of the four axis directions.
 
-WHY THIS IS NOT WIRED INTO THE FOUNDRY YET. The 30% discard rate is measured;
-the saving is not. The screen's own cost -- generating a scattered lattice,
-which pulls in neighbour work and is much less efficient per chunk than a
-contiguous window -- has not been measured, and at 30% it could plausibly eat
-most of the benefit. Claiming a speedup here without measuring the screen's cost
-would be exactly the kind of number this project keeps having to retract.
+WHY THIS IS STILL NOT WIRED INTO THE FOUNDRY. The saving has now been measured,
+and it is NEGATIVE.
+
+Note first what this module does NOT do: `sample` reads `region/*.mca` from a
+world that has ALREADY been generated. The 0-false-negative result proves the
+screen's JUDGEMENT, not any saving -- it was validated by replaying finished
+worlds. To save generation the lattice has to be generated on its own first, and
+that is what costs.
+
+Measured 23 September 2026, generating a stride-4 lattice alone against the
+full 4320-chunk window, same seeds:
+
+    seed          lattice ms    full ms    ratio
+    1041727550         84820     101266     0.84
+    1248940432         65373     173695     0.38
+    741772126          58702     152698     0.38
+                                     mean    0.49
+
+A lattice of 221 points -- 5% of the chunks -- costs about half a full
+generation, because a chunk cannot reach FULL until its neighbours exist and 221
+scattered points drag halos that between them touch most of the window anyway.
+
+At the measured 30% discard rate:
+
+    without screening   1.00x per seed
+    with screening      1.19x per seed   (0.30 x 0.49 + 0.70 x 1.49)
+
+so screening costs about 19% MORE. **Break-even needs a 49% discard rate.**
+
+Three seeds is a small sample and the ratios vary widely (0.38 to 0.84), so
+treat 19% as the sign of the result rather than its magnitude. The sign is not
+in doubt: the screen discards 30% and would need to discard half.
+
+That points somewhere useful rather than closing the question. The screen is
+deliberately permissive -- MIN_GRADIENT_Y, MIN_OCEAN_AT_LOW_END and
+MAX_WATER_FRACTION below are set to reject only what is obviously not Default
+geography. A sharper screen reaching 49% discard WITHOUT acquiring a false
+negative would pay for itself. Whether that is possible is unmeasured; what is
+settled is that the current one does not.
+
+The larger lesson is that lattice generation is the wrong primitive. Throughput
+wants worldgen evaluated without a server at all.
 """
 from __future__ import annotations
 
