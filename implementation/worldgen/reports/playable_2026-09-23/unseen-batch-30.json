@@ -1,0 +1,705 @@
+{
+ "schema": "map_compilation_batch/1",
+ "candidates": 30,
+ "playable": [
+  2718281,
+  99887766
+ ],
+ "yield": 0.0667,
+ "deepest_stage": {
+  "recognize": 24,
+  "homebase": 3,
+  "verify": 2,
+  "lair": 1
+ },
+ "rejection_codes": {
+  "NO_DEFAULT_REGIONAL_SHAPE": 24,
+  "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 3,
+  "LAIR_ACCESS_DISPARITY": 1
+ },
+ "runs": [
+  {
+   "schema": "map_compilation/1",
+   "seed": 1010101,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth",
+       "region_not_mostly_water",
+       "homelands_reasonably_viable"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 10111213,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "south socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "south",
+      "usable_fraction": 0.4984,
+      "bound": 0.52
+     }
+    }
+   ],
+   "evidence_keys": [
+    "fit_failures",
+    "homelands",
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 112358132,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 12121212,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 13571113,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 135791113,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "eastern_ocean_present",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 14916253,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 15051505,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth",
+       "ocean_gradient_points_east",
+       "region_not_mostly_water"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 16161616,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 17171717,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "eastern_ocean_present",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 20240617,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "homelands_reasonably_viable"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 20260923,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "eastern_ocean_present",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 24681012,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 2718281,
+   "deepest_stage_reached": "verify",
+   "playable": true,
+   "rejections": [],
+   "evidence_keys": [
+    "authored",
+    "fit_failures",
+    "hinterland",
+    "homelands",
+    "lair_search",
+    "lair_site",
+    "objective_forms",
+    "objective_quality",
+    "objective_sites",
+    "objective_world_xz",
+    "physical_verification",
+    "readback",
+    "regional",
+    "unverifiable_from_samples"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 31337,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "eastern_ocean_present",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 3141592,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_highland_depth",
+       "region_not_mostly_water",
+       "homelands_reasonably_viable"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 4242424,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "north socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "north",
+      "usable_fraction": 0.3975,
+      "bound": 0.52
+     }
+    }
+   ],
+   "evidence_keys": [
+    "fit_failures",
+    "homelands",
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 4444777,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 50505050,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 5150555,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "eastern_ocean_present",
+       "ocean_gradient_points_east"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 60606060,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "south socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "south",
+      "usable_fraction": -0.088,
+      "bound": 0.52
+     }
+    }
+   ],
+   "evidence_keys": [
+    "fit_failures",
+    "homelands",
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 6180339,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 7070707,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth",
+       "region_not_mostly_water",
+       "homelands_reasonably_viable"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 771113,
+   "deepest_stage_reached": "lair",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "lair",
+     "code": "LAIR_ACCESS_DISPARITY",
+     "detail": "the best viable Lair socket still gives one team 0.322 access disparity",
+     "data": {
+      "access_asymmetry": 0.3217,
+      "bound": 0.15,
+      "reach": {
+       "north": 784.11,
+       "south": 1084.7
+      }
+     }
+    }
+   ],
+   "evidence_keys": [
+    "fit_failures",
+    "hinterland",
+    "homelands",
+    "lair_search",
+    "lair_site",
+    "objective_forms",
+    "objective_quality",
+    "objective_sites",
+    "objective_world_xz",
+    "regional",
+    "unverifiable_from_samples"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 777000111,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_highland_depth",
+       "region_not_mostly_water"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 8181818,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage",
+       "western_highland_depth",
+       "region_not_mostly_water"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 8675309,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 90210777,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "homelands_reasonably_viable"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 9292929,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_highland_depth"
+      ]
+     }
+    }
+   ],
+   "evidence_keys": [
+    "regional"
+   ]
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 99887766,
+   "deepest_stage_reached": "verify",
+   "playable": true,
+   "rejections": [],
+   "evidence_keys": [
+    "authored",
+    "fit_failures",
+    "hinterland",
+    "homelands",
+    "lair_search",
+    "lair_site",
+    "objective_forms",
+    "objective_quality",
+    "objective_sites",
+    "objective_world_xz",
+    "physical_verification",
+    "readback",
+    "regional",
+    "unverifiable_from_samples"
+   ]
+  }
+ ]
+}

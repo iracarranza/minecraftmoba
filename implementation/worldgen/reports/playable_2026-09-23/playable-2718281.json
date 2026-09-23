@@ -1,0 +1,444 @@
+{
+ "schema": "map_compilation/1",
+ "seed": 2718281,
+ "deepest_stage_reached": "verify",
+ "playable": true,
+ "rejections": [],
+ "evidence": {
+  "regional": {
+   "western_mean_elevation_advantage_y": 5.577,
+   "east_actual_ocean_fraction": 0.2599,
+   "open_buildable_fraction_of_land": 0.3631
+  },
+  "fit_failures": [
+   "north-2: no_handoff_in_soft_range",
+   "south-1: no_handoff_in_soft_range",
+   "south-3: no_handoff_in_soft_range"
+  ],
+  "homelands": {
+   "north": 0.7365,
+   "south": 0.8498
+  },
+  "hinterland": {
+   "north": 0.0253,
+   "south": 0.0301
+  },
+  "objective_forms": {
+   "pillager_outpost": {
+    "known": true,
+    "span_samples": 15,
+    "vertical_clearance": 21,
+    "ground_contact_columns": 125,
+    "interior_navigation": true,
+    "multilevel": false,
+    "needs": [
+     "footprint support",
+     "terrain contact across the base",
+     "one usable entrance approach",
+     "modest vertical clearance"
+    ]
+   },
+   "nether_bastion": {
+    "known": true,
+    "span_samples": 32,
+    "vertical_clearance": 64,
+    "ground_contact_columns": 506,
+    "interior_navigation": true,
+    "multilevel": true,
+    "needs": [
+     "large irregular footprint",
+     "heavy terrain contact",
+     "multilevel interior navigation",
+     "several approach faces",
+     "clearance around the rampart"
+    ]
+   },
+   "end_spike": {
+    "known": true,
+    "span_samples": 7,
+    "vertical_clearance": 89,
+    "ground_contact_columns": 37,
+    "interior_navigation": false,
+    "multilevel": false,
+    "needs": [
+     "small ground footprint",
+     "very large vertical clearance",
+     "exposure/visibility",
+     "one approach to the base"
+    ]
+   }
+  },
+  "unverifiable_from_samples": {
+   "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+   "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+  },
+  "objective_quality": {
+   "north": {
+    "pillager_outpost": 1.9446,
+    "nether_bastion": 1.6705,
+    "end_spike": 1.9174
+   },
+   "south": {
+    "pillager_outpost": 1.7468,
+    "nether_bastion": 0.8723,
+    "end_spike": 1.927
+   }
+  },
+  "objective_world_xz": {
+   "north": {
+    "pillager_outpost": [
+     28,
+     300
+    ],
+    "nether_bastion": [
+     20,
+     276
+    ],
+    "end_spike": [
+     -84,
+     260
+    ]
+   },
+   "south": {
+    "pillager_outpost": [
+     140,
+     188
+    ],
+    "nether_bastion": [
+     204,
+     132
+    ],
+    "end_spike": [
+     156,
+     -4
+    ]
+   }
+  },
+  "objective_sites": {
+   "north": {
+    "pillager_outpost": 0.3812,
+    "nether_bastion": 0.374,
+    "end_spike": 0.1901
+   },
+   "south": {
+    "pillager_outpost": 0.4107,
+    "nether_bastion": 0.2173,
+    "end_spike": 0.1621
+   }
+  },
+  "lair_search": {
+   "considered": 11806,
+   "viable": 355,
+   "parameters": {
+    "radius_samples": 6,
+    "min_approaches": 3,
+    "min_usable_fraction": 0.55,
+    "min_open_volume_proxy": 0.75
+   },
+   "approximations": {
+    "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+   },
+   "best_access_asymmetry": 0.0001
+  },
+  "lair_site": {
+   "sample": [
+    7,
+    101
+   ],
+   "world_xz": [
+    380,
+    468
+   ],
+   "reach": {
+    "north": 950.8,
+    "south": 950.88
+   },
+   "access_asymmetry": 0.0001,
+   "usable_fraction": 0.6568,
+   "open_volume_proxy": 0.7737,
+   "approaches": 5
+  },
+  "physical_verification": {
+   "schema": "column_verification/1",
+   "evidence_state": "RAW WORLD OBSERVATION",
+   "world": "/tmp/mm-vs-2718281/world",
+   "sites": {
+    "north": {
+     "pillager_outpost": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 64,
+      "clearance": {
+       "clear": 21,
+       "needed": 21,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 256,
+       "datum_y": 63,
+       "cut_blocks": 6,
+       "fill_blocks": 35,
+       "moved_per_column": 0.16,
+       "relief_y": 2,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     },
+     "nether_bastion": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 68,
+      "clearance": {
+       "clear": 64,
+       "needed": 64,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 1089,
+       "datum_y": 63,
+       "cut_blocks": 151,
+       "fill_blocks": 253,
+       "moved_per_column": 0.371,
+       "relief_y": 6,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     },
+     "end_spike": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 63,
+      "clearance": {
+       "clear": 89,
+       "needed": 89,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 64,
+       "datum_y": 63,
+       "cut_blocks": 0,
+       "fill_blocks": 0,
+       "moved_per_column": 0.0,
+       "relief_y": 0,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     }
+    },
+    "south": {
+     "pillager_outpost": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 63,
+      "clearance": {
+       "clear": 21,
+       "needed": 21,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 256,
+       "datum_y": 62,
+       "cut_blocks": 37,
+       "fill_blocks": 0,
+       "moved_per_column": 0.145,
+       "relief_y": 1,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     },
+     "nether_bastion": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 77,
+      "clearance": {
+       "clear": 64,
+       "needed": 64,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 1089,
+       "datum_y": 70,
+       "cut_blocks": 726,
+       "fill_blocks": 254,
+       "moved_per_column": 0.9,
+       "relief_y": 10,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     },
+     "end_spike": {
+      "ok": true,
+      "problems": [],
+      "pad_y": 68,
+      "clearance": {
+       "clear": 89,
+       "needed": 89,
+       "sufficient": true,
+       "vegetation_blocks_to_clear": 0,
+       "standing_structure_blocks": 0,
+       "submerged_columns": 0
+      },
+      "integration_cost": {
+       "columns": 64,
+       "datum_y": 67,
+       "cut_blocks": 19,
+       "fill_blocks": 0,
+       "moved_per_column": 0.297,
+       "relief_y": 1,
+       "liquid_columns": 0,
+       "liquid_fraction": 0.0
+      }
+     }
+    }
+   },
+   "problems": [],
+   "verified": true
+  },
+  "authored": {
+   "blocks_written": 90330,
+   "structures": [
+    {
+     "structure": "pillager_outpost",
+     "team": "north",
+     "world_xyz": [
+      28,
+      64,
+      300
+     ],
+     "blocks": 1156,
+     "footprint_radius": 8,
+     "height": 22
+    },
+    {
+     "structure": "nether_bastion",
+     "team": "north",
+     "world_xyz": [
+      20,
+      64,
+      276
+     ],
+     "blocks": 22721,
+     "footprint_radius": 9,
+     "height": 65
+    },
+    {
+     "structure": "end_spike",
+     "team": "north",
+     "world_xyz": [
+      -84,
+      64,
+      260
+     ],
+     "blocks": 3257,
+     "footprint_radius": 4,
+     "height": 90
+    },
+    {
+     "structure": "pillager_outpost",
+     "team": "south",
+     "world_xyz": [
+      140,
+      64,
+      188
+     ],
+     "blocks": 1156,
+     "footprint_radius": 8,
+     "height": 22
+    },
+    {
+     "structure": "nether_bastion",
+     "team": "south",
+     "world_xyz": [
+      204,
+      71,
+      132
+     ],
+     "blocks": 22721,
+     "footprint_radius": 9,
+     "height": 65
+    },
+    {
+     "structure": "end_spike",
+     "team": "south",
+     "world_xyz": [
+      156,
+      68,
+      -4
+     ],
+     "blocks": 3257,
+     "footprint_radius": 4,
+     "height": 90
+    }
+   ],
+   "not_reproduced": {
+    "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+   }
+  },
+  "readback": {
+   "schema": "authored_readback/1",
+   "evidence_state": "RAW WORLD OBSERVATION",
+   "world": "/tmp/buildroot/b-2718281",
+   "structures": [
+    {
+     "structure": "pillager_outpost",
+     "team": "north",
+     "sampled": 32,
+     "present": 32,
+     "absent": 0
+    },
+    {
+     "structure": "nether_bastion",
+     "team": "north",
+     "sampled": 615,
+     "present": 615,
+     "absent": 0
+    },
+    {
+     "structure": "end_spike",
+     "team": "north",
+     "sampled": 89,
+     "present": 89,
+     "absent": 0
+    },
+    {
+     "structure": "pillager_outpost",
+     "team": "south",
+     "sampled": 32,
+     "present": 32,
+     "absent": 0
+    },
+    {
+     "structure": "nether_bastion",
+     "team": "south",
+     "sampled": 615,
+     "present": 615,
+     "absent": 0
+    },
+    {
+     "structure": "end_spike",
+     "team": "south",
+     "sampled": 89,
+     "present": 89,
+     "absent": 0
+    }
+   ],
+   "problems": [],
+   "verified": true
+  }
+ }
+}
