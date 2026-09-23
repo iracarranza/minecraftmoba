@@ -303,11 +303,21 @@ body is bars and the glow traces a genuine wireframe.
 **Extent:** the box should be larger than the structure, taking in some
 surrounding terrain, so it marks a *place* rather than a building.
 
-[OPEN] Team colour did not apply to a `block_display` in the prototype: the
-entity was on a coloured scoreboard team and still outlined white. Whether
-display entities ignore team colour, or the prototype was set up wrongly, is
-unresolved and must be settled before this is built -- team colour is load-
-bearing, not decoration.
+[RESOLVED] Team colour DOES apply to a `block_display`. The prototype outlined
+white because glow colour resolves against the scoreboard the **viewing client**
+holds, and the HUD hands every player a private one, so a team registered on the
+main board did not exist for them. This was ours, not Minecraft's.
+
+**A glowing box cannot be read from inside it.** Observed in play at the
+Fountain, whose box is large enough to stand in. Faces are culled from within
+and the outline is traced from rendered faces, so a player standing inside sees
+little or nothing of the signature meant to tell them where they are. This is a
+constraint on extent, not a bug: **the box must stay small enough that a player
+is normally outside it.** It bears directly on marking "some of the surrounding
+terrain" -- the more ground the box takes in, the more of the time a defender
+standing on that ground cannot see it. [OPEN] Whether a defender should see
+their own objective's signature while inside its footprint, and by what
+different means, is unresolved.
 
 [DEFERRED, 23 September 2026] **Range is not being decided now.** Values of 6-8
 chunks were discussed and the question was explicitly set aside, because it is

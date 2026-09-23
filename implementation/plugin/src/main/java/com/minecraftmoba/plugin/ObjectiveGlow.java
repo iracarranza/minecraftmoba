@@ -197,16 +197,26 @@ public final class ObjectiveGlow implements Listener {
         if (!enabled()) return;
         Scoreboard board = p.getScoreboard();
         if (board == null) return;
+        var teams = new EnumMap<Team, org.bukkit.scoreboard.Team>(Team.class);
         for (Team team : Team.values()) {
             var scoreboardTeam = board.getTeam(teamName(team));
             if (scoreboardTeam == null) scoreboardTeam = board.registerNewTeam(teamName(team));
             scoreboardTeam.setColor(colour(team));
-            for (UUID id : live.values()) {
-                Entity e = Bukkit.getEntity(id);
-                if (e == null) continue;
-                if (!e.getScoreboardTags().contains(TAG)) continue;
-                scoreboardTeam.addEntry(id.toString());
-            }
+            teams.put(team, scoreboardTeam);
+        }
+        // Each box joins ITS OWN team.
+        //
+        // This loop used to sit inside the one above, adding every entity to
+        // every team. A scoreboard entry can only belong to one team, so the
+        // last iteration won and all eight boxes rendered in south's colour --
+        // which looked like the feature working, because they were coloured,
+        // just uniformly wrong. The Box already knew its team; `apply` was the
+        // only thing that did not.
+        for (var entry : live.entrySet()) {
+            Entity e = Bukkit.getEntity(entry.getValue());
+            if (e == null || !e.getScoreboardTags().contains(TAG)) continue;
+            var scoreboardTeam = teams.get(entry.getKey().team());
+            if (scoreboardTeam != null) scoreboardTeam.addEntry(entry.getValue().toString());
         }
     }
 
