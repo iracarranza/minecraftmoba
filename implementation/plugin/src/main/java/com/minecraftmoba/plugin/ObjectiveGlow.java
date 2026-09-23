@@ -5,6 +5,9 @@ import org.bukkit.entity.BlockDisplay;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Transformation;
 import org.joml.AxisAngle4f;
@@ -49,7 +52,22 @@ import java.util.*;
  *  - the Lair. It is neutral and conspicuous by design, so it may want a
  *    contrasting signature rather than the team one. It gets none here.
  */
-public final class ObjectiveGlow {
+public final class ObjectiveGlow implements Listener {
+
+    /**
+     * An intended box, kept independently of the entity that draws it.
+     *
+     * The plan has to outlive the entity. These displays are deliberately NOT
+     * persistent -- they are a view of match state, and writing them into the
+     * pool map's region files would make a claimed world dirty with something
+     * that is not world state. But a non-persistent entity is removed when its
+     * chunk unloads and never returns, and objectives sit hundreds of blocks
+     * apart, so all eight vanished within seconds of being spawned and the
+     * feature silently did nothing. The plan plus a chunk-load handler is the
+     * same shape {@link Lair} already uses to recover its occupant; this
+     * reuses that idiom rather than inventing a second one.
+     */
+    private record Box(Location at, int side, int tall, Team team) {}
 
     /** Half-extents and height of each authored form, from its template. */
     private record Extent(int halfWidth, int height) {}
@@ -73,7 +91,8 @@ public final class ObjectiveGlow {
     private static final String TAG = "moba_objective_glow";
 
     private final MobaPlugin plugin;
-    private final List<UUID> spawned = new ArrayList<>();
+    private final List<Box> plan = new ArrayList<>();
+    private final Map<Box, UUID> live = new LinkedHashMap<>();
 
     public ObjectiveGlow(MobaPlugin plugin) { this.plugin = plugin; }
 
@@ -95,7 +114,7 @@ public final class ObjectiveGlow {
         }
     }
 
-    /** Rebuild every box for the bound map. Safe to call repeatedly. */
+    /** Re-plan every box for the bound map. Safe to call repeatedly. */
     public int rebuild(World world) {
         clear();
         if (!enabled() || world == null) return 0;
@@ -110,17 +129,48 @@ public final class ObjectiveGlow {
             Location fountain = match == null ? null : match.homeland(team);
             if (fountain != null) box(world, fountain, FOUNTAIN, team);
         }
+        for (Box box : plan) draw(box);
         for (Player p : Bukkit.getOnlinePlayers()) apply(p);
-        return spawned.size();
+        return plan.size();
     }
 
-    /** One glowing box, centred on the structure's footprint. */
+    /**
+     * Re-draw any planned box whose chunk has just come back.
+     *
+     * Without this the feature works only for the few seconds after selection,
+     * which is exactly how it failed the first time: the log reported eight
+     * boxes and the world contained none.
+     */
+    @EventHandler
+    public void chunkLoad(ChunkLoadEvent e) {
+        if (!enabled()) return;
+        for (Box box : plan) {
+            if (!box.at().getWorld().equals(e.getWorld())) continue;
+            if (box.at().getBlockX() >> 4 != e.getChunk().getX()) continue;
+            if (box.at().getBlockZ() >> 4 != e.getChunk().getZ()) continue;
+            UUID existing = live.get(box);
+            if (existing != null && Bukkit.getEntity(existing) != null) continue;
+            draw(box);
+            for (Player p : Bukkit.getOnlinePlayers()) apply(p);
+        }
+    }
+
+    /** Plan one box, centred on the structure's footprint. */
     private void box(World world, Location centre, Extent extent, Team team) {
         if (extent == null) return;
-        int half = extent.halfWidth() + MARGIN;
-        int side = half * 2 + 1;
+        int side = (extent.halfWidth() + MARGIN) * 2 + 1;
         int tall = extent.height() + MARGIN;
-        Location at = new Location(world, centre.getBlockX(), centre.getBlockY(), centre.getBlockZ());
+        plan.add(new Box(new Location(world,
+                centre.getBlockX(), centre.getBlockY(), centre.getBlockZ()),
+                side, tall, team));
+    }
+
+    /** Spawn the entity that draws a planned box. */
+    private void draw(Box box) {
+        Location at = box.at();
+        World world = at.getWorld();
+        if (world == null) return;
+        int side = box.side(), tall = box.tall();
         BlockDisplay display = world.spawn(at, BlockDisplay.class, d -> {
             d.setBlock(Material.GLASS.createBlockData());
             d.setGlowing(true);
@@ -133,7 +183,7 @@ public final class ObjectiveGlow {
                     new Vector3f(side, tall, side),
                     new AxisAngle4f(0f, 0f, 0f, 1f)));
         });
-        spawned.add(display.getUniqueId());
+        live.put(box, display.getUniqueId());
     }
 
     /**
@@ -151,7 +201,7 @@ public final class ObjectiveGlow {
             var scoreboardTeam = board.getTeam(teamName(team));
             if (scoreboardTeam == null) scoreboardTeam = board.registerNewTeam(teamName(team));
             scoreboardTeam.setColor(colour(team));
-            for (UUID id : spawned) {
+            for (UUID id : live.values()) {
                 Entity e = Bukkit.getEntity(id);
                 if (e == null) continue;
                 if (!e.getScoreboardTags().contains(TAG)) continue;
@@ -160,20 +210,23 @@ public final class ObjectiveGlow {
         }
     }
 
-    /** Remove every box. Also sweeps by tag, for displays a reload orphaned. */
+    /** Forget the plan and remove every box. Sweeps by tag for orphans. */
     public void clear() {
-        for (UUID id : spawned) {
+        for (UUID id : live.values()) {
             Entity e = Bukkit.getEntity(id);
             if (e != null) e.remove();
         }
-        spawned.clear();
+        live.clear();
+        plan.clear();
         for (World w : Bukkit.getWorlds())
             for (Entity e : w.getEntitiesByClass(BlockDisplay.class))
                 if (e.getScoreboardTags().contains(TAG)) e.remove();
     }
 
     public String report() {
-        return "OBJECTIVE_GLOW enabled=" + enabled() + " boxes=" + spawned.size()
+        long drawn = live.values().stream().filter(id -> Bukkit.getEntity(id) != null).count();
+        return "OBJECTIVE_GLOW enabled=" + enabled() + " planned=" + plan.size()
+                + " drawn=" + drawn
                 + " colours={north=" + colour(Team.NORTH) + ", south=" + colour(Team.SOUTH) + "}";
     }
 }

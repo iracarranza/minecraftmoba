@@ -140,6 +140,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         teamObjectives = new TeamObjectives();
         lair = new Lair(this);
         getServer().getPluginManager().registerEvents(lair, this);
+        getServer().getPluginManager().registerEvents(objectiveGlow, this);
         match = new Match(this, worldInstance);
         getServer().getPluginManager().registerEvents(match, this);
         infraMode = new InfraMode(this);
