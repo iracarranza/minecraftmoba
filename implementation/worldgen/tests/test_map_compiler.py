@@ -17,8 +17,11 @@ class Stages(unittest.TestCase):
         self.assertEqual('NO_LAIR_VOLUME', d['rejections'][0]['code'])
 
     def test_stages_run_outermost_first(self):
+        # `characterize` sits after verify and before ready: it measures the
+        # realization the earlier stages proved buildable, and it gates nothing.
         self.assertEqual(('recognize', 'homebase', 'hinterland', 'objectives',
-                          'lair', 'select', 'author', 'verify', 'ready'), mc.STAGES)
+                          'lair', 'select', 'author', 'verify', 'characterize',
+                          'ready'), mc.STAGES)
 
     def test_verified_and_ready_are_different_claims(self):
         # A compiler result is not an inventory state. They came apart badly

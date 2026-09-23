@@ -32,7 +32,7 @@ from . import (build_structures, column_scan, lair_mark, lair_socket,
 
 # Stage names, in order. A candidate reaches at most one past where it fails.
 STAGES = ('recognize', 'homebase', 'hinterland', 'objectives', 'lair',
-          'select', 'author', 'verify', 'ready')
+          'select', 'author', 'verify', 'characterize', 'ready')
 
 # PROVISIONAL_ALPHA constants. Each is measured or derived from a measurement,
 # never chosen from intuition; see docs/audit/2026-09-23-map-compiler-slice.md.
@@ -179,6 +179,11 @@ def recognize(candidate, out: Compilation):
                         'the candidate carries no regional measurements to recognize',
                         missing=missing)
     out.evidence['regional'] = {k: m[k] for k in needed}
+    # The window this realization occupies, carried forward so later stages
+    # measure the right ground. Absolute, because the window need not be at the
+    # origin -- `window_search` places it wherever the regional shape is.
+    if candidate.get('region'):
+        out.evidence['region'] = candidate['region']
     warnings = candidate.get('experimental_screen', {}).get('warnings', [])
     shape = [w for w in warnings if w not in NOT_REGIONAL_SHAPE]
     deferred = [w for w in warnings if w in NOT_REGIONAL_SHAPE]
@@ -450,7 +455,10 @@ def compile_candidate(candidate, world=None, build_world=None) -> Compilation:
     if out.rejections:
         return out
     verify(out, world)
-    if out.rejections or build_world is None:
+    if out.rejections:
+        return out
+    characterize(out, world)
+    if build_world is None:
         return out
     author_into(out, build_world)
     return out
@@ -704,6 +712,44 @@ def verify(out: Compilation, world=None):
         out.fail('verify', 'PHYSICAL_VERIFICATION_FAILED',
                  'sited objectives do not survive a column scan',
                  problems=result['problems'])
+    return out
+
+
+def characterize(out: Compilation, world=None):
+    """Measure what this realization actually contains. Gates nothing.
+
+    `opportunity_map` and `caves` have been built and proven against the Alpha
+    map since before this compiler existed, and neither was reachable from a
+    compiled realization -- the compiler grew separately from the measurement.
+    This connects the first of them.
+
+    It must run on the compiled window and after generation, because ore, caves
+    and exposure are carver and feature output rather than functions of the
+    seed. That is the same boundary at which the off-server layer stops.
+
+    Deliberately non-fatal. A realization that cannot be characterized is
+    reported as uncharacterized, not rejected: maps.md leaves the depth
+    gradient, regional tables and resource vocabulary OPEN, and nothing here
+    may invent a bound to look decisive.
+    """
+    out.reached = 'characterize'
+    bounds = (out.evidence.get('region') or {}).get('block_bounds')
+    if world is None or not bounds:
+        out.evidence['characterization'] = {
+            'measured': False,
+            'why': 'no world supplied' if world is None else
+                   'the candidate records no block bounds to measure over',
+        }
+        return out
+    try:
+        from .characterize import characterize as measure
+        out.evidence['characterization'] = measure(out.seed, Path(world), bounds)
+        out.evidence['characterization']['measured'] = True
+    except Exception as failure:              # noqa: BLE001 - reported, not swallowed
+        out.evidence['characterization'] = {
+            'measured': False,
+            'why': f'{type(failure).__name__}: {failure}',
+        }
     return out
 
 
