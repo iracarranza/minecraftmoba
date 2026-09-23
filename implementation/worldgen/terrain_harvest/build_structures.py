@@ -389,7 +389,16 @@ def clear_and_foundation(editor, cx, cy, cz, radius, headroom, foundation, colum
             if here is not None and is_structure(here):
                 continue          # a building is not terrain
             if here is not None and is_leaf(here):
-                editor.set(x, y, z, AIR)     # brush the branch aside
+                # Fell the tree this leaf belongs to, not the leaf.
+                #
+                # Brushing the branch sliced every overhanging canopy flat at
+                # the pad boundary: a tree whose trunk stands outside the disc
+                # lost exactly the part that reached in, so the authored
+                # Outpost sat in a ring of trees cut in half. A felled tree
+                # reads as clearing; a bisected one reads as damage, and
+                # doctrine's whole point about authoring is that it should look
+                # like work someone did rather than like a bug.
+                fell(editor, column, x, y, z, AIR)
                 continue
             if here is not None and is_log(here):
                 fell(editor, column, x, y, z, AIR)   # a trunk comes down whole

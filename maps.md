@@ -146,6 +146,39 @@ written. Until it is, "serious ceiling violations should reject a socket" is a
 statement about what the compiler ought to do and not a description of what it
 does. The carrot and iron exclusions are equally unchecked.
 
+### Authored furnishing must respect what is already built — 23 September 2026
+
+Raised in play, on the authored objectives rather than on Routes. The rule that
+was written for Routes — *do not run a deck through a village house, fell a tree
+whole rather than cutting the part that is in the way* — is **general**, and
+only Routes were obeying it.
+
+Three failures, in descending order of seriousness:
+
+1. **Structures inside a pad are skipped, not refused.** `clear_and_foundation`
+   treats a built block as "not terrain" and leaves it standing, so an objective
+   authored over a village house builds *around* the house and embeds it.
+   Meanwhile `column_scan` **fails hard** on structures when verifying a site.
+   The verifier and the builder therefore disagree about the same condition,
+   which is this project's recurring defect — two implementations of one idea.
+   The siting stage should refuse a footprint containing built blocks, and then
+   neither needs a policy.
+2. **Overhanging canopy was sliced flat at the pad boundary.** Leaves inside the
+   disc were brushed to air while the trunk outside it was untouched, so the
+   north Outpost stood in a ring of trees cut in half. Fixed: a leaf now fells
+   the tree it belongs to, the same call the trunk case already used. A felled
+   tree reads as clearing; a bisected one reads as damage.
+3. **Entities in the footprint are not moved.** A sheep was apparently
+   suffocated by the Bastion. Minor in effect, but it is the same omission:
+   authoring considers blocks and nothing else.
+
+The principle, stated once so it stops being re-derived per subsystem:
+
+> **Authoring should read as work someone did, not as a bug.** Anything that
+> was already built is either avoided or refused, never bisected, embedded or
+> silently overwritten — and that applies to every authored thing, not to
+> Routes alone.
+
 This list is **not exhaustive** — it is a seam. Useful questions for a new
 candidate exclusion: does it scale strongly with multiple players, compress
 several opening verbs, impose major competitive cost if delayed, or skip an

@@ -323,6 +323,21 @@ path. Verified legible in play.
 **The two tints are drawn from biomes the map does not contain**, surveyed
 around each volume at bind time.
 
+**Working direction, 23 September 2026: one arbitrary rare biome per team, with
+its colours overridden in a datapack.** Choosing from vanilla biomes means
+inheriting whatever grass colour they happen to have, and picking by absence has
+now failed twice for the same reason. Taking a single biome that is rare enough
+never to appear on a generated map, and defining its grass, foliage and water
+colours directly, replaces a search with a decision: the tint is whatever the
+team's colour is, exactly, and no survey can get it wrong. It also collapses the
+palette problem — two biomes, authored once, rather than an ordered list of
+candidates and a contrast test.
+
+The spawn side effect shrinks but does not vanish: a datapack biome still
+carries spawn lists, and copying the local biome's is the remaining work. The
+survey is still needed, but only to confirm the chosen biomes are absent rather
+than to choose among them.
+
 [BROKEN — found in play] Absence is the wrong test, and the implementation
 proves it twice. `CHERRY_GROVE` was picked first because a cherry grove reads as
 pink; that pink is cherry leaf and log BLOCKS and its grass colour is close to
@@ -415,12 +430,49 @@ fights on interior lines; a team whose objectives are 280 blocks out must choose
 between them and cannot hold them from home. Nothing in doctrine chose that, and
 nothing in the compiler noticed it.
 
-[OPEN] What the constraint should be. Candidates: a minimum gap between
-successive objectives in a chain; a minimum depth from the team's own Fountain;
-a bound on the disparity between the two teams' depth profiles, in the manner of
-A_L for Lair access. None is asserted, and the right bound is a measurement
-question — the distribution over compiled maps has never been looked at, because
-nothing was recording it.
+### The distribution, measured 23 September 2026
+
+It was being recorded after all. Every sited objective already carries an
+`advance` — its fraction of the way from the team's Fountain to the midline —
+and the compiler stores it as evidence. Nothing ever compared the two teams'
+values. Defining **A_D** as the disparity on the forward-most objective of each
+chain, by analogy with A_L:
+
+> **A_D = |advance_N − advance_S| / mean(advance_N, advance_S)**
+
+across every compiled map that sited both chains (n = 7):
+
+| seed | north O/B/S | south O/B/S | A_D | |
+| --- | --- | --- | --- | --- |
+| 2718281 | 0.381/0.374/0.190 | 0.411/0.217/0.162 | **0.075** | PlayableMap |
+| 930012642 | 0.376/0.333/0.179 | 0.432/0.411/0.085 | 0.139 | |
+| 771113 | 0.400/0.314/0.099 | 0.471/0.097/0.087 | 0.164 | |
+| 930019528 | 0.237/0.237/0.107 | 0.332/0.318/0.316 | 0.332 | |
+| 930005557 | 0.420/0.350/0.223 | 0.204/0.183/0.174 | 0.691 | |
+| 930010639 | 0.128/0.069/0.059 | 0.373/0.341/0.174 | 0.981 | |
+| 99887766 | 0.384/0.221/0.173 | 0.074/0.054/0.030 | **1.355** | PlayableMap |
+
+**The map that was played is the worst of the seven, and it is one of only two
+that reached PlayableMap.** The other, 2718281, is the best. Reaching the end of
+the pipeline is therefore uncorrelated with depth parity, which is what one
+expects of a property nothing gates — but it also means the pool's two members
+sit at the two extremes of the distribution, and the one that happened to be
+claimed was the degenerate one.
+
+[OPEN] **No bound is asserted.** Seven maps is too few, and only three points
+separate the clustered low end (0.075, 0.139, 0.164) from the next value
+(0.332). This project has already had to withdraw one threshold justified from
+too little data — the 0.60 Socket bound that turned out to be two numbers from
+one seed's two homelands — and the discipline learned there applies here. What
+the measurement settles is that the spread is real and large, not where to cut
+it.
+
+[OPEN] What the constraint should be, once there is a distribution to cut. A
+minimum gap between successive objectives in a chain; a minimum advance from the
+team's own Fountain; a bound on A_D; or a floor on the chain's span. 99887766
+fails on all four readings, so the choice between them is not urgent — a map
+whose entire chain sits inside 7% of the way to the midline would be rejected by
+any of them.
 
 **Objective depth must not be confused with the Lair's A_L.** A_L gates access
 to the one indivisible shared objective and is deliberately the single place
