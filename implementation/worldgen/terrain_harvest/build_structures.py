@@ -183,7 +183,11 @@ TEMPLATES = {
     'aether_fountain': aether_fountain,
     'pillager_outpost': pillager_outpost,
     'nether_bastion': nether_bastion,
-    # Historical; see objective_forms.HISTORICAL. Not renamed to 'end_spike'.
+    # Historical; see objective_forms.HISTORICAL. Not renamed to 'end_spike',
+    # and deliberately NOT registered under that key either: siting now uses the
+    # `end_spike` layer, and if this table answered to that name the compiler
+    # would site an End Spike and silently build an End Tower. There is no End
+    # Spike mesh yet, so authoring fails closed instead.
     'end_tower': end_tower,
 }
 

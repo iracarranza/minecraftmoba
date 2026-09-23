@@ -1,0 +1,750 @@
+{
+ "schema": "map_compilation_run/1",
+ "stages": [
+  "recognize",
+  "homebase",
+  "hinterland",
+  "objectives",
+  "lair",
+  "select",
+  "author",
+  "verify"
+ ],
+ "provisional_constants": {
+  "min_homeland_developable_fraction": 0.6,
+  "max_hinterland_fraction_of_end": 0.5,
+  "max_lair_access_asymmetry": 0.15
+ },
+ "runs": [
+  {
+   "schema": "map_compilation/1",
+   "seed": 930005557,
+   "deepest_stage_reached": "author",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "author",
+     "code": "OBJECTIVE_MESH_MISSING",
+     "detail": "no authored mesh exists for these current forms, and no historical mesh may stand in for one",
+     "data": {
+      "missing": [
+       "end_spike"
+      ],
+      "available": [
+       "aether_fountain",
+       "end_tower",
+       "nether_bastion",
+       "pillager_outpost"
+      ]
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 16.924,
+     "east_actual_ocean_fraction": 0.5619,
+     "open_buildable_fraction_of_land": 0.2682
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "south: insufficient early Route divergence"
+    ],
+    "homelands": {
+     "north": 0.7617,
+     "south": 0.6254
+    },
+    "hinterland": {
+     "north": 0.0251,
+     "south": 0.0238
+    },
+    "objective_forms": {
+     "pillager_outpost": {
+      "known": true,
+      "span_samples": 15,
+      "vertical_clearance": 21,
+      "ground_contact_columns": 125,
+      "interior_navigation": true,
+      "multilevel": false,
+      "needs": [
+       "footprint support",
+       "terrain contact across the base",
+       "one usable entrance approach",
+       "modest vertical clearance"
+      ]
+     },
+     "nether_bastion": {
+      "known": true,
+      "span_samples": 32,
+      "vertical_clearance": 32,
+      "ground_contact_columns": 506,
+      "interior_navigation": true,
+      "multilevel": true,
+      "needs": [
+       "large irregular footprint",
+       "heavy terrain contact",
+       "multilevel interior navigation",
+       "several approach faces",
+       "clearance around the rampart"
+      ]
+     },
+     "end_spike": {
+      "known": true,
+      "span_samples": 11,
+      "vertical_clearance": 103,
+      "ground_contact_columns": 89,
+      "interior_navigation": false,
+      "multilevel": false,
+      "needs": [
+       "small ground footprint",
+       "very large vertical clearance",
+       "exposure/visibility",
+       "one approach to the base"
+      ]
+     }
+    },
+    "unverifiable_from_samples": {
+     "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+     "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+    },
+    "objective_quality": {
+     "north": {
+      "pillager_outpost": 1.6798,
+      "nether_bastion": 1.3433,
+      "end_spike": 1.7716
+     },
+     "south": {
+      "pillager_outpost": 0.9118,
+      "nether_bastion": 1.1734,
+      "end_spike": 1.9652
+     }
+    },
+    "objective_sites": {
+     "north": {
+      "pillager_outpost": 0.4205,
+      "nether_bastion": 0.3502,
+      "end_spike": 0.2232
+     },
+     "south": {
+      "pillager_outpost": 0.2045,
+      "nether_bastion": 0.1827,
+      "end_spike": 0.1745
+     }
+    },
+    "lair_search": {
+     "considered": 11806,
+     "viable": 432,
+     "parameters": {
+      "radius_samples": 6,
+      "min_approaches": 3,
+      "min_usable_fraction": 0.55,
+      "min_open_volume_proxy": 0.75
+     },
+     "approximations": {
+      "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+     },
+     "best_access_asymmetry": 0.0735
+    },
+    "lair_site": {
+     "sample": [
+      125,
+      101
+     ],
+     "world_xz": [
+      -1668,
+      -476
+     ],
+     "reach": {
+      "north": 1521.56,
+      "south": 1637.63
+     },
+     "access_asymmetry": 0.0735,
+     "usable_fraction": 0.7692,
+     "open_volume_proxy": 0.8033,
+     "approaches": 7
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930006815,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "north socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "north",
+      "usable_fraction": 0.3704,
+      "bound": 0.6
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 20.875,
+     "east_actual_ocean_fraction": 0.9573,
+     "open_buildable_fraction_of_land": 0.3014
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "homeland terrain-quality disparity exceeds 0.2",
+     "north-2: no_handoff_in_soft_range"
+    ],
+    "homelands": {
+     "north": 0.3704,
+     "south": 0.7594
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930007222,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "north socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "north",
+      "usable_fraction": 0.4352,
+      "bound": 0.6
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 24.812,
+     "east_actual_ocean_fraction": 0.6473,
+     "open_buildable_fraction_of_land": 0.2571
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "homeland terrain-quality disparity exceeds 0.2"
+    ],
+    "homelands": {
+     "north": 0.4352,
+     "south": 0.7733
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930010639,
+   "deepest_stage_reached": "lair",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "lair",
+     "code": "LAIR_ACCESS_DISPARITY",
+     "detail": "the best viable Lair socket still gives one team 0.787 access disparity",
+     "data": {
+      "access_asymmetry": 0.787,
+      "bound": 0.15,
+      "reach": {
+       "north": 1060.86,
+       "south": 461.7
+      }
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 15.519,
+     "east_actual_ocean_fraction": 0.717,
+     "open_buildable_fraction_of_land": 0.2998
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "homeland terrain-quality disparity exceeds 0.2",
+     "weak central/interior network connectivity"
+    ],
+    "homelands": {
+     "north": 0.903,
+     "south": 0.6854
+    },
+    "hinterland": {
+     "north": 0.0281,
+     "south": 0.0235
+    },
+    "objective_forms": {
+     "pillager_outpost": {
+      "known": true,
+      "span_samples": 15,
+      "vertical_clearance": 21,
+      "ground_contact_columns": 125,
+      "interior_navigation": true,
+      "multilevel": false,
+      "needs": [
+       "footprint support",
+       "terrain contact across the base",
+       "one usable entrance approach",
+       "modest vertical clearance"
+      ]
+     },
+     "nether_bastion": {
+      "known": true,
+      "span_samples": 32,
+      "vertical_clearance": 32,
+      "ground_contact_columns": 506,
+      "interior_navigation": true,
+      "multilevel": true,
+      "needs": [
+       "large irregular footprint",
+       "heavy terrain contact",
+       "multilevel interior navigation",
+       "several approach faces",
+       "clearance around the rampart"
+      ]
+     },
+     "end_spike": {
+      "known": true,
+      "span_samples": 11,
+      "vertical_clearance": 103,
+      "ground_contact_columns": 89,
+      "interior_navigation": false,
+      "multilevel": false,
+      "needs": [
+       "small ground footprint",
+       "very large vertical clearance",
+       "exposure/visibility",
+       "one approach to the base"
+      ]
+     }
+    },
+    "unverifiable_from_samples": {
+     "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+     "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+    },
+    "objective_quality": {
+     "north": {
+      "pillager_outpost": 0.1841,
+      "nether_bastion": 0.2076,
+      "end_spike": 1.346
+     },
+     "south": {
+      "pillager_outpost": 1.9571,
+      "nether_bastion": 1.591,
+      "end_spike": 1.9604
+     }
+    },
+    "objective_sites": {
+     "north": {
+      "pillager_outpost": 0.1275,
+      "nether_bastion": 0.0693,
+      "end_spike": 0.0587
+     },
+     "south": {
+      "pillager_outpost": 0.3729,
+      "nether_bastion": 0.3408,
+      "end_spike": 0.1739
+     }
+    },
+    "lair_search": {
+     "considered": 11841,
+     "viable": 147,
+     "parameters": {
+      "radius_samples": 6,
+      "min_approaches": 3,
+      "min_usable_fraction": 0.55,
+      "min_open_volume_proxy": 0.75
+     },
+     "approximations": {
+      "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+     },
+     "best_access_asymmetry": 0.787
+    },
+    "lair_site": {
+     "sample": [
+      70,
+      51
+     ],
+     "world_xz": [
+      2028,
+      -36
+     ],
+     "reach": {
+      "north": 1060.86,
+      "south": 461.7
+     },
+     "access_asymmetry": 0.787,
+     "usable_fraction": 0.5503,
+     "open_volume_proxy": 0.7744,
+     "approaches": 6
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930012642,
+   "deepest_stage_reached": "lair",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "lair",
+     "code": "LAIR_ACCESS_DISPARITY",
+     "detail": "the best viable Lair socket still gives one team 0.294 access disparity",
+     "data": {
+      "access_asymmetry": 0.2936,
+      "bound": 0.15,
+      "reach": {
+       "north": 1042.24,
+       "south": 775.4
+      }
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 14.742,
+     "east_actual_ocean_fraction": 0.2837,
+     "open_buildable_fraction_of_land": 0.2764
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "south-1: no_handoff_in_soft_range",
+     "weak central/interior network connectivity"
+    ],
+    "homelands": {
+     "north": 0.9416,
+     "south": 0.8275
+    },
+    "hinterland": {
+     "north": 0.0201,
+     "south": 0.0171
+    },
+    "objective_forms": {
+     "pillager_outpost": {
+      "known": true,
+      "span_samples": 15,
+      "vertical_clearance": 21,
+      "ground_contact_columns": 125,
+      "interior_navigation": true,
+      "multilevel": false,
+      "needs": [
+       "footprint support",
+       "terrain contact across the base",
+       "one usable entrance approach",
+       "modest vertical clearance"
+      ]
+     },
+     "nether_bastion": {
+      "known": true,
+      "span_samples": 32,
+      "vertical_clearance": 32,
+      "ground_contact_columns": 506,
+      "interior_navigation": true,
+      "multilevel": true,
+      "needs": [
+       "large irregular footprint",
+       "heavy terrain contact",
+       "multilevel interior navigation",
+       "several approach faces",
+       "clearance around the rampart"
+      ]
+     },
+     "end_spike": {
+      "known": true,
+      "span_samples": 11,
+      "vertical_clearance": 103,
+      "ground_contact_columns": 89,
+      "interior_navigation": false,
+      "multilevel": false,
+      "needs": [
+       "small ground footprint",
+       "very large vertical clearance",
+       "exposure/visibility",
+       "one approach to the base"
+      ]
+     }
+    },
+    "unverifiable_from_samples": {
+     "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+     "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+    },
+    "objective_quality": {
+     "north": {
+      "pillager_outpost": 1.961,
+      "nether_bastion": 1.6953,
+      "end_spike": 2.0007
+     },
+     "south": {
+      "pillager_outpost": 1.7947,
+      "nether_bastion": 0.8066,
+      "end_spike": 1.5962
+     }
+    },
+    "objective_sites": {
+     "north": {
+      "pillager_outpost": 0.3757,
+      "nether_bastion": 0.3332,
+      "end_spike": 0.1788
+     },
+     "south": {
+      "pillager_outpost": 0.4319,
+      "nether_bastion": 0.4109,
+      "end_spike": 0.0854
+     }
+    },
+    "lair_search": {
+     "considered": 12296,
+     "viable": 412,
+     "parameters": {
+      "radius_samples": 6,
+      "min_approaches": 3,
+      "min_usable_fraction": 0.55,
+      "min_open_volume_proxy": 0.75
+     },
+     "approximations": {
+      "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+     },
+     "best_access_asymmetry": 0.2936
+    },
+    "lair_site": {
+     "sample": [
+      70,
+      74
+     ],
+     "world_xz": [
+      -1916,
+      68
+     ],
+     "reach": {
+      "north": 1042.24,
+      "south": 775.4
+     },
+     "access_asymmetry": 0.2936,
+     "usable_fraction": 0.5503,
+     "open_volume_proxy": 0.7872,
+     "approaches": 5
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930015734,
+   "deepest_stage_reached": "homebase",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "homebase",
+     "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+     "detail": "south socket cannot accept the Core with bounded integration",
+     "data": {
+      "team": "south",
+      "usable_fraction": 0.4682,
+      "bound": 0.6
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 19.484,
+     "east_actual_ocean_fraction": 0.5852,
+     "open_buildable_fraction_of_land": 0.2548
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "homeland terrain-quality disparity exceeds 0.2",
+     "south-2: severe_starter_construction",
+     "weak central/interior network connectivity"
+    ],
+    "homelands": {
+     "north": 0.95,
+     "south": 0.4682
+    }
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930016664,
+   "deepest_stage_reached": "recognize",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "recognize",
+     "code": "NO_DEFAULT_REGIONAL_SHAPE",
+     "detail": "the regional screen rejected this orientation",
+     "data": {
+      "warnings": [
+       "western_relief_advantage"
+      ]
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": -1.469,
+     "east_actual_ocean_fraction": 0.1553,
+     "open_buildable_fraction_of_land": 0.2512
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ]
+   }
+  },
+  {
+   "schema": "map_compilation/1",
+   "seed": 930019528,
+   "deepest_stage_reached": "lair",
+   "playable": false,
+   "rejections": [
+    {
+     "stage": "lair",
+     "code": "LAIR_ACCESS_DISPARITY",
+     "detail": "the best viable Lair socket still gives one team 0.226 access disparity",
+     "data": {
+      "access_asymmetry": 0.2255,
+      "bound": 0.15,
+      "reach": {
+       "north": 1217.79,
+       "south": 1527.24
+      }
+     }
+    }
+   ],
+   "evidence": {
+    "regional": {
+     "western_mean_elevation_advantage_y": 16.037,
+     "east_actual_ocean_fraction": 0.3308,
+     "open_buildable_fraction_of_land": 0.3269
+    },
+    "deferred_screen_warnings": [
+     "six_corridors_connect"
+    ],
+    "fit_failures": [
+     "north-2: no_handoff_in_soft_range",
+     "weak central/interior network connectivity"
+    ],
+    "homelands": {
+     "north": 0.8042,
+     "south": 0.6733
+    },
+    "hinterland": {
+     "north": 0.0191,
+     "south": 0.0232
+    },
+    "objective_forms": {
+     "pillager_outpost": {
+      "known": true,
+      "span_samples": 15,
+      "vertical_clearance": 21,
+      "ground_contact_columns": 125,
+      "interior_navigation": true,
+      "multilevel": false,
+      "needs": [
+       "footprint support",
+       "terrain contact across the base",
+       "one usable entrance approach",
+       "modest vertical clearance"
+      ]
+     },
+     "nether_bastion": {
+      "known": true,
+      "span_samples": 32,
+      "vertical_clearance": 32,
+      "ground_contact_columns": 506,
+      "interior_navigation": true,
+      "multilevel": true,
+      "needs": [
+       "large irregular footprint",
+       "heavy terrain contact",
+       "multilevel interior navigation",
+       "several approach faces",
+       "clearance around the rampart"
+      ]
+     },
+     "end_spike": {
+      "known": true,
+      "span_samples": 11,
+      "vertical_clearance": 103,
+      "ground_contact_columns": 89,
+      "interior_navigation": false,
+      "multilevel": false,
+      "needs": [
+       "small ground footprint",
+       "very large vertical clearance",
+       "exposure/visibility",
+       "one approach to the base"
+      ]
+     }
+    },
+    "unverifiable_from_samples": {
+     "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+     "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+    },
+    "objective_quality": {
+     "north": {
+      "pillager_outpost": 0.2978,
+      "nether_bastion": -0.048,
+      "end_spike": 1.0975
+     },
+     "south": {
+      "pillager_outpost": 1.6765,
+      "nether_bastion": 1.3665,
+      "end_spike": 1.4423
+     }
+    },
+    "objective_sites": {
+     "north": {
+      "pillager_outpost": 0.2375,
+      "nether_bastion": 0.2374,
+      "end_spike": 0.1075
+     },
+     "south": {
+      "pillager_outpost": 0.3319,
+      "nether_bastion": 0.3175,
+      "end_spike": 0.3158
+     }
+    },
+    "lair_search": {
+     "considered": 11806,
+     "viable": 595,
+     "parameters": {
+      "radius_samples": 6,
+      "min_approaches": 3,
+      "min_usable_fraction": 0.55,
+      "min_open_volume_proxy": 0.75
+     },
+     "approximations": {
+      "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+     },
+     "best_access_asymmetry": 0.2255
+    },
+    "lair_site": {
+     "sample": [
+      65,
+      71
+     ],
+     "world_xz": [
+      -2140,
+      -44
+     ],
+     "reach": {
+      "north": 1217.79,
+      "south": 1527.24
+     },
+     "access_asymmetry": 0.2255,
+     "usable_fraction": 0.6154,
+     "open_volume_proxy": 0.7648,
+     "approaches": 5
+    }
+   }
+  }
+ ]
+}
