@@ -3,6 +3,9 @@ package com.minecraftmoba.plugin;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.ChunkLoadEvent;
 
 import java.util.*;
 
@@ -42,7 +45,7 @@ import java.util.*;
  * changes at all -- which would also allow showing an ally and an enemy
  * different colours. Neither is done here.
  */
-public final class ObjectiveTint {
+public final class ObjectiveTint implements Listener {
 
     /**
      * Candidate tints, most visually distinct first.
@@ -52,14 +55,24 @@ public final class ObjectiveTint {
      * order is a preference and not a guarantee.
      */
     private static final List<String> CANDIDATES = List.of(
-            "CHERRY_GROVE",      // pink foliage
-            "SWAMP",             // grey-green, verified legible in play
-            "MANGROVE_SWAMP",    // teal-green
-            "BADLANDS",          // orange-brown
-            "SAVANNA",           // pale gold
-            "DARK_FOREST",       // deep green
-            "OLD_GROWTH_PINE_TAIGA",
-            "MEADOW");
+            "SWAMP",             // murky olive; verified legible in play
+            "BADLANDS",          // tan/orange
+            "DESERT",            // pale straw
+            "SNOWY_PLAINS",      // washed-out grey-green
+            "MANGROVE_SWAMP",    // dark teal, and a distinct water colour
+            "SAVANNA",           // dry gold
+            "DARK_FOREST",       // notably darker green
+            "MUSHROOM_FIELDS");
+
+    /**
+     * Chosen for GRASS AND FOLIAGE TINT, not for how the biome looks overall.
+     *
+     * The first list led with CHERRY_GROVE because a cherry grove reads as
+     * pink. That pink is cherry leaf and log BLOCKS; the biome's own grass
+     * colour is close to plains, so it would have tinted almost nothing. Only
+     * biomes whose grass/foliage colour genuinely differs belong here, and
+     * SWAMP leads because it is the one confirmed by eye in play.
+     */
 
     /** How far apart to sample when surveying which biomes a map uses. */
     private static final int SURVEY_STEP = 32;
@@ -67,6 +80,7 @@ public final class ObjectiveTint {
     private record Cell(int x, int y, int z) {}
 
     private final MobaPlugin plugin;
+    private final Map<Cell, Team> planned = new LinkedHashMap<>();
     private final Map<Cell, Biome> original = new LinkedHashMap<>();
     private final EnumMap<Team, Biome> chosen = new EnumMap<>(Team.class);
     private World world;
@@ -133,38 +147,64 @@ public final class ObjectiveTint {
 
     public Biome tintFor(Team team) { return chosen.get(team); }
 
-    /** Tint the ground inside every objective and Fountain volume. */
+    /**
+     * Plan the tint for every volume, and paint whatever is already loaded.
+     *
+     * PLANNED, then painted per chunk. The first version painted all 4840 cells
+     * at selection, when almost none of the objectives' chunks were loaded:
+     * `setBiome` pulled each chunk in, wrote, and the chunk unloaded again
+     * without the write surviving, so the log reported 4840 cells and the
+     * Fountain was still sparse_jungle minutes later. Same shape as the glow's
+     * first failure -- a count of writes attempted reported as a result.
+     */
     public int apply(World w, Map<Location, Team> volumes, int radius, int height) {
         revert();
         if (!enabled() || w == null || volumes.isEmpty()) return 0;
         this.world = w;
         if (!choose(w, volumes.keySet())) return 0;
-        Set<Long> touched = new HashSet<>();
         for (var entry : volumes.entrySet()) {
             Location at = entry.getKey();
-            Biome tint = chosen.get(entry.getValue());
-            if (tint == null) continue;
+            Team team = entry.getValue();
+            if (chosen.get(team) == null) continue;
             for (int dx = -radius; dx <= radius; dx += 4)
                 for (int dz = -radius; dz <= radius; dz += 4)
-                    for (int dy = -4; dy <= height; dy += 4) {
-                        int x = at.getBlockX() + dx, y = at.getBlockY() + dy,
-                                z = at.getBlockZ() + dz;
-                        Cell cell = new Cell(x, y, z);
-                        if (original.containsKey(cell)) continue;
-                        original.put(cell, w.getBiome(x, y, z));
-                        w.setBiome(x, y, z, tint);
-                        touched.add((((long) (x >> 4)) << 32) | ((z >> 4) & 0xffffffffL));
-                    }
+                    for (int dy = -4; dy <= height; dy += 4)
+                        planned.put(new Cell(at.getBlockX() + dx, at.getBlockY() + dy,
+                                at.getBlockZ() + dz), team);
         }
-        // Clients cache biomes with the chunk, so the recolour is invisible
-        // until the chunk is sent again.
-        for (long key : touched) w.refreshChunk((int) (key >> 32), (int) key);
+        for (org.bukkit.Chunk c : w.getLoadedChunks()) paint(c);
         plugin.getLogger().info("[tint] " + report());
-        return original.size();
+        return planned.size();
+    }
+
+    @EventHandler
+    public void chunkLoad(ChunkLoadEvent e) {
+        if (!enabled() || world == null || !e.getWorld().equals(world)) return;
+        paint(e.getChunk());
+    }
+
+    /** Write every planned cell that falls in this chunk, then re-send it. */
+    private void paint(org.bukkit.Chunk chunk) {
+        boolean wrote = false;
+        for (var entry : planned.entrySet()) {
+            Cell cell = entry.getKey();
+            if (cell.x() >> 4 != chunk.getX() || cell.z() >> 4 != chunk.getZ()) continue;
+            Biome tint = chosen.get(entry.getValue());
+            if (tint == null) continue;
+            Biome was = world.getBiome(cell.x(), cell.y(), cell.z());
+            if (was.equals(tint)) continue;
+            original.putIfAbsent(cell, was);
+            world.setBiome(cell.x(), cell.y(), cell.z(), tint);
+            wrote = true;
+        }
+        // Clients cache biomes with the chunk, so a write is invisible until
+        // the chunk is sent again.
+        if (wrote) world.refreshChunk(chunk.getX(), chunk.getZ());
     }
 
     /** Put every tinted cell back. */
     public void revert() {
+        planned.clear();
         if (world == null || original.isEmpty()) { original.clear(); chosen.clear(); return; }
         Set<Long> touched = new HashSet<>();
         for (var entry : original.entrySet()) {
@@ -178,7 +218,8 @@ public final class ObjectiveTint {
     }
 
     public String report() {
-        return "OBJECTIVE_TINT enabled=" + enabled() + " cells=" + original.size()
+        return "OBJECTIVE_TINT enabled=" + enabled() + " planned=" + planned.size()
+                + " painted=" + original.size()
                 + " north=" + (chosen.get(Team.NORTH) == null ? "none"
                         : chosen.get(Team.NORTH).getKey().getKey())
                 + " south=" + (chosen.get(Team.SOUTH) == null ? "none"
