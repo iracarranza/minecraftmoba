@@ -40,9 +40,9 @@ public final class AbilityInputs implements Listener {
         var classes=Objects.requireNonNull(c.getConfigurationSection("abilities.classes"));
         for (String id : classes.getKeys(false)) {
             var classSection = classes.getConfigurationSection(id);
-            var definition = new ClassDefinition(id, classSection.getString("displayName"), classSection.getString("passiveHook"),
-                classSection.getString("statGrowthProfile"), stringMap(classSection.getConfigurationSection("infrastructureProgression")),
-                stringMap(classSection.getConfigurationSection("branches")), stringMap(classSection.getConfigurationSection("persistentStateDefaults")));
+            var definition = new ClassDefinition(id, text(classSection, "displayName"), text(classSection, "passiveHook"),
+                text(classSection, "statGrowthProfile"), stringMap(section(classSection, "infrastructureProgression")),
+                stringMap(section(classSection, "branches")), stringMap(section(classSection, "persistentStateDefaults")));
             this.classes.put(id, definition);
             Map<Input, Ability> kit = new EnumMap<>(Input.class);
             for (String slot : List.of("a1","a2","ult")) {
@@ -132,6 +132,14 @@ public final class AbilityInputs implements Listener {
         Map<String,String> result = new HashMap<>();
         for (String key : section.getKeys(false)) result.put(key, Objects.requireNonNull(section.getString(key)));
         return result;
+    }
+    private static String text(org.bukkit.configuration.ConfigurationSection section, String key) {
+        Object value = section.get(key);
+        return value == null ? null : value.toString();
+    }
+    private static org.bukkit.configuration.ConfigurationSection section(org.bukkit.configuration.ConfigurationSection parent, String key) {
+        Object value = parent.get(key);
+        return value instanceof org.bukkit.configuration.ConfigurationSection child ? child : null;
     }
     public void exit(Player p, boolean silent) {
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();
