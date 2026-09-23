@@ -203,8 +203,30 @@ public final class ObjectiveGlow implements Listener {
      *
      * The structure's own footprint is skipped -- marking the ground is the
      * point, and outlining the building is what the box already does.
+     *
+     * [OFF BY DEFAULT, 23 September 2026.] Tried in play and reverted. The glow
+     * outline is drawn PER ENTITY, so every merged rectangle carries its own
+     * silhouette and the interior of a volume fills with a grid of internal
+     * edges instead of reading as one marked area. That is not a tuning problem
+     * -- no tolerance or rectangle size fixes it, because nothing lets a plugin
+     * merge outlines across entities. The biome tint, which colours the ground
+     * itself and is therefore seamless by construction, is better at this job
+     * wherever the ground can take a colour.
+     *
+     * Kept, off, because the terrain-independence is still the right answer for
+     * a Cave or Mushroom Island map where no block accepts a tint. [OPEN] The
+     * untried variant is slabs that are translucent and NOT glowing: no
+     * outline to be seamed, colour from the block rather than the team, and a
+     * sixteen-colour palette instead of arbitrary RGB.
+     *
+     * [OPEN, raised 23 September] A better variant than dropping the glow:
+     * make the BLOCK and its OUTLINE the same colour. The internal edges do
+     * not need to be merged if they are indistinguishable from the surface
+     * they divide, which dissolves the seam problem rather than working
+     * around it. Untried.
      */
     private void groundSlabs(org.bukkit.Chunk chunk) {
+        if (!plugin.getConfig().getBoolean("features.objectiveGlow.groundSlabs", false)) return;
         World world = chunk.getWorld();
         for (Box box : plan) {
             if (!world.equals(box.at().getWorld())) continue;

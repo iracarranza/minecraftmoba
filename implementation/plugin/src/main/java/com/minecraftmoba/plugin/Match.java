@@ -166,13 +166,17 @@ public final class Match implements Listener {
         if (plugin.objectiveGlow() != null) {
             int boxes = plugin.objectiveGlow().rebuild(w);
             if (boxes > 0) plugin.getLogger().info("[match] " + plugin.objectiveGlow().report());
-            // [SUPERSEDED] The biome tint marked the same volumes, and is
-            // replaced by the glow's terrain-hugging ground slabs. A biome
-            // colour only reaches blocks carrying a tintindex -- 33 models,
-            // all vegetation and water -- so it marked nothing at all on a map
-            // built into stone or onto mycelium. Rendered geometry does not
-            // care what the ground is made of. The tint code and its datapack
-            // are left in place, off, rather than deleted.
+            // The tint marks the same volumes the glow plans, from the same
+            // list, so the two cannot disagree about where an objective is.
+            //
+            // Terrain-hugging glow slabs were tried in its place and reverted:
+            // the outline is drawn per entity, so a merged rectangle grid fills
+            // the volume with internal edges instead of reading as one area.
+            // The tint colours the ground itself and is seamless by
+            // construction.
+            if (plugin.objectiveTint() != null)
+                plugin.objectiveTint().apply(w, plugin.objectiveGlow().volumes(),
+                        plugin.objectiveGlow().widestHalfWidth(), 12);
         }
         record.matchBound(claimed == null ? null : claimed.mapId(),
                 claimed == null ? 0 : claimed.seed(), bindings);

@@ -53,6 +53,14 @@ features:
   # add one here without resolving that.
   objectiveGlow:
     enabled: false
+    # Terrain-hugging glow slabs across the controlled ground. TRIED AND
+    # REVERTED: the glow outline is drawn per entity, so every merged rectangle
+    # carries its own silhouette and the volume fills with internal edges
+    # instead of reading as one marked area. No tolerance fixes it -- nothing
+    # lets a plugin merge outlines across entities. Kept for a map type where
+    # no block accepts a biome colour, which is the one case the tint cannot
+    # serve.
+    groundSlabs: false
     colour:
       north: AQUA
       south: RED
