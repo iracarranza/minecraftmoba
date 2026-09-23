@@ -493,6 +493,21 @@ def author_into(out: Compilation, world):
                                 f'{team}/{kind} has no terrain under it')
             placements.append({'structure': kind, 'team': team,
                                'world_xyz': [x, surface + 1, z]})
+    # The Fountains, which are the same defect as the unmanifested Lair one
+    # system over. Every team's respawn and reconstruction binds to a Fountain
+    # coordinate, and this stage used to build the six objectives and the Lair
+    # and nothing else -- so a map could pass every physical check, certify as
+    # READY, bind `fountains=2`, and have open air at both of them. The
+    # runtime reported "fountain active" the whole time, because it was
+    # reporting a binding rather than a structure.
+    for team, xyz in (out.evidence.get('fountains') or {}).items():
+        x, z = xyz[0], xyz[2]
+        surface = reader.surface(x, z)
+        if surface is None:
+            return out.fail('author', 'FOUNTAIN_SITE_UNGENERATED',
+                            f'{team} Fountain has no terrain under it')
+        placements.append({'structure': 'aether_fountain', 'team': team,
+                           'world_xyz': [x, surface + 1, z]})
     # The Lair, which is the whole reason a map could reach READY unusable.
     # Authored in the same pass as the objectives so a verified world is a
     # complete one rather than one missing the system nobody checked.

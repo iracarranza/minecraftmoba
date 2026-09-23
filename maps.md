@@ -344,6 +344,62 @@ important destination is immediately visible from the previous one.
 Meaningful empty connective terrain is part of the map.
 
 
+## Opening access — Canonical, 23 September 2026
+
+The map-authored thing and the player-created thing are **different objects**,
+and the shared word "Route" has been hiding that. The layering is:
+
+```
+Homebase Core
+     |
+authored base exits / opening access
+     |
+compact Opening Hinterland
+     |
+natural Wilderness
+     |
+player-recognized Exploration Routes
+```
+
+> The initial map says **"here are sane ways out."**
+> Exploration says **"we have learned how to move through this wilderness."**
+
+**The generated map does owe opening access.** This is not optional and is not
+satisfied by zero. A team whose Core is walled in by natural terrain has a
+dysfunctional opening, and refusing to intervene is not neutrality. What the map
+owes is short access **out of the Homebase and through into its compact
+Hinterland** — nothing more. Authored access must not become a broad highway
+into the Wilderness, and must not connect a team directly to objectives, POIs or
+the Lair.
+
+**The requirement is equivalent exit capacity, not identical exit geometry.**
+One base may have two broad natural approaches and need no intervention at all;
+another may need a small terrain-conforming connection around a cliff. Carving
+matching roads through both sides to make a symmetry number come out is the
+wrong instinct — Hinterlands are not mirrored, and the gate is whether each team
+can get out, not whether they get out the same way.
+
+[OPEN] **Whether authored opening access should carry the formal `Route`
+identity at all is unresolved.** It may be a precursor concept that deserves its
+own name. Do not assume the two are one object because the Alpha map's authored
+features were called Routes.
+
+[HISTORICAL] The compiler gap identified on 23 September was mis-stated as
+"generated maps author no Routes, the Alpha map did, so they disagree about what
+a map owes." That framing was wrong on both halves: Exploration Routes are
+player infrastructure and correctly absent at match start, while opening access
+is owed and is genuinely missing. **The gap is opening-access certification, not
+Route generation.** A generic `routes` stage must not be added to the compiler
+if it would generate formal Exploration Infrastructure before play begins; the
+Homebase/Hinterland authoring and verification stages are where each Core's
+initial exits into its own Hinterland should be established and checked.
+
+For the Alpha map's own authored "Routes": read them case by case. Where they
+are short base-access features serving the compact Hinterland, they are the
+precursor to the opening-access concept above. Where they extend substantially
+into Wilderness or toward strategic destinations, that portion does **not**
+establish what a generated map owes at match start.
+
 ## Authored Routes — Working
 
 Initial/map-authored Routes primarily support Homebase exits and hinterlands.

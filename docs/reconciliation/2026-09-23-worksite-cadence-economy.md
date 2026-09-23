@@ -133,3 +133,38 @@ Java **258** tests, 0 failures. Worldgen **402** tests, 0 failures.
 **This is not balance validation.** Nothing here was played, no quantity was
 measured, and passing tests say only that the runtime states what doctrine says
 and refuses to state what doctrine leaves open.
+
+
+---
+
+# Addendum, same day: opening access is not Routes
+
+Recorded here because it corrects a diagnosis made during the first live play
+session, not because it belongs to the Worksite pass.
+
+While playing the generated map, two things were reported missing: the Aether
+Fountain and any Routes. The Fountain was a real defect (see the live-play
+notes). The Route diagnosis was **wrong**, in both halves:
+
+- *"Exploration Routes are player infrastructure, so zero at match start is
+  defensible"* — true only of the formal Exploration Infrastructure object.
+- *"generated maps and the frozen map disagree about what a map owes on day
+  one"* — wrong. Current Hinterland doctrine already says the generated map
+  **does** owe opening access. What was unsettled is whether that authored
+  access shares the `Route` identity.
+
+The correct layering is Core -> authored base exits / opening access -> compact
+Opening Hinterland -> natural Wilderness -> player-recognized Exploration
+Routes. The map says "here are sane ways out"; Exploration says "we have learned
+how to move through this wilderness."
+
+**The compiler gap is opening-access certification, not Route generation.** A
+generic `routes` stage must not be added if it would author formal Exploration
+Infrastructure before play; the Homebase/Hinterland stages are where each Core's
+exits into its own Hinterland belong. The gate is **equivalent exit capacity,
+not identical exit geometry** — one base may need no intervention and another a
+short terrain-conforming connection, and carving matching roads to equalise a
+number is the wrong instinct.
+
+See maps.md, *Opening access*. Whether authored opening access should carry the
+formal `Route` name remains [OPEN]. Not implemented.
