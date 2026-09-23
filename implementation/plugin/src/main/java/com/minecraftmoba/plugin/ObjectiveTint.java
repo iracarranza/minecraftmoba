@@ -54,25 +54,31 @@ public final class ObjectiveTint implements Listener {
      * runtime takes the first two that the map does not already contain, so
      * order is a preference and not a guarantee.
      */
-    private static final List<String> CANDIDATES = List.of(
-            "SWAMP",             // murky olive; verified legible in play
-            "BADLANDS",          // tan/orange
-            "DESERT",            // pale straw
-            "SNOWY_PLAINS",      // washed-out grey-green
-            "MANGROVE_SWAMP",    // dark teal, and a distinct water colour
-            "SAVANNA",           // dry gold
-            "DARK_FOREST",       // notably darker green
-            "MUSHROOM_FIELDS");
-
     /**
-     * Chosen for GRASS AND FOLIAGE TINT, not for how the biome looks overall.
+     * The two tint biomes, defined by the `moba_tint` datapack.
      *
-     * The first list led with CHERRY_GROVE because a cherry grove reads as
-     * pink. That pink is cherry leaf and log BLOCKS; the biome's own grass
-     * colour is close to plains, so it would have tinted almost nothing. Only
-     * biomes whose grass/foliage colour genuinely differs belong here, and
-     * SWAMP leads because it is the one confirmed by eye in play.
+     * [SUPERSEDED] This was a list of vanilla candidates, and the map was
+     * surveyed to find two it did not already contain. Absence turned out to be
+     * the wrong test, twice: CHERRY_GROVE was picked because a cherry grove
+     * READS as pink, when that pink is leaf and log BLOCKS and its grass colour
+     * is close to plains; then BADLANDS was picked because the map had none,
+     * when the south Fountain sits in savanna whose grass is already dry tan.
+     * Two biomes can be different biomes and the same colour.
+     *
+     * Defining the colours outright replaces a search with a decision. These
+     * biomes exist only to carry a team's colour: they are never generated,
+     * only painted onto ground that already exists, and the datapack gives them
+     * empty spawners and no features precisely so that painting them changes
+     * what the ground LOOKS like and nothing else. That also removes the open
+     * question the vanilla approach could not answer -- a borrowed biome
+     * brought its spawn table with it.
+     *
+     * Their colours match the glow's ChatColor pair, so the two signatures
+     * agree rather than being two different aquas.
      */
+    private static final Map<Team, org.bukkit.NamespacedKey> TINT = Map.of(
+            Team.NORTH, org.bukkit.NamespacedKey.fromString("moba:team_north"),
+            Team.SOUTH, org.bukkit.NamespacedKey.fromString("moba:team_south"));
 
     /** How far apart to sample when surveying which biomes a map uses. */
     private static final int SURVEY_STEP = 32;
@@ -83,6 +89,7 @@ public final class ObjectiveTint implements Listener {
     private final Map<Cell, Team> planned = new LinkedHashMap<>();
     private final Map<Cell, Biome> original = new LinkedHashMap<>();
     private final EnumMap<Team, Biome> chosen = new EnumMap<>(Team.class);
+    private Set<Biome> surveyed = Set.of();
     private World world;
 
     public ObjectiveTint(MobaPlugin plugin) { this.plugin = plugin; }
@@ -126,22 +133,29 @@ public final class ObjectiveTint implements Listener {
      * so the feature declines rather than picking a colliding colour.
      */
     private boolean choose(World w, Collection<Location> around) {
-        Set<Biome> present = survey(w, around, plugin.getConfig()
-                .getInt("features.objectiveTint.surveyRadius", 64));
-        List<Biome> free = new ArrayList<>();
-        for (String name : CANDIDATES) {
-            Biome candidate = org.bukkit.Registry.BIOME.get(
-                    org.bukkit.NamespacedKey.minecraft(name.toLowerCase(Locale.ROOT)));
-            if (candidate != null && !present.contains(candidate)) free.add(candidate);
+        chosen.clear();
+        var missing = new ArrayList<String>();
+        for (var entry : TINT.entrySet()) {
+            Biome biome = entry.getValue() == null ? null
+                    : org.bukkit.Registry.BIOME.get(entry.getValue());
+            if (biome == null) missing.add(String.valueOf(entry.getValue()));
+            else chosen.put(entry.getKey(), biome);
         }
-        if (free.size() < 2) {
-            plugin.getLogger().warning("[tint] this map already uses all but "
-                    + free.size() + " candidate tint biome(s); declining to tint rather "
-                    + "than pick a colour the surrounding terrain already wears");
+        if (!missing.isEmpty()) {
+            // Fail loudly rather than falling back to a vanilla colour. A
+            // silent fallback is how the wrong tint shipped twice.
+            plugin.getLogger().warning("[tint] the moba_tint datapack is not loaded: "
+                    + missing + " are not in the biome registry. Install "
+                    + "implementation/datapacks/moba_tint into the world's datapacks "
+                    + "directory. No tint is applied.");
+            chosen.clear();
             return false;
         }
-        chosen.put(Team.NORTH, free.get(0));
-        chosen.put(Team.SOUTH, free.get(1));
+        // The survey no longer chooses anything; it only reports what the
+        // ground already looks like, so a tint that fails to read can be
+        // diagnosed instead of guessed at.
+        surveyed = survey(w, around, plugin.getConfig()
+                .getInt("features.objectiveTint.surveyRadius", 64));
         return true;
     }
 
@@ -223,6 +237,7 @@ public final class ObjectiveTint implements Listener {
                 + " north=" + (chosen.get(Team.NORTH) == null ? "none"
                         : chosen.get(Team.NORTH).getKey().getKey())
                 + " south=" + (chosen.get(Team.SOUTH) == null ? "none"
-                        : chosen.get(Team.SOUTH).getKey().getKey());
+                        : chosen.get(Team.SOUTH).getKey().getKey())
+                + " surrounding=" + surveyed.size() + " biome(s)";
     }
 }
