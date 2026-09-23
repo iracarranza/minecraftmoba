@@ -781,11 +781,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 }
 
                 case "setclass" -> {
-                    if (args.length != 3) return false;
+                    if (args.length != 3 && args.length != 5) return false;
                     if (args[2].isBlank()) throw new IllegalArgumentException("Class ID cannot be blank.");
                     inputs.exit(p, true);
                     d.classId = args[2].equals("none") ? null : args[2];
                     d.modeState.clear();
+                    if (args.length == 5) inputs.setBranches(p, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
                 }
                 case "setlevel" -> {
                     if (args.length != 3) return false;

@@ -85,7 +85,7 @@ public final class AbilityInputs implements Listener {
         var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
         last.put(ability.id(), tick);
-        if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId)))) {
+        if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d))) {
             ready.put(ability.id(),tick+ability.cooldownTicks());
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
@@ -140,6 +140,25 @@ public final class AbilityInputs implements Listener {
     private static org.bukkit.configuration.ConfigurationSection section(org.bukkit.configuration.ConfigurationSection parent, String key) {
         Object value = parent.get(key);
         return value instanceof org.bukkit.configuration.ConfigurationSection child ? child : null;
+    }
+    public void setBranches(Player p, int a1, int a2) {
+        var d = plugin.data(p);
+        var kit = d == null ? null : kits.get(d.classId);
+        if (kit == null) throw new IllegalArgumentException("Class has no configured ability kit.");
+        select(d, kit.get(Input.valueOf(plugin.getConfig().getString("abilities.bindings.a1"))), "a1", a1);
+        select(d, kit.get(Input.valueOf(plugin.getConfig().getString("abilities.bindings.a2"))), "a2", a2);
+    }
+    private void select(PlayerData data, Ability ability, String slot, int index) {
+        if (index < 0 || index > 3) throw new IllegalArgumentException("Branch must be between 0 and 3.");
+        if (ability == null) {
+            if (index != 0) throw new IllegalArgumentException(slot + " has no configured ability.");
+            return;
+        }
+        var branches = ability.branchIds();
+        if (index > branches.size()) throw new IllegalArgumentException(slot + " has only " + branches.size() + " branches.");
+        String key = "branch." + ability.id();
+        if (index == 0) data.classState.remove(key);
+        else data.classState.put(key, branches.get(index - 1));
     }
     public void exit(Player p, boolean silent) {
         if (plugin.enrolled(p)) plugin.data(p).modeState.clear();

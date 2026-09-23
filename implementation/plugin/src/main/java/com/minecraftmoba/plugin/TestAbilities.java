@@ -38,8 +38,11 @@ final class TestAbilities {
         public Map<String, String> branches() {
             return id.equals("lunge") ? Map.of("swarming_bite", "Swarming Bite", "thieving_swipe", "Thieving Swipe", "stalking_pounce", "Stalking Pounce") : Map.of();
         }
+        public List<String> branchIds() {
+            return id.equals("lunge") ? List.of("swarming_bite", "thieving_swipe", "stalking_pounce") : List.of();
+        }
         private boolean lunge(Player p, AbilityContext ctx) {
-            String branch = ctx.classDefinition() == null ? null : ctx.classDefinition().branchFor(id);
+            String branch = ctx.branchFor(id);
             double power = config.getDouble("power");
             if ("swarming_bite".equals(branch)) power += Math.min(nearby(p, "WOLF"), 4) * branchDouble("swarmingBite", "perWolfPower");
             if ("thieving_swipe".equals(branch)) power = branchDouble("thievingSwipe", "power");
