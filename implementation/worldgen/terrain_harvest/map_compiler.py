@@ -78,14 +78,26 @@ PROVISIONAL = {
     # radius and the sample window varies.
     'max_hinterland_fraction_of_end': 0.5,
     # PROVISIONAL_ALPHA, and the one constant that decides a genuine competitive
-    # constraint, so it is taken from the measured distribution rather than
-    # chosen. Best achievable A_L across the eight screened finalists, each over
-    # 11.8k-12.3k considered cells: 0.001, 0.050, 0.073, 0.226, 0.294, 0.415,
-    # 0.678, 0.787. The widest gap in that distribution by far is 0.073 -> 0.226,
-    # so 0.15 sits in the middle of it and any value in [0.08, 0.22] selects
-    # exactly the same three seeds -- the threshold is insensitive across a band
-    # three times its own width. Tightening below 0.05 would keep one seed in
-    # eight; loosening past 0.30 stops discriminating.
+    # constraint.
+    #
+    # HELD AT 0.15, BUT ITS ORIGINAL JUSTIFICATION NO LONGER HOLDS. It was
+    # chosen from eight finalists, where best-achievable A_L ran
+    # 0.001 0.050 0.073 | 0.226 0.294 0.415 0.678 0.787 and the widest gap by
+    # far was 0.073-0.226; the recorded claim was that any bound inside that gap
+    # selected the same three seeds, so the choice was insensitive.
+    #
+    # With 31 seeds (the eight finalists plus the locally generated ones) the
+    # distribution is continuous -- 0.000 0.000 0.000 0.001 x4 0.022 0.038 0.050
+    # 0.068 0.073 0.119 0.173 0.226 0.272 ... 1.890 -- and there are now values
+    # at 0.119 and 0.173 inside the gap that justified the number. The gap is
+    # gone. Sensitivity is smooth: 0.10 admits 39% of seeds with a viable
+    # socket, 0.15 admits 42%, 0.20 admits 45%.
+    #
+    # So the value is unchanged, because more data is not by itself a reason to
+    # move it, but its status is not: 0.15 is now a judgement about how much
+    # access disparity is tolerable, not a break the evidence hands us. It stays
+    # PROVISIONAL_ALPHA and the first playtests are what should settle it.
+    # Evidence: reports/map_compiler_2026-09-23/lair-access-distribution-expanded.json
     'max_lair_access_asymmetry': 0.15,
     # PROVISIONAL_ALPHA. Blocks of cut plus fill per footprint column to level a
     # site, measured over 1800 random footprints across three generated worlds:

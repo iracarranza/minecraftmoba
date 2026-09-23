@@ -63,6 +63,10 @@ public final class Match implements Listener {
     private BukkitTask ticker;
     /** Positions read from the claimed realization, or null on the template. */
     private MapBindings bindings;
+    /** What this match did, for comparison against what the compiler predicted. */
+    private MatchRecord record = new MatchRecord();
+
+    public MatchRecord record() { return record; }
 
     public Match(MobaPlugin plugin, WorldInstance worldInstance) {
         this.plugin = plugin;
@@ -104,6 +108,7 @@ public final class Match implements Listener {
         if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
         resetFields();
         state = State.PRE_MATCH;
+        record = new MatchRecord();
         var pool = plugin.mapPool();
         return "Match created; PRE_MATCH. Add players and teams, then resolve the map"
                 + " selection. " + (pool == null ? "" : pool.report());
@@ -150,6 +155,16 @@ public final class Match implements Listener {
             int sites = plugin.worksites().bind(bindings, w);
             plugin.getLogger().info("[match] bound " + sites + " worksite(s)");
         }
+        record.matchBound(claimed == null ? null : claimed.mapId(),
+                claimed == null ? 0 : claimed.seed(), bindings);
+        if (bindings != null) {
+            record.prediction("lair_anchor", String.valueOf(bindings.lairAnchor(w)));
+            record.prediction("worksites", String.valueOf(bindings.worksites(w).size()));
+        }
+        for (Team t : Team.values())
+            record.prediction("fountain_" + t.lower(), String.valueOf(homelands.get(t)));
+        if (plugin.lair() != null && plugin.lair().report().contains("UNCONFIGURED"))
+            record.problem("lair UNCONFIGURED after binding");
         return "Selected " + (claimed != null ? "pool map " + claimed.mapId()
                                                 + " (seed " + claimed.seed() + ")"
                                               : "the configured template")
@@ -327,6 +342,10 @@ public final class Match implements Listener {
             // replacing an occupant does not change the recorded victory.
         }
         if (notes.isEmpty()) notes.add("no scheduled opportunity (post-Dragon cadence is OPEN)");
+        record.night(ordinal, String.valueOf(stage),
+                plugin.worksites() == null ? 0
+                        : plugin.worksites().inState(Worksites.State.ACTIVATED).size(),
+                plugin.lair() == null ? "none" : plugin.lair().lifecycle().state().name());
         announce("Night " + ordinal + " (" + MatchClock.minutes(elapsed) + "m, " + stage + "): "
                 + String.join("; ", notes));
         plugin.getLogger().info("[match] night " + ordinal + " " + stage + " at "
@@ -393,6 +412,12 @@ public final class Match implements Listener {
         };
         if (toppled && plugin.teamObjectives() != null)
             plugin.teamObjectives().recordValidatedToppling(team, kind);
+        record.siege(team, kind, switch (route.toLowerCase(java.util.Locale.ROOT)) {
+            case "combat" -> DefensiveCapacity.Source.COMBAT;
+            case "structural" -> DefensiveCapacity.Source.STRUCTURAL;
+            case "signature" -> DefensiveCapacity.Source.SIGNATURE;
+            default -> DefensiveCapacity.Source.LAIR_ASSAULT;
+        }, objective.remaining(), objective.initial, toppled);
         Location at = plugin.teamObjectives() == null ? null
                 : plugin.teamObjectives().site(team, kind);
         String where = at == null ? "UNBOUND"
@@ -418,6 +443,7 @@ public final class Match implements Listener {
         var kind = TeamObjectives.pairedObjective(boss);
         Team defender = victor.other();
         String result = siege(defender, kind.name(), "lair", 1);
+        record.lairContest(boss, victor, "assault on " + defender.lower() + " " + kind);
         announce(victor.lower() + " defeated the " + boss + "; it assaults "
                  + defender.lower() + " " + kind + ".");
         return result;
@@ -489,6 +515,9 @@ public final class Match implements Listener {
         if (state != State.RUNNING) throw new IllegalStateException("No match running.");
         state = State.ENDED; winner = victor;
         if (ticker != null) { ticker.cancel(); ticker = null; }
+        record.ended(victor);
+        var claimed = worldInstance.claimed();
+        if (claimed != null) record.write(claimed.directory().resolve("matches"));
         // A played map never returns to READY: players changed it, and a pool
         // entry is only worth anything while it is pristine.
         worldInstance.release(victor == null ? "no-victor" : victor.lower() + "-wins");

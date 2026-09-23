@@ -289,9 +289,17 @@ distinctly, reported exhaustion, and retired one to USED. Disabled by default.
   region that `extract_region` correctly refuses. Fixed by batching generation
   across ticks and adding a three-chunk margin ring, since a chunk cannot reach
   FULL until its neighbours exist.
-- **Remaining blockers**: the End Spike mesh; column-scan verification for the
-  Spike's vertical clearance and the Bastion's interior; no physical authoring
-  or verification stage has been exercised end to end.
+- **Blockers resolved within this pass**, listed here because an earlier draft
+  of this section recorded them as outstanding and that is no longer true:
+  the End Spike mesh was authored from the measured contract; column-scan
+  verification runs for the Spike's clearance and the Bastion's footprint; and
+  physical authoring plus a block-level readback ran end to end. §5 is the
+  current state and this section is subordinate to it.
+- **Remaining blockers at the close of this pass**: the Lair was sited but not
+  manifested, so a verified map could enter READY with no runtime Lair. That
+  was the principal defect carried forward, and it is what
+  [`2026-09-23-generated-map-lifecycle.md`](2026-09-23-generated-map-lifecycle.md)
+  addresses.
 
 ---
 

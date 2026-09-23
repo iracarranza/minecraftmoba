@@ -144,10 +144,72 @@ def inventory(pool: Path) -> dict:
     return {'pool': str(pool), 'counts': counts, 'entries': entries}
 
 
+def job(pool: Path, candidates, worlds, *, target_depth, max_attempts=None,
+        build_root=Path('/tmp')) -> dict:
+    """Publish until the pool holds `target_depth` READY maps, or inputs run out.
+
+    Bounded on purpose. A foundry that runs until it succeeds is a foundry that
+    hangs when the geography will not cooperate, so it stops at a target, an
+    attempt limit, or the end of its candidates, and says which.
+    """
+    started = time.time()
+    attempts = 0
+    published, rejected = [], []
+    for path in candidates:
+        if inventory(pool)['counts'][READY] >= target_depth:
+            return _job_result('target reached', pool, published, rejected, attempts, started)
+        if max_attempts is not None and attempts >= max_attempts:
+            return _job_result('attempt bound reached', pool, published, rejected,
+                               attempts, started)
+        attempts += 1
+        c = json.loads(Path(path).read_text())
+        seed = c.get('seed')
+        world = worlds.get(seed)
+        if world is None or not Path(world).is_dir():
+            rejected.append({'seed': seed, 'why': 'no generated world'})
+            continue
+        build = Path(build_root) / f'foundry-{seed}'
+        if build.exists():
+            shutil.rmtree(build)
+        shutil.copytree(world, build)
+        try:
+            result = compile_candidate(c, world, build).as_dict()
+            if result.get('ready'):
+                published.append(publish(pool, seed, build, result))
+            else:
+                rejected.append({'seed': seed, 'stage': result['deepest_stage_reached'],
+                                 'verified': result.get('verified'),
+                                 'codes': [x['code'] for x in result['rejections']]})
+        finally:
+            shutil.rmtree(build, ignore_errors=True)
+    return _job_result('candidates exhausted', pool, published, rejected, attempts, started)
+
+
+def _job_result(reason, pool, published, rejected, attempts, started):
+    elapsed = time.time() - started
+    counts = {}
+    for r in rejected:
+        for code in r.get('codes', [r.get('why', 'unknown')]):
+            counts[code] = counts.get(code, 0) + 1
+    return {
+        'stopped_because': reason,
+        'attempts': attempts,
+        'published': [m['map_id'] for m in published],
+        'rejected': rejected,
+        'rejection_codes': counts,
+        'inventory': inventory(pool)['counts'],
+        'elapsed_seconds': round(elapsed, 1),
+        'seconds_per_ready_map': round(elapsed / len(published), 1) if published else None,
+    }
+
+
 def main(argv=None):
     import argparse
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--pool', type=Path, required=True)
+    p.add_argument('--target-depth', type=int,
+                   help='publish until the pool holds this many READY maps')
+    p.add_argument('--max-attempts', type=int)
     p.add_argument('--candidate', type=Path, action='append', default=[])
     p.add_argument('--world-root', type=Path, default=Path('/tmp'))
     p.add_argument('--build-root', type=Path)
@@ -155,6 +217,18 @@ def main(argv=None):
     a = p.parse_args(argv)
     if a.inventory:
         print(json.dumps(inventory(a.pool), indent=1))
+        return
+    if a.target_depth is not None:
+        worlds = {}
+        for path in a.candidate:
+            seed = json.loads(Path(path).read_text()).get('seed')
+            world = a.world_root / f'mm-vs-{seed}' / 'world'
+            if world.is_dir():
+                worlds[seed] = world
+        print(json.dumps(job(a.pool, a.candidate, worlds,
+                             target_depth=a.target_depth,
+                             max_attempts=a.max_attempts,
+                             build_root=a.build_root or Path('/tmp')), indent=1))
         return
     published, rejected = [], []
     for path in a.candidate:

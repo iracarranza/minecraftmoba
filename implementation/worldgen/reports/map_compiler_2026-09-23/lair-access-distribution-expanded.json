@@ -1,0 +1,225 @@
+{
+ "schema": "lair_access_distribution/2",
+ "n": 31,
+ "rows": [
+  {
+   "seed": 16161616,
+   "best": 0.0,
+   "viable": 1041,
+   "source": "unseen"
+  },
+  {
+   "seed": 10111213,
+   "best": 0.0001,
+   "viable": 404,
+   "source": "unseen"
+  },
+  {
+   "seed": 2718281,
+   "best": 0.0001,
+   "viable": 355,
+   "source": "unseen"
+  },
+  {
+   "seed": 17171717,
+   "best": 0.0005,
+   "viable": 696,
+   "source": "unseen"
+  },
+  {
+   "seed": 60606060,
+   "best": 0.0005,
+   "viable": 229,
+   "source": "unseen"
+  },
+  {
+   "seed": 930016664,
+   "best": 0.0008,
+   "viable": 206,
+   "source": "finalist"
+  },
+  {
+   "seed": 24681012,
+   "best": 0.001,
+   "viable": 1165,
+   "source": "unseen"
+  },
+  {
+   "seed": 135791113,
+   "best": 0.0223,
+   "viable": 675,
+   "source": "unseen"
+  },
+  {
+   "seed": 4444777,
+   "best": 0.0377,
+   "viable": 518,
+   "source": "unseen"
+  },
+  {
+   "seed": 930015734,
+   "best": 0.0502,
+   "viable": 195,
+   "source": "finalist"
+  },
+  {
+   "seed": 99887766,
+   "best": 0.068,
+   "viable": 288,
+   "source": "unseen"
+  },
+  {
+   "seed": 930005557,
+   "best": 0.0735,
+   "viable": 432,
+   "source": "finalist"
+  },
+  {
+   "seed": 6180339,
+   "best": 0.1192,
+   "viable": 486,
+   "source": "unseen"
+  },
+  {
+   "seed": 5150555,
+   "best": 0.173,
+   "viable": 677,
+   "source": "unseen"
+  },
+  {
+   "seed": 930019528,
+   "best": 0.2255,
+   "viable": 595,
+   "source": "finalist"
+  },
+  {
+   "seed": 14916253,
+   "best": 0.2717,
+   "viable": 570,
+   "source": "unseen"
+  },
+  {
+   "seed": 930012642,
+   "best": 0.2936,
+   "viable": 412,
+   "source": "finalist"
+  },
+  {
+   "seed": 771113,
+   "best": 0.3217,
+   "viable": 149,
+   "source": "unseen"
+  },
+  {
+   "seed": 930007222,
+   "best": 0.4155,
+   "viable": 51,
+   "source": "finalist"
+  },
+  {
+   "seed": 31337,
+   "best": 0.4666,
+   "viable": 31,
+   "source": "unseen"
+  },
+  {
+   "seed": 12121212,
+   "best": 0.5695,
+   "viable": 40,
+   "source": "unseen"
+  },
+  {
+   "seed": 13571113,
+   "best": 0.6189,
+   "viable": 80,
+   "source": "unseen"
+  },
+  {
+   "seed": 930006815,
+   "best": 0.6778,
+   "viable": 308,
+   "source": "finalist"
+  },
+  {
+   "seed": 90210777,
+   "best": 0.7671,
+   "viable": 168,
+   "source": "unseen"
+  },
+  {
+   "seed": 930010639,
+   "best": 0.787,
+   "viable": 147,
+   "source": "finalist"
+  },
+  {
+   "seed": 50505050,
+   "best": 0.95,
+   "viable": 194,
+   "source": "unseen"
+  },
+  {
+   "seed": 20260923,
+   "best": 0.9746,
+   "viable": 212,
+   "source": "unseen"
+  },
+  {
+   "seed": 8675309,
+   "best": 1.1131,
+   "viable": 74,
+   "source": "unseen"
+  },
+  {
+   "seed": 4242424,
+   "best": 1.1284,
+   "viable": 48,
+   "source": "unseen"
+  },
+  {
+   "seed": 1010101,
+   "best": 1.7091,
+   "viable": 66,
+   "source": "unseen"
+  },
+  {
+   "seed": 9292929,
+   "best": 1.8898,
+   "viable": 2,
+   "source": "unseen"
+  }
+ ],
+ "sorted": [
+  0.0,
+  0.0001,
+  0.0001,
+  0.0005,
+  0.0005,
+  0.0008,
+  0.001,
+  0.0223,
+  0.0377,
+  0.0502,
+  0.068,
+  0.0735,
+  0.1192,
+  0.173,
+  0.2255,
+  0.2717,
+  0.2936,
+  0.3217,
+  0.4155,
+  0.4666,
+  0.5695,
+  0.6189,
+  0.6778,
+  0.7671,
+  0.787,
+  0.95,
+  0.9746,
+  1.1131,
+  1.1284,
+  1.7091,
+  1.8898
+ ]
+}

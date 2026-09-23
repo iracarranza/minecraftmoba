@@ -103,19 +103,27 @@ class OrdinalConstraint(unittest.TestCase):
 
 class LairParity(unittest.TestCase):
 
-    def test_the_bound_comes_from_the_measured_distribution(self):
-        # Best achievable A_L over eight screened finalists:
-        # 0.001 0.050 0.073 | 0.226 0.294 0.415 0.678 0.787
-        # The widest gap is 0.073 -> 0.226, and any bound inside it selects the
-        # same three seeds, so the choice is insensitive across a band three
-        # times its own width.
+    def test_the_bound_is_a_judgement_now_that_the_gap_has_closed(self):
+        # It was chosen from eight finalists, where the widest gap by far was
+        # 0.073 -> 0.226 and any bound inside it selected the same three seeds.
+        # With 31 seeds there are values at 0.119 and 0.173 inside that gap: the
+        # distribution is continuous and the break is gone.
+        #
+        # The value is held, because more data is not a reason to move a number.
+        # What changed is what it rests on, and this test pins that rather than
+        # the vanished gap -- a test asserting the old insensitivity would now
+        # be asserting something false about the evidence.
         bound = mc.PROVISIONAL['max_lair_access_asymmetry']
-        measured = [0.001, 0.050, 0.073, 0.226, 0.294, 0.415, 0.678, 0.787]
-        self.assertGreater(bound, 0.073)
-        self.assertLess(bound, 0.226)
-        for alternative in (0.08, 0.15, 0.22):
-            self.assertEqual([m for m in measured if m <= bound],
-                             [m for m in measured if m <= alternative])
+        self.assertEqual(0.15, bound)
+        measured = [0.0, 0.0, 0.0, 0.001, 0.001, 0.001, 0.001, 0.022, 0.038,
+                    0.05, 0.068, 0.073, 0.119, 0.173, 0.226, 0.272, 0.294]
+        inside_the_old_gap = [m for m in measured if 0.073 < m < 0.226]
+        self.assertTrue(inside_the_old_gap,
+                        'the gap that justified 0.15 is closed; the bound is a choice')
+        # Moving it a third either way changes the admitted set only slightly,
+        # so nothing about the number is sharp.
+        self.assertNotEqual(len([m for m in measured if m <= 0.10]),
+                            len([m for m in measured if m <= 0.20]))
 
     def test_access_parity_is_gated_but_terrain_contrast_is_not(self):
         # The one place parity is a real constraint. Everything else about

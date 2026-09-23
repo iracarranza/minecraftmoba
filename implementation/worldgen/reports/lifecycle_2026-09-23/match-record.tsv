@@ -1,0 +1,25 @@
+# map=2718281-93d1fb5c9f seed=2718281
+# PROVISIONAL_ALPHA thresholds; one match is evidence, not a mandate
+572ms	bound	map=2718281-93d1fb5c9f seed=2718281 bindings: fountains=2 objectives=2 lair=anchored worksites=12
+573ms	prediction	lair_anchor=Location{world=CraftWorld{name=alpha_match},x=380.5,y=64.0,z=468.5,pitch=0.0,yaw=0.0}
+573ms	prediction	worksites=12
+573ms	prediction	fountain_north=Location{world=CraftWorld{name=alpha_match},x=-179.5,y=68.0,z=292.5,pitch=0.0,yaw=0.0}
+573ms	prediction	fountain_south=Location{world=CraftWorld{name=alpha_match},x=236.5,y=65.0,z=44.5,pitch=0.0,yaw=0.0}
+1343ms	night	n=1 stage=WORKSITE_I worksites=2 lair=DORMANT
+2379ms	night	n=2 stage=GIANT worksites=0 lair=ALIVE
+2383ms	siege	south/PILLAGER_OUTPOST by=LAIR_ASSAULT remaining=41.6/92.5
+2383ms	lair	GIANT victor=north assault on south PILLAGER_OUTPOST
+3336ms	night	n=3 stage=WORKSITE_II worksites=2 lair=DORMANT
+4339ms	night	n=4 stage=GHAST worksites=0 lair=ALIVE
+4341ms	siege	south/NETHER_BASTION by=LAIR_ASSAULT remaining=818.0/1817.7
+4341ms	lair	GHAST victor=north assault on south NETHER_BASTION
+5334ms	night	n=5 stage=WORKSITE_III worksites=3 lair=DORMANT
+6351ms	night	n=6 stage=DRAGON worksites=0 lair=ALIVE
+8332ms	siege	south/NETHER_BASTION by=COMBAT remaining=636.2/1817.7
+8334ms	siege	south/NETHER_BASTION by=STRUCTURAL remaining=316.2/1817.7
+8334ms	topple	south/NETHER_BASTION by=SIGNATURE remaining=0.0/1817.7
+8337ms	siege	south/NETHER_BASTION by=COMBAT remaining=0.0/1817.7
+8337ms	topple	south/END_SPIKE by=STRUCTURAL remaining=0.0/260.6
+8338ms	siege	south/END_SPIKE by=LAIR_ASSAULT remaining=0.0/260.6
+8338ms	lair	ENDER_DRAGON victor=north assault on south END_SPIKE
+8340ms	end	winner=north duration_ms=8340
