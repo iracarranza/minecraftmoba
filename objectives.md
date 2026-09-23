@@ -276,8 +276,53 @@ proposal to put beacons in objectives.
 - whether the Fountain's surrounding area is marked by the same means as the
   structure, or by a weaker/derived one.
 
-Nothing here is decided, and no brightness, radius, colour or particle is
-asserted. The settled part is only that **objectives and the Fountain should be
+### What the 23 September prototype established
+
+Tried live, in order, at an authored Pillager Outpost:
+
+| Tried | Result |
+| --- | --- |
+| Beacon + iron pyramid | Beam renders. Pyramid unnecessary -- a lone beacon with sky access beams. Colour needs stained glass above it, so team colour costs world blocks. |
+| `block_display`, block = `barrier` | **Nothing renders at all.** |
+| Invisible glowing shulker | Shell renders anyway; `Invisible:1b` does not hide it. Shape is a shulker, not a box. |
+| `block_display`, block = `glass`, scaled 25x27x25 | Reads as a box: dark frame, clear interior, outline traced. **Chosen direction.** |
+
+**The finding that constrains everything else: the glow is traced from what the
+model renders, so there is no invisible-but-outlined form.** "Retexture it away"
+defeats the effect it is meant to preserve. The choice is which *visible* body is
+acceptable, not whether to have one.
+
+**Working direction for the body: a purpose-built wireframe model, not a
+retextured vanilla block.** Retexturing a block changes that block everywhere it
+occurs, including where players place it. An `item_display` carrying an item
+whose model the pack defines affects nothing else, and the pack pipeline already
+writes item models and uses the `minecraft:item_model` component. The model
+should be twelve thin edge cuboids rather than a solid cube, so the rendered
+body is bars and the glow traces a genuine wireframe.
+
+**Extent:** the box should be larger than the structure, taking in some
+surrounding terrain, so it marks a *place* rather than a building.
+
+[OPEN] Team colour did not apply to a `block_display` in the prototype: the
+entity was on a coloured scoreboard team and still outlined white. Whether
+display entities ignore team colour, or the prototype was set up wrongly, is
+unresolved and must be settled before this is built -- team colour is load-
+bearing, not decoration.
+
+[DEFERRED, 23 September 2026] **Range is not being decided now.** Values of 6-8
+chunks were discussed and the question was explicitly set aside, because it is
+really the vision/information question rather than a presentation setting. When
+it is taken up: the plugin should own the radius and spawn/despawn per player,
+because client view distance and server entity-tracking range are both
+configurable and a design number must not be inheritable from a video settings
+menu.
+
+Settled: **all players see the glow in the colour of the team that controls the
+objective.** Note this presumes control can change; the current design has no
+capture, so "controls" presently means "was authored for".
+
+Nothing else is decided, and no brightness, radius or particle is asserted. The
+rest of the settled part is only that **objectives and the Fountain should be
 recognisable as one team system by looking at them**.
 
 ---

@@ -163,6 +163,10 @@ public final class Match implements Listener {
             int sites = plugin.worksites().bind(bindings, w);
             plugin.getLogger().info("[match] bound " + sites + " worksite(s)");
         }
+        if (plugin.objectiveGlow() != null) {
+            int boxes = plugin.objectiveGlow().rebuild(w);
+            if (boxes > 0) plugin.getLogger().info("[match] " + plugin.objectiveGlow().report());
+        }
         record.matchBound(claimed == null ? null : claimed.mapId(),
                 claimed == null ? 0 : claimed.seed(), bindings);
         if (bindings != null) {

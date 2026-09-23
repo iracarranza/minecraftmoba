@@ -1,6 +1,31 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # A team-coloured glow around each defensive objective and Aether Fountain,
+  # so a player can tell by looking that they are one team system.
+  #
+  # Raised from the first live playtest: an authored Pillager Outpost read as
+  # scenery, with nothing saying whose it was or that it was contestable.
+  #
+  # The body is a clear-glass block display scaled past the structure, because
+  # the glow is traced from what the model RENDERS -- a display carrying an
+  # invisible block produces no outline at all, so there is no
+  # invisible-but-outlined form to configure. A purpose-built wireframe item
+  # model is the intended successor.
+  #
+  # Colours are ChatColor names, because the glow resolves through a scoreboard
+  # team and that is the palette a team colour has. Arbitrary RGB would need
+  # per-player packet work.
+  #
+  # NO RADIUS KEY, deliberately. Range is DEFERRED by design decision -- it is
+  # the vision/information question rather than a presentation setting, and
+  # entity tracking range is the de facto limit until it is taken up. Do not
+  # add one here without resolving that.
+  objectiveGlow:
+    enabled: false
+    colour:
+      north: AQUA
+      south: RED
   # The Aether Fountain restores its own team's Health and Hunger.
   #
   # Only a team's own Fountain restores that team, and a disabled Fountain

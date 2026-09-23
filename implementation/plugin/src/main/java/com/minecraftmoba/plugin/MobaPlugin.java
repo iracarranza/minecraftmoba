@@ -54,6 +54,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Contributions contributions;
     private WorldInstance worldInstance;
     private Worksites worksites;
+    private ObjectiveGlow objectiveGlow;
     private Lair lair;
     private MapPool mapPool;
     private DefensiveCapacity defensiveCapacity;
@@ -135,6 +136,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         defensiveCapacity = new DefensiveCapacity();
         worldInstance = new WorldInstance(this);
         worksites = new Worksites(this);
+        objectiveGlow = new ObjectiveGlow(this);
         teamObjectives = new TeamObjectives();
         lair = new Lair(this);
         getServer().getPluginManager().registerEvents(lair, this);
@@ -286,6 +288,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
 
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
+    /** Team-coloured glow marking objectives and Fountains as one team system. */
+    public ObjectiveGlow objectiveGlow() { return objectiveGlow; }
     /** The single permanent Lair. Reports UNBOUND until a socket is configured. */
     public Lair lair() { return lair; }
     /** The READY map pool the foundry writes into. */
@@ -540,7 +544,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         save(p, d);
         rewards.refresh(p);
     }
-    @EventHandler public void join(PlayerJoinEvent e) { load(e.getPlayer()); }
+    @EventHandler public void join(PlayerJoinEvent e) {
+        load(e.getPlayer());
+        // After load, because Hud hands the player the private scoreboard the
+        // glow colours have to be registered on.
+        if (objectiveGlow != null) getServer().getScheduler().runTaskLater(this,
+                () -> objectiveGlow.apply(e.getPlayer()), 20L);
+    }
     @EventHandler public void quit(PlayerQuitEvent e) {
         var d = players.remove(e.getPlayer().getUniqueId());
         if (d != null) { d.modeState.clear(); save(e.getPlayer(), d); }
