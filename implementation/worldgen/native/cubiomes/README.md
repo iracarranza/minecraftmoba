@@ -15,17 +15,34 @@ own past choices.
 
     git clone --depth 1 https://github.com/Cubitect/cubiomes.git
     cd cubiomes && make libcubiomes
-    cp <this dir>/mobaprobe.c <this dir>/mobascan.c .
-    cc -O2 -o mobaprobe mobaprobe.c libcubiomes.a -lm
-    cc -O2 -o mobascan  mobascan.c  libcubiomes.a -lm
+    cp <this dir>/mobaprobe.c <this dir>/mobascan.c <this dir>/mobastruct.c .
+    cc -O2 -o mobaprobe  mobaprobe.c  libcubiomes.a -lm
+    cc -O2 -o mobascan   mobascan.c   libcubiomes.a -lm
+    cc -O2 -o mobastruct mobastruct.c libcubiomes.a -lm
     export MOBA_CUBIOMES_PROBE=$PWD/mobaprobe
     export MOBA_CUBIOMES_SCAN=$PWD/mobascan
+    export MOBA_CUBIOMES_STRUCT=$PWD/mobastruct
+
+`mobastruct.c` locates Overworld structures. Placement is a 48-bit LCG seeded
+per region, so a candidate position is arithmetic rather than generation.
+
+It is TWO steps and the second is not optional. `getStructurePos` says where a
+structure would go in its region; it only generates if the biome accepts it.
+Every region of the world holds a Mansion candidate and almost none hold a
+Mansion, so emitting step one alone is noise, not an approximation.
+`isViableStructurePos` is applied before anything is printed.
+
+The reported biome is `getBiomeAt` at the surface, NOT `mapApproxHeight`'s id
+output. That output is the biome of the sampled column and can be a cave
+biome: three Mansions on seed 31337 first reported 175 (lush_caves), 29 and
+175 when all three stand in dark_forest (29).
 
 ## Cost
 
 An 8192-block square at 32-block sampling -- 65,536 cells -- scans in about
 one second. Searching 25,088 candidate scoops over it takes another 0.3s.
-Generating that area on a server is hours.
+All thirteen structure kinds over the same square take 0.10s. Generating that
+area on a server is hours.
 
 ## Failing open, and not
 
