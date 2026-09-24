@@ -298,3 +298,211 @@ def describe(feature_grid: dict, *, spacing: int | None = None) -> dict:
         'proves': 'elevation and a flatness proxy only. Developability, water, '
                   'resources and buildability need the scoop generated.',
     }
+
+
+# ---------------------------------------------------------------------------
+# FINDING scoops, as opposed to measuring one.
+#
+# `window_search` slides ONE size and ranks by ocean. This slides many sizes and
+# ranks by symmetry, with no Default parameter involved: no ocean fraction, no
+# east gradient, no land-body count. A scoop that a landmass map would offer --
+# a symmetric stretch of pure inland terrain, or a clean mirror down the middle
+# of a slope -- is invisible to the ocean search and is exactly what this finds.
+#
+# TWO TIERS, because the cost is real. The exact residual needs one pass per
+# mirrored pair, so evaluating it at every offset and size is expensive.
+# `budget` bounds the second tier explicitly rather than letting the scan size
+# decide it.
+#
+# THE SCREEN HAS TO MEASURE THE SAME THING THE RANKING DOES. The first version
+# screened on summed-area statistics -- variance and roughness gaps -- because
+# they are nearly free. They are also blind to mirror quality: a planted,
+# exactly-mirrored band did not survive to the exact tier at all, because
+# nothing in the screen could see it, and the exact tier can only ever reorder
+# what the screen passed. A cheap screen that optimises a different quantity
+# than the ranking does not save work, it changes the answer.
+#
+# So the screen is a COARSE version of the ranking: the same detrended mirror
+# residual on a subsampled grid. It costs 1/k^2 of the exact pass and measures
+# the right thing. The summed-area statistics are still computed and reported,
+# just not ranked on.
+#
+# STRIDE BOUNDS PRECISION. A mirror is only as good as the offset the search
+# happens to land on. On uncorrelated noise a one-sample offset destroys the
+# match completely, and a stride of 4 stepped straight over a planted mirror
+# band in testing. Real terrain is correlated over tens of blocks so it is far
+# more forgiving, but the stride still sets how precisely a mirror LINE can be
+# located, and a scoop's residual is a lower bound on what a finer search
+# would find, never an upper one.
+
+
+def _sat(values, width, depth):
+    table = [[0] * (width + 1) for _ in range(depth + 1)]
+    for j in range(depth):
+        rowsum = 0
+        for i in range(width):
+            rowsum += values[j * width + i]
+            table[j + 1][i + 1] = table[j][i + 1] + rowsum
+    return table
+
+
+def _box(table, i0, j0, i1, j1):
+    return table[j1][i1] - table[j0][i1] - table[j1][i0] + table[j0][i0]
+
+
+def _cheap(sums, i0, j0, i1, j1, axis):
+    """Tilt magnitude and roughness gap between the halves, from sums alone."""
+    h, hh, rough = sums
+    n = (i1 - i0) * (j1 - j0)
+    if n <= 0:
+        return None
+    if axis == 'z':
+        mid = (j0 + j1) // 2
+        ba = (i0, j0, i1, mid); bb = (i0, mid, i1, j1)
+    else:
+        mid = (i0 + i1) // 2
+        ba = (i0, j0, mid, j1); bb = (mid, j0, i1, j1)
+    na = (ba[2] - ba[0]) * (ba[3] - ba[1])
+    nb = (bb[2] - bb[0]) * (bb[3] - bb[1])
+    if na == 0 or nb == 0:
+        return None
+    mean_a = _box(h, *ba) / na
+    mean_b = _box(h, *bb) / nb
+    # Variance stands in for relief here: it is a sum, and relief is not.
+    var_a = max(0.0, _box(hh, *ba) / na - mean_a ** 2)
+    var_b = max(0.0, _box(hh, *bb) / nb - mean_b ** 2)
+    rough_a = _box(rough, *ba) / na
+    rough_b = _box(rough, *bb) / nb
+    return {
+        'tilt_blocks': abs(mean_a - mean_b),
+        'spread_gap': _gap(var_a ** 0.5, var_b ** 0.5),
+        'roughness_gap': _gap(rough_a, rough_b),
+        'mean_elevation': (mean_a + mean_b) / 2,
+    }
+
+
+def _coarse_residual(height, width, i0, j0, cw, cd, axis, k):
+    """Detrended mirror residual on every k-th sample. Same shape as `symmetry`."""
+    cells, coords = [], []
+    for j in range(0, cd, k):
+        for i in range(0, cw, k):
+            cells.append(height[(j0 + j) * width + i0 + i])
+            coords.append(j if axis == 'z' else i)
+    n = len(cells)
+    if n < 4:
+        return None
+    mean_c = sum(coords) / n
+    mean_h = sum(cells) / n
+    den = sum((c - mean_c) ** 2 for c in coords) or 1.0
+    slope = sum((c - mean_c) * (h - mean_h) for c, h in zip(coords, cells)) / den
+    flat = [h - slope * (c - mean_c) for c, h in zip(coords, cells)]
+    w = len(range(0, cw, k))
+    d = len(range(0, cd, k))
+    total, m = 0.0, 0
+    if axis == 'z':
+        for j in range(d // 2):
+            for i in range(w):
+                total += abs(flat[j * w + i] - flat[(d - 1 - j) * w + i]); m += 1
+    else:
+        for j in range(d):
+            for i in range(w // 2):
+                total += abs(flat[j * w + i] - flat[j * w + (w - 1 - i)]); m += 1
+    return total / m if m else None
+
+
+def search(height: list, width: int, depth: int, *, spacing: int = 8,
+           sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
+           probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
+    """Scoops of several sizes, ranked by how alike their two ends are.
+
+    `sizes` are (w, d) in BLOCKS; the default sweeps the current compiler
+    window up to `MAX_SCOOP_SCALE`. Returns the exact reading for the best
+    `budget` candidates and the count of everything considered, so the search
+    is reported rather than only its winners.
+    """
+    sizes = sizes or [(int(BASE_SCOOP[0] * s), int(BASE_SCOOP[1] * s))
+                      for s in (1.0, 1.25, MAX_SCOOP_SCALE)]
+    hsum = _sat(height, width, depth)
+    hhsum = _sat([h * h for h in height], width, depth)
+    rough = []
+    for j in range(depth):
+        for i in range(width):
+            h = height[j * width + i]
+            dx = abs(height[j * width + i + 1] - h) if i + 1 < width else 0
+            dz = abs(height[(j + 1) * width + i] - h) if j + 1 < depth else 0
+            rough.append(dx + dz)
+    sums = (hsum, hhsum, _sat(rough, width, depth))
+
+    considered, screened = 0, []
+    for bw, bd in sizes:
+        for orient_w, orient_d in {(bw, bd), (bd, bw)}:
+            cw, cd = orient_w // spacing, orient_d // spacing
+            if cw > width or cd > depth:
+                continue
+            for j in range(0, depth - cd + 1, stride):
+                for i in range(0, width - cw + 1, stride):
+                    for axis in ('z', 'x'):
+                        c = _cheap(sums, i, j, i + cw, j + cd, axis)
+                        considered += 1
+                        if c is None:
+                            continue
+                        cr = _coarse_residual(height, width, i, j, cw, cd,
+                                              axis, coarsen)
+                        if cr is None:
+                            continue
+                        screened.append({'i': i, 'j': j, 'cw': cw, 'cd': cd,
+                                         'axis': axis, 'coarse_residual': cr, **c})
+    # Rank on the coarse residual -- the same quantity the exact tier ranks on.
+    #
+    # Tilt is excluded deliberately: a slope is a legitimate scoop, and ranking
+    # against it would reproduce at the cheap tier the mistake detrending was
+    # added to fix at the exact one. The coarse residual is detrended for
+    # exactly that reason.
+    #
+    # `spread_gap` is excluded too, less obviously. It compares the two halves'
+    # standard deviations, and a slope across the scoop inflates the variance
+    # of whichever half it falls on -- so ranking on it was tilt-sensitive
+    # through the back door. Adding a uniform x-slope to a test region moved
+    # the winner from [16,0] to [20,0] with the terrain otherwise unchanged.
+    screened.sort(key=lambda c: c['coarse_residual'])
+    # Overlapping scoops are the same place.
+    spread, taken = [], []
+    for c in screened:
+        if all(abs(c['i'] - t['i']) > t['cw'] // 2 or abs(c['j'] - t['j']) > t['cd'] // 2
+               for t in taken):
+            spread.append(c); taken.append(c)
+        if len(spread) >= budget:
+            break
+
+    found = []
+    for c in spread:
+        sub, sw, sd = [], c['cw'], c['cd']
+        for j in range(c['j'], c['j'] + sd):
+            sub.extend(height[j * width + c['i']: j * width + c['i'] + sw])
+        sym = symmetry(sub, sw, sd, c['axis'], spacing_hint=spacing)
+        pair = homebase_pair(sub, sw, sd, c['axis'], spacing=spacing,
+                             probe_blocks=probe_blocks)
+        found.append({
+            'origin_sample': [c['i'], c['j']],
+            'scoop_blocks': [sw * spacing, sd * spacing],
+            'area_blocks2': sw * sd * spacing * spacing,
+            **sym,
+            'coarse_residual_blocks': round(c['coarse_residual'], 3),
+            'homebase_pair': pair,
+            'homebase_max_separation_blocks': pair.get('max_separation_blocks'),
+        })
+    found.sort(key=lambda f: f['mirror_residual_blocks'])
+    return {
+        'considered': considered,
+        'measured_exactly': len(found),
+        'budget': budget,
+        'sizes_blocks': [list(s) for s in sizes],
+        'scoops': found,
+        'coarsen': coarsen,
+        'ranked_by': 'mirror residual after detrending, screened on the same '
+                     'measure at 1/%d resolution. Tilt is reported and NOT '
+                     'ranked on -- a slope is a legitimate scoop.' % coarsen,
+        'uses_no_default_parameters': True,
+        'proves': 'elevation only. No ocean, resource, water or buildability '
+                  'check happens here.',
+    }
