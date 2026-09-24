@@ -1230,6 +1230,83 @@ and displacement.
    manifestations a map should author at each Strategic Depth. **This
    vocabulary belongs here**, not in seam 1.
 
+### Opportunity is a commitment, not a count — recovered 24 September 2026
+
+Recovering how "guaranteed resources" became Candidate Density → Regenerative
+Eligibility → Manifestation, and how ore opportunity was meant to account for
+the work of reaching and extracting it.
+
+**The guarantee was never discarded. It changed form.**
+
+| | model | what it guarantees |
+|---|---|---|
+| 8 Sep | fundamental-resource guarantee | existence, not coordinates. Discovery uncertainty good; existence uncertainty bad |
+| 12 Sep | opportunity field | worldgen creates candidate opportunities; **human activity determines income** |
+| 13 Sep | commitment / acquisition | what acquiring an opportunity actually demands |
+| 19–21 Sep | runtime renewable seam | renewal restores **world opportunity**, never inventory income |
+| 21 Sep | Opportunity Relationship correction | Region → Eligible Sites → Current Manifestation, after the plugin collapsed all three into origin + radius |
+
+The competitive floor still says fundamental economic opportunity must exist.
+What moved is the mechanism: from *place the resource* to **select geography
+capable of supporting the resource economy, then derive the valid regenerative
+layer from it**.
+
+**The Commitment Profile is in this repository**, not only in conversation —
+`specs/mapseedsearchspec4.md` §18 defines `access_burden`,
+`exploitation_burden`, `return_burden`, `infrastructure_dependency` and
+`exposure` as a **qualitative diagnostic**, explicitly with *no fixed
+gameplay-distance bands*. `docs/worldgen-initial-balancing.md` §96 carries the
+value chain Potential → Available → Discovered → Extracted → Carried →
+Delivered → Consumed/Applied, and states that *blocks broken, useful yield and
+strategic value acquired are separate observables*.
+
+So the same twelve Iron are not the same opportunity. A surface cave forty
+seconds from base with a visible entrance and an easy return, and a mountain
+interior several minutes away through vertical cave access with a long loaded
+return, differ in the productive activity required to turn potential value
+into delivered value.
+
+**Four burdens that must stay separate.** Logistical remoteness (get there,
+provision, carry, return), exploitation burden (exposure of the ore, material
+to remove, cave geometry, tool use, concentration), Strategic Exposure
+(likelihood of hostile contact) and security (defensibility) are different
+questions. And *infrastructure can conquer remoteness without eliminating
+contestability* — a Route makes a remote mine cheap to revisit without making
+it safe. That is why Strategic Depth cannot be `distance(Homebase, node)`.
+
+[OPEN] **Difficulty was never converted into XP.** The connection to XP/UAU
+was real — an Extraction opportunity cannot be valued as blocks × XP/block, or
+the difference between those two twelve-Iron deposits vanishes from the
+progression economy. But **no repository authority establishes a formula**
+converting Commitment Profile, exploitation burden or Strategic Depth into
+XP or UAU. Treat the conversion as unrecovered, not as something to
+reconstruct. This is the same boundary the 14 September economic recovery drew
+around UAU itself.
+
+**Difficulty is not a reward multiplier.** Depth is *additive* to travel,
+provisioning, terrain, danger, uncertainty, search, extraction, return,
+logistics and infrastructure — it does not make a deep mine richer for being
+deep. Candidate density, actual density, Strategic Exposure and defensibility
+are not monotonic with depth, and Candidate Density is a **count**, not a
+value: high regenerative eligibility times low candidate density legitimately
+yields few opportunities, and that is not a generation defect.
+
+**A renewable ore node is not an ore dispenser.** It restores a geographically
+situated opportunity to go and obtain ore. `capture` recognises what the world
+already contains, refuses to create an empty Source, and warns that `spawn`
+would be the node-sprinkling maps.md forbids. The newer Patch doctrine is less
+literal — an authored manifestation may create an occurrence vanilla worldgen
+would not literally have generated — provided the geography, depth and region
+legitimately support that opportunity. The principle survives the relaxation.
+
+**What this means for the compiler seams.** `opportunity_map`, `caves` and
+`cell_grid` are not merely instruments for rejecting "Diamond too close". They
+are descendants of a model in which **physical accessibility and exploitation
+geometry are properties of the economic opportunity itself**. `resource_validity`
+currently reads ore counts and depth cost and does not read `caves` at all, so
+it is measuring quantity where the recovered model measures commitment. Named
+as a gap rather than closed.
+
 ### Animal opportunity is not animals times meat
 
     Population        = Herd Core + Harvestable Surplus
