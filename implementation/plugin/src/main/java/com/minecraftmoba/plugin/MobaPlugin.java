@@ -59,6 +59,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
+    private LightfootedMechanics lightfooted;
+    public LightfootedMechanics lightfooted() { return lightfooted; }
     private PacketInputs packets;
     private Rewards rewards;
     private NamespacedKey dataKey;
@@ -68,6 +70,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         saveConfig(); // persist merged missing defaults after validation
         dataKey = new NamespacedKey(this, "player_data");
         provenance = new Provenance(this);
+        lightfooted = new LightfootedMechanics(this);
+        getServer().getPluginManager().registerEvents(lightfooted, this);
         getServer().getPluginManager().registerEvents(provenance, this);
         sentinel = new Sentinel(this);
         taskEffects = new TaskEffects(this);

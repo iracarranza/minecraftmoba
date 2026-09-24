@@ -166,6 +166,19 @@ abilities:
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
+    lightfooted: { a1: lightfooted_lunge, a2: lightfooted_bounding, ult: channel_ult }
+  lightfooted:
+    lungeDistance: 8.0
+    lungeDamage: 2.0
+    lungeTicks: 8
+    boundSpeed: 0.9
+    bounds: 3
+    boundTicks: 8
+    animalRadius: 10.0
+    damageRadius: 0.8
+    wolfDamageReduction: 0.02
+    foxSpeedBonus: 0.03
+    catFallReduction: 0.10
   definitions:
     lunge:
       displayName: Lunge
@@ -184,6 +197,8 @@ abilities:
       cooldownTicks: 10
       channelTicks: 30
       movementThreshold: 0.25
+    lightfooted_lunge: { displayName: Lunge, cooldownTicks: 10 }
+    lightfooted_bounding: { displayName: Bounding, cooldownTicks: 10 }
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }

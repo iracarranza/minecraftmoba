@@ -128,7 +128,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void interact(PlayerInteractEvent e) {
-        boolean inMode=active(e.getPlayer());
+        boolean inMode=active(e.getPlayer()) && (plugin.lightfooted()==null || !plugin.lightfooted().isBounding(e.getPlayer()));
         if (inMode) e.setCancelled(true);
         Input input=switch(e.getAction()) {
             case LEFT_CLICK_AIR,LEFT_CLICK_BLOCK -> Input.LEFT_CLICK;
@@ -139,7 +139,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player p && input(p,Input.LEFT_CLICK)) e.setCancelled(true);
+        if (e.getDamager() instanceof Player p && ((plugin.lightfooted()!=null && !plugin.lightfooted().attackAllowed(p)) || input(p,Input.LEFT_CLICK))) e.setCancelled(true);
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void entity(PlayerInteractEntityEvent e) {
