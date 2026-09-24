@@ -14,12 +14,22 @@ def cell(team_costs, **kw):
 class Seam1Ceiling(unittest.TestCase):
     """Resource validity is a ceiling check, because doctrine forbids a floor."""
 
-    def test_a_worksite_scale_concentration_in_the_opening_is_refused(self):
+    def test_a_worksite_scale_concentration_is_classified_but_not_refused(self):
+        """The ceiling measures and does not reject until ore is accessibility
+        filtered. A 64-block cell holds a median 1,168 iron on seed 3141592
+        and 269,318 over the window, against a recovered budget of ~130-140
+        per team for a whole match: three orders of magnitude apart, because
+        the budget is economically relevant opportunity and the count is
+        every block in the rock.
+        """
         r = resource_validity.assess(
             [cell({'north': 30.0, 'south': 500.0}, ore={'iron_ore': 46})])
-        self.assertTrue(r['rejects'])
-        self.assertEqual(r['progression_breaking'][0]['code'],
-                         'OPENING_CEILING_WORKSITE_SCALE')
+        self.assertFalse(r['ore_ceiling_rejects'])
+        self.assertFalse(any(b['code'] == 'OPENING_CEILING_WORKSITE_SCALE'
+                             for b in r['progression_breaking']))
+        found = [f for f in r['findings'] if f['material'] == 'iron']
+        self.assertEqual(found[0]['verdict'], 'worksite_scale')
+        self.assertIn('caves.py', r['ore_ceiling_blocked_on'])
 
     def test_the_same_concentration_at_depth_is_not_refused(self):
         """maps.md: empty or weak deep terrain is legitimate and density is
@@ -98,16 +108,31 @@ class Seam2Floor(unittest.TestCase):
                       vegetation={}, fauna={}, hostiles={})]
         r = opening_floor.permits(cells)
         blocked = {(b['team'], b['verb']) for b in r['blocked']}
-        self.assertIn(('south', 'combat'), blocked)
         self.assertIn(('south', 'development'), blocked)
         self.assertIn(('south', 'logistics'), blocked)
-        self.assertNotIn(('north', 'combat'), blocked)
+        self.assertIn(('south', 'exploration'), blocked)
+        self.assertNotIn(('north', 'development'), blocked)
 
     def test_production_is_reported_unevidenced_rather_than_assumed(self):
         cells = [cell({'north': 10.0}, ore={'iron_ore': 9})]
         r = opening_floor.permits(cells)
         self.assertIsNone(r['per_team']['north']['verbs']['production']['permitted'])
         self.assertIn('production', r['unevidenced_verbs'])
+
+    def test_combat_is_unevidenced_because_of_how_worlds_are_generated(self):
+        """Force-loading chunks with no player means mobs barely spawn.
+
+        On seed 3141592 only 7 of 238 cells hold any hostile, against 86
+        holding fauna. Blocking Combat on that would measure the generation
+        method rather than the map, and it rejected two maps that had just
+        compiled to READY.
+        """
+        cells = [cell({'north': 10.0, 'south': 12.0}, ore={'iron_ore': 9},
+                      hostiles={})]
+        r = opening_floor.permits(cells)
+        self.assertIn('combat', r['unevidenced_verbs'])
+        self.assertIsNone(r['per_team']['north']['verbs']['combat']['permitted'])
+        self.assertIn('generated', r['why_unevidenced']['combat'].lower())
 
     def test_it_counts_nothing(self):
         """maps.md makes the floor qualitative and invents no counts."""

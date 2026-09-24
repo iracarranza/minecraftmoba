@@ -119,6 +119,22 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
             'mirror_tilt_blocks': k['mirror_tilt_blocks'],
             'water_fraction': k.get('water_fraction'),
             'types': labels,
+            # DESCRIBED, BUT NOT WORTH GENERATING.
+            #
+            # `recognize` bypasses Default's regional contract only for a
+            # window carrying a non-Default Type, so an UNLABELLED window is
+            # judged against Default and can never pass. In the first
+            # end-to-end batch all three `recognize` rejections were
+            # unlabelled windows: 90 seconds of generation each, spent on
+            # ground no template could have verified.
+            #
+            # They are kept in the result because describe-then-label requires
+            # it -- an unlabelled window is where a Type nobody has defined
+            # shows up -- and flagged so the generator skips them.
+            'generatable': bool(labels),
+            'why_not_generatable': None if labels else
+            'no Map Type claims this window, so no template can verify it. '
+            'Described and kept; not generated.',
             'homebase_max_separation_blocks': k.get('homebase_max_separation_blocks'),
             'measured': k,
         })
@@ -136,6 +152,8 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
         'symmetry_gate': gate,
         'targets': targets,
         'within_gate': sum(1 for t in targets if t['within_symmetry_gate']),
+        'generatable': sum(1 for t in targets if t['generatable']),
+        'described_only': sum(1 for t in targets if not t['generatable']),
         'dropped_open_water': water_only,
         'proves': 'biome and approximate height only. Surface water, '
                   'developability, ore, caves, buildability and every seam '

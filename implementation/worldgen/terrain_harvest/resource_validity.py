@@ -130,6 +130,33 @@ def classify(count: int, material: str) -> dict:
             'budget_source': SOURCE}
 
 
+# WHY THE CEILING CANNOT REJECT ON RAW COUNTS — measured 24 September 2026.
+#
+# `opportunity_map` counts every ore block in a 64-block cell over a 384-block
+# Y range. On seed 3141592 that is a MEDIAN OF 1,168 iron per cell, a max of
+# 2,702, and 269,318 over the window. The recovered budget is ~130-140 iron
+# per team FOR A WHOLE MATCH.
+#
+# Those are not the same quantity and they differ by three orders of
+# magnitude. The recovery document says "economically relevant" opportunity,
+# and economically relevant means what a team can practically acquire -- not
+# what exists in the rock, most of which is unreachable deep stone nobody will
+# ever mine. Wired against raw counts this rejected two maps that had just
+# compiled to READY, with 14 and 18 opening cells flagged.
+#
+# This is the commitment model asserting itself: accessibility and
+# exploitation geometry are properties of the opportunity, and a count that
+# ignores them is not measuring opportunity at all. `caves.py` measures
+# exposure and access and is still not read here.
+#
+# So the ceiling MEASURES and does not reject until it has an accessible
+# count. Tuning a threshold to make the comparison pass would be inventing a
+# number to paper over comparing two different things.
+REJECTS_ON_ORE = False
+NEEDS = ('an accessibility-filtered ore count. `caves.py` measures cave '
+         'volume, depth and exposure and is not read by this module yet.')
+
+
 def assess(cells, *, opening_cost: float = 120.0,
            materials=('iron', 'diamond', 'ancient_debris', 'copper')) -> dict:
     """Classify every cell's concentrations, and reject only in the opening.
@@ -156,7 +183,7 @@ def assess(cells, *, opening_cost: float = 120.0,
             # The Opening ceiling is the ONLY place doctrine gives a rule to
             # reject against. Copper is exempt by design: its Worksite was
             # removed precisely because it belongs in the opening economy.
-            if (in_opening and c['verdict'] == 'worksite_scale'
+            if (REJECTS_ON_ORE and in_opening and c['verdict'] == 'worksite_scale'
                     and BUDGETS[material]['worksite_tier'] is not None):
                 breaking.append({**row, 'code': 'OPENING_CEILING_WORKSITE_SCALE',
                                  'detail': f'a Worksite-tier-'
@@ -185,6 +212,8 @@ def assess(cells, *, opening_cost: float = 120.0,
         'measured': True,
         'opening_cost': opening_cost,
         'opening_exclusions_checked': list(OPENING_EXCLUDED_VEGETATION),
+        'ore_ceiling_rejects': REJECTS_ON_ORE,
+        'ore_ceiling_blocked_on': NEEDS,
         'opening_exclusions_not_checked': [
             'equipment-sufficient accessible Iron, which needs a declared '
             'equipment target that does not exist',

@@ -40,7 +40,7 @@ def forge(seed: int, *, server_jar: Path, java: Path, root: Path,
                                   scanner=scanner)
     timing['prospect_seconds'] = round(time.perf_counter() - t0, 2)
 
-    targets = found['targets']
+    targets = [t for t in found['targets'] if t['generatable']]
     if gate_only:
         targets = [t for t in targets if t['within_symmetry_gate']]
     targets = targets[:per_seed]
@@ -48,7 +48,8 @@ def forge(seed: int, *, server_jar: Path, java: Path, root: Path,
         return {'seed': seed, 'targets_generated': 0, 'compilations': [],
                 'why': 'no target inside the symmetry gate',
                 'prospect': {k: found[k] for k in
-                             ('considered', 'within_gate', 'dropped_open_water')},
+                             ('considered', 'within_gate', 'generatable',
+                              'described_only', 'dropped_open_water')},
                 'timing': timing}
 
     results = []
@@ -82,6 +83,20 @@ def forge(seed: int, *, server_jar: Path, java: Path, root: Path,
             # Carry the Types this window was SELECTED for, so `recognize`
             # knows which template's contract applies to it.
             candidate['prospect_types'] = target.get('types') or []
+            # The scoop measurement, so `discovered` can report Scale. Without
+            # it `certify` passed an empty description and Scale came back
+            # None on a map that had a measured area and Homebase separation
+            # all along.
+            candidate['prospect_scoop'] = {
+                'area_blocks2': target['measured'].get('area_blocks2'),
+                'area_over_base': target['measured'].get('area_over_base'),
+                'axes': {target['team_axis']: {
+                    'homebase_max_separation_blocks':
+                        target.get('homebase_max_separation_blocks')}},
+                'deviation_over_relief': target['deviation_over_relief'],
+                'relief_blocks': target['relief_blocks'],
+                'water_fraction': target.get('water_fraction'),
+            }
             path = work / 'candidate.json'
             path.write_text(json.dumps(candidate))
             t = time.perf_counter()
@@ -108,5 +123,6 @@ def forge(seed: int, *, server_jar: Path, java: Path, root: Path,
 
     return {'seed': seed, 'targets_generated': len(results),
             'prospect': {k: found[k] for k in
-                         ('considered', 'within_gate', 'dropped_open_water')},
+                         ('considered', 'within_gate', 'generatable',
+                          'described_only', 'dropped_open_water')},
             'compilations': results, 'timing': timing}

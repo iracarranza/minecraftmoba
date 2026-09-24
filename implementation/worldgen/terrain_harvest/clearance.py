@@ -111,18 +111,32 @@ def evict_entities(world: Path, placements, extents) -> dict:
     for region in sorted(entities_dir.glob('r.*.mca')):
         chunks, dirty = {}, False
         for cx, cz, name, root in read_region(region):
-            doc = plain(root)
-            ents = doc.get('Entities') or []
-            keep = [e for e in ents if not _inside(e.get('Pos') or (0, 0, 0), footprints)]
-            if len(keep) != len(ents):
-                for e in ents:
-                    if _inside(e.get('Pos') or (0, 0, 0), footprints):
-                        kind = e.get('id', 'unknown')
+            # EDIT THE TAG TREE, NOT A PLAIN COPY.
+            #
+            # This read the chunk, converted it with `plain()`, filtered that,
+            # and assigned the plain dict back as `root`. `write_region` needs
+            # Tag objects, so it raised "'dict' object has no attribute 'kind'"
+            # -- and only on a chunk that actually had an entity to evict,
+            # which is why seven of eight seeds in the first batch passed
+            # straight through it and the eighth crashed.
+            #
+            # `plain()` is still used to READ positions, because comparing
+            # coordinates is what it is good for. Only the write side changed.
+            entities = (root.value or {}).get('Entities') if root.value else None
+            if entities is not None and entities.value:
+                keep_tags, dropped = [], 0
+                for tag in entities.value:
+                    pos = plain(tag).get('Pos') or (0, 0, 0)
+                    if _inside(pos, footprints):
+                        kind = plain(tag).get('id', 'unknown')
                         kinds[kind] = kinds.get(kind, 0) + 1
-                removed += len(ents) - len(keep)
-                doc['Entities'] = keep
-                root = doc
-                dirty = True
+                        dropped += 1
+                    else:
+                        keep_tags.append(tag)
+                if dropped:
+                    removed += dropped
+                    entities.value = keep_tags
+                    dirty = True
             chunks[(cx, cz)] = (name, root)
         if dirty:
             write_region(region, chunks)

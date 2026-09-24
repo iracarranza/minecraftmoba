@@ -820,6 +820,69 @@ def characterize(out: Compilation, world=None):
             'measured': False,
             'why': f'{type(failure).__name__}: {failure}',
         }
+    certify(out)
+    return out
+
+
+def certify(out: Compilation):
+    """Run the seams that were built and never connected to the stages.
+
+    Six modules -- `resource_validity`, `opening_floor`, `opening_access`,
+    `traversability`, `authorability` and `discovered` -- were each validated
+    against real candidates and none was reachable from a compilation. That is
+    the pattern the seam audit named and it kept recurring.
+
+    ONLY TWO OF THEM CAN REJECT, and both only where doctrine states a rule.
+
+    `resource_validity` rejects inside the OPENING, where maps.md sets a
+    ceiling -- a Worksite-tier concentration or an excluded resource there
+    skips progression the tier is supposed to introduce. It cannot reject at
+    depth, because maps.md marks depth bands OPEN and says empty or weak deep
+    terrain is legitimate.
+
+    `opening_floor` rejects a blocked fundamental verb, because maps.md
+    requires the Hinterland to permit every one of them.
+
+    The rest MEASURE. Exit capacity, traversability, the authoring gap and the
+    discovered classification all report and assert no bound, because maps.md
+    asks for equivalence without saying how much disparity is acceptable. A
+    threshold invented here to look decisive would be worse than the gap.
+    """
+    cells = (out.evidence.get('cell_grid') or {}).get('cells') or []
+    seams = {}
+    try:
+        from . import (authorability, discovered, opening_access,
+                       opening_floor, resource_validity, traversability)
+
+        validity = resource_validity.assess(cells)
+        floor = opening_floor.permits(cells)
+        access = opening_access.capacity(out.candidate or {},
+                                         out.evidence.get('fountains') or {})
+        seams['resource_validity'] = validity
+        seams['opening_floor'] = floor
+        seams['opening_access'] = access
+        seams['authoring_gap'] = authorability.gap(validity, access, floor)
+        seams['discovered'] = discovered.classify(
+            validity, (out.candidate or {}).get('prospect_scoop') or {})
+        seams['traversability'] = {
+            'measured': False,
+            'why': 'needs the expedition travel matrix, which the compiler '
+                   'does not yet produce for a compiled realization'}
+
+        for breaking in validity.get('progression_breaking') or ():
+            out.fail('characterize', breaking['code'], breaking['detail'],
+                     cell=breaking.get('cell'), material=breaking.get('material'),
+                     count=breaking.get('count'))
+        for blocked in floor.get('blocked') or ():
+            out.fail('characterize', blocked['code'], blocked['detail'],
+                     team=blocked['team'], verb=blocked['verb'])
+    except Exception as failure:              # noqa: BLE001
+        seams['error'] = f'{type(failure).__name__}: {failure}'
+    seams['bounded'] = ('resource_validity and opening_floor can reject, where '
+                        'maps.md states a rule. Exit capacity, traversability, '
+                        'the authoring gap and the discovered classification '
+                        'report and assert no bound.')
+    out.evidence['seams'] = seams
     return out
 
 

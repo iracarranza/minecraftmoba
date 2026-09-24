@@ -65,8 +65,15 @@ VERBS = {
                'Material and abundant enough that its Worksite was removed, '
                'so its absence from an opening is a real fault'},
     'combat': {
-        'anchor': 'hostile mobs', 'any_of': ('hostiles',),
-        'why': 'no mobs, no ordinary PvE'},
+        'anchor': 'hostile mobs', 'any_of': (),
+        'why': 'NOT EVIDENCED BY THIS GENERATION METHOD. Worlds are produced '
+               'by force-loading chunks with no player present, so hostile '
+               'mobs largely never spawn or persist: on seed 3141592 only 7 '
+               'of 238 cells hold any hostile at all, against 86 holding '
+               'fauna. Reading that as "this map has no Combat" would be '
+               'measuring how the world was generated, not what it contains. '
+               'Combat needs a spawn-rule check against biome, light and '
+               'surface, which nothing does yet'},
     'production': {
         'anchor': None, 'any_of': (),
         'why': 'NOT INDEPENDENTLY EVIDENCED. Production converts acquired '
@@ -133,6 +140,8 @@ def permits(cells, *, opening_cost: float = 120.0) -> dict:
         'blocked': blocked, 'rejects': bool(blocked),
         'qualitative': QUALITATIVE,
         'unevidenced_verbs': [v for v, s in VERBS.items() if not s['any_of']],
+        'why_unevidenced': {v: s['why'] for v, s in VERBS.items()
+                            if not s['any_of']},
         'floor_not_ceiling': 'permits, never resolves. Whether an opening holds '
                              'too MUCH is resource_validity.',
         'not_covered': [

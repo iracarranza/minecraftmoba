@@ -77,6 +77,20 @@ def build(candidate: dict, characterization: dict, fountains: dict) -> dict:
             'candidate_density': cell.get('candidate_density'),
             'regenerative_vocabulary': cell.get('regenerative_vocabulary') or [],
             'mean_surface_y': cell.get('mean_surface_y'),
+            # CARRY THE OPPORTUNITY COUNTS THROUGH.
+            #
+            # This enrichment dropped `ore`, `vegetation`, `fauna` and
+            # `hostiles`, keeping only the derived summaries. Every seam that
+            # reads a cell reads those four: `opening_floor` asks whether a
+            # verb can begin and `resource_validity` asks how much is here.
+            # Without them the floor found no ore, no animals and no mobs
+            # anywhere and blocked 10 verbs -- five per team, i.e. everything
+            # -- on two maps that had just compiled to READY. A barren map and
+            # a dropped field look identical downstream.
+            'ore': cell.get('ore') or {},
+            'vegetation': cell.get('vegetation') or {},
+            'fauna': cell.get('fauna') or {},
+            'hostiles': cell.get('hostiles') or {},
         })
 
     reachable = [c for c in out if all(v is not None for v in c['strategic_depth_cost'].values())]
