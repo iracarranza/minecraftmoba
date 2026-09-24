@@ -704,7 +704,27 @@ def _renewables(out: Compilation) -> dict:
     world = (out.evidence.get('world') or {}).get('name')
     derived = portfolio_mod.derive(cells, world=world)
     certified = portfolio_mod.certify(derived, cells)
-    return {**derived, **certified}
+    # MERGED EXPLICITLY, not with {**derived, **certified}.
+    #
+    # Both dicts carry a `sources` key meaning different things: `derive`
+    # returns the LIST of Source specs and `certify` returns their COUNT. A
+    # blanket merge let the count win, so the binding handed the runtime an
+    # integer where it needed the sources -- and `readiness` only inspects
+    # `certified`, so nothing would have caught it until a match tried to
+    # manifest a portfolio that was the number 13.
+    return {
+        'derived': derived.get('derived'),
+        'sources': derived.get('sources') or [],
+        'source_count': certified.get('sources', 0),
+        'certified': certified.get('certified'),
+        'problems': certified.get('problems') or [],
+        'per_team': certified.get('per_team') or {},
+        'by_band': derived.get('by_band') or {},
+        'skipped_total': derived.get('skipped_total'),
+        'quantities_are': derived.get('quantities_are'),
+        'floor_is': certified.get('floor_is'),
+        'opening_cost': certified.get('opening_cost'),
+    }
 
 
 def ready(out: Compilation, world):
