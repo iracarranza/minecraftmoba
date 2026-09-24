@@ -79,14 +79,17 @@ The future draft is a **Map Type/map-option draft**, not a draft of visible gene
 5. One team ultimately selects the played option.
 6. Only then is a compatible hidden READY realization claimed.
 
-Exact ban order, overlap between teams' option sets, final-choice rights, and the relationship between class drafting and map drafting remain open. Class-first, map-first, and interleaved drafts have materially different strategic consequences and should be decided deliberately.
+Exact ban order, overlap between teams' option sets, and final-choice rights remain open.
+
+**Resolved 24 September 2026:** the class/map relationship is **class-first, maps after**. Classes are drafted blind, so a composition must be defensible across the Types in rotation; the map phase then carries the counterpick weight, chosen with both compositions known. See [`PRE_MATCH_SELECTION_FLOW.md`](PRE_MATCH_SELECTION_FLOW.md), which also specifies class selection as a shared physical hall.
 
 `/moba match start` should therefore **begin the match and its pre-match process**, not immediately teleport players to their Fountains. The broad lifecycle is:
 
 ```
 /moba match start
     -> create/lock match and teams
-    -> pre-match drafting (map and classes; ordering TBD)
+    -> class selection (physical hall: bans, then pick windows)
+    -> map selection (map-option draft)
     -> map option selected
     -> claim compatible READY realization
     -> instantiate/bind match systems
@@ -454,7 +457,7 @@ Together these preserve a common project principle:
 
 This record does **not** decide:
 
-- exact map-draft order/rules or class-draft relationship;
+- exact map-draft order/rules (the class-draft *relationship* is now decided — see `PRE_MATCH_SELECTION_FLOW.md`);
 - exact rotation size;
 - final names/bounds for Resource Density;
 - final Normal/Large/Vast dimensional contracts;
