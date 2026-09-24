@@ -14,9 +14,46 @@ def bindings(**overrides):
                        for t in ('north', 'south')},
         'lair': {'anchor': {'xyz': [5, 65, 5]}, 'count': 1},
         'worksites': [{'id': f'ws_{i}'} for i in range(12)],
+        # Renewables joined REQUIRED on 24 September 2026, once a portfolio
+        # could be derived from a map's geography instead of authored by hand.
+        'renewables': {'derived': True, 'certified': True,
+                       'sources': [{'id': 'near_chicken_0', 'kind': 'chicken'}],
+                       'problems': []},
     }
     base.update(overrides)
     return base
+
+
+class Renewables(unittest.TestCase):
+    """A map with no regenerative portfolio cannot be claimed."""
+
+    def codes(self, b):
+        return [p['code'] for p in readiness.certify(b)['problems']]
+
+    def test_a_map_with_no_portfolio_is_refused(self):
+        """Before this, a generated map could certify READY with no sources at
+        all and `Renewables` would refuse on it at runtime -- a map the pool
+        called ready on which Development could not begin."""
+        b = bindings()
+        del b['renewables']
+        self.assertIn('MISSING_BINDING', self.codes(b))
+        self.assertFalse(readiness.certify(b)['certified'])
+
+    def test_a_portfolio_failing_its_own_floor_is_refused(self):
+        """Present is not enough. A portfolio no team can reach in its opening
+        is a binding the runtime resolves and a map that cannot be played."""
+        b = bindings(renewables={
+            'derived': True, 'certified': False, 'sources': [],
+            'problems': [{'code': 'NO_OPENING_RENEWABLE', 'team': 'south',
+                          'detail': 'south cannot reach one'}]})
+        self.assertIn('NO_OPENING_RENEWABLE', self.codes(b))
+        self.assertFalse(readiness.certify(b)['certified'])
+
+    def test_a_certified_portfolio_passes(self):
+        self.assertTrue(readiness.certify(bindings())['certified'])
+
+    def test_renewables_is_in_required(self):
+        self.assertIn('renewables', readiness.REQUIRED)
 
 
 class Readiness(unittest.TestCase):

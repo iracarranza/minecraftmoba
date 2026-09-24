@@ -29,7 +29,8 @@ SEA_LEVEL = 63
 
 def prospect(seed: int, *, half: int = 4096, step: int = 32,
              sizes=None, stride: int = 6, budget: int = 4, coarsen: int = 4,
-             scanner: str | None = None, types=None) -> dict:
+             scanner: str | None = None, types=None,
+             by_yield: bool = True) -> dict:
     """Window targets on one seed, ranked within Map Type.
 
     Returns chunk bounds ready for `harvest`/generation, plus the full
@@ -41,11 +42,22 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
     # seafloor. Water comes from biome, so clamping does not hide it.
     playable = [max(h, SEA_LEVEL) for h in s.height]
     land_grid = [b not in scan_mod.OCEAN_IDS for b in s.biome]
+    predicate_set = types if types is not None else map_types.predicates()
+    # BUDGET BY MEASURED YIELD, not evenly. From 59 targets: landmass reached
+    # READY 11 times in 25, shattered_coast once in 31. Spreading evenly
+    # across a fifteenfold difference spent 53% of all generation on the Type
+    # that produced one map.
+    allocation = None
+    if by_yield:
+        allocation = map_types.allocate(
+            [n for n in predicate_set if n != 'open_water'],
+            budget * max(1, len(predicate_set) - 1))
     found = scoop.search(playable, s.width, s.depth, spacing=s.step,
                          sizes=sizes, stride=stride, budget=budget,
                          coarsen=coarsen, probe_blocks=96,
                          biome=s.biome, sea_level=SEA_LEVEL,
-                         types=types if types is not None else map_types.predicates())
+                         types=predicate_set,
+                         budget_by_type=(allocation or {}).get('allocation'))
 
     gate = map_types.symmetry_bound()
     predicates = types if types is not None else map_types.predicates()
@@ -170,6 +182,7 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
         'partitions': found.get('partitions') or {},
         'types_matching_nothing': found.get('types_matching_nothing') or [],
         'symmetry_gate': gate,
+        'allocation': allocation,
         'targets': targets,
         'within_gate': sum(1 for t in targets if t['within_symmetry_gate']),
         'generatable': sum(1 for t in targets if t['generatable']),

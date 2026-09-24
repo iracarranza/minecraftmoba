@@ -203,3 +203,83 @@ def symmetry_bound(*, quantile: str = 'p25') -> dict:
                             'unexplained; see maps.md Map Type doctrine',
             'not_on_raw_deviation': 'deviation scales with relief, so a raw '
                                     'bound admits only flat ground and water'}
+
+
+# MEASURED YIELD PER TYPE, and the reason budget is not spread evenly.
+#
+# From the 59-target batch of 24 September 2026, after the land-sited Homebase
+# fix. These are compile-through rates: the fraction of generated windows of
+# that Type that reached READY.
+#
+#     landmass           11/25 = 44%
+#     shattered_coast     1/31 =  3%
+#     archipelago         1/2       (n too small to act on)
+#     divided_by_a_cut    0/2       (n too small)
+#     divided_by_a_ridge  0/1       (n too small)
+#
+# shattered_coast consumed 31 of 59 generations -- 53% of the expensive step --
+# to produce one map. Spreading budget evenly across Types whose rates differ
+# fifteenfold is the single largest waste in the pipeline.
+#
+# SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE remains 48 of 61 rejections, almost all
+# shattered_coast: fragmented coastline does not offer two independently
+# developable Homebase sockets.
+#
+# [OPEN] Whether the predicate is wrong or shattered_coast genuinely needs
+# Homebase rules other than Default's. n=31 says the Type as defined is not
+# viable under the current rules; it does not say which of those two is true.
+#
+# NOT A THRESHOLD AND NOT PERMANENT. This is an observation with its sample
+# size attached, re-derivable from any batch, and a Type with too few
+# observations is given the neutral prior rather than a number.
+OBSERVED_YIELD = {
+    'landmass': {'playable': 11, 'generated': 25},
+    'shattered_coast': {'playable': 1, 'generated': 31},
+    'archipelago': {'playable': 1, 'generated': 2},
+    'divided_by_a_cut': {'playable': 0, 'generated': 2},
+    'divided_by_a_ridge': {'playable': 0, 'generated': 1},
+}
+MIN_OBSERVATIONS = 10
+NEUTRAL_PRIOR = 0.25
+
+
+def yield_of(name: str) -> dict:
+    """A Type's measured compile-through rate, with its sample size."""
+    row = OBSERVED_YIELD.get(name)
+    if not row or row['generated'] < MIN_OBSERVATIONS:
+        return {'rate': NEUTRAL_PRIOR, 'generated': (row or {}).get('generated', 0),
+                'measured': False,
+                'why': f'fewer than {MIN_OBSERVATIONS} observations; given the '
+                       f'neutral prior rather than a number read off noise'}
+    return {'rate': row['playable'] / row['generated'],
+            'playable': row['playable'], 'generated': row['generated'],
+            'measured': True}
+
+
+def allocate(names, total: int, *, floor: int = 1) -> dict:
+    """Split a generation budget across Types by measured yield.
+
+    `floor` guarantees every Type at least one window however badly it scores.
+    That is deliberate and it is not charity: a Type starved to zero can never
+    revise its own estimate, and `shattered_coast` at 3% is a rate under the
+    CURRENT Homebase rules, which is an open question rather than a verdict.
+    """
+    names = list(names)
+    if not names or total <= 0:
+        return {'allocation': {}, 'why': 'nothing to allocate'}
+    rates = {n: yield_of(n)['rate'] for n in names}
+    spare = max(0, total - floor * len(names))
+    weight = sum(rates.values()) or 1.0
+    allocation = {n: floor + int(spare * rates[n] / weight) for n in names}
+    # Hand any rounding remainder to the best-measured Type.
+    short = total - sum(allocation.values())
+    if short > 0:
+        allocation[max(names, key=lambda n: rates[n])] += short
+    return {'allocation': allocation,
+            'rates': {n: round(rates[n], 3) for n in names},
+            'measured': {n: yield_of(n)['measured'] for n in names},
+            'floor': floor,
+            'floor_is': 'every Type keeps one window. A Type starved to zero '
+                        'can never revise its own estimate, and 3% is a rate '
+                        'under the current Homebase rules rather than a verdict '
+                        'on the Type.'}

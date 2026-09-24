@@ -683,7 +683,28 @@ def bindings(out: Compilation, world) -> dict:
             'treatment': lair.get('treatment'),
         },
         'worksites': e.get('worksites') or [],
+        'renewables': _renewables(out),
     }
+
+
+def _renewables(out: Compilation) -> dict:
+    """The derived regenerative portfolio, as a binding the runtime can use.
+
+    Derived from the map's own geography rather than authored, so this is the
+    first binding the compiler produces that did not previously exist in any
+    form for a generated map.
+    """
+    cells = (out.evidence.get('cell_grid') or {}).get('cells') or []
+    if not cells:
+        return {'derived': False, 'certified': False,
+                'problems': [{'code': 'NO_CELL_GRID',
+                              'detail': 'no measured cells to derive a '
+                                        'portfolio from'}]}
+    from . import portfolio as portfolio_mod
+    world = (out.evidence.get('world') or {}).get('name')
+    derived = portfolio_mod.derive(cells, world=world)
+    certified = portfolio_mod.certify(derived, cells)
+    return {**derived, **certified}
 
 
 def ready(out: Compilation, world):

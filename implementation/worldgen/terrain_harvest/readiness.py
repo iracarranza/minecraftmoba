@@ -40,12 +40,32 @@ REQUIRED = (
     'objectives',
     'lair',
     'worksites',
+    # Renewables complete the set on 24 September 2026, once a portfolio could
+    # be DERIVED from a map's own geography rather than authored by hand into
+    # config.yml against the frozen Alpha map.
+    #
+    # Until then a generated map could certify READY with no regenerative
+    # sources at all, and `Renewables` would refuse on it at runtime rather
+    # than applying Alpha's coordinates -- a map the pool called ready on
+    # which Development could not begin. The same shape of failure as the Lair
+    # socket that was chosen, measured and never established.
+    'renewables',
 )
 
 
 def certify(bindings: dict) -> dict:
     """Why this realization cannot be claimed for a match, if it cannot."""
     problems = []
+
+    # The portfolio must be present AND satisfy its own floor. A derived
+    # portfolio that no team can reach in its opening is a binding the runtime
+    # can resolve and a map Development cannot start on.
+    renewables = bindings.get('renewables') or {}
+    if renewables and not renewables.get('certified', True):
+        for problem in renewables.get('problems') or ():
+            problems.append({'code': problem.get('code', 'RENEWABLES_UNCERTIFIED'),
+                             'binding': 'renewables',
+                             'detail': problem.get('detail', 'portfolio floor unmet')})
 
     for key in REQUIRED:
         if not bindings.get(key):

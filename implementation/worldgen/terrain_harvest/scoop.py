@@ -539,6 +539,7 @@ def _type_features(sums, i0, j0, i1, j1):
 def search(height: list, width: int, depth: int, *, spacing: int = 8,
            sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
            partition=None, types=None, biome=None, sea_level=None,  # noqa: ARG001
+           budget_by_type=None,
            probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
     """Scoops of several sizes, ranked by how alike their two ends are.
 
@@ -694,7 +695,10 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
             keys = [None]
         for key in keys:
             kept, taken = buckets.setdefault(key, ([], []))
-            if len(kept) >= budget:
+            # A per-Type cap where one is given, so a Type with a measured 3%
+            # compile-through rate does not take the same share as one at 44%.
+            cap = (budget_by_type or {}).get(str(key).split('/')[0], budget)
+            if len(kept) >= cap:
                 continue
             if all(abs(c['i'] - t['i']) > t['cw'] // 2
                    or abs(c['j'] - t['j']) > t['cd'] // 2 for t in taken):
