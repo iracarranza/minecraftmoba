@@ -52,19 +52,32 @@ def at(feature: str, quantile: str) -> float:
 
 
 def _get(scoop, feature, default=None):
+    """Read a feature from either tier's row shape.
+
+    The two tiers disagree and the predicates have to survive both.
+    `scoop.search`'s cheap candidates carry `relief` as a float; its exact rows
+    carry `relief_blocks` as {'a': .., 'b': ..} per half. Reading the dict
+    against a float threshold raises TypeError, which is how this was caught.
+    The worse half is used, because a scoop is as rugged as its rougher end.
+    """
     alias = {'water': 'water_fraction', 'coast_1k': 'coastline_per_1k_blocks2',
              'relief': 'relief_blocks', 'sep_sign': 'separation_sign'}
-    if feature in scoop:
-        return scoop[feature]
-    return scoop.get(alias.get(feature, feature), default)
+    value = scoop[feature] if feature in scoop else scoop.get(
+        alias.get(feature, feature), default)
+    if isinstance(value, dict):
+        numbers = [v for v in value.values() if isinstance(v, (int, float))]
+        return max(numbers) if numbers else default
+    return value
 
 
 # Each entry says which features it reads and at which quantile it cuts, so a
 # predicate can be read without opening the reference file.
 DEFINITIONS = {
     'archipelago': {
-        'reads': ('water', 'land_bodies'),
-        'cut': 'water above p75, land broken into more than one body',
+        'reads': ('water', 'land_bodies', 'coast_density'),
+        'cut': 'water above p75, land broken into more than one body; where '
+               'the body count is unavailable (screening tier) coast density '
+               'stands in as the fragmentation proxy',
         'why': 'fragmentation is the premise; a drowned single island is not '
                'an archipelago however wet it is, which is why land_bodies '
                'is here and a fraction alone was never enough',
@@ -119,8 +132,23 @@ def predicates(*, reference: dict | None = None):
     Q = lambda f, p: ref['quantiles'][f][p]
 
     def archipelago(s):
-        return (_get(s, 'water', 0) > Q('water', 'p75')
-                and _get(s, 'land_bodies', 1) > 1)
+        # TWO TIERS, and the screen has to work without the exact input.
+        # `land_bodies` is connectivity, so it is not a summed-area quantity
+        # and `scoop.search`'s cheap candidates cannot carry it. Requiring it
+        # made this predicate read land_bodies=1 by default at the screening
+        # tier, match nothing, and receive no budget -- so across 20 seeds
+        # archipelago was never tutored for, which looked like a property of
+        # the seeds and was a missing input.
+        #
+        # Where the count is absent, coast density stands in as the
+        # fragmentation proxy: many bodies means much edge. Where it is
+        # present -- the exact tier -- it decides.
+        if not (_get(s, 'water', 0) > Q('water', 'p75')):
+            return False
+        bodies = _get(s, 'land_bodies')
+        if bodies is not None:
+            return bodies > 1
+        return _get(s, 'coast_density', 0) > 0.05
 
     def open_water(s):
         return _get(s, 'water', 0) > Q('water', 'p90')
@@ -130,8 +158,15 @@ def predicates(*, reference: dict | None = None):
 
     def shattered_coast(s):
         w = _get(s, 'water', 0)
-        return (Q('water', 'p25') <= w <= Q('water', 'p75')
-                and _get(s, 'coast_1k', 0) > Q('coast_1k', 'p75'))
+        if not (Q('water', 'p25') <= w <= Q('water', 'p75')):
+            return False
+        exact = _get(s, 'coast_1k')
+        if exact is not None:
+            return exact > Q('coast_1k', 'p75')
+        # Cheap tier: `coast_density` is edges per cell, a different scale
+        # from the per-1k-blocks reference, so it cannot be compared against
+        # that quantile. NON-CANON screening proxy.
+        return _get(s, 'coast_density', 0) > 0.08
 
     def divided_by_a_cut(s):
         return (_get(s, 'sep_sign', 0) > Q('sep_sign', 'p75')
