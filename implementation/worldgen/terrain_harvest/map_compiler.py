@@ -219,7 +219,30 @@ def recognize(candidate, out: Compilation):
     deferred = [w for w in warnings if w in NOT_REGIONAL_SHAPE]
     if deferred:
         out.evidence['deferred_screen_warnings'] = deferred
-    if shape:
+    # WHICH TEMPLATE IS THIS WINDOW BEING JUDGED AGAINST?
+    #
+    # maps.md: "Default's regional gradient is its own search contract, not a
+    # universal composition constraint." This stage applied it to every window
+    # regardless, so a window `prospect` selected for SYMMETRY -- and labelled
+    # landmass, archipelago or shattered_coast -- was rejected for lacking
+    # Default's western highlands and eastern ocean. The first end-to-end run
+    # failed exactly here: a searched, gate-passing window at (-3584, -3296)
+    # rejected as NO_DEFAULT_REGIONAL_SHAPE.
+    #
+    # A window carrying prospect Types other than Default is recorded as
+    # fitting those instead. This is not a relaxation of Default: a window
+    # claiming Default still faces the same screen. It stops one template's
+    # contract standing in for every template.
+    prospected = candidate.get('prospect_types')
+    if prospected is not None:
+        out.evidence['prospect_types'] = list(prospected)
+    non_default = [t for t in (prospected or ()) if t not in ('default', 'valley')]
+    if shape and non_default:
+        out.evidence['default_template_fit']['not_applied'] = (
+            f'this window was selected as {non_default} and is not judged '
+            f'against Default\'s regional contract. The Default screen would '
+            f'have rejected it on {shape}.')
+    elif shape:
         out.fail('recognize', 'NO_DEFAULT_REGIONAL_SHAPE',
                  'the regional screen rejected this orientation',
                  warnings=shape)

@@ -84,7 +84,17 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
         # dry target, so naming the sink and then emitting it anyway would
         # have spent generation on open sea.
         labels = [n for n, ok in predicates.items() if ok(k)]
-        if labels == ['open_water']:
+        # open_water VETOES, it does not merely fail to qualify.
+        #
+        # The first version dropped a scoop only when open_water was its sole
+        # label, which let ['archipelago', 'open_water'] through -- the
+        # archipelago cut is water above p75 and open_water is above p90, so
+        # they overlap heavily. The first end-to-end run generated 95%-water
+        # ground for 95 seconds and rejected it at `homebase` with
+        # SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE, which is the right answer
+        # arrived at far too late. Too much water to be a map is a veto
+        # whatever else the scoop also qualifies as.
+        if 'open_water' in labels:
             water_only += 1
             continue
         i, j = i0, j0
