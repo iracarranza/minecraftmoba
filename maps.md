@@ -1182,15 +1182,91 @@ authored manifestation scale can compensate for effectiveness. Balancing
 species by cooked saturation alone is therefore insufficient, and was proposed
 and rejected on 24 September 2026.
 
-[OPEN] Per-crop effective-nourishment figures were quantified in a September
-discussion that is **not recoverable from this repository** — approximately
-wheat 3.67, carrot 23.1, raw potato 5.6, baked potato 38.5 per plant. They are
-recorded here as recalled values requiring re-derivation, not as calibration.
-This follows the UAU precedent in the 14 September economic recovery: do not
-silently canonize a reconstruction. For animals the analogous distinction was
-a **breeding core** against a **harvestable surplus**, with secondary products
-such as leather, wool and eggs contributing value; exact herd and patch
-quantities remain unsettled.
+### Recovered regenerative placement vocabulary — 13 September 2026
+
+Recovered from conversation on 24 September 2026 and **not previously in this
+repository**. Recorded because the historical illustrative list above is
+genuinely incomplete history, not because these are canon.
+
+| Band | Resources | Recovered rationale |
+|---|---|---|
+| Near | **Chickens** | the staple: food + eggs + feathers + easy reproduction, ordinary without specialising the opening |
+| Near | **Rabbits** | nearby but deliberately awkward — poor food, awkward husbandry, dandelion bypass. **Near is not the same as staple** |
+| Farther | **Cows** | "cows follow geography": spatially gated, not input-gated. Beef + leather + milk + reproductive capital, and leather is a Primary Material |
+| Farther | **Pigs** | "pigs follow crop access": tied to the agricultural vocabulary rather than to porkchop value |
+| Deeper | **Carrots** | founder crop — food + planting stock + agricultural expansion + pig and rabbit husbandry |
+| Deeper | **Potatoes** | founder crop — food + planting stock + expansion + baking/Production |
+| Special | **Sheep** | not on the ladder. Requires *reliable strategic access*, because wool → Banners → Exploration makes it a strategic material source, not livestock |
+
+**The principle this yields, and it is the strongest recovered idea:**
+
+> **Depth increases economic specificity, not simply raw yield.**
+
+A deep opportunity matters because it unlocks or intersects more systems, not
+because its hunger number is larger. That is a better statement of the design
+than "better food goes farther away", and it supersedes the cooked-saturation
+argument proposed and rejected above.
+
+**Near/farther/deeper were relative A/B/C bands, not block distances.** No
+distance constants were decided, and none should be reconstructed. Strategic
+Depth is the natural successor: recover the ORDERING, not invented constants.
+
+**Ordinary vanilla incidence survives beneath all of this — accepted
+13 September, 05:55.** The world model is background Minecraft incidence
+(ambient signals, opportunistic pickups, minor pockets) PLUS authored
+strategic regenerative manifestations (meaningful manifestations, resource
+destinations, depth-shaped opportunities). So this vocabulary is **not** a set
+of natural-generation bans, and *a cow generating naturally in a Hinterland is
+not a map to reject*. An Extractor can rationally ignore a tiny incidental
+occurrence because extracting it trades against time, inventory, durability
+and displacement.
+
+**Two compiler questions this separates, which must not be conflated:**
+
+1. **Natural placement validity** (`resource_validity`) asks whether a
+   vanilla-generated opportunity violates an opening or progression ceiling.
+   Incidental occurrence is not automatically invalid.
+2. **Regenerative portfolio derivation** asks what strategically meaningful
+   manifestations a map should author at each Strategic Depth. **This
+   vocabulary belongs here**, not in seam 1.
+
+### Animal opportunity is not animals times meat
+
+    Population        = Herd Core + Harvestable Surplus
+    Opportunity Value = Harvestable Surplus + Reproductive Capital
+                        + Ongoing Producer Value
+
+Killing an animal and maintaining a population are economically different
+actions. A retained cow carries reproductive value, future beef and leather,
+and milk; a sheep adds repeatable wool; a chicken adds eggs. Sheep's renewable
+wool can outweigh its lower carcass value. Enough population must remain to
+constitute reproductive capital; the remainder is harvestable surplus. Recovered
+model, not repository canon.
+
+[OPEN] Per-crop effective-nourishment figures from the same discussion,
+**not recoverable from this repository**: beetroot ~2.20, wheat→bread ~3.67,
+raw potato ~5.6, carrot ~23.1, baked potato ~38.5 per plant. Recorded as
+recalled values requiring re-derivation, following the UAU precedent in the
+14 September economic recovery — do not silently canonize a reconstruction.
+
+Two qualifications were attached at the time and matter as much as the figures.
+**The processed ceiling must not set wild patch size by itself**: carrots and
+potatoes are their own planting stock, so harvest and propagation are coupled
+in a way wheat's are not, which is why Immediate Food, Sustainable Output,
+Founder Stock and Processing Value are four different quantities. And bread is
+roughly **1.67× better per inventory slot**, so carrot's ~6.3× per-plant
+advantage does not make it 6.3× wheat in any context where carrying capacity
+binds.
+
+[OPEN] **Potatoes were grouped with carrots as deeper founder crops but never
+acquired carrots' explicit Opening-ceiling status.** Genuine reconciliation
+point; do not silently treat potatoes either way. [IMPLEMENTED: the compiler
+excludes carrots only, matching the ceiling as written.]
+
+[NOTE] Carrots generate naturally almost only in village farms, so the carrot
+exclusion is largely implied by the village exclusion already checked by
+`opening_ceiling`. The separate check is still worth having, and its
+independence should not be mistaken for independent evidence.
 
 [OPEN] Cows, pigs and horses have **no recovered exclusion decision**. Excluding
 cows would also remove ordinary access to leather, a Primary Material, from the
