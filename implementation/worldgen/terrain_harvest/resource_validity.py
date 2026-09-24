@@ -69,6 +69,28 @@ THESIS = ('universal Copper through ordinary development; majority Iron '
           'selective capital; Netherite stays apex item-level investment')
 
 
+# The Opening ceiling's NON-ORE exclusions. maps.md lists villages, carrots and
+# equipment-sufficient accessible Iron, and records that "carrots and accessible
+# iron remain unchecked". Villages are checked by `opening_ceiling`; carrots are
+# checked here; the Iron rule still needs a declared equipment target.
+#
+# CARROTS ARE CHRONOLOGY, NOT A CONTRADICTION. An older contract treated
+# wheat/carrot/potato as ordinary starter crop vocabulary -- Alpha was built
+# with three starter patches of each, and maps.md still lists carrots among
+# "near, basic and staple" candidates under a Historical illustrative label.
+# The later compact-Hinterland ceiling supersedes that for the OPENING only.
+# It does not make carrots deep; it keeps them out of a small envelope that has
+# Wilderness on every side, which is a far weaker restriction than the same
+# words would have been under the older broader homeland model.
+OPENING_EXCLUDED_VEGETATION = ('carrot',)
+
+
+def _vegetation_of(cell, kind) -> int:
+    veg = cell.get('vegetation') or {}
+    return sum(int(v) for k, v in veg.items()
+               if isinstance(v, int) and kind in str(k))
+
+
 def _ore_of(cell, material) -> int:
     ore = cell.get('ore') or cell.get('regional_character') or {}
     if material in ore:
@@ -142,9 +164,31 @@ def assess(cells, *, opening_cost: float = 120.0,
                                            f'concentration inside the opening '
                                            f'skips the progression that tier '
                                            f'is supposed to introduce'})
+    for cell in cells or ():
+        depth = cell.get('strategic_depth_cost') or {}
+        reachable = [v for v in depth.values() if v is not None]
+        if not (reachable and min(reachable) <= opening_cost):
+            continue
+        for kind in OPENING_EXCLUDED_VEGETATION:
+            count = _vegetation_of(cell, kind)
+            if count:
+                breaking.append({
+                    'material': kind, 'count': count, 'verdict': 'excluded',
+                    'cell': cell.get('cell'),
+                    'world_origin': cell.get('world_origin'),
+                    'strategic_depth_cost': depth, 'in_opening': True,
+                    'code': 'OPENING_CEILING_EXCLUDED_RESOURCE',
+                    'detail': f'{kind} is an explicit Opening ceiling exclusion '
+                              f'in maps.md and was previously unchecked'})
+
     return {
         'measured': True,
         'opening_cost': opening_cost,
+        'opening_exclusions_checked': list(OPENING_EXCLUDED_VEGETATION),
+        'opening_exclusions_not_checked': [
+            'equipment-sufficient accessible Iron, which needs a declared '
+            'equipment target that does not exist',
+            'villages, which opening_ceiling.py checks separately'],
         'findings': findings,
         'progression_breaking': breaking,
         'rejects': bool(breaking),
@@ -157,6 +201,10 @@ def assess(cells, *, opening_cost: float = 120.0,
             'accessibility, which decides whether a concentration is reachable '
             'at all; caves.py measures volume and exposure and is not read here',
             'Yield, which changes realized material from the same geology',
-            'food and renewables, which have no recovered quantity anywhere',
+            'food and renewables, which have no recovered quantity anywhere. '
+            'Species and depth placement are explicitly OPEN in maps.md, and a '
+            'required-species checklist would reintroduce ecological symmetry '
+            'that doctrine denies -- functional opportunity is balanced while '
+            'Wilderness is not mirrored',
         ],
     }

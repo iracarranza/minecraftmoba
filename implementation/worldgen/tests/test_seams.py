@@ -52,6 +52,34 @@ class Seam1Ceiling(unittest.TestCase):
         self.assertEqual(c['verdict'], 'unbudgeted')
 
 
+class OpeningExclusions(unittest.TestCase):
+    """Carrots are canon in the ceiling and were never checked."""
+
+    def test_carrots_in_the_opening_are_refused(self):
+        r = resource_validity.assess(
+            [cell({'north': 30.0, 'south': 900.0}, vegetation={'carrots': 6})])
+        self.assertTrue(r['rejects'])
+        self.assertEqual(r['progression_breaking'][0]['code'],
+                         'OPENING_CEILING_EXCLUDED_RESOURCE')
+
+    def test_carrots_at_depth_are_fine(self):
+        """The ceiling keeps carrots out of a compact envelope with Wilderness
+        on every side. It does not make them a deep resource."""
+        r = resource_validity.assess(
+            [cell({'north': 900.0, 'south': 950.0}, vegetation={'carrots': 6})])
+        self.assertFalse(r['rejects'])
+
+    def test_other_starter_crops_are_not_excluded(self):
+        r = resource_validity.assess(
+            [cell({'north': 20.0}, vegetation={'wheat': 40, 'potatoes': 9})])
+        self.assertFalse(r['rejects'])
+
+    def test_the_unchecked_exclusion_is_named_rather_than_passing(self):
+        r = resource_validity.assess([cell({'north': 20.0}, ore={})])
+        self.assertTrue(any('equipment' in x for x in
+                            r['opening_exclusions_not_checked']))
+
+
 class Seam2Floor(unittest.TestCase):
     def test_all_seven_verbs_are_named(self):
         """An earlier reading listed five and dropped Development and
@@ -88,6 +116,23 @@ class Seam2Floor(unittest.TestCase):
         many = opening_floor.permits([cell({'north': 10.0}, hostiles={'zombie': 99})])
         self.assertEqual(one['per_team']['north']['verbs']['combat']['permitted'],
                          many['per_team']['north']['verbs']['combat']['permitted'])
+
+    def test_the_floor_requires_opportunity_not_named_species(self):
+        """A required-species checklist would reintroduce ecological symmetry
+        through the back door. maps.md balances functional opportunity while
+        Wilderness is explicitly not mirrored, and species/depth placement is
+        OPEN, so two openings may satisfy Development with different animals.
+        """
+        north = cell({'north': 10.0, 'south': 900.0}, fauna={'rabbit': 2},
+                     vegetation={'oak_log': 5}, ore={'copper_ore': 2},
+                     hostiles={'zombie': 1})
+        south = cell({'north': 900.0, 'south': 10.0}, fauna={'cow': 2},
+                     vegetation={'oak_log': 5}, ore={'copper_ore': 2},
+                     hostiles={'zombie': 1})
+        r = opening_floor.permits([north, south])
+        for team in ('north', 'south'):
+            self.assertTrue(r['per_team'][team]['verbs']['development']['permitted'])
+        self.assertFalse(r['blocked'])
 
     def test_construction_does_not_require_the_construction_block_category(self):
         why = opening_floor.VERBS['construction']['why']

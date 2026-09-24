@@ -1143,7 +1143,59 @@ also remain prototype heuristics, not this doctrine implemented. See the
 Near, basic and staple candidates are wheat, carrots, potatoes and beetroot, serving food, the basic renewable economy, and common Development opportunity. Intermediate and specialized candidates include pumpkin, melon, sugar cane, cocoa beans and sweet berries, which begin to carry more specific downstream value through recipes, class interactions, utility, biome identity and production inputs. Deep and niche candidates include bamboo, cactus, nether wart, glow berries, torchflower and pitcher plant.
 
 These inherited lists are **Historical illustrative candidates**, neither canon
-nor exhaustive; their near/intermediate/deep grouping is not a species table. Deep resources should only matter if they have real match utility: do not populate deep plant sites with vanilla resources nobody has reason to value. Deep regenerative resources are a good home for narrower class-specific demand.
+nor exhaustive; their near/intermediate/deep grouping is not a species table.
+
+**Carrots: chronology, not contradiction — 24 September 2026.** The carrot
+appears both here as a "near, basic and staple" candidate and in the Opening
+ceiling above as an explicit exclusion, and Alpha was built with three starter
+patches each of wheat, carrot and potato. These are not two simultaneous
+principles to synthesize. They are two design generations: an earlier contract
+in which wheat/carrot/potato were ordinary starter crop vocabulary under a
+**broader homeland** model, superseded for the opening by the later **compact
+Hinterland** ceiling. The later rule stands.
+
+It does not make carrots a deep resource. It keeps them out of a small natural
+envelope that has Wilderness on every side, which is a far weaker restriction
+than the same words would have been under the older homeland model. Alpha's
+starter patches belong to the earlier generation and are not a violation to be
+retrofitted. [IMPLEMENTED 24 September 2026 — `resource_validity.assess` emits
+`OPENING_CEILING_EXCLUDED_RESOURCE`.]
+
+**No required-species floor.** The Opening floor asks for *sufficient ordinary
+renewable opportunity for food acquisition and Development to function*, and
+NOT for named species. A checklist of required staples in both openings would
+reintroduce ecological symmetry through the back door, against the standing
+rule that functional opportunity is balanced while Wilderness is not mirrored,
+and against the resource-generation philosophy above: a fundamental resource
+may exist without being mirrored, equally abundant, or adjacent to spawn.
+One opening satisfying Development with rabbits and the other with cows is the
+intended case, not a fault.
+
+**Effectiveness is not rarity, and neither is saturation.** Regenerative patch
+and population scale should reflect **resource effectiveness** — food output,
+propagation, processing, secondary outputs, practical renewable value — which
+separates at least six axes that must not be collapsed: rarity, effectiveness,
+Strategic Depth, regional/ecological fit, propagation, and regeneration
+cadence. A carrot patch, wheat patch, sheep population and cow population need
+**not** have equal counts to represent comparable regenerative opportunity;
+authored manifestation scale can compensate for effectiveness. Balancing
+species by cooked saturation alone is therefore insufficient, and was proposed
+and rejected on 24 September 2026.
+
+[OPEN] Per-crop effective-nourishment figures were quantified in a September
+discussion that is **not recoverable from this repository** — approximately
+wheat 3.67, carrot 23.1, raw potato 5.6, baked potato 38.5 per plant. They are
+recorded here as recalled values requiring re-derivation, not as calibration.
+This follows the UAU precedent in the 14 September economic recovery: do not
+silently canonize a reconstruction. For animals the analogous distinction was
+a **breeding core** against a **harvestable surplus**, with secondary products
+such as leather, wool and eggs contributing value; exact herd and patch
+quantities remain unsettled.
+
+[OPEN] Cows, pigs and horses have **no recovered exclusion decision**. Excluding
+cows would also remove ordinary access to leather, a Primary Material, from the
+opening; horses are mobility that no current traversability measurement models.
+Both are questions, not rulings. Deep resources should only matter if they have real match utility: do not populate deep plant sites with vanilla resources nobody has reason to value. Deep regenerative resources are a good home for narrower class-specific demand.
 
 Do not automatically treat all renewable vegetation as crop sites. Trees, logs and flowers enter this bucket only where they function as deliberately valuable renewable plant resources.
 
