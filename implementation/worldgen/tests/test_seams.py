@@ -15,12 +15,13 @@ class Seam1Ceiling(unittest.TestCase):
     """Resource validity is a ceiling check, because doctrine forbids a floor."""
 
     def test_a_worksite_scale_concentration_is_classified_but_not_refused(self):
-        """The ceiling measures and does not reject until ore is accessibility
-        filtered. A 64-block cell holds a median 1,168 iron on seed 3141592
-        and 269,318 over the window, against a recovered budget of ~130-140
-        per team for a whole match: three orders of magnitude apart, because
-        the budget is economically relevant opportunity and the count is
-        every block in the rock.
+        """The ceiling measures and does not reject.
+
+        Supersedes the earlier reason, which was "until ore is accessibility
+        filtered". It has been: `caves` separates exposed from buried ore and
+        only 1-5% is reachable, which moves the gap from ~1000x the recovered
+        budget to ~49x. Closer, and still not comparable, because the budget
+        counts what a team MINES in a match rather than what the ground holds.
         """
         r = resource_validity.assess(
             [cell({'north': 30.0, 'south': 500.0}, ore={'iron_ore': 46})])
@@ -29,7 +30,7 @@ class Seam1Ceiling(unittest.TestCase):
                              for b in r['progression_breaking']))
         found = [f for f in r['findings'] if f['material'] == 'iron']
         self.assertEqual(found[0]['verdict'], 'worksite_scale')
-        self.assertIn('caves.py', r['ore_ceiling_blocked_on'])
+        self.assertIn('consumption model', r['ore_ceiling_blocked_on'])
 
     def test_the_same_concentration_at_depth_is_not_refused(self):
         """maps.md: empty or weak deep terrain is legitimate and density is
@@ -88,6 +89,27 @@ class OpeningExclusions(unittest.TestCase):
         r = resource_validity.assess([cell({'north': 20.0}, ore={})])
         self.assertTrue(any('equipment' in x for x in
                             r['opening_exclusions_not_checked']))
+
+
+class OreIsAStockNotABudget(unittest.TestCase):
+    """Measured: accessibility does not close the gap, so the rule changes."""
+
+    def test_the_ceiling_still_does_not_reject_and_says_why(self):
+        r = resource_validity.assess(
+            [cell({'north': 30.0}, ore={'iron_ore': 46})])
+        self.assertFalse(r['ore_ceiling_rejects'])
+        self.assertIn('consumption model', r['ore_ceiling_blocked_on'])
+
+    def test_the_observed_exposure_is_recorded(self):
+        """1-5% of ore is reachable, which is why raw counts mislead."""
+        r = resource_validity.assess([cell({'north': 30.0}, ore={})])
+        for material, fraction in r['exposed_fraction_observed'].items():
+            self.assertLess(fraction, 0.10, material)
+            self.assertGreater(fraction, 0.0, material)
+
+    def test_counts_are_labelled_as_stock(self):
+        r = resource_validity.assess([cell({'north': 30.0}, ore={})])
+        self.assertIn('never against the economic budget', r['counts_are'])
 
 
 class Seam2Floor(unittest.TestCase):

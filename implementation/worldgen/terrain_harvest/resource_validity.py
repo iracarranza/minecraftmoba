@@ -152,9 +152,39 @@ def classify(count: int, material: str) -> dict:
 # So the ceiling MEASURES and does not reject until it has an accessible
 # count. Tuning a threshold to make the comparison pass would be inventing a
 # number to paper over comparing two different things.
+# MEASURED 24 September 2026, and the answer changes the rule rather than
+# calibrating it.
+#
+# `caves.scan_cell` separates ore an explorer can SEE from a cave from ore
+# sealed in rock. On seed 2718281 over 16 sampled cells:
+#
+#     iron     exposed 5.44%    diamond 1.36%    copper 4.25%
+#
+# Scaled over the window that is ~13,100 exposed iron against ~269,300 raw.
+# Accessibility filtering therefore closes the gap to the recovered budget
+# from about 1000x to about 49x -- a 20x improvement, and still NOT within
+# the one order of magnitude that would have let the ceiling reject.
+#
+# So the budget is not a stock of ore in the ground, even reachable ore. It is
+# a CONSUMPTION figure: what one team actually mines and uses in a match,
+# bounded by time, tools, travel, inventory and hunger rather than by what
+# exists. The recovery document calls it "economically relevant opportunity"
+# and that phrase was doing more work than a physical count can carry.
+#
+# This was named in advance as a legitimate outcome of the measurement rather
+# than a failure of it. The ceiling rule needs rethinking against a
+# consumption model, and a threshold chosen now would be a number invented to
+# make two unlike quantities compare.
+#
+# WHAT EXPOSURE IS STILL GOOD FOR. It is a sound COMPARATIVE measure even
+# though it is not an absolute one: a window where 5.4% of its iron is
+# reachable offers materially different practical opportunity from one where
+# 1% is, and that difference is real whether or not either maps onto 135.
 REJECTS_ON_ORE = False
-NEEDS = ('an accessibility-filtered ore count. `caves.py` measures cave '
-         'volume, depth and exposure and is not read by this module yet.')
+NEEDS = ('a consumption model, not a bigger filter. Exposure closes the gap '
+         'from ~1000x to ~49x and no further, because the budget counts what '
+         'a team mines in a match rather than what the ground holds.')
+EXPOSED_FRACTION_OBSERVED = {'iron': 0.0544, 'diamond': 0.0136, 'copper': 0.0425}
 
 
 def assess(cells, *, opening_cost: float = 120.0,
@@ -214,6 +244,10 @@ def assess(cells, *, opening_cost: float = 120.0,
         'opening_exclusions_checked': list(OPENING_EXCLUDED_VEGETATION),
         'ore_ceiling_rejects': REJECTS_ON_ORE,
         'ore_ceiling_blocked_on': NEEDS,
+        'exposed_fraction_observed': dict(EXPOSED_FRACTION_OBSERVED),
+        'counts_are': 'raw ore in the rock. Most of it is unreachable: only '
+                      '1-5% is exposed to a cave. Read these comparatively '
+                      'between windows, never against the economic budget.',
         'opening_exclusions_not_checked': [
             'equipment-sufficient accessible Iron, which needs a declared '
             'equipment target that does not exist',
