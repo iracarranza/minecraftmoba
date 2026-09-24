@@ -791,7 +791,7 @@ def _coastline(mask, width, depth):
 
 
 def water_structure(height: list, width: int, depth: int, sea_level: int,
-                    *, spacing: int = 8) -> dict:
+                    *, spacing: int = 8, land_mask: list | None = None) -> dict:
     """How land and water are ARRANGED, not merely how much of each there is.
 
     The distinction this exists for: one lagoon inside one island and twenty
@@ -799,7 +799,16 @@ def water_structure(height: list, width: int, depth: int, sea_level: int,
     apart and the component structure can, which is the same argument that
     put prominence next to `highland_fraction`.
     """
-    land = [h >= sea_level for h in height]
+    if land_mask is not None and len(land_mask) != len(height):
+        raise ValueError(f'land_mask has {len(land_mask)} cells, '
+                         f'height has {len(height)}')
+    # `land_mask` overrides the height test, and callers that clamp heights to
+    # sea level MUST pass one. Clamping makes `h >= sea_level` true everywhere,
+    # which reports one land body, no water bodies and zero coastline for every
+    # scoop -- a harvest over 2,834 scoops came back with land_bodies 1 and
+    # coastline 0.000 at every quantile before this existed. Biome is the
+    # authoritative signal; see `scan.OCEAN_IDS`.
+    land = list(land_mask) if land_mask is not None else [h >= sea_level for h in height]
     n = len(land)
     land_sizes = _components(land, width, depth)
     water_sizes = _components([not v for v in land], width, depth)

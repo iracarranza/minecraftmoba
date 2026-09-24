@@ -126,6 +126,68 @@ def features(height: list, width: int, depth: int, *, spacing: int = 8,
     return closed[:keep]
 
 
+def relief_shape(height: list, width: int, depth: int, *, spacing: int = 8) -> dict:
+    """Peak-against-pit structure, using ranks BELOW the top one.
+
+    THE TOP PROMINENCE IS THE RELIEF, and that is an identity rather than a
+    measurement. The highest feature merges into the terrain only at its
+    lowest point, so its prominence equals the full range -- and the same is
+    true of the deepest pit on the negated field. On random ground both come
+    back as 29.97 out of a 29.97 range. Comparing rank-1 peak against rank-1
+    pit therefore always reports "balanced", whatever the terrain is.
+
+    A harvest over 2,834 scoops recorded `peak_prom` and `pit_prom` as equal
+    at every quantile before this was noticed. The module already warned that
+    peak and pit come back nearly equal on a dome field; the warning was
+    written and then not applied.
+
+    What does carry information is the SECOND and later features -- how many
+    substantial peaks stand against how many substantial pits, and how deep
+    they run relative to the relief.
+
+    AND IT MEASURES DIVISION, NOT ELEVATION. A single central ridge scores
+    -0.54 and a single central chasm +0.51, which looks inverted and is not.
+    Sub-prominence counts SEPARATED components, and a ridge separates the
+    ground into two basins while a chasm separates it into two plateaus. So
+    the sign says what the dominant feature divides the scoop into, which is
+    the opposite sign from what the feature is made of.
+
+    That is the more useful reading for Map Types anyway -- Great River,
+    Canyon and Mountain Range are all defined by what they cut the map into --
+    but it must not be called a highland/chasm lean, which is what an earlier
+    version of this labelled it.
+    """
+    peaks = features(height, width, depth, spacing=spacing, keep=8)
+    pits = features(height, width, depth, spacing=spacing, keep=8, invert=True)
+    relief = (max(height) - min(height)) if height else 0.0
+    sub_peaks = [f['prominence'] for f in peaks[1:]]
+    sub_pits = [f['prominence'] for f in pits[1:]]
+    top = lambda v: v[0] if v else 0.0
+    return {
+        'relief_blocks': round(relief, 2),
+        'top_prominence_equals_relief': bool(peaks) and abs(
+            peaks[0]['prominence'] - relief) < 1.0,
+        'second_peak': round(top(sub_peaks), 2),
+        'second_pit': round(top(sub_pits), 2),
+        'peak_count': len(sub_peaks),
+        'pit_count': len(sub_pits),
+        'peak_mass': round(sum(sub_peaks), 2),
+        'pit_mass': round(sum(sub_pits), 2),
+        # Positive: the scoop is divided into separated HIGH ground, so the
+        # dividing feature is a cut -- a canyon, river or ravine network.
+        # Negative: divided into separated BASINS, so the divider is raised --
+        # a ridge or mountain wall. Uses ranks that can actually differ.
+        # Guarded on the SUM, not on the lists. A scoop can have sub-features
+        # whose prominences are all zero -- flat ground with a single rise --
+        # and `if (sub_peaks or sub_pits)` passes for it while the denominator
+        # is 0.0.
+        'separation_sign': round(
+            (sum(sub_peaks) - sum(sub_pits)) /
+            (sum(sub_peaks) + sum(sub_pits)), 4)
+        if (sum(sub_peaks) + sum(sub_pits)) > 0 else 0.0,
+    }
+
+
 def describe(feature_grid: dict, *, keep: int = 12) -> dict:
     """Peaks and pits for a candidate's height grid. Locations stay separate."""
     width, depth = feature_grid['width'], feature_grid['height']

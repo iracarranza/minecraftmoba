@@ -76,5 +76,36 @@ class Prominence(unittest.TestCase):
                               f'{word} would bake a direction into the measurement')
 
 
+from terrain_harvest import prominence as P  # noqa: E402
+
+
+class ReliefShape(unittest.TestCase):
+    def test_the_top_prominence_is_the_relief_and_says_so(self):
+        """An identity, not a measurement. Comparing rank-1 peak to rank-1 pit
+        always reports 'balanced' whatever the terrain is."""
+        import random
+        rng = random.Random(2)
+        W = D = 40
+        h = [64 + rng.uniform(0, 30) for _ in range(W * D)]
+        r = P.relief_shape(h, W, D, spacing=8)
+        self.assertTrue(r['top_prominence_equals_relief'])
+
+    def test_the_sign_measures_what_the_feature_divides(self):
+        """A ridge separates the ground into basins; a chasm into plateaus."""
+        import random
+        rng = random.Random(2)
+        W = D = 40
+        ridge = [64 + max(0, 25 - abs(i - 20) * 2) + rng.uniform(0, 2)
+                 for _ in range(D) for i in range(W)]
+        chasm = [64 - max(0, 25 - abs(i - 20) * 2) + rng.uniform(0, 2)
+                 for _ in range(D) for i in range(W)]
+        a = P.relief_shape(ridge, W, D, spacing=8)
+        b = P.relief_shape(chasm, W, D, spacing=8)
+        self.assertLess(a['separation_sign'], -0.2)   # divided into basins
+        self.assertGreater(b['separation_sign'], 0.2)  # divided into plateaus
+        self.assertGreater(a['pit_mass'], a['peak_mass'])
+        self.assertGreater(b['peak_mass'], b['pit_mass'])
+
+
 if __name__ == '__main__':
     unittest.main()
