@@ -128,6 +128,13 @@ class Compilation:
     reached: str = 'recognize'
     rejections: list = field(default_factory=list)
     evidence: dict = field(default_factory=dict)
+    # The candidate this compilation is of. Carried because `cell_grid` needs
+    # the terrain graph, and rebuilding it from evidence would be a second
+    # representation of the same thing. Deliberately NOT serialized by
+    # `as_dict`: a compilation record is a verdict with its evidence, and
+    # embedding the whole candidate in every run would make a batch report
+    # mostly input.
+    candidate: dict = field(default_factory=dict, repr=False)
 
     @property
     def verified(self) -> bool:
@@ -433,7 +440,7 @@ def compile_candidate(candidate, world=None, build_world=None) -> Compilation:
     means what it says. Later stages (select/author/verify) are only attempted
     when every earlier one is clean.
     """
-    out = Compilation(seed=candidate.get('seed'))
+    out = Compilation(seed=candidate.get('seed'), candidate=candidate)
     recognize(candidate, out)
     if out.rejections:
         return out
@@ -747,6 +754,23 @@ def characterize(out: Compilation, world=None):
         out.evidence['characterization']['measured'] = True
     except Exception as failure:              # noqa: BLE001 - reported, not swallowed
         out.evidence['characterization'] = {
+            'measured': False,
+            'why': f'{type(failure).__name__}: {failure}',
+        }
+        return out
+
+    # Strategic Depth and Regional Character, per measured cell. The layer four
+    # other seams wait on: natural resource placement validity, the Opening
+    # Hinterland floor, practical traversability and the authorability verdict
+    # all need to know how far a piece of ground is from each team and what
+    # kind of country it is.
+    try:
+        from . import cell_grid
+        fountains = out.evidence.get('fountains') or {}
+        out.evidence['cell_grid'] = cell_grid.build(
+            out.candidate or {}, out.evidence['characterization'], fountains)
+    except Exception as failure:              # noqa: BLE001
+        out.evidence['cell_grid'] = {
             'measured': False,
             'why': f'{type(failure).__name__}: {failure}',
         }

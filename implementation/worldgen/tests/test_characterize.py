@@ -53,3 +53,46 @@ class Stage(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class CellGrid(unittest.TestCase):
+    """Strategic Depth and Regional Character, per measured cell."""
+
+    def grid(self, **over):
+        from terrain_harvest import cell_grid
+        return cell_grid.build(over.get('candidate', {}),
+                               over.get('characterization', {}),
+                               over.get('fountains', {}))
+
+    def test_without_cells_or_fountains_it_reports_unmeasured(self):
+        self.assertFalse(self.grid()['measured'])
+        self.assertIn('no characterized cells', self.grid()['why'])
+
+    def test_it_asserts_no_depth_bands(self):
+        # maps.md marks the depth gradient OPEN and warns that a band is an
+        # analytical grouping, not an authored polygon. Nothing downstream may
+        # read shallow/deep out of this until a bound is chosen from evidence.
+        from terrain_harvest import cell_grid
+        import inspect
+        src = inspect.getsource(cell_grid)
+        self.assertIn('NO BANDS', src)
+        for forbidden in ('SHALLOW_MAX', 'DEEP_MIN', 'DEPTH_BANDS'):
+            self.assertNotIn(forbidden, src,
+                             f'{forbidden} would be a threshold invented without evidence')
+
+    def test_depth_is_not_radial_distance(self):
+        # maps.md: "Strategic Depth is not simply radial distance from a
+        # Fountain." It must come from the terrain graph the rest of the
+        # compiler already uses.
+        from terrain_harvest import cell_grid
+        import inspect
+        src = inspect.getsource(cell_grid)
+        self.assertIn('shortest', src, 'depth must be traversal cost, not distance')
+        self.assertIn('not simply radial distance', src)
+
+    def test_depth_is_reported_per_team_and_never_averaged(self):
+        from terrain_harvest import cell_grid
+        import inspect
+        src = inspect.getsource(cell_grid.build)
+        self.assertNotIn('mean(', src)
+        self.assertIn('depth[team]', src)
