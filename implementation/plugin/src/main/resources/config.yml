@@ -168,6 +168,10 @@ abilities:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted: { a1: lightfooted_lunge, a2: lightfooted_bounding, ult: channel_ult }
   lightfooted:
+    branch: base
+    pounceWindupTicks: 5
+    swipeDisableTicks: 40
+    swipeDisableCapTicks: 100
     lungeDistance: 8.0
     lungeDamage: 2.0
     lungeTicks: 8
