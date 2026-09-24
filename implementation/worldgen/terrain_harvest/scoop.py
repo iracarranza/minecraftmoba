@@ -26,17 +26,39 @@ TWO DIFFERENT THINGS GET CALLED SYMMETRY, and they are not close.
   first. It is far weaker, it is satisfiable, and it is what the discard is
   actually reaching for.
 
-Both are computed, and the mirror term is split into TILT and RESIDUAL: a
-scoop laid across a slope has one end higher than the other, which is a
-gameplay question about high ground and not a difference in character. The
-trend is fitted and removed before the mismatch is measured, so a mirror line
-drawn down the middle of a slope reads as the clean mirror it is.
+Both are computed, and the mirror term is DECOMPOSED into tilt and residual.
+Decomposed, not corrected. The distinction matters and an earlier version of
+this module got it backwards.
 
-That split turned out to matter more than expected. Before detrending, the
-z axis looked markedly more symmetric than x on these finalists (deviation 20
-against 34). After it, the two are indistinguishable (18.9 against 19.7): the
-entire apparent difference was an east-west slope of up to 76 blocks being
-read as terrain asymmetry. The axis choice was being made on a tilt.
+A slope running W-E across the landmass, with the teams at the N and S ends,
+needs no correction at all: height varies only with x, mirroring N onto S
+leaves it unchanged, and tilt and residual both read 0.0. That case was always
+clean.
+
+The case detrending actually removed was a slope running ALONG the team axis,
+one team simply higher than the other. That is not a difference of altitude
+without consequence -- it is one team holding the high ground, which is a real
+competitive deficit. Fitting it away and ranking on what remained meant
+preferring scoops with that deficit over scoops without it.
+
+So a scoop is ranked on the RAW mirror deviation, tilt included. The
+decomposition is kept because it says WHY a scoop scores badly -- a tilt might
+be answerable by authoring where a residual cannot be -- but it does not
+discount anything.
+
+WHAT THE CORRECTION CHANGED, on 14 finalists. Ranking on the detrended
+residual made the two axes look indistinguishable (18.9 against 19.7) and
+suggested the axis choice barely mattered. Ranking on the raw deviation, z
+wins 13 of 14 -- median 22.1 against 33.1 -- and the reason is the tilt that
+was being fitted away: x tilt runs -28 to -76 blocks on these maps while z
+tilt stays within +/-27. They sit on a strong east-west regional slope, so
+splitting the teams E-W would put one of them up to 76 blocks above the other.
+The raw measure was right, and it independently agrees with the orientation
+the pipeline already uses -- without consulting ocean at all.
+
+The decomposition still earns its place. On 930012642 the x axis has the
+LOWER residual (18.2 against 20.1): on character alone it would be the better
+split, and only its -43 tilt rules it out. One number could not have said that.
 
 Nothing here is bounded: the numbers are reported and what counts as too
 lopsided is a template's decision, not this module's.
@@ -162,6 +184,16 @@ def symmetry(height: list, width: int, depth: int, axis: str,
     span = (depth if axis == 'z' else width) - 1
     tilt = slope * span                     # total rise across the team axis
 
+    # The RAW deviation, which is what a scoop is ranked on. Detrending is a
+    # decomposition, not a correction: see the module note on tilt.
+    raw, _n = 0.0, 0
+    for j in range(a[2], a[3]):
+        for i in range(a[0], a[1]):
+            mi, mj = _mirror(i, j, width, depth, axis)
+            raw += abs(height[j * width + i] - height[mj * width + mi])
+            _n += 1
+    raw = raw / _n if _n else 0.0
+
     ra, rb = _relief(va), _relief(vb)
     ga = _roughness(height, width, depth, *[a[0], a[1], a[2], a[3]])
     gb = _roughness(height, width, depth, *[b[0], b[1], b[2], b[3]])
@@ -171,6 +203,7 @@ def symmetry(height: list, width: int, depth: int, axis: str,
         # split -- a slope, not a difference in character. Residual is what
         # remains, and near-zero residual would mean literal reflection, which
         # noise never is.
+        'mirror_deviation_blocks': round(raw, 2),
         'mirror_tilt_blocks': round(tilt, 2),
         'mirror_tilt_blocks_per_block': round(slope / spacing_hint, 5),
         'mirror_residual_blocks': round(mad, 2),
@@ -322,8 +355,8 @@ def describe(feature_grid: dict, *, spacing: int | None = None) -> dict:
 # what the screen passed. A cheap screen that optimises a different quantity
 # than the ranking does not save work, it changes the answer.
 #
-# So the screen is a COARSE version of the ranking: the same detrended mirror
-# residual on a subsampled grid. It costs 1/k^2 of the exact pass and measures
+# So the screen is a COARSE version of the ranking: the same raw mirror
+# deviation on a subsampled grid. It costs 1/k^2 of the exact pass and measures
 # the right thing. The summed-area statistics are still computed and reported,
 # just not ranked on.
 #
@@ -381,21 +414,20 @@ def _cheap(sums, i0, j0, i1, j1, axis):
     }
 
 
-def _coarse_residual(height, width, i0, j0, cw, cd, axis, k):
-    """Detrended mirror residual on every k-th sample. Same shape as `symmetry`."""
-    cells, coords = [], []
+def _coarse_deviation(height, width, i0, j0, cw, cd, axis, k):
+    """Raw mirror deviation on every k-th sample. Same measure as `symmetry`.
+
+    NOT detrended. An earlier version fitted the trend out here to match a
+    ranking that did the same, and both were wrong in the same direction: a
+    slope along the team axis is one team on high ground, and discounting it
+    made the search prefer scoops carrying that deficit.
+    """
+    flat, w = [], 0
     for j in range(0, cd, k):
         for i in range(0, cw, k):
-            cells.append(height[(j0 + j) * width + i0 + i])
-            coords.append(j if axis == 'z' else i)
-    n = len(cells)
-    if n < 4:
+            flat.append(height[(j0 + j) * width + i0 + i])
+    if len(flat) < 4:
         return None
-    mean_c = sum(coords) / n
-    mean_h = sum(cells) / n
-    den = sum((c - mean_c) ** 2 for c in coords) or 1.0
-    slope = sum((c - mean_c) * (h - mean_h) for c, h in zip(coords, cells)) / den
-    flat = [h - slope * (c - mean_c) for c, h in zip(coords, cells)]
     w = len(range(0, cw, k))
     d = len(range(0, cd, k))
     total, m = 0.0, 0
@@ -446,25 +478,26 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
                         considered += 1
                         if c is None:
                             continue
-                        cr = _coarse_residual(height, width, i, j, cw, cd,
-                                              axis, coarsen)
+                        cr = _coarse_deviation(height, width, i, j, cw, cd,
+                                               axis, coarsen)
                         if cr is None:
                             continue
                         screened.append({'i': i, 'j': j, 'cw': cw, 'cd': cd,
-                                         'axis': axis, 'coarse_residual': cr, **c})
-    # Rank on the coarse residual -- the same quantity the exact tier ranks on.
+                                         'axis': axis, 'coarse_deviation': cr, **c})
+    # Rank on the coarse deviation -- the same quantity the exact tier ranks on.
     #
-    # Tilt is excluded deliberately: a slope is a legitimate scoop, and ranking
-    # against it would reproduce at the cheap tier the mistake detrending was
-    # added to fix at the exact one. The coarse residual is detrended for
-    # exactly that reason.
+    # TILT IS INCLUDED, which reverses an earlier decision here. The comment
+    # this replaces argued that "a slope is a legitimate scoop" and excluded
+    # tilt from the ranking. That confused two different slopes. One running
+    # W-E with the teams at N and S is legitimate and already scores 0.0
+    # without any special handling. One running along the team axis puts a
+    # team on high ground, and excluding it from the ranking meant actively
+    # preferring scoops with that deficit.
     #
-    # `spread_gap` is excluded too, less obviously. It compares the two halves'
-    # standard deviations, and a slope across the scoop inflates the variance
-    # of whichever half it falls on -- so ranking on it was tilt-sensitive
-    # through the back door. Adding a uniform x-slope to a test region moved
-    # the winner from [16,0] to [20,0] with the terrain otherwise unchanged.
-    screened.sort(key=lambda c: c['coarse_residual'])
+    # `spread_gap` stays out, for its own reason: it compares the two halves'
+    # standard deviations, so a slope inflates whichever half it falls on and
+    # it double-counts tilt in an uninterpretable way. It is still reported.
+    screened.sort(key=lambda c: c['coarse_deviation'])
     # Overlapping scoops are the same place.
     spread, taken = [], []
     for c in screened:
@@ -487,11 +520,11 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
             'scoop_blocks': [sw * spacing, sd * spacing],
             'area_blocks2': sw * sd * spacing * spacing,
             **sym,
-            'coarse_residual_blocks': round(c['coarse_residual'], 3),
+            'coarse_deviation_blocks': round(c['coarse_deviation'], 3),
             'homebase_pair': pair,
             'homebase_max_separation_blocks': pair.get('max_separation_blocks'),
         })
-    found.sort(key=lambda f: f['mirror_residual_blocks'])
+    found.sort(key=lambda f: f['mirror_deviation_blocks'])
     return {
         'considered': considered,
         'measured_exactly': len(found),
@@ -499,9 +532,9 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
         'sizes_blocks': [list(s) for s in sizes],
         'scoops': found,
         'coarsen': coarsen,
-        'ranked_by': 'mirror residual after detrending, screened on the same '
-                     'measure at 1/%d resolution. Tilt is reported and NOT '
-                     'ranked on -- a slope is a legitimate scoop.' % coarsen,
+        'ranked_by': 'raw mirror deviation, screened on the same measure at '
+                     '1/%d resolution. Tilt is INCLUDED: a slope along the '
+                     'team axis is one team on high ground.' % coarsen,
         'uses_no_default_parameters': True,
         'proves': 'elevation only. No ocean, resource, water or buildability '
                   'check happens here.',

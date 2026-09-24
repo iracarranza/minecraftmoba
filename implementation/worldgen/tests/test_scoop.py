@@ -20,7 +20,7 @@ class Symmetry(unittest.TestCase):
         rows = [[i * 3 for i in range(w)] for _ in range(d // 2)]
         height = [v for r in rows for v in r] + [v for r in reversed(rows) for v in r]
         sym = scoop.symmetry(height, w, d, 'z')
-        self.assertEqual(sym['mirror_residual_blocks'], 0.0)
+        self.assertEqual(sym['mirror_deviation_blocks'], 0.0)
 
     def test_flat_north_hilly_south_passes_relief_but_fails_roughness(self):
         """The discard case, and the reason roughness is measured separately.
@@ -57,12 +57,38 @@ class Symmetry(unittest.TestCase):
         self.assertEqual(set(out['axes']), {'x', 'z'})
         # The gradient runs along x, so an x split separates the halves and a
         # z split does not.
-        self.assertGreater(out['axes']['x']['mirror_residual_blocks'],
-                           out['axes']['z']['mirror_residual_blocks'])
+        self.assertGreater(out['axes']['x']['mirror_deviation_blocks'],
+                           out['axes']['z']['mirror_deviation_blocks'])
 
 
 class Tilt(unittest.TestCase):
-    """A scoop laid across a slope is still mirrored, and must read as one."""
+    """Two different slopes, and only one of them is harmless.
+
+    A slope running W-E with the teams at the N and S ends is fine and needs
+    no special handling -- height varies only with x, so mirroring N onto S
+    changes nothing. A slope running ALONG the team axis puts one team above
+    the other, which is a real deficit. An earlier version of this module
+    treated both as harmless and detrended them away.
+    """
+
+    def test_a_slope_across_the_landmass_is_not_a_deficit(self):
+        """W-E slope, N-S teams: clean without any correction at all."""
+        w, d = 20, 20
+        height = [64 + i for _ in range(d) for i in range(w)]
+        sym = scoop.symmetry(height, w, d, 'z')
+        self.assertEqual(sym['mirror_deviation_blocks'], 0.0)
+        self.assertEqual(sym['mirror_tilt_blocks'], 0.0)
+        self.assertEqual(sym['mirror_residual_blocks'], 0.0)
+
+    def test_a_slope_along_the_team_axis_IS_a_deficit(self):
+        """One team on high ground must not read as a clean mirror."""
+        w, d = 20, 20
+        height = [64 + j for j in range(d) for _ in range(w)]
+        sym = scoop.symmetry(height, w, d, 'z')
+        self.assertGreater(sym['mirror_deviation_blocks'], 0)
+        self.assertGreater(sym['mirror_tilt_blocks'], 0)
+        # the decomposition still says WHY: it is all tilt, no character gap
+        self.assertEqual(sym['mirror_residual_blocks'], 0.0)
 
     def test_a_pure_slope_across_the_split_is_all_tilt_and_no_residual(self):
         w, d = 20, 20
@@ -202,8 +228,8 @@ class Search(unittest.TestCase):
         # the planted band spans samples 10..50, so the winner sits inside it
         self.assertGreaterEqual(best['origin_sample'][1], 8)
         # and it is a far cleaner mirror than the worst scoop kept
-        self.assertLess(best['mirror_residual_blocks'],
-                        worst['mirror_residual_blocks'] / 2)
+        self.assertLess(best['mirror_deviation_blocks'],
+                        worst['mirror_deviation_blocks'] / 2)
 
     def test_no_ocean_or_resource_parameter_is_consulted(self):
         W, D = 40, 40
@@ -227,17 +253,31 @@ class Search(unittest.TestCase):
         self.assertGreater(out['considered'], 100)
         self.assertLessEqual(out['measured_exactly'], 3)
 
-    def test_a_tilted_scoop_is_not_penalised(self):
-        """Ranking on tilt would undo the reason detrending was added."""
+    def test_a_tilt_along_the_team_axis_worsens_every_scoop(self):
+        """Reverses an earlier test, which asserted the opposite.
+
+        That one added a W-E tilt -- harmless, since the teams sit N and S --
+        checked the winner had not moved, and the ranking was then built to
+        ignore tilt in general. Tilting along the TEAM axis puts a team on
+        high ground, and must make the region measurably worse.
+        """
         W, D = 60, 60
         h = self._region(W, D, (10, 50))
-        tilted = [v + 0.8 * (i % W) for i, v in enumerate(h)]
-        a = scoop.search(h, W, D, spacing=8, sizes=[(240, 240)],
-                         stride=4, budget=4, coarsen=2, probe_blocks=48)
-        b = scoop.search(tilted, W, D, spacing=8, sizes=[(240, 240)],
-                         stride=4, budget=4, coarsen=2, probe_blocks=48)
-        self.assertEqual(a['scoops'][0]['origin_sample'],
-                         b['scoops'][0]['origin_sample'])
+        along_team_axis = [v + 0.8 * (i // W) for i, v in enumerate(h)]
+        across = [v + 0.8 * (i % W) for i, v in enumerate(h)]
+        kw = dict(spacing=8, sizes=[(240, 240)], stride=3, budget=4,
+                  coarsen=2, probe_blocks=48)
+        a = scoop.search(h, W, D, **kw)['scoops'][0]
+        b = scoop.search(along_team_axis, W, D, **kw)['scoops'][0]
+        c = scoop.search(across, W, D, **kw)['scoops'][0]
+        self.assertEqual(a['team_axis'], 'z')
+        self.assertGreater(b['mirror_deviation_blocks'],
+                           a['mirror_deviation_blocks'])
+        self.assertGreater(abs(b['mirror_tilt_blocks']),
+                           abs(a['mirror_tilt_blocks']))
+        # the harmless tilt leaves the best z-scoop essentially untouched
+        self.assertAlmostEqual(c['mirror_deviation_blocks'],
+                               a['mirror_deviation_blocks'], delta=0.5)
 
 
 if __name__ == '__main__':
