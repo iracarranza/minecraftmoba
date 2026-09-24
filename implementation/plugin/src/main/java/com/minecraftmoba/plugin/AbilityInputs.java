@@ -68,7 +68,11 @@ public final class AbilityInputs implements Listener {
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
         last.put(ability.id(), tick);
         if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this))) {
-            ready.put(ability.id(),tick+ability.cooldownTicks());
+            long cooldown=ability.cooldownTicks();
+            if ("lightfooted_lunge".equals(ability.id()) && plugin.lightfooted()!=null) {
+                cooldown=Math.max(2,cooldown-plugin.lightfooted().nearbyBonus(p).wolves()*2L);
+            }
+            ready.put(ability.id(),tick+cooldown);
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
                 plugin.getLogger().info("ABILITY player="+p.getName()+" id="+ability.id()+" tick="+tick);
@@ -150,6 +154,6 @@ public final class AbilityInputs implements Listener {
     public void entityAt(PlayerInteractAtEntityEvent e) { entity(e); }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void drop(PlayerDropItemEvent e) { if (active(e.getPlayer()) || plugin.isMap(e.getItemDrop().getItemStack())) e.setCancelled(true); }
-    @EventHandler public void death(PlayerDeathEvent e) { exit(e.getPlayer(),true); }
+    @EventHandler public void death(PlayerDeathEvent e) { exit(e.getPlayer(),true); if (plugin.lightfooted()!=null) plugin.lightfooted().clear(e.getPlayer()); }
     @EventHandler public void quit(PlayerQuitEvent e) { forget(e.getPlayer()); }
 }
