@@ -17,7 +17,8 @@ public final class AbilityInputs implements Listener {
     private final Provenance provenance;
     private final Map<String, Ability> abilities;
     private final Map<String, Map<Input, Ability>> kits = new HashMap<>();
-    private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>(), lastFire = new HashMap<>();
+    private final AbilityCooldowns cooldowns = new AbilityCooldowns();
+    private final Map<UUID, Map<String, Long>> lastFire = new HashMap<>();
     private final Map<UUID, Channel> channels = new HashMap<>();
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
     private final Input modeInput;
@@ -64,15 +65,14 @@ public final class AbilityInputs implements Listener {
         Ability ability=kit.get(input);
         if (ability == null) return true;
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
-        var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
-        if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
+        if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || !cooldowns.ready(p.getUniqueId(),ability.id(),tick)) return true;
         last.put(ability.id(), tick);
         if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this))) {
             long cooldown=ability.cooldownTicks();
             if ("lightfooted_lunge".equals(ability.id()) && plugin.lightfooted()!=null) {
                 cooldown=Math.max(2,cooldown-plugin.lightfooted().nearbyBonus(p).wolves()*2L);
             }
-            ready.put(ability.id(),tick+cooldown);
+            cooldowns.start(p.getUniqueId(),ability.id(),tick,cooldown);
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
                 plugin.getLogger().info("ABILITY player="+p.getName()+" id="+ability.id()+" tick="+tick);
@@ -86,7 +86,7 @@ public final class AbilityInputs implements Listener {
         if (!silent) sound(p,"exit");
     }
     public void forget(Player p) {
-        exit(p,true); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
+        exit(p,true); cooldowns.clear(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
     public void channel(Player p,long duration,double threshold) {
         channels.put(p.getUniqueId(), new Channel(p.getLocation().clone(),tick+duration,threshold*threshold));
@@ -121,8 +121,10 @@ public final class AbilityInputs implements Listener {
             Input input=Input.valueOf(plugin.getConfig().getString("abilities.bindings."+slot));
             Ability ability=kit==null?null:kit.get(input);
             String label=switch(input) { case LEFT_CLICK -> "M1"; case RIGHT_CLICK -> "M2"; case DROP -> "Q"; case SWAP_HAND -> "F"; };
-            boolean cooling=ability!=null && cooldowns.getOrDefault(p.getUniqueId(),Map.of()).getOrDefault(ability.id(),0L)>tick;
-            bar=bar.append(Component.text(label+" "+(ability==null?"—":ability.displayName())+"   ",cooling?NamedTextColor.GRAY:NamedTextColor.WHITE));
+            long remaining=ability==null?0:cooldowns.remaining(p.getUniqueId(),ability.id(),tick);
+            String state=ability==null?"—":remaining==0?"READY":String.format("%.1fs",remaining/20.0);
+            boolean selected=active(p) && input==modeInput;
+            bar=bar.append(Component.text((selected?"> ":"")+ (ability==null?"—":ability.displayName())+" "+state+"   ",remaining==0?NamedTextColor.WHITE:NamedTextColor.GRAY));
         }
         p.sendActionBar(bar);
     }
