@@ -59,22 +59,56 @@ def prepare_runtime(server_jar, java, runtime):
     return time.perf_counter() - started
 
 
-def generate_world(seed, server_jar, java, root, runtime, chunk_bounds, accept_eula=True, progress=None):
+def free_port():
+    """An ephemeral port the OS says is free, for one generation worker.
+
+    Parallel generation needs this and nothing set a port at all: every server
+    bound the default 25565. That is not a theoretical collision -- it killed
+    26 of 40 generations in an earlier batch, all of them copying one port.
+
+    There is an inherent race between closing this socket and the server
+    binding it. Asking the OS beats picking numbers, because a hardcoded range
+    collides with whatever else is listening, and this project already runs a
+    resource-pack server and a live match server on this machine.
+    """
+    import socket
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1', 0))
+        return probe.getsockname()[1]
+
+
+def generate_world(seed, server_jar, java, root, runtime, chunk_bounds, accept_eula=True, progress=None, port=None, heap='3G'):
     if not accept_eula:
         raise ValueError("review the Minecraft EULA and pass --accept-eula to use the official server")
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
-    for name in ("libraries", "versions"):
-        (root / name).symlink_to(Path(runtime, name).resolve(), target_is_directory=True)
+    # `cache` as well as libraries and versions. Paperclip resolves its cached
+    # mojang jar relative to the CWD, so a server started in a fresh directory
+    # re-downloads it. Serially that is a slow first run; in parallel the
+    # concurrent downloads collide and a worker dies with
+    # "Failed to download mojang_1.21.11.jar". Sharing one prepared runtime
+    # means the download happens once.
+    #
+    # Tolerating an existing link matters too: a retried or resumed target
+    # otherwise fails with FileExistsError before the server ever starts.
+    for name in ("libraries", "versions", "cache"):
+        source = Path(runtime, name).resolve()
+        if not source.exists():
+            continue
+        link = root / name
+        if link.is_symlink() or link.exists():
+            continue
+        link.symlink_to(source, target_is_directory=True)
     (root / "eula.txt").write_text("eula=true\n")
     (root / "server.properties").write_text(
         "level-name=world\n"
         f"level-seed={seed}\n"
         "generate-structures=true\ngamemode=creative\nonline-mode=false\nserver-ip=127.0.0.1\n"
+        f"server-port={port or free_port()}\n"
         "spawn-protection=0\nview-distance=2\nsimulation-distance=2\n"
         "max-tick-time=0\nsync-chunk-writes=true\npause-when-empty-seconds=-1\n"
     )
-    command = [str(java), "-Xms512M", "-Xmx3G", "-jar", str(server_jar), "--nogui"]
+    command = [str(java), "-Xms512M", f"-Xmx{heap}", "-jar", str(server_jar), "--nogui"]
     total_started = time.perf_counter()
     server = ServerConsole(command, root)
     server.wait_for("Done (", 120)
