@@ -153,3 +153,80 @@ about 45% of seeds at the origin and reject **none** when placement is searched.
 
 No template was fitted and no threshold was set. The distribution is the
 deliverable.
+
+---
+
+# Revision, 24 September 2026: three corrections
+
+## A. Seed selection was the wrong frame, and the seed screen is largely moot
+
+The world is +/-29,999,984 blocks -- about 3.6e15 blocks -- and a window is
+~9e5. That is roughly **four billion non-overlapping windows inside a single
+seed**. Measured, 398 of 812 windows in a +/-4096 box satisfy Default's ocean
+checks, and 40 of 40 seeds had some.
+
+Minecraft terrain is stationary noise, so any configuration with non-zero
+probability occurs somewhere in a sample that large. Near-certainly **every
+seed contains satisfying windows, in quantity.**
+
+Consequence: `seed_screen`, built the previous day, discards 19% of seeds with
+zero false negatives -- and optimises a quantity that does not constrain
+anything. Both the seeds it keeps and the seeds it discards contain thousands
+of viable windows. Its validation was sound; its premise was not.
+
+**The real constraint was never "find a good seed". It is how many windows can
+be generated and verified**, because the cheap tier scales to billions and the
+expensive tier costs ~120 seconds each.
+
+## B. Bound the search, and copy the pattern that exists
+
+`foundry.job` is already bounded, and says why:
+
+> Bounded on purpose. A foundry that runs until it succeeds is a foundry that
+> hangs when the geography will not cooperate, so it stops at a target, an
+> attempt limit, or the end of its candidates, and says which.
+
+Placement search wants the same: stop at N viable windows or T seconds, and
+report which bound was hit. Given A, the budget should probably not be
+per-seed at all.
+
+## C. Prominence -- features described by how much they stand out
+
+`highland_fraction_west` is 0.31 for one massif and 0.31 for fifty scattered
+hillocks. The vocabulary can say how MUCH high ground exists and not whether it
+is one thing.
+
+`terrain_harvest/prominence.py` measures the standard topographic quantity: a
+summit's height above the lowest saddle connecting it to higher ground,
+computed by a descending union-find sweep over the candidate's existing
+`feature_grid.height_rle`. **No threshold is involved** -- prominence is
+defined per feature by where it merges, not by a cutoff. Running the sweep on
+negated elevation gives pit prominence, so a chasm is described by the same
+measurement that describes a highland.
+
+Measured across 14 candidates, `highland_fraction_west` predicts top prominence
+at **r = 0.46** -- weak, so prominence carries information the old metric
+cannot. Three cases show why:
+
+| seed | highland_fraction_west | top prominence | top extent |
+| --- | --- | --- | --- |
+| 1412888665 | 0.212 (low) | 87 (highest) | 64 blocks2 -- a spire |
+| 1248940432 | 0.471 (highest) | 61 | 2,560 blocks2 -- scattered |
+| 132112992 | 0.202 (low) | 49 | 603,072 blocks2 -- one massif |
+
+The highest highland fraction has the least coherent high ground; the lowest
+has a single enormous feature.
+
+Cost: 0.05 s per candidate, from data already persisted.
+
+**Magnitude, extent and isolation stay separate.** A massif, a plateau and a
+ridge differ in which of the three is large, and collapsing them to one scalar
+would repeat the 25-metrics-into-6-booleans mistake at smaller scale.
+Isolation -- distance to the nearest higher summit -- is not yet computed.
+
+Combined with the location reframing, a feature becomes:
+
+    feature  x  location  x  (magnitude, extent, isolation)
+
+which can describe a Chasm without having been told what one is. That is the
+actual test of whether describe-then-label works.
