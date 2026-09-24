@@ -61,6 +61,58 @@ class Symmetry(unittest.TestCase):
                            out['axes']['z']['mirror_deviation_blocks'])
 
 
+class Contested(unittest.TestCase):
+    """The denominator is the ground the match is played over."""
+
+    def test_uncontested_ground_can_flatter_a_scoop(self):
+        """Water matches water exactly, so it is free symmetry.
+
+        Across 899 real scoops the whole-scoop ratio FALLS as water rises
+        (0.246 dry to 0.182 wettest), which reads as an archipelago tolerating
+        more asymmetry. Restricted to land the ordering reverses and the
+        spread nearly closes (0.269 to 0.296): wet maps are slightly LESS
+        symmetric where it counts, and most of the apparent need for per-type
+        symmetry bounds was a measurement error.
+        """
+        W = D = 20
+        h = [64 + (j % 5) * 3 + (0 if i < 5 else 20)
+             for j in range(D) for i in range(W)]
+        land = [(i % W) >= 5 for i in range(W * D)]
+        everything = scoop.symmetry(h, W, D, 'z')
+        only_land = scoop.symmetry(h, W, D, 'z', contested=land)
+        self.assertEqual(everything['contested_pairs'], 400 // 2)
+        self.assertEqual(only_land['contested_pairs'], 150)
+        self.assertLess(everything['deviation_over_relief'],
+                        only_land['deviation_over_relief'])
+
+    def test_a_pair_counts_only_if_both_ends_are_contested(self):
+        W = D = 10
+        h = [64 + j for j in range(D) for _ in range(W)]
+        half = [j < D // 2 for j in range(D) for _ in range(W)]
+        self.assertEqual(scoop.symmetry(h, W, D, 'z', contested=half)
+                         ['contested_pairs'], 0)
+
+    def test_no_contested_ground_says_so_rather_than_scoring_zero(self):
+        W = D = 10
+        r = scoop.symmetry([64] * (W * D), W, D, 'z',
+                           contested=[False] * (W * D))
+        self.assertEqual(r['contested_pairs'], 0)
+        self.assertIn('why', r)
+        self.assertNotIn('mirror_deviation_blocks', r)
+
+    def test_the_ratio_is_what_compares_a_small_feature_to_a_large_one(self):
+        """Equal deviation is not equal symmetry."""
+        W = D = 20
+        small = [64 + (j % 4) for j in range(D) for _ in range(W)]
+        large = [64 + (j % 4) * 25 for j in range(D) for _ in range(W)]
+        a = scoop.symmetry(small, W, D, 'z')
+        b = scoop.symmetry(large, W, D, 'z')
+        self.assertGreater(b['mirror_deviation_blocks'],
+                           5 * a['mirror_deviation_blocks'])
+        self.assertAlmostEqual(a['deviation_over_relief'],
+                               b['deviation_over_relief'], delta=0.02)
+
+
 class Tilt(unittest.TestCase):
     """Two different slopes, and only one of them is harmless.
 

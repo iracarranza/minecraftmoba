@@ -139,9 +139,32 @@ def _mirror(i, j, width, depth, axis):
 
 
 def symmetry(height: list, width: int, depth: int, axis: str,
-             *, spacing_hint: int = 8) -> dict:
-    """How alike the two team ends are, mirror-wise and distribution-wise."""
+             *, spacing_hint: int = 8, contested: list | None = None) -> dict:
+    """How alike the two team ends are, mirror-wise and distribution-wise.
+
+    `contested` is an optional per-sample bool: the ground the match is played
+    over. When given, a mirrored pair counts only if BOTH ends are contested.
+
+    WHY THE DENOMINATOR IS NOT THE SCOOP. Measured over everything, a scoop
+    that is half ocean gets half its pairs for free -- water matches water
+    exactly -- and reads as more symmetric than dry land. Across 899 scoops
+    the whole-scoop ratio FALLS as water rises (0.246 dry to 0.182 wettest),
+    which says an archipelago tolerates more asymmetry. It does not. It was
+    being flattered.
+
+    Restricted to land the ordering reverses and the spread nearly closes:
+    0.269, 0.276, 0.279, 0.296 over the same quartiles. Contested land is
+    slightly LESS symmetric on wet maps, and the ratio is close to
+    type-independent -- so most of the apparent need for per-type symmetry
+    bounds was a measurement error, not a property of the types.
+    """
     a, b = _half_bounds(width, depth, axis)
+
+    def counts(i, j, mi, mj):
+        if contested is None:
+            return True
+        return contested[j * width + i] and contested[mj * width + mi]
+
     va = [height[j * width + i] for j in range(a[2], a[3]) for i in range(a[0], a[1])]
     vb = [height[j * width + i] for j in range(b[2], b[3]) for i in range(b[0], b[1])]
     overall = _relief(height) or 1.0
@@ -178,8 +201,13 @@ def symmetry(height: list, width: int, depth: int, axis: str,
     for j in range(a[2], a[3]):
         for i in range(a[0], a[1]):
             mi, mj = _mirror(i, j, width, depth, axis)
+            if not counts(i, j, mi, mj):
+                continue
             deviation += abs(flat[j * width + i] - flat[mj * width + mi])
             n += 1
+    if n == 0:
+        return {'team_axis': axis, 'contested_pairs': 0,
+                'why': 'no mirrored pair has contested ground at both ends'}
     mad = deviation / n if n else 0.0
     span = (depth if axis == 'z' else width) - 1
     tilt = slope * span                     # total rise across the team axis
@@ -190,6 +218,8 @@ def symmetry(height: list, width: int, depth: int, axis: str,
     for j in range(a[2], a[3]):
         for i in range(a[0], a[1]):
             mi, mj = _mirror(i, j, width, depth, axis)
+            if not counts(i, j, mi, mj):
+                continue
             raw += abs(height[j * width + i] - height[mj * width + mi])
             _n += 1
     raw = raw / _n if _n else 0.0
@@ -203,7 +233,15 @@ def symmetry(height: list, width: int, depth: int, axis: str,
         # split -- a slope, not a difference in character. Residual is what
         # remains, and near-zero residual would mean literal reflection, which
         # noise never is.
+        'contested_pairs': n,
+        'contested_fraction': round(n / max(1, (a[1]-a[0]) * (a[3]-a[2])), 4),
         'mirror_deviation_blocks': round(raw, 2),
+        # The comparable number: a 10-block feature and a 100-block feature
+        # are only equally symmetric at equal RATIO, not equal deviation.
+        'deviation_over_relief': round(raw / (_relief(
+            [height[j * width + i] for j in range(a[2], a[3])
+             for i in range(a[0], a[1])
+             if contested is None or contested[j * width + i]]) or 1.0), 4),
         'mirror_tilt_blocks': round(tilt, 2),
         'mirror_tilt_blocks_per_block': round(slope / spacing_hint, 5),
         'mirror_residual_blocks': round(mad, 2),
