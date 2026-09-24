@@ -444,6 +444,7 @@ def _coarse_deviation(height, width, i0, j0, cw, cd, axis, k):
 
 def search(height: list, width: int, depth: int, *, spacing: int = 8,
            sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
+           partition=None,
            probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
     """Scoops of several sizes, ranked by how alike their two ends are.
 
@@ -451,6 +452,20 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     window up to `MAX_SCOOP_SCALE`. Returns the exact reading for the best
     `budget` candidates and the count of everything considered, so the search
     is reported rather than only its winners.
+
+    `partition` is a callable taking a screened candidate and returning a
+    bucket key; `budget` is then spent PER BUCKET rather than globally.
+
+    Why that is not a convenience. A single global ranking on symmetry keeps
+    whatever is most symmetric, and the most symmetric regions of a world are
+    overwhelmingly its plains. A rare symmetric archipelago would be outranked
+    by a thousand symmetric flats and never reach the exact tier at all -- so
+    filtering hardest-first on symmetry, then asking what type survived, can
+    only ever return the types that co-occur with easy symmetry. Spending the
+    budget per bucket makes the scarce kind compete against its own kind.
+
+    This does not assign types. The caller supplies the partition, because
+    choosing the buckets IS the labelling step and it does not belong here.
     """
     sizes = sizes or [(int(BASE_SCOOP[0] * s), int(BASE_SCOOP[1] * s))
                       for s in (1.0, 1.25, MAX_SCOOP_SCALE)]
@@ -499,13 +514,16 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     # it double-counts tilt in an uninterpretable way. It is still reported.
     screened.sort(key=lambda c: c['coarse_deviation'])
     # Overlapping scoops are the same place.
-    spread, taken = [], []
+    buckets = {}
     for c in screened:
+        key = partition(c) if partition else None
+        kept, taken = buckets.setdefault(key, ([], []))
+        if len(kept) >= budget:
+            continue
         if all(abs(c['i'] - t['i']) > t['cw'] // 2 or abs(c['j'] - t['j']) > t['cd'] // 2
                for t in taken):
-            spread.append(c); taken.append(c)
-        if len(spread) >= budget:
-            break
+            kept.append(c); taken.append(c)
+    spread = [c for kept, _ in buckets.values() for c in kept]
 
     found = []
     for c in spread:
@@ -528,6 +546,7 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     return {
         'considered': considered,
         'measured_exactly': len(found),
+        'partitions': {str(k): len(v[0]) for k, v in buckets.items()},
         'budget': budget,
         'sizes_blocks': [list(s) for s in sizes],
         'scoops': found,
@@ -539,3 +558,155 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
         'proves': 'elevation only. No ocean, resource, water or buildability '
                   'check happens here.',
     }
+
+
+# ---------------------------------------------------------------------------
+# WHAT KIND OF PLACE a scoop is, as opposed to how symmetric it is.
+#
+# Everything above reads elevation and nothing else, and that turns out to be
+# blind in a way worth stating precisely. Take one heightmap of five domes.
+# With sea level at 64 it is an archipelago; with sea level at 0 it is a hill
+# field; built from sand it is a desert. `search` returns the IDENTICAL vector
+# for all three -- not a close one, the same one, because no key it reports
+# could differ. Symmetry is type-neutral to the point of being type-blind.
+#
+# Three separate blindnesses, with three different remedies:
+#
+#   WATER         archipelago against highland. A sea level is only what makes
+#                 water VISIBLE; it is not the discriminator. `submerged_
+#                 fraction` is the same weak scalar `highland_fraction` was --
+#                 0.25 describes one lagoon inside one island and twenty
+#                 scattered islets equally well. What separates them is the
+#                 COMPONENT STRUCTURE: how many land bodies, how the area is
+#                 split between them, how many separate water bodies, and how
+#                 much coastline per unit area. An archipelago is many
+#                 comparable land bodies in one connected sea; a flooded plain
+#                 is one land body around one lake; a highland is one land body
+#                 and no water at all. All three can share a fraction.
+#   MATERIAL      desert against plains. Needs the biome or surface block, and
+#                 nothing in this path reads either. This is the real gap.
+#   SIGN          chasm against ridge. `prominence` already answers it with
+#                 invert=True and was simply never wired in.
+#
+# And prominence alone is weaker here than it looks: on a field of domes the
+# gaps BETWEEN the domes are pits, so peak and pit prominence come back nearly
+# equal (41.8 against 41.8). What separates a chasm from a highland is the
+# asymmetry between the two distributions, not either one by itself.
+#
+# NOTHING HERE ASSIGNS A TYPE. It reports the axes a type would be read off,
+# for the same reason prominence reports a number and not "a mountain range".
+
+
+def _components(mask, width, depth):
+    """Sizes of the 4-connected true regions in `mask`, largest first."""
+    seen = [False] * len(mask)
+    sizes = []
+    for start in range(len(mask)):
+        if seen[start] or not mask[start]:
+            continue
+        stack, n = [start], 0
+        seen[start] = True
+        while stack:
+            k = stack.pop(); n += 1
+            i, j = k % width, k // width
+            for ni, nj in ((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)):
+                if 0 <= ni < width and 0 <= nj < depth:
+                    m = nj * width + ni
+                    if mask[m] and not seen[m]:
+                        seen[m] = True; stack.append(m)
+        sizes.append(n)
+    return sorted(sizes, reverse=True)
+
+
+def _coastline(mask, width, depth):
+    """Adjacent pairs straddling the land/water boundary."""
+    edges = 0
+    for j in range(depth):
+        for i in range(width):
+            k = j * width + i
+            if i + 1 < width and mask[k] != mask[k + 1]:
+                edges += 1
+            if j + 1 < depth and mask[k] != mask[k + width]:
+                edges += 1
+    return edges
+
+
+def water_structure(height: list, width: int, depth: int, sea_level: int,
+                    *, spacing: int = 8) -> dict:
+    """How land and water are ARRANGED, not merely how much of each there is.
+
+    The distinction this exists for: one lagoon inside one island and twenty
+    scattered islets both read 0.25 submerged. A fraction cannot tell them
+    apart and the component structure can, which is the same argument that
+    put prominence next to `highland_fraction`.
+    """
+    land = [h >= sea_level for h in height]
+    n = len(land)
+    land_sizes = _components(land, width, depth)
+    water_sizes = _components([not v for v in land], width, depth)
+    land_total = sum(land_sizes) or 1
+    cell = spacing * spacing
+    return {
+        'sea_level': sea_level,
+        'submerged_fraction': round(sum(water_sizes) / n, 4),
+        'land_bodies': len(land_sizes),
+        'water_bodies': len(water_sizes),
+        # How the land is SPLIT. Near 1.0 is one mass; low is a scattering.
+        'largest_land_share': round((land_sizes[0] / land_total) if land_sizes else 0.0, 4),
+        'land_body_sizes_blocks2': [s * cell for s in land_sizes[:8]],
+        'water_body_sizes_blocks2': [s * cell for s in water_sizes[:8]],
+        # Edge per unit area: an archipelago is mostly coastline, a plain is not.
+        'coastline_per_1k_blocks2': round(
+            _coastline(land, width, depth) * spacing / (n * cell) * 1000, 4),
+        'labels': 'none. Many comparable land bodies in one sea, one body '
+                  'around one lake, and one body with no water are three '
+                  'different arrangements that can share a fraction.',
+    }
+
+
+def capability(height: list, width: int, depth: int, *, spacing: int = 8,
+               sea_level: int | None = None, material=None) -> dict:
+    """The axes that separate one Map Type from another, unlabelled.
+
+    `material` is a per-sample sequence of anything hashable -- biome id or
+    surface block. It is accepted and summarised rather than required, so the
+    absence of a biome scan shows up as a stated gap in the output instead of
+    silently becoming "no desert here".
+    """
+    from .prominence import features
+    peaks = features(height, width, depth, spacing=spacing, keep=8)
+    pits = features(height, width, depth, spacing=spacing, keep=8, invert=True)
+    top_peak = peaks[0]['prominence'] if peaks else 0.0
+    top_pit = pits[0]['prominence'] if pits else 0.0
+
+    out = {
+        'relief_blocks': round(_relief(height), 2),
+        # SIGN. Positive leans highland, negative leans chasm. Near zero means
+        # the two are balanced, which a dome field is too -- see the note above.
+        'peak_prominence': round(top_peak, 2),
+        'pit_prominence': round(top_pit, 2),
+        'relief_sign': round(_gap(top_peak, top_pit) *
+                             (1 if top_peak >= top_pit else -1), 4),
+    }
+    if sea_level is None:
+        out['water'] = None
+        out['water_gap'] = ('no sea level given, so nothing about land and '
+                            'water arrangement can be read here')
+    else:
+        out['water'] = water_structure(height, width, depth, sea_level,
+                                       spacing=spacing)
+    if material is None:
+        out['material_mix'] = None
+        out['material_gap'] = ('no biome or surface block given. Desert, '
+                               'plains and savanna are the same scoop to this '
+                               'module; nothing in the elevation path can '
+                               'separate them.')
+    else:
+        counts = {}
+        for m in material:
+            counts[m] = counts.get(m, 0) + 1
+        n = len(material) or 1
+        out['material_mix'] = {k: round(v / n, 4) for k, v in
+                               sorted(counts.items(), key=lambda kv: -kv[1])[:8]}
+    out['labels'] = 'none. These are the axes a Map Type is read off, not a type.'
+    return out

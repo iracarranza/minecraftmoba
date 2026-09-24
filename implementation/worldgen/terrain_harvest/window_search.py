@@ -119,9 +119,14 @@ def describe(seed: int, *, half: int = 4096, step: int = 32, stride_cells: int =
     Valley may be a good Chasm and today it is simply deleted.
 
     Cheap tier only: these are biome facts, so they are exactly computable off
-    the seed. Land-body count and ocean distribution are deliberately
-    type-neutral -- a vocabulary naming only Default's features would only ever
-    recognise Default, whatever order it is evaluated in.
+    the seed. Ocean distribution is reported on both axes and in both
+    directions, deliberately: a vocabulary naming only Default's features
+    would only ever recognise Default, whatever order it is evaluated in.
+
+    NOT LAND-BODY COUNT, which this docstring used to claim. Only fractions
+    are computed here, and a fraction cannot separate one island from twenty
+    -- see `scoop.water_structure`, which does the component analysis this
+    claimed to be doing.
     """
     grid, half, step = scan(seed, half, step, scanner)
     n = len(grid)

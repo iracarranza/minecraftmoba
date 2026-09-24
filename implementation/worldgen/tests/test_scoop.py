@@ -280,5 +280,168 @@ class Search(unittest.TestCase):
                                a['mirror_deviation_blocks'], delta=0.5)
 
 
+class Capability(unittest.TestCase):
+    """What kind of place a scoop is, which symmetry alone cannot say."""
+
+    def _domes(self, W, D):
+        import random
+        rng = random.Random(3)
+        h = []
+        for j in range(D):
+            for i in range(W):
+                b = 0
+                for (ci, cj) in ((15, 15), (45, 15), (15, 45), (45, 45), (30, 30)):
+                    b = max(b, max(0, 40 - ((i - ci) ** 2 + (j - cj) ** 2) / 8))
+                h.append(64 + b + rng.uniform(-1, 1))
+        return h
+
+    def test_search_cannot_tell_an_archipelago_from_a_highland(self):
+        """The blindness, asserted rather than described.
+
+        One heightmap of five domes is an archipelago at sea level 64 and a
+        hill field at sea level 0. `search` reads elevation only, so it must
+        return the identical vector -- and this test exists to fail the day
+        someone quietly adds a water term and thinks the gap has closed.
+        """
+        W = D = 60
+        h = self._domes(W, D)
+        kw = dict(spacing=8, sizes=[(320, 320)], stride=4, budget=2,
+                  coarsen=2, probe_blocks=48)
+        a = scoop.search(h, W, D, **kw)['scoops'][0]
+        b = scoop.search(list(h), W, D, **kw)['scoops'][0]
+        self.assertEqual(a, b)
+        self.assertNotIn('submerged_fraction', a)
+
+    def test_sea_level_makes_water_visible(self):
+        W = D = 60
+        h = self._domes(W, D)
+        self.assertGreater(scoop.capability(h, W, D, sea_level=80)
+                           ['water']['submerged_fraction'], 0.2)
+        self.assertEqual(scoop.capability(h, W, D, sea_level=0)
+                         ['water']['submerged_fraction'], 0.0)
+
+    def test_a_missing_input_is_reported_not_assumed(self):
+        """Absent biome data must read as a gap, never as 'no desert here'."""
+        W = D = 40
+        c = scoop.capability([64] * (W * D), W, D)
+        self.assertIsNone(c['material_mix'])
+        self.assertIn('material_gap', c)
+        self.assertIsNone(c['water'])
+        self.assertIn('water_gap', c)
+
+    def test_material_is_summarised_when_given(self):
+        W = D = 20
+        mat = ['sand'] * 300 + ['grass'] * 100
+        c = scoop.capability([64] * (W * D), W, D, material=mat)
+        self.assertAlmostEqual(c['material_mix']['sand'], 0.75)
+
+    def test_no_type_is_assigned(self):
+        W = D = 40
+        flat = repr(scoop.capability(self._domes(40, 40), W, D)).lower()
+        for name in ('archipelago', 'chasm', 'valley', 'default', 'desert'):
+            self.assertNotIn("'" + name + "'", flat)
+
+
+class WaterStructure(unittest.TestCase):
+    """Arrangement, not amount. A fraction cannot separate these."""
+
+    W = D = 60
+
+    def _domes(self, centres, r2, amp, seed=3):
+        import random
+        rng = random.Random(seed)
+        h = []
+        for j in range(self.D):
+            for i in range(self.W):
+                b = 0
+                for (ci, cj) in centres:
+                    b = max(b, max(0, amp - ((i - ci) ** 2 + (j - cj) ** 2) / r2))
+                h.append(64 + b + rng.uniform(-0.4, 0.4))
+        return h
+
+    def test_an_archipelago_and_a_flooded_plain_differ_in_structure(self):
+        """Not in submerged fraction, which is why the fraction is not enough."""
+        import random
+        rng = random.Random(3)
+        five = self._domes(((14, 14), (46, 14), (14, 46), (46, 46), (30, 30)), 3.0, 40)
+        plain = [70 + rng.uniform(-0.4, 0.4) for _ in range(self.W * self.D)]
+        for j in range(self.D):
+            for i in range(self.W):
+                if (i - 30) ** 2 + (j - 30) ** 2 < 21 ** 2:
+                    plain[j * self.W + i] = 60
+        a = scoop.water_structure(five, self.W, self.D, 80)
+        b = scoop.water_structure(plain, self.W, self.D, 65)
+        self.assertEqual(a['land_bodies'], 5)
+        self.assertEqual(b['land_bodies'], 1)
+        self.assertLess(a['largest_land_share'], 0.4)
+        self.assertEqual(b['largest_land_share'], 1.0)
+        self.assertGreater(a['coastline_per_1k_blocks2'],
+                           2 * b['coastline_per_1k_blocks2'])
+
+    def test_the_fraction_alone_cannot_do_it(self):
+        """Two arrangements at essentially the same submerged fraction."""
+        import random
+        rng = random.Random(3)
+        five = self._domes(((14, 14), (46, 14), (14, 46), (46, 46), (30, 30)), 8.0, 40)
+        plain = [70 + rng.uniform(-0.4, 0.4) for _ in range(self.W * self.D)]
+        for j in range(self.D):
+            for i in range(self.W):
+                if (i - 30) ** 2 + (j - 30) ** 2 < 17 ** 2:
+                    plain[j * self.W + i] = 60
+        a = scoop.water_structure(five, self.W, self.D, 80)
+        b = scoop.water_structure(plain, self.W, self.D, 65)
+        self.assertAlmostEqual(a['submerged_fraction'],
+                               b['submerged_fraction'], delta=0.02)
+        self.assertGreater(a['coastline_per_1k_blocks2'],
+                           2 * b['coastline_per_1k_blocks2'])
+
+    def test_a_dry_highland_has_no_water_bodies_at_all(self):
+        one = self._domes(((30, 30),), 60.0, 40)
+        w = scoop.water_structure(one, self.W, self.D, 0)
+        self.assertEqual(w['water_bodies'], 0)
+        self.assertEqual(w['submerged_fraction'], 0.0)
+        self.assertEqual(w['coastline_per_1k_blocks2'], 0.0)
+
+    def test_components_are_four_connected(self):
+        """Diagonal touching is not contiguity: two islands, not one."""
+        m = [True, False, False, True]
+        self.assertEqual(scoop._components(m, 2, 2), [1, 1])
+
+
+class Partition(unittest.TestCase):
+    def test_a_rare_kind_survives_ranking_only_when_bucketed(self):
+        """A global budget spent on symmetry returns plains, and only plains."""
+        import random
+        rng = random.Random(5)
+        W = D = 90
+        h = [64 + rng.uniform(-1, 1) for _ in range(W * D)]
+        for j in range(10, 34):                      # one small rugged pocket
+            for i in range(10, 34):
+                h[j * W + i] = 64 + rng.uniform(-1, 1) + 18 * ((i // 3 + j // 3) % 2)
+        kw = dict(spacing=8, sizes=[(160, 160)], stride=4, budget=3,
+                  coarsen=2, probe_blocks=48)
+        rugged = lambda c: c['roughness_gap'] + c['mean_elevation'] - 64 > 2
+        glob = scoop.search(h, W, D, **kw)
+        part = scoop.search(h, W, D, partition=lambda c: 'rugged' if rugged(c) else 'plain', **kw)
+
+        def inside(s):
+            i, j = s['origin_sample']
+            return 8 <= i <= 34 and 8 <= j <= 34
+        self.assertFalse(any(inside(s) for s in glob['scoops']))
+        self.assertTrue(any(inside(s) for s in part['scoops']))
+        self.assertEqual(set(part['partitions']), {'rugged', 'plain'})
+
+    def test_budget_is_per_bucket(self):
+        import random
+        rng = random.Random(5)
+        W = D = 60
+        h = [64 + rng.uniform(-1, 1) for _ in range(W * D)]
+        out = scoop.search(h, W, D, spacing=8, sizes=[(160, 160)], stride=4,
+                           budget=2, coarsen=2, probe_blocks=48,
+                           partition=lambda c: c['i'] % 2)
+        for n in out['partitions'].values():
+            self.assertLessEqual(n, 2)
+
+
 if __name__ == '__main__':
     unittest.main()
