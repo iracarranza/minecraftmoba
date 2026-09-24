@@ -185,7 +185,30 @@ def recognize(candidate, out: Compilation):
         return out.fail('recognize', 'NO_REGIONAL_METRICS',
                         'the candidate carries no regional measurements to recognize',
                         missing=missing)
+    # KEEP THE WHOLE VECTOR, not the three the gate happens to read.
+    #
+    # `recognize` collapsed 25 measured metrics into six booleans and kept only
+    # the failures. A window with 4,792 blocks of coastline, 25 water bodies and
+    # 7 forest regions was recorded as NO_DEFAULT_REGIONAL_SHAPE and everything
+    # else about it discarded -- so the description layer this compiler needs
+    # already existed and was being thrown away once per candidate.
+    #
+    # Persisted pass or fail, because a rejected window is exactly the data the
+    # deferred thresholds are waiting on: a seed that is a good Chasm is
+    # currently deleted as a failed Valley.
     out.evidence['regional'] = {k: m[k] for k in needed}
+    out.evidence['metrics'] = dict(m)
+    screen = candidate.get('experimental_screen') or {}
+    out.evidence['default_template_fit'] = {
+        'checks': dict(screen.get('checks') or {}),
+        'failed': [w for w in (screen.get('warnings') or [])],
+        'note': 'Default is the only template implemented. A failure here means '
+                '"did not fit the only template we have", not "unusable terrain" '
+                '-- maps.md names Chasm and Archipelago as future Map Types.',
+    }
+    orientation = candidate.get('orientation') or {}
+    if orientation:
+        out.evidence['orientation'] = orientation
     # The window this realization occupies, carried forward so later stages
     # measure the right ground. Absolute, because the window need not be at the
     # origin -- `window_search` places it wherever the regional shape is.

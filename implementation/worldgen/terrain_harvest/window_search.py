@@ -109,6 +109,65 @@ def _rect(table, i0, j0, i1, j1):
     return (table[j1][i1] - table[j0][i1] - table[j1][i0] + table[j0][i0])
 
 
+def describe(seed: int, *, half: int = 4096, step: int = 32, stride_cells: int = 8,
+             scanner: str | None = None) -> dict:
+    """Every window's cheap feature vector, ranked by nothing.
+
+    The describe-then-label half of `search`. `search` returns the offsets that
+    pass Default's ocean checks; this returns **every** window with what it
+    contains, including the ones that fail, because a window that is a poor
+    Valley may be a good Chasm and today it is simply deleted.
+
+    Cheap tier only: these are biome facts, so they are exactly computable off
+    the seed. Land-body count and ocean distribution are deliberately
+    type-neutral -- a vocabulary naming only Default's features would only ever
+    recognise Default, whatever order it is evaluated in.
+    """
+    grid, half, step = scan(seed, half, step, scanner)
+    n = len(grid)
+    table = _integral(grid)
+    wc, hc = WINDOW_W // step, WINDOW_H // step
+    if wc >= n or hc >= n:
+        return {'seed': seed, 'windows': [], 'why': 'scan area smaller than the window'}
+
+    third_w, third_h = max(1, wc // 3), max(1, hc // 3)
+    windows = []
+    for j in range(0, n - hc, stride_cells):
+        for i in range(0, n - wc, stride_cells):
+            tw, th = third_w * hc, third_h * wc
+            low_x = _rect(table, i, j, i + third_w, j + hc) / tw
+            high_x = _rect(table, i + wc - third_w, j, i + wc, j + hc) / tw
+            low_z = _rect(table, i, j, i + wc, j + third_h) / th
+            high_z = _rect(table, i, j + hc - third_h, i + wc, j + hc) / th
+            whole = _rect(table, i, j, i + wc, j + hc) / (wc * hc)
+            best = max((high_x, high_x - low_x), (low_x, low_x - high_x),
+                       (high_z, high_z - low_z), (low_z, low_z - high_z))
+            windows.append({
+                'centre': [-half + i * step + WINDOW_W // 2,
+                           -half + j * step + WINDOW_H // 2],
+                # type-neutral
+                'ocean_fraction': round(whole, 4),
+                'land_fraction': round(1 - whole, 4),
+                # axis distribution, both axes, no privileged direction
+                'ocean_x_low': round(low_x, 4), 'ocean_x_high': round(high_x, 4),
+                'ocean_z_low': round(low_z, 4), 'ocean_z_high': round(high_z, 4),
+                # Default's own reading of the same numbers
+                'best_edge_ocean': round(best[0], 4),
+                'best_gradient': round(best[1], 4),
+            })
+    return {
+        'seed': seed,
+        'scanned_half': half,
+        'step': step,
+        'stride_cells': stride_cells,
+        'windows': windows,
+        'proves': 'biome distribution only. Elevation, buildability, ore, caves and '
+                  'water all need the window generated.',
+        'ranks': 'nothing. This is the description layer; templates are not fitted '
+                 'here and no window is rejected.',
+    }
+
+
 def search(seed: int, *, half: int = 4096, step: int = 32, stride_cells: int = 4,
            scanner: str | None = None, keep: int = 12) -> dict:
     """Rank window offsets by how well their biomes satisfy the ocean checks."""
