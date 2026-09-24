@@ -2070,11 +2070,269 @@ Classes and systems can create additional reasons to care about them rather
 than replacing them with generic MOBA camps or tokens.
 
 
-# Working map archetypes
+# Map Type doctrine — Working, 24 September 2026
 
 These are future **Map Types** (earlier terminology: archetypes), not implemented
 recognizers. Default's regional gradient is its own search contract, not a
 universal composition constraint.
+
+## What a Map Type is
+
+**A Map Type is a world hypothesis, not a biome preset.** "Desert" is weak by
+itself; *what if an otherwise viable competitive world developed around an
+enormous arid region where biological abundance is rare* is a premise. The
+type is the strategic distortion, and the biome is how the world happens to
+express it.
+
+Each Type should be summarisable in one **geographic thesis** sentence. If the
+sentence cannot be written, the proposal is not differentiated enough to be a
+Type.
+
+- Default: opportunity is distributed through a diverse Minecraft wilderness.
+- Archipelago: opportunity is fragmented across land separated by cheap
+  maritime movement.
+- Underground: opportunity is abundant but hidden inside a rewritable network.
+- Arid: productive abundance is rare and geographically concentrated.
+- Pale Forest: information is scarce around a highly concentrated central prize.
+- Sky Islands: valuable geography exists above a barrier that breaks ordinary
+  horizontal expansion.
+
+### Prefer extreme vanilla phenomena over invented terrain
+
+Minecraft occasionally produces floating terrain, enormous caves, isolated
+mountains, huge oceans, cliff faces, ravines, enclosed valleys and structure
+clusters. A compiler can search **for** those outliers rather than rejecting
+them, then bind the competitive requirements onto what it finds. The aim is a
+map that feels like an extraordinary Minecraft seed, not a Minecraft-themed
+arena.
+
+### A Type is a (feature, location) pair, not a feature
+
+Pale Forest works because the Mansion is **central**. The same Mansion at the
+scoop edge is a different map. Location is co-equal with presence, and a Type
+definition that names only a feature will match worlds that do not play like
+it. This is the same correction that turned the fixed 864x1056 window into a
+searched one: *what* is present was never the whole question.
+
+### Types are not a partition
+
+A scoop may match several Types or none. The unmatched case matters more than
+the overlapping one: it is where a Type nobody has defined shows up, and it
+has to survive measurement rather than be discarded. See "describe, then
+label" below.
+
+## The two axes, and why they must not be one score
+
+**Extremeness serves interest, novelty and legibility. Symmetry serves
+competitive viability.** They are separate axes and must never be collapsed
+into a single score, because they are in direct measured tension.
+
+Over 1,073 scoops on 8 seeds, mirror deviation scales with relief almost
+proportionally:
+
+| relief quartile | relief | deviation | deviation/relief |
+|---|---|---|---|
+| flattest 25% | 7.0 | 1.23 | 0.175 |
+| 2nd | 17.0 | 3.81 | 0.224 |
+| 3rd | 37.0 | 7.16 | 0.194 |
+| most extreme 25% | 60.0 | 14.52 | 0.242 |
+
+So **ranking on raw symmetry is ranking on flatness**, and the flattest places
+are water. A blind symmetry search on a seed that is 31% ocean returned scoops
+that were 97-99% water in its top three and no landmass scoop at all in its
+top eight. That is the same sink as the superseded "more ocean is better"
+window scoring, reached from the opposite direction by a measure that never
+mentions ocean.
+
+**Symmetry is therefore gated on the ratio, and relief is recorded but not
+ranked.** Two seeds with the same valley shape, one 10 blocks tall and one
+100, are equally symmetric at equal ratio and are equally worth evaluating;
+the magnitude difference is an aesthetic and legibility factor identified
+downstream. Ranked on raw deviation the 100-block valley never surfaces, since
+a deviation catastrophic on a 10-block feature is excellent on a 100-block one.
+
+### Symmetry is measured over contested ground
+
+A scoop half covered in ocean gets half its mirrored pairs for free, because
+water matches water exactly. Measured over the whole scoop the ratio *falls*
+as water rises (0.246 driest quartile to 0.182 wettest), which reads as a
+water map tolerating more asymmetry. It does not; it is being flattered.
+Restricted to pairs where both ends are contested land, the ordering reverses
+and the spread nearly closes: 0.269, 0.276, 0.279, 0.296.
+
+**[OPEN]** Most of the apparent case for per-Type symmetry bounds was this
+denominator error rather than a property of the Types. A ~10% residual spread
+remains unexplained. Writing per-Type bounds before it is explained would
+encode a measurement artefact. Extreme Types are expected to need better
+tutoring and filtering rather than looser symmetry.
+
+**[OPEN]** Whether forest canopy is contested ground. Surface height reads
+tree tops as terrain, which would distort every wooded Type.
+
+## Symmetry first, then distortion
+
+Filtering runs **hardest-to-author first**. Whole-scoop symmetry is the
+hardest constraint and therefore the first gate: a Type that cannot be
+satisfied symmetrically is not a Map Type. That every candidate Type below is
+centre- or axis-symmetric — barrier in the middle, Mansion in the middle,
+basin in the middle — is the constraint showing through, not a coincidence.
+
+Homebase sockets and the opening Hinterland are immediately downstream;
+Worksite, Lair and objective siting downstream of those; and what the map
+uniquely offers — terrain features, structures, POIs — after that.
+
+## Every distortion needs a corresponding opportunity
+
+Poor visibility needs concealed concentrated value. Resource poverty needs a
+destination worth leaving home for. Ocean fragmentation needs fast boats and
+distributed islands. Underground food scarcity needs mineral abundance.
+Extreme verticality needs valuable vertical destinations.
+
+Compensation need not be mathematically equal, but **a map must not simply
+make Minecraft harder. Constraint should produce strategy.**
+
+This is the standing bound and the automatic filter against gimmick maps: a
+map that is only harder fails it by construction. It is a **relation between
+two measured quantities at two locations** — poverty here, concentration there
+— not a threshold on any single metric, which is why it can reject a scoop
+without a per-Type parameter.
+
+## Maps alter the solution space, not the destination
+
+The same player should make different decisions on different maps while still
+recognising the same macro-game: establish, explore, specialise/invest,
+contest, escalate, resolve. A Type changes what players value, how they move,
+what information they hold and where they invest. It does not change the
+match lifecycle or expected tempo.
+
+## Strategic variables a Type may distort
+
+A Type may primarily distort abundance, information, connectivity, movement
+cost, value concentration, verticality, route topology or exposure, and may
+combine two or three. This is a **description vocabulary computed for every
+scoop**, not a set of gates; a Type is a region in that space.
+
+Measurable today, against what exists:
+
+| variable | status |
+|---|---|
+| verticality | measured (`prominence`, both signs; `scoop` relief) |
+| connectivity | partial (`scoop.water_structure` component analysis) |
+| route topology | partial (`cell_grid`, `shortest`) |
+| movement cost | partial (`task_a` traversal cost) |
+| abundance | not measured |
+| information | not measured (`task_a` lists visibility as UNAVAILABLE) |
+| value concentration | not measured |
+| exposure | not measured |
+
+**The vocabulary must be Type-neutral or it will only ever find Default.**
+Seven of the 25 existing metrics are one-sided: `highland_fraction_west`
+returns a number about the wrong place for an eastern highland rather than a
+low number. Any bound built on those can only recognise Default, whatever
+order it is evaluated in.
+
+### Describe, then label
+
+Bounds are not the problem; **bounds applied to a fixed window** were. Default
+rejected 82% of seeds while rejecting most of them for being in the wrong
+*place*. Bounds plus search is a different thing, and telling the search what
+several Types look like is strictly more informative than telling it about one.
+
+Type definitions therefore **tutor** the search: budget is spent per Type so a
+scarce kind competes against its own kind rather than being outranked by a
+thousand symmetric plains. Tutoring is required, not optional, because an
+untutored ranking collapses to the flattest and emptiest scoop available.
+
+A Type definition must steer **without becoming the discard rule**. Every
+scoop keeps its full measured vector whatever it matched; unmatched scoops are
+measured and returned; a Type matching nothing is reported as matching
+nothing; and a search lacking an input says which input it lacked rather than
+reporting an absence.
+
+This is already canonical for Resource Density, which the compiler discovers
+and measures rather than being asked to produce.
+
+## Cost classes
+
+Not uniform, and it determines what is buildable now.
+
+- **Scannable off-seed (~1s per 8192-block square).** Elevation, biome, land
+  and water arrangement, and structure placement. Most Types sit here.
+- **Requires generation.** Underground and Karst. cubiomes models biome noise
+  and approximate surface height; caves and ravines are carvers it does not
+  generate. `dripstone_caves` and `lush_caves` exist only as biomes, so their
+  locations are findable and their geometry is not.
+
+Approximate height is trusted to rank symmetry and find flat ground, not to
+certify a build site: 81% of samples within 5 blocks, 93% within 10.
+
+## Legibility, in light of the draft
+
+Players already know **Map Type, Scale and Resource Density** before the match
+(see `docs/design/MATCH_LIFECYCLE_OBJECTIVES_AND_OPENING_DECISIONS.md`); the
+information boundary is that players know the broad classification and
+discover the realization. They also arrive at it deliberately: the draft is
+**class-first, then map ban/counterpick across the Types in rotation**, so a
+Type is chosen against known compositions and its broad character is
+information both teams have acted on. Legibility therefore does **not** carry the
+classification load. A player in a Pale Forest map already knows it is one.
+
+What legibility carries is the **realization**: reading local value and
+navigation inside a map whose Type is known. That splits cleanly:
+
+- **Biome-signalled** — free, supplied by the seed. Pale oak says visibility
+  is poor; an oasis says fertile ground is unusual here.
+- **Topological** — an elevated rim does not announce that the low centre is
+  rich. This needs authoring, and it is the same problem the objective
+  legibility prototypes hit and did not solve. **[OPEN]**
+
+## Scale
+
+Map Scale is an independent axis already established in the lifecycle design.
+The compiler need not derive it as a setting: **scoop area and Homebase
+separation** are the two scalars that distinguish Normal from Large from Vast,
+and both fall out of a scoop for free. Where they cut into named Scales is a
+labelling decision and is deliberately not fixed here.
+
+Scale interacts with every Type — an Archipelago at Normal is a different game
+from one at Vast — so a Type may legitimately appear in a draft more than once
+at different Scales.
+
+## Candidate Types
+
+**Working.** Some of these will collapse into families rather than deserving
+separate formal archetypes; Sky Islands, Great River/Canyon, Crater/Basin and
+Mountain Range are all peak-or-pit prominence plus a location term, and
+prominence is the axis they collapse along. Naming them is the exercise that
+reveals the dimensions.
+
+| Map Type | Worldgen premise | Strategic distortion |
+|---|---|---|
+| Default / Overworld | Diverse, readable Overworld terrain | Baseline mixed economy and navigation |
+| Archipelago | Islands separated by substantial ocean | Water becomes connective terrain; land and resources fragmented |
+| Underground | Huge interconnected cave system | Ore-rich, food/renewables-poor; topology replaces surface distance |
+| Arid / Dunes | Vast desert/badlands with rare fertile pockets | Common biological resources become strategically concentrated |
+| Pale Forest / Mansion | Dense pale forest surrounding a central Mansion | Low information and resource poverty outside; extreme central concentration |
+| Sky Islands | Impassable or very costly surface divide with naturally generated floating terrain spanning it | Vertical exploration and aerial connectivity become the viable crossing |
+| Mountain Range | Extreme peaks and ridges divide the world | Vertical travel, passes, tunnels and overlooks determine movement |
+| Great River / Canyon | Enormous river or ravine forms the primary axis | Crossings become strategic; movement along the axis is easy, across it costly |
+| Swamplands | Large swamp/mangrove complex with waterways and broken sightlines | Movement technically open but awkward; local navigation and visibility matter |
+| Frozen | Snowy peaks, groves, frozen rivers and ocean, taiga | Ice creates very fast natural routes while snow and vertical terrain complicate off-route movement |
+| Badlands / Mesa | Terraced badlands with exposed mineshafts, poorer surrounds | Extreme mineral readability; vertical shelves create natural territorial layers |
+| Jungle / Lost City | Extremely dense jungle around temples, villages and valuable clearings | Information and traversal are expensive; discovered clearings become anchors |
+| Karst / Sinkholes | Surface punctured by enormous cave mouths, ravines and underground connections | Surface and underground become two overlapping route networks |
+| Shattered Coast | Cliffs, coves, peninsulas and offshore islands rather than full archipelago | Land and sea are both viable networks and repeatedly intersect |
+| Crater / Basin | Teams begin around elevated exterior terrain with an unusually rich low central basin | Entering the centre is easy; leaving while carrying value is the commitment |
+| Highlands / Valley | Valuable lowland corridor surrounded by resource-bearing mountains | Economic movement concentrates in the valley while extraction pulls outward and upward |
+
+### Landmarks organise economically without becoming artificial objectives
+
+Players should care about a Woodland Mansion because world generation placed
+unusual opportunity there, not because the game says "capture Woodland
+Mansion." The Mansion's Minecraft identity should matter: enormous,
+compartmentalised, defensible, dangerous, hard to understand from outside,
+many entrances and floors. Its grounds being lucrative is what prevents the
+map collapsing into a fight inside one building.
 
 ## Valley / Default
 
