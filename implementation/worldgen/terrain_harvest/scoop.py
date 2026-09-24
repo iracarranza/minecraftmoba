@@ -442,9 +442,30 @@ def _coarse_deviation(height, width, i0, j0, cw, cd, axis, k):
     return total / m if m else None
 
 
+def _type_features(sums, i0, j0, i1, j1):
+    """Cheap per-candidate facts a Map Type is recognised by.
+
+    Only summed-area quantities, so each is four lookups. This is what lets a
+    type definition steer the search instead of being applied to whatever the
+    search happened to return.
+    """
+    water, edge, dom = sums
+    n = (i1 - i0) * (j1 - j0)
+    if n <= 0 or water is None:
+        return {}
+    wet = _box(water, i0, j0, i1, j1) / n
+    return {
+        'water_fraction': wet,
+        'land_fraction': 1 - wet,
+        # Coastline per cell. High means fragmented, whatever the fraction.
+        'coast_density': _box(edge, i0, j0, i1, j1) / n,
+        'dominant_biome_share': _box(dom, i0, j0, i1, j1) / n,
+    }
+
+
 def search(height: list, width: int, depth: int, *, spacing: int = 8,
            sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
-           partition=None,
+           partition=None, types=None, biome=None, sea_level=None,
            probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
     """Scoops of several sizes, ranked by how alike their two ends are.
 
@@ -464,8 +485,43 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     only ever return the types that co-occur with easy symmetry. Spending the
     budget per bucket makes the scarce kind compete against its own kind.
 
-    This does not assign types. The caller supplies the partition, because
-    choosing the buckets IS the labelling step and it does not belong here.
+    `types` is {name: predicate}, each predicate taking a screened candidate
+    and returning whether that scoop could support that Map Type. Budget is
+    spent per matching type, and a scoop matching none lands in `unlabelled`.
+
+    TUTORING IS NOT THE SAME AS BOUNDING, and an earlier version of this
+    docstring confused them. The Default pipeline failed because it applied
+    bounds to ONE FIXED WINDOW: a seed whose geography suited it three
+    thousand blocks away was rejected for what sat at spawn. The bounds were
+    never the problem, the absence of search was. Bounds plus search is this
+    function, and telling it what several types look like is strictly more
+    informative than telling it about one.
+
+    The single thing worth preserving from that objection: a type definition
+    must steer the search WITHOUT becoming the discard rule. So every scoop
+    keeps its full measured vector whatever it matched, unmatched scoops are
+    still measured and returned under `unlabelled`, and a type that matches
+    nothing is reported as matching nothing rather than vanishing. A
+    sixteenth type nobody has defined still shows up as a described scoop.
+
+    AND TUTORING FIXES A DEGENERACY, not merely a coverage gap. Ranked blind
+    on symmetry, the best scoops on seed 1010101 are 97-99% WATER: open ocean
+    is featureless, and featureless terrain mirrors itself perfectly. The top
+    three contain no land at all and the top eight contain no landmass scoop.
+    This is the same failure as the original `window_search` scoring bug,
+    where "more ocean is better" drove every result to a drowned window --
+    arrived at from the opposite direction, since nothing here mentions ocean.
+    A measure with no notion of what a map needs will optimise toward
+    emptiness. Tutored, landmass scoops at deviation 6.1 and 8.9 surface
+    immediately; the blind search never reached them.
+
+    `partition` remains available for a bucket key that is not a type.
+
+    WHAT A PREDICATE CAN SEE depends on what was passed. With `biome` and
+    `sea_level` it gets water fraction, coast density and dominant-biome
+    share alongside the elevation terms. Without them it gets elevation only
+    -- so an archipelago predicate silently matches nothing, and the result
+    says so rather than reporting an absence of archipelagos.
     """
     sizes = sizes or [(int(BASE_SCOOP[0] * s), int(BASE_SCOOP[1] * s))
                       for s in (1.0, 1.25, MAX_SCOOP_SCALE)]
@@ -479,6 +535,29 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
             dz = abs(height[(j + 1) * width + i] - h) if j + 1 < depth else 0
             rough.append(dx + dz)
     sums = (hsum, hhsum, _sat(rough, width, depth))
+
+    # Type-recognition tables, built only when the inputs for them exist.
+    tsums, type_inputs = (None, None, None), []
+    if biome is not None and sea_level is not None:
+        wet = [1 if h < sea_level else 0 for h in height]
+        edge = []
+        for j in range(depth):
+            for i in range(width):
+                k = j * width + i
+                e = 0
+                if i + 1 < width and wet[k] != wet[k + 1]:
+                    e += 1
+                if j + 1 < depth and wet[k] != wet[k + width]:
+                    e += 1
+                edge.append(e)
+        counts = {}
+        for b in biome:
+            counts[b] = counts.get(b, 0) + 1
+        top = max(counts, key=counts.get)
+        tsums = (_sat(wet, width, depth), _sat(edge, width, depth),
+                 _sat([1 if b == top else 0 for b in biome], width, depth))
+        type_inputs = ['water_fraction', 'land_fraction', 'coast_density',
+                       'dominant_biome_share']
 
     considered, screened = 0, []
     for bw, bd in sizes:
@@ -498,7 +577,10 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
                         if cr is None:
                             continue
                         screened.append({'i': i, 'j': j, 'cw': cw, 'cd': cd,
-                                         'axis': axis, 'coarse_deviation': cr, **c})
+                                         'axis': axis, 'coarse_deviation': cr,
+                                         **c,
+                                         **_type_features(tsums, i, j,
+                                                          i + cw, j + cd)})
     # Rank on the coarse deviation -- the same quantity the exact tier ranks on.
     #
     # TILT IS INCLUDED, which reverses an earlier decision here. The comment
@@ -516,14 +598,29 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     # Overlapping scoops are the same place.
     buckets = {}
     for c in screened:
-        key = partition(c) if partition else None
-        kept, taken = buckets.setdefault(key, ([], []))
-        if len(kept) >= budget:
-            continue
-        if all(abs(c['i'] - t['i']) > t['cw'] // 2 or abs(c['j'] - t['j']) > t['cd'] // 2
-               for t in taken):
-            kept.append(c); taken.append(c)
-    spread = [c for kept, _ in buckets.values() for c in kept]
+        keys = []
+        if types:
+            keys = [name for name, ok in types.items() if ok(c)]
+            if not keys:
+                keys = ['unlabelled']
+        if partition:
+            part = partition(c)
+            keys = [f'{k}/{part}' for k in keys] if keys else [part]
+        if not keys:
+            keys = [None]
+        for key in keys:
+            kept, taken = buckets.setdefault(key, ([], []))
+            if len(kept) >= budget:
+                continue
+            if all(abs(c['i'] - t['i']) > t['cw'] // 2
+                   or abs(c['j'] - t['j']) > t['cd'] // 2 for t in taken):
+                kept.append(c); taken.append(c)
+    seen, spread = set(), []
+    for kept, _ in buckets.values():
+        for c in kept:
+            mark = (c['i'], c['j'], c['cw'], c['cd'], c['axis'])
+            if mark not in seen:
+                seen.add(mark); spread.append(c)
 
     found = []
     for c in spread:
@@ -539,6 +636,12 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
             'area_blocks2': sw * sd * spacing * spacing,
             **sym,
             'coarse_deviation_blocks': round(c['coarse_deviation'], 3),
+            # Carried through so a caller can label a returned scoop with the
+            # same predicate that steered the search. Without this the exact
+            # tier drops the type facts and a scoop cannot say what it is.
+            **{k: round(c[k], 4) for k in
+               ('water_fraction', 'land_fraction', 'coast_density',
+                'dominant_biome_share') if k in c},
             'homebase_pair': pair,
             'homebase_max_separation_blocks': pair.get('max_separation_blocks'),
         })
@@ -547,6 +650,13 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
         'considered': considered,
         'measured_exactly': len(found),
         'partitions': {str(k): len(v[0]) for k, v in buckets.items()},
+        'type_inputs': type_inputs,
+        'types_matching_nothing': sorted(
+            set(types or ()) - {str(k).split('/')[0] for k in buckets}),
+        'tutoring': 'type predicates steer the budget. They do not discard: '
+                    'every scoop keeps its full vector, unmatched scoops are '
+                    'measured and returned under "unlabelled", and a type '
+                    'nobody defined still appears as a described scoop.',
         'budget': budget,
         'sizes_blocks': [list(s) for s in sizes],
         'scoops': found,

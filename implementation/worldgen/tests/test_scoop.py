@@ -231,18 +231,26 @@ class Search(unittest.TestCase):
         self.assertLess(best['mirror_deviation_blocks'],
                         worst['mirror_deviation_blocks'] / 2)
 
-    def test_no_ocean_or_resource_parameter_is_consulted(self):
+    def test_biome_is_opt_in_and_reported_when_absent(self):
+        """A weaker claim than this test used to make, and a true one.
+
+        It used to assert `search` had no biome parameter at all. That became
+        false when type tutoring was added, and correctly so -- recognising an
+        archipelago needs water. The claim now is that biome is OPT-IN: with
+        no biome passed the search reads elevation only, and it says which
+        type inputs it lacked rather than letting a water predicate quietly
+        match nothing.
+        """
         W, D = 40, 40
         out = scoop.search([64] * (W * D), W, D, spacing=8,
                            sizes=[(160, 160)], stride=8, budget=2)
         self.assertTrue(out['uses_no_default_parameters'])
-        # Structural, not textual: an earlier version of this grepped the
-        # result and matched the module's own 'no ocean ... happens here'
-        # note, which proves nothing. The claim is that nothing but elevation
-        # can reach the search, so check what it accepts.
+        self.assertEqual(out['type_inputs'], [])
+        for k in out['scoops']:
+            self.assertNotIn('water_fraction', k)
         import inspect
         params = set(inspect.signature(scoop.search).parameters)
-        self.assertEqual(params & {'ocean', 'biome', 'biomes', 'resource'}, set())
+        self.assertEqual(params & {'ocean', 'resource'}, set())
         self.assertIn('height', params)
 
     def test_the_exact_tier_is_bounded_by_budget(self):
@@ -406,6 +414,85 @@ class WaterStructure(unittest.TestCase):
         """Diagonal touching is not contiguity: two islands, not one."""
         m = [True, False, False, True]
         self.assertEqual(scoop._components(m, 2, 2), [1, 1])
+
+
+class Tutoring(unittest.TestCase):
+    """Type predicates steering the budget, without becoming a discard rule."""
+
+    def _sea(self, W, D, water_rows):
+        """Flat land, with `water_rows` at the top drowned and featureless."""
+        h = []
+        import random
+        rng = random.Random(9)
+        for j in range(D):
+            for i in range(W):
+                h.append(40 if j < water_rows else 70 + rng.uniform(-4, 4))
+        return h
+
+    def test_blind_ranking_prefers_featureless_water(self):
+        """The degeneracy tutoring exists to answer.
+
+        Open water is flat, so it mirrors itself perfectly and wins a
+        symmetry ranking outright. Same failure as `window_search` scoring
+        ocean upward, reached from the opposite direction.
+        """
+        W, D = 60, 60
+        h = self._sea(W, D, 40)
+        out = scoop.search(h, W, D, spacing=8, sizes=[(240, 240)], stride=4,
+                           budget=4, coarsen=2, probe_blocks=48,
+                           biome=[0] * (W * D), sea_level=63)
+        self.assertGreater(out['scoops'][0]['water_fraction'], 0.9)
+
+    def test_tutoring_surfaces_the_land_the_blind_search_misses(self):
+        W, D = 60, 60
+        h = self._sea(W, D, 40)
+        kw = dict(spacing=8, sizes=[(240, 240)], stride=4, coarsen=2,
+                  probe_blocks=48, biome=[0] * (W * D), sea_level=63)
+        blind = scoop.search(h, W, D, budget=4, **kw)
+        tut = scoop.search(h, W, D, budget=2, types={
+            'wet': lambda c: c['water_fraction'] > 0.5,
+            'dry': lambda c: c['water_fraction'] <= 0.5}, **kw)
+        self.assertFalse(any(k['water_fraction'] <= 0.5 for k in blind['scoops']))
+        self.assertTrue(any(k['water_fraction'] <= 0.5 for k in tut['scoops']))
+
+    def test_an_unmatched_scoop_is_measured_not_discarded(self):
+        """A sixteenth type nobody defined must still come back described."""
+        W, D = 60, 60
+        h = self._sea(W, D, 40)
+        out = scoop.search(h, W, D, spacing=8, sizes=[(240, 240)], stride=4,
+                           budget=2, coarsen=2, probe_blocks=48,
+                           biome=[0] * (W * D), sea_level=63,
+                           types={'impossible': lambda c: c['water_fraction'] > 2})
+        self.assertIn('unlabelled', out['partitions'])
+        self.assertTrue(out['scoops'])
+        self.assertIn('mirror_deviation_blocks', out['scoops'][0])
+
+    def test_a_type_matching_nothing_is_reported_not_silent(self):
+        W, D = 60, 60
+        out = scoop.search(self._sea(W, D, 40), W, D, spacing=8,
+                           sizes=[(240, 240)], stride=4, budget=2, coarsen=2,
+                           probe_blocks=48, biome=[0] * (W * D), sea_level=63,
+                           types={'impossible': lambda c: c['water_fraction'] > 2})
+        self.assertEqual(out['types_matching_nothing'], ['impossible'])
+
+    def test_without_biome_the_missing_inputs_are_named(self):
+        """An archipelago predicate must not silently match nothing."""
+        W, D = 40, 40
+        out = scoop.search([64] * (W * D), W, D, spacing=8, sizes=[(160, 160)],
+                           stride=8, budget=2, coarsen=2, probe_blocks=48)
+        self.assertEqual(out['type_inputs'], [])
+
+    def test_a_returned_scoop_can_be_relabelled_with_the_same_predicate(self):
+        """The exact tier must not drop the facts the screen steered on."""
+        W, D = 60, 60
+        pred = lambda c: c['water_fraction'] > 0.5
+        out = scoop.search(self._sea(W, D, 40), W, D, spacing=8,
+                           sizes=[(240, 240)], stride=4, budget=2, coarsen=2,
+                           probe_blocks=48, biome=[0] * (W * D), sea_level=63,
+                           types={'wet': pred})
+        for k in out['scoops']:
+            self.assertIn('water_fraction', k)
+            pred(k)
 
 
 class Partition(unittest.TestCase):
