@@ -278,7 +278,7 @@ def _grade(height, width, depth, ci, cj, r):
 
 def homebase_pair(height: list, width: int, depth: int, axis: str, *,
                   spacing: int = 8, probe_blocks: int = HOMEBASE_PROBE_BLOCKS,
-                  stride: int = 2) -> dict:
+                  stride: int = 2, land_mask: list | None = None) -> dict:
     """The MIRRORED pairs of flat discs, as a separation/flatness frontier.
 
     Scored on the WORSE of the two, because a scoop qualifies only if both ends
@@ -303,9 +303,41 @@ def homebase_pair(height: list, width: int, depth: int, axis: str, *,
     r = max(1, probe_blocks // spacing)
     a, _ = _half_bounds(width, depth, axis)
     best_by_sep = {}
+
+    def on_land(i, j):
+        """Is a probe disc centred here on buildable ground?
+
+        WATER IS PERFECTLY FLAT AND THEREFORE SCORED PERFECTLY. Callers clamp
+        heights to sea level so symmetry reads the playable surface, which
+        makes every ocean cell exactly equal and gives a grade of 0 -- the best
+        possible. So this happily sited Homebases on open water.
+        
+        That is not a theoretical flaw. Across 29 compiled targets the
+        rejections had a MEDIAN PROSPECT GRADE OF 0 and the playable maps a
+        median of 3: flatter prospect ground predicted MORE failure, backwards,
+        because grade 0 was ocean. SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE was 26
+        of 32 rejections, and this is why.
+
+        Third time the clamp has caused this: it is right for symmetry and
+        wrong for anything that must tell land from water.
+        """
+        if land_mask is None:
+            return True
+        wet = 0
+        for jj in range(max(0, j - r), min(depth, j + r + 1)):
+            for ii in range(max(0, i - r), min(width, i + r + 1)):
+                if (ii - i) ** 2 + (jj - j) ** 2 <= r * r:
+                    if not land_mask[jj * width + ii]:
+                        wet += 1
+        # A Homebase may touch a shoreline; it may not float. NON-CANON
+        # FIXTURE: a tenth of the disc is a shape choice, not a measurement.
+        area = max(1, int(3.14159 * r * r))
+        return wet / area <= 0.10
     for j in range(a[2] + r, a[3] - r, stride):
         for i in range(a[0] + r, a[1] - r, stride):
             mi, mj = _mirror(i, j, width, depth, axis)
+            if not (on_land(i, j) and on_land(mi, mj)):
+                continue
             ga = _grade(height, width, depth, i, j, r)
             gb = _grade(height, width, depth, mi, mj, r)
             if ga is None or gb is None:
@@ -320,7 +352,10 @@ def homebase_pair(height: list, width: int, depth: int, axis: str, *,
                     'grade_blocks': {'a': round(ga, 1), 'b': round(gb, 1)},
                     'worst_grade_blocks': round(worse, 1)}
     if not best_by_sep:
-        return {'frontier': [], 'why': 'scoop smaller than two probe discs'}
+        return {'frontier': [],
+                'why': 'no mirrored pair of probe discs sits on land'
+                       if land_mask is not None else
+                       'scoop smaller than two probe discs'}
     # Keep only pairs no other pair beats on BOTH separation and flatness.
     ordered = sorted(best_by_sep.values(), key=lambda p: -p['separation_blocks'])
     frontier, floor = [], None

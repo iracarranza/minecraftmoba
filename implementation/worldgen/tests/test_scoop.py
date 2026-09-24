@@ -200,6 +200,56 @@ class HomebasePair(unittest.TestCase):
         self.assertEqual(pair['frontier'], [])
 
 
+class HomebaseOnLand(unittest.TestCase):
+    """Water grades perfectly flat, so siting must know land from sea."""
+
+    def _coast(self, W, D):
+        h = [63 if i < W // 2 else 70 + ((i * j) % 5)
+             for j in range(D) for i in range(W)]
+        land = [i >= W // 2 for _ in range(D) for i in range(W)]
+        return h, land
+
+    def test_blind_siting_picks_water_because_water_is_flat(self):
+        """The failure this fixes, asserted rather than described.
+
+        Callers clamp height to sea level so symmetry reads the playable
+        surface; that makes every ocean cell exactly equal and grade 0, the
+        best possible score. Across 29 compiled targets the rejections had a
+        median prospect grade of 0 and the playable maps a median of 3 --
+        flatter ground predicted MORE failure, because grade 0 was ocean.
+        """
+        W = D = 40
+        h, land = self._coast(W, D)
+        blind = scoop.homebase_pair(h, W, D, 'z', spacing=8, probe_blocks=32)
+        self.assertEqual(blind['flattest']['worst_grade_blocks'], 0)
+        self.assertLess(blind['flattest']['a_sample'][0], W // 2)   # on water
+
+    def test_a_land_mask_moves_it_ashore(self):
+        W = D = 40
+        h, land = self._coast(W, D)
+        aware = scoop.homebase_pair(h, W, D, 'z', spacing=8, probe_blocks=32,
+                                    land_mask=land)
+        self.assertGreaterEqual(aware['flattest']['a_sample'][0], W // 2)
+        self.assertGreater(aware['flattest']['worst_grade_blocks'], 0)
+
+    def test_an_all_water_scoop_reports_why_rather_than_a_perfect_score(self):
+        W = D = 40
+        h = [63] * (W * D)
+        out = scoop.homebase_pair(h, W, D, 'z', spacing=8, probe_blocks=32,
+                                  land_mask=[False] * (W * D))
+        self.assertEqual(out['frontier'], [])
+        self.assertIn('land', out['why'])
+
+    def test_a_shoreline_disc_is_allowed_and_a_floating_one_is_not(self):
+        """A Homebase may touch water; it may not sit in it."""
+        W = D = 40
+        h = [70] * (W * D)
+        mostly = [not (i < 2) for _ in range(D) for i in range(W)]
+        out = scoop.homebase_pair(h, W, D, 'z', spacing=8, probe_blocks=32,
+                                  land_mask=mostly)
+        self.assertTrue(out['frontier'])
+
+
 class Size(unittest.TestCase):
     def test_area_is_reported_relative_to_the_current_window(self):
         out = scoop.describe(grid([64] * (108 * 132), 108, 132))

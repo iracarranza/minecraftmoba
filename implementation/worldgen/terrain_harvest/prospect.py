@@ -40,6 +40,7 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
     # Symmetry is read on the PLAYABLE surface: you walk on the sea, not the
     # seafloor. Water comes from biome, so clamping does not hide it.
     playable = [max(h, SEA_LEVEL) for h in s.height]
+    land_grid = [b not in scan_mod.OCEAN_IDS for b in s.biome]
     found = scoop.search(playable, s.width, s.depth, spacing=s.step,
                          sizes=sizes, stride=stride, budget=budget,
                          coarsen=coarsen, probe_blocks=96,
@@ -78,6 +79,17 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
         for key in ('land_bodies', 'water_bodies', 'largest_land_share',
                     'coastline_per_1k_blocks2'):
             k[key] = water[key]
+        # Re-site the Homebase pair on LAND. `scoop.search` computes it blind,
+        # and on a sea-level-clamped surface water grades perfectly flat, so
+        # it was siting Homebases on open water -- the cause of
+        # SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE being 26 of 32 rejections.
+        sub_land = [land_grid[(j0 + jj) * s.n + i0 + ii]
+                    for jj in range(d0) for ii in range(w0)]
+        k['homebase_pair'] = scoop.homebase_pair(
+            sub, w0, d0, k['team_axis'], spacing=s.step, probe_blocks=96,
+            land_mask=sub_land)
+        k['homebase_max_separation_blocks'] = \
+            k['homebase_pair'].get('max_separation_blocks')
         # `open_water` exists to NAME the sink a symmetry ranking falls into,
         # not to be generated. A scoop labelled only open_water is dropped
         # here: on seed 31337 two such scoops ranked ABOVE the one genuinely
@@ -131,11 +143,19 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
             # They are kept in the result because describe-then-label requires
             # it -- an unlabelled window is where a Type nobody has defined
             # shows up -- and flagged so the generator skips them.
-            'generatable': bool(labels),
-            'why_not_generatable': None if labels else
-            'no Map Type claims this window, so no template can verify it. '
-            'Described and kept; not generated.',
+            'generatable': bool(labels) and bool(
+                (k.get('homebase_pair') or {}).get('frontier')),
+            'why_not_generatable':
+                None if (labels and (k.get('homebase_pair') or {}).get('frontier'))
+                else ('no Map Type claims this window, so no template can '
+                      'verify it' if not labels else
+                      'no mirrored pair of Homebase discs sits on land'),
             'homebase_max_separation_blocks': k.get('homebase_max_separation_blocks'),
+            # A window whose two ends cannot both host a Homebase on land is
+            # not worth 90 seconds of generation.
+            'homebase_on_land': bool((k.get('homebase_pair') or {}).get('frontier')),
+            'homebase_grade': ((k.get('homebase_pair') or {}).get('flattest') or {})
+            .get('worst_grade_blocks'),
             'measured': k,
         })
     # Rank on the ratio, which is what makes a 10-block and a 100-block feature
