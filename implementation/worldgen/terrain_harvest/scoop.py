@@ -465,7 +465,7 @@ def _type_features(sums, i0, j0, i1, j1):
 
 def search(height: list, width: int, depth: int, *, spacing: int = 8,
            sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
-           partition=None, types=None, biome=None, sea_level=None,
+           partition=None, types=None, biome=None, sea_level=None,  # noqa: ARG001
            probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
     """Scoops of several sizes, ranked by how alike their two ends are.
 
@@ -538,8 +538,19 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
 
     # Type-recognition tables, built only when the inputs for them exist.
     tsums, type_inputs = (None, None, None), []
-    if biome is not None and sea_level is not None:
-        wet = [1 if h < sea_level else 0 for h in height]
+    if biome is not None:
+        # Water comes from BIOME, not from height < sea level.
+        #
+        # They are not the same question and conflating them broke a
+        # measurement. Symmetry should be read on the PLAYABLE surface -- you
+        # walk on the sea, not the seafloor -- so height is fairly clamped to
+        # sea level before measuring. But clamping is exactly what makes
+        # `height < sea_level` false everywhere, and a run doing both reported
+        # water_fraction 0.00 for every scoop across eight seeds, including
+        # ones that are 80% ocean. Biome answers it independently of whatever
+        # the caller did to the heights.
+        from .scan import OCEAN_IDS
+        wet = [1 if b in OCEAN_IDS else 0 for b in biome]
         edge = []
         for j in range(depth):
             for i in range(width):

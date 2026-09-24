@@ -420,14 +420,22 @@ class Tutoring(unittest.TestCase):
     """Type predicates steering the budget, without becoming a discard rule."""
 
     def _sea(self, W, D, water_rows):
-        """Flat land, with `water_rows` at the top drowned and featureless."""
-        h = []
+        """Flat land, with `water_rows` at the top drowned and featureless.
+
+        Returns heights AND biomes. Water is read from biome, not from
+        height < sea level, so a fixture that passes ocean everywhere makes
+        every scoop 100% water however its heights look -- which is what an
+        earlier version of this did.
+        """
         import random
         rng = random.Random(9)
+        h, b = [], []
         for j in range(D):
             for i in range(W):
-                h.append(40 if j < water_rows else 70 + rng.uniform(-4, 4))
-        return h
+                wet = j < water_rows
+                h.append(40 if wet else 70 + rng.uniform(-4, 4))
+                b.append(0 if wet else 1)          # ocean / plains
+        return h, b
 
     def test_blind_ranking_prefers_featureless_water(self):
         """The degeneracy tutoring exists to answer.
@@ -437,17 +445,17 @@ class Tutoring(unittest.TestCase):
         ocean upward, reached from the opposite direction.
         """
         W, D = 60, 60
-        h = self._sea(W, D, 40)
+        h, b = self._sea(W, D, 40)
         out = scoop.search(h, W, D, spacing=8, sizes=[(240, 240)], stride=4,
                            budget=4, coarsen=2, probe_blocks=48,
-                           biome=[0] * (W * D), sea_level=63)
+                           biome=b, sea_level=63)
         self.assertGreater(out['scoops'][0]['water_fraction'], 0.9)
 
     def test_tutoring_surfaces_the_land_the_blind_search_misses(self):
         W, D = 60, 60
-        h = self._sea(W, D, 40)
+        h, b = self._sea(W, D, 40)
         kw = dict(spacing=8, sizes=[(240, 240)], stride=4, coarsen=2,
-                  probe_blocks=48, biome=[0] * (W * D), sea_level=63)
+                  probe_blocks=48, biome=b, sea_level=63)
         blind = scoop.search(h, W, D, budget=4, **kw)
         tut = scoop.search(h, W, D, budget=2, types={
             'wet': lambda c: c['water_fraction'] > 0.5,
@@ -458,10 +466,10 @@ class Tutoring(unittest.TestCase):
     def test_an_unmatched_scoop_is_measured_not_discarded(self):
         """A sixteenth type nobody defined must still come back described."""
         W, D = 60, 60
-        h = self._sea(W, D, 40)
+        h, b = self._sea(W, D, 40)
         out = scoop.search(h, W, D, spacing=8, sizes=[(240, 240)], stride=4,
                            budget=2, coarsen=2, probe_blocks=48,
-                           biome=[0] * (W * D), sea_level=63,
+                           biome=b, sea_level=63,
                            types={'impossible': lambda c: c['water_fraction'] > 2})
         self.assertIn('unlabelled', out['partitions'])
         self.assertTrue(out['scoops'])
@@ -469,9 +477,10 @@ class Tutoring(unittest.TestCase):
 
     def test_a_type_matching_nothing_is_reported_not_silent(self):
         W, D = 60, 60
-        out = scoop.search(self._sea(W, D, 40), W, D, spacing=8,
+        h, b = self._sea(W, D, 40)
+        out = scoop.search(h, W, D, spacing=8,
                            sizes=[(240, 240)], stride=4, budget=2, coarsen=2,
-                           probe_blocks=48, biome=[0] * (W * D), sea_level=63,
+                           probe_blocks=48, biome=b, sea_level=63,
                            types={'impossible': lambda c: c['water_fraction'] > 2})
         self.assertEqual(out['types_matching_nothing'], ['impossible'])
 
@@ -486,9 +495,10 @@ class Tutoring(unittest.TestCase):
         """The exact tier must not drop the facts the screen steered on."""
         W, D = 60, 60
         pred = lambda c: c['water_fraction'] > 0.5
-        out = scoop.search(self._sea(W, D, 40), W, D, spacing=8,
+        h, b = self._sea(W, D, 40)
+        out = scoop.search(h, W, D, spacing=8,
                            sizes=[(240, 240)], stride=4, budget=2, coarsen=2,
-                           probe_blocks=48, biome=[0] * (W * D), sea_level=63,
+                           probe_blocks=48, biome=b, sea_level=63,
                            types={'wet': pred})
         for k in out['scoops']:
             self.assertIn('water_fraction', k)
