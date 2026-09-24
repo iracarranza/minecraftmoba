@@ -1,15 +1,53 @@
-# The off-server seed probe
+# The off-server seed probe and scanner
 
-`mobaprobe.c` samples Overworld biome and approximate surface height over the
-candidate window using [cubiomes](https://github.com/Cubitect/cubiomes), which
-reimplements Minecraft's worldgen as a pure function of the seed. No server, no
-chunks, no world.
+Both use [cubiomes](https://github.com/Cubitect/cubiomes), which reimplements
+Minecraft's worldgen as a pure function of the seed. No server, no chunks, no
+world.
+
+`mobaprobe.c` samples the compiler's fixed window and prints JSON -- fine for
+one window, hopeless for a scan, where formatting costs more than generating.
+
+`mobascan.c` covers a large square and writes a binary grid of height and
+biome. This is what `terrain_harvest.scoop` searches over, and until it
+existed every scoop measurement ran on `feature_grid.height_rle` from worlds
+the old pipeline had ALREADY generated -- so the search could only re-read its
+own past choices.
 
     git clone --depth 1 https://github.com/Cubitect/cubiomes.git
     cd cubiomes && make libcubiomes
-    cp <this dir>/mobaprobe.c .
+    cp <this dir>/mobaprobe.c <this dir>/mobascan.c .
     cc -O2 -o mobaprobe mobaprobe.c libcubiomes.a -lm
+    cc -O2 -o mobascan  mobascan.c  libcubiomes.a -lm
     export MOBA_CUBIOMES_PROBE=$PWD/mobaprobe
+    export MOBA_CUBIOMES_SCAN=$PWD/mobascan
+
+## Cost
+
+An 8192-block square at 32-block sampling -- 65,536 cells -- scans in about
+one second. Searching 25,088 candidate scoops over it takes another 0.3s.
+Generating that area on a server is hours.
+
+## Failing open, and not
+
+`seed_screen` keeps every seed when `mobaprobe` is absent: the screen is an
+optimisation and skipping it costs throughput, never correctness.
+
+`terrain_harvest.scan` does the opposite and raises. A scoop search with no
+scan has nothing to search, and an empty result would read as "this seed has
+no symmetric region" when it means "nothing looked".
+
+## Is the approximate height good enough to rank symmetry?
+
+Measured, not assumed. On seed 930015734 over the exact rectangle that seed's
+generated candidate covers, the mirror measure reads 22.6 deviation / -17.3
+tilt / 20.3 residual from the GENERATED world and 21.0 / -18.3 / 18.8 from
+cubiomes -- within 8%. So the approximation does not systematically flatten
+the measure, and searched scoops scoring far better than generated finalists
+(3.9 to 6.5 against 13 to 27) is a real difference and not an artefact of
+reading smoother terrain.
+
+Sampling resolution was ruled out the same way: 32, 16 and 8-block steps over
+the same seed give best deviations of 6.02, 5.26 and 5.52.
 
 `terrain_harvest.seed_screen` finds it on `$MOBA_CUBIOMES_PROBE` or `$PATH`, and
 **keeps every seed when it is absent**. Building this is an optimisation; not
