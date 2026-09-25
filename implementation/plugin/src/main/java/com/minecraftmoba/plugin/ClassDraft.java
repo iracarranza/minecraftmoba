@@ -82,6 +82,8 @@ public final class ClassDraft {
     private final List<String> roster;              // class ids, in hall order
     private final Map<Team, List<UUID>> players;
     private final Set<String> banned = new LinkedHashSet<>();
+    private final Map<UUID, String> personalBans = new LinkedHashMap<>();
+    public Map<UUID, String> personalBans() { return Map.copyOf(personalBans); }
     private final Map<UUID, String> picks = new LinkedHashMap<>();
     /**
      * What each player's own stand is wearing, committed or not.
@@ -204,6 +206,7 @@ public final class ClassDraft {
         if (phase == Phase.BAN) {
             Set<UUID> all = new LinkedHashSet<>();
             players.values().forEach(all::addAll);
+            all.removeAll(personalBans.keySet());
             return all;
         }
         // The window the cursor sits in, not a fixed count: the snake's
@@ -242,6 +245,7 @@ public final class ClassDraft {
         if (phase != Phase.BAN) return "the ban phase is over";
         Team team = teamOf(player);
         if (team == null) return "not in the draft";
+        if (personalBans.containsKey(player)) return "you have already banned";
         if (!roster.contains(classId)) return "no such class";
         // OPEN: collision handling. Refusing the second ban is the only option
         // that does not silently spend it, so a caller can still choose to
@@ -249,6 +253,7 @@ public final class ClassDraft {
         if (banned.contains(classId)) return "already banned";
         if (bansUsed.get(team) >= rules.bansPerTeam()) return "no bans left";
         banned.add(classId);
+        personalBans.put(player, classId);
         bansUsed.merge(team, 1, Integer::sum);
         maybeAdvance();
         return null;
@@ -338,7 +343,7 @@ public final class ClassDraft {
             for (Team t : players.keySet()) {
                 if (!players.getOrDefault(t, List.of()).isEmpty()) {
                     total += bansUsed.getOrDefault(t, 0);
-                    allowed += rules.bansPerTeam();
+                    allowed += Math.min(rules.bansPerTeam(), players.get(t).size());
                 }
             }
             if (total >= allowed) phase = Phase.PICK;

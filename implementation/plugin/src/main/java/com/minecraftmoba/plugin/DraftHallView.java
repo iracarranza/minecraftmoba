@@ -37,6 +37,7 @@ public final class DraftHallView {
     private final Set<UUID> ghosts = new HashSet<>();
     private final Map<UUID, BossBar> bars = new HashMap<>();
     private ClassDraft.Phase timerPhase;
+    private Set<UUID> timerActors = Set.of();
     private long phaseEnds;
     private static final long PHASE_TICKS = 30 * 20L;
 
@@ -49,7 +50,12 @@ public final class DraftHallView {
         Match match = plugin.match();
         if (match == null || !match.selectingClasses() || match.draft() == null) return;
         ClassDraft d = match.draft();
-        if (timerPhase != d.phase()) { timerPhase = d.phase(); phaseEnds = Bukkit.getCurrentTick() + PHASE_TICKS; }
+        if (d.phase() == ClassDraft.Phase.COMPLETE) {
+            match.classSelectionComplete(); release(); return;
+        }
+        if (timerPhase != d.phase() || (d.phase() == ClassDraft.Phase.PICK && Collections.disjoint(timerActors, d.onTurn()))) {
+            timerPhase = d.phase(); timerActors = d.onTurn(); phaseEnds = Bukkit.getCurrentTick() + PHASE_TICKS;
+        }
         if (Bukkit.getCurrentTick() >= phaseEnds) {
             d.timeout();
             timerPhase = null;
@@ -74,7 +80,7 @@ public final class DraftHallView {
             dress(player, showing.get(entry.getKey()));
             applyTurnState(player, draft.isGhost(entry.getKey()));
             String turn = draft.onTurn().contains(entry.getKey()) ? "YOUR TURN" : "WAITING";
-            String ban = draft.banned().stream().findFirst().orElse("NONE");
+            String ban = draft.personalBans().getOrDefault(entry.getKey(), "NONE");
             String hover = draft.hovering().getOrDefault(entry.getKey(), "NONE");
             String picked = draft.picks().getOrDefault(entry.getKey(), "NONE");
             player.sendActionBar("CLASS " + draft.phase() + " | " + turn
@@ -100,7 +106,7 @@ public final class DraftHallView {
             Player player = Bukkit.getPlayer(id);
             if (player != null) {
                 Team team = match.participant(id).team;
-                player.teleport(hall.spawn(team));
+                plugin.colosseum().visit(player, true);
                 int index = Math.min(next.get(team), DraftHall.PER_TEAM - 1);
                 next.put(team, index + 1);
                 bindStand(id, hall.stand(hall.nearest(team, index)));

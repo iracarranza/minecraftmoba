@@ -23,6 +23,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private Provenance provenance;
     private Renewables renewables;
     private DraftHallView draftHall;
+    private DraftingColosseum colosseum;
+    public DraftingColosseum colosseum() { return colosseum; }
+    public void applyDraftedClass(Player p, String id) {
+        var d = data(p);
+        if (d == null) return;
+        d.classId = id;
+        sync(p, d);
+    }
     public Provenance provenance() { return provenance; }
     public Renewables renewables() { return renewables; }
 
@@ -192,6 +200,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
         draftHall = new DraftHallView(this);
+        colosseum = new DraftingColosseum(this);
         getServer().getPluginManager().registerEvents(renewables, this);
         offhandMap = new OffhandMap(this);
         getServer().getPluginManager().registerEvents(offhandMap, this);
@@ -626,6 +635,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 .contains(words[0].toLowerCase(java.util.Locale.ROOT))) return;
         e.setCancelled(true);
         getServer().getScheduler().runTask(this, () -> {
+            if (!match.selectingClasses() || match.participant(e.getPlayer().getUniqueId()) == null) return;
+            if (words[0].equalsIgnoreCase("pick") || words[0].equalsIgnoreCase("ban")) {
+                e.getPlayer().sendMessage("Use the colosseum: attack a class to ban; click a class to pick."); return;
+            }
             if (words.length == 1 || words[0].equalsIgnoreCase("draft")) {
                 e.getPlayer().sendMessage("Draft: " + match.draft().report()
                         + ". Say `hover <class>`, `pick <class>`, or `ban <class>`.");
@@ -650,6 +663,16 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length > 1 && args[0].equalsIgnoreCase("debug")
+                && Set.of("on", "off", "go").contains(args[1].toLowerCase(Locale.ROOT))) {
+            if (!(sender instanceof Player p) || !sender.hasPermission("moba.admin")) {
+                sender.sendMessage("An in-game administrator is required."); return true;
+            }
+            return colosseum.command(p, args);
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("catalogue") && sender instanceof Player p) {
+            colosseum.visit(p, false); return true;
+        }
         if (args.length == 1 && args[0].equalsIgnoreCase("join") && sender instanceof Player player) {
             // SAY SOMETHING. This enrolled the player and returned silently,
             // so a working `/moba join` and a broken one looked identical --
@@ -676,6 +699,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 return true;
             }
             String verb = args[0].toLowerCase(java.util.Locale.ROOT);
+            if (!verb.equals("hover")) { p.sendMessage("Use the class stands in the colosseum to ban or pick."); return true; }
             String refusal = switch (verb) {
                 case "ban" -> d.ban(p.getUniqueId(), args[1]);
                 case "hover" -> d.hover(p.getUniqueId(), args[1]);
