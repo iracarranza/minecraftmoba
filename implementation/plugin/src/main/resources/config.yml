@@ -233,6 +233,21 @@ features:
     ceilingMaterial: STONE_BRICKS
     lightMaterial: SEA_LANTERN
     platformMaterial: POLISHED_ANDESITE
+  draftHall:
+    enabled: true
+    originX: 40
+    originZ: 0
+    floorY: 64
+    height: 8
+    rankOffset: 6
+    pitDepth: 2
+    spacing: 2
+    floorMaterial: POLISHED_DEEPSLATE
+    wallMaterial: DEEPSLATE_BRICKS
+    ceilingMaterial: DEEPSLATE_BRICKS
+    lightMaterial: SEA_LANTERN
+    platformMaterial: POLISHED_ANDESITE
+    pitMaterial: DEEPSLATE_TILES
   renewableMarkers:
     enabled: true
     ticks: 20

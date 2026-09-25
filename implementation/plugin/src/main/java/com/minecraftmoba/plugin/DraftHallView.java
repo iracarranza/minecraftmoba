@@ -31,10 +31,11 @@ import java.util.*;
 public final class DraftHallView {
 
     private final MobaPlugin plugin;
+    private final DraftHallWorld hall;
     private final Map<UUID, ArmorStand> stands = new HashMap<>();
     private final Set<UUID> ghosts = new HashSet<>();
 
-    public DraftHallView(MobaPlugin plugin) { this.plugin = plugin; }
+    public DraftHallView(MobaPlugin plugin) { this.plugin = plugin; this.hall = new DraftHallWorld(plugin); }
 
     /**
      * Redraw everything the draft state implies.
@@ -61,10 +62,18 @@ public final class DraftHallView {
 
     /** Bring participants to the shared lobby hall used for the draft. */
     public void enter(Match match) {
-        if (plugin.lobbyWorld() == null) return;
+        hall.ensure();
+        Map<Team, Integer> next = new EnumMap<>(Team.class);
+        next.put(Team.NORTH, 0); next.put(Team.SOUTH, 0);
         for (UUID id : match.participantsByTeam().keySet()) {
             Player player = Bukkit.getPlayer(id);
-            if (player != null) plugin.lobbyWorld().send(player);
+            if (player != null) {
+                Team team = match.participant(id).team;
+                player.teleport(hall.spawn(team));
+                int index = Math.min(next.get(team), DraftHall.PER_TEAM - 1);
+                next.put(team, index + 1);
+                bindStand(id, hall.stand(hall.nearest(team, index)));
+            }
         }
     }
 
