@@ -183,7 +183,16 @@ public final class WorldInstance {
      */
     public World load() throws IOException {
         World existing = world();
-        if (existing != null) return existing;
+        // Paper may have eagerly loaded alpha_match as the server's
+        // level-name before the plugin starts. That world is not evidence that
+        // this match's selected source was materialized; keeping it here would
+        // make every pool claim silently run on the previous/template world.
+        // Replace it just as reset does, after moving any occupants to lobby.
+        if (existing != null) {
+            if (!unload())
+                throw new IOException("could not unload preloaded instance '"
+                        + instanceName + "' before materializing the selected map");
+        }
         if (mustMaterialize(false, Files.isDirectory(instancePath()))) materialize();
         World w = Bukkit.createWorld(new WorldCreator(instanceName));
         if (w == null) throw new IOException("Bukkit refused to load " + instanceName);
