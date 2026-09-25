@@ -81,6 +81,7 @@ def _compile_one(job) -> dict:
         out = compile_batch.run([Path(candidate)], worlds={seed: Path(world)},
                                 build_root=Path(work))
         return {'seed': seed, 'compile_seconds': round(time.perf_counter() - t, 1),
+                'build_world': str(Path(work) / f'build-{seed}'),
                 'compiled': out}
     except Exception as exc:                      # noqa: BLE001
         return {'seed': seed, 'error': f'{type(exc).__name__}: {exc}'}
@@ -157,19 +158,13 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
     published, publish_failures = [], []
     if pool is not None:
         from . import foundry
-        by_seed = {}
-        for h in harvested:
-            by_seed.setdefault(h['seed'], []).append(h)
         for entry in compiled:
             for record in (entry.get('compiled') or {}).get('runs') or []:
                 if not record.get('playable'):
                     continue
-                source = next((h for h in by_seed.get(record['seed'], [])), None)
-                if not source:
-                    continue
                 try:
                     published.append(foundry.publish(
-                        Path(pool), record['seed'], Path(source['world']), record))
+                        Path(pool), record['seed'], Path(entry['build_world']), record))
                 except Exception as exc:              # noqa: BLE001
                     publish_failures.append(
                         {'seed': record['seed'], 'error': f'{type(exc).__name__}: {exc}'})

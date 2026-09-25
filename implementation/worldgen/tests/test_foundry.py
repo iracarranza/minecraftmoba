@@ -3,6 +3,7 @@ import json
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from terrain_harvest import foundry
@@ -46,7 +47,16 @@ def compilation(playable=True, stage='ready', ready=True, bindings=True):
 
 class Publishing(unittest.TestCase):
 
+    def test_excluded_trial_chambers_cannot_enter_pool(self):
+        self.scan.return_value = [[1, 2, 'trial_spawner']]
+        with self.assertRaisesRegex(ValueError, 'excluded trial chambers'):
+            foundry.publish(self.pool, 1, self.src, compilation())
+        self.assertFalse(self.pool.exists())
+
     def setUp(self):
+        scanner = patch('terrain_harvest.excluded_structures.trial_chambers', return_value=[])
+        self.scan = scanner.start()
+        self.addCleanup(scanner.stop)
         self._tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self._tmp.cleanup)
         self.tmp = Path(self._tmp.name)

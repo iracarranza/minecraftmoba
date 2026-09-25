@@ -16,8 +16,27 @@ final class PoolPreview {
         MapPool.Entry chosen = entries.stream().filter(e -> e.mapId().equals(selection)).findFirst().orElse(null);
         if (chosen == null) try { chosen = entries.get(Integer.parseInt(selection)-1); } catch (RuntimeException ignored) {}
         if (chosen == null) { player.sendMessage("Map number/id not found. Pool contains " + entries.size() + " entries."); return; }
+        if (chosen.state().equals("QUARANTINED")) {
+            player.sendMessage("Preview refused: this pool entry is quarantined pending authored-world recovery."); return;
+        }
         if (!loading.add(player.getUniqueId())) { player.sendMessage("Your map preview is still loading."); return; }
         MapPool.Entry entry = chosen;
+        try {
+            com.google.gson.JsonObject root = com.google.gson.JsonParser.parseString(Files.readString(entry.directory().resolve("map.json"))).getAsJsonObject();
+            var fountains = root.getAsJsonObject("runtime_bindings").getAsJsonObject("fountains");
+            for (String team : List.of("north", "south")) {
+                var at = fountains.getAsJsonArray(team);
+                int cx = Math.floorDiv(at.get(0).getAsInt(), 16), cz = Math.floorDiv(at.get(2).getAsInt(), 16);
+                Path region = entry.world().resolve("region/r." + Math.floorDiv(cx,32) + "." + Math.floorDiv(cz,32) + ".mca");
+                try (var file = new java.io.RandomAccessFile(region.toFile(), "r")) {
+                    file.seek(4L * (Math.floorMod(cx,32) + 32*Math.floorMod(cz,32)));
+                    if (file.readInt() == 0) throw new IOException("Missing " + team + " fountain chunk");
+                }
+            }
+        } catch (Exception failure) {
+            loading.remove(player.getUniqueId());
+            player.sendMessage("Preview refused: pool world lacks valid fountain chunks: " + failure.getMessage()); return;
+        }
         Path container = Bukkit.getWorldContainer().toPath().toAbsolutePath();
         player.sendMessage("Copying a disposable map preview: " + entry.mapId());
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
@@ -33,13 +52,16 @@ final class PoolPreview {
                 }
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     try {
-                        World world = new WorldCreator(copy.getFileName().toString()).createWorld();
+                        World world = new WorldCreator(copy.getFileName().toString()).generator(new VoidGenerator()).generateStructures(false).createWorld();
                         if (world == null) throw new IllegalStateException("Preview load failed");
                         MapBindings binding = MapBindings.of(entry);
                         Location at = binding == null ? null : binding.fountain(world, Team.NORTH);
-                        if (at == null) at = world.getSpawnLocation();
+                        if (at == null) throw new IllegalStateException("Preview has no north fountain binding");
                         player.setGameMode(GameMode.SPECTATOR);
                         player.teleport(at.clone().add(0, 8, 0));
+                        player.sendMessage("Map " + entry.mapId() + " — NORTH fountain at "
+                                + at.getBlockX() + ", " + at.getBlockY() + ", " + at.getBlockZ()
+                                + "; spectator preview 8 blocks above. Objectives are scenery here; match mechanics are inactive.");
                         player.sendMessage("Preview copy only; no pool claim consumed. /moba debug go colosseum to return.");
                     } finally { loading.remove(player.getUniqueId()); }
                 });

@@ -82,6 +82,11 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
         raise FileExistsError(f'{ident} is already in the pool')
     if copy and not Path(source_world).is_dir():
         raise FileNotFoundError(f'no authored world at {source_world}')
+    if copy:
+        from .excluded_structures import trial_chambers
+        forbidden = trial_chambers(source_world)
+        if forbidden:
+            raise ValueError(f'seed {seed} contains excluded trial chambers: {forbidden[:5]}')
     entry.mkdir(parents=True)
     world = entry / 'world'
     if copy:

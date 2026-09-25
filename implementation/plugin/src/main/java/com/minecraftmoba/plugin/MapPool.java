@@ -110,7 +110,8 @@ public final class MapPool {
                 // terminal -- a retired map still has its claim file, and
                 // checking claim first reported a played map as IN_USE
                 // forever, which would have leaked the pool one map per match.
-                String state = Files.exists(d.resolve("used")) ? USED
+                String state = Files.exists(d.resolve("quarantined")) ? "QUARANTINED"
+                        : Files.exists(d.resolve("used")) ? USED
                         : Files.exists(d.resolve("claim")) ? IN_USE
                         : Objects.requireNonNullElse(field(json, "state"), READY);
                 out.add(new Entry(id, d, seed == null ? 0L : Long.parseLong(seed), state));
