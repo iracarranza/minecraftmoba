@@ -67,6 +67,14 @@ public final class ClassDraft {
     private final Map<Team, List<UUID>> players;
     private final Set<String> banned = new LinkedHashSet<>();
     private final Map<UUID, String> picks = new LinkedHashMap<>();
+    /**
+     * What each player's own stand is wearing, committed or not.
+     *
+     * `hover` works OFF-TURN by design: it is the pre-commitment channel the
+     * physical hall exists for, and a ghost hovering a class is broadcasting
+     * intent to both teams. See the 25 September amendment.
+     */
+    private final Map<UUID, String> hovering = new LinkedHashMap<>();
     private final Map<Team, Integer> bansUsed = new EnumMap<>(Team.class);
     private final List<UUID> pickOrder = new ArrayList<>();
     private int cursor;
@@ -93,6 +101,30 @@ public final class ClassDraft {
     public Set<String> banned() { return Set.copyOf(banned); }
 
     public Map<UUID, String> picks() { return Map.copyOf(picks); }
+
+    /** What every stand is showing: a locked pick, or a hover. */
+    public Map<UUID, String> stands() {
+        Map<UUID, String> out = new LinkedHashMap<>(hovering);
+        out.putAll(picks);
+        return out;
+    }
+
+    /**
+     * Show a class on your own stand without committing to it.
+     *
+     * Allowed off-turn and in either phase. Refused for a banned class,
+     * because the banned section already shows those and a stand wearing one
+     * would say a thing that is not true.
+     */
+    public String hover(UUID player, String classId) {
+        if (phase == Phase.COMPLETE) return "the draft is over";
+        if (teamOf(player) == null) return "not in the draft";
+        if (!roster.contains(classId)) return "no such class";
+        if (banned.contains(classId)) return "banned";
+        if (picks.containsKey(player)) return "already locked in";
+        hovering.put(player, classId);
+        return null;
+    }
 
     /** Classes still standing in the hall. */
     public List<String> available() {
@@ -167,6 +199,7 @@ public final class ClassDraft {
             picks.put(player, previous);
             return "already locked";
         }
+        hovering.remove(player);
         maybeAdvance();
         return null;
     }
@@ -200,9 +233,17 @@ public final class ClassDraft {
         }
         if (phase != Phase.PICK) return assigned;
         for (UUID player : onTurn()) {
-            String choice = firstAvailableFor(player);
+            // THE HOVER IS A DECLARED PREFERENCE, so an assignment follows the
+            // player's own stated intent where one exists. An earlier version
+            // took the first available class, which ignored a choice the
+            // player had already broadcast to the room.
+            String wanted = hovering.get(player);
+            String choice = (wanted != null && !banned.contains(wanted)
+                    && takenBy(wanted, teamOf(player)) == null)
+                    ? wanted : firstAvailableFor(player);
             if (choice != null) {
                 picks.put(player, choice);
+                hovering.remove(player);
                 assigned.put(player, choice);
             }
         }

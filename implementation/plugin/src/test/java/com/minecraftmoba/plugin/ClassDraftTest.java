@@ -119,6 +119,68 @@ class ClassDraftTest {
     }
 
     @Test
+    void hover_works_off_turn_because_that_is_the_point_of_it() {
+        // A ghost hovering a class is broadcasting intent to both teams. That
+        // is the pre-commitment channel the physical hall exists for, so the
+        // enforcement is on `pick`, not on showing something on your stand.
+        ClassDraft d = draft();
+        d.ban(n1, "mole"); d.ban(s1, "gardener");
+        UUID acting = d.onTurn().iterator().next();
+        UUID ghost = acting.equals(n1) ? s1 : n1;
+        assertTrue(d.isGhost(ghost));
+        assertNull(d.hover(ghost, "sentinel"), "a ghost may hover");
+        assertEquals("sentinel", d.stands().get(ghost));
+        assertEquals("not your turn", d.pick(ghost, "sentinel"),
+                "but may not commit");
+    }
+
+    @Test
+    void a_banned_class_cannot_be_worn() {
+        ClassDraft d = draft(new ClassDraft.Rules(2, 1, true, true));
+        d.ban(n1, "mole");
+        assertEquals("banned", d.hover(n2, "mole"),
+                "the banned section already shows it; a stand wearing one "
+                        + "would say a thing that is not true");
+    }
+
+    @Test
+    void a_timeout_assigns_what_the_player_was_hovering() {
+        // The hover is a declared preference, made in public. Assigning the
+        // first available class instead would ignore a choice the player had
+        // already broadcast to the room.
+        ClassDraft d = draft();
+        d.ban(n1, "mole"); d.ban(s1, "gardener");
+        UUID acting = d.onTurn().iterator().next();
+        assertNull(d.hover(acting, "ranger"));
+        var assigned = d.timeout();
+        assertEquals("ranger", assigned.get(acting));
+    }
+
+    @Test
+    void a_timeout_falls_back_when_the_hover_is_no_longer_available() {
+        ClassDraft d = draft(new ClassDraft.Rules(1, 2, true, true));
+        d.ban(n1, "mole"); d.ban(s1, "gardener");
+        var window = new ArrayList<>(d.onTurn());
+        assertNull(d.hover(window.get(0), "ranger"));
+        assertNull(d.hover(window.get(1), "ranger"));
+        var assigned = d.timeout();
+        assertEquals(2, assigned.size());
+        assertNotEquals(assigned.get(window.get(0)), assigned.get(window.get(1)),
+                "both wanted the same class; only one can have it");
+    }
+
+    @Test
+    void picking_clears_the_hover_so_the_stand_shows_the_commitment() {
+        ClassDraft d = draft();
+        d.ban(n1, "mole"); d.ban(s1, "gardener");
+        UUID acting = d.onTurn().iterator().next();
+        d.hover(acting, "ranger");
+        assertNull(d.pick(acting, "sentinel"));
+        assertEquals("sentinel", d.stands().get(acting),
+                "the stand shows what was committed, not what was considered");
+    }
+
+    @Test
     void the_draft_knows_nothing_about_the_played_map() {
         // Classes are committed BLIND, so this type must not depend on which
         // map will be played. An earlier version of this test matched any
