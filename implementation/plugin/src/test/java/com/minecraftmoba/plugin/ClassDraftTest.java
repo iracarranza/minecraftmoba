@@ -286,4 +286,16 @@ class ClassDraftTest {
                     "the class draft must not see the played map: " + f.getName());
         }
     }
+
+    @Test
+    void a_one_team_test_does_not_wait_for_the_empty_team_to_ban_or_pick() {
+        UUID solo = UUID.randomUUID();
+        var d = new ClassDraft(new ClassDraft.Rules(1, new int[]{2, 3, 2, 3, 3, 1}, true, true),
+                ROSTER, Map.of(Team.NORTH, List.of(solo), Team.SOUTH, List.of()), Team.NORTH);
+        assertNull(d.ban(solo, "mole"));
+        assertEquals(ClassDraft.Phase.PICK, d.phase());
+        assertEquals(Set.of(solo), d.onTurn());
+        assertNull(d.pick(solo, "ranger"));
+        assertEquals(ClassDraft.Phase.COMPLETE, d.phase());
+    }
 }

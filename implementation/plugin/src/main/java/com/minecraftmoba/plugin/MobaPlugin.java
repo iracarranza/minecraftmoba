@@ -646,7 +646,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
             p.sendMessage(refusal == null
                     ? verb + ": " + args[1]
                     : "cannot " + verb + " " + args[1] + " -- " + refusal);
-            if (refusal == null) draftHall.refresh(match);
+            if (refusal == null) {
+                draftHall.refresh(match);
+                if (d.phase() == ClassDraft.Phase.COMPLETE) {
+                    p.sendMessage(match.classSelectionComplete());
+                    draftHall.release();
+                    p.sendMessage("Map selection is now open; an admin can run /moba match select for the test path.");
+                }
+            }
             return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("rewards") && sender instanceof Player player) {

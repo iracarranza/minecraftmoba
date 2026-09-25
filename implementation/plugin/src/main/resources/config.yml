@@ -949,8 +949,8 @@ alpha:
   # A map is only published if it compiled, authored and verified, so claiming
   # is unconditional: everything in the pool already passed.
   pool:
-    enabled: false
-    directory: map-pool
+    enabled: true
+    directory: /private/tmp/mobapool
     # Play on a realization that cannot satisfy the runtime contract.
     #
     # OFF, and it should stay off. With the pool empty the selection falls back

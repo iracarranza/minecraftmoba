@@ -212,7 +212,10 @@ public final class ClassDraft {
             if (cursor >= bound[1]) continue;
             for (int i = bound[0]; i < bound[1]; i++)
                 if (!picks.containsKey(pickOrder.get(i))) window.add(pickOrder.get(i));
-            break;
+            // A snake window belonging to an empty team is a no-op in a
+            // small-lobby test. Skip it rather than presenting an empty turn.
+            if (!window.isEmpty()) break;
+            cursor = bound[1];
         }
         return window;
     }
@@ -332,8 +335,10 @@ public final class ClassDraft {
         if (phase == Phase.BAN) {
             int total = 0, allowed = 0;
             for (Team t : players.keySet()) {
-                total += bansUsed.getOrDefault(t, 0);
-                allowed += rules.bansPerTeam();
+                if (!players.getOrDefault(t, List.of()).isEmpty()) {
+                    total += bansUsed.getOrDefault(t, 0);
+                    allowed += rules.bansPerTeam();
+                }
             }
             if (total >= allowed) phase = Phase.PICK;
             return;
