@@ -30,6 +30,13 @@ static const struct Named KINDS[] = {
     {"ruined_portal", Ruined_Portal}, {"shipwreck", Shipwreck},
     {"ocean_ruin", Ocean_Ruin}, {"ancient_city", Ancient_City},
     {"trail_ruins", Trail_Ruins},
+    // The rest of what cubiomes can place. Omitting them was an oversight
+    // rather than a decision: they cost nothing at 0.107s per seed, and
+    // `mineshaft` and `trial_chambers` in particular are real Extraction
+    // anchors that were invisible to every measurement until now.
+    {"mineshaft", Mineshaft}, {"trial_chambers", Trial_Chambers},
+    {"treasure", Treasure}, {"geode", Geode}, {"desert_well", Desert_Well},
+    {"fortress", Fortress}, {"bastion", Bastion}, {"end_city", End_City},
 };
 static const int NKINDS = sizeof(KINDS) / sizeof(KINDS[0]);
 
