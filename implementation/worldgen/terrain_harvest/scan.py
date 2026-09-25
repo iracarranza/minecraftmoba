@@ -37,6 +37,23 @@ OCEAN_IDS = frozenset({0, 24, 10, 50, 44, 45, 46, 47, 48, 49})
 RIVER_IDS = frozenset({7, 11})
 SHORE_IDS = frozenset({16, 26, 25})
 
+# Biome FAMILIES, for Map Types whose premise is a kind of country rather than
+# a shape. Ids confirmed against the built library, not transcribed.
+#
+# These are what make six catalogue entries -- Arid, Frozen, Swamplands,
+# Jungle, Badlands, Pale Forest -- recognisable with predicates instead of new
+# measurement: family share is a summed-area quantity, so it costs four
+# lookups per candidate at the screening tier where budget is allocated.
+BIOME_FAMILIES = {
+    'arid': frozenset({2, 37, 38, 165}),          # desert + badlands
+    'badlands': frozenset({37, 38, 165}),
+    'frozen': frozenset({12, 30, 179, 181, 140, 10, 11, 26, 50}),
+    'swamp': frozenset({6, 184}),
+    'jungle': frozenset({21, 168, 23}),
+    'pale': frozenset({186}),                     # pale_garden
+    'dark_forest': frozenset({29}),
+}
+
 
 def scanner_path() -> str | None:
     explicit = os.environ.get(SCAN_ENV)

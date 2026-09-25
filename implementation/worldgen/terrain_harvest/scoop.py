@@ -515,7 +515,7 @@ def _coarse_deviation(height, width, i0, j0, cw, cd, axis, k):
     return total / m if m else None
 
 
-def _type_features(sums, i0, j0, i1, j1):
+def _type_features(sums, i0, j0, i1, j1, families=None):
     """Cheap per-candidate facts a Map Type is recognised by.
 
     Only summed-area quantities, so each is four lookups. This is what lets a
@@ -527,19 +527,69 @@ def _type_features(sums, i0, j0, i1, j1):
     if n <= 0 or water is None:
         return {}
     wet = _box(water, i0, j0, i1, j1) / n
-    return {
+    out = {
         'water_fraction': wet,
         'land_fraction': 1 - wet,
         # Coastline per cell. High means fragmented, whatever the fraction.
         'coast_density': _box(edge, i0, j0, i1, j1) / n,
         'dominant_biome_share': _box(dom, i0, j0, i1, j1) / n,
     }
+    for name, table in (families or {}).items():
+        out[f'{name}_share'] = _box(table, i0, j0, i1, j1) / n
+    return out
+
+
+def _structures_in(structures, half, i0, j0, cw, cd, spacing):
+    """Counts of each gated structure inside a candidate window.
+
+    Point-in-rectangle over a list the caller already has, so it is free --
+    the cost was paid once for the whole scan area. `central_<kind>` is the
+    middle third, because a Mansion at the scoop edge belongs to one team and
+    only a central one is contested.
+    """
+    if not structures:
+        return {}
+    x0, z0 = -half + i0 * spacing, -half + j0 * spacing
+    x1, z1 = x0 + cw * spacing, z0 + cd * spacing
+    mx, mz = (x0 + x1) / 2, (z0 + z1) / 2
+    hw, hd = (x1 - x0) / 6, (z1 - z0) / 6
+    out = {}
+    for kind, points in structures.items():
+        inside = [(x, z) for (x, z) in points if x0 <= x < x1 and z0 <= z < z1]
+        out[kind] = len(inside)
+        out[f'central_{kind}'] = sum(1 for (x, z) in inside
+                                     if abs(x - mx) <= hw and abs(z - mz) <= hd)
+    return out
+
+
+def _coarse_separation(height, width, i0, j0, cw, cd, k):
+    """Peak-against-pit mass on a subsampled grid.
+
+    `separation_sign` was only computed on exact scoops, so the two
+    `divided_by_*` predicates read a default of 0 at the SCREENING tier --
+    where budget is allocated -- and never received any. That looked like a
+    property of the seeds and was a missing input.
+
+    This is the cheap approximation: count how much the coarse field rises
+    above and falls below its own median. Positive means the ground is broken
+    into separated HIGH parts, so the divider is a cut; negative means
+    separated basins, so the divider is raised.
+    """
+    cells = [height[(j0 + j) * width + i0 + i]
+             for j in range(0, cd, k) for i in range(0, cw, k)]
+    if len(cells) < 8:
+        return 0.0
+    mid = sorted(cells)[len(cells) // 2]
+    up = sum(c - mid for c in cells if c > mid)
+    down = sum(mid - c for c in cells if c < mid)
+    total = up + down
+    return 0.0 if total == 0 else (up - down) / total
 
 
 def search(height: list, width: int, depth: int, *, spacing: int = 8,
            sizes=None, stride: int = 8, budget: int = 24, coarsen: int = 4,
            partition=None, types=None, biome=None, sea_level=None,  # noqa: ARG001
-           budget_by_type=None,
+           budget_by_type=None, structures=None, half: int = 4096,
            probe_blocks: int = HOMEBASE_PROBE_BLOCKS) -> dict:
     """Scoops of several sizes, ranked by how alike their two ends are.
 
@@ -611,7 +661,7 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
     sums = (hsum, hhsum, _sat(rough, width, depth))
 
     # Type-recognition tables, built only when the inputs for them exist.
-    tsums, type_inputs = (None, None, None), []
+    tsums, type_inputs, families = (None, None, None), [], {}
     if biome is not None:
         # Water comes from BIOME, not from height < sea level.
         #
@@ -641,8 +691,14 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
         top = max(counts, key=counts.get)
         tsums = (_sat(wet, width, depth), _sat(edge, width, depth),
                  _sat([1 if b == top else 0 for b in biome], width, depth))
+        # One table per biome family, so a Type whose premise is a KIND OF
+        # COUNTRY is recognisable at the screening tier rather than only after
+        # the exact pass. Six catalogue entries become predicates this way.
+        from .scan import BIOME_FAMILIES
+        families = {name: _sat([1 if b in ids else 0 for b in biome], width, depth)
+                    for name, ids in BIOME_FAMILIES.items()}
         type_inputs = ['water_fraction', 'land_fraction', 'coast_density',
-                       'dominant_biome_share']
+                       'dominant_biome_share'] + [f'{n}_share' for n in BIOME_FAMILIES]
 
     considered, screened = 0, []
     for bw, bd in sizes:
@@ -663,9 +719,24 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
                             continue
                         screened.append({'i': i, 'j': j, 'cw': cw, 'cd': cd,
                                          'axis': axis, 'coarse_deviation': cr,
+                                         **_structures_in(structures, half,
+                                                          i, j, cw, cd, spacing),
+                                         'separation_sign': _coarse_separation(
+                                             height, width, i, j, cw, cd,
+                                             max(2, coarsen)),
+                                         'relief': _pct(
+                                             [height[(j + jj) * width + i + ii]
+                                              for jj in range(0, cd, max(4, coarsen))
+                                              for ii in range(0, cw, max(4, coarsen))],
+                                             0.95) - _pct(
+                                             [height[(j + jj) * width + i + ii]
+                                              for jj in range(0, cd, max(4, coarsen))
+                                              for ii in range(0, cw, max(4, coarsen))],
+                                             0.05),
                                          **c,
                                          **_type_features(tsums, i, j,
-                                                          i + cw, j + cd)})
+                                                          i + cw, j + cd,
+                                                          families)})
     # Rank on the coarse deviation -- the same quantity the exact tier ranks on.
     #
     # TILT IS INCLUDED, which reverses an earlier decision here. The comment
@@ -727,9 +798,9 @@ def search(height: list, width: int, depth: int, *, spacing: int = 8,
             # Carried through so a caller can label a returned scoop with the
             # same predicate that steered the search. Without this the exact
             # tier drops the type facts and a scoop cannot say what it is.
-            **{k: round(c[k], 4) for k in
-               ('water_fraction', 'land_fraction', 'coast_density',
-                'dominant_biome_share') if k in c},
+            **{k: round(c[k], 4) for k in c
+               if k.endswith('_share') or k in ('water_fraction', 'land_fraction',
+                                                'coast_density')},
             'homebase_pair': pair,
             'homebase_max_separation_blocks': pair.get('max_separation_blocks'),
         })

@@ -91,6 +91,58 @@ class Predicates(unittest.TestCase):
         self.assertFalse(self.p['landmass'](scoop(water=0.5)))
 
 
+class BiomeFamilyTypes(unittest.TestCase):
+    """Six catalogue entries recognised by what kind of country they are."""
+
+    def setUp(self):
+        self.p = MT.predicates()
+
+    def test_a_cut_above_the_measured_ceiling_is_impossible_not_strict(self):
+        """The defect this caught. Every family cut was first set at a third,
+        and a pale garden's max observed window share is 0.020 -- so the cut
+        asked for something sixteen times larger than the largest that
+        exists. `pale_forest` matched nothing across 20 seeds for that reason
+        rather than from rarity, and a predicate matching nothing looks
+        exactly like a Type that is merely rare.
+        """
+        for family, ceiling in MT.FAMILY_CEILINGS.items():
+            self.assertGreater(ceiling, 0, family)
+        self.assertLess(MT.FAMILY_CEILINGS['pale'], 0.05,
+                        'pale garden is a small biome and the cut must respect it')
+
+    def test_each_family_type_matches_below_its_ceiling(self):
+        cases = {
+            'arid': {'arid_share': 0.50},
+            'badlands': {'badlands_share': 0.40},
+            'frozen': {'frozen_share': 0.70},
+            'swamplands': {'swamp_share': 0.30},
+        }
+        for name, row in cases.items():
+            self.assertTrue(self.p[name](row), f'{name} should match {row}')
+
+    def test_structure_defined_types_need_both_halves(self):
+        """Pale Forest is the concealment AND the reason. Neither alone is it."""
+        self.assertFalse(self.p['pale_forest'](
+            {'pale_share': 0.018, 'central_mansion': 0}), 'forest without mansion')
+        self.assertFalse(self.p['pale_forest'](
+            {'pale_share': 0.0, 'central_mansion': 1}), 'mansion without forest')
+        self.assertTrue(self.p['pale_forest'](
+            {'pale_share': 0.018, 'central_mansion': 1}))
+
+    def test_lost_jungle_needs_jungle_a_temple_and_villages(self):
+        full = {'jungle_share': 0.35, 'jungle_temple': 1, 'village': 2}
+        self.assertTrue(self.p['lost_jungle'](full))
+        for drop in ('jungle_temple', 'village'):
+            partial = dict(full); partial[drop] = 0
+            self.assertFalse(self.p['lost_jungle'](partial), f'without {drop}')
+
+    def test_trial_chambers_is_in_no_type(self):
+        """Maces are a combat-balance decision, and the structure's presence
+        creates the expectation whether or not it is used."""
+        blob = repr(MT.DEFINITIONS) + repr(MT.predicates().keys())
+        self.assertNotIn('trial_chamber', blob)
+
+
 class Allocation(unittest.TestCase):
     """Budget follows BOARD DEMAND, which is the inverse of yield.
 

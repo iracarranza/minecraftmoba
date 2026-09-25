@@ -115,6 +115,44 @@ DEFINITIONS = {
         'cut': 'separation sign below p25, relief above p50',
         'why': 'divided into separated basins, so the divider is raised',
     },
+    'arid': {
+        'reads': ('arid_share',),
+        'cut': 'desert and badlands over 0.45 (reachable to 0.768)',
+        'why': 'maps.md: "what if an otherwise viable competitive world '
+               'developed around an enormous arid region where biological '
+               'abundance is rare". The premise is a KIND OF COUNTRY, so the '
+               'recogniser is a biome-family share rather than a shape'},
+    'badlands': {
+        'reads': ('badlands_share',),
+        'cut': 'badlands over a third',
+        'why': 'terraced shelves and exposed mineshafts; distinguished from '
+               'arid by excluding plain desert'},
+    'frozen': {
+        'reads': ('frozen_share',),
+        'cut': 'snowy, taiga, frozen ocean and river over 0.60 (reaches 1.0)',
+        'why': 'ice is the fastest natural route in the game while snow and '
+               'vertical terrain complicate everything off it'},
+    'swamplands': {
+        'reads': ('swamp_share',),
+        'cut': 'swamp and mangrove over 0.22 (reachable to 0.343)',
+        'why': 'movement technically open and awkward in practice; a quarter '
+               'rather than a half because swamp rarely dominates a region'},
+    'lost_jungle': {
+        'reads': ('jungle_share', 'jungle_temple', 'village'),
+        'cut': 'jungle over 0.30 of its measured 0.455 ceiling, AND a temple '
+               'AND two villages',
+        'why': 'STRUCTURE-DEFINED. The premise is not jungle, it is expensive '
+               'information around discovered clearings that become anchors, '
+               'so the structures are constitutive rather than incidental'},
+    'pale_forest': {
+        'reads': ('pale_share', 'central_mansion'),
+        'cut': 'pale garden over 0.012 -- most of its measured 0.020 ceiling '
+               '-- AND a Mansion at the centre',
+        'why': 'STRUCTURE-DEFINED, and the completion of `central_mansion`, '
+               'which checked the Mansion and not the forest. maps.md: "what '
+               'if poor visibility conceals an exceptionally valuable central '
+               'region" -- the forest is the concealment and the Mansion is '
+               'the reason, and neither alone is the Type'},
     'central_mansion': {
         'reads': ('central_mansion',),
         'cut': 'at least one Mansion in the middle of the scoop',
@@ -179,7 +217,49 @@ def predicates(*, reference: dict | None = None):
     def central_mansion(s):
         return bool(_get(s, 'central_mansion', 0))
 
+    # Biome-family Types. The cuts come from MEASURED REACHABILITY, because a
+    # first pass set them all at a third and that is impossible for some
+    # families. Max window share observed over 25 seeds:
+    #
+    #     frozen 1.000   arid 0.768   jungle 0.455   swamp 0.343   pale 0.020
+    #
+    # A pale garden is a SMALL biome -- its best whole-area share across 30
+    # seeds was 0.0040 -- so a 0.33 cut asked for something sixteen times
+    # larger than the largest that exists, and `pale_forest` matched nothing
+    # in 20 seeds for that reason rather than from rarity.
+    #
+    # So `pale` is cut relative to what the biome can be, not to what a third
+    # of a window would mean. "Dominated by pale forest" has to mean
+    # "dominated as pale forests go".
+    #
+    # DECLARED FIXTURES still: reachability says what is possible, not what is
+    # good. These want calibration against play.
+    def arid(s):
+        return _get(s, 'arid_share', 0) > 0.45          # reachable to 0.768
+
+    def badlands(s):
+        return _get(s, 'badlands_share', 0) > 0.33
+
+    def frozen(s):
+        return _get(s, 'frozen_share', 0) > 0.60        # reachable to 1.000
+
+    def swamplands(s):
+        return _get(s, 'swamp_share', 0) > 0.22         # reachable to 0.343
+
+    def lost_jungle(s):
+        return (_get(s, 'jungle_share', 0) > 0.30       # reachable to 0.455
+                and _get(s, 'jungle_temple', 0) >= 1
+                and _get(s, 'village', 0) >= 2)
+
+    def pale_forest(s):
+        # 0.012 is most of the 0.020 ceiling, not a third of a window.
+        return (_get(s, 'pale_share', 0) > 0.012
+                and bool(_get(s, 'central_mansion', 0)))
+
     return {'archipelago': archipelago, 'open_water': open_water,
+            'arid': arid, 'badlands': badlands, 'frozen': frozen,
+            'swamplands': swamplands, 'lost_jungle': lost_jungle,
+            'pale_forest': pale_forest,
             'landmass': landmass, 'shattered_coast': shattered_coast,
             'divided_by_a_cut': divided_by_a_cut,
             'divided_by_a_ridge': divided_by_a_ridge,
@@ -302,3 +382,10 @@ def allocate(names, total: int, *, floor: int = 1, wanted=None) -> dict:
             'driven_by': 'board demand divided by measured yield, so a Type '
                          'that is rare BY DESIGN is paid for rather than '
                          'starved. A rare Type needs more budget, not less.'}
+
+
+# Max window share each biome family actually reaches, over 25 seeds. Recorded
+# because a cut above these is not strict, it is impossible -- and a predicate
+# that matches nothing looks identical to a Type that is merely rare.
+FAMILY_CEILINGS = {'frozen': 1.000, 'arid': 0.768, 'jungle': 0.455,
+                   'swamp': 0.343, 'pale': 0.020}

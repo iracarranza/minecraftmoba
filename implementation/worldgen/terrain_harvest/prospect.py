@@ -22,7 +22,8 @@ prospect is a PLACE WORTH GENERATING, never a map.
 """
 from __future__ import annotations
 
-from . import map_types, prominence, scan as scan_mod, scoop, window_search
+from . import (map_types, prominence, scan as scan_mod, scoop,
+               structures_offseed, window_search)
 
 SEA_LEVEL = 63
 
@@ -42,6 +43,27 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
     # seafloor. Water comes from biome, so clamping does not hide it.
     playable = [max(h, SEA_LEVEL) for h in s.height]
     land_grid = [b not in scan_mod.OCEAN_IDS for b in s.biome]
+    # STRUCTURES AT THE SCREENING TIER, because structure-DEFINED Types are
+    # constituted by them. `pale_forest` and `lost_jungle` read counts inside
+    # the candidate window, and without them here they match nothing and
+    # receive no budget -- the same failure `separation_sign` had.
+    #
+    # Structure search is 0.107s for a whole scan area against 0.95s for the
+    # terrain, and gated structures PREDICT type: mansion is 100% dark forest,
+    # desert pyramid 100% desert. Agnostic ones are deliberately not used to
+    # gate anything, since mineshaft density is flat across the water range.
+    found = []
+    try:
+        found = structures_offseed.find(seed, half=half)['found']
+    except Exception as exc:              # noqa: BLE001
+        structures_note = f'{type(exc).__name__}: {exc}'
+    else:
+        structures_note = None
+    wanted_kinds = ('mansion', 'jungle_temple', 'village', 'desert_pyramid',
+                    'monument', 'outpost')
+    by_kind = {k: [(f['x'], f['z']) for f in found if f['type'] == k]
+               for k in wanted_kinds}
+
     predicate_set = types if types is not None else map_types.predicates()
     # BUDGET BY MEASURED YIELD, not evenly. From 59 targets: landmass reached
     # READY 11 times in 25, shattered_coast once in 31. Spreading evenly
@@ -57,7 +79,8 @@ def prospect(seed: int, *, half: int = 4096, step: int = 32,
                          coarsen=coarsen, probe_blocks=96,
                          biome=s.biome, sea_level=SEA_LEVEL,
                          types=predicate_set,
-                         budget_by_type=(allocation or {}).get('allocation'))
+                         budget_by_type=(allocation or {}).get('allocation'),
+                         structures=by_kind, half=half)
 
     gate = map_types.symmetry_bound()
     predicates = types if types is not None else map_types.predicates()
