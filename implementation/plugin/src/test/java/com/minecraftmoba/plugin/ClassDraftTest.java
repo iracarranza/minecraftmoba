@@ -27,14 +27,17 @@ class ClassDraftTest {
 
     private ClassDraft draft(ClassDraft.Rules rules) {
         return new ClassDraft(rules, ROSTER,
-                Map.of(Team.NORTH, List.of(n1, n2), Team.SOUTH, List.of(s1, s2)));
+                Map.of(Team.NORTH, List.of(n1, n2), Team.SOUTH, List.of(s1, s2)),
+                Team.NORTH);
     }
 
-    private ClassDraft draft() { return draft(new ClassDraft.Rules(1, 1, true, true)); }
+    private ClassDraft draft() {
+        return draft(new ClassDraft.Rules(1, new int[]{1, 1, 1, 1}, true, true));
+    }
 
     @Test
     void every_player_may_ban_and_bans_are_global() {
-        ClassDraft d = draft(new ClassDraft.Rules(2, 1, true, true));
+        ClassDraft d = draft(new ClassDraft.Rules(2, new int[]{1, 1, 1, 1}, true, true));
         assertTrue(d.onTurn().containsAll(List.of(n1, n2, s1, s2)),
                 "the ban phase is open to everyone");
         assertNull(d.ban(n1, "mole"));
@@ -74,19 +77,22 @@ class ClassDraftTest {
 
     @Test
     void exclusivity_across_teams_is_a_parameter_not_a_decision() {
-        ClassDraft global = draft(new ClassDraft.Rules(1, 2, true, true));
+        ClassDraft global = draft(new ClassDraft.Rules(1, new int[]{2, 2}, true, true));
         global.ban(n1, "mole"); global.ban(s1, "gardener");
-        UUID first = global.onTurn().iterator().next();
-        global.pick(first, "kitfighter");
-        UUID enemy = first.equals(n1) || first.equals(n2) ? s1 : n1;
-        assertNotNull(global.pick(enemy, "kitfighter"), "no mirrors when exclusive");
+        global.pick(n1, "kitfighter");
+        global.pick(n2, "sentinel");
+        assertNotNull(global.pick(s1, "kitfighter"), "no mirrors when exclusive");
 
-        ClassDraft mirrors = draft(new ClassDraft.Rules(1, 2, false, true));
+        ClassDraft mirrors = draft(new ClassDraft.Rules(1, new int[]{2, 2}, false, true));
         mirrors.ban(n1, "mole"); mirrors.ban(s1, "gardener");
-        UUID a = mirrors.onTurn().iterator().next();
-        mirrors.pick(a, "kitfighter");
-        UUID opp = a.equals(n1) || a.equals(n2) ? s1 : n1;
-        assertNull(mirrors.pick(opp, "kitfighter"), "mirrors allowed when not exclusive");
+        // NORTH won the coinflip and holds the first window of two, so both
+        // of its players must act before SOUTH is on turn. An earlier version
+        // assumed either side could pick immediately, which was true only
+        // under the plain alternation this replaced.
+        mirrors.pick(n1, "kitfighter");
+        mirrors.pick(n2, "sentinel");
+        assertTrue(mirrors.onTurn().contains(s1), "now SOUTH's window");
+        assertNull(mirrors.pick(s1, "kitfighter"), "mirrors allowed when not exclusive");
     }
 
     @Test
@@ -110,7 +116,7 @@ class ClassDraftTest {
 
     @Test
     void an_unspent_ban_lapses_rather_than_removing_a_class_nobody_chose() {
-        ClassDraft d = draft(new ClassDraft.Rules(3, 1, true, true));
+        ClassDraft d = draft(new ClassDraft.Rules(3, new int[]{1, 1, 1, 1}, true, true));
         assertEquals(ClassDraft.Phase.BAN, d.phase());
         d.timeout();
         assertEquals(ClassDraft.Phase.PICK, d.phase());
@@ -136,7 +142,7 @@ class ClassDraftTest {
 
     @Test
     void a_banned_class_cannot_be_worn() {
-        ClassDraft d = draft(new ClassDraft.Rules(2, 1, true, true));
+        ClassDraft d = draft(new ClassDraft.Rules(2, new int[]{1, 1, 1, 1}, true, true));
         d.ban(n1, "mole");
         assertEquals("banned", d.hover(n2, "mole"),
                 "the banned section already shows it; a stand wearing one "
@@ -158,7 +164,7 @@ class ClassDraftTest {
 
     @Test
     void a_timeout_falls_back_when_the_hover_is_no_longer_available() {
-        ClassDraft d = draft(new ClassDraft.Rules(1, 2, true, true));
+        ClassDraft d = draft(new ClassDraft.Rules(1, new int[]{2, 2}, true, true));
         d.ban(n1, "mole"); d.ban(s1, "gardener");
         var window = new ArrayList<>(d.onTurn());
         assertNull(d.hover(window.get(0), "ranger"));
@@ -178,6 +184,77 @@ class ClassDraftTest {
         assertNull(d.pick(acting, "sentinel"));
         assertEquals("sentinel", d.stands().get(acting),
                 "the stand shows what was committed, not what was considered");
+    }
+
+    @Test
+    void the_snake_is_2_3_2_3_3_1_and_gives_each_team_seven() {
+        // The decided order. 2-3-3-3-2-1 was proposed first and is not
+        // balanced: A sees 21 enemy picks against B's 28. Moving one pick
+        // from A's second window to its third closes the gap to 24 against
+        // 25 without adding a window.
+        int[] w = ClassDraft.Rules.SNAKE_7V7;
+        assertArrayEquals(new int[]{2, 3, 2, 3, 3, 1}, w);
+        var rules = ClassDraft.Rules.provisional(7);
+        assertEquals(7, rules.picksFor(true), "the coinflip winner picks seven");
+        assertEquals(7, rules.picksFor(false), "and so does the other team");
+    }
+
+    @Test
+    void the_windows_are_not_a_constant_size() {
+        // A fixed window would flatten 2-3-2-3-3-1 into alternation, which is
+        // what this class did before the order was decided.
+        var seven = new java.util.ArrayList<UUID>();
+        var other = new java.util.ArrayList<UUID>();
+        for (int i = 0; i < 7; i++) { seven.add(UUID.randomUUID()); other.add(UUID.randomUUID()); }
+        var big = new java.util.ArrayList<String>();
+        for (int i = 0; i < 20; i++) big.add("class_" + i);
+        var d = new ClassDraft(new ClassDraft.Rules(0, ClassDraft.Rules.SNAKE_7V7, true, true),
+                big, Map.of(Team.NORTH, seven, Team.SOUTH, other), Team.NORTH);
+        assertEquals(ClassDraft.Phase.PICK, d.phase(), "no bans configured");
+        var sizes = new java.util.ArrayList<Integer>();
+        while (d.phase() == ClassDraft.Phase.PICK) {
+            sizes.add(d.onTurn().size());
+            d.timeout();
+        }
+        assertEquals(List.of(2, 3, 2, 3, 3, 1), sizes);
+    }
+
+    @Test
+    void a_roster_too_small_ends_the_draft_instead_of_hanging() {
+        // Ten players against six classes under global exclusivity is
+        // unsatisfiable. The draft must terminate and say who it could not
+        // serve; an earlier version parked the cursor on a player who could
+        // never pick and spun for ever.
+        var many = new java.util.ArrayList<UUID>();
+        for (int i = 0; i < 10; i++) many.add(UUID.randomUUID());
+        var d = new ClassDraft(new ClassDraft.Rules(0, new int[]{2, 2}, true, true),
+                ROSTER, Map.of(Team.NORTH, many, Team.SOUTH, List.of(s1)), Team.NORTH);
+        int guard = 0;
+        while (d.phase() == ClassDraft.Phase.PICK && guard++ < 100) d.timeout();
+        assertEquals(ClassDraft.Phase.COMPLETE, d.phase(), "the draft terminates");
+        assertFalse(d.unassignable().isEmpty(), "and says who it could not serve");
+    }
+
+    @Test
+    void the_coinflip_decides_who_picks_first() {
+        var north = new ClassDraft(ClassDraft.Rules.provisional(2), ROSTER,
+                Map.of(Team.NORTH, List.of(n1, n2), Team.SOUTH, List.of(s1, s2)), Team.NORTH);
+        var south = new ClassDraft(ClassDraft.Rules.provisional(2), ROSTER,
+                Map.of(Team.NORTH, List.of(n1, n2), Team.SOUTH, List.of(s1, s2)), Team.SOUTH);
+        assertEquals(Team.NORTH, north.firstPick());
+        assertEquals(Team.SOUTH, south.firstPick());
+    }
+
+    @Test
+    void a_roster_larger_than_the_windows_still_picks_everyone() {
+        var big = new java.util.ArrayList<UUID>();
+        for (int i = 0; i < 9; i++) big.add(UUID.randomUUID());
+        var roster = new java.util.ArrayList<String>();
+        for (int i = 0; i < 20; i++) roster.add("class_" + i);
+        var d = new ClassDraft(new ClassDraft.Rules(0, new int[]{1, 1}, true, true),
+                roster, Map.of(Team.NORTH, big, Team.SOUTH, List.of(s1)), Team.NORTH);
+        while (d.phase() == ClassDraft.Phase.PICK) d.timeout();
+        assertEquals(10, d.picks().size(), "nobody is silently dropped");
     }
 
     @Test

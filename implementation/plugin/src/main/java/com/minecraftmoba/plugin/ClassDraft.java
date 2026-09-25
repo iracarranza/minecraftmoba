@@ -42,10 +42,16 @@ public final class ClassDraft {
              *  reading of "all players may ban", but the total may want to be
              *  smaller than the roster. */
             int bansPerTeam,
-            /** How many players of a team may act in one window. OPEN: one is
-             *  strict and slow and highly readable; more is faster with
-             *  intra-team coordination inside the window. */
-            int pickWindow,
+            /** Window sizes in order, alternating from the team that won the
+             *  coinflip. DECIDED 25 September: 2-3-2-3-3-1 for a 7v7.
+             *
+             *  The first proposal was 2-3-3-3-2-1 and it is not balanced.
+             *  Counting enemy picks visible at each choice, A sees 21 and B
+             *  sees 28 -- B picks all seven informed while A picks two blind.
+             *  Moving one pick from A's second window to its third closes the
+             *  gap to 1 (24 against 25) WITHOUT adding a window, so the
+             *  six-window pacing a physical hall wants is kept. */
+            int[] windows,
             /** OPEN: whether a class taken by one team is unavailable to the
              *  other (each pick is also a denial) or only within a team
              *  (mirror matchups allowed). */
@@ -54,9 +60,19 @@ public final class ClassDraft {
              *  window. */
             boolean allowRepickInWindow) {
 
-        /** A starting point for testing, explicitly not a balance decision. */
+        /** The decided 7v7 order. */
+        public static final int[] SNAKE_7V7 = {2, 3, 2, 3, 3, 1};
+
         public static Rules provisional(int rosterSize) {
-            return new Rules(rosterSize, 1, true, true);
+            return new Rules(rosterSize, SNAKE_7V7, true, true);
+        }
+
+        /** Total picks this window sequence allows each team. */
+        public int picksFor(boolean first) {
+            int n = 0;
+            for (int i = 0; i < windows.length; i++)
+                if ((i % 2 == 0) == first) n += windows[i];
+            return n;
         }
     }
 
@@ -75,12 +91,26 @@ public final class ClassDraft {
      * intent to both teams. See the 25 September amendment.
      */
     private final Map<UUID, String> hovering = new LinkedHashMap<>();
+    /** Players the roster could not serve; reported rather than retried. */
+    private final Set<UUID> unassignable = new LinkedHashSet<>();
     private final Map<Team, Integer> bansUsed = new EnumMap<>(Team.class);
     private final List<UUID> pickOrder = new ArrayList<>();
+    private final Team firstPick;
+    private final List<int[]> windowBounds;
     private int cursor;
     private Phase phase = Phase.BAN;
 
     public ClassDraft(Rules rules, List<String> roster, Map<Team, List<UUID>> players) {
+        this(rules, roster, players, new Random().nextBoolean() ? Team.NORTH : Team.SOUTH);
+    }
+
+    /**
+     * @param firstPick the coinflip winner, who picks first and -- per
+     *                  PRE_MATCH_SELECTION_FLOW -- concedes the final MAP
+     *                  choice to the other team as compensation.
+     */
+    public ClassDraft(Rules rules, List<String> roster,
+                      Map<Team, List<UUID>> players, Team firstPick) {
         this.rules = rules;
         this.roster = List.copyOf(roster);
         this.players = Map.copyOf(players);
@@ -88,19 +118,48 @@ public final class ClassDraft {
         // OPEN: alternation. Alternating one player at a time is the most
         // readable order and is not a decision -- it is the simplest thing
         // that satisfies "only some players may act at a time".
-        List<UUID> north = players.getOrDefault(Team.NORTH, List.of());
-        List<UUID> south = players.getOrDefault(Team.SOUTH, List.of());
-        for (int i = 0; i < Math.max(north.size(), south.size()); i++) {
-            if (i < north.size()) pickOrder.add(north.get(i));
-            if (i < south.size()) pickOrder.add(south.get(i));
+        // Lay the snake out once, so `onTurn` reads a list instead of
+        // recomputing which window it is in. Plain alternation was here
+        // before and contradicted the decided order outright.
+        this.firstPick = firstPick;
+        Team second = firstPick == Team.NORTH ? Team.SOUTH : Team.NORTH;
+        var queue = new EnumMap<Team, ArrayDeque<UUID>>(Team.class);
+        queue.put(firstPick, new ArrayDeque<>(players.getOrDefault(firstPick, List.of())));
+        queue.put(second, new ArrayDeque<>(players.getOrDefault(second, List.of())));
+        for (int w = 0; w < rules.windows().length; w++) {
+            Team turn = (w % 2 == 0) ? firstPick : second;
+            for (int i = 0; i < rules.windows()[w] && !queue.get(turn).isEmpty(); i++)
+                pickOrder.add(queue.get(turn).poll());
         }
+        // Anyone the sequence did not reach still picks, so a roster larger
+        // than the window sizes cannot silently lose a player.
+        for (var remaining : queue.values()) pickOrder.addAll(remaining);
+        windowBounds = new ArrayList<>();
+        int at = 0;
+        for (int w = 0; w < rules.windows().length && at < pickOrder.size(); w++) {
+            int size = Math.min(rules.windows()[w], pickOrder.size() - at);
+            windowBounds.add(new int[]{at, at + size});
+            at += size;
+        }
+        if (at < pickOrder.size()) windowBounds.add(new int[]{at, pickOrder.size()});
+        // A draft with no bans configured starts in PICK. `maybeAdvance` is
+        // only reached from a verb, so with zero bans nothing ever called it
+        // and the phase sat in BAN with no way out -- a draft that could not
+        // begin.
+        if (rules.bansPerTeam() <= 0) phase = Phase.PICK;
     }
 
     public Phase phase() { return phase; }
 
+    /** Who won the coinflip. They pick classes first and concede the map choice. */
+    public Team firstPick() { return firstPick; }
+
     public Set<String> banned() { return Set.copyOf(banned); }
 
     public Map<UUID, String> picks() { return Map.copyOf(picks); }
+
+    /** Players no class could be assigned to. Empty unless the roster is too small. */
+    public Set<UUID> unassignable() { return Set.copyOf(unassignable); }
 
     /** What every stand is showing: a locked pick, or a hover. */
     public Map<UUID, String> stands() {
@@ -146,9 +205,14 @@ public final class ClassDraft {
             players.values().forEach(all::addAll);
             return all;
         }
+        // The window the cursor sits in, not a fixed count: the snake's
+        // windows are 2, 3, 2, 3, 3, 1 and a constant would flatten them.
         Set<UUID> window = new LinkedHashSet<>();
-        for (int i = cursor; i < pickOrder.size() && window.size() < rules.pickWindow(); i++) {
-            if (!picks.containsKey(pickOrder.get(i))) window.add(pickOrder.get(i));
+        for (int[] bound : windowBounds) {
+            if (cursor >= bound[1]) continue;
+            for (int i = bound[0]; i < bound[1]; i++)
+                if (!picks.containsKey(pickOrder.get(i))) window.add(pickOrder.get(i));
+            break;
         }
         return window;
     }
@@ -245,6 +309,13 @@ public final class ClassDraft {
                 picks.put(player, choice);
                 hovering.remove(player);
                 assigned.put(player, choice);
+            } else {
+                // NOTHING LEFT TO ASSIGN, and the draft must still end. A
+                // roster smaller than the player count -- or exhausted by
+                // global exclusivity -- otherwise leaves the cursor parked on
+                // a player who can never pick, and a timeout loop spins for
+                // ever. Better an unassigned player than a hung draft.
+                unassignable.add(player);
             }
         }
         maybeAdvance();
@@ -267,7 +338,9 @@ public final class ClassDraft {
             if (total >= allowed) phase = Phase.PICK;
             return;
         }
-        while (cursor < pickOrder.size() && picks.containsKey(pickOrder.get(cursor))) cursor++;
+        while (cursor < pickOrder.size()
+                && (picks.containsKey(pickOrder.get(cursor))
+                    || unassignable.contains(pickOrder.get(cursor)))) cursor++;
         if (cursor >= pickOrder.size()) phase = Phase.COMPLETE;
     }
 
