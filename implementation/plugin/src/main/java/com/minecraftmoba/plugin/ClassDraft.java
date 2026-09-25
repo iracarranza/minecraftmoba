@@ -157,6 +157,7 @@ public final class ClassDraft {
     public Set<String> banned() { return Set.copyOf(banned); }
 
     public Map<UUID, String> picks() { return Map.copyOf(picks); }
+    public Map<UUID, String> hovering() { return Map.copyOf(hovering); }
 
     /** Players no class could be assigned to. Empty unless the roster is too small. */
     public Set<UUID> unassignable() { return Set.copyOf(unassignable); }

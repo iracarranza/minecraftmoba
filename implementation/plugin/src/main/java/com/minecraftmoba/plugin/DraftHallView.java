@@ -6,6 +6,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
+import org.bukkit.boss.*;
 
 /**
  * The draft hall in the world: stands that wear what players are considering,
@@ -34,8 +35,27 @@ public final class DraftHallView {
     private final DraftHallWorld hall;
     private final Map<UUID, ArmorStand> stands = new HashMap<>();
     private final Set<UUID> ghosts = new HashSet<>();
+    private final Map<UUID, BossBar> bars = new HashMap<>();
+    private ClassDraft.Phase timerPhase;
+    private long phaseEnds;
+    private static final long PHASE_TICKS = 30 * 20L;
 
-    public DraftHallView(MobaPlugin plugin) { this.plugin = plugin; this.hall = new DraftHallWorld(plugin); }
+    public DraftHallView(MobaPlugin plugin) {
+        this.plugin = plugin; this.hall = new DraftHallWorld(plugin);
+        Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 1L, 1L);
+    }
+
+    private void tick() {
+        Match match = plugin.match();
+        if (match == null || !match.selectingClasses() || match.draft() == null) return;
+        ClassDraft d = match.draft();
+        if (timerPhase != d.phase()) { timerPhase = d.phase(); phaseEnds = Bukkit.getCurrentTick() + PHASE_TICKS; }
+        if (Bukkit.getCurrentTick() >= phaseEnds) {
+            d.timeout();
+            timerPhase = null;
+        }
+        refresh(match);
+    }
 
     /**
      * Redraw everything the draft state implies.
@@ -53,10 +73,21 @@ public final class DraftHallView {
             if (player == null) continue;
             dress(player, showing.get(entry.getKey()));
             applyTurnState(player, draft.isGhost(entry.getKey()));
-            String turn = draft.onTurn().contains(entry.getKey()) ? "YOUR TURN" : "waiting";
+            String turn = draft.onTurn().contains(entry.getKey()) ? "YOUR TURN" : "WAITING";
+            String ban = draft.banned().stream().findFirst().orElse("NONE");
+            String hover = draft.hovering().getOrDefault(entry.getKey(), "NONE");
+            String picked = draft.picks().getOrDefault(entry.getKey(), "NONE");
             player.sendActionBar("CLASS " + draft.phase() + " | " + turn
-                    + " | bans " + draft.banned().size()
-                    + " | picks " + draft.picks().size());
+                    + " | Ban: " + ban + "  Hover: " + hover + "  Picked: " + picked);
+            BossBar bar = bars.computeIfAbsent(entry.getKey(), k -> Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID));
+            long left = Math.max(0, phaseEnds - Bukkit.getCurrentTick());
+            String active = draft.onTurn().stream().map(id -> {
+                Player p = Bukkit.getPlayer(id); return p == null ? "?" : p.getName();
+            }).reduce((a,b) -> a + ", " + b).orElse("none");
+            bar.setTitle("CLASS " + draft.phase() + " — " + active + " picking — " + ((left + 19) / 20) + "s");
+            bar.setProgress(Math.max(0.0, Math.min(1.0, left / (double) PHASE_TICKS)));
+            if (!bar.getPlayers().contains(player)) bar.addPlayer(player);
+            bar.setVisible(true);
         }
     }
 
@@ -128,6 +159,8 @@ public final class DraftHallView {
             if (player != null) applyTurnState(player, false);
         }
         ghosts.clear();
+        for (BossBar bar : bars.values()) { bar.removeAll(); bar.setVisible(false); }
+        bars.clear(); timerPhase = null;
     }
 
     /** Register the stand that belongs to a player. */

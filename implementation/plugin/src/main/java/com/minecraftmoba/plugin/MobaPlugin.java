@@ -2,6 +2,7 @@ package com.minecraftmoba.plugin;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -431,6 +432,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     // active play.
                     var roster = inputs == null ? java.util.List.<String>of()
                             : java.util.List.copyOf(inputs.ids());
+                    match.participants().forEach(part -> {
+                        Player p = Bukkit.getPlayer(part.uuid);
+                        if (p != null) clearMatchScopedState(p);
+                    });
                     sender.sendMessage(match.beginPreMatch(roster,
                             ClassDraft.Rules.provisional(
                                     Math.max(1, match.participants().size() / 2))));
