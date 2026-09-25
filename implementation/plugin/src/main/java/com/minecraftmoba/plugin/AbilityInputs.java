@@ -18,6 +18,13 @@ public final class AbilityInputs implements Listener {
     private final Map<String, Ability> abilities;
     private final Map<String, Map<Input, Ability>> kits = new HashMap<>();
     private final Map<String, ClassDefinition> classes = new HashMap<>();
+
+    /** Every class id the draft can offer, in a stable order. */
+    public java.util.List<String> ids() {
+        var out = new java.util.ArrayList<>(classes.keySet());
+        java.util.Collections.sort(out);
+        return out;
+    }
     private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>(), lastFire = new HashMap<>();
     private final Map<UUID, Channel> channels = new HashMap<>();
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();

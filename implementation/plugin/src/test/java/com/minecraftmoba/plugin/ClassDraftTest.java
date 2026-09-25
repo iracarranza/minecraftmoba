@@ -181,6 +181,21 @@ class ClassDraftTest {
     }
 
     @Test
+    void the_lifecycle_puts_classes_before_the_map() {
+        // PRE_MATCH_SELECTION_FLOW.md: "/moba match start should begin the
+        // match and its pre-match process, not immediately teleport players to
+        // their Fountains." The order is the decision, so this pins the states
+        // rather than the command text.
+        var states = java.util.List.of(Match.State.values());
+        assertTrue(states.indexOf(Match.State.CLASS_SELECT)
+                        < states.indexOf(Match.State.PRE_MATCH),
+                "class selection precedes map selection");
+        assertTrue(states.indexOf(Match.State.PRE_MATCH)
+                        < states.indexOf(Match.State.RUNNING),
+                "the map is resolved before active play");
+    }
+
+    @Test
     void the_draft_knows_nothing_about_the_played_map() {
         // Classes are committed BLIND, so this type must not depend on which
         // map will be played. An earlier version of this test matched any

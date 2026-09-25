@@ -41,7 +41,17 @@ public final class Match implements Listener {
      * whether class or map drafting comes first -- are explicitly open, so what
      * exists is the state machine and a clearly-marked test path through it.
      */
-    public enum State { IDLE, PRE_MATCH, RUNNING, ENDED }
+    /**
+     * CLASS_SELECT sits between creating the match and resolving the map,
+     * which is the order PRE_MATCH_SELECTION_FLOW.md decides: classes are
+     * drafted FIRST and BLIND, so a composition must be defensible across the
+     * Types in rotation, and the map phase then carries the counterpick weight.
+     *
+     * The lifecycle already had a slot for it. `open` creates the match
+     * without claiming anything and `select` is what claims, so the draft goes
+     * between them and nothing had to be restructured.
+     */
+    public enum State { IDLE, CLASS_SELECT, PRE_MATCH, RUNNING, ENDED }
 
     /** A participant is alive until eliminated; eliminated is terminal in a match. */
     public static final class Participant {
@@ -83,9 +93,67 @@ public final class Match implements Listener {
     public State state() { return state; }
     public MapBindings bindings() { return bindings; }
     public boolean preMatch() { return state == State.PRE_MATCH; }
+
+    public boolean selectingClasses() { return state == State.CLASS_SELECT; }
+
+    private ClassDraft draft;
+
+    public ClassDraft draft() { return draft; }
+
+    /**
+     * Begin the match and its PRE-MATCH PROCESS, starting with class selection.
+     *
+     * The spec is explicit that `/moba match start` "should begin the match
+     * and its pre-match process, not immediately teleport players to their
+     * Fountains". So this locks the teams and opens the class draft; active
+     * play begins later, once the classes and then the map are settled.
+     */
+    public String beginPreMatch(List<String> roster, ClassDraft.Rules rules) {
+        if (state == State.RUNNING) throw new IllegalStateException("A match is already running.");
+        if (state == State.CLASS_SELECT)
+            throw new IllegalStateException("Class selection is already open.");
+        if (state == State.IDLE) open();
+        var byTeam = new java.util.EnumMap<Team, java.util.List<UUID>>(Team.class);
+        for (Team t : Team.values()) byTeam.put(t, new java.util.ArrayList<>());
+        // `participants` maps to a Participant, not a Team; the team is a
+        // field on it. Treating the value as a Team compiles only until it is
+        // used, which is the kind of thing a lambda hides.
+        participants.forEach((id, p) -> byTeam.get(p.team).add(id));
+        if (byTeam.values().stream().allMatch(java.util.List::isEmpty))
+            throw new IllegalStateException(
+                    "No participants; add players with /moba match add before starting.");
+        draft = new ClassDraft(rules, roster, byTeam);
+        state = State.CLASS_SELECT;
+        return "Class selection open. " + draft.report()
+                + " Ban with /moba ban <class>, preview with /moba hover <class>, "
+                + "commit with /moba pick <class>. Maps are drafted after.";
+    }
+
+    /**
+     * Move on once every player has a class.
+     *
+     * Deliberately NOT automatic inside `pick`: the caller decides when to
+     * advance so a timeout path and a completed path arrive here the same way.
+     */
+    public String classSelectionComplete() {
+        if (state != State.CLASS_SELECT)
+            throw new IllegalStateException("Class selection is not open.");
+        if (draft.phase() != ClassDraft.Phase.COMPLETE)
+            throw new IllegalStateException("Class selection is not finished: " + draft.report());
+        state = State.PRE_MATCH;
+        return "Classes locked. " + draft.picks().size()
+                + " player(s) drafted. Now resolve the map selection.";
+    }
     public long elapsedTicks() { return elapsed; }
     public Team winner() { return winner; }
     public boolean running() { return state == State.RUNNING; }
+    /** Every participant's team, for callers that need the pairing. */
+    public Map<UUID, Team> participantsByTeam() {
+        var out = new LinkedHashMap<UUID, Team>();
+        participants.forEach((id, p) -> out.put(id, p.team));
+        return out;
+    }
+
     public Participant participant(UUID id) { return participants.get(id); }
     public Collection<Participant> participants() { return participants.values(); }
     public boolean fountainDisabled(Team t) { return fountainDisabled.get(t); }
@@ -142,6 +210,9 @@ public final class Match implements Listener {
      * that "first READY map wins" cannot quietly become the answer.
      */
     public String resolveSelectionForTest(String mapId) throws IOException {
+        if (state == State.CLASS_SELECT)
+            throw new IllegalStateException(
+                    "Classes are still being drafted; the map is chosen after. " + draft.report());
         if (state != State.PRE_MATCH)
             throw new IllegalStateException("Not in PRE_MATCH; run /moba match open first.");
         var pool = plugin.mapPool();

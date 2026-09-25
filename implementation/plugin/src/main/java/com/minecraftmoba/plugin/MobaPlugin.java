@@ -21,8 +21,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private OffhandMap offhandMap;
     private Provenance provenance;
     private Renewables renewables;
+    private DraftHallView draftHall;
     public Provenance provenance() { return provenance; }
     public Renewables renewables() { return renewables; }
+
+    public DraftHallView draftHall() { return draftHall; }
     private RenewableMarkers renewableMarkers;
     public RenewableMarkers renewableMarkers() { return renewableMarkers; }
     private LobbySafety lobbySafety;
@@ -187,6 +190,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(hud, this);
         getServer().getPluginManager().registerEvents(taskEffects, this);
         renewables = new Renewables(this);
+        draftHall = new DraftHallView(this);
         getServer().getPluginManager().registerEvents(renewables, this);
         offhandMap = new OffhandMap(this);
         getServer().getPluginManager().registerEvents(offhandMap, this);
@@ -419,7 +423,24 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     sender.sendMessage(match.resolveSelectionForTest(
                             args.length > 2 ? args[2] : null));
                 }
-                case "start" -> sender.sendMessage(match.start());
+                case "start" -> {
+                    // `/moba match start` BEGINS THE PRE-MATCH PROCESS, which
+                    // is what the spec says it should do: "begin the match and
+                    // its pre-match process, not immediately teleport players
+                    // to their Fountains". Classes first, then the map, then
+                    // active play.
+                    var roster = inputs == null ? java.util.List.<String>of()
+                            : java.util.List.copyOf(inputs.ids());
+                    sender.sendMessage(match.beginPreMatch(roster,
+                            ClassDraft.Rules.provisional(
+                                    Math.max(1, match.participants().size() / 2))));
+                    draftHall.refresh(match);
+                }
+                case "classes-done" -> {
+                    sender.sendMessage(match.classSelectionComplete());
+                    draftHall.release();
+                }
+                case "play" -> sender.sendMessage(match.start());
                 case "start-test" -> {
                     sender.sendMessage("[TEST PATH] starting with no participants.");
                     sender.sendMessage(match.startForTest());
@@ -592,7 +613,40 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("join") && sender instanceof Player player) {
-            if (!enrolled(player)) load(player);
+            // SAY SOMETHING. This enrolled the player and returned silently,
+            // so a working `/moba join` and a broken one looked identical --
+            // which is exactly how it was reported as not working.
+            boolean already = enrolled(player);
+            if (!already) load(player);
+            player.sendMessage(already
+                    ? "Already enrolled. To play a match, an admin runs "
+                      + "/moba match add " + player.getName() + " <north|south>."
+                    : "Enrolled. To play a match, an admin runs /moba match add "
+                      + player.getName() + " <north|south>.");
+            return true;
+        }
+        // The draft verbs. Enforcement is on the VERB, not on movement:
+        // `ban` and `pick` are refused off-turn and `hover` is not, because a
+        // ghost broadcasting intent is the pre-commitment channel the hall
+        // exists for. See the 25 September amendment.
+        if (args.length == 2 && sender instanceof Player p
+                && java.util.List.of("ban", "hover", "pick").contains(
+                        args[0].toLowerCase(java.util.Locale.ROOT))) {
+            var d = match == null ? null : match.draft();
+            if (d == null || !match.selectingClasses()) {
+                p.sendMessage("Class selection is not open.");
+                return true;
+            }
+            String verb = args[0].toLowerCase(java.util.Locale.ROOT);
+            String refusal = switch (verb) {
+                case "ban" -> d.ban(p.getUniqueId(), args[1]);
+                case "hover" -> d.hover(p.getUniqueId(), args[1]);
+                default -> d.pick(p.getUniqueId(), args[1]);
+            };
+            p.sendMessage(refusal == null
+                    ? verb + ": " + args[1]
+                    : "cannot " + verb + " " + args[1] + " -- " + refusal);
+            if (refusal == null) draftHall.refresh(match);
             return true;
         }
         if (args.length == 1 && args[0].equalsIgnoreCase("rewards") && sender instanceof Player player) {
