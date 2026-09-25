@@ -401,3 +401,113 @@ to pay for.
 
 [OPEN] What the board's Type composition should be — whether all in-rotation
 Types must appear, and in what proportion.
+
+---
+
+# Amendment — the type set is revealed, and niches are the point
+
+**Status:** Working, 25 September 2026.
+
+## The board's Type set is revealed before class selection
+
+Immediately before the class draft opens, both teams see **which Map Types
+are on the board** — the types alone. No thumbnails, no Scale, no Resource
+Density, no Terrain Symmetry, and no indication which will survive.
+
+**Before, not during.** Information arriving mid-draft raises a timing
+question — at bans or at picks? — and hands an advantage to whoever's window
+it lands in. Revealing it first is clean, and it lets class *bans* be informed
+by the type set, which seems right rather than wrong.
+
+**It does not break class-first.** It narrows the defensibility requirement
+without collapsing it:
+
+| what is known | a composition must work across |
+|---|---|
+| nothing (previous) | the whole rotation |
+| **the Type set** | **these six Types** |
+| everything | one map |
+
+The middle is genuinely distinct from both. Teams still do not know which of
+the six survives, nor any map's scale, density, symmetry or terrain, so the
+map phase keeps every bit of its counterpick weight — and both teams orient
+against the same six, so it is symmetric.
+
+## What it is actually for: pricing niches
+
+A first reading of this was that it lets players *calibrate preferences*
+rather than hope, which is true and is the smaller half. The larger half:
+
+> **The reveal is what makes specialised classes negotiable instead of a
+> coinflip.**
+
+A class that is transformative in one condition and ordinary outside it — a
+Mermaid with water, a Mole underground — is a design asset, not a defect.
+Picking it with the Type set known is a **declared strategy**, and the draft
+becomes the mechanism that prices it:
+
+- the pick *signals*, and the opponent must respond
+- the opponent can spend strikes denying the condition, or let it through
+- the specialist keeps lines either way — a prepared off-condition game if
+  denied, or a choice of win condition if a serving map survives
+- and every intermediate posture is available to both
+
+That is the draft doing its job. Without the reveal, the same pick is a
+gamble on whether the condition appears at all, and gambling is not
+strategy.
+
+### The correction this makes to an earlier position
+
+An earlier reading here held that "a class that only works on one Type is a
+class problem, not a draft problem". That is too strong and it conflates two
+different things:
+
+- **Dependency** — the class does nothing without its condition. The draft
+  becomes a coinflip on whether the condition appears, and the reveal would
+  merely make a broken class *feel* fine. Still a class problem.
+- **Specialisation** — the class is capable without its condition and
+  exceptional with it. The draft becomes a negotiation. **This is the case
+  worth building for**, and the reveal is what lets it be negotiated.
+
+The line is whether the class has a game when denied.
+
+## The strike economy this creates, and the lever inside it
+
+On a six-board struck `A1 · B1 · A1`, **A has two strikes and B has one**. So:
+
+> **A niche is deniable exactly when the number of board maps serving it does
+> not exceed A's strike count — and denying it at that limit consumes A's
+> entire strike budget.**
+
+| maps serving a niche | outcome |
+|---|---|
+| 1 | deniable for 1 of A's 2 strikes |
+| 2 | deniable, but costs **both** of A's strikes |
+| 3+ | **cannot be fully denied** |
+
+Two watery maps out of six is therefore the sharpest case: A can shut the
+Mermaid line down completely, and pays for it by having no strike left for
+anything else. B knew that when it picked, and B's own strike can protect the
+fallback by removing a map that is bad for the off-condition game.
+
+**Board composition is therefore a balance lever**, not just a diversity
+target: how many maps serve a condition sets whether that condition is
+deniable at all, and at what price.
+
+## The stocking goal, stated plainly
+
+> **Usable rare Map Types are gathered in equal quantities to usable common
+> Types.**
+
+That is what `map_types.allocate` produces with equal `wanted`: budget is
+`wanted / rate`, so expected output is `budget x rate = wanted`, equal by
+construction. It is checkable — count the pool by Type and they should match.
+
+The price is worth stating before someone reads the allocation as a bug:
+equal quantities of a 3% Type and a 44% Type sends roughly **93% of
+generation** to the rare one.
+
+And the reveal raises the stakes on delivering it. Board composition is now
+**publicly visible every match**, so an allocator that underdelivers puts that
+failure in front of fourteen players rather than in a batch log. A forcing
+function, and a promise.
