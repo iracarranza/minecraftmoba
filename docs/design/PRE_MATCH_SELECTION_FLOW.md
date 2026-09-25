@@ -83,15 +83,28 @@ galleries around a shared central rack, or free mingling — is undecided. It
 affects how readable the enemy's developing composition is, and whether players
 can physically crowd or obstruct a station.
 
-### Station detail
+### What a station carries: the class, and only the class
 
-A station must carry enough information to choose. Nine deep kits cannot be
-conveyed by a stand wearing armour, so interacting with a station should also
-open the class's full kit — abilities, branch options, archetypes — rather than
-relying on a line of chat.
+**Decided.** The unit of selection is the **class**. Branches and upgrades are
+not chosen here — they are chosen during the match, as progression unlocks
+them.
 
-The station is **navigation and claim**; the panel it opens is **reference**.
-[OPEN] Exact presentation.
+This follows from the progression schedule rather than being a separate
+convenience: ability upgrades, the second ability, and the ultimate arrive at
+authored levels during play, so a pre-match draft could not select them without
+pre-empting the curve. The draft picks who you are; the match decides what you
+become.
+
+A station therefore needs only enough to identify and characterise its class —
+the physical display, the name, and a short identity line such as archetypes
+and hook. It does not need to teach three branch trees.
+
+This keeps the pre-match short, and keeps the deep-kit reference problem where
+it belongs: in-match, for a player deciding an upgrade, rather than in a hall
+where everyone else is waiting.
+
+[OPEN] Exact presentation of the identity line, and whether a fuller kit
+reference is browsable in the hall for players who want it.
 
 ---
 
@@ -149,15 +162,39 @@ still.
 - **Locking.** Whether a claimed station can be released and re-picked within
   the same window, and whether a pick is final once the window closes.
 
-### Enforcement
+### Enforcement: off-turn players are ghosts
 
-Restricting movement is the mechanism, so it needs a defined form: barriers that
-open, a held position, or refusal at the station itself. Refusal at the station
-is the gentlest — players may wander freely and are simply told the stand does
-not answer to them yet — but it is also the least legible, because a player out
-of turn looks identical to a player on turn.
+**Decided.** Players who are not on turn are put into a ghost state within the
+hall: **mostly invisible, freely flying, unable to interact, and passing through
+everyone else.** Players on turn are solid, grounded, and able to claim a
+station.
 
-[OPEN] Which form, and whether out-of-turn players are visually marked.
+This is not Minecraft's spectator mode. Ghosts keep a body and remain in the
+world — faintly visible, located somewhere specific, confined to the hall.
+Spectator mode would let them leave, see through terrain, and disappear
+entirely, which would cost the properties below.
+
+It resolves the legibility problem in the strongest available direction. Turn
+state stops being an invisible permission and becomes **the most visible
+property in the room**: the solid players are the ones deciding. Nobody has to
+be told whose turn it is.
+
+Three consequences worth keeping:
+
+- **Ghosts cannot obstruct.** Passing through is required, not cosmetic.
+  Without it, idle players crowding a station would be an obvious grief and the
+  hall would need physical crowd control.
+- **Ghosts still broadcast intent.** A ghost hovering at a station is reading
+  it, and teammates and opponents can both see that. Off-turn players keep the
+  pre-commitment channel the physical hall exists for, instead of going dark
+  until their window opens.
+- **Solidifying is a moment.** Dropping into the world at the start of a window
+  and lifting out of it at the end marks the turn boundary without a timer
+  having to announce it.
+
+Flight is bounded by the hall. [OPEN] Whether that bound is physical, a soft
+push-back, or a return teleport; the exact visual treatment of a ghost; whether
+allied and enemy ghosts are distinguishable; and whether ghosts are audible.
 
 ---
 
@@ -208,10 +245,14 @@ process rather than two unrelated games.
 
 This record does **not** decide: bans per team; ban simultaneity, reveal timing
 or collision handling; pick window size, alternation or duration; whether class
-exclusivity is global or per-team; lock and re-pick rules; movement-restriction
-form; timeout and disconnect fallbacks; hall layout and team separation; station
-information presentation; or the map phase's draft format.
+exclusivity is global or per-team; lock and re-pick rules; ghost bounding,
+visual treatment and audibility; timeout and disconnect fallbacks; hall layout
+and team separation; station identity-line presentation; or the map phase's
+draft format.
 
-It decides only that **classes are drafted first and blind, maps second and
-informed**, and that class selection is a shared physical hall in which every
-player may ban and turn order is expressed as permission to move.
+It decides that **classes are drafted first and blind, maps second and
+informed**; that class selection is a shared physical hall in which every player
+may ban; that turn order is expressed as permission to move, with off-turn
+players ghosted so the players on turn are the visibly solid ones; and that the
+unit of selection is the class alone, with branches and upgrades left to
+in-match progression.
