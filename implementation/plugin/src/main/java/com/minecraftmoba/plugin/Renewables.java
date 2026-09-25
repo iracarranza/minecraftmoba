@@ -183,18 +183,62 @@ public final class Renewables implements Listener {
      * patches landing wherever they happen to fall on a different world.
      *
      * This is the same defect {@link MapBindings} was built to fix for
-     * Fountains, objectives, the Lair and Worksites. Renewables were never
-     * migrated, because the compiler emits no renewable layer at all: a
-     * generated map's `runtime_bindings` has no `renewables` key, and
-     * `readiness` does not require one.
+     * Fountains, objectives, the Lair and Worksites.
      *
-     * So this cannot silently do the right thing -- there is nothing to bind
-     * to. It refuses to do the wrong one, and says why.
+     * RESOLVED 24 September 2026. The compiler derives a portfolio from a
+     * map's own geography, `renewables` is in `readiness.REQUIRED` so no map
+     * certifies without one, and {@link MapBindings#renewables} reads it. A
+     * generated map now binds its own sources instead of refusing.
+     *
+     * The refusal survives for the case it was written for: a generated map
+     * whose manifest carries no portfolio. That should no longer certify, so
+     * meeting one means the manifest predates the requirement or something
+     * wrote it wrong -- and Alpha's coordinates are still the wrong answer.
      */
     private boolean generatedMap;
+    private java.util.List<java.util.Map<String, Object>> bound = java.util.List.of();
+    private boolean boundCertified;
 
     public void bind(MapBindings bindings) {
         generatedMap = bindings != null;
+        bound = bindings == null ? java.util.List.of()
+                                 : bindings.renewables(liveWorld());
+        boundCertified = bindings != null && bindings.renewablesCertified();
+    }
+
+    /**
+     * Build this map's own sources from its manifest.
+     *
+     * `capacity` is what may manifest. `herd_core` and `harvestable_surplus`
+     * are carried in the id rather than dropped, because the two are
+     * different economic quantities and a population reduced to its core is
+     * depleted, not extinct.
+     */
+    private org.bukkit.World liveWorld() {
+        var instance = plugin.worldInstance();
+        return instance == null ? null : instance.world();
+    }
+
+    private int loadBound() {
+        int made = 0;
+        for (var spec : bound) {
+            try {
+                Type type = Type.valueOf(String.valueOf(spec.get("type")));
+                var world = liveWorld();
+                if (world == null) break;
+                register(new Source(String.valueOf(spec.get("id")), type, world.getUID(),
+                        (Integer) spec.get("x"), (Integer) spec.get("y"), (Integer) spec.get("z"),
+                        (Integer) spec.get("radius"), (Integer) spec.get("capacity"),
+                        (Long) spec.get("recoverTicks"), String.valueOf(spec.get("kind"))));
+                made++;
+            } catch (RuntimeException bad) {
+                // One malformed spec is not a reason to drop a whole portfolio,
+                // and silence is not a reason to pretend it bound.
+                plugin.getLogger().warning("[renewables] skipping source " + spec.get("id")
+                        + ": " + bad);
+            }
+        }
+        return made;
     }
 
     public int resetForNewMatch() {
@@ -205,13 +249,21 @@ public final class Renewables implements Listener {
         pendingPersist.clear();
         pendingRestore.clear();
         harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
+        if (generatedMap && !bound.isEmpty()) {
+            int made = loadBound();
+            plugin.getLogger().info("[renewables] bound " + made + " derived source(s) from "
+                    + "this map's manifest"
+                    + (boundCertified ? "" : " (NOT certified by the compiler)"));
+            return made;
+        }
         if (generatedMap) {
             plugin.getLogger().warning("[renewables] this map has NO regenerative layer. "
                     + "Config's sources are the Alpha map's coordinates and applying them "
                     + "to generated terrain would place opportunities on ground that was "
                     + "never authored for them. maps.md says every viable map carries a "
-                    + "baseline regenerative layer; the compiler does not yet author one, "
-                    + "so the honest state is none rather than Alpha's.");
+                    + "baseline regenerative layer and readiness now requires one, so a "
+                    + "map reaching here either predates that requirement or was written "
+                    + "wrong. Alpha's coordinates remain the wrong answer either way.");
             return 0;
         }
         loadConfigured();
