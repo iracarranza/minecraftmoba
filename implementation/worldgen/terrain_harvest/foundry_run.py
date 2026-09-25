@@ -90,7 +90,7 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
         per_seed: int = 2, generate_workers: int = DEFAULT_GENERATE_WORKERS,
         compile_workers: int = DEFAULT_COMPILE_WORKERS,
         keep_worlds: bool = False, scanner: str | None = None,
-        budget: int = 3, log=print) -> dict:
+        budget: int = 3, pool: Path | None = None, log=print) -> dict:
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
@@ -126,8 +126,8 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
 
     harvested, failures = [], []
     t = time.perf_counter()
-    with ThreadPoolExecutor(max_workers=generate_workers) as pool:
-        for done in as_completed([pool.submit(_generate_one, j) for j in jobs]):
+    with ThreadPoolExecutor(max_workers=generate_workers) as generators:
+        for done in as_completed([generators.submit(_generate_one, j) for j in jobs]):
             row = done.result()
             (failures if 'error' in row else harvested).append(row)
             log(f"  {row['seed']}: "
@@ -138,18 +138,51 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
 
     compiled = []
     t = time.perf_counter()
-    with ProcessPoolExecutor(max_workers=compile_workers) as pool:
-        futures = [pool.submit(_compile_one, (h['seed'], h['candidate'],
-                                              h['world'], h['work']))
+    with ProcessPoolExecutor(max_workers=compile_workers) as compilers:
+        futures = [compilers.submit(_compile_one, (h['seed'], h['candidate'],
+                                                   h['world'], h['work']))
                    for h in harvested]
         for done in as_completed(futures):
             compiled.append(done.result())
     compilation = round(time.perf_counter() - t, 1)
 
-    # Only now are the worlds expendable: `compile_batch` reads them.
+    # PUBLISH BEFORE DELETING, and delete only what was not published.
+    #
+    # The cleanup deleted every world once compilation finished, which is right
+    # for a measurement batch and wrong for the one that fills a pool: it left
+    # 33 certified maps with no worlds behind them. A map that cannot be
+    # claimed is not in a pool, however thoroughly it was certified.
+    #
+    # Rejected candidates are the large majority and their worlds still go.
+    published, publish_failures = [], []
+    if pool is not None:
+        from . import foundry
+        by_seed = {}
+        for h in harvested:
+            by_seed.setdefault(h['seed'], []).append(h)
+        for entry in compiled:
+            for record in (entry.get('compiled') or {}).get('runs') or []:
+                if not record.get('playable'):
+                    continue
+                source = next((h for h in by_seed.get(record['seed'], [])), None)
+                if not source:
+                    continue
+                try:
+                    published.append(foundry.publish(
+                        Path(pool), record['seed'], Path(source['world']), record))
+                except Exception as exc:              # noqa: BLE001
+                    publish_failures.append(
+                        {'seed': record['seed'], 'error': f'{type(exc).__name__}: {exc}'})
+
+    keep = {str(Path(h['work'])) for h in harvested
+            if pool is not None and any(
+                r.get('playable') and r['seed'] == h['seed']
+                for e in compiled for r in (e.get('compiled') or {}).get('runs') or [])}
     freed = 0
     if not keep_worlds:
         for h in harvested:
+            if str(Path(h['work'])) in keep:
+                continue
             for sub in ('server', f"build-{h['seed']}"):
                 target = Path(h['work']) / sub
                 if target.exists():
@@ -172,6 +205,9 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
                    'wall_seconds': round(elapsed, 1)},
         'workers': {'generate': generate_workers, 'compile': compile_workers},
         'worlds_deleted': freed,
+        'published': len(published),
+        'publish_failures': publish_failures,
+        'pool': str(pool) if pool else None,
         'prospects': prospects,
         'compilations': compiled,
     }
