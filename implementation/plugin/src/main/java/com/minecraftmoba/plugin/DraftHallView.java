@@ -52,6 +52,19 @@ public final class DraftHallView {
             if (player == null) continue;
             dress(player, showing.get(entry.getKey()));
             applyTurnState(player, draft.isGhost(entry.getKey()));
+            String turn = draft.onTurn().contains(entry.getKey()) ? "YOUR TURN" : "waiting";
+            player.sendActionBar("CLASS " + draft.phase() + " | " + turn
+                    + " | bans " + draft.banned().size()
+                    + " | picks " + draft.picks().size());
+        }
+    }
+
+    /** Bring participants to the shared lobby hall used for the draft. */
+    public void enter(Match match) {
+        if (plugin.lobbyWorld() == null) return;
+        for (UUID id : match.participantsByTeam().keySet()) {
+            Player player = Bukkit.getPlayer(id);
+            if (player != null) plugin.lobbyWorld().send(player);
         }
     }
 

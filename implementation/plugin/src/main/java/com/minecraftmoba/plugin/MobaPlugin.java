@@ -434,6 +434,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     sender.sendMessage(match.beginPreMatch(roster,
                             ClassDraft.Rules.provisional(
                                     Math.max(1, match.participants().size() / 2))));
+                    draftHall.enter(match);
                     draftHall.refresh(match);
                 }
                 case "classes-done" -> {
@@ -609,6 +610,38 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (getConfig().getBoolean("features.vitalsScaling.enabled")) return;
         if (e.getEntity() instanceof Player p && players.containsKey(p.getUniqueId()))
             e.setFoodLevel(Math.min(e.getFoodLevel(), Math.min(20, capacity(players.get(p.getUniqueId())).effectiveHunger())));
+    }
+
+    /** Draft verbs are ordinary chat in the hall, not slash commands. */
+    @EventHandler(ignoreCancelled = true)
+    public void draftChat(AsyncPlayerChatEvent e) {
+        if (match == null || !match.selectingClasses() || match.draft() == null) return;
+        String[] words = e.getMessage().trim().split("\\s+", 2);
+        if (words.length == 0 || !java.util.Set.of("hover", "pick", "ban", "draft")
+                .contains(words[0].toLowerCase(java.util.Locale.ROOT))) return;
+        e.setCancelled(true);
+        getServer().getScheduler().runTask(this, () -> {
+            if (words.length == 1 || words[0].equalsIgnoreCase("draft")) {
+                e.getPlayer().sendMessage("Draft: " + match.draft().report()
+                        + ". Say `hover <class>`, `pick <class>`, or `ban <class>`.");
+                draftHall.refresh(match);
+                return;
+            }
+            String verb = words[0].toLowerCase(java.util.Locale.ROOT);
+            String refusal = switch (verb) {
+                case "hover" -> match.draft().hover(e.getPlayer().getUniqueId(), words[1]);
+                case "pick" -> match.draft().pick(e.getPlayer().getUniqueId(), words[1]);
+                default -> match.draft().ban(e.getPlayer().getUniqueId(), words[1]);
+            };
+            e.getPlayer().sendMessage(refusal == null ? verb + ": " + words[1]
+                    : "cannot " + verb + " " + words[1] + " -- " + refusal);
+            if (refusal != null) { draftHall.refresh(match); return; }
+            if (match.draft().phase() == ClassDraft.Phase.COMPLETE) {
+                e.getPlayer().sendMessage(match.classSelectionComplete());
+                draftHall.release();
+                e.getPlayer().sendMessage("Map selection is open.");
+            } else draftHall.refresh(match);
+        });
     }
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
