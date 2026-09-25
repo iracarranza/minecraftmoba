@@ -230,3 +230,174 @@ declined traversal, verticality, water prevalence, openness and ruggedness as
 water prevalence is how `archipelago` and `landmass` are separated in the
 first place. Terrain Symmetry is added because it is the one measured axis
 that is **not** a consequence of Type or Scale.
+
+---
+
+# Amendment — shape is advertised, contents are discovered
+
+**Status:** Working, 25 September 2026. Supersedes the "no map render" position
+recorded in the previous amendment, and amends the information boundary in
+`MATCH_LIFECYCLE_OBJECTIVES_AND_OPENING_DECISIONS.md`.
+
+## The previous position was too coarse
+
+The last amendment recorded map rendering as "possible and refused", treating
+it as binary: show the world or show labels. It is not binary. Minecraft map
+items have five scales, and the fidelity gap between them is enormous:
+
+| map level | blocks/pixel | an 864x1056 scoop renders as |
+|---|---|---|
+| 0 | 1 | 864 x 1056 px |
+| 2 | 4 | 216 x 264 px |
+| 3 | 8 | 108 x 132 px |
+| **4** | **16** | **54 x 66 px** |
+
+At 16 blocks per pixel **one pixel swallows a village, a cave mouth, an ore
+vein and the Lair site.** What survives is coastline shape, major relief, and
+forest-versus-plain massing. What does not survive is contents.
+
+## The rule
+
+> **Shape is advertised. Contents are discovered. The render scale is the line
+> between them.**
+
+A map option shows its whole scoop on a single **level-4 map item, 16 blocks
+per pixel**. The forbidden list in the lifecycle document stands otherwise:
+no seed, no POIs, no Lair location, no objective surroundings, no
+renewable-source locations. Those survive a 54x66 thumbnail untouched.
+
+This is consistent with the Established principle it sits under — *discovery
+uncertainty is good, existence uncertainty is often bad*. Knowing the shape of
+a coastline is not knowing where the iron is.
+
+**[BALANCE FIXTURE — expect to tune.]** 16 blocks per pixel is a stated rule
+and a tunable number. The same mechanism at level 2 or 3 discloses far more
+and nothing in the game would flag the difference, so the scale is the control
+and must be treated as one: a balance lever, revisited with play, not a
+constant that happens to be in the code.
+
+## What it costs, stated rather than glossed
+
+**First contact.** Arriving somewhere unseen is part of what makes a new map
+land; after a draft spent looking at it, arrival is confirmation rather than
+discovery. At 54x66 pixels the loss is small — a thumbnail, not a world — but
+it is real and does not come back. Weighed against: the exploration loop's
+value was never surprise at the shape, it is finding what is in it, which the
+thumbnail does not touch.
+
+## What it buys
+
+**Identical labels become strategically distinct.** Two maps reading
+`landmass / normal / light / even` are visibly different terrain, so striking
+one is a real decision. The duplicate-profile problem that a striking board
+otherwise creates simply dissolves.
+
+**A rotation of three Types can carry strategic variation**, because
+differentiation comes from visible terrain rather than from multiplying label
+combinations. That is a far cheaper thing for the pipeline to supply.
+
+**Striking works the way striking works everywhere else.** Smash stage
+striking, CS vetoes and Dota bans all operate on *known* maps; counterpicking
+means something because you can see what you are counterpicking. A blind map
+veto was the unusual design.
+
+---
+
+# Amendment — the map board
+
+**Status:** Working, 25 September 2026.
+
+## Board size and strike order
+
+**Six maps, drawn per match, struck `A1 · B1 · A1`, then B picks one of the
+three that remain.** A is the team that picked classes first; the final map
+choice going to B is the compensation.
+
+### The rule that generates it
+
+> **A strike only matters if someone else acts after it.**
+
+So the last strike must belong to A. An order ending `B strikes, B picks` is a
+no-op: B removes an option from its own choice set and then chooses from the
+remainder, which is identical to choosing from the larger set. A proposed
+`A2 · B1 · pick` had exactly this defect.
+
+Board size is then a dial with no rebalancing at any setting — A strikes n, B
+strikes n-1, B picks 1 of 3, board = 2n+2:
+
+| board | order | actions each |
+|---|---|---|
+| 4 | A1 → pick | 1 |
+| **6** | **A1 · B1 · A1 → pick** | **2** |
+| 8 | A1 · B1 · A1 · B1 · A1 → pick | 3 |
+| 10 | A2 · B3 · A2 → pick | 4 |
+
+Six is chosen on proportionality. The class draft already spends fourteen
+actions, and participation should scale with what is *personal*: your class is
+yours, so you act; the map is one shared object the team plays on, so the team
+acts once. Fourteen people each striking a map they will all play is ceremony
+without agency.
+
+**NOTHING IN THIS PHASE IS BLIND.** Class selection completes first, so both
+compositions are locked and standing in the hall wearing their picks when the
+first strike lands. The only thing a team does not know is the other's *map
+preferences*, which their strikes reveal.
+
+## Per-match, and what it actually costs
+
+The board is drawn fresh each match. **Only the played map is consumed.** The
+five struck maps were never entered, and since map options carry no identity
+beyond their profile and thumbnail, a struck realization can reappear on a
+later board.
+
+So the pool requirement is **diversity, not volume**: six distinct options
+available at all times, one realization burned per match. A pool of fifty
+`landmass` maps would be well-stocked and unable to fill a board.
+
+That corrects the success metric this work was measured against. "At least 20
+READY maps" counted volume; what a draft needs is *enough distinct options,
+continuously*.
+
+## Presentation
+
+Each option hangs on the end-wall rank: its level-4 thumbnail, and its four
+advertised properties as always-visible **Text Display** entities rather than
+hover-to-reveal. The values are short and the hall's premise is that
+contention is visible — making fourteen people each query what could simply be
+readable inverts that. Hover earns its place only when there is more data than
+fits.
+
+Struck maps go into the same pit as banned classes, attributed by side.
+
+---
+
+# Amendment — allocation is demand-driven, not yield-driven
+
+**Status:** Working, 25 September 2026. Corrects `map_types.allocate`.
+
+`allocate` weights generation budget by measured compile-through yield, so
+`landmass` at 44% receives most of it and `shattered_coast` at 3% is starved.
+That is correct for a throughput goal and **backwards for a board goal.**
+
+If the board needs one of a Type, demand is the **inverse** of yield:
+
+| Type | yield | generations per map |
+|---|---|---|
+| landmass | 44.0% | 2.3 |
+| shattered_coast | 3.2% | 31.2 |
+| a 1% Type | 1.0% | 100 |
+
+**A rare Type needs more budget, not less.** Yield-weighted allocation
+systematically starves exactly the Types that are rare *by design* — which is
+the definition of Pale Forest / Mansion and Sky Islands, not a defect in them.
+maps.md already says so: "prefer extreme vanilla phenomena over invented
+terrain", and a compiler should "search for those outliers rather than
+rejecting them". That was written down, and then an allocator was built that
+does the opposite.
+
+So allocation states **what the board needs** and spends inversely to yield to
+meet it. `shattered_coast` at 3% stops being a Type to starve and becomes one
+to pay for.
+
+[OPEN] What the board's Type composition should be — whether all in-rotation
+Types must appear, and in what proportion.
