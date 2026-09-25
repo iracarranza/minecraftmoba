@@ -79,19 +79,17 @@ The future draft is a **Map Type/map-option draft**, not a draft of visible gene
 5. One team ultimately selects the played option.
 6. Only then is a compatible hidden READY realization claimed.
 
-**Class-first, then map — Working, 24 September 2026.** The draft order is settled: each team drafts its classes, and only then do teams ban and counterpick across the Map Types currently in rotation. This supersedes the previous open choice between class-first, map-first and interleaved.
+Exact ban order, overlap between teams' option sets, and final-choice rights remain open.
 
-The consequence is that map bans are made with **both** compositions known, so a Type is banned or counterpicked for how it suits the classes already drafted rather than in the abstract. Map drafting therefore reads as a response to composition, not a separate contest.
-
-Still open: exact ban order, overlap between the teams' option sets, and final-choice rights.
+**Resolved 24 September 2026:** the class/map relationship is **class-first, maps after**. Classes are drafted blind, so a composition must be defensible across the Types in rotation; the map phase then carries the counterpick weight, chosen with both compositions known. See [`PRE_MATCH_SELECTION_FLOW.md`](PRE_MATCH_SELECTION_FLOW.md), which also specifies class selection as a shared physical hall.
 
 `/moba match start` should therefore **begin the match and its pre-match process**, not immediately teleport players to their Fountains. The broad lifecycle is:
 
 ```
 /moba match start
     -> create/lock match and teams
-    -> class draft
-    -> map ban/counterpick across the Types in rotation
+    -> class selection (physical hall: bans, then pick windows)
+    -> map selection (map-option draft)
     -> map option selected
     -> claim compatible READY realization
     -> instantiate/bind match systems
@@ -459,7 +457,7 @@ Together these preserve a common project principle:
 
 This record does **not** decide:
 
-- exact map-draft order/rules or class-draft relationship;
+- exact map-draft order/rules (the class-draft *relationship* is now decided — see `PRE_MATCH_SELECTION_FLOW.md`);
 - exact rotation size;
 - final names/bounds for Resource Density;
 - final Normal/Large/Vast dimensional contracts;
