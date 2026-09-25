@@ -2,6 +2,7 @@ package com.minecraftmoba.plugin;
 
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.persistence.PersistentDataType;
@@ -12,12 +13,14 @@ import java.util.*;
 public final class DraftHallWorld {
     private final MobaPlugin plugin;
     private final NamespacedKey marker;
+    private final NamespacedKey labelMarker;
     private World world;
     private int ox, oz;
 
     public DraftHallWorld(MobaPlugin plugin) {
         this.plugin = plugin;
         marker = new NamespacedKey(plugin, "draft_hall");
+        labelMarker = new NamespacedKey(plugin, "draft_hall_label");
     }
 
     public boolean enabled() { return plugin.getConfig().getBoolean("features.draftHall.enabled", true); }
@@ -84,6 +87,24 @@ public final class DraftHallWorld {
         for (var p : DraftHall.pit(floorY(), pitDepth(), 7, 3))
             world.getBlockAt(ox + p.x(), p.y(), oz + p.z()).setType(pit, false);
         for (var s : DraftHall.stands(floorY(), rankOffset(), pitDepth(), spacing())) stand(s);
+        label("NORTH", -rankOffset(), floorY() + 2);
+        label("SOUTH", rankOffset(), floorY() + 2);
+        label("BANNED", -8, floorY() + 2);
+        label("BANNED", 8, floorY() + 2);
+    }
+
+    private void label(String text, int z, int y) {
+        Location at = new Location(world, ox + .5, y, oz + z + .5);
+        for (Entity e : world.getNearbyEntities(at, 1.2, 1.0, 1.2))
+            if (e instanceof TextDisplay t && t.getPersistentDataContainer().has(labelMarker, PersistentDataType.BYTE)) {
+                t.text(net.kyori.adventure.text.Component.text(text)); return;
+            }
+        TextDisplay t = (TextDisplay) world.spawnEntity(at, EntityType.TEXT_DISPLAY);
+        t.getPersistentDataContainer().set(labelMarker, PersistentDataType.BYTE, (byte) 1);
+        t.text(net.kyori.adventure.text.Component.text(text));
+        t.setBillboard(org.bukkit.entity.Display.Billboard.CENTER);
+        t.setSeeThrough(false);
+        t.setShadowed(true);
     }
 
     private Material material(String key, String fallback) {
