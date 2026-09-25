@@ -582,24 +582,25 @@ Current working breakpoint structure:
 | 1 | Ability 1; begin at 9 Health, 9 Hunger, and 6 inventory slots |
 | 2 | Ability 2; universal capacity growth |
 | 3 | Capacity specialization I |
-| 4 | Efficiency I; universal capacity growth |
+| 4 | Task choice; universal capacity growth |
 | 5 | Ability 1 upgrade |
 | 6 | Infrastructure specialization / recognition entry |
-| 7 | Yield I; universal capacity growth |
-| 8 | Passive scaling; universal capacity growth |
-| 9 | Task specialization; universal capacity growth |
+| 7 | Proof level; universal capacity growth |
+| 8 | Task choice; universal capacity growth |
+| 9 | Development III; universal capacity growth |
 | 10 | Ability 2 upgrade |
-| 12 | Infrastructure role-expression upgrade |
-| 14 | Task advancement; universal capacity growth |
+| 12 | Development IV; Task choice |
+| 14 | Universal capacity growth / quiet proof level |
 | 15 | Ultimate unlock |
-| 16 | Passive scaling; current working mobility breakpoint |
+| 16 | Task choice; current working mobility breakpoint |
 | 17 | Universal Health and Hunger floors reach 20; Hunger above 20 is represented through exhaustion efficiency |
 | 18 | Capacity specialization II |
-| 19 | Task advancement |
-| 20 | Advanced class-authored reward I |
-| 24 | Capacity specialization III; passive scaling |
-| 25 | Advanced class-authored reward II |
-| 30 | Capstone, exact form unresolved |
+| 19 | Quiet late-mature-state proof |
+| 20 | Task choice |
+| 24 | Development VIII; Task choice; capacity specialization III |
+| 25 | Quiet |
+| 28 | Task choice |
+| 30 | Development X / class completion; exact form unresolved |
 
 Levels not listed here may still provide universal capacity growth according to the universal growth rules.
 
@@ -631,7 +632,8 @@ This makes early Inventory specialization primarily an acceleration benefit: an 
 
 If an Inventory specialization is selected while the player's Inventory is already at the 36-slot hard maximum, its +6 Inventory effect is replaced by +0.5 Health and +0.5 Hunger. This keeps later Inventory specialization choices mechanically live without allowing Inventory capacity to exceed 36 slots.
 
-Task-progression rewards can coexist with universal capacity growth. In particular, Level 9 task specialization does not replace Level 9 universal growth.
+Task-progression rewards can coexist with universal capacity growth. A Task
+choice does not replace the universal growth scheduled on the same level.
 
 Under the current schedule, the universal Inventory floor reaches its hard maximum of 36 slots at Level 16. The universal Health and effective Hunger floors reach 20 at Level 17.
 
@@ -712,7 +714,7 @@ Exact XP requirements for reaching these levels are a separate match-progression
 
 ### Task progression
 
-Task progression condenses ordinary Minecraft economic and world-interaction time as the match advances.
+Task progression condenses ordinary Minecraft economic and world-interaction time as the match advances. **Working direction, 25 September 2026:** this condensation is not a promise that every later tier is simply a larger version of the earlier tier. A later tier occurs in a different world state and should answer the strategic problem created by that state.
 
 The current working domains are:
 
@@ -722,19 +724,170 @@ The current working domains are:
 
 Current working cadence:
 
-- Level 4: Efficiency I universally.
-- Level 7: Yield I universally.
-- Level 9: choose an eligible task advancement.
-- Level 14: choose an eligible task advancement.
-- Level 19: choose an eligible task advancement.
+- Levels 4, 8, 12, 16, 20, 24, and 28: choose one Task branch — Yield,
+  Efficiency, or Slaying — and unlock that branch if it has not been chosen or
+  advance it if it has.
 
-Efficiency, Yield, and Damage currently have an intended generic maximum of Tier III.
+Efficiency, Yield, and Damage currently have an intended generic maximum of Tier III. **This ceiling remains a provisional generic-balance constraint, not a settled statement that late specialization must stop at an ordinary enchantment tier.** Later Task rewards may express decisive, conditional capabilities that are not equivalent to another generic enchantment level, subject to balance and implementation review.
 
-At Level 9, the initial choice space therefore begins from a player who already has Efficiency I and Yield I, while Damage has not yet been universally granted.
+There is no universal Yield or Efficiency onboarding under this model. Every
+Task opportunity is a meaningful commitment, and repeated choices can produce
+specialization while mixed choices preserve breadth. A player may eventually
+have, for example, Yield V / Efficiency II, Yield III / Efficiency III /
+Slaying I, or Slaying IV / Efficiency III, subject to the final branch-depth
+model.
 
 The Tier III ceiling is intended to preserve room for class-specific amplification. Generic high-tier enchantment scaling should not make specialized class mechanics redundant or cause uncontrolled multiplication with them. Mole's Tunneling, which amplifies current digging-tool speed, is an important example.
 
-Task advancement is an additive progression layer and may occur on the same level as universal capacity growth.
+Task advancement is an additive progression layer and may occur on the same
+level as universal capacity growth. The branches are not assumed to have seven
+literal enchantment ranks: after the useful generic tiers, further investment
+may become qualitative mastery or capstone effects while preserving the same
+choice grammar.
+
+### Class curve template — Working direction, 25 September 2026
+
+The class curve is not a second independent thirty-level ability tree. It fills
+three coordinated clocks:
+
+- **Development every three levels** develops the character engine and, later,
+  the class's persistent world footprint;
+- **Task every four levels** chooses or advances Yield, Efficiency, or Slaying;
+- **Ability acquisition and branching** establishes a readable kit early.
+
+Default class template:
+
+| Level | Event | Authoring job |
+| ---: | --- | --- |
+| 0 | Passive / class engine | Establish identity |
+| 1 | Active 1 | Acquire first verb |
+| 2 | Active 2 | Acquire second verb |
+| 3 | Development I | Establish body and engine direction |
+| 5 | Ability 1 branch | First build commitment |
+| 6 | Development II | Operationalize the engine |
+| 9 | Development III | Expand capacity, reach, or complexity |
+| 10 | Ability 2 branch | Second build commitment |
+| 12 | Development IV + Task | Establish methodology |
+| 15 | Development V + Ultimate | Integrate the complete kit |
+| 18 | Development VI | Mature the personal/class state |
+| 21 | Development VII | Begin explicitly supernormal world expression |
+| 24 | Development VIII + Task | Master infrastructure or footprint |
+| 27 | Development IX | Integrate and extend the footprint |
+| 30 | Development X | Complete the class methodology |
+
+The ×5 ability cadence is not permanent. After the Level 5 and Level 10
+branches and Level 15 ultimate, abilities are considered mechanically complete
+unless a future class design explicitly proves otherwise. Later power should
+normally come from Development, Task specialization, and interaction with the
+world rather than repeated mutations of already-readable abilities. An ultimate
+is acquired as a complete ability, not deliberately left unfinished for later
+levels.
+
+Development changes meaning over the curve:
+
+- Levels 3–9: develop the person and establish the class engine;
+- Levels 12–18: develop the class methodology and mature personal capability;
+- Levels 21–30: develop the player's persistent footprint — capacity, extent,
+  connectivity, throughput, simultaneous sites, influence, and sophistication.
+
+This does not prohibit personal late power. It sets the preferred budget:
+individual supernormality remains available where the class needs it, while the
+largest late scaling should increasingly be team-facing and persistent. A
+class's late development should answer, **how much of the world has this class
+made ours?**
+
+The template does not require filling quiet levels. A class should initially
+specify only its engine, the three Development tracks, the two early ability
+branches, the ultimate, and its Task interactions. A quiet level receives a
+bespoke reward only when the class has a compelling reason.
+
+### Mole application — Working qualitative curve
+
+Mole's engine is **sense valuable underground space → create access → exploit
+access → weaponize terrain and access**. Its four expressions are Sifth Sense,
+Tunneling, Drill Rush, and Sinkhole.
+
+| Level | Mole's Development job |
+| ---: | --- |
+| 3 | Read: improve the reliability, reach, precision, or persistence of Sifth Sense |
+| 6 | Exploit: improve carrying, expedition sustain, and conversion of sensed sites into useful expeditions |
+| 9 | Extend: support deeper or longer underground work |
+| 12 | Connect: turn tunnels, entrances, shortcuts, and known spaces into an underground access methodology |
+| 15 | Integrate: make Sinkhole express the established sensing/excavation/access logic |
+| 18 | Mature: bring Mole to a developed personal and underground capability without requiring absurd generic stats |
+| 21 | Constraint-break: begin an underground capability ordinary Minecraft excavation cannot reproduce |
+| 24 | Complexity: manage a more sophisticated underground environment or network |
+| 27 | Integration: make Sifth Sense, Tunneling, Drill Rush, Sinkhole, and infrastructure operate as one engine |
+| 30 | Complete: fully realize Mole's terrain-changing relationship with the team and map |
+
+Mole's kit can therefore be mechanically complete by Level 15: Sifth Sense,
+branched Tunneling, branched Drill Rush, and Sinkhole. Levels 21–30 should
+prefer expanding persistent underground access and infrastructure over simply
+making Mole personally mine faster.
+
+### Phase-conditioned Task progression — Working direction, 25 September 2026
+
+Task progression is evaluated against three interlocking curves:
+
+- **Player progression:** what the individual can do and how strongly they specialize;
+- **World development:** how much of the map the team has discovered, established, connected, improved, and defended;
+- **Match objective state:** which objectives have fallen, which approaches are exposed, and whether the match has entered a breach or conversion state.
+
+The level curve therefore assumes broad ecological states rather than rigid clock gates:
+
+| Level range | Expected world state | Progression question |
+| --- | --- | --- |
+| 1–6, Opening | Mostly natural world; scarce equipment; first expeditions | What can I begin doing? |
+| 7–12, Establishment | Known opportunities, first infrastructure, emerging economy | How do I organize and specialize what we found? |
+| 13–18, Midgame | Developed footprints, routes, worksites, recurring contests | How do I exploit and defend established systems? |
+| 19–24, Late | Valuable world is known; networks overlap contested space; objectives may be breached | How do I connect, contest, repair, or dismantle established state? |
+| 25–30, Endgame | World is heavily transformed; remaining assets and Fountain access dominate | How do I convert accumulated advantage into a decisive conclusion? |
+
+These are balance assumptions, not unlock gates. Teams can diverge in level and objective state; an early objective victory can move the world into a later strategic condition before the nominal level band.
+
+The intended semantic shift is:
+
+| Domain | Early | Middle | Late / endgame |
+| --- | --- | --- | --- |
+| Efficiency | Perform ordinary work faster | Reduce friction in repeated developed activity | Reconfigure, repair, rebuild, traverse, and redeploy mature systems quickly |
+| Yield | Extract more from scarce natural finds | Extract more from established opportunities and production chains | Convert controlled or contested high-value opportunities into strategic surplus |
+| Damage / Slaying | Survive and defeat ordinary threats | Dominate dangerous sites and recurring contests | Become decisive in the specific fights that determine objective access, defense, or conversion |
+
+Late specialization is intentionally more conditional and more powerful:
+
+> later specialization = greater magnitude × narrower ideal condition
+
+This is an opportunity-cost contract, not a universal power increase. A player who commits most Task choices to Slaying should be frighteningly valuable in a decisive fight, while a Yield or Efficiency specialist should have an equivalently decisive ideal situation in extraction, production, reconfiguration, or sustained operation. Late combat power is therefore not rejected; the requirement is parity of strategic decisiveness across viable specialization paths.
+
+Task investment compounds with class investment. Task specialization answers **how much** the player has invested in a Minecraft verb; class development answers **what situations and methods** make that verb strategically important. A Slaying-heavy Mole may create underground initiations and terrain-access fights, while a Slaying-heavy Kitfighter may be a more conventional combat carry. A Yield-heavy Mole may instead turn rare underground access into exceptional extraction. These are examples of the interaction grammar, not finalized class balance.
+
+Late power has at least three channels:
+
+> late power = personal specialization + accumulated world investment + interaction between them
+
+The interaction term is essential. A late upgrade should generally be tested against the question: **would this be equally valuable on an untouched map at minute zero?** If yes, it may be a valid personal-capability reward, but it is probably not yet expressing the strongest late-game world-state design space.
+
+The seven archetypes should each support a decisive late-game claim, without requiring identical mechanics:
+
+| Archetype | Ideal decisive situation | Claim |
+| --- | --- | --- |
+| Combat | Major fight, objective defense, or assault | We resolve this fight because our combat specialist can dominate it. |
+| Extraction | High-value finite or contested resource window | We convert access into extraordinary material gain. |
+| Production | Valuable inputs must become usable decisive output | Our stockpile becomes the equipment and consumables required now. |
+| Construction | A critical location must be established, fortified, recovered, or exploited | This place becomes dramatically more valuable because it was developed correctly. |
+| Development | Mature productive territory must sustain the next phase | Our established ecology produces the surplus that keeps the plan alive. |
+| Exploration | Rapid projection across a transformed map is critical | We reach and exploit the opportunity before the enemy does. |
+| Logistics | Multiple developed fronts require resources immediately | Our distributed economy functions as one system under pressure. |
+
+These claims are not automatic archetype inheritance. Archetypes remain descriptive, and each class's authored progression determines which systems and interactions it can actually use.
+
+### Rejected and superseded progression models
+
+**[HISTORICAL / REJECTED] Linear magnitude ladder.** Treating every tier as “more blocks, more drops, more speed” — for example, 100 blocks, then 150, then 200, then 250 — fails because the world being acted upon changes. It produces larger numbers without giving late progression a distinct strategic purpose.
+
+**[HISTORICAL / REJECTED] Late personal power as inherently undesirable.** The concern that late Slaying should avoid decisive damage spikes was overcorrected. A heavily combat-invested player must be able to be a critical factor in a late decisive fight. The actual design requirement is equivalent decisive claims for noncombat specializations, plus opportunity-cost and situation dependence.
+
+**[WORKING, NOT YET CANON] Exact late mechanics.** Names, coefficients, trigger conditions, interaction rules, and the precise level at which each Task domain changes semantic mode remain open. This section establishes the design test and progression grammar, not final enchantment numbers or a complete ability list.
 
 ## Working XP requirement bands
 
@@ -749,7 +902,7 @@ Current working structure:
 | XP band | Levels | Working requirement index | Economic state |
 | --- | ---: | ---: | --- |
 | I — Bootstrap | 1–6 | ~1.000× | constrained player; base Minecraft XP economy |
-| II — Established | 7–12 | ~1.350× | first infrastructure economy; Yield I; early task specialization |
+| II — Established | 7–12 | ~1.350× | first infrastructure economy; early recurring Task specialization |
 | III — Developed | 13–19 | ~1.875× | mature T1 / emerging T2 infrastructure; repeated task advancement; universal capacity approaches vanilla completeness |
 | IV — Advanced | 20–24 | ~2.575× | increasingly mature T2 infrastructure and advanced class-authored progression |
 | V — Endgame | 25–30 | ~3.250× | mature late-game economy; progression increasingly emphasizes exceptional class expression and terminal power |
@@ -767,18 +920,22 @@ Many breakpoint rewards instead increase player throughput **within** the curren
 The current working progression rhythm is:
 
 - Levels 1–6 use the Bootstrap requirement band.
-- Efficiency I at Level 4 begins accelerating productive activity within that band.
+- The Level 4 Task choice begins accelerating the selected productive or combat
+  verb within that band.
 - Infrastructure specialization / recognition at Level 6 provides access to a new economic tool immediately before the first major XP-requirement transition.
 - The Level 6 → 7 requirement is the current candidate entry into the Established band.
-- Yield I at Level 7 further accelerates productive activity after that transition.
-- Level 9 task specialization provides another within-band progression increase.
-- Level 12 infrastructure role expression helps mature the first infrastructure economy before the next requirement band.
+- The Level 8 Task choice further develops the selected branch before the next
+  major requirement transition.
+- Level 12 Development and Task choice help establish the first developed
+  methodology before the next requirement band.
 - The Level 12 → 13 requirement is the current candidate entry into the Developed band.
-- Level 14 task advancement further increases productive capability within that band.
+- Level 16 Task choice further increases specialized capability within that band.
 - Levels 16–17 mark the approximate completion of the universal physical-capacity transition: inventory reaches its 36-slot universal floor at Level 16, while Health and Hunger reach their vanilla universal floors at Level 17.
-- Level 19 task advancement provides another late-Developed-band progression increase.
-- The Level 19 → 20 requirement is the current candidate entry into the Advanced band, alongside Advanced class-authored reward I.
-- The Level 24 → 25 requirement is the current candidate entry into the Endgame band, alongside Advanced class-authored reward II.
+- Level 20 Task choice is the first explicitly advanced specialization decision.
+- The Level 24 Task choice coincides with the preferred late infrastructure and
+  footprint expansion point.
+- Level 28 Task choice is the final shared specialization decision before the
+  Level 30 class completion.
 - Level 30 is terminal progression rather than preparation for another XP band.
 
 This creates a general pacing relationship:
