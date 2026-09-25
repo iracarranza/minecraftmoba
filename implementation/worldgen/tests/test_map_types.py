@@ -91,6 +91,47 @@ class Predicates(unittest.TestCase):
         self.assertFalse(self.p['landmass'](scoop(water=0.5)))
 
 
+class Allocation(unittest.TestCase):
+    """Budget follows BOARD DEMAND, which is the inverse of yield.
+
+    Nothing pinned the direction before, so inverting the allocator entirely
+    broke no test. These assert the direction, not the arithmetic.
+    """
+
+    def test_a_rare_type_gets_more_budget_not_less(self):
+        """Yield-weighting starves exactly the Types that are rare BY DESIGN --
+        which is the definition of Pale Forest and Sky Islands, and what
+        maps.md means by searching for outliers rather than rejecting them."""
+        a = MT.allocate(['landmass', 'shattered_coast'], 60)['allocation']
+        self.assertGreater(a['shattered_coast'], a['landmass'],
+                           'a 3% Type needs more generations per map than a 44% one')
+
+    def test_budget_tracks_generations_per_map(self):
+        out = MT.allocate(['landmass', 'shattered_coast'], 60)
+        per = out['generations_per_map']
+        self.assertGreater(per['shattered_coast'], 10 * per['landmass'])
+        self.assertLess(per['landmass'], 5)
+
+    def test_wanting_more_of_a_type_raises_its_share(self):
+        one = MT.allocate(['landmass', 'shattered_coast'], 60)['allocation']
+        two = MT.allocate(['landmass', 'shattered_coast'], 60,
+                          wanted={'landmass': 4})['allocation']
+        self.assertGreater(two['landmass'], one['landmass'])
+
+    def test_every_type_keeps_a_floor(self):
+        a = MT.allocate(['landmass', 'shattered_coast', 'archipelago'], 3)
+        for n, v in a['allocation'].items():
+            self.assertGreaterEqual(v, 1, n)
+
+    def test_the_whole_budget_is_spent(self):
+        for total in (6, 17, 60):
+            a = MT.allocate(['landmass', 'shattered_coast', 'archipelago'], total)
+            self.assertEqual(sum(a['allocation'].values()), total)
+
+    def test_it_says_what_drives_it(self):
+        self.assertIn('rare', MT.allocate(['landmass'], 10)['driven_by'])
+
+
 class Gate(unittest.TestCase):
     def test_the_symmetry_bound_is_on_the_ratio_over_contested_ground(self):
         b = MT.symmetry_bound()

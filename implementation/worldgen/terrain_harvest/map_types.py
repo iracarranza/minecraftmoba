@@ -256,30 +256,49 @@ def yield_of(name: str) -> dict:
             'measured': True}
 
 
-def allocate(names, total: int, *, floor: int = 1) -> dict:
-    """Split a generation budget across Types by measured yield.
+def allocate(names, total: int, *, floor: int = 1, wanted=None) -> dict:
+    """Split a generation budget so the BOARD can be filled.
 
-    `floor` guarantees every Type at least one window however badly it scores.
-    That is deliberate and it is not charity: a Type starved to zero can never
-    revise its own estimate, and `shattered_coast` at 3% is a rate under the
-    CURRENT Homebase rules, which is an open question rather than a verdict.
+    DEMAND-DRIVEN, NOT YIELD-DRIVEN, and the earlier version had it backwards.
+    It weighted budget BY yield, so `landmass` at 44% took most of it and
+    `shattered_coast` at 3% was starved. That is right for a throughput goal
+    and wrong for a board goal.
+
+    If the board needs one map of a Type, demand is the INVERSE of yield:
+
+        landmass          44.0%  ->   2.3 generations per map
+        shattered_coast    3.2%  ->  31.2 generations per map
+        a 1% Type          1.0%  -> 100   generations per map
+
+    A rare Type needs MORE budget, not less. Weighting by yield systematically
+    starves exactly the Types that are rare BY DESIGN -- which is the
+    definition of Pale Forest / Mansion and Sky Islands, not a defect in them.
+    maps.md says to "prefer extreme vanilla phenomena over invented terrain"
+    and to search for outliers "rather than rejecting them"; that was written
+    down and then contradicted here.
+
+    `wanted` is how many maps of each Type the board needs. Absent, one each.
     """
     names = list(names)
     if not names or total <= 0:
         return {'allocation': {}, 'why': 'nothing to allocate'}
+    want = {n: (wanted or {}).get(n, 1) for n in names}
     rates = {n: yield_of(n)['rate'] for n in names}
+    # Expected generations to produce `want` maps of each Type.
+    demand = {n: want[n] / max(rates[n], 0.01) for n in names}
+    weight = sum(demand.values()) or 1.0
     spare = max(0, total - floor * len(names))
-    weight = sum(rates.values()) or 1.0
-    allocation = {n: floor + int(spare * rates[n] / weight) for n in names}
-    # Hand any rounding remainder to the best-measured Type.
+    allocation = {n: floor + int(spare * demand[n] / weight) for n in names}
     short = total - sum(allocation.values())
     if short > 0:
-        allocation[max(names, key=lambda n: rates[n])] += short
+        allocation[max(names, key=lambda n: demand[n])] += short
     return {'allocation': allocation,
             'rates': {n: round(rates[n], 3) for n in names},
+            'generations_per_map': {n: round(demand[n] / max(1, want[n]), 1)
+                                    for n in names},
+            'wanted': want,
             'measured': {n: yield_of(n)['measured'] for n in names},
             'floor': floor,
-            'floor_is': 'every Type keeps one window. A Type starved to zero '
-                        'can never revise its own estimate, and 3% is a rate '
-                        'under the current Homebase rules rather than a verdict '
-                        'on the Type.'}
+            'driven_by': 'board demand divided by measured yield, so a Type '
+                         'that is rare BY DESIGN is paid for rather than '
+                         'starved. A rare Type needs more budget, not less.'}
