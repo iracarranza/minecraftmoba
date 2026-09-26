@@ -26,22 +26,29 @@ once.
 
 ---
 
-## 1. Shape: a timestamp, not a boolean
+## 1. One state, one duration
 
-**Record the tick of last combat involvement. Do not ship an `inCombat` flag.**
+**An entity is in combat for 7 seconds after a qualifying action.** One number,
+one state, for every consumer.
 
-Consumers ask *"has it been at least N since?"* and choose their own N:
+    inCombat(entity) := currentTick - lastCombatTick(entity) < 7s
 
-    inCombat(entity, threshold) := currentTick - lastCombatTick(entity) < threshold
+[PROTOTYPE] 7 seconds is a first value, not calibration.
 
-One definition of **what counts**; many thresholds. This matters because the
-consumers genuinely want different windows — spending a progression choice is
-routine admin, while regenerating Absorption is a real reward and should demand
-a longer quiet period. A shared boolean would force one window on all five and
-be wrong for at least three.
+A single duration is preferred over per-consumer windows specifically because
+**the player has to be able to see this** (§5). Five consumers with five
+thresholds would mean five invisible states, and no indicator could honestly
+report "you are in combat" when the answer differs per system. One state is one
+thing on screen.
 
-It is also the cheapest thing to poll, which Pathfinding needs: it is evaluated
-continuously while a player moves, not at an event.
+A consumer that wants more quiet than combat state provides should add its own
+delay **on top** of being out of combat — "out of combat, then a further N
+before Absorption begins" stays explicable in a way that a private 12-second
+combat window never would.
+
+Implement it as a stored tick rather than a flag with a scheduled reset: it is
+the cheapest thing to poll, which Pathfinding needs since it is evaluated
+continuously while a player moves rather than at an event.
 
 ## 2. It applies to any living entity, not only players
 
@@ -56,22 +63,92 @@ would have to be rebuilt the moment Skeleton Crew is implemented.
 
 ## 3. What counts
 
-Combat involvement is **damage dealt or received, traced to a living source.**
-
 **Sets combat state:**
 
-- damage received from a living entity, directly or via its projectile
-- damage dealt to a living entity
+- **taking damage** from a living entity, directly or via its projectile
+- **dealing attack damage** to a living entity
+- **activating a combat ability** (§3.1)
 
 **Does not set combat state:**
 
+- **Moving.** Travel is not combat, however fast or evasive.
 - **Environmental damage** — fall, fire, lava, drowning, suffocation, starvation,
   cactus, the void. The concept is combat, not harm. Burning in lava should not
   block a Recall; the lava is already the problem.
 - **Damage dealt or received by an entity's summons.** A commander's combat state
-  is their own.
+  is their own; summons carry their own (§3.3).
+- **The continuing effects of an action already taken** (§3.2).
+- **Passives.** A passive is not an activation. Lightfooted's Animal Senses and
+  Skeleton Crew's Undead Affinity are always on; if they set combat state, those
+  classes would never leave it.
 
-### The summon exclusion is load-bearing
+### 3.1 Abilities are authored combat or non-combat
+
+Combat-ness cannot be inferred from an ability's existence, because several
+abilities are the opposite of fighting: Mole's **Tunneling** is a digging mode
+and a toggle, Gardener's **Clip** harvests a plant, Merchant's **Work** employs
+villagers, Golem Master's **Assemble** builds a wall, Skeleton Crew **Raises** a
+worker. A blanket rule would lock each of those classes out of its own
+progression while it performed its defining activity.
+
+The working line: **an ability is combat when it acts on a combatant's capacity
+to fight** — dealing damage, healing, mitigating, buffing, granting speed — and
+non-combat when it acts on the world or the economy.
+
+Declare it as `abilities.definitions.<id>.combat`, beside the existing
+`cooldownTicks`. **Require the key; do not default it.** This repository has
+already paid for the alternative: `ConfigKeysDefinedTest` exists because six
+features shipped silently disabled when their keys were absent. A forgotten flag
+defaulting to non-combat is a silent exploit, and one defaulting to combat is a
+silent lockout that reads as a broken feature. Failing at load is the convention
+here.
+
+Two cases a single static flag cannot express:
+
+- **A branch can change combat-ness.** Daredevil's **Runway** is pure mobility,
+  but its **Suplex** branch subjects an enemy to the launch. The declaration
+  therefore needs to be overridable per branch, which
+  `abilities.definitions.<id>.branches.<branch>` already supports structurally.
+- **Some abilities decide at activation.** Skeleton Crew's **Graveyard Shift** is
+  context-sensitive by design: against a valid target it Strikes, otherwise it
+  Raises a Crew Member. One activation, two outcomes, only one of which is
+  combat. Such an ability must report what it actually did rather than carry a
+  fixed answer.
+
+So the declared flag is the ability's normal case, and a context-sensitive
+ability signals combat at execution. [OPEN] The exact seam.
+
+### 3.2 Actions, not effects
+
+**Combat state tracks what an entity did, not how long its effects last.**
+
+Poisoning an enemy puts the caster in combat for 7 seconds. If the poison runs
+for 10, the caster is not in combat for the last 3 — the cast was the action,
+and the damage after it is the consequence.
+
+This generalizes well beyond poison: Mole's Sinkhole collapsing in stages,
+Skeleton Crew's Deadline explosion, Waxer's Enzymatic durability wear, a
+Gardener thicket that hurts somebody minutes later. Without the rule, any class
+whose output is persistent or infrastructural would be permanently in combat —
+which would punish exactly the classes this project insists must stay viable.
+
+**The asymmetry is intended.** The victim of a damage-over-time *is* held in
+combat, because each tick is damage taken and refreshes their 7 seconds. Taking
+damage is the clearest possible signal of being in a fight. The consequence is
+that **a damage-over-time denies Recall**, which gives such abilities a real
+strategic role beyond their damage: poison someone and walk away, and they
+cannot leave until it ends.
+
+### 3.3 Summons carry their own combat state
+
+Summoned entities have combat state, by these same rules, keyed to themselves.
+Skeleton Crew's **Deadline** requires exactly this — its threshold is about a
+Crew Member being in combat, not the commander, and an enemy disengaging is what
+prevents the explosion.
+
+A summon's combat state does **not** propagate to its owner.
+
+#### The summon exclusion is load-bearing
 
 Skeleton Crew's crew fights more or less continuously, and its recruitment loop
 *is* fighting, nocturnally, as the class's defining activity. If crew combat set
@@ -86,7 +163,7 @@ and the commander being free to do something else while it happens is the point.
 
 Golem Master inherits the same treatment for the same reason.
 
-### Hostile mobs count
+### 3.4 Hostile mobs count
 
 All living-entity damage counts, not only player-versus-player. A PvE exemption
 would make a mob swarm a free Recall zone, and would permit spending a
@@ -118,16 +195,22 @@ a mode line.
 
 ## Explicitly open
 
-- **Every threshold.** No magnitude is chosen here. The one existing datum is
-  Deadline's "[OPEN] Threshold, conceptually around three seconds" in
-  `classes.md`, which is a hint at scale for one consumer and not a default for
-  the rest. Recall's existing `channelTicks: 100` is a channel length, not a
-  combat window, and should not be borrowed as one.
-- **Whether non-damage events set combat state** — using an ability, being
-  targeted, being aggroed by a hostile mob. Damage-only is the narrow, testable
-  starting definition; it will let a player Recall while a creeper is mid-fuse.
+- **The 7-second duration** is [PROTOTYPE] and wants testing. Deadline's
+  "conceptually around three seconds" in `classes.md` is a separate number — how
+  long burning Crew must *remain* in combat — and neither should be derived from
+  the other. Recall's `channelTicks: 100` is a channel length, not a combat
+  window, and must not be borrowed as one.
+- **The per-ability combat classification itself**, once the roster's abilities
+  are implemented. The working line — acts on a combatant's capacity to fight —
+  decides most of them, but not all. Mole's **Sinkhole** acts on terrain, which
+  reads non-combat, while being an ultimate used to deny ground in a fight. It
+  needs an explicit answer rather than an inferred one.
+- **The seam by which a context-sensitive ability reports what it did.**
 - **Whether damage dealt to a passive animal counts.** Punching a cow for Looting
-  is technically combat and probably harmless to include, but it briefly gates a
-  Yield build out of its own progression.
+  is technically an attack, and under this definition it is combat for 7 seconds
+  — near-continuous while a Yield build farms, gating that build out of its own
+  progression. The likeliest exception, and the one most worth testing.
+- **Whether being targeted or aggroed counts.** Currently it does not, so a
+  player may Recall with a creeper mid-fuse.
 - **Whether a killing blow should clear the state early**, so that winning a
   fight decisively is rewarded rather than treated the same as fleeing one.
