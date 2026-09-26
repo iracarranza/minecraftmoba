@@ -29,7 +29,7 @@ later without silently breaking old data.
 
 Implementation and regression coverage are in commit `22da434`.
 
-## Open defect found while reviewing the menu path
+## Defect found while reviewing the menu path — FIXED
 
 `projectTask` runs **only** inside `PlayerDataCodec.decode`. `Rewards.click`
 appends the `ChoiceRecord` and calls `plugin.applyAndSave(p)`, which syncs
@@ -40,11 +40,22 @@ player reconnects**: `TaskEffects.tier()` keeps reading the pre-allocation value
 for the rest of the session. Capacity choices do not have this problem, because
 `sync` recomputes capacity from `choices` directly.
 
-The fix is one line — project after the choice is recorded, either in
-`Rewards.click` beside the existing `applyAndSave(p)` call or inside
-`applyAndSave` itself, so allocation and reload share one path. Prefer the
-latter if anything else ever mutates `choices` outside the menu.
+**Fixed in `applyAndSave`** rather than in the reward menu, so allocation and
+reload share one path and any future writer of `choices` is covered without
+knowing it has to be.
+
+`TaskProjectionTest` covers what is unit-testable: an allocation is visible
+without reconnecting, projection is idempotent — `applyAndSave` runs many times
+per session — Slaying lands on the legacy `DAMAGE` key, and a reload agrees with
+the live projection.
+
+[UNVERIFIED] The change was written in the web session, which still cannot run
+Gradle. The projection logic was compiled and exercised standalone against a
+stub of `TaskEffects.Domain`; the three-line `MobaPlugin` edit was not compiled.
+**Re-run `./gradlew test`.**
 
 This is item 5 of the original handoff, and it is the reason that item existed:
 no test covers the Bukkit menu path, so the gap between "persisted" and
-"in effect" was invisible to the 320-test run.
+"in effect" was invisible to the 320-test run. The manual walkthrough is still
+worth doing, to confirm the bossbar, the menu and the HUD's Eff/Yld/Dmg line all
+move at Lv4.

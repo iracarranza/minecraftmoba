@@ -568,7 +568,22 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (p.getFoodLevel()!=capped) p.setFoodLevel(capped);
         if (p.getSaturation()>capped) p.setSaturation(capped);
     }
-    public void applyAndSave(Player p) { sync(p, data(p)); }
+    /**
+     * Re-derive everything that hangs off PlayerData, then persist.
+     *
+     * Capacity is recomputed from `choices` inside sync, but Task tiers are a
+     * projection cached in `PlayerData.task`, and a cache with one writer on
+     * the load path goes stale the moment anything mutates `choices` in a live
+     * session. A Task allocation was therefore persisted correctly and had no
+     * effect until the player reconnected. Projecting here rather than in the
+     * reward menu keeps allocation and reload on one path, so any future writer
+     * of `choices` is covered without knowing it has to be.
+     */
+    public void applyAndSave(Player p) {
+        var d = data(p);
+        if (d != null) PlayerDataCodec.projectTask(d, settings.taskLedger());
+        sync(p, d);
+    }
     private void sync(Player p, PlayerData d) {
         var c = capacity(d);
         var attribute = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH));
