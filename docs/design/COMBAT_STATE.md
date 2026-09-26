@@ -95,6 +95,13 @@ The working line: **an ability is combat when it acts on a combatant's capacity
 to fight** — dealing damage, healing, mitigating, buffing, granting speed — and
 non-combat when it acts on the world or the economy.
 
+**Classify by effect on combatants, not by the medium.** Mole's **Sinkhole** is
+combat, and not because it breaks blocks: it slows enemies and denies them the
+ability to build, which is crowd control by another name. Mole's **Tunneling**
+touches the same medium and is not combat, because it excavates and does nothing
+to anybody's capacity to fight. An ability that moves terrain can be either; what
+it does to the people standing on that terrain is the question.
+
 Declare it as `abilities.definitions.<id>.combat`, beside the existing
 `cooldownTicks`. **Require the key; do not default it.** This repository has
 already paid for the alternative: `ConfigKeysDefinedTest` exists because six
@@ -182,14 +189,40 @@ A gate the player cannot observe fails silently, and the level-up beat has four
 conditions evaluated on a five-second cycle. A player who fails the beat and is
 told nothing will conclude the feature is broken.
 
-**On a failed beat, say which condition failed.** Combat state should also be
-visible while it is suppressing something the player is waiting on. `Recall`
-already sets the precedent with its "Recall interrupted" action bar; this is the
-same courtesy applied to a condition that blocks *before* anything starts rather
-than cancelling midway.
+Of those four conditions, three are things the player **chooses** — crouch,
+stand still, look at eligible space — and one is **imposed** on them. The
+imposed one is the one that needs displaying, because it is the only one the
+player cannot see coming.
 
-[OPEN] The surface. The action bar is the obvious candidate; the HUD already has
-a mode line.
+### The bossbar shows whichever clock is actually running
+
+While a player holds unspent choices, entering combat **replaces the level-up
+countdown with an in-combat countdown**. When combat ends the bar returns to the
+level-up countdown, and the beat resumes from there.
+
+The two clocks are therefore sequential and never concurrent, and no paused
+progress has to be held anywhere: combat state reaching zero *is* the signal to
+start a fresh level-up countdown. A player who takes a hit sees the bar flip,
+watches combat run out, and watches the level-up clock start — which reads as a
+single continuous explanation of why they cannot level up yet.
+
+This also answers most of the feedback problem above at no cost. It does not
+answer all of it: a player who is out of combat and still fails the beat needs
+to know it was the crouch, the movement or the aim.
+
+[OPEN] **A player with no unspent choices still needs to see combat state**,
+because it also gates Recall, Absorption regeneration and Pathfinding's speed.
+The bossbar swap covers the level-up case specifically; combat state wants a
+quieter persistent surface as well. The action bar is the obvious candidate and
+the HUD already has a mode line.
+
+[OPEN] Whether the returning level-up countdown restarts or resumes where it
+stopped. Under state-at-end it changes only how soon the next evaluation
+happens, so this is a feel question rather than a mechanical one.
+
+**The two durations stay independently tuned.** That combat is 7 seconds and the
+level-up beat is 5 is a coincidence of first values, not a relationship. Showing
+them in the same bar must not become a reason to collapse them into one number.
 
 ---
 
@@ -201,10 +234,13 @@ a mode line.
   the other. Recall's `channelTicks: 100` is a channel length, not a combat
   window, and must not be borrowed as one.
 - **The per-ability combat classification itself**, once the roster's abilities
-  are implemented. The working line — acts on a combatant's capacity to fight —
-  decides most of them, but not all. Mole's **Sinkhole** acts on terrain, which
-  reads non-combat, while being an ultimate used to deny ground in a fight. It
-  needs an explicit answer rather than an inferred one.
+  are implemented. The working line decides most of them. Mole's **Sinkhole** is
+  settled as **combat** — it is crowd control, slowing enemies and denying them
+  building, and the terrain is only its medium. The next case the rule has to
+  answer is Golem Master's **Assemble**: a wall is Construction methodology, but
+  the **Snow Wall** branch explicitly slows and displaces enemies, and any wall
+  raised mid-fight is mitigation. Likely combat, probably per branch, not yet
+  decided.
 - **The seam by which a context-sensitive ability reports what it did.**
 - **Whether damage dealt to a passive animal counts.** Punching a cow for Looting
   is technically an attack, and under this definition it is combat for 7 seconds

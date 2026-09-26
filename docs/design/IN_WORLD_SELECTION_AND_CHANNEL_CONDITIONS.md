@@ -50,6 +50,12 @@ less machinery than `Recall`, not more.
 The bossbar consequently reads as a **rhythm to position against** — "three
 seconds, get in the hole" — rather than a bar being protected.
 
+**In combat, the bar shows the combat countdown instead**, and returns to the
+level-up countdown when combat ends. The two clocks are sequential and never
+concurrent, so nothing has to hold paused progress: combat reaching zero is what
+starts a fresh level-up countdown. See
+[`COMBAT_STATE.md`](COMBAT_STATE.md#the-bossbar-shows-whichever-clock-is-actually-running).
+
 ### Why the bossbar is also the input
 
 Raw key input through a predicate is a **proven dead end** in this project (see
