@@ -25,6 +25,12 @@ public final class PlayerDataCodec {
         return bytes.toByteArray();
     }
     public static PlayerData decode(UUID expected, byte[] bytes, int maxLevel) throws IOException {
+        return decode(expected, bytes, maxLevel, null);
+    }
+
+    /** Decode persisted state and optionally rebuild derived Task tiers. */
+    public static PlayerData decode(UUID expected, byte[] bytes, int maxLevel,
+                                    TaskLedger taskLedger) throws IOException {
         try (var in = new DataInputStream(new ByteArrayInputStream(bytes))) {
             int version = in.readInt();
             if (version != 1 && version != FORMAT_VERSION) throw new IOException("Unknown player data format");
@@ -55,7 +61,25 @@ public final class PlayerDataCodec {
                 }
             }
             if (in.available() != 0) throw new IOException("Unexpected trailing data");
+            if (taskLedger != null) projectTask(data, taskLedger);
             return data;
         }
+    }
+
+    /**
+     * ChoiceRecord is the persisted Task authority. The task map is a runtime
+     * projection for TaskEffects, so it must never become stale after reload.
+     * DAMAGE is retained as the persisted key for compatibility with older
+     * saves; the Task design name for that tree is Slaying.
+     */
+    public static void projectTask(PlayerData data, TaskLedger taskLedger) {
+        data.task.clear();
+        var tiers = taskLedger.tiers(data.choices);
+        data.task.put(TaskEffects.Domain.EFFICIENCY.name(),
+            tiers.getOrDefault(TaskLedger.EFFICIENCY, 0));
+        data.task.put(TaskEffects.Domain.YIELD.name(),
+            tiers.getOrDefault(TaskLedger.YIELD, 0));
+        data.task.put(TaskEffects.Domain.DAMAGE.name(),
+            tiers.getOrDefault(TaskLedger.SLAYING, 0));
     }
 }

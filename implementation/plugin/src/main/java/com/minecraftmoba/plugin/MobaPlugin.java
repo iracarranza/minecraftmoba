@@ -538,7 +538,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         try {
             byte[] bytes = p.getPersistentDataContainer().get(dataKey, PersistentDataType.BYTE_ARRAY);
             var data = bytes == null ? new PlayerData(p.getUniqueId())
-                : PlayerDataCodec.decode(p.getUniqueId(), bytes, settings.maxLevel());
+                : PlayerDataCodec.decode(p.getUniqueId(), bytes, settings.maxLevel(), settings.taskLedger());
             players.put(p.getUniqueId(), data);
             sync(p, data);
         } catch (IOException ex) {

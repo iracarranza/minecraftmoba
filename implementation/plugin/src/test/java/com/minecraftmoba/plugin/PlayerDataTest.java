@@ -26,4 +26,20 @@ class PlayerDataTest {
         assertEquals(new Capacity.DerivedCapacity(20,20,36), Capacity.recompute(30,choices,settings));
         assertEquals(new Capacity.DerivedCapacity(9,9,6), Capacity.recompute(1,List.of(),settings));
     }
+
+    @Test void taskProjectionIsRebuiltFromPersistedChoices() throws Exception {
+        var d = new PlayerData(UUID.randomUUID());
+        d.level = 28;
+        d.choices.add(new PlayerData.ChoiceRecord(4, TaskLedger.YIELD));
+        d.choices.add(new PlayerData.ChoiceRecord(8, TaskLedger.SLAYING));
+        d.choices.add(new PlayerData.ChoiceRecord(12, TaskLedger.SLAYING));
+        d.task.put(TaskLedger.SLAYING.toUpperCase(), 99);
+        var ledger = new TaskLedger(List.of(4, 8, 12, 16, 20, 24, 28));
+
+        var loaded = PlayerDataCodec.decode(d.uuid, PlayerDataCodec.encode(d), 30, ledger);
+
+        assertEquals(1, loaded.task.get(TaskEffects.Domain.YIELD.name()));
+        assertEquals(2, loaded.task.get(TaskEffects.Domain.DAMAGE.name()));
+        assertFalse(loaded.task.containsKey(TaskLedger.SLAYING.toUpperCase()));
+    }
 }
