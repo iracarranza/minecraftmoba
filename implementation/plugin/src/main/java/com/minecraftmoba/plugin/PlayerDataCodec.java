@@ -34,7 +34,9 @@ public final class PlayerDataCodec {
             data.classId = in.readBoolean() ? in.readUTF() : null;
             data.level = in.readInt();
             data.xp = in.readInt();
-            if (data.level < 1 || data.level > maxLevel || data.xp < 0) throw new IOException("Invalid progression");
+            // Lv0 is the enrolled starting state. Saves written before Lv0
+            // existed carry level 1 and still decode; only fresh players change.
+            if (data.level < 0 || data.level > maxLevel || data.xp < 0) throw new IOException("Invalid progression");
             int count = in.readInt();
             if (count < 0 || count > in.available()) throw new IOException("Invalid choice count");
             for (int i = 0; i < count; i++) {

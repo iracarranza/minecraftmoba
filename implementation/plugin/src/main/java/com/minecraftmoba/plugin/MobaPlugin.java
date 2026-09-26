@@ -552,7 +552,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         } catch (IOException ex) { throw new IllegalStateException("Cannot encode player data", ex); }
     }
     private Capacity.DerivedCapacity capacity(PlayerData d) {
-        return Capacity.recompute(d.level, d.choices, settings.capacity());
+        // Classes share Growth levels, not Growth contents, so the stat curve is
+        // selected by the class's authored profile. An unknown class, or one
+        // configured without a profile, uses the fallback curve.
+        var definition = inputs == null ? null : inputs.definition(d.classId);
+        String profile = definition == null || definition.statGrowthProfile().isBlank()
+            ? null : definition.statGrowthProfile();
+        return Capacity.recompute(d.level, d.choices, settings.capacity(), profile);
     }
     private void enforceHunger(Player p, Capacity.DerivedCapacity c) {
         // Under scaling there is no ceiling to enforce: Hunger Capacity is a

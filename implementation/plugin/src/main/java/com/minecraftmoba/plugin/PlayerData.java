@@ -11,7 +11,13 @@ public final class PlayerData {
     public record ChoiceRecord(int level, String choiceId) {}
     public final UUID uuid;
     public String classId;
-    public int level = 1;
+    /**
+     * Enrolment starts at Lv0, which is a real progression state and not
+     * bookkeeping: Lv0 holds the Passive alone, Lv1 earns Active 1 and Lv2
+     * earns Active 2. Starting at 1 would erase the first observable
+     * progression event.
+     */
+    public int level = 0;
     public int xp;
     public final List<ChoiceRecord> choices = new ArrayList<>();
     /** Task progression tiers by domain name; see TaskEffects. */

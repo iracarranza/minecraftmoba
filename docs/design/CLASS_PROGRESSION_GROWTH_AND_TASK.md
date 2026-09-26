@@ -57,7 +57,7 @@ estimate how far that player is from a power spike. That requires equivalent
 
 | Lv | Event | Lv | Event |
 | ---: | --- | ---: | --- |
-| 0 | Passive | 16 | Task IV |
+| 0 | Passive (enrolment state) | 16 | Task IV |
 | 1 | Active 1 | 17 | quiet |
 | 2 | Active 2 | 18 | Growth VI |
 | 3 | Growth I | 19 | quiet / possible band transition |
@@ -73,6 +73,11 @@ estimate how far that player is from a power spike. That requires equivalent
 | 13 | quiet / proof | 29 | quiet |
 | 14 | quiet / anticipation | 30 | Growth X |
 | 15 | Growth V + Ultimate | | |
+
+**Lv0 is a real progression state, not bookkeeping.** A player enrols at Lv0
+holding the Passive alone and earns Active 1 at Lv1. Starting at Lv1 would erase
+the first observable progression event and force later systems to compensate for
+a false baseline. The XP Bootstrap band is therefore **Levels 0–6**.
 
 The shared intuitions this creates: Lv14 is one level from Ultimate and Growth V;
 Lv15 completes the fundamental kit; Lv15→16 is one level from the first possible
@@ -171,19 +176,36 @@ spikes belong.
 
 ## 4. Player-facing numerical scale
 
-Design discussion and the eventual custom HUD use approximately **10× vanilla
-Minecraft HP**:
+**×100, decided 26 September 2026.** The custom HUD multiplies engine health by
+one hundred:
 
-    1 Minecraft HP   = 10 displayed Health
-    1 Minecraft heart = 20 displayed Health
+    DisplayedHealth = EngineHealth × 100
 
-So vanilla 20 HP reads as 200 Health, Mole's starting 10 HP as 100, and Mole's
-Lv30 32 HP as 320.
+so 1 engine HP reads as 100 Health and 1 heart as 200.
 
-Minecraft's health and damage already carry finer precision than the heart HUD
-communicates. The ×10 scale is a clearer player-facing numerical language rather
-than necessarily an engine change; the custom HUD exposes the precision that
-already exists.
+| Reference | Engine HP | Displayed |
+| --- | ---: | ---: |
+| Lv0 starting baseline | 10 | 1,000 |
+| Vanilla full health | 20 | 2,000 |
+| Skeleton Crew Lv30 | 27.5 | 2,750 |
+| Mole Lv30 | 32 | 3,200 |
+
+Note the two references are different things: **1,000 is the Lv0 character
+baseline and 2,000 is vanilla full health.** Characters start constrained, at
+half a vanilla bar, and grow upward past it.
+
+×100 is preferred over ×10 because it keeps balance decisions in engine units
+while giving presentation enough precision to stay integral. Skeleton Crew's
+perfectly regular +1.75 engine HP per Growth reads as 1,000 → 1,175 → 1,350 →
+… → 2,750 with no fractions, where ×10 would have produced 117.5. Damage gains
+the same precision: a 3.65 HP hit reads as 365 rather than 36.5. A HUD that has
+already left vanilla hearts behind renders 2,750 / 2,750 as naturally as any
+other game in the genre.
+
+**This is presentation only.** All simulation, configuration and balance stay in
+native Minecraft HP. Choose balance in engine units; choose the multiplier to
+expose the precision. In particular, do not move a design endpoint to make
+displayed values integral — see Skeleton Crew's 275 → 2,750 below.
 
 ---
 
@@ -308,16 +330,47 @@ I–III are Fortune and Looting.
 | Line | Immediate | Renewal | Knowledge |
 | --- | --- | --- | --- |
 | Fortune / pickaxe | **Richness** — pickaxe-harvested Fortune resources have an additional chance of additional material | **Prospecting** — fully harvesting an eligible mineral opportunity gives it some chance to renew or become worth revisiting | **Deep Study** — thoroughly completing mineral opportunities grants increased XP |
-| Looting / sword | **Butchering** — sword-killed Looting-eligible mobs produce additional ordinary drops | **Subsistence** — the hunting-renewal counterpart | [OPEN] name unresolved |
+| Looting / sword | **Butchering** — sword-killed Looting-eligible mobs produce additional ordinary drops | **Subsistence** — the hunting-renewal counterpart | [OPEN] name unresolved, and possibly redundant |
+
+**Yield raises harvest XP as well as material**, decided 26 September 2026:
+
+    Fortune = more resource drops  + more XP from resource harvesting
+    Looting = more mob drops       + more XP from mob harvesting
+
+Yield is therefore *extracting more total value from a completed
+resource-harvesting action*. This exists because Looting's drop pool is far less
+consistently valuable than Fortune's — Fortune touches coal, copper, iron, gold,
+diamond, lapis and redstone, while Looting touches food, ender pearls, string,
+gunpowder, bones, arrows, leather and a tail of niche drops. A shared XP axis
+gives Looting comparable strategic relevance without inflating weak drops.
+
+Implementation constraint: raise the **authored XP reward** attached to the
+harvest or kill. Do not multiply arbitrary vanilla XP, and do not award XP for
+deleting the resulting items — either would make renewable-source economics
+uncontrollable. [OPEN] Exact scaling, and whether it begins at Tier I.
+
+[OPEN] This makes the XP-only advanced techniques questionable. If Fortune and
+Looting already raise harvest XP at every tier, then **Deep Study** and the
+unnamed Looting hunting-study counterpart duplicate the backbone and may be
+redundant. A third technique in either line should exist only if a genuinely
+distinct behaviour is found; there is no requirement that each line carry
+exactly three. Do not implement either until that is settled.
 
 Prospecting should use the existing regenerative-resource lifecycle rather than
 magical instant ore respawn; Subsistence should likewise interact with
 regenerative animal and mob opportunities rather than resurrecting individual
 mobs. Deep Study likely hooks into existing ore-vein-completion XP.
 
-[OPEN] The third Looting technique is a hunting-related learning/XP concept
-parallel to Deep Study. Candidate names discussed: Fieldcraft, Hunter's Lore,
-Tracking, Gamekeeping, Huntsmanship.
+[OPEN] The third Looting technique was a hunting-related learning/XP concept
+parallel to Deep Study — candidate names Fieldcraft, Hunter's Lore, Tracking,
+Gamekeeping, Huntsmanship. It is now doubly open, because Yield's XP property
+may have absorbed its only function.
+
+[OPEN] **Subsistence** may interact with completed regenerative Mob Swarms and
+hunting opportunities, improving future renewal probability or rate, rather than
+resurrecting mobs or spawning generically. It must be tested against the
+regenerative economy, which Skeleton Crew already stresses with unusually high
+mob demand. Do not canonize an implementation yet.
 
 The abstract parallel — immediate means more now, renewal means more future
 opportunity, study means more progression — is organizing language, not
@@ -445,7 +498,8 @@ Excavation exists.
 By Lv15 the complete fundamental loop is available: sense → penetrate terrain →
 initiate → seize/deny ground.
 
-**Health: +22 every Growth, 100 → 320** (engine-scale 10 → 32 HP, 5 → 16 hearts).
+**Health: +2.2 engine HP every Growth, 10 → 32** (displayed 1,000 → 3,200; 5 → 16
+hearts).
 Clearly supernormal without reaching a doubled vanilla bar; a true health-centric
 Tank can exceed it substantially. The key property is **regularity** — Health is
 the continuous curve, and spikes come from abilities, branches, Task thresholds,
@@ -525,6 +579,103 @@ Efficiency V + Yield I + Slaying I specialist with broad baseline competence.
 
 ---
 
+## 9A. Skeleton Crew — the second authored curve
+
+Selected as the Growth counterexample to Mole. Logistics primary, Combat
+secondary, and its combat power comes from redirecting logistical labour rather
+than the commander becoming a personal damage carry.
+
+> Skeleton Crew makes one defended artery increasingly productive. Pick two
+> places, and it can make the journey between them increasingly absurd.
+
+**Health: 10 → 27.5 engine HP, +1.75 per Growth** (displayed 1,000 → 2,750).
+Meaningfully durable and deliberately below Mole's 3,200: its safety comes from
+crew, positioning and movement rather than body. The endpoint stays 2,750 even
+though ×10 would have displayed halves — 2,750 sits meaningfully between the
+2,000 vanilla reference and Mole's 3,200, and a balance target is not moved for
+representational convenience.
+
+**Supply Line access at Lv6**, against Mole's Lv18 Routes. This is the
+counterexample that proves infrastructure timing is class-authored: Logistics is
+fundamental to Skeleton Crew's methodology, and Routes are secondary to Mole's.
+
+**One artery, not a network.** Skeleton Crew is likely limited to a single
+principal Supply Line, possibly permanently, and is deliberately weak in line
+count, Branching, Connectivity, Filtering/Routing and network width. Growth
+improves the existing line rather than widening the network.
+
+Three Logistics axes with deliberately different budget costs:
+
+- **Night Efficiency** comes first. Ordinary Supply Lines degrade at night;
+  early Skeleton Crew degrades less, later it removes the penalty, and very late
+  it may exceed its own daytime rate. This gives the class an identity before it
+  has superior raw throughput, and it matches the recruitment loop, which is
+  itself nocturnal. [OPEN] All magnitudes. [OPEN] A physical nighttime support
+  system for Supply Lines, analogous to Route Guidelights, is wanted but unnamed
+  — Signal Fires, Waystations, Lantern Posts, Beacons, Watchlights, Deadlights
+  and Bone Lanterns were all discussed and none is settled. Prefer an unusually
+  favourable relationship with shared infrastructure over a Skeleton-only system.
+- **Throughput** is the expensive, rare spike — candidate Lv12 and Lv24 —
+  because it delivers goods moved, worker traffic and defensive presence at
+  once. The felt difference should be "my line works when others struggle"
+  before the spike and "my line now moves substantially more" after.
+- **Reach** lengthens the single artery rather than adding branches, so the
+  strategic question stays *which two places are worth connecting*.
+
+**The line is its own defense.** The workers that move material are the same
+entities that create defensive presence, so raiding the Supply Line means
+fighting the crew, and killing workers genuinely damages logistical performance.
+Do not add a generic "Supply Line Defense +20%". [OPEN] Worker scheduling,
+spacing and concurrency need calibration so Throughput cannot produce an
+unlimited skeleton deathball.
+
+**Recruitment is nocturnal.** Increased hostile aggro range lets the commander
+draw mobs in, kill them, and convert them into crew — so the class seeks exactly
+what other classes avoid. **Aggro Reach** (how far hostiles notice the commander)
+is a distinct dimension from **Supply Line Reach** (how far labour carries
+material); do not conflate them. The loop should exist early enough to define
+the class, with Growth increasing attraction rather than unlocking it late.
+
+**Personal combat stays modest.** No midgame breakpoint should turn the
+commander into a conventional duelist. The desired read is "why did we fight
+Skeleton Crew while its crew was concentrated here?", not "why does the
+Logistics commander suddenly hit so hard?". Movement is worth more to the class
+than personal damage, and its first advanced Slaying access should be
+**defensive** — Quick Guard is the candidate — so a combat-invested Skeleton
+Crew becomes safer while commanding rather than deadlier.
+
+**Task is not its keystone.** Its build-defining spikes are Growth: Supply Line
+access, Night Efficiency, Throughput, Reach, crew development. Task instead
+decides what ordinary Minecraft activity the commander is personally good at:
+Yield/Looting is especially natural given the recruitment loop, Efficiency is
+moderate, and Slaying is defensive and utility-biased. Task must **not** improve
+Supply Line throughput, crew damage, skeleton quantity or Logistics
+infrastructure — those belong to class and Growth.
+
+[PROTOTYPE] A candidate rhythm is Night → Reach → Throughput, repeating, with
+Lv15 softened because the Ultimate already occupies it: Lv6 Supply Line access
+and Night Efficiency I, Lv9 Reach I, Lv12 Throughput I, Lv15 Ultimate, Lv18
+Night Efficiency II, Lv21 Reach II, Lv24 Throughput II, Lv27 Night Efficiency
+III, Lv30 Reach III. The priorities matter more than the table.
+
+### The universal clock does not standardize power spikes
+
+The clock says **what kind of opportunity** occurs at a level, not which levels
+matter most to a given class. Lv16 means Task IV is available to everyone; for a
+Combat class whose defining Slaying technique lands at IV that is a major spike,
+while for Skeleton Crew it is useful but smaller than a Throughput Growth.
+Gardener cares disproportionately about early Growth.
+
+> The universal clock tells you when opportunities occur. Class knowledge tells
+> you which ticks matter most.
+
+Level therefore stays readable — anyone can see what system event approaches —
+while experienced players additionally learn each class's power-spike signature.
+Task techniques consequently **need not be build keystones**, and for
+infrastructure-oriented classes the build-defining spikes should live in Growth.
+
+---
+
 ## 10. Other classes under this model
 
 Recorded as supplied, for Growth-calibration context. Kit detail remains owned by
@@ -566,6 +717,40 @@ identity is swarm/harass/scatter hit-and-run using panic AI.
 Emerald payroll, useful work develops Mastery and contributes value. Production is
 the clearest archetype. Do not force the older Exploration/Logistics
 classification onto the current Merchant.
+
+---
+
+## 10A. Exploratory — universal surplus-item disposal
+
+[OPEN — not adopted] Every player might be able to permanently dispose of excess
+items for a **very small** amount of XP, giving surplus loot a nonzero terminal
+value and reducing inventory trash without making disposal a gathering strategy.
+
+The value hierarchy must stay: **use > deliver, process or trade >> scrap**.
+Disposal is a floor, not a route.
+
+The exploit constraint is the hard part. XP cannot be based on item count, or
+crafting loops manufacture it — logs to planks to sticks, ingots to nuggets,
+slabs, crop recipes. It needs a conservation rule roughly `V(outputs) ≤
+V(inputs)` unless a deliberately rewarded productive process is adding value.
+
+The Production archetype must **not** generically receive "+X% XP from
+disposal"; that violates the specialization philosophy. Individual Production
+classes may have authored relationships — recovering material alongside XP,
+broadening qualifying goods, improving conversion inside a Construct.
+
+It complements Logistics: high throughput creates decisions about what is worth
+transporting versus what is cheap enough to scrap.
+
+[TECHNICAL RISK] The Creative inventory's red-X Destroy Item slot is part of the
+Creative UI, **not** an ordinary persistent Survival slot, and should not be
+assumed exposable to Survival or Adventure players. Verify current Paper and
+client behaviour before depending on it. Drag-to-trash remains a good metaphor
+even if another mechanism is required.
+
+[OPEN] Whether to adopt at all; the item-value model; anti-arbitrage
+conservation; XP magnitude; the interaction surface; and whether any Production
+class receives an authored relationship.
 
 ---
 
@@ -611,9 +796,32 @@ burst; whether Inventory 24 is the right endpoint.
 
 **Growth.** Approximate power budgets for Growth I–X without forcing identical
 content; whether broad early/established/mature/late budget expectations are
-useful, without converting them into category lockouts; building **Gardener as
-the counterexample calibration class**; then comparing Mole and Gardener against
-a highly Combat-centric and a highly Production-centric class.
+useful, without converting them into category lockouts. **Skeleton Crew is the
+counterexample calibration class** (§9A), with Gardener a further early-
+infrastructure case; then compare all of them against a highly Combat-centric
+and a highly Production-centric class.
+
+**Skeleton Crew specifics.** Passive and recruitment implementation; which
+hostiles convert and under what conditions; aggro-range behaviour; crew capacity
+progression and whether it is Growth, kit, infrastructure consequence or mixed;
+worker scheduling, spacing and state transitions; the economic cost of
+mobilizing workers; worker death and replacement; Supply Line establishment
+rules; whether exactly one Supply Line is a permanent restriction; Night
+Efficiency, Reach and Throughput magnitudes; the nighttime Supply Line support
+infrastructure and its name; personal movement progression; crew combat potency;
+Task aptitude thresholds; whether Quick Guard is its first advanced Slaying
+technique; and shield ready-slot and cooldown behaviour.
+
+**A known data-model blocker.** `ClassDefinition.infrastructureProgression` is
+`Map<level, effect>` — one effect per level. Skeleton Crew's Lv6 is Supply Line
+access **and** Night Efficiency I, and its Lv18 is Night Efficiency II plus crew
+combat development, so the class cannot be configured at all until this widens.
+Do **not** solve it as `Map<level, List<String>>` of infrastructure strings: a
+Growth packet combines infrastructure with class methodology and personal
+attributes, so widening it to a list of infrastructure effects would rebuild the
+same Growth-is-Infrastructure confusion one level down. The next architecture
+step is a genuine **class Growth packet** with infrastructure as one effect
+family inside it.
 
 **Task.** Calibrate the fractional IV–VII backbone; assign technique Strength
 scales; finish the Quick Guard requirement; name and define Looting's

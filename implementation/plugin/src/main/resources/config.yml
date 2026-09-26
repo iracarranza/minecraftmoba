@@ -601,12 +601,77 @@ progression:
 #     iron:   { tool: 96 }
 capacity:
   enforceTicks: 1
+  # The shared Growth clock. Every class receives a Growth packet at these
+  # levels; what each packet contains is class-authored and differs per class.
+  # Placed under `capacity` because that is where the existing seam is - Capacity
+  # is one recipient of Growth, not its owner.
+  growthLevels: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
+  # Fallback curve for a class with no authored profile. A bootstrap so an
+  # unconfigured class still loads, NOT a roster-wide default: do not treat
+  # these numbers as the shape other classes should take.
   health: { start: 9, growthUnit: 1, cap: 20 }
   hunger: { start: 9, growthUnit: 1, cap: 20 }
   slots: { start: 6, growthUnit: 3, cap: 36 }
-  growthLevels: [2, 4, 7, 8, 9, 11, 13, 14, 15, 16, 17]
+# Per-class stat curves, selected by ClassDefinition.statGrowthProfile.
+# Engine units. The player-facing scale is x100 and belongs to the HUD: Mole's
+# 10 -> 32 HP reads as 1,000 -> 3,200 Health. Simulation stays in native HP.
+capacityProfiles:
+  mole:
+    # 100 -> 320 engine, +2.2 per Growth. Regular by design: Health is the
+    # continuous curve and spikes come from abilities, branches, Task
+    # thresholds and discrete capacity instead.
+    health: { start: 10, growthUnit: 2.2, cap: 32 }
+    # 10 -> 20 by Lv15, then flat. The cap produces the plateau on its own;
+    # there is no Lv15 special case.
+    hunger: { start: 10, growthUnit: 2, cap: 20 }
+    # Irregular by design: absolute values at Lv0 then one per Growth level.
+    # Holding flat across a Growth is Mole spending that budget elsewhere.
+    slots: { steps: [6, 9, 9, 12, 15, 15, 18, 18, 21, 21, 24], cap: 36 }
+    # SEAM, NOT YET READ BY ANY CODE. Exhaustion Efficiency is one quantitative
+    # attribute rather than four perks, and Mole improves it at these Growth
+    # levels. The cadence is decided; the magnitudes are not, and the previously
+    # circulated 6/12/18/24 percentages were illustrative prototypes rather than
+    # calibration. `values` stays empty until a magnitude is measured.
+    exhaustionEfficiency:
+      levels: [6, 12, 21, 27]
+      values: []
 rewards:
-  levels: {}
+  # Task allocations. Seven opportunities across three trees, so Y + E + S = 7
+  # at completion. 4 + 4 > 7 makes Tier IV a commitment threshold on its own:
+  # no exclusivity rule is needed or encoded.
+  #
+  # These options carry `task` and no `capacity`. Capacity specialization is
+  # superseded by Growth, and an option is not required to declare a capacity
+  # effect it does not have.
+  levels:
+    4:
+      - { id: task_yield_4, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_4, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_4, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    8:
+      - { id: task_yield_8, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_8, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_8, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    12:
+      - { id: task_yield_12, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_12, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_12, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    16:
+      - { id: task_yield_16, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_16, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_16, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    20:
+      - { id: task_yield_20, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_20, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_20, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    24:
+      - { id: task_yield_24, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_24, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_24, label: "Slaying", icon: IRON_SWORD, task: slaying }
+    28:
+      - { id: task_yield_28, label: "Yield", icon: GOLD_INGOT, task: yield }
+      - { id: task_efficiency_28, label: "Efficiency", icon: IRON_PICKAXE, task: efficiency }
+      - { id: task_slaying_28, label: "Slaying", icon: IRON_SWORD, task: slaying }
   toast: { fadeInTicks: 5, stayTicks: 30, fadeOutTicks: 10 }
 abilities:
   bindings:
@@ -638,7 +703,19 @@ abilities:
       displayName: Mole
       passiveHook: mole_digging
       statGrowthProfile: mole
-      infrastructureProgression: { level6: constructs, level12: excavation_expression }
+      # Mole reaches Routes late because Routes are secondary to its
+      # excavation/combat methodology. This is Mole's authored timing, NOT a
+      # roster rule: Skeleton Crew takes Supply Line access at Lv6, and
+      # Gardener is expected to take Development Zone capacity there too.
+      # KNOWN BLOCKER: this map holds one effect per level. Skeleton Crew's
+      # Lv6 is Supply Line access AND Night Efficiency I, which cannot be
+      # expressed here. See docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md.
+      infrastructureProgression:
+        level18: routes_establish
+        level21: routes_reach
+        level24: routes_projection
+        level27: routes_capacity_2
+        level30: routes_reach_2
       branches: { tunneling: bore }
       persistentStateDefaults: { tunnelingBranch: bore }
       a1: tunneling

@@ -74,7 +74,11 @@ public final class Rewards implements Listener {
         var data=plugin.data(p); var pending=catalog.pending(data);
         if(pending.isEmpty() || pending.getFirst()!=menu.level) return;
         menus.remove(p.getUniqueId()); // consume this menu token before applying; cannot double-spend
-        data.choices.add(new PlayerData.ChoiceRecord(menu.level,menu.options.get(slot).id()));
+        // A Task option records the tree it allocates, so TaskLedger can count
+        // tiers straight from the save. Every other option records its own id.
+        var chosen=menu.options.get(slot);
+        data.choices.add(new PlayerData.ChoiceRecord(menu.level,
+            chosen.task()!=null?chosen.task():chosen.id()));
         plugin.applyAndSave(p); // capacity change is immediate, not deferred until close
         Bukkit.getScheduler().runTask(plugin,()-> {
             if(!p.isOnline()) return;
