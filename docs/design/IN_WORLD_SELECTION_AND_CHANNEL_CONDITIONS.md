@@ -94,10 +94,9 @@ Crouching and aim are genuinely fine as instantaneous reads. So the rule is
 trailing window** — which preserves the design exactly: sprint to safety and
 crouch on the beat, but you cannot do it while actively trading hits.
 
-[OPEN] **Combat state has no implementation.** Nothing in the plugin defines it
-today; `Recall` cancels on `EntityDamageEvent` and that is all. Health Mastery's
-regenerating out-of-combat Absorption will want the same primitive, so whoever
-defines it defines it for both. Define it once, centrally.
+Combat state is defined in [`COMBAT_STATE.md`](COMBAT_STATE.md) — a per-entity
+timestamp of last combat involvement, with each consumer choosing its own
+threshold. It has **five** consumers, not two, and is still unimplemented.
 
 ---
 
