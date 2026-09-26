@@ -308,7 +308,7 @@ converted into strategically usable form — not "the animation goes faster".
 | --- | --- | --- |
 | Pickaxe | Extraction | **Vein Mining** (connected eligible resource blocks mined together; Strength controls propagation/limit), **Excavation** (bounded spatial group of tool-appropriate blocks) |
 | Axe | Construction | **Felling** (a qualifying tree/log structure processes additional connected logs), **Timber Processing** (stripped logs convert into additional usable construction material) |
-| Shovel | Exploration | **Excavation** (shared spatial-volume technique on appropriate material), **Pathfinding** (personal out-of-combat movement speed on shovel-created path blocks) |
+| Shovel | Exploration | **Excavation** (shared spatial-volume technique on appropriate material), **Pathfinding** (out-of-combat movement speed on shovel-created path blocks) |
 
 Pickaxe exploits resource connectivity and hard geology; axe exploits resource
 structure and conversion into construction material; shovel exploits resource
@@ -318,8 +318,19 @@ Construction can own the gathering and production of blocks whose primary
 strategic purpose is world geometry — wood's useful identity is partly its
 efficient conversion from world resource into usable construction geometry.
 
-**Pathfinding is not a Route.** Pathfinding is personal, local and immediate; a
-Route is team infrastructure with network and projection properties.
+**Pathfinding is not a Route.** Pathfinding is local and immediate; a Route is
+team infrastructure with network and projection properties.
+
+**A technique that affects allied players also affects their summons and
+followed animals**, decided 27 September 2026. Skeleton Crew's Crew Members,
+Golem Master's golems, Merchant's Retinue and Lightfooted's wolves, foxes and
+cats all move on the path a shovel built, so they all benefit from it.
+
+Pathfinding is currently the only Task technique this touches; the rule is
+written for the ones that come later. It is also already consistent with how
+Lightfooted works — Animal Senses extends the player's own bonuses to nearby
+animals of the relevant species — so extending a path bonus to a travelling
+animal group is that class's existing logic rather than a new exception.
 
 ### Yield
 
@@ -375,6 +386,36 @@ mob demand. Do not canonize an implementation yet.
 The abstract parallel — immediate means more now, renewal means more future
 opportunity, study means more progression — is organizing language, not
 necessarily player-facing naming.
+
+### What each tree means across the roster
+
+**Slaying** improves personal combat. That generalizes trivially — Sharpness and
+Power are what the tree contains.
+
+**Yield** is the **tempo** tree. Because it raises harvest XP as well as
+material, its identity is a power curve shifted left: breakpoints arrive sooner,
+so the Ultimate at Lv15, the commitment threshold at Lv16 and the Lv20
+allocation all land earlier, at the cost of less power per point than a
+dedicated Efficiency or Slaying build. Its value therefore peaks mid-match and
+flattens once the roster caps — front-loaded, against two back-loaded trees.
+
+**Efficiency does not generalize, and must not be made to.** It is structurally
+the broadest tree: three implements with three different archetype affinities,
+and techniques ranging from Vein Mining to Timber Processing to Pathfinding. Why
+a class wants Efficiency therefore differs per class, and that is correct:
+
+- **Mole** wants Vein Mining and Excavation because they are its verb. Its
+  Sinkhole timing improves with Efficiency for a purely incidental reason — the
+  ultimate is *implemented as mining*, and Efficiency is mining speed.
+- **Skeleton Crew** wants **Pathfinding**, because the commander and its crew
+  move faster along the artery it defends. Nothing about its skeletons scales
+  with Efficiency.
+
+[DO NOT SYSTEMATIZE] Do not turn Mole's case into a rule that Efficiency owns
+world-affecting abilities. That would be a bespoke per-class coupling wearing a
+general rule's clothes, and it is precisely the collapse §7 already warns
+against. An ability scales with a Task tree only when it is genuinely
+*implemented as* that tree's activity.
 
 **Implement overlap is intentional.** Efficiency pickaxe is *how* you mine; Yield
 pickaxe is *what you seek to get out of* mining. Slaying sword is how you fight;
@@ -648,9 +689,24 @@ Crew becomes safer while commanding rather than deadlier.
 access, Night Efficiency, Throughput, Reach, crew development. Task instead
 decides what ordinary Minecraft activity the commander is personally good at:
 Yield/Looting is especially natural given the recruitment loop, Efficiency is
-moderate, and Slaying is defensive and utility-biased. Task must **not** improve
-Supply Line throughput, crew damage, skeleton quantity or Logistics
-infrastructure — those belong to class and Growth.
+moderate, and Slaying is defensive and utility-biased.
+
+**Task must not contain infrastructure vocabulary.** No Task tier may read
+"+X% Supply Line Throughput", improve crew damage or skeleton quantity, or
+otherwise grant an abstract bonus to Logistics infrastructure. Those belong to
+class and Growth.
+
+**That is a prohibition on abstract bonuses, not on physical consequence.** If
+Pathfinding makes a shovel-built path faster, and Crew Members travel that path,
+their trips are genuinely quicker and the Supply Line observes a higher Item
+Rate — which is the infrastructure model working exactly as specified: *improve
+the world and the method inherits the improvement, with no rule anywhere reading
+"+20% Item Rate."* The forbidden thing is the disconnected number, not the
+physical chain.
+
+The test: does the Task tier *mention* infrastructure, or does it change
+something in the world that infrastructure then measures? The first is
+forbidden; the second is the design.
 
 [PROTOTYPE] A candidate rhythm is Night → Reach → Throughput, repeating, with
 Lv15 softened because the Ultimate already occupies it: Lv6 Supply Line access

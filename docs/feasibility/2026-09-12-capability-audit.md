@@ -29,7 +29,7 @@ a player. Cobblestone is cobblestone.
 | System | Assumption |
 | --- | --- |
 | Anti-farming XP (§5.2) | mining a placed-then-remined block must not pay |
-| Mole's Sinkhole (§9.3) | natural terrain only; player construction survives |
+| ~~Mole's Sinkhole (§9.3)~~ | ~~natural terrain only; player construction survives~~ — **removed 27 September 2026**: Sinkhole now targets any blocks and restores them exactly, so the natural/authored distinction is moot. Solved by design rather than by implementing provenance |
 | Construct designation (§6.18) | "these **authored** blocks constitute one Construct" |
 | Structural Integrity (§6.2.4) | applies to *incorporated* Construction Blocks |
 | Development Zones (§3.3, §6.19) | distinguish natural patches, ordinary farms, recognized Development |
@@ -39,8 +39,10 @@ It is solvable — detect placement, record positions — but that means persist
 per-block state over the whole map with no natural eviction policy. Chapter 13
 records no such contract; each chapter assumes it locally as though free.
 
-**This is the first thing to prove or kill.** Six systems fail together. Waxer's
-Sealed state is the newest dependent: it needs durable per-position data with no
+**This is the first thing to prove or kill.** **Five** systems fail together —
+Sinkhole was removed from this list on 27 September when its redesign made the
+distinction unnecessary, which is the cheapest way a dependency has been
+retired so far. Waxer's Sealed state is the newest dependent: it needs durable per-position data with no
 natural eviction policy, exactly like the others, and was added to the design on
 13 September without a contract for it existing.
 

@@ -1003,17 +1003,84 @@ On reactivation, Mole emerges and deals damage in the direction they are facing.
 
 ## Ultimate — Sinkhole
 
-Mole senses and targets an unstable natural-terrain region and incites a delayed collapse.
+**Revised 27 September 2026.** Mole targets a jagged area of ground, which opens
+after a delay and closes again later.
 
-- Natural terrain only.
-  - [TECHNICAL RISK] Distinguishing natural terrain from player construction requires block provenance, which vanilla does not record. See [the capability audit](docs/feasibility/2026-09-12-capability-audit.md).
-- Collapse occurs downward in stages.
-- Destroyed terrain produces only partial drops.
-- The area becomes No-Build while actively collapsing.
-- Leaves a permanent jagged sinkhole.
-- Player-authored construction survives rather than being indiscriminately erased.
+- **Targets any blocks, including player construction.** The previous
+  natural-terrain-only rule is superseded.
+- All affected blocks are **highlighted to every nearby player** before anything
+  breaks.
+- After a delay the blocks are **destroyed**; after a further period they are
+  **restored exactly as they were**.
+- The volume where blocks were destroyed is **No-Build** for the duration.
+- **Zero drops.**
 
-[OPEN] Delay, staging cadence, region size, instability criteria, drop fraction, No-Build duration, and counterplay remain unresolved.
+### Why it restores rather than scarring
+
+Temporary removal changes the ultimate from map editing into **zone control**,
+which is what its combat classification already claims it is
+([COMBAT_STATE.md](docs/design/COMBAT_STATE.md)): it is crowd control whose
+medium happens to be terrain.
+
+Against construction it becomes a **timed breach** — "your wall is open for
+fifteen seconds" — which is a siege tool rather than a demolition, and far
+easier to balance than an irreversible hole in a 25–35 minute match.
+
+Mole does not lose its permanent mark on the world: **Tunneling** is the class's
+permanent world change and it happens constantly. Tunnels are permanent and
+constructive; the sinkhole is temporary and controlling.
+
+[HISTORICAL] "Leaves a permanent jagged sinkhole" and "player-authored
+construction survives" are superseded.
+
+### Three rules that hold it together
+
+**No-Build is the restore invariant, not a separate effect.** Because nothing
+can be built inside the opened volume, the restore is guaranteed to destroy
+nothing the players made. They are one mechanic: *the volume belongs to the
+ultimate for its duration.*
+
+**Zero drops, non-negotiable.** With restoration, any drops at all make Sinkhole
+an infinite duplicator — and since it can now target construction, a duplicator
+of whatever the enemy built. This is why the earlier "partial drops" is
+superseded rather than reduced.
+
+**Falling blocks must not duplicate.** Removing support under sand or gravel
+drops it; restoring the original would leave both. Suppress falling inside the
+volume or clear the fallen entities on restore.
+
+### Timing comes from block hardness
+
+The delay before blocks break is **how long it would take to mine the hardest
+highlighted block**. Soft ground opens quickly, stone slowly, obsidian very
+slowly.
+
+This uses vanilla's own mining-speed maths, so Mole's tool tier and Efficiency
+Task level improve the ultimate without any bespoke scaling rule — an incidental
+consequence of Sinkhole being *implemented as mining*, not a general principle
+that Efficiency scales abilities. See
+[the progression record](docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md#what-each-tree-means-across-the-roster).
+
+It also answers fortification natively: hard materials resist Sinkhole by taking
+longer to open. [OPEN] Whether **Structural Integrity** and Waxer's **Sealed**
+blocks feed the same hardness calculation, resist outright, or are excluded.
+
+### Gaps: the budget is blocks, not volume
+
+A targeted area may contain gaps, and Sinkhole still breaks the solid blocks
+below and around them. A one-block-thin floor covering a large cavern can
+therefore be opened remotely — it costs little of the block budget, takes the
+same time, and only the destroyed floor receives No-Build.
+
+This makes the cost **blocks affected rather than volume covered**, which turns
+terrain knowledge into power: knowing where a thin crust hides a void is exactly
+what **Sifth Sense** reports. The ultimate rewards the passive's information.
+
+[OPEN] Maximum block budget, the delay and open durations, targeting geometry,
+how the highlight is drawn, restoring into occupied space — being caught inside
+as it closes is the intended threat and needs a rule — chunk-unload and restart
+persistence of the snapshot, and liquid behaviour at the boundary when a hole is
+opened under water or lava.
 
 The Ultimate has no upgrade branch.
 
