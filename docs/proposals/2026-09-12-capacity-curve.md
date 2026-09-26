@@ -1,6 +1,18 @@
 # Proposal — capacity progression curve rework
 
-Status: **NEW WORKING MODEL / NOT CANON.** Date: 2026-09-12.
+Status: **SUPERSEDED, 26 September 2026 — never adopted.**
+Date: 2026-09-12.
+
+> The universal capacity and capacity-specialization architecture this proposal
+> reworks has itself been replaced by the **Growth and Task** model in
+> [`../design/CLASS_PROGRESSION_GROWTH_AND_TASK.md`](../design/CLASS_PROGRESSION_GROWTH_AND_TASK.md).
+> Capacity is now class-authored and automatic rather than universal and chosen,
+> so a universal curve has nothing left to describe. Retained for traceability.
+>
+> One decision here survives the supersession as a standing constraint on any
+> Hunger curve: **Hunger values must be integral**, because the project's Hunger
+> unit is the food point, a food point is already half a drumstick, and vanilla
+> cannot draw a quarter drumstick. Mole's +2 per Growth satisfies it.
 
 The source handoff states outright: *"DO NOT MODIFY REPOSITORY DOCUMENTATION AS
 IF THESE NUMBERS ARE FINAL UNTIL THE CURVE IS REVIEWED."* This file therefore

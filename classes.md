@@ -571,6 +571,21 @@ Not every class must use exactly the same upgrade structure.
 
 ## Current universal progression skeleton
 
+> **[SUPERSEDED — 26 September 2026.]** The Lv1–30 skeleton below, its universal
+> capacity growth, and its player-chosen capacity specialization at Levels 3, 18
+> and 24 are replaced by the **Growth and Task** model in
+> [docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md](docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md).
+>
+> What changed: the clock now runs **Lv0–30** with the Passive at Lv0; capacity
+> is no longer universal or chosen but **class-authored and automatic (Growth)**
+> at Levels 3/6/9/12/15/18/21/24/27/30; player choice moves to **Task** at
+> Levels 4/8/12/16/20/24/28, seven allocations across Yield, Efficiency and
+> Slaying; and Health is expressed on a ×10 player-facing scale. The ability
+> schedule is unchanged in substance — Passive, A1, A2, A1 branch at 5, A2 branch
+> at 10, Ultimate at 15.
+>
+> Retained below for traceability. Do not implement from this section.
+
 The current working match progression spans Levels 1–30.
 
 The level curve intentionally contains distinct breakpoints rather than treating every level as an equivalent incremental increase. Some rewards establish class abilities, some accelerate ordinary Minecraft activity, some expand fundamental player capacity, and others open or deepen persistent world specialization.
@@ -603,7 +618,7 @@ Current working breakpoint structure:
 
 Levels not listed here may still provide universal capacity growth according to the universal growth rules.
 
-[PROPOSED — NOT CANON, 12 September 2026] A capacity curve rework is under review: distinct growth cadences per capacity, Lv1 Health 8, universal Health and Hunger endpoints of 18 with specialization reaching 20, and a third specialization that unlocks a qualitative Mastery instead of a higher number. It is recorded in full in [docs/proposals/2026-09-12-capacity-curve.md](docs/proposals/2026-09-12-capacity-curve.md) and deliberately changes nothing below until reviewed. Everything in this section remains canon.
+[HISTORICAL] The 12 September capacity curve proposal ([docs/proposals/2026-09-12-capacity-curve.md](docs/proposals/2026-09-12-capacity-curve.md)) was never adopted and is now moot: it reworked universal capacity and specialization, both of which the Growth model removes. Its one settled decision — that Hunger cadence must produce integral values, because a half food point is a quarter drumstick vanilla cannot draw — survives as a constraint on any Hunger curve, and Mole's +2 per Growth satisfies it.
 
 Universal capacity progression currently begins at:
 
@@ -767,12 +782,14 @@ Many breakpoint rewards instead increase player throughput **within** the curren
 The current working progression rhythm is:
 
 - Levels 1–6 use the Bootstrap requirement band.
-- Efficiency I at Level 4 begins accelerating productive activity within that band.
-- Infrastructure specialization / recognition at Level 6 provides access to a new economic tool immediately before the first major XP-requirement transition.
+- The first Task allocation at Level 4 begins accelerating productive activity within that band.
+- Growth II at Level 6 arrives immediately before the first major XP-requirement transition. For classes whose curve grants infrastructure early, that is also where a new economic tool appears; for classes like Mole it is personal endurance instead.
 - The Level 6 → 7 requirement is the current candidate entry into the Established band.
-- Yield I at Level 7 further accelerates productive activity after that transition.
-- Level 9 task specialization provides another within-band progression increase.
-- Level 12 infrastructure role expression helps mature the first infrastructure economy before the next requirement band.
+- Task II at Level 8 further accelerates productive activity after that transition.
+- Growth III at Level 9 provides another within-band progression increase.
+- Level 12 collides Growth IV with Task III, maturing the player's economy before the next requirement band.
+
+[VERIFIED 26 September 2026] The band indices and boundaries above are the current repository implementation, confirmed against the progression handoff's independently recalled values (1.000 / 1.350 / 1.875 / 2.575 / 3.250 across 6→7, 12→13, 19→20, 24→25). The handoff's note that this "still needs repo confirmation" is answered: these are it. The obsolete linear 80–900 XP table is not to be restored.
 - The Level 12 → 13 requirement is the current candidate entry into the Developed band.
 - Level 14 task advancement further increases productive capability within that band.
 - Levels 16–17 mark the approximate completion of the universal physical-capacity transition: inventory reaches its 36-slot universal floor at Level 16, while Health and Hunger reach their vanilla universal floors at Level 17.
@@ -871,6 +888,14 @@ The current XP bands and requirement indices are a framework for that later bott
 ---
 
 # 4. Mole
+
+**Growth curve authored 26 September 2026.** Mole is the roster's introductory
+calibration class and now has a full Lv0–30 curve — Health 100→320 on the ×10
+scale (+22 every Growth), Hunger 10→20 maturing by Lv15, Inventory 6→24,
+Exhaustion Efficiency at Lv6/12/21/27, and Route access beginning at Lv18. See
+[docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md](docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md#9-mole--the-first-authored-curve).
+That record also lists Mole's archetypes as **Excavation / Combat**, which is a
+[CONFLICT] with the Extraction primary recorded below.
 
 ## Status
 
@@ -1122,6 +1147,10 @@ Accumulate Plant Material. At threshold, Plant Material is automatically consume
 ---
 
 ## Ability 1 — Clip
+
+[CONFLICT] The 26 September progression handoff names these branches **Maturity /
+Proliferation / Diversity**; the kit below names them **Specimen / Proliferation /
+Collection**. Only the middle branch agrees. Recorded rather than resolved.
 
 Clip a living plant without destroying or resetting it to generate Plant Material.
 
@@ -1543,6 +1572,10 @@ They do **not** establish a universal:
 ---
 
 ### Ability 1 — Offhander
+
+[CONFLICT] The 26 September progression handoff excludes crossbows as normal
+equipment, which the **Crossbow** branch below depends on. The handoff flags this
+itself: the branch "needs revision". Recorded rather than resolved.
 
 Right-click to equip a bow in Kitfighter's offhand.
 
