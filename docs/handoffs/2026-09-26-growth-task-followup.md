@@ -59,3 +59,16 @@ no test covers the Bukkit menu path, so the gap between "persisted" and
 "in effect" was invisible to the 320-test run. The manual walkthrough is still
 worth doing, to confirm the bossbar, the menu and the HUD's Eff/Yld/Dmg line all
 move at Lv4.
+
+## Next: in-world selection replaces the reward menu
+
+[`docs/design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md`](../design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md)
+supersedes the chest menu for spending a Task allocation or ability branch.
+Item 5's manual walkthrough is still worth doing against the current menu — the
+projection fix needs confirming either way — but the menu is not the end state.
+
+Two consequences for `Recall`, decided at the same time and **not implemented**:
+add a not-in-combat condition, and remove `moveTolerance` in favour of an
+unchanged block position. Both are blocked on a combat-state primitive that does
+not exist anywhere in the plugin yet, and which Health Mastery will also need.
+Define it once.
