@@ -763,7 +763,7 @@ Current working structure:
 
 | XP band | Levels | Working requirement index | Economic state |
 | --- | ---: | ---: | --- |
-| I — Bootstrap | 1–6 | ~1.000× | constrained player; base Minecraft XP economy |
+| I — Bootstrap | 0–6 | ~1.000× | constrained player; base Minecraft XP economy |
 | II — Established | 7–12 | ~1.350× | first infrastructure economy; Yield I; early task specialization |
 | III — Developed | 13–19 | ~1.875× | mature T1 / emerging T2 infrastructure; repeated task advancement; universal capacity approaches vanilla completeness |
 | IV — Advanced | 20–24 | ~2.575× | increasingly mature T2 infrastructure and advanced class-authored progression |
@@ -781,7 +781,7 @@ Many breakpoint rewards instead increase player throughput **within** the curren
 
 The current working progression rhythm is:
 
-- Levels 1–6 use the Bootstrap requirement band.
+- Levels 0–6 use the Bootstrap requirement band. Lv0 is the enrolled starting state, holding the Passive alone; Active 1 is earned at Lv1.
 - The first Task allocation at Level 4 begins accelerating productive activity within that band.
 - Growth II at Level 6 arrives immediately before the first major XP-requirement transition. For classes whose curve grants infrastructure early, that is also where a new economic tool appears; for classes like Mole it is personal endurance instead.
 - The Level 6 → 7 requirement is the current candidate entry into the Established band.

@@ -18,6 +18,8 @@ public final class AbilityInputs implements Listener {
     private final Map<String, Ability> abilities;
     private final Map<String, Map<Input, Ability>> kits = new HashMap<>();
     private final Map<String, ClassDefinition> classes = new HashMap<>();
+    /** The class definition for an id, or null when the class is unknown. */
+    public ClassDefinition definition(String id) { return id == null ? null : classes.get(id); }
 
     /** Every class id the draft can offer, in a stable order. */
     public java.util.List<String> ids() {
