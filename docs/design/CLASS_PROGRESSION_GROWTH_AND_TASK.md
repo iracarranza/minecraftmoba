@@ -663,6 +663,38 @@ Three Logistics axes with deliberately different budget costs:
 - **Reach** lengthens the single artery rather than adding branches, so the
   strategic question stays *which two places are worth connecting*.
 
+**Note what is absent: crew movement speed.** Capacity and Reach are Skeleton
+Crew's authored axes precisely because speed is not one.
+
+Item Rate emerges from how quickly the carrier completes the trip, so crew speed
+divides trip time and multiplies Item Rate — and that product then multiplies
+against Capacity for throughput. It is the axis with the most leverage and the
+least granularity, and Minecraft compounds the problem: mob movement speed has a
+narrow usable band before pathfinding degrades, with mobs overshooting corners
+and failing to navigate. Authored crew speed is therefore **either
+inconsequential or broken, with very little between**.
+
+Worse for this class specifically, **crew are dual-purpose**. The line is its own
+defense, so faster crew are also faster defenders — speed would compound across
+the economy and the military presence at once, which is the same reason
+Throughput is expensive and rare.
+
+Speed still reaches the crew, but as an **earned environmental consequence**
+rather than an authored stat: a shovel-built path, better terrain, a shortcut.
+That is the infrastructure model working as intended, and it has a tuning
+surface the attribute does not — the player must build the thing.
+
+> **Authored Growth should take the axes with wide, legible tuning ranges.
+> Leave movement speed to the world.**
+
+[OPEN] A future entity-summoning Logistics class could own **flow speed** as its
+axis instead, differentiating it from Skeleton Crew rather than repeating it.
+The condition is that its carriers be **noncombatants**: speed is over-leveraged
+on a dual-purpose workforce and clean on a purely economic one. Such a class
+might also be denied **Pathfinding**, keeping its speed authored rather than
+compounding with terrain investment — which the Task system already expresses,
+since classes vary by *access* to the shared technique vocabulary.
+
 **The line is its own defense.** The workers that move material are the same
 entities that create defensive presence, so raiding the Supply Line means
 fighting the crew, and killing workers genuinely damages logistical performance.

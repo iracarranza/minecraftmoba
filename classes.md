@@ -1062,8 +1062,14 @@ that Efficiency scales abilities. See
 [the progression record](docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md#what-each-tree-means-across-the-roster).
 
 It also answers fortification natively: hard materials resist Sinkhole by taking
-longer to open. [OPEN] Whether **Structural Integrity** and Waxer's **Sealed**
-blocks feed the same hardness calculation, resist outright, or are excluded.
+longer to open. **Structural Integrity and Waxer's Sealed blocks feed the same
+hardness calculation** rather than resisting outright or being excluded — a
+reinforced or sealed wall takes correspondingly longer to open, and a
+sufficiently fortified one becomes impractical to target at all.
+
+That keeps every defensive system on one axis. Construction's intrinsic benefit
+is not bypassed by an ultimate, and Waxer's preservation means what it says,
+without either needing a special case written against Sinkhole.
 
 ### Gaps: the budget is blocks, not volume
 
@@ -1076,11 +1082,16 @@ This makes the cost **blocks affected rather than volume covered**, which turns
 terrain knowledge into power: knowing where a thin crust hides a void is exactly
 what **Sifth Sense** reports. The ultimate rewards the passive's information.
 
+**Being restored into suffocates.** An entity occupying a position when its
+block returns takes suffocation damage; the blocks win. This is the ultimate's
+teeth — the threat is not the opening but the closing, and anyone still standing
+in the hole when time runs out is in a wall. It also means the No-Build volume
+is a place enemies must *leave*, not merely a place they cannot build.
+
 [OPEN] Maximum block budget, the delay and open durations, targeting geometry,
-how the highlight is drawn, restoring into occupied space — being caught inside
-as it closes is the intended threat and needs a rule — chunk-unload and restart
-persistence of the snapshot, and liquid behaviour at the boundary when a hole is
-opened under water or lava.
+how the highlight is drawn, chunk-unload and restart persistence of the
+snapshot, and liquid behaviour at the boundary when a hole is opened under water
+or lava.
 
 The Ultimate has no upgrade branch.
 
