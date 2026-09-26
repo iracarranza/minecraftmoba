@@ -110,12 +110,24 @@ defaulting to non-combat is a silent exploit, and one defaulting to combat is a
 silent lockout that reads as a broken feature. Failing at load is the convention
 here.
 
+**Combat-ness is orthogonal to archetype.** Golem Master is a Construction class
+whose **Assemble** is combat in all three branches — Iron Wall grants Resistance,
+Snow Wall applies Slowness to enemies, Copper Wall grants allies Speed and Haste
+— which is mitigation, crowd control and buffing respectively. The wall is the
+medium; what it does to combatants is the classification. Its **Animate** is not
+combat, for the same reason Skeleton Crew's **Raise** is not: creating a
+combatant is not acting on anyone's capacity to fight, and the created entity
+carries its own combat state (§3.3).
+
 Two cases a single static flag cannot express:
 
 - **A branch can change combat-ness.** Daredevil's **Runway** is pure mobility,
-  but its **Suplex** branch subjects an enemy to the launch. The declaration
-  therefore needs to be overridable per branch, which
-  `abilities.definitions.<id>.branches.<branch>` already supports structurally.
+  but its **Suplex** branch subjects an enemy to the launch. The declaration is
+  therefore made **per branch**, at
+  `abilities.definitions.<id>.branches.<branch>`, which already exists
+  structurally. Assemble is the case where every branch lands combat but for
+  three different reasons — per-branch declaration records why, not only whether,
+  and stops a later branch edit silently inheriting a stale answer.
 - **Some abilities decide at activation.** Skeleton Crew's **Graveyard Shift** is
   context-sensitive by design: against a valid target it Strikes, otherwise it
   Raises a Crew Member. One activation, two outcomes, only one of which is
@@ -239,8 +251,9 @@ them in the same bar must not become a reason to collapse them into one number.
   building, and the terrain is only its medium. The next case the rule has to
   answer is Golem Master's **Assemble**: a wall is Construction methodology, but
   the **Snow Wall** branch explicitly slows and displaces enemies, and any wall
-  raised mid-fight is mitigation. Likely combat, probably per branch, not yet
-  decided.
+  raised mid-fight is mitigation. **Settled: combat, declared per branch**, all
+  three branches landing combat by mitigation, crowd control and buffing
+  respectively.
 - **The seam by which a context-sensitive ability reports what it did.**
 - **Whether damage dealt to a passive animal counts.** Punching a cow for Looting
   is technically an attack, and under this definition it is combat for 7 seconds
