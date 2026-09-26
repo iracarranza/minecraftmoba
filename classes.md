@@ -894,8 +894,8 @@ calibration class and now has a full Lv0–30 curve — Health 100→320 on the 
 scale (+22 every Growth), Hunger 10→20 maturing by Lv15, Inventory 6→24,
 Exhaustion Efficiency at Lv6/12/21/27, and Route access beginning at Lv18. See
 [docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md](docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md#9-mole--the-first-authored-curve).
-That record also lists Mole's archetypes as **Excavation / Combat**, which is a
-[CONFLICT] with the Extraction primary recorded below.
+[RESOLVED 26 September 2026] The handoff's "Excavation / Combat" is loose usage;
+the archetype is **Extraction**, as recorded below.
 
 ## Status
 
@@ -1148,9 +1148,9 @@ Accumulate Plant Material. At threshold, Plant Material is automatically consume
 
 ## Ability 1 — Clip
 
-[CONFLICT] The 26 September progression handoff names these branches **Maturity /
-Proliferation / Diversity**; the kit below names them **Specimen / Proliferation /
-Collection**. Only the middle branch agrees. Recorded rather than resolved.
+[RESOLVED 26 September 2026] The 26 September progression handoff recalled these
+branches as "Maturity / Proliferation / Diversity". The names below stand;
+that recall is inaccurate rather than a rename.
 
 Clip a living plant without destroying or resetting it to generate Plant Material.
 
@@ -1573,9 +1573,11 @@ They do **not** establish a universal:
 
 ### Ability 1 — Offhander
 
-[CONFLICT] The 26 September progression handoff excludes crossbows as normal
-equipment, which the **Crossbow** branch below depends on. The handoff flags this
-itself: the branch "needs revision". Recorded rather than resolved.
+[RESOLVED 26 September 2026] Crossbows are excluded as *normal* equipment, and
+the **Crossbow** branch below stands regardless. Kitfighter exists to defy the
+equipment possibilities available to everyone else, so the exclusion is what
+gives the branch its value. Equipment exclusions are baseline rules that class
+kits are licensed to break — the same principle already stated for the offhand.
 
 Right-click to equip a bow in Kitfighter's offhand.
 

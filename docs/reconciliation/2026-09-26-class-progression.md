@@ -55,7 +55,27 @@ obsolete linear 80–900 table stays dead.
 The handoff's recollection of "a ~385 early-ish XP value" has no source in the
 repository and was not reconstructed.
 
-## Recorded as [CONFLICT], not resolved
+## Resolved by the owner, same day
+
+1. **Mole is Extraction.** "Excavation" is loose usage for the activity; no
+   archetype of that name exists. Prior accepted naming stands.
+2. **Infrastructure has no universal level.** A class unlocks access when its own
+   Growth curve grants it. Level 6 is not a floor, gate or default — it is where
+   some curves happen to spend budget. `infrastructure.md`'s breakpoint is marked
+   superseded; Infrastructure Mode, per-class eligibility and the four
+   recognitions are unaffected.
+3. **Gardener's Clip branches are Specimen / Proliferation / Collection.** The
+   handoff's "Maturity / Diversity" is inaccurate recall of the same branches.
+4. **Kitfighter's Crossbow branch stands.** Equipment exclusions are baseline
+   rules that class kits are licensed to break — the exclusion is what gives the
+   branch its value, and the same principle is already stated for the offhand.
+5. **Spears are accepted**, with Lunge gated behind heavy Task investment rather
+   than the implement being excluded. Gating a breaking capability behind a
+   commitment threshold keeps the implement's identity and turns an exploit into
+   a build. What a spear *is* in the target version stays open as an
+   implementation question.
+
+## Originally recorded as [CONFLICT]
 
 1. **Mole's archetypes.** The handoff says "Excavation / Combat"; `classes.md`,
    the kit handoffs, and the handoff's *own* archetype-relationship section all

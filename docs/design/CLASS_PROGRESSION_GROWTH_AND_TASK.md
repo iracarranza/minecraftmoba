@@ -110,11 +110,21 @@ Methodology-specific capacity`, with the allocation authored per class. A pure
 combat class could spend almost the entire budget personally; a Production class
 could spend it on the capacities its transformation methodology needs.
 
-[CONFLICT] [`infrastructure.md`](../../infrastructure.md) records Level 6 as the
-universal infrastructure recognition entry. Under this model infrastructure
-timing is class-authored, and Level 6 is at most a common case. The two
-statements are recorded together rather than silently merged; see the
-reconciliation record.
+[RESOLVED 26 September 2026] **Infrastructure access is unlocked by the class's
+own Growth curve, at whatever level that curve grants it.** There is no universal
+infrastructure level. Level 6 is not a floor, a gate, or a default — it is simply
+where some classes' curves happen to spend budget on infrastructure, and where
+others spend it on something else entirely.
+
+What remains shared is the *shape*: infrastructure arrives through Growth, at a
+Growth level, as an authored allocation of that level's budget. Mole reaches
+Establish I at Lv18; Gardener may reach Development Zone Capacity at Lv6. Both
+are Growth events, and neither is early or late in any absolute sense.
+
+This supersedes [`infrastructure.md`](../../infrastructure.md)'s "infrastructure
+progression breakpoint, currently Level 6" as a roster-wide rule. Infrastructure
+Mode's eligibility remains authored per class, which that document already
+requires; what changes is that the *timing* is authored too.
 
 ---
 
@@ -247,9 +257,21 @@ attacks while an eligible shield is stowed and available, still obeying ordinary
 guardability and direction rules. [OPEN] Whether Quick Guard requires the shield
 anywhere in inventory or in a hotbar/ready slot.
 
-Spear Lunge is **disabled at baseline** for exploitability and excessive
-mobility; advanced Task access reintroduces it as an exceptional specialization.
-Multishot must avoid enabling triple point-blank burst.
+**Spears are accepted as normal equipment**, with their game-breaking capability
+gated behind heavy investment rather than removed. Spear **Lunge is disabled at
+baseline** for exploitability and excessive mobility, and advanced Task access
+reintroduces it as an exceptional specialization.
+
+[DECIDED 26 September 2026] This gating pattern is preferred to exclusion.
+Excluding an implement removes its whole identity from the game; gating its
+breaking capability behind a commitment threshold keeps the implement available,
+makes the dangerous version something a player must pay several Task allocations
+for, and turns an exploit into a build. Multishot must likewise avoid enabling
+triple point-blank burst.
+
+[OPEN] What a spear *is* in the target version — a vanilla item or an authored
+one — remains an implementation question. It affects how Lunge is disabled, not
+whether the decision holds.
 
 **Current combat equipment direction:** crossbows excluded as normal equipment;
 mace excluded; spears allowed with baseline Lunge disabled; shields allowed; bows
@@ -371,12 +393,14 @@ intermittently, Exhaustion replaces Hunger as the late endurance lever, and
 Routes arrive only once the basic body is already mature. That simplicity is a
 feature.
 
-Archetypes: **Excavation / Combat**, with limited Route capability.
+Archetypes: **Extraction / Combat**, with limited Route capability.
 
-[CONFLICT] The kit handoffs and `classes.md` record Mole's primary archetype as
-**Extraction**, and this handoff's own archetype-relationship section uses
-Extraction. "Excavation" is reproduced as supplied; whether it is a rename or
-loose usage is the owner's call.
+[RESOLVED 26 September 2026] The handoff wrote "Excavation / Combat". The prior
+accepted naming stands: the archetype is **Extraction**, consistent with
+`classes.md`, the kit handoffs, and this handoff's own
+archetype-relationship section. "Excavation" reads as loose usage for the
+activity rather than a rename of the archetype, and no archetype named
+Excavation exists.
 
 > A physically durable, self-sufficient excavator who is difficult to force out of
 > valuable ground, can turn excavation access into an initiation angle, and can
@@ -512,15 +536,27 @@ infer Mole's late infrastructure timing as a roster-wide rule. Its methodology i
 Plant Material → Cultivar selection → manipulation → broader mastery, with
 Torchflower, Sweet Berry Bush and Giant Bamboo settled as Cultivars.
 
-[CONFLICT] This handoff names the Clip branches **Maturity / Proliferation /
-Diversity**; the recorded kit in `classes.md` names them **Specimen /
-Proliferation / Collection**. Only the middle branch agrees.
+[RESOLVED 26 September 2026] The Clip branches are **Specimen / Proliferation /
+Collection**, per the recorded kit in `classes.md`. The handoff's "Maturity /
+Diversity" is treated as inaccurate recall of the same three branches rather
+than a rename — the concepts match the recorded kit's rewards for individually
+mature plants and for varied species.
 
 **Kitfighter** — Combat primary, Production secondary; Salvage is the core
 Production methodology. Historical Salvage thresholds were 6/5/4/3 stacks at
 Lv0/8/16/24, recovering 2 material; that timing **needs recalibration** against
-this clock. [CONFLICT] The Offhander **Crossbow** branch needs revision because
-crossbows are now excluded as normal equipment.
+this clock.
+
+[RESOLVED 26 September 2026] The Offhander **Crossbow** branch stands. Excluding
+crossbows from *normal* equipment does not exclude Kitfighter from granting one —
+that is the class's entire purpose. Kitfighter exists to defy the equipment
+possibilities available to everyone else, and the exclusion is what gives the
+branch its value: a crossbow is not something a player can simply carry.
+
+This is the same rule the equipment direction already states for the offhand,
+which is "generally unavailable unless a class kit specifically grants it".
+Offhander is precisely such a grant. Read the equipment exclusions as **baseline
+rules that class kits are licensed to break**, not as a materials blacklist.
 
 **Golem Master** — Builder/Combat/Production with strong Construction expression;
 materials → animated entities and fabricated geometry. Copper Golem's combat
