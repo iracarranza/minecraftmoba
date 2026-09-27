@@ -70,10 +70,22 @@ public final class AbilityInputs implements Listener {
             Map<Input, Ability> kit = new EnumMap<>(Input.class);
             for (String slot : List.of("a1","a2","ult")) {
                 String abilityId=classes.getString(id+"."+slot);
+                // An ABSENT slot is a class still being authored: it gets a
+                // partial kit and the unbound input simply does nothing.
+                // A slot naming an ability that does not exist is a typo and
+                // still fails loudly. Collapsing the two would mean a
+                // misspelled ability quietly disabled an input instead of
+                // stopping the server, which is the failure this plugin keeps
+                // finding elsewhere -- a fault reporting itself far from its
+                // cause.
+                if (abilityId == null) continue;
                 Ability ability=abilities.get(abilityId);
                 if (ability == null) throw new IllegalArgumentException("Unknown ability: " + abilityId);
                 kit.put(Input.valueOf(c.getString("abilities.bindings."+slot)), ability);
             }
+            if (kit.size() < 3)
+                plugin.getLogger().info("class '" + id + "' has a partial kit ("
+                        + kit.size() + "/3 slots); unbound inputs do nothing");
             kits.put(id, Map.copyOf(kit));
         }
         plugin.getLogger().info("Registered ability kits: " + kits.keySet());

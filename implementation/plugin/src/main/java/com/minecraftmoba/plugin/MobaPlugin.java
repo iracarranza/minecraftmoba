@@ -236,6 +236,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         lab = new Lab(this);
+        toolboxStatuses = new ToolboxStatuses(this);
+        utilityBelt = new UtilityBelt(this, toolboxStatuses);
+        getServer().getPluginManager().registerEvents(utilityBelt, this);
         // Said at enable, not at first use: the failure it predicts surfaces
         // as an opaque world-restore error in chat, long after the console
         // has scrolled past anything that would explain it.
@@ -347,6 +350,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
 
     private Lab lab;
     public Lab lab() { return lab; }
+    private ToolboxStatuses toolboxStatuses;
+    public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
+    private UtilityBelt utilityBelt;
+    public UtilityBelt utilityBelt() { return utilityBelt; }
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
     /** Team-coloured glow marking objectives and Fountains as one team system. */

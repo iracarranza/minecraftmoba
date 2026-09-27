@@ -702,6 +702,30 @@ capacity:
 # Engine units. The player-facing scale is x100 and belongs to the HUD: Mole's
 # 10 -> 32 HP reads as 1,000 -> 3,200 Health. Simulation stays in native HP.
 capacityProfiles:
+  # Extremely low health growth, normal hunger, extreme inventory growth.
+  # The squishiest class on the roster by design: the machine is the defence,
+  # and a Toolbox that could also take hits would not have to build one.
+  toolbox:
+    # 80 -> 240 engine, +1.6 per Growth. Ends where most classes start
+    # climbing; three netherite hits at maximum level.
+    health: { start: 8, growthUnit: 1.6, cap: 24 }
+    # Normal. Nothing about the class argues for a hunger identity.
+    hunger: { start: 10, growthUnit: 2, cap: 20 }
+    # Reaches 36 at Lv24, not 24 -- the only class that does, and the reason
+    # is structural rather than generous. Inventory capacity is the
+    # DIMENSIONS OF A PROGRAMMABLE BOARD for this class, so a curve that
+    # stops at 24 stops the class, and the breakpoints are the ones the
+    # circuit grammar cares about:
+    #
+    #   Lv3  12  hotbar plus three cells -- the program leaves the magazine
+    #   Lv6  18  two full 9-wide rows, NOT vertically adjacent: no hooks
+    #   Lv9  21  first vertical adjacency, three Tripwire columns
+    #   Lv15 27  row A fully above row B, nine columns
+    #   Lv24 36  the whole board, 27 columns
+    #
+    # 18 being a horizontal milestone only is the point of the middle of
+    # this curve, not a gap in it.
+    slots: { steps: [6, 12, 18, 21, 24, 27, 30, 33, 36, 36, 36], cap: 36 }
   mole:
     # 100 -> 320 engine, +2.2 per Growth. Regular by design: Health is the
     # continuous curve and spikes come from abilities, branches, Task
@@ -785,6 +809,20 @@ abilities:
   logExecutions: true
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:
+    # Toolbox. Construction archetype: the inventory IS the program.
+    #
+    # PARTIAL KIT, deliberately. Only the Utility Belt passive is built;
+    # A1 (Reconfiguratron!), A2 and the Ultimate are designed in
+    # docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md and not yet implemented, so
+    # their slots are absent rather than pointed at a placeholder. An
+    # unbound input does nothing, which is honest; a placeholder would be a
+    # lie that looked like a feature.
+    toolbox:
+      displayName: "Toolbox"
+      passiveHook: "utility_belt"
+      # Extremely low health growth, normal hunger, extreme inventory
+      # growth -- reaching 36 slots by Lv24 rather than the usual 24.
+      statGrowthProfile: "toolbox"
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted:
       displayName: Lightfooted
@@ -863,6 +901,38 @@ abilities:
       a2: sinkhole_lite
       ult: channel_ult
   definitions:
+    # Toolbox's passive. Incoming damage -- from anything, including mobs,
+    # fall and fire -- runs the inventory circuit, because the belt is a
+    # machine reacting to being hit rather than a combat state.
+    utility_belt:
+      displayName: "Utility Belt"
+      # Unused: the belt is a passive and never reaches the ability clock
+      # through an input. Present because Ability requires it, and zero so a
+      # stray manual invocation would not be silently throttled by a second,
+      # invisible cooldown beside cooldownByLevel.
+      cooldownTicks: 0
+      combat: false
+      # ABILITY clock, [WORKING]: 16 / 14 / 12 / 10 / 6 seconds.
+      # The fourth step is at 20 rather than 15 because Lv15 already grants
+      # the Ultimate, and budgets need not be equal at every event.
+      cooldownByLevel:
+        level0: 320
+        level5: 280
+        level10: 240
+        level20: 200
+        level25: 120
+      # How far an Observer looks along Toolbox's live facing, FROM THE
+      # CURRENT ORIGIN -- which is what permits relay.
+      observeRange: 24.0
+      pistonPower: 1.2
+      pistonRadius: 3.0
+      # What Illuminated is worth: a marginal knockback source made
+      # sufficient to put someone into a small receiving hole.
+      illuminatedKnockback: 2.5
+      hopperRadius: 6.0
+      # [OPEN] Dust's mitigation. Resistance is a stand-in for a number the
+      # design has not chosen.
+      dischargeTicks: 40
     lunge:
       displayName: Lunge
       cooldownTicks: 10

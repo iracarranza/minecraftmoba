@@ -29,21 +29,35 @@ class TargetabilityTest {
     }
 
     /**
-     * Livestock are excluded for an economic reason, not a thematic one.
+     * Livestock classify as livestock, and are STILL targets.
      *
-     * Animals are this project's renewable resource. If an Observer could lock
-     * a cow, the best way to hold a circuit's target would be to stand in a
-     * pen, and "first enemy struck" would fire on a breeding accident.
+     * An earlier draft excluded them on an economic argument. The decisive
+     * objection was about statuses: if another class ever deals bonus damage
+     * to stunned enemies, a population that cannot be Stunned is a silent
+     * exception in THAT class's kit, visible nowhere near either design.
+     * Category therefore describes and never permits.
      */
-    @Test void passiveLivestockAreNotTargets() {
+    @Test void livestockAreClassifiedButNotExcluded() {
         assertEquals(LIVESTOCK, Targetability.category(mock(Cow.class)));
         assertEquals(LIVESTOCK, Targetability.category(mock(Chicken.class)));
         assertEquals(LIVESTOCK, Targetability.category(mock(Sheep.class)));
     }
 
-    /** Tameable fighters are still somebody's property, so the farming argument holds. */
-    @Test void wolvesAreLivestockDespiteFighting() {
+    @Test void tameableFightersClassifyAsLivestockToo() {
         assertEquals(LIVESTOCK, Targetability.category(mock(Wolf.class)));
+    }
+
+    /**
+     * The point of keeping Category at all: it describes, it does not gate.
+     *
+     * An ability that genuinely wants to skip animals says so at its own call
+     * site, where the exception is visible to whoever reads that ability --
+     * rather than having one baked into the shared predicate, where no other
+     * class would ever find it.
+     */
+    @Test void categoryDescribesRatherThanPermits() {
+        for (var category : Targetability.Category.values())
+            assertNotNull(category.name(), "every category is a full target; none is a veto");
     }
 
     /**

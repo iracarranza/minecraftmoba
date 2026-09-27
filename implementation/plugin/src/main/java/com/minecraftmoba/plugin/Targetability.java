@@ -80,17 +80,23 @@ public final class Targetability {
      */
     public static boolean status(Entity target, Player source) {
         if (!impulse(target, source)) return false;
-        if (!(target instanceof LivingEntity living)) return false;
-        return category(living) != Category.LIVESTOCK;
+        return target instanceof LivingEntity;
     }
 
-    /** What a living entity is, for the one distinction that carries weight. */
+    /**
+     * What a living entity is -- descriptive only.
+     *
+     * Nothing here gates targetability. It exists so an ability that genuinely
+     * wants to distinguish populations can say so AT ITS OWN CALL SITE, where
+     * the exception is visible, rather than having one baked into the shared
+     * predicate where no other class would ever see it.
+     */
     public enum Category {
         /** An enemy player. Always a full target. */
         ENEMY,
         /** Hostile or neutral. A full target: procs, acquires, roots. */
         MOB,
-        /** Passive livestock. The economy, never the opposition. */
+        /** Passive breedable livestock. Still a full target; see the class note. */
         LIVESTOCK
     }
 
