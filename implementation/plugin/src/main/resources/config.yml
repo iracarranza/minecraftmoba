@@ -121,6 +121,28 @@ features:
     # pack rebuild and republish; it is not a live toggle. Do not set this
     # before confirming the bars above actually render.
     hideNativeRows: false
+    # Reference ticks, in DISPLAYED health. A proportional bar shows a fraction
+    # and a fraction alone erases magnitude -- 1,000/1,000 and 3,200/3,200 are
+    # the same full bar -- which gives back exactly what the x100 scale was
+    # adopted to buy. Ticks restore it: a bigger character carries visibly more
+    # of them, and one tick is a yardstick, so a hit that eats two took 200.
+    #
+    # The bar stays fixed width and the ticks compress as max health grows.
+    # Growing the bar instead would hand a low-Capacity player a shorter one,
+    # which is the defect VitalsScaling exists to remove.
+    #
+    # At 100, Mole's Lv30 3,200 is 32 ticks across 128 units: one every 4px.
+    # Below MIN_TICK_SPACING the bar draws no ticks at all rather than a solid
+    # band of marks pretending to be a scale.
+    tickInterval: 100
+    # DisplayedHealth = EngineHealth x displayScale. Presentation only; all
+    # simulation, config and balance stay in engine units. See
+    # docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md section 4.
+    displayScale: 100
+    # The exact total, beside the bar. Ticks give magnitude and a yardstick;
+    # NOTHING reads an exact number off a bar, and this is the readout x100 was
+    # decided for.
+    showNumerals: true
     # Applied by the plugin, because the pack draws these glyphs WHITE and
     # assigns identity rather than palette. This is the palette decision, put
     # where it can be argued with.

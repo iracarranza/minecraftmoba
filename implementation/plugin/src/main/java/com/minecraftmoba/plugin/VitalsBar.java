@@ -60,6 +60,8 @@ public final class VitalsBar {
     public static final String UNIT_ON   = String.valueOf((char) (BASE + 1));
     public static final String UNIT_OFF  = String.valueOf((char) (BASE + 2));
     public static final String CAP_RIGHT = String.valueOf((char) (BASE + 3));
+    public static final String TICK_ON   = String.valueOf((char) (BASE + 4));
+    public static final String TICK_OFF  = String.valueOf((char) (BASE + 5));
 
     /**
      * The negative-space character advancing -1 pixel.
@@ -68,8 +70,15 @@ public final class VitalsBar {
      */
     public static final String BACK_ONE = String.valueOf((char) 0xF001);
 
-    /** Must match registry.json `bars.fill_width`. One unit per pixel. */
-    public static final int FILL_WIDTH = 64;
+    /**
+     * Must match registry.json `bars.fill_width`. One unit per pixel.
+     *
+     * 128 rather than 64 because of the tick interval, not because of the
+     * fill: at 100 displayed health per tick, Mole's Lv30 3,200 is 32 ticks,
+     * and across 64 units that is a tick every two pixels -- each one touching
+     * its neighbour. 128 gives four, which is enough to read one.
+     */
+    public static final int FILL_WIDTH = 128;
     /** Levels are 0 (empty) through FILL_WIDTH (full), inclusive. */
     public static final int LEVELS = FILL_WIDTH + 1;
 
@@ -111,11 +120,87 @@ public final class VitalsBar {
         return level(current / maximum);
     }
 
+    /**
+     * Which unit indices carry a reference tick.
+     *
+     * <h3>Why the bar needs these at all</h3>
+     *
+     * A proportional bar shows a FRACTION, and a fraction alone erases
+     * magnitude: 1,000/1,000 and 3,200/3,200 are the same full bar. That is a
+     * direct loss for this project, which adopted a x100 player-facing scale
+     * specifically so damage would be legible -- a bar that cannot distinguish
+     * a 1,000-health character from a 3,200-health one gives that back.
+     *
+     * Ticks restore it. They sit at a fixed interval of DISPLAYED health, so a
+     * bigger character carries visibly more of them, and one tick is a
+     * yardstick: a hit that eats two ticks took 200.
+     *
+     * <h3>Fixed width, denser ticks</h3>
+     *
+     * The bar stays the same length and the ticks compress as maximum health
+     * grows, rather than the bar growing and the ticks staying put. Growing
+     * the bar would hand a low-Capacity player a visibly shorter one, which is
+     * the exact defect VitalsScaling was written to remove.
+     *
+     * Nobody counts thirty-two ticks; density is read, not counted. Reading an
+     * exact total is what the numeral beside the bar is for.
+     *
+     * <h3>Rounding</h3>
+     *
+     * Tick n sits at {@code round(n * FILL_WIDTH / tickCount)}, so ticks stay
+     * evenly spread when the spacing is not a whole number of pixels -- 1,000
+     * health is ten ticks across 128 units, which is 12.8. Truncating instead
+     * would bunch the error at one end and leave a visibly wider last gap.
+     *
+     * Returns an empty set when the ticks would be too dense to read, rather
+     * than drawing a solid bar of marks and calling it a scale.
+     */
+    public static java.util.Set<Integer> tickUnits(double maxDisplayed, int interval) {
+        var ticks = new java.util.HashSet<Integer>();
+        if (interval <= 0 || maxDisplayed <= 0) return ticks;
+        int count = (int) Math.floor(maxDisplayed / interval);
+        if (count <= 1) return ticks;
+        // Two pixels per tick is a mark touching its neighbour; below that the
+        // row stops being a scale and becomes texture.
+        if (count > FILL_WIDTH / MIN_TICK_SPACING) return ticks;
+        for (int n = 1; n < count; n++)
+            ticks.add((int) Math.round((double) n * FILL_WIDTH / count));
+        return ticks;
+    }
+
+    /** Fewest pixels between ticks that still reads as two marks rather than one band. */
+    public static final int MIN_TICK_SPACING = 3;
+
     /** The lit run: {@code level} units, each advancing exactly one pixel. */
     public static String filled(int level) { return run(UNIT_ON, check(level)); }
 
     /** The unlit run, which is whatever is left of the bar's fixed width. */
     public static String unfilled(int level) { return run(UNIT_OFF, FILL_WIDTH - check(level)); }
+
+    /** The lit run with reference ticks marked. */
+    public static String filled(int level, java.util.Set<Integer> ticks) {
+        return run(0, check(level), UNIT_ON, TICK_ON, ticks);
+    }
+
+    /** The unlit run with reference ticks marked, continuing the same index space. */
+    public static String unfilled(int level, java.util.Set<Integer> ticks) {
+        return run(check(level), FILL_WIDTH, UNIT_OFF, TICK_OFF, ticks);
+    }
+
+    /**
+     * Emit units {@code from} (inclusive) to {@code to} (exclusive).
+     *
+     * The index is the unit's position along the WHOLE bar, not within the
+     * run, so a tick lands at the same pixel whether it falls in the lit part
+     * or the unlit part. Indexing per run would make ticks jump as the player
+     * took damage.
+     */
+    private static String run(int from, int to, String plain, String tick, java.util.Set<Integer> ticks) {
+        var out = new StringBuilder((to - from) * 2);
+        for (int i = from; i < to; i++)
+            out.append(ticks.contains(i) ? tick : plain).append(BACK_ONE);
+        return out.toString();
+    }
 
     private static int check(int level) {
         if (level < 0 || level >= LEVELS)

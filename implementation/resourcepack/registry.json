@@ -112,7 +112,7 @@
   "advance": "Each unit is one lit pixel wide, so Minecraft advances it by two -- the glyph's bounding box plus the standard one pixel of spacing. Each emission is therefore followed by U+F001 from the negative-space font, which advances -1, for a net advance of exactly one pixel per unit. If that assumption is ever wrong the bar collapses to a sliver rather than drifting subtly, which is the failure mode to want.",
   "codepoints_are_explicit": "These declare their own base instead of taking the next sequential index. The sequential glyphs above are assigned by iteration order while the plugin hard-codes the resulting characters, so inserting a glyph shifts every later one silently.",
   "colour": "Drawn WHITE and uncoloured, per this pack's rule that it assigns identity and never palette. The plugin tints the lit and unlit runs separately at render time, which is what makes an unfilled unit read as unfilled.",
-  "fill_width": 64,
+  "fill_width": 128,
   "height": 16,
   "ascent": 12,
   "base": "U+E100",
@@ -120,7 +120,11 @@
    "vitals_cap_left",
    "vitals_unit_on",
    "vitals_unit_off",
-   "vitals_cap_right"
-  ]
+   "vitals_cap_right",
+   "vitals_tick_on",
+   "vitals_tick_off"
+  ],
+  "ticks": "Reference marks at a fixed interval of DISPLAYED health, so the bar carries absolute magnitude and not only a fraction. Without them 1,000/1,000 and 3,200/3,200 are the same full bar, which erases the x100 scale the project adopted specifically to make damage legible. The bar stays fixed width and the ticks get denser as max health grows, which is the arrangement that keeps a low-Capacity player from being given a visibly shorter bar.",
+  "why_128": "At 100 displayed health per tick, Mole's Lv30 3,200 is 32 ticks. Across 64 units that is one tick every 2px, which is a tick touching its neighbour. 128 gives 4px and room to read one."
  }
 }

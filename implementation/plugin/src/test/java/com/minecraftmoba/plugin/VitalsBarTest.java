@@ -29,9 +29,9 @@ class VitalsBarTest {
     }
 
     @Test void theFillIsProportional() {
-        assertEquals(32, VitalsBar.level(0.5));
-        assertEquals(16, VitalsBar.level(0.25));
-        assertEquals(48, VitalsBar.level(0.75));
+        assertEquals(VitalsBar.FILL_WIDTH / 2, VitalsBar.level(0.5));
+        assertEquals(VitalsBar.FILL_WIDTH / 4, VitalsBar.level(0.25));
+        assertEquals(VitalsBar.FILL_WIDTH * 3 / 4, VitalsBar.level(0.75));
     }
 
     /**
@@ -41,9 +41,9 @@ class VitalsBarTest {
      * distinguishable state, so the fill is as smooth as the bar is wide.
      */
     @Test void granularityIsOnePixel() {
-        assertEquals(65, VitalsBar.LEVELS);
+        assertEquals(VitalsBar.FILL_WIDTH + 1, VitalsBar.LEVELS);
         assertNotEquals(VitalsBar.level(0.50), VitalsBar.level(0.51));
-        assertNotEquals(VitalsBar.level(0.20), VitalsBar.level(0.22));
+        assertNotEquals(VitalsBar.level(0.20), VitalsBar.level(0.21));
     }
 
     /**
@@ -142,16 +142,89 @@ class VitalsBarTest {
         return n;
     }
 
+
+    // ---- reference ticks ---------------------------------------------------
+
+    /**
+     * The defect ticks exist to repair.
+     *
+     * A proportional bar shows a fraction, and a fraction alone cannot tell a
+     * 1,000-health character from a 3,200-health one -- both are a full bar.
+     * That gives back exactly what the x100 player-facing scale was adopted to
+     * buy, so the bar has to carry magnitude somehow.
+     */
+    @Test void aBiggerCharacterCarriesMoreTicks() {
+        int small = VitalsBar.tickUnits(1000, 100).size();
+        int large = VitalsBar.tickUnits(3200, 100).size();
+        assertEquals(9, small, "1,000 health is ten intervals, so nine interior marks");
+        assertEquals(31, large, "3,200 health is thirty-two intervals");
+        assertTrue(large > small, "magnitude has to be visible or x100 is given back");
+    }
+
+    /** Fixed width, denser ticks -- never a shorter bar for a smaller character. */
+    @Test void theBarWidthNeverDependsOnMaximumHealth() {
+        for (double max : new double[]{1000, 2000, 2750, 3200}) {
+            var ticks = VitalsBar.tickUnits(max, 100);
+            int lit = units(VitalsBar.filled(40, ticks), VitalsBar.UNIT_ON)
+                    + units(VitalsBar.filled(40, ticks), VitalsBar.TICK_ON);
+            int unlit = units(VitalsBar.unfilled(40, ticks), VitalsBar.UNIT_OFF)
+                      + units(VitalsBar.unfilled(40, ticks), VitalsBar.TICK_OFF);
+            assertEquals(VitalsBar.FILL_WIDTH, lit + unlit, "width at max " + max);
+        }
+    }
+
+    /**
+     * Ticks are indexed along the whole bar, so they do not move as the fill does.
+     *
+     * Indexing per run would slide every tick each time the player took damage,
+     * which is the opposite of a reference mark.
+     */
+    @Test void ticksStayPutAsTheFillMoves() {
+        var ticks = VitalsBar.tickUnits(3200, 100);
+        int atFull = units(VitalsBar.filled(VitalsBar.FILL_WIDTH, ticks), VitalsBar.TICK_ON);
+        int atHalfLit = units(VitalsBar.filled(VitalsBar.FILL_WIDTH / 2, ticks), VitalsBar.TICK_ON);
+        int atHalfUnlit = units(VitalsBar.unfilled(VitalsBar.FILL_WIDTH / 2, ticks), VitalsBar.TICK_OFF);
+        assertEquals(ticks.size(), atFull);
+        assertEquals(ticks.size(), atHalfLit + atHalfUnlit,
+                "every tick appears exactly once, on whichever side of the fill edge it falls");
+    }
+
+    /** Evenly spread when the spacing is not a whole number: 1,000 is 12.8 units apart. */
+    @Test void ticksAreEvenlySpreadWhenSpacingIsFractional() {
+        var ticks = new java.util.TreeSet<>(VitalsBar.tickUnits(1000, 100));
+        assertEquals(9, ticks.size());
+        int previous = 0;
+        for (int tick : ticks) {
+            int gap = tick - previous;
+            assertTrue(gap >= 12 && gap <= 13, "gap " + gap + " should be 12 or 13, not bunched");
+            previous = tick;
+        }
+    }
+
+    /** Too dense to read is drawn as no scale, rather than as a solid band of marks. */
+    @Test void anUnreadableScaleIsNotDrawn() {
+        assertTrue(VitalsBar.tickUnits(3200, 10).isEmpty(), "320 ticks across 128 units");
+        assertFalse(VitalsBar.tickUnits(3200, 100).isEmpty(), "32 ticks is 4px apart and fine");
+    }
+
+    @Test void degenerateTickInputsGiveNoTicks() {
+        assertTrue(VitalsBar.tickUnits(3200, 0).isEmpty());
+        assertTrue(VitalsBar.tickUnits(3200, -100).isEmpty());
+        assertTrue(VitalsBar.tickUnits(0, 100).isEmpty());
+        assertTrue(VitalsBar.tickUnits(50, 100).isEmpty(), "below one interval there is nothing to mark");
+    }
+
     // ---- the contract with the pack ---------------------------------------
 
     @Test void theRegistryAndThePluginAgreeOnCodepoints() throws Exception {
         String registry = Files.readString(Path.of("../resourcepack/registry.json"));
-        assertTrue(registry.contains("\"fill_width\": 64"),
-                "VitalsBar.FILL_WIDTH is 64; the pack must generate that many levels");
+        assertTrue(registry.contains("\"fill_width\": " + VitalsBar.FILL_WIDTH),
+                "registry.json and VitalsBar.FILL_WIDTH must state the same bar width");
         assertTrue(registry.contains(String.format("U+%04X", VitalsBar.BASE)),
                 "registry.json must declare the base the plugin computes its units from");
-        assertTrue(registry.contains("vitals_unit_on") && registry.contains("vitals_unit_off"),
-                "the pack must generate the two units the plugin repeats");
+        for (String unit : new String[]{"vitals_unit_on", "vitals_unit_off",
+                                        "vitals_tick_on", "vitals_tick_off"})
+            assertTrue(registry.contains(unit), "the pack must generate " + unit);
     }
 
     /**
@@ -186,5 +259,10 @@ class VitalsBarTest {
         assertTrue(cfg.getLong("features.vitalsBar.refreshTicks") > 0);
         assertNotNull(cfg.getString("features.vitalsBar.colours.health"));
         assertNotNull(cfg.getString("features.vitalsBar.colours.hunger"));
+        assertEquals(100, cfg.getInt("features.vitalsBar.displayScale"),
+                "x100 is the decided player-facing scale");
+        assertTrue(cfg.getInt("features.vitalsBar.tickInterval") > 0);
+        assertTrue(cfg.getBoolean("features.vitalsBar.showNumerals"),
+                "nothing reads an exact total off a bar; the numeral is what x100 was for");
     }
 }

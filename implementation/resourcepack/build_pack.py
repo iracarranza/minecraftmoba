@@ -222,6 +222,16 @@ def vitals_unit(kind: str, height: int = 16, bar_height: int = 7):
                 pixels.append(lit if y in (top, bottom) else clear)
             elif kind in ("cap_left", "cap_right"):
                 pixels.append(lit)
+            elif kind == "tick_on":
+                # A lit unit carrying a reference mark: the mark is the ABSENCE
+                # of fill for one row, so a tick reads against the fill rather
+                # than needing a second colour the pack is not allowed to pick.
+                pixels.append(clear if y == top + bar_height // 2 else lit)
+            elif kind == "tick_off":
+                # An unlit unit carrying the same mark, drawn as a full-height
+                # rail so the reference survives past the fill edge -- which is
+                # the half that tells you how much bar is still to come.
+                pixels.append(lit)
             else:
                 pixels.append(clear)
     return pixels

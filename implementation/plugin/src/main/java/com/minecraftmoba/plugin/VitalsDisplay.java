@@ -80,24 +80,44 @@ public final class VitalsDisplay implements Listener {
      */
     public Component render(Player p) {
         double maxHealth = plugin.effectiveMaxHealth(p);
-        return bar(VitalsBar.level(p.getHealth(), maxHealth), colour("health"))
-                .append(Component.text("  "))
-                .append(bar(VitalsBar.level(p.getFoodLevel(), Vitals.DISPLAY_MAX), colour("hunger")));
+        int interval = plugin.getConfig().getInt("features.vitalsBar.tickInterval");
+        int scale = plugin.getConfig().getInt("features.vitalsBar.displayScale");
+
+        Component health = bar(VitalsBar.level(p.getHealth(), maxHealth),
+                               VitalsBar.tickUnits(maxHealth * scale, interval),
+                               colour("health"));
+        Component hunger = bar(VitalsBar.level(p.getFoodLevel(), Vitals.DISPLAY_MAX),
+                               java.util.Set.of(), colour("hunger"));
+
+        Component out = health;
+        if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals"))
+            out = out.append(Component.text("  " + Math.round(p.getHealth() * scale)
+                                            + "/" + Math.round(maxHealth * scale))
+                                      .color(colour("health")));
+        return out.append(Component.text("   ")).append(hunger);
     }
 
     /**
-     * One bar: caps, then the lit run, then the unlit run.
+     * One bar: caps, then the lit run, then the unlit run, ticks marked across both.
      *
      * The two runs are separate components because they are tinted
      * differently. The pack draws every unit white and assigns no palette, so
      * an unfilled unit only reads as unfilled once the plugin dims it -- which
-     * is also why the bar cannot simply be one string with one colour on it.
+     * is also why the bar cannot be one string with one colour on it.
+     *
+     * Ticks are indexed along the WHOLE bar and passed to both runs, so a tick
+     * stays at the same pixel whether the fill currently reaches it or not.
+     * Indexing per run would make the ticks slide as the player took damage,
+     * which is the opposite of a reference mark.
+     *
+     * Hunger passes an empty tick set: it is twenty points on a fixed scale and
+     * has no magnitude to convey, so marks there would be decoration.
      */
-    private Component bar(int level, TextColor colour) {
+    private Component bar(int level, java.util.Set<Integer> ticks, TextColor colour) {
         TextColor empty = colour("empty");
         return Component.text(VitalsBar.CAP_LEFT).font(FONT).color(empty)
-                .append(Component.text(VitalsBar.filled(level)).font(FONT).color(colour))
-                .append(Component.text(VitalsBar.unfilled(level)).font(FONT).color(empty))
+                .append(Component.text(VitalsBar.filled(level, ticks)).font(FONT).color(colour))
+                .append(Component.text(VitalsBar.unfilled(level, ticks)).font(FONT).color(empty))
                 .append(Component.text(VitalsBar.CAP_RIGHT).font(FONT).color(empty));
     }
 
