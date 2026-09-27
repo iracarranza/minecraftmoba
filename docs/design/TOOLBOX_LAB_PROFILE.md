@@ -160,3 +160,107 @@ plumbing above.
 - **Toolbox's Constructs I–IV + capstone** (Lv6/12/21/24/30) still have
   breakpoints with no content, so the Growth half of "level-up consequences"
   is only partly testable.
+
+---
+
+# Amendment — the lab is a command sequence, not a feature
+
+The requirement was restated as: get to a map, earn levels and use abilities,
+change level and class at will, and on finishing have **every effect, every
+placed block and all progression fully reset**.
+
+Reading the lifecycle says all four already exist, and the gated void platform
+scoped above is the wrong answer to it. Recorded here rather than deleted,
+because the void platform is still the right shape for *circuit unit testing*
+later — it is the wrong shape for playtesting Toolbox on terrain.
+
+## Reset is already total, and already not a rollback
+
+`WorldInstance` states the model outright: a match runs on a **copy** of the
+frozen template, so "loading a match and resetting one are the same operation:
+unload the instance, copy the template over it, load it again."
+
+> Reset is not block rollback — nothing is undone, the world is simply
+> replaced.
+
+That covers placed blocks and terrain effects completely, including anything
+Toolbox's Ultimate does to the landscape, with no journal to keep and nothing
+that can miss a case.
+
+`Match.reset()` then covers the rest, and it is already thorough:
+
+| Cleared | By |
+|---|---|
+| World, all blocks | `worldInstance.restore()` |
+| Progression, class, level, XP, choices | `clearMatchScopedState` → fresh `PlayerData` |
+| Inventory, armour, offhand, cursor | same |
+| Vanilla XP bar, potion effects, fire ticks | same |
+| Task attribute modifiers | `taskEffects.reapply` from the fresh data |
+| Worksites, routes, Infra Mode, contributions, Work Points | their own `reset()` |
+| Lair occupant | before the restore, so it is not orphaned |
+| Renewable bindings | **after** the restore, since restore makes a new world UUID |
+
+Progression being match-scoped is a decision already taken (ALPHA-D2), not
+something the lab needs to introduce.
+
+## The loop
+
+```
+moba match open
+moba match options / select <map>
+moba match add <you> north          # see gap 1 -- do not skip this
+moba match play
+  moba setclass toolbox
+  moba setlevel 24
+  moba xp <n>                        # or earn them live
+moba reset
+```
+
+Daylight is **already frozen** by `Match.start()`
+(`DO_DAYLIGHT_CYCLE, false`), which the lab wanted anyway for daylight-sensor
+reproducibility. Free.
+
+## Gap 1 — `start-test` leaves the tester's progression uncleared
+
+`moba match start-test` announces "starting with no participants" and
+`start()` skips its empty check. But `reset()` clears player state by
+iterating `participants.values()` — so with zero participants **nothing clears
+the solo tester's level, class, inventory or Task modifiers**. The world
+resets; the player does not.
+
+This is not lab-only. Any *enrolled* player who was never `add`ed keeps a
+previous match's progression across a reset.
+
+**Workaround today:** always `moba match add <you> north` and use `play`
+rather than `start-test`. A solo participant is safe — `victorOf` does
+`if (!hasParticipants) continue;`, so an empty opposing team can never trigger
+an instant victory.
+
+**Fix to make:** `reset()` should clear match-scoped state for every
+**enrolled** player, not only every participant. Small, and it closes a real
+hole rather than a convenience.
+
+## Gap 2 — each reset burns a pool map
+
+`end()` and `release()` are explicit that "a played map never returns to
+READY: players changed it, and a pool entry is only worth anything while it is
+pristine." Correct for matches; ruinous for a lab loop that resets twenty
+times an afternoon, against a pool whose stated goal is **diversity, not
+volume**.
+
+**Run the lab with `pool.enabled: false`**, on the frozen Consolidative
+template. It is infinitely reusable by construction, and it makes every trial
+run on identical terrain — which is what you want when comparing two circuits
+anyway.
+
+## What is actually left to build
+
+Nothing in the plumbing. The list is:
+
+1. Gap 1's fix.
+2. A Toolbox class definition in `config.yml` — inventory curve to 36 by
+   Lv24, very low health growth, normal hunger, occasional placement reach.
+3. The circuit machinery, per the original scope's section of the same name.
+
+The `features.toolboxLab.enabled` gate above is **not needed for playtesting**
+and should not be built for it.
