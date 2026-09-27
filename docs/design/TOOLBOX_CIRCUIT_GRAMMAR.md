@@ -452,7 +452,75 @@ component sits under the hook.
 item, so hooking does not make a component cheaper — it makes it *late as well
 as early*. The value is temporal overlap while the main program continues.
 
+### Dust is required, and it fights Tripwire
+
+**Settled 27 September 2026.** Dust is required between every pair of
+components. It costs items but no time (§3), and it is what keeps a full board's
+duration inside its cooldown.
+
+It also creates the geometry problem that makes Tripwire hard to use, which is
+worth stating because it is not obvious and it invalidated three worked examples
+before anyone noticed.
+
+A nine-cell row packed as `C d C d C d C d C` puts components on **even**
+positions and ends on a component. The wrap is ordinary adjacency, so the next
+row must **begin with dust** or two components touch. That row is then
+`d C d C d C d C d` — components on **odd** positions.
+
+**Parity flips at every wrap, so every Tripwire misses:**
+
+```
+A  C d C d C d C d C     components at 0 2 4 6 8
+B  d C d C d C d C d     components at 1 3 5 7
+   ↑ a hook at A0 targets B0, which is dust
+```
+
+**The fix is a parity shim: two consecutive wiring cells instead of one.**
+
+One wiring cell between components preserves parity; **two flip it**.
+
+```
+A  C d C d C d C d d     components at 0 2 4 6   ← double wiring at 7–8
+B  C d C d C d C d d     components at 0 2 4 6   ← same
+C  C d C d C d C d C     components at 0 2 4 6 8
+```
+
+Now every hook lands. The cost is one component per aligned boundary — a full
+board goes from 14 components to **13** — which is cheap, but it must be
+deliberate. **Tripwire is not free real estate; it is a layout investment paid
+in a wasted cell.** A player who packs rows greedily gets no parallelism at all,
+and nothing explains why.
+
+#### This is what Repeater is for
+
+Dust and **Repeater** are both wiring, so either can occupy a link cell. That
+gives the shim two flavours and finally gives Repeater a structural job rather
+than a floating "adds delay" description:
+
+| Link | Parity | Time |
+| --- | --- | --- |
+| `d` | preserved | none |
+| `Rep` | preserved | delay |
+| `d d` | **flipped** | none |
+| `d Rep` / `Rep Rep` | **flipped** | delay |
+
+So a player aligns parity for free with double Dust, or **aligns it and buys a
+deliberate pause** with a Repeater. The Repeater is not a worse Dust; it is the
+shim that does something.
+
+And the something matters, because the hook gap is a knife-edge. A hook fires
+its target 19 ticks before flow reaches it, and Observed lasts ~20 — one tick of
+overlap. A Repeater at the row boundary delays flow's arrival and **widens that
+gap past the Observed window**, turning a continuously-held target into two
+separate acquisitions. The same shim, placed for parity, is also the dial that
+decides whether a hooked Observer keeps its lock.
+
+[OPEN] Repeater's delay length, which now has a second consumer: it tunes the
+hook gap, not only the next component.
+
 ### Worked boards
+
+All boards below are parity-aligned where they use hooks.
 
 **Lv0 — 6 cells.** Program and magazine collide in the hotbar.
 
@@ -460,58 +528,150 @@ as early*. The value is temporal overlap while the main program continues.
 H [C][d][P][d][Sp][sword]        3 components · 15 ticks · 5 items
 ```
 
-Read the hit, shove, yank back and Root. One free cell.
-
-**Lv3 — 12.** The program moves to row A and the whole hotbar becomes magazine.
+**Lv3 — 12.** Program moves to row A; the whole hotbar becomes magazine.
 
 ```
 A [C][d][P]
 H  sword, food, blocks …          2 components · 10 ticks · 3 items
 ```
 
-**Lv6 — 18. The relay.** Row A full, still no parallelism.
+**Lv6 — 18. The relay.** Row A full, no parallelism available yet.
 
 ```
 A [C][d][O][d][O][d][O][d][Di]    5 components · 25 ticks · 9 items
 H  magazine — Di fires what you are carrying
 ```
 
-Comparator lengthens O1's reach; the Observers relay Toolbox → A → B → C;
-Dispenser resolves at C. Observed windows chain with room to spare.
-
-**Lv9 — 21. First parallelism, top-left three columns only.**
+**Lv9 — 21. First hook, and the shim that pays for it.**
 
 ```
-A [Tw][d][Di][d][C][d][O][d][Sp]
+A [Tw][d][C][d][O][d][Sp][d][d]   ← shim at 8
 B [P ]
 H  magazine
 ```
 
-The hook at A's first component pre-fires B's Piston at t=6; flow reaches the
-same Piston at t=25. Two shoves, 19 ticks apart, from one slot.
+The hook at A0 pre-fires B's Piston; flow reaches the same Piston later. Two
+shoves from one slot, 19 ticks apart.
 
-**Lv15 — 27. Row A hooks row B entirely.**
+**Lv15 — 27. Row A hooks row B.**
 
 ```
-A [Tw][d][Tw][d][Tw][d][Tw][d][Tw]
-B [P ][d][O ][d][Sp][d][Di][d][H ]
+A [Tw][d][Tw][d][Tw][d][Tw][d][d]   4 hooks + shim
+B [P ][d][O ][d][Sp][d][Di][d][d]   4 payloads, each doubled
 H  magazine
 ```
 
-Five hooks, five doubled payloads, fifteen activations. 50 ticks, 23 items.
+Eight components, twelve activations, 40 ticks.
 
-**Lv18 — 36, and the decision the geometry forces.** Row C sits directly above
-the hotbar, so hooks in C point at the magazine. A tripwire aimed at an ordinary
-item does nothing — so **you either hook row C and give up your magazine, or
-keep the magazine and use C for payload.** Nobody wrote that rule; it falls out
-of the reading order.
+**Lv18 — 36. The double-hook cascade.**
+
+A hook whose target is *another hook* chains: the second hook fires its own
+vertical one tick later, reaching a third row.
 
 ```
-A [Tw][d][Tw][d][Tw][d][Tw][d][Tw]   hooks
-B [P ][d][O ][d][Sp][d][Di][d][H ]   doubled
-C [P ][d][O ][d][Sp][d][Di][d][H ]   payload
-H  magazine                          ~32 items · 75 ticks
+A [P ][d][P ][d][C ][d][Tw][d][d]   ← hook at A6
+B [To][d][H ][d][To][d][Tw][d][d]   ← hook at B6, directly beneath
+C [· ][d][· ][d][· ][d][O ][d][· ]  ← Observer at C6
+H  magazine
 ```
+
+Timing of the Observer at C6:
+
+| | Path | t |
+| --- | --- | ---: |
+| 1 | A6 hook → B6 hook → C6 | **22** |
+| 2 | flow reaches B6, its hook fires C6 | **41** |
+| 3 | flow reaches C6 | **55** |
+
+**Three activations of one slot, spread across 33 ticks**, from two hooks and a
+shim. That is the strongest thing the geometry does, and it is the reason
+Tripwire earns its awkwardness.
+
+[OPEN] The cascade depends on a Tripwire activated *by another Tripwire* firing
+its own vertical. §7 says a secondary activation activates exactly one component
+and grants it no flow — activating a hook should therefore make it hook, but the
+rule was written before anyone tried chaining and does not say so. If chains are
+refused, the third row is unreachable and the shim is worth much less.
+
+[OPEN] Row C can be a hook target **or** an A1 reserve, not comfortably both.
+Hooks fire the component beneath regardless of whether flow would reach it, so
+a hooked reserve is consumed by the circuit it was being kept apart from.
+
+### Duty cycle, and what the cooldown actually buys
+
+Cooldown on the ability clock (§*The three clocks*), [WORKING]:
+**14 / 12 / 10 / 8 / 6 seconds** at Lv0 / 5 / 10 / 15 / 25.
+
+Against parity-aligned boards, with the circuit in the storage rows:
+
+| Lv | Slots | Components | Duration | Cooldown | Duty | Idle |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 6 | 3 | 0.75s | 14s | 5% | 13.3s |
+| 10 | 21 | 6 | 1.50s | 10s | 15% | 8.5s |
+| 15 | 27 | 8 | 2.00s | 8s | 25% | 6.0s |
+| 18 | 36 | 13 | 3.25s | 8s | 41% | 4.8s |
+| **25** | 36 | 13 | **3.25s** | **6s** | **54%** | **2.8s** |
+
+At Lv25 the machine is executing more than half the time in sustained combat.
+
+**But the cooldown does not buy power, it buys burn rate.** At ~30 items per
+activation on a 6-second cycle that is five items a second; a thirty-second
+engagement is five activations and roughly 150 components, of which the
+expensive fraction is iron and quartz. Nobody supplies that. So a faster
+cooldown means **the resource wall arrives sooner**: the full board runs twice,
+then Toolbox is on a cut-down circuit whether it planned to be or not.
+
+That is a coherent lever, but it is a different one than it appears to be, and
+it makes Hopper load-bearing rather than optional.
+
+[OPEN] **Does the cooldown start at trigger or at completion?** At trigger the
+table holds. At completion the Lv25 cycle is 3.25 + 6 = 9.25s and duty falls to
+35%. "A global Utility Belt cycle cooldown" does not answer it, and it is the
+difference between a near-continuous machine and a bursty one.
+
+[TECHNICAL RISK] **The 6-second cooldown is only safe because Dust is
+required.** Twenty-seven cells wired half in Dust is 13 components at 3.25s. If
+Dust ever became optional between adjacent components, the same board would be
+27 components at 6.75s — longer than its own cooldown, and circuits would
+overlap and multiply. Dust's requirement is load-bearing for the cooldown curve,
+not only for the economy.
+
+### Where the A1 alternate loadout lives
+
+A1 swaps **unlinked** components into the circuit, and unlinked means "after
+flow stopped". So the alternate can only occupy the tail, and the tail has two
+possible homes — which is the real reason **a Toolbox cannot use all of its
+space**.
+
+**In the hotbar.** Natural, since the hotbar is last in reading order. But it is
+already carrying a sword, food, blocks and the magazine, so realistically two or
+three cells survive — exactly A1 base (two) and A1-II Overhaul (three). Enough
+for the ability as written and nothing more.
+
+**In a storage row, by breaking the circuit early.** A non-component at row C's
+first cell stops flow there; C's remaining eight cells hold unlinked components.
+A far deeper reserve, bought by giving up row C as circuit.
+
+| Row C used as | Circuit components | Alternate depth |
+| --- | ---: | ---: |
+| circuit | 13 | 2–3, hotbar only |
+| reserve | 8–9 | up to 8 |
+
+**A1 is therefore a rotation, not a toggle.** Each use swaps the last two
+unlinked with the first two linked, so a deep reserve is not one alternate
+configuration but a *magazine of configurations*, fed two at a time and gated by
+A1's own cooldown. A1-III Redundancy reads cleanly against this: filling the
+tail with duplicates of the opening spends that space on sustain instead of
+versatility.
+
+**And running dry rewrites the machine.** The break item that stops flow is also
+the first item, so Dispenser eats it. A single item there vanishes on the first
+activation, flow runs past the stop next time, and the unlinked reserve silently
+becomes part of the circuit. The player-side answer is natural — make the break
+a **stack**, so Di takes one and the rest hold the line — but it means ammunition
+and circuit terminator are the same object, and **exhausting your ammunition
+changes your program**. Keep that rather than designing it out: it is the class's
+premise, and it punishes precisely what the class should be punished for.
 
 ### Does any of it break?
 

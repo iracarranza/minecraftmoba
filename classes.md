@@ -2954,9 +2954,12 @@ circuit.
   cells do **not** compress the board.
 - **The hotbar is the magazine.** Flow stops at the first non-circuit item, and
   that item is what Dispenser and Dropper take.
-- Approximately one primary component every ~5 ticks [PROTOTYPE]. **Dust costs
-  no time** — flow follows it to the next component instantly. Duration is
-  component count, not cell count.
+- Approximately one primary component every ~5 ticks [PROTOTYPE]. **Dust is
+  required between every pair of components**, costs an item, and costs no
+  time — duration is component count, not cell count.
+- **Tripwire needs a parity shim.** Parity flips at every row wrap, so hooks
+  miss unless two consecutive wiring cells realign them. Repeater is wiring, so
+  it can be that shim and buy a deliberate delay at the same time.
 - Components inspect **current world state when they resolve**, not at trigger.
   Directional components read Toolbox's facing at their own resolution tick.
 - Every resolved component or Dust **drops one item**. This is the "variety as
@@ -3042,13 +3045,19 @@ Split across the three clocks (§ *The three clocks*). Every number is [WORKING]
 
 | Lv | |
 | ---: | --- |
-| 0 | Utility Belt, cooldown **20s** |
+| 0 | Utility Belt, cooldown **14s** |
 | 1 | A1 Reconfiguration |
 | 2 | A2 Manual Activation |
-| 5 | A1 branch · cooldown **18s** |
-| 10 | A2 branch · cooldown **16s** |
-| 15 | Ultimate · cooldown **14s** |
-| 25 | cooldown **10s** |
+| 5 | A1 branch · cooldown **12s** |
+| 10 | A2 branch · cooldown **10s** |
+| 15 | Ultimate · cooldown **8s** |
+| 25 | cooldown **6s** |
+
+At Lv25 a full parity-aligned board is 13 components — 3.25s against a 6s
+cooldown, so the machine executes **54% of the time** in sustained combat. The
+faster curve does not buy power; at ~30 items per activation it buys **burn
+rate**, and the resource wall simply arrives sooner. See the grammar record
+§10A.
 
 20 and 30 carry nothing. Irregular by design.
 
