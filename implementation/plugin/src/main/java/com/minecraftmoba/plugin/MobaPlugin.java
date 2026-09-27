@@ -235,6 +235,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         vitalsDisplay = new VitalsDisplay(this);
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
+        lab = new Lab(this);
         getServer().getPluginManager().registerEvents(passives, this);
         getServer().getScheduler().runTaskTimer(this, () -> {
             selection.tick();
@@ -338,6 +339,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         return true;
     }
 
+    private Lab lab;
+    public Lab lab() { return lab; }
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
     /** Team-coloured glow marking objectives and Fountains as one team system. */
@@ -718,6 +721,15 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        // Before every other form, including the draft verbs: `lab start` has
+        // to be reachable from INSIDE the draft hall, which is the state it
+        // most often has to rescue someone from.
+        if (args.length >= 1 && args[0].equalsIgnoreCase("lab")) {
+            if (!sender.hasPermission("moba.admin")) {
+                sender.sendMessage("An administrator is required."); return true;
+            }
+            return lab.command(sender, args);
+        }
         if (args.length > 1 && args[0].equalsIgnoreCase("debug")
                 && Set.of("on", "off", "go").contains(args[1].toLowerCase(Locale.ROOT))) {
             if (!(sender instanceof Player p) || !sender.hasPermission("moba.admin")) {

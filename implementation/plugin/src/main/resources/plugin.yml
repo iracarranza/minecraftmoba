@@ -6,7 +6,7 @@ description: Minecraft MOBA Phase 1
 commands:
   moba:
     description: MOBA administration
-    usage: /moba <join|setlevel|setclass|xp|reset|debug> <player> [value]
+    usage: /moba <lab|join|setlevel|setclass|xp|reset|debug> <player> [value]
 permissions:
   moba.admin:
     default: op
