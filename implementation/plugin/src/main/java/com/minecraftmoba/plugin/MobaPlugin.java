@@ -131,6 +131,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private AbilityInputs inputs;
     /** The ability layer, which also owns the class definitions. */
     public AbilityInputs inputs() { return inputs; }
+    private VitalsDisplay vitalsDisplay;
+    /** The proportional health/hunger bars. */
+    public VitalsDisplay vitalsDisplay() { return vitalsDisplay; }
     private Passives passives;
     /** Class passives, dispatched by ClassDefinition.passiveHook. */
     public Passives passives() { return passives; }
@@ -229,6 +232,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(selection, this);
         // One timer drives the beat and sweeps combat state. Both are cheap
         // per-tick reads; neither wants a task per player or per entity.
+        vitalsDisplay = new VitalsDisplay(this);
+        getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         getServer().getPluginManager().registerEvents(passives, this);
         getServer().getScheduler().runTaskTimer(this, () -> {

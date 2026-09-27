@@ -180,11 +180,58 @@ def bar_segment(fill: str, size: int = 9):
     return pixels
 
 
+def vitals_unit(kind: str, height: int = 16, bar_height: int = 7):
+    """One column of a vitals bar. The bar is these, repeated.
+
+    A bitmap glyph cannot be stretched -- Minecraft renders it at its texture
+    size -- so a bar that grows horizontally is a bar built from a repeated
+    unit, and its length is the repeat count. The alternative was one whole-bar
+    image per fill level, which is 130 textures for two bars and asks all 130
+    to agree about a geometry that repetition simply has.
+
+    It also makes the fixed size STRUCTURAL: the bar is always `fill_width`
+    units wide and only how many are lit changes, so an unfilled bar cannot
+    render short.
+
+    Each unit is ONE lit pixel wide. Minecraft advances a bitmap glyph by its
+    bounding box plus one pixel of spacing, so a unit advances two and the
+    plugin follows each with U+F001 from the negative-space font to take one
+    back. Net advance: exactly one pixel. If that is ever wrong the bar
+    collapses into a sliver instead of drifting a pixel at a time, which is the
+    failure worth having.
+
+    Drawn WHITE. This pack assigns identity, never palette; the plugin tints
+    the lit and unlit runs separately, which is what makes an unfilled unit
+    read as unfilled.
+    """
+    lit = (255, 255, 255, 255)
+    clear = (0, 0, 0, 0)
+    top = (height - bar_height) // 2
+    bottom = top + bar_height - 1
+
+    pixels = []
+    for y in range(height):
+        for x in range(1):
+            if y < top or y > bottom:
+                pixels.append(clear)
+            elif kind == "on":
+                pixels.append(lit)
+            elif kind == "off":
+                # Only the top and bottom edge, so an unlit run reads as the
+                # bar's empty channel rather than as a gap in the bar.
+                pixels.append(lit if y in (top, bottom) else clear)
+            elif kind in ("cap_left", "cap_right"):
+                pixels.append(lit)
+            else:
+                pixels.append(clear)
+    return pixels
+
+
 def codepoint(index: int) -> str:
     return chr(0xE000 + index)
 
 
-def build(registry: dict, out: Path):
+def build(registry: dict, out: Path, hide_native_rows: bool = False):
     if out.exists():
         raise FileExistsError(f"{out} exists; build to a fresh directory")
     assets = out / "assets" / "moba"
@@ -231,6 +278,34 @@ def build(registry: dict, out: Path):
                 "shape": shape,
             }
             index += 1
+    # Vitals bars: four unit glyphs, at EXPLICIT codepoints.
+    #
+    # Explicit because the loop above assigns codepoints by iteration order
+    # while the plugin hard-codes the resulting characters, so inserting a
+    # glyph shifts every later one with nothing to say so.
+    bars = registry.get("bars")
+    if bars:
+        base = int(bars["base"].removeprefix("U+"), 16)
+        for offset, unit_id in enumerate(bars["units"]):
+            kind = unit_id.removeprefix("vitals_").removeprefix("unit_")
+            png_rgba(assets / "textures" / "font" / f"{unit_id}.png",
+                     1, bars["height"], vitals_unit(kind, bars["height"]))
+            providers.append({
+                "type": "bitmap",
+                "file": f"moba:font/{unit_id}.png",
+                "ascent": bars["ascent"],
+                "height": bars["height"],
+                "chars": [chr(base + offset)],
+            })
+            manifest[unit_id] = {
+                "codepoint": f"U+{base + offset:04X}",
+                "escape": f"\\u{base + offset:04x}",
+                "group": "bars",
+                "index": offset,
+                "placeholder": False,
+                "shape": kind,
+            }
+
     write_json(assets / "font" / "glyphs.json", {"providers": providers})
 
     # Item model stubs. Structural: they bind an item to a model path. The
@@ -280,9 +355,17 @@ def build(registry: dict, out: Path):
     # the pack only decides what a segment looks like. That is why this needs
     # no plugin support at all, and why it cannot change how MANY segments are
     # drawn -- vanilla derives the health row's length from max health.
+    #
+    # --hide-native-rows blanks them instead, for when the glyph bars in
+    # VitalsDisplay are drawing and these rows are a duplicate readout. It is a
+    # SEPARATE flag from building the bar glyphs, and deliberately so: the last
+    # glyph readout shipped with the vanilla row hidden and the replacement
+    # illegible, and presented as "hunger is fully invisible". Confirm the bars
+    # draw, THEN hide what they replace.
+    blank = [(0, 0, 0, 0)] * 81
     for sprite, fill in registry.get("bar_segments", {}).get("sprites", {}).items():
         png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites" / f"{sprite}.png",
-                 9, 9, bar_segment(fill))
+                 9, 9, blank if hide_native_rows else bar_segment(fill))
 
     # Hide the vanilla hunger row.
     #
@@ -319,7 +402,12 @@ if __name__ == "__main__":
     p.add_argument("--registry", type=Path,
                    default=Path(__file__).parent / "registry.json")
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--hide-native-rows", action="store_true",
+                   help="Blank the vanilla health and hunger rows instead of repainting them. "
+                        "Only once VitalsDisplay's glyph bars are confirmed to render: hiding "
+                        "the rows before the replacement is legible is how the last attempt "
+                        "presented as 'hunger is fully invisible'.")
     a = p.parse_args()
-    m = build(json.loads(a.registry.read_text()), a.output.resolve())
+    m = build(json.loads(a.registry.read_text()), a.output.resolve(), a.hide_native_rows)
     print(f"built {len(m)} placeholder glyphs into {a.output}")
     print("every glyph is a placeholder; none encodes a palette or shape language")

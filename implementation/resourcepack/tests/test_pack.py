@@ -46,11 +46,36 @@ class BuildTests(unittest.TestCase):
             pack = built(tmp)
             font = json.loads((pack / "assets/moba/font/glyphs.json").read_text())
             declared = {c for p in font["providers"] for c in p["chars"]}
-            expected = sum(len(g["ids"]) for g in REGISTRY["groups"].values())
+            # The sequential groups, plus the vitals bar's four units -- which
+            # are counted separately because they take an EXPLICIT base rather
+            # than the next index, so that inserting a group glyph cannot shift
+            # them out from under the plugin's hard-coded characters.
+            expected = (sum(len(g["ids"]) for g in REGISTRY["groups"].values())
+                        + len(REGISTRY["bars"]["units"]))
             self.assertEqual(len(declared), expected)
             for group in REGISTRY["groups"].values():
                 for glyph in group["ids"]:
                     self.assertTrue((pack / "assets/moba/textures/font" / f"{glyph}.png").exists(), glyph)
+            for unit in REGISTRY["bars"]["units"]:
+                self.assertTrue((pack / "assets/moba/textures/font" / f"{unit}.png").exists(), unit)
+
+    def test_the_bar_units_do_not_collide_with_the_sequential_glyphs(self):
+        """The whole reason the bars declare their own base.
+
+        Sequential glyphs are assigned by iteration order and hard-coded in the
+        plugin as literals. If the bar units ever fell inside that run, adding
+        one group glyph would shift them and the bar would silently draw
+        something else.
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest = json.loads((built(tmp) / "GLYPH_MANIFEST.json").read_text())["glyphs"]
+            sequential = [int(i["codepoint"].removeprefix("U+"), 16)
+                          for g, i in manifest.items() if i["group"] != "bars"]
+            bars = [int(i["codepoint"].removeprefix("U+"), 16)
+                    for g, i in manifest.items() if i["group"] == "bars"]
+            self.assertTrue(bars, "the bar units must appear in the manifest")
+            self.assertGreater(min(bars), max(sequential),
+                               "the bar block must start above every sequential glyph")
 
     def test_codepoints_are_unique_and_in_the_private_use_area(self):
         with tempfile.TemporaryDirectory() as tmp:

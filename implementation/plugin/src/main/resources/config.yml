@@ -92,6 +92,44 @@ features:
   # HUD position, so a parallel boss-bar readout is no longer what makes hunger
   # legible. Left switchable rather than deleted until the bar is judged in play.
   hungerDisplay: { enabled: false, refreshTicks: 10 }
+  # Fixed-size health and hunger bars with a PROPORTIONAL internal fill, drawn
+  # as glyphs on one bossbar title.
+  #
+  # The native rows cannot do this. The client owns their fill and its quantum
+  # is the half-sprite, so twenty steps is the most they will ever show however
+  # they are repainted -- bar_segments in the resource pack buys the LOOK of a
+  # continuous bar and none of the resolution. VitalsScaling separately fixed
+  # the LENGTH, by making the bar always twenty points and letting Capacity
+  # decide what a point is worth. This fixes the fill: 65 levels, one per pixel
+  # of a 64px bar.
+  #
+  # The bar is ONE UNIT GLYPH REPEATED, not one image per fill level. A bitmap
+  # glyph cannot be stretched, so a bar that grows horizontally is a bar built
+  # from repeated units and its length is the repeat count. It is always 64
+  # units wide and only how many are LIT changes, which makes the fixed size
+  # structural rather than something 130 separate images had to agree about.
+  #
+  # OFF, and hideNativeRows is off too, DELIBERATELY AND IN THAT ORDER. Without
+  # the resource pack these codepoints render as tofu, and the last glyph
+  # readout shipped with the vanilla row hidden and the replacement illegible --
+  # reported, accurately, as "hunger is fully invisible". Turn this on, confirm
+  # the bars draw, and only then hide the rows they duplicate.
+  vitalsBar:
+    enabled: false
+    refreshTicks: 4
+    # Hides the native health and hunger rows via the resource pack. Requires a
+    # pack rebuild and republish; it is not a live toggle. Do not set this
+    # before confirming the bars above actually render.
+    hideNativeRows: false
+    # Applied by the plugin, because the pack draws these glyphs WHITE and
+    # assigns identity rather than palette. This is the palette decision, put
+    # where it can be argued with.
+    colours:
+      health: "#FF5555"
+      hunger: "#C88A3C"
+      # The unlit run and the end caps. Every unit is drawn white by the pack,
+      # so an unfilled unit only reads as unfilled once it is dimmed here.
+      empty: "#4A4A4A"
   # Health regeneration relative to maximum Hunger. Vanilla requires food >= 18
   # to regenerate, and Capacity caps food at effectiveHunger, which starts at 9,
   # so vanilla regeneration can never fire on the canonical curve.
