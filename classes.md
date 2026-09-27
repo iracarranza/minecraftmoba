@@ -3003,9 +3003,13 @@ class is built on.
   appears at **21** slots and the first full 9-wide one at **27** — not 18.
   Tripwire therefore arrives partway up the curve. **This is intentional**: the
   component becomes useful when the board can hold it.
-- Whether Toolbox authors a faster Inventory curve to reach a usable board
-  sooner. `Capacity` supports per-class `steps` today, so this is authorable
-  without code.
+- Toolbox's Inventory curve. Under the useful-capacity model most classes
+  mature around **24** slots, and 24→36 is specialization — but Toolbox needs
+  **27** for full-width Tripwire, so for this class the top band is not
+  situational hauling capacity, it is core mechanical function. That is the
+  justification for spending most of its Growth budget there, and it makes
+  Toolbox the roster's clearest capacity specialist. `Capacity` supports
+  per-class `steps` today, so the schedule is authorable without code.
 - Dust's consumption rule: wiring drops one, instruction discharges the stack.
   Exact mitigation formula [OPEN].
 - Nearly every magnitude: cadence, cooldown curve, Observed and Illuminated

@@ -34,10 +34,15 @@ import java.util.*;
  *
  * The design's preferred shape is "regular continuous attribute growth PLUS
  * authored qualitative/discrete Growth spikes". The continuous half already
- * exists: {@link Capacity} carries per-class Health, Hunger and Inventory
- * curves selected by {@code statGrowthProfile}. This packet is the discrete
- * half -- new eligibility, infrastructure capacity, Route concurrency,
- * methodology capacity -- which is where the design says spikes belong.
+ * exists: {@link Capacity} carries the numeric capacities -- Health, Hunger and
+ * Inventory -- selected by {@code statGrowthProfile}. This packet carries what a
+ * capacity cannot express: new eligibility, methodology capacity, infrastructure
+ * effects.
+ *
+ * The split is by STORAGE, not by shape. Health and Hunger are continuous
+ * curves; Inventory is DISCRETE and authored as explicit steps, and lives in
+ * Capacity anyway because it is still a numeric capacity. Mole's irregular
+ * slots steps are the intended form, not an oddity.
  *
  * So a class does not restate its health curve here. It records what it gains
  * that a curve cannot express.
@@ -61,8 +66,9 @@ public record GrowthPacket(int level, List<Effect> effects) {
     public enum Family {
         /**
          * Discrete personal capabilities -- new eligibility, a class-resource
-         * capacity step. NOT the continuous Health/Hunger/Inventory curves,
-         * which belong to Capacity and are selected by statGrowthProfile.
+         * capacity step, Placement Reach. NOT the numeric capacities
+         * themselves: Health, Hunger and Inventory all live in Capacity,
+         * selected by statGrowthProfile.
          */
         PERSONAL,
         /**

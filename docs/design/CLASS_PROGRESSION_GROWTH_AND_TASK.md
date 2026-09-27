@@ -190,6 +190,65 @@ generally read as curves; discrete attributes — inventory slots, infrastructur
 capacity, Route concurrency, new eligibility, methodology capacity — are where
 spikes belong.
 
+### Useful capacity, and why Inventory stops before 36
+
+**Settled 27 September 2026.** Inventory's ceiling is **not** 36 for most
+classes. 36 is the vanilla maximum, not the amount a character needs to
+function.
+
+Separate **total** inventory from **useful** inventory. A fixed loadout —
+weapon, tools, food, class kit, mission items — taxes the same handful of slots
+whatever the total is, so the marginal value of slot N is steeply nonlinear:
+
+| Band | Value |
+| --- | --- |
+| 6 → ~18 | **Enormous.** Escaping severe inventory pressure; the fixed loadout consumes most of what can be carried. |
+| ~18 → 24 | **Still meaningful.** Operational sufficiency — persistent kit plus real gathering and cargo flexibility. |
+| 24 → 36 | **Diminishing and situational.** Long expeditions, hauling, diverse materials, specialized production and logistics. |
+
+So **~24 is a plausible normal end-state**, and the remaining twelve slots
+become genuine capacity specialization rather than something every class
+marches through.
+
+**The economic reason this matters more than the class reason.** If everyone
+reaches 36 early, inventory pressure disappears — and Routes, Supply Lines,
+storage, hauling decisions, expedition planning and capacity-oriented class
+advantages all lose part of their purpose. Much of
+[`infrastructure.md`](../../infrastructure.md) assumes carrying capacity is
+scarce. A universal race to 36 quietly undercuts it.
+
+### Growth is a shared clock with class-authored contents
+
+The corollary, and the thing that makes Mole's curve legible:
+
+> **Every universal Growth proc does not contain the same stat package.**
+> The cadence is shared and predictable — every three levels is a
+> physical-growth breakpoint — while what arrives is authored per class.
+
+A class may therefore receive no Inventory at a Growth level and spend that
+budget on Health, Hunger, Exhaustion Efficiency, or a discrete qualitative
+effect instead. Inventory investment may also simply **stop** once a class has
+enough, freeing later Growths entirely.
+
+`Capacity.Curve` already supports this through explicit `steps`, where holding
+a value flat across a Growth *is* the class spending that budget elsewhere.
+
+**Mole is the worked example.** Six +3 Inventory packets at Lv3, 9, 12, 18, 24
+and 30, reaching 24 only at maximum level — deliberately stretched across the
+whole match rather than solving inventory by Lv18 and spending the second half
+with nothing left to gain. Lv6 is a Growth breakpoint where Mole receives
+**Exhaustion Efficiency I** instead, which is why extrapolating Lv6 from Lv3
+gives the wrong answer: there is no formula to extrapolate.
+
+[OPEN] The fallback schedule for unauthored classes. It now targets 24 rather
+than 36, but its cadence is a placeholder and wants authoring like any class's.
+
+[SUPERSEDED] [`docs/proposals/2026-09-12-capacity-curve.md`](../proposals/2026-09-12-capacity-curve.md)
+records a universal Inventory endpoint of 36 and builds an Inventory
+specialization branch — converting capped capacity into movement speed — on the
+premise that "its ceiling is reached universally". That premise no longer holds,
+so the branch it supports needs rederiving against a 24 end-state.
+
 ---
 
 ## 4. Player-facing numerical scale
@@ -944,12 +1003,27 @@ progression, Supply Line establishment rules, and Night Efficiency / Reach /
 Throughput magnitudes all remain open below. The entry proves the data model
 holds the class; it does not balance it.
 
-Note what the packet deliberately does **not** carry. The continuous personal
-curves — Health, Hunger, Inventory — stay in `Capacity`, selected by
-`statGrowthProfile`. The packet is the *discrete* half of "regular continuous
-attribute growth **+** authored qualitative/discrete Growth spikes", which is
-where this document says spikes belong. A class does not restate its health
-curve in its packet; it records what it gains that a curve cannot express.
+Note what the packet deliberately does **not** carry: the numeric capacities.
+Health, Hunger and Inventory all stay in `Capacity`, selected by
+`statGrowthProfile`. The packet records what a class gains that a capacity
+cannot express.
+
+[CORRECTED 27 September 2026] An earlier version of this passage called those
+three "the continuous personal curves". **Inventory is not continuous.** §3
+above already lists inventory slots among the *discrete* attributes where spikes
+belong, and the correction matters beyond wording: calling it continuous invites
+`start`/`growthUnit`/`cap` authoring, which is the every-interval race the
+useful-capacity model rejects, and makes Mole's irregular steps read as an
+oddity rather than as the intended form.
+
+The honest split is by **storage, not by shape**:
+
+| | Shape | Lives in |
+| --- | --- | --- |
+| Health | continuous curve | `Capacity` |
+| Hunger | continuous, plateauing at its useful ceiling | `Capacity` |
+| **Inventory** | **discrete authored steps** | `Capacity` |
+| Eligibility, methodology, infrastructure effects | discrete | `GrowthPacket` |
 
 **Task.** Calibrate the fractional IV–VII backbone; assign technique Strength
 scales; finish the Quick Guard requirement; name and define Looting's

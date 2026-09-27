@@ -678,7 +678,26 @@ capacity:
   # these numbers as the shape other classes should take.
   health: { start: 9, growthUnit: 1, cap: 20 }
   hunger: { start: 9, growthUnit: 1, cap: 20 }
-  slots: { start: 6, growthUnit: 3, cap: 36 }
+  # Targets the ~24 USEFUL-CAPACITY end-state, not the vanilla 36. 36 is the
+  # engine maximum, not the amount a character needs to function: a fixed
+  # loadout taxes the same handful of slots whatever the total is, so 6->18 is
+  # enormously valuable, 18->24 is operational sufficiency, and 24->36 is
+  # situational hauling capacity that should be SPECIALIZATION rather than
+  # something every class marches through.
+  #
+  # The economic reason outweighs the class reason: if everyone reaches 36
+  # early, inventory pressure disappears and Routes, Supply Lines, storage and
+  # expedition planning lose part of their purpose.
+  #
+  # cap stays 36 so a capacity specialist can still exceed 24.
+  #
+  # Steps rather than a growthUnit because Inventory is DISCRETE and authored,
+  # not a continuous curve: a flat hold across a Growth is the class spending
+  # that budget elsewhere. Six +3 packets, at Lv3/9/15/18/24/30.
+  #
+  # [WORKING] The cadence is a placeholder. This is a bootstrap for an
+  # unauthored class and wants authoring like any other.
+  slots: { steps: [6, 9, 9, 12, 12, 15, 18, 18, 21, 21, 24], cap: 36 }
 # Per-class stat curves, selected by ClassDefinition.statGrowthProfile.
 # Engine units. The player-facing scale is x100 and belongs to the HUD: Mole's
 # 10 -> 32 HP reads as 1,000 -> 3,200 Health. Simulation stays in native HP.
@@ -693,6 +712,17 @@ capacityProfiles:
     hunger: { start: 10, growthUnit: 2, cap: 20 }
     # Irregular by design: absolute values at Lv0 then one per Growth level.
     # Holding flat across a Growth is Mole spending that budget elsewhere.
+    #
+    # Six +3 packets, at Lv3/9/12/18/24/30, reaching the ~24 useful-capacity
+    # end-state ONLY at maximum level -- deliberately stretched across the whole
+    # match rather than solving inventory by Lv18 and spending the second half
+    # with nothing left to gain.
+    #
+    # Lv6 is a Growth breakpoint where Mole receives Exhaustion Efficiency I
+    # instead. That is why there is no formula here to extrapolate: Growth is a
+    # SHARED CLOCK WITH CLASS-AUTHORED CONTENTS, so a class may take nothing in
+    # a given capacity at a given breakpoint. See
+    # docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md.
     slots: { steps: [6, 9, 9, 12, 15, 15, 18, 18, 21, 21, 24], cap: 36 }
     # SEAM, NOT YET READ BY ANY CODE. Exhaustion Efficiency is one quantitative
     # attribute rather than four perks, and Mole improves it at these Growth

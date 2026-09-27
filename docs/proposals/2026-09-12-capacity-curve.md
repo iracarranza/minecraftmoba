@@ -42,7 +42,7 @@ conversion system.
 | --- | ---: | ---: | ---: |
 | Health | 8 | 18 | 20 |
 | Hunger | 9 | 18 | 20 |
-| Inventory | 6 | 36 | 36 |
+| Inventory | 6 | ~~36~~ **24** [SUPERSEDED 27 Sep 2026] | 36 |
 
 Universal progression fully restores ordinary Inventory capacity; universal
 Health and Hunger stop slightly below it, and specialization is what reaches 20.
@@ -180,7 +180,14 @@ reference, not a locked value.
 the Hunger cost of natural health regeneration. Do not solve it as part of this
 curve revision.
 
-**Inventory.** Its ceiling is reached universally, so it behaves differently.
+**Inventory.** [SUPERSEDED 27 September 2026 — this whole subsection.] The
+useful-capacity model in
+[CLASS_PROGRESSION_GROWTH_AND_TASK.md](../design/CLASS_PROGRESSION_GROWTH_AND_TASK.md)
+sets the normal Inventory end-state at **~24, not 36**, so the premise below —
+that the ceiling is reached universally — is false, and the movement-speed
+conversion built on it needs rederiving. Retained for traceability.
+
+Its ceiling is reached universally, so it behaves differently.
 Inventory I remains +6 slots capped at 36; taken at Lv3 it reaches 36 at Lv14
 instead of Lv16, which keeps its identity as an early acceleration benefit:
 
