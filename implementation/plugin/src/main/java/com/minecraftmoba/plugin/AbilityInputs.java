@@ -34,12 +34,16 @@ public final class AbilityInputs implements Listener {
     /** Input -> the slot it drives, so an unlock level can be looked up. */
     private final Map<Input, String> slotOf = new EnumMap<>(Input.class);
     private final long timeout;
+    /** Which abilities and branches are combat. Required in config; load fails without it. */
+    private final AbilityCombat combatRules;
+    public AbilityCombat combatRules() { return combatRules; }
     private long tick;
     public AbilityInputs(MobaPlugin plugin, Provenance provenance) {
         this.plugin=plugin; this.provenance=provenance; abilities=new HashMap<>(TestAbilities.create(plugin));
         var tunnel = plugin.getConfig().getConfigurationSection("abilities.definitions.tunneling");
         if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
+        combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
         Set<Input> bindings = new HashSet<>(); bindings.add(modeInput);
         for (String slot : List.of("a1","a2","ult")) {
@@ -100,8 +104,22 @@ public final class AbilityInputs implements Listener {
         var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
         last.put(ability.id(), tick);
-        if (ability.execute(p,new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d))) {
+        var context = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d);
+        if (ability.execute(p,context)) {
             ready.put(ability.id(),tick+ability.cooldownTicks());
+            // Activating a COMBAT ability puts the caster in combat. Classified
+            // from the declaration, per branch, so Mole tunnelling or a
+            // Gardener clipping a plant is not treated as fighting.
+            //
+            // Marked on success only: a refused or no-op activation did not
+            // happen, and should not gate the caster out of levelling.
+            //
+            // [OPEN] A context-sensitive ability -- Skeleton Crew's Graveyard
+            // Shift either Strikes or Raises -- must report what it actually
+            // did rather than carry this fixed answer. The seam is unresolved,
+            // and no current ability needs it.
+            if (plugin.combatState()!=null && combatRules.combat(ability.id(),context.branchFor(ability.id())))
+                plugin.combatState().markAbilityActivation(p);
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
                 plugin.getLogger().info("ABILITY player="+p.getName()+" id="+ability.id()+" tick="+tick);

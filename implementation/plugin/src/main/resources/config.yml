@@ -327,11 +327,18 @@ features:
   # The gesture is deliberate and already dangerous in a fight, so unlike a
   # keybind it cannot fire by accident; the tome is never actually removed.
   #
-  # channelTicks and moveTolerance are NON-CANON ALPHA FIXTURES.
+  # channelTicks is a NON-CANON ALPHA FIXTURE.
+  #
+  # moveTolerance is REMOVED by design decision: "hold still" means hold still,
+  # and the channel now cancels when the player's BLOCK POSITION changes. Do not
+  # reintroduce it as 0.0 against a distance -- a standing player's location
+  # drifts by floating-point amounts and every recall would cancel instantly.
+  #
+  # Recall is also gated on combat state now (see the top-level `combat` block).
+  # channelTicks is a channel length and must NOT be borrowed as a combat window.
   recall:
     enabled: true
     channelTicks: 100        # 5s
-    moveTolerance: 1.5
     # Destination resolves to the player's own Aether Fountain during a match
     # (ALPHA-D3/D4 make the homeland the Fountain). Set destination.x/y/z to
     # override; fallbackToWorldSpawn applies only outside a match.
@@ -725,15 +732,27 @@ abilities:
     lunge:
       displayName: Lunge
       cooldownTicks: 10
+      # Combat: it closes distance onto a combatant and hits them. Every branch
+      # lands combat, but declare each anyway -- per-branch is how a later edit
+      # to one branch is stopped from inheriting a stale answer.
+      combat: true
       power: 0.8
       hitDistance: 2.5
       animalRadius: 12
       branches:
-        swarmingBite: { perWolfPower: 0.03 }
-        thievingSwipe: { power: 1.0, disableTicks: 30 }
-        stalkingPounce: { power: 1.6, windupTicks: 12 }
+        # Damage scaled by the pack around you.
+        swarmingBite: { perWolfPower: 0.03, combat: true }
+        # Disables the target's mainhand: acting on capacity to fight.
+        thievingSwipe: { power: 1.0, disableTicks: 30, combat: true }
+        # A committed leap onto a target, paid for with a rooted windup.
+        stalkingPounce: { power: 1.6, windupTicks: 12, combat: true }
     sinkhole_lite:
       displayName: SinkholeLite
+      # Combat, following Sinkhole's settled classification: it is crowd
+      # control that slows enemies and denies them building, and the terrain is
+      # only its medium. NOTE this stub is input plumbing, not class design or
+      # balance canon -- but it must still declare, or it declares by accident.
+      combat: true
       cooldownTicks: 10
       radius: 3
       maxSelectionBlocks: 4096
@@ -742,11 +761,20 @@ abilities:
       stageTicks: 2
     channel_ult:
       displayName: ChannelUlt
+      # Non-combat: the test-kit channel resolves to nothing and so acts on
+      # nobody's capacity to fight. This is a statement about the STUB, not a
+      # classification of any real ultimate that replaces it.
+      combat: false
       cooldownTicks: 10
       channelTicks: 30
       movementThreshold: 0.25
     tunneling:
       displayName: Tunneling
+      # Non-combat, and named in the design as the case that proves the rule:
+      # it moves the same blocks Sinkhole does, and does nothing to anybody's
+      # capacity to fight. A blanket "abilities are combat" rule would lock
+      # Mole out of progression while it performed its defining activity.
+      combat: false
       cooldownTicks: 10
       targetDistance: 12
       maxDistance: 16
@@ -757,11 +785,33 @@ abilities:
       interruptDisplacementSquared: 0.36
       interruptOffPathSquared: 0.25
       branches:
-        bore: { speedMultiplier: 1.6 }
-        gallery: { width: 3 }
+        bore: { speedMultiplier: 1.6, combat: false }
+        gallery: { width: 3, combat: false }
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }
+
+# Combat state: the shared definition of "in combat".
+#
+# Five systems assumed this and none defined it -- level-up selection, Recall,
+# Health Mastery's Absorption, Shovel Pathfinding and Skeleton Crew's Deadline.
+# ONE duration for all of them, deliberately: the player has to be able to see
+# this, and five private windows could not honestly be shown as one state.
+#
+# A consumer wanting more quiet than this provides should add its own delay ON
+# TOP of being out of combat. "Out of combat, then a further N" stays
+# explicable in a way a private 12-second combat window never would.
+#
+# See docs/design/COMBAT_STATE.md. Per-ability classification lives with each
+# ability, at abilities.definitions.<id>.combat and .branches.<branch>.combat.
+combat:
+  # [PROTOTYPE] 7 seconds is a first value, not calibration.
+  #
+  # Do not derive it from, or collapse it into, either of the two numbers it
+  # sits beside: Deadline's "around three seconds" is how long burning Crew
+  # must REMAIN in combat, and features.recall.channelTicks is a channel
+  # length. Neither is a combat window.
+  durationTicks: 140
 
 mapStub:
   text: MOBA

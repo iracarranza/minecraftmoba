@@ -129,6 +129,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
+    private CombatState combatState;
+    /** The shared "in combat" state. See docs/design/COMBAT_STATE.md. */
+    public CombatState combatState() { return combatState; }
     private PacketInputs packets;
     private Rewards rewards;
     private NamespacedKey dataKey;
@@ -186,6 +189,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         pings = new Pings(this);
         testBed = new TestBed(this);
         getServer().getPluginManager().registerEvents(pings, this);
+        combatState = new CombatState(this);
+        getServer().getPluginManager().registerEvents(combatState, this);
         recall = new Recall(this);
         getServer().getPluginManager().registerEvents(recall, this);
         getServer().getPluginManager().registerEvents(healthDisplay, this);

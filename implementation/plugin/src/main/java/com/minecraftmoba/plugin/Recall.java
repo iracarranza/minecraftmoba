@@ -40,6 +40,11 @@ public final class Recall implements Listener {
     public boolean beginFromOffhandClick(Player p) {
         if (!enabled()) return false;
         if (channeling(p)) { cancel(p, "cancelled"); return true; }
+        if (inCombat(p)) {
+            p.sendActionBar(ChatColor.GRAY + "Cannot recall in combat — "
+                    + (plugin.combatState().remaining(p) / 20 + 1) + "s");
+            return true;
+        }
         int ticks = plugin.getConfig().getInt("features.recall.channelTicks", 100);
         active.put(p.getUniqueId(), new Channel(p.getLocation().clone(), ticks));
         p.closeInventory();
@@ -55,9 +60,8 @@ public final class Recall implements Listener {
             @Override public void run() {
                 Channel c = active.get(p.getUniqueId());
                 if (c == null || !p.isOnline()) { cancel(); return; }
-                double moved = plugin.getConfig().getDouble("features.recall.moveTolerance", 1.5);
-                if (!p.getWorld().equals(c.origin().getWorld())
-                        || p.getLocation().distance(c.origin()) > moved) {
+                if (inCombat(p)) { Recall.this.cancel(p, "interrupted"); cancel(); return; }
+                if (!p.getWorld().equals(c.origin().getWorld()) || moved(p.getLocation(), c.origin())) {
                     Recall.this.cancel(p, "moved"); cancel(); return;
                 }
                 if (--left <= 0) { complete(p); cancel(); return; }
@@ -118,6 +122,42 @@ public final class Recall implements Listener {
                 ? p.getWorld().getSpawnLocation() : null;
     }
 
+    /**
+     * In combat, by the one shared definition rather than a private threshold.
+     *
+     * This is additional to the damage cancel below, not a replacement for it.
+     * Damage still interrupts immediately; combat state is what stops a recall
+     * being STARTED a tick after disengaging, and what holds it closed for the
+     * rest of the window. A damage-over-time therefore denies recall for its
+     * duration, which is intended -- poison someone and walk away, and they
+     * cannot leave until it ends.
+     */
+    private boolean inCombat(Player p) {
+        CombatState combat = plugin.combatState();
+        return combat != null && combat.inCombat(p);
+    }
+
+    /**
+     * Whether the player has moved, meaning their block position changed.
+     *
+     * The old test was `distance(origin) > moveTolerance`. The tolerance is
+     * removed by design decision -- "hold still" should mean hold still --
+     * but a literal 0.0 against a distance would have been worse than the
+     * tolerance it replaced: a standing player's location drifts by tiny
+     * floating-point amounts from step height, sneaking, riding and the client's
+     * own position reports, so every recall would have cancelled instantly and
+     * unexplainably.
+     *
+     * An unchanged block position is what "no movement" actually means here. It
+     * is exact, it is integer, and it is the unit the player sees themselves
+     * standing in.
+     */
+    private static boolean moved(Location now, Location origin) {
+        return now.getBlockX() != origin.getBlockX()
+                || now.getBlockY() != origin.getBlockY()
+                || now.getBlockZ() != origin.getBlockZ();
+    }
+
     public void cancel(Player p, String why) {
         if (active.remove(p.getUniqueId()) == null) return;
         if (plugin.hud() != null) plugin.hud().hideMode(p);
@@ -134,6 +174,7 @@ public final class Recall implements Listener {
     public String report(Player p) {
         return "RECALL enabled=" + enabled() + " channeling=" + channeling(p)
                 + " channelTicks=" + plugin.getConfig().getInt("features.recall.channelTicks", 100)
+                + " inCombat=" + inCombat(p)
                 + " destination=" + (destination(p) == null ? "none"
                     : destination(p).getBlockX() + "," + destination(p).getBlockY() + "," + destination(p).getBlockZ());
     }
