@@ -326,14 +326,21 @@ social problem, not a design one.
   effect on something the team built over minutes.
 - **No friendly fire.**
 
-[OPEN] Whether "no friendly fire" means *no direct damage* or *no ally
-consequence at all*. Sinkhole's teeth are that being restored into suffocates;
-if that cannot touch allies, Mole can drop the ultimate on ground teammates
-occupy at zero risk and the ability loses its positioning cost. Golem Master's
-walls raise the same question. Whichever is chosen, it must be **one rule in one
-place** rather than per-ability — the lunge sweep already implements its own
-team check, which is how combat state started — and summons must inherit the
-same answer.
+[RESOLVED 27 September 2026] "No friendly fire" means **no authored damage
+across teams, while incidental and systemic damage still applies** — TNT,
+suffocation and the like do hit allies. So Sinkhole's restore-suffocation keeps
+its positioning cost for the caster's own team, and Toolbox's dispensed TNT is
+not made safe for teammates.
+
+The line is authored versus systemic, which is the same distinction
+[`classes.md` §19](../classes.md#19-toolbox) is built on — a class can be
+extraordinarily lethal without any ability saying "deal X damage" — so this is
+one rule derived from a principle rather than two rules that happen to agree.
+
+[OPEN] The implementation, not the rule. It must be **one rule in one place**
+rather than per-ability — the lunge sweep already implements its own team check,
+which is how combat state started — and summons must inherit the same answer
+rather than each deciding. Golem Master's walls are the next case to classify.
 
 [OPEN] Terminology. There is no clean word covering every way a structure is
 disabled. "Claimed" is already spoken for by neutral objectives (Worksites, the

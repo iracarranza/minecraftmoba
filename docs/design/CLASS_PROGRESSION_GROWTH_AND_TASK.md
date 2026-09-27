@@ -142,8 +142,26 @@ uses.
 Growth modifies attributes and capabilities.
 
 **Personal dimensions:** Health, Hunger, Inventory, Natural Regeneration,
-Saturated Regeneration, Exhaustion Efficiency, and class-resource capacity where
-applicable.
+Saturated Regeneration, Exhaustion Efficiency, **Placement Reach**, and
+class-resource capacity where applicable.
+
+**Placement Reach, added 27 September 2026.** Reach should be typed by Minecraft
+verb rather than collapsed into a generic "range": Placement Reach governs
+placing and placement-like interactions, and is attractive precisely because it
+changes *which positions and geometries are possible* rather than adding a
+percentage to an output. **Entity Reach is deliberately NOT proposed** — it is
+combat-sensitive, and nobody should end up critting from unusual distance as a
+side effect of progression. See
+[TOOLBOX_CIRCUIT_GRAMMAR.md](TOOLBOX_CIRCUIT_GRAMMAR.md), where Toolbox's
+block-interaction payloads depend on it.
+
+It needs no new machinery: `GrowthPacket` takes a free-text `dimension` on a
+`PERSONAL` effect, so `{ dimension: placement_reach, effect: reach, tier: 2 }`
+loads and validates today.
+
+[TERMINOLOGY] `classes.md` already uses **Reach** as an *infrastructure*
+dimension. Typed player reach is a second meaning for the same word and wants
+disambiguating before either is implemented.
 
 **Infrastructure dimensions:** Capacity, Extent, Reach, Potency, Eligibility,
 Concurrency, Projection, Throughput, Connectivity, Branching, Filtering/Routing,

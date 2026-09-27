@@ -2299,6 +2299,16 @@ Primary:
 Secondary:
 - Production
 
+### Toolbox — grammar settled, numbers open
+Primary:
+- Construction
+
+Secondary:
+- Combat
+
+Construction is earned by remote block placement and Placement Reach as a growth
+axis, not by the Ultimate alone. See [section 19](#19-toolbox).
+
 Confirmed by the 13 September kit: Combat · Production.
 
 Kitfighter should not currently be listed as Extraction.
@@ -2832,3 +2842,174 @@ Personal Infrastructure contribution and Worksite-earned Infrastructure are dist
 The first team to capitalize an activated Worksite earns **one bonus shared team Infrastructure opportunity**. It is not personal to the player who completed the capitalization. Current direction is that this shared opportunity can let the team broaden or reinforce its infrastructure portfolio beyond individual class restrictions; exact allocation/reallocation rules remain **[OPEN]**.
 
 A Worksite reward is therefore persistent organizational capacity, not a flat XP payout.
+
+---
+
+# 19. Toolbox
+
+**Active design, 27 September 2026.** Toolbox treats their inventory as a
+programmable Redstone machine. Inventory arrangement is circuit topology;
+components are both instructions and consumable parts; the circuit resolves over
+real time while Toolbox pilots its targeting and direction live.
+
+The detailed circuit grammar — flow topology, timing, Tripwire, Observer relay,
+the component dictionary and the worked examples — lives in
+[docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md](docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md).
+This section records the class itself.
+
+## Status
+
+**Conceptually settled** in its grammar and ability skeleton. Nearly every
+number is [OPEN]. The component dictionary has been deliberately pruned rather
+than completed.
+
+## Hook
+
+> Toolbox organizes their inventory as a programmable Redstone circuit. Taking
+> damage powers it reactively; Toolbox can reconfigure or deliberately power it
+> themselves; components physically fall out as they execute; and their Ultimate
+> lets actual constructed Redstone machines invoke the same vocabulary.
+
+The test in [section 1](#1-class-design-philosophy) — that the weird thing about
+playing Minecraft as this class is explicable without mentioning ability buttons
+— is answered by the passive alone: *my inventory is a Redstone circuit*.
+
+## Archetype
+
+Primary:
+- Construction
+
+Secondary:
+- Combat
+
+**Why Construction is earned rather than themed.** Not because Pistons are
+construction items, and not because an ability happens to place a block — §2's
+firewall forbids both. Two things earn it:
+
+- **Remote block placement.** Dropper ejects an item that becomes its block when
+  it settles validly, so Toolbox can establish terrain at range and along a
+  trajectory rather than at arm's length.
+- **Placement Reach as a growth axis** (§30 of the grammar record), which
+  changes *which geometries are buildable at all*.
+
+That is a verb-level change of the kind [section 31 of the grammar
+record](docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md) requires of specialization, and
+it is the same shape of argument by which Merchant is Production. The Ultimate
+then extends the claim — actual built machines become ability execution — but
+the archetype no longer rests on it alone.
+
+## Canonical kit — 27 September 2026
+
+### Passive — Utility Belt
+
+Incoming damage, when the cooldown is ready, executes the configured inventory
+circuit.
+
+- Inventory geometry is the program; Redstone Dust links components.
+- Flow is row-major, left to right, wrapping from a row's right edge to the next
+  row's left edge. Locked cells do **not** compress the board.
+- Approximately one primary component every ~5 ticks [PROTOTYPE].
+- Components inspect **current world state when they resolve**, not at trigger.
+  Directional components read Toolbox's facing at their own resolution tick.
+- Every resolved component or Dust **drops one item**. This is the "variety as
+  durability" rule: a poorly supplied Toolbox sheds the machine while being
+  attacked.
+- Three amplification states only — Base, +1, +2. Granular 1–15 signal is
+  [REJECTED].
+
+**Cooldown [WORKING]:** 20 / 18 / 16 / 14 / 10 seconds across the level range.
+Long deliberately: at ~5 ticks per component a long circuit takes seconds, and a
+short cooldown would let executions overlap and multiply.
+
+**Any damage procs it**, including mobs and environmental damage. This
+deliberately diverges from
+[COMBAT_STATE.md](docs/design/COMBAT_STATE.md)'s predicate, which excludes
+environmental damage; the Utility Belt is a machine reacting to being hit, not a
+combat state.
+
+[OPEN] That divergence has a consequence: a passive proc runs the *whole*
+circuit while A2 runs a limited opening, so self-inflicted chip damage is
+strictly better than A2 for firing one's own machine. Candidate answers —
+gate the proc on damage magnitude, run a reduced portion on self-inflicted or
+environmental procs, or make A2 about *when* rather than *how much*.
+
+### A1 — Reconfiguration
+
+Swap the last two **unlinked** components with the first two **linked**
+components. Constrained reconfiguration, deliberately not free inventory
+editing: inventory preparation remains the class's first mastery layer.
+
+- **I — Quick Change.** The swap substantially reduces Utility Belt cooldown.
+- **II — Overhaul.** Swap three instead of two.
+- **III — Redundancy.** Swap positions whose component is *unchanged* heal
+  Toolbox instead. Rewards deliberately compatible reactive and proactive
+  configurations.
+
+### A2 — Manual Activation
+
+Manually power a **limited opening portion of the same Utility Belt**. There is
+no separate A2 circuit; that is the point.
+
+- Counts **primary instructions**, not "useful effects" — grammar consumes
+  budget. A Repeater is not skipped for lacking a payload.
+- Base budget ~2–3 instructions [OPEN].
+- Missing reactive context is replaced by Toolbox as circuit origin plus current
+  aim. With no Observed target, Piston launches **Toolbox**, and Sticky Piston
+  moves Toolbox opposite facing and roots the landing.
+- Comparator has nothing to compare and is **not rescued**. Reactive and
+  proactive circuit design should differ.
+
+Branches: **I — Extended Circuit** (larger budget); **II — Overcharge** (final
+component gains +1 amplification, stacking to +2); **III — Short Circuit** (if
+execution produces one or fewer payload effects, deal direct damage around
+Toolbox — the class's only authored damage).
+
+**The settled sentence:**
+
+> Manual Activation does not provide a separate active circuit. It powers the
+> opening of the same Utility Belt that must also function when triggered
+> reactively, forcing Toolbox either to design a circuit useful in both contexts
+> or reconfigure for the intended cast.
+
+### Ultimate — World Circuit Empowerment
+
+For M seconds, the next Redstone circuit Toolbox **deliberately activates** in
+the world is empowered: each component actually powered by that circuit also
+produces its corresponding Utility Belt effect.
+
+The actual machine's layout, materials, timing, signal propagation and geometry
+determine the Ultimate. This is not a construction-themed spell; construction is
+the ability.
+
+[OPEN] No component ceiling is imposed. Material cost, build time, space,
+defending the machine, the activation window and effects interfering with each
+other are all natural gates, and per §18 of the grammar record those should be
+stress-tested before an arbitrary cap is invented.
+
+## Damage is systemic, not authored
+
+Outside Short Circuit, Toolbox has almost no authored damage. It kills by
+arranging ordinary Minecraft objects — TNT, arrows, lava, knockback, terrain,
+confinement — so that **Minecraft** supplies the lethal consequence.
+
+This is why the friendly-fire rule matters to Toolbox specifically: authored
+damage does not cross teams, but **TNT, suffocation and other incidental damage
+do**. The line is authored versus systemic, which is the same distinction this
+class is built on.
+
+## Open
+
+- Inventory unlock order means the first vertically adjacent unlocked pair
+  appears at **21** slots and the first full 9-wide one at **27** — not 18.
+  Tripwire therefore arrives partway up the curve. **This is intentional**: the
+  component becomes useful when the board can hold it.
+- Whether Toolbox authors a faster Inventory curve to reach a usable board
+  sooner. `Capacity` supports per-class `steps` today, so this is authorable
+  without code.
+- Dust's consumption rule: wiring drops one, instruction discharges the stack.
+  Exact mitigation formula [OPEN].
+- Nearly every magnitude: cadence, cooldown curve, Observed and Illuminated
+  durations, amplification thresholds, displacement values, A2 budgets, Short
+  Circuit radius, Ultimate duration.
+- The boundary between circuit components and payload inventory, which both
+  Dispenser and Dropper read as "the first item".
