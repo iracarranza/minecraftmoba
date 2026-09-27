@@ -71,39 +71,68 @@ class CircuitReaderTest {
     }
 
     /**
-     * Flow STEPS OVER a locked cell rather than ending there.
+     * A locked cell ENDS the program. It is not stepped over.
      *
-     * It has to: slots unlock in raw index order, so the hotbar frees first
-     * while row A -- where flow begins -- is still locked. Ending at the first
-     * locked cell would leave a Lv0 Toolbox unable to run anything, when the
-     * design says its program and magazine are forced to share the hotbar.
-     *
-     * This was caught by the test rather than by reading, and the reader was
-     * wrong first.
+     * At Lv3 -- twelve slots -- a player has the hotbar plus three cells of
+     * row A. A program in those three cells stops at the fourth. It must not
+     * leap the locked remainder of rows A, B and C to continue in the hotbar:
+     * only row C wraps to the hotbar, and only when row C is actually there.
      */
-    @Test void flowStepsOverLockedCellsRatherThanEndingAtThem() {
-        var inv = row(inventory(), 0, P, D, O, D, P, D, P);   // hotbar only
-        var circuit = CircuitReader.read(inv, 6);
+    @Test void aLockedCellEndsTheProgramRatherThanBeingSteppedOver() {
+        var inv = row(inventory(), 9, P, D, O);        // the three unlocked cells of row A
+        row(inv, 0, P, D, P, D, P);                     // and a hotbar full of program
+        var circuit = CircuitReader.read(inv, 12);
 
-        assertEquals(3, circuit.components(), "P O P -- the fourth Piston is past the lock");
-        // And there is NO magazine, which is the Lv0 problem stated exactly:
-        // every unlocked cell holds program, so the machine has nothing to
-        // fire. Dispenser and Dropper take "the first item that is not
-        // program", and at six slots a full program leaves no such item.
-        assertEquals(-1, circuit.magazine(),
-                "a fully programmed six-slot board has no ammunition at all");
+        assertEquals(2, circuit.components(), "row A's P and O, and nothing from the hotbar");
+        assertEquals(12, circuit.magazine(), "the program stops at the first locked cell");
+        assertTrue(circuit.steps().stream().noneMatch(s -> s.slot() < 9),
+                "a partial row A must not wrap all the way to the hotbar");
     }
 
     /**
-     * At six slots the program and the magazine are forced to share the hotbar.
+     * The one exception, and it is a starting condition rather than a skip.
      *
-     * This is the Lv0 problem exactly, and it is why the jump at Lv3 is bigger
-     * than "+6 slots" suggests: the program leaves the hotbar entirely.
+     * When the WHOLE storage area is locked there is nowhere else to begin, so
+     * flow begins at the hotbar. This is the Lv0 problem exactly: program and
+     * magazine forced to share one row.
      */
+    @Test void withNoStorageAtAllTheHotbarIsTheWholeBoard() {
+        var inv = row(inventory(), 0, P, D, O, D, P, D, P);
+        var circuit = CircuitReader.read(inv, 6);
+
+        assertEquals(3, circuit.components(), "P O P -- the fourth Piston is past the lock");
+        // And there is NO magazine, which sharpens the Lv0 problem: every
+        // unlocked cell holds program, so the machine has nothing to fire.
+        assertEquals(6, circuit.magazine());
+        assertTrue(circuit.steps().stream().allMatch(s -> s.slot() < 9));
+    }
+
+    /** Nine unlocked slots is still hotbar-only: storage begins above it, not at it. */
+    @Test void nineSlotsIsStillTheHotbarAlone() {
+        var inv = row(inventory(), 0, P, D, O);
+        assertEquals(2, CircuitReader.read(inv, 9).components());
+    }
+
+    /** A program in row A is unreachable while row A is locked. */
     @Test void atSixSlotsARowAProgramIsUnreachable() {
-        var inv = row(inventory(), 9, P, D, O);  // row A holds a program
+        var inv = row(inventory(), 9, P, D, O);
         assertTrue(CircuitReader.read(inv, 6).isEmpty(),
-                "row A is locked at Lv0, and flow finds nothing on the way past it");
+                "flow begins at the hotbar, which is empty");
+    }
+
+    /** With the full board, row C does wrap into the hotbar as ordinary adjacency. */
+    @Test void rowCWrapsIntoTheHotbarWhenTheBoardIsWhole() {
+        var inv = inventory();
+        inv[9] = P;                                     // the program starts at the top-left
+        for (int slot = 10; slot <= 34; slot++) inv[slot] = D;   // wired across rows A, B and C
+        inv[35] = P;                                    // last cell of row C
+        inv[0]  = O;                                    // first cell of the hotbar
+        var circuit = CircuitReader.read(inv, 36);
+
+        assertEquals(3, circuit.components());
+        assertEquals(List.of(9, 35, 0), circuit.steps().stream().map(CircuitReader.Step::slot).toList());
+        assertEquals(List.of(0, 5, 10), circuit.steps().stream().map(CircuitReader.Step::tick).toList(),
+                "the wrap is ordinary adjacency: no pause, no special timing, and wiring costs none");
     }
 
     // ---- timing -----------------------------------------------------------

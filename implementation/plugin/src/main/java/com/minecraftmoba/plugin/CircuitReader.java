@@ -75,6 +75,25 @@ public final class CircuitReader {
 
     private CircuitReader() {}
 
+    /** Fewest unlocked slots at which any storage cell exists at all. */
+    public static final int STORAGE_BEGINS = 9;
+
+    /**
+     * Where flow starts, which is the only thing capacity changes about it.
+     *
+     * Below {@link #STORAGE_BEGINS} there is no storage to begin in, so the
+     * hotbar is the whole board rather than the magazine. At every other
+     * capacity flow starts at the top-left as usual and stops at the first
+     * locked cell, which is what keeps a partial row A from leaping the locked
+     * remainder of the board to continue in the hotbar.
+     */
+    static int[] flowFor(int unlockedSlots) {
+        if (unlockedSlots > STORAGE_BEGINS) return FLOW;
+        int[] hotbarOnly = new int[9];
+        System.arraycopy(FLOW, 27, hotbarOnly, 0, 9);
+        return hotbarOnly;
+    }
+
     /**
      * The slot directly beneath a given one <i>on screen</i>, or -1 at the bottom.
      *
@@ -135,10 +154,8 @@ public final class CircuitReader {
         // discharges rather than meaning "skip me".
         boolean anyComponent = false;
 
-        for (int slot : FLOW) {
-            // Skipped, not terminal -- see the class note. The cell keeps its
-            // geometry for Tripwire; it simply carries no program.
-            if (slot >= unlockedSlots) continue;
+        for (int slot : flowFor(unlockedSlots)) {
+            if (slot >= unlockedSlots) { magazine = slot; break; }
             Material material = slot < contents.length ? contents[slot] : null;
             CircuitComponent component = CircuitComponent.of(material);
             if (component == null) { magazine = slot; break; }
