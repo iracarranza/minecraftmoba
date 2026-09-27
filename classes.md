@@ -835,11 +835,15 @@ needs movement denial *and* interaction denial, and Root supplies only the
 first — the second comes from geometry, which is why real trapping builds shafts
 out of signs and crafting tables rather than looking for a stronger status.
 
-**Roots stack.** Durations add rather than refreshing, so repeated applications
-accumulate. That makes Root a resource an ability can spend more of, rather than
-a binary state — but it also means anything able to apply many Roots at once can
-produce very long holds. See [`TOOLBOX_CIRCUIT_GRAMMAR.md`](docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md)
-§7B for the worked case.
+**Roots refresh; they do not stack.** Rooting an already-Rooted target resets
+the remaining duration rather than adding to it, so no number of simultaneous
+applications produces a hold longer than one Root.
+
+That is deliberate. Under stacking, anything able to apply many Roots at once
+produced absurd holds — a bank of thirty-two applications would have been 320
+ticks from a single instant. Refreshing makes a long hold cost **one
+application per duration**, so it must be paid for across time rather than
+bought in a lump.
 
 ### Stun
 

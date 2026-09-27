@@ -269,8 +269,40 @@ from the current origin; if there is none, eject it. `Di(diamond)` spits a
 diamond, and the machine does not helpfully search past it.
 
 - Arrow: fires from the projected origin, in Toolbox's **current** facing.
-  Observer supplies origin, never homing — an arrow originating near an Observed
-  target may immediately strike it, and that is acceptable.
+  Observer supplies origin, never homing.
+
+  **[SETTLED 27 September 2026] The spawn mirrors vanilla, so a projected arrow
+  hits.** A bow spawns its arrow at the shooter's own horizontal position at
+  eye height minus 0.1 — **no forward offset** — and misses the shooter only
+  through owner-immunity. Projected onto an Observed target, the same geometry
+  puts the arrow *inside* their 0.6 × 1.8 hitbox with no such immunity, so it
+  connects on its first movement tick in any firing direction.
+
+  Whether it hits is therefore entirely the spawn offset `d`, and vanilla's
+  answer is zero:
+
+  | `d` | Hits at elevations |
+  | ---: | --- |
+  | **0 (vanilla)** | **all** |
+  | 0.3 | ≤ 36° — horizontal and below |
+  | 0.5 | ≤ −54° — steeply downward only |
+  | 1.0 | ≤ −73° — nearly straight down |
+
+  Target velocity is second-order: an arrow travels ~3 blocks per tick against a
+  sprinting player's ~0.28, so if the spawn is inside the box it connects before
+  they can clear it, and if it is outside no amount of standing still helps.
+
+  **Balance comes from velocity, not from accuracy.** Vanilla already separates
+  the two sources — `damage = ceil(velocity × 2.0)`, and a dispenser fires at
+  1.1 against a fully drawn bow's 3.0:
+
+  | Source | Velocity | Damage |
+  | --- | ---: | ---: |
+  | Bow, full draw | 3.0 | 6–9 HP |
+  | **Dispenser** | **1.1** | **3 HP** (300 displayed) |
+
+  So a projected arrow is a third of a bow shot, guaranteed — which needs no
+  authored rule at all.
 - TNT: one ordinary primed TNT. Normal fuse, normal explosion, **no authored
   bonus damage**.
 - **Block-interaction payloads require a valid block target inside Toolbox's own
@@ -476,6 +508,35 @@ window for the whole kit: machine circuit, a passive proc, and up to three A2s
 all landing inside it, all originating at Toolbox. That crescendo is the
 intent.
 
+### Root cannot be bought in a lump
+
+`classes.md` settles that **Roots refresh rather than stacking**, which closes
+what would otherwise have been the ability's worst case: under stacking, one
+pulse into a bank of thirty-two Sticky Pistons applied 320 ticks — sixteen
+seconds — in a single instant.
+
+Refreshing means a long hold costs **one activation per ten ticks**, so it has
+to be paid across time. Saturating the six-second window takes about twelve
+Sticky activations, leaving roughly twenty for everything else — which is the
+intended shape: **the caps force a varied machine rather than a bank of one
+component.**
+
+### Timing: the machine's clock, not the belt's
+
+**Settled 27 September 2026.** Ult activations **do not use the 5-tick grid.**
+They resolve at the machine's own timing, and **concurrent activations are
+concurrent** — a single pulse into a bank of components fires all of them in the
+same instant.
+
+So machine **width** matters as much as machine speed, and the 32-activation cap
+can be spent in one tick rather than spread across the window.
+
+**The window is deliberate, not coincidental.** Six seconds is also the Lv25
+passive cooldown, and A2 holds three charges — so the ult window is a burst
+window for the whole kit: machine circuit, a passive proc, and up to three A2s
+all landing inside it, all originating at Toolbox. That crescendo is the
+intent.
+
 ### [RISK] Concurrency plus stacking Root
 
 `classes.md` settles that **Roots stack** — durations add rather than
@@ -506,11 +567,40 @@ build and fight throughout. It may well be an acceptable ultimate payoff.
 But it should be a **decision rather than an emergent surprise**, and the number
 is large enough to be worth choosing deliberately.
 
-[OPEN] **Do concurrent identical effects stack in magnitude as well as
-duration?** Root is a duration and clearly stacks. A bank of thirty-two Pistons
-firing at once is either one push or a thirty-two-fold impulse, and nothing
-currently says which. The same question decides what a bank of Torches or
-Hoppers does.
+[BLOCKING] **Concurrency is the unbounded axis, and neither cap touches it.**
+
+Activations are capped at 32 and the window at 6 seconds, but nothing bounds how
+many resolve in the *same tick*. With Root refreshing, a bank of Sticky Pistons
+is harmless. With anything that repeats, it is not:
+
+| Concurrent dispensers | Damage | |
+| ---: | ---: | --- |
+| 8 | 2,400 | kills Toolbox |
+| 11 | 3,300 | kills Mole at Lv30 |
+| 26 | 7,800 | **2.4x the tankiest character on the roster** |
+
+Six Observers hold the origin for the window and the remaining twenty-six fire
+guaranteed arrows from inside the target, in one pulse, at Observer range. Its
+only counterplay is breaking line of sight or destroying the machine first.
+
+**Lowering the activation cap cannot fix it** — the cap would have to sit near
+eight, which would gut the ability for every other use. That is the same shape
+of failure the Root analysis found: the caps bound *totals*, never
+*simultaneity*.
+
+Candidate rule, and it is one the design already argues for elsewhere:
+
+> **Concurrent activations of the same component type resolve once.**
+
+A bank of twenty-six Dispensers fires one arrow; a bank of Sticky Pistons
+applies one Root. Machine value then comes from **breadth of component types**
+rather than banks of one thing — which makes true the prediction that the
+ultimate would favour "powerful and synergistic effects over repetitions".
+As written, concurrency makes repetition strictly optimal instead.
+
+[OPEN] Whether magnitude effects stack when they do resolve together — a bank
+of Pistons as one push or a multiplied impulse. The rule above would make the
+question moot for identical components.
 
 ## 8. Dependency and map variation
 
