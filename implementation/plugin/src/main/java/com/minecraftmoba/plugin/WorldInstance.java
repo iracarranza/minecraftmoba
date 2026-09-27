@@ -205,6 +205,37 @@ public final class WorldInstance {
     }
 
     /**
+     * The one server misconfiguration that makes every match impossible.
+     *
+     * Bukkit CANNOT unload the primary world -- {@code unloadWorld} returns
+     * false for it unconditionally, whatever else is true. So if
+     * {@code server.properties}' {@code level-name} is the instance world,
+     * {@link #load()} can never materialize: it finds the world loaded, tries
+     * to unload it, is refused, and throws. Every path that reaches a map --
+     * {@code match select}, {@code reset}, {@code restore}, and the lab -- is
+     * dead, and each reports it as a world-restore failure, which points at
+     * the copy rather than at the cause.
+     *
+     * Worse, the server is not visibly broken: Paper preloads the world, spawns
+     * players into it, and everything looks right until the first match.
+     *
+     * Returned as a message rather than thrown, and checked at enable rather
+     * than at first use, so the server says what is wrong while somebody is
+     * still reading the console -- not twenty minutes later in chat.
+     *
+     * Pure and static so it is tested without a server.
+     */
+    public static String primaryWorldConflict(String instanceName, String primaryWorldName) {
+        if (instanceName == null || primaryWorldName == null) return null;
+        if (!instanceName.equals(primaryWorldName)) return null;
+        return "server.properties level-name is '" + primaryWorldName
+                + "', which is also alpha.instanceWorldName. Bukkit cannot unload the"
+                + " primary world, so no match can ever load a map: select, reset and"
+                + " restore will all fail with 'could not unload'. Set level-name to a"
+                + " throwaway world (any name this plugin does not use) and restart.";
+    }
+
+    /**
      * Unload without saving. The instance is disposable, so saving it would
      * only persist the match that is being discarded.
      */

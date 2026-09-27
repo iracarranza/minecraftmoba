@@ -236,6 +236,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         lab = new Lab(this);
+        // Said at enable, not at first use: the failure it predicts surfaces
+        // as an opaque world-restore error in chat, long after the console
+        // has scrolled past anything that would explain it.
+        String conflict = WorldInstance.primaryWorldConflict(worldInstance.instanceName(),
+                getServer().getWorlds().isEmpty() ? null : getServer().getWorlds().getFirst().getName());
+        if (conflict != null) getLogger().severe("[worlds] " + conflict);
         getServer().getPluginManager().registerEvents(passives, this);
         getServer().getScheduler().runTaskTimer(this, () -> {
             selection.tick();
