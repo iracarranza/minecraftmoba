@@ -807,6 +807,51 @@ has read the ability still knows what it does.
 So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
 doing something new at Lv25 is not.
 
+## Movement and input statuses
+
+**Settled 27 September 2026.** Two distinct statuses, deliberately separated,
+because collapsing them produces crowd control that removes a player from the
+game rather than from a position.
+
+### Root
+
+> **Root negates all prior axis displacement for one tick, then prevents
+> movement input — WASD, sneak and jump — for its duration. Nothing else.**
+
+Three consequences, all intended:
+
+- **It is not a freeze.** Physics keeps running. A player rooted mid-launch
+  stops dead for one tick and then *falls* for the remainder, because gravity
+  is not an input. Root cannot suspend someone in the air for a team to hit.
+- **It does not stop external displacement.** Knockback, pistons and explosions
+  still move a rooted player, and they cannot steer or resist — so a rooted
+  target travels exactly where they are sent.
+- **Interaction survives it.** A rooted player may still attack, aim, place
+  blocks, mine, drink, bucket and pearl. Root closes running, jumping and
+  air-steering; it closes **no** clutch.
+
+That last point is the load-bearing one. **Root alone traps nobody.** A trap
+needs movement denial *and* interaction denial, and Root supplies only the
+first — the second comes from geometry, which is why real trapping builds shafts
+out of signs and crafting tables rather than looking for a stronger status.
+
+### Stun
+
+> **Stun prevents all player input.**
+
+The strictly stronger effect, and the one that does close clutches. It should
+therefore be rarer, shorter, or more expensive than Root wherever it appears.
+
+[OPEN] Stun duration, sources, and whether any class has it at all.
+
+### Durations are per source
+
+Sticky Piston's Root is **10 ticks** — two component activations at Toolbox's
+cadence — and is deliberately short. Other abilities may Root for longer or
+shorter, and amplification (Comparator, A2-II Overcharge) extends it, which
+makes "spend amplification on Root duration or on Piston distance" a real
+circuit decision rather than a default.
+
 ## The three clocks
 
 **Settled 27 September 2026.** Three separate cadences run across a class's

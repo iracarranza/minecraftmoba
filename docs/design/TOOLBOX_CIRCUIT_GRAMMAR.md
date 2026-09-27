@@ -211,7 +211,7 @@ through ordinary world Redstone.
 | **Dust** | Wiring; defensive discharge when resolved as an instruction |
 | **Redstone Torch** | Illuminate the current origin; apply Illuminated |
 | **Piston** | Directional impulse in Toolbox's current facing, to eligible entities **including dropped items** |
-| **Sticky Piston** | Pull opposite current facing, and Root |
+| **Sticky Piston** | Pull opposite current facing, and Root (10 ticks) |
 | **Repeater** | Timing; delays the next component |
 | **Comparator** | Convert triggering damage magnitude into amplification |
 | **Tripwire Hook** | Activate exactly one slot directly beneath, +1 tick |
@@ -673,6 +673,56 @@ and circuit terminator are the same object, and **exhausting your ammunition
 changes your program**. Keep that rather than designing it out: it is the class's
 premise, and it punishes precisely what the class should be punished for.
 
+### Combos, against the escape test
+
+**"The Chute" — funnel and knockback, Lv15.** Walls first, Root last, because
+Root is only two components long.
+
+```
+A [O ][d][Dr][d][Dr][d][To][d][d]   acquire · wall left · wall right · Illuminated
+B [Sp][d][P ][d][P ][d][H ][d][d]   Root, then two shoves inside its window
+H  honey ×64 · …
+```
+
+| Escape | Closed by | Open? |
+| --- | --- | --- |
+| Run | Root | |
+| Jump | honey walls reduce it | |
+| Steer out of the shove | Root | |
+| Water clutch | — | **open** |
+| Mine out | — | **open** (honey is soft) |
+| Class mobility | — | **open** |
+
+Both shoves land inside the 10 ticks, so the target travels the full run with
+no ability to redirect. The honey walls do the aiming and Illuminated does the
+distance — Toolbox solving a knockback trap's reliability problem from both
+ends at once, which no other class can do.
+
+**"The Box" — confinement, Lv18, hard ground only.**
+
+```
+A [O ][d][Sp][d][Dr][d][Dr][d][d]   acquire · Root · two walls inside the window
+B [Dr][d][Dr][d][Dr][d][Di][d][d]   remaining walls and ceiling, then lava
+C [· ][d][· ][d][· ][d][H ][d][· ]  recover
+H  obsidian ×64 · lava bucket · …
+```
+
+Only the first two Droppers land during Root; the rest depend on the target
+having nowhere to go, which is why this one **requires hard ground**. On dirt
+they are gone before the ceiling exists.
+
+| Escape | Closed by | Open? |
+| --- | --- | --- |
+| Run, jump, steer | Root, then walls | |
+| Mine out sideways | obsidian, hardness 50 | |
+| Climb or pearl up | ceiling | |
+| **Tunnel down** | — | **open unless the ground is hard** |
+| Class mobility | — | **open** |
+
+[CORRECTED] An earlier draft of the same idea — "The Pen" — placed four walls
+during a single Root and does not work. Root is ten ticks; four Droppers are
+twenty.
+
 ### Does any of it break?
 
 Per §11 the test is cost, not instinct, and the answer is no — by a wide margin.
@@ -699,6 +749,100 @@ Hopper is what makes the large board sustainable at all — and it only recovers
 what is within radius, so a machine that uses Piston on *Toolbox* moves its
 owner away from their own droppings. The sustainable machine is the one that
 stays put.
+
+## 10B. What a trap actually is
+
+**Settled 27 September 2026**, from the trapping corpus rather than from
+first principles.
+
+> A trap is not a damage source. It is an **enumeration of the victim's
+> escapes, with each one closed.**
+
+That is the design test for any Toolbox combo: list the outs, show which the
+circuit closes, and **name the one it does not**. A combo with no open row is
+either wrong or broken.
+
+### Movement denial and interaction denial are different problems
+
+`classes.md` § *Movement and input statuses* settles Root as **movement input
+only** — WASD, sneak, jump — with physics and all interaction surviving it.
+
+| Escape | Root | Needs |
+| --- | :---: | --- |
+| Run | ✓ | |
+| Jump out | ✓ | |
+| Steer mid-air | ✓ | |
+| Voluntary crawl | ✓ | |
+| Water-bucket clutch | ✗ | geometry |
+| Block clutch, pearl | ✗ | geometry |
+| Mine out | ✗ | hard blocks |
+| Attack back | ✗ | Stun, or killing them |
+
+**So Root alone traps nobody**, and no stronger status is the answer. The
+corpus solves interaction denial with *geometry* — shafts of signs that break
+a water clutch, crafting tables that swallow a block placement by opening their
+UI instead. **The class supplies movement denial; the world supplies
+interaction denial.** Neither half is a trap.
+
+Two properties of Root that circuits should exploit rather than work around:
+
+- **Root does not stop external displacement.** A rooted target still takes
+  knockback and cannot steer or resist it, so `Sp` then `P` delivers them
+  precisely. Root is a *delivery* tool as much as a holding one.
+- **Root drops people.** Rooted mid-launch they stop for one tick and then
+  fall, uncontrolled, because gravity is not an input. Launch, Root, and the
+  fall does the work.
+
+### Ten ticks is two components
+
+Sticky's Root is 10 ticks — **two component activations**. That is the real
+budget, and it invalidates any combo that assumed a target stays put while a
+structure goes up. You cannot build a box during a Root. You can place two
+blocks, or land two shoves.
+
+Spending amplification on Root duration instead of on Piston distance is
+therefore a genuine circuit decision, not a default.
+
+### Suffocation is weak; confinement is not
+
+[CORRECTED] An earlier version of this record called a Root-plus-sand
+suffocation column the one combo likely to be genuinely broken. It is the
+weakest thing in the set. Sand is hardness **0.5** and is cleared in under a
+second — often faster than the suffocation resolves. Obsidian is **50**.
+
+But obsidian cannot be delivered the same way. **Block placement is refused
+inside an entity's hitbox**; gravity blocks are the exception, which is exactly
+why the suffocation family is built on soft blocks and exactly why it is weak.
+Pushing a hard block into someone needs a piston crusher, and Toolbox's Piston
+moves *entities*, not blocks.
+
+So Toolbox's strong version is **confinement, not suffocation**: Root, then
+obsidian walls and a ceiling. The box does not deal damage — it makes the
+situation outlast the fight, which is the class's "damage is systemic" premise
+working as intended.
+
+### Every Toolbox box is open at the bottom
+
+Dropper settles blocks in **empty** space, and the cell under a standing
+player's feet is already terrain. So Toolbox can build walls and a ceiling and
+**never a floor**. The sixth side is whatever ground the fight is on:
+
+| Ground | Time to escape downward |
+| --- | --- |
+| Dirt, sand, gravel | about a second — the box is decorative |
+| Stone, deepslate | a few seconds with a decent pick |
+| Obsidian, bedrock, hard terrain | none |
+
+**Toolbox's trapping power is therefore terrain-dependent**, which is a
+property to keep rather than fix. It turns map knowledge into class power, and
+this project already classifies maps by exactly that kind of geological
+character — a "Toolbox map" is one with hard exposed ground.
+
+It also makes **Mole structurally immune**, permanently, which is a clean
+counter rather than a balance accident. Class mobility generally is the escape
+Toolbox cannot close: Lightfooted Bounds out, Daredevil has Runway. Trapping is
+therefore a read on the enemy's cooldowns, not a guaranteed kill — which is a
+much healthier place for the class than "unescapable".
 
 ## 11. Stress-testing posture
 
