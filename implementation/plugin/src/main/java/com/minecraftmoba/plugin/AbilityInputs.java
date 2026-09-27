@@ -42,6 +42,8 @@ public final class AbilityInputs implements Listener {
         this.plugin=plugin; this.provenance=provenance; abilities=new HashMap<>(TestAbilities.create(plugin));
         var tunnel = plugin.getConfig().getConfigurationSection("abilities.definitions.tunneling");
         if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
+        var bounding = plugin.getConfig().getConfigurationSection("abilities.definitions.bounding");
+        if (bounding != null) abilities.put("bounding", new BoundingAbility(plugin, bounding));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));

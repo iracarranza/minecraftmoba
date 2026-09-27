@@ -129,6 +129,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
+    /** The ability layer, which also owns the class definitions. */
+    public AbilityInputs inputs() { return inputs; }
+    private Passives passives;
+    /** Class passives, dispatched by ClassDefinition.passiveHook. */
+    public Passives passives() { return passives; }
     private CombatState combatState;
     private InWorldSelection selection;
     /** In-world progression selection. See docs/design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md. */
@@ -224,10 +229,18 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(selection, this);
         // One timer drives the beat and sweeps combat state. Both are cheap
         // per-tick reads; neither wants a task per player or per entity.
+        passives = new Passives(this);
+        getServer().getPluginManager().registerEvents(passives, this);
         getServer().getScheduler().runTaskTimer(this, () -> {
             selection.tick();
             combatState.sweep(getServer().getCurrentTick());
         }, 1L, 1L);
+        // Speed is a standing attribute rather than an event, so it is written
+        // on a cadence. Slower than the per-tick timer: a movement-speed write
+        // every tick for every player is pure waste, and a fox arriving a
+        // fraction of a second late is not observable.
+        getServer().getScheduler().runTaskTimer(this, passives::tick,
+                getConfig().getLong("passives.tickTicks"), getConfig().getLong("passives.tickTicks"));
         getServer().getPluginManager().registerEvents(packets, this);
         getServer().getOnlinePlayers().forEach(p -> { load(p); packets.attach(p); });
         getServer().getScheduler().runTaskTimer(this, () -> {

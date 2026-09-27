@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Animals;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -64,15 +65,61 @@ final class TestAbilities {
             if ("thieving_swipe".equals(branch)) power = branchDouble("thievingSwipe", "power");
             if ("stalking_pounce".equals(branch)) power = branchDouble("stalkingPounce", "power");
             leap(p, power);
-            var hit = p.rayTraceEntities((int) Math.ceil(config.getDouble("hitDistance")));
-            if (hit != null && hit.getHitEntity() instanceof Player target && "thieving_swipe".equals(branch)) {
-                var item = target.getInventory().getItemInMainHand();
-                if (!item.getType().isAir()) target.setCooldown(item.getType(), branchInt("thievingSwipe", "disableTicks"));
-            }
+            sweep(p, ctx, branch);
             return true;
         }
         private void leap(Player p, double power) {
             p.setVelocity(p.getVelocity().add(p.getLocation().getDirection().multiply(power)));
+        }
+        /**
+         * Damage what the leap passes through, each target once.
+         *
+         * Ported from codex/lightfooted-from-phase1. The previous version
+         * ray-traced ONCE, at cast time, before the leap had moved the player
+         * anywhere -- so it could only hit something already standing in front
+         * of them, and the leap itself did nothing. The ability was a jump with
+         * an unrelated poke attached.
+         *
+         * Following the player for the leap's duration makes the travel the
+         * attack, which is what a lunge is. That branch did it by teleporting
+         * the player along a computed path; this follows the velocity instead,
+         * so knockback, blocks and the player's own momentum still apply and
+         * the leap does not fight the physics it is made of.
+         *
+         * The per-target dedup is the load-bearing part. Without it a target
+         * standing in the path is damaged once per tick of the sweep -- the
+         * ability's damage would be a function of how long someone stayed
+         * inside it, which is a multi-second stunlock rather than a lunge.
+         */
+        private void sweep(Player p, AbilityContext ctx, String branch) {
+            double radius = config.getDouble("damageRadius");
+            double damage = config.getDouble("damage");
+            int ticks = config.getInt("sweepTicks");
+            var struck = new HashSet<UUID>();
+            new BukkitRunnable() {
+                int elapsed;
+                @Override public void run() {
+                    if (elapsed++ >= ticks || !p.isOnline() || p.isDead()) { cancel(); return; }
+                    for (Entity e : p.getNearbyEntities(radius, radius, radius)) {
+                        if (!(e instanceof LivingEntity target) || target.equals(p) || target.isDead()) continue;
+                        if (friendly(p, target) || !struck.add(target.getUniqueId())) continue;
+                        target.damage(damage, p);
+                        if ("thieving_swipe".equals(branch) && target instanceof Player victim) {
+                            var item = victim.getInventory().getItemInMainHand();
+                            if (!item.getType().isAir())
+                                victim.setCooldown(item.getType(), branchInt("thievingSwipe", "disableTicks"));
+                        }
+                    }
+                }
+            }.runTaskTimer(ctx.plugin(), 0L, 1L);
+        }
+        /** Same-team players are never swept. Everything else, including mobs, is fair. */
+        private boolean friendly(Player source, LivingEntity target) {
+            if (!(target instanceof Player other)) return false;
+            var board = Bukkit.getScoreboardManager() == null ? null : Bukkit.getScoreboardManager().getMainScoreboard();
+            if (board == null) return false;
+            var team = board.getEntryTeam(source.getName());
+            return team != null && team.equals(board.getEntryTeam(other.getName()));
         }
         private double branchDouble(String branch, String key) { return config.getDouble("branch" + "es." + branch + "." + key); }
         private int branchInt(String branch, String key) { return config.getInt("branch" + "es." + branch + "." + key); }

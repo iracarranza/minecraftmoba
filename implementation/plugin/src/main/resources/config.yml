@@ -698,13 +698,18 @@ abilities:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted:
       displayName: Lightfooted
+      # animal_senses is now DISPATCHED, by Passives. Before that this key was
+      # parsed, stored, exposed on ClassDefinition and read by nothing, on every
+      # class in the file.
       passiveHook: animal_senses
       statGrowthProfile: lightfooted
       infrastructureProgression: { level6: routes, level12: traversal_expression }
       branches: { lunge: swarming_bite }
       persistentStateDefaults: { lungeBranch: swarming_bite }
       a1: lunge
-      a2: sinkhole_lite
+      # Was sinkhole_lite: the shared prototype stub, which is Mole's ability
+      # and said nothing about this class.
+      a2: bounding
       ult: channel_ult
     # The class that could not be configured at all under one effect per level.
     # Lv6 is Supply Line access AND Night Efficiency I; Lv18 is Night
@@ -766,8 +771,13 @@ abilities:
       # to one branch is stopped from inheriting a stale answer.
       combat: true
       power: 0.8
-      hitDistance: 2.5
       animalRadius: 12
+      # The sweep. [WORKING] carried over from the source branch as provisional
+      # calibration; hitDistance is gone with the single cast-time ray trace it
+      # parameterized.
+      damage: 2.0
+      damageRadius: 1.6
+      sweepTicks: 8
       branches:
         # Damage scaled by the pack around you.
         swarmingBite: { perWolfPower: 0.03, combat: true }
@@ -775,6 +785,20 @@ abilities:
         thievingSwipe: { power: 1.0, disableTicks: 30, combat: true }
         # A committed leap onto a target, paid for with a rooted windup.
         stalkingPounce: { power: 1.6, windupTicks: 12, combat: true }
+    bounding:
+      displayName: Bounding
+      # Non-combat: it is travel. It does nothing to anybody's capacity to
+      # fight, and attacking is refused for its duration precisely so it cannot
+      # become a gap-closer with a swing on the end.
+      combat: false
+      cooldownTicks: 60
+      # [WORKING] Carried over from codex/lightfooted-from-phase1, where these
+      # were labelled provisional calibration. None has been played.
+      bounds: 3
+      boundSpeed: 0.9
+      boundLift: 0.42
+      boundTicks: 8
+      animalRadius: 10.0
     sinkhole_lite:
       displayName: SinkholeLite
       # Combat, following Sinkhole's settled classification: it is crowd
@@ -833,6 +857,37 @@ abilities:
 #
 # See docs/design/COMBAT_STATE.md. Per-ability classification lives with each
 # ability, at abilities.definitions.<id>.combat and .branches.<branch>.combat.
+# Class passives, dispatched by ClassDefinition.passiveHook.
+#
+# The hook was declared on every class and read by NOTHING until this existed.
+# A passive is named in config and resolved in Passives.java.
+#
+# Passives never set combat state. An always-on effect that marked combat would
+# leave its class permanently in it -- unable to level up, Recall, or hold any
+# out-of-combat effect. See docs/design/COMBAT_STATE.md.
+passives:
+  enabled: true
+  # How often standing passive attributes are rewritten. Event-shaped passives
+  # (damage, fall) do not use this; they are read at the event.
+  tickTicks: 10
+  # Lightfooted. Wolves mitigate damage, cats soften falls, foxes add speed --
+  # three species with three unrelated benefits, deliberately not one stacking
+  # animal bonus, because choosing which animals to travel with should be a
+  # decision with a position and a logistics cost attached.
+  animalSenses:
+    radius: 10.0
+    # [WORKING] Carried over from codex/lightfooted-from-phase1 as provisional
+    # calibration. Unplayed.
+    wolfDamageReduction: 0.02
+    catFallReduction: 0.10
+    foxSpeedBonus: 0.03
+    # The CAP IS LOAD-BEARING, not tuning. The source branch clamped only at
+    # zero, so enough wolves reached literal damage immunity. Animals are free,
+    # renewable and breedable, and the map compiler deliberately stocks them,
+    # so an uncapped count is an invitation rather than an edge case. Four
+    # matches the ceiling Swarming Bite already uses.
+    speciesCap: 4
+
 combat:
   # [PROTOTYPE] 7 seconds is a first value, not calibration.
   #
