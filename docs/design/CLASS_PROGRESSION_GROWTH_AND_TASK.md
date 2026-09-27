@@ -900,16 +900,38 @@ infrastructure and its name; personal movement progression; crew combat potency;
 Task aptitude thresholds; whether Quick Guard is its first advanced Slaying
 technique; and shield ready-slot and cooldown behaviour.
 
-**A known data-model blocker.** `ClassDefinition.infrastructureProgression` is
-`Map<level, effect>` — one effect per level. Skeleton Crew's Lv6 is Supply Line
-access **and** Night Efficiency I, and its Lv18 is Night Efficiency II plus crew
-combat development, so the class cannot be configured at all until this widens.
-Do **not** solve it as `Map<level, List<String>>` of infrastructure strings: a
-Growth packet combines infrastructure with class methodology and personal
-attributes, so widening it to a list of infrastructure effects would rebuild the
-same Growth-is-Infrastructure confusion one level down. The next architecture
-step is a genuine **class Growth packet** with infrastructure as one effect
-family inside it.
+**The data-model blocker is CLEARED, 27 September 2026.** It was:
+`ClassDefinition.infrastructureProgression` is `Map<level, effect>` — one effect
+per level — while Skeleton Crew's Lv6 is Supply Line access **and** Night
+Efficiency I, and its Lv18 is Night Efficiency II plus crew combat development,
+so the class could not be configured at all.
+
+`GrowthPacket` is the class Growth packet this section asked for. A level grants
+a **list of effects**, each declaring its **family** — `PERSONAL`,
+`INFRASTRUCTURE` or `METHODOLOGY` — so infrastructure is one effect family
+inside the packet rather than the packet itself. It was deliberately not solved
+as `Map<level, List<String>>`: a list of infrastructure strings would have
+recorded Night Efficiency as infrastructure, which is the same
+Growth-is-Infrastructure confusion one level down.
+
+Authored in config under a class's `growth:` key, keyed `level6`, `level18`.
+`infrastructureProgression` is **superseded but still read**, translating to a
+single `INFRASTRUCTURE` effect per level — which is all it ever meant — so Mole
+keeps the progression it already had. An authored packet wins outright at the
+same level, so a migrating class never holds both.
+
+`skeleton_crew` is in config as the proof, with both two-effect levels. Its
+effect names and tiers are **[WORKING] placeholders**: crew capacity
+progression, Supply Line establishment rules, and Night Efficiency / Reach /
+Throughput magnitudes all remain open below. The entry proves the data model
+holds the class; it does not balance it.
+
+Note what the packet deliberately does **not** carry. The continuous personal
+curves — Health, Hunger, Inventory — stay in `Capacity`, selected by
+`statGrowthProfile`. The packet is the *discrete* half of "regular continuous
+attribute growth **+** authored qualitative/discrete Growth spikes", which is
+where this document says spikes belong. A class does not restate its health
+curve in its packet; it records what it gains that a curve cannot express.
 
 **Task.** Calibrate the fractional IV–VII backbone; assign technique Strength
 scales; finish the Quick Guard requirement; name and define Looting's

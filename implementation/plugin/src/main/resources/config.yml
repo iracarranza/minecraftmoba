@@ -706,6 +706,34 @@ abilities:
       a1: lunge
       a2: sinkhole_lite
       ult: channel_ult
+    # The class that could not be configured at all under one effect per level.
+    # Lv6 is Supply Line access AND Night Efficiency I; Lv18 is Night
+    # Efficiency II plus crew combat development. Both are two effects, and
+    # neither is two INFRASTRUCTURE effects -- which is why the packet has
+    # families rather than a longer list of infrastructure strings.
+    #
+    # [WORKING] Effect names and tiers are placeholders standing in for design
+    # that is still open: crew capacity progression, Supply Line establishment
+    # rules, and Night Efficiency / Reach / Throughput magnitudes are all
+    # unresolved in CLASS_PROGRESSION_GROWTH_AND_TASK.md. This entry exists to
+    # prove the data model holds the class, not to balance it.
+    skeleton_crew:
+      displayName: Skeleton Crew
+      passiveHook: undead_affinity
+      statGrowthProfile: fallback
+      growth:
+        level6:
+          infrastructure:
+            - { dimension: eligibility, effect: supply_line }
+          methodology:
+            - { effect: night_efficiency, tier: 1 }
+        level18:
+          methodology:
+            - { effect: night_efficiency, tier: 2 }
+            - { effect: crew_combat_development, tier: 1 }
+      a1: lunge
+      a2: sinkhole_lite
+      ult: channel_ult
     mole:
       displayName: Mole
       passiveHook: mole_digging
@@ -714,9 +742,10 @@ abilities:
       # excavation/combat methodology. This is Mole's authored timing, NOT a
       # roster rule: Skeleton Crew takes Supply Line access at Lv6, and
       # Gardener is expected to take Development Zone capacity there too.
-      # KNOWN BLOCKER: this map holds one effect per level. Skeleton Crew's
-      # Lv6 is Supply Line access AND Night Efficiency I, which cannot be
-      # expressed here. See docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md.
+      # The blocker recorded here is CLEARED: see `growth:` below, and
+      # skeleton_crew for the two-effect level that could not be expressed.
+      # infrastructureProgression is SUPERSEDED and still read, translating to
+      # a single INFRASTRUCTURE effect per level -- which is all it ever meant.
       infrastructureProgression:
         level18: routes_establish
         level21: routes_reach

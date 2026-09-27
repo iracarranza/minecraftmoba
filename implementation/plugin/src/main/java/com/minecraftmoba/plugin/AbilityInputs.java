@@ -55,9 +55,15 @@ public final class AbilityInputs implements Listener {
         var classes=Objects.requireNonNull(c.getConfigurationSection("abilities.classes"));
         for (String id : classes.getKeys(false)) {
             var classSection = classes.getConfigurationSection(id);
+            var legacy = stringMap(section(classSection, "infrastructureProgression"));
             var definition = new ClassDefinition(id, text(classSection, "displayName"), text(classSection, "passiveHook"),
-                text(classSection, "statGrowthProfile"), stringMap(section(classSection, "infrastructureProgression")),
-                stringMap(section(classSection, "branches")), stringMap(section(classSection, "persistentStateDefaults")));
+                text(classSection, "statGrowthProfile"), legacy,
+                stringMap(section(classSection, "branches")), stringMap(section(classSection, "persistentStateDefaults")),
+                // Authored packets win outright over translated legacy ones at
+                // the same level, so a class being migrated does not end up
+                // holding both its old single effect and its replacement.
+                GrowthPacket.merge(GrowthPacket.fromLegacy(legacy),
+                                   GrowthPacket.load(section(classSection, "growth"))));
             this.classes.put(id, definition);
             Map<Input, Ability> kit = new EnumMap<>(Input.class);
             for (String slot : List.of("a1","a2","ult")) {
