@@ -212,7 +212,7 @@ through ordinary world Redstone.
 | **Redstone Torch** | Illuminate the current origin; apply Illuminated |
 | **Piston** | Directional impulse in Toolbox's current facing, to eligible entities **including dropped items** |
 | **Sticky Piston** | Pull opposite current facing, and Root (10 ticks) |
-| **Repeater** | Timing; delays the next component |
+| **Repeater** | Timing; delays the next component. Also the parity shim (§2) and the manual-intervention window (§10C) |
 | **Comparator** | Convert triggering damage magnitude into amplification |
 | **Tripwire Hook** | Activate exactly one slot directly beneath, +1 tick |
 | **Observer** | Acquire, apply Observed, move the projected origin |
@@ -843,6 +843,79 @@ counter rather than a balance accident. Class mobility generally is the escape
 Toolbox cannot close: Lightfooted Bounds out, Daredevil has Runway. Trapping is
 therefore a read on the enemy's cooldowns, not a guaranteed kill — which is a
 much healthier place for the class than "unescapable".
+
+## 10C. Fluids, and the one payload per run rule
+
+### Fluids are the exception to the hitbox rule
+
+§10B says block placement is refused inside an entity's hitbox. **Fluids are
+not.** Lava and water can be bucketed onto a player, which is the only route by
+which a hard block reaches someone's head:
+
+> A **lava source** contacted by water becomes **obsidian**.
+> **Flowing lava** contacted by water becomes **cobblestone**.
+
+That distinction decides the whole technique, and it is why the target must
+already be in a **1-wide hole**. The hole keeps the source block a source,
+sitting in their head cell, and stops either fluid spreading somewhere
+unhelpful. In the open the same two buckets produce a lavacast, not a coffin.
+
+Both are Dispenser bucket payloads, so both are **block interactions** — they
+use Toolbox's own placement reach and **Observer does not project them**. This
+is the one kill in the class that cannot be performed remotely.
+
+The gate is the hole, not the kill. Toolbox cannot build a 1-wide pit inside a
+10-tick Root — four walls is twenty ticks — and has no excavation. So this is a
+**terrain play**: a hole that already exists, or one the funnel drove them into.
+
+It is also not invented here. It is the bedtrap's lava component plus
+lavacast's conversion, both documented trapping techniques.
+
+### One payload type per uninterrupted run
+
+Dispenser and Dropper take **the first item**, with no search for a compatible
+one (§7). The consequence is general and was not designed:
+
+> A circuit gets **one payload type per uninterrupted run**. Repeating a
+> payload is free; mixing two requires intervention.
+
+`Di(TNT)` three times is free. `Dr(obsidian)` four times is free. Lava then
+water is not, and neither is honey then obsidian. **Circuits therefore favour
+repetition, and mixing payloads is the advanced play.**
+
+Three ways to mix, in rising difficulty:
+
+| | Method | Cost |
+| --- | --- | --- |
+| **Manual half** | Lava in slot 0 for the circuit, water **in hand** — the player right-clicks it themselves. "First item" is slot order, not what is held, so no switching is needed at all. | Hand and attention; no circuit cost |
+| **Repeater window** | The circuit fires both while the player swaps slot 0 during a Repeater's delay | A component plus a shim; frees the hand |
+| **Tick-perfect swap** | The same, inside the bare 5-tick gap | Likely not humanly reliable |
+
+**This is Repeater's third job** — delay, parity shim (§2), and now the window
+for manual intervention.
+
+### The strongest combo is deliberately un-automatable
+
+Follow that through and the most lethal thing in the class cannot be
+pre-programmed and fired. Somebody has to operate the machine while it runs,
+which is §1's third mastery layer being load-bearing for the best play rather
+than decorative:
+
+> Toolbox must pilot the machine rather than merely pre-program everything.
+
+It also means the kill cannot be reduced to one button or muscle memory, which
+for a class this mechanically deep is worth protecting.
+
+[BLOCKING — was OPEN] **Bucket aftermath.** Vanilla dispensers leave an empty
+bucket, and an empty bucket dispensed at a lava source **picks the lava back
+up**. So if the emptied bucket remains first in order, the second `Di` undoes
+the first and the combo reverses itself. Candidates: eject the emptied bucket
+so the next `Di` reaches the water; leave it and require a third `Di`; or leave
+it deliberately. This is no longer a loose end — it decides whether the
+technique exists.
+
+Worth keeping either way: **`Di(empty bucket)` is a lava-removal tool**, which
+is real vanilla behaviour and gives Toolbox an answer to somebody else's lava.
 
 ## 11. Stress-testing posture
 
