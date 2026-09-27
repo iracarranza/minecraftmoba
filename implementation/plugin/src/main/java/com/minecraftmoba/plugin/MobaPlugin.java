@@ -130,6 +130,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public int pendingRewardCount(Player p) { return settings.rewards().pending(data(p)).size(); }
     private AbilityInputs inputs;
     private CombatState combatState;
+    private InWorldSelection selection;
+    /** In-world progression selection. See docs/design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md. */
+    public InWorldSelection selection() { return selection; }
     /** The shared "in combat" state. See docs/design/COMBAT_STATE.md. */
     public CombatState combatState() { return combatState; }
     private PacketInputs packets;
@@ -217,6 +220,14 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         inputs = new AbilityInputs(this, provenance);
         packets = new PacketInputs(this, inputs);
         getServer().getPluginManager().registerEvents(inputs, this);
+        selection = new InWorldSelection(this, settings.rewards());
+        getServer().getPluginManager().registerEvents(selection, this);
+        // One timer drives the beat and sweeps combat state. Both are cheap
+        // per-tick reads; neither wants a task per player or per entity.
+        getServer().getScheduler().runTaskTimer(this, () -> {
+            selection.tick();
+            combatState.sweep(getServer().getCurrentTick());
+        }, 1L, 1L);
         getServer().getPluginManager().registerEvents(packets, this);
         getServer().getOnlinePlayers().forEach(p -> { load(p); packets.attach(p); });
         getServer().getScheduler().runTaskTimer(this, () -> {

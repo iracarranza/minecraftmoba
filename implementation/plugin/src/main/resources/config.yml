@@ -813,6 +813,36 @@ combat:
   # length. Neither is a combat window.
   durationTicks: 140
 
+# In-world selection: spending a progression choice requires a SPACE.
+#
+# Supersedes the chest menu as the in-match interaction. The menu still exists
+# and /moba rewards still opens it; this is the mechanic that replaces it, and
+# the two are not meant to both be live in a real match.
+#
+# See docs/design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md.
+selection:
+  # OFF until the beat period and the condition set have been played. The
+  # mechanic is written and untested in a live match, and shipping it enabled
+  # would make a design experiment the default experience.
+  enabled: false
+  # [PROTOTYPE] The beat, not a channel. What matters is state at the END of
+  # it, so spending the interval escaping and crouching on the final beat is
+  # correct play. Independently tuned from combat.durationTicks -- that these
+  # are 5s and 7s is a coincidence of first values, not a relationship.
+  beatTicks: 100
+  # The trailing window for "not moving". Instantaneous velocity is zero at odd
+  # moments, so stillness needs a look-back or it means nothing. Measured in
+  # whole blocks changed, the same reading Recall uses.
+  stillnessTicks: 20
+  # N is always three -- three Task trees, three ability branches. The required
+  # width is DERIVED from this rather than fixed as a block span, so a future
+  # two- or four-option choice does not silently break the space rule.
+  slots: 3
+  spacing: 1.0
+  # How far ahead the options are placed. Against a wall the summon backs off
+  # to the last clear block; in open air it uses the full reach.
+  aimDistance: 4.0
+
 mapStub:
   text: MOBA
   textX: 8
