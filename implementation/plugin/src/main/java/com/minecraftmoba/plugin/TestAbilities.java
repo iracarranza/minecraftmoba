@@ -16,6 +16,7 @@ final class TestAbilities {
         var ids = new ArrayList<>(List.of("lunge", "sinkhole_lite", "channel_ult"));
         if (p.getConfig().getConfigurationSection("abilities.definitions.lightfooted_lunge") != null) ids.add("lightfooted_lunge");
         if (p.getConfig().getConfigurationSection("abilities.definitions.lightfooted_bounding") != null) ids.add("lightfooted_bounding");
+        if (p.getConfig().getConfigurationSection("abilities.definitions.lightfooted_lucky_foot") != null) ids.add("lightfooted_lucky_foot");
         for (String id : ids) {
             var c = Objects.requireNonNull(p.getConfig().getConfigurationSection("abilities.definitions." + id));
             result.put(id, new Configured(id, c));
@@ -36,6 +37,7 @@ final class TestAbilities {
                 }
                 case "lightfooted_lunge" -> { ctx.plugin().lightfooted().lunge(p); yield true; }
                 case "lightfooted_bounding" -> { ctx.plugin().lightfooted().beginBounding(p); yield true; }
+                case "lightfooted_lucky_foot" -> { ctx.plugin().lightfooted().luckyFoot(p); yield true; }
                 case "sinkhole_lite" -> sinkhole(p, ctx);
                 case "channel_ult" -> { ctx.inputs().channel(p, config.getLong("channelTicks"), config.getDouble("movementThreshold")); yield true; }
                 default -> throw new IllegalStateException("Unknown test ability");
