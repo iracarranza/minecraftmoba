@@ -193,3 +193,81 @@ Growth clock, the fallback curve not being a roster default, capacity
 specialization deprecated rather than deleted, absent IV–VII magnitudes, the
 exhaustion cadence without values, ×100 as presentation only — all still stand
 and should not be tidied away.
+
+---
+
+## Done on the local instance, 27 September 2026
+
+The build order above is complete through item 6. Both suites green: 372 plugin
+tests (from 324) and 591 worldgen.
+
+**1. The unverified commit is verified.** `repo.papermc.io` is reachable from
+the local instance, so `5213671` compiles and `TaskProjectionTest` passes. A
+Task allocation now takes effect without relogging.
+
+**2. Combat state exists.** `CombatState` — a stored tick, keyed by entity,
+7 seconds [PROTOTYPE], swept from the plugin's timer. `AbilityCombat` requires
+a per-branch `combat` declaration and fails at load naming every definition and
+branch that did not declare. The four existing abilities are classified;
+`sinkhole_lite` is combat and `tunneling` is not, which is the pair the design
+names as same-medium-opposite-answers.
+
+**3. Recall has both decided changes.** Gated on combat state in addition to the
+damage cancel, and `moveTolerance` is gone — replaced by an unchanged **block
+position**, not a literal `0.0` against a distance, which the handoff correctly
+flagged would cancel on float noise. A test asserts the key stays absent.
+
+**4. In-world selection is built and SHIPPED OFF** (`selection.enabled: false`).
+The beat, the four conditions with trailing windows on two of them, the bossbar
+clock swap, one-choice-per-summon, and Text Display + Interaction options placed
+in unobstructed space. The arithmetic is in `SelectionBeat` and
+`SelectionLayout` and is tested without a server; the entity work is not,
+following `LobbyHall`'s split. It is off because the beat period and the
+condition set are exactly what wants playing, and enabling it would make a
+design experiment the default experience. The menu still works.
+
+**5. The Growth packet exists**, and `CLASS_PROGRESSION_GROWTH_AND_TASK.md` is
+updated where it recorded the blocker. `skeleton_crew` is in config with both
+two-effect levels, as proof the data model holds the class. Its effect names and
+tiers are [WORKING] placeholders and balance nothing.
+
+### Not done, and why
+
+**Sinkhole.** Buildable now in principle, but block budget, durations,
+targeting geometry, how the highlight is drawn, snapshot persistence across
+chunk unload and restart, and liquids at the boundary are all still open. Five
+rules that must survive implementation are recorded above; none of the numbers
+are. Building it would mean inventing them.
+
+**The manual walkthrough (item 2).** Needs a running server and a player.
+
+**`codex/lightfooted-from-phase1` is deliberately NOT merged.** Five commits,
+and merging them regresses main. It is a parallel implementation built on a
+20 September base that reads its branch from a single global config string
+(`abilities.lightfooted.branch`) rather than per player from
+`PlayerData.classState`, which is incompatible with the draft and Task ledger
+main has since built. Taking its side of the conflicts would delete channel
+cancellation (`isAbilityActive`/`cancelAbilities`), the draft's `ids()` and
+`definition()`, the per-branch HUD suffix, and per-player branch selection.
+
+What is genuinely unique on it and worth porting rather than merging:
+`LightfootedMechanics` is the **only implementation of a passive hook that
+exists anywhere** — `passiveHook` is declared on every class and dispatched by
+nothing. Its Animal Senses (wolf damage reduction, cat fall reduction, fox
+speed), its Bounding second ability, and its lunge sweep with per-target hit
+dedup have no equivalent on main. Port them onto main's ClassDefinition-driven
+architecture; do not merge the branch.
+
+**Two stale doc branches** are also unmerged and probably should stay that way.
+`origin/docs/canonical-worksites-infrastructure` and
+`origin/docs/resource-opportunity-significance` fork from 14 and 12 September
+and are 320 and 329 commits behind. Their `classes.md` deltas are pre-Sinkhole,
+pre-Growth-packet text that would fight every canonical doc. One file on them is
+genuinely absent from main —
+`docs/reconciliation/2026-09-13-extraction-opportunities.md`, 38 lines — and
+could be cherry-picked on its own if wanted.
+
+### Next
+
+Sinkhole's open numbers, the Lightfooted port, and playing the selection beat
+to decide whether 5 seconds and the four conditions are right.
