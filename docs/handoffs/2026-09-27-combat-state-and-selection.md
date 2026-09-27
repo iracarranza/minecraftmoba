@@ -322,3 +322,54 @@ the cost of a placeholder pipeline, a permanent boss bar and an evening of
 "hunger is fully invisible". It is `enabled: false`, kept rather than deleted.
 
 **Next up with the user: Sinkhole's open numbers.**
+
+
+---
+
+## The vitals bar is built — 27 September 2026
+
+A fixed-size health and hunger bar with a **proportional** internal fill, which
+is what was actually asked for and what neither existing commit delivered.
+
+**The bar is one unit glyph, repeated.** A bitmap glyph cannot be stretched, so
+a bar that grows horizontally is a bar built from a repeated unit and its
+length is the repeat count. It is always 64 units wide and only how many are
+**lit** changes — so the fixed size is structural, not a property that separate
+images have to agree about. Four glyphs (`vitals_cap_left`, `vitals_unit_on`,
+`vitals_unit_off`, `vitals_cap_right`).
+
+The first attempt enumerated one whole-bar image per fill level — 130 textures
+for two bars. Repetition replaced it, and was the better call for a reason
+beyond elegance: the width invariant became a loop in a test instead of an
+inspection of 130 images.
+
+**The advance correction is the one assumption.** Minecraft advances a bitmap
+glyph by its bounding box plus one pixel of spacing, so each one-pixel unit
+advances two and is followed by `U+F001` (-1) for a net of exactly one. If that
+is wrong the bar collapses to a sliver rather than drifting — loud, not subtle.
+
+**A latent defect surfaced and is now guarded.** Every other glyph takes its
+codepoint from its position in `registry.json` while the plugin hard-codes the
+resulting Java literal, so inserting one glyph shifts every later one with
+nothing to say so. The bar units declare an explicit base at `U+E100`; a pack
+test asserts the bar block starts above every sequential glyph, and a plugin
+test pins the base against the registry. **The underlying fragility is not
+fixed** — `HungerDisplay`'s four literals are still position-dependent.
+
+**Both switches ship off, in that order.** `features.vitalsBar.enabled: false`
+and `hideNativeRows: false`. Without the pack the codepoints are tofu, and the
+previous glyph readout shipped with the vanilla row hidden and the replacement
+illegible — "hunger is fully invisible". Turn the bar on, confirm it draws,
+then hide what it duplicates; `build_pack.py --hide-native-rows` is the second
+half and needs a pack rebuild and republish, not a live toggle.
+
+**Not verified against a client.** Verified by decoding the generated PNGs and
+composing the bar from real glyph pixels. The things a client would settle:
+whether the advance correction is right, whether 64px is a sensible width on a
+bossbar line, and whether the colours read.
+
+### Also still open here
+
+The action bar has **26 writers across 13 files** with no arbiter, so ability
+casts, Recall ticks and selection-beat reasons already overwrite each other
+today. That is why the bar went on a bossbar. Worth fixing on its own merits.
