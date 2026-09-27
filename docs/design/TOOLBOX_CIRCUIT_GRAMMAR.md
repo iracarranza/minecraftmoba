@@ -567,36 +567,48 @@ build and fight throughout. It may well be an acceptable ultimate payoff.
 But it should be a **decision rather than an emergent surprise**, and the number
 is large enough to be worth choosing deliberately.
 
-[BLOCKING] **Concurrency is the unbounded axis, and neither cap touches it.**
+### Invulnerability frames bound concurrency, without a rule
 
-Activations are capped at 32 and the window at 6 seconds, but nothing bounds how
-many resolve in the *same tick*. With Root refreshing, a bank of Sticky Pistons
-is harmless. With anything that repeats, it is not:
+**[RESOLVED 27 September 2026]** A concurrent bank of damaging components looked
+unbounded — twenty-six Dispensers firing guaranteed arrows in one pulse
+computes to 7,800 displayed, more than twice the roster's tankiest character.
+Vanilla already prevents it.
 
-| Concurrent dispensers | Damage | |
-| ---: | ---: | --- |
-| 8 | 2,400 | kills Toolbox |
-| 11 | 3,300 | kills Mole at Lv30 |
-| 26 | 7,800 | **2.4x the tankiest character on the roster** |
+`LivingEntity.hurt()` sets `invulnerableTime = 20` and, for the first ten ticks,
+applies only damage **exceeding** the previous hit. So a bank of twenty-six
+3 HP arrows in one tick is:
 
-Six Observers hold the origin for the window and the remaining twenty-six fire
-guaranteed arrows from inside the target, in one pulse, at Observer range. Its
-only counterplay is breaking line of sight or destroying the machine first.
+- arrow 1 → 3 damage, `lastHurt = 3`
+- arrows 2–26 → `3 <= lastHurt` → nothing
 
-**Lowering the activation cap cannot fix it** — the cap would have to sit near
-eight, which would gut the ability for every other use. That is the same shape
-of failure the Root analysis found: the caps bound *totals*, never
-*simultaneity*.
+**Three damage, not 7,800.** The bank is worth one arrow.
 
-Candidate rule, and it is one the design already argues for elsewhere:
+And what remains is the design this record predicted. To land arrows they must
+be spaced past the ten-tick window, so the ceiling is **twelve hits across the
+six-second window** rather than thirty-two in a pulse:
 
-> **Concurrent activations of the same component type resolve once.**
+| | Landed | Displayed |
+| --- | ---: | ---: |
+| 26 concurrent | 1 | 300 |
+| 12 staggered at 10 ticks | 12 | 3,600 |
 
-A bank of twenty-six Dispensers fires one arrow; a bank of Sticky Pistons
-applies one Root. Machine value then comes from **breadth of component types**
-rather than banks of one thing — which makes true the prediction that the
-ultimate would favour "powerful and synergistic effects over repetitions".
-As written, concurrency makes repetition strictly optimal instead.
+A damage machine therefore has to be a **precisely timed sequence with an
+Observer chain holding the lock** — staggering over repetition, enforced by
+vanilla rather than by an authored cap. No rule about concurrent activations is
+needed.
+
+This is the second mechanic in this section that Minecraft solved before the
+design authored around it: velocity-scaled arrow damage answered "guaranteed
+hits are too strong", and iframes answered "concurrency is unbounded".
+
+### What iframes do not cover
+
+- **Piston applies velocity, not damage.** Concurrent pushes stack into one
+  large launch; fall damage on landing is a separate hit and lands normally.
+- **TNT's block destruction is not damage-gated**, so a bank still removes
+  considerable terrain even though one explosion's damage registers.
+- **Root** refreshes and **Illuminated** is a status, so both are naturally
+  single-instance.
 
 [OPEN] Whether magnitude effects stack when they do resolve together — a bank
 of Pistons as one push or a multiplied impulse. The rule above would make the
