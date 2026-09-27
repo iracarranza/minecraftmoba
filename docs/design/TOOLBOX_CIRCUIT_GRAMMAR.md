@@ -212,8 +212,8 @@ through ordinary world Redstone.
 | **Redstone Torch** | Illuminate the current origin; apply Illuminated |
 | **Piston** | Directional impulse in Toolbox's current facing, to eligible entities **including dropped items** |
 | **Sticky Piston** | Pull opposite current facing, and Root (10 ticks) |
-| **Repeater** | Timing; delays the next component. Also the parity shim (§2) and the manual-intervention window (§10C) |
-| **Comparator** | Convert triggering damage magnitude into amplification |
+| **Repeater** | Delays the next component one interval; transmits without dust after it, so it also shifts parity (§2) and buys the manual-intervention window (§10C) |
+| **Comparator** | Convert damage magnitude into amplification for the next component (§7A) |
 | **Tripwire Hook** | Activate exactly one slot directly beneath, +1 tick |
 | **Observer** | Acquire, apply Observed, move the projected origin |
 | **Dispenser** | Take the first item; vanilla Dispenser behaviour, else eject |
@@ -324,6 +324,153 @@ pointer and change what the rest of the circuit does.
 handles recovery. Cleaner vocabulary.
 
 ---
+
+## 7A. Comparator reads in two directions
+
+**Settled 27 September 2026.** Comparator amplifies the next component when the
+damage it reads exceeds **one heart**. What it reads depends on its origin, and
+the two modes run in opposite temporal directions.
+
+| Origin | Reads | Direction |
+| --- | --- | --- |
+| Toolbox (default) | the hit that **proc'd the belt** | retrospective |
+| An Observed enemy | damage they take in the **next 5 ticks** | prospective |
+
+An observed Comparator **ignores Toolbox's own damage entirely** — the origin
+selects the input source outright rather than adding to it.
+
+### Consequences
+
+**It rescues Comparator under A2.** Manual Activation has no incoming hit, so a
+default Comparator has nothing to compare and is deliberately dead there. `O C`
+gives it an input. But it needs **A2ii Super Circuit** to pay off, since three
+components are required — the Observer, the Comparator, and something to
+amplify. Base A2's two get you the read and nothing to spend it on.
+
+**Five ticks is a coordination window, not a hope.** A quarter of a second is
+tight, and a Repeater doubles it. The reliable route is to manufacture the
+damage yourself, and the threshold decides which sources qualify:
+
+| Source | Per interval | Clears one heart? |
+| --- | ---: | :---: |
+| **Lava** | 4 HP (2 hearts) | **yes** |
+| Burning | 1 HP | no |
+| Poison | 1 HP | no |
+
+So `Di(lava)` early and `O C` later is self-contained: **the class that cannot
+deal authored damage manufactures the damage event it needs as an input.** Fire
+and poison sit below the bar, which keeps the threshold doing its job of
+ignoring chip damage.
+
+### A Comparator cannot be comparatored
+
+A Comparator's amplification is refused by another Comparator. So `C C P` gives
+the Piston **+1**, not +2, and `C P C P` amplifies two different Pistons at +1
+each rather than stacking.
+
+The consequence is that **the only route to +2 is a Comparator plus A2i
+Overcharging.** That gives the branch a specific, exclusive job — it is the
+amplification ceiling — rather than being a generic bump.
+
+## 7B. The Ultimate
+
+**Gizmo of Absurdity and Untold Destruction!!!** — the next Redstone circuit
+Toolbox powers treats any activated **pistons (including sticky), hoppers,
+droppers, dispensers and observers** as if they were also activated by the
+Utility Belt, for **6 seconds and/or up to 32 activations**.
+
+### The machine is a sequencer; the effects land on Toolbox
+
+The physical machine does its ordinary Minecraft job — a world dispenser fires
+its own arrows where it points. The Utility Belt effect is **separate and
+additional**, and it resolves **at Toolbox's location, with Toolbox's facing
+and Toolbox's inventory**, exactly as a belt component would.
+
+So the world circuit supplies **order and timing**; Toolbox still supplies
+origin, aim and ammunition. Construction is earned because the player authored
+a sequence in the world, and the class's live-piloting premise survives intact.
+
+### Why that component list, from one rule
+
+> A component produces its Utility Belt effect only if that effect depends on
+> neither **inventory geometry** nor the **damage trigger**.
+
+| Component | Its effect depends on | Ult |
+| --- | --- | --- |
+| Comparator | damage taken — no trigger exists | no |
+| Tripwire | the slot **below** — no inventory | no |
+| Daylight sensor | the slot **above** — no inventory | no |
+| Dust | being first, plus a damage trigger | no |
+| Repeater | inventory flow order | no |
+| Torch | — but it is a power **source**, not something a circuit activates | no |
+| Piston, Sticky, Hopper | origin and facing only | **yes** |
+| Dispenser, Dropper | origin, facing, inventory contents | **yes** |
+| Observer | Toolbox's view | **yes** |
+
+Nothing needs listing by hand; the rule produces the list. Levers, buttons and
+pressure plates drop out with the torch — sources drive a circuit, they do not
+receive from it.
+
+Two components in the list are special cases worth stating:
+
+- **Observer is a source, not a sink.** It counts when it **fires**, where the
+  others count when they are **powered**.
+- **A powered hopper stops transferring.** It is kept deliberately, reading
+  "activated" as *receives a signal* regardless of what the signal does to the
+  block's own behaviour.
+
+### What an activation costs
+
+The world block is not an inventory component, so nothing is consumed by
+**Piston, Sticky, Hopper or Observer** — those are free. **Dispenser and
+Dropper draw from Toolbox's inventory by definition**, so each costs an item.
+
+The ult's real price is therefore however many dispenser and dropper
+activations the machine contains. A machine of pistons and observers is free; a
+machine of dispensers empties your pockets.
+
+### Why the two caps are paired
+
+120 ticks ÷ 32 activations = **3.75 ticks each**. So a clock faster than about
+four ticks is bounded by the **activation** cap, and a broad slow machine is
+bounded by the **time** cap. Both bite, in different builds, which is better
+than either alone — and together they remove the unbounded-clock problem
+without a rule about clocks.
+
+For scale, 32 activations is roughly **twice a full 36-slot belt circuit**
+delivered at once.
+
+### What the caps do and do not solve
+
+They bound inventory drain, kill the infinite-clock vector, cut arrow spam
+without a rule about arrows, and make machine design an **allocation** question
+rather than a throughput one.
+
+They do **not** prevent chained Root. Over a 120-tick window, continuous Root
+needs a Sticky every 10 ticks — twelve in melee, or eighteen with six Observers
+projecting the origin — both comfortably inside 32. A cap low enough to stop it
+would have to sit below twelve, which would gut the ultimate for every other
+purpose.
+
+[OPEN] Whether chained Root is actually a problem. Root prevents movement input
+only, so a target held for six seconds can still pearl, bucket, build, mine and
+fight back — it is a **positioning lock, not helplessness**. If it does need
+addressing, the lever is **Root itself** (no refresh, an immunity window, or
+diminishing returns), decided once in `classes.md` rather than per ability,
+because the same chain is buildable in the belt and any future class with a
+Root inherits it.
+
+### Timing notes
+
+The window is **6 seconds**, which is also the Lv25 passive cooldown, and A2
+holds three charges. So the ult window is a **burst window for the whole kit** —
+machine circuit, a passive proc, and up to three A2s can all land inside it,
+all originating at Toolbox. Worth knowing whether that crescendo is intended or
+a coincidence of two numbers matching.
+
+[OPEN] Whether ult activations resolve on the 5-tick grid or at the machine's
+own timing. The caps make the difference survivable either way, but machine
+*speed* only matters under the second.
 
 ## 8. Dependency and map variation
 
@@ -493,20 +640,31 @@ and nothing explains why.
 
 #### This is what Repeater is for
 
-Dust and **Repeater** are both wiring, so either can occupy a link cell. That
-gives the shim two flavours and finally gives Repeater a structural job rather
-than a floating "adds delay" description:
+A **Repeater** needs dust *before* it but transmits horizontally **without dust
+after it** — the only component besides dust that can. [CORRECTED 27 September
+2026: an earlier draft had Repeater occupying a link cell, which is wrong. It is
+a component in the chain; what it saves is the dust that would follow.]
 
-| Link | Parity | Time |
-| --- | --- | --- |
-| `d` | preserved | none |
-| `Rep` | preserved | delay |
-| `d d` | **flipped** | none |
-| `d Rep` / `Rep Rep` | **flipped** | delay |
+Because it drops the following dust, it shifts everything downstream by one
+cell:
 
-So a player aligns parity for free with double Dust, or **aligns it and buys a
-deliberate pause** with a Repeater. The Repeater is not a worse Dust; it is the
-shim that does something.
+| | Cells | Parity | Next component fires |
+| --- | ---: | --- | --- |
+| `C d C` | 3 | preserved | t+5 |
+| `C d d C` | 4 | **flipped** | t+5 |
+| `C d R C` | 4 | **flipped** | t+10 |
+
+So a player aligns parity for free with double dust, or **aligns it and buys a
+deliberate pause** with a Repeater. An odd number of repeaters flips parity; an
+even number preserves it while still adding delay, which is what you want
+mid-row when tuning timing without disturbing hook alignment.
+
+A repeater at the **end of a row** wraps into the next row without the parity
+flip, at the cost of an interval — sometimes desirable, since a pause at the
+wrap lets a hooked component's effect land before the next row steps on it.
+
+Note it is never cheaper: `C d R C` is four cells where `C d C` is three.
+Repeaters buy **parity and timing, never density**.
 
 And the something matters, because the hook gap is a knife-edge. A hook fires
 its target 19 ticks before flow reaches it, and Observed lasts ~20 — one tick of
@@ -600,16 +758,21 @@ a hooked reserve is consumed by the circuit it was being kept apart from.
 ### Duty cycle, and what the cooldown actually buys
 
 Cooldown on the ability clock (§*The three clocks*), [WORKING]:
-**14 / 12 / 10 / 8 / 6 seconds** at Lv0 / 5 / 10 / 15 / 25.
+**16 / 14 / 12 / 10 / 6 seconds** at Lv **0 / 5 / 10 / 20 / 25**.
+
+Note the fourth step is at **20, not 15**. Lv15 already grants the Ultimate, and
+"budgets need not be equal at every event" — stacking a cooldown improvement
+there would make one level enormous and leave Lv20 empty.
 
 Against parity-aligned boards, with the circuit in the storage rows:
 
 | Lv | Slots | Components | Duration | Cooldown | Duty | Idle |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 0 | 6 | 3 | 0.75s | 14s | 5% | 13.3s |
-| 10 | 21 | 6 | 1.50s | 10s | 15% | 8.5s |
-| 15 | 27 | 8 | 2.00s | 8s | 25% | 6.0s |
-| 18 | 36 | 13 | 3.25s | 8s | 41% | 4.8s |
+| 0 | 6 | 3 | 0.75s | 16s | 5% | 15.3s |
+| 10 | 21 | 6 | 1.50s | 12s | 13% | 10.5s |
+| 15 | 27 | 8 | 2.00s | 12s | 17% | 10.0s |
+| 18 | 36 | 13 | 3.25s | 12s | 27% | 8.8s |
+| 20 | 36 | 13 | 3.25s | 10s | 33% | 6.8s |
 | **25** | 36 | 13 | **3.25s** | **6s** | **54%** | **2.8s** |
 
 At Lv25 the machine is executing more than half the time in sustained combat.
@@ -916,6 +1079,34 @@ technique exists.
 
 Worth keeping either way: **`Di(empty bucket)` is a lava-removal tool**, which
 is real vanilla behaviour and gives Toolbox an answer to somebody else's lava.
+
+## 10D. Implementation note: A2's charges fit the existing model
+
+A2 uses **3 charges on an 8s recharge**, and the plugin's current cooldown
+model is one `long` per ability per player:
+
+```java
+Map<UUID, Map<String, Long>> cooldowns;          // AbilityInputs:30
+ready.put(ability.id(), tick + ability.cooldownTicks());   // :117
+```
+
+Charges need no new storage — the same `long` is reinterpreted as
+`chargeTime`, the tick from which charges accrue:
+
+```
+available = min(N, (now - chargeTime) / R)
+on use:     chargeTime = max(chargeTime, now - N*R) + R
+```
+
+The `max` is the clamp that stops charges banking while already full, which is
+the standard behaviour.
+
+Touch points: `Ability` gains `default int charges() { return 1; }` and
+`default long rechargeTicks() { return cooldownTicks(); }`, so every existing
+ability is untouched; the gate at `AbilityInputs:113` and the advance at `:117`
+become the two lines above; and the HUD at `:253` — currently a binary
+grey/white "cooling" — wants a charge count instead. Roughly thirty lines and a
+test class.
 
 ## 11. Stress-testing posture
 

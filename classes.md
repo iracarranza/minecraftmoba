@@ -2951,6 +2951,14 @@ This section records the class itself.
 number is [OPEN]. The component dictionary has been deliberately pruned rather
 than completed.
 
+## Identity
+
+The roster's engineer, and knowingly a bit of a nerd about it — goofy ability
+names, extremely squishy, and **thrives on being hit once or twice** and
+answering with engineered prejudice. The passive only procs on damage, so the
+class genuinely wants the first exchange. Its counterplay is therefore **burst,
+not poke**.
+
 ## Hook
 
 > Toolbox organizes their inventory as a programmable Redstone circuit. Taking
@@ -3029,58 +3037,68 @@ strictly better than A2 for firing one's own machine. Candidate answers —
 gate the proc on damage magnitude, run a reduced portion on self-inflicted or
 environmental procs, or make A2 about *when* rather than *how much*.
 
-### A1 — Reconfiguration
+### A1 — Reconfiguratron! (6s)
 
-Swap the last two **unlinked** components with the first two **linked**
-components. Constrained reconfiguration, deliberately not free inventory
-editing: inventory preparation remains the class's first mastery layer.
+Swap the first two **components** in the Utility Belt circuit for the last two
+components in the inventory.
 
-- **I — Quick Change.** The swap substantially reduces Utility Belt cooldown.
-- **II — Overhaul.** Swap three instead of two.
-- **III — Redundancy.** Swap positions whose component is *unchanged* heal
-  Toolbox instead. Rewards deliberately compatible reactive and proactive
-  configurations.
+- **I — Speedy Swap!!** Cooldown halved.
+- **II — More Config!!** Swaps three components instead of two.
+- **III — Spare Parts??** Components that are unchanged after the swap heal
+  Toolbox for x% HP instead.
 
-### A2 — Manual Activation
+Constrained reconfiguration, deliberately not free inventory editing: inventory
+preparation remains the class's first mastery layer.
 
-Manually power a **limited opening portion of the same Utility Belt**. There is
-no separate A2 circuit; that is the point.
+**A1 is the A2 loadout editor.** It swaps the first two components; A2 fires the
+first two components. So A1 does not reconfigure the circuit in general — it
+rewrites the part A2 uses. That is the answer to "why reconfigure mid-fight",
+and it is a design consequence rather than something the ability text should
+say.
 
-- Counts **primary instructions**, not "useful effects" — grammar consumes
-  budget. A Repeater is not skipped for lacking a payload.
-- Base budget ~2–3 instructions [OPEN].
-- Missing reactive context is replaced by Toolbox as circuit origin plus current
-  aim. With no Observed target, Piston launches **Toolbox**, and Sticky Piston
-  moves Toolbox opposite facing and roots the landing.
-- Comparator has nothing to compare and is **not rescued**. Reactive and
-  proactive circuit design should differ.
+### A2 — Jumpstartinator! (3 charges, 8s recharge)
 
-Branches: **I — Extended Circuit** (larger budget); **II — Overcharge** (final
-component gains +1 amplification, stacking to +2); **III — Short Circuit** (if
-execution produces one or fewer payload effects, deal direct damage around
-Toolbox — the class's only authored damage).
+Manually activate the first two components of the **same** Utility Belt,
+targeting Toolbox where applicable. There is no separate A2 circuit; that is
+the point.
 
-**The settled sentence:**
+- **I — Overcharging!!** The second component activated is additionally
+  empowered. With a Comparator this is the **only** route to +2 (see the
+  grammar record § Comparator).
+- **II — Super Circuit!!** Activates the first three components.
+- **III — Short Circuit??** If fewer than two components activate, Toolbox
+  deals x damage in an area around them.
 
-> Manual Activation does not provide a separate active circuit. It powers the
-> opening of the same Utility Belt that must also function when triggered
-> reactively, forcing Toolbox either to design a circuit useful in both contexts
-> or reconfigure for the intended cast.
+Branches are mutually exclusive, as everywhere on the roster.
 
-### Ultimate — World Circuit Empowerment
+**Charges rather than a flat cooldown**, and the difference is large: a flat 2s
+would be 30 uses a minute, while three charges on an 8s recharge is a **3-use
+burst and 7.5 a minute sustained**. A2 becomes something spent and then absent,
+rather than a rhythm to lean on — and it alternates naturally with the passive
+at 6–16s instead of drowning it.
 
-For M seconds, the next Redstone circuit Toolbox **deliberately activates** in
-the world is empowered: each component actually powered by that circuit also
-produces its corresponding Utility Belt effect.
+**The first two components therefore run far more often than anything else.**
+A2 fires them every few seconds; the passive fires the whole circuit every
+6–16. Circuit design is front-weighted: the opening is not "what happens
+first", it is "what happens constantly". A Piston in slot one is a dash on a
+charge timer, paid for one Piston at a time.
 
-The actual machine's layout, materials, timing, signal propagation and geometry
-determine the Ultimate. This is not a construction-themed spell; construction is
-the ability.
+**Short Circuit is a state, not a build.** It is reached by deliberately
+breaking the circuit down to one component or none — literally short-circuiting
+it — which is done by **manual inventory clicking** mid-fight, a deliberate and
+risky action in keeping with the class. A1 cannot do it, since A1 only moves
+components. It is periodic, the same way A1 value is periodic; it does not
+require permanently running a short circuit.
 
-[OPEN] No component ceiling is imposed. Material cost, build time, space,
-defending the machine, the activation window and effects interfering with each
-other are all natural gates, and per §18 of the grammar record those should be
-stress-tested before an arbitrary cap is invented.
+### Ultimate — Gizmo of Absurdity and Untold Destruction!!! (67s)
+
+The next Redstone circuit Toolbox powers treats any activated **pistons
+(including sticky), hoppers, droppers, dispensers and observers** as if they
+were also activated by the Utility Belt, for **6 seconds and/or up to 32
+activations**.
+
+See the grammar record § *The Ultimate* for what "as if" resolves to, which
+component list falls out of one principle, and why the two caps are paired.
 
 ## Growth profile — 27 September 2026
 
@@ -3090,13 +3108,19 @@ Split across the three clocks (§ *The three clocks*). Every number is [WORKING]
 
 | Lv | |
 | ---: | --- |
-| 0 | Utility Belt, cooldown **14s** |
+| 0 | Utility Belt, cooldown **16s** |
 | 1 | A1 Reconfiguration |
 | 2 | A2 Manual Activation |
-| 5 | A1 branch · cooldown **12s** |
-| 10 | A2 branch · cooldown **10s** |
-| 15 | Ultimate · cooldown **8s** |
+| 5 | A1 branch · cooldown **14s** |
+| 10 | A2 branch · cooldown **12s** |
+| 15 | Ultimate |
+| 20 | cooldown **10s** |
 | 25 | cooldown **6s** |
+
+**Lv15 carries the Ultimate and no cooldown step**, and the fourth step sits at
+20 instead. That follows §*Budgets need not be equal at every event*: a level
+already granting an Ultimate can be modest, so stacking a cooldown improvement
+on it would make Lv15 enormous and Lv20 empty.
 
 At Lv25 a full parity-aligned board is 13 components — 3.25s against a 6s
 cooldown, so the machine executes **54% of the time** in sustained combat. The
