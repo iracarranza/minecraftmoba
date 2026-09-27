@@ -29,9 +29,37 @@ Three mastery layers fall out of it, and they are the class's difficulty:
 
 ## 2. Topology
 
-Flow is **row-major, left to right**. At a row's right edge it wraps to the next
+Flow reads like text: **left to right, top row down**, beginning at the
+**top-left** of the inventory. At a row's right edge it wraps to the next
 available row's left edge, and that wrap is ordinary adjacency — no pause, no
 special timing.
+
+**Counting begins at the top-left, not at the hotbar.** Bukkit's slot indices do
+not match the screen, and the flow order follows the *screen*:
+
+```
+flow order        screen position        Bukkit
+  1st   row A     top                     9–17
+  2nd   row B                            18–26
+  3rd   row C     directly above hotbar  27–35
+  4th   hotbar    bottom                  0– 8
+```
+
+### The hotbar is the magazine
+
+Flow runs until it reaches something that is not a circuit item, and **that item
+is what Dispenser and Dropper take**. Because the hotbar is last in reading
+order, an ordinary Toolbox ends up with its program in the storage rows and its
+ammunition in the hotbar — which is where a sword, food and blocks already live.
+
+This resolves the circuit/payload boundary without a rule about it: the boundary
+is wherever the program stops, the player decides where that is, and whatever
+they are carrying is what the machine fires.
+
+It also explains the Lv0 problem exactly. At six slots only the hotbar exists,
+so program and magazine are forced to share it. At Lv3 the first cells of row A
+unlock, the program moves there, and the **entire hotbar** becomes magazine — a
+larger jump in usability than +6 slots suggests.
 
 **Locked cells do not compress the board.** Unavailable slots keep their
 physical geometry, so inventory capacity determines the *dimensions of a
@@ -57,7 +85,7 @@ is independent of the rate:
 | 18 | two full 9-wide runs, not vertically adjacent | 0 |
 | 21 | A partially above B | 3 |
 | 27 | A fully above B | 9 |
-| 36 | all four rows | 18 |
+| 36 | all four rows | 27 |
 
 **18 is a horizontal milestone only.** Two full 9-wide runs with a clean wrap,
 and no vertical correspondence whatsoever. The first vertical adjacency is 21;
@@ -73,7 +101,17 @@ changing the unlock order.
 
 ## 3. Timing and resolution
 
-Approximately **one primary component every ~5 ticks** [PROTOTYPE]. Long enough
+Approximately **one primary component every ~5 ticks** [PROTOTYPE], and
+**Dust costs no time**: flow follows Dust to the next component instantly, then
+waits the interval. The cadence is measured between *components*, so a circuit's
+duration is its component count, not its cell count — wiring is paid for in
+items, never in seconds.
+
+That matters more than it sounds. A 27-cell board wired half in Dust is ten
+components, so 50 ticks rather than 135, and a large board stays a burst rather
+than becoming a near-continuous program that eats its own cooldown.
+
+Long enough
 that individual effects stay legible and the battlefield can change mid-circuit;
 short enough that the whole machine still reads as a rapid mishmash.
 
@@ -214,9 +252,9 @@ Its purpose is **parallel execution**, not vertical routing.
   **not** start a second circuit — otherwise every Tripwire becomes an arbitrary
   branch and geometry stops meaning anything.
 
-Because Tripwire reads literal vertical alignment while flow wraps horizontally,
-a component can be activated vertically and then reached *again* by ordinary
-flow. Two physical Pistons can produce four Piston activations — four dropped
+Because Tripwire reads literal vertical alignment while flow moves one row down,
+a hooked component is pre-fired and then reached *again* by ordinary flow 19
+ticks later. Two physical Pistons can produce four Piston activations — four dropped
 items, not free duplication.
 
 ### Dispenser, Dropper, Hopper
@@ -359,6 +397,11 @@ couple of blocks deep: the point is confinement around TNT, not the fall.
 while flow wraps, two physical Piston slots can fire four times. Four dropped
 Pistons; greater execution density per occupied coordinate.
 
+[CORRECTED 27 September 2026] Read that as **stagger, not economy**. Each
+activation still drops its own item, so four firings cost four Pistons; what the
+geometry buys is two of them arriving 19 ticks late while the program continues,
+not two of them arriving free. See §10A.
+
 **`O-Sp-D(web)` → melee** — Observer establishes the remote origin, Sticky
 Piston pulls the target in and Roots them, Dropper throws a cobweb whose landing
 is now far more likely to matter, and Toolbox finishes with an ordinary sword.
@@ -372,6 +415,130 @@ moving freely" into "enemy in front of me, rooted, while I have a sword" is a
 successful machine.
 
 ---
+
+## 10A. The board at each breakpoint
+
+Toolbox's authored curve reaches 36 at Lv18 (`classes.md` §19). What the board
+can *hold* at each step, with flow reading A → B → C → hotbar and Tripwire
+reading one row down on screen:
+
+| Lv | Slots | Rows available | Tripwire positions |
+| ---: | ---: | --- | ---: |
+| 0 | 6 | part of hotbar | 0 |
+| 3 | 12 | A×3 + hotbar | 0 |
+| 6 | 18 | A + hotbar | 0 |
+| 9 | 21 | A + B×3 + hotbar | 3 |
+| 12 | 24 | A + B×6 + hotbar | 6 |
+| 15 | 27 | A + B + hotbar | 9 |
+| 18 | 36 | A + B + C + hotbar | **27** |
+
+**Tripwire always fires forward, never back.** It targets one row down, and flow
+also moves one row down, so a hook always *pre-fires a component flow will reach
+later*. There is no reaching backward into an already-executed row at any board
+size — the hotbar has nothing beneath it, and every other row's target is
+downstream.
+
+**The gap is a uniform 19 ticks.** A hook's vertical fires at `5(i+1)+1` and
+flow arrives at the same component 19 ticks later, whatever row it sits in. So a
+hooked component runs twice, just under a second apart.
+
+That 19 is one tick inside Observed's ~20, which is a knife-edge worth keeping:
+a hooked **Observer** re-fires one tick before its own Observed would lapse, so
+the lock is continuous — while a hooked **Piston** is simply two shoves a second
+apart. Same mechanism, completely different instrument, decided by which
+component sits under the hook.
+
+**Tripwire buys stagger, not economy.** Each activation still drops its own
+item, so hooking does not make a component cheaper — it makes it *late as well
+as early*. The value is temporal overlap while the main program continues.
+
+### Worked boards
+
+**Lv0 — 6 cells.** Program and magazine collide in the hotbar.
+
+```
+H [C][d][P][d][Sp][sword]        3 components · 15 ticks · 5 items
+```
+
+Read the hit, shove, yank back and Root. One free cell.
+
+**Lv3 — 12.** The program moves to row A and the whole hotbar becomes magazine.
+
+```
+A [C][d][P]
+H  sword, food, blocks …          2 components · 10 ticks · 3 items
+```
+
+**Lv6 — 18. The relay.** Row A full, still no parallelism.
+
+```
+A [C][d][O][d][O][d][O][d][Di]    5 components · 25 ticks · 9 items
+H  magazine — Di fires what you are carrying
+```
+
+Comparator lengthens O1's reach; the Observers relay Toolbox → A → B → C;
+Dispenser resolves at C. Observed windows chain with room to spare.
+
+**Lv9 — 21. First parallelism, top-left three columns only.**
+
+```
+A [Tw][d][Di][d][C][d][O][d][Sp]
+B [P ]
+H  magazine
+```
+
+The hook at A's first component pre-fires B's Piston at t=6; flow reaches the
+same Piston at t=25. Two shoves, 19 ticks apart, from one slot.
+
+**Lv15 — 27. Row A hooks row B entirely.**
+
+```
+A [Tw][d][Tw][d][Tw][d][Tw][d][Tw]
+B [P ][d][O ][d][Sp][d][Di][d][H ]
+H  magazine
+```
+
+Five hooks, five doubled payloads, fifteen activations. 50 ticks, 23 items.
+
+**Lv18 — 36, and the decision the geometry forces.** Row C sits directly above
+the hotbar, so hooks in C point at the magazine. A tripwire aimed at an ordinary
+item does nothing — so **you either hook row C and give up your magazine, or
+keep the magazine and use C for payload.** Nobody wrote that rule; it falls out
+of the reading order.
+
+```
+A [Tw][d][Tw][d][Tw][d][Tw][d][Tw]   hooks
+B [P ][d][O ][d][Sp][d][Di][d][H ]   doubled
+C [P ][d][O ][d][Sp][d][Di][d][H ]   payload
+H  magazine                          ~32 items · 75 ticks
+```
+
+### Does any of it break?
+
+Per §11 the test is cost, not instinct, and the answer is no — by a wide margin.
+
+| Board | Components | Duration | Items/proc | Cooldown |
+| ---: | ---: | ---: | ---: | ---: |
+| 6 | 3 | 0.75s | 5 | 20s |
+| 18 | 5 | 1.25s | 9 | 16s |
+| 27 | 10 | 2.5s | 23 | 14s |
+| 36 | 15 | 3.75s | ~32 | 10s |
+
+Duration stays comfortably inside the cooldown at every size, because Dust costs
+no time. What limits the full board is **material throughput, not power**: ~32
+items per activation, of which the expensive fraction — Pistons, Observers,
+Comparators, Dispensers — is iron and quartz. Thirty activations in a match is
+roughly 150 Pistons, which no team supplies.
+
+So the full board is affordable a handful of times per match and the rest of the
+time Toolbox runs a cut-down version. **Board size is not how strong Toolbox is;
+it is how strong Toolbox can afford to be right now.** Inventory is capacity,
+components are ammunition, and the two are separate resources.
+
+Hopper is what makes the large board sustainable at all — and it only recovers
+what is within radius, so a machine that uses Piston on *Toolbox* moves its
+owner away from their own droppings. The sustainable machine is the one that
+stays put.
 
 ## 11. Stress-testing posture
 

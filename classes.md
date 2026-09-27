@@ -2949,9 +2949,14 @@ Incoming damage, when the cooldown is ready, executes the configured inventory
 circuit.
 
 - Inventory geometry is the program; Redstone Dust links components.
-- Flow is row-major, left to right, wrapping from a row's right edge to the next
-  row's left edge. Locked cells do **not** compress the board.
-- Approximately one primary component every ~5 ticks [PROTOTYPE].
+- Flow reads like text — left to right, top row down — beginning at the
+  **top-left**, so the order is row A, row B, row C, then the hotbar. Locked
+  cells do **not** compress the board.
+- **The hotbar is the magazine.** Flow stops at the first non-circuit item, and
+  that item is what Dispenser and Dropper take.
+- Approximately one primary component every ~5 ticks [PROTOTYPE]. **Dust costs
+  no time** — flow follows it to the next component instantly. Duration is
+  component count, not cell count.
 - Components inspect **current world state when they resolve**, not at trigger.
   Directional components read Toolbox's facing at their own resolution tick.
 - Every resolved component or Dust **drops one item**. This is the "variety as
@@ -3068,7 +3073,7 @@ slots:  { steps: [6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36], cap: 36 }
 | 9 | 21 | +3 | Placement Reach I | Tripwire online, 3 columns |
 | 12 | 24 | +3 | Constructs II | passes the normal end-state |
 | 15 | 27 | +3 | | full-width Tripwire |
-| 18 | **36** | **+9** | | the spike — fourth row lands whole, 18 columns |
+| 18 | **36** | **+9** | | the spike — fourth row lands whole, 27 positions |
 | 21 | — | | Constructs III, Placement Reach II | |
 | 24 | — | | Constructs IV | |
 | 27 | — | | Placement Reach III | |
