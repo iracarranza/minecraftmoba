@@ -835,6 +835,12 @@ needs movement denial *and* interaction denial, and Root supplies only the
 first — the second comes from geometry, which is why real trapping builds shafts
 out of signs and crafting tables rather than looking for a stronger status.
 
+**Roots stack.** Durations add rather than refreshing, so repeated applications
+accumulate. That makes Root a resource an ability can spend more of, rather than
+a binary state — but it also means anything able to apply many Roots at once can
+produce very long holds. See [`TOOLBOX_CIRCUIT_GRAMMAR.md`](docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md)
+§7B for the worked case.
+
 ### Stun
 
 > **Stun prevents all player input.**
@@ -842,7 +848,12 @@ out of signs and crafting tables rather than looking for a stronger status.
 The strictly stronger effect, and the one that does close clutches. It should
 therefore be rarer, shorter, or more expensive than Root wherever it appears.
 
-[OPEN] Stun duration, sources, and whether any class has it at all.
+**Its current owner is Mole's Undermine branch** — "emerging upward from beneath
+an enemy stuns them" ([section 4](#4-mole)). That is a good shape for the
+roster's only Stun: it requires arriving from below, which costs a tunnel and
+telegraphs itself.
+
+[OPEN] Stun duration, and whether stacking rules differ from Root's.
 
 ### Durations are per source
 
@@ -3184,6 +3195,45 @@ Expect Yield and Efficiency to dominate: both feed the component loop directly,
 while Slaying improves personal combat Toolbox mostly does not do. Slaying is
 the deliberate choice of the Toolbox who wants to be the one finishing with the
 sword.
+
+## Scaling is emergent, not authored
+
+**Settled 27 September 2026.** Toolbox is one of the only classes so far whose
+kit **does not help it obtain its own gameplan.** Mole's tunnelling makes Mole's
+mining easier; Skeleton Crew's crew gather for Skeleton Crew. Nothing in the
+Utility Belt acquires Redstone components — the kit is a *language*, and the
+class has to be supplied before it can speak.
+
+Every input to Toolbox's power is therefore external to its abilities:
+
+| Input | Comes from |
+| --- | --- |
+| Component supply | **team economy** |
+| Board size | **Inventory capacity**, not the kit |
+| Circuit quality | the player |
+| Buildable space, hard ground | the map |
+
+**Its early game is carried by a Capacity stat rather than by its kit.** The
+front-loaded Inventory curve lets Toolbox mine deeper and build larger than
+anyone before it owns a single Redstone component — that is what makes the
+class playable at all before its abilities mean anything.
+
+**Then it is held back only by component count, creativity and buildable
+space** — and once the team's economy supplies those, it becomes a late-game
+monster. Nothing in the kit grants that; the curve is entirely a function of
+what it is given.
+
+This is the roster's clearest example of the principle in
+[section 9](#9-class--universal-progression): **specialization should change a
+verb, not add a percentage.** Toolbox never reads "gains 20% more X at Lv25."
+Its scaling is what its inventory and its team make possible.
+
+**Two consequences worth stating as strategy rather than flavour.** Toolbox has
+an unusually **high floor to clear** — a Toolbox on a resource-poor team is
+nothing, so fielding one is a team investment and a draft-level decision, not
+only a player-skill one. And it explains why the class's dependencies bite so
+hard elsewhere: quartz availability (grammar components), hard ground (traps),
+and useful capacity (the board) are all the same fact seen three times.
 
 ## Damage is systemic, not authored
 

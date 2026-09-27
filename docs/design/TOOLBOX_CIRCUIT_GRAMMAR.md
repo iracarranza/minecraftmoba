@@ -460,17 +460,57 @@ diminishing returns), decided once in `classes.md` rather than per ability,
 because the same chain is buildable in the belt and any future class with a
 Root inherits it.
 
-### Timing notes
+### Timing: the machine's clock, not the belt's
 
-The window is **6 seconds**, which is also the Lv25 passive cooldown, and A2
-holds three charges. So the ult window is a **burst window for the whole kit** —
-machine circuit, a passive proc, and up to three A2s can all land inside it,
-all originating at Toolbox. Worth knowing whether that crescendo is intended or
-a coincidence of two numbers matching.
+**Settled 27 September 2026.** Ult activations **do not use the 5-tick grid.**
+They resolve at the machine's own timing, and **concurrent activations are
+concurrent** — a single pulse into a bank of components fires all of them in the
+same instant.
 
-[OPEN] Whether ult activations resolve on the 5-tick grid or at the machine's
-own timing. The caps make the difference survivable either way, but machine
-*speed* only matters under the second.
+So machine **width** matters as much as machine speed, and the 32-activation cap
+can be spent in one tick rather than spread across the window.
+
+**The window is deliberate, not coincidental.** Six seconds is also the Lv25
+passive cooldown, and A2 holds three charges — so the ult window is a burst
+window for the whole kit: machine circuit, a passive proc, and up to three A2s
+all landing inside it, all originating at Toolbox. That crescendo is the
+intent.
+
+### [RISK] Concurrency plus stacking Root
+
+`classes.md` settles that **Roots stack** — durations add rather than
+refreshing. Combined with concurrent resolution, a single redstone pulse into a
+bank of Sticky Pistons applies every Root at once:
+
+| Bank size | Root applied |
+| ---: | ---: |
+| 8 | 4.0s |
+| 16 | 8.0s |
+| **32** (the cap) | **16.0s** |
+
+At the cap that is **sixteen seconds of Root delivered in one tick.** The
+6-second window bounds when activations *count*, not how long their effects
+*last*, so the hold outlives the ultimate by a factor of nearly three.
+
+This is not the chained-Root case analysed above — that needed twelve
+activations spread across the window and produced six seconds. This needs one
+lever and produces sixteen, and it emerges from two decisions made separately:
+concurrency, and Root stacking.
+
+The costs are real — thirty-two Sticky Pistons is a serious material
+investment, the machine must be built and survive, the enemy must be inside a
+1-block radius of Toolbox when the lever is pulled, and it is once per 67
+seconds. Root also remains movement-only, so the target can still pearl, bucket,
+build and fight throughout. It may well be an acceptable ultimate payoff.
+
+But it should be a **decision rather than an emergent surprise**, and the number
+is large enough to be worth choosing deliberately.
+
+[OPEN] **Do concurrent identical effects stack in magnitude as well as
+duration?** Root is a duration and clearly stacks. A bank of thirty-two Pistons
+firing at once is either one push or a thirty-two-fold impulse, and nothing
+currently says which. The same question decides what a bank of Torches or
+Hoppers does.
 
 ## 8. Dependency and map variation
 
