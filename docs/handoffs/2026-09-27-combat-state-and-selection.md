@@ -241,6 +241,9 @@ are. Building it would mean inventing them.
 
 **The manual walkthrough (item 2).** Needs a running server and a player.
 
+**`codex/lightfooted-from-phase1` is PORTED, not merged** (see below for what
+was carried and what was left). The branch itself stays unmerged.
+
 **`codex/lightfooted-from-phase1` is deliberately NOT merged.** Five commits,
 and merging them regresses main. It is a parallel implementation built on a
 20 September base that reads its branch from a single global config string
@@ -271,3 +274,51 @@ could be cherry-picked on its own if wanted.
 
 Sinkhole's open numbers, the Lightfooted port, and playing the selection beat
 to decide whether 5 seconds and the four conditions are right.
+
+
+---
+
+## Addendum — the port and the cherry-pick, same day
+
+**The Lightfooted port is done.** `Passives` dispatches `passiveHook`, which
+until now was declared on every class and read by nothing. `AnimalSenses`
+carries the wolf/cat/fox benefits with a **capped** species count — the source
+floored `1 - wolves * 0.02` at zero, so fifty wolves was literal damage
+immunity, and animals are breedable and deliberately stocked by the compiler.
+`BoundingAbility` replaces `sinkhole_lite` as Lightfooted's a2. Lunge now
+sweeps along the leap with per-target dedup instead of ray-tracing once at cast
+time before the player had moved.
+
+Not carried: the branch's global `abilities.lightfooted.branch` string, its
+teleport-driven lunge path, and `AbilityCooldowns`. The first contradicts
+per-player branch selection; the second fights knockback and blocks; the third
+duplicates the cooldown map `AbilityInputs` already holds, and porting it would
+have meant rewriting the HUD line for no mechanical gain. The branch's
+cooldown-remaining HUD readout ("READY / 1.2s" rather than grey/white) is the
+one thing there still worth taking, and is not taken.
+
+**`docs/reconciliation/2026-09-13-extraction-opportunities.md` is cherry-picked**
+from `origin/docs/resource-opportunity-significance`. Both doc branches remain
+unmerged and should stay that way.
+
+**The HUD question, answered.** The continuous health/hunger bar exists as
+**two** commits, not one, and neither is a fixed-size proportional fill:
+
+- `d7cc16f` repaints the ten native heart/drumstick sprites in the **resource
+  pack** (`bar_segment()` in `implementation/resourcepack/build_pack.py`) so
+  they tile into one bar in the HUD's own position. The client still owns the
+  fill, and its quantum is the half-sprite — `registry.json` still defines
+  `half_left` and `half_right`, so half-steps are still exposed, just drawn as
+  a half-filled rectangle rather than half a heart.
+- `52f44b4` (`VitalsScaling`, enabled) makes the bar **always twenty points for
+  every player**, with Capacity deciding what a point is worth. That solves the
+  fixed-size half of the problem, by a different route than rendering — and it
+  makes `d7cc16f`'s "this CANNOT fix the bar's length" note stale.
+
+So: fixed size yes, continuous appearance yes, **proportional fill no** — still
+twenty discrete steps. True smooth fill means taking the row away from the
+client, which is what the retired `HungerDisplay` bossbar-glyph readout did, at
+the cost of a placeholder pipeline, a permanent boss bar and an evening of
+"hunger is fully invisible". It is `enabled: false`, kept rather than deleted.
+
+**Next up with the user: Sinkhole's open numbers.**
