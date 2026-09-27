@@ -798,6 +798,49 @@ world rather than repeated mutations of already-readable abilities. An ultimate
 is acquired as a complete ability, not deliberately left unfinished for later
 levels.
 
+**[CLARIFIED 27 September 2026] "Mechanically complete" means no ADDITIONS, not
+no change.** The rule forbids a class gaining new things that happen after
+Lv15 — a new effect, a new interaction, a new mode. It does not forbid an
+existing number moving. Scaling is scaling: it invents nothing, and a player who
+has read the ability still knows what it does.
+
+So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
+doing something new at Lv25 is not.
+
+## The three clocks
+
+**Settled 27 September 2026.** Three separate cadences run across a class's
+thirty levels, and each carries one kind of thing:
+
+| Clock | Cadence | Carries | Never carries |
+| --- | --- | --- | --- |
+| **Ability** | ×5 — 0, 5, 10, 15, and beyond for scaling | the passive, actives, branches, the ultimate, and scaling of any of them | capacities |
+| **Growth** | ×3 | capacities, infrastructure, reach, methodology | **abilities, or the development of an ability's output** |
+| **Task** | ×4 | Yield / Efficiency / Slaying | either of the above |
+
+**Growth does not touch abilities.** This is the firewall that was implicit in
+the template above and is now explicit, because it was walked through twice
+before being written down. It is the same shape as §15's prohibition on Task
+mentioning infrastructure, and it has the same test:
+
+> Does the Growth packet change an **ability**, or change something in the world
+> or the character that an ability then acts through? The first is forbidden;
+> the second is the design.
+
+Improving a summoned unit's combat is developing an ability's output and is
+therefore forbidden. Raising a class-resource **capacity** the ability draws
+from is a capacity, and is allowed — provided the class has established that the
+resource is a capacity rather than part of the kit.
+
+The clocks intersect deliberately and those intersections are where a level
+feels large: Lv12 and Lv24 are Growth ∩ Task, Lv15 and Lv30 are Growth ∩
+Ability, Lv20 is Ability ∩ Task. The cadences stay predictable even though what
+arrives at each breakpoint is class-authored.
+
+A class may use ×5 levels beyond 15 for scaling only, and may skip them: a
+schedule of 0/5/10/15/25 is irregular by design, in exactly the way an authored
+inventory curve is, and should not be read as an oversight.
+
 Development changes meaning over the curve:
 
 - Levels 3–9: develop the person and establish the class engine;
@@ -2985,6 +3028,79 @@ the ability.
 defending the machine, the activation window and effects interfering with each
 other are all natural gates, and per §18 of the grammar record those should be
 stress-tested before an arbitrary cap is invented.
+
+## Growth profile — 27 September 2026
+
+Split across the three clocks (§ *The three clocks*). Every number is [WORKING].
+
+### Ability clock (×5) — scaling only past Lv15
+
+| Lv | |
+| ---: | --- |
+| 0 | Utility Belt, cooldown **20s** |
+| 1 | A1 Reconfiguration |
+| 2 | A2 Manual Activation |
+| 5 | A1 branch · cooldown **18s** |
+| 10 | A2 branch · cooldown **16s** |
+| 15 | Ultimate · cooldown **14s** |
+| 25 | cooldown **10s** |
+
+20 and 30 carry nothing. Irregular by design.
+
+**Toolbox claims the exception** the template allows. Its passive carries an
+unusually large share of the class identity — the inventory *is* the machine —
+so the Utility Belt's cooldown continues scaling past Lv15 where another class's
+kit would be finished. It is scaling, not addition: nothing new starts happening
+at Lv25.
+
+### Growth clock (×3) — extreme Inventory, minimal Health
+
+```
+health: { start: 10, growthUnit: 1.4, cap: 24 }      # 1,000 -> 2,400
+hunger: { start: 10, growthUnit: 2,   cap: 20 }      # standard, plateaus ~Lv15
+slots:  { steps: [6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36], cap: 36 }
+```
+
+| Lv | Slots | Δ | Also | |
+| ---: | ---: | ---: | --- | --- |
+| 3 | 12 | +6 | | the board becomes usable at all |
+| 6 | 18 | +6 | Constructs I | two 9-wide runs; wrap works |
+| 9 | 21 | +3 | Placement Reach I | Tripwire online, 3 columns |
+| 12 | 24 | +3 | Constructs II | passes the normal end-state |
+| 15 | 27 | +3 | | full-width Tripwire |
+| 18 | **36** | **+9** | | the spike — fourth row lands whole, 18 columns |
+| 21 | — | | Constructs III, Placement Reach II | |
+| 24 | — | | Constructs IV | |
+| 27 | — | | Placement Reach III | |
+| 30 | — | | Constructs capstone | |
+
+**Health is the lowest on the roster.** 2,400 sits at the top edge of the
+three-netherite-hit and two-crit bands; 2,500 flips both. So it is the most
+health obtainable while still dying in three, which is the intent — Toolbox is
+limited in hits taken independently of the Utility Belt's cooldown.
+
+**Inventory is the opposite extreme, and it has to be.** At 6 slots Toolbox has
+no class: six is the *whole* inventory including hotbar, so after a weapon, food
+and a tool there is no board. Every other class loses carrying capacity at low
+level; Toolbox loses its abilities. Reaching 36 by Lv18 makes Toolbox the
+roster's clearest capacity specialist, and under the useful-capacity model the
+24→36 band is not situational hauling for this class — **27 is the requirement
+for full-width Tripwire**, so the specialist band is core mechanical function.
+
+[KNOWN COST] Toolbox is weakest-relative-to-roster at Lv0–6 in a way no other
+class is, and the front-loaded curve is a partial answer rather than a fix.
+
+### Task clock (×4)
+
+Seven choices at Lv4, 8, 12, 16, 20, 24, 28; **cap IV per tree**. Reaching IV
+costs four, leaving three, so **only one tree can ever reach IV** — spreads are
+4/3/0, 4/2/1, 3/3/1 or 3/2/2. One sized upgrade, otherwise wide, enforced by the
+cap and budget rather than by a rule.
+
+Expect Yield and Efficiency to dominate: both feed the component loop directly,
+while Slaying improves personal combat Toolbox mostly does not do. Slaying is
+the deliberate choice of the Toolbox who wants to be the one finishing with the
+sword.
 
 ## Damage is systemic, not authored
 

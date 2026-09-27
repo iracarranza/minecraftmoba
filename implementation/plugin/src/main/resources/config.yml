@@ -825,7 +825,17 @@ abilities:
         level18:
           methodology:
             - { effect: night_efficiency, tier: 2 }
-            - { effect: crew_combat_development, tier: 1 }
+          # REMOVED 27 September 2026: `crew_combat_development`. Growth does
+          # not touch abilities, and developing the crew's combat is developing
+          # an ability's output. The recovered spec had it here; it was a
+          # mistake, and it is recorded rather than quietly replaced because it
+          # is the first case the firewall had to adjudicate.
+          #
+          # Lv18's second effect is [OPEN] and waits on crew capacity
+          # progression, which classes.md lists as unresolved -- "whether it is
+          # Growth, kit, infrastructure consequence or mixed". If crew capacity
+          # turns out to be Growth, it is a PERSONAL class-resource capacity and
+          # belongs here; if it is kit, it does not.
       a1: lunge
       a2: sinkhole_lite
       ult: channel_ult

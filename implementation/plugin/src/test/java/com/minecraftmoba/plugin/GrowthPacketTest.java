@@ -184,7 +184,14 @@ class GrowthPacketTest {
         assertEquals(2, packets.get(6).effects().size(), "Lv6 is Supply Line access AND Night Efficiency I");
         assertEquals(1, packets.get(6).of(INFRASTRUCTURE).size());
         assertEquals(1, packets.get(6).of(METHODOLOGY).size());
-        assertEquals(2, packets.get(18).effects().size(), "Lv18 is Night Efficiency II plus crew combat");
+        // Lv18 carries one effect, not two. `crew_combat_development` was
+        // removed: Growth does not touch abilities, and developing the crew's
+        // combat develops an ability's output. Lv6 is the two-effect proof and
+        // is the level the blocker was actually recorded against.
+        assertEquals(1, packets.get(18).effects().size(), "Lv18 is Night Efficiency II alone");
+        assertTrue(packets.get(18).of(METHODOLOGY).stream()
+                        .noneMatch(e -> e.effect().contains("combat")),
+                "Growth must not carry an ability's development");
     }
 
     /** Mole is unmigrated and must keep the progression it already had. */
