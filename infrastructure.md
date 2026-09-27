@@ -54,6 +54,106 @@ The system evaluates objective capability, not architectural or strategic qualit
 
 This rules out making a Construct's primary intrinsic effect an XP bonus for placing blocks nearby. That is progression amplification rather than an improvement to built-world capability, and it creates an undesirable feedback loop in which a Construct exists to make building near it more rewarding, which encourages building near it. The current preferred intrinsic Construct vocabulary is Structural Integrity.
 
+## The improvement vocabulary
+
+**Settled 27 September 2026.** Five axes per infrastructure type. This replaces
+the loose master list — Potency, Eligibility, Concurrency, Connectivity,
+Branching, Filtering/Routing, Reliability, Integration — wherever that list was
+serving as the actual upgrade taxonomy. Those words remain useful descriptively;
+these twenty slots are the concrete Growth vocabulary a class curve authors
+against.
+
+| | Count | Spatial | Second | Performance | Night |
+| --- | --- | --- | --- | --- | --- |
+| **Construct** | Constructs | Buildable Scale | Operational Scale | Fortification | Internal Lighting |
+| **Development Zone** | Zones | Extent | Prosperity | Fertilization | Sunlamps |
+| **Route** | Routes | Reach | Branches | Traversability | Guidelights |
+| **Supply Line** | Lines | Reach | Nodes | Throughput | Signal Flares |
+
+The **Count** axis is named for what it grants, so "Routes II" means two Routes
+may be maintained. The **Second** column has no unified meaning and should not
+be given one: Operational Scale is spatial, Branches and Nodes are topological,
+and Prosperity is economic. It is each type's second distinctive axis, not a
+shared category.
+
+**This is the improvement taxonomy, not the access one.** First access to an
+infrastructure form — Skeleton Crew's Lv6 Supply Line access — is a separate
+thing and is not one of these axes.
+
+### What each axis means
+
+**Constructs / Zones / Routes / Lines** — how many of that form may be
+maintained at once. Additive: three points, three things.
+
+**Buildable Scale and Operational Scale stay separate**, and the distinction is
+load-bearing. Buildable Scale limits how much physical extent and material may
+belong to one recognized Construct. Operational Scale governs **Operational
+Area**, the envelope within which *other* infrastructure may legally connect —
+a Development Zone must fall within or intersect it, and a Route connection
+point or Supply Line node must be inside it. It is a **connection envelope, not
+a general buff radius**.
+
+The tradeoff is the reason they are two axes. To connect a separated farm a team
+may **raise Operational Scale** and extend the envelope, or **spend blocks,
+labour and buildable capacity physically extending the Construct toward it**.
+Two real answers at different costs. Recognition limits never forbid ordinary
+construction beyond them.
+
+**Branches and Nodes are topological, not a discount.** Count lets you place a
+new connection anywhere between arbitrary endpoints. Branches and Nodes let you
+extend only *from infrastructure you already have*. The two build visibly
+different networks: Count gives scattered independent connections, Branches
+gives a tree radiating from established trunks.
+
+**Traversability** — the strength of the movement advantage a Route projects to
+allied players. Named to avoid colliding with Construct *projection*, which is
+an existing play pattern (§ Projection and protection), not an upgrade axis.
+
+**Prosperity** — a Development Zone uniquely grants more XP when its contents
+are harvested. [WORKING] A high-powered axis, to be granted sparingly.
+[OPEN] It mints XP, which [objectives.md](objectives.md) owns, and it compounds
+with Fertilization — more output *and* more XP per unit. Reconcile against the
+XP philosophy and anti-farming rules there.
+
+**The night axes** — Internal Lighting, Sunlamps, Guidelights, Signal Flares —
+answer the question § Infrastructure at night left open. See there.
+
+### Two balance properties that must survive authoring
+
+**Count is additive; Branches and Nodes are multiplicative.** Connections =
+`Count × (1 + Branches)`, which is quadratic in total investment:
+
+| Growth points | Pure Count | Best split | Connections |
+| ---: | ---: | --- | ---: |
+| 3 | 3 | 2/1 | 4 |
+| 4 | 4 | 2/2 | 6 |
+| 6 | 6 | 3/3 | 12 |
+| 8 | 8 | 4/4 | **20** |
+
+So a curve granting both axes runs away from one granting only Count, and the
+gap widens with every point. **Most classes should take one or the other**; a
+class taking both should keep Branches shallow, since it is the multiplier.
+
+**Supply Lines self-limit and Routes do not.** Committed Capacity is a conserved
+quantity, so if Nodes *distributes* delivery rather than multiplying it, adding
+nodes thins each one and the blowup never happens. A Route branch is just more
+path, with nothing being divided.
+
+Routes therefore need an explicit brake, and the vocabulary already implies one:
+**let Reach govern total path length across trunk plus branches**, so branching
+multiplies destinations while dividing distance. That mirrors Buildable Scale
+for Constructs, where total material is the budget, and makes Reach/Branches a
+real decision rather than two things to buy.
+
+**Branching trades resilience for efficiency**, which is what stops it
+dominating. A branched network shares a trunk, so cutting the trunk kills the
+tree, and night contraction that disconnects a trunk takes every branch with it.
+A Count-built network of independent connections loses only its marginal links.
+A team that branched heavily needs its night axis far more than one that did
+not — so the night column is a consequence of an earlier topology choice rather
+than a flat tax.
+
+
 ## Constructs
 
 **Working.** A Construct recognizes qualifying construction investment and scale. Its current preferred intrinsic benefit is **Structural Integrity**. [HISTORICAL] Occupation or sustainment efficiency — recovery, provisioning, Hunger and exhaustion — is retained as an earlier framing of the same slot, not as a competing current answer. Integration is a separate benefit and cannot replace intrinsic value.
@@ -102,7 +202,7 @@ Recognition examines qualifying construction that exists now. [HISTORICAL] A Bui
 
 ### Slots and spatial metrics
 
-**Construct Slots** limit the number of separately recognized Constructs. **Buildable Scale** limits how much physical extent/material belongs to a recognized Construct and contributes, with qualifying investment, to scale/potency. **Operational Area**, governed by **Operational Scale**, determines where other recognized infrastructure may legally connect for integration.
+The **Constructs** axis limits how many separately recognized Constructs a team may maintain. [RENAMED 27 September 2026 from "Construct Slots", so that every Count axis is named for what it grants.] **Buildable Scale** limits how much physical extent/material belongs to a recognized Construct and contributes, with qualifying investment, to scale/potency. **Operational Area**, governed by **Operational Scale**, determines where other recognized infrastructure may legally connect for integration.
 
 Operational Area is an infrastructure connection envelope, not a general buff radius. A Development Zone must appropriately fall within or intersect it; a Route connection point and a Supply Line node must be within it. Infrastructure outside remains independently valid but cannot connect to that Construct. [OPEN] Exact intersection, distance, verticality, overlap, and boundary rules remain undefined.
 
@@ -380,7 +480,11 @@ Conceptual vulnerabilities per type:
 
 The strategic consequence is that night temporarily compresses some of the advantage of highly developed infrastructure **without introducing an explicit comeback mechanic**. This creates windows where raids, sieges and ambushes matter more, isolated infrastructure is more vulnerable, and forward expeditions require more active protection. Infrastructure vulnerability alone is not considered sufficient to create nighttime PvP; the positive nighttime opportunity economy is the stronger driver.
 
-Higher-level class progression may allow classes to improve the nighttime resilience of infrastructure associated with their authored progression trees. [OPEN] This is not yet designed and the exact class-upgrade mechanism is unresolved. [OPEN] Whether infrastructure XP integration changes at night is unresolved.
+Higher-level class progression may allow classes to improve the nighttime resilience of infrastructure associated with their authored progression trees. **[RESOLVED 27 September 2026]** The mechanism is the **night axis** of each type's improvement vocabulary (§ The improvement vocabulary): Internal Lighting, Sunlamps, Guidelights and Signal Flares.
+
+They are not four flat debuff-reducers. Night contracts **Operational Scale and Reach**, so what is lost is *connection*: a marginal Development Zone may stop reaching its Construct, a Supply Line node may fall out of range, a Route may cease functioning over its full journey. The night axes preserve those marginal links, which makes night a **topology change** rather than a percentage.
+
+[OPEN] That sits against this section's "none of them disables completely". A link that falls out of range is, practically, disabled — even though the infrastructure itself is not. Decide whether topology contraction supersedes that sentence or is bounded by it. [OPEN] Magnitudes remain unresolved. [OPEN] Whether infrastructure XP integration changes at night is unresolved.
 
 ## Infrastructure payback horizon
 

@@ -35,7 +35,7 @@ class GrowthPacketTest {
                     infrastructure:
                       - { dimension: eligibility, effect: supply_line }
                     methodology:
-                      - { effect: night_efficiency, tier: 1 }
+                      - { effect: signal_flares, tier: 1 }
                 """);
         var packets = GrowthPacket.load(cfg.getConfigurationSection("growth"));
         var six = packets.get(6);
@@ -48,7 +48,7 @@ class GrowthPacketTest {
 
         var methodology = six.of(METHODOLOGY);
         assertEquals(1, methodology.size());
-        assertEquals("night_efficiency", methodology.getFirst().effect());
+        assertEquals("signal_flares", methodology.getFirst().effect());
         assertEquals(1, methodology.getFirst().tier());
     }
 
@@ -65,7 +65,7 @@ class GrowthPacketTest {
                 growth:
                   level18:
                     methodology:
-                      - { effect: night_efficiency, tier: 2 }
+                      - { effect: signal_flares, tier: 2 }
                       - { effect: crew_combat_development, tier: 1 }
                 """);
         var eighteen = GrowthPacket.load(cfg.getConfigurationSection("growth")).get(18);
@@ -111,7 +111,7 @@ class GrowthPacketTest {
                 growth:
                   sixth:
                     methodology:
-                      - { effect: night_efficiency }
+                      - { effect: signal_flares }
                 """);
         assertThrows(IllegalStateException.class,
                 () -> GrowthPacket.load(cfg.getConfigurationSection("growth")));
@@ -137,7 +137,7 @@ class GrowthPacketTest {
     @Test void authoredPacketsWinOutrightOverLegacyAtTheSameLevel() {
         var legacy = GrowthPacket.fromLegacy(Map.of("level6", "routes", "level12", "traversal"));
         var authored = Map.of(6, new GrowthPacket(6,
-                List.of(new GrowthPacket.Effect(METHODOLOGY, "", "night_efficiency", 1))));
+                List.of(new GrowthPacket.Effect(METHODOLOGY, "", "signal_flares", 1))));
         var merged = GrowthPacket.merge(legacy, authored);
 
         assertEquals(1, merged.get(6).effects().size());
@@ -181,14 +181,14 @@ class GrowthPacketTest {
         assertNotNull(crew, "skeleton_crew is the class the old model could not express");
         var packets = GrowthPacket.load(crew.getConfigurationSection("growth"));
 
-        assertEquals(2, packets.get(6).effects().size(), "Lv6 is Supply Line access AND Night Efficiency I");
+        assertEquals(2, packets.get(6).effects().size(), "Lv6 is Supply Line access AND Signal Flares I");
         assertEquals(1, packets.get(6).of(INFRASTRUCTURE).size());
         assertEquals(1, packets.get(6).of(METHODOLOGY).size());
         // Lv18 carries one effect, not two. `crew_combat_development` was
         // removed: Growth does not touch abilities, and developing the crew's
         // combat develops an ability's output. Lv6 is the two-effect proof and
         // is the level the blocker was actually recorded against.
-        assertEquals(1, packets.get(18).effects().size(), "Lv18 is Night Efficiency II alone");
+        assertEquals(1, packets.get(18).effects().size(), "Lv18 is Signal Flares II alone");
         assertTrue(packets.get(18).of(METHODOLOGY).stream()
                         .noneMatch(e -> e.effect().contains("combat")),
                 "Growth must not carry an ability's development");

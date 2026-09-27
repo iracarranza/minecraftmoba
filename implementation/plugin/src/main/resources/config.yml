@@ -802,14 +802,14 @@ abilities:
       a2: bounding
       ult: channel_ult
     # The class that could not be configured at all under one effect per level.
-    # Lv6 is Supply Line access AND Night Efficiency I; Lv18 is Night
-    # Efficiency II plus crew combat development. Both are two effects, and
+    # Lv6 is Supply Line access AND Signal Flares I; Lv18 is Signal
+    # Flares II plus crew combat development. Both are two effects, and
     # neither is two INFRASTRUCTURE effects -- which is why the packet has
     # families rather than a longer list of infrastructure strings.
     #
     # [WORKING] Effect names and tiers are placeholders standing in for design
     # that is still open: crew capacity progression, Supply Line establishment
-    # rules, and Night Efficiency / Reach / Throughput magnitudes are all
+    # rules, and Signal Flares / Reach / Throughput magnitudes are all
     # unresolved in CLASS_PROGRESSION_GROWTH_AND_TASK.md. This entry exists to
     # prove the data model holds the class, not to balance it.
     skeleton_crew:
@@ -821,10 +821,10 @@ abilities:
           infrastructure:
             - { dimension: eligibility, effect: supply_line }
           methodology:
-            - { effect: night_efficiency, tier: 1 }
+            - { effect: signal_flares, tier: 1 }
         level18:
           methodology:
-            - { effect: night_efficiency, tier: 2 }
+            - { effect: signal_flares, tier: 2 }
           # REMOVED 27 September 2026: `crew_combat_development`. Growth does
           # not touch abilities, and developing the crew's combat is developing
           # an ability's output. The recovered spec had it here; it was a

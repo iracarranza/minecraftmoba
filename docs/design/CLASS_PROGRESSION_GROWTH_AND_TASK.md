@@ -163,9 +163,28 @@ loads and validates today.
 dimension. Typed player reach is a second meaning for the same word and wants
 disambiguating before either is implemented.
 
-**Infrastructure dimensions:** Capacity, Extent, Reach, Potency, Eligibility,
-Concurrency, Projection, Throughput, Connectivity, Branching, Filtering/Routing,
-Reliability, Integration.
+**Infrastructure dimensions:** five axes per type, owned by
+[infrastructure.md](../../infrastructure.md) § *The improvement vocabulary*:
+
+| | Count | Spatial | Second | Performance | Night |
+| --- | --- | --- | --- | --- | --- |
+| Construct | Constructs | Buildable Scale | Operational Scale | Fortification | Internal Lighting |
+| Development Zone | Zones | Extent | Prosperity | Fertilization | Sunlamps |
+| Route | Routes | Reach | Branches | Traversability | Guidelights |
+| Supply Line | Lines | Reach | Nodes | Throughput | Signal Flares |
+
+[SUPERSEDED 27 September 2026] The earlier list — Potency, Eligibility,
+Concurrency, Projection, Throughput, Connectivity, Branching,
+Filtering/Routing, Reliability, Integration — was a descriptive vocabulary
+rather than an upgrade taxonomy, and is superseded wherever it was serving as
+one. First **access** to an infrastructure form is separate from these axes and
+is not one of them.
+
+**Authoring warning.** Count is additive; Branches and Nodes are
+**multiplicative** — connections are `Count × (1 + Branches)`, which is
+quadratic. Eight Growth points buys twenty connections split 4/4, against eight
+spent purely on Count. Most classes should take one axis or the other, and a
+class taking both should keep Branches shallow.
 
 Infrastructure is not an archetype entitlement. Classes receive only the
 infrastructure access their actual methodology needs.
@@ -724,7 +743,7 @@ improves the existing line rather than widening the network.
 
 Three Logistics axes with deliberately different budget costs:
 
-- **Night Efficiency** comes first. Ordinary Supply Lines degrade at night;
+- **Signal Flares** come first. Ordinary Supply Lines degrade at night;
   early Skeleton Crew degrades less, later it removes the penalty, and very late
   it may exceed its own daytime rate. This gives the class an identity before it
   has superior raw throughput, and it matches the recruitment loop, which is
@@ -795,7 +814,7 @@ than personal damage, and its first advanced Slaying access should be
 Crew becomes safer while commanding rather than deadlier.
 
 **Task is not its keystone.** Its build-defining spikes are Growth: Supply Line
-access, Night Efficiency, Throughput, Reach, crew development. Task instead
+access, Signal Flares, Throughput, Reach, crew development. Task instead
 decides what ordinary Minecraft activity the commander is personally good at:
 Yield/Looting is especially natural given the recruitment loop, Efficiency is
 moderate, and Slaying is defensive and utility-biased.
@@ -819,8 +838,8 @@ forbidden; the second is the design.
 
 [PROTOTYPE] A candidate rhythm is Night → Reach → Throughput, repeating, with
 Lv15 softened because the Ultimate already occupies it: Lv6 Supply Line access
-and Night Efficiency I, Lv9 Reach I, Lv12 Throughput I, Lv15 Ultimate, Lv18
-Night Efficiency II, Lv21 Reach II, Lv24 Throughput II, Lv27 Night Efficiency
+and Signal Flares I, Lv9 Reach I, Lv12 Throughput I, Lv15 Ultimate, Lv18
+Signal Flares II, Lv21 Reach II, Lv24 Throughput II, Lv27 Signal Flares
 III, Lv30 Reach III. The priorities matter more than the table.
 
 ### The universal clock does not standardize power spikes
@@ -980,7 +999,7 @@ technique; and shield ready-slot and cooldown behaviour.
 **The data-model blocker is CLEARED, 27 September 2026.** It was:
 `ClassDefinition.infrastructureProgression` is `Map<level, effect>` — one effect
 per level — while Skeleton Crew's Lv6 is Supply Line access **and** Night
-Efficiency I, and its Lv18 is Night Efficiency II plus crew combat development,
+Flares I, and its Lv18 is Signal Flares II plus crew combat development,
 so the class could not be configured at all.
 
 `GrowthPacket` is the class Growth packet this section asked for. A level grants
@@ -988,7 +1007,7 @@ a **list of effects**, each declaring its **family** — `PERSONAL`,
 `INFRASTRUCTURE` or `METHODOLOGY` — so infrastructure is one effect family
 inside the packet rather than the packet itself. It was deliberately not solved
 as `Map<level, List<String>>`: a list of infrastructure strings would have
-recorded Night Efficiency as infrastructure, which is the same
+recorded Signal Flares as infrastructure, which is the same
 Growth-is-Infrastructure confusion one level down.
 
 Authored in config under a class's `growth:` key, keyed `level6`, `level18`.
@@ -999,7 +1018,7 @@ same level, so a migrating class never holds both.
 
 `skeleton_crew` is in config as the proof, with both two-effect levels. Its
 effect names and tiers are **[WORKING] placeholders**: crew capacity
-progression, Supply Line establishment rules, and Night Efficiency / Reach /
+progression, Supply Line establishment rules, and Signal Flares / Reach /
 Throughput magnitudes all remain open below. The entry proves the data model
 holds the class; it does not balance it.
 
