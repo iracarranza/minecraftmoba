@@ -4,7 +4,10 @@
 Follows [`2026-09-26-growth-task-slice.md`](2026-09-26-growth-task-slice.md) and
 its [follow-up](2026-09-26-growth-task-followup.md).
 
-Everything here is on main. `22da434..3258610` is the range.
+Everything here is on main. `22da434..b0aa395` is the range.
+
+Extended later the same day with the Sinkhole redesign and the Task tree
+identities — design only, no new code, and the build order is unchanged.
 
 ---
 
@@ -101,6 +104,84 @@ Supersedes the chest menu for spending a Task allocation or ability branch.
 6. **The Growth packet** — still the gate on Skeleton Crew. `infrastructureProgression`
    is one effect per level and its Lv6 needs two. Do not solve it as a list of
    infrastructure strings.
+
+---
+
+## Added later on 27 September — design only
+
+Two commits after this handoff was first written, `22960c8` and `b0aa395`. No
+code. They change what Sinkhole is, and settle what the three Task trees mean.
+
+### Sinkhole is redesigned, and is now implementable
+
+`classes.md` → *Ultimate — Sinkhole*. It **opens and restores** instead of
+scarring: target a jagged area including player construction, highlight the
+affected blocks to everyone nearby, destroy after a delay, restore exactly after
+a further period, No-Build in the opened volume throughout.
+
+**It no longer needs block provenance.** Targeting everything and restoring it
+exactly makes the natural-versus-authored distinction moot, so Sinkhole was
+removed from §0 of the capability audit — **six systems down to five**. That
+dependency was the single most load-bearing unsolved thing in the audit, and
+this retires one consumer by design rather than by building it.
+
+Five rules that are not tuning and must survive implementation:
+
+- **Zero drops.** With restoration, any drops make it an infinite duplicator —
+  and it can now target whatever the enemy built.
+- **Falling blocks must not duplicate.** Remove support under gravel, restore the
+  original, and both exist. Suppress falling in the volume or clear the fallen
+  entities on restore.
+- **No-Build is the restore invariant**, not a separate effect: nothing built
+  inside can be destroyed by the restore. One mechanic, not two.
+- **Being restored into suffocates.** The threat is the closing, not the opening.
+- **Timing is the hardest highlighted block's mining time**, so tool tier and
+  Efficiency scale it through vanilla maths with no bespoke rule. **Structural
+  Integrity and Waxer's Sealed blocks feed the same hardness**, so fortification
+  resists natively and neither system needs a clause written against Sinkhole.
+
+Independent of combat state, so it can be built whenever — but it needs the
+per-branch `combat` flag, which arrives with combat state. **`sinkhole_lite` in
+config is not this.** It is a radius-3 input-plumbing stub labelled "not class
+design or balance canon", and it is why the ultimate currently reads weak.
+
+Still open: block budget, durations, targeting geometry, how the highlight is
+drawn, snapshot persistence across chunk unload and restart, and liquids at the
+boundary when a hole opens under water or lava.
+
+### What the three Task trees mean
+
+`CLASS_PROGRESSION_GROWTH_AND_TASK.md` → *What each tree means across the
+roster*. **Slaying** improves personal combat, trivially. **Yield** is the tempo
+tree — harvest XP shifts the power curve left, so breakpoints arrive sooner at
+less power per point, peaking mid-match and flattening once the roster caps.
+
+**Efficiency deliberately does not generalize**, and there is a
+`[DO NOT SYSTEMATIZE]` marker saying so. Mole's Sinkhole scales with it only
+because the ultimate is *implemented as mining*; Skeleton Crew wants Pathfinding
+for its artery and nothing about its skeletons scales with Efficiency. An ability
+scales with a tree only when it is genuinely implemented as that tree's activity.
+
+### Two rules that look like contradictions and are not
+
+**A technique affecting allied players now also affects their summons and
+followed animals.** So crew on a shovel-built path move faster, and the Supply
+Line observes a higher Item Rate — which *looks* like Task improving
+infrastructure, which `classes.md` §15 forbids. The prohibition was rewritten
+rather than the feature:
+
+> Does the Task tier **mention** infrastructure, or does it change something in
+> the world that infrastructure then **measures**? The first is forbidden; the
+> second is the design.
+
+**Crew movement speed is not an authored Growth axis**, which is why Skeleton
+Crew gets Capacity and Reach. Speed divides trip time and multiplies Item Rate,
+then multiplies against Capacity — most leverage, least granularity — and mob
+speed degrades pathfinding before it gets interesting. Crew are also
+dual-purpose, so faster crew are faster defenders. Generalized as:
+
+> **Authored Growth should take the axes with wide, legible tuning ranges. Leave
+> movement speed to the world.**
 
 ---
 
