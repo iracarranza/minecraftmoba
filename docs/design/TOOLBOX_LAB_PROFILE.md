@@ -264,3 +264,60 @@ Nothing in the plumbing. The list is:
 
 The `features.toolboxLab.enabled` gate above is **not needed for playtesting**
 and should not be built for it.
+
+---
+
+# Found by standing in it — 27 September 2026
+
+The first lab session surfaced four things. One is fixed; three are recorded
+here because they were found by playing and would not have been found by
+reading.
+
+## Fixed — `setclass` accepted a class that does not exist
+
+`/moba setclass <player> toolbox` succeeded, stored the string, and gave the
+player **no kit at all**. The only symptom was abilities doing nothing,
+minutes later and nowhere near the command that caused it.
+
+Same shape as the `level-name` defect: the thing that is wrong reports itself
+somewhere far away from its cause. It now refuses against
+`AbilityInputs.ids()` and names the registered classes.
+
+A design-only class is exactly the name somebody types first, so this was
+going to happen to Toolbox specifically.
+
+## [OPEN] The refusal feedback line
+
+Three refusals currently have no legible channel:
+
+- **not unlocked yet** — flashes illegibly and cannot be read
+- **still on cooldown**
+- **cannot be used right now** (requirements unmet)
+
+Proposed: one **action bar line directly above the abilities row**, owning all
+three messages. One location, because they are the same category of answer —
+"not that, and here is why" — and a player scanning for a reason should not
+have to know which of three places to look.
+
+Not scoped further here. Interacts with `Hud` and the resource pack's row
+layout, and the vitals bars already occupy adjacent space.
+
+## [OPEN] Level-up rewards are still the legacy path
+
+Pressing **G** brings up nothing. `Rewards`/`RewardCatalog` exist and
+`InWorldSelection` was built and then **shipped off**
+(`selection.enabled: false`), so the reward interaction is currently the old
+one and it is not reachable.
+
+Needs a decision about which path is the real one before either is repaired.
+
+## [OPEN] Locked hotbar slots should refuse selection
+
+`InventoryGuard` refuses *interaction* with a locked slot and `LockedSlots`
+fills it with a marker, but the player can still **scroll onto it** and stand
+there holding nothing.
+
+Directly relevant to Toolbox: its circuit is read out of the inventory from
+slot 9, and a class whose whole expression is slot layout should not have
+selectable dead slots in the middle of it. Worth doing before the circuit
+reader ships, not after.

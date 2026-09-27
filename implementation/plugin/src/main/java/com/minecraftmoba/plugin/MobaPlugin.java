@@ -979,6 +979,16 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 case "setclass" -> {
                     if (args.length != 3 && args.length != 5) return false;
                     if (args[2].isBlank()) throw new IllegalArgumentException("Class ID cannot be blank.");
+                    // REFUSE an unregistered class rather than storing the
+                    // string. Accepting one succeeded loudly and then failed
+                    // silently: the player carried a class with no kit, and
+                    // the only symptom was abilities doing nothing, minutes
+                    // later and nowhere near the command that caused it. A
+                    // design-only class -- Toolbox, as of 27 September 2026 --
+                    // is exactly the name somebody types first.
+                    if (!args[2].equals("none") && inputs.definition(args[2]) == null)
+                        throw new IllegalArgumentException("No such class '" + args[2]
+                                + "'. Registered: " + inputs.ids());
                     inputs.exit(p, true);
                     d.classId = args[2].equals("none") ? null : args[2];
                     d.modeState.clear();
