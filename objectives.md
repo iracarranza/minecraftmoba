@@ -203,34 +203,163 @@ End / verticality / durability / assault.
 
 # 7. Aether Fountain
 
-The Aether Fountain is the final team structure.
+**Revised 27 September 2026.** The Fountain is the final team structure and the
+match's win condition. It is not a health bar: it is a piece of infrastructure
+whose resilience is a function of the three structures in front of it, and whose
+two failure modes do different jobs.
 
-It is connected to enemy respawning.
+## The three structures gate it
 
-Current established direction:
+Each standing team structure makes the Fountain harder to break. With all three
+standing the Fountain is effectively untouchable; as each falls, it softens.
 
-> Disabling the Aether Fountain affects the enemy team's ability to respawn.
+Expressed as a regeneration rate rather than as immunity. The bar to clear is
+best stated in the unit that matters:
 
-The Fountain should function as Minecraft infrastructure rather than primarily as another conventional combat health bar.
+> Glowstone regeneration should be calibrated in **how many simultaneous
+> attackers are required to outpace it** at each number of structures standing.
 
-Earlier concepts included:
-- obstructing its source;
-- sufficiently destroying the structure.
+Three standing should require more attackers than a team has, which produces
+practical invulnerability with no special case in the rules and leaves a
+coordinated upset theoretically possible. Zero standing means no regeneration at
+all.
 
-However, exact:
-- exposure;
-- disable condition;
-- obstruction behavior;
-- validation;
-- reactivation;
-- repair;
-- relationship to preceding objectives
+**The order is emergent, not enforced.** Each structure is intrinsically harder
+to take than the last, so teams naturally proceed in sequence; nothing forbids
+skipping ahead, it simply costs more.
 
-remain unresolved.
+[OPEN] Whether harder structures should reduce regeneration **disproportionately**.
+If all three contribute equally, "which next" is not a decision — easiest-available
+is always correct, and the only choice is whether to skip. Disproportionate value
+on harder targets is what would make leapfrogging sometimes right.
 
-Do not assume that a single unnoticed placed block should instantly produce the equivalent of destroying a conventional MOBA Nexus.
+## Glowstone: the win condition
 
-The exact transition from a disabled Fountain to final match victory also remains subject to objective-system development.
+The Fountain's Glowstone is destroyed to win. Blocks regenerate **individually**,
+so chip damage accumulates and a push does not have to be all at once.
+
+When all three structures are down the Glowstone stops regenerating. **Destroying
+all of it wins the match.**
+
+### Break time is authored, not vanilla hardness
+
+[WORKING] Glowstone cannot carry this gate as a vanilla block. Its hardness is
+0.3 — among the softest in the game — and it requires **no tool tier at all**, so
+a player with bare hands destroys it about as fast as one with netherite. The
+intent is that a player with an iron pick has no business destroying a Fountain.
+
+So break time is **computed by the plugin**, the same way Sinkhole derives its
+delay from hardness rather than inheriting it. The block keeps its identity and
+its legibility — the lights going out is the clearest possible signal — and the
+gate becomes a number that can be tuned. Structural Integrity should feed the
+same calculation.
+
+## Water: respawn denial
+
+Once all three structures are down, the Fountain's **water source can be
+obstructed**. While it is blocked, players cannot respawn until the water
+returns. The obstructing block **decays over time**, so the denial is a window
+rather than a lock.
+
+## The two win conditions are pressure and conclusion
+
+They are not parallel routes and should not be balanced as though they were:
+
+- **Glowstone destruction is the pressure.** It forces defenders to contest.
+- **A wipe under respawn denial is the conclusion.** Practically, wiping seven
+  players once is easier than grinding every Glowstone block under contest.
+  **If a team has no players left, the other team wins.**
+- **All-Glowstone remains the fallback** for a team that turtles and never dies.
+
+The team-wipe condition exists to close two stalls that the water mechanic would
+otherwise create: blocking the water and zoning survivors away indefinitely, and
+blocking the water, killing everyone, and then simply declining to finish.
+
+[OPEN] The wipe should resolve **on the last death, instantly**, or a decaying
+water block can restore respawns mid-wipe and steal it. Whether a disconnected
+player counts as "left" is undecided.
+
+## Respawning at the Fountain
+
+Reconstruction is unchanged: a player returns at their own functioning Fountain
+immediately, keeping inventory, at roughly 1 Health and 1 Hunger, and recovers by
+staying (§ FountainRegen).
+
+**A respawned player is invincible until they attack or leave the Fountain.**
+Taking damage does **not** strip it — otherwise attackers simply splash the
+spawn and the protection is worth nothing.
+
+This makes the counterplay a trade rather than a gift: a defender can swing to
+deliver knockback and interrupt mining progress, and pays for it with their
+invincibility. Standing still costs nothing, which is the hole.
+
+[OPEN] Invincibility needs a **duration cap** regardless of behaviour, or
+defenders can form an unkillable wall of bodies around the Glowstone that
+attackers have no answer to.
+
+[OPEN] This predicate is deliberately **narrower than shared combat state**,
+which is also set by taking damage (see
+[COMBAT_STATE.md](docs/design/COMBAT_STATE.md)). That is a considered exception,
+recorded here so it is not later "corrected" into consistency.
+
+## Protection rules
+
+These exist to prevent **unilateral, irreversible loss** — one player ending the
+match against their own team's will. That is the test; griefing in general is a
+social problem, not a design one.
+
+- **No-build on and near the Fountain, for BOTH teams.** A one-sided ban would
+  disarm the defender at home while leaving attackers free to box the respawn or
+  raise siege platforms.
+- **The radius must be tight** — the structure and standing room, not the
+  region. The Fountain *is* the homeland, and a wide radius would ban Constructs
+  and Development Zones from the ground they are meant to occupy.
+- **Allies may always break enemy-placed blocks in the volume.** Without this
+  carve-out the water obstruction has no counterplay at all.
+- **The no-build lifts for the water obstruction** once all three structures are
+  down — the one authored placement, at the one place, in the one state.
+- **Allies cannot break allied structures or Glowstone.** An unhappy teammate
+  could otherwise spend a match mining their own Fountain and hand the enemy a
+  win outright.
+- **Allied Route banners and Supply Line copper chests are protected the same
+  way.** Same shape of defect: one block, one player, outsized irreversible
+  effect on something the team built over minutes.
+- **No friendly fire.**
+
+[OPEN] Whether "no friendly fire" means *no direct damage* or *no ally
+consequence at all*. Sinkhole's teeth are that being restored into suffocates;
+if that cannot touch allies, Mole can drop the ultimate on ground teammates
+occupy at zero risk and the ability loses its positioning cost. Golem Master's
+walls raise the same question. Whichever is chosen, it must be **one rule in one
+place** rather than per-ability — the lunge sweep already implements its own
+team check, which is how combat state started — and summons must inherit the
+same answer.
+
+[OPEN] Terminology. There is no clean word covering every way a structure is
+disabled. "Claimed" is already spoken for by neutral objectives (Worksites, the
+Lair), so enemy structures want a separate term — "downed" or "taken".
+
+## Superseded, and what this contradicts in code
+
+[HISTORICAL] "Disabling the Aether Fountain affects the enemy team's ability to
+respawn" stands, but the binary reading of it does not. The earlier open list —
+exposure, disable condition, obstruction behaviour, validation, reactivation,
+repair — is answered above except where marked.
+
+Do not assume that a single unnoticed placed block should instantly produce the
+equivalent of destroying a conventional MOBA Nexus. **This is now answered
+structurally**: obstruction is gated behind all three structures falling, and the
+no-build volume covers the Fountain until then.
+
+[TECHNICAL] This supersedes implemented behaviour. `Match` currently holds a
+binary `fountainDisabled` flag, treats a death under it as **permanent
+elimination**, and computes victory from that. The design above replaces
+elimination with *temporary* denial and moves victory to Glowstone. That is a
+rewrite of the win condition, not an addition to it.
+
+[OPEN] The numbers. Authored Glowstone break time; regeneration rate per
+structures standing; no-build radius; water-block decay duration; invincibility
+cap; Glowstone block count.
 
 ---
 
