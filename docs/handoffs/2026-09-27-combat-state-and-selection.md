@@ -363,10 +363,31 @@ illegible — "hunger is fully invisible". Turn the bar on, confirm it draws,
 then hide what it duplicates; `build_pack.py --hide-native-rows` is the second
 half and needs a pack rebuild and republish, not a live toggle.
 
+**Ticks were added immediately afterwards, and are not optional.** A
+proportional bar shows a fraction, and a fraction alone erases magnitude:
+1,000/1,000 and 3,200/3,200 are the same full bar. That hands back exactly what
+the x100 player-facing scale was adopted to buy, so the smooth bar as first
+built was a regression against §4 of
+`CLASS_PROGRESSION_GROWTH_AND_TASK.md`.
+
+Reference ticks at a fixed interval of displayed health fix it: Lv0 carries ten
+intervals, Mole Lv30 carries thirty-two, on an identically long bar. Fixed
+width with compressing ticks, never a bar that grows with max health — that
+would reintroduce the short-bar-for-weak-player defect VitalsScaling removed.
+Below three pixels apart the bar draws no ticks at all rather than a band of
+marks pretending to be a scale. The bar widened 64 → 128 units, forced by the
+tick interval rather than by the fill.
+
+**The numeral is on by default, and matters more than the bar.** Nothing reads
+an exact total off a bar at any resolution. Ticks give magnitude and a
+yardstick; the number gives the number, and that readout is what ×100 was
+decided for.
+
 **Not verified against a client.** Verified by decoding the generated PNGs and
-composing the bar from real glyph pixels. The things a client would settle:
-whether the advance correction is right, whether 64px is a sensible width on a
-bossbar line, and whether the colours read.
+composing bars from real glyph pixels at 1,000, 3,200, 368 and 2,368. The
+things a client would settle: whether the advance correction is right, whether
+128 units fits a bossbar line, whether 100 is the right tick interval, and
+whether the colours read.
 
 ### Also still open here
 
