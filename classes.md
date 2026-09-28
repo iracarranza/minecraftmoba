@@ -807,6 +807,75 @@ has read the ability still knows what it does.
 So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
 doing something new at Lv25 is not.
 
+## Target-conditional abilities
+
+**Settled 28 September 2026.** An ability activated in Ability Mode may resolve
+differently depending on **what it was aimed at** and **what the player is
+holding**, and the two conditions compose.
+
+### The interaction is never entered
+
+Ability Mode cancels `PlayerInteractEvent` unconditionally, *before* dispatching
+the input. So using A1 or A2 on a chest does not open it, a lever does not flip,
+a button does not press. The click is consumed by the ability.
+
+That is the load-bearing half of this pattern, and it holds in both directions:
+
+> An ability whose conditions are **unmet** is refused, or succeeds in a
+> different state. It never falls through to the block's own behaviour.
+
+A mode that sometimes passed clicks through would be a mode nobody could trust —
+a player could not know, before clicking, whether they were about to cast or to
+open a container.
+
+### The block is carried, not re-found
+
+`AbilityContext` carries the clicked block and face. An ability could instead ask
+`getTargetBlockExact` when it runs, and would usually get the same answer — but
+that re-raycasts from the eye at a range the ability picks, with its own handling
+of fluids and passable blocks, so it disagrees at reach edges. **"Used *on* block
+a" and "whatever I am looking at now" are different predicates that happen to
+agree most of the time**, and an ability that states a precondition should be
+able to check the one it means.
+
+The block is **null** for an activation from air, from Swap Offhand, or from a
+damage event. That is a real answer rather than a missing one: it is what lets an
+ability refuse cleanly instead of silently acting on whatever was behind the
+target.
+
+### The shape
+
+```
+A1 / A2  +  held item  +  target
+   |          |             |
+   |          |             +-- block, face, or nothing
+   |          +-- read from the main hand; Ability Mode only occupies the offhand
+   +-- LEFT_CLICK / RIGHT_CLICK, already cancelled
+```
+
+**[ILLUSTRATION, not a commitment]** A Chef class with a *Spatula* passive:
+holding a shovel or hoe, A1 is a strike inflicting some crowd control; used on a
+**cooking block that contains food**, it instead increases that block's output
+scaled by tool tier.
+
+One ability, two resolutions, chosen by the target rather than by a mode the
+player has to remember they are in. The held-item condition is what makes the
+combat use a deliberate loadout choice rather than a free extra button, and the
+tool tier gives the cooking use a progression axis that costs real material.
+
+### Two things this pattern must not become
+
+**A hidden third input.** If an ability resolves three or more ways by target,
+the player is memorizing a table rather than reading a situation. Two
+resolutions, with the fallback being the ordinary one, is the readable limit.
+
+[OPEN] **Refusal legibility.** A condition that fails needs to say which one
+failed — wrong tool, wrong block, empty block — and the refusal line carries one
+message. Whether that is enough, or whether target-conditional abilities need
+their own phrasing, is unsettled.
+
+---
+
 ## Movement and input statuses
 
 **Settled 27 September 2026.** Two distinct statuses, deliberately separated,

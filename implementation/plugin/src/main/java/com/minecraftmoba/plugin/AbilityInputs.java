@@ -92,7 +92,17 @@ public final class AbilityInputs implements Listener {
         Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 1, 1); // server tick cadence, not a balance constant
     }
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
-    public boolean input(Player p, Input input) {
+    public boolean input(Player p, Input input) { return input(p, input, null, null); }
+
+    /**
+     * An activation, optionally aimed at a block.
+     *
+     * The block is carried from the interact event rather than re-found at
+     * execute time, because "used ON block a" and "whatever I am looking at
+     * now" are different predicates that only usually agree.
+     */
+    public boolean input(Player p, Input input,
+                         org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
         if (!plugin.enrolled(p)) return false;
         if (isAbilityActive(p)) {
             // A second activation is the ability's to interpret before it is
@@ -141,7 +151,7 @@ public final class AbilityInputs implements Listener {
         }
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick) return true;
         last.put(ability.id(), tick);
-        var context = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d);
+        var context = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face);
         if (ability.execute(p,context)) {
             ready.put(ability.id(),tick+ability.cooldownTicks());
             // Activating a COMBAT ability puts the caster in combat. Classified
@@ -325,7 +335,8 @@ public final class AbilityInputs implements Listener {
             case RIGHT_CLICK_AIR,RIGHT_CLICK_BLOCK -> Input.RIGHT_CLICK;
             default -> null;
         };
-        if (input!=null && input(e.getPlayer(),input)) e.setCancelled(true);
+        if (input != null && input(e.getPlayer(), input, e.getClickedBlock(), e.getBlockFace()))
+            e.setCancelled(true);
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {

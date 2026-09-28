@@ -46,11 +46,43 @@ public interface Ability {
     /** The charge in progress, if this ability charges and one is running. */
     default Charge charging(Player player) { return null; }
     default void tick() {}
+    /**
+     * What the activation knew, including WHAT IT WAS AIMED AT.
+     *
+     * <h2>Why the block is carried rather than re-found</h2>
+     *
+     * An ability could ask {@code getTargetBlockExact} at execute time, and it
+     * would usually agree. It is not the same predicate: that re-raycasts from
+     * the eye at a range the ability picks, with its own handling of fluids and
+     * passable blocks, so it disagrees with what the client actually clicked at
+     * reach edges. An ability defined as "used ON block a" wants the block the
+     * player hit, not whatever they are looking at by the time it runs.
+     *
+     * Null when the activation came from air, from Swap Offhand, or from a
+     * damage event -- which is a real answer, and lets an ability refuse
+     * cleanly rather than silently acting on a block behind the target.
+     *
+     * <h2>The interaction is never entered</h2>
+     *
+     * Ability mode cancels {@link org.bukkit.event.player.PlayerInteractEvent}
+     * unconditionally, BEFORE dispatching the input, so a chest does not open
+     * and a lever does not flip. An ability whose conditions are unmet is
+     * therefore refused or resolves differently -- it never falls through to
+     * the block's own behaviour. A mode that sometimes passed clicks through
+     * would be a mode nobody could trust.
+     */
     record AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
-                           ClassDefinition classDefinition, PlayerData playerData) {
+                           ClassDefinition classDefinition, PlayerData playerData,
+                           org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
         public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs) {
-            this(plugin, provenance, inputs, null, null);
+            this(plugin, provenance, inputs, null, null, null, null);
         }
+        public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
+                              ClassDefinition classDefinition, PlayerData playerData) {
+            this(plugin, provenance, inputs, classDefinition, playerData, null, null);
+        }
+        /** Whether this activation was aimed at a block at all. */
+        public boolean onBlock() { return block != null; }
         public String branchFor(String abilityId) {
             if (playerData != null) {
                 String selected = playerData.classState.get("branch." + abilityId);

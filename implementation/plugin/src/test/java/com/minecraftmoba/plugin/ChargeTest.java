@@ -114,4 +114,27 @@ class ChargeTest {
         assertTrue(VitalsBar.ASCENTS.contains(73),
                 "the subtext line needs unit glyphs at its own ascent");
     }
+
+    // ---- target-conditional activation -------------------------------------
+
+    /**
+     * The context can say it was aimed at nothing, which is a real answer.
+     *
+     * An activation from air, from Swap Offhand, or from a damage event has no
+     * block -- and an ability that states "used ON block a" needs to
+     * distinguish that from "aimed at something I do not want", rather than
+     * silently acting on whatever a fresh raycast happens to find.
+     */
+    @Test void anActivationCanReportThatItHitNoBlock() {
+        var context = new Ability.AbilityContext(null, null, null);
+        assertFalse(context.onBlock());
+        assertNull(context.block());
+        assertNull(context.face());
+    }
+
+    /** The five-argument form is still air, so existing abilities are unchanged. */
+    @Test void theOlderContextFormsStillMeanNoBlock() {
+        var context = new Ability.AbilityContext(null, null, null, null, null);
+        assertFalse(context.onBlock());
+    }
 }
