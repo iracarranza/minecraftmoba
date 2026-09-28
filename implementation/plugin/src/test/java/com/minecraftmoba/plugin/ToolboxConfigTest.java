@@ -106,4 +106,90 @@ class ToolboxConfigTest {
         assertNull(toolbox.getString("a2"));
         assertNull(toolbox.getString("ult"));
     }
+
+    // ---- the Growth clock -------------------------------------------------
+
+    /**
+     * The shipped curve must match classes.md, which is canonical for it.
+     *
+     * An earlier build of this file carried 8/1.6 and a slots curve reaching
+     * 36 at Lv24, both written from memory and both contradicting a document
+     * authored the same day. Nothing catches that except a comparison.
+     */
+    @Test void theCurveMatchesTheCanonicalDocument() throws Exception {
+        var cfg = shipped();
+        assertEquals(10.0, cfg.getDouble("capacityProfiles.toolbox.health.start"));
+        assertEquals(1.4, cfg.getDouble("capacityProfiles.toolbox.health.growthUnit"));
+        assertEquals(24, cfg.getInt("capacityProfiles.toolbox.health.cap"),
+                "2,400 is the most health obtainable while still dying in three "
+                        + "netherite hits; 2,500 flips that band");
+
+        assertEquals(List.of(6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36),
+                cfg.getIntegerList("capacityProfiles.toolbox.slots.steps"),
+                "36 arrives at Lv18, not Lv24 -- 27 is the requirement for "
+                        + "full-width Tripwire, so the specialist band is core function");
+    }
+
+    /**
+     * Mostly Constructs, otherwise Buildable Scale, and nothing else.
+     *
+     * Toolbox builds machines and wants them bigger; it does not want a
+     * logistics network. So the infrastructure spend touches the Construct
+     * type only, on its Count axis first and its Spatial axis second -- never
+     * Operational Scale, which governs what may CONNECT to a Construct rather
+     * than what one may be.
+     */
+    @Test void growthSpendsOnConstructsAndBuildableScaleOnly() {
+        var packets = GrowthPacket.load(shipped()
+                .getConfigurationSection("abilities.classes.toolbox.growth"));
+
+        var infrastructure = packets.values().stream()
+                .flatMap(packet -> packet.of(GrowthPacket.Family.INFRASTRUCTURE).stream())
+                .toList();
+        assertEquals(5, infrastructure.size(), "four Constructs and one Buildable Scale");
+
+        long constructs = infrastructure.stream().filter(e -> e.effect().equals("constructs")).count();
+        assertEquals(4, constructs, "mostly Constructs");
+        assertTrue(infrastructure.stream().anyMatch(e -> e.effect().equals("buildable_scale")),
+                "and otherwise Buildable Scale");
+        assertTrue(infrastructure.stream().noneMatch(e ->
+                        e.effect().contains("route") || e.effect().contains("line")
+                                || e.effect().contains("zone") || e.effect().contains("operational")),
+                "no logistics network, and never Operational Scale");
+    }
+
+    /** Constructs arrive one tier at a time, at the levels the document names. */
+    @Test void constructsTierUpAtSixTwelveTwentyOneAndTwentyFour() {
+        var packets = GrowthPacket.load(shipped()
+                .getConfigurationSection("abilities.classes.toolbox.growth"));
+        assertEquals(1, packets.get(6).of(GrowthPacket.Family.INFRASTRUCTURE).getFirst().tier());
+        assertEquals(2, packets.get(12).of(GrowthPacket.Family.INFRASTRUCTURE).getFirst().tier());
+        assertEquals(3, packets.get(21).of(GrowthPacket.Family.INFRASTRUCTURE).getFirst().tier());
+        assertEquals(4, packets.get(24).of(GrowthPacket.Family.INFRASTRUCTURE).getFirst().tier());
+    }
+
+    /** Placement Reach is PERSONAL: it changes geometry, not what is recognized. */
+    @Test void placementReachIsPersonalRatherThanInfrastructure() {
+        var packets = GrowthPacket.load(shipped()
+                .getConfigurationSection("abilities.classes.toolbox.growth"));
+        for (int level : List.of(9, 21, 27)) {
+            var personal = packets.get(level).of(GrowthPacket.Family.PERSONAL);
+            assertEquals(1, personal.size(), "Placement Reach at Lv" + level);
+            assertEquals("placement_reach", personal.getFirst().dimension());
+        }
+    }
+
+    /**
+     * The Lv30 capstone is DEFERRED, and its slot stays empty.
+     *
+     * An empty packet at a Growth level is legitimate rather than a
+     * configuration error, and leaving it empty is what stops placeholder
+     * content reading as a decision later.
+     */
+    @Test void theCapstoneSlotIsLeftEmpty() {
+        var packets = GrowthPacket.load(shipped()
+                .getConfigurationSection("abilities.classes.toolbox.growth"));
+        assertNull(packets.get(30), "nothing authored at Lv30 yet");
+        assertFalse(packets.isEmpty(), "while the rest of the curve is authored");
+    }
 }

@@ -3165,12 +3165,31 @@ slots:  { steps: [6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36], cap: 36 }
 | 6 | 18 | +6 | Constructs I | two 9-wide runs; wrap works |
 | 9 | 21 | +3 | Placement Reach I | Tripwire online, 3 columns |
 | 12 | 24 | +3 | Constructs II | passes the normal end-state |
-| 15 | 27 | +3 | | full-width Tripwire |
+| 15 | 27 | +3 | Buildable Scale I | full-width Tripwire |
 | 18 | **36** | **+9** | | the spike — fourth row lands whole, 27 positions |
 | 21 | — | | Constructs III, Placement Reach II | |
 | 24 | — | | Constructs IV | |
 | 27 | — | | Placement Reach III | |
-| 30 | — | | Constructs capstone | |
+| 30 | — | | *capstone* — **[DEFERRED]** | |
+
+**The infrastructure spend is mostly Constructs, and otherwise Buildable
+Scale.** Toolbox builds machines and wants them bigger; it does not want a
+logistics network, so nothing goes to Routes, Lines or Zones. Within the
+Construct type that means the **Count** axis first and the **Spatial** axis
+second — how many, then how large — and never Operational Scale, which governs
+what may *connect* to a Construct rather than what one may be.
+
+Buildable Scale lands at Lv15 because that level otherwise carries only its
+three slots, and Lv18 immediately after is the largest Growth event on the
+curve. Per §*Budgets need not be equal at every event*, the modest level takes
+the addition.
+
+Placement Reach is **PERSONAL, not infrastructure**. It changes which positions
+and geometries are possible — which is exactly what the lava rule made
+Toolbox's block interactions depend on — rather than what may be recognized.
+
+[DEFERRED] The Lv30 capstone. Its slot is left empty rather than filled, so
+nothing reads as placeholder content later.
 
 **Health is the lowest on the roster.** 2,400 sits at the top edge of the
 three-netherite-hit and two-crit bands; 2,500 flips both. So it is the most

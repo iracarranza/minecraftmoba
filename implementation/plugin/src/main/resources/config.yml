@@ -767,7 +767,13 @@ capacityProfiles:
   toolbox:
     # 80 -> 240 engine, +1.6 per Growth. Ends where most classes start
     # climbing; three netherite hits at maximum level.
-    health: { start: 8, growthUnit: 1.6, cap: 24 }
+    # 1,000 -> 2,400. 2,400 sits at the TOP EDGE of the three-netherite-hit
+    # and two-crit bands and 2,500 flips both, so this is the most health
+    # obtainable while still dying in three -- limited in hits taken
+    # independently of the Utility Belt's cooldown. classes.md is canonical
+    # for the number; an earlier build here had 8/1.6 from memory and
+    # contradicted it.
+    health: { start: 10, growthUnit: 1.4, cap: 24 }
     # Normal. Nothing about the class argues for a hunger identity.
     hunger: { start: 10, growthUnit: 2, cap: 20 }
     # Reaches 36 at Lv24, not 24 -- the only class that does, and the reason
@@ -779,12 +785,17 @@ capacityProfiles:
     #   Lv3  12  hotbar plus three cells -- the program leaves the magazine
     #   Lv6  18  two full 9-wide rows, NOT vertically adjacent: no hooks
     #   Lv9  21  first vertical adjacency, three Tripwire columns
-    #   Lv15 27  row A fully above row B, nine columns
-    #   Lv24 36  the whole board, 27 columns
+    #   Lv15 27  full-width Tripwire -- the requirement, not a convenience
+    #   Lv18 36  THE SPIKE, +9: the fourth row lands whole, 27 positions
+    #
+    # 36 arrives at Lv18, not Lv24. Under the useful-capacity model the 24->36
+    # band is situational hauling for every other class; for this one 27 is
+    # the requirement for full-width Tripwire, so the specialist band is core
+    # mechanical function and has to land before the match is decided.
     #
     # 18 being a horizontal milestone only is the point of the middle of
     # this curve, not a gap in it.
-    slots: { steps: [6, 12, 18, 21, 24, 27, 30, 33, 36, 36, 36], cap: 36 }
+    slots: { steps: [6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36], cap: 36 }
   mole:
     # 100 -> 320 engine, +2.2 per Growth. Regular by design: Health is the
     # continuous curve and spikes come from abilities, branches, Task
@@ -882,6 +893,38 @@ abilities:
       # Extremely low health growth, normal hunger, extreme inventory
       # growth -- reaching 36 slots by Lv24 rather than the usual 24.
       statGrowthProfile: "toolbox"
+      # Growth clock. Mostly CONSTRUCTS, and otherwise Buildable Scale --
+      # Toolbox builds machines and wants them bigger, not a logistics
+      # network. Placement Reach is PERSONAL rather than infrastructure: it
+      # changes which positions and geometries are possible, which is what
+      # the lava rule made Toolbox's block interactions depend on.
+      #
+      # The Lv30 capstone is DEFERRED, not absent. Its slot is left empty
+      # rather than filled with a placeholder.
+      growth:
+        level6:
+          infrastructure:
+            - { dimension: count, effect: constructs, tier: 1 }
+        level9:
+          personal:
+            - { dimension: placement_reach, effect: reach, tier: 1 }
+        level12:
+          infrastructure:
+            - { dimension: count, effect: constructs, tier: 2 }
+        level15:
+          infrastructure:
+            - { dimension: buildable_scale, effect: buildable_scale, tier: 1 }
+        level21:
+          infrastructure:
+            - { dimension: count, effect: constructs, tier: 3 }
+          personal:
+            - { dimension: placement_reach, effect: reach, tier: 2 }
+        level24:
+          infrastructure:
+            - { dimension: count, effect: constructs, tier: 4 }
+        level27:
+          personal:
+            - { dimension: placement_reach, effect: reach, tier: 3 }
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted:
       displayName: Lightfooted
