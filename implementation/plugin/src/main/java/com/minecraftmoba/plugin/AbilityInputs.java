@@ -95,7 +95,12 @@ public final class AbilityInputs implements Listener {
         Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 1, 1); // server tick cadence, not a balance constant
     }
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
-    public boolean input(Player p, Input input) { return input(p, input, null, null); }
+    public boolean input(Player p, Input input) { return input(p, input, null, null, null); }
+
+    public boolean input(Player p, Input input,
+                         org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
+        return input(p, input, block, face, null);
+    }
 
     /**
      * An activation, optionally aimed at a block.
@@ -105,7 +110,8 @@ public final class AbilityInputs implements Listener {
      * now" are different predicates that only usually agree.
      */
     public boolean input(Player p, Input input,
-                         org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
+                         org.bukkit.block.Block block, org.bukkit.block.BlockFace face,
+                         org.bukkit.entity.Entity entity) {
         if (!plugin.enrolled(p)) return false;
         if (isAbilityActive(p)) {
             // A second activation is the ability's to interpret before it is
@@ -170,7 +176,7 @@ public final class AbilityInputs implements Listener {
         // has something to aim. An ability with no preview ignores cast modes
         // entirely rather than growing an empty one.
         CastMode mode = d.castMode();
-        var aimContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face);
+        var aimContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
         if (mode.previews() && !ability.preview(p, aimContext).isEmpty()) {
             aiming.put(p.getUniqueId(), AimState.begin(ability.id(), input, mode, tick));
             return true;
@@ -460,7 +466,12 @@ public final class AbilityInputs implements Listener {
     @EventHandler(priority=EventPriority.HIGHEST)
     public void entity(PlayerInteractEntityEvent e) {
         if (active(e.getPlayer())) e.setCancelled(true);
-        if (input(e.getPlayer(),Input.RIGHT_CLICK)) e.setCancelled(true);
+        // The entity is carried, not re-found. "Used ON that player" and
+        // "whatever my raycast finds now" are different predicates, and a heal
+        // that re-found its target could heal whoever stepped into the line
+        // after the click.
+        if (input(e.getPlayer(), Input.RIGHT_CLICK, null, null, e.getRightClicked()))
+            e.setCancelled(true);
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void entityAt(PlayerInteractAtEntityEvent e) { entity(e); }

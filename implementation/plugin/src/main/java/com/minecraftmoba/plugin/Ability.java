@@ -89,16 +89,35 @@ public interface Ability {
      */
     record AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
                            ClassDefinition classDefinition, PlayerData playerData,
-                           org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
+                           org.bukkit.block.Block block, org.bukkit.block.BlockFace face,
+                           org.bukkit.entity.Entity entity) {
         public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs) {
-            this(plugin, provenance, inputs, null, null, null, null);
+            this(plugin, provenance, inputs, null, null, null, null, null);
         }
         public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
                               ClassDefinition classDefinition, PlayerData playerData) {
-            this(plugin, provenance, inputs, classDefinition, playerData, null, null);
+            this(plugin, provenance, inputs, classDefinition, playerData, null, null, null);
+        }
+        public AbilityContext(MobaPlugin plugin, Provenance provenance, AbilityInputs inputs,
+                              ClassDefinition classDefinition, PlayerData playerData,
+                              org.bukkit.block.Block block, org.bukkit.block.BlockFace face) {
+            this(plugin, provenance, inputs, classDefinition, playerData, block, face, null);
         }
         /** Whether this activation was aimed at a block at all. */
         public boolean onBlock() { return block != null; }
+        /**
+         * Whether this activation was aimed at an entity.
+         *
+         * Carried for the same reason the block is: "used ON that player" and
+         * "whatever my raycast finds now" are different predicates. A heal that
+         * re-found its target could heal someone who stepped into the line
+         * after the click.
+         *
+         * Block and entity are mutually exclusive in practice -- the client
+         * sends one interaction or the other -- so an ability reads whichever
+         * its form expects and refuses when neither is there.
+         */
+        public boolean onEntity() { return entity != null; }
         public String branchFor(String abilityId) {
             if (playerData != null) {
                 String selected = playerData.classState.get("branch." + abilityId);

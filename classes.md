@@ -807,6 +807,65 @@ has read the ability still knows what it does.
 So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
 doing something new at Lv25 is not.
 
+## Ability cast types — reference labels
+
+**Settled 28 September 2026.** Four names for how an ability is aimed, so that
+presenting a new ability does not require inventing machinery for it. Each label
+says what the ability needs from the input layer and whether it gets it.
+
+A vocabulary, not a hierarchy. An ability is described by one of these; nothing
+ranks or nests them.
+
+| Label | Aims at | Example | Today |
+| --- | --- | --- | --- |
+| **Unit targeted** | one thing, already identified by the click | wax a block · heal a teammate | **supported** |
+| **Area targeted** | a set of blocks | set this grass patch alight · break this vein | **supported** |
+| **Direction targeted** | a facing, then fires | lunge this way · observe who I am looking at | **supported** |
+| **Vector targeted** | a start *and* an end | — | **not supported** |
+
+### Unit targeted
+
+The block and the entity are both **carried from the click**, not re-found.
+"Used *on* that player" and "whatever my raycast finds now" are different
+predicates, and a heal that re-found its target could heal whoever stepped into
+the line afterwards.
+
+They are separate because the client sends one interaction or the other, so an
+ability reads whichever its form expects and **refuses cleanly** when neither is
+there.
+
+### Area targeted
+
+This is exactly what an ability's preview returns. An area ability therefore
+gets a targeting preview for free, and is the form cast modes were built around.
+
+### Direction targeted
+
+Facing is read at **resolution**, not at trigger — which is what lets a
+multi-step machine point three different ways as the player moves the mouse. It
+may preview the blocks along its line, or nothing at all when the line is the
+obvious part.
+
+### Vector targeted — named before it is needed
+
+Nothing uses it. It is named anyway, because naming it now is what stops it
+being reinvented badly the first time something does.
+
+What it needs that the others do not is **two designations in one activation**.
+A vector wants a first press that fixes the start and a second that fixes the
+end — which is Double cast's shape used for *targeting* rather than for
+*commitment*, on the same input.
+
+> That collision is the design question to settle before building it, not an
+> implementation detail.
+
+Under Double cast a vector ability would need three presses. Under Hold it would
+need a press, a drag and a release the input layer cannot see. Neither is
+obviously right, and neither should be decided in a hurry by whoever needs the
+first vector ability.
+
+---
+
 ## Cast modes and targeting previews
 
 **Settled 28 September 2026.** Block- and area-targeting abilities have a
