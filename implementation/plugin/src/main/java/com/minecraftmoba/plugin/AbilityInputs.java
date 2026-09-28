@@ -95,6 +95,11 @@ public final class AbilityInputs implements Listener {
     public boolean input(Player p, Input input) {
         if (!plugin.enrolled(p)) return false;
         if (isAbilityActive(p)) {
+            // A second activation is the ability's to interpret before it is
+            // the input layer's to discard. Releasing a charge and cancelling
+            // a channel are the same keystroke; only the ability knows which
+            // it meant.
+            if (recastAbilities(p)) return true;
             cancelAbilities(p);
             return true;
         }
@@ -237,6 +242,26 @@ public final class AbilityInputs implements Listener {
     }
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
     private void cancelAbilities(Player p) { abilities.values().forEach(a -> a.cancel(p)); }
+
+    /** Offer the recast to whichever ability is active; true if one took it. */
+    private boolean recastAbilities(Player p) {
+        var d = plugin.data(p);
+        var context = new Ability.AbilityContext(plugin, provenance, this,
+                d == null ? null : classes.get(d.classId), d);
+        for (Ability ability : abilities.values())
+            if (ability.active(p) && ability.recast(p, context)) return true;
+        return false;
+    }
+
+    /** The charge running on whichever ability is active, for the HUD. */
+    public Charge charging(Player p) {
+        for (Ability ability : abilities.values()) {
+            if (!ability.active(p)) continue;
+            Charge charge = ability.charging(p);
+            if (charge != null) return charge;
+        }
+        return null;
+    }
     public void channel(Player p,long duration,double threshold) {
         channels.put(p.getUniqueId(), new Channel(p.getLocation().clone(),tick+duration,threshold*threshold));
         p.sendMessage("Channel started");

@@ -166,6 +166,12 @@ features:
     # /moba hudprobe clock.
     clockAscent: 256
     noticeAscent: 73
+    # The charge meter shares the subtext line with the refusal text, and is
+    # drawn from the SAME unit glyphs as the health and hunger bars at a
+    # second height. A bossbar could not sit here: its graphic is fixed to the
+    # bossbar strip and only its title moves.
+    meterAscent: 73
+    meterWidth: 48
     noticeTicks: 40
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a

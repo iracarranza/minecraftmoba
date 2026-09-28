@@ -130,10 +130,11 @@
   "fill_width_is_a_layout_choice": "128 is the resolution the ticks want; 81 is what fits exactly where the native row is. The plugin picks, and features.vitalsBar.layout records which. See VitalsBar.Style.",
   "ascents": [
    50,
-   60
+   60,
+   73
   ],
   "stride": 16,
-  "ascents_note": "One set of units per candidate ascent, because ascent belongs to a PROVIDER and a bar that can be nudged without rebuilding the pack needs every position emitted up front. The plugin picks with features.vitalsBar.ascent. The placement law was fitted to screenshot pixels and is not accurate enough to land a bar first time -- rather than keep re-measuring it, the answer is made cheap to search. stride is the codepoint gap between sets, comfortably clear of the six units each set uses."
+  "ascents_note": "50 is the vitals slot. 73 is the subtext line, where the charge meter is drawn beside the refusal text -- the SAME unit glyphs at a second height, because a meter is a bar and a bar is these repeated. A bossbar could not go there: its graphic is fixed to the bossbar strip and only its title moves."
  },
  "hud_layers": {
   "purpose": "Declared vertical positions for HUD glyphs drawn in a bossbar title. ascent and height are per-PROVIDER, never per-emission, so each distinct (y, scale) pair costs one provider entry -- which is why these are named layers rather than a number the plugin passes.",

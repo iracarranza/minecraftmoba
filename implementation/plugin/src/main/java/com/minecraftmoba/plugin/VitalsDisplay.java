@@ -204,14 +204,34 @@ public final class VitalsDisplay implements Listener {
             at += HudLabel.width(label);
         }
 
+        // The charge meter, on the subtext line.
+        //
+        // A BOSSBAR COULD NOT GO HERE. Its graphic is fixed to the bossbar
+        // strip and only its title moves, so a meter at a chosen height has to
+        // be drawn -- which is what the vitals bars already are, unit glyphs
+        // repeated. The same units at a second ascent give a meter anywhere,
+        // any width, and beside text rather than above it.
+        //
+        // Drawn INSTEAD of the refusal line rather than beside it: they share
+        // a line, and a charge in progress is the more urgent of the two.
+        boolean charging = false;
+        var inputs = plugin.inputs();
+        Charge charge = inputs == null ? null : inputs.charging(p);
+        if (charge != null && VitalsBar.ASCENTS.contains(noticeBarAscent())) {
+            at = drawCharge(out, at, charge);
+            charging = true;
+        }
+
         // The refusal line, on the same canvas and its own line.
         //
         // Here rather than in its own bossbar because bars stack and each has
         // its own baseline, so a notice in a separate bar would land somewhere
         // different from the vitals it sits above. One canvas is what makes an
         // ascent mean one thing.
+        // Not while charging: the two share this line, and a charge in
+        // progress is the more urgent of the two readings.
         var notice = plugin.hudNotice();
-        String message = notice == null ? null : notice.current(p);
+        String message = charging || notice == null ? null : notice.current(p);
         if (message != null && HudLabel.ASCENTS.contains(notice.ascent())) {
             int centred = -HudLabel.width(message) / 2;
             at = move(out, at, centred);
@@ -231,6 +251,60 @@ public final class VitalsDisplay implements Listener {
             out.append(Component.text(delta > 0 ? HudLayer.right(delta) : HudLayer.left(-delta))
                                 .font(FONT));
         return to;
+    }
+
+    /**
+     * The charge meter: a percentage, a band colour, and a bar.
+     *
+     * The percentage is floored so the meter never reads 100% before the
+     * charge completes -- the one reading a player would act on and be wrong
+     * about. The band supplies both the colour and the word, so an ability
+     * that gains an effect at four fifths says so rather than leaving the
+     * player to watch a colour change and guess what it bought.
+     */
+    private int drawCharge(net.kyori.adventure.text.TextComponent.Builder out, int at, Charge charge) {
+        long now = plugin.getServer().getCurrentTick();
+        double progress = charge.progress(now);
+        Charge.Band band = charge.band(progress);
+
+        int width = plugin.getConfig().getInt("features.vitalsBar.meterWidth", 48);
+        var style = new VitalsBar.Style(width, noticeBarAscent());
+        int level = style.level(progress, 1.0);
+
+        String text = Charge.percent(progress) + "%"
+                + (band == null || band.label().isBlank() ? "" : " " + band.label());
+        int total = HudLabel.width(text) + LABEL_GAP + width;
+
+        at = move(out, at, -total / 2);
+        out.append(Component.text(HudLabel.at(noticeAscentFor(text), text))
+                            .font(FONT).color(bandColour(band)));
+        at += HudLabel.width(text);
+        at = move(out, at, at + LABEL_GAP);
+
+        var empty = colour("empty");
+        out.append(Component.text(style.filled(level, java.util.Set.of()))
+                            .font(FONT).color(bandColour(band)));
+        out.append(Component.text(style.unfilled(level, java.util.Set.of()))
+                            .font(FONT).color(empty));
+        return at + width;
+    }
+
+    /** Pixels between the percentage and the bar it describes. */
+    private static final int LABEL_GAP = 4;
+
+    private TextColor bandColour(Charge.Band band) {
+        if (band == null) return colour("notice");
+        TextColor parsed = TextColor.fromHexString(band.colour());
+        return parsed == null ? colour("notice") : parsed;
+    }
+
+    private int noticeBarAscent() {
+        return plugin.getConfig().getInt("features.vitalsBar.meterAscent", 73);
+    }
+
+    private int noticeAscentFor(String text) {
+        var notice = plugin.hudNotice();
+        return notice == null ? 73 : notice.ascent();
     }
 
     private Integer clockOverride;

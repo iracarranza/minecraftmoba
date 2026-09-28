@@ -82,11 +82,18 @@ class HudTextTest {
      * ever will. But every bar height must still be reachable, or a numeral
      * could not be put level with one if that were ever wanted.
      */
-    @Test void textOffersEveryHeightTheBarsDo() {
-        assertTrue(HudText.ASCENTS.containsAll(VitalsBar.ASCENTS),
-                "a bar at a height text cannot reach could never be annotated");
-        assertTrue(HudText.ASCENTS.size() > VitalsBar.ASCENTS.size(),
-                "and finer steps besides, for the offset between bar and numeral");
+    @Test void everyBarHeightIsAnnotatableBySomeFace() {
+        // Either face will do, and which one is the annotation's own choice:
+        // the vitals bars carry a NUMERAL (HudText, 3x5 digits) while the
+        // charge meter carries a percentage and a band word (HudLabel, which
+        // has letters). Requiring one face to cover every bar height would
+        // force both faces to carry every height, at 44 tall glyphs each.
+        for (int ascent : VitalsBar.ASCENTS)
+            assertTrue(HudText.ASCENTS.contains(ascent) || HudLabel.ASCENTS.contains(ascent),
+                    "a bar at ascent " + ascent + " could never be annotated");
+        assertTrue(HudText.ASCENTS.size() > VitalsBar.ASCENTS.size() - 1,
+                "the numeral still needs finer steps than the bars, for the offset "
+                        + "between a bar and the numeral sitting on it");
     }
 
     /** The shipped default pairing has to exist on both sides. */

@@ -75,7 +75,7 @@ public final class VitalsBar {
      * heights are cheap in bytes and expensive in atlas area. See
      * registry.json `atlas`.
      */
-    public static final java.util.List<Integer> ASCENTS = java.util.List.of(50, 60);
+    public static final java.util.List<Integer> ASCENTS = java.util.List.of(50, 60, 73);
 
     /** Must match registry.json `bars.stride`: the codepoint gap between sets. */
     public static final int STRIDE = 16;
