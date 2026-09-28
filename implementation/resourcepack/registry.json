@@ -377,13 +377,14 @@
   "height": 256,
   "advance": 4,
   "ascents": [
+   60,
    66,
-   73,
-   80
+   73
   ],
   "stride": 64,
   "lowercase_paths": "Resource locations must match [a-z0-9/._-]. An uppercase letter in a path makes the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every glyph goes tofu, including families that were working. That is what label_A.png did, and why adding a face broke the bars. Letters are prefixed 'u' and lowercased so the names stay readable and cannot collide with the digits on a case-insensitive filesystem.",
-  "size_note": "3x5, matched to the numeral rather than to vanilla. A notice is an annotation on the HUD, and at 5x7 it competed with the ability row above it for attention a refusal does not deserve -- it is read once and then ignored."
+  "size_note": "3x5, matched to the numeral rather than to vanilla. A notice is an annotation on the HUD, and at 5x7 it competed with the ability row above it for attention a refusal does not deserve -- it is read once and then ignored.",
+  "ascents_note": "Three, and no more: each is 44 tall glyphs against a 256 budget. 80 was dropped for 60 rather than added to, because the clock label wants to sit CLOSE to the bars it annotates and nothing was using 80."
  },
  "atlas": {
   "atlas_budget": 256,

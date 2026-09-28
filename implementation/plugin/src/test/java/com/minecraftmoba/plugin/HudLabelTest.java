@@ -221,4 +221,26 @@ class HudLabelTest {
                 assertTrue(c == ' ' || HudLabel.CHARACTERS.indexOf(c) >= 0,
                         "'" + c + "' in \"" + text + "\" would render as a gap");
     }
+
+    /**
+     * Every line the canvas can draw is actually reached by the code.
+     *
+     * The clock label shipped once with its ascent configured, its colour
+     * configured, its block present in the pack -- and no code emitting it,
+     * because the edit that added it aborted before the file was written. The
+     * bar's colour and progress worked, so the feature looked half-built
+     * rather than half-applied.
+     *
+     * Config and pack agreeing proves nothing on their own; this asserts the
+     * renderer names them.
+     */
+    @Test void theRendererActuallyDrawsEveryConfiguredLine() throws Exception {
+        String vitals = Files.readString(Path.of(
+                "src/main/java/com/minecraftmoba/plugin/VitalsDisplay.java"));
+        for (String call : java.util.List.of(
+                "HudLabel.at(clockAscent()", "HudLabel.at(notice.ascent()",
+                "HudText.at(numeralAscent"))
+            assertTrue(vitals.contains(call),
+                    call + " is configured but never emitted -- the line will not draw");
+    }
 }

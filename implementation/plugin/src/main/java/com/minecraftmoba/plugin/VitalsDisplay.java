@@ -193,6 +193,17 @@ public final class VitalsDisplay implements Listener {
         // until I can leave", which a shrinking bar answers at a glance and a
         // number makes you read.
 
+        // The clock's own label. The bossbar it belongs to is now this one,
+        // and a bossbar's only text is its title -- so the words have to be
+        // glyphs here even though the countdown is the bar underneath.
+        if (clock != null && HudLabel.ASCENTS.contains(clockAscent())) {
+            String label = clock.label();
+            at = move(out, at, -HudLabel.width(label) / 2);
+            out.append(Component.text(HudLabel.at(clockAscent(), label))
+                                .font(FONT).color(colour("clock")));
+            at += HudLabel.width(label);
+        }
+
         // The refusal line, on the same canvas and its own line.
         //
         // Here rather than in its own bossbar because bars stack and each has
@@ -220,6 +231,10 @@ public final class VitalsDisplay implements Listener {
             out.append(Component.text(delta > 0 ? HudLayer.right(delta) : HudLayer.left(-delta))
                                 .font(FONT));
         return to;
+    }
+
+    private int clockAscent() {
+        return plugin.getConfig().getInt("features.vitalsBar.clockAscent", 60);
     }
 
     /** Which width to draw. See VitalsBar.Style for what the choice costs. */
