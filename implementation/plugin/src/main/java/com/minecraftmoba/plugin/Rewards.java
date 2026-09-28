@@ -44,11 +44,34 @@ public final class Rewards implements Listener {
             BossBar bar=markers.remove(p.getUniqueId()); if(bar!=null) p.hideBossBar(bar);
         } else {
             BossBar bar=markers.computeIfAbsent(p.getUniqueId(),id->BossBar.bossBar(Component.empty(),1,BossBar.Color.YELLOW,BossBar.Overlay.PROGRESS));
-            bar.name(Component.text("Unspent choices: "+count+" — /moba rewards")); p.showBossBar(bar);
+            // Points at the in-world path, not at the menu it supersedes.
+            bar.name(Component.text(count == 1 ? "1 unspent choice — stand still and crouch"
+                                              : count + " unspent choices — stand still and crouch"));
+            p.showBossBar(bar);
         }
     }
+    /**
+     * The chest menu, which is no longer the in-match path.
+     *
+     * {@link InWorldSelection} supersedes it: levelling requires a SPACE, not
+     * a menu openable anywhere, mid-stride, mid-fight. Keeping the chest as a
+     * fallback would defeat that entirely -- two ways to spend a choice means
+     * the cheaper one is the real one, and this one is free.
+     *
+     * So it refuses during a running match, and survives for inspecting the
+     * catalogue and for use outside one. Refusing rather than removing,
+     * because the menu is still the only place the full catalogue can be read.
+     */
     public void open(Player p) {
         if(!plugin.enrolled(p)) { p.sendMessage("Use /moba join first."); return; }
+        var selection = plugin.selection();
+        if (selection != null && selection.enabled()
+                && plugin.match() != null && plugin.match().state() == Match.State.RUNNING) {
+            p.sendMessage("Choices are spent in the world during a match: stand still "
+                    + "and crouch to summon them. This menu is for reading the catalogue "
+                    + "outside a match.");
+            return;
+        }
         if (!InventoryGuard.safeToReduce(p)) { p.sendMessage("Empty cursor and temporary menu slots before opening rewards."); return; }
         var pending=catalog.pending(plugin.data(p));
         if(pending.isEmpty()) { p.sendMessage("No pending rewards."); return; }

@@ -159,6 +159,13 @@ features:
     # all three in one place, because they are the same category of answer and
     # a player scanning for a reason should not have to know which of three
     # places to look. Swept with /moba hudprobe notice.
+    # Combat, drawn as the seconds remaining rather than a yes/no -- the
+    # question a player has is "how long until I can leave", and CombatState
+    # gates Recall on exactly that. It has driven Recall and ability cooldowns
+    # since it was written with NOTHING rendering it, so a refused Recall had
+    # no visible reason.
+    showCombat: true
+    combatAscent: 66
     noticeAscent: 73
     noticeTicks: 40
     refreshTicks: 4
@@ -198,6 +205,8 @@ features:
       numeral: "#FFFFFF"
       # Refusals read as refusals, not as part of the readout.
       notice: "#FFAA55"
+      # Combat reads as a warning, distinct from a refusal.
+      combat: "#FF5555"
       health: "#FF5555"
       hunger: "#C88A3C"
       # The unlit run and the end caps. Every unit is drawn white by the pack,
@@ -1126,10 +1135,14 @@ combat:
 #
 # See docs/design/IN_WORLD_SELECTION_AND_CHANNEL_CONDITIONS.md.
 selection:
-  # OFF until the beat period and the condition set have been played. The
-  # mechanic is written and untested in a live match, and shipping it enabled
-  # would make a design experiment the default experience.
-  enabled: false
+  # ON. This is the in-match progression path, and the chest menu it
+  # supersedes is retired rather than kept as a fallback -- two ways to spend
+  # a choice means the cheaper one is the real one, and the whole point of
+  # this mechanic is that levelling costs a SPACE.
+  #
+  # /moba rewards still opens the chest, for inspecting the catalogue and for
+  # use outside a match. It refuses while a match is running.
+  enabled: true
   # [PROTOTYPE] The beat, not a channel. What matters is state at the END of
   # it, so spending the interval escaping and crouching on the final beat is
   # correct play. Independently tuned from combat.durationTicks -- that these

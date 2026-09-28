@@ -182,4 +182,38 @@ class HudLabelTest {
         assertEquals(' ', HudLabel.at(73, "@").charAt(0), "@ is not in the face");
         assertEquals(HudLabel.SPACE_ADVANCE, HudLabel.width("@"));
     }
+
+    /**
+     * Three lines on one canvas, at three distinct heights.
+     *
+     * Combat, the refusal line and the vitals all draw into the same bossbar
+     * title, because bars stack and each has its own baseline -- one canvas is
+     * what makes an ascent mean one thing. They must not land on each other.
+     */
+    @Test void theThreeLinesSitAtDistinctHeights() throws Exception {
+        var cfg = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(
+                new java.io.InputStreamReader(java.util.Objects.requireNonNull(
+                        getClass().getResourceAsStream("/config.yml"))));
+        int bar = cfg.getInt("features.vitalsBar.ascent");
+        int combat = cfg.getInt("features.vitalsBar.combatAscent");
+        int notice = cfg.getInt("features.vitalsBar.noticeAscent");
+
+        assertEquals(3, java.util.Set.of(bar, combat, notice).size(),
+                "two lines at one ascent draw on top of each other");
+        assertTrue(HudLabel.ASCENTS.contains(combat), "combat must have a block to draw in");
+        assertTrue(HudLabel.ASCENTS.contains(notice));
+        assertTrue(combat > bar && notice > combat,
+                "the stack reads upward: bars, then combat, then the refusal line");
+        assertNotNull(cfg.getString("features.vitalsBar.colours.combat"));
+    }
+
+    /** Every message the readouts can produce must be drawable. */
+    @Test void everyReadoutStringIsInTheFace() {
+        for (String text : java.util.List.of(
+                "IN COMBAT 7S", "ABILITY UNLOCKS AT LEVEL 30",
+                "ON COOLDOWN 12.5S", "CANNOT BE USED RIGHT NOW"))
+            for (char c : text.toCharArray())
+                assertTrue(c == ' ' || HudLabel.CHARACTERS.indexOf(c) >= 0,
+                        "'" + c + "' in \"" + text + "\" would render as a gap");
+    }
 }
