@@ -1,6 +1,19 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # No friendly fire, as ONE rule in one place.
+  #
+  # [RESOLVED 27 September 2026] It means no AUTHORED damage across teams,
+  # while incidental and systemic damage still applies: TNT, suffocation and
+  # the like do hit allies. Sinkhole's restore-suffocation keeps its
+  # positioning cost for the caster's own team, and Toolbox's dispensed TNT
+  # is not made safe for teammates.
+  #
+  # Implemented as an ALLOW-LIST of authored causes rather than a deny-list
+  # of incidental ones, so a cause Minecraft adds later is systemic by
+  # default -- which is the safe direction to fail in.
+  noFriendlyFire:
+    enabled: true
   # Team-coloured GROUND inside each objective and Fountain volume.
   #
   # The glowing box cannot be read from inside it, and the ground around an
@@ -115,7 +128,7 @@ features:
   # reported, accurately, as "hunger is fully invisible". Turn this on, confirm
   # the bars draw, and only then hide the rows they duplicate.
   vitalsBar:
-    enabled: false
+    enabled: true
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this

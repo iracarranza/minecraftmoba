@@ -236,6 +236,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         lab = new Lab(this);
+        getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
         getServer().getPluginManager().registerEvents(utilityBelt, this);

@@ -243,19 +243,28 @@ class VitalsBarTest {
     // ---- shipped config ---------------------------------------------------
 
     /**
-     * Both switches ship off, and the ordering between them is the lesson.
+     * The ORDERING is the invariant, not either switch's value.
      *
-     * Hiding the native rows before the replacement is confirmed to render is
-     * exactly how the previous glyph readout presented as "hunger is fully
-     * invisible".
+     * The bar is now on -- step one of the procedure the config describes.
+     * Row hiding stays off until it is confirmed to render against a real
+     * client, because hiding the native rows before the replacement is
+     * confirmed is exactly how the previous glyph readout presented as
+     * "hunger is fully invisible".
+     *
+     * So this no longer asserts that both ship off. It asserts the thing that
+     * must hold at EVERY step: the native rows are never hidden unless a
+     * replacement is drawing. That survives turning the bar on, and it is the
+     * clause the earlier failure actually violated.
      */
-    @Test void theBarAndTheRowHidingBothShipOff() throws Exception {
+    @Test void theNativeRowsAreNeverHiddenWithoutAReplacement() throws Exception {
         var cfg = YamlConfiguration.loadConfiguration(new InputStreamReader(
                 Objects.requireNonNull(getClass().getResourceAsStream("/config.yml"))));
-        assertFalse(cfg.getBoolean("features.vitalsBar.enabled"),
-                "unproven against a real client; tofu without the pack");
+        if (cfg.getBoolean("features.vitalsBar.hideNativeRows"))
+            assertTrue(cfg.getBoolean("features.vitalsBar.enabled"),
+                    "hiding the native rows with no replacement drawing is the "
+                            + "'hunger is fully invisible' defect, exactly");
         assertFalse(cfg.getBoolean("features.vitalsBar.hideNativeRows"),
-                "never hide the native rows before the replacement is confirmed");
+                "still step one: confirm the bars draw before hiding what they duplicate");
         assertTrue(cfg.getLong("features.vitalsBar.refreshTicks") > 0);
         assertNotNull(cfg.getString("features.vitalsBar.colours.health"));
         assertNotNull(cfg.getString("features.vitalsBar.colours.hunger"));
