@@ -126,4 +126,43 @@ class HudLabelTest {
         assertTrue(registry.contains("\"lowercase_paths\""),
                 "the reason stays written down beside the names it constrains");
     }
+
+    /**
+     * A space is the space font's own, never a blank bitmap.
+     *
+     * Minecraft measures a bitmap glyph's advance from the bounding box of its
+     * non-transparent pixels, so an all-transparent glyph advances about one
+     * pixel rather than its declared width. The notice rendered as
+     * ABILITYUNLOCKSATLEVEL2 -- and the same missing advance moved the health
+     * and hunger bars, because the title is built to a net advance of zero and
+     * every collapsed space made the real total shorter than the arithmetic
+     * assumed. The net went negative, and a centred component of negative
+     * width starts RIGHT of centre.
+     *
+     * One missing advance, two symptoms that looked unrelated.
+     */
+    @Test void spacesUseTheSpaceFontRatherThanABlankGlyph() {
+        String drawn = HudLabel.at(73, "A B");
+        assertEquals(' ', drawn.charAt(1), "the middle character must be a real space");
+        assertNotEquals(' ', drawn.charAt(0));
+    }
+
+    /** And width has to agree, or the net-zero arithmetic is wrong again. */
+    @Test void widthCountsASpaceAsTheSpaceFontsAdvance() {
+        assertEquals(2 * HudLabel.ADVANCE + HudLabel.SPACE_ADVANCE, HudLabel.width("A B"));
+        assertNotEquals(3 * HudLabel.ADVANCE, HudLabel.width("A B"),
+                "counting a space as a full glyph is what pushed the bars right");
+    }
+
+    /**
+     * An unknown character degrades to a real space, and is MEASURED as one.
+     *
+     * Counting it as a glyph would be the same class of error that pushed the
+     * bars right -- the arithmetic and the emission have to agree, or the
+     * net-zero title stops being net zero.
+     */
+    @Test void anUnknownCharacterDegradesToARealSpaceAndIsMeasuredAsOne() {
+        assertEquals(' ', HudLabel.at(73, "@").charAt(0), "@ is not in the face");
+        assertEquals(HudLabel.SPACE_ADVANCE, HudLabel.width("@"));
+    }
 }

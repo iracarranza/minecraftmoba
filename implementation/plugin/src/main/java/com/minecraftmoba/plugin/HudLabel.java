@@ -42,9 +42,42 @@ public final class HudLabel {
     /** Five pixels of glyph plus vanilla's one of spacing. */
     public static final int ADVANCE = 6;
 
+    /**
+     * A space is the SPACE FONT's own, not a blank bitmap.
+     *
+     * Minecraft measures a bitmap glyph's advance from the bounding box of its
+     * non-transparent pixels, so an all-transparent glyph advances about one
+     * pixel rather than its declared width -- and a notice rendered as
+     * ABILITYUNLOCKSATLEVEL2.
+     *
+     * That also moved the bars. The title is built to a net advance of zero so
+     * its centre is the screen's centre; every collapsed space made the real
+     * total five pixels shorter than the arithmetic assumed, the net went
+     * NEGATIVE, and a centred component of negative width starts right of
+     * centre. One missing advance, two unrelated-looking symptoms.
+     */
+    public static final int SPACE_ADVANCE = 4;
+
     private HudLabel() {}
 
-    public static int width(String text) { return text.length() * ADVANCE; }
+    /**
+     * The pixel width, counting exactly what {@link #at} will emit.
+     *
+     * An unknown character degrades to a space, so it must be MEASURED as a
+     * space too. Counting it as a glyph is the same class of error that pushed
+     * the bars right: the arithmetic and the emission have to agree, or the
+     * net-zero title stops being net zero.
+     */
+    public static int width(String text) {
+        int total = 0;
+        for (char c : text.toUpperCase(Locale.ROOT).toCharArray())
+            total += drawable(c) ? ADVANCE : SPACE_ADVANCE;
+        return total;
+    }
+
+    private static boolean drawable(char c) {
+        return c != ' ' && CHARACTERS.indexOf(c) >= 0;
+    }
 
     /**
      * Translate into the glyph block for an ascent, uppercasing on the way.
@@ -62,8 +95,9 @@ public final class HudLabel {
         String upper = text.toUpperCase(Locale.ROOT);
         var out = new StringBuilder(upper.length());
         for (char c : upper.toCharArray()) {
+            if (c == ' ') { out.append(' '); continue; }   // the space font's own
             int index = CHARACTERS.indexOf(c);
-            if (index < 0) index = CHARACTERS.indexOf(' ');
+            if (index < 0) { out.append(' '); continue; }
             out.append((char) (BASE + block * STRIDE + index));
         }
         return out.toString();
