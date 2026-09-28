@@ -231,5 +231,49 @@
   ]
  },
  "hide_native_rows": true,
- "hide_native_rows_note": "Blank vanilla's health and hunger rows. Once the glyph bars draw INTO the slot those rows occupy, this stops being optional: a visible native row would sit underneath the replacement. It lives here rather than as a command-line flag because publish.py called build() with the default and so never hid anything, whatever the plugin config said. features.vitalsBar.hideNativeRows must agree, and a test binds them."
+ "hide_native_rows_note": "Blank vanilla's health and hunger rows. Once the glyph bars draw INTO the slot those rows occupy, this stops being optional: a visible native row would sit underneath the replacement. It lives here rather than as a command-line flag because publish.py called build() with the default and so never hid anything, whatever the plugin config said. features.vitalsBar.hideNativeRows must agree, and a test binds them.",
+ "text": {
+  "purpose": "Positionable text. Ordinary default-font text cannot leave the bossbar's own line, because ascent belongs to a font provider -- so anything that must sit at a chosen height has to be glyphs in a pack font declared at that ascent.",
+  "why_not_vanillas_ascii_sheet": "A provider's ascent may not exceed its height, and reaching the hotbar needs an ascent near 50. Vanilla's ascii.png is 8px cells, which caps ascent at 8. The cell has to be tall and the glyph drawn in its foot, so the shapes are drawn here instead.",
+  "characters": [
+   "0",
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9",
+   "/"
+  ],
+  "names": {
+   "0": "0",
+   "1": "1",
+   "2": "2",
+   "3": "3",
+   "4": "4",
+   "5": "5",
+   "6": "6",
+   "7": "7",
+   "8": "8",
+   "9": "9",
+   "/": "slash"
+  },
+  "width": 5,
+  "height": 256,
+  "advance": 6,
+  "ascents": [
+   20,
+   30,
+   40,
+   50,
+   60,
+   73
+  ],
+  "stride": 16,
+  "scope": "Eleven characters is what the health numeral needs. The mechanism is identical for letters, and the ability-refusal line is the next consumer.",
+  "base": "U+E400"
+ }
 }

@@ -175,9 +175,9 @@ public final class VitalsBar {
     }
 
     /** The resolution the ticks were sized for; overhangs the native row. */
-    public static final Style WIDE = new Style(FILL_WIDTH, 30);
+    public static final Style WIDE = new Style(FILL_WIDTH, 50);
     /** Exactly the width vanilla's own row occupies. [FIXTURE -- confirm by probe] */
-    public static final Style INLINE = new Style(81, 30);
+    public static final Style INLINE = new Style(81, 50);
     /** Levels are 0 (empty) through FILL_WIDTH (full), inclusive. */
     public static final int LEVELS = FILL_WIDTH + 1;
 

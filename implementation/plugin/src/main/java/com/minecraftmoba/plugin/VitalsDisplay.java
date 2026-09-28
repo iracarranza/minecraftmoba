@@ -107,9 +107,6 @@ public final class VitalsDisplay implements Listener {
     private static final int HOTBAR_HALF = 91;
     private static final int NATIVE_ROW = 81;
 
-    /** Default-font digit advance, for centring the numeral over its bar. */
-    private static final int DIGIT = 6;
-
     /**
      * Build the whole title with a NET ADVANCE OF ZERO.
      *
@@ -150,15 +147,25 @@ public final class VitalsDisplay implements Listener {
         out.append(bar(healthLevel, ticks, colour("health"), style));
         at += width;
 
-        if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals")) {
+        if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals")
+                && HudText.ASCENTS.contains(style.ascent())) {
             String numeral = Math.round(Vitals.toEffective(p.getHealth(), maxHealth) * scale)
                              + "/" + Math.round(maxHealth * scale);
-            // Back over the bar just drawn, then in by half the difference, so
-            // the numeral is centred ON the bar rather than trailing it.
-            int inset = Math.max(0, (width - numeral.length() * DIGIT) / 2);
-            at = move(out, at, healthLeft + inset);
-            out.append(Component.text(numeral).font(DEFAULT_FONT).color(colour("health")));
-            at += numeral.length() * DIGIT;
+            if (HudText.canDraw(numeral)) {
+                // Back over the bar just drawn, then in by half the difference,
+                // so the numeral is centred ON the bar rather than trailing it.
+                //
+                // Drawn in the PACK font at the bar's own ascent. Default-font
+                // text cannot come down here at all -- ascent belongs to a
+                // provider, and vanilla's puts it on the bossbar's line. That
+                // is why the numeral sat at the top of the screen, and it was
+                // never a positioning bug.
+                int inset = Math.max(0, (width - HudText.width(numeral)) / 2);
+                at = move(out, at, healthLeft + inset);
+                out.append(Component.text(HudText.at(style.ascent(), numeral))
+                                    .font(FONT).color(colour("numeral")));
+                at += HudText.width(numeral);
+            }
         }
 
         at = move(out, at, hungerLeft);
@@ -199,7 +206,7 @@ public final class VitalsDisplay implements Listener {
         String layout = plugin.getConfig().getString("features.vitalsBar.layout", "inline");
         var base = "wide".equalsIgnoreCase(layout) ? VitalsBar.WIDE : VitalsBar.INLINE;
         int ascent = ascentOverride != null ? ascentOverride
-                : plugin.getConfig().getInt("features.vitalsBar.ascent", 30);
+                : plugin.getConfig().getInt("features.vitalsBar.ascent", 50);
         try {
             return base.withAscent(ascent);
         } catch (IllegalArgumentException ex) {

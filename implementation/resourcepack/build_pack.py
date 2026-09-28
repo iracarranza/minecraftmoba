@@ -290,6 +290,54 @@ def probe_glyph(width: int = 32, height: int = 256):
     return px
 
 
+
+# A 5x7 pixel font, drawn here because vertical placement belongs to a provider.
+#
+# Ordinary text cannot leave the bossbar's own line: `ascent` is a property of
+# the font provider, and default-font text carries vanilla's. So a numeral that
+# sits ON the health bar has to be glyphs in a pack font declared at the bar's
+# own ascent -- there is no offset that moves ordinary text down.
+#
+# Vanilla's ascii.png cannot be borrowed for it. A provider's ascent may not
+# exceed its height, and reaching the hotbar needs an ascent near 50, so the
+# cell has to be tall and the glyph drawn in its foot. Vanilla's sheet is 8px
+# cells, which caps ascent at 8.
+#
+# Hence our own shapes. 5x7 matches vanilla's proportions closely enough that
+# the numeral does not read as a different typeface sitting on the HUD.
+GLYPH_FONT = {
+    "0": ("01110", "10001", "10011", "10101", "11001", "10001", "01110"),
+    "1": ("00100", "01100", "00100", "00100", "00100", "00100", "01110"),
+    "2": ("01110", "10001", "00001", "00010", "00100", "01000", "11111"),
+    "3": ("11111", "00010", "00100", "00010", "00001", "10001", "01110"),
+    "4": ("00010", "00110", "01010", "10010", "11111", "00010", "00010"),
+    "5": ("11111", "10000", "11110", "00001", "00001", "10001", "01110"),
+    "6": ("00110", "01000", "10000", "11110", "10001", "10001", "01110"),
+    "7": ("11111", "00001", "00010", "00100", "01000", "01000", "01000"),
+    "8": ("01110", "10001", "10001", "01110", "10001", "10001", "01110"),
+    "9": ("01110", "10001", "10001", "01111", "00001", "00010", "01100"),
+    "/": ("00001", "00001", "00010", "00100", "01000", "10000", "10000"),
+}
+
+
+def text_glyph(shape, width: int = 5, height: int = 256, glyph_height: int = 7):
+    """One character, anchored to the FOOT of a tall transparent cell.
+
+    Same shape as the vitals units and for the same reason: height buys the
+    reach that ascent needs, and drawing across the whole cell would render a
+    256-pixel-tall digit.
+    """
+    lit = (255, 255, 255, 255)
+    clear = (0, 0, 0, 0)
+    top = height - glyph_height
+    px = []
+    for y in range(height):
+        for x in range(width):
+            row = shape[y - top] if y >= top else None
+            px.append(lit if row and row[x] == "1" else clear)
+    return px
+
+
 def build(registry: dict, out: Path, hide_native_rows: bool = False):
     if out.exists():
         raise FileExistsError(f"{out} exists; build to a fresh directory")
@@ -489,6 +537,39 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
                 "height": height,
             }
 
+    # ---- positionable text ----------------------------------------------
+    #
+    # One provider per (character, ascent). The plugin translates a string
+    # into the codepoint block for the ascent it wants, so "1900/1900" can be
+    # drawn on the health bar rather than on the bossbar's own line.
+    #
+    # Eleven characters is what the numeral needs. The mechanism is the same
+    # for letters, and the ability-refusal line is the next consumer.
+    text = registry.get("text")
+    text_manifest = {}
+    if text:
+        chars = text["characters"]
+        for ch in chars:
+            png_rgba(assets / "textures" / "font" / f"text_{text['names'][ch]}.png",
+                     text["width"], text["height"],
+                     text_glyph(GLYPH_FONT[ch], text["width"], text["height"]))
+        base = int(text["base"].removeprefix("U+"), 16)
+        for step, ascent in enumerate(text["ascents"]):
+            if ascent > text["height"]:
+                raise ValueError(f"text ascent {ascent} exceeds height {text['height']}")
+            for offset, ch in enumerate(chars):
+                providers.append({
+                    "type": "bitmap",
+                    "file": f"moba:font/text_{text['names'][ch]}.png",
+                    "ascent": ascent,
+                    "height": text["height"],
+                    "chars": [chr(base + step * text["stride"] + offset)],
+                })
+            text_manifest[f"asc{ascent}"] = {
+                "base": f"U+{base + step * text['stride']:04X}",
+                "characters": chars,
+            }
+
     # ---- blank the bossbar itself ---------------------------------------
     #
     # Once the bar graphic is gone the bossbar stops being a bar and becomes a
@@ -542,6 +623,7 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
                            "usage": "U+F000+n advances -n pixels"},
         "hidden_vanilla_sprites": hidden,
         "hud_layers": layer_manifest,
+        "text": text_manifest,
     })
     return manifest
 

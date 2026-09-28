@@ -144,9 +144,12 @@ features:
     # rebuild -- ascent belongs to a font provider, and the placement law is
     # accurate enough to say roughly where a bar goes and not to land one.
     #
-    # Higher is higher on screen. 73 put the bars around forty pixels above
-    # the hotbar; 30 is the estimate for the slot the native rows occupied.
-    ascent: 30
+    # Higher is higher on screen. MEASURED by sweeping /moba hudprobe bars:
+    # 73 sat well above the hotbar, 30 fell inside it, 50 is the slot the
+    # native health and hunger rows occupied. Found by sweeping rather than by
+    # fitting the placement law, which four rounds of screenshot measurement
+    # never got accurate enough to land a bar with.
+    ascent: 50
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this
@@ -178,6 +181,10 @@ features:
     # assigns identity rather than palette. This is the palette decision, put
     # where it can be argued with.
     colours:
+      # The numeral is drawn OVER the health bar, so it needs to read against
+      # the fill rather than match it. White on red is the legible pair; the
+      # health colour on the health bar would vanish.
+      numeral: "#FFFFFF"
       health: "#FF5555"
       hunger: "#C88A3C"
       # The unlit run and the end caps. Every unit is drawn white by the pack,
