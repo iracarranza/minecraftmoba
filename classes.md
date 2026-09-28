@@ -886,6 +886,37 @@ A targeting preview answers that, and *when to commit* is a question about the
 Quick is the default and is what every ability does today, so the setting adds
 a capability without changing anyone's muscle memory until they ask for it.
 
+### Which abilities a mode may reshape
+
+**Settled 28 September 2026.** A cast mode is a preference, and some abilities
+cannot honour every preference. The line is **not the ability's form**:
+
+- A projectile that is merely **aimed** — all three modes.
+- A **persistent projectile behaving like a beam** — all three modes. It
+  commits, and what happens afterwards is the ability's business.
+- A beam **that widens while held** — **not Quick**.
+
+> The question is whether the ability's **output depends on how long the input
+> is held**, not whether it is held.
+
+Quick commits on the press and measures nothing, so a hold-dependent ability
+under Quick would resolve at **zero hold every time** — the minimum, silently.
+That is an ability broken by a preference, not a preference honoured.
+
+**Quick is upgraded to Hold, not refused.** Refusing leaves a player unable to
+cast because of a setting; a tap under Hold already behaves as Quick does, so
+the upgrade costs the quick-caster almost nothing and the ability nothing at
+all.
+
+**Double survives, with a consequence.** It stays available and means what it
+says — but the **second press must itself be holdable**: press to aim, press and
+hold to run, release to end. A second press that fired and forgot would carry
+the same zero-hold defect Quick has, one press later.
+
+Hold-dependence is declared **per activation, with the branch in hand**, so a
+projectile branch and its widening-beam branch answer differently for the same
+ability.
+
 ### What a mode must never change
 
 > A mode decides **when** the commit happens and whether a preview is drawn in

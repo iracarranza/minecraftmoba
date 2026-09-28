@@ -31,6 +31,15 @@ public final class AbilityInputs implements Listener {
     private final Map<UUID, Channel> channels = new HashMap<>();
     /** Abilities being aimed rather than cast. See AimState. */
     private final Map<UUID, AimState> aiming = new HashMap<>();
+    /**
+     * Abilities RUNNING while the input stays held.
+     *
+     * Only for hold-dependent abilities, whose output depends on how long the
+     * input is held. Tracked exactly like an aim -- same repeat packets, same
+     * quiet window -- because the question is the same one: is the button
+     * still down. The difference is only what the answer ends.
+     */
+    private final Map<UUID, AimState> sustaining = new HashMap<>();
     public AimState aiming(Player p) { return aiming.get(p.getUniqueId()); }
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
     private final Input modeInput;
@@ -122,6 +131,16 @@ public final class AbilityInputs implements Listener {
             cancelAbilities(p);
             return true;
         }
+        // A sustain in progress owns the input before an aim or the kit does.
+        AimState held = sustaining.get(p.getUniqueId());
+        if (held != null && input != modeInput) {
+            if (input == held.input()) {
+                sustaining.put(p.getUniqueId(), held.refreshed(tick));
+            } else {
+                endSustain(p, held);
+            }
+            return true;
+        }
         // An aim in progress owns the next input before the kit does.
         AimState aim = aiming.get(p.getUniqueId());
         if (aim != null && input != modeInput) {
@@ -175,9 +194,16 @@ public final class AbilityInputs implements Listener {
         // Aim rather than cast, when the player asked for it AND the ability
         // has something to aim. An ability with no preview ignores cast modes
         // entirely rather than growing an empty one.
-        CastMode mode = d.castMode();
-        var aimContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
-        if (mode.previews() && !ability.preview(p, aimContext).isEmpty()) {
+        // The ability's requirement overrides the preference, minimally.
+        // Quick becomes Hold for a hold-dependent ability rather than being
+        // refused: refusing leaves a player unable to cast because of a
+        // setting, while a tap under Hold already behaves as Quick does.
+        var formContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
+        boolean holdDependent = ability.holdDependent(p, formContext);
+        CastMode mode = d.castMode().effectiveFor(holdDependent);
+        var aimContext = formContext;
+        if (mode.previews()
+                && (holdDependent || !ability.preview(p, aimContext).isEmpty())) {
             aiming.put(p.getUniqueId(), AimState.begin(ability.id(), input, mode, tick));
             return true;
         }
@@ -288,7 +314,30 @@ public final class AbilityInputs implements Listener {
      * one they started with -- a frozen preview would show where the ability
      * WAS going, which is the one thing aiming exists to change.
      */
+    /** End a sustain, telling the ability it is over. */
+    private void endSustain(Player p, AimState held) {
+        sustaining.remove(p.getUniqueId());
+        Ability ability = byId(held.abilityId());
+        if (ability != null) ability.cancel(p);
+    }
+
+    /** Let go, or gone. Same quiet window as an aim, because it is the same question. */
+    private void tickSustains() {
+        if (sustaining.isEmpty()) return;
+        for (var entry : new java.util.ArrayList<>(sustaining.entrySet())) {
+            Player p = Bukkit.getPlayer(entry.getKey());
+            AimState held = entry.getValue();
+            if (p == null || !p.isOnline() || !plugin.inMatchState(p)) {
+                sustaining.remove(entry.getKey());
+                continue;
+            }
+            if (held.onTick(tick, graceTicks(held.input()), maxAimTicks()) != AimState.Decision.HOLD)
+                endSustain(p, held);
+        }
+    }
+
     private void tickAims() {
+        tickSustains();
         if (aiming.isEmpty()) return;
         for (var entry : new java.util.ArrayList<>(aiming.entrySet())) {
             Player p = Bukkit.getPlayer(entry.getKey());
@@ -359,6 +408,13 @@ public final class AbilityInputs implements Listener {
         if (d == null) return;
         var context = contextFor(p);
         if (!ability.execute(p, context)) return;
+        // A hold-dependent ability keeps running while the input stays down.
+        // Under Double cast this is what makes the SECOND press holdable --
+        // without it, press two would fire and forget and carry the same
+        // zero-hold defect Quick has, one press later.
+        if (ability.holdDependent(p, context))
+            sustaining.put(p.getUniqueId(),
+                    AimState.begin(ability.id(), aim.input(), CastMode.HOLD, tick));
         lastFire.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>()).put(ability.id(), tick);
         cooldowns.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>())
                  .put(ability.id(), tick + ability.cooldownTicks());

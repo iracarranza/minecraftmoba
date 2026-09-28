@@ -79,6 +79,38 @@ public enum CastMode {
     /** Whether this mode shows a targeting preview before committing. */
     public boolean previews() { return this != QUICK; }
 
+    /**
+     * The mode actually used, given whether the ability's EFFECT depends on
+     * the input continuing to be held.
+     *
+     * <h2>The distinction this exists for</h2>
+     *
+     * A projectile that is merely aimed can be cast any of the three ways, and
+     * so can a persistent projectile that behaves like a beam -- they commit,
+     * and what happens afterwards is the ability's business.
+     *
+     * But an ability whose OUTPUT depends on how long the input is held -- a
+     * beam that widens while held -- cannot be Quick cast. Quick commits on
+     * the press and measures nothing, so such an ability would always resolve
+     * at zero hold: the minimum, every time, silently. That is not a
+     * preference being honoured, it is an ability being broken by one.
+     *
+     * So Quick is <b>upgraded to Hold</b> rather than refused. Refusing would
+     * leave a player unable to use an ability because of a setting; upgrading
+     * gives them the nearest thing that works, and a tap under Hold already
+     * behaves as Quick does.
+     *
+     * <h2>Double survives, with a consequence</h2>
+     *
+     * Double remains available, and it means what it says -- but the SECOND
+     * press must itself be holdable. Press to aim, press and hold to run,
+     * release to end. A second press that fired and forgot would have the same
+     * zero-hold defect Quick has, one press later.
+     */
+    public CastMode effectiveFor(boolean holdDependent) {
+        return holdDependent && this == QUICK ? HOLD : this;
+    }
+
     /** What the setting item says it is. */
     public String label() {
         return switch (this) {

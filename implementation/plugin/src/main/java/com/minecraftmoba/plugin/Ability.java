@@ -47,6 +47,25 @@ public interface Ability {
     default Charge charging(Player player) { return null; }
 
     /**
+     * Whether this ability's OUTPUT depends on the input continuing to be held.
+     *
+     * Not "is it held" and not "does it persist". A projectile that is merely
+     * aimed, and a persistent projectile that behaves like a beam, are both
+     * ordinary: they commit, and what happens afterwards is theirs. Either can
+     * be cast all three ways.
+     *
+     * This is for the narrower case where <b>how long the input is held
+     * changes what the ability does</b> -- a beam that widens while held. Such
+     * an ability cannot be Quick cast, because Quick measures nothing and
+     * would resolve it at zero hold every time: the minimum, silently.
+     *
+     * Declared per activation, with the branch in hand, because a branch may
+     * change this. A projectile branch is not hold-dependent; its
+     * widening-beam branch is.
+     */
+    default boolean holdDependent(Player player, AbilityContext context) { return false; }
+
+    /**
      * The blocks this activation would affect, for a targeting preview.
      *
      * Empty means <b>this ability does not target</b>, and it is the default:
