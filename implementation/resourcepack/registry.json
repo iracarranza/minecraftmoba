@@ -207,7 +207,7 @@
  "bossbar_sprites": {
   "purpose": "Blank the bossbar graphic so only the title renders. Once the bar is gone the bossbar stops being a bar and becomes a line of text we own, which is the whole technique.",
   "geometry": "Vanilla bossbar sprites are 182x5. Replacing them with fully transparent images of the same size removes the bar without disturbing layout.",
-  "why_keep_one": "Something will eventually want a real progress bar. Blanking all seven colours is annoying to reverse for no gain, so PURPLE is left alone -- no current caller uses it.",
+  "why_keep_one": "Only WHITE is blanked -- the colour VitalsDisplay uses for the HUD canvas. Blanking six of seven made every OTHER bossbar invisible too, including the level-up countdown and the combat timer, which are meant to be read as bars. The canvas needs its own bar gone; nothing else does, and taking them all was overreach that read as those features being broken.",
   "colours": [
    "pink",
    "blue",
@@ -218,14 +218,15 @@
    "white"
   ],
   "keep": [
+   "pink",
+   "blue",
+   "red",
+   "green",
+   "yellow",
    "purple"
   ],
-  "overlays": [
-   6,
-   10,
-   12,
-   20
-  ]
+  "overlays": [],
+  "overlays_note": "Notched overlays are left alone. VitalsDisplay uses PROGRESS, so blanking the notched variants bought nothing and cost any future bar that wants segments."
  },
  "hide_native_rows": true,
  "hide_native_rows_note": "Blank vanilla's health and hunger rows. Once the glyph bars draw INTO the slot those rows occupy, this stops being optional: a visible native row would sit underneath the replacement. It lives here rather than as a command-line flag because publish.py called build() with the default and so never hid anything, whatever the plugin config said. features.vitalsBar.hideNativeRows must agree, and a test binds them.",

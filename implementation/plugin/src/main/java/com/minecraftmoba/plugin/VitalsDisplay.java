@@ -179,28 +179,17 @@ public final class VitalsDisplay implements Listener {
         out.append(bar(hungerLevel, java.util.Set.of(), colour("hunger"), style));
         at += width;
 
-        // Combat, as a short line above the bars.
+        // NO COMBAT LINE HERE.
         //
-        // CombatState has driven Recall gating and ability cooldowns since it
-        // was written and NOTHING has ever rendered it -- a player could be
-        // refused a Recall with no way to know why. The state was complete and
-        // invisible, which is a worse defect than a wrong readout because
-        // there is nothing to notice.
+        // One was added and then removed the same night. InWorldSelection's
+        // bossbar already renders combat -- red, named, and with its progress
+        // ticking down -- and has since it was written; it was invisible only
+        // because the pack had blanked the bossbar graphic. Adding a second
+        // readout did not fix that, it just put a number beside an empty bar.
         //
-        // Drawn as the seconds remaining rather than a yes/no, because the
-        // question a player actually has is "how long until I can leave".
-        var combat = plugin.combatState();
-        if (combat != null && plugin.getConfig().getBoolean("features.vitalsBar.showCombat", true)
-                && HudLabel.ASCENTS.contains(combatAscent())) {
-            long left = combat.remaining(p.getUniqueId(), plugin.getServer().getCurrentTick());
-            if (left > 0) {
-                String text = "IN COMBAT " + (left / 20 + 1) + "S";
-                at = move(out, at, -HudLabel.width(text) / 2);
-                out.append(Component.text(HudLabel.at(combatAscent(), text))
-                                    .font(FONT).color(colour("combat")));
-                at += HudLabel.width(text);
-            }
-        }
+        // A ticking bar is also the better form: the question is "how long
+        // until I can leave", which a shrinking bar answers at a glance and a
+        // number makes you read.
 
         // The refusal line, on the same canvas and its own line.
         //
@@ -229,10 +218,6 @@ public final class VitalsDisplay implements Listener {
             out.append(Component.text(delta > 0 ? HudLayer.right(delta) : HudLayer.left(-delta))
                                 .font(FONT));
         return to;
-    }
-
-    private int combatAscent() {
-        return plugin.getConfig().getInt("features.vitalsBar.combatAscent", 66);
     }
 
     /** Which width to draw. See VitalsBar.Style for what the choice costs. */

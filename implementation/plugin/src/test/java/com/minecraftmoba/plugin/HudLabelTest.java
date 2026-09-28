@@ -195,22 +195,22 @@ class HudLabelTest {
                 new java.io.InputStreamReader(java.util.Objects.requireNonNull(
                         getClass().getResourceAsStream("/config.yml"))));
         int bar = cfg.getInt("features.vitalsBar.ascent");
-        int combat = cfg.getInt("features.vitalsBar.combatAscent");
+        int numeral = cfg.getInt("features.vitalsBar.numeralAscent");
         int notice = cfg.getInt("features.vitalsBar.noticeAscent");
 
-        assertEquals(3, java.util.Set.of(bar, combat, notice).size(),
+        assertEquals(3, java.util.Set.of(bar, numeral, notice).size(),
                 "two lines at one ascent draw on top of each other");
-        assertTrue(HudLabel.ASCENTS.contains(combat), "combat must have a block to draw in");
-        assertTrue(HudLabel.ASCENTS.contains(notice));
-        assertTrue(combat > bar && notice > combat,
-                "the stack reads upward: bars, then combat, then the refusal line");
-        assertNotNull(cfg.getString("features.vitalsBar.colours.combat"));
+        assertTrue(HudLabel.ASCENTS.contains(notice), "the refusal line needs a block to draw in");
+        assertTrue(numeral > bar && notice > numeral,
+                "the stack reads upward: bars, the numeral on them, then the refusal line");
+        assertNull(cfg.getString("features.vitalsBar.colours.combat"),
+                "combat is a BOSSBAR, not a line here -- InWorldSelection owns it");
     }
 
     /** Every message the readouts can produce must be drawable. */
     @Test void everyReadoutStringIsInTheFace() {
         for (String text : java.util.List.of(
-                "IN COMBAT 7S", "ABILITY UNLOCKS AT LEVEL 30",
+                "ABILITY UNLOCKS AT LEVEL 30",
                 "ON COOLDOWN 12.5S", "CANNOT BE USED RIGHT NOW"))
             for (char c : text.toCharArray())
                 assertTrue(c == ' ' || HudLabel.CHARACTERS.indexOf(c) >= 0,

@@ -37,8 +37,23 @@ public final class Rewards implements Listener {
         refresh(p);
     }
     private static Duration ticks(long ticks) { return Duration.ofMillis(Math.multiplyExact(ticks,50)); }
+    /**
+     * The unspent-choices marker, which InWorldSelection owns during a match.
+     *
+     * Two bars saying the same thing is what a player actually saw: one
+     * reading "1 unspent choice" and another "Unspent choices: 1", neither
+     * with a visible bar. InWorldSelection's is the one that counts down and
+     * names the input, so this stands down while it is running rather than
+     * competing with it.
+     */
     public void refresh(Player p) {
         if(!plugin.enrolled(p)) return;
+        var selection = plugin.selection();
+        if (selection != null && selection.enabled()) {
+            BossBar owned = markers.remove(p.getUniqueId());
+            if (owned != null) p.hideBossBar(owned);
+            return;
+        }
         int count=catalog.pending(plugin.data(p)).size();
         if(count==0) {
             BossBar bar=markers.remove(p.getUniqueId()); if(bar!=null) p.hideBossBar(bar);

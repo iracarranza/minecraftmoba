@@ -415,4 +415,21 @@ class VitalsBarTest {
         assertNotEquals(low.filled(10, java.util.Set.of()),
                         high.filled(10, java.util.Set.of()));
     }
+
+    /**
+     * Only the canvas colour is blanked.
+     *
+     * VitalsDisplay uses WHITE and needs its bar graphic gone, because the
+     * bossbar is being used as a drawing surface rather than as a bar.
+     * Blanking six of seven took every OTHER bossbar with it -- the level-up
+     * countdown and the combat timer both went invisible, and both read as
+     * broken features rather than as a pack decision.
+     */
+    @Test void onlyTheCanvasColourIsBlanked() throws Exception {
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        for (String colour : java.util.List.of("pink", "blue", "red", "green", "yellow", "purple"))
+            assertTrue(registry.contains("\"" + colour + "\""),
+                    colour + " must stay visible; real bossbars use it");
+        assertTrue(registry.contains("\"keep\""), "the kept list is what makes this legible");
+    }
 }

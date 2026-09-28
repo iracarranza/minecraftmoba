@@ -161,7 +161,10 @@ public final class InWorldSelection implements Listener {
             long left = combat.remaining(p);
             bar.color(BossBar.Color.RED);
             bar.progress((float) Math.min(1, Math.max(0, (double) left / combat.durationTicks())));
-            bar.name(Component.text("In combat — " + (left / 20 + 1) + "s"));
+            // No seconds. The bar's own length is the countdown, and a number
+            // beside it is a second reading of the same fact that has to be
+            // read rather than glanced at.
+            bar.name(Component.text("In combat"));
             // Restarting here is what makes the two clocks sequential: the
             // level-up countdown begins from the moment combat ends, not from
             // whenever it happened to be when the fight started.
@@ -170,7 +173,8 @@ public final class InWorldSelection implements Listener {
         }
         bar.color(BossBar.Color.YELLOW);
         bar.progress((float) Math.min(1, Math.max(0, beat.progress(p.getUniqueId(), now))));
-        bar.name(Component.text("Unspent choices: " + count + " — crouch in open space"));
+        bar.name(Component.text(count + (count == 1 ? " unspent level point" : " unspent level points")
+                + " available — crouch to summon, M2 to select"));
     }
 
     private void hideBar(Player p) {
