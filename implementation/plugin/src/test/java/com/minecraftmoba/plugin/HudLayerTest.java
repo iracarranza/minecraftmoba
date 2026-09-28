@@ -87,4 +87,38 @@ class HudLayerTest {
         assertEquals(HudLayer.left(8) + HudLayer.glyph("b_hotbar_above"),
                 HudLayer.at("b_hotbar_above", -8));
     }
+
+    // ---- the pack must actually map what the plugin emits -----------------
+
+    /**
+     * Negative space must live in the SAME font as the glyphs.
+     *
+     * A text component carries exactly one font. The plugin interleaves unit
+     * glyphs with U+F001 to correct their advance, so if negative space is
+     * only in `moba:space`, every correction character is unmapped inside
+     * `moba:glyphs` and the bar draws one tofu box per unit -- 128 of them per
+     * vitals bar. That is what the first live look at the bar actually showed.
+     */
+    @Test void theGlyphFontCarriesItsOwnNegativeSpace() throws Exception {
+        String build = Files.readString(Path.of("../resourcepack/build_pack.py"));
+        assertTrue(build.contains("providers + [space_provider]"),
+                "moba:glyphs must include the space provider, or every positioned "
+                        + "glyph renders beside a tofu box");
+    }
+
+    /**
+     * The font is written after every provider has been appended.
+     *
+     * It used to be written partway through, before the vitals units and these
+     * layers were added, so their providers were computed and discarded. The
+     * textures shipped; nothing mapped them.
+     */
+    @Test void theFontIsWrittenAfterEveryProviderIsAppended() throws Exception {
+        String build = Files.readString(Path.of("../resourcepack/build_pack.py"));
+        int lastAppend = build.lastIndexOf("providers.append(");
+        int write = build.indexOf("write_json(assets / \"font\" / \"glyphs.json\"");
+        assertTrue(write > lastAppend,
+                "glyphs.json is written before the last providers.append, so those "
+                        + "providers never reach the pack");
+    }
 }

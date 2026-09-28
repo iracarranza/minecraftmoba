@@ -1,6 +1,7 @@
 package com.minecraftmoba.plugin;
 
 import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -43,6 +44,15 @@ import java.util.UUID;
  * the difference between the two readings IS the drift.
  */
 public final class HudProbe {
+
+    /**
+     * The font the pack maps these codepoints into.
+     *
+     * A component carries exactly ONE font, and U+E200 means nothing in the
+     * default one -- it renders as tofu, which looks like nothing rather than
+     * like a bug. Every emission of a pack glyph must name this.
+     */
+    private static final Key FONT = Key.key("moba", "glyphs");
 
     private final MobaPlugin plugin;
     private final Map<UUID, BossBar> bars = new HashMap<>();
@@ -91,7 +101,7 @@ public final class HudProbe {
         var out = Component.text();
         int at = x;
         for (String layer : HudLayer.LAYERS) {
-            out.append(Component.text(HudLayer.at(layer, at == x ? at : 40)));
+            out.append(Component.text(HudLayer.at(layer, at == x ? at : 40)).font(FONT));
             at += 40;
         }
         return out.build();
@@ -99,7 +109,7 @@ public final class HudProbe {
 
     private Component oneLayer(String layer, int x) {
         if (!HudLayer.LAYERS.contains(layer)) return null;
-        return Component.text(HudLayer.at(layer, x));
+        return Component.text(HudLayer.at(layer, x)).font(FONT);
     }
 
     private static int parse(String text, int fallback) {

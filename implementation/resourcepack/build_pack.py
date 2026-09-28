@@ -296,9 +296,8 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
     advances = {" ": 4}
     for n in range(1, NEGATIVE_SPACE_MAX + 1):
         advances[chr(0xF000 + n)] = -n
-    write_json(assets / "font" / "space.json", {
-        "providers": [{"type": "space", "advances": advances}]
-    })
+    space_provider = {"type": "space", "advances": advances}
+    write_json(assets / "font" / "space.json", {"providers": [space_provider]})
 
     index = 0
     providers = []
@@ -354,7 +353,6 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
                 "shape": kind,
             }
 
-    write_json(assets / "font" / "glyphs.json", {"providers": providers})
 
     # Item model stubs. Structural: they bind an item to a model path. The
     # textures they point at are placeholders and are meant to be replaced.
@@ -488,6 +486,27 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         for part in ("background", "progress"):
             png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites"
                      / "boss_bar" / f"notched_{notches}_{part}.png", 182, 5, transparent)
+
+    # ---- the font, written LAST and carrying its own negative space -----
+    #
+    # Two defects are fixed here and both rendered as tofu, which is the
+    # failure mode that looks like nothing rather than like a bug.
+    #
+    # 1. This used to be written partway through, BEFORE the vitals units and
+    #    the HUD layers were appended, so those providers were computed and
+    #    then thrown away. The glyphs existed as textures and were mapped
+    #    nowhere.
+    #
+    # 2. A text component carries exactly ONE font, and the plugin interleaves
+    #    unit glyphs with U+F001 to correct their advance. With negative space
+    #    in a SEPARATE font, every correction character was unmapped inside
+    #    `moba:glyphs` -- so the bar drew one tofu box per unit, at 128 units
+    #    per bar. The space font stays published on its own for callers that
+    #    want only spacing, and is ALSO folded in here so that a single
+    #    component can mix glyphs and offsets. That is not a convenience; it
+    #    is the only way positioned glyphs can work at all.
+    write_json(assets / "font" / "glyphs.json",
+               {"providers": providers + [space_provider]})
 
     write_json(out / "GLYPH_MANIFEST.json", {
         "schema": "moba_glyph_manifest/1",
