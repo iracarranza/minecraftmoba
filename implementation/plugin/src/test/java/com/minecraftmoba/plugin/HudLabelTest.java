@@ -101,4 +101,29 @@ class HudLabelTest {
                 tall + " tall glyphs is over the budget; the font will not load and "
                         + "every glyph goes tofu, not just the new ones");
     }
+
+    /**
+     * The build must refuse an uppercase resource path.
+     *
+     * Resource locations must match [a-z0-9/._-]. An uppercase letter makes
+     * the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every glyph goes
+     * tofu, including families that were working, and nothing about the pack
+     * looks wrong. `label_A.png` did exactly that.
+     *
+     * It was mistaken for an atlas-size problem first, because the symptom is
+     * identical: the whole font stops rather than the new part of it. Which is
+     * why the check belongs in the build, where it can name the offending path,
+     * rather than in a diagnosis after the fact.
+     */
+    @Test void theBuildRefusesAnUppercaseResourcePath() throws Exception {
+        String build = Files.readString(Path.of("../resourcepack/build_pack.py"));
+        assertTrue(build.contains("[^a-z0-9:/._-]"),
+                "build_pack.py must reject a path the client will refuse");
+        assertTrue(build.contains("resource paths must be lowercase"),
+                "and say why, since the symptom points nowhere near the cause");
+
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        assertTrue(registry.contains("\"lowercase_paths\""),
+                "the reason stays written down beside the names it constrains");
+    }
 }

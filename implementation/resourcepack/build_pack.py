@@ -705,6 +705,17 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
     # A font that will not load renders EVERY glyph as tofu, including ones
     # that worked a moment ago, so this refuses at build time rather than
     # shipping it. See registry.json `atlas`.
+    # Resource locations must match [a-z0-9/._-]. An uppercase letter in a
+    # path makes the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every
+    # glyph goes tofu, including families that were working, and nothing in the
+    # pack looks wrong. That is what label_A.png did.
+    import re as _re
+    illegal = [p["file"] for p in providers
+               if p.get("type") == "bitmap" and _re.search(r"[^a-z0-9:/._-]", p["file"])]
+    if illegal:
+        raise ValueError("resource paths must be lowercase [a-z0-9/._-]; the client "
+                         "rejects the whole font otherwise: " + ", ".join(sorted(set(illegal))[:5]))
+
     tall = [p for p in providers if p.get("height", 0) >= 256]
     budget = registry.get("atlas", {}).get("atlas_budget", 256)
     if len(tall) > budget:
