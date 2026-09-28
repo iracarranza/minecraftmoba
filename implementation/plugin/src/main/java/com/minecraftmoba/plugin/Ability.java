@@ -45,6 +45,22 @@ public interface Ability {
 
     /** The charge in progress, if this ability charges and one is running. */
     default Charge charging(Player player) { return null; }
+
+    /**
+     * The blocks this activation would affect, for a targeting preview.
+     *
+     * Empty means <b>this ability does not target</b>, and it is the default:
+     * a self-buff or an aimless channel ignores cast modes entirely rather
+     * than growing a preview with nothing in it. An ability that returns
+     * blocks opts into Hold and Double cast by doing so.
+     *
+     * Recomputed each tick while aiming, against the player's CURRENT aim --
+     * a preview that froze at the first press would be showing where the
+     * ability was going to go, which is the one thing aiming exists to change.
+     */
+    default java.util.Collection<org.bukkit.block.Block> preview(Player player, AbilityContext context) {
+        return java.util.List.of();
+    }
     default void tick() {}
     /**
      * What the activation knew, including WHAT IT WAS AIMED AT.

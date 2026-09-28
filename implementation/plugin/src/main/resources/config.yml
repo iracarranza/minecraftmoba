@@ -26,6 +26,24 @@ features:
   lobbySettings:
     enabled: true
     castModeSlot: 8
+  # The targeting preview, drawn to the CASTING PLAYER ONLY.
+  #
+  # Player.spawnParticle sends to one player; World.spawnParticle sends to
+  # everyone. That one call is the whole of "opponents do not see the
+  # indicator" -- a preview is pre-commitment information in a way a cast is
+  # not, and under Double cast it can be feinted for free, so showing it to an
+  # opponent would make aiming a liability.
+  #
+  # Occluded blocks are marked anyway. The preview's job is to say WHICH
+  # BLOCKS, not to be a picture, and a tunnelling run that vanished where it
+  # entered the hill would answer worst exactly where the ability is opaque.
+  targetPreview:
+    enabled: true
+    particle: END_ROD
+    # One mark per block at its centre, not an outline: twelve edges per block
+    # turns a twenty-block run into a haze, while centres stay countable.
+    perBlock: 1
+    cadenceTicks: 4
   # Team-coloured GROUND inside each objective and Fountain volume.
   #
   # The glowing box cannot be read from inside it, and the ground around an
@@ -883,6 +901,22 @@ rewards:
       - { id: task_slaying_28, label: "Slaying", icon: IRON_SWORD, task: slaying }
   toast: { fadeInTicks: 5, stayTicks: 30, fadeOutTicks: 10 }
 abilities:
+  # Aiming, for the Hold and Double cast modes.
+  #
+  # Bukkit has NO BUTTON-UP. There is no release event, and org.bukkit.Input
+  # carries movement keys only, not clicks. What can be read is that a held
+  # button keeps arriving -- the client repeats its packets while aimed at a
+  # block -- so release is the input going quiet for longer than that gap.
+  #
+  # Hold is therefore a heuristic and Double is exact. A Hold cast that fires
+  # early was a dropped packet, and no tuning makes it a promise; graceTicks
+  # is the whole surface.
+  aim:
+    graceTicks: 6
+    # An aim nobody resolves must not persist forever. Hold fires at the
+    # ceiling (the button was evidently down); Double cancels (no second
+    # press ever came).
+    maxTicks: 200
   bindings:
     mode: SWAP_HAND
     a1: LEFT_CLICK

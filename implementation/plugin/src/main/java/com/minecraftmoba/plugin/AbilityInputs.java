@@ -29,6 +29,9 @@ public final class AbilityInputs implements Listener {
     }
     private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>(), lastFire = new HashMap<>();
     private final Map<UUID, Channel> channels = new HashMap<>();
+    /** Abilities being aimed rather than cast. See AimState. */
+    private final Map<UUID, AimState> aiming = new HashMap<>();
+    public AimState aiming(Player p) { return aiming.get(p.getUniqueId()); }
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
     private final Input modeInput;
     /** Input -> the slot it drives, so an unlock level can be looked up. */
@@ -113,6 +116,15 @@ public final class AbilityInputs implements Listener {
             cancelAbilities(p);
             return true;
         }
+        // An aim in progress owns the next input before the kit does.
+        AimState aim = aiming.get(p.getUniqueId());
+        if (aim != null && input != modeInput) {
+            switch (aim.onInput(input)) {
+                case FIRE -> { commitAim(p, aim); return true; }
+                case CANCEL -> { aiming.remove(p.getUniqueId()); return true; }
+                case HOLD -> { aiming.put(p.getUniqueId(), aim.refreshed(tick)); return true; }
+            }
+        }
         var d=plugin.data(p);
         if (input == modeInput) {
             if (active(p)) exit(p, false);
@@ -150,8 +162,17 @@ public final class AbilityInputs implements Listener {
             return true;
         }
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick) return true;
+        // Aim rather than cast, when the player asked for it AND the ability
+        // has something to aim. An ability with no preview ignores cast modes
+        // entirely rather than growing an empty one.
+        CastMode mode = d.castMode();
+        var aimContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face);
+        if (mode.previews() && !ability.preview(p, aimContext).isEmpty()) {
+            aiming.put(p.getUniqueId(), AimState.begin(ability.id(), input, mode, tick));
+            return true;
+        }
         last.put(ability.id(), tick);
-        var context = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face);
+        var context = aimContext;
         if (ability.execute(p,context)) {
             ready.put(ability.id(),tick+ability.cooldownTicks());
             // Activating a COMBAT ability puts the caster in combat. Classified
@@ -250,6 +271,66 @@ public final class AbilityInputs implements Listener {
     public void forget(Player p) {
         exit(p,true); cancelAbilities(p); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
+    /**
+     * Advance every aim, drawing its preview and committing when it is due.
+     *
+     * Recomputed against the player's CURRENT aim each tick rather than the
+     * one they started with -- a frozen preview would show where the ability
+     * WAS going, which is the one thing aiming exists to change.
+     */
+    private void tickAims() {
+        if (aiming.isEmpty()) return;
+        for (var entry : new java.util.ArrayList<>(aiming.entrySet())) {
+            Player p = Bukkit.getPlayer(entry.getKey());
+            AimState aim = entry.getValue();
+            if (p == null || !p.isOnline() || !plugin.inMatchState(p) || !active(p)) {
+                aiming.remove(entry.getKey());
+                continue;
+            }
+            switch (aim.onTick(tick, graceTicks(), maxAimTicks())) {
+                case FIRE -> commitAim(p, aim);
+                case CANCEL -> aiming.remove(entry.getKey());
+                case HOLD -> {
+                    if (tick % plugin.targetPreview().cadenceTicks() != 0) continue;
+                    Ability ability = byId(aim.abilityId());
+                    if (ability == null) { aiming.remove(entry.getKey()); continue; }
+                    plugin.targetPreview().draw(p, ability.preview(p, contextFor(p)));
+                }
+            }
+        }
+    }
+
+    private long graceTicks() { return plugin.getConfig().getLong("abilities.aim.graceTicks", 6); }
+    private long maxAimTicks() { return plugin.getConfig().getLong("abilities.aim.maxTicks", 200); }
+
+    private Ability byId(String id) { return abilities.get(id); }
+
+    private Ability.AbilityContext contextFor(Player p) {
+        var d = plugin.data(p);
+        return new Ability.AbilityContext(plugin, provenance, this,
+                d == null ? null : classes.get(d.classId), d);
+    }
+
+    /** Cast what was being aimed, exactly as an unaimed activation would. */
+    private void commitAim(Player p, AimState aim) {
+        aiming.remove(p.getUniqueId());
+        Ability ability = byId(aim.abilityId());
+        if (ability == null) return;
+        var d = plugin.data(p);
+        if (d == null) return;
+        var context = contextFor(p);
+        if (!ability.execute(p, context)) return;
+        lastFire.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>()).put(ability.id(), tick);
+        cooldowns.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>())
+                 .put(ability.id(), tick + ability.cooldownTicks());
+        // Exactly what the unaimed path does. A cast that went through an aim
+        // is still a cast, and marking combat differently would make the cast
+        // mode a balance setting.
+        if (plugin.combatState() != null
+                && combatRules.combat(ability.id(), context.branchFor(ability.id())))
+            plugin.combatState().markAbilityActivation(p);
+    }
+
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
     private void cancelAbilities(Player p) { abilities.values().forEach(a -> a.cancel(p)); }
 
@@ -280,6 +361,7 @@ public final class AbilityInputs implements Listener {
     private void tick() {
         tick++;
         abilities.values().forEach(Ability::tick);
+        tickAims();
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (active(p) && tick > plugin.data(p).modeState.expiresAt) exit(p,true);
             Channel channel=channels.get(p.getUniqueId());

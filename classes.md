@@ -840,17 +840,45 @@ and the only one that can be aborted; that is its whole trade.
 Abilities that target nothing — a self-buff, a channel with no aim — **ignore
 the mode** rather than growing a preview with nothing in it.
 
-### [OPEN] The preview itself
+### The preview is particles, on the affected blocks, for the caster alone
 
-What a preview looks like is unsettled, and it differs by ability shape:
-tunnelling wants the block run it will attempt, an area ability wants its
-footprint, a projectile wants its line. Block displays, particles and an
-outline are all candidates. Nothing here commits to one.
+**Settled 28 September 2026.** An ability that targets returns the blocks it
+would affect, and those blocks are marked with a particle each.
 
-[OPEN] Whether opponents see a preview. The project's standing preference is
-legibility, but a preview is *pre-commitment information* in a way a cast is
-not — it tells an opponent what is about to happen while it can still be
-cancelled, which Double cast makes free to feint with.
+**Opponents do not see it.** `Player.spawnParticle` sends to one player;
+`World.spawnParticle` sends to everyone. That one call is the whole of it — and
+it is the right answer rather than a cautious one, because a preview is
+**pre-commitment information** in a way a cast is not. Double cast can be
+feinted for free, so a visible preview would make aiming a liability rather
+than a convenience.
+
+**Occluded blocks are marked anyway.** A tunnelling preview marks blocks inside
+stone that nobody can see, and that is correct: the preview's job is to say
+*which blocks*, not to be a picture. A run that vanished where it entered the
+hill would answer worst exactly where the ability is most opaque.
+
+One mark at each block's centre rather than an outline — twelve edges per block
+turns a twenty-block run into a haze, while centres stay countable.
+
+### Release is detected by absence, and that makes Hold a heuristic
+
+**Bukkit has no button-up.** There is no release event, and `org.bukkit.Input` —
+the 1.21.2 raw input API — carries movement keys only, not clicks.
+
+What *can* be read is that a held button keeps arriving: the client repeats its
+packets while aimed at a block. So release is **the input going quiet for longer
+than that gap**.
+
+> **Double cast is exact. Hold is a heuristic.**
+
+A Hold cast that fires early was a dropped packet, and no amount of tuning makes
+it a promise. The grace window is the entire tuning surface. This is worth
+knowing before either is blamed for a bug.
+
+An aim nobody resolves hits a ceiling, and the two modes resolve it opposite
+ways: **Hold fires** (the button was evidently still down) and **Double cancels**
+(no second press ever came). Firing an unconfirmed Double cast at the ceiling
+would cast something the player had decided against.
 
 ## The lobby carries no match state
 

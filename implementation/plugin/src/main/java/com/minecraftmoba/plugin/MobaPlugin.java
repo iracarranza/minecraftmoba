@@ -239,6 +239,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         hudProbe = new HudProbe(this);
         hudNotice = new HudNotice(this);
         lobbySettings = new LobbySettings(this);
+        targetPreview = new TargetPreview(this);
         getServer().getPluginManager().registerEvents(lobbySettings, this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
@@ -361,6 +362,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public HudNotice hudNotice() { return hudNotice; }
     private LobbySettings lobbySettings;
     public LobbySettings lobbySettings() { return lobbySettings; }
+    private TargetPreview targetPreview;
+    public TargetPreview targetPreview() { return targetPreview; }
     private ToolboxStatuses toolboxStatuses;
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private UtilityBelt utilityBelt;
