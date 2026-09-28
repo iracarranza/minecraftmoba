@@ -56,12 +56,38 @@ public final class VitalsBar {
 
     /** Must match registry.json `bars.base`. */
     public static final int BASE = 0xE100;
+
+    /**
+     * Candidate vertical positions, one SET of units each.
+     *
+     * Must match registry.json `bars.ascents`. The pack emits every one of
+     * these because `ascent` belongs to a font provider, so a bar that can be
+     * moved without rebuilding the pack needs all its positions up front.
+     *
+     * The alternative was to keep re-fitting the placement law against
+     * screenshot pixels. It is accurate enough to say roughly where a glyph
+     * goes and not accurate enough to land one, so the answer is made cheap to
+     * search instead of expensive to derive.
+     */
+    public static final java.util.List<Integer> ASCENTS = java.util.List.of(20, 30, 40, 50, 60, 73);
+
+    /** Must match registry.json `bars.stride`: the codepoint gap between sets. */
+    public static final int STRIDE = 16;
+
     public static final String CAP_LEFT  = String.valueOf((char) (BASE));
     public static final String UNIT_ON   = String.valueOf((char) (BASE + 1));
     public static final String UNIT_OFF  = String.valueOf((char) (BASE + 2));
     public static final String CAP_RIGHT = String.valueOf((char) (BASE + 3));
     public static final String TICK_ON   = String.valueOf((char) (BASE + 4));
     public static final String TICK_OFF  = String.valueOf((char) (BASE + 5));
+
+    /** The codepoint offset of the unit set drawn at {@code ascent}. */
+    public static int setFor(int ascent) {
+        int index = ASCENTS.indexOf(ascent);
+        if (index < 0) throw new IllegalArgumentException(
+                "No unit set at ascent " + ascent + ". The pack emits: " + ASCENTS);
+        return index * STRIDE;
+    }
 
     /**
      * The negative-space character advancing -1 pixel.
@@ -100,9 +126,14 @@ public final class VitalsBar {
      * number is now right there. But it is a real loss and it is silent, so it
      * is written down here rather than discovered.
      */
-    public record Style(int fillWidth) {
+    public record Style(int fillWidth, int ascent) {
         public Style {
             if (fillWidth < 1) throw new IllegalArgumentException("A bar needs width.");
+            setFor(ascent);   // refuse an ascent the pack does not carry
+        }
+        public Style withAscent(int at) { return new Style(fillWidth, at); }
+        private String unit(String base) {
+            return String.valueOf((char) (base.charAt(0) + setFor(ascent)));
         }
         public int levels() { return fillWidth + 1; }
 
@@ -129,11 +160,11 @@ public final class VitalsBar {
         }
 
         public String filled(int level, java.util.Set<Integer> ticks) {
-            return run(0, check(level), UNIT_ON, TICK_ON, ticks);
+            return run(0, check(level), unit(UNIT_ON), unit(TICK_ON), ticks);
         }
 
         public String unfilled(int level, java.util.Set<Integer> ticks) {
-            return run(check(level), fillWidth, UNIT_OFF, TICK_OFF, ticks);
+            return run(check(level), fillWidth, unit(UNIT_OFF), unit(TICK_OFF), ticks);
         }
 
         private int check(int level) {
@@ -144,9 +175,9 @@ public final class VitalsBar {
     }
 
     /** The resolution the ticks were sized for; overhangs the native row. */
-    public static final Style WIDE = new Style(FILL_WIDTH);
+    public static final Style WIDE = new Style(FILL_WIDTH, 30);
     /** Exactly the width vanilla's own row occupies. [FIXTURE -- confirm by probe] */
-    public static final Style INLINE = new Style(81);
+    public static final Style INLINE = new Style(81, 30);
     /** Levels are 0 (empty) through FILL_WIDTH (full), inclusive. */
     public static final int LEVELS = FILL_WIDTH + 1;
 

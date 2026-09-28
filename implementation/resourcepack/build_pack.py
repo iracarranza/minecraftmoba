@@ -344,7 +344,19 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
     bars = registry.get("bars")
     if bars:
         base = int(bars["base"].removeprefix("U+"), 16)
-        for offset, unit_id in enumerate(bars["units"]):
+        # One SET of units per candidate ascent.
+        #
+        # ascent belongs to a provider, so a bar that can be moved vertically
+        # without rebuilding the pack has to have each position emitted up
+        # front. The plugin then picks by index. Six units across six ascents
+        # is thirty-six providers, which is nothing, and it turns "the bar is
+        # forty pixels too high" from a pack rebuild into a config line.
+        #
+        # Needed because the placement law was fitted to screenshot pixels and
+        # is not accurate enough to land a bar first time. Rather than keep
+        # re-measuring it, make the answer cheap to search.
+        for step, ascent in enumerate(bars["ascents"]):
+          for offset, unit_id in enumerate(bars["units"]):
             kind = unit_id.removeprefix("vitals_").removeprefix("unit_")
             png_rgba(assets / "textures" / "font" / f"{unit_id}.png",
                      1, bars["height"],
@@ -352,13 +364,14 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
             providers.append({
                 "type": "bitmap",
                 "file": f"moba:font/{unit_id}.png",
-                "ascent": bars["ascent"],
+                "ascent": ascent,
                 "height": bars["height"],
-                "chars": [chr(base + offset)],
+                "chars": [chr(base + step * bars["stride"] + offset)],
             })
-            manifest[unit_id] = {
-                "codepoint": f"U+{base + offset:04X}",
-                "escape": f"\\u{base + offset:04x}",
+            manifest[f"{unit_id}_asc{ascent}"] = {
+                "codepoint": f"U+{base + step * bars['stride'] + offset:04X}",
+                "escape": f"\\u{base + step * bars['stride'] + offset:04x}",
+                "ascent": ascent,
                 "group": "bars",
                 "index": offset,
                 "placeholder": False,

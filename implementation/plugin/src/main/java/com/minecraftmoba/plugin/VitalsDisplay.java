@@ -181,7 +181,16 @@ public final class VitalsDisplay implements Listener {
     /** Which width to draw. See VitalsBar.Style for what the choice costs. */
     private VitalsBar.Style style() {
         String layout = plugin.getConfig().getString("features.vitalsBar.layout", "inline");
-        return "wide".equalsIgnoreCase(layout) ? VitalsBar.WIDE : VitalsBar.INLINE;
+        var base = "wide".equalsIgnoreCase(layout) ? VitalsBar.WIDE : VitalsBar.INLINE;
+        int ascent = plugin.getConfig().getInt("features.vitalsBar.ascent", 30);
+        try {
+            return base.withAscent(ascent);
+        } catch (IllegalArgumentException ex) {
+            // A bar at an ascent the pack never emitted renders as tofu, which
+            // looks like nothing. Say which values exist and draw anyway.
+            plugin.getLogger().warning("features.vitalsBar.ascent: " + ex.getMessage());
+            return base;
+        }
     }
 
     /**

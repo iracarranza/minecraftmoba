@@ -139,6 +139,14 @@ features:
     #
     # Switch live and compare; this is what the two were built for.
     layout: inline
+    # Vertical position, as the glyph ascent. The pack emits a unit set at
+    # each of 20/30/40/50/60/73, so this is a live dial rather than a pack
+    # rebuild -- ascent belongs to a font provider, and the placement law is
+    # accurate enough to say roughly where a bar goes and not to land one.
+    #
+    # Higher is higher on screen. 73 put the bars around forty pixels above
+    # the hotbar; 30 is the estimate for the slot the native rows occupied.
+    ascent: 30
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this

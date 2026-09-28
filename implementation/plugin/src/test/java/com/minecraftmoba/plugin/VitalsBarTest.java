@@ -364,4 +364,46 @@ class VitalsBarTest {
                 "the pack blanks the rows and the plugin replaces them; one without "
                         + "the other is either a doubled readout or a missing one");
     }
+
+    /**
+     * Every ascent the plugin offers must be a set the pack emitted.
+     *
+     * A bar at an ascent with no provider renders as tofu, which looks like
+     * nothing rather than like a misconfiguration -- the failure this HUD has
+     * now produced four separate times.
+     */
+    @Test void everyOfferedAscentExistsInThePack() throws Exception {
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        for (int ascent : VitalsBar.ASCENTS)
+            assertTrue(registry.contains(String.valueOf(ascent)),
+                    "no unit set at ascent " + ascent);
+        assertTrue(registry.contains("\"stride\": " + VitalsBar.STRIDE));
+    }
+
+    /** Sets are STRIDE apart, so no two ascents can claim the same codepoint. */
+    @Test void unitSetsDoNotCollide() {
+        assertTrue(VitalsBar.STRIDE > 6, "six units per set, so the stride must clear them");
+        for (int i = 1; i < VitalsBar.ASCENTS.size(); i++)
+            assertEquals(VitalsBar.STRIDE,
+                    VitalsBar.setFor(VitalsBar.ASCENTS.get(i))
+                            - VitalsBar.setFor(VitalsBar.ASCENTS.get(i - 1)));
+    }
+
+    /** An ascent the pack does not carry is refused, not drawn as tofu. */
+    @Test void anUnknownAscentIsRefusedAtConstruction() {
+        var thrown = assertThrows(IllegalArgumentException.class,
+                () -> VitalsBar.INLINE.withAscent(999));
+        assertTrue(thrown.getMessage().contains("20"), thrown.getMessage());
+    }
+
+    /** Changing ascent changes which glyphs are emitted, and nothing else. */
+    @Test void ascentShiftsTheCodepointsAndKeepsTheGeometry() {
+        var low = VitalsBar.INLINE.withAscent(20);
+        var high = VitalsBar.INLINE.withAscent(73);
+        assertEquals(low.fillWidth(), high.fillWidth());
+        assertEquals(low.filled(10, java.util.Set.of()).length(),
+                     high.filled(10, java.util.Set.of()).length());
+        assertNotEquals(low.filled(10, java.util.Set.of()),
+                        high.filled(10, java.util.Set.of()));
+    }
 }
