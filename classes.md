@@ -807,6 +807,74 @@ has read the ability still knows what it does.
 So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
 doing something new at Lv25 is not.
 
+## Input form — the third axis
+
+**Settled 28 September 2026.** An ability is described by three independent
+things:
+
+| Axis | Question | Owner |
+| --- | --- | --- |
+| **Target form** | what is aimed at | the ability |
+| **Input form** | how the gesture is made | the ability |
+| **Cast mode** | whether the aim is verified first | the **player** |
+
+Only the third is a preference.
+
+### Why input form is not a preference
+
+Because an ability may use it to **select which output you get**.
+
+Pantheon's Q is the reference case: a **tap** is a short spear stab, a **hold**
+is a long spear throw. Two outputs of one ability, chosen by gesture. A
+cast-mode preference that reshaped the gesture would take an output away from
+the player.
+
+| Form | | Modes it permits |
+| --- | --- | --- |
+| **Instant** | the press is the whole input — *the stab* | all three |
+| **Channeled** | must be held to occur at all — *the throw* | Hold only |
+| **Charged** | held, and **how long** changes the output — *the widening beam* | Hold only |
+
+### Why the throw cannot be double cast
+
+The obvious half is Quick: Quick is a bare press, and a bare press produces the
+*stab*. There is no press that produces a throw.
+
+The less obvious half is Double, and it is a **gesture** collision rather than
+an intent one:
+
+> Double needs a first press that does **not** commit, so a second can confirm.
+> A held form has no such press — the hold *is* the activation — so a
+> double-cast throw would have to be press, release, press, hold. Nobody makes
+> that gesture.
+
+Hold is the only mode whose shape the throw already is.
+
+### Why the stab *can* be double cast, in the same ability
+
+Because a **held** first press is still distinguishable from a **tapped** one.
+Under Double: tap shows the indicator, a second tap stabs — and press-and-hold
+still throws. The tap selector is suspended for verification; the hold selector
+is not disturbed at all.
+
+That is the property that lets one ability carry two outputs *and* honour a
+preference on one of them.
+
+### Charged is Channeled plus measurement
+
+Everything Channeled cannot do, Charged cannot do, for the same reasons. The
+only difference is that duration is **measured** rather than merely required —
+which is what makes a widening beam different from a throw that merely needs
+holding.
+
+### Fallback rather than refusal
+
+A preference that cannot be honoured falls back to the form's own shape. A
+player who prefers Quick still gets the throw when they hold; they simply do not
+get a version that fires on a press, because no such version exists.
+
+---
+
 ## Ability cast types — reference labels
 
 **Settled 28 September 2026.** Four names for how an ability is aimed, so that
