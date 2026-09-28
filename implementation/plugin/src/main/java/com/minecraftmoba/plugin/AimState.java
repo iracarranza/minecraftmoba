@@ -5,6 +5,29 @@ import java.util.Objects;
 /**
  * An ability being aimed rather than cast: what it is, and when it commits.
  *
+ * <h2>A held AIM is not a held CAST</h2>
+ *
+ * The three cast modes are about <b>targeting and verification</b>, and nothing
+ * else. They decide whether the player sees what they are about to affect
+ * before it happens:
+ *
+ * <ul>
+ *   <li><b>Quick</b> — cast with no verification.</li>
+ *   <li><b>Hold</b> — hold the input, see the indicator, release to commit.</li>
+ *   <li><b>Double</b> — press to see the indicator, press again to confirm.</li>
+ * </ul>
+ *
+ * Whether an ability then <i>does something while held</i> is a separate
+ * question that belongs to the ability. A persistent beam that runs until
+ * released is a held CAST; it is not a held aim, and its length has nothing to
+ * do with verification.
+ *
+ * This record serves both, because both ask the identical question of the
+ * input layer — <i>is the button still down</i> — and answering it twice with
+ * two heuristics would let them disagree. But they are different phases with
+ * different meanings, and {@link Decision#FIRE} means "commit" while aiming and
+ * "let go" while sustaining. Read the map it came out of.
+ *
  * <h2>Release is detected by ABSENCE</h2>
  *
  * Bukkit has no button-up. There is no event for letting go of a mouse button,

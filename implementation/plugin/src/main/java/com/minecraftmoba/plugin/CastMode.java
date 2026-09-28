@@ -85,15 +85,23 @@ public enum CastMode {
      *
      * <h2>The distinction this exists for</h2>
      *
-     * A projectile that is merely aimed can be cast any of the three ways, and
-     * so can a persistent projectile that behaves like a beam -- they commit,
-     * and what happens afterwards is the ability's business.
+     * These modes are about TARGETING, not about holding. A projectile that is
+     * merely aimed can be cast any of the three ways, and so can a persistent
+     * projectile that behaves like a beam -- the beam's length is a held CAST,
+     * which is the ability's own business and has nothing to do with whether
+     * the player verified their aim first.
      *
-     * But an ability whose OUTPUT depends on how long the input is held -- a
-     * beam that widens while held -- cannot be Quick cast. Quick commits on
-     * the press and measures nothing, so such an ability would always resolve
-     * at zero hold: the minimum, every time, silently. That is not a
-     * preference being honoured, it is an ability being broken by one.
+     * The narrow case is an ability whose output depends on how long the input
+     * is held DURING the aim -- a beam that widens while being aimed, firing
+     * at whatever width it reached. There the hold does two jobs at once: it
+     * shows the indicator and it grows the beam, and the release both ends the
+     * growth and commits.
+     *
+     * Quick cast cannot serve that, because Quick is the mode with no held
+     * phase at all. It commits on the press and measures nothing, so such an
+     * ability would always resolve at zero: the minimum, every time, silently.
+     * That is not a preference being honoured, it is an ability being broken
+     * by one.
      *
      * So Quick is <b>upgraded to Hold</b> rather than refused. Refusing would
      * leave a player unable to use an ability because of a setting; upgrading

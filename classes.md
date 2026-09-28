@@ -886,22 +886,47 @@ A targeting preview answers that, and *when to commit* is a question about the
 Quick is the default and is what every ability does today, so the setting adds
 a capability without changing anyone's muscle memory until they ask for it.
 
+### A held aim is not a held cast
+
+**The three modes are about targeting and verification, and nothing else.** They
+decide whether a player sees what they are about to affect before it happens:
+
+| Mode | |
+| --- | --- |
+| **Quick** | cast with no verification |
+| **Hold** | hold the input, see the indicator, release to commit |
+| **Double** | press to see the indicator, press again to confirm |
+
+Whether an ability then *does something while held* is a **separate question
+that belongs to the ability**. A persistent beam that runs until released is a
+held **cast**. Its length has nothing to do with verification, and it can be
+cast all three ways.
+
+Both phases ask the input layer the identical question — *is the button still
+down* — and are answered by one mechanism, because two heuristics could
+disagree with each other. But they are different phases and mean different
+things: the same signal means **commit** while aiming and **let go** while
+sustaining.
+
 ### Which abilities a mode may reshape
 
 **Settled 28 September 2026.** A cast mode is a preference, and some abilities
 cannot honour every preference. The line is **not the ability's form**:
 
 - A projectile that is merely **aimed** — all three modes.
-- A **persistent projectile behaving like a beam** — all three modes. It
-  commits, and what happens afterwards is the ability's business.
-- A beam **that widens while held** — **not Quick**.
+- A **persistent projectile behaving like a beam** — all three modes. Its length
+  is a held *cast*, which is the ability's business and has nothing to do with
+  whether the aim was verified.
+- A beam **that widens while being aimed** — **not Quick**.
 
-> The question is whether the ability's **output depends on how long the input
-> is held**, not whether it is held.
+> The question is whether the ability's output depends on how long the input is
+> held **during the aim**.
 
-Quick commits on the press and measures nothing, so a hold-dependent ability
-under Quick would resolve at **zero hold every time** — the minimum, silently.
-That is an ability broken by a preference, not a preference honoured.
+In that third case the hold does **two jobs at once**: it shows the indicator
+*and* it grows the beam, and the release both ends the growth and commits. Quick
+is the one mode with no held phase at all, so it measures nothing and would
+resolve such an ability at **zero every time** — the minimum, silently. That is
+an ability broken by a preference, not a preference honoured.
 
 **Quick is upgraded to Hold, not refused.** Refusing leaves a player unable to
 cast because of a setting; a tap under Hold already behaves as Quick does, so

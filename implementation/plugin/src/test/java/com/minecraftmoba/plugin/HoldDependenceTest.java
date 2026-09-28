@@ -7,12 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Which abilities a cast-mode setting may reshape, and which it may not.
  *
- * The distinction is NOT the ability's form. A projectile that is merely
- * aimed, and a persistent projectile that behaves like a beam, are both
- * ordinary: they commit, and what happens afterwards is theirs. Either can be
- * cast all three ways.
+ * The distinction is NOT the ability's form, and it is not whether the ability
+ * is held. A HELD AIM and a HELD CAST are different things: the three modes
+ * are about targeting and verification, while a persistent beam running until
+ * released is the ability's own business and can be cast all three ways.
  *
- * It is whether the ability's OUTPUT depends on how long the input is held.
+ * It is whether the output depends on how long the input is held DURING THE
+ * AIM -- a beam that widens while being aimed, where the hold both shows the
+ * indicator and grows the beam, and the release does both jobs at once.
  */
 class HoldDependenceTest {
 
@@ -94,9 +96,10 @@ class HoldDependenceTest {
     /**
      * A sustain is ended by the same quiet window that ends an aim.
      *
-     * It is the same question -- is the button still down -- so it gets the
-     * same answer and the same per-input windows, rather than a second
-     * heuristic that could disagree with the first.
+     * The same question -- is the button still down -- so one mechanism
+     * answers it, rather than two heuristics that could disagree. But the
+     * PHASES are different and the same signal means different things: commit
+     * while aiming, let go while sustaining.
      */
     @Test void aSustainEndsOnTheSameSilenceAnAimDoes() {
         var held = AimState.begin("beam", AbilityInputs.Input.LEFT_CLICK, CastMode.HOLD, 0);
