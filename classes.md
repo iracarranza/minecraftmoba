@@ -840,6 +840,32 @@ and the only one that can be aborted; that is its whole trade.
 Abilities that target nothing — a self-buff, a channel with no aim — **ignore
 the mode** rather than growing a preview with nothing in it.
 
+### A branch may change an ability's input form
+
+**Settled 28 September 2026.** An ability that shoots a projectile may have a
+branch that makes it a **held beam** instead. Those are different input shapes —
+one commits and is done, the other runs while held — and a branch is allowed to
+change that.
+
+It needs no new machinery. The preview is asked for **per activation**, with the
+branch in hand, so an ability presents one form per branch and a player who
+switches branch changes input form with it.
+
+The composition rule falls out of what an empty preview already means:
+
+> **An ability with its own hold semantics returns no preview, and therefore
+> ignores cast modes.**
+
+That is exactly right for a beam. Hold cast commits on **release**, and a beam
+needs the button still down to sustain — the two want the same button for
+opposite purposes. A beam also has nothing to pre-commit to: it goes where you
+look *while it runs*. So the form that carries its own hold opts out of the one
+a cast mode would impose, by the same route a self-buff does.
+
+[OPEN] Whether a branch may change which *slot* an ability occupies. It cannot
+today, and given the A1/A2 hold asymmetry above, moving an ability between them
+would change its feel as much as its binding.
+
 ### The preview is particles, on the affected blocks, for the caster alone
 
 **Settled 28 September 2026.** An ability that targets returns the blocks it
@@ -896,6 +922,25 @@ both. The window is per input.
 [FIXTURE — expect to tune] Left 2, right 5, inferred from vanilla's use cadence
 rather than measured. `abilities.aim.logInputGaps` logs the real gaps; set it
 and hold each button.
+
+### A1 and A2 do not hold identically, and that is a design input
+
+Because the windows differ, **the slot an ability occupies changes how it
+feels to hold**:
+
+| | Window | A tap fires in | Holding is |
+| --- | ---: | ---: | --- |
+| **A1** (left click) | 2 ticks | ~0.1s | tolerant — the input repeats fast |
+| **A2** (right click) | 5 ticks | ~0.25s | tighter — throttled to about 4 ticks |
+
+**Whenever hold timing matters to an ability, this belongs in the A1/A2
+decision.** An ability whose value is in releasing at an exact moment — an
+Ultimate hovering over a bridge — wants A1, where a tap is nearly instant and a
+hold is least likely to be broken by a dropped packet. An ability held for
+duration rather than for a moment does not care, and can take A2.
+
+This is not a balance knob to tune per ability; it is a property of the two
+inputs that ability placement has to account for.
 
 An aim nobody resolves hits a ceiling, and the two modes resolve it opposite
 ways: **Hold fires** (the button was evidently still down) and **Double cancels**
