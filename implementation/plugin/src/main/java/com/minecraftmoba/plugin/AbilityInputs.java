@@ -145,6 +145,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player p && plugin.lightfooted()!=null && plugin.lightfooted().isClassDamage(p)) return;
         if (e.getDamager() instanceof Player p && ((plugin.lightfooted()!=null && !plugin.lightfooted().attackAllowed(p)) || input(p,Input.LEFT_CLICK))) e.setCancelled(true);
     }
     @EventHandler(priority=EventPriority.HIGHEST)
