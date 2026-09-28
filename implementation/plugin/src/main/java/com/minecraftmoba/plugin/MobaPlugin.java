@@ -641,6 +641,41 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (d != null) PlayerDataCodec.projectTask(d, settings.taskLedger());
         sync(p, d);
     }
+    /** The Capacity each player was last synced at, for the conversion below. */
+    private final Map<UUID, Double> lastCapacity = new HashMap<>();
+
+    /**
+     * Gaining Health Capacity adds that much health, not that much percentage.
+     *
+     * Under scaling a player's stored health is the DISPLAYED 0..20 and
+     * Capacity decides what a point is worth, so raising Capacity while
+     * leaving the display alone multiplies current health by the ratio --
+     * a player at half health who levels up is still at half, of a larger
+     * number, and has silently been healed.
+     *
+     * That is also why damage appeared to arrive in round hundreds: at
+     * Capacity 14 one displayed point is 70 effective, so every hit landed on
+     * a coarse grid, while levelling moved current health by a percentage and
+     * produced the tens and ones digits it could not otherwise show.
+     *
+     * So the conversion is done in EFFECTIVE points: read what the player
+     * actually had, add the capacity gained, and write back the display that
+     * means. Losing Capacity subtracts symmetrically, and the clamp keeps a
+     * shrinking pool from leaving someone above their own maximum.
+     */
+    private void carryHealthAcrossCapacityChange(Player p, double capacity, boolean scaled) {
+        Double previous = lastCapacity.put(p.getUniqueId(), capacity);
+        if (!scaled || previous == null || previous <= 0 || capacity <= 0) return;
+        if (Math.abs(capacity - previous) < 1e-9) return;
+        // A dead or empty player is not carried: zero is zero at any Capacity,
+        // and adding a level's worth of health to a corpse would revive it.
+        if (p.getHealth() <= 0) return;
+
+        double effective = Vitals.toEffective(p.getHealth(), previous);
+        double carried = Math.max(0, Math.min(capacity, effective + (capacity - previous)));
+        p.setHealth(Math.max(0, Math.min(Vitals.DISPLAY_MAX, Vitals.toDisplay(carried, capacity))));
+    }
+
     private void sync(Player p, PlayerData d) {
         var c = capacity(d);
         var attribute = Objects.requireNonNull(p.getAttribute(Attribute.MAX_HEALTH));
@@ -654,6 +689,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         double barLength = scaled ? Vitals.DISPLAY_MAX : c.maxHealth();
         attribute.setBaseValue(barLength);
         if (p.getHealth() > attribute.getValue()) p.setHealth(attribute.getValue());
+        carryHealthAcrossCapacityChange(p, c.maxHealth(), scaled);
         enforceHunger(p, c);
         if (taskEffects != null) taskEffects.applyAutomaticGrants(p, data(p));
         p.setLevel(d.level);
@@ -672,6 +708,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                 () -> objectiveGlow.apply(e.getPlayer()), 20L);
     }
     @EventHandler public void quit(PlayerQuitEvent e) {
+        lastCapacity.remove(e.getPlayer().getUniqueId());
         var d = players.remove(e.getPlayer().getUniqueId());
         if (d != null) { d.modeState.clear(); save(e.getPlayer(), d); }
     }

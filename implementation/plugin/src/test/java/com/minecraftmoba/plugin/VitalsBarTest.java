@@ -432,4 +432,60 @@ class VitalsBarTest {
                     colour + " must stay visible; real bossbars use it");
         assertTrue(registry.contains("\"keep\""), "the kept list is what makes this legible");
     }
+
+    // ---- gaining Capacity adds health, not percentage ---------------------
+
+    /**
+     * A level-up adds the health it granted, not a proportion of what you had.
+     *
+     * Under scaling the stored value is the DISPLAYED 0..20 and Capacity
+     * decides what a point is worth, so raising Capacity while leaving the
+     * display alone multiplies current health by the ratio -- a player at half
+     * health who levels up is still at half, of a larger number, and has been
+     * silently healed.
+     *
+     * The arithmetic is checked here; MobaPlugin applies it.
+     */
+    @Test void capacityGainedIsHealthGained() {
+        // ENGINE points throughout. The x100 is the HUD's, not the
+        // simulation's -- Capacity 14 reads as 1400 Health and is 14 here, and
+        // mixing the two is its own bug in this file's history.
+        double before = 14, after = 16;             // Lightfooted, one Growth apart
+        double displayed = Vitals.toDisplay(7, before);     // half of 14
+
+        double effective = Vitals.toEffective(displayed, before);
+        assertEquals(700, Math.round(effective * 100), "700 displayed");
+
+        double carried = effective + (after - before);
+        assertEquals(900, Math.round(carried * 100), "700 plus the 200 the level added");
+        assertNotEquals(800, Math.round(carried * 100),
+                "keeping the same fraction would give half of 1600, which is a free heal");
+    }
+
+    /** Losing Capacity subtracts symmetrically, and cannot leave you above the cap. */
+    @Test void capacityLostIsHealthLostAndClamped() {
+        double before = 16, after = 14;
+        double full = Vitals.toEffective(Vitals.DISPLAY_MAX, before);
+        double carried = Math.max(0, Math.min(after, full + (after - before)));
+        assertEquals(after, carried, 1e-9, "a full pool stays full at the smaller size");
+
+        double sliver = 0.5;
+        assertEquals(0, Math.max(0, Math.min(after, sliver + (after - before))), 1e-9,
+                "and a sliver cannot go negative");
+    }
+
+    /**
+     * Why damage looked like it arrived in round hundreds.
+     *
+     * At Capacity 14 one displayed point is 70 effective, so every hit lands
+     * on a coarse grid -- while levelling moved current health by a percentage
+     * and produced the tens and ones digits nothing else could show. Real
+     * damage is exact: an Iron Golem reading 475 is the proof.
+     */
+    @Test void oneDisplayedPointIsACoarseGridAtLowCapacity() {
+        assertEquals(70, Math.round(Vitals.toEffective(1, 14) * 100),
+                "one twentieth of 1400");
+        assertEquals(1, Math.round(Vitals.toDisplay(0.7, 14)),
+                "so anything under a point rounds to one");
+    }
 }

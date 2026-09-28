@@ -84,11 +84,22 @@ public final class InWorldSelection implements Listener {
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             if (!plugin.enrolled(p)) { cleanup(p); continue; }
             trackMovement(p, now);
-            if (catalog.pending(plugin.data(p)).isEmpty() || hasSummoned(p)) {
+
+            // The bar serves BOTH clocks, so it cannot be gated on only one of
+            // them. It used to appear solely when a choice was pending, which
+            // meant the combat timer was invisible for any player who had
+            // nothing to spend -- most players, most of the time. Reported as
+            // "combat only works from lv4 to 30", which is exactly the span
+            // where rewards happened to be outstanding.
+            var combat = plugin.combatState();
+            boolean pending = !catalog.pending(plugin.data(p)).isEmpty();
+            boolean fighting = combat != null && combat.inCombat(p);
+            if (!pending && !fighting) {
                 if (!hasSummoned(p)) hideBar(p);
                 continue;
             }
             showBar(p, now);
+            if (!pending || hasSummoned(p)) continue;
             if (beat.due(p.getUniqueId(), now)) {
                 beat.restart(p.getUniqueId(), now);
                 evaluate(p, now);
@@ -172,7 +183,13 @@ public final class InWorldSelection implements Listener {
             return;
         }
         bar.color(BossBar.Color.YELLOW);
-        bar.progress((float) Math.min(1, Math.max(0, beat.progress(p.getUniqueId(), now))));
+        // DRAINING, like the combat bar. The beat's progress counts up toward
+        // the moment options appear, which is the honest reading of the
+        // mechanic -- but two bars in the same place moving opposite ways is
+        // read as one of them being wrong, and a bar that empties is the
+        // universal "time is running out". The mechanic is unchanged; only
+        // which end is full.
+        bar.progress((float) Math.min(1, Math.max(0, 1 - beat.progress(p.getUniqueId(), now))));
         bar.name(Component.text(count + (count == 1 ? " unspent level point" : " unspent level points")
                 + " available — crouch to summon, M2 to select"));
     }
