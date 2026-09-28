@@ -204,9 +204,15 @@ class HudLabelTest {
         assertTrue(HudLabel.ASCENTS.contains(clock), "the clock label needs a block to draw in");
         assertNotNull(cfg.getString("features.vitalsBar.colours.clock"));
         assertTrue(HudLabel.ASCENTS.contains(notice), "the refusal line needs a block to draw in");
-        assertTrue(numeral > bar && clock > numeral && notice > clock,
-                "the stack reads upward: bars, the numeral on them, the clock label, "
-                        + "then the refusal line");
+        // Only the numeral's relation to its bar is structural -- it annotates
+        // it and must sit just above it. Where the clock label and the refusal
+        // line go relative to each other is a LAYOUT choice, and it changed
+        // once already: the clock moved from just above the bars to near the
+        // ability row, which put it above the refusal line. Asserting a fixed
+        // order would have made that a test failure rather than a decision.
+        assertTrue(numeral > bar && numeral - bar < 20,
+                "the numeral annotates its bar and must sit just above it");
+        assertTrue(clock > bar && notice > bar, "nothing draws under the bars");
         assertNull(cfg.getString("features.vitalsBar.colours.combat"),
                 "combat is a BOSSBAR, not a line here -- InWorldSelection owns it");
     }

@@ -233,8 +233,12 @@ public final class VitalsDisplay implements Listener {
         return to;
     }
 
+    private Integer clockOverride;
+    public void overrideClockAscent(Integer ascent) { this.clockOverride = ascent; }
+
     private int clockAscent() {
-        return plugin.getConfig().getInt("features.vitalsBar.clockAscent", 60);
+        return clockOverride != null ? clockOverride
+                : plugin.getConfig().getInt("features.vitalsBar.clockAscent", 150);
     }
 
     /** Which width to draw. See VitalsBar.Style for what the choice costs. */

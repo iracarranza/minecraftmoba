@@ -38,9 +38,17 @@ public final class HudLabel {
     public static final int STRIDE = 64;
     /** Must match registry.json `label.characters`, in order. */
     public static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,!?:-'";
-    /** Must match registry.json `label.ascents`. */
+    /**
+     * Must match registry.json `label.ascents`.
+     *
+     * Higher is higher on screen, and the CEILING IS THE CANVAS HEIGHT: a
+     * provider's ascent may not exceed it, so with 256 rows the top is 256 --
+     * at which point the glyph's foot sits on the bossbar's own baseline.
+     * Anything beyond that needs a taller canvas, which costs atlas area on
+     * every glyph in the family, not just the high one.
+     */
     public static final List<Integer> ASCENTS =
-            List.of(60, 66, 73);
+            List.of(60, 73, 150, 200);
     /** Three pixels of glyph plus vanilla's one of spacing. */
     public static final int ADVANCE = 4;
 

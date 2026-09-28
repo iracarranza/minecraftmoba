@@ -73,6 +73,27 @@ public final class HudProbe {
         // between a guess and an answer was a restart -- and the guesses came
         // from measuring screenshots, which is how the placement law got
         // refitted three times without landing a bar. Sweep it instead.
+        if (verb.equals("clock")) {
+            if (args.length < 3) {
+                p.sendMessage("/moba hudprobe clock <ascent|off>   available: " + HudLabel.ASCENTS);
+                return true;
+            }
+            if (args[2].equalsIgnoreCase("off")) {
+                plugin.vitalsDisplay().overrideClockAscent(null);
+                p.sendMessage("Clock label back to the configured ascent.");
+                return true;
+            }
+            int wanted = parse(args[2], -1);
+            if (!HudLabel.ASCENTS.contains(wanted)) {
+                p.sendMessage("No label block at ascent " + args[2]
+                        + ". The pack carries: " + HudLabel.ASCENTS);
+                return true;
+            }
+            plugin.vitalsDisplay().overrideClockAscent(wanted);
+            p.sendMessage("Clock label at ascent " + wanted + ".");
+            return true;
+        }
+
         if (verb.equals("notice")) {
             if (args.length < 3) {
                 p.sendMessage("/moba hudprobe notice <ascent|off|test>   available: "
