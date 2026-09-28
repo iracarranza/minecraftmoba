@@ -42,13 +42,16 @@ public final class HudLabel {
      * Must match registry.json `label.ascents`.
      *
      * Higher is higher on screen, and the CEILING IS THE CANVAS HEIGHT: a
-     * provider's ascent may not exceed it, so with 256 rows the top is 256 --
-     * at which point the glyph's foot sits on the bossbar's own baseline.
-     * Anything beyond that needs a taller canvas, which costs atlas area on
-     * every glyph in the family, not just the high one.
+     * provider's ascent may not exceed it, so with 256 rows the top is exactly
+     * 256 -- at which point the glyph's foot sits on the bossbar's own
+     * baseline. The clock label sits there.
+     *
+     * Anything above needs a taller canvas, which costs atlas area on every
+     * glyph in the family rather than only on the high one. That is the trade
+     * to weigh if this ceiling is ever not enough.
      */
     public static final List<Integer> ASCENTS =
-            List.of(73, 150, 200, 254);
+            List.of(73, 150, 200, 256);
     /** Three pixels of glyph plus vanilla's one of spacing. */
     public static final int ADVANCE = 4;
 

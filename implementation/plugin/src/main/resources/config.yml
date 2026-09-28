@@ -164,7 +164,7 @@ features:
     # Higher is higher on screen; the ceiling is the 256-row canvas, past
     # which a provider's ascent is rejected outright. Swept with
     # /moba hudprobe clock.
-    clockAscent: 254
+    clockAscent: 256
     noticeAscent: 73
     noticeTicks: 40
     refreshTicks: 4
