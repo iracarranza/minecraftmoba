@@ -67,6 +67,36 @@ public final class HudProbe {
         String verb = args.length > 1 ? args[1].toLowerCase(Locale.ROOT) : "all";
         if (verb.equals("off")) { clear(p); p.sendMessage("Probe cleared."); return true; }
 
+        // The vitals bars' own height, live.
+        //
+        // Every candidate ascent already exists in the pack, so the only thing
+        // between a guess and an answer was a restart -- and the guesses came
+        // from measuring screenshots, which is how the placement law got
+        // refitted three times without landing a bar. Sweep it instead.
+        if (verb.equals("bars")) {
+            if (args.length < 3) {
+                p.sendMessage("/moba hudprobe bars <ascent|off>   available: " + VitalsBar.ASCENTS);
+                return true;
+            }
+            var display = plugin.vitalsDisplay();
+            if (args[2].equalsIgnoreCase("off")) {
+                display.overrideAscent(null);
+                p.sendMessage("Bars back to the configured ascent.");
+                return true;
+            }
+            int wanted = parse(args[2], -1);
+            if (!VitalsBar.ASCENTS.contains(wanted)) {
+                p.sendMessage("No unit set at ascent " + args[2]
+                        + ". The pack carries: " + VitalsBar.ASCENTS);
+                return true;
+            }
+            display.overrideAscent(wanted);
+            p.sendMessage("Bars at ascent " + wanted
+                    + ". Sweep with /moba hudprobe bars <n>, keep it by setting "
+                    + "features.vitalsBar.ascent.");
+            return true;
+        }
+
         int x = args.length > 2 ? parse(args[2], 0) : 0;
         Component title = verb.equals("all") ? everyLayer(x) : oneLayer(verb, x);
         if (title == null) {

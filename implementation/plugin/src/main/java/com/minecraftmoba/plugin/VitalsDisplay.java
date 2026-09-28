@@ -179,10 +179,27 @@ public final class VitalsDisplay implements Listener {
     }
 
     /** Which width to draw. See VitalsBar.Style for what the choice costs. */
+    /**
+     * A live override for the ascent, set by {@code /moba hudprobe bars <n>}.
+     *
+     * Dialling this in took a restart per guess, and the guesses came from
+     * measuring screenshots -- which is how the placement law ended up refitted
+     * three times and still not landing a bar. The pack already emits every
+     * candidate position, so the only thing standing between a guess and an
+     * answer was a server restart. Now it is a command.
+     *
+     * Not persisted. The config value is the decision; this is the search.
+     */
+    private Integer ascentOverride;
+
+    public void overrideAscent(Integer ascent) { this.ascentOverride = ascent; }
+    public Integer ascentOverride() { return ascentOverride; }
+
     private VitalsBar.Style style() {
         String layout = plugin.getConfig().getString("features.vitalsBar.layout", "inline");
         var base = "wide".equalsIgnoreCase(layout) ? VitalsBar.WIDE : VitalsBar.INLINE;
-        int ascent = plugin.getConfig().getInt("features.vitalsBar.ascent", 30);
+        int ascent = ascentOverride != null ? ascentOverride
+                : plugin.getConfig().getInt("features.vitalsBar.ascent", 30);
         try {
             return base.withAscent(ascent);
         } catch (IllegalArgumentException ex) {
