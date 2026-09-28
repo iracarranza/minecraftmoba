@@ -147,8 +147,15 @@ public final class VitalsDisplay implements Listener {
         out.append(bar(healthLevel, ticks, colour("health"), style));
         at += width;
 
+        // The numeral sits a few pixels ABOVE its bar rather than on the same
+        // line, so it has its own ascent. Defaults to the bar's plus six,
+        // which is where a sweep put it.
+        int numeralAscent = plugin.getConfig().getInt(
+                "features.vitalsBar.numeralAscent", style.ascent() + 6);
+        if (numeralOverride != null) numeralAscent = numeralOverride;
+
         if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals")
-                && HudText.ASCENTS.contains(style.ascent())) {
+                && HudText.ASCENTS.contains(numeralAscent)) {
             String numeral = Math.round(Vitals.toEffective(p.getHealth(), maxHealth) * scale)
                              + "/" + Math.round(maxHealth * scale);
             if (HudText.canDraw(numeral)) {
@@ -162,7 +169,7 @@ public final class VitalsDisplay implements Listener {
                 // never a positioning bug.
                 int inset = Math.max(0, (width - HudText.width(numeral)) / 2);
                 at = move(out, at, healthLeft + inset);
-                out.append(Component.text(HudText.at(style.ascent(), numeral))
+                out.append(Component.text(HudText.at(numeralAscent, numeral))
                                     .font(FONT).color(colour("numeral")));
                 at += HudText.width(numeral);
             }
@@ -201,6 +208,10 @@ public final class VitalsDisplay implements Listener {
 
     public void overrideAscent(Integer ascent) { this.ascentOverride = ascent; }
     public Integer ascentOverride() { return ascentOverride; }
+
+    /** The same search, for the numeral's own height. */
+    private Integer numeralOverride;
+    public void overrideNumeralAscent(Integer ascent) { this.numeralOverride = ascent; }
 
     private VitalsBar.Style style() {
         String layout = plugin.getConfig().getString("features.vitalsBar.layout", "inline");

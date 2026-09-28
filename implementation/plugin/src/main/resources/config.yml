@@ -150,6 +150,11 @@ features:
     # fitting the placement law, which four rounds of screenshot measurement
     # never got accurate enough to land a bar with.
     ascent: 50
+    # The numeral sits a few pixels ABOVE its bar rather than on the same
+    # line. Swept with /moba hudprobe numeral; the pack carries a denser set
+    # of heights here than the bars have, because "a few" had to be measured
+    # like everything else on this HUD.
+    numeralAscent: 56
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this
@@ -168,7 +173,7 @@ features:
     # At 100, Mole's Lv30 3,200 is 32 ticks across 128 units: one every 4px.
     # Below MIN_TICK_SPACING the bar draws no ticks at all rather than a solid
     # band of marks pretending to be a scale.
-    tickInterval: 100
+    tickInterval: 0
     # DisplayedHealth = EngineHealth x displayScale. Presentation only; all
     # simulation, config and balance stay in engine units. See
     # docs/design/CLASS_PROGRESSION_GROWTH_AND_TASK.md section 4.

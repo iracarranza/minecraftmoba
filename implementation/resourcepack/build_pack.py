@@ -305,22 +305,26 @@ def probe_glyph(width: int = 32, height: int = 256):
 #
 # Hence our own shapes. 5x7 matches vanilla's proportions closely enough that
 # the numeral does not read as a different typeface sitting on the HUD.
+# 3x5, not 5x7. The numeral is drawn INSIDE a seven-pixel bar, so at vanilla's
+# proportions it fills the bar edge to edge and competes with the fill it is
+# supposed to be read against. Half the size reads as an annotation on the bar
+# rather than as a second thing occupying it.
 GLYPH_FONT = {
-    "0": ("01110", "10001", "10011", "10101", "11001", "10001", "01110"),
-    "1": ("00100", "01100", "00100", "00100", "00100", "00100", "01110"),
-    "2": ("01110", "10001", "00001", "00010", "00100", "01000", "11111"),
-    "3": ("11111", "00010", "00100", "00010", "00001", "10001", "01110"),
-    "4": ("00010", "00110", "01010", "10010", "11111", "00010", "00010"),
-    "5": ("11111", "10000", "11110", "00001", "00001", "10001", "01110"),
-    "6": ("00110", "01000", "10000", "11110", "10001", "10001", "01110"),
-    "7": ("11111", "00001", "00010", "00100", "01000", "01000", "01000"),
-    "8": ("01110", "10001", "10001", "01110", "10001", "10001", "01110"),
-    "9": ("01110", "10001", "10001", "01111", "00001", "00010", "01100"),
-    "/": ("00001", "00001", "00010", "00100", "01000", "10000", "10000"),
+    "0": ("111", "101", "101", "101", "111"),
+    "1": ("010", "110", "010", "010", "111"),
+    "2": ("111", "001", "111", "100", "111"),
+    "3": ("111", "001", "111", "001", "111"),
+    "4": ("101", "101", "111", "001", "001"),
+    "5": ("111", "100", "111", "001", "111"),
+    "6": ("111", "100", "111", "101", "111"),
+    "7": ("111", "001", "001", "001", "001"),
+    "8": ("111", "101", "111", "101", "111"),
+    "9": ("111", "101", "111", "001", "111"),
+    "/": ("001", "001", "010", "100", "100"),
 }
 
 
-def text_glyph(shape, width: int = 5, height: int = 256, glyph_height: int = 7):
+def text_glyph(shape, width: int = 3, height: int = 256, glyph_height: int = 5):
     """One character, anchored to the FOOT of a tall transparent cell.
 
     Same shape as the vitals units and for the same reason: height buys the
@@ -552,7 +556,8 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         for ch in chars:
             png_rgba(assets / "textures" / "font" / f"text_{text['names'][ch]}.png",
                      text["width"], text["height"],
-                     text_glyph(GLYPH_FONT[ch], text["width"], text["height"]))
+                     text_glyph(GLYPH_FONT[ch], text["width"], text["height"],
+                                text["glyph_height"]))
         base = int(text["base"].removeprefix("U+"), 16)
         for step, ascent in enumerate(text["ascents"]):
             if ascent > text["height"]:

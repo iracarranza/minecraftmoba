@@ -73,6 +73,28 @@ public final class HudProbe {
         // between a guess and an answer was a restart -- and the guesses came
         // from measuring screenshots, which is how the placement law got
         // refitted three times without landing a bar. Sweep it instead.
+        if (verb.equals("numeral")) {
+            if (args.length < 3) {
+                p.sendMessage("/moba hudprobe numeral <ascent|off>   available: " + HudText.ASCENTS);
+                return true;
+            }
+            var display = plugin.vitalsDisplay();
+            if (args[2].equalsIgnoreCase("off")) {
+                display.overrideNumeralAscent(null);
+                p.sendMessage("Numeral back to the configured ascent.");
+                return true;
+            }
+            int wanted = parse(args[2], -1);
+            if (!HudText.ASCENTS.contains(wanted)) {
+                p.sendMessage("No text block at ascent " + args[2]
+                        + ". The pack carries: " + HudText.ASCENTS);
+                return true;
+            }
+            display.overrideNumeralAscent(wanted);
+            p.sendMessage("Numeral at ascent " + wanted + ".");
+            return true;
+        }
+
         if (verb.equals("bars")) {
             if (args.length < 3) {
                 p.sendMessage("/moba hudprobe bars <ascent|off>   available: " + VitalsBar.ASCENTS);

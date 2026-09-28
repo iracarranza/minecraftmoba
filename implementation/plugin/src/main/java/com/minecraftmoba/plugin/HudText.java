@@ -42,16 +42,19 @@ public final class HudText {
     /** Must match registry.json `text.characters`, in order. */
     public static final String CHARACTERS = "0123456789/";
     /** Must match registry.json `text.ascents`. */
-    public static final List<Integer> ASCENTS = List.of(20, 30, 40, 50, 60, 73);
+    public static final List<Integer> ASCENTS =
+            List.of(20, 30, 40, 50, 52, 54, 56, 58, 60, 66, 73);
 
     /**
      * Pixels one character advances: its width plus vanilla's one of spacing.
+     *
+     * Three pixels of glyph plus vanilla's one of spacing.
      *
      * Fixed rather than per-character, because the digits are drawn to one
      * width. A proportional face would need a table and would buy nothing for
      * a numeral, where columns lining up matters more than tight spacing.
      */
-    public static final int ADVANCE = 6;
+    public static final int ADVANCE = 4;
 
     private HudText() {}
 

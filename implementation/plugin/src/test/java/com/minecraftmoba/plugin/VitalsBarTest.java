@@ -273,7 +273,15 @@ class VitalsBarTest {
         assertNotNull(cfg.getString("features.vitalsBar.colours.hunger"));
         assertEquals(100, cfg.getInt("features.vitalsBar.displayScale"),
                 "x100 is the decided player-facing scale");
-        assertTrue(cfg.getInt("features.vitalsBar.tickInterval") > 0);
+        // Ticks are OFF. They were a way to read magnitude off a bar that
+        // carried no number; the numeral now sits on the bar itself, which
+        // does that job exactly rather than by density. Zero is the documented
+        // way to disable them -- tickUnits already returns nothing for a
+        // non-positive interval -- so this is a setting, not a missing key.
+        assertEquals(0, cfg.getInt("features.vitalsBar.tickInterval"),
+                "the numeral replaced what the ticks were for");
+        assertTrue(VitalsBar.INLINE.tickUnits(1900, 0).isEmpty(),
+                "and a zero interval really does draw none");
         assertTrue(cfg.getBoolean("features.vitalsBar.showNumerals"),
                 "nothing reads an exact total off a bar; the numeral is what x100 was for");
     }

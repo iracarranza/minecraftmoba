@@ -261,19 +261,27 @@
    "9": "9",
    "/": "slash"
   },
-  "width": 5,
+  "width": 3,
   "height": 256,
-  "advance": 6,
+  "advance": 4,
   "ascents": [
    20,
    30,
    40,
    50,
+   52,
+   54,
+   56,
+   58,
    60,
+   66,
    73
   ],
   "stride": 16,
   "scope": "Eleven characters is what the health numeral needs. The mechanism is identical for letters, and the ability-refusal line is the next consumer.",
-  "base": "U+E400"
+  "base": "U+E400",
+  "glyph_height": 5,
+  "size_note": "3x5, not 5x7. The numeral is drawn INSIDE a seven-pixel bar; at vanilla's proportions it filled the bar edge to edge and competed with the fill it is meant to be read against. Half the size reads as an annotation on the bar rather than as a second thing occupying it.",
+  "ascents_note": "Denser around 50 than the bars are, because the numeral sits a few pixels ABOVE its bar rather than on the same line, and 'a few' had to be swept like everything else here."
  }
 }

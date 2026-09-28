@@ -72,9 +72,27 @@ class HudTextTest {
                 "the numeral has to fit inside the narrower bar, or it cannot be centred on it");
     }
 
-    /** Text and bars offer the same heights, so a numeral can meet its bar. */
-    @Test void textAndBarsShareTheirAscents() {
-        assertEquals(VitalsBar.ASCENTS, HudText.ASCENTS,
-                "a numeral drawn at an ascent the bars do not use cannot sit on one");
+    /**
+     * Text offers every height the bars do, and more besides.
+     *
+     * A superset rather than a match: the numeral sits a few pixels ABOVE its
+     * bar rather than on the same line, so it needs finer steps than the bars
+     * ever will. But every bar height must still be reachable, or a numeral
+     * could not be put level with one if that were ever wanted.
+     */
+    @Test void textOffersEveryHeightTheBarsDo() {
+        assertTrue(HudText.ASCENTS.containsAll(VitalsBar.ASCENTS),
+                "a bar at a height text cannot reach could never be annotated");
+        assertTrue(HudText.ASCENTS.size() > VitalsBar.ASCENTS.size(),
+                "and finer steps besides, for the offset between bar and numeral");
+    }
+
+    /** The shipped default pairing has to exist on both sides. */
+    @Test void theShippedBarAndNumeralHeightsBothExist() throws Exception {
+        var cfg = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(
+                new java.io.InputStreamReader(java.util.Objects.requireNonNull(
+                        getClass().getResourceAsStream("/config.yml"))));
+        assertTrue(VitalsBar.ASCENTS.contains(cfg.getInt("features.vitalsBar.ascent")));
+        assertTrue(HudText.ASCENTS.contains(cfg.getInt("features.vitalsBar.numeralAscent")));
     }
 }
