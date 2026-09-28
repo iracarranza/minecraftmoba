@@ -122,7 +122,11 @@ public final class AbilityInputs implements Listener {
             switch (aim.onInput(input)) {
                 case FIRE -> { commitAim(p, aim); return true; }
                 case CANCEL -> { aiming.remove(p.getUniqueId()); return true; }
-                case HOLD -> { aiming.put(p.getUniqueId(), aim.refreshed(tick)); return true; }
+                case HOLD -> {
+                    logInputGap(p, aim);
+                    aiming.put(p.getUniqueId(), aim.refreshed(tick));
+                    return true;
+                }
             }
         }
         var d=plugin.data(p);
@@ -287,7 +291,7 @@ public final class AbilityInputs implements Listener {
                 aiming.remove(entry.getKey());
                 continue;
             }
-            switch (aim.onTick(tick, graceTicks(), maxAimTicks())) {
+            switch (aim.onTick(tick, graceTicks(aim.input()), maxAimTicks())) {
                 case FIRE -> commitAim(p, aim);
                 case CANCEL -> aiming.remove(entry.getKey());
                 case HOLD -> {
@@ -300,8 +304,37 @@ public final class AbilityInputs implements Listener {
         }
     }
 
-    private long graceTicks() { return plugin.getConfig().getLong("abilities.aim.graceTicks", 6); }
+    /**
+     * The quiet window, PER INPUT, because the client repeats them differently.
+     *
+     * Right-click is throttled to roughly four ticks, so its window has to
+     * clear that or a genuine hold fires between packets. Left-click repeats
+     * far faster while held, so it can be much shorter -- and shorter is
+     * better, because this window is also the floor on how fast a TAP fires.
+     *
+     * [FIXTURE -- expect to tune] Both numbers are inferred from vanilla's use
+     * cadence rather than measured. Set abilities.aim.logInputGaps and hold
+     * each button to read the real gaps out of the log.
+     */
+    private long graceTicks(AbilityInputs.Input input) {
+        var section = plugin.getConfig().getConfigurationSection("abilities.aim.grace");
+        long fallback = input == Input.RIGHT_CLICK ? 5 : 2;
+        return section == null ? fallback : section.getLong(input.name().toLowerCase(Locale.ROOT), fallback);
+    }
     private long maxAimTicks() { return plugin.getConfig().getLong("abilities.aim.maxTicks", 200); }
+
+    /**
+     * How long since the same input last arrived, logged so the grace windows
+     * can be set from data rather than from vanilla's documented cadence.
+     *
+     * Off by default. This is the measurement that decides whether a tap can
+     * fire in two ticks or has to wait five.
+     */
+    private void logInputGap(Player p, AimState aim) {
+        if (!plugin.getConfig().getBoolean("abilities.aim.logInputGaps", false)) return;
+        plugin.getLogger().info("[aim] " + p.getName() + " " + aim.input()
+                + " repeat gap " + (tick - aim.lastInputTick()) + " ticks");
+    }
 
     private Ability byId(String id) { return abilities.get(id); }
 

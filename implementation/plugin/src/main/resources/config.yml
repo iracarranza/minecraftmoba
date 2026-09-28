@@ -912,7 +912,22 @@ abilities:
   # early was a dropped packet, and no tuning makes it a promise; graceTicks
   # is the whole surface.
   aim:
-    graceTicks: 6
+    # PER INPUT, because the client repeats them at different rates. Right
+    # click is throttled to roughly four ticks, so its window must clear that
+    # or a genuine hold fires between packets; left click repeats far faster
+    # while held and can be much shorter.
+    #
+    # Shorter is better, because this window is ALSO the floor on how fast a
+    # TAP fires. A player hovering an Ultimate over a bridge also meets the
+    # enemy already standing on it, and should not pay a third of a second to
+    # get the same cast out -- a tap under Hold should behave as Quick does.
+    #
+    # [FIXTURE -- expect to tune] Inferred from vanilla's use cadence, not
+    # measured. Set logInputGaps and hold each button to read the real gaps.
+    grace:
+      left_click: 2
+      right_click: 5
+    logInputGaps: false
     # An aim nobody resolves must not persist forever. Hold fires at the
     # ceiling (the button was evidently down); Double cancels (no second
     # press ever came).

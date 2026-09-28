@@ -114,4 +114,39 @@ class AimStateTest {
         assertFalse(CastMode.QUICK.previews());
         assertEquals(CANCEL, aim(CastMode.QUICK).onTick(100 + MAX, GRACE, MAX));
     }
+
+    // ---- the grace window is a tap's latency floor -------------------------
+
+    /**
+     * A tap under Hold should behave as Quick cast does.
+     *
+     * The window is not only a tolerance for holding; it is the delay a player
+     * who merely tapped pays before anything happens. Hold exists for the
+     * player hovering an Ultimate over a bridge -- and that same player meets
+     * the enemy already standing on it, where a third of a second is the
+     * difference between the cast landing and not.
+     */
+    @Test void aShortWindowMakesATapFireAlmostImmediately() {
+        var tapped = aim(CastMode.HOLD);
+        assertEquals(FIRE, tapped.onTick(100 + 3, 2, MAX), "two ticks quiet is a tap");
+        assertEquals(HOLD, tapped.onTick(100 + 3, 6, MAX),
+                "the old six-tick window made the same tap wait");
+    }
+
+    /**
+     * And the window must still clear the input's own repeat gap.
+     *
+     * Below it, a genuine hold fires BETWEEN packets. The two requirements
+     * pull opposite ways, which is why the window is per input rather than one
+     * number: right-click is throttled to about four ticks and left-click
+     * repeats far faster.
+     */
+    @Test void aWindowUnderTheRepeatGapBreaksAGenuineHold() {
+        long repeatGap = 4;
+        var held = aim(CastMode.HOLD);
+        assertEquals(FIRE, held.onTick(100 + repeatGap, repeatGap - 2, MAX),
+                "a window of 2 fires before the next right-click repeat arrives");
+        assertEquals(HOLD, held.onTick(100 + repeatGap, repeatGap + 1, MAX),
+                "a window of 5 survives it");
+    }
 }

@@ -77,8 +77,11 @@ public record AimState(String abilityId, AbilityInputs.Input input, CastMode mod
      * No input this tick. Has it been let go, or timed out?
      *
      * @param graceTicks how long the input may be quiet before Hold counts it
-     *                   as released -- longer than the client's repeat gap, or
-     *                   every held cast fires between packets
+     *                   as released. It must exceed the client's repeat gap
+     *                   for THIS input, or a genuine hold fires between
+     *                   packets -- and it is also the floor on how fast a TAP
+     *                   can fire, so the two pull opposite ways and the repeat
+     *                   gap is the only thing that settles it
      * @param maxTicks   the ceiling on aiming at all, for both modes; an aim
      *                   nobody resolves must not persist forever
      */

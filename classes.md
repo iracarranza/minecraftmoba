@@ -872,8 +872,30 @@ than that gap**.
 > **Double cast is exact. Hold is a heuristic.**
 
 A Hold cast that fires early was a dropped packet, and no amount of tuning makes
-it a promise. The grace window is the entire tuning surface. This is worth
-knowing before either is blamed for a bug.
+it a promise. This is worth knowing before either is blamed for a bug.
+
+### The quiet window is also a tap's latency floor
+
+The window is not only a tolerance for holding. It is the delay a player who
+merely **tapped** pays before anything happens — and that is the wrong trade for
+the case Hold exists to serve.
+
+> A player hovering an Ultimate over a bridge *also* meets the enemy already
+> standing on it. They should not pay a third of a second to get the same cast
+> out.
+
+**A tap under Hold should behave as Quick cast does.** The two requirements pull
+opposite ways: the window must *exceed* the client's repeat gap or a genuine
+hold fires between packets, and it must be *short* or every tap is late. The
+repeat gap is the only thing that settles it.
+
+And that gap **differs by input** — right-click is throttled to roughly four
+ticks, left-click repeats far faster while held — so one number is wrong for
+both. The window is per input.
+
+[FIXTURE — expect to tune] Left 2, right 5, inferred from vanilla's use cadence
+rather than measured. `abilities.aim.logInputGaps` logs the real gaps; set it
+and hold each button.
 
 An aim nobody resolves hits a ceiling, and the two modes resolve it opposite
 ways: **Hold fires** (the button was evidently still down) and **Double cancels**
