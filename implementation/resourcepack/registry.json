@@ -154,6 +154,14 @@
     "ascent": 72,
     "height": 256
    },
+   "asc080": {
+    "ascent": 80,
+    "height": 256
+   },
+   "asc092": {
+    "ascent": 92,
+    "height": 256
+   },
    "asc128": {
     "ascent": 128,
     "height": 256
@@ -163,17 +171,28 @@
     "height": 256
    }
   },
-  "measured_27_september_2026": "MEASURED against a real client, height 256, marks in the bottom 32 rows. asc008 fell off the bottom of the screen; asc064 landed on the XP level number; asc128 sat slightly below the crosshair; asc224 sat midway between the crosshair and the bossbar. Those four fit one straight line: the foot of a height-256 glyph lands at (ascent - 26) GUI pixels above the bottom of the screen, and the screen is about 256 GUI pixels tall -- which is why asc128 is near the middle. One ascent unit is one GUI pixel, and the 26 is the bossbar baseline's own offset.",
+  "measured_27_september_2026": "MEASURED against a real client, height 256, marks in the bottom 32 rows. Two rounds. The first, from verbal placement, fixed the SLOPE: one ascent unit is one GUI pixel, and the screen is about 256 GUI pixels tall. The second, from screenshots, fixed the INTERCEPT, which the first had wrong by twenty pixels: asc048 put its baseline at the very bottom of the hotbar, asc072 landed on the XP bar, asc128 about a third of the way up.",
   "height_buys_reach": "ascent cannot exceed height, and height SCALES the texture, so a high glyph must be declared tall AND drawn only in the bottom rows of a tall transparent canvas. That is the shape every real element needs, not a probe trick.",
   "placing_something": "ascent = desired_height_above_screen_bottom + 26, for height 256. A different height moves the whole line, since the foot sits (height - ascent) below the baseline -- so keep 256 unless there is a reason not to.",
   "intended_use": {
    "asc008": "off the bottom of the screen -- kept as the negative control",
-   "asc048": "hotbar top, ~22px",
-   "asc050": "just above the hotbar: the vitals bars",
-   "asc064": "the XP level number, ~38px -- the anchor this was measured from",
-   "asc072": "above the XP bar: the ability-refusal line",
-   "asc128": "screen centre, beside the crosshair",
+   "asc048": "baseline at the very bottom of the hotbar. MEASURED",
+   "asc050": "two pixels higher; kept only as a near neighbour of asc048",
+   "asc064": "inside the hotbar/XP band",
+   "asc072": "on the XP bar. MEASURED",
+   "asc080": "clear of the XP bar: where the vitals bars belong",
+   "asc092": "above the ability row: the ability-refusal line",
+   "asc128": "about a third of the way up, beside the player. MEASURED",
    "asc224": "upper quarter"
+  },
+  "the_law": "The foot of a height-256 glyph lands at (ascent - 46) GUI pixels above the bottom of the screen. So ascent = height_wanted + 46. The 46 is the bossbar baseline's own offset and is the part that had to be measured; the 1:1 slope could be reasoned about, and was.",
+  "landmarks": {
+   "hotbar bottom": 0,
+   "hotbar top": 22,
+   "XP bar": 26,
+   "clear of the XP bar": 34,
+   "above the ability row": 46,
+   "screen centre": 128
   }
  },
  "bossbar_sprites": {

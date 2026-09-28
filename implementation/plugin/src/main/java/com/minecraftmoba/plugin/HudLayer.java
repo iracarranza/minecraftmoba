@@ -58,13 +58,19 @@ public final class HudLayer {
      * and a name is exactly the thing that survives a later change to what a
      * layer is used for.
      *
-     * Where they land, measured: the foot of a height-256 glyph sits at
-     * {@code ascent - 26} GUI pixels above the bottom of the screen. So
-     * placing something is {@code ascent = height_wanted + 26}, and
-     * {@code registry.json} records which layer is meant for what.
+     * Where they land, measured in two rounds: the foot of a height-256 glyph
+     * sits at {@code ascent - 46} GUI pixels above the bottom of the screen,
+     * so placing something is {@code ascent = height_wanted + 46}.
+     *
+     * The first round, from verbal placement, fixed the SLOPE at one GUI pixel
+     * per ascent unit. The second, from screenshots, fixed the INTERCEPT,
+     * which the first had wrong by twenty pixels -- the slope could be
+     * reasoned about and the offset could not, which is the usual division
+     * between what a model gives you and what only a client does.
      */
     public static final List<String> LAYERS =
-            List.of("asc008", "asc048", "asc050", "asc064", "asc072", "asc128", "asc224");
+            List.of("asc008", "asc048", "asc050", "asc064", "asc072",
+                    "asc080", "asc092", "asc128", "asc224");
 
     /** The negative-space character advancing -1 pixel. */
     public static final String BACK_ONE = String.valueOf((char) 0xF001);
