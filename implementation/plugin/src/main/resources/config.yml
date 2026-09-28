@@ -129,11 +129,21 @@ features:
   # the bars draw, and only then hide the rows they duplicate.
   vitalsBar:
     enabled: true
+    # Which width the bars draw at. The two are a real trade:
+    #
+    #   inline  81 units, exactly where vanilla's own row sits. Fits, and
+    #           tickUnits then refuses marks above 2,700 displayed health --
+    #           Mole's Lv30 3,200 loses them, the character they exist for.
+    #   wide   128 units, the resolution the ticks were sized for, centred on
+    #           the same two places and overhanging the hotbar by ~23px a side.
+    #
+    # Switch live and compare; this is what the two were built for.
+    layout: inline
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this
     # before confirming the bars above actually render.
-    hideNativeRows: false
+    hideNativeRows: true
     # Reference ticks, in DISPLAYED health. A proportional bar shows a fraction
     # and a fraction alone erases magnitude -- 1,000/1,000 and 3,200/3,200 are
     # the same full bar -- which gives back exactly what the x100 scale was

@@ -29,7 +29,13 @@ def publish(serve_dir: Path, config: Path | None, name: str = "moba-pack.zip"):
     registry = json.loads((HERE / "registry.json").read_text())
     with tempfile.TemporaryDirectory() as tmp:
         staged = Path(tmp) / "pack"
-        build(registry, staged)
+        # The flag comes from the REGISTRY, not from build()'s default.
+        #
+        # This called build(registry, staged) and took hide_native_rows=False
+        # every time, so the published pack never hid the vanilla rows however
+        # the plugin was configured -- and nothing said so, because a visible
+        # native row looks like a native row.
+        build(registry, staged, registry.get("hide_native_rows", False))
         zip_path = Path(tmp) / name
         with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
             for f in sorted(staged.rglob("*")):

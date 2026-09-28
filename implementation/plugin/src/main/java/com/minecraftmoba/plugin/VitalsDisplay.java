@@ -92,34 +92,96 @@ public final class VitalsDisplay implements Listener {
      * which is the point of VitalsScaling and would be undone by reading
      * getMaxHealth here.
      */
+    /**
+     * Vanilla's own HUD geometry, which this draws into rather than beside.
+     *
+     * The hotbar is 182 GUI pixels wide and centred, so its left edge is 91
+     * left of centre. The native health row starts there and the food row ends
+     * 91 right of centre, each about 81 wide with a gap between them for the
+     * air/armour rows. Blanking those rows and drawing here puts the glyph
+     * bars exactly where the player already looks.
+     *
+     * [FIXTURE -- confirm by probe] The 81 in particular is read off a
+     * screenshot, not out of the client.
+     */
+    private static final int HOTBAR_HALF = 91;
+    private static final int NATIVE_ROW = 81;
+
+    /** Default-font digit advance, for centring the numeral over its bar. */
+    private static final int DIGIT = 6;
+
+    /**
+     * Build the whole title with a NET ADVANCE OF ZERO.
+     *
+     * A bossbar title is centred, so its position depends on its own width --
+     * which would make every element move whenever any other one changed
+     * length. Returning to zero at the end fixes the centre at the screen
+     * centre, and then every offset inside is an ABSOLUTE screen coordinate
+     * measured from there.
+     *
+     * That is the difference between a layout and a pile of nudges, and it is
+     * why the numeral can be drawn over the bar without the bar shifting.
+     */
     public Component render(Player p) {
         double maxHealth = plugin.effectiveMaxHealth(p);
         int interval = plugin.getConfig().getInt("features.vitalsBar.tickInterval");
         int scale = plugin.getConfig().getInt("features.vitalsBar.displayScale");
+        VitalsBar.Style style = style();
+        int width = style.fillWidth();
 
         // p.getHealth() is the DISPLAYED 0..20 under scaling, not effective
         // points: VitalsScaling sets every player's attribute to DISPLAY_MAX
-        // and lets Capacity decide what a point is worth. So the fill is
-        // measured against DISPLAY_MAX, and the numeral converts back.
-        //
-        // Dividing by Capacity instead is what produced "2000/1900" on a
-        // level 30 Lightfooted -- a player at full health reading as 105% of
-        // their own maximum, because the numerator was on one scale and the
-        // denominator on the other.
-        Component health = bar(VitalsBar.level(p.getHealth(), Vitals.DISPLAY_MAX),
-                               VitalsBar.tickUnits(maxHealth * scale, interval),
-                               colour("health"));
-        Component hunger = bar(VitalsBar.level(p.getFoodLevel(), Vitals.DISPLAY_MAX),
-                               java.util.Set.of(), colour("hunger"));
+        // and lets Capacity decide what a point is worth. Dividing by Capacity
+        // instead put the numerator on one scale and the denominator on the
+        // other, and reported a full-health player at 105% of their maximum.
+        int healthLevel = style.level(p.getHealth(), Vitals.DISPLAY_MAX);
+        int hungerLevel = style.level(p.getFoodLevel(), Vitals.DISPLAY_MAX);
+        var ticks = style.tickUnits(maxHealth * scale, interval);
 
-        Component out = health;
-        if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals"))
-            out = out.append(Component.text("  "
-                                            + Math.round(Vitals.toEffective(p.getHealth(), maxHealth) * scale)
-                                            + "/" + Math.round(maxHealth * scale))
-                                      .font(DEFAULT_FONT)
-                                      .color(colour("health")));
-        return out.append(Component.text("   ")).append(hunger);
+        // Left edge of each bar, in pixels from screen centre. Inline sits
+        // exactly on the native rows; wide keeps the 128 the ticks want and
+        // overhangs, centred on the same two places.
+        int healthLeft = -HOTBAR_HALF - (width - NATIVE_ROW) / 2;
+        int hungerLeft = HOTBAR_HALF - NATIVE_ROW - (width - NATIVE_ROW) / 2;
+
+        var out = Component.text();
+        int at = 0;
+        at = move(out, at, healthLeft);
+        out.append(bar(healthLevel, ticks, colour("health"), style));
+        at += width;
+
+        if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals")) {
+            String numeral = Math.round(Vitals.toEffective(p.getHealth(), maxHealth) * scale)
+                             + "/" + Math.round(maxHealth * scale);
+            // Back over the bar just drawn, then in by half the difference, so
+            // the numeral is centred ON the bar rather than trailing it.
+            int inset = Math.max(0, (width - numeral.length() * DIGIT) / 2);
+            at = move(out, at, healthLeft + inset);
+            out.append(Component.text(numeral).font(DEFAULT_FONT).color(colour("health")));
+            at += numeral.length() * DIGIT;
+        }
+
+        at = move(out, at, hungerLeft);
+        out.append(bar(hungerLevel, java.util.Set.of(), colour("hunger"), style));
+        at += width;
+
+        move(out, at, 0);   // net zero, so the centre is the screen's centre
+        return out.build();
+    }
+
+    /** Emit the offset that moves the cursor from {@code from} to {@code to}. */
+    private int move(net.kyori.adventure.text.TextComponent.Builder out, int from, int to) {
+        int delta = to - from;
+        if (delta != 0)
+            out.append(Component.text(delta > 0 ? HudLayer.right(delta) : HudLayer.left(-delta))
+                                .font(FONT));
+        return to;
+    }
+
+    /** Which width to draw. See VitalsBar.Style for what the choice costs. */
+    private VitalsBar.Style style() {
+        String layout = plugin.getConfig().getString("features.vitalsBar.layout", "inline");
+        return "wide".equalsIgnoreCase(layout) ? VitalsBar.WIDE : VitalsBar.INLINE;
     }
 
     /**
@@ -138,12 +200,14 @@ public final class VitalsDisplay implements Listener {
      * Hunger passes an empty tick set: it is twenty points on a fixed scale and
      * has no magnitude to convey, so marks there would be decoration.
      */
-    private Component bar(int level, java.util.Set<Integer> ticks, TextColor colour) {
+    private Component bar(int level, java.util.Set<Integer> ticks, TextColor colour,
+                          VitalsBar.Style style) {
         TextColor empty = colour("empty");
-        return Component.text(VitalsBar.CAP_LEFT).font(FONT).color(empty)
-                .append(Component.text(VitalsBar.filled(level, ticks)).font(FONT).color(colour))
-                .append(Component.text(VitalsBar.unfilled(level, ticks)).font(FONT).color(empty))
-                .append(Component.text(VitalsBar.CAP_RIGHT).font(FONT).color(empty));
+        // No caps: they would add two pixels the layout has not budgeted, and
+        // the bar now sits in the slot vanilla's own row occupied, which has
+        // no caps either.
+        return Component.text(style.filled(level, ticks)).font(FONT).color(colour)
+                .append(Component.text(style.unfilled(level, ticks)).font(FONT).color(empty));
     }
 
     private TextColor colour(String which) {

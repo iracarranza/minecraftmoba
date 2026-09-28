@@ -263,8 +263,11 @@ class VitalsBarTest {
             assertTrue(cfg.getBoolean("features.vitalsBar.enabled"),
                     "hiding the native rows with no replacement drawing is the "
                             + "'hunger is fully invisible' defect, exactly");
-        assertFalse(cfg.getBoolean("features.vitalsBar.hideNativeRows"),
-                "still step one: confirm the bars draw before hiding what they duplicate");
+        // Step five now: the bars are confirmed drawing, so the rows they
+        // duplicate are hidden. The glyph bars are drawn INTO the slot those
+        // rows occupied, which is why both halves had to move together.
+        assertTrue(cfg.getBoolean("features.vitalsBar.hideNativeRows"),
+                "the glyph bars now occupy the native rows' own position");
         assertTrue(cfg.getLong("features.vitalsBar.refreshTicks") > 0);
         assertNotNull(cfg.getString("features.vitalsBar.colours.health"));
         assertNotNull(cfg.getString("features.vitalsBar.colours.hunger"));
@@ -305,5 +308,60 @@ class VitalsBarTest {
         double displayed = Vitals.DISPLAY_MAX / 2;
         assertEquals(950, Math.round(Vitals.toEffective(displayed, capacity) * 100));
         assertEquals(VitalsBar.FILL_WIDTH / 2, VitalsBar.level(displayed, Vitals.DISPLAY_MAX));
+    }
+
+    /**
+     * The two layouts, and the cost of the one that fits.
+     *
+     * 81 is what the native row occupies; 128 is what the ticks were sized
+     * for. At 81 the guard in tickUnits refuses marks past 27 of them, so a
+     * character above 2,700 displayed health silently loses its scale --
+     * Mole's Lv30 3,200 being exactly that character.
+     */
+    @Test void theInlineLayoutTradesTicksForFittingTheNativeRow() {
+        assertEquals(81, VitalsBar.INLINE.fillWidth());
+        assertEquals(VitalsBar.FILL_WIDTH, VitalsBar.WIDE.fillWidth());
+
+        assertFalse(VitalsBar.INLINE.tickUnits(3200, 100).isEmpty()
+                        == VitalsBar.WIDE.tickUnits(3200, 100).isEmpty(),
+                "the two layouts must disagree at 3,200, or the trade is not real");
+        assertTrue(VitalsBar.INLINE.tickUnits(3200, 100).isEmpty(),
+                "81/3 is 27 marks, and 3,200 wants 32");
+        assertFalse(VitalsBar.WIDE.tickUnits(3200, 100).isEmpty(),
+                "128/3 is 42, so the wide bar keeps them");
+    }
+
+    /** Below the threshold both layouts still carry a scale. */
+    @Test void bothLayoutsTickForAnOrdinaryCharacter() {
+        assertFalse(VitalsBar.INLINE.tickUnits(1900, 100).isEmpty());
+        assertFalse(VitalsBar.WIDE.tickUnits(1900, 100).isEmpty());
+    }
+
+    /** A full bar is full at either width, and short is never full. */
+    @Test void theFillRulesHoldAtBothWidths() {
+        for (var style : java.util.List.of(VitalsBar.INLINE, VitalsBar.WIDE)) {
+            assertEquals(style.fillWidth(), style.level(20, 20));
+            assertEquals(style.fillWidth() - 1, style.level(19.99, 20), "short is never full");
+            assertEquals(1, style.level(0.0001, 20), "alive is never empty");
+            assertEquals(0, style.level(0, 20));
+        }
+    }
+
+    /**
+     * The pack and the plugin must agree about the native rows.
+     *
+     * Two switches, one decision. publish.py used to call build() with the
+     * default and never hid anything, so the plugin could be configured to
+     * replace the rows while the pack kept drawing them -- and the symptom of
+     * that is a native row, which looks exactly like a native row.
+     */
+    @Test void theRegistryAndTheConfigAgreeAboutHidingTheNativeRows() throws Exception {
+        var cfg = YamlConfiguration.loadConfiguration(new InputStreamReader(
+                Objects.requireNonNull(getClass().getResourceAsStream("/config.yml"))));
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        boolean packHides = registry.contains("\"hide_native_rows\": true");
+        assertEquals(cfg.getBoolean("features.vitalsBar.hideNativeRows"), packHides,
+                "the pack blanks the rows and the plugin replaces them; one without "
+                        + "the other is either a doubled readout or a missing one");
     }
 }

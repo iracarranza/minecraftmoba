@@ -79,6 +79,74 @@ public final class VitalsBar {
      * its neighbour. 128 gives four, which is enough to read one.
      */
     public static final int FILL_WIDTH = 128;
+
+    /**
+     * A bar's width, which is a LAYOUT choice rather than a property of the bar.
+     *
+     * Two are wanted and they trade against each other:
+     *
+     * <ul>
+     *   <li>{@link #WIDE} -- 128 units, the resolution the ticks were sized
+     *       for. Too wide to sit inside the ~81px the native row occupies, so
+     *       the two bars overhang the hotbar.</li>
+     *   <li>{@link #INLINE} -- 81 units, exactly where vanilla draws the
+     *       native row. Fits, and {@code tickUnits} then refuses to draw ticks
+     *       above 2,700 displayed health, because 81/3 is 27 marks. Mole's
+     *       Lv30 3,200 loses them -- the character they exist for.</li>
+     * </ul>
+     *
+     * The loss is smaller than it looks now that the numeral is drawn over the
+     * bar: ticks were a substitute for a number nobody could read, and the
+     * number is now right there. But it is a real loss and it is silent, so it
+     * is written down here rather than discovered.
+     */
+    public record Style(int fillWidth) {
+        public Style {
+            if (fillWidth < 1) throw new IllegalArgumentException("A bar needs width.");
+        }
+        public int levels() { return fillWidth + 1; }
+
+        public int level(double current, double maximum) {
+            if (maximum <= 0) return 0;
+            double fraction = current / maximum;
+            if (Double.isNaN(fraction) || fraction <= 0) return 0;
+            if (fraction >= 1) return fillWidth;
+            int rounded = (int) Math.round(fraction * fillWidth);
+            if (rounded <= 0) return 1;
+            if (rounded >= fillWidth) return fillWidth - 1;
+            return rounded;
+        }
+
+        public java.util.Set<Integer> tickUnits(double maxDisplayed, int interval) {
+            var ticks = new java.util.HashSet<Integer>();
+            if (interval <= 0 || maxDisplayed <= 0) return ticks;
+            int count = (int) Math.floor(maxDisplayed / interval);
+            if (count <= 1) return ticks;
+            if (count > fillWidth / MIN_TICK_SPACING) return ticks;
+            for (int n = 1; n < count; n++)
+                ticks.add((int) Math.round((double) n * fillWidth / count));
+            return ticks;
+        }
+
+        public String filled(int level, java.util.Set<Integer> ticks) {
+            return run(0, check(level), UNIT_ON, TICK_ON, ticks);
+        }
+
+        public String unfilled(int level, java.util.Set<Integer> ticks) {
+            return run(check(level), fillWidth, UNIT_OFF, TICK_OFF, ticks);
+        }
+
+        private int check(int level) {
+            if (level < 0 || level >= levels())
+                throw new IllegalArgumentException("Fill level out of range: " + level);
+            return level;
+        }
+    }
+
+    /** The resolution the ticks were sized for; overhangs the native row. */
+    public static final Style WIDE = new Style(FILL_WIDTH);
+    /** Exactly the width vanilla's own row occupies. [FIXTURE -- confirm by probe] */
+    public static final Style INLINE = new Style(81);
     /** Levels are 0 (empty) through FILL_WIDTH (full), inclusive. */
     public static final int LEVELS = FILL_WIDTH + 1;
 

@@ -113,8 +113,8 @@
   "codepoints_are_explicit": "These declare their own base instead of taking the next sequential index. The sequential glyphs above are assigned by iteration order while the plugin hard-codes the resulting characters, so inserting a glyph shifts every later one silently.",
   "colour": "Drawn WHITE and uncoloured, per this pack's rule that it assigns identity and never palette. The plugin tints the lit and unlit runs separately at render time, which is what makes an unfilled unit read as unfilled.",
   "fill_width": 128,
-  "height": 16,
-  "ascent": 12,
+  "height": 256,
+  "ascent": 73,
   "base": "U+E100",
   "units": [
    "vitals_cap_left",
@@ -125,7 +125,10 @@
    "vitals_tick_off"
   ],
   "ticks": "Reference marks at a fixed interval of DISPLAYED health, so the bar carries absolute magnitude and not only a fraction. Without them 1,000/1,000 and 3,200/3,200 are the same full bar, which erases the x100 scale the project adopted specifically to make damage legible. The bar stays fixed width and the ticks get denser as max health grows, which is the arrangement that keeps a low-Capacity player from being given a visibly shorter bar.",
-  "why_128": "At 100 displayed health per tick, Mole's Lv30 3,200 is 32 ticks. Across 64 units that is one tick every 2px, which is a tick touching its neighbour. 128 gives 4px and room to read one."
+  "why_128": "At 100 displayed health per tick, Mole's Lv30 3,200 is 32 ticks. Across 64 units that is one tick every 2px, which is a tick touching its neighbour. 128 gives 4px and room to read one.",
+  "foot": 16,
+  "placement": "Tall canvas, lit rows in the bottom `foot`. ascent 73 puts the bar where vanilla draws the native health and hunger rows (~30-39 GUI pixels above the bottom), by the measured law ascent = y + 46 with the bar sitting 4 rows up inside its foot. The native rows are blanked in the same pack, so the glyph bars replace them in place rather than sitting somewhere new.",
+  "fill_width_is_a_layout_choice": "128 is the resolution the ticks want; 81 is what fits exactly where the native row is. The plugin picks, and features.vitalsBar.layout records which. See VitalsBar.Style."
  },
  "hud_layers": {
   "purpose": "Declared vertical positions for HUD glyphs drawn in a bossbar title. ascent and height are per-PROVIDER, never per-emission, so each distinct (y, scale) pair costs one provider entry -- which is why these are named layers rather than a number the plugin passes.",
@@ -217,5 +220,7 @@
    12,
    20
   ]
- }
+ },
+ "hide_native_rows": true,
+ "hide_native_rows_note": "Blank vanilla's health and hunger rows. Once the glyph bars draw INTO the slot those rows occupy, this stops being optional: a visible native row would sit underneath the replacement. It lives here rather than as a command-line flag because publish.py called build() with the default and so never hid anything, whatever the plugin config said. features.vitalsBar.hideNativeRows must agree, and a test binds them."
 }

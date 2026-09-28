@@ -180,7 +180,7 @@ def bar_segment(fill: str, size: int = 9):
     return pixels
 
 
-def vitals_unit(kind: str, height: int = 16, bar_height: int = 7):
+def vitals_unit(kind: str, height: int = 256, bar_height: int = 7, foot: int = 16):
     """One column of a vitals bar. The bar is these, repeated.
 
     A bitmap glyph cannot be stretched -- Minecraft renders it at its texture
@@ -206,7 +206,14 @@ def vitals_unit(kind: str, height: int = 16, bar_height: int = 7):
     """
     lit = (255, 255, 255, 255)
     clear = (0, 0, 0, 0)
-    top = (height - bar_height) // 2
+    # Anchored to the FOOT of a tall canvas, not centred in it.
+    #
+    # `ascent` places the glyph and cannot exceed `height`, while `height`
+    # scales the texture -- so a bar that sits above the hotbar must be
+    # declared tall, and centring the lit rows in a 256px canvas would put
+    # them 120 pixels from where the ascent aims. The bar lives in the bottom
+    # `foot` rows and everything above is transparent reach.
+    top = height - foot + (foot - bar_height) // 2
     bottom = top + bar_height - 1
 
     pixels = []
@@ -340,7 +347,8 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         for offset, unit_id in enumerate(bars["units"]):
             kind = unit_id.removeprefix("vitals_").removeprefix("unit_")
             png_rgba(assets / "textures" / "font" / f"{unit_id}.png",
-                     1, bars["height"], vitals_unit(kind, bars["height"]))
+                     1, bars["height"],
+                     vitals_unit(kind, bars["height"], foot=bars["foot"]))
             providers.append({
                 "type": "bitmap",
                 "file": f"moba:font/{unit_id}.png",
