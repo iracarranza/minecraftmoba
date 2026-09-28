@@ -126,5 +126,53 @@
   ],
   "ticks": "Reference marks at a fixed interval of DISPLAYED health, so the bar carries absolute magnitude and not only a fraction. Without them 1,000/1,000 and 3,200/3,200 are the same full bar, which erases the x100 scale the project adopted specifically to make damage legible. The bar stays fixed width and the ticks get denser as max health grows, which is the arrangement that keeps a low-Capacity player from being given a visibly shorter bar.",
   "why_128": "At 100 displayed health per tick, Mole's Lv30 3,200 is 32 ticks. Across 64 units that is one tick every 2px, which is a tick touching its neighbour. 128 gives 4px and room to read one."
+ },
+ "hud_layers": {
+  "purpose": "Declared vertical positions for HUD glyphs drawn in a bossbar title. ascent and height are per-PROVIDER, never per-emission, so each distinct (y, scale) pair costs one provider entry -- which is why these are named layers rather than a number the plugin passes.",
+  "x_is_different": "Horizontal placement is the negative-space font and varies freely per emission. Only the vertical is enumerated. The asymmetry is the design, not a limitation of this table.",
+  "baseline_drift": "Each bossbar is its own line with its own baseline and they stack downward, so the same ascent lands in a different place depending on WHICH bossbar drew it. Nominate one canvas bossbar and these values mean one thing.",
+  "fixtures": "[BALANCE FIXTURE -- expect to tune] Every ascent below is a guess. Step one of docs/design/HUD_LAYER.md is measuring them against a real client with the probe glyph; nothing should be designed around these numbers until it has.",
+  "base": "U+E200",
+  "layers": {
+   "a_baseline": {
+    "ascent": 8,
+    "height": 32
+   },
+   "b_hotbar_above": {
+    "ascent": 20,
+    "height": 32
+   },
+   "c_hotbar_above_2": {
+    "ascent": 28,
+    "height": 32
+   },
+   "d_abilities_over": {
+    "ascent": 32,
+    "height": 32
+   }
+  }
+ },
+ "bossbar_sprites": {
+  "purpose": "Blank the bossbar graphic so only the title renders. Once the bar is gone the bossbar stops being a bar and becomes a line of text we own, which is the whole technique.",
+  "geometry": "Vanilla bossbar sprites are 182x5. Replacing them with fully transparent images of the same size removes the bar without disturbing layout.",
+  "why_keep_one": "Something will eventually want a real progress bar. Blanking all seven colours is annoying to reverse for no gain, so PURPLE is left alone -- no current caller uses it.",
+  "colours": [
+   "pink",
+   "blue",
+   "red",
+   "green",
+   "yellow",
+   "purple",
+   "white"
+  ],
+  "keep": [
+   "purple"
+  ],
+  "overlays": [
+   6,
+   10,
+   12,
+   20
+  ]
  }
 }

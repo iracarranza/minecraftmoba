@@ -236,6 +236,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         lab = new Lab(this);
+        hudProbe = new HudProbe(this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
@@ -351,6 +352,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
 
     private Lab lab;
     public Lab lab() { return lab; }
+    private HudProbe hudProbe;
+    public HudProbe hudProbe() { return hudProbe; }
     private ToolboxStatuses toolboxStatuses;
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private UtilityBelt utilityBelt;
@@ -738,6 +741,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // Before every other form, including the draft verbs: `lab start` has
         // to be reachable from INSIDE the draft hall, which is the state it
         // most often has to rescue someone from.
+        if (args.length >= 1 && args[0].equalsIgnoreCase("hudprobe")) {
+            if (!sender.hasPermission("moba.admin")) {
+                sender.sendMessage("An administrator is required."); return true;
+            }
+            return hudProbe.command(sender, args);
+        }
         if (args.length >= 1 && args[0].equalsIgnoreCase("lab")) {
             if (!sender.hasPermission("moba.admin")) {
                 sender.sendMessage("An administrator is required."); return true;

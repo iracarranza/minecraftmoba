@@ -241,6 +241,44 @@ def codepoint(index: int) -> str:
     return chr(0xE000 + index)
 
 
+
+def probe_glyph(size: int = 32):
+    """A deliberately ugly ruler, for finding out where a layer actually lands.
+
+    The documentation cannot answer where a glyph at a given `ascent` renders
+    on screen, or whether an extreme one clips. Only a client can, so this is
+    built to be MEASURED rather than to look like anything:
+
+      - a 1px full-height left edge, so the horizontal origin is exact;
+      - a 1px full-width bottom edge, so the baseline is exact;
+      - a tick every 8px along both edges, so distances can be counted off a
+        screenshot without trusting a guess about scale;
+      - a hollow body, so whatever is behind it stays readable.
+
+    Solid fill was rejected: a solid block tells you it rendered and nothing
+    else, and "it rendered" is the one thing that was never in doubt.
+    """
+    px = [(0, 0, 0, 0)] * (size * size)
+
+    def put(x, y, colour):
+        if 0 <= x < size and 0 <= y < size:
+            px[y * size + x] = colour
+
+    edge = (255, 255, 255, 255)
+    tick = (255, 0, 0, 255)
+    for y in range(size):
+        put(0, y, edge)
+        if y % 8 == 0:
+            for x in range(1, 4):
+                put(x, y, tick)
+    for x in range(size):
+        put(x, size - 1, edge)
+        if x % 8 == 0:
+            for y in range(size - 4, size - 1):
+                put(x, y, tick)
+    return px
+
+
 def build(registry: dict, out: Path, hide_native_rows: bool = False):
     if out.exists():
         raise FileExistsError(f"{out} exists; build to a fresh directory")
@@ -390,6 +428,67 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites" / f"{sprite}.png",
                  9, 9, [(0, 0, 0, 0)] * 81)
 
+    # ---- the HUD layer probe -------------------------------------------
+    #
+    # `y` and `scale` are properties of a font PROVIDER, not of an emission,
+    # so every distinct (ascent, height) pair needs its own provider entry
+    # pointing at the same texture. That is why layers are DECLARED here and
+    # referenced by name, rather than being a number the plugin passes: a
+    # continuous `y` would mean a provider per pixel.
+    #
+    # `x` is free and continuous by contrast, because the negative-space
+    # prefix varies per emission. The asymmetry is the whole design.
+    layers = registry.get("hud_layers", {})
+    layer_manifest = {}
+    if layers:
+        png_rgba(assets / "textures" / "font" / "hud_probe.png", 32, 32, probe_glyph(32))
+        base = int(layers["base"].removeprefix("U+"), 16)
+        for offset, (name, layer) in enumerate(sorted(layers["layers"].items())):
+            ascent, height = layer["ascent"], layer["height"]
+            # The client REFUSES a provider whose ascent exceeds its height and
+            # logs it rather than drawing, so a bad layer must fail the build
+            # instead of shipping a pack that silently renders nothing.
+            if ascent > height:
+                raise ValueError(f"layer '{name}': ascent {ascent} exceeds height {height}; "
+                                 "the client rejects this provider outright")
+            cp = chr(base + offset)
+            providers.append({
+                "type": "bitmap",
+                "file": "moba:font/hud_probe.png",
+                "ascent": ascent,
+                "height": height,
+                "chars": [cp],
+            })
+            layer_manifest[name] = {
+                "codepoint": f"U+{base + offset:04X}",
+                "escape": f"\\u{base + offset:04x}",
+                "ascent": ascent,
+                "height": height,
+            }
+
+    # ---- blank the bossbar itself ---------------------------------------
+    #
+    # Once the bar graphic is gone the bossbar stops being a bar and becomes a
+    # line of text we own, which is the entire technique. These are vanilla
+    # sprite replacements, so assets/minecraft.
+    #
+    # One colour is deliberately LEFT ALONE. Something will eventually want a
+    # real progress bar, and having blanked all seven is annoying to reverse
+    # for no gain -- nothing currently uses PURPLE.
+    bossbars = registry.get("bossbar_sprites", {})
+    kept = bossbars.get("keep", [])
+    transparent = [(0, 0, 0, 0)] * (182 * 5)
+    for colour in bossbars.get("colours", []):
+        if colour in kept:
+            continue
+        for part in ("background", "progress"):
+            png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites"
+                     / "boss_bar" / f"{colour}_{part}.png", 182, 5, transparent)
+    for notches in bossbars.get("overlays", []):
+        for part in ("background", "progress"):
+            png_rgba(out / "assets" / "minecraft" / "textures" / "gui" / "sprites"
+                     / "boss_bar" / f"notched_{notches}_{part}.png", 182, 5, transparent)
+
     write_json(out / "GLYPH_MANIFEST.json", {
         "schema": "moba_glyph_manifest/1",
         "note": "Generated. The plugin must emit exactly these codepoints; a mismatch renders "
@@ -398,6 +497,7 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         "negative_space": {"base": "U+F001", "range": f"1..{NEGATIVE_SPACE_MAX} px",
                            "usage": "U+F000+n advances -n pixels"},
         "hidden_vanilla_sprites": hidden,
+        "hud_layers": layer_manifest,
     })
     return manifest
 
