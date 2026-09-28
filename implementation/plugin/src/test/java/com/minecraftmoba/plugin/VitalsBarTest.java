@@ -401,13 +401,14 @@ class VitalsBarTest {
     @Test void anUnknownAscentIsRefusedAtConstruction() {
         var thrown = assertThrows(IllegalArgumentException.class,
                 () -> VitalsBar.INLINE.withAscent(999));
-        assertTrue(thrown.getMessage().contains("20"), thrown.getMessage());
+        assertTrue(thrown.getMessage().contains(String.valueOf(VitalsBar.ASCENTS.getFirst())),
+                thrown.getMessage());
     }
 
     /** Changing ascent changes which glyphs are emitted, and nothing else. */
     @Test void ascentShiftsTheCodepointsAndKeepsTheGeometry() {
-        var low = VitalsBar.INLINE.withAscent(20);
-        var high = VitalsBar.INLINE.withAscent(73);
+        var low = VitalsBar.INLINE.withAscent(VitalsBar.ASCENTS.getFirst());
+        var high = VitalsBar.INLINE.withAscent(VitalsBar.ASCENTS.getLast());
         assertEquals(low.fillWidth(), high.fillWidth());
         assertEquals(low.filled(10, java.util.Set.of()).length(),
                      high.filled(10, java.util.Set.of()).length());

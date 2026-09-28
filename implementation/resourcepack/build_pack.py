@@ -702,6 +702,19 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
     #    want only spacing, and is ALSO folded in here so that a single
     #    component can mix glyphs and offsets. That is not a convenience; it
     #    is the only way positioned glyphs can work at all.
+    # A font that will not load renders EVERY glyph as tofu, including ones
+    # that worked a moment ago, so this refuses at build time rather than
+    # shipping it. See registry.json `atlas`.
+    tall = [p for p in providers if p.get("height", 0) >= 256]
+    budget = registry.get("atlas", {}).get("atlas_budget", 256)
+    if len(tall) > budget:
+        raise ValueError(
+            f"{len(tall)} tall glyphs exceeds the atlas budget of {budget}. "
+            "Each one occupies 256 rows of the font atlas whatever it draws, and "
+            "overflowing it stops the whole font loading -- every glyph goes tofu, "
+            "not just the new ones. Cut candidate ascents; they are cheap in bytes "
+            "and expensive in atlas area.")
+
     write_json(assets / "font" / "glyphs.json",
                {"providers": providers + [space_provider]})
 

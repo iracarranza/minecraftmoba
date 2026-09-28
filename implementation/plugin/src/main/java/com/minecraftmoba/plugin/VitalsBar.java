@@ -68,8 +68,14 @@ public final class VitalsBar {
      * screenshot pixels. It is accurate enough to say roughly where a glyph
      * goes and not accurate enough to land one, so the answer is made cheap to
      * search instead of expensive to derive.
+     *
+     * But only a FEW. Every tall glyph occupies 256 rows of the font atlas
+     * whatever it draws, and overflowing that atlas stops the whole font
+     * loading -- every glyph goes tofu, including ones that worked. Candidate
+     * heights are cheap in bytes and expensive in atlas area. See
+     * registry.json `atlas`.
      */
-    public static final java.util.List<Integer> ASCENTS = java.util.List.of(20, 30, 40, 50, 60, 73);
+    public static final java.util.List<Integer> ASCENTS = java.util.List.of(40, 50, 60);
 
     /** Must match registry.json `bars.stride`: the codepoint gap between sets. */
     public static final int STRIDE = 16;

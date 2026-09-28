@@ -129,12 +129,9 @@
   "placement": "Tall canvas, lit rows in the bottom `foot`. ascent 73 puts the bar where vanilla draws the native health and hunger rows (~30-39 GUI pixels above the bottom), by the measured law ascent = y + 46 with the bar sitting 4 rows up inside its foot. The native rows are blanked in the same pack, so the glyph bars replace them in place rather than sitting somewhere new.",
   "fill_width_is_a_layout_choice": "128 is the resolution the ticks want; 81 is what fits exactly where the native row is. The plugin picks, and features.vitalsBar.layout records which. See VitalsBar.Style.",
   "ascents": [
-   20,
-   30,
    40,
    50,
-   60,
-   73
+   60
   ],
   "stride": 16,
   "ascents_note": "One set of units per candidate ascent, because ascent belongs to a PROVIDER and a bar that can be nudged without rebuilding the pack needs every position emitted up front. The plugin picks with features.vitalsBar.ascent. The placement law was fitted to screenshot pixels and is not accurate enough to land a bar first time -- rather than keep re-measuring it, the answer is made cheap to search. stride is the codepoint gap between sets, comfortably clear of the six units each set uses."
@@ -265,17 +262,11 @@
   "height": 256,
   "advance": 4,
   "ascents": [
-   20,
-   30,
    40,
    50,
    52,
-   54,
    56,
-   58,
-   60,
-   66,
-   73
+   60
   ],
   "stride": 16,
   "scope": "Eleven characters is what the health numeral needs. The mechanism is identical for letters, and the ability-refusal line is the next consumer.",
@@ -385,17 +376,16 @@
   "height": 256,
   "advance": 6,
   "ascents": [
-   50,
-   60,
    66,
-   70,
    73,
-   76,
-   80,
-   86,
-   92,
-   100
+   80
   ],
   "stride": 64
+ },
+ "atlas": {
+  "atlas_budget": 256,
+  "why": "Reach costs ATLAS AREA, and the budget is real. A glyph placed near the bottom of the screen must be declared 256 pixels tall, because ascent cannot exceed height and the drawn part sits in the canvas's foot -- so every tall glyph occupies 256 rows of the font atlas whatever it actually draws. Emitting a 44-character face at ten candidate heights made 440 of them, and with the other families that came to 606 tall glyphs needing ~930,000 px against a 1024x1024 atlas's 1,048,576. The font stopped loading and EVERY glyph rendered as tofu, including bars that had been working.",
+  "consequence": "'Emit every candidate position so the answer is cheap to search' has a ceiling. Candidate heights are cheap in bytes and expensive in atlas area, so each family carries only the few it needs -- three to sweep with, not ten.",
+  "lower_height_does_not_help": "Halving height halves the cost and also halves the reach: the drawn foot sits (ascent - height) below the baseline, so a shorter canvas cannot reach as far down. The 256 is what buys the position, not padding."
  }
 }

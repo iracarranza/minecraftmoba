@@ -39,14 +39,16 @@ class HudTextTest {
     }
 
     @Test void charactersTranslateInDeclaredOrder() {
-        assertEquals((char) 0xE400, HudText.at(20, "0").charAt(0));
-        assertEquals((char) (0xE400 + 10), HudText.at(20, "/").charAt(0), "the slash is last");
+        assertEquals((char) 0xE400, HudText.at(HudText.ASCENTS.getFirst(), "0").charAt(0));
+        assertEquals((char) (0xE400 + 10), HudText.at(HudText.ASCENTS.getFirst(), "/").charAt(0),
+                "the slash is last");
     }
 
     /** The whole point: the same string differs per ascent. */
     @Test void theSameTextDiffersByAscent() {
-        assertNotEquals(HudText.at(20, "1900"), HudText.at(50, "1900"));
-        assertEquals(HudText.at(20, "1900").length(), HudText.at(50, "1900").length());
+        int low = HudText.ASCENTS.getFirst(), high = HudText.ASCENTS.getLast();
+        assertNotEquals(HudText.at(low, "1900"), HudText.at(high, "1900"));
+        assertEquals(HudText.at(low, "1900").length(), HudText.at(high, "1900").length());
     }
 
     /**

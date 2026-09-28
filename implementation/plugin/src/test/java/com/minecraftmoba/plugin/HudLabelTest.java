@@ -77,4 +77,28 @@ class HudLabelTest {
             assertTrue(HudLabel.width(message) < 320,
                     message + " is too wide to sit on one HUD line");
     }
+
+    /**
+     * Candidate heights are cheap in bytes and expensive in ATLAS AREA.
+     *
+     * Every tall glyph occupies 256 rows of the font atlas whatever it draws.
+     * A 44-character face at ten candidate heights is 440 of them, and with
+     * the other families that came to 606 needing ~930,000 px against a
+     * 1024x1024 atlas's 1,048,576 -- the font stopped loading and EVERY glyph
+     * rendered as tofu, including bars that had been working for an hour.
+     *
+     * So the search space has a ceiling. Three heights to sweep with, not ten.
+     */
+    @Test void theFamiliesTogetherStayInsideTheAtlasBudget() throws Exception {
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        assertTrue(registry.contains("\"atlas_budget\""),
+                "the build must refuse an overflowing font rather than ship one");
+
+        int tall = HudLabel.ASCENTS.size() * HudLabel.CHARACTERS.length()
+                 + HudText.ASCENTS.size() * HudText.CHARACTERS.length()
+                 + VitalsBar.ASCENTS.size() * 6;
+        assertTrue(tall <= 256,
+                tall + " tall glyphs is over the budget; the font will not load and "
+                        + "every glyph goes tofu, not just the new ones");
+    }
 }

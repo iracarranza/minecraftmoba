@@ -38,7 +38,7 @@ public final class HudLabel {
     public static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,!?:-'";
     /** Must match registry.json `label.ascents`. */
     public static final List<Integer> ASCENTS =
-            List.of(50, 60, 66, 70, 73, 76, 80, 86, 92, 100);
+            List.of(66, 73, 80);
     /** Five pixels of glyph plus vanilla's one of spacing. */
     public static final int ADVANCE = 6;
 

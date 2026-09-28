@@ -43,7 +43,7 @@ public final class HudText {
     public static final String CHARACTERS = "0123456789/";
     /** Must match registry.json `text.ascents`. */
     public static final List<Integer> ASCENTS =
-            List.of(20, 30, 40, 50, 52, 54, 56, 58, 60, 66, 73);
+            List.of(40, 50, 52, 56, 60);
 
     /**
      * Pixels one character advances: its width plus vanilla's one of spacing.
