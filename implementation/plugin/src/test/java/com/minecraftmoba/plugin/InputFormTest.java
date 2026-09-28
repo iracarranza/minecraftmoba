@@ -72,8 +72,38 @@ class InputFormTest {
      * thing that distinguishes them.
      */
     @Test void formAndTargetingAreDifferentQuestions() {
-        assertEquals(3, InputForm.values().length);
-        assertEquals(4, TargetForm.values().length);
+        assertEquals(4, InputForm.values().length);
+        assertEquals(5, TargetForm.values().length);
         assertEquals(3, CastMode.values().length);
+    }
+
+    /**
+     * A passive permits NO mode, which is different from permitting every one.
+     *
+     * Toolbox's Utility Belt fires on incoming damage. Leaving it out of the
+     * vocabulary would have implied the modes applied and simply never came
+     * up; saying it permits none states the actual fact.
+     */
+    @Test void aPassivePermitsNoModeAtAll() {
+        for (CastMode mode : CastMode.values()) assertFalse(PASSIVE.permits(mode), mode.name());
+        assertFalse(PASSIVE.activated());
+        assertFalse(PASSIVE.pressable());
+        for (InputForm form : InputForm.values())
+            if (form != PASSIVE) assertTrue(form.activated(), form.name());
+    }
+
+    /**
+     * The vocabulary was tested against the real roster, and two values were
+     * added because shipped abilities fitted nothing.
+     *
+     * Utility Belt has no input form; Reconfiguratron, the aimless channel and
+     * Bounding target nothing. Both gaps were found by listing what exists
+     * rather than by reasoning about what could.
+     */
+    @Test void theRosterIsCoveredIncludingWhatHasNoInputOrNoTarget() {
+        assertTrue(java.util.List.of(InputForm.values()).contains(PASSIVE),
+                "Utility Belt fires on damage");
+        assertTrue(java.util.List.of(TargetForm.values()).contains(TargetForm.SELF),
+                "Reconfiguratron swaps your own components");
     }
 }

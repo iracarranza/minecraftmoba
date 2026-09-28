@@ -867,6 +867,40 @@ only difference is that duration is **measured** rather than merely required —
 which is what makes a widening beam different from a throw that merely needs
 holding.
 
+### The unit of description is an OUTPUT, not an ability
+
+Tested against the real roster, the axes held and the *unit* did not. Pantheon's
+Q has two input forms in one ability, so a single (target, input) pair cannot
+describe it.
+
+> **An ability is a set of one or more outputs. Each output has a target form
+> and an input form. Where there is more than one, the input form is also the
+> selector that chooses between them.**
+
+Most abilities have exactly one output and the distinction never shows. It shows
+the moment an ability wants a tap and a hold to do different things — which is
+the case that forced it.
+
+### What the roster exposed
+
+Two values were missing, and both were found by listing what exists rather than
+reasoning about what could:
+
+- **Self** — Reconfiguratron swaps components in your own inventory; an aimless
+  channel; Bounding. Three shipped abilities targeted nothing, and there was no
+  label for it. An ability with no target has nothing to preview, which is what
+  makes it ignore cast modes.
+- **Passive** — the Utility Belt fires on incoming damage. It has no gesture, so
+  it permits **no** cast mode. That is a different statement from "every mode
+  applies", which is what leaving it out would have implied.
+
+### And one thing that is not on these axes
+
+**Charges.** A2's three charges on an eight-second recharge is a *resource*
+question, orthogonal to target, input and mode alike. It is not a gap in the
+categorisation; it is a fourth thing that the categorisation deliberately does
+not reach.
+
 ### Fallback rather than refusal
 
 A preference that cannot be honoured falls back to the form's own shape. A

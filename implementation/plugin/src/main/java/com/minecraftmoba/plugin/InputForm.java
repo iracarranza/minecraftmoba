@@ -20,6 +20,19 @@ package com.minecraftmoba.plugin;
 public enum InputForm {
 
     /**
+     * Not player-initiated at all.
+     *
+     * Toolbox's Utility Belt fires on incoming damage. There is no gesture, so
+     * no cast mode applies and no preference is relevant -- and that is a
+     * different statement from "every mode applies", which is what its absence
+     * from this enum would have implied.
+     *
+     * Added when the vocabulary was tested against the real roster and the
+     * first ability on it had no input form at all.
+     */
+    PASSIVE,
+
+    /**
      * The press is the whole input.
      *
      * The stab. All three cast modes can apply, because none of their gestures
@@ -59,6 +72,9 @@ public enum InputForm {
     /** Whether a bare press can produce this form. Only INSTANT can. */
     public boolean pressable() { return this == INSTANT; }
 
+    /** Whether a player initiates this at all. */
+    public boolean activated() { return this != PASSIVE; }
+
     /**
      * Whether a cast mode's gesture is compatible with this form.
      *
@@ -68,6 +84,10 @@ public enum InputForm {
      */
     public boolean permits(CastMode mode) {
         return switch (this) {
+            // No gesture, so no mode applies -- which is not the same as every
+            // mode applying, and is why PASSIVE is a value rather than an
+            // absence.
+            case PASSIVE -> false;
             case INSTANT -> true;
             case CHANNELED, CHARGED -> mode == CastMode.HOLD;
         };

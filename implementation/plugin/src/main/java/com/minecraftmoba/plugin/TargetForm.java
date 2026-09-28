@@ -21,6 +21,19 @@ package com.minecraftmoba.plugin;
 public enum TargetForm {
 
     /**
+     * Affects the caster, or nothing outside them.
+     *
+     * Reconfiguratron swaps two components in your own inventory. A channel
+     * with no aim. A self-buff. These target nothing, and saying so is not a
+     * formality: an ability with no target has nothing to preview, which is
+     * what makes it ignore cast modes entirely.
+     *
+     * Added when the vocabulary was tested against the real roster and three
+     * shipped abilities fitted none of the other four.
+     */
+    SELF,
+
+    /**
      * Affects whatever was targeted, immediately.
      *
      * Wax this block. Heal this teammate. One thing, already identified by the

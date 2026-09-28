@@ -67,6 +67,9 @@ class TargetFormTest {
     /** Every form is nameable, since these are the words abilities get described in. */
     @Test void everyFormHasAName() {
         for (TargetForm form : values()) assertFalse(form.name().isBlank());
-        assertEquals(4, values().length, "four labels; adding a fifth is a design decision");
+        assertEquals(5, values().length,
+                "SELF was added when the vocabulary was tested against the real roster "
+                        + "and three shipped abilities fitted none of the other four; "
+                        + "adding a sixth is a design decision, not a convenience");
     }
 }
