@@ -119,7 +119,9 @@ public final class VitalsDisplay implements Listener {
      * That is the difference between a layout and a pile of nudges, and it is
      * why the numeral can be drawn over the bar without the bar shifting.
      */
-    public Component render(Player p) {
+    public Component render(Player p) { return render(p, null); }
+
+    public Component render(Player p, InWorldSelection.Clock clock) {
         double maxHealth = plugin.effectiveMaxHealth(p);
         int interval = plugin.getConfig().getInt("features.vitalsBar.tickInterval");
         int scale = plugin.getConfig().getInt("features.vitalsBar.displayScale");
@@ -295,20 +297,37 @@ public final class VitalsDisplay implements Listener {
         return parsed;
     }
 
+    /**
+     * One bossbar: the glyphs in its title, the clocks in its colour and bar.
+     *
+     * There used to be two -- this one, deliberately blank because the pack
+     * blanks WHITE, and InWorldSelection's carrying combat and the level-up
+     * beat. Bossbars stack in the order the server sends them, so the
+     * invisible one sat on top and pushed the visible one down a slot: a
+     * player saw a bar one row lower than it belonged, with nothing above it.
+     *
+     * Merging removes the empty slot AND the coordination problem, since there
+     * is no longer an order for two bars to be in. White with no progress is
+     * exactly an invisible bar, so the idle state still costs nothing.
+     */
     public void refresh(Player p) {
         if (!enabled() || !plugin.enrolled(p)) { clear(p); return; }
-        Component title = render(p);
+        var selection = plugin.selection();
+        var clock = selection == null ? null : selection.clock(p);
+
+        Component title = render(p, clock);
         BossBar bar = bars.get(p.getUniqueId());
         if (bar == null) {
-            // Progress 0 and an empty overlay: the bossbar is carrying a
-            // drawing, and its own coloured bar underneath would be a second
-            // meter saying something else.
             bar = BossBar.bossBar(title, 0f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS);
             bars.put(p.getUniqueId(), bar);
             p.showBossBar(bar);
         } else {
             bar.name(title);
         }
+        // WHITE is the blanked colour, so "no clock" is a bar that is not
+        // drawn rather than a bar drawn empty.
+        bar.color(clock == null ? BossBar.Color.WHITE : clock.colour());
+        bar.progress(clock == null ? 0f : Math.min(1f, Math.max(0f, clock.progress())));
     }
 
     public void clear(Player p) {

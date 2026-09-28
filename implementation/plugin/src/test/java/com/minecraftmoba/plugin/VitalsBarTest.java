@@ -488,4 +488,29 @@ class VitalsBarTest {
         assertEquals(1, Math.round(Vitals.toDisplay(0.7, 14)),
                 "so anything under a point rounds to one");
     }
+
+    /**
+     * One bossbar, not two.
+     *
+     * The vitals canvas is deliberately invisible because the pack blanks
+     * WHITE. As a separate bar it still occupied a stacking slot, and bossbars
+     * stack in the order the server sends them -- so it sat above the clock
+     * bar and pushed it down a row, with nothing visible above it.
+     *
+     * InWorldSelection now reports a Clock rather than owning a bar, so there
+     * is no second bar and therefore no order for two bars to be in.
+     */
+    @Test void theSelectionClockIsAReadingRatherThanASecondBossbar() throws Exception {
+        String selection = Files.readString(Path.of(
+                "src/main/java/com/minecraftmoba/plugin/InWorldSelection.java"));
+        assertFalse(selection.contains("showBossBar"),
+                "a second bossbar reintroduces the empty slot above the visible one");
+        assertTrue(selection.contains("public Clock clock(Player p)"),
+                "the clock is state for the canvas to render");
+
+        String vitals = Files.readString(Path.of(
+                "src/main/java/com/minecraftmoba/plugin/VitalsDisplay.java"));
+        assertTrue(vitals.contains("clock == null ? BossBar.Color.WHITE"),
+                "and WHITE with no progress is exactly an invisible bar, so idling is free");
+    }
 }

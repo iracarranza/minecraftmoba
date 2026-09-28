@@ -61,7 +61,6 @@ public final class InWorldSelection implements Listener {
     private final SelectionBeat beat;
     private final Map<UUID, List<Slot>> summoned = new HashMap<>();
     private final Map<UUID, Location> lastBlock = new HashMap<>();
-    private final Map<UUID, BossBar> bars = new HashMap<>();
 
     public InWorldSelection(MobaPlugin plugin, RewardCatalog catalog) {
         this.plugin = plugin;
@@ -94,11 +93,7 @@ public final class InWorldSelection implements Listener {
             var combat = plugin.combatState();
             boolean pending = !catalog.pending(plugin.data(p)).isEmpty();
             boolean fighting = combat != null && combat.inCombat(p);
-            if (!pending && !fighting) {
-                if (!hasSummoned(p)) hideBar(p);
-                continue;
-            }
-            showBar(p, now);
+            if (!pending && !fighting) continue;
             if (!pending || hasSummoned(p)) continue;
             if (beat.due(p.getUniqueId(), now)) {
                 beat.restart(p.getUniqueId(), now);
@@ -157,47 +152,50 @@ public final class InWorldSelection implements Listener {
      * the beat is 5 is a coincidence of first values, not a relationship, and
      * sharing a bar must not become a reason to collapse them into one number.
      */
-    private void showBar(Player p, long now) {
-        int count = catalog.pending(plugin.data(p)).size();
+    /**
+     * What the shared bossbar should show, or null when neither clock runs.
+     *
+     * This used to BE a bossbar. It is now a reading, because two bossbars
+     * meant two stacked slots and the vitals canvas -- which is deliberately
+     * invisible -- sat above this one and pushed it down. One bar carries
+     * both: the glyphs in its title, the clock in its colour and progress.
+     *
+     * The two durations stay independently tuned. That combat is 7 seconds and
+     * the beat is 5 is a coincidence of first values, not a relationship, and
+     * sharing a bar must not become a reason to collapse them into one number.
+     */
+    public record Clock(BossBar.Color colour, float progress, String label) {}
+
+    public Clock clock(Player p) {
+        if (!enabled() || !plugin.enrolled(p)) return null;
+        long now = plugin.getServer().getCurrentTick();
         CombatState combat = plugin.combatState();
-        boolean inCombat = combat != null && combat.inCombat(p);
 
-        BossBar bar = bars.computeIfAbsent(p.getUniqueId(), id -> {
-            BossBar b = BossBar.bossBar(Component.empty(), 1, BossBar.Color.YELLOW, BossBar.Overlay.PROGRESS);
-            p.showBossBar(b);
-            return b;
-        });
-
-        if (inCombat) {
+        if (combat != null && combat.inCombat(p)) {
             long left = combat.remaining(p);
-            bar.color(BossBar.Color.RED);
-            bar.progress((float) Math.min(1, Math.max(0, (double) left / combat.durationTicks())));
-            // No seconds. The bar's own length is the countdown, and a number
-            // beside it is a second reading of the same fact that has to be
-            // read rather than glanced at.
-            bar.name(Component.text("In combat"));
             // Restarting here is what makes the two clocks sequential: the
             // level-up countdown begins from the moment combat ends, not from
             // whenever it happened to be when the fight started.
             beat.restart(p.getUniqueId(), now);
-            return;
+            return new Clock(BossBar.Color.RED,
+                    (float) clamp01((double) left / combat.durationTicks()), "In combat");
         }
-        bar.color(BossBar.Color.YELLOW);
-        // DRAINING, like the combat bar. The beat's progress counts up toward
-        // the moment options appear, which is the honest reading of the
-        // mechanic -- but two bars in the same place moving opposite ways is
-        // read as one of them being wrong, and a bar that empties is the
-        // universal "time is running out". The mechanic is unchanged; only
-        // which end is full.
-        bar.progress((float) Math.min(1, Math.max(0, 1 - beat.progress(p.getUniqueId(), now))));
-        bar.name(Component.text(count + (count == 1 ? " unspent level point" : " unspent level points")
-                + " available — crouch to summon, M2 to select"));
+
+        int count = catalog.pending(plugin.data(p)).size();
+        if (count == 0 || hasSummoned(p)) return null;
+
+        // DRAINING, like combat. The beat counts up toward the moment options
+        // appear, which is the honest reading of the mechanic -- but two
+        // readings in one place moving opposite ways is read as one being
+        // wrong, and a bar that empties is the universal "time is running out".
+        return new Clock(BossBar.Color.YELLOW,
+                (float) clamp01(1 - beat.progress(p.getUniqueId(), now)),
+                count + (count == 1 ? " unspent level point" : " unspent level points")
+                        + " available — crouch to summon, M2 to select");
     }
 
-    private void hideBar(Player p) {
-        BossBar bar = bars.remove(p.getUniqueId());
-        if (bar != null) p.hideBossBar(bar);
-    }
+    private static double clamp01(double v) { return Math.min(1, Math.max(0, v)); }
+
 
     // ---- eligible space ---------------------------------------------------
 
@@ -337,7 +335,6 @@ public final class InWorldSelection implements Listener {
 
     public void cleanup(Player p) {
         despawn(p);
-        hideBar(p);
         beat.clear(p.getUniqueId());
         lastBlock.remove(p.getUniqueId());
     }

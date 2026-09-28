@@ -159,6 +159,9 @@ features:
     # all three in one place, because they are the same category of answer and
     # a player scanning for a reason should not have to know which of three
     # places to look. Swept with /moba hudprobe notice.
+    # The clock's label -- "In combat", or the unspent-points prompt. Its
+    # countdown is the bossbar's own bar; this is just the words.
+    clockAscent: 66
     noticeAscent: 73
     noticeTicks: 40
     refreshTicks: 4
@@ -198,6 +201,8 @@ features:
       numeral: "#FFFFFF"
       # Refusals read as refusals, not as part of the readout.
       notice: "#FFAA55"
+      # The clock label reads with its bar, not against it.
+      clock: "#FFFFFF"
       health: "#FF5555"
       hunger: "#C88A3C"
       # The unlit run and the end caps. Every unit is drawn white by the pack,
