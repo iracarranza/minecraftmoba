@@ -116,13 +116,25 @@ public final class AbilityInputs implements Listener {
         if (d.level < required) {
             // Refuse rather than silently doing nothing: an ability that is not
             // yet earned should say so, and the mode should not be spent on it.
-            p.sendActionBar(net.kyori.adventure.text.Component.text(
-                    org.bukkit.ChatColor.GRAY + ability.id() + " unlocks at level " + required + "."));
+            //
+            // NOT the action bar. This used to go there, where bar() rewrites
+            // the same surface on a cadence and overwrote it within a tick or
+            // two -- reported, accurately, as flashing illegibly. The HUD
+            // notice line has one writer.
+            if (plugin.hudNotice() != null) plugin.hudNotice().notUnlocked(p, required);
             return true;
         }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
-        if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick || ready.getOrDefault(ability.id(), 0L)>tick) return true;
+        // Say so rather than doing nothing. A cooldown that refuses silently
+        // is indistinguishable from an input that was not registered, which is
+        // the worse of the two to guess at mid-fight.
+        long until = ready.getOrDefault(ability.id(), 0L);
+        if (until > tick) {
+            if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, until - tick);
+            return true;
+        }
+        if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick) return true;
         last.put(ability.id(), tick);
         var context = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d);
         if (ability.execute(p,context)) {

@@ -237,6 +237,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         passives = new Passives(this);
         lab = new Lab(this);
         hudProbe = new HudProbe(this);
+        hudNotice = new HudNotice(this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
@@ -354,6 +355,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Lab lab() { return lab; }
     private HudProbe hudProbe;
     public HudProbe hudProbe() { return hudProbe; }
+    private HudNotice hudNotice;
+    public HudNotice hudNotice() { return hudNotice; }
     private ToolboxStatuses toolboxStatuses;
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private UtilityBelt utilityBelt;

@@ -179,6 +179,22 @@ public final class VitalsDisplay implements Listener {
         out.append(bar(hungerLevel, java.util.Set.of(), colour("hunger"), style));
         at += width;
 
+        // The refusal line, on the same canvas and its own line.
+        //
+        // Here rather than in its own bossbar because bars stack and each has
+        // its own baseline, so a notice in a separate bar would land somewhere
+        // different from the vitals it sits above. One canvas is what makes an
+        // ascent mean one thing.
+        var notice = plugin.hudNotice();
+        String message = notice == null ? null : notice.current(p);
+        if (message != null && HudLabel.ASCENTS.contains(notice.ascent())) {
+            int centred = -HudLabel.width(message) / 2;
+            at = move(out, at, centred);
+            out.append(Component.text(HudLabel.at(notice.ascent(), message))
+                                .font(FONT).color(colour("notice")));
+            at += HudLabel.width(message);
+        }
+
         move(out, at, 0);   // net zero, so the centre is the screen's centre
         return out.build();
     }

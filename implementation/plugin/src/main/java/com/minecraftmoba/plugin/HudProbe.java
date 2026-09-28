@@ -73,6 +73,34 @@ public final class HudProbe {
         // between a guess and an answer was a restart -- and the guesses came
         // from measuring screenshots, which is how the placement law got
         // refitted three times without landing a bar. Sweep it instead.
+        if (verb.equals("notice")) {
+            if (args.length < 3) {
+                p.sendMessage("/moba hudprobe notice <ascent|off|test>   available: "
+                        + HudLabel.ASCENTS);
+                return true;
+            }
+            if (args[2].equalsIgnoreCase("test")) {
+                plugin.hudNotice().show(p, "Ability unlocks at level 15");
+                p.sendMessage("Notice shown.");
+                return true;
+            }
+            if (args[2].equalsIgnoreCase("off")) {
+                plugin.hudNotice().overrideAscent(null);
+                p.sendMessage("Notice back to the configured ascent.");
+                return true;
+            }
+            int wanted = parse(args[2], -1);
+            if (!HudLabel.ASCENTS.contains(wanted)) {
+                p.sendMessage("No label block at ascent " + args[2]
+                        + ". The pack carries: " + HudLabel.ASCENTS);
+                return true;
+            }
+            plugin.hudNotice().overrideAscent(wanted);
+            plugin.hudNotice().show(p, "Ability unlocks at level 15");
+            p.sendMessage("Notice at ascent " + wanted + ".");
+            return true;
+        }
+
         if (verb.equals("numeral")) {
             if (args.length < 3) {
                 p.sendMessage("/moba hudprobe numeral <ascent|off>   available: " + HudText.ASCENTS);

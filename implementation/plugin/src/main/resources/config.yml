@@ -155,6 +155,12 @@ features:
     # of heights here than the bars have, because "a few" had to be measured
     # like everything else on this HUD.
     numeralAscent: 56
+    # The refusal line -- not unlocked, still on cooldown, cannot be used --
+    # all three in one place, because they are the same category of answer and
+    # a player scanning for a reason should not have to know which of three
+    # places to look. Swept with /moba hudprobe notice.
+    noticeAscent: 73
+    noticeTicks: 40
     refreshTicks: 4
     # Hides the native health and hunger rows via the resource pack. Requires a
     # pack rebuild and republish; it is not a live toggle. Do not set this
@@ -190,6 +196,8 @@ features:
       # the fill rather than match it. White on red is the legible pair; the
       # health colour on the health bar would vanish.
       numeral: "#FFFFFF"
+      # Refusals read as refusals, not as part of the readout.
+      notice: "#FFAA55"
       health: "#FF5555"
       hunger: "#C88A3C"
       # The unlit run and the end caps. Every unit is drawn white by the pack,

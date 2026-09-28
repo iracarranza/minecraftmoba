@@ -342,6 +342,61 @@ def text_glyph(shape, width: int = 3, height: int = 256, glyph_height: int = 5):
     return px
 
 
+
+# A 5x7 uppercase face, for notices rather than numerals.
+#
+# UPPERCASE ONLY, deliberately. A full upper-and-lower face is fifty-two
+# shapes to draw and maintain by hand; caps are twenty-six and read better at
+# HUD size anyway, where a notice is scanned rather than read. The plugin
+# uppercases on the way in, so callers write ordinary strings.
+LABEL_FONT = {
+    "A": ("01110","10001","10001","11111","10001","10001","10001"),
+    "B": ("11110","10001","10001","11110","10001","10001","11110"),
+    "C": ("01110","10001","10000","10000","10000","10001","01110"),
+    "D": ("11110","10001","10001","10001","10001","10001","11110"),
+    "E": ("11111","10000","10000","11110","10000","10000","11111"),
+    "F": ("11111","10000","10000","11110","10000","10000","10000"),
+    "G": ("01110","10001","10000","10111","10001","10001","01111"),
+    "H": ("10001","10001","10001","11111","10001","10001","10001"),
+    "I": ("11111","00100","00100","00100","00100","00100","11111"),
+    "J": ("00111","00010","00010","00010","00010","10010","01100"),
+    "K": ("10001","10010","10100","11000","10100","10010","10001"),
+    "L": ("10000","10000","10000","10000","10000","10000","11111"),
+    "M": ("10001","11011","10101","10101","10001","10001","10001"),
+    "N": ("10001","11001","10101","10011","10001","10001","10001"),
+    "O": ("01110","10001","10001","10001","10001","10001","01110"),
+    "P": ("11110","10001","10001","11110","10000","10000","10000"),
+    "Q": ("01110","10001","10001","10001","10101","10010","01101"),
+    "R": ("11110","10001","10001","11110","10100","10010","10001"),
+    "S": ("01111","10000","10000","01110","00001","00001","11110"),
+    "T": ("11111","00100","00100","00100","00100","00100","00100"),
+    "U": ("10001","10001","10001","10001","10001","10001","01110"),
+    "V": ("10001","10001","10001","10001","10001","01010","00100"),
+    "W": ("10001","10001","10001","10101","10101","11011","10001"),
+    "X": ("10001","10001","01010","00100","01010","10001","10001"),
+    "Y": ("10001","10001","01010","00100","00100","00100","00100"),
+    "Z": ("11111","00001","00010","00100","01000","10000","11111"),
+    "0": ("01110","10001","10011","10101","11001","10001","01110"),
+    "1": ("00100","01100","00100","00100","00100","00100","01110"),
+    "2": ("01110","10001","00001","00010","00100","01000","11111"),
+    "3": ("11111","00010","00100","00010","00001","10001","01110"),
+    "4": ("00010","00110","01010","10010","11111","00010","00010"),
+    "5": ("11111","10000","11110","00001","00001","10001","01110"),
+    "6": ("00110","01000","10000","11110","10001","10001","01110"),
+    "7": ("11111","00001","00010","00100","01000","01000","01000"),
+    "8": ("01110","10001","10001","01110","10001","10001","01110"),
+    "9": ("01110","10001","10001","01111","00001","00010","01100"),
+    " ": ("00000","00000","00000","00000","00000","00000","00000"),
+    ".": ("00000","00000","00000","00000","00000","01100","01100"),
+    ",": ("00000","00000","00000","00000","01100","01100","11000"),
+    "!": ("00100","00100","00100","00100","00100","00000","00100"),
+    "?": ("01110","10001","00001","00110","00100","00000","00100"),
+    ":": ("00000","01100","01100","00000","01100","01100","00000"),
+    "-": ("00000","00000","00000","11111","00000","00000","00000"),
+    "'": ("00100","00100","00000","00000","00000","00000","00000"),
+}
+
+
 def build(registry: dict, out: Path, hide_native_rows: bool = False):
     if out.exists():
         raise FileExistsError(f"{out} exists; build to a fresh directory")
@@ -575,6 +630,37 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
                 "characters": chars,
             }
 
+    # ---- the label face --------------------------------------------------
+    #
+    # A second family at the same mechanism and a different size. The numeral
+    # is 3x5 because it sits inside a seven-pixel bar; a notice is scanned at
+    # a glance and wants vanilla's proportions. Sizes are per FAMILY, not per
+    # pack, which is what makes both possible at once.
+    label = registry.get("label")
+    label_manifest = {}
+    if label:
+        for ch in label["characters"]:
+            png_rgba(assets / "textures" / "font" / f"label_{label['names'][ch]}.png",
+                     label["width"], label["height"],
+                     text_glyph(LABEL_FONT[ch], label["width"], label["height"],
+                                label["glyph_height"]))
+        base = int(label["base"].removeprefix("U+"), 16)
+        for step, ascent in enumerate(label["ascents"]):
+            if ascent > label["height"]:
+                raise ValueError(f"label ascent {ascent} exceeds height {label['height']}")
+            for offset, ch in enumerate(label["characters"]):
+                providers.append({
+                    "type": "bitmap",
+                    "file": f"moba:font/label_{label['names'][ch]}.png",
+                    "ascent": ascent,
+                    "height": label["height"],
+                    "chars": [chr(base + step * label["stride"] + offset)],
+                })
+            label_manifest[f"asc{ascent}"] = {
+                "base": f"U+{base + step * label['stride']:04X}",
+                "characters": label["characters"],
+            }
+
     # ---- blank the bossbar itself ---------------------------------------
     #
     # Once the bar graphic is gone the bossbar stops being a bar and becomes a
@@ -629,6 +715,7 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
         "hidden_vanilla_sprites": hidden,
         "hud_layers": layer_manifest,
         "text": text_manifest,
+        "label": label_manifest,
     })
     return manifest
 
