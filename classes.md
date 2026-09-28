@@ -807,6 +807,87 @@ has read the ability still knows what it does.
 So a passive whose cooldown shortens at Lv25 is permitted; a passive that starts
 doing something new at Lv25 is not.
 
+## Cast modes and targeting previews
+
+**Settled 28 September 2026.** Block- and area-targeting abilities have a
+problem the rest do not: until they fire, **nothing shows what they will
+affect**. Mole's tunnelling is the live example — direction and the blocks it
+will attempt are undefined until it starts moving and blocks start breaking,
+which is to say until it is too late to have aimed.
+
+A targeting preview answers that, and *when to commit* is a question about the
+**player**, not the ability.
+
+| Mode | Press | Then |
+| --- | --- | --- |
+| **Quick cast** | fires | — |
+| **Hold to cast** | previews | release fires |
+| **Double cast** | previews | same input fires; **any other ability input cancels** |
+
+Quick is the default and is what every ability does today, so the setting adds
+a capability without changing anyone's muscle memory until they ask for it.
+
+### What a mode must never change
+
+> A mode decides **when** the commit happens and whether a preview is drawn in
+> between. It never changes what is cast, where, or for how much.
+
+An ability that behaved differently by cast mode would make the setting a
+**power choice** rather than an input preference, and players would pick the
+strongest rather than the one they can use. Double cast is already the slowest
+and the only one that can be aborted; that is its whole trade.
+
+Abilities that target nothing — a self-buff, a channel with no aim — **ignore
+the mode** rather than growing a preview with nothing in it.
+
+### [OPEN] The preview itself
+
+What a preview looks like is unsettled, and it differs by ability shape:
+tunnelling wants the block run it will attempt, an area ability wants its
+footprint, a projectile wants its line. Block displays, particles and an
+outline are all candidates. Nothing here commits to one.
+
+[OPEN] Whether opponents see a preview. The project's standing preference is
+legibility, but a preview is *pre-commitment information* in a way a cast is
+not — it tells an opponent what is about to happen while it can still be
+cancelled, which Double cast makes free to feint with.
+
+## The lobby carries no match state
+
+**Settled 28 September 2026.** In the lobby there is **no MOBA state at all** —
+no offhand map, no locked inventory slots, no vitals bars, no progression
+scoreboard, no Work Point accrual.
+
+This was not true, and the cause was that every subsystem gated on
+*enrollment*, which is permanent. A player standing in the lobby was carrying a
+match: **the lobby was a match with no opponents.**
+
+The rule is the **world**, not a flag. MOBA state applies while standing in the
+match instance; the lobby, the drafting colosseum and the hub are not it. That
+is legible from where you are standing — which no boolean could be — and it
+cannot drift out of sync with the match lifecycle because it *is* the match
+lifecycle: the instance world is created per match and discarded with it.
+
+Deliberately **not** "is a participant". A spectator or an admin standing in the
+instance sees the same world state as everyone else in it.
+
+### Settings live there, as items
+
+Because the lobby inventory is now the player's own, it has room for something
+that is not a menu. Settings are **immovable items** — the same device the
+offhand map already uses — one slot per setting, clicked to cycle.
+
+An item is **visible without being opened**, which a chest GUI is not: a player
+who has never heard of cast modes still sees it. Adding a second setting is
+adding a slot, which is the property that keeps this from becoming a menu.
+
+**Preferences outlive matches.** Cast mode is stored separately from the
+match-scoped class state that a reset clears — a statement about how a person
+plays must survive a reset, a class change and a new match, or every match
+begins by re-choosing an input scheme.
+
+---
+
 ## Target-conditional abilities
 
 **Settled 28 September 2026.** An ability activated in Ability Mode may resolve

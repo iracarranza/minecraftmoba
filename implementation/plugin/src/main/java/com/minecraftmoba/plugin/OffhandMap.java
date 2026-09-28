@@ -112,7 +112,7 @@ public final class OffhandMap implements Listener {
     public void entityInteractAt(PlayerInteractAtEntityEvent e) { entityInteract(e); }
     @EventHandler(priority = EventPriority.HIGHEST)
     public void death(PlayerDeathEvent e) {
-        if (!plugin.enrolled(e.getPlayer())) return;
+        if (!plugin.inMatchState(e.getPlayer())) return;
         // Vanilla retention keeps the SAME slots. No itemsToKeep/addItem restoration path.
         e.setKeepInventory(true);
         e.getDrops().clear();

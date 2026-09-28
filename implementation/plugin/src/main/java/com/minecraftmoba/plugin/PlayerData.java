@@ -26,6 +26,19 @@ public final class PlayerData {
     public String contribution;
     /** Opaque, class-owned persistent state. The class framework owns its namespace, not its schema. */
     public final Map<String, String> classState = new HashMap<>();
+
+    /**
+     * Player PREFERENCES, which outlive a match.
+     *
+     * Deliberately separate from classState, which is match-scoped and cleared
+     * by reset. A cast mode is a statement about how this person plays and
+     * must survive a reset, a class change and a new match -- clearing it
+     * would make every match start by re-choosing an input scheme.
+     */
+    public final Map<String, String> settings = new HashMap<>();
+
+    /** How this player commits an ability. Survives matches; see settings. */
+    public CastMode castMode() { return CastMode.of(settings.get("castMode")); }
     public final ModeState modeState = new ModeState();
     public PlayerData(UUID uuid) { this.uuid = uuid; }
     public static final class ModeState {

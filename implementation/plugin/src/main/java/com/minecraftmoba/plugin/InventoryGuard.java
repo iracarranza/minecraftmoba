@@ -38,7 +38,7 @@ public final class InventoryGuard implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void click(InventoryClickEvent e) {
-        if (!(e.getWhoClicked() instanceof Player p) || !plugin.enrolled(p)) return;
+        if (!(e.getWhoClicked() instanceof Player p) || !plugin.inMatchState(p)) return;
         boolean own = e.getClickedInventory() instanceof PlayerInventory;
         // Lifting the tome out of the offhand is the recall gesture. The item
         // is never actually removed; the click is consumed instead.
@@ -89,7 +89,7 @@ public final class InventoryGuard implements Listener {
     }
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void pickup(EntityPickupItemEvent e) {
-        if (e.getEntity() instanceof Player p && plugin.enrolled(p)
+        if (e.getEntity() instanceof Player p && plugin.inMatchState(p)
                 && ((!p.getItemOnCursor().isEmpty() && plugin.unlockedSlots(p)<36)
                     || !canAccept(p.getInventory(), e.getItem().getItemStack(), plugin.unlockedSlots(p))))
             e.setCancelled(true);
@@ -156,12 +156,12 @@ public final class InventoryGuard implements Listener {
     public void transfer(InventoryMoveItemEvent e) {
         if (plugin.isMap(e.getItem())) { e.setCancelled(true); return; }
         if (e.getDestination() instanceof PlayerInventory inv && inv.getHolder() instanceof Player p
-                && plugin.enrolled(p) && (plugin.unlockedSlots(p) < 36
+                && plugin.inMatchState(p) && (plugin.unlockedSlots(p) < 36
                     || !canAccept(inv, e.getItem(), plugin.unlockedSlots(p))))
             e.setCancelled(true);
     }
     @EventHandler(priority = EventPriority.HIGHEST)
     public void swap(PlayerSwapHandItemsEvent e) {
-        if (plugin.enrolled(e.getPlayer())) e.setCancelled(true);
+        if (plugin.inMatchState(e.getPlayer())) e.setCancelled(true);
     }
 }

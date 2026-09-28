@@ -489,7 +489,7 @@ public final class WorkPoints implements Listener {
         for (Match.Participant part : match.participants()) {
             if (!part.alive) continue;
             Player p = Bukkit.getPlayer(part.uuid);
-            if (p == null || !plugin.enrolled(p) || !counts(p)) continue;
+            if (p == null || !plugin.inMatchState(p) || !counts(p)) continue;
             Set<String> mine = discovered.computeIfAbsent(part.uuid, k -> new HashSet<>());
             for (var site : worksites.all()) {
                 if (mine.contains(site.id)) continue;

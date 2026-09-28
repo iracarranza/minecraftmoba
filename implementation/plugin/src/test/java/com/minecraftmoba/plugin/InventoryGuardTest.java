@@ -41,7 +41,9 @@ class InventoryGuardTest {
     }
     @Test void slotAndNumberKeyPathsCancelWithoutWritingInventory() {
         var plugin = mock(MobaPlugin.class); var player = mock(Player.class);
-        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        // inMatchState, not enrolled: the guard is MATCH state now, so a
+        // player standing in the lobby keeps their own inventory.
+        when(plugin.inMatchState(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
         var inventory = mock(PlayerInventory.class); var guard = new InventoryGuard(plugin);
         var click = mock(InventoryClickEvent.class);
         when(click.getWhoClicked()).thenReturn(player); when(click.getClickedInventory()).thenReturn(inventory);
@@ -64,7 +66,9 @@ class InventoryGuardTest {
      */
     @Test void craftingSurfaceClicksPassThroughAtPartialCapacity() {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
-        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        // inMatchState, not enrolled: the guard is MATCH state now, so a
+        // player standing in the lobby keeps their own inventory.
+        when(plugin.inMatchState(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
         var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
         when(view.getTopInventory()).thenReturn(top);
         var click=mock(InventoryClickEvent.class);
@@ -78,7 +82,9 @@ class InventoryGuardTest {
     /** Shift-clicking a crafting result out must work; it is how you craft. */
     @Test void shiftClickFromACraftingResultIsNotCancelled() {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
-        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        // inMatchState, not enrolled: the guard is MATCH state now, so a
+        // player standing in the lobby keeps their own inventory.
+        when(plugin.inMatchState(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
         var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
         when(view.getTopInventory()).thenReturn(top);
         var click=mock(InventoryClickEvent.class);
@@ -93,7 +99,9 @@ class InventoryGuardTest {
     /** A number key may take a result, but never into a locked slot. */
     @Test void numberKeyIsAllowedToAnUnlockedSlotAndRefusedToALockedOne() {
         var plugin=mock(MobaPlugin.class); var player=mock(Player.class);
-        when(plugin.enrolled(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
+        // inMatchState, not enrolled: the guard is MATCH state now, so a
+        // player standing in the lobby keeps their own inventory.
+        when(plugin.inMatchState(player)).thenReturn(true); when(plugin.unlockedSlots(player)).thenReturn(6);
         var guard=new InventoryGuard(plugin); var top=mock(Inventory.class); var view=mock(InventoryView.class);
         when(view.getTopInventory()).thenReturn(top);
 
@@ -110,5 +118,30 @@ class InventoryGuardTest {
         when(refused.getAction()).thenReturn(InventoryAction.HOTBAR_SWAP);
         guard.click(refused);
         verify(refused).setCancelled(true);
+    }
+
+    /**
+     * The lobby keeps its own inventory.
+     *
+     * Every subsystem used to gate on enrollment alone, and enrollment is
+     * permanent -- so a player standing in the lobby carried locked slots, the
+     * offhand map, the vitals HUD and the progression scoreboard. The lobby
+     * was a match with no opponents.
+     */
+    @Test void aPlayerOutsideTheMatchIsNotGuarded() {
+        var plugin = mock(MobaPlugin.class);
+        var player = mock(Player.class);
+        when(plugin.inMatchState(player)).thenReturn(false);
+        when(plugin.unlockedSlots(player)).thenReturn(6);
+
+        var inventory = mock(PlayerInventory.class);
+        var click = mock(InventoryClickEvent.class);
+        when(click.getWhoClicked()).thenReturn(player);
+        when(click.getClickedInventory()).thenReturn(inventory);
+        when(click.getSlot()).thenReturn(20);          // well past six
+        when(click.getHotbarButton()).thenReturn(-1);
+
+        new InventoryGuard(plugin).click(click);
+        verify(click, never()).setCancelled(true);
     }
 }

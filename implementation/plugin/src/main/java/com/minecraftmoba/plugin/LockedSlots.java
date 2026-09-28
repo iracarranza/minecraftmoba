@@ -79,7 +79,9 @@ public final class LockedSlots implements Listener {
         // locked. Being unenrolled is an ordinary lobby state, not an error:
         // PlayerJoinEvent fires for everyone, and requiring enrolment merely to
         // avoid a null was what produced the NPE here.
-        if (!plugin.enrolled(p)) { clear(p); return; }
+        // Locked slots are match state. In the lobby the inventory is the
+        // player's own, which is also what makes a settings row possible there.
+        if (!plugin.inMatchState(p)) { clear(p); return; }
         int unlocked = plugin.unlockedSlots(p);
         for (int slot = 0; slot < 36; slot++) {
             ItemStack current = inv.getItem(slot);

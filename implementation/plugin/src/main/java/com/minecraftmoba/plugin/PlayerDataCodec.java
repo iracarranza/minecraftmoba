@@ -5,7 +5,16 @@ import java.util.UUID;
 
 /** Versioned binary PDC payload. Transient mode and derived capacity are excluded. */
 public final class PlayerDataCodec {
-    private static final int FORMAT_VERSION = 2;
+    /**
+     * 3 adds player SETTINGS, appended after classState.
+     *
+     * Version 2 payloads decode unchanged: the settings block is read only
+     * when the version says it is there, so an existing player keeps their
+     * progression and starts on the default cast mode rather than failing to
+     * load. A preference is the one kind of state where losing it silently is
+     * acceptable; losing a level is not.
+     */
+    private static final int FORMAT_VERSION = 3;
     private PlayerDataCodec() {}
     public static byte[] encode(PlayerData data) throws IOException {
         var bytes = new ByteArrayOutputStream();
@@ -21,6 +30,11 @@ public final class PlayerDataCodec {
             for (var choice : data.choices) { out.writeInt(choice.level()); out.writeUTF(choice.choiceId()); }
             out.writeInt(data.classState.size());
             for (var entry : data.classState.entrySet()) { out.writeUTF(entry.getKey()); out.writeUTF(entry.getValue()); }
+            // Settings last, so older readers stop cleanly at the end of what
+            // they understand rather than reading a preference as a class
+            // state key.
+            out.writeInt(data.settings.size());
+            for (var entry : data.settings.entrySet()) { out.writeUTF(entry.getKey()); out.writeUTF(entry.getValue()); }
         }
         return bytes.toByteArray();
     }
@@ -33,7 +47,7 @@ public final class PlayerDataCodec {
                                     TaskLedger taskLedger) throws IOException {
         try (var in = new DataInputStream(new ByteArrayInputStream(bytes))) {
             int version = in.readInt();
-            if (version != 1 && version != FORMAT_VERSION) throw new IOException("Unknown player data format");
+            if (version < 1 || version > FORMAT_VERSION) throw new IOException("Unknown player data format");
             var id = new UUID(in.readLong(), in.readLong());
             if (!id.equals(expected)) throw new IOException("Player UUID mismatch");
             var data = new PlayerData(id);
@@ -58,6 +72,15 @@ public final class PlayerDataCodec {
                     String key = in.readUTF(), value = in.readUTF();
                     if (key.isBlank() || key.length() > 128 || value.length() > 4096) throw new IOException("Invalid class state");
                     data.classState.put(key, value);
+                }
+            }
+            if (version >= 3) {
+                int settingCount = in.readInt();
+                if (settingCount < 0 || settingCount > 256) throw new IOException("Invalid setting count");
+                for (int i = 0; i < settingCount; i++) {
+                    String key = in.readUTF(), value = in.readUTF();
+                    if (key.isBlank() || key.length() > 128 || value.length() > 256) throw new IOException("Invalid setting");
+                    data.settings.put(key, value);
                 }
             }
             if (in.available() != 0) throw new IOException("Unexpected trailing data");

@@ -14,6 +14,18 @@ features:
   # default -- which is the safe direction to fail in.
   noFriendlyFire:
     enabled: true
+  # Settings you hold, in the one place holding things is free.
+  #
+  # The lobby carries no MOBA state at all -- no offhand map, no locked slots,
+  # no vitals, no progression readout -- so the inventory there is the
+  # player's own and has room for something that is not a menu. An immovable
+  # item is visible WITHOUT being opened, which a chest GUI is not.
+  #
+  # Each slot is one setting, clicked to cycle. Adding a second setting is
+  # adding a slot, which is what keeps this from growing into a menu.
+  lobbySettings:
+    enabled: true
+    castModeSlot: 8
   # Team-coloured GROUND inside each objective and Fountain volume.
   #
   # The glowing box cannot be read from inside it, and the ground around an

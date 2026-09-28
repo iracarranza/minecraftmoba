@@ -44,7 +44,10 @@ public final class Hud implements Listener {
     private void refreshAll() { if (enabled()) for (Player p : Bukkit.getOnlinePlayers()) refresh(p); }
 
     public void refresh(Player p) {
-        if (!enabled()) { clear(p); return; }
+        // The progression readout is MATCH state. Level, XP, class and the
+        // capacity row all describe a match, and showing them in the lobby
+        // made the lobby look like one.
+        if (!enabled() || !plugin.inMatchState(p)) { clear(p); return; }
         var d = plugin.data(p);
         if (d == null) return;
         Scoreboard board = p.getScoreboard();

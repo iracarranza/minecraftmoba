@@ -238,6 +238,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         lab = new Lab(this);
         hudProbe = new HudProbe(this);
         hudNotice = new HudNotice(this);
+        lobbySettings = new LobbySettings(this);
+        getServer().getPluginManager().registerEvents(lobbySettings, this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
@@ -357,6 +359,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public HudProbe hudProbe() { return hudProbe; }
     private HudNotice hudNotice;
     public HudNotice hudNotice() { return hudNotice; }
+    private LobbySettings lobbySettings;
+    public LobbySettings lobbySettings() { return lobbySettings; }
     private ToolboxStatuses toolboxStatuses;
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private UtilityBelt utilityBelt;
@@ -577,6 +581,31 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     public PlayerData data(Player p) { return players.get(p.getUniqueId()); }
     public boolean enrolled(Player p) { return players.containsKey(p.getUniqueId()); }
+
+    /**
+     * Whether MOBA state applies to this player right now.
+     *
+     * Enrollment alone was the gate everywhere, and enrollment is permanent --
+     * so a player standing in the lobby carried the offhand map, locked
+     * inventory slots, the vitals HUD, the progression scoreboard and Work
+     * Point accrual. The lobby was a match with no opponents.
+     *
+     * The rule is the WORLD, not a flag. A player is in MOBA state when they
+     * are standing in the match instance; the lobby, the drafting colosseum
+     * and the hub are not it. That is legible from where you are standing,
+     * which no boolean on PlayerData would be, and it cannot drift out of
+     * sync with the match lifecycle because it IS the match lifecycle -- the
+     * instance world is created per match and discarded with it.
+     *
+     * Deliberately not "is a participant": a spectator or an admin standing in
+     * the instance should see the same world state as everyone in it.
+     */
+    public boolean inMatchState(Player p) {
+        if (!enrolled(p)) return false;
+        if (worldInstance == null) return false;
+        var instance = worldInstance.world();
+        return instance != null && p.getWorld().equals(instance);
+    }
     public boolean isMap(org.bukkit.inventory.ItemStack item) { return offhandMap.isMap(item); }
     /** Unlocked slots, or the full inventory for an unenrolled lobby player. */
     public int unlockedSlots(Player p) {
@@ -699,6 +728,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         p.setExp(d.level == settings.maxLevel() ? 0 : Math.min(1f, (float)d.xp / Math.max(1, cost)));
         save(p, d);
         rewards.refresh(p);
+        if (lobbySettings != null) lobbySettings.refresh(p);
     }
     @EventHandler public void join(PlayerJoinEvent e) {
         load(e.getPlayer());

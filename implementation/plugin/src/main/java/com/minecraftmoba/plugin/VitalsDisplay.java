@@ -404,7 +404,7 @@ public final class VitalsDisplay implements Listener {
      * exactly an invisible bar, so the idle state still costs nothing.
      */
     public void refresh(Player p) {
-        if (!enabled() || !plugin.enrolled(p)) { clear(p); return; }
+        if (!enabled() || !plugin.inMatchState(p)) { clear(p); return; }
         var selection = plugin.selection();
         var clock = selection == null ? null : selection.clock(p);
 
