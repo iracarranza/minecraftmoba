@@ -45,14 +45,21 @@ public final class HudLayer {
     /**
      * Layers in declared order, which is how their codepoints are assigned.
      *
-     * Sorted alphabetically by the build, which is why the names carry an
-     * ordering prefix: the offsets have to be stable against someone adding a
-     * layer, and a name that sorts into the middle would shift every later one
+     * Sorted alphabetically by the build, which is why the names are
+     * zero-padded: the offsets have to be stable against someone adding a
+     * layer, and a name sorting into the middle would shift every later one
      * silently. The same defect the vitals glyphs took explicit codepoints to
      * avoid.
+     *
+     * Named for the ASCENT they carry rather than for a place on screen. The
+     * first live reading killed the earlier names: `hotbar_above` and
+     * `abilities_over` at ascents of 20 and 32 cleared the bossbar by a few
+     * pixels and came nowhere near the hotbar, which sits roughly 200 GUI
+     * pixels lower. A name that claims a position the layer does not reach is
+     * worse than no name, so these claim only what is measured.
      */
     public static final List<String> LAYERS =
-            List.of("a_baseline", "b_hotbar_above", "c_hotbar_above_2", "d_abilities_over");
+            List.of("asc008", "asc064", "asc128", "asc224");
 
     /** The negative-space character advancing -1 pixel. */
     public static final String BACK_ONE = String.valueOf((char) 0xF001);

@@ -134,23 +134,25 @@
   "fixtures": "[BALANCE FIXTURE -- expect to tune] Every ascent below is a guess. Step one of docs/design/HUD_LAYER.md is measuring them against a real client with the probe glyph; nothing should be designed around these numbers until it has.",
   "base": "U+E200",
   "layers": {
-   "a_baseline": {
+   "asc008": {
     "ascent": 8,
-    "height": 32
+    "height": 256
    },
-   "b_hotbar_above": {
-    "ascent": 20,
-    "height": 32
+   "asc064": {
+    "ascent": 64,
+    "height": 256
    },
-   "c_hotbar_above_2": {
-    "ascent": 28,
-    "height": 32
+   "asc128": {
+    "ascent": 128,
+    "height": 256
    },
-   "d_abilities_over": {
-    "ascent": 32,
-    "height": 32
+   "asc224": {
+    "ascent": 224,
+    "height": 256
    }
-  }
+  },
+  "measured_27_september_2026": "First live reading: ascent moves the glyph UP, about one GUI pixel per unit, and the whole 8..32 range cleared the bossbar by only a few pixels. The hotbar is roughly 200 GUI pixels below the bossbar line, so the earlier names -- hotbar_above, abilities_over -- were aspirational by an order of magnitude. These layers are now named for the ascent they carry, which is the only thing about them that is known.",
+  "height_buys_reach": "ascent cannot exceed height, and height SCALES the texture, so a high glyph must be declared tall AND drawn only in the bottom rows of a tall transparent canvas. That is the shape every real element needs, not a probe trick."
  },
  "bossbar_sprites": {
   "purpose": "Blank the bossbar graphic so only the title renders. Once the bar is gone the bossbar stops being a bar and becomes a line of text we own, which is the whole technique.",

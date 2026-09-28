@@ -56,6 +56,20 @@ public final class VitalsDisplay implements Listener {
 
     private static final Key FONT = Key.key("moba", "glyphs");
 
+    /**
+     * The vanilla font, named EXPLICITLY on anything that is ordinary text.
+     *
+     * Adventure children inherit their parent's font, and the numeral is
+     * appended to the health bar -- whose root carries {@code moba:glyphs}. So
+     * "900/900" inherited the glyph font, where digits and the slash are
+     * unmapped, and rendered as seven tofu boxes between the two bars. Visible
+     * in the first working screenshot of this HUD.
+     *
+     * Inheritance is the trap: nothing about the numeral's own code says it is
+     * in a custom font, and it is the parent three lines up that decides.
+     */
+    private static final Key DEFAULT_FONT = Key.key("minecraft", "default");
+
     private final MobaPlugin plugin;
     private final Map<UUID, BossBar> bars = new HashMap<>();
 
@@ -93,6 +107,7 @@ public final class VitalsDisplay implements Listener {
         if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals"))
             out = out.append(Component.text("  " + Math.round(p.getHealth() * scale)
                                             + "/" + Math.round(maxHealth * scale))
+                                      .font(DEFAULT_FONT)
                                       .color(colour("health")));
         return out.append(Component.text("   ")).append(hunger);
     }

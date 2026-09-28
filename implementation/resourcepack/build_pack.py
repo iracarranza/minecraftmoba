@@ -242,39 +242,43 @@ def codepoint(index: int) -> str:
 
 
 
-def probe_glyph(size: int = 32):
-    """A deliberately ugly ruler, for finding out where a layer actually lands.
+def probe_glyph(width: int = 32, height: int = 256):
+    """A ruler, anchored to the BOTTOM of a tall mostly-empty canvas.
 
-    The documentation cannot answer where a glyph at a given `ascent` renders
-    on screen, or whether an extreme one clips. Only a client can, so this is
-    built to be MEASURED rather than to look like anything:
+    The first measurement is why this shape is necessary. `ascent` cannot
+    exceed `height` -- the client rejects such a provider outright -- so a
+    glyph that sits high on screen must also be declared TALL. But `height`
+    SCALES the texture, so drawing the ruler across the whole canvas would
+    render 256 pixels of ruler.
 
-      - a 1px full-height left edge, so the horizontal origin is exact;
-      - a 1px full-width bottom edge, so the baseline is exact;
-      - a tick every 8px along both edges, so distances can be counted off a
-        screenshot without trusting a guess about scale;
-      - a hollow body, so whatever is behind it stays readable.
+    Tall and transparent, with the marks in the bottom `foot` rows, separates
+    the two: height buys reach, and the drawn part stays the size it was.
+    That is the general shape every real HUD element will need, not a trick
+    for the probe.
 
-    Solid fill was rejected: a solid block tells you it rendered and nothing
-    else, and "it rendered" is the one thing that was never in doubt.
+    The marks themselves: a full-height left edge for the origin, a full-width
+    bottom edge for the baseline, and red ticks every 8px along both, so a
+    screenshot yields distances without trusting a guess about scale.
     """
-    px = [(0, 0, 0, 0)] * (size * size)
+    foot = 32
+    px = [(0, 0, 0, 0)] * (width * height)
 
     def put(x, y, colour):
-        if 0 <= x < size and 0 <= y < size:
-            px[y * size + x] = colour
+        if 0 <= x < width and 0 <= y < height:
+            px[y * width + x] = colour
 
     edge = (255, 255, 255, 255)
     tick = (255, 0, 0, 255)
-    for y in range(size):
+    for row in range(foot):
+        y = height - foot + row
         put(0, y, edge)
-        if y % 8 == 0:
+        if row % 8 == 0:
             for x in range(1, 4):
                 put(x, y, tick)
-    for x in range(size):
-        put(x, size - 1, edge)
+    for x in range(width):
+        put(x, height - 1, edge)
         if x % 8 == 0:
-            for y in range(size - 4, size - 1):
+            for y in range(height - 4, height - 1):
                 put(x, y, tick)
     return px
 
@@ -439,7 +443,7 @@ def build(registry: dict, out: Path, hide_native_rows: bool = False):
     layers = registry.get("hud_layers", {})
     layer_manifest = {}
     if layers:
-        png_rgba(assets / "textures" / "font" / "hud_probe.png", 32, 32, probe_glyph(32))
+        png_rgba(assets / "textures" / "font" / "hud_probe.png", 32, 256, probe_glyph(32, 256))
         base = int(layers["base"].removeprefix("U+"), 16)
         for offset, (name, layer) in enumerate(sorted(layers["layers"].items())):
             ascent, height = layer["ascent"], layer["height"]

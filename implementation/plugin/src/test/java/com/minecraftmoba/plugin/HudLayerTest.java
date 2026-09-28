@@ -10,10 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * HUD placement, by arithmetic.
  *
- * The pin to registry.json is the point: the plugin emits codepoints the pack
- * has to have mapped, and a mismatch renders as tofu rather than as a wrong
- * icon -- so nothing about it looks like a bug until somebody says the HUD is
- * blank.
+ * The pins to registry.json and build_pack.py are the point: the plugin emits
+ * codepoints the pack has to have mapped, and a mismatch renders as tofu
+ * rather than as a wrong icon -- so nothing about it looks like a bug until
+ * somebody says the HUD is blank. Three separate tofu defects had to be found
+ * by looking at a screenshot before these existed.
  */
 class HudLayerTest {
 
@@ -29,27 +30,47 @@ class HudLayerTest {
     /**
      * Codepoints follow the layer list's order, and the build sorts by name.
      *
-     * That is why the names carry an ordering prefix: a layer added later with
-     * a name sorting into the middle would shift every codepoint after it
-     * silently. The vitals glyphs took explicit codepoints for exactly this.
+     * That is why the names are zero-padded: a layer added later with a name
+     * sorting into the middle would shift every codepoint after it silently.
+     * The vitals glyphs took explicit codepoints for exactly this.
      */
     @Test void layerCodepointsAreAssignedInDeclaredOrder() {
-        assertEquals("", HudLayer.glyph("a_baseline"));
-        assertEquals("", HudLayer.glyph("d_abilities_over"));
+        assertEquals(String.valueOf((char) 0xE200), HudLayer.glyph(HudLayer.LAYERS.getFirst()));
+        assertEquals(String.valueOf((char) 0xE203), HudLayer.glyph(HudLayer.LAYERS.getLast()));
         assertEquals(HudLayer.LAYERS, HudLayer.LAYERS.stream().sorted().toList(),
                 "the build sorts layers by name, so the declared order must already be sorted");
     }
 
     @Test void anUnknownLayerIsRefusedAndNamesTheDeclaredOnes() {
         var thrown = assertThrows(IllegalArgumentException.class, () -> HudLayer.glyph("nope"));
-        assertTrue(thrown.getMessage().contains("a_baseline"), thrown.getMessage());
+        assertTrue(thrown.getMessage().contains(HudLayer.LAYERS.getFirst()), thrown.getMessage());
+    }
+
+    /**
+     * Layers are named for their ASCENT, never for a place on screen.
+     *
+     * The first live reading killed the earlier names. `hotbar_above` at
+     * ascent 20 and `abilities_over` at 32 cleared the bossbar by a few pixels
+     * and came nowhere near the hotbar, which sits roughly 200 GUI pixels
+     * lower. A name claiming a position the layer does not reach is worse than
+     * no name, so these claim only what is measured.
+     */
+    @Test void layerNamesClaimOnlyTheirAscent() throws Exception {
+        String registry = Files.readString(Path.of("../resourcepack/registry.json"));
+        for (String layer : HudLayer.LAYERS) {
+            assertTrue(layer.matches("asc\\d{3}"), layer + " must be named for its ascent");
+            int ascent = Integer.parseInt(layer.substring(3));
+            assertTrue(registry.contains("\"ascent\": " + ascent),
+                    "layer " + layer + " claims ascent " + ascent
+                            + ", which the pack does not declare");
+        }
     }
 
     // ---- horizontal placement --------------------------------------------
 
     /** Negative space maps U+F000+n to an advance of -n. */
     @Test void aSmallLeftShiftIsOneCharacter() {
-        assertEquals("", HudLayer.left(10));
+        assertEquals(String.valueOf((char) 0xF00A), HudLayer.left(10));
     }
 
     /** Beyond the font's range it is several characters, never one wrong one. */
@@ -70,7 +91,7 @@ class HudLayerTest {
     @Test void aRightShiftOvershootsInSpacesAndReturns() {
         String shift = HudLayer.right(10);
         assertEquals(3, shift.chars().filter(c -> c == ' ').count(), "3 spaces is 12px");
-        assertTrue(shift.endsWith(""), "and 2px back, for a net 10");
+        assertTrue(shift.endsWith(String.valueOf((char) 0xF002)), "and 2px back, for a net 10");
     }
 
     /** An exact multiple of a space needs no correction at all. */
@@ -84,8 +105,8 @@ class HudLayerTest {
     }
 
     @Test void placementPutsTheOffsetBeforeTheGlyph() {
-        assertEquals(HudLayer.left(8) + HudLayer.glyph("b_hotbar_above"),
-                HudLayer.at("b_hotbar_above", -8));
+        String layer = HudLayer.LAYERS.get(1);
+        assertEquals(HudLayer.left(8) + HudLayer.glyph(layer), HudLayer.at(layer, -8));
     }
 
     // ---- the pack must actually map what the plugin emits -----------------
@@ -97,7 +118,7 @@ class HudLayerTest {
      * glyphs with U+F001 to correct their advance, so if negative space is
      * only in `moba:space`, every correction character is unmapped inside
      * `moba:glyphs` and the bar draws one tofu box per unit -- 128 of them per
-     * vitals bar. That is what the first live look at the bar actually showed.
+     * vitals bar. That is what the first live look at the bar showed.
      */
     @Test void theGlyphFontCarriesItsOwnNegativeSpace() throws Exception {
         String build = Files.readString(Path.of("../resourcepack/build_pack.py"));
@@ -120,5 +141,20 @@ class HudLayerTest {
         assertTrue(write > lastAppend,
                 "glyphs.json is written before the last providers.append, so those "
                         + "providers never reach the pack");
+    }
+
+    /**
+     * Height buys reach, and the drawn part must not grow with it.
+     *
+     * `ascent` cannot exceed `height`, and `height` SCALES the texture. So a
+     * glyph placed high must be declared tall AND drawn only in the bottom
+     * rows of a tall transparent canvas. Otherwise reaching the hotbar means
+     * 256 pixels of ruler.
+     */
+    @Test void theProbeIsDrawnOnlyInTheFootOfATallCanvas() throws Exception {
+        String build = Files.readString(Path.of("../resourcepack/build_pack.py"));
+        assertTrue(build.contains("foot = 32"), "the drawn region is a fixed foot");
+        assertTrue(build.contains("probe_glyph(32, 256)"),
+                "the canvas is tall so ascent has somewhere to reach");
     }
 }
