@@ -48,7 +48,7 @@ public final class HudLabel {
      * every glyph in the family, not just the high one.
      */
     public static final List<Integer> ASCENTS =
-            List.of(60, 73, 150, 200);
+            List.of(73, 150, 200, 254);
     /** Three pixels of glyph plus vanilla's one of spacing. */
     public static final int ADVANCE = 4;
 

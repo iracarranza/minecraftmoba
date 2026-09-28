@@ -374,15 +374,15 @@
   "height": 256,
   "advance": 4,
   "ascents": [
-   60,
    73,
    150,
-   200
+   200,
+   254
   ],
   "stride": 64,
   "lowercase_paths": "Resource locations must match [a-z0-9/._-]. An uppercase letter in a path makes the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every glyph goes tofu, including families that were working. That is what label_A.png did, and why adding a face broke the bars. Letters are prefixed 'u' and lowercased so the names stay readable and cannot collide with the digits on a case-insensitive filesystem.",
   "size_note": "3x5, matched to the numeral rather than to vanilla. A notice is an annotation on the HUD, and at 5x7 it competed with the ability row above it for attention a refusal does not deserve -- it is read once and then ignored.",
-  "ascents_note": "Higher is higher on screen, and the CEILING IS THE HEIGHT: a provider's ascent may not exceed it, so with a 256-row canvas 256 is the top -- the glyph's foot then sits on the bossbar's own baseline. 270 is not reachable without a taller canvas, which costs atlas area on every glyph in the family. 150 and 200 are the headroom that was actually wanted."
+  "ascents_note": "Higher is higher on screen, and 254 is two rows under the ceiling: a provider's ascent may not exceed its height, and the canvas is 256 rows, at which the glyph's foot sits on the bossbar's own baseline. 60 was dropped to pay for 254 rather than added to -- four heights is 176 tall glyphs and the budget is 256 across every family."
  },
  "atlas": {
   "atlas_budget": 256,
