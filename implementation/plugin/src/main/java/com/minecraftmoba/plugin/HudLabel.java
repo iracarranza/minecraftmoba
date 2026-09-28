@@ -6,10 +6,12 @@ import java.util.Locale;
 /**
  * Notice text, drawn at a chosen height.
  *
- * A second face beside {@link HudText}, at the same mechanism and a different
- * size. The numeral is 3x5 because it sits inside a seven-pixel bar; a notice
- * is scanned at a glance and keeps vanilla's 5x7 proportions. Glyph size is a
- * property of a FAMILY rather than of the pack, which is what lets both exist.
+ * A second face beside {@link HudText}, at the same mechanism and the same
+ * 3x5 size. It was 5x7 first, on the reasoning that a notice is scanned rather
+ * than read -- but on screen it competed with the ability row above it for
+ * attention a refusal does not deserve, being read once and then ignored.
+ * Glyph size is a property of a FAMILY rather than of the pack, so matching
+ * them is a choice rather than a constraint.
  *
  * <h2>Uppercase only</h2>
  *
@@ -39,8 +41,8 @@ public final class HudLabel {
     /** Must match registry.json `label.ascents`. */
     public static final List<Integer> ASCENTS =
             List.of(66, 73, 80);
-    /** Five pixels of glyph plus vanilla's one of spacing. */
-    public static final int ADVANCE = 6;
+    /** Three pixels of glyph plus vanilla's one of spacing. */
+    public static final int ADVANCE = 4;
 
     /**
      * A space is the SPACE FONT's own, not a blank bitmap.

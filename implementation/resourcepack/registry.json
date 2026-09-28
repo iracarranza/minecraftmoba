@@ -371,17 +371,18 @@
    "-": "dash",
    "'": "apos"
   },
-  "width": 5,
-  "glyph_height": 7,
+  "width": 3,
+  "glyph_height": 5,
   "height": 256,
-  "advance": 6,
+  "advance": 4,
   "ascents": [
    66,
    73,
    80
   ],
   "stride": 64,
-  "lowercase_paths": "Resource locations must match [a-z0-9/._-]. An uppercase letter in a path makes the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every glyph goes tofu, including families that were working. That is what label_A.png did, and why adding a face broke the bars. Letters are prefixed 'u' and lowercased so the names stay readable and cannot collide with the digits on a case-insensitive filesystem."
+  "lowercase_paths": "Resource locations must match [a-z0-9/._-]. An uppercase letter in a path makes the pack invalid and the FONT FAILS TO LOAD ENTIRELY -- every glyph goes tofu, including families that were working. That is what label_A.png did, and why adding a face broke the bars. Letters are prefixed 'u' and lowercased so the names stay readable and cannot collide with the digits on a case-insensitive filesystem.",
+  "size_note": "3x5, matched to the numeral rather than to vanilla. A notice is an annotation on the HUD, and at 5x7 it competed with the ability row above it for attention a refusal does not deserve -- it is read once and then ignored."
  },
  "atlas": {
   "atlas_budget": 256,

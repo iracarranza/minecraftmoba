@@ -147,11 +147,28 @@ class HudLabelTest {
         assertNotEquals(' ', drawn.charAt(0));
     }
 
-    /** And width has to agree, or the net-zero arithmetic is wrong again. */
-    @Test void widthCountsASpaceAsTheSpaceFontsAdvance() {
-        assertEquals(2 * HudLabel.ADVANCE + HudLabel.SPACE_ADVANCE, HudLabel.width("A B"));
-        assertNotEquals(3 * HudLabel.ADVANCE, HudLabel.width("A B"),
-                "counting a space as a full glyph is what pushed the bars right");
+    /**
+     * Width must equal the sum of what {@link HudLabel#at} actually emits.
+     *
+     * This is the invariant the whole layout rests on: the title is built to a
+     * net advance of zero, so any disagreement between the arithmetic and the
+     * emission moves the centre and takes the health and hunger bars with it.
+     *
+     * Stated as a sum over the string rather than as a comparison between a
+     * space and a glyph, because at 3x5 the two advances happen to coincide --
+     * so the old form of this test would now pass whatever the code did. The
+     * discriminating check lives in the emission test above.
+     */
+    @Test void widthEqualsWhatIsEmitted() {
+        for (String text : java.util.List.of("A B", "ON COOLDOWN 12.5S", "@", "  ", "ABILITY")) {
+            int expected = 0;
+            for (char c : text.toUpperCase(java.util.Locale.ROOT).toCharArray())
+                expected += (c != ' ' && HudLabel.CHARACTERS.indexOf(c) >= 0)
+                        ? HudLabel.ADVANCE : HudLabel.SPACE_ADVANCE;
+            assertEquals(expected, HudLabel.width(text), text);
+            assertEquals(text.length(), HudLabel.at(73, text).length(),
+                    "one emitted character per input character, or the sum is wrong");
+        }
     }
 
     /**
