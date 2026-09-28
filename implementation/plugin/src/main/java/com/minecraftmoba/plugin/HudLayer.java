@@ -51,15 +51,20 @@ public final class HudLayer {
      * silently. The same defect the vitals glyphs took explicit codepoints to
      * avoid.
      *
-     * Named for the ASCENT they carry rather than for a place on screen. The
-     * first live reading killed the earlier names: `hotbar_above` and
-     * `abilities_over` at ascents of 20 and 32 cleared the bossbar by a few
-     * pixels and came nowhere near the hotbar, which sits roughly 200 GUI
-     * pixels lower. A name that claims a position the layer does not reach is
-     * worse than no name, so these claim only what is measured.
+     * Named for the ASCENT they carry rather than for a place on screen, and
+     * they stay that way now that the placement IS known. The first live
+     * reading killed the earlier semantic names -- `hotbar_above` at ascent 20
+     * cleared the bossbar by a few pixels and came nowhere near the hotbar --
+     * and a name is exactly the thing that survives a later change to what a
+     * layer is used for.
+     *
+     * Where they land, measured: the foot of a height-256 glyph sits at
+     * {@code ascent - 26} GUI pixels above the bottom of the screen. So
+     * placing something is {@code ascent = height_wanted + 26}, and
+     * {@code registry.json} records which layer is meant for what.
      */
     public static final List<String> LAYERS =
-            List.of("asc008", "asc064", "asc128", "asc224");
+            List.of("asc008", "asc048", "asc050", "asc064", "asc072", "asc128", "asc224");
 
     /** The negative-space character advancing -1 pixel. */
     public static final String BACK_ONE = String.valueOf((char) 0xF001);

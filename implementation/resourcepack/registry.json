@@ -138,8 +138,20 @@
     "ascent": 8,
     "height": 256
    },
+   "asc048": {
+    "ascent": 48,
+    "height": 256
+   },
+   "asc050": {
+    "ascent": 50,
+    "height": 256
+   },
    "asc064": {
     "ascent": 64,
+    "height": 256
+   },
+   "asc072": {
+    "ascent": 72,
     "height": 256
    },
    "asc128": {
@@ -151,8 +163,18 @@
     "height": 256
    }
   },
-  "measured_27_september_2026": "First live reading: ascent moves the glyph UP, about one GUI pixel per unit, and the whole 8..32 range cleared the bossbar by only a few pixels. The hotbar is roughly 200 GUI pixels below the bossbar line, so the earlier names -- hotbar_above, abilities_over -- were aspirational by an order of magnitude. These layers are now named for the ascent they carry, which is the only thing about them that is known.",
-  "height_buys_reach": "ascent cannot exceed height, and height SCALES the texture, so a high glyph must be declared tall AND drawn only in the bottom rows of a tall transparent canvas. That is the shape every real element needs, not a probe trick."
+  "measured_27_september_2026": "MEASURED against a real client, height 256, marks in the bottom 32 rows. asc008 fell off the bottom of the screen; asc064 landed on the XP level number; asc128 sat slightly below the crosshair; asc224 sat midway between the crosshair and the bossbar. Those four fit one straight line: the foot of a height-256 glyph lands at (ascent - 26) GUI pixels above the bottom of the screen, and the screen is about 256 GUI pixels tall -- which is why asc128 is near the middle. One ascent unit is one GUI pixel, and the 26 is the bossbar baseline's own offset.",
+  "height_buys_reach": "ascent cannot exceed height, and height SCALES the texture, so a high glyph must be declared tall AND drawn only in the bottom rows of a tall transparent canvas. That is the shape every real element needs, not a probe trick.",
+  "placing_something": "ascent = desired_height_above_screen_bottom + 26, for height 256. A different height moves the whole line, since the foot sits (height - ascent) below the baseline -- so keep 256 unless there is a reason not to.",
+  "intended_use": {
+   "asc008": "off the bottom of the screen -- kept as the negative control",
+   "asc048": "hotbar top, ~22px",
+   "asc050": "just above the hotbar: the vitals bars",
+   "asc064": "the XP level number, ~38px -- the anchor this was measured from",
+   "asc072": "above the XP bar: the ability-refusal line",
+   "asc128": "screen centre, beside the crosshair",
+   "asc224": "upper quarter"
+  }
  },
  "bossbar_sprites": {
   "purpose": "Blank the bossbar graphic so only the title renders. Once the bar is gone the bossbar stops being a bar and becomes a line of text we own, which is the whole technique.",

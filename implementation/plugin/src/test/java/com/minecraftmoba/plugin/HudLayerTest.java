@@ -36,7 +36,9 @@ class HudLayerTest {
      */
     @Test void layerCodepointsAreAssignedInDeclaredOrder() {
         assertEquals(String.valueOf((char) 0xE200), HudLayer.glyph(HudLayer.LAYERS.getFirst()));
-        assertEquals(String.valueOf((char) 0xE203), HudLayer.glyph(HudLayer.LAYERS.getLast()));
+        assertEquals(String.valueOf((char) (0xE200 + HudLayer.LAYERS.size() - 1)),
+                HudLayer.glyph(HudLayer.LAYERS.getLast()),
+                "codepoints run contiguously from the base, however many layers there are");
         assertEquals(HudLayer.LAYERS, HudLayer.LAYERS.stream().sorted().toList(),
                 "the build sorts layers by name, so the declared order must already be sorted");
     }

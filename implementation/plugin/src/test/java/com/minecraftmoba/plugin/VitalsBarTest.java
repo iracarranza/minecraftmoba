@@ -274,4 +274,36 @@ class VitalsBarTest {
         assertTrue(cfg.getBoolean("features.vitalsBar.showNumerals"),
                 "nothing reads an exact total off a bar; the numeral is what x100 was for");
     }
+
+    // ---- the two scales must not be mixed ---------------------------------
+
+    /**
+     * A full bar reads as full, never as more than full.
+     *
+     * Under scaling every player's attribute is DISPLAY_MAX, and Capacity
+     * decides what a point is worth. So health arrives on the 0..20 display
+     * scale while Capacity is in effective points, and dividing one by the
+     * other reported a level 30 Lightfooted at 2000/1900 -- 105% of their own
+     * maximum, at full health.
+     *
+     * The fill is measured against DISPLAY_MAX; the numeral converts back
+     * through Vitals. Both ends then agree.
+     */
+    @Test void fullHealthIsNeverMoreThanTheMaximum() {
+        double capacity = 19.0;                       // Lightfooted at Lv30
+        double displayed = Vitals.DISPLAY_MAX;        // what the attribute allows
+
+        assertEquals(VitalsBar.FILL_WIDTH, VitalsBar.level(displayed, Vitals.DISPLAY_MAX));
+        assertEquals(Math.round(capacity * 100),
+                Math.round(Vitals.toEffective(displayed, capacity) * 100),
+                "1900/1900, not 2000/1900");
+    }
+
+    /** And the conversion is not a special case for the full bar alone. */
+    @Test void halfABarReadsAsHalfTheCapacity() {
+        double capacity = 19.0;
+        double displayed = Vitals.DISPLAY_MAX / 2;
+        assertEquals(950, Math.round(Vitals.toEffective(displayed, capacity) * 100));
+        assertEquals(VitalsBar.FILL_WIDTH / 2, VitalsBar.level(displayed, Vitals.DISPLAY_MAX));
+    }
 }

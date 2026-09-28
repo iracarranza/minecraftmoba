@@ -97,7 +97,16 @@ public final class VitalsDisplay implements Listener {
         int interval = plugin.getConfig().getInt("features.vitalsBar.tickInterval");
         int scale = plugin.getConfig().getInt("features.vitalsBar.displayScale");
 
-        Component health = bar(VitalsBar.level(p.getHealth(), maxHealth),
+        // p.getHealth() is the DISPLAYED 0..20 under scaling, not effective
+        // points: VitalsScaling sets every player's attribute to DISPLAY_MAX
+        // and lets Capacity decide what a point is worth. So the fill is
+        // measured against DISPLAY_MAX, and the numeral converts back.
+        //
+        // Dividing by Capacity instead is what produced "2000/1900" on a
+        // level 30 Lightfooted -- a player at full health reading as 105% of
+        // their own maximum, because the numerator was on one scale and the
+        // denominator on the other.
+        Component health = bar(VitalsBar.level(p.getHealth(), Vitals.DISPLAY_MAX),
                                VitalsBar.tickUnits(maxHealth * scale, interval),
                                colour("health"));
         Component hunger = bar(VitalsBar.level(p.getFoodLevel(), Vitals.DISPLAY_MAX),
@@ -105,7 +114,8 @@ public final class VitalsDisplay implements Listener {
 
         Component out = health;
         if (plugin.getConfig().getBoolean("features.vitalsBar.showNumerals"))
-            out = out.append(Component.text("  " + Math.round(p.getHealth() * scale)
+            out = out.append(Component.text("  "
+                                            + Math.round(Vitals.toEffective(p.getHealth(), maxHealth) * scale)
                                             + "/" + Math.round(maxHealth * scale))
                                       .font(DEFAULT_FONT)
                                       .color(colour("health")));
