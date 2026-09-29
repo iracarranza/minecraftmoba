@@ -18,6 +18,8 @@ final class TestAbilities {
         if (p.getConfig().getConfigurationSection("abilities.definitions.lightfooted_bounding") != null) ids.add("lightfooted_bounding");
         if (p.getConfig().getConfigurationSection("abilities.definitions.lightfooted_lucky_foot") != null) ids.add("lightfooted_lucky_foot");
         if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_runway") != null) ids.add("daredevil_runway");
+        if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_crash") != null) ids.add("daredevil_crash");
+        if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_clutches") != null) ids.add("daredevil_clutches");
         for (String id : ids) {
             var c = Objects.requireNonNull(p.getConfig().getConfigurationSection("abilities.definitions." + id));
             result.put(id, new Configured(id, c));
@@ -40,6 +42,8 @@ final class TestAbilities {
                 case "lightfooted_bounding" -> { ctx.plugin().lightfooted().beginBounding(p); yield true; }
                 case "lightfooted_lucky_foot" -> { ctx.plugin().lightfooted().luckyFoot(p); yield true; }
                 case "daredevil_runway" -> ctx.plugin().daredevil().runway(p);
+                case "daredevil_crash" -> ctx.plugin().daredevil().crash(p);
+                case "daredevil_clutches" -> ctx.plugin().daredevil().deathlyClutches(p);
                 case "sinkhole_lite" -> sinkhole(p, ctx);
                 case "channel_ult" -> { ctx.inputs().channel(p, config.getLong("channelTicks"), config.getDouble("movementThreshold")); yield true; }
                 default -> throw new IllegalStateException("Unknown test ability");
