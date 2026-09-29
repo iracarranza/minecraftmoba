@@ -2893,8 +2893,19 @@ Skeleton Crew ([section 15](#15-skeleton-crew)) and Lightfooted ([section 16](#1
 ### Daredevil — kit supplied 13 September 2026
 Exploration and Combat, per [K7]. The kit supplies the previously missing Ability 2 and ultimate. See [section 17](#17-daredevil). [OPEN] Whether this equals a completed conceptual pass is the owner's call.
 
+### Bloodmason — proposed 28 September 2026
+Primary:
+- Construction
+
+Secondary:
+- Combat
+
+Working, per the proposal. Combat emerges from how the constructions manipulate fights rather than from authored damage. The kit, both branch trees and the ultimate were supplied together; see [section 20](#20-bloodmason). [OPEN] Whether this equals a completed conceptual pass is the owner's call. Feasibility was assessed on 28 September 2026 in the same section: the physiology is nearly free, the Athanor Anatomb is the majority of the cost, and Stun must be built as a status before the class can be.
+
 ### Unsettled drafts
-None. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
+None of the original roster. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
+
+Bloodmason is a **new proposal** rather than a promoted draft, and is not yet settled.
 
 ---
 
@@ -3751,3 +3762,455 @@ class is built on.
   Circuit radius, Ultimate duration.
 - The boundary between circuit components and payload inventory, which both
   Dispenser and Dropper read as "the first item".
+
+---
+
+# 20. Bloodmason
+
+**Proposed 28 September 2026.** Kit, both branch trees and the ultimate were
+supplied together. Reproduced as given, with the feasibility assessment added
+below rather than folded into the design.
+
+Archetypes: Construction primary · Combat secondary (working)
+
+Hook: Bloodmason externalizes their physiology into temporary physical
+architecture. Hemostasis determines what form that anatomy can successfully
+take.
+
+Combat emerges from how the constructions manipulate fights rather than from
+authored damage — the same authored-versus-systemic line
+[section 19](#19-toolbox) draws for Toolbox.
+
+## Passive — Hemostasis
+
+Bloodmason has **0–6 Hemostasis, starting at 3**. A1 decreases it; A2 increases
+it.
+
+- Low Hemostasis increases knockback received.
+- High Hemostasis decreases knockback received.
+
+These are not strictly penalty and reward. Increased knockback can facilitate
+escape; reduced knockback improves positional stability.
+
+### Stabilization
+
+Every **5 / 4 / 3 seconds at Lv5 / 15 / 25**, provided the stabilization timer
+has not been reset:
+
+```
+0 → 1 → 2 → 3
+4 ← 5 ← 6
+```
+
+3 and 4 are both stable, and natural stabilization never crosses between them.
+Ability-driven Hemostasis changes restart the stabilization interval.
+
+### Pathological endpoints
+
+**P0 — Ischemic.** The triggering cast still occurs at full P0 efficacy;
+Bloodmason self-Stuns; Hemostasis resets to 1.
+
+**P6 — Embolic.** The triggering cast still occurs at full P6 efficacy;
+Bloodmason self-Stuns; Hemostasis resets to 5.
+
+While either Ischemic or Embolic persists, subsequently reaching either
+endpoint self-Stuns again and deals substantial self-damage.
+
+**0 and 6 are transient, never resting.** Both reset immediately, so no cast can
+ever originate from them. This is why the A1 and A2 manifestation tables below
+are short one entry at each end rather than incomplete: **P5A1 and P1A2 are
+unreachable by construction.** See the feasibility note on holding this as a
+tested invariant.
+
+## A1 — Capillary Flow
+
+Targets the block Bloodmason is looking at and creates a temporary vertical
+Blood Construction. **Its manifestation uses post-cast Hemostasis.**
+
+| P | Manifestation |
+|---|---|
+| P4A1 | 1×1×4 stationary downward flow. Dense, relatively weak; standard duration. |
+| P3A1 | 1×1×4 upward moving column, travels upward 3 blocks for max reachable height 7. Standard duration and speed. |
+| P2A1 | 3×3×4 upward moving column, travels 3 blocks, max 7. Standard duration and speed. |
+| P1A1 | 3×3×4 fast upward column, travels 3, max 7, with faster propagation and entity lift. Shorter duration. |
+| P0A1 | 3×3 stationary eruption, each column extending independently up to 10 blocks or ceiling. Violent upward propulsion and enemy damage. Short duration. **Triggers Ischemic.** |
+
+Ordinary moving columns are **segments**: their tails disappear as their heads
+rise. They do not leave permanent 7-block elevators. Ceilings **truncate** them
+rather than being broken or circumvented.
+
+The progression is therefore: downward/clotted → circulating → broad flow →
+hemorrhagic → eruptive.
+
+### A1 branches
+
+**Nausea Wave** — enemy disruption. Enemies carried by Capillary Flow become
+physiologically disrupted: riding or exposure drains Hunger and applies a brief
+Slow. Minecraft's literal Nausea visual is **not** required. Stronger and
+broader Flow manifestations naturally expose more enemies without special
+P-value rules.
+
+**Bloodtrail** — circulation network. Capillary Flow leaves a temporary
+Bloodtrail on blocks it contacts, **visible only to Bloodmason**. Casting
+another Capillary Flow through a Bloodtrail amplifies that Flow by one P-level
+toward lower Hemostasis, **without changing the Hemostasis cost or state**.
+
+At Hemostasis 4, an ordinary cast goes 4 → 3 producing P3A1; through a
+Bloodtrail it still goes 4 → 3 but manifests as P2A1. Likewise P3 → effective
+P2, P2 → effective P1, P1 → effective P0.
+
+Trails follow the actual blocks touched by the moving column, not merely its
+origin. P3's 1×1×4 segment rising three blocks traces its vertical route; P2's
+broad Flow leaves a much larger 3×3 trail. The world records where Bloodmason
+has circulated.
+
+**P4 → P3 is particularly valuable**: Bloodtrail turns the otherwise weak
+downward P4 Flow into the ordinary upward P3 Flow, a qualitative payoff for
+having prepared that location.
+
+**P0 amplification caps at P0.** There is no P−1 and no new manifestation is
+invented.
+
+[OPEN] Whether the trail written corresponds to the **nominal** or the
+**effective** P-level. If effective, a trail-amplified broad Flow lays a
+correspondingly broader trail, and prepared terrain becomes progressively
+cheaper to escalate on. That compounding loop may be the intended territorial
+fantasy, but it needs a number.
+
+**Lifeblood** — allied sustain. Allies who remain within Capillary Flow for a
+required exposure duration heal for a **flat N HP, not a percentage of maximum
+Health**. Flat scaling prevents Lifeblood disproportionately favouring
+high-Health classes and makes the Flow itself the important resource.
+
+The exposure requirement is essential: clipping an ally with Flow is not a heal
+button. They must ride or use the construction. This produces useful
+differences naturally — P4 an awkward downward healing stream, P3 narrow and
+precise, P2 broad and team-accessible, P1 broad but fast and short-lived so the
+dwell is harder to achieve, P0 a potentially powerful emergency team lift and
+heal whose violent geometry and Ischemic consequence make it inherently messy.
+
+**Each individual Flow heals a given ally once**, rather than every N seconds
+indefinitely. Otherwise P2 and P3 become stationary healing infrastructure
+despite the ability fundamentally being moving circulation.
+
+## A2 — Viscerwall
+
+Creates solid anatomical Blood Construction. **Manifestation again uses
+post-cast Hemostasis.**
+
+**P2A2 — Blood floor.** The blood cannot support upright architecture. It
+manifests horizontally as a floor, semi-solid, with players able to sink through
+it somewhat like powder snow. Capillary Flow explicitly passes through it.
+
+**P3A2 — Rudimentary wall.** Smaller, flatter, sparse bone supports,
+predominantly soft tissue; imperfect, relatively crude anatomy.
+
+**P4A2 — Mature Viscerwall.** Slightly curved, concave toward Bloodmason;
+maximum central height about 5 blocks; clear bone and rib structure; organized
+tissue stretched between supports. The normal healthy Viscerwall.
+
+**P5A2 — Fortification.** The most principled and architecturally structured
+Viscerwall: larger area, harder constituent blocks, a strong regular skeletal
+frame, deliberate ribs, braces and arches, and intentionally designed defensible
+choke points. P5 is not merely trying to seal maximum area — **its openings make
+the terrain more defensible.**
+
+**P6A2 — Pathological jaw.** Architecture becomes excessive and malformed. It
+reverses curvature, becoming convex toward Bloodmason and opening toward
+attackers, with Bloodmason standing approximately at its throat. Walls and
+overhang form a mouth intended to trap attackers. Substantially more holey than
+P5, with irregular fatty and organic masses and connective tissue; abundant bone
+becomes irregular and aggressive rather than architecturally principled; red
+pointed-dripstone-like teeth grow from bone supports. **Triggers Embolic.**
+
+Upper teeth fall and crush once, as is their purpose; lower teeth remain.
+
+The visual progression is therefore: collapsed tissue → crude anatomy → mature
+anatomy → optimal architecture → pathological overgrowth.
+
+**P6 does not obsolete P5.** P5 is the superior fortification; P6 is the extreme
+battlefield intervention.
+
+### A2 branches
+
+**Render Flesh** — hazardous material. Some of Viscerwall's soft-tissue sections
+are rendered into hazardous material: portions of flesh become Magma Blocks,
+whose damage is physical and world-based and **does not discriminate between
+allies and enemies**. The underlying geometry is unchanged; the branch changes
+the consequences of contacting or traversing it. At P6A2 the pathological jaw
+additionally develops flowing lava through portions of its structure. P5's
+deliberate choke points naturally become dangerous places to contest.
+
+**Fracture** — footprint and topology. Viscerwalls grow in **separated
+anatomical sections** rather than one continuous structure, occupying a larger
+overall footprint. Major sections split apart along generated fractures,
+creating larger gaps and additional passages. **This is not random
+perforation**: recognizable pieces of the wall are displaced from one another.
+The tradeoff is greater territorial reach for less continuous enclosure and
+integrity. The effect applies to the existing P-value geometries rather than
+replacing them — even P5's principled fortification spreads farther, but its
+otherwise deliberate defensive topology becomes less sealed.
+
+**Adipose** — contact control. Viscerwall develops soft fatty tissue that is
+easier to destroy but catches enemies that contact it. The wall becomes easier
+to break, and an enemy touching its structure is briefly **Rooted**. Root
+retains its existing systemic meaning per
+[Movement and input statuses](#movement-and-input-statuses): the enemy loses
+voluntary movement but can still attack, mine and otherwise act. Consequently a
+caught enemy can respond by breaking the deliberately weakened structure holding
+them. The branch's effectiveness depends strongly on the base wall geometry
+rather than receiving an arbitrary magnitude bonus: it is difficult to force
+meaningful contact with smaller or less enclosing walls, while P6A2's jaw,
+overhang and trapping geometry make Adipose particularly dangerous.
+
+### The six-way branch vocabulary
+
+| | A1 — Capillary Flow | A2 — Viscerwall |
+|---|---|---|
+| | Nausea Wave — physiological disruption | Render Flesh — hazardous material |
+| | Bloodtrail — circulation network | Fracture — expanded topology |
+| | Lifeblood — allied sustain | Adipose — contact control |
+
+**None is simply a bigger ability, and none requires abandoning the P-value
+system.** The P-values supply the geometry; the branches change what that
+geometry means when something interacts with it.
+
+## Ultimate — Athanor Anatomb
+
+On cast, Bloodmason checks the surrounding physical space and creates **the
+largest architectural stage of the Anatomb that fits**. The architecture
+consists of multiple increasingly tall stages; the full manifestation resembles
+an upside-down Vitruvian Man expressed as a building, widening as it rises.
+
+A smaller structure is easier to escape. A taller structure provides
+progressively more capability to force the fight upward into larger, more remote
+chambers and prevent it from returning downward.
+
+Bloodmason **levitates** during the ultimate. The Anatomb lasts for a fixed
+duration or until Bloodmason dies.
+
+**Initial state.** The architectural shell manifests, but its interior begins
+without its developed blood or bone reinforcement. Bloodmason completes that
+anatomy during the fight.
+
+**Allied protection.** When allies inside take damage, the structure physically
+breaks down to support and heal them. Protection **visibly consumes** the
+Anatomb rather than applying an abstract defensive modifier.
+
+**Enemy damage → Bloodmason Health.** Damage dealt to enemies inside any Anatomb
+room heals Bloodmason. This includes allied damage, making the trapped teamfight
+itself the ultimate's metabolic fuel.
+
+### A1 during Anatomb — Hemorrhage
+
+Capillary Flow becomes Hemorrhage. **Hold to continuously channel.** Every 0.5
+seconds held:
+
+- costs Bloodmason Health;
+- Hemostasis decreases by 1;
+- all rooms simultaneously flood upward;
+- enemies are damaged and drained;
+- players are driven upward through the structure.
+
+The damage feeds the enemy-damage → Bloodmason-healing loop. Its spatial purpose
+is to drive the fight toward the increasingly difficult-to-escape upper Anatomb.
+
+### A2 during Anatomb — Teratoma
+
+Viscerwall becomes Teratoma. **Hold to continuously channel.** Every 0.5 seconds
+held:
+
+- costs Bloodmason Health;
+- Hemostasis increases by 1;
+- all rooms simultaneously grow bone and tissue inward;
+- damaged architecture is reinforced;
+- navigable interior volume physically narrows.
+
+Hemorrhage pushes combatants up; Teratoma increasingly prevents them from
+finding usable space or routes out. **Hemostasis endpoint consequences remain
+active during both channels.**
+
+### Anatomb completion
+
+Hemorrhage and Teratoma globally contribute toward completing the initially
+empty architecture. Their contributions are **additive**: Bloodmason can
+complete it with different proportions of blood and structural tissue, with
+Hemostasis itself making extreme one-sided construction dangerous.
+
+Upon reaching the required total completion, **every enemy inside the Anatomb is
+massively Stunned**, with duration scaling on Bloodmason's **missing Health
+percentage**.
+
+That creates the final risk: Bloodmason can deliberately continue spending
+Health to push completion while increasing the eventual Stun duration — but
+dying immediately ends the Anatomb.
+
+**The Hemorrhage death spiral is intentional and is not unreactable.** The
+player knows the abilities are dealing damage to them.
+
+## What each component manipulates
+
+| Component | Bloodmason manipulates |
+|---|---|
+| Hemostasis | their physiological equilibrium |
+| Capillary Flow | circulation as world geometry |
+| Viscerwall | anatomy as world geometry |
+| Athanor Anatomb | an entire fight as functioning anatomy |
+
+## Feasibility assessed 28 September 2026
+
+The physiology is nearly free; the architecture is the whole cost. Assessed
+against the Paper 1.21.11 plugin as built.
+
+**Free.** Hemostasis, the stabilization clock and its reset-on-ability-change,
+the 3/4 no-cross rule, the pathological endpoints, the completion meter,
+additive blood/bone contribution, and Stun duration scaling off missing Health
+are all counters and timers. Stabilization is a **fourth clock** alongside
+Ability, Growth and Task, but the cheap kind.
+
+**Two pieces land on machinery built in September 2026.** Hemorrhage and
+Teratoma are `InputForm.CHANNELED` with a 0.5s tick — the first real consumer of
+the hold and sustain path. And `Provenance` already tracks per-block ownership
+in the chunk PDC, which is what "Capillary Flow passes through the blood floor"
+and the whole-class reset both require. That is the single biggest thing already
+solved.
+
+**Two prerequisites.**
+
+- **Stun does not exist.** Only Root is implemented; Stun appears in
+  `Targetability` and `ToolboxStatuses` as commentary only. Bloodmason needs it
+  three times over. Build it as its own status first.
+- [TECHNICAL RISK] **A stun cannot block mouse inputs.** `org.bukkit.Input`
+  carries movement keys only, and the client always sends the click. Cancelling
+  `PlayerInteractEvent`, the attack `EntityDamageByEntityEvent`,
+  `BlockBreakEvent`, `BlockDamageEvent` and the cast in `AbilityInputs` recovers
+  everything except **camera look**, which cannot be taken. This is the same
+  wall the [Waxer audit](#18-waxer) hit with Amber. Retained look is probably
+  acceptable and arguably more legible for a long stun, but it is a property of
+  Stun that should be stated rather than discovered.
+
+[TECHNICAL RISK] **Neither direction of the knockback axis is an attribute.**
+`KNOCKBACK_RESISTANCE` only *reduces*, so amplification is manual velocity
+applied after the hit resolves. Expressing the low end as increased damage taken
+instead is **not** cheaper — there is no incoming-damage-multiplier attribute
+either, so that is also event-time math, and it additionally lands on the
+invulnerability-frame behaviour where the first 10 ticks apply only excess
+damage. Decide this on design, not on cost. The original two-sided framing is
+the more interesting one, and since A1 drives Hemostasis downward, making the
+low end a pure penalty would have the kit punishing its own primary line.
+
+**Blocks cannot be retextured or remodelled per instance.** There is no
+CustomModelData for blocks and any retexture is map-global. The working rule is
+therefore: **blocks for anything that must be stood on or blocked by, display
+entities for everything that only needs to be seen.** Under that division the
+structural skeleton needs vanilla blocks that read acceptably and all the
+character — ribs, arches, fatty masses, teeth — is drawn. `TEXT_DISPLAY` is
+already used in `DraftHallWorld` and `DraftingColosseum`, but `ITEM_DISPLAY` and
+CustomModelData are a new resourcepack path. Display entities have **no
+collision**, and entity count is a per-player packet budget that needs a number
+before a stage is densely dressed.
+
+**Teeth.** Falling pointed dripstone and falling anvils damage entities **on
+landing only** — never on mid-air collision, and a `NoGravity` tooth deals
+nothing. That suits upper teeth that drop once at summon, with damage scaling on
+chamber height. Spawn the falling block already rendering as the intended block
+rather than retrofitting, and use `setCancelDrop(true)` so nothing is left
+behind to poison the reset path. [OPEN] Whether the teeth are custom-drawn or
+literally dripstone; the exact implementation is deliberately left open.
+
+**A1's upward push.** Water flows, so "which water is mine" is only hard if the
+water is allowed to spread; cancelling `BlockFromToEvent` makes the authored set
+the exact set. Drive the push off the **active volume**, not off block lookups,
+so a broken block does not put a hole in it. `bubble_column[drag=false]` is
+client-predicted and therefore smooth; per-tick `setVelocity` is tunable but not
+predicted and will fight the client, especially on a swimming player. Set rather
+than add, or Y compounds into a launch. `TunnelingAbility` is the existing
+precedent for sustained server-driven movement, though it is itself untested.
+
+[OPEN] **Blood cannot be red as a fluid.** Water tint is a *biome* property, so
+the only per-region lever is writing a custom red-water biome per 4×4×4 cell with
+a chunk resend, on every cast and every expiry. Building the blood out of
+translucent display entities instead removes the fluid entirely — any authored
+colour, no flow, no biome writes, and the rising column becomes client-side
+interpolation rather than a marched block set. The cost is losing swimming,
+buoyancy and drowning, none of which the spec asks for. P2A2's blood floor is
+the exception: displays have no collision, so the one manifestation that is
+explicitly solid-ish is the one that wants real blocks. Powder snow supplies the
+sink natively; suppressing `freezeTicks` each tick removes the freezing, the
+frost vignette and the freeze slowness together, and the sink **rate** is a
+hardcoded constant and not a tuning knob.
+
+**The Anatomb.** Two design decisions make this moderate rather than high.
+**Preauthor the structure complete** — shell, full blood, full bone — per stage,
+so runtime state is a subset selector over authored positions and never
+generation; completion becomes a count, and breakdown draws from an authored,
+art-directed vocabulary of what may break and in what order. And **replace room
+membership with a contact tag**: tag allies and enemies on contact with
+Hemorrhage blood or Teratoma tissue, with a decay, exactly as Observed and Root
+work today. A tagged ally taking damage mitigates and consumes the structure; a
+tagged enemy taking damage heals Bloodmason. That converts a per-tick geometry
+test against every player into a status timer, and it reads better — the heal
+becomes a consequence of Bloodmason working rather than of enemy geography.
+Teratoma and Hemorrhage then **march** an ordered authored list, two ticks of
+channel per step, which the artist orders rather than an algorithm.
+
+What remains genuinely costly is the **fit-the-largest-stage** plan pass, which
+must be read-only and complete before a single block is placed — a
+half-constructed stage is an object nobody designed. Levitation is likely a held
+velocity rather than the Levitation effect, which is a constant upward drift
+inside a structure that must not be clipped through.
+
+**Two decisions are nearly free today and expensive to retrofit.**
+
+- **Build A1 plan-first.** Bloodtrail needs the column's route before it
+  manifests, both to test whether it crosses a trail and to write the new trail
+  along blocks actually touched. The same pass serves `preview()`.
+- **Bake labelled sections into the wall authoring format.** Fracture displacing
+  *recognizable pieces* is a per-section offset if the format carries sections,
+  and intractable if it is a flat block list — where it degrades into exactly
+  the random perforation the branch rules out. Decide before any P-level is
+  drawn.
+
+**Branch costs.** Render Flesh's magma is a palette substitution with zero
+behavioural code, and Lifeblood and Adipose are free once the volume loop and
+Root exist. Adipose's "easier to break" must be a *softer block in the palette*
+rather than a modifier, since hardness is per block type — which is arguably
+better, because the softness becomes legible to the enemy breaking out.
+Bloodtrail is free given plan-first A1, and visible-only-to-Bloodmason is
+already solved: `Player.spawnParticle` sends to one player, as `TargetPreview`
+does today. P6's flowing lava needs the same flow containment as the blood plus
+airtight reset registration; it is the one branch that can leave permanent
+damage.
+
+[OPEN] **Nausea Wave's Hunger drain is not a flavour effect.** Hunger is a
+Growth-scaled capacity starting at 9, and `HungerRegen` gates health
+regeneration on it — two empty drumsticks block regeneration entirely. Draining
+Hunger therefore *shuts off an enemy's healing*. It also scales wrong: the regen
+gate is relative but a flat drain is absolute, so the same drain is
+proportionally brutal against a Lv3 player with 9 Hunger and mild against a
+Hunger-specialized Lv25. Either express the drain as a fraction of effective
+Hunger, or accept that the branch is an anti-healing tool aimed at the early
+game and balance it as one.
+
+**Invariant worth testing.** A1 never fires at Hemostasis 6 and A2 never fires
+at 0, which is what makes P5A1 and P1A2 unreachable rather than undefined. Hold
+it as an assertion, because the day a third Hemostasis mover is added is the day
+it silently stops being true.
+
+**Build order.** A1, A2 and the passive are a shippable class on their own; the
+Anatomb is a second project roughly the size of the Toolbox circuit. That is
+also the only possible order, since the ultimate's channels are re-expressions
+of A1 and A2.
+
+## Open
+
+- Exact timings and numbers throughout.
+- Exact generated geometry and block palette per P-level.
+- Growth progression.
+- Whether blood must be red, which decides whether the display-entity path is
+  load-bearing or optional.
+- Whether P6's teeth are a one-time drop or standing hazards; the answer picks
+  the mechanism.
+- Display-entity budget per Anatomb stage.
+- Whether Bloodtrail writes nominal or effective P-level trails.
+- Nausea Wave's Hunger drain scaling.
