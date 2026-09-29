@@ -2902,10 +2902,40 @@ Secondary:
 
 Working, per the proposal. Combat emerges from how the constructions manipulate fights rather than from authored damage. The kit, both branch trees and the ultimate were supplied together; see [section 20](#20-bloodmason). [OPEN] Whether this equals a completed conceptual pass is the owner's call. Feasibility was assessed on 28 September 2026 in the same section: the physiology is nearly free, the Athanor Anatomb is the majority of the cost, and Stun must be built as a status before the class can be.
 
+### Fungal Assassin — documented 29 September 2026
+Primary:
+- Development
+
+Secondary:
+- Combat
+
+Difficulty 3/5. Previously carried a difficulty rating with no canonical kit. See [section 23](#23-fungal-assassin).
+
+### Looming Talismaniac — documented 29 September 2026
+Primary:
+- Production
+
+Secondary:
+- Construction
+
+Difficulty 4/5. Previously carried a difficulty rating with no canonical kit, and is **less finished than the short roster summaries implied**: a third Imprint branch, a third A2 branch and the ultimate's economy are all unresolved. See [section 24](#24-looming-talismaniac).
+
+### Chef — proposed 29 September 2026
+Primary:
+- Production
+
+Secondary:
+- None. Chef is a deliberately pure single-archetype exemplar.
+
+Difficulty 1/5, and the first of the seven introductory archetype exemplars. See [section 22](#22-chef) and [section 21](#21-class-difficulty).
+
+### Difficulty as a second axis
+Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Six of the seven planned exemplars — Werewolf, Paver, Wayfinder, Quarryman, Groundskeeper and Stationmaster — exist as names and archetype questions only.
+
 ### Unsettled drafts
 None of the original roster. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
 
-Bloodmason is a **new proposal** rather than a promoted draft, and is not yet settled.
+Bloodmason and Chef are **new proposals** rather than promoted drafts, and are not yet settled. Fungal Assassin and Looming Talismaniac are **newly documented rather than new**: both predate this entry and were previously recorded only as rows in the difficulty table.
 
 ---
 
@@ -4214,3 +4244,964 @@ of A1 and A2.
 - Display-entity budget per Anatomb stage.
 - Whether Bloodtrail writes nominal or effective P-level trails.
 - Nausea Wave's Hunger drain scaling.
+
+---
+
+# 21. Class Difficulty
+
+**Introduced 29 September 2026.** Difficulty is a second axis alongside
+archetype. It is recorded here rather than per class so that the scale, its
+dimensions and the roster distribution stay in one place.
+
+## Why it exists
+
+The roster was accumulating classes whose kits were interesting **precisely
+because** they had unusual Minecraft-specific rules — Toolbox, Bloodmason,
+Merchant, Skeleton Crew, Talismaniac. That created a roster-design problem
+separate from whether those classes were good:
+
+> How difficult is it for a new player to understand what this class wants them
+> to do, and produce useful value with it?
+
+The answer could not be "number of mechanics." A mechanically simple ability can
+be difficult because knowing *when*, *where* or *why* to use it is difficult.
+An ability with an elaborate implementation can be easy if its correct use is
+obvious.
+
+Conventional low-difficulty MOBA characters make the point. Garen, Master Yi and
+Yuumi do not have empty kits; their **decision grammar** is unusually clear.
+Garen sees enemies near him and spins; Yi wants to engage or avoid an attack and
+presses Q; Yuumi has a hurt ally and heals them. The player spends little
+attention deciphering their own kit, which leaves them free to learn the game
+around it.
+
+## What difficulty measures
+
+An aggregate judgment across six related dimensions:
+
+- **Mechanical** — how demanding is execution itself?
+- **Technical** — how much class-specific machinery must the player understand and track?
+- **Decision** — given the current situation, how obvious is the correct action?
+- **Role** — how hard is it to understand and perform the strategic job the class exists to do?
+- **Success floor** — how hard is it for an inexperienced player to produce meaningful value rather than merely operate the abilities?
+- **Mastery ceiling** — how much class-specific expertise exists above basic competency?
+
+**The last dimension does not automatically raise the rating.** A Difficulty-1
+class can have substantial mastery potential if that mastery comes from becoming
+better at Minecraft — positioning, timing, resource economics, terrain,
+opponents, the archetype itself — rather than from deciphering increasingly
+complicated class procedures.
+
+The diagnostic that matters most:
+
+> **Difficulty-1 classes are easy because their choices are always clear.**
+
+## Difficulty 1 — clear choices
+
+The target for the seven pure-archetype introductory classes. An ability should
+usually have an obvious job, and where it has several, **the context should
+choose the job for you**. Food Fight technically does several things; that does
+not make Chef difficult, because the player is not choosing between three
+competing Food Fight modes. The target tells them what Food Fight means.
+
+Difficulty-1 design prefers low ambiguity of intent, distinct ability jobs,
+obvious target relationships, mutually exclusive upgrade branches, quantitative
+rather than categorical failure, no mandatory sequencing puzzle, no resource
+system requiring constant optimization, no setup that one ability unexpectedly
+consumes for another, and no multiple equally plausible buttons competing for
+the same situation.
+
+**A branch may still require optimization.** Rake the Coals rewards intelligent
+fuel use and Broiler Rack rewards filling the cooker before pressing it. The
+beginner still knows exactly what to do — food is cooking, press the cooking
+button. Expertise improves the result rather than revealing what the button was
+secretly supposed to be used for.
+
+## Difficulty 2–4 — increasing decision burden
+
+Not rigid buckets; broadly increasing combinations of execution, knowledge and
+strategic ambiguity.
+
+**2** — Straightforward kit with meaningful positioning, sequencing, targeting
+or specialization knowledge. Readily understandable, but mistakes begin to come
+from using an understandable tool incorrectly rather than executing it poorly.
+
+**3** — Moderate class-specific learning burden. The player must understand
+interactions among abilities, world state, setup, positioning or role
+responsibilities to consistently get the intended value. Still reasonably
+learnable from the individual abilities.
+
+**4** — Substantial strategic or technical burden: persistent systems, prepared
+world state, coordinated autonomous elements, consequential macro decisions, or
+interactions not reducible to one obvious action per situation. **Basic
+operation is substantially easier than fulfilling the role well.**
+
+## Difficulty 5 — the class itself becomes a major game
+
+Understanding and operating the class is itself a substantial part of the
+player's workload. **Bloodmason** ([section 20](#20-bloodmason)) is the clearest
+conventional example: Hemostasis, its stabilization behaviour and
+directionality, post-cast manifestation levels, endpoint pathology, materially
+different manifestations per P-value, spatial construction consequences, and an
+ultimate converting health, architecture, Hemostasis and combat into one
+another. A competent Bloodmason is not selecting the correct spell; they are
+continually reasoning about what physical world state a cast at their current
+Hemostasis will create.
+
+## 5+ — open-ended and combinatorial
+
+**Toolbox** ([section 19](#19-toolbox)) effectively broke the scale. It is not
+merely a very complicated fixed kit: its inventory is a programmable Redstone
+machine, and increasing inventory geometry, component vocabulary and
+player-discovered combinations mean **its possibility space itself expands**.
+That is qualitatively different from memorizing a large kit.
+
+5/5 remains the useful displayed maximum; Toolbox is treated internally as
+something like 5+ or 7/5.
+
+> Bloodmason has a large language to learn. Toolbox lets the player write
+> programs in its language.
+
+That distinction matters more than the literal number.
+
+## Current 13-class difficulty table
+
+The developed classes under consideration, before the seven introductory
+archetype exemplars.
+
+| Class | Difficulty | Principal source of difficulty |
+|---|---|---|
+| Mole | 2/5 | Spatial judgment and initiation/trapping; individual verbs remain straightforward |
+| Kitfighter | 2/5 | Equipment and situational combat choices, but direct goals and relatively obvious buttons |
+| Gardener | 3/5 | Cultivar/plant interactions, territorial Development, deciding where ecological setup creates value |
+| Golem Master | 3/5 | Managing constructed autonomous units and translating building into combat/production value |
+| Lightfooted | 3/5 | Movement execution and target access, without a particularly complicated underlying system |
+| Fungal Assassin | 3/5 | Territorial preparation, mold/mycelium state, knowing where preparation creates assassination opportunities |
+| Merchant | 4/5 | Workforce and labour economy, payroll, useful-work Mastery, macroeconomic allocation |
+| Daredevil | 4/5 | High-commitment traversal, trajectory judgment, severe consequences for poor engagement |
+| Skeleton Crew | 4/5 | Undead workforce management, Logistics infrastructure, coordinating autonomous labour with Supply Lines |
+| Waxer | 4/5 | Manipulating Minecraft system states through waxing/sealing/preservation, many contextual interactions |
+| Looming Talismaniac | 4/5 | Linked banner networks, spatial relationships, distributed effects and traps |
+| Bloodmason | 5/5 | Hemostasis management, manifestation state, architecture, pathological endpoints, state-dependent decisions |
+| Toolbox | 5+/5 | Programmable inventory-board construction with combinatorial programs rather than a fixed solution vocabulary |
+
+Distribution: **1 → 0 · 2 → 2 · 3 → 4 · 4 → 5 · 5+ → 2.**
+
+**There was no genuine entry point.** And several of the easier existing classes
+are not pure teachers of their archetypes either: Mole teaches a particular
+disruptive interpretation of its roles, Kitfighter teaches equipment-centric
+Combat/Production, Golem Master teaches Construction through animation and
+autonomous creations.
+
+## The seven Difficulty-1 archetype exemplars
+
+Rather than simplifying the existing thirteen, the goal is **one deliberately
+obvious expression of each fundamental archetype**.
+
+| Archetype | Class | Fundamental question |
+|---|---|---|
+| Combat | Werewolf | How do I defeat enemies? |
+| Construction | Paver | Where would adding blocks make this place more useful? |
+| Exploration | Wayfinder | Where should I go, and what can I discover there? |
+| Extraction | Quarryman | How do I efficiently remove valuable material from the world? |
+| Development | Groundskeeper | How can I make this place more productive? |
+| Production | Chef | How can I turn these inputs into more useful outputs? |
+| Logistics | Stationmaster | How do I get people and resources where they're needed? |
+
+These are **not beginner versions of more interesting classes**. They expose the
+irreducible verb of the archetype, so that a player who does not understand
+Production need not start with a hybrid class and infer what Production means
+from it.
+
+**Difficulty 1 does not require low systemic creativity.** It requires low
+uncertainty about what the player should do next. Chef still throws pork into
+furnaces, physically presses cooking progress forward, conserves fuel, scales
+advancement with batch size, and forces enemies to attend a disastrous buffet.
+
+[OPEN] Only **Chef** ([section 22](#22-chef)) has a kit. Werewolf, Paver,
+Wayfinder, Quarryman, Groundskeeper and Stationmaster exist as names and
+questions only.
+
+## A note the scale deliberately does not measure
+
+Difficulty rates the **player's** burden, correctly and by design. It says
+nothing about implementation cost, and the two can diverge sharply. Chef is the
+roster's clearest case: a Difficulty-1 class whose Flip and Press carry-over and
+Buffet inventory custody make it one of the more expensive classes to build. A
+low rating is not a scheduling estimate.
+
+---
+
+# 22. Chef
+
+**Proposed 29 September 2026.** The first of the seven Difficulty-1 archetype
+exemplars ([section 21](#21-class-difficulty)). Reproduced as supplied, with the
+feasibility assessment kept separate below.
+
+Primary archetype: **Production**
+Difficulty: **1/5**
+
+Core fantasy: turn ordinary inputs into useful outputs, quickly and
+efficiently.
+
+Chef is the deliberately simple, pure expression of Production. The class
+teaches the archetype through ordinary Minecraft transformation processes rather
+than through an abstract Production statistic. Chef gets more value from food
+because the kit lets them **start** processes, **accelerate** them, **conserve**
+their inputs, **increase** their throughput, and **weaponize** their outputs.
+
+Chef's combat is intentionally straightforward and secondary. Food can be thrown
+at enemies, the Spatula can flip an approaching enemy, and the ultimate creates a
+large teamfight opportunity. Chef is not intended to win through elaborate combat
+sequencing. **Their team should want Chef because giving Chef things to process
+is useful.**
+
+## Mechanical abstraction
+
+Chef's Production verbs are **Load → Process → Improve → Serve**. Food Fight
+loads an appropriate cooking process; Flip and Press accelerates an active one;
+its branches specialize combat, input efficiency or throughput; Irresistible
+Buffet converts stored output into battlefield control.
+
+Chef never receives an abstract effect like "produced items are 20% better."
+Specialization emerges from how the class interacts with actual Minecraft
+resources and production machinery.
+
+## Passive — Trusty Spatula
+
+Chef's **highest-tier shovel** is treated as their Spatula. Holding the Spatula
+empowers Chef's active abilities where specified.
+
+The Spatula does **not** introduce a separate farming or melee subsystem. It does
+not make Chef better at harvesting crops, does not itself modify food output, and
+does not turn shovel material tiers into another ability-scaling system.
+
+Its purpose is much smaller: Chef has a signature tool, and when you are doing
+Chef things you hold it. Because abilities such as Food Fight draw food directly
+from Chef's inventory, Chef never has to stop holding the Spatula to use them.
+
+Abstraction: **equipment identity.**
+
+## A1 — Food Fight
+
+Chef flings the **first eligible food in their inventory** as a projectile. Chef
+does not need to hold that food. Selection follows deterministic inventory order,
+so Chef determines what Food Fight will use simply by arranging their inventory.
+
+The projectile's effect is immediately apparent from what Chef throws it at:
+
+- **Enemy** — damages the enemy.
+- **Appropriate cooking source** — appropriate uncooked food enters the cooking process.
+- **Neither** — the food is simply thrown.
+
+While holding the Spatula, Food Fight travels farther.
+
+The exact eligible-food list and supported cooking targets are implementation
+details rather than additional player-facing decisions.
+
+### A1 branches
+
+Mutually exclusive. None creates a new operating mode; each makes one
+already-correct Food Fight target more rewarding.
+
+**Super Nutritious** — Food Fight heals allies it hits. Hurt ally → throw food at
+them. Abstraction: output as sustain.
+
+**Extra Spicy** — Food Fight sets enemies it hits on fire. Enemy → throw food at
+them. Abstraction: output as offense.
+
+**Reckless Rationing** — When Food Fight throws raw food into an active
+compatible cooking station, an **additional raw copy is left on top of the
+station**. Visibly: throw 1 raw food → 1 enters the cooker + 1 raw copy appears
+on top. Abstraction: yield efficiency.
+
+The copy is a distinct item, **"Recklessly Rationed ___"**. It stacks with
+itself but **not** with the ordinary food item, and it **cannot itself be
+Recklessly Rationed** — stated as flavour text on the item so the rule is
+self-documenting rather than invisible.
+
+[HISTORICAL] Reckless Rationing was first written as "food successfully cooked
+through Food Fight produces double output." That version required provenance to
+survive the cooking process and special output-stack logic. The current version
+places the bonus at cast time instead, the duplicate is a normal raw resource
+another player can visibly collect, and it distinguishes the branch cleanly from
+the A2 Production branches: **Reckless Rationing creates more input material,
+Rake the Coals conserves fuel, Broiler Rack compresses processing time.**
+
+## A2 — Flip and Press
+
+Chef uses the Spatula to flip and press either an enemy or food already
+undergoing a cooking process.
+
+**Against an enemy.** Chef flips the targeted enemy upward, then presses and
+slams them back down. The enemy is briefly **Stunned** at the end. This is Chef's
+simple close-range defensive and control button.
+
+**Against cooking.** Used on an actively cooking Furnace, Smoker, Campfire or
+other supported process, Flip and Press instantly advances its active cooking by
+**N seconds of productive time**. This is not a timed workstation buff — N
+seconds of cooking happen immediately. If three seconds remain on the current
+item and Flip and Press supplies eight, that item finishes and the remaining five
+continue into the next eligible item in the stack.
+
+The ability therefore does not conceptually accelerate "64 porkchops"
+simultaneously. It advances the **active** production process, carrying excess
+advancement forward where the workstation normally permits sequential
+processing. The corresponding fuel expenditure occurs as appropriate: base Flip
+and Press accelerates time rather than generating free furnace energy.
+
+Holding the Spatula improves Flip and Press's normal effect; the exact numerical
+empowerment remains calibration work.
+
+### A2 branches
+
+**Hibachi Skills** — Enemies struck are launched higher before Chef presses them
+down and Stuns them. No new combo or condition; it exaggerates the combat
+function already present, and the additional airtime gives Chef's teammates a
+larger opportunity to respond. Abstraction: combat specialization.
+
+**Rake the Coals** — Flip and Press conserves some of the fuel its instant
+advancement would otherwise consume. It does not reset a coal indefinitely or
+manufacture fuel: Chef gets the normal productive-time advancement while paying
+less of its corresponding fuel-time cost. Its value increases when fuel itself is
+strategically expensive. Abstraction: input efficiency.
+
+**Broiler Rack** — Flip and Press advances cooking farther when more eligible
+food is stored in the station, up to a cap. A small batch receives close to the
+ordinary advancement; a heavily loaded cooker receives substantially more. The
+additional advancement consumes the corresponding fuel where applicable. The
+optimization is extremely apparent: **if you want a bigger press, load a bigger
+batch.** No completion proc, persistent buff or recursive trigger is tracked.
+Abstraction: throughput.
+
+The latter two deliberately solve **opposite** Production problems:
+
+| Branch | Optimizes | Economic expression |
+|---|---|---|
+| Rake the Coals | Inputs | Do the work for less fuel |
+| Broiler Rack | Time | Do more work immediately |
+
+Neither says "Chef gains +X% Production." One Chef becomes valuable when inputs
+are scarce; the other when the team has accumulated large quantities that need
+processing now.
+
+## Ultimate — Irresistible Buffet
+
+Chef rolls out an extremely long buffet table along a path. Enemies struck as the
+table rolls out are forcibly invited to sit down and eat.
+
+**Chef is not seated, Stunned, channeling or otherwise occupied** after
+deploying the Buffet, and can immediately continue moving, attacking, throwing
+food or using Flip and Press while the caught enemies deal with the table.
+
+### Seating
+
+A seated enemy's **real hotbar becomes temporarily inaccessible**. All nine
+hotbar slots instead display servings of Chef's first stored food. These are
+temporary Buffet servings rather than ordinary inventory replacement: **the
+victim's actual items remain safely suspended and cannot be displaced, dropped,
+rearranged or lost through the Buffet mechanic.**
+
+The victim can eat the provided food. To resume normal combat they must
+physically leave or jump out of the seating. When they leave, the temporary
+hotbar disappears, their real hotbar is immediately restored, and they take minor
+damage for every serving they left uneaten.
+
+### Damage
+
+Deliberately secondary. Taking the penalty from all nine uneaten servings should
+hurt, but should not remotely function as a one-shot. Its purpose is to put a
+small cost on immediately abandoning the meal, not to turn Buffet into an
+execute.
+
+The real power is the interval during which an enemy has been displaced into
+seating, lost immediate access to weapons, lost immediate access to combat
+consumables and utility, been given food instead, and been forced to spend an
+action and movement window getting back out — while Chef's team is still
+fighting them.
+
+### Eating is legitimate counterplay
+
+Buffet food is genuinely food and enemies are allowed to benefit from eating it.
+The victim therefore has a continuum: **leave immediately** and regain weapons
+quickly at the maximum minor penalty; **eat briefly** for some benefit and a
+reduced eventual penalty while remaining without a normal hotbar longer; or
+**keep eating** for substantial free nourishment and little or no penalty, at the
+cost of voluntarily spending a large amount of combat time sitting at Chef's
+table.
+
+This produces the intended success condition:
+
+> **A good Buffet is cast when the enemy does not have time to eat.**
+
+If Chef's team is already collapsing on the table, the victims having been given
+food is nearly irrelevant — they need their weapons now. Conversely, **a bad
+Buffet caters the enemy team**: catching several opponents when nobody can
+capitalize lets them consume Chef's resources, recover and leave. That is
+intentional.
+
+### What kind of CC is Buffet?
+
+**Not a long Stun.** Victims can act within the restricted situation — they can
+eat, and can attempt to leave. What they cannot do is participate normally in
+combat until they escape and recover their real hotbar. Its control comes from
+**physical displacement + inventory denial + action inconvenience**, using
+Minecraft's own spatial and inventory language.
+
+Abstraction: **Production as battlefield tempo.** Chef has prepared resources,
+and the ultimate serves those resources to the opposing team at precisely the
+moment when stopping to consume them is least useful.
+
+## Class abstraction
+
+Chef is fundamentally about **transformation**, not food. Food is the clearest
+introductory Minecraft expression of Production: raw food → cooking process →
+finished food → strategic output. Every part of the kit occupies a distinct part
+of that chain.
+
+| Mechanic | Production concept |
+|---|---|
+| Trusty Spatula | Production tool |
+| Food Fight → cooker | Loading / input |
+| Reckless Rationing | Yield |
+| Flip and Press | Processing time |
+| Rake the Coals | Input efficiency |
+| Broiler Rack | Throughput |
+| Food Fight → player | Using finished output |
+| Irresistible Buffet | Distribution / serving |
+
+This also establishes boundaries with the other archetypes. Chef does not make
+crops grow better — that is **Development**. Chef does not acquire raw food more
+effectively — that is **Extraction** or Development depending on the source. Chef
+does not move supplies across the map — that is **Logistics**. Chef does not
+create productive buildings — that is **Construction**.
+
+Chef's question begins once inputs exist: *what useful thing can I turn this
+into, and how efficiently can I do it?*
+
+## Difficulty-1 abstraction
+
+| I see… | I do… |
+|---|---|
+| Food that needs cooking | Food Fight it into the cooker |
+| Food already cooking | Flip and Press the cooker |
+| Enemy at range | Food Fight them |
+| Enemy close to me | Flip and Press them |
+| Several enemies in a punishable position | Irresistible Buffet them |
+| I'm using Chef abilities | Hold my Spatula |
+
+The branches preserve that grammar. They change what Chef is especially good at,
+not what Chef has to figure out how to do. That makes Chef a useful baseline for
+the seven entry-level exemplars: the kit contains genuinely Minecraft-specific
+systemic depth while the person playing it almost never has to ask *which button
+solves the problem in front of me?*
+
+## Feasibility assessed 29 September 2026
+
+**Chef is the roster's clearest case of a class that is easy to play and
+expensive to build.** The 1/5 rates the player's burden and says nothing about
+implementation; see the note at the end of
+[section 21](#21-class-difficulty).
+
+**Free.** Food Fight's projectile and its three target behaviours, Super
+Nutritious, Extra Spicy, Hibachi Skills, the Spatula tier check and the range
+bonus. Deterministic inventory order is the same convention Toolbox's circuit
+`FLOW` already uses and should be stated as one rule for both.
+
+**Reckless Rationing's item is free and the loop is closed.** Differently named
+items do not stack with their base item natively, so "stacks with itself but not
+with the real thing" needs no code. The item remains the same material, so it
+still smelts into ordinary output and can still be eaten and thrown. The
+no-re-rationing rule is one tag check.
+
+[OPEN] Two consequences worth a decision. The copy creates a **second stack that
+sits somewhere in Food Fight's deterministic order**, so taking this branch
+changes what A1 selects unless the player manages it — the one place a
+Difficulty-1 class asks about ordering. And it **costs an inventory slot**, which
+under the Capacity curve means it is weakest at Lv1 with 6 slots and free later:
+the branch is least rewarding exactly when a new player takes it.
+
+**Flip and Press's carry-over is the fiddly part.** Advancing the current item is
+a cook-time setter. Advancing *past* it and continuing the remainder means
+simulating the workstation's own progression — decrementing the input stack,
+emitting output, re-checking eligibility and spending the corresponding fuel —
+and it differs per station, with campfires cooking four slots independently.
+Doable, not cheap, and wants tests per station type.
+
+[TECHNICAL RISK] **Buffet's item custody is the highest-consequence piece in the
+class.** "Actual items remain safely suspended and cannot be displaced, dropped,
+rearranged or lost" is a promise about the worst failure mode a MOBA can have.
+`InventoryGuard` and `LockedSlots` are precedent, but the dangerous paths are
+**death while seated** and **disconnect while seated**, where restoration runs on
+code paths normal testing never exercises. Write those tests before the feature.
+
+**Seating works natively and cheaply.** Seating means mounting the victim on an
+entity, and a mounted player can always dismount — which is exactly "must
+physically leave or jump out." The escape is not implemented, it is inherited and
+then decorated. A mounted player can also still act, which is precisely why
+Buffet is correctly classified as **not** a Stun: the control is entirely the
+hotbar denial.
+
+## Open
+
+- N for Flip and Press, the Spatula empowerment values, Broiler Rack's cap and scaling, Rake the Coals' conservation fraction.
+- The eligible-food list and the supported cooking-target list.
+- Buffet's table length, catch geometry, per-serving damage and seating duration.
+- Whether Reckless Rationing's copy should be skipped by Food Fight's selection order, or left in it.
+- Growth progression.
+
+---
+
+# 23. Fungal Assassin
+
+**Documented 29 September 2026.** Previously carried a difficulty rating with no
+canonical kit. Reproduced as supplied, with the feasibility assessment kept
+separate below.
+
+Archetypes: **Development + Combat**
+Difficulty: **3/5**
+
+Core fantasy: cultivate fungal territory through combat, inhabit it to hunt, and
+make it grow.
+
+Fungal Assassin is an assassin whose **preparation is itself Development**.
+Rather than merely putting traps somewhere before a fight, the class establishes
+a persistent fungal ecology. Fighting enemies grows that ecology; the ecology
+makes subsequent hunting stronger; successful use of the territory further
+develops it.
+
+> Establish fungal territory → infect prey → expand through prey → inhabit the
+> network → assassinate → leave behind a stronger ecosystem.
+
+This is why it is not simply a mushroom-themed Combat class. Its combat and
+Development verbs are deliberately **circular**.
+
+## Passive — Creeping Colony
+
+Connected Mycelium forms **Mycelium Networks** — developed fungal territory with
+several persistent properties:
+
+- nearby mushrooms and crops grow faster;
+- Huge Mushrooms broken within a Network always drop mushrooms;
+- attacking enemies applies **Fungal Growth**;
+- Fungal Growth lasts longer when applied from within a Network;
+- damage dealt by Fungal Growth near a Network accelerates that Network's growth.
+
+### Fungal Growth
+
+The class's infection and damage-over-time state. It is simultaneously combat
+attrition against prey, a marker consumed and manipulated by the active kit, and
+a mechanism by which fighting contributes back into Development.
+
+That last point is fundamental. Ordinary Development asks *how do I make this
+productive place mature?* Fungal Assassin answers: **fight things in and around
+it.** Combat activity literally cultivates the territory that enables future
+combat.
+
+Abstraction: **combat as cultivation.**
+
+## A1 — Bursting Spore
+
+Consumes Fungal Growth from an infected target to establish Mycelium around that
+target, closing the passive loop: hit enemy → infect enemy → Burst infection →
+create territory.
+
+The target is not merely taking an assassin debuff. **They become a vector for
+Development.** Fungal Assassin therefore does not always have to walk somewhere
+first, prepare it and wait — an enemy can carry the fungus into a location and
+then be used to establish the next piece of territory.
+
+### A1 branches
+
+**Submersive** — Bursting Spore gains an aquatic manifestation. Used underwater,
+Mycelium establishes beneath the target, a waterlogged vine grows upward toward
+the surface, and the manifestation damages nearby enemies. This lets the fungal
+ecology colonize a medium that would otherwise interrupt its normal terrain
+language. Abstraction: environmental adaptation.
+
+**Airborne Spread** — Fungal Growth becomes capable of propagating to nearby
+targets, and Bursting Spore receives a wider spread. Infection stops being purely
+one-host-at-a-time and becomes an outbreak. Abstraction: propagation.
+
+[OPEN] The recovered design alternates between **the Burst itself** becoming
+wider and **the resulting Mycelium spread** becoming wider. Preserved as a design
+clarification rather than silently resolved — see the feasibility note, since
+these are different code paths rather than different numbers.
+
+**Root Network** — Fungal Growth establishes a spatial relationship between
+infected prey and its originating Network. If that enemy travels sufficiently far
+away, **the Network pulls them back toward it**. This is not "Fungal Growth
+Slows": the territory itself asserts control over prey that tries to leave. You
+are not merely chasing someone through your territory — your territory helps
+prevent your prey from escaping it. Abstraction: territorial retention.
+
+## A2 — Myceliate
+
+Fungal Assassin absorbs into nearby Mycelium and mushroom terrain and becomes
+**temporarily intangible** while moving through the connected fungal structure.
+
+This is the payoff for having developed a Network. Instead of *place fungus
+because fungus gives +movement speed*, the class **physically inhabits the
+organism it has cultivated**. Myceliate functions as approach, pursuit,
+repositioning or escape depending on Network geometry, and its usefulness is
+directly determined by previous Development: a poorly developed area offers
+little useful fungal topology, while a mature Network becomes an assassin's
+private movement environment.
+
+Abstraction: **inhabit developed territory.**
+
+### A2 branches
+
+**Hardy** — Myceliating restores Health up to a cap. Rewards retreating and
+repositioning through the fungal system and makes established territory safer for
+repeated hunting, without turning the Network into generic passive regeneration:
+the assassin has to use their fungal traversal. Abstraction: fungal refuge.
+
+**Nutrient Cycle** — On emerging from Myceliate, the nearest appropriate small
+mushroom grows immediately into a Huge Mushroom. Traversal therefore contributes
+physical Development back into the Network. Combined with Creeping Colony's
+guaranteed mushroom drops inside Networks, this gives the fungal ecosystem a
+resource and productivity dimension rather than making Mycelium exclusively
+combat terrain. Abstraction: traversal as maturation.
+
+**Hyphae Lashers** — Creatures passed through while Myceliating are **Rooted**.
+The movement path itself becomes control interaction, making Network geometry
+matter considerably more: an experienced player chooses a subterranean route that
+*intersects prey* rather than the shortest route to an endpoint. Abstraction:
+predation through the organism.
+
+## Ultimate — Destroying Angel's Blessing
+
+Fungal Assassin plants a singular **Destroying Angel** mushroom. It must become
+**Primed** before it becomes dangerous.
+
+Recovered priming rules: it becomes Primed after maturation, **or** immediately
+when incorporated into a sufficiently developed Mycelium Network. That creates a
+strong Development shortcut — an undeveloped location must wait for the organism
+to mature, while an established fungal ecosystem can make it dangerous
+immediately.
+
+A Primed Destroying Angel can then be destroyed or triggered. When triggered,
+nearby small mushrooms erupt into Huge Mushrooms, enemies in the area suffer
+massive AoE damage, and survivors receive Fungal Growth.
+
+**Destroying it before it becomes Primed safely prevents the bloom.** The
+ultimate is therefore not an assassin bomb disguised as a mushroom: its threat is
+contingent on ecological maturity, and opponents can interact with it before that
+threshold.
+
+Abstraction: **Development reaches catastrophic maturity.** The ultimate
+compresses the whole class into one event — Network development → mushroom
+maturation → violent bloom → Fungal Growth → more fungal combat and development.
+
+## Class abstraction
+
+Development and Combat are not two halves of the kit. They are a feedback loop.
+
+| Mechanic | Development / Combat relationship |
+|---|---|
+| Creeping Colony | Fungal terrain becomes productive territory |
+| Fungal Growth | Fighting cultivates territory |
+| Bursting Spore | Infected enemies become expansion vectors |
+| Myceliate | Developed territory becomes assassin mobility |
+| Nutrient Cycle | Using mobility further develops territory |
+| Root Network | Territory controls prey |
+| Destroying Angel | Mature Development becomes lethal Combat |
+| Ultimate survivors | Combat creates new infection |
+
+> The assassin grows the hunting ground, and the hunting grows the hunting
+> ground.
+
+**Why 3/5.** Individual inputs are not especially difficult. But unlike Chef,
+Fungal Assassin can absolutely **press the correct ability in the wrong
+ecological state** — Network location, connectivity, maturity, prey position and
+future territorial usefulness all matter. A novice can infect and kill people; a
+strong Fungal Assassin thinks several encounters ahead about where the fungus
+should exist when the next fight occurs.
+
+## Feasibility assessed 29 September 2026
+
+[TECHNICAL RISK] **Myceliate's intangibility is the class's largest piece, and
+harder than it appears.** Bukkit cannot give a player noclip. Spectator mode can,
+but it also grants flight and see-through-walls scouting, which is an exploit
+rather than an ability. The workable route is **per-tick teleportation along the
+network path**, which bypasses collision without noclip, plus suffocation
+suppression while inside blocks. `TunnelingAbility` is the existing precedent for
+sustained forced movement — and it is untested, so it is a precedent rather than
+a proof.
+
+**Mycelium Networks should be expressed as a Zone, not as a new system.**
+`infrastructure.md` is canonical for recognition, persistence and spatial
+metrics, and its vocabulary already carries Zone as one of its four types.
+Expressing Networks in that vocabulary inherits connectivity, persistence and
+reset; inventing a parallel one inherits none of them and creates a
+reconciliation problem later. `Provenance` supplies per-block ownership for
+Mycelium the class places.
+
+**The Development half runs into anti-farming.** Faster mushroom and crop growth
+*plus* guaranteed Huge Mushroom drops inside a Network is, mechanically, a
+renewable farm. The project has explicit anti-farming machinery and restricted
+material categories; Creeping Colony must register with them rather than route
+around them.
+
+[TECHNICAL RISK] **Submersive's plant does not exist as written.** Twisting vines
+cannot be waterlogged or placed in water — their only block state is `age`. Kelp
+and sea pickle are the vanilla aquatic analogues. The branch is sound; the
+species is not.
+
+**Cheap once their prerequisites exist.** Fungal Growth is a status of the same
+shape as Observed and Root. Hyphae Lashers reuses Root directly. Nutrient Cycle
+is a bone-meal application with a space check. The Destroying Angel is an
+ordinary mushroom block with a `Provenance` marker plus a Primed flag, and
+"destroy it before priming" is its own counterplay with no extra machinery.
+
+**Resolve Airborne Spread's ambiguity before implementation**, not after: burst
+width is an entity-query radius and mycelium-spread width is a block-placement
+volume. They are different code, not different constants.
+
+## Open
+
+- Every magnitude: Fungal Growth duration and damage, Network growth rates and thresholds, Burst radius, Myceliate range and duration, Hardy's cap, ultimate damage and radius.
+- Whether Airborne Spread widens the Burst or the resulting spread.
+- Submersive's aquatic species, given twisting vines cannot be waterlogged.
+- Root Network's pull distance, strength and whether it is resistible.
+- What "sufficiently developed" means for immediate priming.
+- Growth progression.
+
+---
+
+# 24. Looming Talismaniac
+
+**Documented 29 September 2026.** Previously carried a difficulty rating with no
+canonical kit. Reproduced as supplied. **This class is less finished than the
+short roster summaries implied**, and the unresolved pieces are recorded as
+[OPEN] rather than invented.
+
+Archetypes: **Production + Construction**
+Difficulty: **4/5**
+
+Core fantasy: manufacture symbolic objects whose shared designs establish
+magical relationships between physically separated pieces of the world.
+
+Talismaniac turns **banner designs into network identity**. Where Toolbox
+programs through spatial inventory components, Talismaniac programs through
+repeated symbols distributed through constructed space.
+
+> Pattern = relationship. Banner = node. Matching pattern = network. Consuming
+> the network = spell.
+
+That grammar is much more settled than several individual abilities.
+
+## Passive — Pattern Linking
+
+Individual banner **patterns** establish links. Banners containing the same
+pattern belong to the same corresponding magical network. Because a banner can
+contain multiple patterns, **a single banner can participate in multiple
+overlapping networks simultaneously**.
+
+```
+Banner A: patterns X + Y
+Banner B: pattern X
+Banner C: pattern Y
+Banner D: pattern Z
+```
+
+A is simultaneously part of the X network and the Y network. This is where
+Talismaniac gets much of its difficulty.
+
+### Proc and propagation rule
+
+**Settled.** Proccing a banner activates **every pattern on the initiating
+banner**. Those activated patterns propagate to every banner containing any of
+those patterns. Every banner reached this way is **consumed entirely**.
+
+**Patterns found on reached banners do not recursively activate.**
+
+```
+A = X + Y
+B = X + Z
+C = Z
+
+Proccing A activates X and Y.
+B is reached through X and is consumed.
+B's Z does NOT propagate onward to C.
+```
+
+That non-recursion rule is important: without it, overlapping designs could
+unexpectedly detonate enormous chains through incidental pattern overlap.
+
+Abstraction: **symbolic network topology.**
+
+## A1 — Imprint
+
+Imprint manipulates **complete banner designs**. Its base operation is cut and
+paste: take the complete visible design from a banner, store that design, leave
+the source blank, and apply or add the stored design to another banner.
+
+This gives Talismaniac a direct tool for constructing and reorganizing Pattern
+Linking networks without rebuilding every banner manually. **The important unit
+is the complete design**, rather than individually editing layers through the
+ability.
+
+Abstraction: **manufacture and replication of symbolic infrastructure.**
+
+### Recovered Imprint upgrades
+
+Two established directions rather than a completed three-branch set.
+
+**Copy** — Imprint preserves the source while acquiring its design. Instead of
+*source loses design → Talismaniac stores it*, the operation becomes genuine
+duplication. Abstraction: replication.
+
+**Cut / Discharge** — The stored design can be triggered locally without ordinary
+network propagation. Recovered wording varies between Cut/Proc and
+Cut/Discharge; the established mechanical distinction is that the stored design's
+effects can be activated **locally** rather than sending the normal Pattern
+Linking activation through its distributed banner network. Abstraction: portable
+talisman use.
+
+[OPEN] **A finalized third Imprint branch was not recovered and is not
+invented here.**
+
+## A2 — current established core
+
+**This is where the class becomes less complete.**
+
+When the relevant banner or network is consumed, the block supporting the banner
+**and a bounded contiguous region of matching material** become temporarily
+cursed and reactive. Entities touching that affected construction receive
+**Weakness**.
+
+So a banner is not merely projecting a circular aura. Its effect enters the
+physical construction underneath it: **banner → supporting block → contiguous
+matching construction**.
+
+That distinction is essential to the Construction half. The same banner placed on
+a tiny stone pedestal, a long stone wall, a stone floor, or a deliberately
+branching stone structure creates **materially different spell geometry**.
+
+Abstraction: **enchant constructed material.**
+
+[OPEN] Exact bounds and contiguity limits were never finalized. See the
+feasibility note — this is a performance gate, not only a balance number.
+
+### A2 branches
+
+**Infestation** — The affected construction becomes fragile and introduces
+silverfish. The curse changes a structure from stable architecture into something
+infested and treacherous. Abstraction: corrupt construction from within.
+
+**Explosive** — The affected construction becomes a delayed explosive trap. Again
+the significant feature is that the spell **follows the prepared construction**
+rather than creating a generic circular explosion around the banner.
+Abstraction: construction as stored trap geometry.
+
+[OPEN] **The third A2 branch is unresolved.** Current set: base
+contact-reactive cursed construction → Weakness; Infestation for
+fragility/silverfish; Explosive for delayed detonation. Third specialization not
+yet designed.
+
+## Ultimate — Talisman of Undying
+
+A prepared banner/talisman network temporarily gives players within its resolved
+affected locations an **extra life** — Totem-of-Undying-like protection.
+
+This makes the ultimate the **positive mirror of A2**: A2 turns prepared symbolic
+Construction into hostile cursed space; Talisman of Undying turns it into
+life-preserving space.
+
+[OPEN] Several mechanics were deliberately not finalized, and they **radically
+change the ultimate's economy**, so they are not papered over:
+
+- whether protection is a radius around each affected banner or follows blocks and constructed geometry;
+- exactly which linked banners participate;
+- whether activation consumes the entire relevant network immediately;
+- whether a banner is consumed per protected player or per resurrection proc;
+- whether each affected location has its own expenditure;
+- exact propagation semantics when the ultimate uses overlapping Pattern Linking networks;
+- what happens when a protected player dies while the network protecting them has already been consumed by A2.
+
+A network consumed once to give five players temporary death protection is a very
+different ability from one where individual resurrection events consume prepared
+talismans.
+
+**What is settled is the abstraction**: Talismaniac prepares physical symbolic
+infrastructure ahead of time and later sacrifices that infrastructure to make
+death temporarily fail within the prepared space.
+
+## Class abstraction
+
+**Production.** Talismaniac manufactures **encoded objects**. The value is not
+the wool or the banner as raw material — it comes from its pattern, duplication
+and manipulation of that pattern, which other produced banners share it, and what
+effect that symbolic identity can invoke.
+
+**Construction.** Those objects become meaningful because of **where and on what
+they are installed**. A banner can establish a geographically distributed
+network, bridge multiple pattern identities, attach an effect to constructed
+material, and turn a deliberately shaped structure into spell geometry.
+
+The loop is **design → reproduce → place → link → prepare → consume**, which is
+considerably more strategically demanding than Chef's input → process → output.
+
+**Why 4/5.** Mechanical execution is probably around 2/5 — placing banners and
+activating abilities is not difficult. The **technical and planning** difficulty
+is enormous: complete designs, individual patterns within them, which banners
+share each pattern, banners in multiple networks, which networks an initiating
+banner activates, the non-recursion rule, which physical structures banners are
+attached to, contiguous-material geometry, geographical placement, and whether
+consuming a network now destroys infrastructure needed later.
+
+The characteristic Talismaniac mistake is not *I missed my skillshot*. It is **I
+built the wrong relationships fifteen minutes ago.**
+
+## Feasibility assessed 29 September 2026
+
+**The core conceit is directly supported.** Banner patterns are fully readable
+from the block state, including multi-layer designs, and settable — so Pattern
+Linking and Imprint's cut-and-paste both work against the real API rather than
+needing a parallel representation. This was the least certain part of the class
+before checking, and it holds.
+
+**The one genuinely new data structure is a global pattern index.** "Every banner
+containing any of those patterns" is a query **by attribute, across the whole
+world, persistently** — not by position. `Provenance` indexes by position and
+cannot serve it. The index must be maintained on every banner place, break and
+Imprint, and it is the piece most likely to drift out of sync with the world.
+Design it deliberately rather than growing it.
+
+The **non-recursion rule is also a performance property**, not only a design one:
+one hop is bounded, while recursive activation over overlapping patterns is not.
+
+[TECHNICAL RISK] **A2's contiguity limit is a performance gate.** An uncapped
+flood fill by matching material, from a banner on a large stone structure, walks
+thousands of blocks — and a map's natural stone is contiguous with very nearly
+everything. That `[OPEN]` needs a number before A2 can be built at all, and
+probably needs **player-placed material only** as well, or a banner set on
+stone adjacent to the terrain curses half the map.
+
+[TECHNICAL RISK] **Infestation is stone-only in vanilla.** Infested blocks exist
+for stone, cobblestone, stone bricks and deepslate and nothing else. A banner on
+an oak or copper structure cannot use them, so the branch either restricts itself
+to stone construction or spawns silverfish manually without the infested-block
+fiction. "Fragile" and "infested" arrive as one package in vanilla and as two
+separate jobs if hand-built.
+
+[TECHNICAL RISK] **Talisman of Undying cannot use the totem.** The vanilla effect
+only fires from a totem held in hand. The extra life must be built manually —
+intercept the fatal damage, cancel it, set health, apply the effects. Entirely
+doable, but it means "Totem-like" is a **look, not a mechanism**, and every
+interaction is authored rather than inherited.
+
+**Cheap.** Imprint itself, Copy, Weakness application on contact, and Explosive's
+delayed detonation are all straightforward once the index and the contiguity cap
+exist.
+
+## Open
+
+- The third Imprint branch and the third A2 branch.
+- All seven ultimate economy questions listed above.
+- A2's contiguity bound, and whether it is restricted to player-placed material.
+- Whether Infestation restricts itself to stone-family construction.
+- Every magnitude: Weakness duration, curse duration, explosion delay and yield, ultimate duration and protection strength.
+- Growth progression.
