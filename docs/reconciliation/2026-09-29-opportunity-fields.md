@@ -5,9 +5,9 @@
 This record integrates the 29 September 2026 discussion of regenerative-resource
 placement. `maps.md` remains canonical for spatial generation and
 certification, `objectives.md` for the regenerative economy and Mob Swarms, and
-`infrastructure.md` for spatial metrics. **This record is a reconciliation, not
-an edit of those files.** Folding the doctrine into them is a separate step
-that needs an explicit decision.
+`infrastructure.md` for spatial metrics. The doctrine was folded into
+`maps.md` (Opportunity Fields — Working) and `objectives.md` (Mob Swarms
+temporal tables, ore) on 29 September 2026 at the user's explicit direction.
 
 Everything below is **Working** direction unless labelled otherwise. No
 numerical value is set, and no playable implementation is implied.
@@ -162,11 +162,10 @@ whether protected-region rules apply to block nodes.
 Use "offset" or "rotation" for field alignment. "Portfolio" already means a
 map's derived source set; a per-biome swarm table needs a different name.
 
-## Follow-through, none of it done here
+## Follow-through
 
-- Canonical edits to `maps.md` (Fields, cost-space axis, emergent
-  relationships, node floor versus ambient) and `objectives.md` (swarm temporal
-  tables, ore).
+- Canonical edits to `maps.md` and `objectives.md` are done. The browser wiki
+  (`minecraft_moba_design_wiki/`) is a stale snapshot and was not resynchronized.
 - `authorability.py`'s finite-ore statement, and `RenewableKinds`' comment
   calling ore regeneration a design claim, now disagree with this record.
 - Swarm work needs a definition schema (weighted composition, biomes, day and

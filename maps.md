@@ -1366,6 +1366,62 @@ Mob Swarm composition depends on spatial depth, regional and biome identity, and
 
 [OPEN] Exact crop, animal and Mob Swarm distance tables and regional resource tables are unresolved.
 
+### Opportunity Fields — Working
+
+**Working direction, 29 September 2026.** Integrated from
+[docs/reconciliation/2026-09-29-opportunity-fields.md](docs/reconciliation/2026-09-29-opportunity-fields.md),
+which carries the full record and the models it supersedes. No numerical value
+is selected.
+
+**Node economy versus ambient wealth.** Regenerative-node sufficiency decides
+whether a map is playable; ambient abundance characterizes it. Every playable
+map must meet a baseline regenerative opportunity *capacity*, with minimum
+redundancy, distribution and concurrency. Capacity, not raw node count, is the
+invariant. Naturally generated non-node resources stay finite where vanilla
+makes them finite and classify a map as resource-light, resource-neutral or
+resource-dense, relative to the population of recognized playable candidates
+rather than to generic Minecraft worlds. [OPEN] Classification thresholds, a
+per-resource weighted profile, and the node floor.
+
+**Field.** An Opportunity Field is an authored spatial distribution within which
+a regenerative resource can produce opportunities. It has a Domain (map-wide,
+biome, region, strategic-depth range, or combinations), a Topology (ring,
+ribbon, arc, compact loop, biome-following loop), Geometry (stretch,
+orientation, width, deformation, Practical-Reach conformity), Sampling (count,
+spacing, offset, jitter, concurrency) and Eligibility (biome and ecology,
+terrain, manifestation constraints, Commitment requirements). A ring is the
+commonest topology for a map-wide field, not the definition of a field. Map and
+biome geometry deform a field before points are realized, and a small biome may
+concentrate its opportunities. Equal node spacing is not a balance goal; the
+compiler measures the resulting concentration.
+
+**Axis.** Euclidean radius is not the authoritative axis. Depth is Practical
+Reach, characterized by the two team-relative cost fields C_N and C_S. Bands
+are ordered structures embedded in that space: cost determines depth, and
+physical topology determines order along a band. The existing near-team band
+measurement is an early form of this and is to be generalized, not replaced.
+
+**Relationships are emergent.** Fields are not related pairwise and no rule
+requires any alignment. They are authored on compatible spatial grammars, so
+independently realized fields can align, alternate, coincide harmonically,
+intersect or converge. The compiler may measure the resulting relationships as
+a description of the map, and does not require one unless playtesting later
+shows a relationship is needed for balance.
+
+**Projection is gated.** A nominal field point becomes an opportunity only where
+the cell's measured ecology already supports the kind. An unsupported point
+fails. This is the rule against sprinkling nodes, applied to fields.
+
+**Commitment Profile.** Discovery, Access, Exploitation, Return,
+Infrastructure dependency, Exposure and Contestability form an authoring and
+diagnostic vector, not a scalar. Certification uses what is measurable, chiefly
+route cost for Access and Return; the rest is instrumented in alpha. Commitment
+governs authorability, and Practical Reach is one input rather than the sole
+proxy for difficulty.
+
+[OPEN] Field counts, slot frequencies, offsets, concurrency, recovery rates,
+the Commitment formula (none is adopted), and the renewable-ore table.
+
 
 ## Horses — Prototype contract
 
