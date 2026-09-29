@@ -107,9 +107,20 @@ public final class DrillRushAbility implements Ability {
                     && Targetability.status(target, p))
                 target.damage(damage, p);
 
-        // [OPEN] Undermine's stun on a floor emergence needs a Stun status,
-        // which does not exist yet. Armored Emergence and Burrow Chain are
-        // likewise unimplemented rather than approximated.
+        // Undermine stuns only on a FLOOR emergence -- coming up from below,
+        // not out of a wall. The branch's whole distinction is the direction
+        // Mole arrives from, so the pitch of the facing is the condition.
+        if ("undermine".equals(ctx.branchFor(id())) && plugin.stun() != null
+                && facing.getY() >= config.getDouble("undermineUpwardFacing")) {
+            long stunTicks = config.getLong("undermineStunTicks");
+            for (Entity e : out.getWorld().getNearbyEntities(out, radius, radius, radius))
+                if (e instanceof LivingEntity target && !target.equals(p)
+                        && Targetability.status(target, p))
+                    plugin.stun().stun(target, stunTicks);
+        }
+
+        // [OPEN] Armored Emergence and Burrow Chain are unimplemented rather
+        // than approximated: both need values classes.md does not yet give.
         return true;
     }
 }

@@ -88,10 +88,22 @@ public final class CrashLandingAbility implements Ability {
                     target.damage(impact, p);
         }
 
-        // [OPEN] Crater's stun and Superhero's invincible pose both need a Stun
-        // status, which does not exist yet. Their damage profiles are applied
-        // above; their control effects are deliberately absent rather than
-        // approximated, because an approximated stun is worse than none.
+        // Crater trades impact damage for control, scaled by the velocity it
+        // spent -- the same descent the damage reads, so a bigger Crash is a
+        // longer Stun as well as a smaller hit.
+        if ("crater".equals(branch) && plugin.stun() != null) {
+            long stunTicks = Math.round(descent * config.getDouble("craterStunTicksPerVelocity"));
+            double radius = config.getDouble("impactRadius");
+            for (Entity e : p.getNearbyEntities(radius, radius, radius))
+                if (e instanceof LivingEntity target && !target.equals(p)
+                        && Targetability.status(target, p))
+                    plugin.stun().stun(target, stunTicks);
+        }
+
+        // [OPEN] Superhero's "invincible and unable to act" pose is a Stun
+        // applied to Daredevil plus invulnerability, and needs a duration
+        // classes.md does not yet give. Left unimplemented rather than
+        // guessed: its damage profile above is the part that is settled.
         return true;
     }
 

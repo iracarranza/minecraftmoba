@@ -88,6 +88,11 @@ public final class Match implements Listener {
         participants.clear();
         for (Team t : Team.values()) fountainDisabled.put(t, false);
         state = State.IDLE; elapsed = 0; winner = null; bindings = null;
+        // Statuses are match-scoped and both reset methods existed with no
+        // caller, so a Stun or a Root outlived the match that applied it --
+        // and a mob frozen by a Stun stayed frozen into the next one.
+        if (plugin.toolboxStatuses() != null) plugin.toolboxStatuses().reset();
+        if (plugin.stun() != null) plugin.stun().reset();
     }
 
     public State state() { return state; }

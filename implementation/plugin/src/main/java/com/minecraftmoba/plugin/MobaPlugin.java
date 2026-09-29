@@ -246,6 +246,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(lobbySettings, this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
         toolboxStatuses = new ToolboxStatuses(this);
+        // Stun enforces Root too. Root has existed since the Utility Belt and
+        // nothing has ever read it, so both statuses live behind one listener
+        // rather than each waiting for its own.
+        stun = new Stun(this);
+        getServer().getPluginManager().registerEvents(stun, this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
         getServer().getPluginManager().registerEvents(utilityBelt, this);
         // Said at enable, not at first use: the failure it predicts surfaces
@@ -369,6 +374,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public TargetPreview targetPreview() { return targetPreview; }
     private ToolboxStatuses toolboxStatuses;
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
+    private Stun stun;
+    public Stun stun() { return stun; }
     private UtilityBelt utilityBelt;
     public UtilityBelt utilityBelt() { return utilityBelt; }
     public Match match() { return match; }

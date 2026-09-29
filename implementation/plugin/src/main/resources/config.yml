@@ -1189,6 +1189,9 @@ abilities:
       selfDamage: 2.0
       impactDamageScale: 3.0
       impactRadius: 4.0
+      # Crater: Stun ticks per unit of descent spent, so a bigger Crash is a
+      # longer Stun as well as a smaller hit.
+      craterStunTicksPerVelocity: 12.0
       branches:
         crater: { selfDamageMultiplier: 2.0, impactDamageMultiplier: 0.6, combat: true }
         combat_roll: { selfDamageMultiplier: 0.5, impactDamageMultiplier: 0.25, combat: true }
@@ -1210,6 +1213,10 @@ abilities:
       emergeDistance: 2.0
       emergeRadius: 2.5
       emergeDamage: 4.0
+      # Undermine stuns only coming up from below. The facing's Y component
+      # above this counts as a floor emergence rather than a wall one.
+      undermineUpwardFacing: 0.5
+      undermineStunTicks: 30
       branches:
         armored_emergence: { combat: true }
         undermine: { combat: true }

@@ -196,6 +196,13 @@ public final class AbilityInputs implements Listener {
             if (plugin.hudNotice() != null) plugin.hudNotice().notUnlocked(p, required);
             return true;
         }
+        // A Stun takes the actions, and casting is an action. Checked here
+        // rather than per ability, so a new ability cannot forget to be
+        // stunnable.
+        if (plugin.stun() != null && plugin.stun().actionsRefused(p)) {
+            if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, "STUNNED");
+            return true;
+        }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         // Say so rather than doing nothing. A cooldown that refuses silently
         // is indistinguishable from an input that was not registered, which is

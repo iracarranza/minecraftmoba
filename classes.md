@@ -1319,7 +1319,36 @@ an enemy stuns them" ([section 4](#4-mole)). That is a good shape for the
 roster's only Stun: it requires arriving from below, which costs a tunnel and
 telegraphs itself.
 
-[OPEN] Stun duration, and whether stacking rules differ from Root's.
+**Stunned targets take the LATER expiry, not a refresh.** This is the one place
+Stun's rule differs from Root's, and the difference is deliberate: refreshing
+lets a short Stun *shorten* a long one applied a tick earlier — an incidental
+Crater cutting Bloodmason's Anatomb completion Stun down to half a second.
+Stacking is still refused, for Root's reason. Two 40-tick Stuns at the same
+instant expire at 40, not 80.
+
+[OPEN] Stun durations per source.
+
+**Implemented 29 September 2026** as `Stun.java`, which also supplies the
+enforcement **Root never had** — `ToolboxStatuses` had owned Root since the
+Utility Belt shipped and nothing in the plugin ever read it, so the status was
+set correctly, tested, and inert. Both are enforced behind one listener so that
+cannot happen separately to each again. Movement is refused by rewriting the
+destination's position while keeping the event's yaw and pitch, because
+Minecraft carries a move and a look in the same event and cancelling it outright
+would take both.
+
+[TECHNICAL RISK] **"Prevents all player input" is not reachable: a stunned
+player can still look around.** `org.bukkit.Input` carries movement keys only,
+there is no attack or use signal to suppress, and the client always sends the
+click. Cancelling the resulting events — interact, attack, break, place,
+consume, drop, and the ability cast itself — recovers every consequence except
+the camera, which cannot be taken. This is the same wall the
+[Waxer capability audit](#18-waxer) hit with Amber.
+
+**Retained look is therefore a property of Stun here, not a defect awaiting a
+fix.** It is arguably better for the long ones: Bloodmason's completion Stun
+scales with missing Health and can run for seconds, and a player who can watch
+what is happening to them is being told more than one whose camera is frozen.
 
 ### Durations are per source
 
@@ -4125,9 +4154,10 @@ solved.
 
 **Two prerequisites.**
 
-- **Stun does not exist.** Only Root is implemented; Stun appears in
-  `Targetability` and `ToolboxStatuses` as commentary only. Bloodmason needs it
-  three times over. Build it as its own status first.
+- ~~**Stun does not exist.**~~ **Built 29 September 2026** as `Stun.java`, with
+  the enforcement Root had been missing since the Utility Belt shipped. Its
+  combination rule is later-expiry-wins rather than refresh, specifically so an
+  incidental Stun cannot shorten the Anatomb's completion Stun.
 - [TECHNICAL RISK] **A stun cannot block mouse inputs.** `org.bukkit.Input`
   carries movement keys only, and the client always sends the click. Cancelling
   `PlayerInteractEvent`, the attack `EntityDamageByEntityEvent`,
