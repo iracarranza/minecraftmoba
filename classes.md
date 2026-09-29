@@ -2929,13 +2929,31 @@ Secondary:
 
 Difficulty 1/5, and the first of the seven introductory archetype exemplars. See [section 22](#22-chef) and [section 21](#21-class-difficulty).
 
+### Paver — proposed 29 September 2026
+Primary:
+- Construction
+
+Secondary:
+- None. A deliberately pure single-archetype exemplar.
+
+Difficulty 1/5. See [section 25](#25-paver).
+
+### Chauffeur — proposed 29 September 2026
+Primary:
+- Logistics
+
+Secondary:
+- None. A deliberately pure single-archetype exemplar.
+
+Difficulty 1/5. **Supersedes the placeholder name Stationmaster**, which never had a kit. See [section 26](#26-chauffeur).
+
 ### Difficulty as a second axis
-Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Six of the seven planned exemplars — Werewolf, Paver, Wayfinder, Quarryman, Groundskeeper and Stationmaster — exist as names and archetype questions only.
+Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Four of the seven planned exemplars — Werewolf, Wayfinder, Quarryman and Groundskeeper — exist as names and archetype questions only. Two global world-system rules and the Difficulty-1 design principles live in [section 27](#27-global-world-system-rules).
 
 ### Unsettled drafts
 None of the original roster. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
 
-Bloodmason and Chef are **new proposals** rather than promoted drafts, and are not yet settled. Fungal Assassin and Looming Talismaniac are **newly documented rather than new**: both predate this entry and were previously recorded only as rows in the difficulty table.
+Bloodmason, Chef, Paver and Chauffeur are **new proposals** rather than promoted drafts, and are not yet settled. Fungal Assassin and Looming Talismaniac are **newly documented rather than new**: both predate this entry and were previously recorded only as rows in the difficulty table.
 
 ---
 
@@ -4406,7 +4424,7 @@ obvious expression of each fundamental archetype**.
 | Extraction | Quarryman | How do I efficiently remove valuable material from the world? |
 | Development | Groundskeeper | How can I make this place more productive? |
 | Production | Chef | How can I turn these inputs into more useful outputs? |
-| Logistics | Stationmaster | How do I get people and resources where they're needed? |
+| Logistics | Chauffeur | What needs to move, and what can I drive to move it? |
 
 These are **not beginner versions of more interesting classes**. They expose the
 irreducible verb of the archetype, so that a player who does not understand
@@ -4418,9 +4436,19 @@ uncertainty about what the player should do next. Chef still throws pork into
 furnaces, physically presses cooking progress forward, conserves fuel, scales
 advancement with batch size, and forces enemies to attend a disastrous buffet.
 
-[OPEN] Only **Chef** ([section 22](#22-chef)) has a kit. Werewolf, Paver,
-Wayfinder, Quarryman, Groundskeeper and Stationmaster exist as names and
+**Three have kits**: Chef ([section 22](#22-chef)), Paver
+([section 25](#25-paver)) and Chauffeur ([section 26](#26-chauffeur)).
+
+[HISTORICAL] The Logistics exemplar was first named **Stationmaster**, with the
+question "how do I get people and resources where they're needed?". It never had
+a kit, and Chauffeur supersedes both the name and the question.
+
+[OPEN] Werewolf, Wayfinder, Quarryman and Groundskeeper exist as names and
 questions only.
+
+The design principles these exemplars produced are recorded in
+[section 27](#27-global-world-system-rules), not here, because they constrain
+class design generally rather than only the difficulty scale.
 
 ## A note the scale deliberately does not measure
 
@@ -5205,3 +5233,657 @@ exist.
 - Whether Infestation restricts itself to stone-family construction.
 - Every magnitude: Weakness duration, curse duration, explosion delay and yield, ultimate duration and protection strength.
 - Growth progression.
+
+---
+
+# 25. Paver
+
+**Proposed 29 September 2026.** The Construction exemplar of the seven
+Difficulty-1 archetype classes ([section 21](#21-class-difficulty)). Reproduced
+as supplied, with the feasibility assessment kept separate below.
+
+Primary archetype: **Construction**
+Difficulty: **1/5**
+
+Core fantasy: gather and compile Concrete, then use Minecraft's ordinary
+block-placement freedom to construct terrain that is tougher, more traversable,
+structurally unusual and combat-capable.
+
+Fundamental question: **where would adding blocks make this place more useful?**
+
+Core loop: **Gather → Compile → Construct → Exploit the construction → Reuse its
+mass.**
+
+Paver is the pure Construction exemplar. **The kit does not decide what Paver
+should construct.** It makes construction itself more capable while preserving
+the spatial decisions inherent to Minecraft building.
+
+## Passive — Concrete Mixer
+
+While carrying the ingredients required for Concrete Powder, Paver's movement
+gradually converts those ingredients directly into Concrete. Conversion is
+slightly faster when Paver is moving through water, or has a Water Bucket in
+their inventory.
+
+Paver therefore still participates in the material economy: Concrete has to come
+from its actual ingredients. **The passive removes processing friction rather
+than removing acquisition.** Water provides a simple optimization grounded in the
+material's normal Minecraft behaviour.
+
+Abstraction: **raw construction materials → construction-ready material.**
+
+## A1 — Rebar Chain
+
+**Passive.** Concrete placed by Paver is rebar-reinforced, slightly increasing
+its hardness. Reinforcement marks Concrete as Paver's authored structural
+material and is referenced by the rest of the kit.
+
+**Active.** Paver attaches their Rebar Chain to a nearby Concrete block. While
+attached, Paver gains climbing movement along other Concrete blocks within a
+radius around the attachment point. Moving outside that radius breaks the Chain.
+
+**The ability does not create climbing geometry.** Paver creates the geometry
+through ordinary block placement, and Rebar Chain changes how Paver can traverse
+it. A wall can be climbed; an overhang can become a route; a bridge can provide
+recovery; a deliberately complex structure becomes correspondingly complex
+movement terrain.
+
+Abstraction: **construction as traversal.**
+
+### A1 branches
+
+**Galvanized** — Rebar-reinforced Concrete is even harder. The simplest
+structural specialization: Paver's authored construction becomes more difficult
+to destroy. Abstraction: durability.
+
+**Beveled Edges** — Paver's movement speed is increased while attached with Rebar
+Chain. Paver traverses their Concrete construction more rapidly without changing
+what they need to build. Abstraction: traversal efficiency.
+
+**Pitons** — Rebar Chain can be recast while attached to leave a **Piton**, a new
+attachment point. Subsequent casts dash Paver to the furthest Piton. Pitons
+establish persistent traversal anchors throughout the construction. Abstraction:
+traversal topology.
+
+[OPEN] **"Furthest Piton" must be made explicit** during implementation: distance
+from Paver, distance from the original anchor, or position within an ordered
+chain are three different abilities.
+
+## A2 — Chamfering
+
+**Passive.** Concrete Powder placed adjacent to Paver's rebar-reinforced Concrete
+becomes **Chamfered**. Chamfered Concrete Powder **does not fall when it receives
+block updates**.
+
+This lets Paver's solid Concrete function as the structural skeleton for
+otherwise impossible Concrete Powder geometry. **The player remains completely
+responsible for deciding that geometry.**
+
+**Active.** The next Chamfered Concrete Powder block Paver steps on loses its
+Chamfered state, and adjacent Chamfered Concrete Powder loses Chamfering too.
+Once released, those blocks again obey normal gravity.
+
+The adjacency rule lets Paver **design how a collapse will propagate** through
+their construction rather than selecting a predefined collapsing structure.
+
+Abstraction: **conditional structural support.**
+
+### A2 branches
+
+**Steep Grading** — Players sneaking at the edges of Chamfered Concrete Powder
+fall instead. Chamfered Powder defeats the normal edge protection sneaking
+provides. **This applies to players generally, not only enemies**: it is a
+physical property of the construction, not team-aware trap magic. It lets Paver
+construct dangerous footing while leaving shape, location and intended use
+entirely player-authored. Abstraction: precarious construction.
+
+**Pozzolan Patch** — When Chamfered Concrete Powder becomes Concrete, adjacent
+enemies are **Rooted**. The effect follows the actual material transition rather
+than requiring a separate Paver action, giving Chamfered Powder two opposing
+combat possibilities: release its support and it falls, or harden it and nearby
+enemies are Rooted. Abstraction: hardening as control.
+
+**Natural Mix** — Concrete Powder placed adjacent to **Grass Blocks** can also
+become Chamfered, making grass an alternative structural starting point. Base
+Paver construction follows terrain → reinforced Concrete → Chamfered Powder;
+Natural Mix permits Grass → Chamfered Powder. It expands **where** Paver can
+begin expressive Powder construction without prescribing what that construction
+becomes. Abstraction: terrain integration.
+
+## Ultimate — Concrete Shoes
+
+Paver begins summoning a pair of massive Concrete Shoes over a targeted location.
+The Shoes gather mass from two sources **in priority order**:
+
+**1. Inventory Concrete** is consumed first and incorporated. This material is
+**permanently committed**.
+
+**2. Nearby reinforced Concrete**, if more is required, is **temporarily pulled**
+from its positions and incorporated. These world blocks are only borrowed, and
+**their original positions are reserved for them throughout the cast** — see
+[section 27](#27-global-world-system-rules).
+
+**Slam.** Once the Shoes have gathered their maximum possible mass, or all usable
+Concrete is exhausted, they slam onto the target. The assembled amount scales
+both effects: players caught directly beneath take increasing damage, and
+grounded players affected receive increasing **upward** knockback.
+
+> More Concrete → harder crush + greater launch.
+
+**It does not fail for want of Concrete.** Whatever usable mass is available
+determines the resulting strength.
+
+**After impact** the two sources resolve differently. World-sourced Concrete
+returns to its exact reserved original positions. Inventory-sourced Concrete does
+**not** return to Paver's inventory: it remains permanently placed at the impact
+location as the resulting Shoes.
+
+> Carried Concrete is committed. Built Concrete is leveraged.
+
+The resulting Shoes are **actual terrain** — climbable, buildable upon, usable as
+cover, and subject to Paver's other Concrete mechanics where applicable.
+
+Abstraction: **construction mass as combat force and new construction.**
+
+## Paver's Construction grammar
+
+Two related but mechanically distinct materials.
+
+**Rebar-reinforced Concrete** — permanently player-placed; slightly harder than
+ordinary Concrete; supports Rebar Chain traversal; supports Chamfered Concrete
+Powder; can temporarily contribute mass to Concrete Shoes.
+
+**Chamfered Concrete Powder** — freely player-arranged; supported through
+adjacency rather than ordinary gravity; can deliberately have that support
+released; retains the normal possibility of becoming Concrete; branches can make
+its footing dangerous, its hardening controlling, or its support relationship
+more terrain-flexible.
+
+**Neither material dictates what structure Paver creates.**
+
+## Why Paver remains Difficulty 1
+
+| Situation | Paver's rule |
+|---|---|
+| Need Concrete | Gather ingredients and move |
+| Want durable construction | Place Concrete |
+| Want to traverse Concrete | Rebar Chain it |
+| Want suspended Powder | Build it from reinforced Concrete |
+| Want Powder to fall | Step on it with Chamfering active |
+| Want a major fight impact | Concrete Shoes |
+
+What remains difficult is **Construction itself** — what to build, where, how much
+material to commit, how geometry interacts with terrain, how allies use it, how
+enemies attack it, how to construct during combat, how to exploit gravity, and
+whether Concrete is worth more in inventory, already constructed, or permanently
+relocated by the ultimate.
+
+**Those are not reasons to raise the rating. They are the skill expression of the
+archetype.** See the first principle in
+[section 27](#27-global-world-system-rules): low class difficulty must never come
+at the expense of performing the underlying Minecraft verb well.
+
+## Feasibility assessed 29 September 2026
+
+**Free.** Concrete Mixer is an inventory scan on movement with a water check.
+Pitons, Beveled Edges and the Shoes' mass-scales-potency rule are all
+straightforward. Concrete and Concrete Powder are already distinguished in
+`MaterialCategories` (`MaterialCategories.java:58` and `:69`), so the two
+materials already have separate identities in the economy.
+
+[TECHNICAL RISK] **"Slightly increasing its hardness" is not available.** Hardness
+is a property of the block *type*, not the instance, and Bukkit exposes no
+setter — the same constraint Bloodmason's Adipose hit
+([section 20](#20-bloodmason)). Concrete cannot be substituted for a harder block
+because its colour is the point. The workaround is detect-and-correct: apply
+Mining Fatigue while a player targets reinforced Concrete, or track break
+progress across `BlockDamageEvent`. This project has already accepted that
+pattern for Structural Integrity, but it is a visible seam and **Galvanized
+doubles down on it**, so the two branches share one risk.
+
+[TECHNICAL RISK] **Climbing arbitrary blocks is not available either.** Vanilla
+climbing belongs to ladders, vines and scaffolding; there is no climbable
+attribute and no per-block override. Rebar Chain has to be per-tick upward
+velocity while the player is against reinforced Concrete — which is **not
+client-predicted**, so expect the same fighting-the-client behaviour described
+for Bloodmason's A1. It is the class's largest movement risk and it sits on A1,
+the most-used ability.
+
+**Chamfering itself is cheap and the right shape.** Cancelling
+`BlockPhysicsEvent` at the chamfered positions suppresses the gravity check
+outright. **But `BlockPhysicsEvent` is one of the highest-frequency events on the
+server**, so the listener must hit an in-memory position set before it touches
+`Provenance` or a PDC. There is no `BlockPhysicsEvent` listener in the plugin
+today, so this introduces one on a hot path.
+
+**The release needs a cap, for the Talismaniac reason.** "Adjacent Chamfered
+Powder also loses Chamfering" is an uncapped flood fill over a player-built
+structure. A number is needed before A2 ships, not as balance but as a
+performance bound.
+
+**Steep Grading — answering the implementation question directly.** Yes, this can
+be done cheaply, and without ticking or scanning Chamfered blocks. Sneak edge
+protection manifests as the server clamping movement at the edge, so rather than
+detecting the protection, **drive it from `PlayerMoveEvent`**, which fires only
+when the player moves: if the player is sneaking, standing on Chamfered Powder,
+and pressing toward an unsupported edge, apply the nudge that carries them over
+it. The directional half is already solved — `org.bukkit.Input` (used today in
+`AimState.java`) carries the movement keys, so "pressing toward" is readable
+rather than inferred. Cost is one listener on an event that is already
+player-driven, and zero cost for chamfered blocks nobody is standing on.
+
+[OPEN] **Pozzolan Patch's trigger needs verification.** Concrete Powder becoming
+Concrete on water contact may not fire an event a plugin can hear. If it does
+not, the alternative is polling chamfered powder positions for the transition,
+which for a large Paver structure is exactly the per-block ticking Steep Grading
+was designed to avoid. **Confirm the event before designing around it** — this is
+the one branch whose cost could change by an order of magnitude.
+
+**Concrete Shoes needs the displacement registry** from
+[section 27](#27-global-world-system-rules), which does not exist yet. Paver is
+its first consumer but should not be its owner: Mole's Sinkhole and Bloodmason's
+Anatomb are the others.
+
+## Open
+
+- Every magnitude: conversion rate and water bonus, Chain radius, climb speed, hardness deltas, Shoes' mass-to-damage and mass-to-knockback curves, Root duration.
+- The definition of "furthest Piton".
+- The adjacency cap on Chamfering release.
+- Whether the Powder → Concrete transition is observable without polling.
+- Growth progression.
+
+---
+
+# 26. Chauffeur
+
+**Proposed 29 September 2026.** The Logistics exemplar of the seven Difficulty-1
+archetype classes ([section 21](#21-class-difficulty)). **Supersedes the
+placeholder name Stationmaster**, which was a name and a question with no kit.
+Reproduced as supplied, with the feasibility assessment kept separate below.
+
+Primary archetype: **Logistics**
+Difficulty: **1/5**
+
+Core fantasy: Chauffeur uses Minecraft's most legible driven vehicles
+exceptionally well, bending some of their normal movement rules to move
+themselves, teammates and resources through the world. **Summoned vehicles are
+powerful but brief opportunities separated by meaningful downtime**; ordinary
+vehicles and transportation infrastructure remain important.
+
+Fundamental question: **what needs to move, and what can I drive to move it?**
+
+Core loop: **Find or summon vehicle → choose what/whom to move → drive → park or
+transition → operate through downtime → drive again.**
+
+Chauffeur does **not** formalize deliveries or choose destinations. Sometimes
+they are carrying resources home, sometimes moving a teammate, sometimes reaching
+a location themselves is the logistical objective, sometimes they are positioning
+a vehicle to support future infrastructure. **The class improves Chauffeur's
+methodology for moving things, not the act of deciding what should move where.**
+
+## Passive — Parking Spot
+
+Chauffeur can have **one** Parking Spot at a time. Exiting a summoned Cargo Boat
+or Muscle Cart places it at Chauffeur's current location, replacing the previous
+one. Entering a summoned vehicle from the Parking Spot grants that vehicle a
+brief speed boost.
+
+The Parking Spot records **where did I last finish a summoned vehicle trip?** It
+is not a selected waypoint, depot, Recall point or generated route. Its
+strategic significance comes entirely from where Chauffeur actually chooses to
+stop and exit — creating reasons to finish a trip somewhere that matters later:
+an important developed position, an objective approach, a distant extraction
+area, a defensible fallback, an aggressive forward position, a useful
+vehicle-transfer location.
+
+It is also the destination used by the ultimate.
+
+## A1 — Cargo Boat
+
+**Passive.** Chauffeur can drive Boats on land at increased speed. Boats can
+already travel over land; Chauffeur makes that normally awkward behaviour
+genuinely useful for transportation.
+
+Cargo Boat should have **the more forgiving and versatile free-driving handling**
+of Chauffeur's two summoned vehicles — correcting course readily and negotiating
+improvised routes — while retaining the higher technical movement ceiling
+associated with Minecraft boating under exceptional surfaces and conditions.
+
+**Active.** Chauffeur temporarily summons a Cargo Boat, which retains the Boat's
+extra passenger seat, **also** contains additional item storage, and can
+therefore simultaneously move Chauffeur + passenger + cargo.
+
+Its summon availability should be **relatively short** compared with its
+relatively long independent cooldown. One activation should create an opportunity
+for a meaningful logistical leg, not put Chauffeur permanently into a vehicle
+state.
+
+### A1 branches
+
+**Jetski** — Cargo Boats gain increased **velocity** from Bubble Columns, making
+them acceleration and launch features Chauffeur can incorporate into a route. The
+important property is *gaining velocity*, not a flat movement-speed bonus while
+inside the column.
+
+**Freight Engine** — Cargo Boats move faster when their storage is full. Keep it
+a **clear threshold** rather than a continuous fullness optimization meter: full
+cargo → faster Cargo Boat.
+
+**Front Propeller** — Cargo Boats deal additional damage and knockback when
+striking enemies **with their front**. The directional requirement matters:
+Chauffeur must line the Boat up and ram, not receive generic collision damage.
+
+## A2 — Muscle Cart
+
+**Passive.** Chauffeur can ride Minecart Variants, and **all rails Chauffeur
+travels over in a Minecart are treated as Powered Rails**. This makes the entire
+Minecart family part of Chauffeur's vocabulary rather than making ordinary
+Minecarts obsolete once Muscle Cart exists — and Minecarts gain an additional
+attraction relative to Boats because their variants retain their own specialized
+characteristics.
+
+**Active.** Chauffeur summons a Muscle Cart that can be freely driven across land
+similarly to a Boat, with **distinctly more momentum-oriented handling**: greater
+commitment to its current line, more deliberate turning, drift-like correction,
+and rewards for maintaining momentum. It should remain a step below the extreme
+technical handling of very high-speed ice boating.
+
+Driving Muscle Cart into enemies **knocks them out of the way**. Its identity is
+therefore **establish a line → build and carry momentum → force the line through
+obstacles**, and rails provide an especially favourable prepared line because
+Chauffeur treats them as Powered.
+
+### A2 branches
+
+**Pop the Hopper** — Striking an enemy with a Hopper Minecart sends them
+extremely high. This is primarily **extreme vertical displacement**, not another
+damage modifier, and it gives an existing variant a Chauffeur-specific driving
+characteristic without summoning that variant for them.
+
+**Diesel Engine** — An active Furnace Minecart gains speed based on the fuel
+being used, preserving the actual Minecraft resource relationship rather than
+introducing an abstract Chauffeur fuel meter. Fuel choice becomes part of
+preparing a trip.
+
+**Tactical Dismount** — Exiting a Minecart or Muscle Cart lets it continue driving
+a short distance **without Chauffeur**, dealing bonus damage to enemies it
+strikes; TNT Minecarts explode at the end of that movement. Dismounting becomes an
+offensive continuation of the trajectory Chauffeur established: line it up →
+dismount → unmanned continuation → explosion at endpoint. **The bonus damage
+belongs to the unmanned continuation**, not to Chauffeur's Minecart collisions
+generally.
+
+## Ultimate — Highly Irresponsible Racing Line
+
+Chauffeur draws a visible straight line from their current position to their
+Parking Spot. Enemies within a **substantially wider corridor** around that line
+become marked. While Chauffeur is driving a vehicle *toward* the Parking Spot
+they gain bonus movement speed, and striking a marked enemy with the vehicle
+grants additional bonus speed.
+
+The narrow visible line communicates the **idealized** Racing Line; the wider
+marking corridor allows Chauffeur to actually drive — steer around terrain,
+drift, deviate to strike a marked enemy, correct course, and exploit the
+vehicle's particular handling.
+
+**The ultimate does not create a navigable path or ignore terrain.** Its
+proposition is: *that is where you parked; get back there; anything between you
+and it can become part of the racing line.*
+
+This supports both directions. **Defensive:** leave the Parking Spot at a priority
+position, venture elsewhere, then use the ultimate to aggressively recover it
+through an enemy line. **Offensive:** establish the Parking Spot at an advanced
+location and later break back through opposition toward it.
+
+Marked-enemy collisions should be **discrete acceleration events**, not continuous
+acceleration from maintaining hitbox contact.
+
+## Vehicle handling doctrine
+
+**Cargo Boat and Muscle Cart should overlap substantially on neutral terrain.
+That is intentional.** The game should frequently permit *either vehicle works
+here; which do I prefer driving?* Their distinction is primarily
+**methodological** rather than a hard terrain counter system.
+
+| | Cargo Boat | Muscle Cart / Minecarts |
+|---|---|---|
+| Neutral terrain | Good | Good |
+| Free driving | More versatile, forgiving | More momentum-oriented |
+| Water | Naturally excellent | Poorer context |
+| Rails | No special benefit | Extremely favourable |
+| Cargo | Excellent | Variant-dependent |
+| Passenger + cargo | Yes | No equivalent baseline |
+| Collision | Normal unless branched | Naturally clears enemies |
+| Specialization | Highly capable single platform | Family of specialized variants |
+| Technical ceiling | Higher free-movement ceiling | Line, momentum and infrastructure mastery |
+
+This produces **preference without making preference absolute**. A Boat-preferring
+Chauffeur puts Cargo Boat on cooldown more often, so Muscle Cart becomes
+available for problems arising during that cooldown — alternation without an
+explicit combo mechanic.
+
+## Summon cadence and downtime
+
+Cargo Boat and Muscle Cart have **independent cooldowns**, both with relatively
+short exceptional availability and relatively long individual cooldowns. **The
+target is emphatically not permanent vehicle uptime through alternating A1 and
+A2**, and real periods where both are unavailable are desirable.
+
+During those periods Chauffeur remains fully functional: travel normally,
+transport items normally, use ordinary Boats, use ordinary Minecarts and
+variants, exploit the passive vehicle bonuses, reposition vehicles, prepare
+cargo, construct and use transportation infrastructure, and decide what the next
+summoned trip should accomplish.
+
+**The cooldown gates Chauffeur's exceptional vehicle opportunity, not the
+Logistics archetype itself.** The eventual calibration question is therefore *how
+many meaningful map connections can one summon solve?* rather than *what
+percentage uptime does Chauffeur have?* One summon should generally solve a leg,
+not an entire extended logistical operation.
+
+## Vehicles and Supply Lines
+
+Preserves the Logistics rule established with Skeleton Crew, and generalized in
+[section 27](#27-global-world-system-rules): **if an entity-based logistical
+method defines a Supply Line, that specific entity becomes tied to that Supply
+Line.** The entity is not evidence that a Supply Line was established — the entity
+is *part of* the Supply Line.
+
+**Ordinary vehicles.** Chauffeur can use ordinary Boats, Minecarts and applicable
+variants to establish Supply Lines, retaining Chauffeur's passive advantages
+where applicable. A specific ordinary vehicle defining a Supply Line becomes
+committed to it, which makes mundane vehicles valuable as **persistent logistical
+capital** even though Chauffeur has exceptional summoned versions.
+
+**Summoned vehicles.** Cargo Boat and Muscle Cart can likewise define Supply
+Lines, and that particular summoned entity becomes committed. **Resummoning
+replaces the previous instance and therefore breaks the Supply Line it was
+defining.** Consequently *"Cargo Boat is available again" does not necessarily
+mean "I should summon Cargo Boat"*: if the existing one is maintaining important
+infrastructure, redeploying A1 has a logistical opportunity cost.
+
+The useful distinction is: an **ordinary vehicle** is a persistent logistical
+instrument that must actually be acquired; a **summoned vehicle** is an
+immediately available exceptional instrument that can be redeployed, but
+redeployment sacrifices anything dependent on its previous instance.
+
+Tactical Dismount follows the same physical rule: if moving, destroying or
+exploding a vehicle means it no longer satisfies its Supply Line's requirements,
+**the Supply Line does not magically persist**.
+
+## Feasibility assessed 29 September 2026
+
+[TECHNICAL RISK] **Boat movement is client-authoritative, and the class's A1
+passive depends on changing it.** The driving client simulates the boat and sends
+its position; the server is largely a follower. Server-side velocity on a
+player-driven boat is the least reliable movement work in Minecraft, and
+"increased speed on land" is exactly that. This is the single largest risk in the
+kit and it sits on the passive half of A1, so it affects every Chauffeur at all
+times. **Jetski compounds it**, since bubble-column acceleration is the same
+argument applied to the same entity.
+
+**Minecarts are the opposite, and that is fortunate.** Minecart motion is
+server-driven, so "every rail is Powered", free-driving Muscle Cart handling,
+momentum and drift, enemy knock-aside, Pop the Hopper and Tactical Dismount's
+riderless continuation are all reachable by applying velocity to an entity the
+server already owns. `TNTMinecart` can be detonated directly. **Muscle Cart is
+substantially more implementable than Cargo Boat**, which is worth knowing
+before the two are balanced against each other as equals.
+
+[TECHNICAL RISK] **Cargo Boat cannot be one vanilla entity.** A chest boat
+carries storage but **loses the second seat**; an ordinary boat seats two but has
+no storage. "Passenger + cargo simultaneously" is specified against a combination
+vanilla does not offer. The cheap fix is an ordinary boat with a plugin-held
+inventory opened on interact, which keeps both seats and gives storage that can
+be sized deliberately rather than inherited.
+
+[OPEN] **Diesel Engine's fuel table has to be authored.** Vanilla furnace
+minecarts accept only coal and charcoal, so "speed based on the fuel being used"
+has exactly two values unless a broader table is written. That is a small piece of
+work but it is invention, not preservation, so it should be an explicit decision
+rather than a surprise.
+
+**Cheap.** Parking Spot is a single stored location. The Racing Line is a
+distance-to-segment test for the corridor, particles for the line, and a
+dot-product test for "toward" — all ordinary. Discrete rather than continuous
+acceleration on marked-enemy collisions is a cooldown per enemy, and is the
+cheaper of the two readings as well as the better one.
+
+[TECHNICAL RISK] **Supply Lines do not exist yet.** They appear in `GrowthPacket`
+and `TestBed` as commentary and endpoint fixtures, with no implementation. The
+entity-commitment rule is therefore not a constraint on an existing system but a
+requirement on one not yet built — and Chauffeur is the class that makes it
+urgent, because summoned-vehicle redeployment is the mechanic that makes
+commitment *cost* something.
+
+## Open
+
+- Every magnitude: summon durations, both cooldowns, speed deltas, corridor width, knockback and damage values, Parking Spot boost.
+- Whether Cargo Boat's storage is a chest-boat-sized inventory or authored separately.
+- The Diesel Engine fuel table.
+- Muscle Cart's handling model: how much momentum commitment, and how drift correction is expressed.
+- Growth progression.
+
+---
+
+# 27. Global world-system rules
+
+**Recorded 29 September 2026.** Two rules and one design principle set that
+emerged from Paver and Chauffeur but are **not class-specific**. They are
+recorded here so they travel independently of the classes that produced them.
+
+## Temporary block displacement reserves its origin
+
+> Whenever an ability temporarily consumes, removes, relocates, hides or
+> otherwise takes a block out of its original world position **with the
+> intention of restoring it**, that original position remains **reserved** for
+> the displaced block until restoration.
+
+A reserved position cannot be built into or otherwise occupied by another block
+in a way that would prevent the displaced block from returning. When the
+temporary displacement ends, the original block returns to its exact original
+position and state.
+
+The distinction is: **temporary displacement reserves the origin; permanent
+displacement releases it as ordinary usable space.**
+
+[OPEN] **No displacement registry exists.** Paver's Concrete Shoes
+([section 25](#25-paver)) is the first ability written against this rule, but it
+should not own it: Mole's Sinkhole ([section 4](#4-mole)) and Bloodmason's
+Athanor Anatomb ([section 20](#20-bloodmason)) both displace world blocks with
+intent to restore. The registry needs an owner, a persistence story alongside
+`Provenance`, and a guard on block placement at reserved positions.
+
+## An entity-defined Supply Line is committed to that entity
+
+> If an entity is the physical logistical method defining a Supply Line, **that
+> specific entity is committed to the Supply Line.**
+
+The entity is not *evidence* that a Supply Line was established. The entity is
+*part of* the Supply Line. Moving, replacing, recalling, destroying, consuming or
+otherwise invalidating the defining entity invalidates the Supply Line, at the
+point where it no longer satisfies the line's requirements.
+
+Established with Skeleton Crew ([section 15](#15-skeleton-crew)) and generalized
+by Chauffeur ([section 26](#26-chauffeur)), where summoned-vehicle redeployment
+is what gives commitment a cost.
+
+Together these two rules express a broader principle:
+
+> **Persistent game systems remain physically accountable to the world objects
+> that create them.**
+
+Paver's displaced block has somewhere it belongs. Chauffeur's Supply Line has a
+vehicle supporting it. The abstraction does not silently detach itself from the
+Minecraft world once established.
+
+## Difficulty-1 design principles
+
+Sharpened by Paver and Chauffeur together. These extend
+[section 21](#21-class-difficulty) rather than restating it.
+
+**1. Difficulty measures what the class adds.** A class does not earn a high
+rating merely because its archetype is hard to perform well. Construction
+inherently involves difficult spatial decisions; Logistics inherently involves
+difficult routing, timing and allocation. Those are the archetypes. **Difficulty
+measures the additional procedural, interpretive and mechanical burden the class
+imposes on top of performing its role well.**
+
+**2. Simplify access to the verb, not the verb.** A Difficulty-1 class must not
+achieve simplicity by deleting the decisions that make its archetype meaningful.
+
+| | Bad easy version | The exemplar |
+|---|---|---|
+| Construction | Press "Build Bridge", receive the correct bridge | **Paver**: here are unusually capable construction materials; you decide what to build |
+| Logistics | Select origin and destination; resources transfer automatically | **Chauffeur**: here are unusually capable transportation instruments; you decide what, whom, where and how to move |
+
+**3. Make the methodology clearer and easier to manipulate — not necessarily
+easier to execute.** A simple class can make its archetype legible without making
+success trivial. *"Boats and Minecarts are my tools"* is clear; driving the right
+vehicle through difficult terrain, managing momentum, preserving a Supply Line and
+hitting the Racing Line are not. *"Concrete is my construction material"* is
+clear; good Minecraft construction is not automatic.
+
+**4. Preserve the world's existing vocabulary.** Chef builds on food, furnaces and
+cooking; Paver on Concrete, Concrete Powder, gravity and Grass; Chauffeur on
+Boats, Minecarts, rails, variants, Bubble Columns and fuel. **A class may break
+rules, but the broken rule should remain intelligible relative to the original
+object.** "My Minecart treats every rail as Powered" is easier to understand than
+an abstract transportation statistic, and it creates more Minecraft-specific
+consequences.
+
+**5. Enrich a method rather than replace it.** Chef is ordinary resource decisions
+plus extraordinary processing interactions; Paver ordinary construction decisions
+plus extraordinary material properties; Chauffeur ordinary logistical decisions
+plus extraordinary transportation instruments. **The player remains responsible
+for the archetype's central decision.**
+
+**6. Difficulty 1 can have a high mastery ceiling.** A simple kit generates
+mastery through terrain, world state, Minecraft mechanics, opponents, timing,
+resource economy, physical execution, coordination, infrastructure, and
+interactions between simple rules. Chauffeur is the clearest case: the beginner
+understanding is genuinely *"Boat carries lots. Cart hits things and likes rails.
+Where I park matters. Ult makes me drive back there really fast."* The expert
+thinks about vehicle staging, Supply Line commitment, cooldown asymmetry, future
+Parking Spot value, cargo preparation, variant acquisition, Bubble Column
+approaches, fuel selection, rail interception, momentum and drifting, Tactical
+Dismount trajectories, whether redeploying a summon is worth destroying existing
+infrastructure, whether a Racing Line is physically traversable, and deliberately
+using enemies as acceleration points. **Low interpretive floor and high systemic
+ceiling coexist.**
+
+**7. Preference is allowed to be strategically meaningful.** Not every pair of
+options needs a deterministic correct context. Cargo Boat and Muscle Cart
+deliberately overlap on neutral terrain, and a player may simply prefer one
+handling model. That preference changes which ability spends more time on
+cooldown, which creates new reasons to use the other: **preference → usage →
+availability changes → reconsideration**, producing variety without hard counters
+or forced rotations.
+
+**8. Downtime creates decision space.** Constant access to a class's exceptional
+method can *reduce* strategic thought. Chauffeur deliberately has intervals
+without a summoned vehicle, so the player has time and reason to prepare,
+reposition, use ordinary systems, preserve infrastructure and decide what the
+next exceptional opportunity is worth. **A cooldown is not merely an
+action-frequency limiter; it can make the world outside the ability matter
+again.**
