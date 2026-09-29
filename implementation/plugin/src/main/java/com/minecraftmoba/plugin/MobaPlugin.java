@@ -228,6 +228,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         inputs = new AbilityInputs(this, provenance);
         packets = new PacketInputs(this, inputs);
         getServer().getPluginManager().registerEvents(inputs, this);
+        // Daredevil's shared state listens for movement and damage on its own
+        // behalf; its abilities only read it.
+        getServer().getPluginManager().registerEvents(inputs.daredevil(), this);
         selection = new InWorldSelection(this, settings.rewards());
         getServer().getPluginManager().registerEvents(selection, this);
         // One timer drives the beat and sweeps combat state. Both are cheap

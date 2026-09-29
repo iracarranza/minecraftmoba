@@ -51,12 +51,27 @@ public final class AbilityInputs implements Listener {
     private final AbilityCombat combatRules;
     public AbilityCombat combatRules() { return combatRules; }
     private long tick;
+    /** Shared by Daredevil's three abilities; registered as a listener by the plugin. */
+    private final DaredevilState daredevil;
+    public DaredevilState daredevil() { return daredevil; }
     public AbilityInputs(MobaPlugin plugin, Provenance provenance) {
         this.plugin=plugin; this.provenance=provenance; abilities=new HashMap<>(TestAbilities.create(plugin));
         var tunnel = plugin.getConfig().getConfigurationSection("abilities.definitions.tunneling");
         if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
         var bounding = plugin.getConfig().getConfigurationSection("abilities.definitions.bounding");
         if (bounding != null) abilities.put("bounding", new BoundingAbility(plugin, bounding));
+        var drill = plugin.getConfig().getConfigurationSection("abilities.definitions.drill_rush");
+        if (drill != null) abilities.put("drill_rush", new DrillRushAbility(plugin, drill));
+        // Daredevil's three share one state object: momentum and airtime are
+        // measured once, and the two damage exemptions must not be able to
+        // disagree about how many are left.
+        daredevil = new DaredevilState(plugin);
+        var runway = plugin.getConfig().getConfigurationSection("abilities.definitions.runway");
+        if (runway != null) abilities.put("runway", new RunwayAbility(plugin, runway, daredevil));
+        var crash = plugin.getConfig().getConfigurationSection("abilities.definitions.crash_landing");
+        if (crash != null) abilities.put("crash_landing", new CrashLandingAbility(plugin, crash, daredevil));
+        var clutches = plugin.getConfig().getConfigurationSection("abilities.definitions.deathly_clutches");
+        if (clutches != null) abilities.put("deathly_clutches", new DeathlyClutchesAbility(plugin, clutches, daredevil));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));

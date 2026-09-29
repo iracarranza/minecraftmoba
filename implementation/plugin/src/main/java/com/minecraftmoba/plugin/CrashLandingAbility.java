@@ -1,0 +1,103 @@
+package com.minecraftmoba.plugin;
+
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * Daredevil A2 -- Crash Landing. At sufficient velocity, deliberately Crash
+ * into terrain: movement ends, Daredevil takes fixed fall damage, nearby
+ * enemies take damage scaled by the velocity lost, and Daredevil's next
+ * instance of fall damage is negated.
+ *
+ * Ported from {@code codex/lightfooted-from-phase1} onto the {@link Ability}
+ * contract.
+ *
+ * <h2>Impact damage comes from what was spent, not from what remains</h2>
+ *
+ * The scaling reads the descent speed at the moment of the Crash, and the
+ * Crash then zeroes it. Measuring afterwards would always read zero, which is
+ * the kind of ordering mistake that produces an ability that "does nothing"
+ * and looks correct in the source.
+ *
+ * <h2>The self-damage is fixed and the enemy damage is not</h2>
+ *
+ * That asymmetry is the design's, and it is what keeps Crash from being a
+ * bigger fall the faster you were going: the cost is knowable before you
+ * commit, the payoff is not.
+ *
+ * [WORKING] Every value is provisional calibration carried from the source
+ * branch. None has been played.
+ */
+public final class CrashLandingAbility implements Ability {
+
+    private final MobaPlugin plugin;
+    private final ConfigurationSection config;
+    private final DaredevilState state;
+
+    public CrashLandingAbility(MobaPlugin plugin, ConfigurationSection config, DaredevilState state) {
+        this.plugin = plugin;
+        this.config = Objects.requireNonNull(config);
+        this.state = state;
+        if (config.getLong("cooldownTicks") < 0)
+            throw new IllegalArgumentException("Negative cooldown: crash_landing");
+    }
+
+    @Override public String id() { return "crash_landing"; }
+    @Override public String displayName() { return Objects.requireNonNull(config.getString("displayName")); }
+    @Override public long cooldownTicks() { return config.getLong("cooldownTicks"); }
+
+    @Override public Map<String, String> branches() {
+        return Map.of("crater", "Crater", "combat_roll", "Combat Roll", "superhero", "Superhero");
+    }
+    @Override public List<String> branchIds() { return List.of("crater", "combat_roll", "superhero"); }
+
+    @Override
+    public boolean execute(Player p, AbilityContext ctx) {
+        if (!state.isDaredevil(p)) return false;
+
+        double descent = state.descent(p);
+        if (descent < config.getDouble("crashVelocity")) {
+            if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, "TOO SLOW");
+            return false;
+        }
+
+        String branch = ctx.branchFor(id());
+        ConfigurationSection b = branchConfig(branch);
+
+        p.setVelocity(new Vector());
+        state.negateNextFall(p);
+
+        double selfDamage = config.getDouble("selfDamage")
+                * (b == null ? 1.0 : b.getDouble("selfDamageMultiplier", 1.0));
+        if (selfDamage > 0) p.damage(selfDamage);
+
+        double impact = descent * config.getDouble("impactDamageScale")
+                * (b == null ? 1.0 : b.getDouble("impactDamageMultiplier", 1.0));
+        if (impact > 0) {
+            double radius = config.getDouble("impactRadius");
+            for (Entity e : p.getNearbyEntities(radius, radius, radius))
+                if (e instanceof LivingEntity target && !target.equals(p)
+                        && Targetability.impulse(target, p))
+                    target.damage(impact, p);
+        }
+
+        // [OPEN] Crater's stun and Superhero's invincible pose both need a Stun
+        // status, which does not exist yet. Their damage profiles are applied
+        // above; their control effects are deliberately absent rather than
+        // approximated, because an approximated stun is worse than none.
+        return true;
+    }
+
+    private ConfigurationSection branchConfig(String branch) {
+        if (branch == null) return null;
+        ConfigurationSection all = config.getConfigurationSection("branches");
+        return all == null ? null : all.getConfigurationSection(branch);
+    }
+}

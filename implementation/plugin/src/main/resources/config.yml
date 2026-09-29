@@ -1064,11 +1064,24 @@ abilities:
         level24: routes_projection
         level27: routes_capacity_2
         level30: routes_reach_2
-      branches: { tunneling: bore }
-      persistentStateDefaults: { tunnelingBranch: bore }
+      branches: { tunneling: bore, drill_rush: armored_emergence }
+      persistentStateDefaults: { tunnelingBranch: bore, drillRushBranch: armored_emergence }
       a1: tunneling
-      a2: sinkhole_lite
+      # Was sinkhole_lite: the shared prototype stub, which Lightfooted also
+      # carried until Bounding replaced it. Mole's A2 is Drill Rush.
+      a2: drill_rush
       ult: channel_ult
+    # Daredevil. The kit exists in classes.md section 17; this entry makes its
+    # three abilities reachable. [OPEN] statGrowthProfile, passiveHook for
+    # Skydiver, and infrastructureProgression are not yet authored, so the
+    # class is playable but not progressed.
+    daredevil:
+      displayName: Daredevil
+      branches: { runway: trampoline, crash_landing: combat_roll }
+      persistentStateDefaults: { runwayBranch: trampoline, crashLandingBranch: combat_roll }
+      a1: runway
+      a2: crash_landing
+      ult: deathly_clutches
   definitions:
     # Toolbox's passive. Incoming damage -- from anything, including mobs,
     # fall and fire -- runs the inventory circuit, because the belt is a
@@ -1146,6 +1159,61 @@ abilities:
         drift_to_drift: { combat: false }
         branch_to_branch: { speedMultiplier: 1.35, extraLift: 0.35, combat: false }
         track_to_track: { combat: false }
+    # Daredevil. [WORKING] every value is provisional calibration carried
+    # from codex/lightfooted-from-phase1; none has been played.
+    runway:
+      displayName: Runway
+      # Non-combat at base: it is traversal, and converts Daredevil's own
+      # momentum into height. Suplex is combat because it takes an enemy with
+      # it, which is the branch declaring what the base does not do.
+      combat: false
+      cooldownTicks: 60
+      # Measured horizontal travel per tick, not getVelocity(): the server's
+      # velocity for ordinary ground movement is near zero because the client
+      # moves itself.
+      momentumThreshold: 0.25
+      upward: 0.8
+      suplexReach: 2.0
+      branches:
+        pop_rocket: { horizontalMultiplier: 1.8, upwardMultiplier: 1.8, combat: false }
+        trampoline: { horizontalMultiplier: 1.25, upwardMultiplier: 1.25, combat: false }
+        suplex: { combat: true }
+    crash_landing:
+      displayName: "Crash Landing"
+      combat: true
+      cooldownTicks: 80
+      # Downward speed required to Crash at all.
+      crashVelocity: 0.8
+      # Fixed, in effective Health points: the cost is knowable before the
+      # commitment, while the payoff is not.
+      selfDamage: 2.0
+      impactDamageScale: 3.0
+      impactRadius: 4.0
+      branches:
+        crater: { selfDamageMultiplier: 2.0, impactDamageMultiplier: 0.6, combat: true }
+        combat_roll: { selfDamageMultiplier: 0.5, impactDamageMultiplier: 0.25, combat: true }
+        superhero: { selfDamageMultiplier: 0.0, impactDamageMultiplier: 1.0, combat: true }
+    deathly_clutches:
+      displayName: "Deathly Clutches"
+      combat: true
+      cooldownTicks: 1200
+      # Effective Health points, scaled per player like every other configured
+      # health quantity.
+      nearDeathHealth: 1.0
+      instances: 3
+      restores: 2
+    # Mole A2.
+    drill_rush:
+      displayName: "Drill Rush"
+      combat: true
+      cooldownTicks: 200
+      emergeDistance: 2.0
+      emergeRadius: 2.5
+      emergeDamage: 4.0
+      branches:
+        armored_emergence: { combat: true }
+        undermine: { combat: true }
+        burrow_chain: { combat: true }
     sinkhole_lite:
       displayName: SinkholeLite
       # Combat, following Sinkhole's settled classification: it is crowd
