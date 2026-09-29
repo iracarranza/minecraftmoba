@@ -167,6 +167,7 @@ abilities:
   classes:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted: { a1: lightfooted_lunge, a2: lightfooted_bounding, ult: lightfooted_lucky_foot }
+    daredevil: { a1: daredevil_runway, a2: channel_ult, ult: channel_ult }
   lightfooted:
     branch: base
     pounceWindupTicks: 5
@@ -183,6 +184,12 @@ abilities:
     wolfDamageReduction: 0.02
     foxSpeedBonus: 0.03
     catFallReduction: 0.10
+  daredevil:
+    branch: base
+    runwayMomentum: 0.35
+    runwayUpward: 0.8
+    skydiverTicks: 20
+    skydiverMultiplier: 1.25
   definitions:
     lunge:
       displayName: Lunge
@@ -204,6 +211,7 @@ abilities:
     lightfooted_lunge: { displayName: Lunge, cooldownTicks: 10 }
     lightfooted_bounding: { displayName: Bounding, cooldownTicks: 10 }
     lightfooted_lucky_foot: { displayName: "Rabbit's Lucky Foot", cooldownTicks: 60 }
+    daredevil_runway: { displayName: Runway, cooldownTicks: 10 }
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }

@@ -61,6 +61,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private AbilityInputs inputs;
     private LightfootedMechanics lightfooted;
     public LightfootedMechanics lightfooted() { return lightfooted; }
+    private DaredevilMechanics daredevil;
+    public DaredevilMechanics daredevil() { return daredevil; }
     private PacketInputs packets;
     private Rewards rewards;
     private NamespacedKey dataKey;
@@ -72,6 +74,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         provenance = new Provenance(this);
         lightfooted = new LightfootedMechanics(this);
         getServer().getPluginManager().registerEvents(lightfooted, this);
+        daredevil = new DaredevilMechanics(this);
+        getServer().getPluginManager().registerEvents(daredevil, this);
         getServer().getPluginManager().registerEvents(provenance, this);
         sentinel = new Sentinel(this);
         taskEffects = new TaskEffects(this);
