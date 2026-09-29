@@ -150,10 +150,35 @@ public final class TaskEffects implements Listener {
 
     /** Fortune-like: a chance of one extra unit per tier, never a flat multiplier. */
     private void multiply(org.bukkit.inventory.ItemStack stack, int tier) {
-        double chance = tier * plugin.getConfig().getDouble("progression.task.yieldExtraChancePerTier");
-        int extra = 0;
-        for (int i = 0; i < tier; i++) if (Math.random() < chance) extra++;
+        int extra = extraUnits(tier, plugin.getConfig().getDouble("progression.task.yieldExtraChancePerTier"),
+                               Math::random);
         if (extra > 0) stack.setAmount(Math.min(stack.getMaxStackSize(), stack.getAmount() + extra));
+    }
+
+    /**
+     * One trial per tier, each at the per-tier chance. Expected extra is
+     * therefore {@code tier * chancePerTier} -- linear in tier, as "a chance of
+     * one extra unit per tier" says.
+     *
+     * **This was the bug.** The chance was scaled by tier AND rolled tier
+     * times, making the expectation {@code tier * tier * chancePerTier}. At the
+     * shipped 0.25 and tierMax 3 that is not a subtle skew: tier 3 gave a
+     * per-trial chance of 0.75 over three trials, so every natural block
+     * averaged 3.25 items instead of 1.75. Worse, any chancePerTier above
+     * 1/tierMax drives the product past 1.0, where the comparison can never
+     * fail and the roll stops being a roll at all -- a flat, deterministic
+     * multiplier, which is the one thing this method promises not to be.
+     *
+     * The clamp is kept so that a misconfigured chance degrades to "always one
+     * extra per tier" rather than silently becoming certain at some tiers and
+     * not others.
+     */
+    static int extraUnits(int tier, double chancePerTier, java.util.function.DoubleSupplier rng) {
+        if (tier <= 0) return 0;
+        double chance = Math.min(1.0, Math.max(0.0, chancePerTier));
+        int extra = 0;
+        for (int i = 0; i < tier; i++) if (rng.getAsDouble() < chance) extra++;
+        return extra;
     }
 
     public String report(PlayerData d) {

@@ -37,7 +37,10 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
  * at 6 food or below, which is three drumsticks, and that threshold is absolute
  * by design: it is the fixed floor the Hunger reserve is measured against.
  *
- * Custom healing only runs where vanilla's cannot, so the two never stack.
+ * Custom healing only runs where vanilla's cannot, so the two never stack --
+ * and "cannot" is read from the world's naturalRegeneration gamerule rather
+ * than assumed from the food level. A match holds that gamerule OFF, so food
+ * at or above vanilla's threshold is covered by nobody unless this checks.
  *
  * Disable with features.hungerRegen.enabled.
  */
@@ -93,10 +96,31 @@ public final class HungerRegen implements Listener {
         return Math.max(1, plugin.foodCeiling(p) - blockedWhenPointsMissing() + 1);
     }
 
+    /** Whether the world will actually regenerate this player without help. */
+    public boolean vanillaRegenerationOn(Player p) {
+        Boolean rule = p.getWorld().getGameRuleValue(org.bukkit.GameRule.NATURAL_REGENERATION);
+        return rule != null && rule;
+    }
+
+    /**
+     * Whether vanilla covers this food level, so the custom heal should stand
+     * down.
+     *
+     * **Both conditions are load-bearing.** Standing down at food >= 18 is only
+     * correct if the world's naturalRegeneration gamerule is actually on, and
+     * in a match it is deliberately off (see the config note beside
+     * features.vitalsScaling.naturalRegeneration). Testing the food level alone
+     * hands the highest hunger levels to a system that has been switched off,
+     * and the player simply never heals.
+     */
+    static boolean vanillaCovers(int foodLevel, boolean naturalRegenerationRule) {
+        return naturalRegenerationRule && foodLevel >= VANILLA_REGEN_FOOD;
+    }
+
     public boolean eligible(Player p) {
         if (!enabled() || !plugin.enrolled(p)) return false;
         // Where vanilla can regenerate, leave it to vanilla rather than stacking.
-        if (p.getFoodLevel() >= VANILLA_REGEN_FOOD) return false;
+        if (vanillaCovers(p.getFoodLevel(), vanillaRegenerationOn(p))) return false;
         if (p.getFoodLevel() < thresholdFor(p)) return false;
         var attr = p.getAttribute(Attribute.MAX_HEALTH);
         return attr != null && p.getHealth() < attr.getValue();
@@ -128,7 +152,8 @@ public final class HungerRegen implements Listener {
                 + " missing=" + (max - p.getFoodLevel())
                 + " blockedAtMissing=" + blockedWhenPointsMissing()
                 + " lowestRegenFood=" + thresholdFor(p)
-                + " vanillaWouldRegen=" + (p.getFoodLevel() >= VANILLA_REGEN_FOOD)
+                + " naturalRegenerationRule=" + vanillaRegenerationOn(p)
+                + " vanillaWouldRegen=" + vanillaCovers(p.getFoodLevel(), vanillaRegenerationOn(p))
                 + " eligibleNow=" + eligible(p)
                 + " totalHeals=" + healed
                 + " (vanilla sprint cutoff at 6 food is unchanged and not reimplemented)";
