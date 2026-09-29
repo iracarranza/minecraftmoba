@@ -20,6 +20,7 @@ final class TestAbilities {
         if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_runway") != null) ids.add("daredevil_runway");
         if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_crash") != null) ids.add("daredevil_crash");
         if (p.getConfig().getConfigurationSection("abilities.definitions.daredevil_clutches") != null) ids.add("daredevil_clutches");
+        if (p.getConfig().getConfigurationSection("abilities.definitions.mole_drill_rush") != null) ids.add("mole_drill_rush");
         for (String id : ids) {
             var c = Objects.requireNonNull(p.getConfig().getConfigurationSection("abilities.definitions." + id));
             result.put(id, new Configured(id, c));
@@ -44,6 +45,7 @@ final class TestAbilities {
                 case "daredevil_runway" -> ctx.plugin().daredevil().runway(p);
                 case "daredevil_crash" -> ctx.plugin().daredevil().crash(p);
                 case "daredevil_clutches" -> ctx.plugin().daredevil().deathlyClutches(p);
+                case "mole_drill_rush" -> ctx.plugin().mole().drillRush(p);
                 case "sinkhole_lite" -> sinkhole(p, ctx);
                 case "channel_ult" -> { ctx.inputs().channel(p, config.getLong("channelTicks"), config.getDouble("movementThreshold")); yield true; }
                 default -> throw new IllegalStateException("Unknown test ability");

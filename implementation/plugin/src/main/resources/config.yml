@@ -168,6 +168,7 @@ abilities:
     test: { a1: lunge, a2: sinkhole_lite, ult: channel_ult }
     lightfooted: { a1: lightfooted_lunge, a2: lightfooted_bounding, ult: lightfooted_lucky_foot }
     daredevil: { a1: daredevil_runway, a2: daredevil_crash, ult: daredevil_clutches }
+    mole: { a1: lunge, a2: mole_drill_rush, ult: channel_ult }
   lightfooted:
     branch: base
     pounceWindupTicks: 5
@@ -194,6 +195,8 @@ abilities:
     impactDamageScale: 1.0
     clutchInstances: 3
     clutchHealth: 1.0
+  mole:
+    drillDamage: 4.0
   definitions:
     lunge:
       displayName: Lunge
@@ -218,6 +221,7 @@ abilities:
     daredevil_runway: { displayName: Runway, cooldownTicks: 10 }
     daredevil_crash: { displayName: "Crash Landing", cooldownTicks: 20 }
     daredevil_clutches: { displayName: "Deathly Clutches", cooldownTicks: 120 }
+    mole_drill_rush: { displayName: "Drill Rush", cooldownTicks: 20 }
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }
