@@ -5817,12 +5817,39 @@ position and state.
 The distinction is: **temporary displacement reserves the origin; permanent
 displacement releases it as ordinary usable space.**
 
-[OPEN] **No displacement registry exists.** Paver's Concrete Shoes
-([section 25](#25-paver)) is the first ability written against this rule, but it
-should not own it: Mole's Sinkhole ([section 4](#4-mole)) and Bloodmason's
-Athanor Anatomb ([section 20](#20-bloodmason)) both displace world blocks with
-intent to restore. The registry needs an owner, a persistence story alongside
-`Provenance`, and a guard on block placement at reserved positions.
+**Implemented 29 September 2026** as `Displacement.java`, with its bookkeeping
+in `DisplacementLedger`. Shared from the start rather than owned by its first
+caller: Paver's Concrete Shoes ([section 25](#25-paver)), Mole's Sinkhole
+([section 4](#4-mole)) and Bloodmason's Athanor Anatomb
+([section 20](#20-bloodmason)) all displace with intent to restore, and three
+private versions would disagree about who owes what to which hole.
+
+What it enforces, and what it deliberately does not:
+
+- **A position may be reserved once.** A second ability is refused rather than
+  overwriting, because overwriting loses the first block entirely — its payload
+  is the only record that it existed, and its position is already empty.
+- **Taking and restoring both suppress physics**, which is what makes "returns
+  to its exact original state" true and makes restore order irrelevant.
+- **Provenance travels with the block.** A borrowed player-placed block is
+  still player-placed when it comes back; forgetting that would quietly convert
+  built material into a resource opportunity.
+- **Reservations are enforced against** placement, fluid flow, falling blocks,
+  pistons, and the form/spread/grow family. Explosions have their block list
+  filtered rather than being cancelled, since there is nothing at a reserved
+  position to destroy — only debris to keep out of it.
+- **A piston push is refused whole**, never trimmed. Bukkit cannot move some of
+  a push's blocks and not others, and Minecraft cannot express a partial push.
+- **Release is complete.** A token's positions are freed as they are handed
+  back, so a caller that fails mid-restore cannot leave a position reserved
+  against a block nobody is going to return. Losing a block is bad; a
+  permanently unbuildable hole that outlives the ability is worse.
+
+[TECHNICAL RISK] **Reservations live in memory**, unlike `Provenance`, which
+persists in the chunk PDC. A server stopped mid-displacement loses the held
+blocks and their reservations together. Survivable because displacement is
+within-a-cast state and matches are ephemeral — but **do not build a
+displacement meant to outlast a cast on this.**
 
 ## An entity-defined Supply Line is committed to that entity
 

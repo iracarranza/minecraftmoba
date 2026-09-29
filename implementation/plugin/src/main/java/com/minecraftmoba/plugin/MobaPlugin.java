@@ -153,6 +153,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         dataKey = new NamespacedKey(this, "player_data");
         provenance = new Provenance(this);
         getServer().getPluginManager().registerEvents(provenance, this);
+        // Temporary block displacement and its reservations. Shared because
+        // Concrete Shoes, Sinkhole and the Anatomb all want it, and three
+        // private versions would disagree about who owes what to which hole.
+        displacement = new Displacement(this);
+        getServer().getPluginManager().registerEvents(displacement, this);
         sentinel = new Sentinel(this);
         taskEffects = new TaskEffects(this);
         hud = new Hud(this);
@@ -376,6 +381,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private Stun stun;
     public Stun stun() { return stun; }
+    private Displacement displacement;
+    public Displacement displacement() { return displacement; }
     private UtilityBelt utilityBelt;
     public UtilityBelt utilityBelt() { return utilityBelt; }
     public Match match() { return match; }
