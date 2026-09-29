@@ -1138,6 +1138,14 @@ abilities:
       boundLift: 0.42
       boundTicks: 8
       animalRadius: 10.0
+      # Branches. All three are takeoff-terrain modifiers and none deals
+      # damage, so all three inherit Bounding's non-combat declaration.
+      # Terrain families are matched by material NAME, so a new wood's leaves
+      # or a new snow variant joins its family without a config edit.
+      branches:
+        drift_to_drift: { combat: false }
+        branch_to_branch: { speedMultiplier: 1.35, extraLift: 0.35, combat: false }
+        track_to_track: { combat: false }
     sinkhole_lite:
       displayName: SinkholeLite
       # Combat, following Sinkhole's settled classification: it is crowd
