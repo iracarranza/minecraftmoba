@@ -27,7 +27,8 @@ public final class AbilityInputs implements Listener {
         java.util.Collections.sort(out);
         return out;
     }
-    private final Map<UUID, Map<String, Long>> cooldowns = new HashMap<>(), lastFire = new HashMap<>();
+    private final AbilityCooldowns cooldowns = new AbilityCooldowns();
+    private final Map<UUID, Map<String, Long>> lastFire = new HashMap<>();
     private final Map<UUID, Channel> channels = new HashMap<>();
     /** Abilities being aimed rather than cast. See AimState. */
     private final Map<UUID, AimState> aiming = new HashMap<>();
@@ -181,13 +182,12 @@ public final class AbilityInputs implements Listener {
             return true;
         }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
-        var ready=cooldowns.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         // Say so rather than doing nothing. A cooldown that refuses silently
         // is indistinguishable from an input that was not registered, which is
         // the worse of the two to guess at mid-fight.
-        long until = ready.getOrDefault(ability.id(), 0L);
-        if (until > tick) {
-            if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, until - tick);
+        long remaining = cooldowns.remaining(p.getUniqueId(), ability.id(), tick);
+        if (remaining > 0) {
+            if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, remaining);
             return true;
         }
         if (last.getOrDefault(ability.id(), Long.MIN_VALUE) == tick) return true;
@@ -210,7 +210,7 @@ public final class AbilityInputs implements Listener {
         last.put(ability.id(), tick);
         var context = aimContext;
         if (ability.execute(p,context)) {
-            ready.put(ability.id(),tick+ability.cooldownTicks());
+            cooldowns.start(p.getUniqueId(),ability.id(),tick,ability.cooldownTicks());
             // Activating a COMBAT ability puts the caster in combat. Classified
             // from the declaration, per branch, so Mole tunnelling or a
             // Gardener clipping a plant is not treated as fighting.
@@ -305,7 +305,7 @@ public final class AbilityInputs implements Listener {
         if (!silent) sound(p,"exit");
     }
     public void forget(Player p) {
-        exit(p,true); cancelAbilities(p); cooldowns.remove(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
+        exit(p,true); cancelAbilities(p); cooldowns.clear(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
     /**
      * Advance every aim, drawing its preview and committing when it is due.
@@ -416,8 +416,7 @@ public final class AbilityInputs implements Listener {
             sustaining.put(p.getUniqueId(),
                     AimState.begin(ability.id(), aim.input(), CastMode.HOLD, tick));
         lastFire.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>()).put(ability.id(), tick);
-        cooldowns.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>())
-                 .put(ability.id(), tick + ability.cooldownTicks());
+        cooldowns.start(p.getUniqueId(), ability.id(), tick, ability.cooldownTicks());
         // Exactly what the unaimed path does. A cast that went through an aim
         // is still a cast, and marking combat differently would make the cast
         // mode a balance setting.
@@ -486,7 +485,7 @@ public final class AbilityInputs implements Listener {
             Input input=Input.valueOf(plugin.getConfig().getString("abilities.bindings."+slot));
             Ability ability=kit==null?null:kit.get(input);
             String label=switch(input) { case LEFT_CLICK -> "M1"; case RIGHT_CLICK -> "M2"; case DROP -> "Q"; case SWAP_HAND -> "F"; };
-            boolean cooling=ability!=null && cooldowns.getOrDefault(p.getUniqueId(),Map.of()).getOrDefault(ability.id(),0L)>tick;
+            boolean cooling=ability!=null && !cooldowns.ready(p.getUniqueId(),ability.id(),tick);
             String name = ability == null ? "—" : ability.displayName() + branchSuffix(p, ability);
             bar=bar.append(Component.text(label+" "+name+"   ",cooling?NamedTextColor.GRAY:NamedTextColor.WHITE));
         }
