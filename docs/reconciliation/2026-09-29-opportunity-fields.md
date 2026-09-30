@@ -14,8 +14,8 @@ numerical value is set, and no playable implementation is implied.
 
 Grounding: the audit of the current implementation is in the session record of
 29 September. In short: the runtime lifecycle (`Renewables`, `Eligibility`,
-`Opportunity`, `Recovery`) exists on branch `integrate-2026-09-27`, not on
-`main`; `portfolio.py` derives only animals and crops; swarms are hostile
+`Opportunity`, `Recovery`) exists on `origin/main` (audited on
+`integrate-2026-09-27`, 20 commits ahead of it); `portfolio.py` derives only animals and crops; swarms are hostile
 entity types on an animal-shaped lifecycle, with no biome, time, behavior or
 payload data.
 
@@ -171,4 +171,4 @@ map's derived source set; a per-biome swarm table needs a different name.
 - Swarm work needs a definition schema (weighted composition, biomes, day and
   night tables, behavior id, payload id) and a `SWARM` vocabulary in the
   compiler. None exists.
-- The regenerative runtime is on `integrate-2026-09-27`, not `main`.
+- Branch state: `origin/main` already carries the runtime. The `main` checkout used for this discussion was 313 commits behind it, which is why an earlier audit note wrongly said `main` had none.
