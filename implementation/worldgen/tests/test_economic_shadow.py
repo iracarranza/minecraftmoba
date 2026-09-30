@@ -1,6 +1,12 @@
 """Synthetic fixtures are decoder/preflight tests, never seed measurements."""
-import json
+
+import sys
 from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
+import json
 import subprocess
 import tempfile
 import unittest

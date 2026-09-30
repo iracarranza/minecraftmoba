@@ -1,11 +1,15 @@
 """Stage 4 unit coverage for the drift diff. The live probe needs a server."""
-import shutil
+
 import sys
-import tempfile
-import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
+import shutil
+import tempfile
+import unittest
+
 from serialization.nbt import COMPOUND, compound, list_tag, string
 from serialization.region import read_region, write_region
 from serialization.world import _block_states_tag, block

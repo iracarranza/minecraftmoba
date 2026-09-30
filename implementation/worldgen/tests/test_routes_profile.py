@@ -6,10 +6,12 @@ corrected profile against the four terrain cases the brief names -- slope, rough
 ground, forest and water -- using the same statistic, so a regression fails a
 build instead of being discovered by walking into it.
 """
+
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
 
 from terrain_harvest.routes import (MAX_STEP, treatment, walkable_profile)
 

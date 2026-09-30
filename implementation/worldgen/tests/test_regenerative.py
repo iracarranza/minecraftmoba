@@ -5,11 +5,15 @@ and the only thing that makes that safe is that both copies run the same fixture
 and must produce the same answer. The Java side runs it in
 EligibilityCrossCheckTest.
 """
-import json
+
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
+import json
+
 
 from terrain_harvest.regenerative import Region, Rules, Terrain, eligible, generations
 

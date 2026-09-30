@@ -1,4 +1,11 @@
 """Stage 6: relocation on fixtures only. Nothing here touches corpus export."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import unittest
 from serialization.nbt import (COMPOUND, DOUBLE, FLOAT, compound, double, float_tag,
                                integer, list_tag, plain, string)

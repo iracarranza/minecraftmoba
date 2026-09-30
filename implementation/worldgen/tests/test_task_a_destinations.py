@@ -1,8 +1,14 @@
 """Destination objective regressions; fixture data only, never world authoring."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import copy
 import hashlib
 import json
-from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
 

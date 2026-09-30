@@ -3,10 +3,16 @@
 The audit recomputes expected destination state from the source and mask alone.
 These tests deliberately damage a good export to prove the audit is not vacuous.
 """
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import copy
 import tempfile
 import unittest
-from pathlib import Path
 
 from serialization.nbt import (COMPOUND, DOUBLE, byte, compound, double, dump_gzip,
     int_array, integer, list_tag, long, plain, string)

@@ -1,11 +1,15 @@
 """Structure building writes real blocks and refuses to invent terrain."""
-import json
+
 import sys
-import tempfile
-import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
+import json
+import tempfile
+import unittest
+
 from serialization.nbt import COMPOUND, byte, compound, list_tag, plain, string
 from serialization.region import read_region, write_region
 from serialization.world import AIR, _block_states_tag, block
