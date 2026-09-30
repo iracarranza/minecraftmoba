@@ -105,10 +105,14 @@ def gap(validity: dict, access: dict | None = None,
                               'precedes any equalisation.')
     out['closable_by_renewables'] = [
         m for m in materials
-        if m in ('copper',) or per_material[m]['gap'] > 0]
+        if m in ('coal', 'copper') or per_material[m]['gap'] > 0]
     out['not_closable_by_renewables'] = [
         'exit capacity and opening geometry',
-        'finite ore, which renewables do not produce',
+        # Superseded 29 September 2026 (docs/reconciliation/2026-09-29-
+        # opportunity-fields.md): ore MAY be a regenerative node, selectively,
+        # and coal and copper substantially so. What renewables still do not
+        # touch is NATURAL ore, which stays finite beneath the authored economy.
+        'natural ore, which stays finite and is not a regenerative node',
         'Strategic Depth, which is where the terrain put things',
     ]
     return out

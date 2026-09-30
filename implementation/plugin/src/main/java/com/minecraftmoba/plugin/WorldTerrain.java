@@ -33,6 +33,11 @@ public final class WorldTerrain implements TerrainView {
         return world.getBlockAt(x, y, z).getType();
     }
 
+    @Override public String biomeAt(int x, int z) {
+        if (!world.isChunkLoaded(x >> 4, z >> 4)) return null;
+        return world.getBiome(x, world.getHighestBlockYAt(x, z), z).getKey().toString();
+    }
+
     @Override public boolean isPlayerPlaced(int x, int y, int z) {
         if (provenance == null || !world.isChunkLoaded(x >> 4, z >> 4)) return false;
         return provenance.isPlayerPlaced(world.getBlockAt(x, y, z));

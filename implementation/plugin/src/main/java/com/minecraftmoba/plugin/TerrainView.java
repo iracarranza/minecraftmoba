@@ -30,6 +30,14 @@ public interface TerrainView {
     /** Distance to the nearest player, or Double.MAX_VALUE if none. */
     double distanceToNearestPlayer(int x, int y, int z);
 
+    /**
+     * The namespaced biome id at this column's surface, or null when unknown.
+     *
+     * Null is an answer: a swarm restricted to a biome never manifests where
+     * the biome cannot be reported, rather than being guessed into one.
+     */
+    default String biomeAt(int x, int z) { return null; }
+
     /** Whether this column is loaded and therefore answerable at all. */
     default boolean known(int x, int z) { return surfaceY(x, z) != Integer.MIN_VALUE; }
 }

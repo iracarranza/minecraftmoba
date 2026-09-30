@@ -54,6 +54,11 @@ public final class Renewables implements Listener {
          * Nothing chooses a manifestation site from it any more.
          */
         OpportunityRegion region;
+        /**
+         * The swarm definitions this opportunity may manifest, when it has any.
+         * Null keeps the older behavior: the kind's entities, round-robin.
+         */
+        SwarmTable table;
         final Opportunity opportunity = Opportunity.fresh();
         /** Members spawned into the current manifestation, so ones that LEAVE can still be found. */
         final Set<UUID> members = new HashSet<>();
@@ -73,6 +78,7 @@ public final class Renewables implements Listener {
             return Math.abs(bx - x) <= radius && Math.abs(by - y) <= radius && Math.abs(bz - z) <= radius;
         }
         public OpportunityRegion region() { return region; }
+        public SwarmTable table() { return table; }
         public Opportunity opportunity() { return opportunity; }
         public String id() { return id; }
         public Type type() { return type; }
@@ -91,6 +97,8 @@ public final class Renewables implements Listener {
     private final NamespacedKey key;
     /** Stamped on every entity the system manifests, naming its opportunity. */
     private final NamespacedKey memberKey;
+    /** Names the swarm definition a member was drawn from, for behavior listeners. */
+    private final NamespacedKey definitionKey;
     private final Map<String, Source> sources = new LinkedHashMap<>();
     private final java.util.Random random = new java.util.Random();
     private final Path csv;
@@ -106,6 +114,7 @@ public final class Renewables implements Listener {
         this.plugin = plugin;
         this.key = new NamespacedKey(plugin, "renewable_sources_v1");
         this.memberKey = new NamespacedKey(plugin, "manifestation_member");
+        this.definitionKey = new NamespacedKey(plugin, "swarm_definition");
         csv = plugin.getDataFolder().toPath().resolve("measurements")
                 .resolve("renewables-" + Instant.now().toEpochMilli() + ".csv");
         try {
@@ -156,6 +165,7 @@ public final class Renewables implements Listener {
             var source = new Source(id, type, w.getUID(), sx, sy, sz,
                     radius, capacity, recover, kind);
             source.region = regionFor(base, sx, sz, radius);
+            source.table = tableFor(type, plugin.getConfig().getStringList(base + "swarms"));
             register(source);
         }
     }
@@ -226,10 +236,14 @@ public final class Renewables implements Listener {
                 Type type = Type.valueOf(String.valueOf(spec.get("type")));
                 var world = liveWorld();
                 if (world == null) break;
-                register(new Source(String.valueOf(spec.get("id")), type, world.getUID(),
+                var source = new Source(String.valueOf(spec.get("id")), type, world.getUID(),
                         (Integer) spec.get("x"), (Integer) spec.get("y"), (Integer) spec.get("z"),
                         (Integer) spec.get("radius"), (Integer) spec.get("capacity"),
-                        (Long) spec.get("recoverTicks"), String.valueOf(spec.get("kind"))));
+                        (Long) spec.get("recoverTicks"), String.valueOf(spec.get("kind")));
+                @SuppressWarnings("unchecked")
+                var swarms = (java.util.List<String>) spec.getOrDefault("swarms", java.util.List.of());
+                source.table = tableFor(type, swarms);
+                register(source);
                 made++;
             } catch (RuntimeException bad) {
                 // One malformed spec is not a reason to drop a whole portfolio,
@@ -270,6 +284,14 @@ public final class Renewables implements Listener {
         return sources.size();
     }
 
+    /** A swarm table only makes sense for a SWARM source; naming one elsewhere is a config error. */
+    private static SwarmTable tableFor(Type type, java.util.List<String> ids) {
+        if (ids == null || ids.isEmpty()) return null;
+        if (type != Type.SWARM)
+            throw new IllegalArgumentException("swarm definitions on a " + type + " source: " + ids);
+        return SwarmDefinitions.table(ids);
+    }
+
     /** Per-source availability, so depletion and recovery are observable. */
     public java.util.List<String> status() {
         var out = new java.util.ArrayList<String>();
@@ -277,7 +299,8 @@ public final class Renewables implements Listener {
                 + " depletions=" + depletions + " recoveries=" + recoveries);
         for (Source s : sources.values())
             out.add("  " + s.id + " kind=" + s.kind + " " + s.opportunity
-                    + " capacity=" + s.capacity + " " + s.region);
+                    + " capacity=" + s.capacity + " " + s.region
+                    + (s.table == null ? "" : " swarms=" + s.table.ids()));
         return out;
     }
 
@@ -510,6 +533,7 @@ public final class Renewables implements Listener {
 
         var terrain = new WorldTerrain(w, plugin.provenance());
         var rules = eligibilityRules();
+        if (s.table != null) return manifestSwarm(w, s, terrain, rules);
         var candidates = Eligibility.loci(s.region, terrain, rules);
         var locus = Eligibility.select(candidates, rules, s.opportunity.previousLocus(),
                 terrain, random);
@@ -522,9 +546,35 @@ public final class Renewables implements Listener {
 
         int wanted = s.capacity;
         int made = kind.type() == Type.CROP ? placeCrops(w, s, kind, locus, wanted)
-                                            : spawnFauna(w, s, kind, locus, wanted);
+                                            : spawnFauna(w, s, new ArrayList<>(kind.entities()),
+                                                         locus, wanted, null);
         if (made > 0) {
             s.opportunity.manifested(locus, made);
+            s.available = made;
+            s.state = State.MANIFESTED;
+        }
+        return made;
+    }
+
+    /**
+     * A swarm opportunity's manifestation: the table for the CURRENT time and the
+     * biome under the chosen locus decide which definition occupies it.
+     *
+     * Nothing is despawned here. This runs only when the opportunity is ready to
+     * manifest, so a living daytime swarm at sunset stays until it is resolved
+     * and the night table applies to whatever comes next. Outside every
+     * definition's window the opportunity stays ready and says so, at the cost
+     * of a boolean check rather than a terrain scan.
+     */
+    private int manifestSwarm(World w, Source s, WorldTerrain terrain, Eligibility.Rules rules) {
+        boolean night = WorldTerrain.isNight(w);
+        var choice = s.table.pick(s.region, terrain, rules, s.opportunity.previousLocus(),
+                night, random);
+        if (choice == null) { s.opportunity.noEligibleLocus(); return 0; }
+        var def = choice.definition();
+        int made = spawnFauna(w, s, def.compose(random), choice.locus(), def.size(), def.id());
+        if (made > 0) {
+            s.opportunity.manifested(choice.locus(), made);
             s.available = made;
             s.state = State.MANIFESTED;
         }
@@ -689,9 +739,8 @@ public final class Renewables implements Listener {
     }
 
     /** A Herd or Swarm: members clustered at the selected locus, nothing built. */
-    private int spawnFauna(World w, Source s, RenewableKinds.Kind kind,
-                           Eligibility.Locus locus, int wanted) {
-        var types = new ArrayList<>(kind.entities());
+    private int spawnFauna(World w, Source s, java.util.List<EntityType> types,
+                           Eligibility.Locus locus, int wanted, String definitionId) {
         if (types.isEmpty()) return 0;
         int cluster = plugin.getConfig().getInt("renewables.herd.cluster", 5);
         int spawned = 0;
@@ -707,6 +756,9 @@ public final class Renewables implements Listener {
                 // about where it happens to be standing.
                 spawnedEntity.getPersistentDataContainer()
                         .set(memberKey, PersistentDataType.STRING, s.id);
+                if (definitionId != null)
+                    spawnedEntity.getPersistentDataContainer()
+                            .set(definitionKey, PersistentDataType.STRING, definitionId);
                 s.members.add(spawnedEntity.getUniqueId());
                 spawned++;
             } catch (IllegalArgumentException ex) { /* peaceful difficulty refuses hostiles */ }

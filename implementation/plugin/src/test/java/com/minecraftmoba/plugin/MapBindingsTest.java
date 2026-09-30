@@ -117,4 +117,26 @@ class MapBindingsTest {
                 "{\"renewables\":{\"certified\":false,\"sources\":[]}}");
         assertFalse(b.renewablesCertified());
     }
+
+    /** A SWARM source the Python compiler actually derived, from portfolio.derive. */
+    private static final String DERIVED_SWARM = "{\"sources\": [{\"id\": \"deeper_mountain_ravager_north_[5, 0]\", \"cell\": [5, 0], \"type\": \"SWARM\", \"kind\": \"ravagers\", \"band\": \"deeper\", \"swarms\": [\"mountain_ravager\"], \"near_team\": \"north\", \"world\": null, \"x\": 320, \"y\": 70, \"z\": 0, \"radius\": 32, \"capacity\": 1, \"herd_core\": 0, \"harvestable_surplus\": 1, \"recover_ticks\": 18000, \"strategic_depth_cost\": {\"north\": 450.0, \"south\": 500.0}}]}";
+
+    @Test
+    void reads_the_swarm_definitions_the_compiler_named() {
+        MapBindings b = MapBindings.parse("{\"renewables\":" + DERIVED_SWARM + "}");
+        var sources = b.renewables(null);
+        assertEquals(1, sources.size());
+        var spec = sources.get(0);
+        assertEquals("SWARM", spec.get("type"));
+        assertEquals(java.util.List.of("mountain_ravager"), spec.get("swarms"));
+        // The runtime must be able to resolve every id the compiler emits.
+        for (Object id : (java.util.List<?>) spec.get("swarms"))
+            assertNotNull(SwarmDefinitions.require((String) id));
+    }
+
+    @Test
+    void a_non_swarm_source_carries_no_swarm_ids() {
+        MapBindings b = MapBindings.parse("{\"renewables\":" + DERIVED + "}");
+        for (var s : b.renewables(null)) assertTrue(((java.util.List<?>) s.get("swarms")).isEmpty());
+    }
 }

@@ -51,6 +51,8 @@ of generation bans. A cow generating naturally in a Hinterland is not a fault.
 """
 from __future__ import annotations
 
+from . import swarm_vocabulary
+
 # Depth BANDS ARE RANKS, NOT DISTANCES. The recovered near/farther/deeper was
 # explicitly an A/B/C ordering with no block figures decided, and maps.md marks
 # depth bands OPEN. So a cell's band comes from its rank among the measured
@@ -234,6 +236,53 @@ def derive(cells, *, teams=('north', 'south'), per_band: int = 3,
             'strategic_depth_cost': cell.get('strategic_depth_cost'),
         })
 
+    # SWARMS. Same per-team ranking, but gated on BIOME rather than on measured
+    # fauna: a swarm is the ecology's hostile face, so the cell must lie in the
+    # ecology the definition names. Time of day is NOT decided here -- the
+    # opportunity owns its day and night tables and the runtime chooses at
+    # manifestation. Swarms never count toward the opening floor (see certify).
+    for team in teams:
+        def cost(c, _t=team):
+            return (c.get('strategic_depth_cost') or {}).get(_t)
+
+        ordered = sorted((c for c in usable if cost(c) is not None), key=cost)
+        beyond = [c for c in ordered if cost(c) > opening_cost]
+        n_beyond = len(beyond) or 1
+        for cell in ordered:
+            this = cost(cell)
+            rank = ((beyond.index(cell) + 1) / n_beyond) if this > opening_cost else 0.0
+            band = _band_of(this, opening_cost, rank)
+            for swarm_id, spec in swarm_vocabulary.SWARMS.items():
+                if spec['band'] != band:
+                    continue
+                if not swarm_vocabulary.supports(cell, swarm_id):
+                    skipped.append({'cell': cell.get('cell'), 'kind': swarm_id,
+                                    'band': band, 'team': team,
+                                    'why': 'the cell does not lie in the ecology '
+                                           'this swarm names'})
+                    continue
+                if sum(1 for s in sources if s.get('swarms') == [swarm_id]
+                       and s.get('near_team') == team) >= per_band:
+                    continue
+                if any(s['cell'] == cell.get('cell') and s.get('swarms') == [swarm_id]
+                       for s in sources):
+                    continue
+                x, z = cell.get('centroid') or cell.get('world_origin') or (0, 0)
+                sources.append({
+                    'id': f"{band}_{swarm_id}_{team}_{cell.get('cell')}",
+                    'cell': cell.get('cell'),
+                    'type': 'SWARM', 'kind': spec['kind'], 'band': band,
+                    'swarms': [swarm_id],
+                    'near_team': team, 'world': world,
+                    'x': int(x), 'y': int(cell.get('mean_surface_y') or 64),
+                    'z': int(z),
+                    'radius': spec['radius'],
+                    'capacity': spec['size'],
+                    'herd_core': 0, 'harvestable_surplus': spec['size'],
+                    'recover_ticks': spec['recover_ticks'],
+                    'strategic_depth_cost': cell.get('strategic_depth_cost'),
+                })
+
     by_band = {}
     for s in sources:
         by_band.setdefault(s['band'], []).append(s['kind'])
@@ -312,8 +361,11 @@ def certify(derived: dict, cells=None, *, opening_cost: float = 120.0,
         wild = sorted({k for c in near_cells
                        for k in ((c.get('fauna') or {}) | (c.get('vegetation') or {}))
                        if any(d in str(k).lower() for d in developable)})
+        # A hostile swarm is not something Development can begin on, so it
+        # never satisfies the opening floor.
         placed = [s for s in sources
-                  if (s.get('strategic_depth_cost') or {}).get(team) is not None
+                  if s.get('type') != 'SWARM'
+                  and (s.get('strategic_depth_cost') or {}).get(team) is not None
                   and s['strategic_depth_cost'][team] <= opening_cost]
         reach[team] = {'opening_cells': len(near_cells),
                        'wild_developable': wild,

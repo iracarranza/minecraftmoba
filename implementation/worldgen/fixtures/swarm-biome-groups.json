@@ -1,0 +1,10 @@
+{
+  "_note": "Ecological categories over vanilla biome ids. WORKING FIXTURE, not canon. Read by the compiler (terrain_harvest/swarm_vocabulary.py) and checked against BiomeGroups.java by BiomeGroupsTest, so the two sides cannot drift.",
+  "groups": {
+    "mountain": ["minecraft:jagged_peaks", "minecraft:frozen_peaks", "minecraft:stony_peaks", "minecraft:snowy_slopes", "minecraft:grove", "minecraft:windswept_hills", "minecraft:windswept_gravelly_hills", "minecraft:windswept_forest"],
+    "desert": ["minecraft:desert"],
+    "beach": ["minecraft:beach", "minecraft:snowy_beach"],
+    "jungle": ["minecraft:jungle", "minecraft:sparse_jungle", "minecraft:bamboo_jungle"],
+    "mushroom": ["minecraft:mushroom_fields"]
+  }
+}

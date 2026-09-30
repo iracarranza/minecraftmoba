@@ -175,6 +175,12 @@ public final class MapBindings {
             spec.put("recoverTicks",
                      s.has("recover_ticks") ? s.get("recover_ticks").getAsLong() : 12000L);
             spec.put("band", s.has("band") ? s.get("band").getAsString() : "unknown");
+            // Swarm definitions this opportunity may manifest, by id. Absent for
+            // every non-swarm source.
+            List<String> swarms = new ArrayList<>();
+            if (s.has("swarms") && s.get("swarms").isJsonArray())
+                for (JsonElement id : s.getAsJsonArray("swarms")) swarms.add(id.getAsString());
+            spec.put("swarms", swarms);
             out.add(spec);
         }
         return out;

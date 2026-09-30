@@ -39,6 +39,17 @@ final class FakeTerrain implements TerrainView {
         return this;
     }
 
+    private final Map<Long, String> biomes = new HashMap<>();
+
+    /** Paint a biome id across a rectangle. Unpainted columns report no biome. */
+    FakeTerrain biome(int minX, int minZ, int maxX, int maxZ, String id) {
+        for (int x = minX; x <= maxX; x++)
+            for (int z = minZ; z <= maxZ; z++) biomes.put(col(x, z), id);
+        return this;
+    }
+
+    @Override public String biomeAt(int x, int z) { return biomes.get(col(x, z)); }
+
     /** A player has built here: the ground block is theirs. */
     FakeTerrain built(int minX, int minZ, int maxX, int maxZ, Material material) {
         for (int x = minX; x <= maxX; x++)

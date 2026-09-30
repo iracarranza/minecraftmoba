@@ -701,6 +701,7 @@ def _renewables(out: Compilation) -> dict:
                               'detail': 'no measured cells to derive a '
                                         'portfolio from'}]}
     from . import portfolio as portfolio_mod
+    from . import reach_fields
     world = (out.evidence.get('world') or {}).get('name')
     derived = portfolio_mod.derive(cells, world=world)
     certified = portfolio_mod.certify(derived, cells)
@@ -724,6 +725,9 @@ def _renewables(out: Compilation) -> dict:
         'quantities_are': derived.get('quantities_are'),
         'floor_is': certified.get('floor_is'),
         'opening_cost': certified.get('opening_cost'),
+        # Descriptive only: where each biome sits between the two teams' cost
+        # fields. Nothing reads it to place or certify anything.
+        'reach_profile': reach_fields.profile(cells),
     }
 
 

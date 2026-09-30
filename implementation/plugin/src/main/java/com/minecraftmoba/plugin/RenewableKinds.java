@@ -44,9 +44,11 @@ public final class RenewableKinds {
                 blocks("sweet_berries", Material.SWEET_BERRY_BUSH),
                 blocks("cocoa", Material.COCOA),
                 blocks("mushrooms", Material.RED_MUSHROOM, Material.BROWN_MUSHROOM),
-                // Mineral and surface materials. Finite in vanilla; regenerating
-                // here only because a Source says so, which is a design claim
-                // this class does not make on its own.
+                // Mineral and surface materials. Natural ore stays finite; a
+                // regenerative node is a deliberately authored Source, and ore
+                // may be one (29 Sep 2026 reconciliation: coal and copper
+                // substantially, rarer ores progressively more restricted).
+                // Which sources exist is content; this class assigns none.
                 blocks("copper", Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE),
                 blocks("iron", Material.IRON_ORE, Material.DEEPSLATE_IRON_ORE),
                 blocks("coal", Material.COAL_ORE, Material.DEEPSLATE_COAL_ORE),
