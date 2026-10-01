@@ -2073,7 +2073,7 @@ Gardener may naturally become stronger or more strategically useful when allied 
 - Offensive Vine name and damage behavior.
 - Flowerpot generation rate, area, charges, and persistence.
 - Exact Double Bush / Torchflower values.
-- Glistening Greenhouse duration, area, healing rate, persistence, and counterplay.
+- [HISTORICAL — the Glistening Greenhouse ultimate was superseded by Grafter's Handbook on 11 September 2026; these questions no longer apply] Glistening Greenhouse duration, area, healing rate, persistence, and counterplay.
 - Final secondary archetype classification.
 - Exact relationship to generic Development systems.
 
