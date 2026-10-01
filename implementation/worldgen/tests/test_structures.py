@@ -1,4 +1,11 @@
 """Team structure siting: scoring, depth ordering and measured symmetry."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import unittest
 from vanilla_search.structures import (LAYERS, advance_of, approach_cost, evaluate,
                                        footprint, pad_quality, score_site, symmetry)

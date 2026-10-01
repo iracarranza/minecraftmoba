@@ -1,10 +1,16 @@
 """The READY map pool: only verified maps go in, and provenance goes with them."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import json
 import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
-from pathlib import Path
 
 from terrain_harvest import foundry
 

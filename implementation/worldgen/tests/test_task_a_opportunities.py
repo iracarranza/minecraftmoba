@@ -1,4 +1,11 @@
 """Spec 4 semantics and immutable shadow integration, not new fitting rules."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import copy
 import hashlib
 import json

@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import sys
-import unittest
 from pathlib import Path
 
 WORLDGEN = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORLDGEN))
+
+import unittest
+
 
 from terrain_harvest import massing
 from terrain_harvest.author_portfolio import (UNAUTHORED, allocate,

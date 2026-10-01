@@ -1,4 +1,11 @@
 """The off-server seed screen: what it may discard, and what it must not."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import unittest
 
 from terrain_harvest import seed_screen as ss

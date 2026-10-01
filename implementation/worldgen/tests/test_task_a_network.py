@@ -1,8 +1,14 @@
 """Destination-first analytical regressions: no historical Route dependence."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import copy
 import hashlib
 import json
-from pathlib import Path
 import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET

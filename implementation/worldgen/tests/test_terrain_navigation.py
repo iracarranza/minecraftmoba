@@ -1,4 +1,11 @@
 """Stage 3 unit coverage. The live probe itself needs a server and is run separately."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import unittest
 import uuid
 from terrain_harvest.navigation_probe import offline_uuid

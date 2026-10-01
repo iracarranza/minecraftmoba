@@ -1,10 +1,14 @@
 """Stage 7: composition manifests validate references and record seams only."""
-import copy
+
 import sys
-import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
+import copy
+import unittest
+
 from terrain_harvest.composition import (SCHEMA, mask_overlap, placed_bounds,
                                          stale_measurements, unplace_point, validate_composition)
 from terrain_harvest.model import Mask

@@ -1,4 +1,11 @@
 """VERIFIED is not READY, and the difference is runtime bindings."""
+
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import unittest
 
 from terrain_harvest import readiness

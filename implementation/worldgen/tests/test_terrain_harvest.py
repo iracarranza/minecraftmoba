@@ -1,8 +1,13 @@
+import sys
+from pathlib import Path
+
+WORLDGEN = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(WORLDGEN))
+
 import copy
 import json
 import tempfile
 import unittest
-from pathlib import Path
 from terrain_harvest.model import *
 from terrain_harvest.library import write_library,reference_candidate
 from terrain_harvest.gallery import navigation
