@@ -2977,7 +2977,7 @@ Secondary:
 Difficulty 1/5. **Supersedes the placeholder name Stationmaster**, which never had a kit. See [section 26](#26-chauffeur).
 
 ### Difficulty as a second axis
-Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Four of the seven planned exemplars — Werewolf, Wayfinder, Quarryman and Groundskeeper — exist as names and archetype questions only. Two global world-system rules and the Difficulty-1 design principles live in [section 27](#27-global-world-system-rules).
+Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Of the seven planned exemplars, Quarryman now has a kit ([section 28](#28-quarryman)), Werewolf has a state model without a kit ([section 29](#29-werewolf)), and Wayfinder and Groundskeeper exist as names and archetype questions only. Two global world-system rules, the Difficulty-1 design principles and the ultimate-attention doctrine live in [section 27](#27-global-world-system-rules).
 
 ### Unsettled drafts
 None of the original roster. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
