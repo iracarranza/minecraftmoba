@@ -86,3 +86,24 @@ mechanics.
   Which body is the real player is open.
 - The remaining roughly sixty classes should distinguish an intentional Domain
   Assertion from an accidental "protect my progress bar" ultimate.
+
+## Addendum, 1 October 2026 — Werewolf kit
+
+The full Werewolf kit (Lycanthropy, Brawling Slash, Bloodhide, Monster Howl and
+their branches) was folded into `classes.md` section 29, replacing the state-model
+version. Changes to the earlier model: the Transformed trigger is now more than
+3 seconds below 70% Maximum Health in Combat; Weakened Human is replaced by a
+return to Human with temporary Slowness and Weakness; time of day affects only the
+requirement to reach Unleashed, not its duration, which is exactly 10 seconds.
+
+The kit cites a **global legibility and Glow rule** (Monster Howl glows publicly;
+other empowerment states use contextual ally and combat-proximity Glow). That rule
+is **not recorded anywhere in the repo**, so section 29 cites it without defining
+it. It needs its own record before other classes rely on it. It also removes the
+Unleashed glow the earlier presentation analysis recommended, so naturally
+reached Unleashed currently has no glow signal.
+
+Open: whether Max Health increases grant Current Health; whether the Unleashed
+size bonus adds or multiplies; the value of X; the Unleashed size cap; whether
+branches are exclusive per ability; and the Lifesteal value (8.5% provisional, not
+canonized).

@@ -2977,7 +2977,7 @@ Secondary:
 Difficulty 1/5. **Supersedes the placeholder name Stationmaster**, which never had a kit. See [section 26](#26-chauffeur).
 
 ### Difficulty as a second axis
-Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Of the seven planned exemplars, Quarryman now has a kit ([section 28](#28-quarryman)), Werewolf has a state model without a kit ([section 29](#29-werewolf)), and Wayfinder and Groundskeeper exist as names and archetype questions only. Two global world-system rules, the Difficulty-1 design principles and the ultimate-attention doctrine live in [section 27](#27-global-world-system-rules).
+Every class now also carries a difficulty rating; the scale, its six dimensions and the 13-class distribution live in [section 21](#21-class-difficulty). Of the seven planned exemplars, Quarryman now has a kit ([section 28](#28-quarryman)), Werewolf now has a kit ([section 29](#29-werewolf)), and Wayfinder and Groundskeeper exist as names and archetype questions only. Two global world-system rules, the Difficulty-1 design principles and the ultimate-attention doctrine live in [section 27](#27-global-world-system-rules).
 
 ### Unsettled drafts
 None of the original roster. Waxer and Daredevil received full kits on 13 September 2026; Skeleton Crew and Lightfooted were settled on 12 September. See the [draft record](#14-class-draft-record) for how the roster reached that state. Promotion out of draft status is not a claim that every quantity is decided.
@@ -4468,8 +4468,8 @@ advancement with batch size, and forces enemies to attend a disastrous buffet.
 
 **Four have kits**: Chef ([section 22](#22-chef)), Paver
 ([section 25](#25-paver)), Chauffeur ([section 26](#26-chauffeur)) and
-Quarryman ([section 28](#28-quarryman)). Werewolf has a state model without a
-kit ([section 29](#29-werewolf)).
+Quarryman ([section 28](#28-quarryman)). Werewolf has a kit
+([section 29](#29-werewolf)).
 
 [HISTORICAL] The Logistics exemplar was first named **Stationmaster**, with the
 question "how do I get people and resources where they're needed?". It never had
@@ -6233,47 +6233,160 @@ blocks.
 
 # 29. Werewolf
 
-**Working direction, 30 September 2026.** Primary archetype Combat; Difficulty 1/5.
-Question: *How do I defeat enemies?* This section records a state model, not a
-kit: **no ability set is defined.**
+**Working direction, 1 October 2026.** Supersedes the 30 September state-model-only
+version of this section. Primary archetype Combat; Difficulty 1/5. Question: *How
+do I defeat enemies?* Percentages and durations are **Prototype/test** unless
+marked otherwise.
 
-Difficulty 1 does not mean mechanically simplistic. It means a beginner quickly
-understands what the buttons and states are for, while contextual mastery stays
-deep. Werewolf enriches combat-state and temporal properties.
+**Fantasy.** Three extremely legible combat states. **Human concentrates impact,
+Transformed distributes it, Unleashed overwhelms.** Human and Transformed are
+intended to have roughly comparable overall fight output expressed through
+different geometry. Unleashed is the true temporary escalation. Difficulty 1 does
+not mean mechanically simplistic: a beginner quickly understands what each button
+and state is for, while contextual mastery stays deep (section 21). Werewolf
+enriches combat-state and temporal properties.
 
-**States.**
+## Passive — Lycanthropy
 
-1. **Human.** A hulking combatant, not a weak civilian. Comparatively precise and
-   target-concentrated.
-2. **Transformed.** Entered after the Human takes sufficient damage. **Not a raw
-   power upgrade**: its abilities redistribute roughly equivalent impact across
-   broader, less per-target-precise interactions. A novice is not badly punished
-   for transforming early, and an expert learns when concentration or breadth is
-   better. Once reached, it persists through Combat.
-3. **Unleashed.** While Transformed, progression toward Unleashed occurs over
-   time, and **time of day shifts it**: toward night, the threshold narrows and
-   Unleashed itself lasts longer. Unlike the first two, it **is** a temporary
-   power escalation. Abilities are much broader and permissive, so pressing the
-   large monster buttons at a target-rich group should work. A fixed timer ends it.
-4. **Weakened Human.** When the timer expires, Werewolf becomes a Weakened Human
-   immediately, even mid-fight, and cannot preserve Unleashed by staying in
-   Combat. It returns to ordinary Human afterward.
+While in Combat, if Werewolf spends **more than 3 seconds below 70% Maximum
+Health**, they **Transform**, growing in size and Maximum Health by:
 
-Progression: Human, sufficient damage, Transformed, time and time of day,
-Unleashed, fixed timer, Weakened Human, ordinary Human.
+| Level | Transformed bonus |
+|---|---|
+| Lv0 | +8% |
+| Lv15 | +15% |
+| Lv25 | +25% |
 
-**Ultimate — Monster Howl.** Instantly enters Unleashed. The clearest example of
-a self-maximalization ultimate.
+Werewolf **remains Transformed while Combat persists**; leaving Combat while
+merely Transformed returns them to Human.
 
-**Presentation.** An enemy should recognize Transformed, and above all Unleashed,
-at a glance without text or HUD. Intended hierarchy: silhouette, then ability
-geometry, then persistent effects, then transition effects and audio, then HUD as
-supplement. The implementation approach is not chosen. The investigation found the
-cheapest robust first test to be a scale ladder, glow for Unleashed and a shrunk,
-unglowing "crashed" tell, with one attached display model as the escalation. That
-analysis lives in the session record, not here.
+Depending on the time of day when Werewolf Transformed, further time in Combat
+eventually makes them **Unleashed**. The closer conditions are to nighttime, the
+faster or narrower that requirement.
 
-[OPEN] Damage threshold for Transformed; time-of-day curves for the Unleashed
-threshold and duration; Unleashed's timer; Weakened Human's effect and duration;
-all abilities and branches; Monster Howl's unlock level; and the presentation
-technique.
+**Unleashed:**
+
+- another **+10%** Maximum Health and size;
+- lasts **exactly 10 seconds**;
+- then Werewolf is **forcibly returned to Human**;
+- afterwards gains temporary **Slowness and Weakness**.
+
+After detransforming, Werewolf **cannot naturally become Unleashed for
+10 seconds**. Monster Howl bypasses this restriction.
+
+[OPEN] Whether increases to Maximum Health also grant the corresponding Current
+Health. Whether the +10% Unleashed bonus adds to or multiplies the Transformed
+bonus. The time-of-day curve for the Unleashed requirement. The Slowness and
+Weakness magnitudes and duration.
+
+## A1 — Brawling Slash
+
+Swing the currently held weapon, dealing **105% Weapon Damage** to the first
+target struck, with bonus knockback. If a **player** was struck, after a delay
+Werewolf **leaps to them, slipping through entities along the way**. It **cannot
+critically strike** and scales from the held weapon rather than using flat damage.
+
+- **Transformed.** Enemies Werewolf collides with during the leap are damaged and
+  knocked back as well.
+- **Unleashed.** The initial slash becomes a **sweep**. After a longer delay
+  Werewolf leaps high **in the same direction** and crushes enemies underneath for
+  massive damage. This version uses **directional commitment, not target
+  tracking**.
+
+Branches:
+
+- **Whirling Slash — Human.** The dash also deals minor damage to enemies along
+  its path. No knockback.
+- **Gnashing Slash — Transformed.** Enemies struck during the dash are **pulled
+  along to its endpoint** instead of being knocked away.
+- **Lumbering Crash — Unleashed.** Brawling Slash gains a **third ground slam**,
+  damaging enemies in a wide cone.
+
+## A2 — Bloodhide
+
+Werewolf absorbs incoming punishment with their hide: **20% Damage Reduction for
+3 seconds**.
+
+- **Transformed.** Taking more than **X** damage during Bloodhide raises Damage
+  Reduction to **40%**. X should probably scale with Werewolf's health rather than
+  be a flat threshold.
+- **Unleashed.** Bloodhide **fundamentally changes**. Werewolf no longer reduces
+  incoming damage. Instead **damage taken temporarily increases Werewolf's size**,
+  up to a cap. While Bloodhide is active and Werewolf has gained size this way,
+  their attacks **sweep**. This does **not** mean further generic damage or stat
+  scaling from size unless separately authored; the reward is converting incoming
+  punishment into broader attack geometry.
+
+Branches:
+
+- **Brawler's Mind — Human.** During Bloodhide, projectiles deal no damage and
+  pass through Werewolf.
+- **Canine Instinct — Transformed.** Werewolf cannot be critically struck during
+  Bloodhide.
+- **Rabid Frenzy — Unleashed.** Bloodhide can be recast, causing Werewolf to
+  aggressively maul the next attacker.
+
+[OPEN] The value of X. The Unleashed size cap and rate. Whether the three branches
+per ability are mutually exclusive choices or each empowers only its own state.
+
+## Q — Monster Howl
+
+An ear-piercing howl; Werewolf **immediately enters Unleashed**, bypassing the
+10-second lockout. Casting it in **any** form **cleanses negative effects**.
+
+- **Cast while Transformed:** additionally heals **65% of Missing Health**.
+- **Cast while already Unleashed:** additionally grants **Lifesteal** while
+  Unleashed.
+
+The Lifesteal value is open. 15% was proposed and raised a concern because
+Werewolf can cleave multiple targets; about 8.5% was discussed as a provisional
+alternative and is **not** canonized. Current likely behavior is that casting Q
+while already Unleashed **does not restart or extend** the 10-second timer unless
+deliberately changed.
+
+**Legibility.** Monster Howl makes Werewolf **glow publicly for its persistent
+ultimate duration**. Bloodhide and other ability-derived empowerment states use
+the contextual ally and combat-proximity Glow rules, and the physical
+Human, Transformed and Unleashed changes remain the class's own visual language on
+top of that universal signal. **That global legibility and Glow rule is not yet
+recorded in the repo's design documents**; this section cites it and does not
+define it.
+
+## State identity
+
+| | Human | Transformed | Unleashed |
+|---|---|---|---|
+| Fantasy | Brawler | Pack-cleaving monster | Rampaging monster |
+| Lycanthropy | Baseline | +8/15/25% size and Max HP | Additional +10% size and Max HP |
+| Brawling Slash | Single target, then leap | Leap hits and knocks back enemies along the path | Sweep, leap, crushing slam |
+| Bloodhide | 20% DR | Can escalate to 40% DR | Full damage taken; damage received grows size; attacks sweep |
+| Q bonus | Enter Unleashed | +65% Missing Health heal | Lifesteal |
+
+## Reconciliation with the 30 September model
+
+- **Transformed trigger** changed from "sufficient damage" to *more than 3 seconds
+  below 70% Maximum Health, in Combat*.
+- **Weakened Human** is replaced: after Unleashed, Werewolf returns to ordinary
+  Human with temporary Slowness and Weakness.
+- **Time of day** now affects only the **requirement to reach Unleashed**. The
+  earlier idea that it also lengthened Unleashed is superseded: Unleashed lasts
+  exactly 10 seconds.
+- **"Transformed is not a raw power upgrade"** now sits beside a size and Maximum
+  Health bonus. The kit states the intent as comparable *output* with different
+  geometry, so the bonus is the cost-of-form, but the tension is worth
+  watching in playtests.
+
+## Implementation notes and risks
+
+- **Size is a real hitbox.** Authoring size as a scale attribute changes the
+  hitbox as well as the model, so a larger Werewolf is easier to hit and can fit
+  fewer gaps. At Lv0, +8% and +18% may also be too small to read from a distance.
+- **Naturally reached Unleashed has no glow signal** under the stated rule: only
+  Monster Howl glows. Recognizing it then rests on a +10% size step and on
+  ability geometry, which is a legibility gap to test.
+- **Brawling Slash** needs the caster to pass through entities and, in the
+  Human and Transformed forms, to track a live target position while facing the
+  direction of travel. The earlier feasibility notes on homing lunges apply; the
+  Unleashed version avoids the tracking by committing to a direction.
+- **Max Health interacts with the displayed health scaling** the plugin already
+  applies, so size-and-health changes need a defined relationship to it.
