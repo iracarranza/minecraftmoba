@@ -4466,19 +4466,59 @@ uncertainty about what the player should do next. Chef still throws pork into
 furnaces, physically presses cooking progress forward, conserves fuel, scales
 advancement with batch size, and forces enemies to attend a disastrous buffet.
 
-**Three have kits**: Chef ([section 22](#22-chef)), Paver
-([section 25](#25-paver)) and Chauffeur ([section 26](#26-chauffeur)).
+**Four have kits**: Chef ([section 22](#22-chef)), Paver
+([section 25](#25-paver)), Chauffeur ([section 26](#26-chauffeur)) and
+Quarryman ([section 28](#28-quarryman)). Werewolf has a state model without a
+kit ([section 29](#29-werewolf)).
 
 [HISTORICAL] The Logistics exemplar was first named **Stationmaster**, with the
 question "how do I get people and resources where they're needed?". It never had
 a kit, and Chauffeur supersedes both the name and the question.
 
-[OPEN] Werewolf, Wayfinder, Quarryman and Groundskeeper exist as names and
-questions only.
+[OPEN] Wayfinder and Groundskeeper exist as names and questions only.
 
 The design principles these exemplars produced are recorded in
 [section 27](#27-global-world-system-rules), not here, because they constrain
 class design generally rather than only the difficulty scale.
+
+### Simplify access to the verb, not the verb itself
+
+**Working direction, 30 September 2026.** An earlier formulation said
+Difficulty-1 classes are easy because their choices are always clear. That risks
+deleting the decisions that constitute an archetype. The refinement:
+
+> A low-difficulty class should not remove the decisions inherent to performing
+> its archetype well. It should remove unnecessary *class-specific* ambiguity
+> layered on top of them.
+
+Construction inherently involves deciding geometry, so a Difficulty-1
+Construction class does not replace it with prefabs. Logistics inherently
+involves deciding what moves, where and when, so a Difficulty-1 Logistics class
+does not automate it. Combat still requires targeting, positioning and timing.
+
+**State management is not intrinsically high difficulty.** A class may have
+several states and remain Difficulty 1 if each state is immediately legible,
+buttons have intuitive contextual meanings, transitions make sense, and baseline
+efficacy does not need an opaque sequence or private resource. Tests:
+
+1. Low ambiguity of class-specific intent.
+2. Each ability has an obvious job in its context.
+3. Dual-function abilities are fine when the functions agree or are clearly
+   target-separated.
+4. No private resource or sequence puzzle for baseline efficacy.
+5. Mutually exclusive branches may stay Difficulty 1.
+6. Failure is usually quantitative rather than categorical.
+7. Complexity comes from Minecraft and archetype mastery, not from deciphering
+   the kit.
+8. A high mastery ceiling is fine when it comes from terrain, opponents,
+   economics, timing, coordination or the underlying verb.
+9. Clever systemic interactions are fine if procedural burden stays low.
+10. States must be legibly different, with clear transition tension.
+
+A class can make a verb easier to execute, easier to reason about, or give it
+more manipulable properties. The third is often richest: Paver enriches material
+properties, Chauffeur vehicle properties, and Werewolf combat-state and temporal
+properties.
 
 ## A note the scale deliberately does not measure
 
@@ -5944,3 +5984,296 @@ reposition, use ordinary systems, preserve infrastructure and decide what the
 next exceptional opportunity is worth. **A cooldown is not merely an
 action-frequency limiter; it can make the world outside the ability matter
 again.**
+
+## Ultimate attention and Domain Assertion
+
+**Working direction, 30 September 2026.** Recorded in
+`docs/reconciliation/2026-10-01-quarryman-and-ultimate-economy.md`; the roster
+audit is `docs/audit/2026-10-01-ultimate-attention-audit.md`.
+
+**Enemy attention is legitimate power; allied service is the scarcer resource.**
+An ultimate that tells the enemy "stop this or something increasingly bad
+happens" is healthy. One that tells allies "stop what you are doing and help this
+player succeed" gets more scrutiny, because it can suppress teammate fantasy.
+
+**Pressure footprint.** For each ultimate ask three things: its **spatial**
+footprint (how much world it threatens or changes), its **temporal** footprint
+(how long everyone must care), and its **attention** footprint (how many players
+must alter their activity). Attention demand is part of an ultimate's power
+budget. This matters more here than in League, Marvel Rivals or Valorant, whose
+rounds and objectives reset and whose ultimates modify an existing contest. This
+game has persistent world consequences and a deliberately pluralistic baseline.
+
+**Domain Assertion.** Some ultimates may deliberately say: *for this moment, my
+class's way of understanding Minecraft becomes strategically dominant.* It is a
+degree, not a binary: Eternity Mountain is the full form, Athanor Anatomb a
+softer one, Destroying Angel's Blessing a local one. This departs from the usual
+MOBA norm that an ultimate intensifies a shared contest rather than becoming it,
+and the departure is deliberate. The baseline is distributed (mining,
+Development, Production, Construction, Logistics, Exploration, regenerative
+opportunity, Worksites, objectives, combat), so an occasional egotistical
+ultimate is coherent.
+
+**It must not become the template.** If every ultimate were a Domain, players
+would take turns being protagonist. There are two broad shapes, and neither is
+more "ultimate": **self-maximalization** (*I become the strongest expression of
+myself*: Monster Howl, Covered With Diamonds) and **Domain Assertion**
+(Eternity Mountain). Most should still intensify, transform or connect existing
+fantasies, and a minority may create a new contest.
+
+> Compete for priority, not permission to play.
+
+Overlapping or competing ideal usages are not a flaw by themselves, and a selfish
+ultimate is not automatically a mistake. Competition for strategic centrality
+must produce a meaningful choice about *how* the team pursues victory, not force
+teammates to wait for another player's animation or minigame. Warning signs:
+repeated mandatory babysitting, mechanically exclusive abilities, prolonged
+serialized protagonist windows, and abilities that prevent teammates expressing
+their class.
+
+**Synergy is not mandatory.** Allied relationships run from independent, through
+competing, sequenced and complementary, to emergently explosive, and a healthy
+roster contains all five. Do not require every ultimate to combine with every
+other, and do not implement composition weakness as abstract anti-synergy
+numbers. It should emerge from competing strategic demands. Prefer synergy that
+arises from shared Minecraft systems over generic tags such as "+20% while X
+exists".
+
+Short form: enemy attention is legitimate power, allied service is scarcer,
+compete for priority and not permission, and make a Domain deliberate.
+
+---
+
+# 28. Quarryman
+
+**Working direction, 30 September 2026.** Folded from the 30 September handoff.
+Primary archetype Extraction; Difficulty 1/5; conceptually also a Dismantler.
+Quantities marked *prototype* are test parameters, not balance.
+
+Question: *How do I efficiently remove valuable material from the world?*
+
+**Fantasy.** Quarryman never stops mining; there are quotas to meet. Early with
+no proper pickaxe, mid teamfight, with the enemy converging on the End Crystal:
+probably still mining. That is the point. The class creates a **greed problem**:
+continued mining makes Quarryman more consequential and always costs presence
+elsewhere.
+
+> Mining earns Quarryman the right to be powerful. It does not prove the mining
+> was correct.
+
+A Quarryman can fill every quota and still lose the base, and the game may say
+so. Payoffs must therefore not be automatic objective damage, a passive team XP
+multiplier, automatic permanent team production, or generic team stats. They
+expand what Quarryman **personally** can excavate, dismantle, relocate or
+accomplish when they choose to stop. The decision to design around is *when does
+Quarryman finally stop mining*, not when the progression system says they are
+online. Curve: mine, mine faster and better, mine more, become more
+consequential, keep mining, then decide whether accumulated capability is worth
+more than the next quota. There is no clean "online" moment.
+
+## Quarry Quota (passive)
+
+Four distinct variables:
+
+| Variable | Meaning |
+|---|---|
+| **Quota Stage** | Difficulty of the currently assigned quota. Rises and falls. |
+| **Current Quota Progress** | Progress toward the active quota. Resets each cycle. |
+| **Last Quota Completedness (LQC)** | Final percentage on the previous quota, success or failure. Replaced each cycle. |
+| **Completed Quotas (CQ)** | Lifetime quotas fulfilled. Monotonic, never decreases. |
+
+On each timed expiry: at 100% or more, CQ rises by 1, LQC is 100% and the next
+Stage rises by 1; below 100%, CQ is unchanged, LQC is the final percentage and
+the next Stage falls by 1. Progress then resets and a new quota begins.
+
+**Stage is expectation, not power.** Two Quarrymen with equal CQ and equal LQC
+have the same ability potency even if one earned 80% at Stage 6 and the other
+80% at Stage 2. Current Quota Progress confers no power. LQC is recent
+performance; CQ is proven cumulative success.
+
+**Sandbagging is intended, and not given a button.** A one-star player fills the
+bar. A two-star player knows the next scan is strongest after a full quota. A
+three-star player may fail a quota at 99% on purpose, lowering the next Stage
+while keeping near-maximal LQC, trading permanent CQ growth for near-term
+reliability. There is no "lower quota" control, and the system does not
+distinguish deliberate from involuntary failure. A quota can genuinely become too
+demanding for continuous mining, so Stage searches for the player's sustainable
+boundary.
+
+[OPEN] Quota timer, Stage floor and ceiling, and the demand formula (quantity,
+hardness and material expectations).
+
+## A1 — Ceaseless Swing
+
+**Passive.** After mining continuously with a tool for 10 seconds, that tool's
+Mining Tier is raised by 1 while Quarryman keeps mining. Strong current reading:
+**harvest tier, not a speed multiplier**. A Stone pickaxe harvests as Iron but
+keeps Stone speed; an Iron pickaxe can harvest Obsidian at Iron speed. This lets
+Quarryman keep mining instead of stopping to upgrade, without deleting equipment
+progression.
+
+**Active, Scan.** Scan a cube centered on Quarryman. For 30 seconds, blocks
+inside have hardness reduced. *Prototype:*
+
+- width `CQ/2 + 3`;
+- reduction `R = 0.3 + 0.05*LQC + 0.1*CQ`, with LQC taken as 0 to 1.
+
+CQ controls spatial scale and the dominant permanent growth. LQC is a small
+recent-performance term. Stage and Current Quota Progress do not affect Scan.
+The reduction is additive and **deliberately nonlinear**: ordinary geology stops
+resisting while extraordinary materials stay extraordinary. At full LQC, R is
+0.35, 0.45, 0.65, 0.85, 1.35 at CQ 0, 1, 3, 5, 10. Against Dirt 0.5, Stone 1.5,
+Deepslate 3 and Obsidian 50, ordinary terrain becomes incidental and Obsidian
+stays a serious undertaking. That identity is intended.
+
+**Implementation warnings.** Do not assign negative Minecraft hardness, which
+means unbreakable. Modify break progress, or clamp at an instant-break threshold:
+the reduction may make a block instant-breakable and must never make it
+unbreakable. `CQ/2 + 3` yields fractional widths, so width needs an explicit
+rounding and anchoring rule. Do not replace it with `3 + 2*floor(CQ/2)`, whose
+volume growth is far steeper than intended.
+
+[OPEN] Rounding, anchoring, and the exact hardness implementation.
+
+## A2 — Miner's Strike
+
+**Toggle.** While active, quota progress is paused and the current quota is
+cleared, and attacks with Quarryman's strongest pickaxe scale with accumulated
+CQ. *Prototype:* `D = min(24, WeaponDamage * 1.15^CQ)`, where CQ is Completed
+Quotas and 24 is vanilla damage (2400 on the project's displayed x100 scale).
+
+Activating it means Quarryman has stopped doing the thing that grows Quarryman.
+Preferred lifecycle: the cleared quota is **not** a success, preferably **not** a
+failure, and no new quota starts until the next scheduled refresh, so A2 is never
+a free "lower my Stage" button.
+
+**Early combat should be bad, and no minimum damage floor is added.** At low CQ a
+pickaxe may be worse than a sword, and that is intended: a Quarryman who wants to
+fight early prepares like anyone else, and one who refuses had better have mined
+enough. As CQ rises the pickaxe becomes viable and then absurd, eventually
+freeing the sword slot.
+
+Approximate raw scaling (Iron 4, Diamond 5, Netherite 6 base): CQ 0 is 4, 5, 6;
+CQ 5 is 8.05, 10.06, 12.07; CQ 10 is 16.18, 20.23 and Netherite at the cap.
+Netherite caps at CQ 10, Diamond at CQ 12, Iron at CQ 13. Normal attack charge
+still matters and this is not spam damage: the vanilla multiplier is
+`0.2 + 0.8c²`, so half charge deals about 40%, not 50%.
+
+**Armor correction.** Full Iron is **15 armor, 0 toughness**, not 20. Raw 24
+against full Iron: effective armor `max(15/5, 15 - 24/2) = 3`, so damage is
+`24 * (1 - 3/25) = 21.12` vanilla, or 2112 displayed. A 2400-HP target in full
+Iron survives a capped Strike at about 288. The earlier 1632 figure is
+superseded.
+
+[OPEN] "Strongest pickaxe" semantics, the exact quota lifecycle on toggle, and
+whether 24 remains the right cap after health and armor calibration.
+
+## Ultimate — Eternity Mountain
+
+**Domain Assertion** (see section 27). First cast begins a channel and marks a
+cube centered on Quarryman's location. On release, Quarryman and all enemy
+players still inside the cube are taken to **Eternity Mountain**, a tall mountain
+of Bedrock, Deepslate, Stone and Obsidian. Quarryman appears at the peak and
+captured enemies at the base. At the peak is a Bedrock mining target, and as
+Quarryman mines it the breakable blocks of the mountain and the corresponding
+blocks in the marked real-world cube are progressively destroyed. Enemies must
+reach Quarryman and damage him. **Any damage to Quarryman ends the ultimate** and
+returns everyone.
+
+**Quarryman exists in both places at once.** The *Mountain Quarryman* mines the
+Bedrock and can be reached by captured enemies. The *World Quarryman* stays at the
+real cast point, visibly performing the same action, and can be attacked by
+enemies who were not captured. They are two manifestations of one vulnerable
+Quarryman, health is conceptually shared, and damage to either ends the ultimate.
+This keeps Quarryman present on the battlefield while permanently changing it, and
+gives enemies two answer routes. Capturing every nearby defender protects the
+World Quarryman but sends them all up the Mountain. Capturing fewer leaves
+real-world enemies free to reach the World Quarryman. Allies stay in the real
+world and may protect it. Quarryman's own verb stays *hold left click on rock*.
+
+**Placement** is therefore a strategic decision: a greedy deep cast threatens
+valuable terrain but exposes the real body deep in hostile ground, and a
+conservative cast is safer but may cover less. A larger cube can let Quarryman
+threaten valuable terrain from farther inside its edge.
+
+**Progress is partial and persistent.** Excavation occurs while Quarryman mines.
+An interruption at 63% leaves roughly 63% of the Mountain destroyed and the
+corresponding real-world excavation done and kept. The Mountain may deteriorate
+visibly, softer Stone first, so the ascent changes over time. It is not a
+bespoke obstacle course: running, jumping, climbing, mining, bridging, pillaring
+and class mobility solve it.
+
+**Telegraph.** The initial channel marks the cube so enemies can see the threat and
+evacuate. Only enemies still inside at release are taken. Walking out does **not**
+cancel the terrain threat, or evacuation would defeat the Dismantler function.
+**Return** (suggested, not decided): each participant returns to their exact
+abduction position unless excavation made it invalid, without making return
+comfortable.
+
+**Scaling split.** CQ earns the right to attempt a larger quarry; the actual
+mining setup (pickaxe tier, Efficiency, Task progression, Ceaseless Swing)
+determines whether Quarryman finishes before enemies arrive. CQ must not increase
+cube size and Bedrock rate and every other dimension at once. *Prototype:* Q width
+equals the A1 width plus 2, since volume rises steeply (7³ = 343, 9³ = 729).
+
+**Implementation warnings.** Bedrock is unbreakable in vanilla, so the Bedrock
+target needs a custom progress counter, not a hardness change. A player occupies
+one world, so one of the two bodies must be a stand-in entity; which one is the
+real player decides damage routing, return and what enemies see. Both are open.
+
+[OPEN] Channel duration and whether the first channel is interruptible; the cube
+formula; the mapping from Bedrock progress to destruction and its ordering
+(whether by hardness); the equipment interaction with Bedrock; return and
+collision handling; visuals for both manifestations; health synchronization;
+interaction with abilities that move or protect the World Quarryman; allies
+modifying the real cube during Q; and protected, objective and indestructible
+blocks.
+
+---
+
+# 29. Werewolf
+
+**Working direction, 30 September 2026.** Primary archetype Combat; Difficulty 1/5.
+Question: *How do I defeat enemies?* This section records a state model, not a
+kit: **no ability set is defined.**
+
+Difficulty 1 does not mean mechanically simplistic. It means a beginner quickly
+understands what the buttons and states are for, while contextual mastery stays
+deep. Werewolf enriches combat-state and temporal properties.
+
+**States.**
+
+1. **Human.** A hulking combatant, not a weak civilian. Comparatively precise and
+   target-concentrated.
+2. **Transformed.** Entered after the Human takes sufficient damage. **Not a raw
+   power upgrade**: its abilities redistribute roughly equivalent impact across
+   broader, less per-target-precise interactions. A novice is not badly punished
+   for transforming early, and an expert learns when concentration or breadth is
+   better. Once reached, it persists through Combat.
+3. **Unleashed.** While Transformed, progression toward Unleashed occurs over
+   time, and **time of day shifts it**: toward night, the threshold narrows and
+   Unleashed itself lasts longer. Unlike the first two, it **is** a temporary
+   power escalation. Abilities are much broader and permissive, so pressing the
+   large monster buttons at a target-rich group should work. A fixed timer ends it.
+4. **Weakened Human.** When the timer expires, Werewolf becomes a Weakened Human
+   immediately, even mid-fight, and cannot preserve Unleashed by staying in
+   Combat. It returns to ordinary Human afterward.
+
+Progression: Human, sufficient damage, Transformed, time and time of day,
+Unleashed, fixed timer, Weakened Human, ordinary Human.
+
+**Ultimate — Monster Howl.** Instantly enters Unleashed. The clearest example of
+a self-maximalization ultimate.
+
+**Presentation.** An enemy should recognize Transformed, and above all Unleashed,
+at a glance without text or HUD. Intended hierarchy: silhouette, then ability
+geometry, then persistent effects, then transition effects and audio, then HUD as
+supplement. The implementation approach is not chosen. The investigation found the
+cheapest robust first test to be a scale ladder, glow for Unleashed and a shrunk,
+unglowing "crashed" tell, with one attached display model as the escalation. That
+analysis lives in the session record, not here.
+
+[OPEN] Damage threshold for Transformed; time-of-day curves for the Unleashed
+threshold and duration; Unleashed's timer; Weakened Human's effect and duration;
+all abilities and branches; Monster Howl's unlock level; and the presentation
+technique.
