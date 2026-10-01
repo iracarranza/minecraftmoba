@@ -5914,6 +5914,142 @@ Paver's displaced block has somewhere it belongs. Chauffeur's Supply Line has a
 vehicle supporting it. The abstraction does not silently detach itself from the
 Minecraft world once established.
 
+## Global Effect Legibility
+
+**Settled 1 October 2026.** Glow is the universal, class-independent signal that
+a player's state is strategically significant right now. It exists because the
+roster is heading for ~84 classes, and **players must not need encyclopedic
+knowledge of every class's particle vocabulary to recognize "that person is
+currently empowered."**
+
+> **Class presentation communicates WHAT happened. Glow communicates THAT
+> something strategically significant is active.**
+
+Class-specific presentation — Werewolf physically becoming huge, Kitfighter's
+diamond appearance — is expected and encouraged. It does **not** substitute for
+the common language.
+
+### Tier 1 — Ultimate state is unconditional public information
+
+A player who is **channeling**, **casting**, or **sustaining an Ultimate whose
+effect remains active through them** Glows **to every player, for the entire
+relevant duration**.
+
+No Combat requirement. No proximity requirement. No team restriction. The
+message is: *this player is currently exerting Ultimate-level influence on the
+match.*
+
+This also supplies a consistent cost for persistent and domain Ultimates —
+Eternity Mountain's World Quarryman is unmistakably glowing for its whole
+duration.
+
+That is the same quantity **Ultimate attention and Domain Assertion** (below)
+asks authors to budget, made visible: an ultimate's **temporal** and
+**attention** footprints are exactly what Tier 1 broadcasts. A Domain Assertion
+cannot quietly run long, because the glow is its duration.
+
+**Ultimate Glow supersedes ordinary empowerment visibility rather than stacking
+visually.**
+
+### Tier 2 — Self-empowerment is contextually public information
+
+Whenever a player's own ability **materially changes their current
+capabilities**, that player Glows. Examples: damage reduction, self-healing or
+lifesteal state, bonus damage, attack modification, movement speed, knockback
+resistance, defensive immunity, empowered attacks, and similar temporary
+personal state.
+
+That Glow is **observer-relative**:
+
+| Observer | Sees it when |
+|---|---|
+| **Ally** | Always. |
+| **Enemy** | The observer is in **Combat**, **and** is within the **Empowerment Legibility Radius** of the empowered player, **and** the empowered player is **not Invisible**. |
+
+**Why the Combat condition earns its place.** It prevents passive information
+leakage. A Werewolf activating Bloodhide 80 blocks away should not broadcast
+*"Werewolf just activated Bloodhide"* to anyone who happens to hold line of
+sight. Once you are actually in the fight and close enough, the game
+deliberately tells you: *this opponent's state has changed; account for it.*
+
+**Glow is combat readability, not a scouting mechanism.** It reuses the shared
+seven-second Combat State rather than inventing another detection state.
+
+### Invisibility wins
+
+Ordinary empowerment plus Invisibility means the **enemy Glow is suppressed**.
+Otherwise every empowerment becomes an accidental anti-stealth mechanic and
+stealth classes are incentivized not to use their own kits. This is explicitly
+distinct from any ability **authored** to reveal or detect an invisible player.
+
+Allies still see the empowerment Glow on an invisible teammate: it compromises
+nothing against the enemy.
+
+### The criterion is state change, not numbers
+
+Broader than literal numeric buffs:
+
+> **If knowing that a player's current capabilities have materially changed
+> could alter another player's immediate decision, that state requires authored
+> legibility.**
+
+So Werewolf's forms, Miner's Strike active, an exceptional Bloodmason Hemostasis
+condition, Kitfighter's Diamond state and any future empowered Chauffeur driving
+state are all evaluated under this rule, even where the change is not reducible
+to "+X%".
+
+### Feasibility assessed 1 October 2026
+
+**Tier 1 is free.** `setGlowing` is an entity flag visible to everyone, which is
+exactly Ultimate Glow's specification.
+
+[TECHNICAL RISK] **Tier 2 is not reachable with `setGlowing`.** The flag is
+all-or-nothing: there is no per-viewer form of it. Observer-relative glow
+requires **per-player entity metadata packets**, and this project's packet
+machinery (`NativePacketQueue`, `PacketInputs`) is **inbound only** — it reads
+clicks and movement. Sending differing outbound metadata per viewer is new
+reflective work against Paper internals, and it is the single largest cost in
+this contract.
+
+**Invisibility makes that cost unavoidable rather than optional.** A glowing
+invisible entity still renders its outline in vanilla, so "Invisibility wins"
+cannot be achieved by applying the glow and hoping — it must be achieved by
+**not sending it to those viewers**. The stealth rule and the ally/enemy split
+need the same mechanism.
+
+**The supersession rule is forced by the medium, not only chosen.** An entity
+has one glow state, so Ultimate Glow and empowerment Glow could not stack even
+if the design wanted them to. Design and medium agree here, which is worth
+knowing before anyone proposes stacking them later.
+
+[OPEN] **Glow colour comes from scoreboard team membership**, and team colour
+already carries team identity here (`Team.java`). Distinguishing Ultimate Glow
+from empowerment Glow by colour therefore collides with showing which side
+someone is on, unless per-player scoreboards are used — which the per-viewer
+packet work would make possible anyway. Decide whether the two tiers are
+distinguished by colour at all.
+
+[OPEN] **The Empowerment Legibility Radius.**
+
+[OPEN] **Combat(E) means "in Combat", not "in Combat with P".** An enemy
+fighting someone else entirely, within the radius, currently qualifies. That is
+probably intended — they are in a fight and the information is tactically
+live — but it is a decision rather than an implication.
+
+**Glow already carries two other meanings in this game**: `RenewableMarkers`
+glows resource markers and `ObjectiveGlow` glows objectives. Neither applies to
+players, so there is no collision — but a third meaning is a legibility cost in
+itself, and is a reason to keep player Glow to exactly these two tiers.
+
+**Enforcement should follow the `combat:` precedent.** Every ability and branch
+is already required to declare whether it is combat, with deliberately no
+default "because either default fails silently"
+([section 21](#21-class-difficulty) and `AbilityCombat`). The same argument
+applies exactly here: a criterion as broad as "materially changes capabilities"
+will decay into a convention nobody checks unless each ability and branch is
+**required to declare whether it empowers**. A class author who forgets is
+otherwise invisible until a player complains they could not see a state change.
+
 ## Difficulty-1 design principles
 
 Sharpened by Paver and Chauffeur together. These extend
