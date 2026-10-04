@@ -128,5 +128,58 @@ public final class CapacityDemand {
         return worst;
     }
 
+    /**
+     * The most attention one unit may cost before this curve outruns its
+     * staffing.
+     *
+     * <b>This is the output that survives not having measured anything.</b>
+     * Absolute minutes depend entirely on a labour cost nobody has measured,
+     * so quoting them dresses a guess as a finding. A break-even inverts the
+     * unknown instead: it says "this class keeps up if and only if
+     * establishing one unit costs less than X attention-minutes", which is a
+     * claim the scenario harness could go and check.
+     *
+     * Set by the WORST step rather than the average, because each grant has
+     * its own deadline and a curve that is gentle except for one jump is as
+     * demanding as its jump.
+     */
+    public static double breakEvenLabourPerUnit(List<Grant> grants, double players,
+                                                double minutesBetweenGrants) {
+        double worstIncrease = 0;
+        for (Grant g : grants) worstIncrease = Math.max(worstIncrease, g.increase());
+        if (worstIncrease <= 0) return Double.POSITIVE_INFINITY;
+        return players * minutesBetweenGrants / worstIncrease;
+    }
+
+    /** The grant that sets the staffing, which is the one worth designing around. */
+    public static Grant bindingGrant(List<Grant> grants) {
+        Grant worst = null;
+        for (Grant g : grants)
+            if (worst == null || g.increase() > worst.increase()) worst = g;
+        return worst;
+    }
+
+    /**
+     * The attention-weighted average level at which a curve's demand arrives.
+     *
+     * A centroid rather than a first-half share. Splitting the grants in two by
+     * INDEX ignores when they land: the default curve and Toolbox's both have
+     * six grants, so both scored exactly 0.5 and the metric said nothing. The
+     * difference between them is entirely in the levels -- Toolbox finishes
+     * asking at 18, the default curve is still asking at 24 -- so weighting by
+     * level is the measurement, and splitting by count was a proxy for it that
+     * happened to be constant.
+     *
+     * A low centroid asks for commitment when a team has least to give. A high
+     * one asks when the match may already be decided. Neither is wrong; they
+     * are different strategic objects, and the curve says which without any
+     * timing claim.
+     */
+    public static double demandCentroidLevel(List<Grant> grants) {
+        double weighted = 0, total = 0;
+        for (Grant g : grants) { weighted += g.increase() * g.level(); total += g.increase(); }
+        return total <= 0 ? 0 : weighted / total;
+    }
+
     private CapacityDemand() {}
 }
