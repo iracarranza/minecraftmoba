@@ -140,13 +140,41 @@ public final class Stun implements Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void move(PlayerMoveEvent e) {
         if (!movementRefused(e.getPlayer())) return;
-        Location from = e.getFrom(), to = e.getTo();
-        if (from.getX() == to.getX() && from.getY() == to.getY() && from.getZ() == to.getZ()) return;
-        // Position rewound, look preserved: turning the head is not moving.
+        Location held = hold(e.getFrom(), e.getTo());
+        if (held != null) e.setTo(held);
+    }
+
+    /**
+     * The destination a movement-refused player is held at, or null to let the
+     * move through untouched.
+     *
+     * Separated from the handler because the handler cannot be tested without a
+     * client. {@link PlayerMoveEvent} is driven by an inbound movement packet,
+     * so a server-side fake player never fires one -- it would sit perfectly
+     * still and report a confident pass over a rule that never ran. The
+     * arithmetic below is the part that is actually easy to get wrong, and it
+     * is now testable on its own.
+     *
+     * <h2>A look-only move passes through</h2>
+     *
+     * Turning the head is not moving, and Minecraft sends a turn and a step in
+     * the same event. Returning a held location for a pure look change would
+     * re-assert the position every time the player turned, which fights the
+     * client for no reason.
+     *
+     * <h2>The held location keeps the NEW yaw and pitch</h2>
+     *
+     * Taking the origin's look as well would snap the camera back on every
+     * movement attempt -- the one thing a Stun in this project explicitly does
+     * not do, and a Root never did.
+     */
+    static Location hold(Location from, Location to) {
+        if (from == null || to == null) return null;
+        if (from.getX() == to.getX() && from.getY() == to.getY() && from.getZ() == to.getZ()) return null;
         Location held = from.clone();
         held.setYaw(to.getYaw());
         held.setPitch(to.getPitch());
-        e.setTo(held);
+        return held;
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
