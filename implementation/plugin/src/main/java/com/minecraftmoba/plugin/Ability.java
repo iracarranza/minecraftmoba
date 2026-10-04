@@ -10,6 +10,25 @@ public interface Ability {
     String displayName();
     long cooldownTicks();
     boolean execute(Player player, AbilityContext context);
+    /**
+     * How many activations may be banked.
+     *
+     * One by default, so every existing ability is untouched: a single-charge
+     * ability is the same arithmetic with N = 1. Toolbox's A2 is the first
+     * consumer, at three charges on an eight-second recharge.
+     */
+    default int charges() { return 1; }
+
+    /**
+     * How long one charge takes to come back.
+     *
+     * Defaults to the cooldown, which is what a single-charge ability's
+     * cooldown already means. Separated because the two diverge the moment an
+     * ability banks more than one: a three-charge ability with an eight-second
+     * recharge is not on a twenty-four-second cooldown.
+     */
+    default long rechargeTicks() { return cooldownTicks(); }
+
     default Map<String, String> branches() { return Map.of(); }
     default List<String> branchIds() { return List.copyOf(branches().keySet()); }
     default boolean active(Player player) { return false; }

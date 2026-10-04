@@ -207,7 +207,8 @@ public final class AbilityInputs implements Listener {
         // Say so rather than doing nothing. A cooldown that refuses silently
         // is indistinguishable from an input that was not registered, which is
         // the worse of the two to guess at mid-fight.
-        long remaining = cooldowns.remaining(p.getUniqueId(), ability.id(), tick);
+        long remaining = cooldowns.untilNextCharge(p.getUniqueId(), ability.id(), tick,
+                ability.charges(), ability.rechargeTicks());
         if (remaining > 0) {
             if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, remaining);
             return true;
@@ -232,7 +233,7 @@ public final class AbilityInputs implements Listener {
         last.put(ability.id(), tick);
         var context = aimContext;
         if (ability.execute(p,context)) {
-            cooldowns.start(p.getUniqueId(),ability.id(),tick,ability.cooldownTicks());
+            cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),ability.rechargeTicks());
             // Activating a COMBAT ability puts the caster in combat. Classified
             // from the declaration, per branch, so Mole tunnelling or a
             // Gardener clipping a plant is not treated as fighting.
@@ -438,7 +439,7 @@ public final class AbilityInputs implements Listener {
             sustaining.put(p.getUniqueId(),
                     AimState.begin(ability.id(), aim.input(), CastMode.HOLD, tick));
         lastFire.computeIfAbsent(p.getUniqueId(), k -> new HashMap<>()).put(ability.id(), tick);
-        cooldowns.start(p.getUniqueId(), ability.id(), tick, ability.cooldownTicks());
+        cooldowns.spend(p.getUniqueId(), ability.id(), tick, ability.charges(), ability.rechargeTicks());
         // Exactly what the unaimed path does. A cast that went through an aim
         // is still a cast, and marking combat differently would make the cast
         // mode a balance setting.
@@ -507,7 +508,8 @@ public final class AbilityInputs implements Listener {
             Input input=Input.valueOf(plugin.getConfig().getString("abilities.bindings."+slot));
             Ability ability=kit==null?null:kit.get(input);
             String label=switch(input) { case LEFT_CLICK -> "M1"; case RIGHT_CLICK -> "M2"; case DROP -> "Q"; case SWAP_HAND -> "F"; };
-            boolean cooling=ability!=null && !cooldowns.ready(p.getUniqueId(),ability.id(),tick);
+            boolean cooling=ability!=null && cooldowns.available(p.getUniqueId(),ability.id(),tick,
+                    ability.charges(),ability.rechargeTicks())==0;
             String name = ability == null ? "—" : ability.displayName() + branchSuffix(p, ability);
             bar=bar.append(Component.text(label+" "+name+"   ",cooling?NamedTextColor.GRAY:NamedTextColor.WHITE));
         }
