@@ -1606,6 +1606,11 @@ alpha:
       - resource_light
     force: ""
   instanceWorldName: alpha_match
+  # Reusable debug scoops, isolated from the consumable production pool.
+  lab:
+    mapsDirectory: lab-maps
+    roomWorldName: moba_lab
+    instanceWorldName: moba_lab_match
   # Homeland spawn per team, [x, z] or [x, z, y].
   #
   # These are inside the Aether Fountain basin, not on the terrain near it. A

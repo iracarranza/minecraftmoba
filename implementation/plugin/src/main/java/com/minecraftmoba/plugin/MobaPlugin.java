@@ -244,9 +244,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(vitalsDisplay, this);
         passives = new Passives(this);
         lab = new Lab(this);
+        getServer().getPluginManager().registerEvents(lab, this);
         hudProbe = new HudProbe(this);
         hudNotice = new HudNotice(this);
         lobbySettings = new LobbySettings(this);
+        compendiums = new Compendiums(this);
+        getServer().getPluginManager().registerEvents(compendiums, this);
+        getServer().getScheduler().runTaskTimer(this, () -> getServer().getOnlinePlayers().forEach(compendiums::refresh), 20, 20);
         targetPreview = new TargetPreview(this);
         getServer().getPluginManager().registerEvents(lobbySettings, this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
@@ -374,6 +378,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private HudNotice hudNotice;
     public HudNotice hudNotice() { return hudNotice; }
     private LobbySettings lobbySettings;
+    private Compendiums compendiums;
     public LobbySettings lobbySettings() { return lobbySettings; }
     private TargetPreview targetPreview;
     public TargetPreview targetPreview() { return targetPreview; }
@@ -494,6 +499,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
      * real victory predicate decides the outcome either way.
      */
     private boolean matchCommand(CommandSender sender, String[] args) {
+        if (worldInstance.labActive()) {
+            sender.sendMessage("A lab session is active. End it with /moba lab end before using standard match commands.");
+            return true;
+        }
         String sub = args.length > 1 ? args[1].toLowerCase(java.util.Locale.ROOT) : "status";
         try {
             switch (sub) {
@@ -749,6 +758,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         save(p, d);
         rewards.refresh(p);
         if (lobbySettings != null) lobbySettings.refresh(p);
+        if (compendiums != null) compendiums.refresh(p);
     }
     @EventHandler public void join(PlayerJoinEvent e) {
         load(e.getPlayer());
@@ -828,9 +838,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     }
     @EventHandler public void vanillaXp(PlayerExpChangeEvent e) { if (enrolled(e.getPlayer())) e.setAmount(0); }
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // Before every other form, including the draft verbs: `lab start` has
-        // to be reachable from INSIDE the draft hall, which is the state it
-        // most often has to rescue someone from.
+        if(args.length>=1&&args[0].equalsIgnoreCase("compendium"))return compendiums.command(sender,args);
+        if(args.length>=1&&args[0].equalsIgnoreCase("settings"))return lobbySettings.command(sender,args);
+        // Keep diagnostic/lab routing separate from the standard draft verbs.
         if (args.length >= 1 && args[0].equalsIgnoreCase("hudprobe")) {
             if (!sender.hasPermission("moba.admin")) {
                 sender.sendMessage("An administrator is required."); return true;

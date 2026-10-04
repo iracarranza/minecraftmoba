@@ -255,7 +255,7 @@ public final class Renewables implements Listener {
         return made;
     }
 
-    public int resetForNewMatch() {
+    public void clearMatchState() {
         // Manifestations are match state and are discarded with the world; the
         // Opportunities themselves are authored and are rebuilt from config.
         for (Source s : sources.values()) s.opportunity.discardManifestation();
@@ -263,6 +263,10 @@ public final class Renewables implements Listener {
         pendingPersist.clear();
         pendingRestore.clear();
         harvests = recoveries = recoveryChecks = depletions = harvestNanos = harvestCalls = 0;
+    }
+
+    public int resetForNewMatch() {
+        clearMatchState();
         if (generatedMap && !bound.isEmpty()) {
             int made = loadBound();
             plugin.getLogger().info("[renewables] bound " + made + " derived source(s) from "

@@ -16,6 +16,12 @@ __pycache__/
 # Task B physical greybox worlds are local inspection artifacts; compact plans
 # and validation reports remain committed under implementation/worldgen/results.
 /artifacts/worldgen/default_task_b_2026-09-10/
+# Alpha 0.1 physical worlds: 85M of local inspection terrain. The compact
+# plans and validation reports remain committed under implementation/worldgen.
+/artifacts/worldgen/alpha-0.1/
+# Local seed reevaluation sources, authored pool and inspection copies.
+# Reproduction code and compact evidence live outside this artifact directory.
+/artifacts/worldgen/seed_reevaluation_2026-10-02/
 
 # Local protocol fixture dependencies and scratch output.
 /validation/plugin/protocol/node_modules

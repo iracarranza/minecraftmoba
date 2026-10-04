@@ -104,6 +104,17 @@ public final class LobbySettings implements Listener {
     }
 
     // ---- clicking it ------------------------------------------------------
+    public boolean command(org.bukkit.command.CommandSender sender,String[] args) {
+        if(!(sender instanceof Player p)){sender.sendMessage("Settings require an in-game player.");return true;}
+        if(!applies(p)){p.sendMessage("Cast preferences can be changed after enrolling and outside the match world.");return true;}
+        if(args.length!=3||!args[1].equalsIgnoreCase("cast")
+                || !java.util.Set.of("quick","hold","double").contains(args[2].toLowerCase(java.util.Locale.ROOT))) {
+            p.sendMessage("/moba settings cast <quick|hold|double>");return true;
+        }
+        CastMode mode=CastMode.of(args[2]);
+        plugin.data(p).settings.put("castMode",mode.name());plugin.applyAndSave(p);refresh(p);
+        return true;
+    }
 
     private void cycle(Player p) {
         var data = plugin.data(p);

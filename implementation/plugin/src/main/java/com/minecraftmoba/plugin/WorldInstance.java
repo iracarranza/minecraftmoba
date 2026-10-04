@@ -29,6 +29,28 @@ public final class WorldInstance {
     private final String instanceName;
     /** The claimed pool map for the current match, or null when using the template. */
     private MapPool.Entry claimed;
+    private MapPool.Entry labSource;
+
+    public boolean labActive() { return labSource != null; }
+
+    /** Lab templates are reusable inputs, never claims from the match pool. */
+    public void enterLab(MapPool.Entry entry) {
+        if (claimed != null || labSource != null)
+            throw new IllegalStateException("A world source is already selected.");
+        String labName = plugin.getConfig().getString("alpha.lab.instanceWorldName", "moba_lab_match");
+        String room = plugin.getConfig().getString("alpha.lab.roomWorldName", "moba_lab");
+        if (labName.equals(instanceName) || labName.equals(room)
+                || labName.equals(plugin.getConfig().getString("features.lobbyWorld.name", "moba_lobby"))
+                || Bukkit.getWorlds().getFirst().getName().equals(labName))
+            throw new IllegalStateException("The lab instance needs a separate, non-primary world name.");
+        labSource = java.util.Objects.requireNonNull(entry);
+    }
+
+    public void exitLab() throws IOException {
+        if (!labActive()) return;
+        if (!unload()) throw new IOException("Could not unload the lab instance.");
+        labSource = null;
+    }
 
     public WorldInstance(MobaPlugin plugin) {
         this.plugin = plugin;
@@ -74,13 +96,14 @@ public final class WorldInstance {
         return given.toAbsolutePath().normalize();
     }
 
-    public String instanceName() { return instanceName; }
+    public String instanceName() { return labActive()
+            ? plugin.getConfig().getString("alpha.lab.instanceWorldName", "moba_lab_match") : instanceName; }
     public Path templatePath() { return template; }
     public boolean templateAvailable() { return Files.isDirectory(template); }
-    public World world() { return Bukkit.getWorld(instanceName); }
+    public World world() { return Bukkit.getWorld(instanceName()); }
 
     private Path instancePath() {
-        return Bukkit.getWorldContainer().toPath().resolve(instanceName);
+        return Bukkit.getWorldContainer().toPath().resolve(instanceName());
     }
 
     /**
@@ -93,7 +116,7 @@ public final class WorldInstance {
      * exists to replace.
      */
     private Path source() {
-        return claimed != null ? claimed.world() : template;
+        return labSource != null ? labSource.world() : claimed != null ? claimed.world() : template;
     }
 
     /** Claim a pool map for this match, if the pool is enabled and has one. */
@@ -145,6 +168,7 @@ public final class WorldInstance {
         // A copied world must not inherit the template's session lock or its
         // player data; the lock makes Bukkit refuse the load.
         Files.deleteIfExists(dest.resolve("session.lock"));
+        Files.deleteIfExists(dest.resolve("uid.dat"));
         deleteTree(dest.resolve("playerdata"));
         deleteTree(dest.resolve("stats"));
         deleteTree(dest.resolve("advancements"));
@@ -170,7 +194,7 @@ public final class WorldInstance {
      * The base the instance is copied from, before any configuration is applied.
      * Exposed so the fingerprint check can see what it is verifying against.
      */
-    public java.nio.file.Path basePath() { return template; }
+    public java.nio.file.Path basePath() { return labSource == null ? template : labSource.world(); }
 
     /**
      * Load a FRESH instance.
@@ -194,13 +218,15 @@ public final class WorldInstance {
                         + instanceName + "' before materializing the selected map");
         }
         if (mustMaterialize(false, Files.isDirectory(instancePath()))) materialize();
-        World w = Bukkit.createWorld(new WorldCreator(instanceName));
+        WorldCreator creator = new WorldCreator(instanceName());
+        if (labActive()) creator.generator(new VoidGenerator()).generateStructures(false);
+        World w = Bukkit.createWorld(creator);
         if (w == null) throw new IOException("Bukkit refused to load " + instanceName);
         // A match's map is the base plus one authored configuration, chosen
         // fresh each time. Applying here rather than in Match means a reset gets
         // a new draw too, because reset IS load.
         var maps = plugin.mapConfigurations();
-        if (maps != null && maps.enabled()) maps.applyTo(w, template);
+        if (!labActive() && maps != null && maps.enabled()) maps.applyTo(w, template);
         return w;
     }
 
@@ -290,11 +316,11 @@ public final class WorldInstance {
     }
 
     public String report() {
-        return (claimed != null
+        return (labSource != null ? "map=" + labSource.mapId() + " (reusable lab, seed " + labSource.seed() + ") " : claimed != null
                 ? "map=" + claimed.mapId() + " (pool, seed " + claimed.seed() + ") "
                 : "map=template (no pool map claimed) ")
                 + "template=" + template + (templateAvailable() ? " (present)" : " (MISSING)")
-                + " instance=" + instanceName
+                + " instance=" + instanceName()
                 + (world() != null ? " (loaded)" : Files.isDirectory(instancePath())
                     ? " (on disk, unloaded)" : " (absent)");
     }

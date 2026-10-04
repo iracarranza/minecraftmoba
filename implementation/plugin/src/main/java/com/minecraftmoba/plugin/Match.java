@@ -227,6 +227,17 @@ public final class Match implements Listener {
         if (pool != null && pool.enabled() && mapId == null && options().isEmpty())
             plugin.getLogger().warning("[match] pool enabled but empty; falling back to template");
         var claimed = worldInstance.claim(UUID.randomUUID().toString(), mapId);
+        return bindSelectedWorld(claimed);
+    }
+
+    public String resolveLabSelection(MapPool.Entry entry) throws IOException {
+        if (state != State.PRE_MATCH || !participants.isEmpty())
+            throw new IllegalStateException("Lab selection requires an empty test session.");
+        worldInstance.enterLab(entry);
+        return bindSelectedWorld(entry);
+    }
+
+    private String bindSelectedWorld(MapPool.Entry claimed) throws IOException {
         World w = worldInstance.load();
         w.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
         bindings = MapBindings.of(claimed);
@@ -459,7 +470,12 @@ public final class Match implements Listener {
         p.setSaturation(hunger);
     }
 
-    private void tick() { advance(1); }
+    private boolean labAuthoringPaused;
+    public void pauseForLabAuthoring() {
+        if (!worldInstance.labActive()) throw new IllegalStateException("Only lab sessions can pause for authoring.");
+        labAuthoringPaused = true;
+    }
+    private void tick() { if (!labAuthoringPaused) advance(1); }
 
     /**
      * Advance the counter, firing every boundary crossed exactly once.
@@ -710,6 +726,22 @@ public final class Match implements Listener {
 
     /** Clear match-scoped state and restore the pristine world (ALPHA-D2). */
     public String reset() throws IOException {
+        return reset(true);
+    }
+
+    public String resetForLab() throws IOException {
+        if (!worldInstance.labActive()) throw new IllegalStateException("No lab world is active.");
+        return reset(false);
+    }
+
+    public void discardEmptyLabPreparation() {
+        if (state != State.PRE_MATCH || !participants.isEmpty() || worldInstance.claimed() != null)
+            throw new IllegalStateException("Cannot discard a populated or claimed match.");
+        resetFields();
+    }
+
+    private String reset(boolean restoreWorld) throws IOException {
+        labAuthoringPaused = false;
         if (ticker != null) { ticker.cancel(); ticker = null; }
         for (Participant part : participants.values()) {
             Player p = Bukkit.getPlayer(part.uuid);
@@ -734,11 +766,13 @@ public final class Match implements Listener {
         int infra = plugin.infraMode() != null ? plugin.infraMode().reset() : 0;
         int contrib = plugin.contributions() != null ? plugin.contributions().reset() : 0;
         if (plugin.workPoints() != null) plugin.workPoints().reset();
-        worldInstance.restore();
+        if (!restoreWorld && plugin.renewables() != null) plugin.renewables().clearMatchState();
+        if (restoreWorld) worldInstance.restore();
+        else if (!worldInstance.unload()) throw new IOException("Could not unload lab world.");
         // Renewables bind to a world UUID, and restore() produces a *new* world.
         // Rebuilding before the restore would rebind to the world about to be
         // discarded, which is the stale-binding bug this is meant to prevent.
-        int renewables = plugin.resetRenewables();
+        int renewables = restoreWorld ? plugin.resetRenewables() : 0;
         return "Match reset: world restored; cleared worksites, " + renewables
                 + " renewable source(s), " + routes + " route(s)/pending, "
                 + infra + " in infra mode, " + contrib + " capitalization(s).";
