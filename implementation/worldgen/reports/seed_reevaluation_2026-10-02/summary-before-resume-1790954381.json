@@ -1,0 +1,345 @@
+{
+  "schema": "test_map_reevaluation/1",
+  "status": "running",
+  "design_status": "Prototype/test",
+  "compiler_git_head": "ae48773bf8c2a08c6558e501cc83d52880046596",
+  "seed_rng": 20261002,
+  "seeds": [
+    2718281,
+    99887766,
+    120997530,
+    31337,
+    930016664,
+    930015734,
+    345709689,
+    1454639558,
+    303911401,
+    1852719948,
+    1964993661,
+    1162497940,
+    795559259,
+    871558417,
+    1504029501,
+    758655542
+  ],
+  "attempts": [
+    {
+      "seed": 2718281,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/2718281_0.json",
+      "types": [
+        "landmass",
+        "divided_by_a_ridge"
+      ],
+      "target": {
+        "seed": 2718281,
+        "block_bounds": [
+          2816,
+          3648,
+          -2944,
+          -1920
+        ],
+        "centre": [
+          3232,
+          -2432
+        ],
+        "chunk_bounds": [
+          175,
+          228,
+          -185,
+          -120
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.2337,
+        "within_symmetry_gate": true,
+        "relief_blocks": 84.0,
+        "mirror_tilt_blocks": 18.38,
+        "water_fraction": 0.0,
+        "types": [
+          "landmass",
+          "divided_by_a_ridge"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 22,
+        "measured": {
+          "origin_sample": [
+            216,
+            36
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 19.63,
+          "deviation_over_relief": 0.3444,
+          "mirror_tilt_blocks": 18.38,
+          "mirror_tilt_blocks_per_block": 0.02209,
+          "mirror_residual_blocks": 18.63,
+          "mirror_residual_over_relief": 0.2661,
+          "relief_blocks": {
+            "a": 57.0,
+            "b": 84.0
+          },
+          "relief_gap": 0.1915,
+          "roughness": {
+            "a": 6.596,
+            "b": 8.053
+          },
+          "roughness_gap": 0.0995,
+          "median_elevation": {
+            "a": 92,
+            "b": 94
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 16.667,
+          "water_fraction": 0.0,
+          "land_fraction": 1.0,
+          "coast_density": 0.0,
+          "dominant_biome_share": 0.0213,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.3502,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  29
+                ],
+                "b_sample": [
+                  23,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 15,
+                  "b": 22
+                },
+                "worst_grade_blocks": 22
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 22,
+            "flattest": {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 15,
+                "b": 22
+              },
+              "worst_grade_blocks": 22
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4027,
+          "peak_mass": 263,
+          "pit_mass": 112,
+          "second_peak": 47,
+          "land_bodies": 1,
+          "water_bodies": 0,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.0
+        }
+      },
+      "seconds": 146.6,
+      "deepest_stage": "homebase",
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "south socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "south",
+            "usable_fraction": 0.3822,
+            "bound": 0.52
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 99887766,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/99887766_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 99887766,
+        "block_bounds": [
+          -1792,
+          -768,
+          896,
+          1728
+        ],
+        "centre": [
+          -1280,
+          1312
+        ],
+        "chunk_bounds": [
+          -107,
+          -54,
+          49,
+          114
+        ],
+        "team_axis": "z",
+        "deviation_over_relief": 0.1754,
+        "within_symmetry_gate": true,
+        "relief_blocks": 13.0,
+        "mirror_tilt_blocks": -0.22,
+        "water_fraction": 0.0314,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 2,
+        "measured": {
+          "origin_sample": [
+            72,
+            156
+          ],
+          "scoop_blocks": [
+            1056,
+            864
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "z",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 2.28,
+          "deviation_over_relief": 0.326,
+          "mirror_tilt_blocks": -0.22,
+          "mirror_tilt_blocks_per_block": -0.00027,
+          "mirror_residual_blocks": 2.3,
+          "mirror_residual_over_relief": 0.1913,
+          "relief_blocks": {
+            "a": 7.0,
+            "b": 13.0
+          },
+          "relief_gap": 0.3,
+          "roughness": {
+            "a": 1.216,
+            "b": 1.336
+          },
+          "roughness_gap": 0.0473,
+          "median_elevation": {
+            "a": 67,
+            "b": 66
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 2.037,
+          "water_fraction": 0.0314,
+          "land_fraction": 0.9686,
+          "coast_density": 0.0191,
+          "dominant_biome_share": 0.3805,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0393,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  11,
+                  3
+                ],
+                "b_sample": [
+                  11,
+                  23
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              },
+              {
+                "separation_blocks": 512,
+                "a_sample": [
+                  21,
+                  5
+                ],
+                "b_sample": [
+                  21,
+                  21
+                ],
+                "grade_blocks": {
+                  "a": 2,
+                  "b": 2
+                },
+                "worst_grade_blocks": 2
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 512,
+              "a_sample": [
+                21,
+                5
+              ],
+              "b_sample": [
+                21,
+                21
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4177,
+          "peak_mass": 56,
+          "pit_mass": 23,
+          "second_peak": 15,
+          "land_bodies": 1,
+          "water_bodies": 1,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.5261
+        }
+      },
+      "seconds": 127.3,
+      "error": "ValueError: short region /Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/build-99887766/entities/r.0.0.mca"
+    }
+  ],
+  "published": [],
+  "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "generation": "Java 1.21.11 official server; test-only trial-chamber biome-tag override",
+  "desired": 3,
+  "max_attempts": 12,
+  "prospected_seeds": 16,
+  "eligible_targets": 32
+}

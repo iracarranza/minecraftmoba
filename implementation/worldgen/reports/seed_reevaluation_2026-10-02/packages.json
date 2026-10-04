@@ -1,0 +1,57 @@
+[
+  {
+    "map_id": "99887766-67b6de0290",
+    "seed": 99887766,
+    "types": [
+      "landmass"
+    ],
+    "zip": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/packages/MOBA_Test_99887766-67b6de0290.zip",
+    "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/inspection-worlds/MOBA_Test_99887766-67b6de0290",
+    "overview": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/99887766-67b6de0290-overview.svg",
+    "spawn": [
+      -1460,
+      74,
+      1284
+    ],
+    "lair_access_asymmetry": 0.0012,
+    "renewable_sources": 19,
+    "zip_sha256": "a6d443228a9d6599d7a3de6a6e719301f0893061d8e16e46ea72d2723592077b"
+  },
+  {
+    "map_id": "120997530-d40a007ffe",
+    "seed": 120997530,
+    "types": [
+      "landmass"
+    ],
+    "zip": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/packages/MOBA_Test_120997530-d40a007ffe.zip",
+    "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/inspection-worlds/MOBA_Test_120997530-d40a007ffe",
+    "overview": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/120997530-d40a007ffe-overview.svg",
+    "spawn": [
+      -2404,
+      73,
+      3500
+    ],
+    "lair_access_asymmetry": 0.0003,
+    "renewable_sources": 18,
+    "zip_sha256": "bf5c020345d81f748b832f204f11211e5e6d47ed06ec73f2ec646f1dbec31b83"
+  },
+  {
+    "map_id": "345709689-c4bc55b6b9",
+    "seed": 345709689,
+    "types": [
+      "landmass",
+      "divided_by_a_cut"
+    ],
+    "zip": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/packages/MOBA_Test_345709689-c4bc55b6b9.zip",
+    "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/inspection-worlds/MOBA_Test_345709689-c4bc55b6b9",
+    "overview": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/345709689-c4bc55b6b9-overview.svg",
+    "spawn": [
+      1156,
+      72,
+      3156
+    ],
+    "lair_access_asymmetry": 0.0465,
+    "renewable_sources": 18,
+    "zip_sha256": "a9fce10868e1cb98c976b3410062ae39b2015b42e7e27ecb21fa73e651c81a03"
+  }
+]

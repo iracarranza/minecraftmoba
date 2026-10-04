@@ -1,0 +1,753 @@
+{
+  "schema": "map_compilation_batch/1",
+  "candidates": 1,
+  "playable": [],
+  "yield": 0.0,
+  "deepest_stage": {
+    "recognize": 0,
+    "homebase": 0,
+    "hinterland": 0,
+    "objectives": 0,
+    "lair": 0,
+    "select": 0,
+    "author": 0,
+    "verify": 1,
+    "characterize": 0,
+    "ready": 0
+  },
+  "rejection_codes": {
+    "OPENING_CEILING_VIOLATED": 1
+  },
+  "runs": [
+    {
+      "schema": "map_compilation/1",
+      "seed": 31337,
+      "deepest_stage_reached": "verify",
+      "verified": false,
+      "ready": false,
+      "playable": false,
+      "rejections": [
+        {
+          "stage": "verify",
+          "code": "OPENING_CEILING_VIOLATED",
+          "detail": "the Opening Hinterland contains built structure, which doctrine excludes because it skips meaningful early progression",
+          "data": {
+            "problems": [
+              {
+                "code": "OPENING_CEILING_VIOLATED",
+                "team": "north",
+                "detail": "2 sampled columns within 96 blocks of the north Fountain stand on built structure; maps.md excludes villages from the Opening Hinterland, and a serious ceiling violation should reject a socket",
+                "example": {
+                  "block": "minecraft:spruce_planks",
+                  "at": [
+                    2276,
+                    67,
+                    1964
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "evidence": {
+        "regional": {
+          "western_mean_elevation_advantage_y": 2.924,
+          "east_actual_ocean_fraction": 0.0,
+          "open_buildable_fraction_of_land": 0.5761
+        },
+        "metrics": {
+          "western_mean_elevation_advantage_y": 2.924,
+          "highland_depth_blocks": 136,
+          "highland_fraction_west": 0.0963,
+          "local_relief_p90_y": 8,
+          "steep_fraction": 0.2379,
+          "western_approach_bands": 6,
+          "western_wall_concentration": 0.0328,
+          "snow_cold_cells_west": 1803,
+          "coastline_sample_edge_blocks": 8376,
+          "east_coast_boundary_variation_blocks": 13.37,
+          "east_coast_headland_cove_turns": 7,
+          "coastal_buildable_sample_cells": 627,
+          "east_actual_ocean_fraction": 0.0,
+          "west_actual_ocean_fraction": 0.0,
+          "east_over_west_ocean_advantage": 0.0,
+          "actual_surface_water_fraction": 0.1626,
+          "actual_river_water_cells": 1410,
+          "actual_river_mouth_sample_cells": 0,
+          "actual_water_body_count": 106,
+          "largest_actual_water_body_blocks2": 30208,
+          "forest_region_count": 23,
+          "largest_forest_region_blocks2": 135232,
+          "forest_interior_depth_blocks": 136,
+          "open_buildable_fraction_of_land": 0.5761,
+          "homeland_developability_bias": 0.0
+        },
+        "default_template_fit": {
+          "checks": {
+            "western_relief_advantage": false,
+            "western_highland_depth": false,
+            "eastern_ocean_present": false,
+            "ocean_gradient_points_east": false,
+            "region_not_mostly_water": true,
+            "homelands_reasonably_viable": true,
+            "six_corridors_connect": true
+          },
+          "failed": [
+            "western_relief_advantage",
+            "western_highland_depth",
+            "eastern_ocean_present",
+            "ocean_gradient_points_east"
+          ],
+          "note": "Default is the only template implemented. A failure here means \"did not fit the only template we have\", not \"unusable terrain\" -- maps.md names Chasm and Archipelago as future Map Types.",
+          "not_applied": "this window was selected as ['landmass'] and is not judged against Default's regional contract. The Default screen would have rejected it on ['western_relief_advantage', 'western_highland_depth', 'eastern_ocean_present', 'ocean_gradient_points_east']."
+        },
+        "orientation": {
+          "rotation_degrees_clockwise": 90,
+          "east_west_reflected": true,
+          "logical_dimensions_blocks": [
+            1056,
+            864
+          ]
+        },
+        "region": {
+          "chunk_bounds": [
+            139,
+            192,
+            103,
+            168
+          ],
+          "block_bounds": [
+            2224,
+            3087,
+            1648,
+            2703
+          ]
+        },
+        "prospect_types": [
+          "landmass"
+        ],
+        "fit_failures": [
+          "north-2: no_handoff_in_soft_range",
+          "north-3: no_reachable_geographic_target",
+          "north: insufficient early Route divergence",
+          "south-3: no_reachable_geographic_target",
+          "south: insufficient early Route divergence",
+          "weak central/interior network connectivity"
+        ],
+        "homelands": {
+          "north": 0.97,
+          "south": 0.95
+        },
+        "fountains": {
+          "north": [
+            2364,
+            65,
+            1996
+          ],
+          "south": [
+            2948,
+            66,
+            2444
+          ]
+        },
+        "homeland_world": {
+          "north": [
+            2328,
+            2399,
+            1968,
+            2039
+          ],
+          "south": [
+            2912,
+            2983,
+            2400,
+            2471
+          ]
+        },
+        "hinterland": {
+          "north": 0.0212,
+          "south": 0.0273
+        },
+        "objective_forms": {
+          "pillager_outpost": {
+            "known": true,
+            "span_samples": 15,
+            "vertical_clearance": 21,
+            "ground_contact_columns": 125,
+            "interior_navigation": true,
+            "multilevel": false,
+            "needs": [
+              "footprint support",
+              "terrain contact across the base",
+              "one usable entrance approach",
+              "modest vertical clearance"
+            ]
+          },
+          "nether_bastion": {
+            "known": true,
+            "span_samples": 32,
+            "vertical_clearance": 64,
+            "ground_contact_columns": 506,
+            "interior_navigation": true,
+            "multilevel": true,
+            "needs": [
+              "large irregular footprint",
+              "heavy terrain contact",
+              "multilevel interior navigation",
+              "several approach faces",
+              "clearance around the rampart"
+            ]
+          },
+          "end_spike": {
+            "known": true,
+            "span_samples": 7,
+            "vertical_clearance": 89,
+            "ground_contact_columns": 37,
+            "interior_navigation": false,
+            "multilevel": false,
+            "needs": [
+              "small ground footprint",
+              "very large vertical clearance",
+              "exposure/visibility",
+              "one approach to the base"
+            ]
+          }
+        },
+        "unverifiable_from_samples": {
+          "end_spike": "vertical clearance (measured 76-103 blocks) cannot be verified from an 8-block surface sample grid; it needs a column scan",
+          "nether_bastion": "multilevel interior fit and 506 columns of ground contact are not provable from sampled surface height alone"
+        },
+        "objective_quality": {
+          "north": {
+            "pillager_outpost": 1.897,
+            "nether_bastion": 1.9137,
+            "end_spike": 1.884
+          },
+          "south": {
+            "pillager_outpost": 1.9106,
+            "nether_bastion": 1.5466,
+            "end_spike": 1.9597
+          }
+        },
+        "objective_world_xz": {
+          "north": {
+            "pillager_outpost": [
+              2556,
+              2204
+            ],
+            "nether_bastion": [
+              2460,
+              2188
+            ],
+            "end_spike": [
+              2404,
+              2124
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              2724,
+              2316
+            ],
+            "nether_bastion": [
+              2812,
+              2420
+            ],
+            "end_spike": [
+              2812,
+              2468
+            ]
+          }
+        },
+        "objective_sites": {
+          "north": {
+            "pillager_outpost": 0.3972,
+            "nether_bastion": 0.273,
+            "end_spike": 0.1648
+          },
+          "south": {
+            "pillager_outpost": 0.3565,
+            "nether_bastion": 0.1775,
+            "end_spike": 0.1768
+          }
+        },
+        "lair_search": {
+          "considered": 11806,
+          "viable": 3038,
+          "parameters": {
+            "radius_samples": 6,
+            "min_approaches": 3,
+            "min_usable_fraction": 0.55,
+            "min_open_volume_proxy": 0.75
+          },
+          "approximations": {
+            "dragon_air_volume": "approximated by an open-sky proxy over the height grid; an 8-block surface sample has no column data, so actual encounter volume is UNVERIFIED here"
+          },
+          "best_access_asymmetry": 0.0005
+        },
+        "lair_site": {
+          "sample": [
+            87,
+            45
+          ],
+          "world_xz": [
+            2588,
+            2348
+          ],
+          "reach": {
+            "north": 529.27,
+            "south": 529.53
+          },
+          "access_asymmetry": 0.0005,
+          "usable_fraction": 0.6982,
+          "open_volume_proxy": 0.9184,
+          "approaches": 6
+        },
+        "worksites": [
+          {
+            "id": "ws_77_46",
+            "sample": [
+              77,
+              46
+            ],
+            "world_xz": [
+              2596,
+              2268
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 452.57,
+              "south": 526.61
+            }
+          },
+          {
+            "id": "ws_74_53",
+            "sample": [
+              74,
+              53
+            ],
+            "world_xz": [
+              2652,
+              2244
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 539.67,
+              "south": 473.93
+            }
+          },
+          {
+            "id": "ws_70_47",
+            "sample": [
+              70,
+              47
+            ],
+            "world_xz": [
+              2604,
+              2212
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 467.84,
+              "south": 552.23
+            }
+          },
+          {
+            "id": "ws_64_50",
+            "sample": [
+              64,
+              50
+            ],
+            "world_xz": [
+              2628,
+              2164
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 484.56,
+              "south": 588.84
+            }
+          },
+          {
+            "id": "ws_80_59",
+            "sample": [
+              80,
+              59
+            ],
+            "world_xz": [
+              2700,
+              2292
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 590.51,
+              "south": 394.73
+            }
+          },
+          {
+            "id": "ws_73_40",
+            "sample": [
+              73,
+              40
+            ],
+            "world_xz": [
+              2548,
+              2236
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 388.68,
+              "south": 591.58
+            }
+          },
+          {
+            "id": "ws_64_44",
+            "sample": [
+              64,
+              44
+            ],
+            "world_xz": [
+              2580,
+              2164
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 441.41,
+              "south": 612.81
+            }
+          },
+          {
+            "id": "ws_97_45",
+            "sample": [
+              97,
+              45
+            ],
+            "world_xz": [
+              2588,
+              2428
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 623.93,
+              "south": 513.89
+            }
+          },
+          {
+            "id": "ws_75_34",
+            "sample": [
+              75,
+              34
+            ],
+            "world_xz": [
+              2500,
+              2252
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 352.68,
+              "south": 637.52
+            }
+          },
+          {
+            "id": "ws_86_63",
+            "sample": [
+              86,
+              63
+            ],
+            "world_xz": [
+              2732,
+              2340
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 653.7,
+              "south": 323.82
+            }
+          },
+          {
+            "id": "ws_58_49",
+            "sample": [
+              58,
+              49
+            ],
+            "world_xz": [
+              2620,
+              2116
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 442.09,
+              "south": 653.81
+            }
+          },
+          {
+            "id": "ws_93_56",
+            "sample": [
+              93,
+              56
+            ],
+            "world_xz": [
+              2676,
+              2396
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 659.64,
+              "south": 385.42
+            }
+          }
+        ],
+        "physical_verification": {
+          "schema": "column_verification/1",
+          "evidence_state": "RAW WORLD OBSERVATION",
+          "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/31337_0/server/world",
+          "sites": {
+            "north": {
+              "pillager_outpost": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 68,
+                "clearance": {
+                  "clear": 21,
+                  "needed": 21,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 256,
+                  "datum_y": 67,
+                  "cut_blocks": 74,
+                  "fill_blocks": 0,
+                  "moved_per_column": 0.289,
+                  "relief_y": 1,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "nether_bastion": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 76,
+                "clearance": {
+                  "clear": 64,
+                  "needed": 64,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 1089,
+                  "datum_y": 68,
+                  "cut_blocks": 164,
+                  "fill_blocks": 135,
+                  "moved_per_column": 0.275,
+                  "relief_y": 9,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "end_spike": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 66,
+                "clearance": {
+                  "clear": 89,
+                  "needed": 89,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 64,
+                  "datum_y": 66,
+                  "cut_blocks": 0,
+                  "fill_blocks": 21,
+                  "moved_per_column": 0.328,
+                  "relief_y": 1,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "aether_fountain": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 65,
+                "clearance": {
+                  "clear": 6,
+                  "needed": 6,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 196,
+                  "datum_y": 64,
+                  "cut_blocks": 19,
+                  "fill_blocks": 0,
+                  "moved_per_column": 0.097,
+                  "relief_y": 1,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              }
+            },
+            "south": {
+              "pillager_outpost": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 67,
+                "clearance": {
+                  "clear": 21,
+                  "needed": 21,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 256,
+                  "datum_y": 66,
+                  "cut_blocks": 18,
+                  "fill_blocks": 0,
+                  "moved_per_column": 0.07,
+                  "relief_y": 1,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "nether_bastion": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 67,
+                "clearance": {
+                  "clear": 64,
+                  "needed": 64,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 1089,
+                  "datum_y": 66,
+                  "cut_blocks": 458,
+                  "fill_blocks": 75,
+                  "moved_per_column": 0.489,
+                  "relief_y": 3,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "end_spike": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 69,
+                "clearance": {
+                  "clear": 89,
+                  "needed": 89,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 64,
+                  "datum_y": 69,
+                  "cut_blocks": 0,
+                  "fill_blocks": 29,
+                  "moved_per_column": 0.453,
+                  "relief_y": 1,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              },
+              "aether_fountain": {
+                "ok": true,
+                "problems": [],
+                "pad_y": 74,
+                "clearance": {
+                  "clear": 6,
+                  "needed": 6,
+                  "sufficient": true,
+                  "vegetation_blocks_to_clear": 0,
+                  "standing_structure_blocks": 0,
+                  "submerged_columns": 0
+                },
+                "integration_cost": {
+                  "columns": 196,
+                  "datum_y": 65,
+                  "cut_blocks": 110,
+                  "fill_blocks": 0,
+                  "moved_per_column": 0.561,
+                  "relief_y": 9,
+                  "liquid_columns": 0,
+                  "liquid_fraction": 0.0
+                }
+              }
+            }
+          },
+          "problems": [],
+          "verified": true
+        },
+        "opening_ceiling": {
+          "certified": false,
+          "problems": [
+            {
+              "code": "OPENING_CEILING_VIOLATED",
+              "team": "north",
+              "detail": "2 sampled columns within 96 blocks of the north Fountain stand on built structure; maps.md excludes villages from the Opening Hinterland, and a serious ceiling violation should reject a socket",
+              "example": {
+                "block": "minecraft:spruce_planks",
+                "at": [
+                  2276,
+                  67,
+                  1964
+                ]
+              }
+            }
+          ],
+          "per_team": {
+            "north": {
+              "built_block_samples": 2,
+              "examples": [
+                {
+                  "block": "minecraft:spruce_planks",
+                  "at": [
+                    2276,
+                    67,
+                    1964
+                  ]
+                },
+                {
+                  "block": "minecraft:spruce_fence",
+                  "at": [
+                    2284,
+                    67,
+                    1956
+                  ]
+                }
+              ]
+            },
+            "south": {
+              "built_block_samples": 0,
+              "examples": []
+            }
+          },
+          "radius": 96,
+          "stride": 8,
+          "unchecked": [
+            "carrots",
+            "accessible_iron"
+          ],
+          "note": "Villages only. The carrot and accessible-iron exclusions remain UNMEASURED -- the iron rule needs a declared equipment target that does not exist, and a check that silently passed them would look like coverage it does not have."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,692 @@
+test_absent_chunks_block_a_slot (test_author_portfolio.AllocationTests.test_absent_chunks_block_a_slot) ... ok
+test_no_two_sites_land_on_the_same_point (test_author_portfolio.AllocationTests.test_no_two_sites_land_on_the_same_point) ... ok
+test_oversized_site_is_rejected_not_stacked (test_author_portfolio.AllocationTests.test_oversized_site_is_rejected_not_stacked) ... ok
+test_single_site_stays_centred (test_author_portfolio.AllocationTests.test_single_site_stays_centred) ... ok
+test_sites_in_one_cell_do_not_overlap (test_author_portfolio.AllocationTests.test_sites_in_one_cell_do_not_overlap) ... ok
+test_partial_cell_exposes_coverage_and_centroid (test_author_portfolio.CellIndexTests.test_partial_cell_exposes_coverage_and_centroid) ... ok
+test_no_module_consumes_hostile_counts (test_author_portfolio.ContractTests.test_no_module_consumes_hostile_counts) ... ok
+test_worksite_massing_is_generic (test_author_portfolio.ContractTests.test_worksite_massing_is_generic) ... ok
+test_a_team_with_no_worksite_in_opening_reach_is_rejected (test_author_portfolio.OptimizerSpilloverTests.test_a_team_with_no_worksite_in_opening_reach_is_rejected) ... ok
+test_balance_is_still_measured_but_no_longer_decides_anything (test_author_portfolio.OptimizerSpilloverTests.test_balance_is_still_measured_but_no_longer_decides_anything) ... ok
+test_near_route_can_change_reach_but_far_site_does_not (test_author_portfolio.OptimizerSpilloverTests.test_near_route_can_change_reach_but_far_site_does_not) ... ok
+test_rejections_are_machine_readable (test_author_portfolio.OptimizerSpilloverTests.test_rejections_are_machine_readable) ... ok
+test_rng_is_cross_language_deterministic (test_author_portfolio.OptimizerSpilloverTests.test_rng_is_cross_language_deterministic) ... ok
+test_the_gate_is_unreachability_not_inequality (test_author_portfolio.OptimizerSpilloverTests.test_the_gate_is_unreachability_not_inequality) ... ok
+test_footprint_covers_the_whole_template (test_author_portfolio.PreflightTests.test_footprint_covers_the_whole_template) ... ok
+test_unwritable_lists_only_missing_chunks (test_author_portfolio.PreflightTests.test_unwritable_lists_only_missing_chunks) ... ok
+test_publisher_preserves_full_crossing_metadata (test_author_portfolio.PublishRoundTripTests.test_publisher_preserves_full_crossing_metadata) ... ok
+test_rle_round_trip_is_exact (test_author_portfolio.PublishRoundTripTests.test_rle_round_trip_is_exact) ... ok
+test_authored_blocks_classify_distinctly (test_author_portfolio.PublishTests.test_authored_blocks_classify_distinctly) ... ok
+test_classify_is_total (test_author_portfolio.PublishTests.test_classify_is_total) ... ok
+test_every_class_has_a_colour (test_author_portfolio.PublishTests.test_every_class_has_a_colour) ... ok
+test_every_site_kind_has_a_marker_colour (test_author_portfolio.PublishTests.test_every_site_kind_has_a_marker_colour) ... ok
+test_cost_model_is_the_unchanged_shared_parameters (test_author_portfolio.RescanTests.test_cost_model_is_the_unchanged_shared_parameters) ... ok
+test_dirt_path_gets_no_intrinsic_bonus (test_author_portfolio.RescanTests.test_dirt_path_gets_no_intrinsic_bonus) ... ok
+test_ndiff_matches_the_optimizer_definition (test_author_portfolio.RescanTests.test_ndiff_matches_the_optimizer_definition) ... ok
+test_reach_is_reported_in_the_optimizer_s_units (test_author_portfolio.RescanTests.test_reach_is_reported_in_the_optimizer_s_units) ... ok
+test_rebalance_is_unresolved_when_sites_are_missing (test_author_portfolio.RescanTests.test_rebalance_is_unresolved_when_sites_are_missing) ... ok
+test_rotated_grid_is_refused_not_silently_compared (test_author_portfolio.RescanTests.test_rotated_grid_is_refused_not_silently_compared) ... ok
+test_water_and_lava_are_not_buildable (test_author_portfolio.RescanTests.test_water_and_lava_are_not_buildable) ... ok
+test_crossings_report_sites_the_corridor_runs_through (test_author_portfolio.RouteTests.test_crossings_report_sites_the_corridor_runs_through) ... ok
+test_densify_has_no_duplicate_columns (test_author_portfolio.RouteTests.test_densify_has_no_duplicate_columns) ... ok
+test_densify_walks_one_block_at_a_time (test_author_portfolio.RouteTests.test_densify_walks_one_block_at_a_time) ... ok
+test_route_authoring_grants_no_speed (test_author_portfolio.RouteTests.test_route_authoring_grants_no_speed) ... ok
+test_every_configuration_section_is_authored (test_author_portfolio.SiteFlatteningTests.test_every_configuration_section_is_authored) ... ok
+test_route_target_carries_its_team (test_author_portfolio.SiteFlatteningTests.test_route_target_carries_its_team) ... ok
+test_regenerative_opportunities_author_no_blocks_at_all (test_author_portfolio.TemplateSelectionTests.test_regenerative_opportunities_author_no_blocks_at_all) ... ok
+test_the_placement_still_exists_even_though_nothing_is_built (test_author_portfolio.TemplateSelectionTests.test_the_placement_still_exists_even_though_nothing_is_built) ... ok
+test_unknown_kind_is_reported (test_author_portfolio.TemplateSelectionTests.test_unknown_kind_is_reported) ... ok
+test_dry_run_writes_nothing (test_build_structures.BuildTests.test_dry_run_writes_nothing) ... ok
+test_fountain_appears_in_the_world (test_build_structures.BuildTests.test_fountain_appears_in_the_world) ... ok
+test_report_states_what_is_not_covered (test_build_structures.BuildTests.test_report_states_what_is_not_covered) ... ok
+test_unknown_structure_is_refused (test_build_structures.BuildTests.test_unknown_structure_is_refused) ... ok
+test_missing_chunk_refuses_rather_than_inventing (test_build_structures.EditorTests.test_missing_chunk_refuses_rather_than_inventing) ... ok
+test_untouched_neighbour_is_preserved (test_build_structures.EditorTests.test_untouched_neighbour_is_preserved) ... ok
+test_written_block_reads_back (test_build_structures.EditorTests.test_written_block_reads_back) ... ok
+test_every_named_structure_has_a_template (test_build_structures.TemplateTests.test_every_named_structure_has_a_template) ... ok
+test_fountain_is_water_lined_with_glowstone (test_build_structures.TemplateTests.test_fountain_is_water_lined_with_glowstone) ... ok
+test_templates_are_nonempty_and_bounded (test_build_structures.TemplateTests.test_templates_are_nonempty_and_bounded) ... ok
+test_the_current_forms_are_vanilla_geometry_not_massing (test_build_structures.TemplateTests.test_the_current_forms_are_vanilla_geometry_not_massing) ... ok
+test_depth_is_not_radial_distance (test_characterize.CellGrid.test_depth_is_not_radial_distance) ... ok
+test_depth_is_reported_per_team_and_never_averaged (test_characterize.CellGrid.test_depth_is_reported_per_team_and_never_averaged) ... ok
+test_it_asserts_no_depth_bands (test_characterize.CellGrid.test_it_asserts_no_depth_bands) ... ok
+test_without_cells_or_fountains_it_reports_unmeasured (test_characterize.CellGrid.test_without_cells_or_fountains_it_reports_unmeasured) ... ok
+test_characterize_is_a_stage_and_runs_after_verify (test_characterize.Stage.test_characterize_is_a_stage_and_runs_after_verify) ... ok
+test_it_never_rejects_a_map (test_characterize.Stage.test_it_never_rejects_a_map) ... ok
+test_without_a_world_it_reports_unmeasured_rather_than_failing (test_characterize.Stage.test_without_a_world_it_reports_unmeasured_rather_than_failing) ... ok
+test_without_bounds_it_says_so (test_characterize.Stage.test_without_bounds_it_says_so) ... ok
+test_it_reuses_the_existing_volume_vocabulary (test_characterize.WindowVolume.test_it_reuses_the_existing_volume_vocabulary) ... ok
+test_the_volume_describes_the_compiled_window_not_the_origin (test_characterize.WindowVolume.test_the_volume_describes_the_compiled_window_not_the_origin) ... ok
+test_an_absent_entities_directory_is_reported_not_crashed (test_clearance.EvictEntities.test_an_absent_entities_directory_is_reported_not_crashed) ... ok
+test_empty_optional_entity_region_is_accepted_but_corruption_is_not (test_clearance.EvictEntities.test_empty_optional_entity_region_is_accepted_but_corruption_is_not) ... ok
+test_nothing_to_place_evicts_nothing (test_clearance.EvictEntities.test_nothing_to_place_evicts_nothing) ... ok
+test_the_footprint_test_covers_the_column_a_structure_occupies (test_clearance.EvictEntities.test_the_footprint_test_covers_the_column_a_structure_occupies) ... ok
+test_a_clean_site_is_not_refused (test_clearance.RefuseBuiltSites.test_a_clean_site_is_not_refused) ... ok
+test_a_village_house_in_the_footprint_refuses_the_site (test_clearance.RefuseBuiltSites.test_a_village_house_in_the_footprint_refuses_the_site) ... ok
+test_every_offending_site_is_reported_not_just_the_first (test_clearance.RefuseBuiltSites.test_every_offending_site_is_reported_not_just_the_first) ... ok
+test_natural_ground_does_not_refuse (test_clearance.RefuseBuiltSites.test_natural_ground_does_not_refuse) ... ok
+test_a_building_is_not_terrain_and_is_reported (test_column_scan.Clearance.test_a_building_is_not_terrain_and_is_reported) ... ok
+test_a_cliff_blocks_and_names_the_column (test_column_scan.Clearance.test_a_cliff_blocks_and_names_the_column) ... ok
+test_open_sky_is_clear_to_the_height_asked_for (test_column_scan.Clearance.test_open_sky_is_clear_to_the_height_asked_for) ... ok
+test_the_pad_datum_is_the_highest_column_not_the_centre (test_column_scan.Clearance.test_the_pad_datum_is_the_highest_column_not_the_centre) ... ok
+test_trees_are_clearing_cost_not_obstruction (test_column_scan.Clearance.test_trees_are_clearing_cost_not_obstruction) ... ok
+test_ungenerated_terrain_is_not_treated_as_sky (test_column_scan.Clearance.test_ungenerated_terrain_is_not_treated_as_sky) ... ok
+test_cost_is_measured_against_the_datum_that_minimises_it (test_column_scan.IntegrationCost.test_cost_is_measured_against_the_datum_that_minimises_it) ... ok
+test_flat_ground_costs_nothing (test_column_scan.IntegrationCost.test_flat_ground_costs_nothing) ... ok
+test_it_does_not_compare_terrain_flatness_to_mesh_contact (test_column_scan.IntegrationCost.test_it_does_not_compare_terrain_flatness_to_mesh_contact) ... ok
+test_a_submerged_site_is_named_as_such (test_column_scan.SiteVerification.test_a_submerged_site_is_named_as_such) ... ok
+test_overlapping_footprints_are_caught_across_the_whole_set (test_column_scan.SiteVerification.test_overlapping_footprints_are_caught_across_the_whole_set) ... ok
+test_terrain_surgery_is_rejected_rather_than_repaired (test_column_scan.SiteVerification.test_terrain_surgery_is_rejected_rather_than_repaired) ... ok
+test_component_adjacency_and_clipped_depletion_stock (test_economic_shadow.EconomicShadowTests.test_component_adjacency_and_clipped_depletion_stock) ... ok
+test_homogeneous_palette_and_no_fortune_multiplier (test_economic_shadow.EconomicShadowTests.test_homogeneous_palette_and_no_fortune_multiplier) ... ok
+test_identity_rejects_suffix_spoof (test_economic_shadow.EconomicShadowTests.test_identity_rejects_suffix_spoof) ... ok
+test_inventory_finds_moved_corpus_and_reference_only_material (test_economic_shadow.EconomicShadowTests.test_inventory_finds_moved_corpus_and_reference_only_material) ... ok
+test_missing_candidate_is_unresolved (test_economic_shadow.EconomicShadowTests.test_missing_candidate_is_unresolved) ... ok
+test_missing_world_is_not_zero_resource (test_economic_shadow.EconomicShadowTests.test_missing_world_is_not_zero_resource) ... ok
+test_negative_coordinates_and_inclusive_clip (test_economic_shadow.EconomicShadowTests.test_negative_coordinates_and_inclusive_clip) ... ok
+test_packed_states_do_not_count_unused_palette_entries (test_economic_shadow.EconomicShadowTests.test_packed_states_do_not_count_unused_palette_entries) ... ok
+test_wrong_repo_stops_before_discovery (test_economic_shadow.EconomicShadowTests.test_wrong_repo_stops_before_discovery) ... ok
+test_cave_exploration_cannot_exceed_exposed_ore (test_expedition.InvariantTests.test_cave_exploration_cannot_exceed_exposed_ore) ... ok
+test_efficiency_changes_break_time_not_ore_count (test_expedition.InvariantTests.test_efficiency_changes_break_time_not_ore_count) ... ok
+test_fortune_changes_harvest_not_physical_blocks (test_expedition.InvariantTests.test_fortune_changes_harvest_not_physical_blocks) ... ok
+test_missing_density_is_unresolved_not_inferred (test_expedition.InvariantTests.test_missing_density_is_unresolved_not_inferred) ... ok
+test_quarry_is_never_faster_than_branch_mining (test_expedition.InvariantTests.test_quarry_is_never_faster_than_branch_mining) ... ok
+test_slower_sweep_never_finishes_sooner (test_expedition.InvariantTests.test_slower_sweep_never_finishes_sooner) ... ok
+test_unharvestable_resource_is_unresolved (test_expedition.InvariantTests.test_unharvestable_resource_is_unresolved) ... ok
+test_best_band_is_none_without_measurement (test_expedition.ManifestTests.test_best_band_is_none_without_measurement) ... ok
+test_best_band_picks_the_richest_window (test_expedition.ManifestTests.test_best_band_picks_the_richest_window) ... ok
+test_export_keeps_exposed_and_buried_separate (test_expedition.ManifestTests.test_export_keeps_exposed_and_buried_separate) ... ok
+test_deepslate_is_slower_than_stone_variant (test_expedition.VanillaFormulaTests.test_deepslate_is_slower_than_stone_variant) ... ok
+test_efficiency_adds_level_squared_plus_one (test_expedition.VanillaFormulaTests.test_efficiency_adds_level_squared_plus_one) ... ok
+test_fortune_multiplies_harvest (test_expedition.VanillaFormulaTests.test_fortune_multiplies_harvest) ... ok
+test_stone_pick_on_iron_ore (test_expedition.VanillaFormulaTests.test_stone_pick_on_iron_ore) ... ok
+test_tier_gate (test_expedition.VanillaFormulaTests.test_tier_gate) ... ok
+test_a_published_entry_is_ready_and_carries_provenance (test_foundry.Publishing.test_a_published_entry_is_ready_and_carries_provenance) ... ok
+test_a_ready_map_without_bindings_is_refused (test_foundry.Publishing.test_a_ready_map_without_bindings_is_refused) ... ok
+test_a_verified_but_unready_map_is_refused (test_foundry.Publishing.test_a_verified_but_unready_map_is_refused) ... ok
+test_characteristics_are_broad_classification_only (test_foundry.Publishing.test_characteristics_are_broad_classification_only) ... ok
+test_excluded_trial_chambers_cannot_enter_pool (test_foundry.Publishing.test_excluded_trial_chambers_cannot_enter_pool) ... ok
+test_inventory_counts_by_state (test_foundry.Publishing.test_inventory_counts_by_state) ... ok
+test_only_a_verified_map_is_published (test_foundry.Publishing.test_only_a_verified_map_is_published) ... ok
+test_republishing_the_same_map_is_refused (test_foundry.Publishing.test_republishing_the_same_map_is_refused) ... ok
+test_the_entry_carries_everything_a_match_needs_to_bind (test_foundry.Publishing.test_the_entry_carries_everything_a_match_needs_to_bind) ... ok
+test_the_id_reflects_what_was_built_not_only_the_seed (test_foundry.Publishing.test_the_id_reflects_what_was_built_not_only_the_seed) ... ok
+test_the_world_is_fingerprinted_so_a_claim_can_prove_it_is_intact (test_foundry.Publishing.test_the_world_is_fingerprinted_so_a_claim_can_prove_it_is_intact) ... ok
+test_repeated_seed_windows_keep_their_own_authored_build (test_foundry_build_identity.BuildIdentity.test_repeated_seed_windows_keep_their_own_authored_build) ... ok
+test_coast_forest_and_multiscale_screens_cover_serialized_defects (test_greybox.GreyboxGeneratorTests.test_coast_forest_and_multiscale_screens_cover_serialized_defects) ... ok
+test_compact_metadata_preserves_all_greybox_grids (test_greybox.GreyboxGeneratorTests.test_compact_metadata_preserves_all_greybox_grids) ... ok
+test_hard_contracts_and_experimental_screens_stay_distinct (test_greybox.GreyboxGeneratorTests.test_hard_contracts_and_experimental_screens_stay_distinct) ... ok
+test_hydrology_is_terrain_analysis_not_physical_water (test_greybox.GreyboxGeneratorTests.test_hydrology_is_terrain_analysis_not_physical_water) ... ok
+test_opportunity_markers_remain_analytical_and_accessible (test_greybox.GreyboxGeneratorTests.test_opportunity_markers_remain_analytical_and_accessible) ... ok
+test_regression_seeds_are_deterministic_but_not_frozen_to_v1 (test_greybox.GreyboxGeneratorTests.test_regression_seeds_are_deterministic_but_not_frozen_to_v1) ... ok
+test_routes_are_six_connected_analytical_corridors (test_greybox.GreyboxGeneratorTests.test_routes_are_six_connected_analytical_corridors) ... ok
+test_every_current_form_now_has_a_mesh (test_map_compiler.AuthoringContract.test_every_current_form_now_has_a_mesh) ... ok
+test_overlapping_footprints_are_rejected_at_authored_span (test_map_compiler.AuthoringContract.test_overlapping_footprints_are_rejected_at_authored_span) ... ok
+test_the_contract_is_measured_from_what_actually_gets_built (test_map_compiler.AuthoringContract.test_the_contract_is_measured_from_what_actually_gets_built) ... ok
+test_the_crystal_is_a_seam_not_a_block (test_map_compiler.AuthoringContract.test_the_crystal_is_a_seam_not_a_block) ... ok
+test_the_historical_mesh_is_still_not_the_current_one (test_map_compiler.AuthoringContract.test_the_historical_mesh_is_still_not_the_current_one) ... ok
+test_the_spike_reproduces_the_measured_vanilla_geometry (test_map_compiler.AuthoringContract.test_the_spike_reproduces_the_measured_vanilla_geometry) ... ok
+test_a_missing_build_world_is_a_caller_error_not_bad_geography (test_map_compiler.BuildWorldIsMaterialized.test_a_missing_build_world_is_a_caller_error_not_bad_geography) ... ok
+test_the_batch_runner_copies_before_authoring (test_map_compiler.BuildWorldIsMaterialized.test_the_batch_runner_copies_before_authoring) ... ok
+test_access_parity_is_gated_but_terrain_contrast_is_not (test_map_compiler.LairParity.test_access_parity_is_gated_but_terrain_contrast_is_not) ... ok
+test_the_bound_is_a_judgement_now_that_the_gap_has_closed (test_map_compiler.LairParity.test_the_bound_is_a_judgement_now_that_the_gap_has_closed) ... ok
+test_the_search_reports_what_a_sample_grid_cannot_prove (test_map_compiler.LairParity.test_the_search_reports_what_a_sample_grid_cannot_prove) ... ok
+test_it_picks_an_ordered_combination_over_the_best_per_slot (test_map_compiler.OrdinalConstraint.test_it_picks_an_ordered_combination_over_the_best_per_slot) ... ok
+test_lateral_displacement_and_uneven_gaps_are_free (test_map_compiler.OrdinalConstraint.test_lateral_displacement_and_uneven_gaps_are_free) ... ok
+test_no_orderable_combination_is_reported_not_forced (test_map_compiler.OrdinalConstraint.test_no_orderable_combination_is_reported_not_forced) ... ok
+test_objectives_must_sit_outside_the_fountain (test_map_compiler.OrdinalConstraint.test_objectives_must_sit_outside_the_fountain) ... ok
+test_the_fountain_is_not_one_of_the_choices (test_map_compiler.OrdinalConstraint.test_the_fountain_is_not_one_of_the_choices) ... ok
+test_a_failure_names_the_stage_and_a_code (test_map_compiler.Stages.test_a_failure_names_the_stage_and_a_code) ... ok
+test_a_real_shape_warning_still_rejects (test_map_compiler.Stages.test_a_real_shape_warning_still_rejects) ... ok
+test_stages_run_outermost_first (test_map_compiler.Stages.test_stages_run_outermost_first) ... ok
+test_the_corridor_warning_does_not_reject_regional_shape (test_map_compiler.Stages.test_the_corridor_warning_does_not_reject_regional_shape) ... ok
+test_verified_and_ready_are_different_claims (test_map_compiler.Stages.test_verified_and_ready_are_different_claims) ... ok
+test_a_rare_type_gets_more_budget_not_less (test_map_types.Allocation.test_a_rare_type_gets_more_budget_not_less)
+Yield-weighting starves exactly the Types that are rare BY DESIGN -- ... ok
+test_budget_tracks_generations_per_map (test_map_types.Allocation.test_budget_tracks_generations_per_map) ... ok
+test_every_type_keeps_a_floor (test_map_types.Allocation.test_every_type_keeps_a_floor) ... ok
+test_it_says_what_drives_it (test_map_types.Allocation.test_it_says_what_drives_it) ... ok
+test_the_whole_budget_is_spent (test_map_types.Allocation.test_the_whole_budget_is_spent) ... ok
+test_wanting_more_of_a_type_raises_its_share (test_map_types.Allocation.test_wanting_more_of_a_type_raises_its_share) ... ok
+test_a_cut_above_the_measured_ceiling_is_impossible_not_strict (test_map_types.BiomeFamilyTypes.test_a_cut_above_the_measured_ceiling_is_impossible_not_strict)
+The defect this caught. Every family cut was first set at a third, ... ok
+test_each_family_type_matches_below_its_ceiling (test_map_types.BiomeFamilyTypes.test_each_family_type_matches_below_its_ceiling) ... ok
+test_lost_jungle_needs_jungle_a_temple_and_villages (test_map_types.BiomeFamilyTypes.test_lost_jungle_needs_jungle_a_temple_and_villages) ... ok
+test_structure_defined_types_need_both_halves (test_map_types.BiomeFamilyTypes.test_structure_defined_types_need_both_halves)
+Pale Forest is the concealment AND the reason. Neither alone is it. ... ok
+test_trial_chambers_is_in_no_type (test_map_types.BiomeFamilyTypes.test_trial_chambers_is_in_no_type)
+Maces are a combat-balance decision, and the structure's presence ... ok
+test_it_is_one_bound_for_every_type (test_map_types.Gate.test_it_is_one_bound_for_every_type)
+Per-Type bounds were deferred, not adopted. ... ok
+test_the_symmetry_bound_is_on_the_ratio_over_contested_ground (test_map_types.Gate.test_the_symmetry_bound_is_on_the_ratio_over_contested_ground) ... ok
+test_a_cut_and_a_ridge_are_opposite_signs (test_map_types.Predicates.test_a_cut_and_a_ridge_are_opposite_signs) ... ok
+test_a_drowned_single_island_is_not_an_archipelago (test_map_types.Predicates.test_a_drowned_single_island_is_not_an_archipelago)
+Fragmentation is the premise, so a fraction alone was never enough. ... ok
+test_a_mansion_predicate_is_presence_not_a_quantile (test_map_types.Predicates.test_a_mansion_predicate_is_presence_not_a_quantile) ... ok
+test_every_predicate_has_a_definition_and_vice_versa (test_map_types.Predicates.test_every_predicate_has_a_definition_and_vice_versa) ... ok
+test_flat_ground_is_neither_divided (test_map_types.Predicates.test_flat_ground_is_neither_divided) ... ok
+test_open_water_is_named_rather_than_left_to_win_silently (test_map_types.Predicates.test_open_water_is_named_rather_than_left_to_win_silently)
+It is not a Map Type; it is the sink a blind search falls into. ... ok
+test_predicates_track_a_re_measured_reference (test_map_types.Predicates.test_predicates_track_a_re_measured_reference)
+A quantile stays correct when the reference moves; a number does not. ... ok
+test_shattered_coast_is_edge_density_at_moderate_water (test_map_types.Predicates.test_shattered_coast_is_edge_density_at_moderate_water) ... ok
+test_an_unknown_quantile_says_what_is_available (test_map_types.Reference.test_an_unknown_quantile_says_what_is_available) ... ok
+test_it_records_the_conditions_it_was_measured_under (test_map_types.Reference.test_it_records_the_conditions_it_was_measured_under)
+A quantile is only meaningful against a stated scan. ... ok
+test_the_reference_records_that_no_natural_cut_was_found (test_map_types.Reference.test_the_reference_records_that_no_natural_cut_was_found)
+The negative result is the point and must not be lost. ... ok
+test_adjacency_is_a_list_not_a_dict (test_opening_access.Components.test_adjacency_is_a_list_not_a_dict)
+`Terrain.adj` is indexed by node. `adj.get(k)` looks defensive and ... ok
+test_edges_leaving_the_set_do_not_join_groups (test_opening_access.Components.test_edges_leaving_the_set_do_not_join_groups) ... ok
+test_one_arc_of_many_nodes_is_one_exit (test_opening_access.Components.test_one_arc_of_many_nodes_is_one_exit) ... ok
+test_two_arcs_separated_are_two_exits (test_opening_access.Components.test_two_arcs_separated_are_two_exits)
+A team walled in on three sides must not read as huge capacity. ... ok
+test_no_bound_is_asserted (test_opening_access.Reporting.test_no_bound_is_asserted)
+maps.md asks for equivalence and does not say how much is acceptable. ... ok
+test_no_fountains_is_stated_not_scored (test_opening_access.Reporting.test_no_fountains_is_stated_not_scored) ... ok
+test_a_clean_opening_certifies (test_opening_ceiling.OpeningCeiling.test_a_clean_opening_certifies) ... ok
+test_a_village_in_the_opening_is_found (test_opening_ceiling.OpeningCeiling.test_a_village_in_the_opening_is_found) ... ok
+test_natural_ground_is_not_a_structure (test_opening_ceiling.OpeningCeiling.test_natural_ground_is_not_a_structure) ... ok
+test_only_the_envelope_is_searched (test_opening_ceiling.OpeningCeiling.test_only_the_envelope_is_searched) ... ok
+test_what_is_not_checked_is_stated (test_opening_ceiling.OpeningCeiling.test_what_is_not_checked_is_stated) ... ok
+test_full_and_clipped_volumes_and_strides_match_original_scan (test_opportunity_scan_exact.ExactOpportunityScan.test_full_and_clipped_volumes_and_strides_match_original_scan) ... ok
+test_histogram_preserves_all_counts_across_packed_long_boundaries (test_opportunity_scan_exact.ExactOpportunityScan.test_histogram_preserves_all_counts_across_packed_long_boundaries) ... ok
+test_near_is_the_opening_not_a_percentile (test_portfolio.Bands.test_near_is_the_opening_not_a_percentile)
+Measured against five real maps, a 33rd-percentile near band sat at ... ok
+test_a_genuinely_barren_opening_still_fails (test_portfolio.Floor.test_a_genuinely_barren_opening_still_fails) ... ok
+test_one_team_cannot_cover_for_the_other (test_portfolio.Floor.test_one_team_cannot_cover_for_the_other) ... ok
+test_the_two_openings_need_not_hold_the_same_kinds (test_portfolio.Floor.test_the_two_openings_need_not_hold_the_same_kinds) ... ok
+test_wild_incidence_satisfies_the_floor (test_portfolio.Floor.test_wild_incidence_satisfies_the_floor)
+Ordinary vanilla ecology counts, because strategic manifestations ... ok
+test_two_openings_may_carry_different_species (test_portfolio.NoSpeciesFloor.test_two_openings_may_carry_different_species)
+Requiring named species in both would reintroduce ecological ... ok
+test_a_cell_whose_ecology_lacks_the_kind_gets_nothing (test_portfolio.NoSprinkling.test_a_cell_whose_ecology_lacks_the_kind_gets_nothing)
+maps.md forbids sprinkling nodes onto empty cells to hit a ... ok
+test_measured_fauna_counts_as_support (test_portfolio.NoSprinkling.test_measured_fauna_counts_as_support) ... ok
+test_each_band_gets_its_own_kinds (test_portfolio.Ordering.test_each_band_gets_its_own_kinds) ... ok
+test_farther_and_deeper_are_ranks_not_distances (test_portfolio.Ordering.test_farther_and_deeper_are_ranks_not_distances)
+SUPERSEDED IN PART. This asserted that scaling every cost tenfold ... ok
+test_sheep_are_placed_for_access_not_by_band (test_portfolio.Ordering.test_sheep_are_placed_for_access_not_by_band)
+Off the ladder by the recovered decision: wool leads to Banners ... ok
+test_capacity_separates_core_from_surplus (test_portfolio.Quantities.test_capacity_separates_core_from_surplus)
+Killing an animal and maintaining a population are different acts, ... ok
+test_no_cells_is_stated_not_an_empty_portfolio (test_portfolio.Quantities.test_no_cells_is_stated_not_an_empty_portfolio) ... ok
+test_quantities_are_declared_fixtures (test_portfolio.Quantities.test_quantities_are_declared_fixtures) ... ok
+test_a_bump_on_a_shoulder_is_not_a_feature_at_all (test_prominence.Prominence.test_a_bump_on_a_shoulder_is_not_a_feature_at_all) ... ok
+test_it_names_no_compass_direction (test_prominence.Prominence.test_it_names_no_compass_direction) ... ok
+test_no_threshold_constants_exist (test_prominence.Prominence.test_no_threshold_constants_exist) ... ok
+test_one_massif_and_scattered_bumps_are_told_apart (test_prominence.Prominence.test_one_massif_and_scattered_bumps_are_told_apart) ... ok
+test_pits_are_measured_by_the_same_sweep (test_prominence.Prominence.test_pits_are_measured_by_the_same_sweep) ... ok
+test_the_sign_measures_what_the_feature_divides (test_prominence.ReliefShape.test_the_sign_measures_what_the_feature_divides)
+A ridge separates the ground into basins; a chasm into plateaus. ... ok
+test_the_top_prominence_is_the_relief_and_says_so (test_prominence.ReliefShape.test_the_top_prominence_is_the_relief_and_says_so)
+An identity, not a measurement. Comparing rank-1 peak to rank-1 pit ... ok
+test_open_water_is_never_a_generation_target (test_prospect.Targets.test_open_water_is_never_a_generation_target)
+It is defined as not a Map Type. On seed 31337 two open-water ... ok
+test_the_module_states_what_it_does_not_decide (test_prospect.Targets.test_the_module_states_what_it_does_not_decide) ... ok
+test_archipelago_can_match_without_the_body_count (test_prospect.TierAgreement.test_archipelago_can_match_without_the_body_count)
+`land_bodies` is connectivity, so no summed-area table carries it. ... ok
+test_relief_reads_from_either_tier (test_prospect.TierAgreement.test_relief_reads_from_either_tier)
+Cheap rows carry a float; exact rows carry a per-half dict. ... ok
+test_shattered_coast_uses_the_exact_value_when_given (test_prospect.TierAgreement.test_shattered_coast_uses_the_exact_value_when_given) ... ok
+test_the_body_count_decides_when_it_is_present (test_prospect.TierAgreement.test_the_body_count_decides_when_it_is_present) ... ok
+test_a_complete_realization_certifies (test_readiness.Readiness.test_a_complete_realization_certifies) ... ok
+test_a_missing_fountain_blocks_ready (test_readiness.Readiness.test_a_missing_fountain_blocks_ready) ... ok
+test_a_verified_map_with_an_unmanifested_lair_is_not_ready (test_readiness.Readiness.test_a_verified_map_with_an_unmanifested_lair_is_not_ready) ... ok
+test_every_defensive_objective_must_bind (test_readiness.Readiness.test_every_defensive_objective_must_bind) ... ok
+test_nothing_missing_is_silently_defaulted (test_readiness.Readiness.test_nothing_missing_is_silently_defaulted) ... ok
+test_permanent_activation_drains_the_pool_so_three_sites_is_not_enough (test_readiness.Readiness.test_permanent_activation_drains_the_pool_so_three_sites_is_not_enough) ... ok
+test_readiness_is_about_bindings_not_quality (test_readiness.Readiness.test_readiness_is_about_bindings_not_quality) ... ok
+test_the_worksite_portfolio_must_cover_three_nights (test_readiness.Readiness.test_the_worksite_portfolio_must_cover_three_nights) ... ok
+test_there_is_exactly_one_lair (test_readiness.Readiness.test_there_is_exactly_one_lair) ... ok
+test_a_certified_portfolio_passes (test_readiness.Renewables.test_a_certified_portfolio_passes) ... ok
+test_a_map_with_no_portfolio_is_refused (test_readiness.Renewables.test_a_map_with_no_portfolio_is_refused)
+Before this, a generated map could certify READY with no sources at ... ok
+test_a_portfolio_failing_its_own_floor_is_refused (test_readiness.Renewables.test_a_portfolio_failing_its_own_floor_is_refused)
+Present is not enough. A portfolio no team can reach in its opening ... ok
+test_renewables_is_in_required (test_readiness.Renewables.test_renewables_is_in_required) ... ok
+test_a_region_is_not_a_point (test_regenerative.CrossCheck.test_a_region_is_not_a_point) ... ok
+test_matches_the_shared_fixture (test_regenerative.CrossCheck.test_matches_the_shared_fixture) ... ok
+test_no_eligible_locus_returns_none_rather_than_a_fallback (test_regenerative.CrossCheck.test_no_eligible_locus_returns_none_rather_than_a_fallback) ... ok
+test_successive_manifestations_move (test_regenerative.CrossCheck.test_successive_manifestations_move) ... ok
+test_water_obstruction_and_player_work_are_all_excluded (test_regenerative.CrossCheck.test_water_obstruction_and_player_work_are_all_excluded) ... ok
+test_a_slope_is_still_a_slope (test_routes_profile.RoutesProfile.test_a_slope_is_still_a_slope) ... ok
+test_a_water_channel_is_constructed_and_the_shores_are_not (test_routes_profile.RoutesProfile.test_a_water_channel_is_constructed_and_the_shores_are_not) ... ok
+test_forest_hollows_are_assimilated_not_rebuilt (test_routes_profile.RoutesProfile.test_forest_hollows_are_assimilated_not_rebuilt) ... ok
+test_jumps_are_rare_not_merely_small (test_routes_profile.RoutesProfile.test_jumps_are_rare_not_merely_small) ... ok
+test_no_step_is_ever_unclimbable (test_routes_profile.RoutesProfile.test_no_step_is_ever_unclimbable) ... ok
+test_rough_ground_stops_being_parkour (test_routes_profile.RoutesProfile.test_rough_ground_stops_being_parkour) ... ok
+test_the_profile_tracks_terrain_rather_than_averaging_it (test_routes_profile.RoutesProfile.test_the_profile_tracks_terrain_rather_than_averaging_it) ... ok
+test_treatment_comes_from_deviation (test_routes_profile.RoutesProfile.test_treatment_comes_from_deviation) ... ok
+test_unknown_columns_do_not_poison_the_profile (test_routes_profile.RoutesProfile.test_unknown_columns_do_not_poison_the_profile) ... ok
+test_a_missing_scanner_raises_instead_of_returning_nothing (test_scan.Absence.test_a_missing_scanner_raises_instead_of_returning_nothing)
+The opposite of `seed_screen`, deliberately. ... ok
+test_feature_grid_matches_what_scoop_reads (test_scan.Derived.test_feature_grid_matches_what_scoop_reads) ... ok
+test_ocean_mask_uses_the_library_ids (test_scan.Derived.test_ocean_mask_uses_the_library_ids) ... ok
+test_a_foreign_file_is_refused (test_scan.Format.test_a_foreign_file_is_refused) ... ok
+test_a_truncated_scan_is_refused (test_scan.Format.test_a_truncated_scan_is_refused) ... ok
+test_block_coordinates_are_centred_on_the_origin (test_scan.Format.test_block_coordinates_are_centred_on_the_origin) ... ok
+test_negative_heights_survive (test_scan.Format.test_negative_heights_survive)
+Deep ocean floor is below zero and must not wrap. ... ok
+test_round_trip (test_scan.Format.test_round_trip) ... ok
+test_v1_is_refused_and_says_why (test_scan.Format.test_v1_is_refused_and_says_why)
+v1 carried ocean/land bytes and no height; it cannot feed a search. ... ok
+test_a_missing_input_is_reported_not_assumed (test_scoop.Capability.test_a_missing_input_is_reported_not_assumed)
+Absent biome data must read as a gap, never as 'no desert here'. ... ok
+test_material_is_summarised_when_given (test_scoop.Capability.test_material_is_summarised_when_given) ... ok
+test_no_type_is_assigned (test_scoop.Capability.test_no_type_is_assigned) ... ok
+test_sea_level_makes_water_visible (test_scoop.Capability.test_sea_level_makes_water_visible) ... ok
+test_search_cannot_tell_an_archipelago_from_a_highland (test_scoop.Capability.test_search_cannot_tell_an_archipelago_from_a_highland)
+The blindness, asserted rather than described. ... ok
+test_a_pair_counts_only_if_both_ends_are_contested (test_scoop.Contested.test_a_pair_counts_only_if_both_ends_are_contested) ... ok
+test_no_contested_ground_says_so_rather_than_scoring_zero (test_scoop.Contested.test_no_contested_ground_says_so_rather_than_scoring_zero) ... ok
+test_the_ratio_is_what_compares_a_small_feature_to_a_large_one (test_scoop.Contested.test_the_ratio_is_what_compares_a_small_feature_to_a_large_one)
+Equal deviation is not equal symmetry. ... ok
+test_uncontested_ground_can_flatter_a_scoop (test_scoop.Contested.test_uncontested_ground_can_flatter_a_scoop)
+Water matches water exactly, so it is free symmetry. ... ok
+test_max_separation_is_a_property_of_the_scoop_not_of_the_terrain (test_scoop.Frontier.test_max_separation_is_a_property_of_the_scoop_not_of_the_terrain)
+The bug this replaced: separation reported where flat ground sat. ... ok
+test_the_frontier_is_monotone_in_both_terms (test_scoop.Frontier.test_the_frontier_is_monotone_in_both_terms)
+Every entry must beat every wider one on flatness, or it is dominated. ... ok
+test_a_land_mask_moves_it_ashore (test_scoop.HomebaseOnLand.test_a_land_mask_moves_it_ashore) ... ok
+test_a_shoreline_disc_is_allowed_and_a_floating_one_is_not (test_scoop.HomebaseOnLand.test_a_shoreline_disc_is_allowed_and_a_floating_one_is_not)
+A Homebase may touch water; it may not sit in it. ... ok
+test_an_all_water_scoop_reports_why_rather_than_a_perfect_score (test_scoop.HomebaseOnLand.test_an_all_water_scoop_reports_why_rather_than_a_perfect_score) ... ok
+test_blind_siting_picks_water_because_water_is_flat (test_scoop.HomebaseOnLand.test_blind_siting_picks_water_because_water_is_flat)
+The failure this fixes, asserted rather than described. ... ok
+test_a_scoop_smaller_than_two_discs_says_so (test_scoop.HomebasePair.test_a_scoop_smaller_than_two_discs_says_so) ... ok
+test_separation_is_reported_for_size (test_scoop.HomebasePair.test_separation_is_reported_for_size) ... ok
+test_the_pair_is_scored_on_the_worse_end (test_scoop.HomebasePair.test_the_pair_is_scored_on_the_worse_end)
+A superb north opposite a cliff is not half a map. ... ok
+test_a_rare_kind_survives_ranking_only_when_bucketed (test_scoop.Partition.test_a_rare_kind_survives_ranking_only_when_bucketed)
+A global budget spent on symmetry returns plains, and only plains. ... ok
+test_budget_is_per_bucket (test_scoop.Partition.test_budget_is_per_bucket) ... ok
+test_a_tilt_along_the_team_axis_worsens_every_scoop (test_scoop.Search.test_a_tilt_along_the_team_axis_worsens_every_scoop)
+Reverses an earlier test, which asserted the opposite. ... ok
+test_biome_is_opt_in_and_reported_when_absent (test_scoop.Search.test_biome_is_opt_in_and_reported_when_absent)
+A weaker claim than this test used to make, and a true one. ... ok
+test_it_finds_the_mirrored_band_on_pure_land (test_scoop.Search.test_it_finds_the_mirrored_band_on_pure_land) ... ok
+test_the_exact_tier_is_bounded_by_budget (test_scoop.Search.test_the_exact_tier_is_bounded_by_budget) ... ok
+test_area_is_reported_relative_to_the_current_window (test_scoop.Size.test_area_is_reported_relative_to_the_current_window) ... ok
+test_no_size_label_is_assigned (test_scoop.Size.test_no_size_label_is_assigned) ... ok
+test_a_literal_mirror_has_zero_deviation (test_scoop.Symmetry.test_a_literal_mirror_has_zero_deviation) ... ok
+test_a_long_ramp_and_a_hillock_field_differ_only_in_roughness (test_scoop.Symmetry.test_a_long_ramp_and_a_hillock_field_differ_only_in_roughness) ... ok
+test_both_axes_are_read (test_scoop.Symmetry.test_both_axes_are_read) ... ok
+test_flat_north_hilly_south_passes_relief_but_fails_roughness (test_scoop.Symmetry.test_flat_north_hilly_south_passes_relief_but_fails_roughness)
+The discard case, and the reason roughness is measured separately. ... ok
+test_a_pure_slope_across_the_split_is_all_tilt_and_no_residual (test_scoop.Tilt.test_a_pure_slope_across_the_split_is_all_tilt_and_no_residual) ... ok
+test_a_slope_across_the_landmass_is_not_a_deficit (test_scoop.Tilt.test_a_slope_across_the_landmass_is_not_a_deficit)
+W-E slope, N-S teams: clean without any correction at all. ... ok
+test_a_slope_along_the_split_is_neither (test_scoop.Tilt.test_a_slope_along_the_split_is_neither) ... ok
+test_a_slope_along_the_team_axis_IS_a_deficit (test_scoop.Tilt.test_a_slope_along_the_team_axis_IS_a_deficit)
+One team on high ground must not read as a clean mirror. ... ok
+test_residual_is_independent_of_tilt (test_scoop.Tilt.test_residual_is_independent_of_tilt)
+The same mismatch must measure the same on flat and on sloped ground. ... ok
+test_a_returned_scoop_can_be_relabelled_with_the_same_predicate (test_scoop.Tutoring.test_a_returned_scoop_can_be_relabelled_with_the_same_predicate)
+The exact tier must not drop the facts the screen steered on. ... ok
+test_a_type_matching_nothing_is_reported_not_silent (test_scoop.Tutoring.test_a_type_matching_nothing_is_reported_not_silent) ... ok
+test_an_unmatched_scoop_is_measured_not_discarded (test_scoop.Tutoring.test_an_unmatched_scoop_is_measured_not_discarded)
+A sixteenth type nobody defined must still come back described. ... ok
+test_blind_ranking_prefers_featureless_water (test_scoop.Tutoring.test_blind_ranking_prefers_featureless_water)
+The degeneracy tutoring exists to answer. ... ok
+test_tutoring_surfaces_the_land_the_blind_search_misses (test_scoop.Tutoring.test_tutoring_surfaces_the_land_the_blind_search_misses) ... ok
+test_without_biome_the_missing_inputs_are_named (test_scoop.Tutoring.test_without_biome_the_missing_inputs_are_named)
+An archipelago predicate must not silently match nothing. ... ok
+test_a_dry_highland_has_no_water_bodies_at_all (test_scoop.WaterStructure.test_a_dry_highland_has_no_water_bodies_at_all) ... ok
+test_an_archipelago_and_a_flooded_plain_differ_in_structure (test_scoop.WaterStructure.test_an_archipelago_and_a_flooded_plain_differ_in_structure)
+Not in submerged fraction, which is why the fraction is not enough. ... ok
+test_components_are_four_connected (test_scoop.WaterStructure.test_components_are_four_connected)
+Diagonal touching is not contiguity: two islands, not one. ... ok
+test_the_fraction_alone_cannot_do_it (test_scoop.WaterStructure.test_the_fraction_alone_cannot_do_it)
+Two arrangements at essentially the same submerged fraction. ... ok
+test_carrots_at_depth_are_fine (test_seams.OpeningExclusions.test_carrots_at_depth_are_fine)
+The ceiling keeps carrots out of a compact envelope with Wilderness ... ok
+test_carrots_in_the_opening_are_refused (test_seams.OpeningExclusions.test_carrots_in_the_opening_are_refused) ... ok
+test_other_starter_crops_are_not_excluded (test_seams.OpeningExclusions.test_other_starter_crops_are_not_excluded) ... ok
+test_the_unchecked_exclusion_is_named_rather_than_passing (test_seams.OpeningExclusions.test_the_unchecked_exclusion_is_named_rather_than_passing) ... ok
+test_counts_are_labelled_as_stock (test_seams.OreIsAStockNotABudget.test_counts_are_labelled_as_stock) ... ok
+test_the_ceiling_still_does_not_reject_and_says_why (test_seams.OreIsAStockNotABudget.test_the_ceiling_still_does_not_reject_and_says_why) ... ok
+test_the_observed_exposure_is_recorded (test_seams.OreIsAStockNotABudget.test_the_observed_exposure_is_recorded)
+1-5% of ore is reachable, which is why raw counts mislead. ... ok
+test_a_worksite_scale_concentration_is_classified_but_not_refused (test_seams.Seam1Ceiling.test_a_worksite_scale_concentration_is_classified_but_not_refused)
+The ceiling measures and does not reject. ... ok
+test_an_unbudgeted_material_is_reported_not_judged (test_seams.Seam1Ceiling.test_an_unbudgeted_material_is_reported_not_judged) ... ok
+test_copper_cannot_break_progression (test_seams.Seam1Ceiling.test_copper_cannot_break_progression)
+Its Worksite was removed precisely because it belongs in the ... ok
+test_every_budget_cites_its_source (test_seams.Seam1Ceiling.test_every_budget_cites_its_source) ... ok
+test_no_cell_is_ever_refused_for_holding_too_little (test_seams.Seam1Ceiling.test_no_cell_is_ever_refused_for_holding_too_little) ... ok
+test_the_same_concentration_at_depth_is_not_refused (test_seams.Seam1Ceiling.test_the_same_concentration_at_depth_is_not_refused)
+maps.md: empty or weak deep terrain is legitimate and density is ... ok
+test_a_barren_opening_blocks_the_verbs_it_cannot_evidence (test_seams.Seam2Floor.test_a_barren_opening_blocks_the_verbs_it_cannot_evidence) ... ok
+test_all_seven_verbs_are_named (test_seams.Seam2Floor.test_all_seven_verbs_are_named)
+An earlier reading listed five and dropped Development and ... ok
+test_combat_is_unevidenced_because_of_how_worlds_are_generated (test_seams.Seam2Floor.test_combat_is_unevidenced_because_of_how_worlds_are_generated)
+Force-loading chunks with no player means mobs barely spawn. ... ok
+test_construction_does_not_require_the_construction_block_category (test_seams.Seam2Floor.test_construction_does_not_require_the_construction_block_category) ... ok
+test_it_counts_nothing (test_seams.Seam2Floor.test_it_counts_nothing)
+maps.md makes the floor qualitative and invents no counts. ... ok
+test_production_is_reported_unevidenced_rather_than_assumed (test_seams.Seam2Floor.test_production_is_reported_unevidenced_rather_than_assumed) ... ok
+test_the_floor_requires_opportunity_not_named_species (test_seams.Seam2Floor.test_the_floor_requires_opportunity_not_named_species)
+A required-species checklist would reintroduce ecological symmetry ... ok
+test_danger_and_sightlines_are_named_as_absent (test_seams.Seam4Traversability.test_danger_and_sightlines_are_named_as_absent) ... ok
+test_equal_travel_cost_is_not_asserted_as_a_target (test_seams.Seam4Traversability.test_equal_travel_cost_is_not_asserted_as_a_target) ... ok
+test_terrain_difficulty_is_already_in_the_cost_model (test_seams.Seam4Traversability.test_terrain_difficulty_is_already_in_the_cost_model) ... ok
+test_a_blocked_verb_precedes_equalisation (test_seams.Seam5Authorability.test_a_blocked_verb_precedes_equalisation) ... ok
+test_a_closed_gap_passes (test_seams.Seam5Authorability.test_a_closed_gap_passes) ... ok
+test_access_disparity_is_marked_unclosable_by_renewables (test_seams.Seam5Authorability.test_access_disparity_is_marked_unclosable_by_renewables) ... ok
+test_an_unchanged_terrain_gap_is_refused_however_a_scalar_moved (test_seams.Seam5Authorability.test_an_unchanged_terrain_gap_is_refused_however_a_scalar_moved)
+The 930010639 failure: 0.3173 became a passing 0.0161 with the ... ok
+test_no_intervention_budget_is_set (test_seams.Seam5Authorability.test_no_intervention_budget_is_set) ... ok
+test_the_gap_is_per_team_not_per_opening (test_seams.Seam5Authorability.test_the_gap_is_per_team_not_per_opening)
+`in_opening` is a MINIMUM across teams -- right for a ceiling, ... ok
+test_density_is_not_claimed_to_be_practical_opportunity (test_seams.Seam6Discovered.test_density_is_not_claimed_to_be_practical_opportunity) ... ok
+test_density_is_per_material_not_a_single_scalar (test_seams.Seam6Discovered.test_density_is_per_material_not_a_single_scalar) ... ok
+test_scale_reports_the_scalars_and_names_nothing (test_seams.Seam6Discovered.test_scale_reports_the_scalars_and_names_nothing) ... ok
+test_the_whole_map_reference_doubles_the_per_team_budget (test_seams.Seam6Discovered.test_the_whole_map_reference_doubles_the_per_team_budget) ... ok
+test_an_ocean_in_the_west_is_found_by_rotating (test_seed_screen.Orientation.test_an_ocean_in_the_west_is_found_by_rotating) ... ok
+test_no_ocean_anywhere_cannot_be_rotated_into_one (test_seed_screen.Orientation.test_no_ocean_anywhere_cannot_be_rotated_into_one) ... ok
+test_both_checks_must_miss_before_anything_is_discarded (test_seed_screen.Screening.test_both_checks_must_miss_before_anything_is_discarded) ... ok
+test_it_does_not_claim_to_replace_the_real_gate (test_seed_screen.Screening.test_it_does_not_claim_to_replace_the_real_gate) ... ok
+test_it_keeps_everything_when_the_probe_is_missing (test_seed_screen.Screening.test_it_keeps_everything_when_the_probe_is_missing) ... ok
+test_nbt_round_trip_preserves_signed_long_arrays_and_lists (test_serialization.SerializationPrimitiveTests.test_nbt_round_trip_preserves_signed_long_arrays_and_lists) ... ok
+test_packages_are_byte_reproducible_and_rooted_by_world_name (test_serialization.SerializationPrimitiveTests.test_packages_are_byte_reproducible_and_rooted_by_world_name) ... ok
+test_region_round_trip_handles_negative_chunk_coordinates (test_serialization.SerializationPrimitiveTests.test_region_round_trip_handles_negative_chunk_coordinates) ... ok
+test_wrong_server_jar_is_rejected (test_serialization.SerializationPrimitiveTests.test_wrong_server_jar_is_rejected) ... ok
+test_known_ceiling_exclusions_are_recognised (test_spatial_contract.LairAndCeiling.test_known_ceiling_exclusions_are_recognised) ... ok
+test_lair_access_is_measured_from_both_teams_with_no_threshold (test_spatial_contract.LairAndCeiling.test_lair_access_is_measured_from_both_teams_with_no_threshold) ... ok
+test_the_exclusion_list_is_a_seam_not_a_closed_set (test_spatial_contract.LairAndCeiling.test_the_exclusion_list_is_a_seam_not_a_closed_set) ... ok
+test_the_hinterland_permits_every_fundamental_verb_without_quotas (test_spatial_contract.LairAndCeiling.test_the_hinterland_permits_every_fundamental_verb_without_quotas) ... ok
+test_there_is_exactly_one_lair (test_spatial_contract.LairAndCeiling.test_there_is_exactly_one_lair) ... ok
+test_unmeasured_iron_stays_unmeasured_rather_than_passing (test_spatial_contract.LairAndCeiling.test_unmeasured_iron_stays_unmeasured_rather_than_passing) ... ok
+test_unmeasured_reach_does_not_become_a_number (test_spatial_contract.LairAndCeiling.test_unmeasured_reach_does_not_become_a_number) ... ok
+test_all_three_coexist_so_an_absent_one_fails_certification (test_spatial_contract.Objectives.test_all_three_coexist_so_an_absent_one_fails_certification) ... ok
+test_an_objective_in_the_hinterland_is_a_violation (test_spatial_contract.Objectives.test_an_objective_in_the_hinterland_is_a_violation) ... ok
+test_an_out_of_order_objective_is_reported (test_spatial_contract.Objectives.test_an_out_of_order_objective_is_reported) ... ok
+test_defensive_objectives_belong_to_wilderness_and_the_fountain_to_core (test_spatial_contract.Objectives.test_defensive_objectives_belong_to_wilderness_and_the_fountain_to_core) ... ok
+test_every_defensive_form_is_measured_from_minecraft_itself (test_spatial_contract.Objectives.test_every_defensive_form_is_measured_from_minecraft_itself) ... ok
+test_no_form_may_claim_measurement_it_does_not_have (test_spatial_contract.Objectives.test_no_form_may_claim_measurement_it_does_not_have) ... ok
+test_the_fountain_is_authored_evidence_and_is_not_a_defensive_objective (test_spatial_contract.Objectives.test_the_fountain_is_authored_evidence_and_is_not_a_defensive_objective) ... ok
+test_the_measured_spike_is_the_arena_pillar_not_a_tower (test_spatial_contract.Objectives.test_the_measured_spike_is_the_arena_pillar_not_a_tower) ... ok
+test_the_old_end_tower_is_historical_and_is_not_renamed (test_spatial_contract.Objectives.test_the_old_end_tower_is_historical_and_is_not_renamed) ... ok
+test_the_order_is_ordinal_and_spacing_is_free (test_spatial_contract.Objectives.test_the_order_is_ordinal_and_spacing_is_free) ... ok
+test_the_three_contracts_differ_in_kind_not_only_in_size (test_spatial_contract.Objectives.test_the_three_contracts_differ_in_kind_not_only_in_size) ... ok
+test_the_three_measured_forms_now_certify (test_spatial_contract.Objectives.test_the_three_measured_forms_now_certify) ... ok
+test_a_socket_needing_landscape_surgery_is_rejected_not_repaired (test_spatial_contract.SpatialRoles.test_a_socket_needing_landscape_surgery_is_rejected_not_repaired) ... ok
+test_nothing_compares_the_two_ends_for_similarity (test_spatial_contract.SpatialRoles.test_nothing_compares_the_two_ends_for_similarity) ... ok
+test_the_hinterland_cannot_consume_the_team_end (test_spatial_contract.SpatialRoles.test_the_hinterland_cannot_consume_the_team_end) ... ok
+test_unknown_role_is_an_error_not_a_default (test_spatial_contract.SpatialRoles.test_unknown_role_is_an_error_not_a_default) ... ok
+test_wilderness_is_the_residual_and_may_surround_the_hinterland (test_spatial_contract.SpatialRoles.test_wilderness_is_the_residual_and_may_surround_the_hinterland) ... ok
+test_finalist_bounds_grid_and_route_coordinates (test_staged_vanilla.CompletedFunnelTests.test_finalist_bounds_grid_and_route_coordinates) ... ok
+test_funnel_conserves_counts (test_staged_vanilla.CompletedFunnelTests.test_funnel_conserves_counts) ... ok
+test_all_orientations_preserve_shifted_world_coordinates (test_staged_vanilla.StagedGeometryTests.test_all_orientations_preserve_shifted_world_coordinates) ... ok
+test_coastal_targets_stay_on_land_and_remain_distinct (test_staged_vanilla.StagedGeometryTests.test_coastal_targets_stay_on_land_and_remain_distinct) ... ok
+test_diversity_does_not_repeat_seed (test_staged_vanilla.StagedGeometryTests.test_diversity_does_not_repeat_seed) ... ok
+test_snow_covered_tree_is_not_open_ground (test_staged_vanilla.StagedGeometryTests.test_snow_covered_tree_is_not_open_ground) ... ok
+test_snow_on_soil_preserves_open_substrate (test_staged_vanilla.StagedGeometryTests.test_snow_on_soil_preserves_open_substrate) ... ok
+test_advance_is_zero_at_home_and_half_at_the_midline (test_structures.AdvanceAxisTests.test_advance_is_zero_at_home_and_half_at_the_midline) ... ok
+test_forward_layers_sit_nearer_the_rival_than_rear_layers (test_structures.AdvanceAxisTests.test_forward_layers_sit_nearer_the_rival_than_rear_layers) ... ok
+test_no_site_crosses_the_midline (test_structures.AdvanceAxisTests.test_no_site_crosses_the_midline) ... ok
+test_pairing_is_declared_in_the_record (test_structures.BalanceTests.test_pairing_is_declared_in_the_record) ... ok
+test_pairing_narrows_the_gap_versus_independent_bests (test_structures.BalanceTests.test_pairing_narrows_the_gap_versus_independent_bests) ... ok
+test_unconstrained_best_is_reported_so_the_cost_is_visible (test_structures.BalanceTests.test_unconstrained_best_is_reported_so_the_cost_is_visible) ... ok
+test_no_site_is_further_from_the_rival_than_home (test_structures.BehindBaseTests.test_no_site_is_further_from_the_rival_than_home) ... ok
+test_best_sites_are_mutually_clear (test_structures.CollisionTests.test_best_sites_are_mutually_clear) ... ok
+test_own_half_is_reported (test_structures.ContainmentTests.test_own_half_is_reported) ... ok
+test_sites_stay_on_each_team_s_own_side (test_structures.ContainmentTests.test_sites_stay_on_each_team_s_own_side) ... ok
+test_edge_footprint_is_clipped_and_rejected (test_structures.FootprintTests.test_edge_footprint_is_clipped_and_rejected) ... ok
+test_flat_ground_reports_zero_relief (test_structures.FootprintTests.test_flat_ground_reports_zero_relief) ... ok
+test_footprint_is_a_full_square_inland (test_structures.FootprintTests.test_footprint_is_a_full_square_inland) ... ok
+test_relief_is_measured_on_a_ridge (test_structures.FootprintTests.test_relief_is_measured_on_a_ridge) ... ok
+test_approach_cost_is_reported (test_structures.ScoringTests.test_approach_cost_is_reported) ... ok
+test_site_at_intended_depth_beats_one_at_the_wrong_depth (test_structures.ScoringTests.test_site_at_intended_depth_beats_one_at_the_wrong_depth) ... ok
+test_site_without_an_advance_value_is_rejected (test_structures.ScoringTests.test_site_without_an_advance_value_is_rejected) ... ok
+test_unreachable_site_is_rejected (test_structures.ScoringTests.test_unreachable_site_is_rejected) ... ok
+test_a_crowded_layer_states_why_it_has_no_site (test_structures.SymmetryTests.test_a_crowded_layer_states_why_it_has_no_site) ... ok
+test_every_layer_is_proposed_for_each_team (test_structures.SymmetryTests.test_every_layer_is_proposed_for_each_team) ... ok
+test_identical_terrain_reports_small_gaps (test_structures.SymmetryTests.test_identical_terrain_reports_small_gaps) ... ok
+test_limits_are_stated_in_the_record (test_structures.SymmetryTests.test_limits_are_stated_in_the_record) ... ok
+test_missing_site_is_unresolved_not_zero (test_structures.SymmetryTests.test_missing_site_is_unresolved_not_zero) ... ok
+test_a_missing_finder_raises_instead_of_reporting_no_structures (test_structures_offseed.Inputs.test_a_missing_finder_raises_instead_of_reporting_no_structures)
+Otherwise every structural Map Type looks unsatisfiable by nature. ... ok
+test_an_unknown_kind_is_refused_not_silently_empty (test_structures_offseed.Inputs.test_an_unknown_kind_is_refused_not_silently_empty) ... ok
+test_every_advertised_kind_is_spelled_consistently (test_structures_offseed.Inputs.test_every_advertised_kind_is_spelled_consistently) ... ok
+test_a_central_mansion_and_an_edge_mansion_are_different_maps (test_structures_offseed.Location.test_a_central_mansion_and_an_edge_mansion_are_different_maps) ... ok
+test_a_structure_outside_the_scoop_does_not_count (test_structures_offseed.Location.test_a_structure_outside_the_scoop_does_not_count) ... ok
+test_central_scales_with_the_scoop (test_structures_offseed.Location.test_central_scales_with_the_scoop)
+A third of a big scoop is a bigger area than a third of a small one. ... ok
+test_kind_is_respected (test_structures_offseed.Location.test_kind_is_respected) ... ok
+test_offset_is_reported_as_a_fraction_of_the_scoop (test_structures_offseed.Location.test_offset_is_reported_as_a_fraction_of_the_scoop) ... ok
+test_actual_resources_precede_derived_regions (test_successor.SuccessorCandidateTests.test_actual_resources_precede_derived_regions) ... ok
+test_hard_contract_and_resource_vocabulary (test_successor.SuccessorCandidateTests.test_hard_contract_and_resource_vocabulary) ... ok
+test_hydrology_is_connected_and_not_stamped (test_successor.SuccessorCandidateTests.test_hydrology_is_connected_and_not_stamped) ... ok
+test_machine_metadata_round_trip_dimensions (test_successor.SuccessorCandidateTests.test_machine_metadata_round_trip_dimensions) ... ok
+test_round_trip_and_historical_hunger_regression (test_successor.SuccessorCandidateTests.test_round_trip_and_historical_hunger_regression) ... ok
+test_routes_connect_and_are_not_final_visuals (test_successor.SuccessorCandidateTests.test_routes_connect_and_are_not_final_visuals) ... ok
+test_validation_categories_are_explicit (test_successor.SuccessorCandidateTests.test_validation_categories_are_explicit) ... ok
+test_validator_catches_required_negative_regressions (test_successor.SuccessorCandidateTests.test_validator_catches_required_negative_regressions) ... ok
+test_every_listed_swarm_names_a_real_group (test_swarms.BiomeGroupFixture.test_every_listed_swarm_names_a_real_group) ... ok
+test_the_compiler_and_the_plugin_read_one_fixture (test_swarms.BiomeGroupFixture.test_the_compiler_and_the_plugin_read_one_fixture) ... ok
+test_the_swarm_vocabulary_matches_the_runtime_registry (test_swarms.BiomeGroupFixture.test_the_swarm_vocabulary_matches_the_runtime_registry) ... ok
+test_bands_reproduce_the_portfolio_rule (test_swarms.ReachSpace.test_bands_reproduce_the_portfolio_rule) ... ok
+test_profile_reports_where_a_biome_sits (test_swarms.ReachSpace.test_profile_reports_where_a_biome_sits) ... ok
+test_relation_distinguishes_the_cost_fields (test_swarms.ReachSpace.test_relation_distinguishes_the_cost_fields) ... ok
+test_a_fringe_cell_is_not_an_ecology (test_swarms.SwarmDerivation.test_a_fringe_cell_is_not_an_ecology) ... ok
+test_a_map_without_the_ecology_derives_none (test_swarms.SwarmDerivation.test_a_map_without_the_ecology_derives_none) ... ok
+test_a_mountain_map_derives_ravager_sources (test_swarms.SwarmDerivation.test_a_mountain_map_derives_ravager_sources) ... ok
+test_animal_and_crop_derivation_is_unchanged_by_the_swarm_layer (test_swarms.SwarmDerivation.test_animal_and_crop_derivation_is_unchanged_by_the_swarm_layer) ... ok
+test_swarms_never_satisfy_the_opening_floor (test_swarms.SwarmDerivation.test_swarms_never_satisfy_the_opening_floor)
+A hostile swarm in a team's opening is not something Development ... ok
+test_the_cap_holds_per_team (test_swarms.SwarmDerivation.test_the_cap_holds_per_team) ... ok
+test_all_eight_artifacts_and_immutability_record (test_task_a.CompletedTaskATests.test_all_eight_artifacts_and_immutability_record) ... ok
+test_cross_connections_and_shortcut_savings (test_task_a.TaskATests.test_cross_connections_and_shortcut_savings) ... ok
+test_depth_band_boundaries (test_task_a.TaskATests.test_depth_band_boundaries) ... ok
+test_diagonal_network_intersections_are_joined (test_task_a.TaskATests.test_diagonal_network_intersections_are_joined) ... ok
+test_effective_distance_and_edge_origin (test_task_a.TaskATests.test_effective_distance_and_edge_origin) ... ok
+test_failure_is_not_forced_into_success (test_task_a.TaskATests.test_failure_is_not_forced_into_success) ... ok
+test_fit_determinism_and_input_immutability (test_task_a.TaskATests.test_fit_determinism_and_input_immutability) ... ok
+test_fountain_not_forced_to_geometric_centroid (test_task_a.TaskATests.test_fountain_not_forced_to_geometric_centroid) ... ok
+test_fountains_are_valid_inside_development_space (test_task_a.TaskATests.test_fountains_are_valid_inside_development_space) ... ok
+test_homeland_footprints_and_north_south (test_task_a.TaskATests.test_homeland_footprints_and_north_south) ... ok
+test_regional_depth_and_no_gameplay_content (test_task_a.TaskATests.test_regional_depth_and_no_gameplay_content) ... ok
+test_starter_target_and_feasibility_are_separate_from_corridor (test_task_a.TaskATests.test_starter_target_and_feasibility_are_separate_from_corridor) ... ok
+test_svg_is_well_formed_and_contains_required_anchors (test_task_a.TaskATests.test_svg_is_well_formed_and_contains_required_anchors) ... ok
+test_three_distinct_departures_and_starter_measurement (test_task_a.TaskATests.test_three_distinct_departures_and_starter_measurement) ... ok
+test_all_eight_outputs_and_preservation_hashes (test_task_a_destinations.DestinationArtifacts.test_all_eight_outputs_and_preservation_hashes) ... ok
+test_eight_finalist_refits_reproduce_committed_results (test_task_a_destinations.DestinationArtifacts.test_eight_finalist_refits_reproduce_committed_results) ... ok
+test_actual_villages_only_not_underground_structure_projection (test_task_a_destinations.DestinationTests.test_actual_villages_only_not_underground_structure_projection) ... ok
+test_anchors_are_interfaces_not_arbitrary_region_interiors (test_task_a_destinations.DestinationTests.test_anchors_are_interfaces_not_arbitrary_region_interiors) ... ok
+test_empty_flat_terrain_is_not_a_destination (test_task_a_destinations.DestinationTests.test_empty_flat_terrain_is_not_a_destination) ... ok
+test_joint_choice_rejects_cheapest_duplicate_set (test_task_a_destinations.DestinationTests.test_joint_choice_rejects_cheapest_duplicate_set) ... ok
+test_refit_deterministic_preserves_inputs_and_anchors (test_task_a_destinations.DestinationTests.test_refit_deterministic_preserves_inputs_and_anchors) ... ok
+test_route_options_end_on_feature_and_leave_unsupported_tail (test_task_a_destinations.DestinationTests.test_route_options_end_on_feature_and_leave_unsupported_tail) ... ok
+test_soft_depth_can_prefer_meaningful_destination_outside_band (test_task_a_destinations.DestinationTests.test_soft_depth_can_prefer_meaningful_destination_outside_band) ... ok
+test_all_eight_keep_fields_segmentation_bounds_and_deep_reach (test_task_a_local.LocalArtifacts.test_all_eight_keep_fields_segmentation_bounds_and_deep_reach) ... ok
+test_allowed_small_backward_detour_is_reported_not_an_exception (test_task_a_local.LocalContinuationTests.test_allowed_small_backward_detour_is_reported_not_an_exception) ... ok
+test_dead_end_cannot_be_selected_even_if_flag_or_lock_says_yes (test_task_a_local.LocalContinuationTests.test_dead_end_cannot_be_selected_even_if_flag_or_lock_says_yes) ... ok
+test_directed_is_not_scored_below_branching_or_junction (test_task_a_local.LocalContinuationTests.test_directed_is_not_scored_below_branching_or_junction) ... ok
+test_distant_branching_does_not_inflate_local_count (test_task_a_local.LocalContinuationTests.test_distant_branching_does_not_inflate_local_count) ... ok
+test_enclosed_handoff_with_distant_network_stays_dead_end (test_task_a_local.LocalContinuationTests.test_enclosed_handoff_with_distant_network_stays_dead_end) ... ok
+test_horizon_reuses_next_existing_operational_layer (test_task_a_local.LocalContinuationTests.test_horizon_reuses_next_existing_operational_layer) ... ok
+test_immediate_reconvergence_merges_branches (test_task_a_local.LocalContinuationTests.test_immediate_reconvergence_merges_branches) ... ok
+test_local_extent_not_inflated_by_terrain_cost (test_task_a_local.LocalContinuationTests.test_local_extent_not_inflated_by_terrain_cost) ... ok
+test_local_major_dependency_is_separate_from_deep_reach (test_task_a_local.LocalContinuationTests.test_local_major_dependency_is_separate_from_deep_reach) ... ok
+test_one_direction_corridor_is_directed_even_with_later_network (test_task_a_local.LocalContinuationTests.test_one_direction_corridor_is_directed_even_with_later_network) ... ok
+test_repeated_shallow_backsteps_cannot_escape_fixed_floor (test_task_a_local.LocalContinuationTests.test_repeated_shallow_backsteps_cannot_escape_fixed_floor) ... ok
+test_three_persistent_outward_choices_are_junction (test_task_a_local.LocalContinuationTests.test_three_persistent_outward_choices_are_junction) ... ok
+test_tiny_pockets_do_not_count (test_task_a_local.LocalContinuationTests.test_tiny_pockets_do_not_count) ... ok
+test_two_persistent_outward_choices_are_branching (test_task_a_local.LocalContinuationTests.test_two_persistent_outward_choices_are_branching) ... ok
+test_all_eight_outputs_and_preservation (test_task_a_network.DestinationFirstArtifacts.test_all_eight_outputs_and_preservation) ... ok
+test_primary_real_fit_reproduces_without_historical_routes (test_task_a_network.DestinationFirstArtifacts.test_primary_real_fit_reproduces_without_historical_routes) ... ok
+test_all_valid_outward_faces_are_sources_not_opponent_half_plane (test_task_a_network.DestinationFirstTests.test_all_valid_outward_faces_are_sources_not_opponent_half_plane) ... ok
+test_connective_geography_grows_at_observed_depths_without_center (test_task_a_network.DestinationFirstTests.test_connective_geography_grows_at_observed_depths_without_center) ... ok
+test_continuation_branches_and_backtracking_are_measured (test_task_a_network.DestinationFirstTests.test_continuation_branches_and_backtracking_are_measured) ... ok
+test_cost_increase_does_not_itself_create_homeland_depth (test_task_a_network.DestinationFirstTests.test_cost_increase_does_not_itself_create_homeland_depth) ... ok
+test_deleted_scrambled_historical_geometry_cannot_change_analysis (test_task_a_network.DestinationFirstTests.test_deleted_scrambled_historical_geometry_cannot_change_analysis) ... ok
+test_final_corridors_preserve_selected_destinations_not_old_targets (test_task_a_network.DestinationFirstTests.test_final_corridors_preserve_selected_destinations_not_old_targets) ... ok
+test_joint_selection_can_leave_third_choice_unresolved (test_task_a_network.DestinationFirstTests.test_joint_selection_can_leave_third_choice_unresolved) ... ok
+test_local_biome_speck_is_absorbed (test_task_a_network.DestinationFirstTests.test_local_biome_speck_is_absorbed) ... ok
+test_nearby_cliff_adds_cost_not_geographic_depth (test_task_a_network.DestinationFirstTests.test_nearby_cliff_adds_cost_not_geographic_depth) ... ok
+test_same_region_does_not_fake_same_sample_convergence (test_task_a_network.DestinationFirstTests.test_same_region_does_not_fake_same_sample_convergence) ... ok
+test_water_system_unifies_banks_and_marks_crossing_conditional (test_task_a_network.DestinationFirstTests.test_water_system_unifies_banks_and_marks_crossing_conditional) ... ok
+test_all_eight_frozen_fields_prior_outputs_and_source_hashes (test_task_a_opportunities.OpportunityArtifacts.test_all_eight_frozen_fields_prior_outputs_and_source_hashes) ... ok
+test_real_primary_shadow_reproduces_and_records_blocked_mask_entry (test_task_a_opportunities.OpportunityArtifacts.test_real_primary_shadow_reproduces_and_records_blocked_mask_entry) ... ok
+test_additive_only_and_input_immutability (test_task_a_opportunities.OpportunityIntegration.test_additive_only_and_input_immutability) ... ok
+test_historical_routes_scrambled_deleted_and_selector_never_called (test_task_a_opportunities.OpportunityIntegration.test_historical_routes_scrambled_deleted_and_selector_never_called) ... ok
+test_unselected_strata_are_bounded_and_not_reselection (test_task_a_opportunities.OpportunityIntegration.test_unselected_strata_are_bounded_and_not_reselection) ... ok
+test_water_seabed_not_used_as_embarkation_cliff (test_task_a_opportunities.OpportunityIntegration.test_water_seabed_not_used_as_embarkation_cliff) ... ok
+test_coast_no_payoff_never_naturally_complete (test_task_a_opportunities.OpportunitySemantics.test_coast_no_payoff_never_naturally_complete) ... ok
+test_coast_observed_downstream_payoff (test_task_a_opportunities.OpportunitySemantics.test_coast_observed_downstream_payoff) ... ok
+test_directed_gets_no_branching_penalty (test_task_a_opportunities.OpportunitySemantics.test_directed_gets_no_branching_penalty) ... ok
+test_false_junction_equivalent_or_reconverging_branches (test_task_a_opportunities.OpportunitySemantics.test_false_junction_equivalent_or_reconverging_branches) ... ok
+test_forest_strip_does_not_become_gateway_from_generic_reach (test_task_a_opportunities.OpportunitySemantics.test_forest_strip_does_not_become_gateway_from_generic_reach) ... ok
+test_hypothetical_authored_poi_cannot_rescue_generic_terrain (test_task_a_opportunities.OpportunitySemantics.test_hypothetical_authored_poi_cannot_rescue_generic_terrain) ... ok
+test_large_empty_water_without_distinct_access_is_incomplete (test_task_a_opportunities.OpportunitySemantics.test_large_empty_water_without_distinct_access_is_incomplete) ... ok
+test_one_supported_branch_plus_unexplained_land_is_not_a_junction (test_task_a_opportunities.OpportunitySemantics.test_one_supported_branch_plus_unexplained_land_is_not_a_junction) ... ok
+test_persistent_directed_forest_gateway (test_task_a_opportunities.OpportunitySemantics.test_persistent_directed_forest_gateway) ... ok
+test_real_junction_materially_different_relationships (test_task_a_opportunities.OpportunitySemantics.test_real_junction_materially_different_relationships) ... ok
+test_same_system_already_at_home_does_not_prove_access_privilege (test_task_a_opportunities.OpportunitySemantics.test_same_system_already_at_home_does_not_prove_access_privilege) ... ok
+test_structurally_supported_maritime_case (test_task_a_opportunities.OpportunitySemantics.test_structurally_supported_maritime_case) ... ok
+test_village_arrival_destination_does_not_require_onward_branches (test_task_a_opportunities.OpportunitySemantics.test_village_arrival_destination_does_not_require_onward_branches) ... ok
+test_eight_outputs_provenance_and_gate (test_task_a_refine.CompletedRefinementTests.test_eight_outputs_provenance_and_gate) ... ok
+test_conservative_graph_does_not_cut_water_corners (test_task_a_refine.RefinementTests.test_conservative_graph_does_not_cut_water_corners) ... ok
+test_determinism_and_preserved_geometry (test_task_a_refine.RefinementTests.test_determinism_and_preserved_geometry) ... ok
+test_disparity_threshold_boundaries (test_task_a_refine.RefinementTests.test_disparity_threshold_boundaries) ... ok
+test_distinct_wilderness_branches_not_collapsed (test_task_a_refine.RefinementTests.test_distinct_wilderness_branches_not_collapsed) ... ok
+test_full_starter_construction_burden_is_separate (test_task_a_refine.RefinementTests.test_full_starter_construction_burden_is_separate) ... ok
+test_highland_nonbuildability_does_not_forbid_travel (test_task_a_refine.RefinementTests.test_highland_nonbuildability_does_not_forbid_travel) ... ok
+test_human_selection_gate_cannot_be_fabricated (test_task_a_refine.RefinementTests.test_human_selection_gate_cannot_be_fabricated) ... ok
+test_incidental_connection_is_not_shortcut_even_with_saving (test_task_a_refine.RefinementTests.test_incidental_connection_is_not_shortcut_even_with_saving) ... ok
+test_moderate_disparity_not_definitive_competitive_failure (test_task_a_refine.RefinementTests.test_moderate_disparity_not_definitive_competitive_failure) ... ok
+test_ordinary_open_country_not_a_distinguished_connection (test_task_a_refine.RefinementTests.test_ordinary_open_country_not_a_distinguished_connection) ... ok
+test_separated_termini_can_collapse_into_one_branch (test_task_a_refine.RefinementTests.test_separated_termini_can_collapse_into_one_branch) ... ok
+test_shared_interior_is_area_not_six_spoke_reward (test_task_a_refine.RefinementTests.test_shared_interior_is_area_not_six_spoke_reward) ... ok
+test_traversable_band_is_not_geographic_band (test_task_a_refine.RefinementTests.test_traversable_band_is_not_geographic_band) ... ok
+test_under_convergence_and_overcentralization_regressions (test_task_a_refine.RefinementTests.test_under_convergence_and_overcentralization_regressions) ... ok
+test_block_resolution_exposes_between_sample_pit (test_task_b.TaskBTests.test_block_resolution_exposes_between_sample_pit) ... ok
+test_both_completed_builds_have_exact_readback_and_no_freeze (test_task_b.TaskBTests.test_both_completed_builds_have_exact_readback_and_no_freeze) ... ok
+test_dense_path_is_cardinal_and_preserves_anchors (test_task_b.TaskBTests.test_dense_path_is_cardinal_and_preserves_anchors) ... ok
+test_local_bypass_is_evidence_not_applied_revision (test_task_b.TaskBTests.test_local_bypass_is_evidence_not_applied_revision) ... ok
+test_missing_chunks_are_not_invented_air (test_task_b.TaskBTests.test_missing_chunks_are_not_invented_air) ... ok
+test_state_command_preserves_properties (test_task_b.TaskBTests.test_state_command_preserves_properties) ... ok
+test_selection_satisfied_without_waiving_other_gate_criteria (test_task_b_readiness.TaskBReadinessTests.test_selection_satisfied_without_waiving_other_gate_criteria) ... ok
+test_wrong_or_duplicate_selection_rejected (test_task_b_readiness.TaskBReadinessTests.test_wrong_or_duplicate_selection_rejected) ... ok
+test_identity_placement_keeps_source_bounds (test_terrain_composition.BoundsTests.test_identity_placement_keeps_source_bounds) ... ok
+test_quarter_turn_swaps_horizontal_extent (test_terrain_composition.BoundsTests.test_quarter_turn_swaps_horizontal_extent) ... ok
+test_translation_shifts_bounds (test_terrain_composition.BoundsTests.test_translation_shifts_bounds) ... ok
+test_disjoint_masks_are_not_forbidden_by_policy (test_terrain_composition.MaskOverlapTests.test_disjoint_masks_are_not_forbidden_by_policy) ... ok
+test_identical_boxes_are_exact (test_terrain_composition.MaskOverlapTests.test_identical_boxes_are_exact) ... ok
+test_overlapping_ellipses_report_a_shared_cell (test_terrain_composition.MaskOverlapTests.test_overlapping_ellipses_report_a_shared_cell) ... ok
+test_oversized_shared_box_is_reported_unresolved (test_terrain_composition.MaskOverlapTests.test_oversized_shared_box_is_reported_unresolved) ... ok
+test_touching_boxes_with_disjoint_ellipses_do_not_intersect (test_terrain_composition.MaskOverlapTests.test_touching_boxes_with_disjoint_ellipses_do_not_intersect) ... ok
+test_unplace_is_the_inverse_of_place (test_terrain_composition.MaskOverlapTests.test_unplace_is_the_inverse_of_place) ... ok
+test_compatibility_claim_needs_supporting_profiles (test_terrain_composition.SeamTests.test_compatibility_claim_needs_supporting_profiles) ... ok
+test_seam_needs_exactly_two_distinct_volumes (test_terrain_composition.SeamTests.test_seam_needs_exactly_two_distinct_volumes) ... ok
+test_seam_to_unplaced_volume_is_rejected (test_terrain_composition.SeamTests.test_seam_to_unplaced_volume_is_rejected) ... ok
+test_unknown_seam_state_is_rejected (test_terrain_composition.SeamTests.test_unknown_seam_state_is_rejected) ... ok
+test_unresolved_seam_is_recorded (test_terrain_composition.SeamTests.test_unresolved_seam_is_recorded) ... ok
+test_identity_placement_keeps_measurements (test_terrain_composition.StalenessTests.test_identity_placement_keeps_measurements) ... ok
+test_moving_a_volume_invalidates_its_measurements (test_terrain_composition.StalenessTests.test_moving_a_volume_invalidates_its_measurements) ... ok
+test_claiming_a_moved_placement_is_buildable_is_rejected (test_terrain_composition.ValidationTests.test_claiming_a_moved_placement_is_buildable_is_rejected) ... ok
+test_duplicate_placement_is_rejected (test_terrain_composition.ValidationTests.test_duplicate_placement_is_rejected) ... ok
+test_identity_composition_validates (test_terrain_composition.ValidationTests.test_identity_composition_validates) ... ok
+test_moved_placement_is_marked_not_buildable (test_terrain_composition.ValidationTests.test_moved_placement_is_marked_not_buildable) ... ok
+test_non_quarter_rotation_is_rejected (test_terrain_composition.ValidationTests.test_non_quarter_rotation_is_rejected) ... ok
+test_overlap_can_be_recorded_instead_of_refused (test_terrain_composition.ValidationTests.test_overlap_can_be_recorded_instead_of_refused) ... ok
+test_overlap_is_forbidden_by_default_policy (test_terrain_composition.ValidationTests.test_overlap_is_forbidden_by_default_policy) ... ok
+test_separated_volumes_do_not_overlap (test_terrain_composition.ValidationTests.test_separated_volumes_do_not_overlap) ... ok
+test_unknown_reference_is_rejected (test_terrain_composition.ValidationTests.test_unknown_reference_is_rejected) ... ok
+test_empty_entity_placeholder_not_corrupt_region (test_terrain_harvest.ClipTests.test_empty_entity_placeholder_not_corrupt_region) ... ok
+test_entity_tree_boundary (test_terrain_harvest.ClipTests.test_entity_tree_boundary) ... ok
+test_source_state_preserved_and_outside_void (test_terrain_harvest.ClipTests.test_source_state_preserved_and_outside_void) ... ok
+test_box (test_terrain_harvest.ModelTests.test_box) ... ok
+test_classification_evidence (test_terrain_harvest.ModelTests.test_classification_evidence) ... ok
+test_ellipse (test_terrain_harvest.ModelTests.test_ellipse) ... ok
+test_envelope_separates_every_neighbor (test_terrain_harvest.ModelTests.test_envelope_separates_every_neighbor) ... ok
+test_generic_retention_missing_evidence (test_terrain_harvest.ModelTests.test_generic_retention_missing_evidence) ... ok
+test_invalid_bounds_and_scoop (test_terrain_harvest.ModelTests.test_invalid_bounds_and_scoop) ... ok
+test_library_retains_multiple_and_near_miss (test_terrain_harvest.ModelTests.test_library_retains_multiple_and_near_miss) ... ok
+test_navigation_deterministic (test_terrain_harvest.ModelTests.test_navigation_deterministic) ... ok
+test_physical_transform_fails_before_io (test_terrain_harvest.ModelTests.test_physical_transform_fails_before_io) ... ok
+test_roundtrip_stability (test_terrain_harvest.ModelTests.test_roundtrip_stability) ... ok
+test_scoop_depth (test_terrain_harvest.ModelTests.test_scoop_depth) ... ok
+test_tampered_manifest_rejected (test_terrain_harvest.ModelTests.test_tampered_manifest_rejected) ... ok
+test_transform_roundtrip (test_terrain_harvest.ModelTests.test_transform_roundtrip) ... ok
+test_install_is_separate_and_marked (test_terrain_lifecycle.PackagingTests.test_install_is_separate_and_marked) ... ok
+test_install_refuses_incomplete_gallery (test_terrain_lifecycle.PackagingTests.test_install_refuses_incomplete_gallery) ... ok
+test_packaging_is_byte_identical_across_runs (test_terrain_lifecycle.PackagingTests.test_packaging_is_byte_identical_across_runs) ... ok
+test_packaging_refuses_overwrite (test_terrain_lifecycle.PackagingTests.test_packaging_refuses_overwrite) ... ok
+test_complete_export_is_reusable (test_terrain_lifecycle.ReceiptTests.test_complete_export_is_reusable) ... ok
+test_deleted_output_file_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_deleted_output_file_refuses_reuse) ... ok
+test_exporter_version_change_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_exporter_version_change_refuses_reuse) ... ok
+test_extra_output_file_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_extra_output_file_refuses_reuse) ... ok
+test_interrupted_build_has_no_receipt (test_terrain_lifecycle.ReceiptTests.test_interrupted_build_has_no_receipt) ... ok
+test_manifest_tamper_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_manifest_tamper_refuses_reuse) ... ok
+test_missing_source_file_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_missing_source_file_refuses_reuse) ... ok
+test_output_tamper_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_output_tamper_refuses_reuse) ... ok
+test_receipt_for_another_volume_is_refused (test_terrain_lifecycle.ReceiptTests.test_receipt_for_another_volume_is_refused) ... ok
+test_receipt_is_not_included_in_its_own_hashes (test_terrain_lifecycle.ReceiptTests.test_receipt_is_not_included_in_its_own_hashes) ... ok
+test_source_mutation_refuses_reuse (test_terrain_lifecycle.ReceiptTests.test_source_mutation_refuses_reuse) ... ok
+test_matches_vanilla_construction (test_terrain_navigation.OfflineUuidTests.test_matches_vanilla_construction) ... ok
+test_shape_and_determinism (test_terrain_navigation.OfflineUuidTests.test_shape_and_determinism) ... ok
+test_types_are_not_collapsed (test_terrain_preservation.FingerprintTests.test_types_are_not_collapsed) ... ok
+test_missing_chunk_refuses_export (test_terrain_preservation.MalformedSourceTests.test_missing_chunk_refuses_export) ... ok
+test_non_full_chunk_refuses_export (test_terrain_preservation.MalformedSourceTests.test_non_full_chunk_refuses_export) ... ok
+test_seed_mismatch_refuses_export (test_terrain_preservation.MalformedSourceTests.test_seed_mismatch_refuses_export) ... ok
+test_truncated_entity_region_is_not_silently_empty (test_terrain_preservation.MalformedSourceTests.test_truncated_entity_region_is_not_silently_empty) ... ok
+test_version_mismatch_refuses_export (test_terrain_preservation.MalformedSourceTests.test_version_mismatch_refuses_export) ... ok
+test_altered_scheduled_tick_is_caught (test_terrain_preservation.PreservationAuditTests.test_altered_scheduled_tick_is_caught) ... ok
+test_clean_export_audits_exhaustively (test_terrain_preservation.PreservationAuditTests.test_clean_export_audits_exhaustively) ... ok
+test_coverage_limit_is_reported_not_implied (test_terrain_preservation.PreservationAuditTests.test_coverage_limit_is_reported_not_implied) ... ok
+test_dropped_block_entity_is_caught (test_terrain_preservation.PreservationAuditTests.test_dropped_block_entity_is_caught) ... ok
+test_missing_destination_chunk_is_caught (test_terrain_preservation.PreservationAuditTests.test_missing_destination_chunk_is_caught) ... ok
+test_retained_section_tamper_is_caught (test_terrain_preservation.PreservationAuditTests.test_retained_section_tamper_is_caught) ... ok
+test_scoop_export_audits_exhaustively (test_terrain_preservation.PreservationAuditTests.test_scoop_export_audits_exhaustively) ... ok
+test_single_changed_block_is_caught (test_terrain_preservation.PreservationAuditTests.test_single_changed_block_is_caught) ... ok
+test_smuggled_entity_is_caught (test_terrain_preservation.PreservationAuditTests.test_smuggled_entity_is_caught) ... ok
+test_all_geometries_sample_true_edge (test_terrain_profiles.ProfileTests.test_all_geometries_sample_true_edge) ... ok
+test_exact_properties_and_unknowns (test_terrain_profiles.ProfileTests.test_exact_properties_and_unknowns) ... ok
+test_missing_and_invalid_sampling_fail (test_terrain_profiles.ProfileTests.test_missing_and_invalid_sampling_fail) ... ok
+test_scoop_deep_edge_moves_inward (test_terrain_profiles.ProfileTests.test_scoop_deep_edge_moves_inward) ... ok
+test_cardinals_rotate_clockwise (test_terrain_relocate.DirectionTests.test_cardinals_rotate_clockwise) ... ok
+test_unknown_direction_is_rejected (test_terrain_relocate.DirectionTests.test_unknown_direction_is_rejected) ... ok
+test_vertical_is_untouched (test_terrain_relocate.DirectionTests.test_vertical_is_untouched) ... ok
+test_block_entity_moves (test_terrain_relocate.NbtTests.test_block_entity_moves) ... ok
+test_block_entity_with_external_target_is_rejected (test_terrain_relocate.NbtTests.test_block_entity_with_external_target_is_rejected) ... ok
+test_entity_four_turns_return_to_start (test_terrain_relocate.NbtTests.test_entity_four_turns_return_to_start) ... ok
+test_entity_position_motion_and_yaw_rotate_together (test_terrain_relocate.NbtTests.test_entity_position_motion_and_yaw_rotate_together) ... ok
+test_leashed_entity_is_rejected (test_terrain_relocate.NbtTests.test_leashed_entity_is_rejected) ... ok
+test_passengers_rotate_with_the_root (test_terrain_relocate.NbtTests.test_passengers_rotate_with_the_root) ... ok
+test_tick_moves (test_terrain_relocate.NbtTests.test_tick_moves) ... ok
+test_villager_brain_is_rejected (test_terrain_relocate.NbtTests.test_villager_brain_is_rejected) ... ok
+test_rotation_is_clockwise_and_periodic (test_terrain_relocate.PointTests.test_rotation_is_clockwise_and_periodic) ... ok
+test_translation_applies_after_rotation (test_terrain_relocate.PointTests.test_translation_applies_after_rotation) ... ok
+test_axis_swaps_only_on_odd_quarters (test_terrain_relocate.PropertyTests.test_axis_swaps_only_on_odd_quarters) ... ok
+test_four_quarter_turns_are_identity (test_terrain_relocate.PropertyTests.test_four_quarter_turns_are_identity) ... ok
+test_identity_rotation_passes_anything_through (test_terrain_relocate.PropertyTests.test_identity_rotation_passes_anything_through) ... ok
+test_multiface_booleans_permute_without_loss (test_terrain_relocate.PropertyTests.test_multiface_booleans_permute_without_loss) ... ok
+test_rail_corner_rotates (test_terrain_relocate.PropertyTests.test_rail_corner_rotates) ... ok
+test_sign_rotation_advances_by_four (test_terrain_relocate.PropertyTests.test_sign_rotation_advances_by_four) ... ok
+test_unclassified_property_is_rejected_not_guessed (test_terrain_relocate.PropertyTests.test_unclassified_property_is_rejected_not_guessed) ... ok
+test_unknown_shape_is_rejected (test_terrain_relocate.PropertyTests.test_unknown_shape_is_rejected) ... ok
+test_four_quarter_turns_restore_every_cell (test_terrain_relocate.VolumeRelocationTests.test_four_quarter_turns_restore_every_cell) ... ok
+test_rotated_specimens_land_where_predicted (test_terrain_relocate.VolumeRelocationTests.test_rotated_specimens_land_where_predicted) ... ok
+test_unsupported_state_stops_the_relocation (test_terrain_relocate.VolumeRelocationTests.test_unsupported_state_stops_the_relocation) ... ok
+test_envelope_breach_is_flagged (test_terrain_simulation.DiffTests.test_envelope_breach_is_flagged) ... ok
+test_identical_worlds_report_no_drift (test_terrain_simulation.DiffTests.test_identical_worlds_report_no_drift) ... ok
+test_in_mask_change_is_classified (test_terrain_simulation.DiffTests.test_in_mask_change_is_classified) ... ok
+test_shell_replaced_by_shell_is_not_a_breach (test_terrain_simulation.DiffTests.test_shell_replaced_by_shell_is_not_a_breach) ... ok
+test_added_default_property_is_normalization (test_terrain_simulation.NormalizationTests.test_added_default_property_is_normalization) ... ok
+test_barrier_gaining_waterlogged_is_not_a_breach (test_terrain_simulation.NormalizationTests.test_barrier_gaining_waterlogged_is_not_a_breach) ... ok
+test_conflicting_value_is_not_normalization (test_terrain_simulation.NormalizationTests.test_conflicting_value_is_not_normalization) ... ok
+test_compact_feature_grids_have_expected_size (test_vanilla_search.VanillaSearchResultTests.test_compact_feature_grids_have_expected_size) ... ok
+test_feature_adapter_keeps_actual_evidence_distinct (test_vanilla_search.VanillaSearchResultTests.test_feature_adapter_keeps_actual_evidence_distinct) ... ok
+test_omitted_block_states_are_vanilla_air (test_vanilla_search.VanillaSearchResultTests.test_omitted_block_states_are_vanilla_air) ... ok
+test_orientation_preserves_raw_cells (test_vanilla_search.VanillaSearchResultTests.test_orientation_preserves_raw_cells) ... ok
+test_routes_are_analysis_only (test_vanilla_search.VanillaSearchResultTests.test_routes_are_analysis_only) ... ok
+test_screen_boundary_is_reported_not_hidden (test_vanilla_search.VanillaSearchResultTests.test_screen_boundary_is_reported_not_hidden) ... ok
+test_truth_source_and_proof_of_concept_scope (test_vanilla_search.VanillaSearchResultTests.test_truth_source_and_proof_of_concept_scope) ... ok
+
+----------------------------------------------------------------------
+Ran 620 tests in 83.979s
+
+OK

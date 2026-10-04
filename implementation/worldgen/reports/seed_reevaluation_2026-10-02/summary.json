@@ -1,0 +1,4690 @@
+{
+  "schema": "test_map_reevaluation/1",
+  "status": "complete",
+  "design_status": "Prototype/test",
+  "compiler_git_head": "ae48773bf8c2a08c6558e501cc83d52880046596",
+  "seed_rng": 20261002,
+  "seeds": [
+    2718281,
+    99887766,
+    120997530,
+    31337,
+    930016664,
+    930015734,
+    345709689,
+    1454639558,
+    303911401,
+    1852719948,
+    1964993661,
+    1162497940,
+    795559259,
+    871558417,
+    1504029501,
+    758655542
+  ],
+  "attempts": [
+    {
+      "seed": 2718281,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/2718281_0.json",
+      "types": [
+        "landmass",
+        "divided_by_a_ridge"
+      ],
+      "target": {
+        "seed": 2718281,
+        "block_bounds": [
+          2816,
+          3648,
+          -2944,
+          -1920
+        ],
+        "centre": [
+          3232,
+          -2432
+        ],
+        "chunk_bounds": [
+          175,
+          228,
+          -185,
+          -120
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.2337,
+        "within_symmetry_gate": true,
+        "relief_blocks": 84.0,
+        "mirror_tilt_blocks": 18.38,
+        "water_fraction": 0.0,
+        "types": [
+          "landmass",
+          "divided_by_a_ridge"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 22,
+        "measured": {
+          "origin_sample": [
+            216,
+            36
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 19.63,
+          "deviation_over_relief": 0.3444,
+          "mirror_tilt_blocks": 18.38,
+          "mirror_tilt_blocks_per_block": 0.02209,
+          "mirror_residual_blocks": 18.63,
+          "mirror_residual_over_relief": 0.2661,
+          "relief_blocks": {
+            "a": 57.0,
+            "b": 84.0
+          },
+          "relief_gap": 0.1915,
+          "roughness": {
+            "a": 6.596,
+            "b": 8.053
+          },
+          "roughness_gap": 0.0995,
+          "median_elevation": {
+            "a": 92,
+            "b": 94
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 16.667,
+          "water_fraction": 0.0,
+          "land_fraction": 1.0,
+          "coast_density": 0.0,
+          "dominant_biome_share": 0.0213,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.3502,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  29
+                ],
+                "b_sample": [
+                  23,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 15,
+                  "b": 22
+                },
+                "worst_grade_blocks": 22
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 22,
+            "flattest": {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 15,
+                "b": 22
+              },
+              "worst_grade_blocks": 22
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4027,
+          "peak_mass": 263,
+          "pit_mass": 112,
+          "second_peak": 47,
+          "land_bodies": 1,
+          "water_bodies": 0,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.0
+        }
+      },
+      "reused_generation": true,
+      "deepest_stage": "homebase",
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "south socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "south",
+            "usable_fraction": 0.3822,
+            "bound": 0.52
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 99887766,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/99887766_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 99887766,
+        "block_bounds": [
+          -1792,
+          -768,
+          896,
+          1728
+        ],
+        "centre": [
+          -1280,
+          1312
+        ],
+        "chunk_bounds": [
+          -107,
+          -54,
+          49,
+          114
+        ],
+        "team_axis": "z",
+        "deviation_over_relief": 0.1754,
+        "within_symmetry_gate": true,
+        "relief_blocks": 13.0,
+        "mirror_tilt_blocks": -0.22,
+        "water_fraction": 0.0314,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 2,
+        "measured": {
+          "origin_sample": [
+            72,
+            156
+          ],
+          "scoop_blocks": [
+            1056,
+            864
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "z",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 2.28,
+          "deviation_over_relief": 0.326,
+          "mirror_tilt_blocks": -0.22,
+          "mirror_tilt_blocks_per_block": -0.00027,
+          "mirror_residual_blocks": 2.3,
+          "mirror_residual_over_relief": 0.1913,
+          "relief_blocks": {
+            "a": 7.0,
+            "b": 13.0
+          },
+          "relief_gap": 0.3,
+          "roughness": {
+            "a": 1.216,
+            "b": 1.336
+          },
+          "roughness_gap": 0.0473,
+          "median_elevation": {
+            "a": 67,
+            "b": 66
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 2.037,
+          "water_fraction": 0.0314,
+          "land_fraction": 0.9686,
+          "coast_density": 0.0191,
+          "dominant_biome_share": 0.3805,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0393,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  11,
+                  3
+                ],
+                "b_sample": [
+                  11,
+                  23
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              },
+              {
+                "separation_blocks": 512,
+                "a_sample": [
+                  21,
+                  5
+                ],
+                "b_sample": [
+                  21,
+                  21
+                ],
+                "grade_blocks": {
+                  "a": 2,
+                  "b": 2
+                },
+                "worst_grade_blocks": 2
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 512,
+              "a_sample": [
+                21,
+                5
+              ],
+              "b_sample": [
+                21,
+                21
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4177,
+          "peak_mass": 56,
+          "pit_mass": 23,
+          "second_peak": 15,
+          "land_bodies": 1,
+          "water_bodies": 1,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.5261
+        }
+      },
+      "reused_generation": true,
+      "deepest_stage": "ready",
+      "rejections": [],
+      "ready": true
+    },
+    {
+      "seed": 120997530,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/120997530_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/120997530_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/120997530_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 120997530,
+        "block_bounds": [
+          -2560,
+          -1728,
+          3008,
+          4032
+        ],
+        "centre": [
+          -2144,
+          3520
+        ],
+        "chunk_bounds": [
+          -161,
+          -108,
+          187,
+          252
+        ],
+        "team_axis": "z",
+        "deviation_over_relief": 0.2192,
+        "within_symmetry_gate": true,
+        "relief_blocks": 13.0,
+        "mirror_tilt_blocks": 0.03,
+        "water_fraction": 0.0,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 832,
+        "homebase_on_land": true,
+        "homebase_grade": 3,
+        "measured": {
+          "origin_sample": [
+            48,
+            222
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "z",
+          "contested_pairs": 432,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 2.85,
+          "deviation_over_relief": 0.2196,
+          "mirror_tilt_blocks": 0.03,
+          "mirror_tilt_blocks_per_block": 3e-05,
+          "mirror_residual_blocks": 2.86,
+          "mirror_residual_over_relief": 0.2197,
+          "relief_blocks": {
+            "a": 13.0,
+            "b": 11.0
+          },
+          "relief_gap": 0.0833,
+          "roughness": {
+            "a": 1.479,
+            "b": 1.32
+          },
+          "roughness_gap": 0.0566,
+          "median_elevation": {
+            "a": 66.0,
+            "b": 67.0
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 2.5,
+          "water_fraction": 0.0,
+          "land_fraction": 1.0,
+          "coast_density": 0.0,
+          "dominant_biome_share": 0.4108,
+          "arid_share": 0.1829,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 832,
+                "a_sample": [
+                  3,
+                  3
+                ],
+                "b_sample": [
+                  3,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 2
+                },
+                "worst_grade_blocks": 3
+              }
+            ],
+            "max_separation_blocks": 832,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 832,
+              "a_sample": [
+                3,
+                3
+              ],
+              "b_sample": [
+                3,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 832,
+          "separation_sign": 0.4118,
+          "peak_mass": 60,
+          "pit_mass": 25,
+          "second_peak": 23,
+          "land_bodies": 1,
+          "water_bodies": 0,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.0
+        }
+      },
+      "reused_generation": true,
+      "deepest_stage": "ready",
+      "rejections": [],
+      "ready": true
+    },
+    {
+      "seed": 31337,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/31337_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/31337_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/31337_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 31337,
+        "block_bounds": [
+          2240,
+          3072,
+          1664,
+          2688
+        ],
+        "centre": [
+          2656,
+          2176
+        ],
+        "chunk_bounds": [
+          139,
+          192,
+          103,
+          168
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.2214,
+        "within_symmetry_gate": true,
+        "relief_blocks": 14.0,
+        "mirror_tilt_blocks": 1.89,
+        "water_fraction": 0.0,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 3,
+        "measured": {
+          "origin_sample": [
+            198,
+            180
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 3.1,
+          "deviation_over_relief": 0.4422,
+          "mirror_tilt_blocks": 1.89,
+          "mirror_tilt_blocks_per_block": 0.00227,
+          "mirror_residual_blocks": 3.2,
+          "mirror_residual_over_relief": 0.246,
+          "relief_blocks": {
+            "a": 7.0,
+            "b": 14.0
+          },
+          "relief_gap": 0.3333,
+          "roughness": {
+            "a": 1.214,
+            "b": 1.472
+          },
+          "roughness_gap": 0.0958,
+          "median_elevation": {
+            "a": 67,
+            "b": 67
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 3.148,
+          "water_fraction": 0.0,
+          "land_fraction": 1.0,
+          "coast_density": 0.0,
+          "dominant_biome_share": 0.8238,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0606,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  15
+                ],
+                "b_sample": [
+                  23,
+                  15
+                ],
+                "grade_blocks": {
+                  "a": 2,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                15
+              ],
+              "b_sample": [
+                23,
+                15
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 3
+              },
+              "worst_grade_blocks": 3
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.3647,
+          "peak_mass": 58,
+          "pit_mass": 27,
+          "second_peak": 14,
+          "land_bodies": 1,
+          "water_bodies": 0,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.0
+        }
+      },
+      "reused_generation": true,
+      "deepest_stage": "verify",
+      "rejections": [
+        {
+          "stage": "verify",
+          "code": "OPENING_CEILING_VIOLATED",
+          "detail": "the Opening Hinterland contains built structure, which doctrine excludes because it skips meaningful early progression",
+          "data": {
+            "problems": [
+              {
+                "code": "OPENING_CEILING_VIOLATED",
+                "team": "north",
+                "detail": "2 sampled columns within 96 blocks of the north Fountain stand on built structure; maps.md excludes villages from the Opening Hinterland, and a serious ceiling violation should reject a socket",
+                "example": {
+                  "block": "minecraft:spruce_planks",
+                  "at": [
+                    2276,
+                    67,
+                    1964
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 930016664,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930016664_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930016664_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/930016664_0.json",
+      "types": [
+        "frozen",
+        "landmass",
+        "divided_by_a_cut"
+      ],
+      "target": {
+        "seed": 930016664,
+        "block_bounds": [
+          896,
+          2176,
+          -1984,
+          -960
+        ],
+        "centre": [
+          1536,
+          -1472
+        ],
+        "chunk_bounds": [
+          69,
+          122,
+          -125,
+          -60
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.145,
+        "within_symmetry_gate": true,
+        "relief_blocks": 34.0,
+        "mirror_tilt_blocks": -2.38,
+        "water_fraction": 0.0273,
+        "types": [
+          "frozen",
+          "landmass",
+          "divided_by_a_cut"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 1088,
+        "homebase_on_land": true,
+        "homebase_grade": 3,
+        "measured": {
+          "origin_sample": [
+            156,
+            66
+          ],
+          "scoop_blocks": [
+            1312,
+            1056
+          ],
+          "area_blocks2": 1385472,
+          "team_axis": "x",
+          "contested_pairs": 660,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 4.93,
+          "deviation_over_relief": 0.1451,
+          "mirror_tilt_blocks": -2.38,
+          "mirror_tilt_blocks_per_block": -0.00186,
+          "mirror_residual_blocks": 5.13,
+          "mirror_residual_over_relief": 0.1974,
+          "relief_blocks": {
+            "a": 34.0,
+            "b": 13.0
+          },
+          "relief_gap": 0.4468,
+          "roughness": {
+            "a": 2.688,
+            "b": 1.626
+          },
+          "roughness_gap": 0.2462,
+          "median_elevation": {
+            "a": 66.0,
+            "b": 66.0
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 4.311,
+          "water_fraction": 0.0273,
+          "land_fraction": 0.9727,
+          "coast_density": 0.0273,
+          "dominant_biome_share": 0.068,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.6948,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 1088,
+                "a_sample": [
+                  3,
+                  27
+                ],
+                "b_sample": [
+                  37,
+                  27
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              }
+            ],
+            "max_separation_blocks": 1088,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 1088,
+              "a_sample": [
+                3,
+                27
+              ],
+              "b_sample": [
+                37,
+                27
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 3
+              },
+              "worst_grade_blocks": 3
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 1088,
+          "separation_sign": 0.7318,
+          "peak_mass": 155,
+          "pit_mass": 24,
+          "second_peak": 44,
+          "land_bodies": 1,
+          "water_bodies": 4,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.8084
+        }
+      },
+      "seconds": 153.6,
+      "deepest_stage": "characterize",
+      "rejections": [
+        {
+          "stage": "verify",
+          "code": "LAIR_PHYSICALLY_INVALID",
+          "detail": "the Lair manifestation does not survive a readback",
+          "data": {
+            "problems": [
+              "the spawn anchor at [1668, 71, -1004] is minecraft:spruce_leaves, not open air; an occupant would suffocate"
+            ]
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 930015734,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930015734_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930015734_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/930015734_0.json",
+      "types": [
+        "swamplands",
+        "landmass"
+      ],
+      "target": {
+        "seed": 930015734,
+        "block_bounds": [
+          -1408,
+          -576,
+          512,
+          1536
+        ],
+        "centre": [
+          -992,
+          1024
+        ],
+        "chunk_bounds": [
+          -89,
+          -36,
+          31,
+          96
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.1391,
+        "within_symmetry_gate": true,
+        "relief_blocks": 11.0,
+        "mirror_tilt_blocks": 0.41,
+        "water_fraction": 0.0382,
+        "types": [
+          "swamplands",
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 0,
+        "measured": {
+          "origin_sample": [
+            84,
+            144
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 1.53,
+          "deviation_over_relief": 0.1394,
+          "mirror_tilt_blocks": 0.41,
+          "mirror_tilt_blocks_per_block": 0.00049,
+          "mirror_residual_blocks": 1.65,
+          "mirror_residual_over_relief": 0.1502,
+          "relief_blocks": {
+            "a": 11.0,
+            "b": 9.0
+          },
+          "relief_gap": 0.1,
+          "roughness": {
+            "a": 0.683,
+            "b": 0.845
+          },
+          "roughness_gap": 0.1056,
+          "median_elevation": {
+            "a": 63,
+            "b": 63
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 1.667,
+          "water_fraction": 0.0382,
+          "land_fraction": 0.9618,
+          "coast_density": 0.0325,
+          "dominant_biome_share": 0.0269,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.4635,
+          "jungle_share": 0.0359,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  5
+                ],
+                "b_sample": [
+                  23,
+                  5
+                ],
+                "grade_blocks": {
+                  "a": 0,
+                  "b": 1
+                },
+                "worst_grade_blocks": 1
+              },
+              {
+                "separation_blocks": 384,
+                "a_sample": [
+                  7,
+                  27
+                ],
+                "b_sample": [
+                  19,
+                  27
+                ],
+                "grade_blocks": {
+                  "a": 0,
+                  "b": 0
+                },
+                "worst_grade_blocks": 0
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 1,
+            "flattest": {
+              "separation_blocks": 384,
+              "a_sample": [
+                7,
+                27
+              ],
+              "b_sample": [
+                19,
+                27
+              ],
+              "grade_blocks": {
+                "a": 0,
+                "b": 0
+              },
+              "worst_grade_blocks": 0
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.6585,
+          "peak_mass": 68,
+          "pit_mass": 14,
+          "second_peak": 16,
+          "land_bodies": 1,
+          "water_bodies": 1,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 1.0171
+        }
+      },
+      "seconds": 197.6,
+      "deepest_stage": "homebase",
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "north socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "north",
+            "usable_fraction": -0.179,
+            "bound": 0.52
+          }
+        },
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "south socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "south",
+            "usable_fraction": -0.096,
+            "bound": 0.52
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 345709689,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/345709689_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/345709689_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/345709689_0.json",
+      "types": [
+        "landmass",
+        "divided_by_a_cut"
+      ],
+      "target": {
+        "seed": 345709689,
+        "block_bounds": [
+          320,
+          1600,
+          2816,
+          3840
+        ],
+        "centre": [
+          960,
+          3328
+        ],
+        "chunk_bounds": [
+          33,
+          86,
+          175,
+          240
+        ],
+        "team_axis": "z",
+        "deviation_over_relief": 0.1609,
+        "within_symmetry_gate": true,
+        "relief_blocks": 54.0,
+        "mirror_tilt_blocks": 9.86,
+        "water_fraction": 0.0111,
+        "types": [
+          "landmass",
+          "divided_by_a_cut"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 832,
+        "homebase_on_land": true,
+        "homebase_grade": 3,
+        "measured": {
+          "origin_sample": [
+            138,
+            216
+          ],
+          "scoop_blocks": [
+            1312,
+            1056
+          ],
+          "area_blocks2": 1385472,
+          "team_axis": "z",
+          "contested_pairs": 656,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 8.69,
+          "deviation_over_relief": 0.6209,
+          "mirror_tilt_blocks": 9.86,
+          "mirror_tilt_blocks_per_block": 0.00963,
+          "mirror_residual_blocks": 10.52,
+          "mirror_residual_over_relief": 0.3093,
+          "relief_blocks": {
+            "a": 14.0,
+            "b": 54.0
+          },
+          "relief_gap": 0.5882,
+          "roughness": {
+            "a": 1.867,
+            "b": 3.606
+          },
+          "roughness_gap": 0.3177,
+          "median_elevation": {
+            "a": 67.0,
+            "b": 66.0
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 6.477,
+          "water_fraction": 0.0111,
+          "land_fraction": 0.9889,
+          "coast_density": 0.0155,
+          "dominant_biome_share": 0.4169,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0022,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 832,
+                "a_sample": [
+                  33,
+                  3
+                ],
+                "b_sample": [
+                  33,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              }
+            ],
+            "max_separation_blocks": 832,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 832,
+              "a_sample": [
+                33,
+                3
+              ],
+              "b_sample": [
+                33,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 3
+              },
+              "worst_grade_blocks": 3
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 832,
+          "separation_sign": 0.751,
+          "peak_mass": 211,
+          "pit_mass": 30,
+          "second_peak": 56,
+          "land_bodies": 1,
+          "water_bodies": 2,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.4619
+        }
+      },
+      "seconds": 131.9,
+      "deepest_stage": "ready",
+      "rejections": [],
+      "ready": true
+    },
+    {
+      "seed": 1454639558,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1454639558_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1454639558_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/1454639558_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 1454639558,
+        "block_bounds": [
+          704,
+          1536,
+          -2368,
+          -1344
+        ],
+        "centre": [
+          1120,
+          -1856
+        ],
+        "chunk_bounds": [
+          43,
+          96,
+          -149,
+          -84
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.23,
+        "within_symmetry_gate": true,
+        "relief_blocks": 15.0,
+        "mirror_tilt_blocks": -1.77,
+        "water_fraction": 0.0247,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 3,
+        "measured": {
+          "origin_sample": [
+            150,
+            54
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 3.45,
+          "deviation_over_relief": 0.2466,
+          "mirror_tilt_blocks": -1.77,
+          "mirror_tilt_blocks_per_block": -0.00213,
+          "mirror_residual_blocks": 3.5,
+          "mirror_residual_over_relief": 0.25,
+          "relief_blocks": {
+            "a": 14.0,
+            "b": 15.0
+          },
+          "relief_gap": 0.0345,
+          "roughness": {
+            "a": 1.533,
+            "b": 1.691
+          },
+          "roughness_gap": 0.0489,
+          "median_elevation": {
+            "a": 67,
+            "b": 64
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 3.852,
+          "water_fraction": 0.0247,
+          "land_fraction": 0.9753,
+          "coast_density": 0.0348,
+          "dominant_biome_share": 0.3176,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0516,
+          "jungle_share": 0.0,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  29
+                ],
+                "b_sample": [
+                  23,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 2
+                },
+                "worst_grade_blocks": 3
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.534,
+          "peak_mass": 79,
+          "pit_mass": 24,
+          "second_peak": 19,
+          "land_bodies": 1,
+          "water_bodies": 4,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 1.0873
+        }
+      },
+      "seconds": 126.7,
+      "deepest_stage": "homebase",
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "north socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "north",
+            "usable_fraction": -0.2101,
+            "bound": 0.52
+          }
+        }
+      ],
+      "ready": false
+    }
+  ],
+  "published": [
+    {
+      "schema": "moba_map_pool_entry/1",
+      "map_id": "99887766-67b6de0290",
+      "state": "READY",
+      "published_utc": "2026-10-02T15:22:11Z",
+      "provenance": {
+        "seed": 99887766,
+        "map_type": "default",
+        "authoring_version": "2026-10-02-test",
+        "worldgen_truth": {
+          "source": "locally generated world",
+          "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "official_server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "verified": true,
+          "note": "terrain generation is vanilla, but this candidate does NOT carry the official-jar provenance guarantee unless verified is true; do not treat it as a screened finalist",
+          "terrain_modified": false,
+          "test_generation_override": {
+            "pack": "moba_test_no_trial_chambers",
+            "purpose": "Prevent excluded trial chambers before chunk generation",
+            "biome_tag": "minecraft:has_structure/trial_chambers",
+            "saved_world_trial_chamber_findings": 0,
+            "pack_files_sha256": {
+              "README.md": "594a21fd3890d221aea27b69d21f9779066ac3218e18b034fbb49253fa5e9101",
+              "data/minecraft/tags/worldgen/biome/has_structure/trial_chambers.json": "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e",
+              "pack.mcmeta": "65b2b00a1d8b476c111fcb986a7c6be4bb356d1324dbbda0a454b9c2f6afdc0e"
+            },
+            "unmodified_vanilla_world": false
+          }
+        },
+        "compiler_constants": {
+          "min_homeland_developable_fraction": 0.52,
+          "max_hinterland_fraction_of_end": 0.5,
+          "max_lair_access_asymmetry": 0.15,
+          "max_levelling_moved_per_column": 10.0
+        },
+        "objective_forms": [
+          "aether_fountain",
+          "end_spike",
+          "end_tower",
+          "nether_bastion",
+          "nether_bastion_greybox",
+          "pillager_outpost",
+          "pillager_outpost_greybox"
+        ],
+        "not_reproduced": {
+          "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+        }
+      },
+      "runtime_bindings": {
+        "world": {
+          "name": "build-99887766",
+          "map_type": "default"
+        },
+        "homelands": {
+          "north": [
+            -1496,
+            -1425,
+            1248,
+            1319
+          ],
+          "south": [
+            -928,
+            -857,
+            1376,
+            1447
+          ]
+        },
+        "fountains": {
+          "north": [
+            -1460,
+            68,
+            1284
+          ],
+          "south": [
+            -908,
+            70,
+            1412
+          ]
+        },
+        "objectives": {
+          "north": {
+            "pillager_outpost": [
+              -1260,
+              1284
+            ],
+            "nether_bastion": [
+              -1332,
+              1356
+            ],
+            "end_spike": [
+              -1388,
+              1284
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              -1268,
+              1388
+            ],
+            "nether_bastion": [
+              -1228,
+              1340
+            ],
+            "end_spike": [
+              -956,
+              1268
+            ]
+          }
+        },
+        "lair": {
+          "anchor": {
+            "xyz": [
+              -1268,
+              70,
+              1348
+            ],
+            "surface_y": 68,
+            "note": "spawn/binding anchor; the plinth top plus one, so an occupant appears in open air rather than inside the marker"
+          },
+          "centre_xz": [
+            -1268,
+            1348
+          ],
+          "count": 1,
+          "access_asymmetry": 0.0012,
+          "treatment": "PROVISIONAL: irregular standing stones and a plinth. Art direction is open; this is a legible placeholder, not a decision that the Lair is a stone circle."
+        },
+        "worksites": [
+          {
+            "id": "ws_60_56",
+            "sample": [
+              60,
+              56
+            ],
+            "world_xz": [
+              -1260,
+              1268
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 572.07,
+              "south": 596.52
+            }
+          },
+          {
+            "id": "ws_74_45",
+            "sample": [
+              74,
+              45
+            ],
+            "world_xz": [
+              -1348,
+              1380
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 497.29,
+              "south": 648.76
+            }
+          },
+          {
+            "id": "ws_77_39",
+            "sample": [
+              77,
+              39
+            ],
+            "world_xz": [
+              -1396,
+              1404
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 502.56,
+              "south": 714.7
+            }
+          },
+          {
+            "id": "ws_45_62",
+            "sample": [
+              45,
+              62
+            ],
+            "world_xz": [
+              -1212,
+              1148
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 687.44,
+              "south": 758.21
+            }
+          },
+          {
+            "id": "ws_84_35",
+            "sample": [
+              84,
+              35
+            ],
+            "world_xz": [
+              -1428,
+              1460
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 433.82,
+              "south": 792.3
+            }
+          },
+          {
+            "id": "ws_76_31",
+            "sample": [
+              76,
+              31
+            ],
+            "world_xz": [
+              -1460,
+              1396
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 406.51,
+              "south": 821.38
+            }
+          },
+          {
+            "id": "ws_83_29",
+            "sample": [
+              83,
+              29
+            ],
+            "world_xz": [
+              -1476,
+              1452
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 380.56,
+              "south": 828.76
+            }
+          },
+          {
+            "id": "ws_35_59",
+            "sample": [
+              35,
+              59
+            ],
+            "world_xz": [
+              -1236,
+              1068
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 699.98,
+              "south": 899.97
+            }
+          },
+          {
+            "id": "ws_90_26",
+            "sample": [
+              90,
+              26
+            ],
+            "world_xz": [
+              -1500,
+              1508
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 465.13,
+              "south": 911.98
+            }
+          },
+          {
+            "id": "ws_56_76",
+            "sample": [
+              56,
+              76
+            ],
+            "world_xz": [
+              -1100,
+              1236
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 929.83,
+              "south": 432.6
+            }
+          },
+          {
+            "id": "ws_86_83",
+            "sample": [
+              86,
+              83
+            ],
+            "world_xz": [
+              -1044,
+              1476
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 936.44,
+              "south": 256.46
+            }
+          },
+          {
+            "id": "ws_84_66",
+            "sample": [
+              84,
+              66
+            ],
+            "world_xz": [
+              -1180,
+              1460
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 952.51,
+              "south": 521.82
+            }
+          }
+        ],
+        "renewables": {
+          "derived": true,
+          "sources": [
+            {
+              "id": "near_chicken_north_[3, 7]",
+              "cell": [
+                3,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "chicken",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": -1490,
+              "y": 69,
+              "z": 1262,
+              "radius": 24,
+              "capacity": 10,
+              "herd_core": 4,
+              "harvestable_surplus": 6,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 59.25,
+                "south": 1166.15
+              }
+            },
+            {
+              "id": "near_chicken_north_[4, 8]",
+              "cell": [
+                4,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "chicken",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": -1426,
+              "y": 63,
+              "z": 1326,
+              "radius": 24,
+              "capacity": 10,
+              "herd_core": 4,
+              "harvestable_surplus": 6,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 78.23,
+                "south": 1064.96
+              }
+            },
+            {
+              "id": "farther_pig_north_[3, 6]",
+              "cell": [
+                3,
+                6
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1490,
+              "y": 67,
+              "z": 1198,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 128.57,
+                "south": 1235.46
+              }
+            },
+            {
+              "id": "farther_pig_north_[2, 7]",
+              "cell": [
+                2,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1554,
+              "y": 74,
+              "z": 1262,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 150.17,
+                "south": 1257.06
+              }
+            },
+            {
+              "id": "farther_pig_north_[1, 7]",
+              "cell": [
+                1,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1618,
+              "y": 79,
+              "z": 1262,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 275.22,
+                "south": 1382.12
+              }
+            },
+            {
+              "id": "farther_cow_north_[4, 10]",
+              "cell": [
+                4,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1426,
+              "y": 63,
+              "z": 1454,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 436.68,
+                "south": 776.65
+              }
+            },
+            {
+              "id": "farther_cow_north_[2, 4]",
+              "cell": [
+                2,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1554,
+              "y": 75,
+              "z": 1070,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 488.41,
+                "south": 1372.86
+              }
+            },
+            {
+              "id": "farther_cow_north_[3, 3]",
+              "cell": [
+                3,
+                3
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -1490,
+              "y": 70,
+              "z": 1006,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 508.75,
+                "south": 1340.31
+              }
+            },
+            {
+              "id": "near_chicken_south_[13, 9]",
+              "cell": [
+                13,
+                9
+              ],
+              "type": "ANIMAL",
+              "kind": "chicken",
+              "band": "near",
+              "near_team": "south",
+              "world": null,
+              "x": -866,
+              "y": 65,
+              "z": 1390,
+              "radius": 24,
+              "capacity": 10,
+              "herd_core": 4,
+              "harvestable_surplus": 6,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 1182.98,
+                "south": 76.08
+              }
+            },
+            {
+              "id": "near_chicken_south_[13, 10]",
+              "cell": [
+                13,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "chicken",
+              "band": "near",
+              "near_team": "south",
+              "world": null,
+              "x": -866,
+              "y": 67,
+              "z": 1454,
+              "radius": 24,
+              "capacity": 10,
+              "herd_core": 4,
+              "harvestable_surplus": 6,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 1176.82,
+                "south": 94.91
+              }
+            },
+            {
+              "id": "farther_pig_south_[12, 8]",
+              "cell": [
+                12,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -914,
+              "y": 72,
+              "z": 1326,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1197.77,
+                "south": 143.07
+              }
+            },
+            {
+              "id": "farther_pig_south_[11, 10]",
+              "cell": [
+                11,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -978,
+              "y": 69,
+              "z": 1454,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1021.41,
+                "south": 145.46
+              }
+            },
+            {
+              "id": "farther_cow_south_[11, 8]",
+              "cell": [
+                11,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -978,
+              "y": 77,
+              "z": 1326,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1169.75,
+                "south": 202.71
+              }
+            },
+            {
+              "id": "farther_pig_south_[11, 11]",
+              "cell": [
+                11,
+                11
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -978,
+              "y": 70,
+              "z": 1518,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1060.93,
+                "south": 220.8
+              }
+            },
+            {
+              "id": "farther_cow_south_[10, 10]",
+              "cell": [
+                10,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1042,
+              "y": 71,
+              "z": 1454,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 919.06,
+                "south": 232.38
+              }
+            },
+            {
+              "id": "farther_cow_south_[10, 11]",
+              "cell": [
+                10,
+                11
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1042,
+              "y": 70,
+              "z": 1518,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 982.99,
+                "south": 276.74
+              }
+            },
+            {
+              "id": "access_sheep_[7, 7]",
+              "cell": [
+                7,
+                7
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -1234,
+              "y": 76,
+              "z": 1262,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0173,
+              "strategic_depth_cost": {
+                "north": 607.38,
+                "south": 628.8
+              }
+            },
+            {
+              "id": "access_sheep_[7, 5]",
+              "cell": [
+                7,
+                5
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -1234,
+              "y": 66,
+              "z": 1134,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0757,
+              "strategic_depth_cost": {
+                "north": 694.82,
+                "south": 808.62
+              }
+            },
+            {
+              "id": "access_sheep_[7, 9]",
+              "cell": [
+                7,
+                9
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -1234,
+              "y": 66,
+              "z": 1390,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0879,
+              "strategic_depth_cost": {
+                "north": 602.55,
+                "south": 505.16
+              }
+            }
+          ],
+          "source_count": 19,
+          "certified": true,
+          "problems": [],
+          "per_team": {
+            "north": {
+              "opening_cells": 4,
+              "wild_developable": [
+                "chicken",
+                "cow",
+                "sheep"
+              ],
+              "manifestations_in_opening": 2,
+              "manifestation_kinds": [
+                "chicken"
+              ]
+            },
+            "south": {
+              "opening_cells": 4,
+              "wild_developable": [
+                "chicken",
+                "pig",
+                "sheep"
+              ],
+              "manifestations_in_opening": 2,
+              "manifestation_kinds": [
+                "chicken"
+              ]
+            }
+          },
+          "by_band": {
+            "near": [
+              "chicken"
+            ],
+            "farther": [
+              "cow",
+              "pig"
+            ],
+            "strategic_access": [
+              "sheep"
+            ]
+          },
+          "skipped_total": 1096,
+          "quantities_are": "DECLARED FIXTURES. Patch sizes, herd sizes and recovery cadence are OPEN in maps.md and the recalled nourishment figures need re-derivation; the ORDERING is what is recovered, not the numbers.",
+          "floor_is": "each team reaching one developable opportunity in its own opening, WILD OR MANIFESTED. Not a count -- one team's twelve cannot cover another team's none -- and not a species list, which would require both openings to hold the same kinds. Ordinary vanilla incidence counts, because strategic manifestations are layered over it rather than replacing it.",
+          "opening_cost": 120.0,
+          "reach_profile": {
+            "unit": "sampled columns (top three biomes per cell), not blocks",
+            "opening_cost": 120.0,
+            "by_relation": {
+              "minecraft:bamboo_jungle": {
+                "equal": 688,
+                "behind_south": 751
+              },
+              "minecraft:beach": {
+                "equal": 976,
+                "behind_south": 26
+              },
+              "minecraft:birch_forest": {
+                "behind_north": 120,
+                "equal": 103
+              },
+              "minecraft:dark_forest": {
+                "behind_north": 1
+              },
+              "minecraft:flower_forest": {
+                "equal": 278,
+                "behind_south": 2489,
+                "cheap_south": 223
+              },
+              "minecraft:forest": {
+                "behind_north": 3234,
+                "equal": 2320,
+                "cheap_north": 336,
+                "behind_south": 899
+              },
+              "minecraft:jungle": {
+                "behind_north": 5016,
+                "equal": 3311,
+                "behind_south": 55
+              },
+              "minecraft:ocean": {
+                "equal": 2156
+              },
+              "minecraft:old_growth_birch_forest": {
+                "behind_north": 1892
+              },
+              "minecraft:plains": {
+                "behind_north": 3795,
+                "cheap_north": 606,
+                "equal": 7008,
+                "behind_south": 2247,
+                "cheap_south": 25
+              },
+              "minecraft:river": {
+                "behind_north": 2171,
+                "equal": 3276,
+                "cheap_north": 53,
+                "behind_south": 1050
+              },
+              "minecraft:savanna": {
+                "behind_north": 158,
+                "cheap_north": 29,
+                "equal": 1604,
+                "behind_south": 2051,
+                "cheap_south": 520
+              },
+              "minecraft:sparse_jungle": {
+                "behind_north": 917,
+                "equal": 2188,
+                "behind_south": 1159
+              },
+              "minecraft:sunflower_plains": {
+                "equal": 1044,
+                "behind_south": 2009
+              }
+            },
+            "by_team_band": {
+              "north": {
+                "deeper": {
+                  "minecraft:jungle": 3731,
+                  "minecraft:river": 3305,
+                  "minecraft:sparse_jungle": 1663,
+                  "minecraft:ocean": 2148,
+                  "minecraft:forest": 1132,
+                  "minecraft:birch_forest": 1,
+                  "minecraft:beach": 800,
+                  "minecraft:plains": 4701,
+                  "minecraft:sunflower_plains": 2704,
+                  "minecraft:savanna": 2263,
+                  "minecraft:bamboo_jungle": 1439,
+                  "minecraft:flower_forest": 2037
+                },
+                "farther": {
+                  "minecraft:jungle": 4651,
+                  "minecraft:river": 3192,
+                  "minecraft:sparse_jungle": 2601,
+                  "minecraft:old_growth_birch_forest": 1892,
+                  "minecraft:dark_forest": 1,
+                  "minecraft:forest": 5321,
+                  "minecraft:birch_forest": 222,
+                  "minecraft:beach": 202,
+                  "minecraft:plains": 8374,
+                  "minecraft:ocean": 8,
+                  "minecraft:savanna": 2070,
+                  "minecraft:sunflower_plains": 349,
+                  "minecraft:flower_forest": 953
+                },
+                "near": {
+                  "minecraft:forest": 336,
+                  "minecraft:plains": 606,
+                  "minecraft:river": 53,
+                  "minecraft:savanna": 29
+                }
+              },
+              "south": {
+                "deeper": {
+                  "minecraft:jungle": 6344,
+                  "minecraft:river": 3562,
+                  "minecraft:sparse_jungle": 2736,
+                  "minecraft:old_growth_birch_forest": 1892,
+                  "minecraft:dark_forest": 1,
+                  "minecraft:forest": 4596,
+                  "minecraft:birch_forest": 223,
+                  "minecraft:beach": 854,
+                  "minecraft:ocean": 2145,
+                  "minecraft:plains": 4713,
+                  "minecraft:savanna": 107,
+                  "minecraft:sunflower_plains": 284,
+                  "minecraft:bamboo_jungle": 501
+                },
+                "farther": {
+                  "minecraft:forest": 2193,
+                  "minecraft:plains": 8943,
+                  "minecraft:river": 2988,
+                  "minecraft:savanna": 3735,
+                  "minecraft:sunflower_plains": 2769,
+                  "minecraft:sparse_jungle": 1528,
+                  "minecraft:flower_forest": 2767,
+                  "minecraft:jungle": 2038,
+                  "minecraft:bamboo_jungle": 938,
+                  "minecraft:beach": 148,
+                  "minecraft:ocean": 11
+                },
+                "near": {
+                  "minecraft:savanna": 520,
+                  "minecraft:plains": 25,
+                  "minecraft:flower_forest": 223
+                }
+              }
+            },
+            "is": "a description of where biomes sit in Practical-Reach space; not a score and not a placement"
+          }
+        }
+      },
+      "characteristics": {
+        "map_type": "default",
+        "map_scale": "unmeasured",
+        "resource_density": "unmeasured",
+        "note": "Map Scale and Resource Density are DISCOVERED properties of a realization, not inputs. Neither has a derived metric yet, so both are recorded unmeasured rather than guessed. Do not populate them with a classifier invented to fill the field."
+      },
+      "evidence": {
+        "homelands": {
+          "north": 0.7041,
+          "south": 0.6023
+        },
+        "hinterland": {
+          "north": 0.0219,
+          "south": 0.0185
+        },
+        "objective_world_xz": {
+          "north": {
+            "pillager_outpost": [
+              -1260,
+              1284
+            ],
+            "nether_bastion": [
+              -1332,
+              1356
+            ],
+            "end_spike": [
+              -1388,
+              1284
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              -1268,
+              1388
+            ],
+            "nether_bastion": [
+              -1228,
+              1340
+            ],
+            "end_spike": [
+              -956,
+              1268
+            ]
+          }
+        },
+        "lair_site": {
+          "sample": [
+            70,
+            55
+          ],
+          "world_xz": [
+            -1268,
+            1348
+          ],
+          "reach": {
+            "north": 556.2,
+            "south": 555.52
+          },
+          "access_asymmetry": 0.0012,
+          "usable_fraction": 0.6568,
+          "open_volume_proxy": 0.9056,
+          "approaches": 5
+        },
+        "physical_verification": true,
+        "readback": true,
+        "lair_verification": {
+          "anchor_block": "minecraft:air",
+          "anchor_support": "minecraft:chiseled_deepslate",
+          "markers_standing": 9,
+          "markers": 9,
+          "problems": [],
+          "proves": "physical and runtime feasibility only; encounter quality is empirical"
+        },
+        "readiness": true,
+        "blocks_written": 92994
+      },
+      "world_fingerprint": "e71c04e596a356629be7df4e73d81a8e8894447f49ffe220e4145bdc16e1af75",
+      "history": [
+        {
+          "state": "READY",
+          "at": "2026-10-02T15:22:11Z"
+        }
+      ]
+    },
+    {
+      "schema": "moba_map_pool_entry/1",
+      "map_id": "120997530-d40a007ffe",
+      "state": "READY",
+      "published_utc": "2026-10-02T15:24:23Z",
+      "provenance": {
+        "seed": 120997530,
+        "map_type": "default",
+        "authoring_version": "2026-10-02-test",
+        "worldgen_truth": {
+          "source": "locally generated world",
+          "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "official_server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "verified": true,
+          "note": "terrain generation is vanilla, but this candidate does NOT carry the official-jar provenance guarantee unless verified is true; do not treat it as a screened finalist",
+          "terrain_modified": false,
+          "test_generation_override": {
+            "pack": "moba_test_no_trial_chambers",
+            "purpose": "Prevent excluded trial chambers before chunk generation",
+            "biome_tag": "minecraft:has_structure/trial_chambers",
+            "saved_world_trial_chamber_findings": 0,
+            "pack_files_sha256": {
+              "README.md": "594a21fd3890d221aea27b69d21f9779066ac3218e18b034fbb49253fa5e9101",
+              "data/minecraft/tags/worldgen/biome/has_structure/trial_chambers.json": "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e",
+              "pack.mcmeta": "65b2b00a1d8b476c111fcb986a7c6be4bb356d1324dbbda0a454b9c2f6afdc0e"
+            },
+            "unmodified_vanilla_world": false
+          }
+        },
+        "compiler_constants": {
+          "min_homeland_developable_fraction": 0.52,
+          "max_hinterland_fraction_of_end": 0.5,
+          "max_lair_access_asymmetry": 0.15,
+          "max_levelling_moved_per_column": 10.0
+        },
+        "objective_forms": [
+          "aether_fountain",
+          "end_spike",
+          "end_tower",
+          "nether_bastion",
+          "nether_bastion_greybox",
+          "pillager_outpost",
+          "pillager_outpost_greybox"
+        ],
+        "not_reproduced": {
+          "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+        }
+      },
+      "runtime_bindings": {
+        "world": {
+          "name": "build-120997530",
+          "map_type": "default"
+        },
+        "homelands": {
+          "north": [
+            -2440,
+            -2369,
+            3464,
+            3535
+          ],
+          "south": [
+            -1800,
+            -1729,
+            3408,
+            3479
+          ]
+        },
+        "fountains": {
+          "north": [
+            -2404,
+            67,
+            3500
+          ],
+          "south": [
+            -1772,
+            66,
+            3444
+          ]
+        },
+        "objectives": {
+          "north": {
+            "pillager_outpost": [
+              -2180,
+              3372
+            ],
+            "nether_bastion": [
+              -2220,
+              3476
+            ],
+            "end_spike": [
+              -2364,
+              3684
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              -2028,
+              3308
+            ],
+            "nether_bastion": [
+              -1972,
+              3324
+            ],
+            "end_spike": [
+              -1836,
+              3492
+            ]
+          }
+        },
+        "lair": {
+          "anchor": {
+            "xyz": [
+              -2004,
+              70,
+              3884
+            ],
+            "surface_y": 68,
+            "note": "spawn/binding anchor; the plinth top plus one, so an occupant appears in open air rather than inside the marker"
+          },
+          "centre_xz": [
+            -2004,
+            3884
+          ],
+          "count": 1,
+          "access_asymmetry": 0.0003,
+          "treatment": "PROVISIONAL: irregular standing stones and a plinth. Art direction is open; this is a legible placeholder, not a decision that the Lair is a stone circle."
+        },
+        "worksites": [
+          {
+            "id": "ws_36_59",
+            "sample": [
+              36,
+              59
+            ],
+            "world_xz": [
+              -2100,
+              3284
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 593.54,
+              "south": 594.72
+            }
+          },
+          {
+            "id": "ws_30_60",
+            "sample": [
+              30,
+              60
+            ],
+            "world_xz": [
+              -2092,
+              3236
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 658.99,
+              "south": 662.66
+            }
+          },
+          {
+            "id": "ws_87_60",
+            "sample": [
+              87,
+              60
+            ],
+            "world_xz": [
+              -2092,
+              3692
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 685.74,
+              "south": 693.43
+            }
+          },
+          {
+            "id": "ws_42_52",
+            "sample": [
+              42,
+              52
+            ],
+            "world_xz": [
+              -2156,
+              3332
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 477.23,
+              "south": 706.71
+            }
+          },
+          {
+            "id": "ws_97_62",
+            "sample": [
+              97,
+              62
+            ],
+            "world_xz": [
+              -2076,
+              3772
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 684.69,
+              "south": 707.23
+            }
+          },
+          {
+            "id": "ws_31_51",
+            "sample": [
+              31,
+              51
+            ],
+            "world_xz": [
+              -2164,
+              3244
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 607.57,
+              "south": 751.37
+            }
+          },
+          {
+            "id": "ws_92_54",
+            "sample": [
+              92,
+              54
+            ],
+            "world_xz": [
+              -2140,
+              3732
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 601.34,
+              "south": 769.14
+            }
+          },
+          {
+            "id": "ws_76_61",
+            "sample": [
+              76,
+              61
+            ],
+            "world_xz": [
+              -2084,
+              3604
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 778.82,
+              "south": 597.32
+            }
+          },
+          {
+            "id": "ws_48_49",
+            "sample": [
+              48,
+              49
+            ],
+            "world_xz": [
+              -2180,
+              3380
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 397.15,
+              "south": 781.42
+            }
+          },
+          {
+            "id": "ws_70_60",
+            "sample": [
+              70,
+              60
+            ],
+            "world_xz": [
+              -2092,
+              3556
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 802.1,
+              "south": 528.63
+            }
+          },
+          {
+            "id": "ws_102_52",
+            "sample": [
+              102,
+              52
+            ],
+            "world_xz": [
+              -2156,
+              3812
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 568.8,
+              "south": 827.86
+            }
+          },
+          {
+            "id": "ws_55_48",
+            "sample": [
+              55,
+              48
+            ],
+            "world_xz": [
+              -2188,
+              3436
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 342.68,
+              "south": 875.53
+            }
+          }
+        ],
+        "renewables": {
+          "derived": true,
+          "sources": [
+            {
+              "id": "near_rabbit_north_[2, 7]",
+              "cell": [
+                2,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "rabbit",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": -2418,
+              "y": 66,
+              "z": 3470,
+              "radius": 24,
+              "capacity": 6,
+              "herd_core": 3,
+              "harvestable_surplus": 3,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 47.31,
+                "south": 1181.76
+              }
+            },
+            {
+              "id": "near_rabbit_north_[2, 8]",
+              "cell": [
+                2,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "rabbit",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": -2418,
+              "y": 64,
+              "z": 3534,
+              "radius": 24,
+              "capacity": 6,
+              "herd_core": 3,
+              "harvestable_surplus": 3,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 52.28,
+                "south": 1215.13
+              }
+            },
+            {
+              "id": "near_rabbit_north_[3, 8]",
+              "cell": [
+                3,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "rabbit",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": -2354,
+              "y": 68,
+              "z": 3534,
+              "radius": 24,
+              "capacity": 6,
+              "herd_core": 3,
+              "harvestable_surplus": 3,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 82.23,
+                "south": 1135.25
+              }
+            },
+            {
+              "id": "farther_pig_north_[3, 6]",
+              "cell": [
+                3,
+                6
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2354,
+              "y": 69,
+              "z": 3406,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 175.78,
+                "south": 1060.37
+              }
+            },
+            {
+              "id": "farther_pig_north_[4, 7]",
+              "cell": [
+                4,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2290,
+              "y": 67,
+              "z": 3470,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 190.75,
+                "south": 989.12
+              }
+            },
+            {
+              "id": "farther_cow_north_[2, 5]",
+              "cell": [
+                2,
+                5
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2418,
+              "y": 66,
+              "z": 3342,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 212.08,
+                "south": 1195.73
+              }
+            },
+            {
+              "id": "farther_cow_north_[3, 5]",
+              "cell": [
+                3,
+                5
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2354,
+              "y": 70,
+              "z": 3342,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 220.71,
+                "south": 1096.48
+              }
+            },
+            {
+              "id": "farther_cow_north_[1, 5]",
+              "cell": [
+                1,
+                5
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2482,
+              "y": 73,
+              "z": 3342,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 310.79,
+                "south": 1322.08
+              }
+            },
+            {
+              "id": "farther_pig_north_[2, 4]",
+              "cell": [
+                2,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": -2418,
+              "y": 64,
+              "z": 3278,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 352.81,
+                "south": 1347.66
+              }
+            },
+            {
+              "id": "farther_pig_south_[10, 8]",
+              "cell": [
+                10,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1906,
+              "y": 79,
+              "z": 3534,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1151.91,
+                "south": 315.41
+              }
+            },
+            {
+              "id": "farther_pig_south_[9, 7]",
+              "cell": [
+                9,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1970,
+              "y": 78,
+              "z": 3470,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1039.02,
+                "south": 332.73
+              }
+            },
+            {
+              "id": "farther_cow_south_[12, 10]",
+              "cell": [
+                12,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1778,
+              "y": 68,
+              "z": 3662,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1179.4,
+                "south": 342.91
+              }
+            },
+            {
+              "id": "farther_pig_south_[12, 10]",
+              "cell": [
+                12,
+                10
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1778,
+              "y": 68,
+              "z": 3662,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1179.4,
+                "south": 342.91
+              }
+            },
+            {
+              "id": "farther_cow_south_[10, 3]",
+              "cell": [
+                10,
+                3
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1906,
+              "y": 65,
+              "z": 3214,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1413.54,
+                "south": 416.31
+              }
+            },
+            {
+              "id": "farther_cow_south_[12, 11]",
+              "cell": [
+                12,
+                11
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": -1778,
+              "y": 70,
+              "z": 3726,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1190.86,
+                "south": 432.51
+              }
+            },
+            {
+              "id": "access_sheep_[8, 1]",
+              "cell": [
+                8,
+                1
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -2034,
+              "y": 68,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0014,
+              "strategic_depth_cost": {
+                "north": 960.62,
+                "south": 957.85
+              }
+            },
+            {
+              "id": "access_sheep_[7, 1]",
+              "cell": [
+                7,
+                1
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -2098,
+              "y": 65,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0015,
+              "strategic_depth_cost": {
+                "north": 934.51,
+                "south": 931.74
+              }
+            },
+            {
+              "id": "access_sheep_[8, 13]",
+              "cell": [
+                8,
+                13
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": -2034,
+              "y": 69,
+              "z": 3854,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0129,
+              "strategic_depth_cost": {
+                "north": 795.93,
+                "south": 816.68
+              }
+            }
+          ],
+          "source_count": 18,
+          "certified": true,
+          "problems": [],
+          "per_team": {
+            "north": {
+              "opening_cells": 4,
+              "wild_developable": [
+                "rabbit"
+              ],
+              "manifestations_in_opening": 3,
+              "manifestation_kinds": [
+                "rabbit"
+              ]
+            },
+            "south": {
+              "opening_cells": 6,
+              "wild_developable": [
+                "cow",
+                "sheep"
+              ],
+              "manifestations_in_opening": 0,
+              "manifestation_kinds": []
+            }
+          },
+          "by_band": {
+            "near": [
+              "rabbit"
+            ],
+            "farther": [
+              "cow",
+              "pig"
+            ],
+            "strategic_access": [
+              "sheep"
+            ]
+          },
+          "skipped_total": 1109,
+          "quantities_are": "DECLARED FIXTURES. Patch sizes, herd sizes and recovery cadence are OPEN in maps.md and the recalled nourishment figures need re-derivation; the ORDERING is what is recovered, not the numbers.",
+          "floor_is": "each team reaching one developable opportunity in its own opening, WILD OR MANIFESTED. Not a count -- one team's twelve cannot cover another team's none -- and not a species list, which would require both openings to hold the same kinds. Ordinary vanilla incidence counts, because strategic manifestations are layered over it rather than replacing it.",
+          "opening_cost": 120.0,
+          "reach_profile": {
+            "unit": "sampled columns (top three biomes per cell), not blocks",
+            "opening_cost": 120.0,
+            "by_relation": {
+              "minecraft:beach": {
+                "behind_north": 76
+              },
+              "minecraft:desert": {
+                "behind_north": 9981,
+                "cheap_north": 1015,
+                "equal": 161
+              },
+              "minecraft:dripstone_caves": {
+                "equal": 156,
+                "behind_south": 21
+              },
+              "minecraft:forest": {
+                "behind_north": 3600,
+                "equal": 2811,
+                "behind_south": 1749
+              },
+              "minecraft:jungle": {
+                "behind_south": 17
+              },
+              "minecraft:plains": {
+                "behind_north": 1953,
+                "equal": 2212,
+                "behind_south": 85
+              },
+              "minecraft:river": {
+                "behind_north": 2298,
+                "cheap_north": 9,
+                "equal": 3145,
+                "behind_south": 1321,
+                "cheap_south": 169
+              },
+              "minecraft:savanna": {
+                "behind_north": 4043,
+                "equal": 10505,
+                "behind_south": 10365,
+                "cheap_south": 1111
+              },
+              "minecraft:savanna_plateau": {
+                "behind_south": 137,
+                "equal": 14
+              }
+            },
+            "by_team_band": {
+              "north": {
+                "deeper": {
+                  "minecraft:desert": 931,
+                  "minecraft:river": 4529,
+                  "minecraft:savanna": 16415,
+                  "minecraft:forest": 2272,
+                  "minecraft:plains": 2194,
+                  "minecraft:dripstone_caves": 174,
+                  "minecraft:jungle": 17,
+                  "minecraft:savanna_plateau": 151
+                },
+                "farther": {
+                  "minecraft:forest": 5888,
+                  "minecraft:savanna": 9609,
+                  "minecraft:river": 2404,
+                  "minecraft:plains": 2056,
+                  "minecraft:beach": 76,
+                  "minecraft:desert": 9211,
+                  "minecraft:dripstone_caves": 3
+                },
+                "near": {
+                  "minecraft:desert": 1015,
+                  "minecraft:river": 9
+                }
+              },
+              "south": {
+                "deeper": {
+                  "minecraft:forest": 3829,
+                  "minecraft:savanna": 7058,
+                  "minecraft:river": 3822,
+                  "minecraft:plains": 2653,
+                  "minecraft:beach": 11,
+                  "minecraft:desert": 11012
+                },
+                "farther": {
+                  "minecraft:forest": 4331,
+                  "minecraft:beach": 65,
+                  "minecraft:desert": 145,
+                  "minecraft:savanna": 17855,
+                  "minecraft:river": 2951,
+                  "minecraft:plains": 1597,
+                  "minecraft:dripstone_caves": 177,
+                  "minecraft:jungle": 17,
+                  "minecraft:savanna_plateau": 151
+                },
+                "near": {
+                  "minecraft:savanna": 1111,
+                  "minecraft:river": 169
+                }
+              }
+            },
+            "is": "a description of where biomes sit in Practical-Reach space; not a score and not a placement"
+          }
+        }
+      },
+      "characteristics": {
+        "map_type": "default",
+        "map_scale": "unmeasured",
+        "resource_density": "unmeasured",
+        "note": "Map Scale and Resource Density are DISCOVERED properties of a realization, not inputs. Neither has a derived metric yet, so both are recorded unmeasured rather than guessed. Do not populate them with a classifier invented to fill the field."
+      },
+      "evidence": {
+        "homelands": {
+          "north": 0.8612,
+          "south": 0.8872
+        },
+        "hinterland": {
+          "north": 0.0204,
+          "south": 0.0169
+        },
+        "objective_world_xz": {
+          "north": {
+            "pillager_outpost": [
+              -2180,
+              3372
+            ],
+            "nether_bastion": [
+              -2220,
+              3476
+            ],
+            "end_spike": [
+              -2364,
+              3684
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              -2028,
+              3308
+            ],
+            "nether_bastion": [
+              -1972,
+              3324
+            ],
+            "end_spike": [
+              -1836,
+              3492
+            ]
+          }
+        },
+        "lair_site": {
+          "sample": [
+            111,
+            71
+          ],
+          "world_xz": [
+            -2004,
+            3884
+          ],
+          "reach": {
+            "north": 823.12,
+            "south": 823.37
+          },
+          "access_asymmetry": 0.0003,
+          "usable_fraction": 0.6272,
+          "open_volume_proxy": 1.0,
+          "approaches": 6
+        },
+        "physical_verification": true,
+        "readback": true,
+        "lair_verification": {
+          "anchor_block": "minecraft:air",
+          "anchor_support": "minecraft:chiseled_deepslate",
+          "markers_standing": 9,
+          "markers": 9,
+          "problems": [],
+          "proves": "physical and runtime feasibility only; encounter quality is empirical"
+        },
+        "readiness": true,
+        "blocks_written": 92781
+      },
+      "world_fingerprint": "012c68ebb674e302df29d557c23de3c3979927add491454f639589d239dde43e",
+      "history": [
+        {
+          "state": "READY",
+          "at": "2026-10-02T15:24:23Z"
+        }
+      ]
+    },
+    {
+      "schema": "moba_map_pool_entry/1",
+      "map_id": "345709689-c4bc55b6b9",
+      "state": "READY",
+      "published_utc": "2026-10-02T15:34:31Z",
+      "provenance": {
+        "seed": 345709689,
+        "map_type": "default",
+        "authoring_version": "2026-10-02-test",
+        "worldgen_truth": {
+          "source": "locally generated world",
+          "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "official_server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+          "verified": true,
+          "note": "terrain generation is vanilla, but this candidate does NOT carry the official-jar provenance guarantee unless verified is true; do not treat it as a screened finalist",
+          "terrain_modified": false,
+          "test_generation_override": {
+            "pack": "moba_test_no_trial_chambers",
+            "purpose": "Prevent excluded trial chambers before chunk generation",
+            "biome_tag": "minecraft:has_structure/trial_chambers",
+            "saved_world_trial_chamber_findings": 0,
+            "pack_files_sha256": {
+              "README.md": "594a21fd3890d221aea27b69d21f9779066ac3218e18b034fbb49253fa5e9101",
+              "data/minecraft/tags/worldgen/biome/has_structure/trial_chambers.json": "bef4d172fc1bfb34d342e79090726c4a0c272dd404783c3ea022b992e0e0415e",
+              "pack.mcmeta": "65b2b00a1d8b476c111fcb986a7c6be4bb356d1324dbbda0a454b9c2f6afdc0e"
+            },
+            "unmodified_vanilla_world": false
+          }
+        },
+        "compiler_constants": {
+          "min_homeland_developable_fraction": 0.52,
+          "max_hinterland_fraction_of_end": 0.5,
+          "max_lair_access_asymmetry": 0.15,
+          "max_levelling_moved_per_column": 10.0
+        },
+        "objective_forms": [
+          "aether_fountain",
+          "end_spike",
+          "end_tower",
+          "nether_bastion",
+          "nether_bastion_greybox",
+          "pillager_outpost",
+          "pillager_outpost_greybox"
+        ],
+        "not_reproduced": {
+          "nether_bastion": "the rampart ring is a separate set of jigsaw pieces; vanilla connects them procedurally and that assembly is not reproduced. The central body is placed; the ramparts are not."
+        }
+      },
+      "runtime_bindings": {
+        "world": {
+          "name": "build-345709689",
+          "map_type": "default"
+        },
+        "homelands": {
+          "north": [
+            1112,
+            1183,
+            3120,
+            3191
+          ],
+          "south": [
+            536,
+            607,
+            3360,
+            3431
+          ]
+        },
+        "fountains": {
+          "north": [
+            1156,
+            66,
+            3156
+          ],
+          "south": [
+            572,
+            66,
+            3404
+          ]
+        },
+        "objectives": {
+          "north": {
+            "pillager_outpost": [
+              916,
+              3220
+            ],
+            "nether_bastion": [
+              1004,
+              3244
+            ],
+            "end_spike": [
+              1028,
+              3124
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              788,
+              3252
+            ],
+            "nether_bastion": [
+              740,
+              3300
+            ],
+            "end_spike": [
+              732,
+              3372
+            ]
+          }
+        },
+        "lair": {
+          "anchor": {
+            "xyz": [
+              1116,
+              68,
+              3684
+            ],
+            "surface_y": 66,
+            "note": "spawn/binding anchor; the plinth top plus one, so an occupant appears in open air rather than inside the marker"
+          },
+          "centre_xz": [
+            1116,
+            3684
+          ],
+          "count": 1,
+          "access_asymmetry": 0.0465,
+          "treatment": "PROVISIONAL: irregular standing stones and a plinth. Art direction is open; this is a legible placeholder, not a decision that the Lair is a stone circle."
+        },
+        "worksites": [
+          {
+            "id": "ws_76_72",
+            "sample": [
+              76,
+              72
+            ],
+            "world_xz": [
+              812,
+              3244
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 531.49,
+              "south": 426.53
+            }
+          },
+          {
+            "id": "ws_83_68",
+            "sample": [
+              83,
+              68
+            ],
+            "world_xz": [
+              844,
+              3188
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 455.97,
+              "south": 539.7
+            }
+          },
+          {
+            "id": "ws_66_65",
+            "sample": [
+              66,
+              65
+            ],
+            "world_xz": [
+              868,
+              3324
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 558.8,
+              "south": 567.02
+            }
+          },
+          {
+            "id": "ws_73_61",
+            "sample": [
+              73,
+              61
+            ],
+            "world_xz": [
+              900,
+              3268
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 441.89,
+              "south": 581.16
+            }
+          },
+          {
+            "id": "ws_79_59",
+            "sample": [
+              79,
+              59
+            ],
+            "world_xz": [
+              916,
+              3220
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 364.65,
+              "south": 582.49
+            }
+          },
+          {
+            "id": "ws_85_62",
+            "sample": [
+              85,
+              62
+            ],
+            "world_xz": [
+              892,
+              3172
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 378.34,
+              "south": 619.04
+            }
+          },
+          {
+            "id": "ws_71_78",
+            "sample": [
+              71,
+              78
+            ],
+            "world_xz": [
+              764,
+              3284
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 622.01,
+              "south": 323.99
+            }
+          },
+          {
+            "id": "ws_47_61",
+            "sample": [
+              47,
+              61
+            ],
+            "world_xz": [
+              900,
+              3476
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 625.14,
+              "south": 635.45
+            }
+          },
+          {
+            "id": "ws_77_53",
+            "sample": [
+              77,
+              53
+            ],
+            "world_xz": [
+              964,
+              3236
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 308.59,
+              "south": 639.91
+            }
+          },
+          {
+            "id": "ws_91_65",
+            "sample": [
+              91,
+              65
+            ],
+            "world_xz": [
+              868,
+              3124
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 410.39,
+              "south": 647.71
+            }
+          },
+          {
+            "id": "ws_86_55",
+            "sample": [
+              86,
+              55
+            ],
+            "world_xz": [
+              948,
+              3164
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 296.2,
+              "south": 678.86
+            }
+          },
+          {
+            "id": "ws_65_80",
+            "sample": [
+              65,
+              80
+            ],
+            "world_xz": [
+              748,
+              3332
+            ],
+            "workable_samples": 9,
+            "reach": {
+              "north": 683.96,
+              "south": 296.11
+            }
+          }
+        ],
+        "renewables": {
+          "derived": true,
+          "sources": [
+            {
+              "id": "near_chicken_north_[9, 5]",
+              "cell": [
+                9,
+                5
+              ],
+              "type": "ANIMAL",
+              "kind": "chicken",
+              "band": "near",
+              "near_team": "north",
+              "world": null,
+              "x": 1134,
+              "y": 66,
+              "z": 3150,
+              "radius": 24,
+              "capacity": 10,
+              "herd_core": 4,
+              "harvestable_surplus": 6,
+              "recover_ticks": 12000,
+              "strategic_depth_cost": {
+                "north": 36.97,
+                "south": 916.22
+              }
+            },
+            {
+              "id": "farther_pig_north_[11, 4]",
+              "cell": [
+                11,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 1262,
+              "y": 62,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 157.06,
+                "south": 1100.31
+              }
+            },
+            {
+              "id": "farther_cow_north_[8, 4]",
+              "cell": [
+                8,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 1070,
+              "y": 68,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 162.54,
+                "south": 890.34
+              }
+            },
+            {
+              "id": "farther_pig_north_[9, 4]",
+              "cell": [
+                9,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 1134,
+              "y": 80,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 189.85,
+                "south": 1052.09
+              }
+            },
+            {
+              "id": "farther_pig_north_[7, 4]",
+              "cell": [
+                7,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 1006,
+              "y": 65,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 229.14,
+                "south": 812.94
+              }
+            },
+            {
+              "id": "farther_cow_north_[9, 3]",
+              "cell": [
+                9,
+                3
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 1134,
+              "y": 78,
+              "z": 3022,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 293.93,
+                "south": 1061.01
+              }
+            },
+            {
+              "id": "farther_cow_north_[6, 4]",
+              "cell": [
+                6,
+                4
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "north",
+              "world": null,
+              "x": 942,
+              "y": 67,
+              "z": 3086,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 307.97,
+                "south": 761.55
+              }
+            },
+            {
+              "id": "deeper_carrot_north_[1, 16]",
+              "cell": [
+                1,
+                16
+              ],
+              "type": "CROP",
+              "kind": "carrot",
+              "band": "deeper",
+              "near_team": "north",
+              "world": null,
+              "x": 622,
+              "y": 62,
+              "z": 3838,
+              "radius": 16,
+              "capacity": 9,
+              "herd_core": 0,
+              "harvestable_surplus": 9,
+              "recover_ticks": 24000,
+              "strategic_depth_cost": {
+                "north": 1581.71,
+                "south": 786.85
+              }
+            },
+            {
+              "id": "deeper_potato_north_[1, 16]",
+              "cell": [
+                1,
+                16
+              ],
+              "type": "CROP",
+              "kind": "potato",
+              "band": "deeper",
+              "near_team": "north",
+              "world": null,
+              "x": 622,
+              "y": 62,
+              "z": 3838,
+              "radius": 16,
+              "capacity": 9,
+              "herd_core": 0,
+              "harvestable_surplus": 9,
+              "recover_ticks": 24000,
+              "strategic_depth_cost": {
+                "north": 1581.71,
+                "south": 786.85
+              }
+            },
+            {
+              "id": "farther_cow_south_[0, 8]",
+              "cell": [
+                0,
+                8
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 558,
+              "y": 62,
+              "z": 3342,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1135.21,
+                "south": 266.83
+              }
+            },
+            {
+              "id": "farther_cow_south_[3, 9]",
+              "cell": [
+                3,
+                9
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 750,
+              "y": 72,
+              "z": 3406,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 764.35,
+                "south": 286.45
+              }
+            },
+            {
+              "id": "farther_pig_south_[3, 9]",
+              "cell": [
+                3,
+                9
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 750,
+              "y": 72,
+              "z": 3406,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 764.35,
+                "south": 286.45
+              }
+            },
+            {
+              "id": "farther_cow_south_[4, 7]",
+              "cell": [
+                4,
+                7
+              ],
+              "type": "ANIMAL",
+              "kind": "cow",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 814,
+              "y": 75,
+              "z": 3278,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 571.29,
+                "south": 429.48
+              }
+            },
+            {
+              "id": "farther_pig_south_[0, 12]",
+              "cell": [
+                0,
+                12
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 558,
+              "y": 65,
+              "z": 3598,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1402.16,
+                "south": 467.43
+              }
+            },
+            {
+              "id": "farther_pig_south_[1, 6]",
+              "cell": [
+                1,
+                6
+              ],
+              "type": "ANIMAL",
+              "kind": "pig",
+              "band": "farther",
+              "near_team": "south",
+              "world": null,
+              "x": 622,
+              "y": 63,
+              "z": 3214,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "strategic_depth_cost": {
+                "north": 1271.58,
+                "south": 532.34
+              }
+            },
+            {
+              "id": "access_sheep_[5, 8]",
+              "cell": [
+                5,
+                8
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": 878,
+              "y": 75,
+              "z": 3342,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0017,
+              "strategic_depth_cost": {
+                "north": 575.83,
+                "south": 573.85
+              }
+            },
+            {
+              "id": "access_sheep_[9, 14]",
+              "cell": [
+                9,
+                14
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": 1134,
+              "y": 67,
+              "z": 3726,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0197,
+              "strategic_depth_cost": {
+                "north": 1167.97,
+                "south": 1214.8
+              }
+            },
+            {
+              "id": "access_sheep_[10, 16]",
+              "cell": [
+                10,
+                16
+              ],
+              "near_team": null,
+              "type": "ANIMAL",
+              "kind": "sheep",
+              "band": "strategic_access",
+              "world": null,
+              "x": 1198,
+              "y": 75,
+              "z": 3838,
+              "radius": 32,
+              "capacity": 8,
+              "herd_core": 4,
+              "harvestable_surplus": 4,
+              "recover_ticks": 18000,
+              "team_cost_disparity": 0.0287,
+              "strategic_depth_cost": {
+                "north": 1436.95,
+                "south": 1521.8
+              }
+            }
+          ],
+          "source_count": 18,
+          "certified": true,
+          "problems": [],
+          "per_team": {
+            "north": {
+              "opening_cells": 4,
+              "wild_developable": [
+                "chicken",
+                "sheep"
+              ],
+              "manifestations_in_opening": 1,
+              "manifestation_kinds": [
+                "chicken"
+              ]
+            },
+            "south": {
+              "opening_cells": 4,
+              "wild_developable": [
+                "cow",
+                "pig"
+              ],
+              "manifestations_in_opening": 0,
+              "manifestation_kinds": []
+            }
+          },
+          "by_band": {
+            "near": [
+              "chicken"
+            ],
+            "farther": [
+              "cow",
+              "pig"
+            ],
+            "deeper": [
+              "carrot",
+              "potato"
+            ],
+            "strategic_access": [
+              "sheep"
+            ]
+          },
+          "skipped_total": 1110,
+          "quantities_are": "DECLARED FIXTURES. Patch sizes, herd sizes and recovery cadence are OPEN in maps.md and the recalled nourishment figures need re-derivation; the ORDERING is what is recovered, not the numbers.",
+          "floor_is": "each team reaching one developable opportunity in its own opening, WILD OR MANIFESTED. Not a count -- one team's twelve cannot cover another team's none -- and not a species list, which would require both openings to hold the same kinds. Ordinary vanilla incidence counts, because strategic manifestations are layered over it rather than replacing it.",
+          "opening_cost": 120.0,
+          "reach_profile": {
+            "unit": "sampled columns (top three biomes per cell), not blocks",
+            "opening_cost": 120.0,
+            "by_relation": {
+              "minecraft:beach": {
+                "behind_north": 320
+              },
+              "minecraft:birch_forest": {
+                "behind_south": 1078,
+                "equal": 2648,
+                "behind_north": 804
+              },
+              "minecraft:cherry_grove": {
+                "behind_south": 223
+              },
+              "minecraft:dark_forest": {
+                "equal": 312,
+                "behind_north": 116
+              },
+              "minecraft:flower_forest": {
+                "behind_north": 2699
+              },
+              "minecraft:forest": {
+                "behind_south": 2092,
+                "cheap_south": 322,
+                "equal": 4081,
+                "behind_north": 4568,
+                "cheap_north": 144
+              },
+              "minecraft:meadow": {
+                "behind_north": 21
+              },
+              "minecraft:old_growth_birch_forest": {
+                "equal": 774,
+                "behind_north": 3265
+              },
+              "minecraft:old_growth_pine_taiga": {
+                "equal": 499
+              },
+              "minecraft:old_growth_spruce_taiga": {
+                "equal": 1509
+              },
+              "minecraft:plains": {
+                "behind_south": 4572,
+                "cheap_south": 551,
+                "equal": 1078,
+                "behind_north": 4517,
+                "cheap_north": 806
+              },
+              "minecraft:river": {
+                "equal": 4832,
+                "behind_south": 1455,
+                "cheap_south": 151,
+                "behind_north": 2088,
+                "cheap_north": 74
+              },
+              "minecraft:savanna": {
+                "equal": 2548,
+                "behind_south": 305,
+                "behind_north": 505
+              },
+              "minecraft:sunflower_plains": {
+                "behind_north": 903
+              },
+              "minecraft:taiga": {
+                "equal": 6629,
+                "behind_north": 369
+              }
+            },
+            "by_team_band": {
+              "north": {
+                "deeper": {
+                  "minecraft:savanna": 2852,
+                  "minecraft:river": 5780,
+                  "minecraft:plains": 5910,
+                  "minecraft:forest": 4052,
+                  "minecraft:cherry_grove": 223,
+                  "minecraft:birch_forest": 519,
+                  "minecraft:taiga": 6337,
+                  "minecraft:old_growth_spruce_taiga": 1334,
+                  "minecraft:old_growth_pine_taiga": 99,
+                  "minecraft:old_growth_birch_forest": 180,
+                  "minecraft:beach": 146,
+                  "minecraft:sunflower_plains": 6
+                },
+                "farther": {
+                  "minecraft:river": 2746,
+                  "minecraft:forest": 7011,
+                  "minecraft:plains": 4808,
+                  "minecraft:birch_forest": 4011,
+                  "minecraft:savanna": 506,
+                  "minecraft:taiga": 661,
+                  "minecraft:old_growth_spruce_taiga": 175,
+                  "minecraft:old_growth_birch_forest": 3859,
+                  "minecraft:dark_forest": 428,
+                  "minecraft:old_growth_pine_taiga": 400,
+                  "minecraft:sunflower_plains": 897,
+                  "minecraft:beach": 174,
+                  "minecraft:flower_forest": 2699,
+                  "minecraft:meadow": 21
+                },
+                "near": {
+                  "minecraft:plains": 806,
+                  "minecraft:forest": 144,
+                  "minecraft:river": 74
+                }
+              },
+              "south": {
+                "deeper": {
+                  "minecraft:savanna": 2670,
+                  "minecraft:river": 5529,
+                  "minecraft:forest": 2422,
+                  "minecraft:plains": 3083,
+                  "minecraft:taiga": 5113,
+                  "minecraft:old_growth_spruce_taiga": 574,
+                  "minecraft:sunflower_plains": 903,
+                  "minecraft:old_growth_pine_taiga": 99,
+                  "minecraft:beach": 320,
+                  "minecraft:flower_forest": 2466,
+                  "minecraft:old_growth_birch_forest": 2803,
+                  "minecraft:birch_forest": 390,
+                  "minecraft:meadow": 21,
+                  "minecraft:dark_forest": 116
+                },
+                "farther": {
+                  "minecraft:savanna": 688,
+                  "minecraft:plains": 7890,
+                  "minecraft:river": 2920,
+                  "minecraft:forest": 8463,
+                  "minecraft:cherry_grove": 223,
+                  "minecraft:birch_forest": 4140,
+                  "minecraft:taiga": 1885,
+                  "minecraft:old_growth_spruce_taiga": 935,
+                  "minecraft:old_growth_birch_forest": 1236,
+                  "minecraft:dark_forest": 312,
+                  "minecraft:old_growth_pine_taiga": 400,
+                  "minecraft:flower_forest": 233
+                },
+                "near": {
+                  "minecraft:plains": 551,
+                  "minecraft:forest": 322,
+                  "minecraft:river": 151
+                }
+              }
+            },
+            "is": "a description of where biomes sit in Practical-Reach space; not a score and not a placement"
+          }
+        }
+      },
+      "characteristics": {
+        "map_type": "default",
+        "map_scale": "unmeasured",
+        "resource_density": "unmeasured",
+        "note": "Map Scale and Resource Density are DISCOVERED properties of a realization, not inputs. Neither has a derived metric yet, so both are recorded unmeasured rather than guessed. Do not populate them with a classifier invented to fill the field."
+      },
+      "evidence": {
+        "homelands": {
+          "north": 0.9177,
+          "south": 0.9367
+        },
+        "hinterland": {
+          "north": 0.021,
+          "south": 0.0152
+        },
+        "objective_world_xz": {
+          "north": {
+            "pillager_outpost": [
+              916,
+              3220
+            ],
+            "nether_bastion": [
+              1004,
+              3244
+            ],
+            "end_spike": [
+              1028,
+              3124
+            ]
+          },
+          "south": {
+            "pillager_outpost": [
+              788,
+              3252
+            ],
+            "nether_bastion": [
+              740,
+              3300
+            ],
+            "end_spike": [
+              732,
+              3372
+            ]
+          }
+        },
+        "lair_site": {
+          "sample": [
+            21,
+            34
+          ],
+          "world_xz": [
+            1116,
+            3684
+          ],
+          "reach": {
+            "north": 1113.14,
+            "south": 1166.19
+          },
+          "access_asymmetry": 0.0465,
+          "usable_fraction": 0.5503,
+          "open_volume_proxy": 0.9616,
+          "approaches": 3
+        },
+        "physical_verification": true,
+        "readback": true,
+        "lair_verification": {
+          "anchor_block": "minecraft:air",
+          "anchor_support": "minecraft:chiseled_deepslate",
+          "markers_standing": 9,
+          "markers": 9,
+          "problems": [],
+          "proves": "physical and runtime feasibility only; encounter quality is empirical"
+        },
+        "readiness": true,
+        "blocks_written": 92127
+      },
+      "world_fingerprint": "bdcf3a5096a5ebcfc046fd66bd7cc5ca10cc3126987c7c6e30eedd7afac6407f",
+      "history": [
+        {
+          "state": "READY",
+          "at": "2026-10-02T15:34:31Z"
+        }
+      ]
+    }
+  ],
+  "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "generation": "Java 1.21.11 official server; test-only trial-chamber biome-tag override",
+  "desired": 3,
+  "max_attempts": 12,
+  "previous_attempts": [
+    {
+      "seed": 2718281,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/2718281_0.json",
+      "types": [
+        "landmass",
+        "divided_by_a_ridge"
+      ],
+      "target": {
+        "seed": 2718281,
+        "block_bounds": [
+          2816,
+          3648,
+          -2944,
+          -1920
+        ],
+        "centre": [
+          3232,
+          -2432
+        ],
+        "chunk_bounds": [
+          175,
+          228,
+          -185,
+          -120
+        ],
+        "team_axis": "x",
+        "deviation_over_relief": 0.2337,
+        "within_symmetry_gate": true,
+        "relief_blocks": 84.0,
+        "mirror_tilt_blocks": 18.38,
+        "water_fraction": 0.0,
+        "types": [
+          "landmass",
+          "divided_by_a_ridge"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 22,
+        "measured": {
+          "origin_sample": [
+            216,
+            36
+          ],
+          "scoop_blocks": [
+            864,
+            1056
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "x",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 19.63,
+          "deviation_over_relief": 0.3444,
+          "mirror_tilt_blocks": 18.38,
+          "mirror_tilt_blocks_per_block": 0.02209,
+          "mirror_residual_blocks": 18.63,
+          "mirror_residual_over_relief": 0.2661,
+          "relief_blocks": {
+            "a": 57.0,
+            "b": 84.0
+          },
+          "relief_gap": 0.1915,
+          "roughness": {
+            "a": 6.596,
+            "b": 8.053
+          },
+          "roughness_gap": 0.0995,
+          "median_elevation": {
+            "a": 92,
+            "b": 94
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 16.667,
+          "water_fraction": 0.0,
+          "land_fraction": 1.0,
+          "coast_density": 0.0,
+          "dominant_biome_share": 0.0213,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.3502,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  3,
+                  29
+                ],
+                "b_sample": [
+                  23,
+                  29
+                ],
+                "grade_blocks": {
+                  "a": 15,
+                  "b": 22
+                },
+                "worst_grade_blocks": 22
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 22,
+            "flattest": {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 15,
+                "b": 22
+              },
+              "worst_grade_blocks": 22
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4027,
+          "peak_mass": 263,
+          "pit_mass": 112,
+          "second_peak": 47,
+          "land_bodies": 1,
+          "water_bodies": 0,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.0
+        }
+      },
+      "seconds": 146.6,
+      "deepest_stage": "homebase",
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "south socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "south",
+            "usable_fraction": 0.3822,
+            "bound": 0.52
+          }
+        }
+      ],
+      "ready": false
+    },
+    {
+      "seed": 99887766,
+      "index": 0,
+      "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/server/world",
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0",
+      "candidate": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_reevaluation_2026-10-02/candidates/99887766_0.json",
+      "types": [
+        "landmass"
+      ],
+      "target": {
+        "seed": 99887766,
+        "block_bounds": [
+          -1792,
+          -768,
+          896,
+          1728
+        ],
+        "centre": [
+          -1280,
+          1312
+        ],
+        "chunk_bounds": [
+          -107,
+          -54,
+          49,
+          114
+        ],
+        "team_axis": "z",
+        "deviation_over_relief": 0.1754,
+        "within_symmetry_gate": true,
+        "relief_blocks": 13.0,
+        "mirror_tilt_blocks": -0.22,
+        "water_fraction": 0.0314,
+        "types": [
+          "landmass"
+        ],
+        "generatable": true,
+        "why_not_generatable": null,
+        "homebase_max_separation_blocks": 640,
+        "homebase_on_land": true,
+        "homebase_grade": 2,
+        "measured": {
+          "origin_sample": [
+            72,
+            156
+          ],
+          "scoop_blocks": [
+            1056,
+            864
+          ],
+          "area_blocks2": 912384,
+          "team_axis": "z",
+          "contested_pairs": 429,
+          "contested_fraction": 1.0,
+          "mirror_deviation_blocks": 2.28,
+          "deviation_over_relief": 0.326,
+          "mirror_tilt_blocks": -0.22,
+          "mirror_tilt_blocks_per_block": -0.00027,
+          "mirror_residual_blocks": 2.3,
+          "mirror_residual_over_relief": 0.1913,
+          "relief_blocks": {
+            "a": 7.0,
+            "b": 13.0
+          },
+          "relief_gap": 0.3,
+          "roughness": {
+            "a": 1.216,
+            "b": 1.336
+          },
+          "roughness_gap": 0.0473,
+          "median_elevation": {
+            "a": 67,
+            "b": 66
+          },
+          "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+          "coarse_deviation_blocks": 2.037,
+          "water_fraction": 0.0314,
+          "land_fraction": 0.9686,
+          "coast_density": 0.0191,
+          "dominant_biome_share": 0.3805,
+          "arid_share": 0.0,
+          "badlands_share": 0.0,
+          "frozen_share": 0.0,
+          "swamp_share": 0.0,
+          "jungle_share": 0.0393,
+          "pale_share": 0.0,
+          "dark_forest_share": 0.0,
+          "homebase_pair": {
+            "frontier": [
+              {
+                "separation_blocks": 640,
+                "a_sample": [
+                  11,
+                  3
+                ],
+                "b_sample": [
+                  11,
+                  23
+                ],
+                "grade_blocks": {
+                  "a": 3,
+                  "b": 3
+                },
+                "worst_grade_blocks": 3
+              },
+              {
+                "separation_blocks": 512,
+                "a_sample": [
+                  21,
+                  5
+                ],
+                "b_sample": [
+                  21,
+                  21
+                ],
+                "grade_blocks": {
+                  "a": 2,
+                  "b": 2
+                },
+                "worst_grade_blocks": 2
+              }
+            ],
+            "max_separation_blocks": 640,
+            "grade_at_max_separation": 3,
+            "flattest": {
+              "separation_blocks": 512,
+              "a_sample": [
+                21,
+                5
+              ],
+              "b_sample": [
+                21,
+                21
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            },
+            "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+          },
+          "homebase_max_separation_blocks": 640,
+          "separation_sign": 0.4177,
+          "peak_mass": 56,
+          "pit_mass": 23,
+          "second_peak": 15,
+          "land_bodies": 1,
+          "water_bodies": 1,
+          "largest_land_share": 1.0,
+          "coastline_per_1k_blocks2": 0.5261
+        }
+      },
+      "seconds": 127.3,
+      "error": "ValueError: short region /Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/build-99887766/entities/r.0.0.mca"
+    }
+  ],
+  "prospected_seeds": 16,
+  "eligible_targets": 32
+}

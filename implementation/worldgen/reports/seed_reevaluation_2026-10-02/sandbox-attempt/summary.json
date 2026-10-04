@@ -1,0 +1,106 @@
+{
+  "schema": "test_map_reevaluation/1",
+  "status": "shortfall",
+  "design_status": "Prototype/test",
+  "compiler_git_head": "ae48773bf8c2a08c6558e501cc83d52880046596",
+  "seed_rng": 20261002,
+  "seeds": [
+    2718281,
+    99887766,
+    120997530,
+    31337,
+    930016664,
+    930015734,
+    345709689,
+    1454639558,
+    303911401,
+    1852719948,
+    1964993661,
+    1162497940,
+    795559259,
+    871558417,
+    1504029501,
+    758655542
+  ],
+  "attempts": [
+    {
+      "seed": 2718281,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/2718281_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 99887766,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 120997530,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/120997530_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 31337,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/31337_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 930016664,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930016664_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 930015734,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/930015734_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 345709689,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/345709689_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 1454639558,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1454639558_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 303911401,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/303911401_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 1852719948,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1852719948_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 1964993661,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1964993661_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    },
+    {
+      "seed": 1162497940,
+      "index": 0,
+      "work": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/1162497940_0",
+      "error": "PermissionError: [Errno 1] Operation not permitted"
+    }
+  ],
+  "published": [],
+  "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+  "generation": "Java 1.21.11 official server; test-only trial-chamber biome-tag override",
+  "desired": 3,
+  "max_attempts": 12,
+  "prospected_seeds": 16,
+  "eligible_targets": 32
+}

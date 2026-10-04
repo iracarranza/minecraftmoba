@@ -1,0 +1,158 @@
+{
+  "schema": "map_compilation_batch/1",
+  "candidates": 1,
+  "playable": [],
+  "yield": 0.0,
+  "deepest_stage": {
+    "recognize": 0,
+    "homebase": 1,
+    "hinterland": 0,
+    "objectives": 0,
+    "lair": 0,
+    "select": 0,
+    "author": 0,
+    "verify": 0,
+    "characterize": 0,
+    "ready": 0
+  },
+  "rejection_codes": {
+    "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 1
+  },
+  "runs": [
+    {
+      "schema": "map_compilation/1",
+      "seed": 2718281,
+      "deepest_stage_reached": "homebase",
+      "verified": false,
+      "ready": false,
+      "playable": false,
+      "rejections": [
+        {
+          "stage": "homebase",
+          "code": "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE",
+          "detail": "south socket cannot accept the Core with bounded integration",
+          "data": {
+            "team": "south",
+            "usable_fraction": 0.3822,
+            "bound": 0.52
+          }
+        }
+      ],
+      "evidence": {
+        "regional": {
+          "western_mean_elevation_advantage_y": 7.992,
+          "east_actual_ocean_fraction": 0.0,
+          "open_buildable_fraction_of_land": 0.1783
+        },
+        "metrics": {
+          "western_mean_elevation_advantage_y": 7.992,
+          "highland_depth_blocks": 704,
+          "highland_fraction_west": 0.3353,
+          "local_relief_p90_y": 16,
+          "steep_fraction": 0.6282,
+          "western_approach_bands": 7,
+          "western_wall_concentration": 0.0367,
+          "snow_cold_cells_west": 0,
+          "coastline_sample_edge_blocks": 3232,
+          "east_coast_boundary_variation_blocks": 56.94,
+          "east_coast_headland_cove_turns": 0,
+          "coastal_buildable_sample_cells": 20,
+          "east_actual_ocean_fraction": 0.0,
+          "west_actual_ocean_fraction": 0.0,
+          "east_over_west_ocean_advantage": 0.0,
+          "actual_surface_water_fraction": 0.096,
+          "actual_river_water_cells": 814,
+          "actual_river_mouth_sample_cells": 0,
+          "actual_water_body_count": 17,
+          "largest_actual_water_body_blocks2": 53824,
+          "forest_region_count": 10,
+          "largest_forest_region_blocks2": 514560,
+          "forest_interior_depth_blocks": 328,
+          "open_buildable_fraction_of_land": 0.1783,
+          "homeland_developability_bias": 0.1728
+        },
+        "default_template_fit": {
+          "checks": {
+            "western_relief_advantage": true,
+            "western_highland_depth": true,
+            "eastern_ocean_present": false,
+            "ocean_gradient_points_east": false,
+            "region_not_mostly_water": true,
+            "homelands_reasonably_viable": true,
+            "six_corridors_connect": true
+          },
+          "failed": [
+            "eastern_ocean_present",
+            "ocean_gradient_points_east"
+          ],
+          "note": "Default is the only template implemented. A failure here means \"did not fit the only template we have\", not \"unusable terrain\" -- maps.md names Chasm and Archipelago as future Map Types.",
+          "not_applied": "this window was selected as ['landmass', 'divided_by_a_ridge'] and is not judged against Default's regional contract. The Default screen would have rejected it on ['eastern_ocean_present', 'ocean_gradient_points_east']."
+        },
+        "orientation": {
+          "rotation_degrees_clockwise": 0,
+          "east_west_reflected": true,
+          "logical_dimensions_blocks": [
+            864,
+            1056
+          ]
+        },
+        "region": {
+          "chunk_bounds": [
+            175,
+            228,
+            -185,
+            -120
+          ],
+          "block_bounds": [
+            2800,
+            3663,
+            -2960,
+            -1905
+          ]
+        },
+        "prospect_types": [
+          "landmass",
+          "divided_by_a_ridge"
+        ],
+        "fit_failures": [
+          "homeland terrain-quality disparity exceeds 0.2",
+          "north-3: no_reachable_geographic_target",
+          "north: insufficient early Route divergence",
+          "south-3: no_reachable_geographic_target",
+          "south: insufficient early Route divergence",
+          "weak central/interior network connectivity"
+        ],
+        "homelands": {
+          "north": 0.7458,
+          "south": 0.3822
+        },
+        "fountains": {
+          "north": [
+            3316,
+            91,
+            -2812
+          ],
+          "south": [
+            3300,
+            94,
+            -2132
+          ]
+        },
+        "homeland_world": {
+          "north": [
+            3288,
+            3359,
+            -2848,
+            -2777
+          ],
+          "south": [
+            3264,
+            3335,
+            -2168,
+            -2097
+          ]
+        }
+      }
+    }
+  ]
+}

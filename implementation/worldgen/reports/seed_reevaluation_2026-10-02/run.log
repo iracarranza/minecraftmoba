@@ -1,0 +1,153 @@
+prospect 2718281: 6 eligible windows
+prospect 99887766: 16 eligible windows
+prospect 120997530: 9 eligible windows
+prospect 31337: 8 eligible windows
+prospect 930016664: 4 eligible windows
+prospect 930015734: 12 eligible windows
+prospect 345709689: 5 eligible windows
+prospect 1454639558: 15 eligible windows
+prospect 303911401: 11 eligible windows
+prospect 1852719948: 14 eligible windows
+prospect 1964993661: 10 eligible windows
+prospect 1162497940: 8 eligible windows
+prospect 795559259: 7 eligible windows
+prospect 871558417: 22 eligible windows
+prospect 1504029501: 9 eligible windows
+prospect 758655542: 11 eligible windows
+generate 2718281: 1/20 batches
+generate 99887766: 1/20 batches
+generate 2718281: 2/20 batches
+generate 99887766: 2/20 batches
+generate 2718281: 3/20 batches
+generate 99887766: 3/20 batches
+generate 2718281: 4/20 batches
+generate 99887766: 4/20 batches
+generate 99887766: 5/20 batches
+generate 2718281: 5/20 batches
+generate 99887766: 6/20 batches
+generate 2718281: 6/20 batches
+generate 99887766: 7/20 batches
+generate 99887766: 8/20 batches
+generate 2718281: 7/20 batches
+generate 2718281: 8/20 batches
+generate 99887766: 9/20 batches
+generate 99887766: 10/20 batches
+generate 2718281: 9/20 batches
+generate 99887766: 11/20 batches
+generate 99887766: 12/20 batches
+generate 2718281: 10/20 batches
+generate 99887766: 13/20 batches
+generate 2718281: 11/20 batches
+generate 99887766: 14/20 batches
+generate 2718281: 12/20 batches
+generate 99887766: 15/20 batches
+generate 99887766: 16/20 batches
+generate 99887766: 17/20 batches
+generate 99887766: 18/20 batches
+generate 99887766: 19/20 batches
+generate 99887766: 20/20 batches
+generate 2718281: 13/20 batches
+generate 2718281: 14/20 batches
+generate 2718281: 15/20 batches
+generate 2718281: 16/20 batches
+generate 2718281: 17/20 batches
+generate 2718281: 18/20 batches
+generate 2718281: 19/20 batches
+generate 2718281: 20/20 batches
+compile 2718281: homebase ready=False
+attempt 99887766: ValueError: short region /Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/attempts/99887766_0/build-99887766/entities/r.0.0.mca
+generate 120997530: 1/20 batches
+generate 31337: 1/20 batches
+generate 120997530: 2/20 batches
+generate 31337: 2/20 batches
+generate 120997530: 3/20 batches
+generate 31337: 3/20 batches
+generate 120997530: 4/20 batches
+generate 31337: 4/20 batches
+generate 120997530: 5/20 batches
+generate 120997530: 6/20 batches
+generate 31337: 5/20 batches
+generate 120997530: 7/20 batches
+generate 31337: 6/20 batches
+generate 120997530: 8/20 batches
+generate 31337: 7/20 batches
+generate 31337: 8/20 batches
+generate 120997530: 9/20 batches
+generate 31337: 9/20 batches
+generate 120997530: 10/20 batches
+generate 120997530: 11/20 batches
+generate 31337: 10/20 batches
+generate 120997530: 12/20 batches
+generate 31337: 11/20 batches
+generate 31337: 12/20 batches
+generate 120997530: 13/20 batches
+generate 120997530: 14/20 batches
+generate 31337: 13/20 batches
+generate 31337: 14/20 batches
+generate 120997530: 15/20 batches
+generate 120997530: 16/20 batches
+generate 120997530: 17/20 batches
+generate 120997530: 18/20 batches
+generate 120997530: 19/20 batches
+generate 120997530: 20/20 batches
+generate 31337: 15/20 batches
+generate 31337: 16/20 batches
+generate 31337: 17/20 batches
+generate 31337: 18/20 batches
+generate 31337: 19/20 batches
+generate 31337: 20/20 batches
+Traceback (most recent call last):
+  File "/Users/iracarranza/minecraftmoba/tools/worldgen/reevaluate_test_maps.py", line 181, in <module>
+    continue
+    
+  File "/Users/iracarranza/minecraftmoba/tools/worldgen/reevaluate_test_maps.py", line 151, in main
+    report['eligible_targets'] = len(targets)
+                             ^^^^^^^^^^^^^^^^
+    save(args.reports / 'summary.json', report)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/compile_batch.py", line 41, in run
+    runs.append(compile_candidate(c, world, build).as_dict())
+                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/map_compiler.py", line 510, in compile_candidate
+    verify(out, world)
+    ~~~~~~^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/map_compiler.py", line 787, in verify
+    result = column_scan.verify_placements(
+        Path(world), sites, requirements,
+        max_moved_per_column=PROVISIONAL['max_levelling_moved_per_column'])
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 260, in verify_placements
+    result = verify_site(world, xz[0], xz[1], req,
+                         max_moved_per_column=max_moved_per_column)
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 212, in verify_site
+    base = pad_level(world, x, z, max(1, span // 2))
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 125, in pad_level
+    y = world.surface(x + dx, z + dz)
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 94, in surface
+    c = self.chunk(x >> 4, z >> 4)
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 85, in chunk
+    self._load_region(cx >> 5, cz >> 5)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/column_scan.py", line 78, in _load_region
+    for cx, cz, _, root in read_region(f):
+                           ~~~~~~~~~~~^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/region.py", line 35, in read_region
+    name,root=loads(zlib.decompress(payload)); lx=index%32; lz=index//32
+              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 77, in loads
+    return _read_string(stream),_read_payload(stream,kind)
+                                ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 69, in _read_payload
+    name=_read_string(stream); values[name]=_read_payload(stream,child)
+                                            ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 63, in _read_payload
+    return list_tag(child,[_read_payload(stream,child) for _ in range(n)])
+                           ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 69, in _read_payload
+    name=_read_string(stream); values[name]=_read_payload(stream,child)
+                                            ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 70, in _read_payload
+    return tag(COMPOUND,values)
+  File "/Users/iracarranza/minecraftmoba/implementation/worldgen/serialization/nbt.py", line 21, in tag
+    def tag(kind, value, list_kind=None): return Tag(kind, value, list_kind)
+    
+KeyboardInterrupt

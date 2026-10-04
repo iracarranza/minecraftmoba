@@ -1,0 +1,105 @@
+prospect 2718281: 6 eligible windows
+prospect 99887766: 16 eligible windows
+prospect 120997530: 9 eligible windows
+prospect 31337: 8 eligible windows
+prospect 930016664: 4 eligible windows
+prospect 930015734: 12 eligible windows
+prospect 345709689: 5 eligible windows
+prospect 1454639558: 15 eligible windows
+prospect 303911401: 11 eligible windows
+prospect 1852719948: 14 eligible windows
+prospect 1964993661: 10 eligible windows
+prospect 1162497940: 8 eligible windows
+prospect 795559259: 7 eligible windows
+prospect 871558417: 22 eligible windows
+prospect 1504029501: 9 eligible windows
+prospect 758655542: 11 eligible windows
+compile 2718281: homebase ready=False
+compile 99887766: ready ready=True
+compile 120997530: ready ready=True
+compile 31337: verify ready=False
+generate 930016664: 1/20 batches
+generate 930015734: 1/20 batches
+generate 930016664: 2/20 batches
+generate 930015734: 2/20 batches
+generate 930016664: 3/20 batches
+generate 930015734: 3/20 batches
+generate 930016664: 4/20 batches
+generate 930015734: 4/20 batches
+generate 930016664: 5/20 batches
+generate 930016664: 6/20 batches
+generate 930015734: 5/20 batches
+generate 930016664: 7/20 batches
+generate 930016664: 8/20 batches
+generate 930015734: 6/20 batches
+generate 930016664: 9/20 batches
+generate 930015734: 7/20 batches
+generate 930015734: 8/20 batches
+generate 930016664: 10/20 batches
+generate 930015734: 9/20 batches
+generate 930016664: 11/20 batches
+generate 930016664: 12/20 batches
+generate 930016664: 13/20 batches
+generate 930015734: 10/20 batches
+generate 930016664: 14/20 batches
+generate 930015734: 11/20 batches
+generate 930015734: 12/20 batches
+generate 930016664: 15/20 batches
+generate 930016664: 16/20 batches
+generate 930016664: 17/20 batches
+generate 930016664: 18/20 batches
+generate 930016664: 19/20 batches
+generate 930015734: 13/20 batches
+generate 930016664: 20/20 batches
+generate 930015734: 14/20 batches
+generate 930015734: 15/20 batches
+generate 930015734: 16/20 batches
+generate 930015734: 17/20 batches
+generate 930015734: 18/20 batches
+generate 930015734: 19/20 batches
+generate 930015734: 20/20 batches
+compile 930016664: characterize ready=False
+compile 930015734: homebase ready=False
+generate 1454639558: 1/20 batches
+generate 345709689: 1/20 batches
+generate 345709689: 2/20 batches
+generate 1454639558: 2/20 batches
+generate 345709689: 3/20 batches
+generate 1454639558: 3/20 batches
+generate 345709689: 4/20 batches
+generate 1454639558: 4/20 batches
+generate 345709689: 5/20 batches
+generate 1454639558: 5/20 batches
+generate 345709689: 6/20 batches
+generate 1454639558: 6/20 batches
+generate 345709689: 7/20 batches
+generate 1454639558: 7/20 batches
+generate 345709689: 8/20 batches
+generate 1454639558: 8/20 batches
+generate 345709689: 9/20 batches
+generate 1454639558: 9/20 batches
+generate 345709689: 10/20 batches
+generate 1454639558: 10/20 batches
+generate 345709689: 11/20 batches
+generate 345709689: 12/20 batches
+generate 1454639558: 11/20 batches
+generate 1454639558: 12/20 batches
+generate 1454639558: 13/20 batches
+generate 345709689: 13/20 batches
+generate 1454639558: 14/20 batches
+generate 345709689: 14/20 batches
+generate 1454639558: 15/20 batches
+generate 1454639558: 16/20 batches
+generate 1454639558: 17/20 batches
+generate 1454639558: 18/20 batches
+generate 345709689: 15/20 batches
+generate 1454639558: 19/20 batches
+generate 345709689: 16/20 batches
+generate 1454639558: 20/20 batches
+generate 345709689: 17/20 batches
+generate 345709689: 18/20 batches
+generate 345709689: 19/20 batches
+generate 345709689: 20/20 batches
+compile 345709689: ready ready=True
+compile 1454639558: homebase ready=False
+finished: 3 published test maps

@@ -1,0 +1,14 @@
+{
+  "seed": 99887766,
+  "bounds": [
+    -1680,
+    -1553,
+    816,
+    943
+  ],
+  "exact_outputs_identical": true,
+  "original_seconds": 5.36,
+  "fast_seconds": 1.424,
+  "speedup": 3.76,
+  "note": "Both paths include the outside-chunk bounding-box skip; only the full-section histogram differs."
+}

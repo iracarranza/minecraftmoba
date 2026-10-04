@@ -1,0 +1,29 @@
+prospect 2718281: 6 eligible windows
+prospect 99887766: 16 eligible windows
+prospect 120997530: 9 eligible windows
+prospect 31337: 8 eligible windows
+prospect 930016664: 4 eligible windows
+prospect 930015734: 12 eligible windows
+prospect 345709689: 5 eligible windows
+prospect 1454639558: 15 eligible windows
+prospect 303911401: 11 eligible windows
+prospect 1852719948: 14 eligible windows
+prospect 1964993661: 10 eligible windows
+prospect 1162497940: 8 eligible windows
+prospect 795559259: 7 eligible windows
+prospect 871558417: 22 eligible windows
+prospect 1504029501: 9 eligible windows
+prospect 758655542: 11 eligible windows
+attempt 2718281: PermissionError: [Errno 1] Operation not permitted
+attempt 99887766: PermissionError: [Errno 1] Operation not permitted
+attempt 120997530: PermissionError: [Errno 1] Operation not permitted
+attempt 31337: PermissionError: [Errno 1] Operation not permitted
+attempt 930016664: PermissionError: [Errno 1] Operation not permitted
+attempt 930015734: PermissionError: [Errno 1] Operation not permitted
+attempt 345709689: PermissionError: [Errno 1] Operation not permitted
+attempt 1454639558: PermissionError: [Errno 1] Operation not permitted
+attempt 303911401: PermissionError: [Errno 1] Operation not permitted
+attempt 1852719948: PermissionError: [Errno 1] Operation not permitted
+attempt 1964993661: PermissionError: [Errno 1] Operation not permitted
+attempt 1162497940: PermissionError: [Errno 1] Operation not permitted
+finished: 0 published test maps

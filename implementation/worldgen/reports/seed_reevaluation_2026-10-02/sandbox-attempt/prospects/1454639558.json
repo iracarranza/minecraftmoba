@@ -1,0 +1,3850 @@
+{
+  "seed": 1454639558,
+  "scanned_half": 4096,
+  "step": 32,
+  "considered": 16580,
+  "measured_exactly": 32,
+  "partitions": {
+    "archipelago": 2,
+    "open_water": 3,
+    "frozen": 2,
+    "shattered_coast": 15,
+    "unlabelled": 3,
+    "divided_by_a_cut": 2,
+    "landmass": 1,
+    "pale_forest": 1,
+    "central_mansion": 2,
+    "arid": 1,
+    "divided_by_a_ridge": 2,
+    "badlands": 2
+  },
+  "types_matching_nothing": [
+    "lost_jungle",
+    "swamplands"
+  ],
+  "symmetry_gate": {
+    "feature": "dev_rel",
+    "quantile": "p25",
+    "value": 0.2371,
+    "measured_over": "contested ground only",
+    "not_per_type": "the residual spread across Types is ~10% and unexplained; see maps.md Map Type doctrine",
+    "not_on_raw_deviation": "deviation scales with relief, so a raw bound admits only flat ground and water"
+  },
+  "allocation": {
+    "allocation": {
+      "archipelago": 2,
+      "arid": 2,
+      "badlands": 2,
+      "frozen": 2,
+      "swamplands": 2,
+      "lost_jungle": 2,
+      "pale_forest": 2,
+      "landmass": 1,
+      "shattered_coast": 15,
+      "divided_by_a_cut": 2,
+      "divided_by_a_ridge": 2,
+      "central_mansion": 2
+    },
+    "rates": {
+      "archipelago": 0.25,
+      "arid": 0.25,
+      "badlands": 0.25,
+      "frozen": 0.25,
+      "swamplands": 0.25,
+      "lost_jungle": 0.25,
+      "pale_forest": 0.25,
+      "landmass": 0.44,
+      "shattered_coast": 0.032,
+      "divided_by_a_cut": 0.25,
+      "divided_by_a_ridge": 0.25,
+      "central_mansion": 0.25
+    },
+    "generations_per_map": {
+      "archipelago": 4.0,
+      "arid": 4.0,
+      "badlands": 4.0,
+      "frozen": 4.0,
+      "swamplands": 4.0,
+      "lost_jungle": 4.0,
+      "pale_forest": 4.0,
+      "landmass": 2.3,
+      "shattered_coast": 31.0,
+      "divided_by_a_cut": 4.0,
+      "divided_by_a_ridge": 4.0,
+      "central_mansion": 4.0
+    },
+    "wanted": {
+      "archipelago": 1,
+      "arid": 1,
+      "badlands": 1,
+      "frozen": 1,
+      "swamplands": 1,
+      "lost_jungle": 1,
+      "pale_forest": 1,
+      "landmass": 1,
+      "shattered_coast": 1,
+      "divided_by_a_cut": 1,
+      "divided_by_a_ridge": 1,
+      "central_mansion": 1
+    },
+    "measured": {
+      "archipelago": false,
+      "arid": false,
+      "badlands": false,
+      "frozen": false,
+      "swamplands": false,
+      "lost_jungle": false,
+      "pale_forest": false,
+      "landmass": true,
+      "shattered_coast": true,
+      "divided_by_a_cut": false,
+      "divided_by_a_ridge": false,
+      "central_mansion": false
+    },
+    "floor": 1,
+    "driven_by": "board demand divided by measured yield, so a Type that is rare BY DESIGN is paid for rather than starved. A rare Type needs more budget, not less."
+  },
+  "targets": [
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -2368,
+        -1344,
+        1664,
+        2944
+      ],
+      "centre": [
+        -1856,
+        2304
+      ],
+      "chunk_bounds": [
+        -143,
+        -90,
+        111,
+        176
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1174,
+      "within_symmetry_gate": true,
+      "relief_blocks": 31.0,
+      "mirror_tilt_blocks": 1.71,
+      "water_fraction": 0.5203,
+      "types": [
+        "archipelago",
+        "frozen"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 704,
+      "homebase_on_land": true,
+      "homebase_grade": 11,
+      "measured": {
+        "origin_sample": [
+          54,
+          180
+        ],
+        "scoop_blocks": [
+          1056,
+          1312
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "x",
+        "contested_pairs": 656,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.64,
+        "deviation_over_relief": 0.2272,
+        "mirror_tilt_blocks": 1.71,
+        "mirror_tilt_blocks_per_block": 0.00167,
+        "mirror_residual_blocks": 4.25,
+        "mirror_residual_over_relief": 0.1573,
+        "relief_blocks": {
+          "a": 16.0,
+          "b": 31.0
+        },
+        "relief_gap": 0.3191,
+        "roughness": {
+          "a": 1.256,
+          "b": 1.623
+        },
+        "roughness_gap": 0.1276,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 3.5,
+        "water_fraction": 0.5203,
+        "land_fraction": 0.4797,
+        "coast_density": 0.1005,
+        "dominant_biome_share": 0.0007,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.7931,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 704,
+              "a_sample": [
+                5,
+                3
+              ],
+              "b_sample": [
+                27,
+                3
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 11
+              },
+              "worst_grade_blocks": 11
+            }
+          ],
+          "max_separation_blocks": 704,
+          "grade_at_max_separation": 11,
+          "flattest": {
+            "separation_blocks": 704,
+            "a_sample": [
+              5,
+              3
+            ],
+            "b_sample": [
+              27,
+              3
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 11
+            },
+            "worst_grade_blocks": 11
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 704,
+        "separation_sign": 0.4416,
+        "peak_mass": 111,
+        "pit_mass": 43,
+        "second_peak": 44,
+        "land_bodies": 4,
+        "water_bodies": 1,
+        "largest_land_share": 0.5855,
+        "coastline_per_1k_blocks2": 3.0257
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        2048,
+        2880,
+        2240,
+        3264
+      ],
+      "centre": [
+        2464,
+        2752
+      ],
+      "chunk_bounds": [
+        127,
+        180,
+        139,
+        204
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1236,
+      "within_symmetry_gate": true,
+      "relief_blocks": 14.0,
+      "mirror_tilt_blocks": -0.78,
+      "water_fraction": 0.3838,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 12,
+      "measured": {
+        "origin_sample": [
+          192,
+          198
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 1.73,
+        "deviation_over_relief": 0.1234,
+        "mirror_tilt_blocks": -0.78,
+        "mirror_tilt_blocks_per_block": -0.00094,
+        "mirror_residual_blocks": 2.03,
+        "mirror_residual_over_relief": 0.1843,
+        "relief_blocks": {
+          "a": 14.0,
+          "b": 6.0
+        },
+        "relief_gap": 0.4,
+        "roughness": {
+          "a": 0.595,
+          "b": 0.655
+        },
+        "roughness_gap": 0.0483,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.667,
+        "water_fraction": 0.3838,
+        "land_fraction": 0.6162,
+        "coast_density": 0.1066,
+        "dominant_biome_share": 0.0808,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.119,
+        "swamp_share": 0.1437,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                5
+              ],
+              "b_sample": [
+                23,
+                5
+              ],
+              "grade_blocks": {
+                "a": 12,
+                "b": 10
+              },
+              "worst_grade_blocks": 12
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 12,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              5
+            ],
+            "b_sample": [
+              23,
+              5
+            ],
+            "grade_blocks": {
+              "a": 12,
+              "b": 10
+            },
+            "worst_grade_blocks": 12
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.4627,
+        "peak_mass": 49,
+        "pit_mass": 18,
+        "second_peak": 19,
+        "land_bodies": 1,
+        "water_bodies": 2,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 3.2969
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        1280,
+        2816,
+        2048,
+        3296
+      ],
+      "centre": [
+        2048,
+        2672
+      ],
+      "chunk_bounds": [
+        101,
+        154,
+        134,
+        199
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1515,
+      "within_symmetry_gate": true,
+      "relief_blocks": 13.0,
+      "mirror_tilt_blocks": -0.6,
+      "water_fraction": 0.4168,
+      "types": [
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 1344,
+      "homebase_on_land": true,
+      "homebase_grade": 4,
+      "measured": {
+        "origin_sample": [
+          168,
+          192
+        ],
+        "scoop_blocks": [
+          1568,
+          1280
+        ],
+        "area_blocks2": 2007040,
+        "team_axis": "x",
+        "contested_pairs": 960,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 1.97,
+        "deviation_over_relief": 0.2818,
+        "mirror_tilt_blocks": -0.6,
+        "mirror_tilt_blocks_per_block": -0.00039,
+        "mirror_residual_blocks": 2.09,
+        "mirror_residual_over_relief": 0.2087,
+        "relief_blocks": {
+          "a": 7.0,
+          "b": 13.0
+        },
+        "relief_gap": 0.3,
+        "roughness": {
+          "a": 0.787,
+          "b": 0.827
+        },
+        "roughness_gap": 0.0247,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.0,
+        "water_fraction": 0.4168,
+        "land_fraction": 0.5832,
+        "coast_density": 0.1173,
+        "dominant_biome_share": 0.0357,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.4276,
+        "swamp_share": 0.0694,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 1344,
+              "a_sample": [
+                3,
+                17
+              ],
+              "b_sample": [
+                45,
+                17
+              ],
+              "grade_blocks": {
+                "a": 4,
+                "b": 3
+              },
+              "worst_grade_blocks": 4
+            }
+          ],
+          "max_separation_blocks": 1344,
+          "grade_at_max_separation": 4,
+          "flattest": {
+            "separation_blocks": 1344,
+            "a_sample": [
+              3,
+              17
+            ],
+            "b_sample": [
+              45,
+              17
+            ],
+            "grade_blocks": {
+              "a": 4,
+              "b": 3
+            },
+            "worst_grade_blocks": 4
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 1344,
+        "separation_sign": 0.7586,
+        "peak_mass": 102,
+        "pit_mass": 14,
+        "second_peak": 19,
+        "land_bodies": 2,
+        "water_bodies": 7,
+        "largest_land_share": 0.9764,
+        "coastline_per_1k_blocks2": 3.5714
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -2944,
+        -2112,
+        1280,
+        2304
+      ],
+      "centre": [
+        -2528,
+        1792
+      ],
+      "chunk_bounds": [
+        -185,
+        -132,
+        79,
+        144
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1582,
+      "within_symmetry_gate": true,
+      "relief_blocks": 11.0,
+      "mirror_tilt_blocks": -0.38,
+      "water_fraction": 0.2873,
+      "types": [
+        "frozen"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          36,
+          168
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 1.74,
+        "deviation_over_relief": 0.1585,
+        "mirror_tilt_blocks": -0.38,
+        "mirror_tilt_blocks_per_block": -0.00046,
+        "mirror_residual_blocks": 1.84,
+        "mirror_residual_over_relief": 0.1674,
+        "relief_blocks": {
+          "a": 11.0,
+          "b": 10.0
+        },
+        "relief_gap": 0.0476,
+        "roughness": {
+          "a": 0.809,
+          "b": 0.883
+        },
+        "roughness_gap": 0.0437,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.481,
+        "water_fraction": 0.2873,
+        "land_fraction": 0.7127,
+        "coast_density": 0.1055,
+        "dominant_biome_share": 0.0056,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.6846,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                11
+              ],
+              "b_sample": [
+                23,
+                11
+              ],
+              "grade_blocks": {
+                "a": 4,
+                "b": 3
+              },
+              "worst_grade_blocks": 4
+            },
+            {
+              "separation_blocks": 384,
+              "a_sample": [
+                7,
+                15
+              ],
+              "b_sample": [
+                19,
+                15
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 3
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 4,
+          "flattest": {
+            "separation_blocks": 384,
+            "a_sample": [
+              7,
+              15
+            ],
+            "b_sample": [
+              19,
+              15
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 3
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.3214,
+        "peak_mass": 37,
+        "pit_mass": 19,
+        "second_peak": 11,
+        "land_bodies": 2,
+        "water_bodies": 3,
+        "largest_land_share": 0.9969,
+        "coastline_per_1k_blocks2": 3.1916
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -448,
+        832,
+        1856,
+        2880
+      ],
+      "centre": [
+        192,
+        2368
+      ],
+      "chunk_bounds": [
+        -15,
+        38,
+        115,
+        180
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1583,
+      "within_symmetry_gate": true,
+      "relief_blocks": 23.0,
+      "mirror_tilt_blocks": 1.05,
+      "water_fraction": 0.3481,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 1088,
+      "homebase_on_land": true,
+      "homebase_grade": 2,
+      "measured": {
+        "origin_sample": [
+          114,
+          186
+        ],
+        "scoop_blocks": [
+          1312,
+          1056
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "x",
+        "contested_pairs": 660,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.64,
+        "deviation_over_relief": 0.3642,
+        "mirror_tilt_blocks": 1.05,
+        "mirror_tilt_blocks_per_block": 0.00082,
+        "mirror_residual_blocks": 3.9,
+        "mirror_residual_over_relief": 0.205,
+        "relief_blocks": {
+          "a": 10.0,
+          "b": 23.0
+        },
+        "relief_gap": 0.3939,
+        "roughness": {
+          "a": 1.384,
+          "b": 1.524
+        },
+        "roughness_gap": 0.0483,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 3.267,
+        "water_fraction": 0.3481,
+        "land_fraction": 0.6519,
+        "coast_density": 0.1559,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.9135,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 1088,
+              "a_sample": [
+                3,
+                19
+              ],
+              "b_sample": [
+                37,
+                19
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            }
+          ],
+          "max_separation_blocks": 1088,
+          "grade_at_max_separation": 2,
+          "flattest": {
+            "separation_blocks": 1088,
+            "a_sample": [
+              3,
+              19
+            ],
+            "b_sample": [
+              37,
+              19
+            ],
+            "grade_blocks": {
+              "a": 2,
+              "b": 2
+            },
+            "worst_grade_blocks": 2
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 1088,
+        "separation_sign": 0.7185,
+        "peak_mass": 116,
+        "pit_mass": 19,
+        "second_peak": 27,
+        "land_bodies": 3,
+        "water_bodies": 4,
+        "largest_land_share": 0.8299,
+        "coastline_per_1k_blocks2": 4.7118
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        704,
+        1536,
+        -2944,
+        -1920
+      ],
+      "centre": [
+        1120,
+        -2432
+      ],
+      "chunk_bounds": [
+        43,
+        96,
+        -185,
+        -120
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1679,
+      "within_symmetry_gate": true,
+      "relief_blocks": 14.0,
+      "mirror_tilt_blocks": 1.53,
+      "water_fraction": 0.3872,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 5,
+      "measured": {
+        "origin_sample": [
+          150,
+          36
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.35,
+        "deviation_over_relief": 0.336,
+        "mirror_tilt_blocks": 1.53,
+        "mirror_tilt_blocks_per_block": 0.00184,
+        "mirror_residual_blocks": 2.61,
+        "mirror_residual_over_relief": 0.2178,
+        "relief_blocks": {
+          "a": 7.0,
+          "b": 14.0
+        },
+        "relief_gap": 0.3333,
+        "roughness": {
+          "a": 0.727,
+          "b": 1.374
+        },
+        "roughness_gap": 0.3083,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.0,
+        "water_fraction": 0.3872,
+        "land_fraction": 0.6128,
+        "coast_density": 0.0831,
+        "dominant_biome_share": 0.1493,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0382,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                25
+              ],
+              "b_sample": [
+                23,
+                25
+              ],
+              "grade_blocks": {
+                "a": 4,
+                "b": 5
+              },
+              "worst_grade_blocks": 5
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 5,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              25
+            ],
+            "b_sample": [
+              23,
+              25
+            ],
+            "grade_blocks": {
+              "a": 4,
+              "b": 5
+            },
+            "worst_grade_blocks": 5
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.5405,
+        "peak_mass": 57,
+        "pit_mass": 17,
+        "second_peak": 17,
+        "land_bodies": 1,
+        "water_bodies": 4,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.5253
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -1600,
+        -768,
+        2048,
+        3072
+      ],
+      "centre": [
+        -1184,
+        2560
+      ],
+      "chunk_bounds": [
+        -101,
+        -48,
+        127,
+        192
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1776,
+      "within_symmetry_gate": true,
+      "relief_blocks": 17.0,
+      "mirror_tilt_blocks": 3.62,
+      "water_fraction": 0.3883,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          78,
+          192
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.02,
+        "deviation_over_relief": 1.007,
+        "mirror_tilt_blocks": 3.62,
+        "mirror_tilt_blocks_per_block": 0.00435,
+        "mirror_residual_blocks": 3.85,
+        "mirror_residual_over_relief": 0.3211,
+        "relief_blocks": {
+          "a": 3.0,
+          "b": 17.0
+        },
+        "relief_gap": 0.7,
+        "roughness": {
+          "a": 0.246,
+          "b": 2.097
+        },
+        "roughness_gap": 0.7898,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.148,
+        "water_fraction": 0.3883,
+        "land_fraction": 0.6117,
+        "coast_density": 0.0696,
+        "dominant_biome_share": 0.0303,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.5802,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              29
+            ],
+            "b_sample": [
+              23,
+              29
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 2
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.8889,
+        "peak_mass": 102,
+        "pit_mass": 6,
+        "second_peak": 34,
+        "land_bodies": 3,
+        "water_bodies": 1,
+        "largest_land_share": 0.9505,
+        "coastline_per_1k_blocks2": 2.1395
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -1600,
+        -320,
+        2048,
+        3072
+      ],
+      "centre": [
+        -960,
+        2560
+      ],
+      "chunk_bounds": [
+        -87,
+        -34,
+        127,
+        192
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.1811,
+      "within_symmetry_gate": true,
+      "relief_blocks": 18.0,
+      "mirror_tilt_blocks": 3.41,
+      "water_fraction": 0.3607,
+      "types": [
+        "frozen"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 448,
+      "homebase_on_land": true,
+      "homebase_grade": 6,
+      "measured": {
+        "origin_sample": [
+          78,
+          192
+        ],
+        "scoop_blocks": [
+          1312,
+          1056
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "z",
+        "contested_pairs": 656,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.26,
+        "deviation_over_relief": 0.4078,
+        "mirror_tilt_blocks": 3.41,
+        "mirror_tilt_blocks_per_block": 0.00333,
+        "mirror_residual_blocks": 3.51,
+        "mirror_residual_over_relief": 0.27,
+        "relief_blocks": {
+          "a": 8.0,
+          "b": 18.0
+        },
+        "relief_gap": 0.3846,
+        "roughness": {
+          "a": 0.55,
+          "b": 1.963
+        },
+        "roughness_gap": 0.5625,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.318,
+        "water_fraction": 0.3607,
+        "land_fraction": 0.6393,
+        "coast_density": 0.0916,
+        "dominant_biome_share": 0.0251,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.7162,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 448,
+              "a_sample": [
+                35,
+                9
+              ],
+              "b_sample": [
+                35,
+                23
+              ],
+              "grade_blocks": {
+                "a": 8,
+                "b": 13
+              },
+              "worst_grade_blocks": 13
+            },
+            {
+              "separation_blocks": 320,
+              "a_sample": [
+                37,
+                11
+              ],
+              "b_sample": [
+                37,
+                21
+              ],
+              "grade_blocks": {
+                "a": 6,
+                "b": 5
+              },
+              "worst_grade_blocks": 6
+            }
+          ],
+          "max_separation_blocks": 448,
+          "grade_at_max_separation": 13,
+          "flattest": {
+            "separation_blocks": 320,
+            "a_sample": [
+              37,
+              11
+            ],
+            "b_sample": [
+              37,
+              21
+            ],
+            "grade_blocks": {
+              "a": 6,
+              "b": 5
+            },
+            "worst_grade_blocks": 6
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 448,
+        "separation_sign": 0.8095,
+        "peak_mass": 133,
+        "pit_mass": 14,
+        "second_peak": 34,
+        "land_bodies": 4,
+        "water_bodies": 2,
+        "largest_land_share": 0.9676,
+        "coastline_per_1k_blocks2": 2.7485
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        2048,
+        3328,
+        -3712,
+        -2688
+      ],
+      "centre": [
+        2688,
+        -3200
+      ],
+      "chunk_bounds": [
+        141,
+        194,
+        -233,
+        -168
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1817,
+      "within_symmetry_gate": true,
+      "relief_blocks": 40.0,
+      "mirror_tilt_blocks": -2.28,
+      "water_fraction": 0.2986,
+      "types": [
+        "arid",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 1088,
+      "homebase_on_land": true,
+      "homebase_grade": 6,
+      "measured": {
+        "origin_sample": [
+          192,
+          12
+        ],
+        "scoop_blocks": [
+          1312,
+          1056
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "x",
+        "contested_pairs": 660,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 7.27,
+        "deviation_over_relief": 0.1817,
+        "mirror_tilt_blocks": -2.28,
+        "mirror_tilt_blocks_per_block": -0.00178,
+        "mirror_residual_blocks": 7.54,
+        "mirror_residual_over_relief": 0.2154,
+        "relief_blocks": {
+          "a": 40.0,
+          "b": 26.0
+        },
+        "relief_gap": 0.2121,
+        "roughness": {
+          "a": 2.875,
+          "b": 1.847
+        },
+        "roughness_gap": 0.2177,
+        "median_elevation": {
+          "a": 65.0,
+          "b": 65.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 7.311,
+        "water_fraction": 0.2986,
+        "land_fraction": 0.7014,
+        "coast_density": 0.1338,
+        "dominant_biome_share": 0.0103,
+        "arid_share": 0.4752,
+        "badlands_share": 0.1264,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0052,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 1088,
+              "a_sample": [
+                3,
+                27
+              ],
+              "b_sample": [
+                37,
+                27
+              ],
+              "grade_blocks": {
+                "a": 11,
+                "b": 6
+              },
+              "worst_grade_blocks": 11
+            },
+            {
+              "separation_blocks": 704,
+              "a_sample": [
+                9,
+                15
+              ],
+              "b_sample": [
+                31,
+                15
+              ],
+              "grade_blocks": {
+                "a": 6,
+                "b": 2
+              },
+              "worst_grade_blocks": 6
+            }
+          ],
+          "max_separation_blocks": 1088,
+          "grade_at_max_separation": 11,
+          "flattest": {
+            "separation_blocks": 704,
+            "a_sample": [
+              9,
+              15
+            ],
+            "b_sample": [
+              31,
+              15
+            ],
+            "grade_blocks": {
+              "a": 6,
+              "b": 2
+            },
+            "worst_grade_blocks": 6
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 1088,
+        "separation_sign": 0.7047,
+        "peak_mass": 127,
+        "pit_mass": 22,
+        "second_peak": 34,
+        "land_bodies": 1,
+        "water_bodies": 6,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 4.065
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        1664,
+        2688,
+        -4096,
+        -3264
+      ],
+      "centre": [
+        2176,
+        -3680
+      ],
+      "chunk_bounds": [
+        109,
+        162,
+        -263,
+        -198
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.1829,
+      "within_symmetry_gate": true,
+      "relief_blocks": 63.0,
+      "mirror_tilt_blocks": -16.0,
+      "water_fraction": 0.3805,
+      "types": [
+        "badlands",
+        "divided_by_a_ridge"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 26,
+      "measured": {
+        "origin_sample": [
+          180,
+          0
+        ],
+        "scoop_blocks": [
+          1056,
+          864
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 11.52,
+        "deviation_over_relief": 0.1829,
+        "mirror_tilt_blocks": -16.0,
+        "mirror_tilt_blocks_per_block": -0.01923,
+        "mirror_residual_blocks": 11.15,
+        "mirror_residual_over_relief": 0.2027,
+        "relief_blocks": {
+          "a": 63.0,
+          "b": 40.0
+        },
+        "relief_gap": 0.2233,
+        "roughness": {
+          "a": 5.142,
+          "b": 3.083
+        },
+        "roughness_gap": 0.2504,
+        "median_elevation": {
+          "a": 70,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 14.815,
+        "water_fraction": 0.3805,
+        "land_fraction": 0.6195,
+        "coast_density": 0.0932,
+        "dominant_biome_share": 0.0045,
+        "arid_share": 0.4254,
+        "badlands_share": 0.3333,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                29,
+                3
+              ],
+              "b_sample": [
+                29,
+                23
+              ],
+              "grade_blocks": {
+                "a": 23,
+                "b": 26
+              },
+              "worst_grade_blocks": 26
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 26,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              29,
+              3
+            ],
+            "b_sample": [
+              29,
+              23
+            ],
+            "grade_blocks": {
+              "a": 23,
+              "b": 26
+            },
+            "worst_grade_blocks": 26
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.4,
+        "peak_mass": 182,
+        "pit_mass": 78,
+        "second_peak": 38,
+        "land_bodies": 2,
+        "water_bodies": 3,
+        "largest_land_share": 0.8134,
+        "coastline_per_1k_blocks2": 2.9111
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        128,
+        960,
+        -1984,
+        -960
+      ],
+      "centre": [
+        544,
+        -1472
+      ],
+      "chunk_bounds": [
+        7,
+        60,
+        -125,
+        -60
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.1833,
+      "within_symmetry_gate": true,
+      "relief_blocks": 12.0,
+      "mirror_tilt_blocks": 0.8,
+      "water_fraction": 0.3906,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 7,
+      "measured": {
+        "origin_sample": [
+          132,
+          66
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.2,
+        "deviation_over_relief": 0.2003,
+        "mirror_tilt_blocks": 0.8,
+        "mirror_tilt_blocks_per_block": 0.00096,
+        "mirror_residual_blocks": 2.29,
+        "mirror_residual_over_relief": 0.1909,
+        "relief_blocks": {
+          "a": 11.0,
+          "b": 12.0
+        },
+        "relief_gap": 0.0435,
+        "roughness": {
+          "a": 0.596,
+          "b": 1.081
+        },
+        "roughness_gap": 0.2893,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.037,
+        "water_fraction": 0.3906,
+        "land_fraction": 0.6094,
+        "coast_density": 0.0898,
+        "dominant_biome_share": 0.055,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                3
+              ],
+              "b_sample": [
+                23,
+                3
+              ],
+              "grade_blocks": {
+                "a": 7,
+                "b": 4
+              },
+              "worst_grade_blocks": 7
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 7,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              3
+            ],
+            "b_sample": [
+              23,
+              3
+            ],
+            "grade_blocks": {
+              "a": 7,
+              "b": 4
+            },
+            "worst_grade_blocks": 7
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.4783,
+        "peak_mass": 51,
+        "pit_mass": 18,
+        "second_peak": 15,
+        "land_bodies": 1,
+        "water_bodies": 2,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.8058
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -3328,
+        -2304,
+        1088,
+        1920
+      ],
+      "centre": [
+        -2816,
+        1504
+      ],
+      "chunk_bounds": [
+        -203,
+        -150,
+        61,
+        126
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.19,
+      "within_symmetry_gate": true,
+      "relief_blocks": 12.0,
+      "mirror_tilt_blocks": -0.21,
+      "water_fraction": 0.1403,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 2,
+      "measured": {
+        "origin_sample": [
+          24,
+          162
+        ],
+        "scoop_blocks": [
+          1056,
+          864
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.28,
+        "deviation_over_relief": 0.1904,
+        "mirror_tilt_blocks": -0.21,
+        "mirror_tilt_blocks_per_block": -0.00025,
+        "mirror_residual_blocks": 2.32,
+        "mirror_residual_over_relief": 0.2114,
+        "relief_blocks": {
+          "a": 12.0,
+          "b": 8.0
+        },
+        "relief_gap": 0.2,
+        "roughness": {
+          "a": 1.076,
+          "b": 0.874
+        },
+        "roughness_gap": 0.1035,
+        "median_elevation": {
+          "a": 65,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.296,
+        "water_fraction": 0.1403,
+        "land_fraction": 0.8597,
+        "coast_density": 0.0797,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.4175,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                9,
+                3
+              ],
+              "b_sample": [
+                9,
+                23
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 0
+              },
+              "worst_grade_blocks": 3
+            },
+            {
+              "separation_blocks": 512,
+              "a_sample": [
+                7,
+                5
+              ],
+              "b_sample": [
+                7,
+                21
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 0
+              },
+              "worst_grade_blocks": 2
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 512,
+            "a_sample": [
+              7,
+              5
+            ],
+            "b_sample": [
+              7,
+              21
+            ],
+            "grade_blocks": {
+              "a": 2,
+              "b": 0
+            },
+            "worst_grade_blocks": 2
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.3731,
+        "peak_mass": 46,
+        "pit_mass": 21,
+        "second_peak": 15,
+        "land_bodies": 1,
+        "water_bodies": 5,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.3499
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        2624,
+        3456,
+        2624,
+        3648
+      ],
+      "centre": [
+        3040,
+        3136
+      ],
+      "chunk_bounds": [
+        163,
+        216,
+        163,
+        228
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.1918,
+      "within_symmetry_gate": true,
+      "relief_blocks": 11.0,
+      "mirror_tilt_blocks": -1.01,
+      "water_fraction": 0.4119,
+      "types": [
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 320,
+      "homebase_on_land": true,
+      "homebase_grade": 11,
+      "measured": {
+        "origin_sample": [
+          210,
+          210
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 432,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.11,
+        "deviation_over_relief": 0.3013,
+        "mirror_tilt_blocks": -1.01,
+        "mirror_tilt_blocks_per_block": -0.00099,
+        "mirror_residual_blocks": 2.34,
+        "mirror_residual_over_relief": 0.2926,
+        "relief_blocks": {
+          "a": 7.0,
+          "b": 11.0
+        },
+        "relief_gap": 0.2222,
+        "roughness": {
+          "a": 1.046,
+          "b": 0.646
+        },
+        "roughness_gap": 0.2369,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.536,
+        "water_fraction": 0.4119,
+        "land_fraction": 0.5881,
+        "coast_density": 0.1167,
+        "dominant_biome_share": 0.0864,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.3086,
+        "swamp_share": 0.119,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 320,
+              "a_sample": [
+                21,
+                11
+              ],
+              "b_sample": [
+                21,
+                21
+              ],
+              "grade_blocks": {
+                "a": 8,
+                "b": 11
+              },
+              "worst_grade_blocks": 11
+            }
+          ],
+          "max_separation_blocks": 320,
+          "grade_at_max_separation": 11,
+          "flattest": {
+            "separation_blocks": 320,
+            "a_sample": [
+              21,
+              11
+            ],
+            "b_sample": [
+              21,
+              21
+            ],
+            "grade_blocks": {
+              "a": 8,
+              "b": 11
+            },
+            "worst_grade_blocks": 11
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 320,
+        "separation_sign": 0.8056,
+        "peak_mass": 65,
+        "pit_mass": 7,
+        "second_peak": 16,
+        "land_bodies": 2,
+        "water_bodies": 2,
+        "largest_land_share": 0.9943,
+        "coastline_per_1k_blocks2": 3.6476
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -3712,
+        -2688,
+        -2560,
+        -1728
+      ],
+      "centre": [
+        -3200,
+        -2144
+      ],
+      "chunk_bounds": [
+        -227,
+        -174,
+        -167,
+        -102
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.1931,
+      "within_symmetry_gate": true,
+      "relief_blocks": 35.0,
+      "mirror_tilt_blocks": -4.51,
+      "water_fraction": 0.5062,
+      "types": [
+        "archipelago",
+        "divided_by_a_cut"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 512,
+      "homebase_on_land": true,
+      "homebase_grade": 28,
+      "measured": {
+        "origin_sample": [
+          12,
+          48
+        ],
+        "scoop_blocks": [
+          1056,
+          864
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 6.76,
+        "deviation_over_relief": 0.1933,
+        "mirror_tilt_blocks": -4.51,
+        "mirror_tilt_blocks_per_block": -0.00542,
+        "mirror_residual_blocks": 7.61,
+        "mirror_residual_over_relief": 0.2114,
+        "relief_blocks": {
+          "a": 35.0,
+          "b": 35.0
+        },
+        "relief_gap": 0.0,
+        "roughness": {
+          "a": 3.183,
+          "b": 1.591
+        },
+        "roughness_gap": 0.3335,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 6.852,
+        "water_fraction": 0.5062,
+        "land_fraction": 0.4938,
+        "coast_density": 0.0988,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0337,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0135,
+        "dark_forest_share": 0.0236,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 512,
+              "a_sample": [
+                3,
+                5
+              ],
+              "b_sample": [
+                3,
+                21
+              ],
+              "grade_blocks": {
+                "a": 28,
+                "b": 28
+              },
+              "worst_grade_blocks": 28
+            }
+          ],
+          "max_separation_blocks": 512,
+          "grade_at_max_separation": 28,
+          "flattest": {
+            "separation_blocks": 512,
+            "a_sample": [
+              3,
+              5
+            ],
+            "b_sample": [
+              3,
+              21
+            ],
+            "grade_blocks": {
+              "a": 28,
+              "b": 28
+            },
+            "worst_grade_blocks": 28
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 512,
+        "separation_sign": 0.8039,
+        "peak_mass": 184,
+        "pit_mass": 20,
+        "second_peak": 50,
+        "land_bodies": 4,
+        "water_bodies": 1,
+        "largest_land_share": 0.8727,
+        "coastline_per_1k_blocks2": 3.0163
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -3520,
+        -2240,
+        -640,
+        384
+      ],
+      "centre": [
+        -2880,
+        -128
+      ],
+      "chunk_bounds": [
+        -207,
+        -154,
+        -41,
+        24
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.1947,
+      "within_symmetry_gate": true,
+      "relief_blocks": 66.0,
+      "mirror_tilt_blocks": -2.13,
+      "water_fraction": 0.1863,
+      "types": [
+        "divided_by_a_ridge"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 832,
+      "homebase_on_land": true,
+      "homebase_grade": 23,
+      "measured": {
+        "origin_sample": [
+          18,
+          108
+        ],
+        "scoop_blocks": [
+          1312,
+          1056
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "z",
+        "contested_pairs": 656,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 12.85,
+        "deviation_over_relief": 0.2216,
+        "mirror_tilt_blocks": -2.13,
+        "mirror_tilt_blocks_per_block": -0.00208,
+        "mirror_residual_blocks": 12.98,
+        "mirror_residual_over_relief": 0.2094,
+        "relief_blocks": {
+          "a": 58.0,
+          "b": 66.0
+        },
+        "relief_gap": 0.0645,
+        "roughness": {
+          "a": 6.853,
+          "b": 7.098
+        },
+        "roughness_gap": 0.0175,
+        "median_elevation": {
+          "a": 78.0,
+          "b": 82.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 10.886,
+        "water_fraction": 0.1863,
+        "land_fraction": 0.8137,
+        "coast_density": 0.0695,
+        "dominant_biome_share": 0.2432,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.4863,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 832,
+              "a_sample": [
+                17,
+                3
+              ],
+              "b_sample": [
+                17,
+                29
+              ],
+              "grade_blocks": {
+                "a": 20,
+                "b": 23
+              },
+              "worst_grade_blocks": 23
+            }
+          ],
+          "max_separation_blocks": 832,
+          "grade_at_max_separation": 23,
+          "flattest": {
+            "separation_blocks": 832,
+            "a_sample": [
+              17,
+              3
+            ],
+            "b_sample": [
+              17,
+              29
+            ],
+            "grade_blocks": {
+              "a": 20,
+              "b": 23
+            },
+            "worst_grade_blocks": 23
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 832,
+        "separation_sign": 0.1419,
+        "peak_mass": 342,
+        "pit_mass": 257,
+        "second_peak": 59,
+        "land_bodies": 1,
+        "water_bodies": 2,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.0787
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        2240,
+        3072,
+        -4096,
+        -3072
+      ],
+      "centre": [
+        2656,
+        -3584
+      ],
+      "chunk_bounds": [
+        139,
+        192,
+        -257,
+        -192
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.2005,
+      "within_symmetry_gate": true,
+      "relief_blocks": 65.0,
+      "mirror_tilt_blocks": 0.91,
+      "water_fraction": 0.0786,
+      "types": [
+        "arid",
+        "badlands"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 21,
+      "measured": {
+        "origin_sample": [
+          198,
+          0
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 13.03,
+        "deviation_over_relief": 0.2005,
+        "mirror_tilt_blocks": 0.91,
+        "mirror_tilt_blocks_per_block": 0.00109,
+        "mirror_residual_blocks": 13.11,
+        "mirror_residual_over_relief": 0.2017,
+        "relief_blocks": {
+          "a": 65.0,
+          "b": 64.0
+        },
+        "relief_gap": 0.0078,
+        "roughness": {
+          "a": 6.383,
+          "b": 5.313
+        },
+        "roughness_gap": 0.0915,
+        "median_elevation": {
+          "a": 73,
+          "b": 67
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 12.185,
+        "water_fraction": 0.0786,
+        "land_fraction": 0.9214,
+        "coast_density": 0.0864,
+        "dominant_biome_share": 0.0606,
+        "arid_share": 0.6476,
+        "badlands_share": 0.4085,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                19
+              ],
+              "b_sample": [
+                23,
+                19
+              ],
+              "grade_blocks": {
+                "a": 24,
+                "b": 2
+              },
+              "worst_grade_blocks": 24
+            },
+            {
+              "separation_blocks": 384,
+              "a_sample": [
+                7,
+                23
+              ],
+              "b_sample": [
+                19,
+                23
+              ],
+              "grade_blocks": {
+                "a": 21,
+                "b": 4
+              },
+              "worst_grade_blocks": 21
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 24,
+          "flattest": {
+            "separation_blocks": 384,
+            "a_sample": [
+              7,
+              23
+            ],
+            "b_sample": [
+              19,
+              23
+            ],
+            "grade_blocks": {
+              "a": 21,
+              "b": 4
+            },
+            "worst_grade_blocks": 21
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.4455,
+        "peak_mass": 219,
+        "pit_mass": 84,
+        "second_peak": 67,
+        "land_bodies": 1,
+        "water_bodies": 6,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.5603
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -1216,
+        -384,
+        -1216,
+        -192
+      ],
+      "centre": [
+        -800,
+        -704
+      ],
+      "chunk_bounds": [
+        -77,
+        -24,
+        -77,
+        -12
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.2085,
+      "within_symmetry_gate": true,
+      "relief_blocks": 13.0,
+      "mirror_tilt_blocks": -0.46,
+      "water_fraction": 0.2256,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 704,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          90,
+          90
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 432,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.71,
+        "deviation_over_relief": 0.2087,
+        "mirror_tilt_blocks": -0.46,
+        "mirror_tilt_blocks_per_block": -0.00045,
+        "mirror_residual_blocks": 2.8,
+        "mirror_residual_over_relief": 0.2797,
+        "relief_blocks": {
+          "a": 13.0,
+          "b": 6.0
+        },
+        "relief_gap": 0.3684,
+        "roughness": {
+          "a": 1.34,
+          "b": 1.043
+        },
+        "roughness_gap": 0.1247,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 64.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.0,
+        "water_fraction": 0.2256,
+        "land_fraction": 0.7744,
+        "coast_density": 0.1403,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.6958,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 704,
+              "a_sample": [
+                19,
+                5
+              ],
+              "b_sample": [
+                19,
+                27
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 704,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 704,
+            "a_sample": [
+              19,
+              5
+            ],
+            "b_sample": [
+              19,
+              27
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 2
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 704,
+        "separation_sign": 0.7083,
+        "peak_mass": 82,
+        "pit_mass": 14,
+        "second_peak": 21,
+        "land_bodies": 1,
+        "water_bodies": 8,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 4.2438
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -832,
+        0,
+        2816,
+        3840
+      ],
+      "centre": [
+        -416,
+        3328
+      ],
+      "chunk_bounds": [
+        -53,
+        0,
+        175,
+        240
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.2131,
+      "within_symmetry_gate": true,
+      "relief_blocks": 16.0,
+      "mirror_tilt_blocks": 4.98,
+      "water_fraction": 0.4119,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 5,
+      "measured": {
+        "origin_sample": [
+          102,
+          216
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.41,
+        "deviation_over_relief": 0.852,
+        "mirror_tilt_blocks": 4.98,
+        "mirror_tilt_blocks_per_block": 0.00599,
+        "mirror_residual_blocks": 3.35,
+        "mirror_residual_over_relief": 0.3346,
+        "relief_blocks": {
+          "a": 4.0,
+          "b": 16.0
+        },
+        "relief_gap": 0.6,
+        "roughness": {
+          "a": 0.479,
+          "b": 1.921
+        },
+        "roughness_gap": 0.6008,
+        "median_elevation": {
+          "a": 63,
+          "b": 65
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.185,
+        "water_fraction": 0.4119,
+        "land_fraction": 0.5881,
+        "coast_density": 0.1336,
+        "dominant_biome_share": 0.0101,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.752,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                5
+              ],
+              "b_sample": [
+                23,
+                5
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 18
+              },
+              "worst_grade_blocks": 18
+            },
+            {
+              "separation_blocks": 512,
+              "a_sample": [
+                5,
+                29
+              ],
+              "b_sample": [
+                21,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 13
+              },
+              "worst_grade_blocks": 13
+            },
+            {
+              "separation_blocks": 384,
+              "a_sample": [
+                7,
+                27
+              ],
+              "b_sample": [
+                19,
+                27
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 11
+              },
+              "worst_grade_blocks": 11
+            },
+            {
+              "separation_blocks": 256,
+              "a_sample": [
+                9,
+                27
+              ],
+              "b_sample": [
+                17,
+                27
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 5
+              },
+              "worst_grade_blocks": 5
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 18,
+          "flattest": {
+            "separation_blocks": 256,
+            "a_sample": [
+              9,
+              27
+            ],
+            "b_sample": [
+              17,
+              27
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 5
+            },
+            "worst_grade_blocks": 5
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.5556,
+        "peak_mass": 91,
+        "pit_mass": 26,
+        "second_peak": 27,
+        "land_bodies": 1,
+        "water_bodies": 2,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 3.9983
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -2176,
+        -1344,
+        -1792,
+        -768
+      ],
+      "centre": [
+        -1760,
+        -1280
+      ],
+      "chunk_bounds": [
+        -137,
+        -84,
+        -113,
+        -48
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.22,
+      "within_symmetry_gate": true,
+      "relief_blocks": 10.0,
+      "mirror_tilt_blocks": -1.29,
+      "water_fraction": 0.4074,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": false,
+      "why_not_generatable": "no mirrored pair of Homebase discs sits on land",
+      "homebase_max_separation_blocks": null,
+      "homebase_on_land": false,
+      "homebase_grade": null,
+      "measured": {
+        "origin_sample": [
+          60,
+          72
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 432,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.2,
+        "deviation_over_relief": 0.2201,
+        "mirror_tilt_blocks": -1.29,
+        "mirror_tilt_blocks_per_block": -0.00126,
+        "mirror_residual_blocks": 2.63,
+        "mirror_residual_over_relief": 0.3758,
+        "relief_blocks": {
+          "a": 10.0,
+          "b": 3.0
+        },
+        "relief_gap": 0.5385,
+        "roughness": {
+          "a": 1.319,
+          "b": 0.403
+        },
+        "roughness_gap": 0.5318,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.714,
+        "water_fraction": 0.4074,
+        "land_fraction": 0.5926,
+        "coast_density": 0.1728,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.7329,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [],
+          "why": "no mirrored pair of probe discs sits on land"
+        },
+        "homebase_max_separation_blocks": null,
+        "separation_sign": 0.963,
+        "peak_mass": 53,
+        "pit_mass": 1,
+        "second_peak": 20,
+        "land_bodies": 2,
+        "water_bodies": 2,
+        "largest_land_share": 0.9924,
+        "coastline_per_1k_blocks2": 5.1557
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        3008,
+        4032,
+        896,
+        1728
+      ],
+      "centre": [
+        3520,
+        1312
+      ],
+      "chunk_bounds": [
+        193,
+        246,
+        49,
+        114
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.2227,
+      "within_symmetry_gate": true,
+      "relief_blocks": 11.0,
+      "mirror_tilt_blocks": -0.47,
+      "water_fraction": 0.3614,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          222,
+          156
+        ],
+        "scoop_blocks": [
+          1056,
+          864
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.45,
+        "deviation_over_relief": 0.2223,
+        "mirror_tilt_blocks": -0.47,
+        "mirror_tilt_blocks_per_block": -0.00057,
+        "mirror_residual_blocks": 2.54,
+        "mirror_residual_over_relief": 0.3177,
+        "relief_blocks": {
+          "a": 11.0,
+          "b": 4.0
+        },
+        "relief_gap": 0.4667,
+        "roughness": {
+          "a": 1.261,
+          "b": 0.686
+        },
+        "roughness_gap": 0.2954,
+        "median_elevation": {
+          "a": 65,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.111,
+        "water_fraction": 0.3614,
+        "land_fraction": 0.6386,
+        "coast_density": 0.0808,
+        "dominant_biome_share": 0.0864,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                15,
+                3
+              ],
+              "b_sample": [
+                15,
+                23
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 3
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              15,
+              3
+            ],
+            "b_sample": [
+              15,
+              23
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 3
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.3714,
+        "peak_mass": 48,
+        "pit_mass": 22,
+        "second_peak": 14,
+        "land_bodies": 1,
+        "water_bodies": 1,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 2.5253
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        512,
+        1344,
+        -1792,
+        -768
+      ],
+      "centre": [
+        928,
+        -1280
+      ],
+      "chunk_bounds": [
+        31,
+        84,
+        -113,
+        -48
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.2227,
+      "within_symmetry_gate": true,
+      "relief_blocks": 11.0,
+      "mirror_tilt_blocks": 0.25,
+      "water_fraction": 0.3872,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 8,
+      "measured": {
+        "origin_sample": [
+          144,
+          72
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.45,
+        "deviation_over_relief": 0.2223,
+        "mirror_tilt_blocks": 0.25,
+        "mirror_tilt_blocks_per_block": 0.0003,
+        "mirror_residual_blocks": 2.52,
+        "mirror_residual_over_relief": 0.2287,
+        "relief_blocks": {
+          "a": 11.0,
+          "b": 11.0
+        },
+        "relief_gap": 0.0,
+        "roughness": {
+          "a": 0.903,
+          "b": 1.078
+        },
+        "roughness_gap": 0.0883,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.926,
+        "water_fraction": 0.3872,
+        "land_fraction": 0.6128,
+        "coast_density": 0.0595,
+        "dominant_biome_share": 0.1089,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                9
+              ],
+              "b_sample": [
+                23,
+                9
+              ],
+              "grade_blocks": {
+                "a": 10,
+                "b": 2
+              },
+              "worst_grade_blocks": 10
+            },
+            {
+              "separation_blocks": 512,
+              "a_sample": [
+                5,
+                5
+              ],
+              "b_sample": [
+                21,
+                5
+              ],
+              "grade_blocks": {
+                "a": 9,
+                "b": 3
+              },
+              "worst_grade_blocks": 9
+            },
+            {
+              "separation_blocks": 384,
+              "a_sample": [
+                7,
+                5
+              ],
+              "b_sample": [
+                19,
+                5
+              ],
+              "grade_blocks": {
+                "a": 8,
+                "b": 4
+              },
+              "worst_grade_blocks": 8
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 10,
+          "flattest": {
+            "separation_blocks": 384,
+            "a_sample": [
+              7,
+              5
+            ],
+            "b_sample": [
+              19,
+              5
+            ],
+            "grade_blocks": {
+              "a": 8,
+              "b": 4
+            },
+            "worst_grade_blocks": 8
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.675,
+        "peak_mass": 67,
+        "pit_mass": 13,
+        "second_peak": 16,
+        "land_bodies": 2,
+        "water_bodies": 1,
+        "largest_land_share": 0.9945,
+        "coastline_per_1k_blocks2": 1.7186
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        896,
+        1920,
+        -640,
+        192
+      ],
+      "centre": [
+        1408,
+        -224
+      ],
+      "chunk_bounds": [
+        61,
+        114,
+        -47,
+        18
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.2263,
+      "within_symmetry_gate": true,
+      "relief_blocks": 67.0,
+      "mirror_tilt_blocks": -5.46,
+      "water_fraction": 0.0741,
+      "types": [
+        "divided_by_a_ridge"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 17,
+      "measured": {
+        "origin_sample": [
+          156,
+          108
+        ],
+        "scoop_blocks": [
+          1056,
+          864
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 15.16,
+        "deviation_over_relief": 0.2263,
+        "mirror_tilt_blocks": -5.46,
+        "mirror_tilt_blocks_per_block": -0.00656,
+        "mirror_residual_blocks": 15.75,
+        "mirror_residual_over_relief": 0.2541,
+        "relief_blocks": {
+          "a": 67.0,
+          "b": 50.0
+        },
+        "relief_gap": 0.1453,
+        "roughness": {
+          "a": 7.45,
+          "b": 5.542
+        },
+        "roughness_gap": 0.1468,
+        "median_elevation": {
+          "a": 92,
+          "b": 88
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 11.407,
+        "water_fraction": 0.0741,
+        "land_fraction": 0.9259,
+        "coast_density": 0.0224,
+        "dominant_biome_share": 0.3187,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0034,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0079,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                15,
+                3
+              ],
+              "b_sample": [
+                15,
+                23
+              ],
+              "grade_blocks": {
+                "a": 26,
+                "b": 24
+              },
+              "worst_grade_blocks": 26
+            },
+            {
+              "separation_blocks": 256,
+              "a_sample": [
+                3,
+                9
+              ],
+              "b_sample": [
+                3,
+                17
+              ],
+              "grade_blocks": {
+                "a": 17,
+                "b": 11
+              },
+              "worst_grade_blocks": 17
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 26,
+          "flattest": {
+            "separation_blocks": 256,
+            "a_sample": [
+              3,
+              9
+            ],
+            "b_sample": [
+              3,
+              17
+            ],
+            "grade_blocks": {
+              "a": 17,
+              "b": 11
+            },
+            "worst_grade_blocks": 17
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.0616,
+        "peak_mass": 224,
+        "pit_mass": 198,
+        "second_peak": 60,
+        "land_bodies": 1,
+        "water_bodies": 1,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 0.7015
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        704,
+        1536,
+        -2368,
+        -1344
+      ],
+      "centre": [
+        1120,
+        -1856
+      ],
+      "chunk_bounds": [
+        43,
+        96,
+        -149,
+        -84
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.23,
+      "within_symmetry_gate": true,
+      "relief_blocks": 15.0,
+      "mirror_tilt_blocks": -1.77,
+      "water_fraction": 0.0247,
+      "types": [
+        "landmass"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          150,
+          54
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 3.45,
+        "deviation_over_relief": 0.2466,
+        "mirror_tilt_blocks": -1.77,
+        "mirror_tilt_blocks_per_block": -0.00213,
+        "mirror_residual_blocks": 3.5,
+        "mirror_residual_over_relief": 0.25,
+        "relief_blocks": {
+          "a": 14.0,
+          "b": 15.0
+        },
+        "relief_gap": 0.0345,
+        "roughness": {
+          "a": 1.533,
+          "b": 1.691
+        },
+        "roughness_gap": 0.0489,
+        "median_elevation": {
+          "a": 67,
+          "b": 64
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 3.852,
+        "water_fraction": 0.0247,
+        "land_fraction": 0.9753,
+        "coast_density": 0.0348,
+        "dominant_biome_share": 0.3176,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0516,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                29
+              ],
+              "b_sample": [
+                23,
+                29
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              29
+            ],
+            "b_sample": [
+              23,
+              29
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 2
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.534,
+        "peak_mass": 79,
+        "pit_mass": 24,
+        "second_peak": 19,
+        "land_bodies": 1,
+        "water_bodies": 4,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 1.0873
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -3904,
+        -2656,
+        -3136,
+        -1600
+      ],
+      "centre": [
+        -3280,
+        -2368
+      ],
+      "chunk_bounds": [
+        -232,
+        -179,
+        -181,
+        -116
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.2317,
+      "within_symmetry_gate": true,
+      "relief_blocks": 41.0,
+      "mirror_tilt_blocks": -7.32,
+      "water_fraction": 0.2964,
+      "types": [],
+      "generatable": false,
+      "why_not_generatable": "no Map Type claims this window, so no template can verify it",
+      "homebase_max_separation_blocks": 1344,
+      "homebase_on_land": true,
+      "homebase_grade": 20,
+      "measured": {
+        "origin_sample": [
+          6,
+          30
+        ],
+        "scoop_blocks": [
+          1280,
+          1568
+        ],
+        "area_blocks2": 2007040,
+        "team_axis": "z",
+        "contested_pairs": 960,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 9.5,
+        "deviation_over_relief": 0.2318,
+        "mirror_tilt_blocks": -7.32,
+        "mirror_tilt_blocks_per_block": -0.00476,
+        "mirror_residual_blocks": 9.76,
+        "mirror_residual_over_relief": 0.2441,
+        "relief_blocks": {
+          "a": 41.0,
+          "b": 39.0
+        },
+        "relief_gap": 0.025,
+        "roughness": {
+          "a": 4.079,
+          "b": 2.703
+        },
+        "roughness_gap": 0.2029,
+        "median_elevation": {
+          "a": 67.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 8.817,
+        "water_fraction": 0.2964,
+        "land_fraction": 0.7036,
+        "coast_density": 0.0673,
+        "dominant_biome_share": 0.0459,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0398,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0061,
+        "dark_forest_share": 0.0107,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 1344,
+              "a_sample": [
+                3,
+                3
+              ],
+              "b_sample": [
+                3,
+                45
+              ],
+              "grade_blocks": {
+                "a": 20,
+                "b": 11
+              },
+              "worst_grade_blocks": 20
+            }
+          ],
+          "max_separation_blocks": 1344,
+          "grade_at_max_separation": 20,
+          "flattest": {
+            "separation_blocks": 1344,
+            "a_sample": [
+              3,
+              3
+            ],
+            "b_sample": [
+              3,
+              45
+            ],
+            "grade_blocks": {
+              "a": 20,
+              "b": 11
+            },
+            "worst_grade_blocks": 20
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 1344,
+        "separation_sign": 0.6425,
+        "peak_mass": 294,
+        "pit_mass": 64,
+        "second_peak": 53,
+        "land_bodies": 3,
+        "water_bodies": 3,
+        "largest_land_share": 0.9775,
+        "coastline_per_1k_blocks2": 2.0089
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -1600,
+        -768,
+        2816,
+        3840
+      ],
+      "centre": [
+        -1184,
+        3328
+      ],
+      "chunk_bounds": [
+        -101,
+        -48,
+        175,
+        240
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.24,
+      "within_symmetry_gate": false,
+      "relief_blocks": 9.0,
+      "mirror_tilt_blocks": -0.27,
+      "water_fraction": 0.3996,
+      "types": [
+        "frozen"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 640,
+      "homebase_on_land": true,
+      "homebase_grade": 3,
+      "measured": {
+        "origin_sample": [
+          78,
+          216
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "x",
+        "contested_pairs": 429,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.16,
+        "deviation_over_relief": 0.3601,
+        "mirror_tilt_blocks": -0.27,
+        "mirror_tilt_blocks_per_block": -0.00032,
+        "mirror_residual_blocks": 2.21,
+        "mirror_residual_over_relief": 0.2453,
+        "relief_blocks": {
+          "a": 6.0,
+          "b": 9.0
+        },
+        "relief_gap": 0.2,
+        "roughness": {
+          "a": 0.791,
+          "b": 1.022
+        },
+        "roughness_gap": 0.1277,
+        "median_elevation": {
+          "a": 63,
+          "b": 63
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.037,
+        "water_fraction": 0.3996,
+        "land_fraction": 0.6004,
+        "coast_density": 0.1212,
+        "dominant_biome_share": 0.0135,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.7071,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 640,
+              "a_sample": [
+                3,
+                5
+              ],
+              "b_sample": [
+                23,
+                5
+              ],
+              "grade_blocks": {
+                "a": 3,
+                "b": 2
+              },
+              "worst_grade_blocks": 3
+            }
+          ],
+          "max_separation_blocks": 640,
+          "grade_at_max_separation": 3,
+          "flattest": {
+            "separation_blocks": 640,
+            "a_sample": [
+              3,
+              5
+            ],
+            "b_sample": [
+              23,
+              5
+            ],
+            "grade_blocks": {
+              "a": 3,
+              "b": 2
+            },
+            "worst_grade_blocks": 3
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 640,
+        "separation_sign": 0.6471,
+        "peak_mass": 56,
+        "pit_mass": 12,
+        "second_peak": 12,
+        "land_bodies": 4,
+        "water_bodies": 4,
+        "largest_land_share": 0.8561,
+        "coastline_per_1k_blocks2": 3.4722
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        2816,
+        3648,
+        -3520,
+        -2496
+      ],
+      "centre": [
+        3232,
+        -3008
+      ],
+      "chunk_bounds": [
+        175,
+        228,
+        -221,
+        -156
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.25,
+      "within_symmetry_gate": false,
+      "relief_blocks": 10.0,
+      "mirror_tilt_blocks": -1.85,
+      "water_fraction": 0.3378,
+      "types": [
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 576,
+      "homebase_on_land": true,
+      "homebase_grade": 4,
+      "measured": {
+        "origin_sample": [
+          216,
+          18
+        ],
+        "scoop_blocks": [
+          864,
+          1056
+        ],
+        "area_blocks2": 912384,
+        "team_axis": "z",
+        "contested_pairs": 432,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.5,
+        "deviation_over_relief": 0.2505,
+        "mirror_tilt_blocks": -1.85,
+        "mirror_tilt_blocks_per_block": -0.00181,
+        "mirror_residual_blocks": 2.46,
+        "mirror_residual_over_relief": 0.3069,
+        "relief_blocks": {
+          "a": 10.0,
+          "b": 8.0
+        },
+        "relief_gap": 0.1111,
+        "roughness": {
+          "a": 1.379,
+          "b": 0.672
+        },
+        "roughness_gap": 0.3444,
+        "median_elevation": {
+          "a": 65.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.0,
+        "water_fraction": 0.3378,
+        "land_fraction": 0.6622,
+        "coast_density": 0.1392,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.248,
+        "badlands_share": 0.0,
+        "frozen_share": 0.0,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0898,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 576,
+              "a_sample": [
+                23,
+                7
+              ],
+              "b_sample": [
+                23,
+                25
+              ],
+              "grade_blocks": {
+                "a": 4,
+                "b": 8
+              },
+              "worst_grade_blocks": 8
+            },
+            {
+              "separation_blocks": 320,
+              "a_sample": [
+                21,
+                11
+              ],
+              "b_sample": [
+                21,
+                21
+              ],
+              "grade_blocks": {
+                "a": 4,
+                "b": 3
+              },
+              "worst_grade_blocks": 4
+            }
+          ],
+          "max_separation_blocks": 576,
+          "grade_at_max_separation": 8,
+          "flattest": {
+            "separation_blocks": 320,
+            "a_sample": [
+              21,
+              11
+            ],
+            "b_sample": [
+              21,
+              21
+            ],
+            "grade_blocks": {
+              "a": 4,
+              "b": 3
+            },
+            "worst_grade_blocks": 4
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 576,
+        "separation_sign": 0.7778,
+        "peak_mass": 48,
+        "pit_mass": 6,
+        "second_peak": 11,
+        "land_bodies": 1,
+        "water_bodies": 7,
+        "largest_land_share": 1.0,
+        "coastline_per_1k_blocks2": 4.2088
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -3136,
+        -2112,
+        704,
+        1984
+      ],
+      "centre": [
+        -2624,
+        1344
+      ],
+      "chunk_bounds": [
+        -191,
+        -138,
+        51,
+        116
+      ],
+      "team_axis": "x",
+      "deviation_over_relief": 0.2678,
+      "within_symmetry_gate": false,
+      "relief_blocks": 9.0,
+      "mirror_tilt_blocks": 0.29,
+      "water_fraction": 0.2018,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 832,
+      "homebase_on_land": true,
+      "homebase_grade": 2,
+      "measured": {
+        "origin_sample": [
+          30,
+          150
+        ],
+        "scoop_blocks": [
+          1056,
+          1312
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "x",
+        "contested_pairs": 656,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 2.41,
+        "deviation_over_relief": 0.3011,
+        "mirror_tilt_blocks": 0.29,
+        "mirror_tilt_blocks_per_block": 0.00028,
+        "mirror_residual_blocks": 2.46,
+        "mirror_residual_over_relief": 0.273,
+        "relief_blocks": {
+          "a": 8.0,
+          "b": 9.0
+        },
+        "relief_gap": 0.0588,
+        "roughness": {
+          "a": 0.894,
+          "b": 0.959
+        },
+        "roughness_gap": 0.0353,
+        "median_elevation": {
+          "a": 64.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 2.409,
+        "water_fraction": 0.2018,
+        "land_fraction": 0.7982,
+        "coast_density": 0.1256,
+        "dominant_biome_share": 0.0525,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.6327,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 832,
+              "a_sample": [
+                3,
+                17
+              ],
+              "b_sample": [
+                29,
+                17
+              ],
+              "grade_blocks": {
+                "a": 2,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            }
+          ],
+          "max_separation_blocks": 832,
+          "grade_at_max_separation": 2,
+          "flattest": {
+            "separation_blocks": 832,
+            "a_sample": [
+              3,
+              17
+            ],
+            "b_sample": [
+              29,
+              17
+            ],
+            "grade_blocks": {
+              "a": 2,
+              "b": 2
+            },
+            "worst_grade_blocks": 2
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 832,
+        "separation_sign": 0.4815,
+        "peak_mass": 60,
+        "pit_mass": 21,
+        "second_peak": 16,
+        "land_bodies": 5,
+        "water_bodies": 6,
+        "largest_land_share": 0.9806,
+        "coastline_per_1k_blocks2": 3.6262
+      }
+    },
+    {
+      "seed": 1454639558,
+      "block_bounds": [
+        -2176,
+        -1152,
+        2432,
+        3712
+      ],
+      "centre": [
+        -1664,
+        3072
+      ],
+      "chunk_bounds": [
+        -131,
+        -78,
+        159,
+        224
+      ],
+      "team_axis": "z",
+      "deviation_over_relief": 0.29,
+      "within_symmetry_gate": false,
+      "relief_blocks": 6.0,
+      "mirror_tilt_blocks": 1.55,
+      "water_fraction": 0.3777,
+      "types": [
+        "frozen",
+        "shattered_coast"
+      ],
+      "generatable": true,
+      "why_not_generatable": null,
+      "homebase_max_separation_blocks": 960,
+      "homebase_on_land": true,
+      "homebase_grade": 2,
+      "measured": {
+        "origin_sample": [
+          60,
+          204
+        ],
+        "scoop_blocks": [
+          1056,
+          1312
+        ],
+        "area_blocks2": 1385472,
+        "team_axis": "z",
+        "contested_pairs": 660,
+        "contested_fraction": 1.0,
+        "mirror_deviation_blocks": 1.74,
+        "deviation_over_relief": 0.4348,
+        "mirror_tilt_blocks": 1.55,
+        "mirror_tilt_blocks_per_block": 0.00121,
+        "mirror_residual_blocks": 1.99,
+        "mirror_residual_over_relief": 0.3323,
+        "relief_blocks": {
+          "a": 4.0,
+          "b": 6.0
+        },
+        "relief_gap": 0.2,
+        "roughness": {
+          "a": 0.338,
+          "b": 0.793
+        },
+        "roughness_gap": 0.4027,
+        "median_elevation": {
+          "a": 63.0,
+          "b": 63.0
+        },
+        "bounded": "no. Both gaps are reported; no discard threshold is set here.",
+        "coarse_deviation_blocks": 1.267,
+        "water_fraction": 0.3777,
+        "land_fraction": 0.6223,
+        "coast_density": 0.1367,
+        "dominant_biome_share": 0.0,
+        "arid_share": 0.0,
+        "badlands_share": 0.0,
+        "frozen_share": 0.6977,
+        "swamp_share": 0.0,
+        "jungle_share": 0.0,
+        "pale_share": 0.0,
+        "dark_forest_share": 0.0,
+        "homebase_pair": {
+          "frontier": [
+            {
+              "separation_blocks": 960,
+              "a_sample": [
+                15,
+                5
+              ],
+              "b_sample": [
+                15,
+                35
+              ],
+              "grade_blocks": {
+                "a": 0,
+                "b": 2
+              },
+              "worst_grade_blocks": 2
+            }
+          ],
+          "max_separation_blocks": 960,
+          "grade_at_max_separation": 2,
+          "flattest": {
+            "separation_blocks": 960,
+            "a_sample": [
+              15,
+              5
+            ],
+            "b_sample": [
+              15,
+              35
+            ],
+            "grade_blocks": {
+              "a": 0,
+              "b": 2
+            },
+            "worst_grade_blocks": 2
+          },
+          "tradeoff": "separation vs flatness. No pair on this frontier is chosen here; picking one is a template decision."
+        },
+        "homebase_max_separation_blocks": 960,
+        "separation_sign": 0.8209,
+        "peak_mass": 61,
+        "pit_mass": 6,
+        "second_peak": 13,
+        "land_bodies": 2,
+        "water_bodies": 6,
+        "largest_land_share": 0.9893,
+        "coastline_per_1k_blocks2": 4.065
+      }
+    }
+  ],
+  "within_gate": 24,
+  "generatable": 19,
+  "described_only": 9,
+  "dropped_open_water": 4,
+  "proves": "biome and approximate height only. Surface water, developability, ore, caves, buildability and every seam certification need the window generated."
+}

@@ -1,0 +1,13 @@
+test_an_absent_entities_directory_is_reported_not_crashed (test_clearance.EvictEntities.test_an_absent_entities_directory_is_reported_not_crashed) ... ok
+test_empty_optional_entity_region_is_accepted_but_corruption_is_not (test_clearance.EvictEntities.test_empty_optional_entity_region_is_accepted_but_corruption_is_not) ... ok
+test_nothing_to_place_evicts_nothing (test_clearance.EvictEntities.test_nothing_to_place_evicts_nothing) ... ok
+test_the_footprint_test_covers_the_column_a_structure_occupies (test_clearance.EvictEntities.test_the_footprint_test_covers_the_column_a_structure_occupies) ... ok
+test_a_clean_site_is_not_refused (test_clearance.RefuseBuiltSites.test_a_clean_site_is_not_refused) ... ok
+test_a_village_house_in_the_footprint_refuses_the_site (test_clearance.RefuseBuiltSites.test_a_village_house_in_the_footprint_refuses_the_site) ... ok
+test_every_offending_site_is_reported_not_just_the_first (test_clearance.RefuseBuiltSites.test_every_offending_site_is_reported_not_just_the_first) ... ok
+test_natural_ground_does_not_refuse (test_clearance.RefuseBuiltSites.test_natural_ground_does_not_refuse) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.016s
+
+OK
