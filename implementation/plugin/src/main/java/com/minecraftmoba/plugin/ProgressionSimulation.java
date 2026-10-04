@@ -43,6 +43,44 @@ public final class ProgressionSimulation {
                 wp += e.getValue() * awards.getOrDefault(e.getKey(), 0);
             return wp;
         }
+        /** This policy as a level-independent {@link Rate}. */
+        public Rate asRate(Map<String, Integer> awards) {
+            double flat = workPerMinute(awards);
+            return new Rate() {
+                @Override public double workPerMinute(int level) { return flat; }
+                @Override public String name() { return name(); }
+            };
+        }
+    }
+
+    /**
+     * A Construction player, limited by what the chain can supply and what they
+     * can carry, rather than by how fast they can click.
+     *
+     * @param slotsAtLevel the Capacity curve, which is why this varies by level
+     */
+    public static Rate construction(String name, ConstructionEconomy economy,
+                                    java.util.function.IntUnaryOperator slotsAtLevel,
+                                    int wpPerPlacement) {
+        return new Rate() {
+            @Override public double workPerMinute(int level) {
+                return economy.limit(slotsAtLevel.applyAsInt(level)).blocksPerMinute() * wpPerPlacement;
+            }
+            @Override public String name() { return name; }
+        };
+    }
+
+    /**
+     * A work rate that may depend on the level it is earned at.
+     *
+     * Added because a flat rate cannot express the Construction case at all.
+     * Carry capacity is a Growth stat, so a builder's ceiling RISES as they
+     * level, which makes construction a compounding loop rather than a
+     * constant -- and a constant would have answered a question nobody asked.
+     */
+    public interface Rate {
+        double workPerMinute(int level);
+        String name();
     }
 
     /** When a policy arrives at each level, and how long each one took. */
@@ -63,15 +101,22 @@ public final class ProgressionSimulation {
      * a loop. "This player never levels" is a real and interesting answer, and
      * it should be returned rather than hung on.
      */
-    public List<Arrival> run(Policy policy) {
-        var out = new ArrayList<Arrival>();
-        double perMinute = policy.workPerMinute(awards);
-        if (perMinute <= 0) return out;
+    public List<Arrival> run(Policy policy) { return run(policy.asRate(awards)); }
 
+    /**
+     * Walk a rate up the curve, re-reading it at every level.
+     *
+     * Re-read rather than sampled once, because a rate that rises with level is
+     * the whole point of the Construction case: sampling at level 1 would
+     * understate the cap by the entire Capacity curve.
+     */
+    public List<Arrival> run(Rate rate) {
+        var out = new ArrayList<Arrival>();
         double elapsed = 0;
         for (int level = 1; level < curve.maxLevel(); level++) {
-            int cost = curve.costToLeave(level);
-            double minutes = cost / perMinute;
+            double perMinute = rate.workPerMinute(level);
+            if (perMinute <= 0) return List.of();
+            double minutes = curve.costToLeave(level) / perMinute;
             elapsed += minutes;
             out.add(new Arrival(level + 1, elapsed, minutes));
         }
@@ -79,8 +124,11 @@ public final class ProgressionSimulation {
     }
 
     /** Minutes for a policy to reach the cap, or -1 if it never does. */
-    public double minutesToCap(Policy policy) {
-        List<Arrival> arrivals = run(policy);
+    public double minutesToCap(Policy policy) { return minutesToCap(policy.asRate(awards)); }
+
+    /** Minutes for a rate to reach the cap, or -1 if it never does. */
+    public double minutesToCap(Rate rate) {
+        List<Arrival> arrivals = run(rate);
         return arrivals.isEmpty() ? -1 : arrivals.get(arrivals.size() - 1).minutesTotal();
     }
 
