@@ -1,0 +1,7 @@
+{
+  "pack": {
+    "description": "Prototype test-map generation: prevent trial chambers; retain other vanilla generation",
+    "min_format": [94, 1],
+    "max_format": [94, 1]
+  }
+}

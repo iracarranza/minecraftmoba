@@ -26,8 +26,9 @@ from __future__ import annotations
 from pathlib import Path
 
 from serialization.nbt import plain
-from serialization.region import read_region, write_region
+from serialization.region import write_region
 
+from .materialize import read_entity_region
 from .respect import is_structure
 
 
@@ -110,7 +111,7 @@ def evict_entities(world: Path, placements, extents) -> dict:
     removed, kinds, touched = 0, {}, 0
     for region in sorted(entities_dir.glob('r.*.mca')):
         chunks, dirty = {}, False
-        for cx, cz, name, root in read_region(region):
+        for cx, cz, name, root in read_entity_region(region):
             # EDIT THE TAG TREE, NOT A PLAIN COPY.
             #
             # This read the chunk, converted it with `plain()`, filtered that,

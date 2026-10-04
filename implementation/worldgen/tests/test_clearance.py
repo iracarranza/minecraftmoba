@@ -7,6 +7,7 @@ WORLDGEN = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORLDGEN))
 
 import unittest
+import tempfile
 
 from terrain_harvest import clearance
 
@@ -57,6 +58,20 @@ class RefuseBuiltSites(unittest.TestCase):
 
 
 class EvictEntities(unittest.TestCase):
+
+    def test_empty_optional_entity_region_is_accepted_but_corruption_is_not(self):
+        with tempfile.TemporaryDirectory() as directory:
+            world = Path(directory)
+            region = world / 'entities/r.0.0.mca'
+            region.parent.mkdir()
+            region.write_bytes(b'')
+            places = [{'structure': 'pillager_outpost', 'world_xyz': [0, 64, 0]}]
+            extents = {'pillager_outpost': (8, 21)}
+            self.assertEqual(0, clearance.evict_entities(world, places, extents)['removed'])
+            self.assertEqual(b'', region.read_bytes())
+            region.write_bytes(b'corrupt')
+            with self.assertRaises(ValueError):
+                clearance.evict_entities(world, places, extents)
 
     def test_an_absent_entities_directory_is_reported_not_crashed(self):
         r = clearance.evict_entities(

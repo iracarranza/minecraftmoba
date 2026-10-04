@@ -90,7 +90,38 @@ def cell_of(x, z, size, origin):
     return ((x - origin[0]) // size, (z - origin[1]) // size)
 
 
-def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1):
+def _section_counts(container):
+    """Exact palette histogram for a modern 4096-block section.
+
+    Packed longs are padded (entries never straddle a long). Count only the
+    4096 actual entries, including when the final long has unused bits.
+    """
+    palette = container['palette']
+    if len(palette) == 1:
+        return {palette[0]['Name']: 4096}
+    bits = max(4, (len(palette) - 1).bit_length())
+    per_long = 64 // bits
+    bit_mask = (1 << bits) - 1
+    counts = Counter()
+    remaining = 4096
+    for signed in container['data']:
+        word = signed & ((1 << 64) - 1)
+        for _ in range(min(per_long, remaining)):
+            counts[word & bit_mask] += 1
+            word >>= bits
+        remaining -= min(per_long, remaining)
+        if not remaining:
+            break
+    if remaining:
+        raise ValueError('truncated block-state section')
+    result = Counter()
+    for index, count in counts.items():
+        result[palette[index]['Name']] += count
+    return result
+
+
+def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1,
+         *, fast_sections: bool = True):
     mask = Mask(volume)
     b = mask.bounds
     origin = (b['x'][0], b['z'][0])
@@ -114,12 +145,35 @@ def scan(volume, source: Path, cell_size: int, y_range, stride: int = 1):
             if not f.exists(): continue
             consumed[str(f.relative_to(source))] = sha(f)
             for cx, cz, _, root in read_region(f):
+                if (cx * 16 > b['x'][1] or cx * 16 + 15 < b['x'][0]
+                        or cz * 16 > b['z'][1] or cz * 16 + 15 < b['z'][0]):
+                    continue
                 chunk = VanillaChunk(plain(root))
                 sections = {s.value['Y'].value: plain(s).get('block_states')
                             for s in root.value['sections'].value}
                 for sy, container in sections.items():
                     if container is None: continue
                     if sy * 16 > hi or sy * 16 + 15 < lo: continue
+                    x0, z0 = cx * 16, cz * 16
+                    # Only aggregate when the entire section belongs to one
+                    # measurement cell and the finite selection includes it.
+                    # Clipped edges, curved masks and strided estimates retain
+                    # the existing per-block path.
+                    if (fast_sections and stride == 1
+                            and lo <= sy * 16 and sy * 16 + 15 <= hi
+                            and cell_of(x0, z0, cell_size, origin) ==
+                                cell_of(x0 + 15, z0 + 15, cell_size, origin)
+                            and mask.section_inside(x0, sy * 16, z0)):
+                        if not any(p['Name'] in ORE or p['Name'] in VEGETATION
+                                   for p in container['palette']):
+                            continue
+                        cell = cells[cell_of(x0, z0, cell_size, origin)]
+                        for name, count in _section_counts(container).items():
+                            if name in ORE:
+                                cell['ore'][ORE[name]] += count
+                            elif name in VEGETATION:
+                                cell['vegetation'][VEGETATION[name]] += count
+                        continue
                     # A full-depth scan of a whole map is hundreds of millions of
                     # blocks, so deep passes sample every Nth column and scale the
                     # result. Counts then become estimates and are labelled so.
