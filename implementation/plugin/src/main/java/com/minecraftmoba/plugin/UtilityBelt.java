@@ -59,9 +59,24 @@ public final class UtilityBelt implements Listener {
     /** When each Toolbox's belt is ready again. */
     private final Map<UUID, Long> ready = new HashMap<>();
     /** The circuit origin, which an Observer moves off Toolbox. */
-    private final Map<UUID, UUID> projectedOrigin = new HashMap<>();
+    /**
+     * One circuit activation's own state.
+     *
+     * Was two maps keyed by PLAYER, which worked only because the passive
+     * cannot overlap itself -- its cooldown guarantees one run at a time. A2
+     * fires the same components on its own charges, so two runs can now be in
+     * flight for one player, and player-keyed state would have them reading
+     * and clearing each other's origin and amplification.
+     *
+     * Per run, both are ordinary fields and the question disappears.
+     */
+    static final class Run {
+        UUID projectedOrigin;
+        int amplification;
+    }
+
     /** Amplification for the NEXT component only: Base, +1 or +2. */
-    private final Map<UUID, Integer> amplification = new HashMap<>();
+
 
     public UtilityBelt(MobaPlugin plugin, ToolboxStatuses statuses) {
         this.plugin = plugin;
@@ -102,13 +117,48 @@ public final class UtilityBelt implements Listener {
         if (circuit.isEmpty()) return false;
 
         ready.put(p.getUniqueId(), now + cooldownTicks(p));
-        projectedOrigin.remove(p.getUniqueId());
-        amplification.remove(p.getUniqueId());
 
+        Run run = new Run();
         for (var step : circuit.steps())
             plugin.getServer().getScheduler().runTaskLater(plugin,
-                    () -> resolve(p, step), step.tick());
+                    () -> resolve(p, step, run), step.tick());
         return true;
+    }
+
+    /**
+     * Fire the first {@code count} components of the same circuit, now.
+     *
+     * A2's entire mechanism. There is no separate A2 circuit -- that is the
+     * point of the ability -- so this runs the same steps the passive would,
+     * read from the same board, on its own {@link Run}.
+     *
+     * <h2>It does not touch the passive's cooldown</h2>
+     *
+     * Neither reading it nor setting it. A2 is charge-limited and the passive
+     * is cooldown-limited, and classes.md wants them alternating rather than
+     * gating one another: A2 spent while the belt is cooling is the intended
+     * rhythm, not an exploit.
+     *
+     * <h2>The steps run immediately, without their authored delays</h2>
+     *
+     * A circuit's tick offsets are the program's timing, and the passive
+     * honours them. A2 is a manual jolt of the first components rather than a
+     * short run of the program, so it resolves them in order on this tick. A
+     * two-component A2 that took a second to finish because slot two carried a
+     * Repeater would be reporting the circuit's shape rather than firing it.
+     *
+     * @return how many components actually resolved, which Short Circuit reads
+     */
+    public int jumpstart(Player p, int count) {
+        var circuit = circuitOf(p);
+        if (circuit == null || circuit.isEmpty() || count <= 0) return 0;
+        Run run = new Run();
+        int fired = 0;
+        for (var step : circuit.steps()) {
+            if (fired >= count) break;
+            if (resolve(p, step, run)) fired++;
+        }
+        return fired;
     }
 
     /**
@@ -162,20 +212,20 @@ public final class UtilityBelt implements Listener {
      * The step's own tick decided WHEN; everything about WHAT is read here, at
      * resolution, which is what makes the circuit piloted.
      */
-    private void resolve(Player p, CircuitReader.Step step) {
-        if (!p.isOnline() || p.isDead()) return;
+    private boolean resolve(Player p, CircuitReader.Step step, Run run) {
+        if (!p.isOnline() || p.isDead()) return false;
         // The player may have rearranged the inventory mid-circuit. The
         // program's shape was fixed at trigger, but an item that is no longer
         // there cannot be spent, and firing a component nobody is carrying
         // would make consumption a fiction.
-        if (!spend(p, step)) return;
+        if (!spend(p, step)) return false;
 
-        Entity origin = origin(p);
-        int amp = amplification.getOrDefault(p.getUniqueId(), 0);
+        Entity origin = origin(p, run);
+        int amp = run.amplification;
         boolean amplifies = false;
 
         switch (step.component()) {
-            case OBSERVER -> observe(p, origin);
+            case OBSERVER -> observe(p, origin, run);
             case TORCH -> { if (origin != p) statuses.illuminate(origin); }
             case PISTON -> impulse(p, origin, p.getLocation().getDirection(), amp);
             case STICKY_PISTON -> {
@@ -183,7 +233,7 @@ public final class UtilityBelt implements Listener {
                 if (origin instanceof LivingEntity living && Targetability.status(living, p))
                     statuses.root(living);
             }
-            case COMPARATOR -> { amplify(p); amplifies = true; }
+            case COMPARATOR -> { amplify(run); amplifies = true; }
             case DISPENSER -> fire(p, origin, false);
             case DROPPER -> fire(p, origin, true);
             case HOPPER -> vacuum(p);
@@ -195,7 +245,8 @@ public final class UtilityBelt implements Listener {
 
         // Amplification is for the NEXT component only, so anything that is
         // not itself a Comparator clears it after use.
-        if (!amplifies) amplification.remove(p.getUniqueId());
+        if (!amplifies) run.amplification = 0;
+        return true;
     }
 
     /** Take one item from the step's slot, or decline to resolve. */
@@ -209,14 +260,14 @@ public final class UtilityBelt implements Listener {
     }
 
     /** The current circuit origin: Toolbox, or whatever an Observer acquired. */
-    private Entity origin(Player p) {
-        UUID id = projectedOrigin.get(p.getUniqueId());
+    private Entity origin(Player p, Run run) {
+        UUID id = run.projectedOrigin;
         if (id == null) return p;
         Entity target = plugin.getServer().getEntity(id);
         // A lost target falls back to Toolbox rather than making the rest of
         // the circuit a no-op: the machine keeps running from where it stands.
         if (target == null || target.isDead() || !statuses.isObserved(target)) {
-            projectedOrigin.remove(p.getUniqueId());
+            run.projectedOrigin = null;
             return p;
         }
         return target;
@@ -230,11 +281,11 @@ public final class UtilityBelt implements Listener {
      * quartz-heavy components, drops, circuit time and live aim, and most of
      * such a machine is spent on projection alone -- which is the point.
      */
-    private void observe(Player p, Entity origin) {
+    private void observe(Player p, Entity origin, Run run) {
         Entity found = aimedAt(p, origin);
         if (found == null) return;
         statuses.observe(found);
-        projectedOrigin.put(p.getUniqueId(), found.getUniqueId());
+        run.projectedOrigin = found.getUniqueId();
     }
 
     /** The nearest valid target along Toolbox's live facing, from a given origin. */
@@ -275,8 +326,8 @@ public final class UtilityBelt implements Listener {
     }
 
     /** Comparator: convert the amplification ladder one step, to a ceiling of +2. */
-    private void amplify(Player p) {
-        amplification.merge(p.getUniqueId(), 1, (a, b) -> Math.min(2, a + b));
+    private void amplify(Run run) {
+        run.amplification = Math.min(2, run.amplification + 1);
     }
 
     /**
@@ -347,5 +398,12 @@ public final class UtilityBelt implements Listener {
     }
 
     /** Match-scoped, like everything else the belt holds. */
-    public void reset() { ready.clear(); projectedOrigin.clear(); amplification.clear(); }
+    /**
+     * Drop cooldowns for a match reset.
+     *
+     * Run state needs no clearing now that it lives on the run: a run in
+     * flight when the match ends holds the only reference to its own state,
+     * and both go away together.
+     */
+    public void reset() { ready.clear(); }
 }

@@ -968,11 +968,14 @@ abilities:
       #
       # The Lv30 capstone is DEFERRED, not absent. Its slot is left empty
       # rather than filled with a placeholder.
-      # A2 and the Ultimate are not yet built; the class ships a partial kit
-      # rather than a placeholder in their slots.
-      branches: { reconfiguratron: more_config }
-      persistentStateDefaults: { reconfiguratronBranch: more_config }
+      # The Ultimate is not yet built; the class ships a partial kit rather
+      # than a placeholder in its slot.
+      branches: { reconfiguratron: more_config, jumpstartinator: super_circuit }
+      persistentStateDefaults:
+        reconfiguratronBranch: more_config
+        jumpstartinatorBranch: super_circuit
       a1: reconfiguratron
+      a2: jumpstartinator
       growth:
         level6:
           infrastructure:
@@ -1182,6 +1185,27 @@ abilities:
         speedy_swap: { cooldownMultiplier: 0.5, combat: false }
         more_config: { depth: 3, combat: false }
         spare_parts: { combat: false }
+    # Toolbox A2. [WORKING] values are provisional calibration.
+    jumpstartinator:
+      displayName: "Jumpstartinator!"
+      # Combat: it fires the belt's components at targets on demand. The
+      # passive declares separately; this is the manual activation of it.
+      combat: true
+      # Unused -- A2 is charge-limited. Zero so nothing reads a cooldown that
+      # does not exist.
+      cooldownTicks: 0
+      charges: 3
+      rechargeTicks: 160            # 8s
+      components: 2
+      # Short Circuit fires when FEWER than this many components resolved.
+      shortCircuitBelow: 2
+      shortCircuit:
+        damage: 6.0
+        radius: 4.0
+      branches:
+        overcharging: { combat: true }
+        super_circuit: { components: 3, combat: true }
+        short_circuit: { combat: true }
     # Daredevil. [WORKING] every value is provisional calibration carried
     # from codex/lightfooted-from-phase1; none has been played.
     runway:

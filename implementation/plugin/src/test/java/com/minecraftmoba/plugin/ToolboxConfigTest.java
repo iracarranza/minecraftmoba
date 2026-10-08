@@ -107,7 +107,7 @@ class ToolboxConfigTest {
         assertNotNull(toolbox, "the class must exist, or setclass refuses it");
         assertEquals("utility_belt", toolbox.getString("passiveHook"));
         assertEquals("reconfiguratron", toolbox.getString("a1"), "A1 is built");
-        assertNull(toolbox.getString("a2"), "Jumpstartinator! is designed, not built");
+        assertEquals("jumpstartinator", toolbox.getString("a2"), "A2 is built");
         assertNull(toolbox.getString("ult"), "Gizmo of Absurdity is designed, not built");
     }
 
@@ -195,5 +195,63 @@ class ToolboxConfigTest {
                 .getConfigurationSection("abilities.classes.toolbox.growth"));
         assertNull(packets.get(30), "nothing authored at Lv30 yet");
         assertFalse(packets.isEmpty(), "while the rest of the curve is authored");
+    }
+
+    // ---- A2's numbers against classes.md -----------------------------------
+
+    @Test void jumpstartinatorIsThreeChargesOnAnEightSecondRecharge() {
+        // classes.md is explicit that this is NOT a flat cooldown, and why: a
+        // flat 2s would be thirty uses a minute, while three charges on 8s is
+        // a three-use burst and 7.5 a minute sustained.
+        var a2 = shipped().getConfigurationSection("abilities.definitions.jumpstartinator");
+        assertNotNull(a2);
+        assertEquals(3, a2.getInt("charges"));
+        assertEquals(160, a2.getLong("rechargeTicks"), "eight seconds");
+        assertEquals(0, a2.getLong("cooldownTicks"),
+                "charge-limited, so a cooldown would be a number that merely looks like one");
+    }
+
+    @Test void a2FiresTwoComponentsAndSuperCircuitFiresThree() {
+        var a2 = shipped().getConfigurationSection("abilities.definitions.jumpstartinator");
+        assertEquals(2, a2.getInt("components"));
+        assertEquals(3, a2.getConfigurationSection("branches")
+                         .getConfigurationSection("super_circuit").getInt("components"));
+    }
+
+    @Test void shortCircuitTriggersBelowTheBaseComponentCount() {
+        // "If fewer than two components activate" -- so the threshold and the
+        // base count must stay the same number, or the branch fires on a
+        // perfectly healthy board or never fires at all.
+        var a2 = shipped().getConfigurationSection("abilities.definitions.jumpstartinator");
+        assertEquals(a2.getInt("components"), a2.getInt("shortCircuitBelow"));
+    }
+
+    @Test void a1AndA2OperateOnTheSameEndOfTheBoard() {
+        // The loop classes.md describes: A1 swaps the first components, A2
+        // fires the first components. If these diverged, A1 would stop being
+        // A2's loadout editor and the design's answer to "why reconfigure
+        // mid-fight" would quietly stop being true.
+        var cfg = shipped();
+        int swapped = cfg.getConfigurationSection("abilities.definitions.reconfiguratron").getInt("depth");
+        int fired = cfg.getConfigurationSection("abilities.definitions.jumpstartinator").getInt("components");
+        assertEquals(swapped, fired, "A1 swaps exactly the components A2 fires");
+    }
+
+    @Test void twoCircuitRunsDoNotShareOriginOrAmplification() {
+        // The refactor A2 required. These were maps keyed by PLAYER, which
+        // worked only because the passive cannot overlap itself; A2 fires the
+        // same components on its own charges, so two runs can now be live at
+        // once for one player.
+        var first = new UtilityBelt.Run();
+        var second = new UtilityBelt.Run();
+
+        first.amplification = 2;
+        first.projectedOrigin = java.util.UUID.randomUUID();
+
+        assertEquals(0, second.amplification, "a second run starts unamplified");
+        assertNull(second.projectedOrigin, "and aimed at nobody");
+
+        second.amplification = 0;
+        assertEquals(2, first.amplification, "and clearing it does not clear the first run's");
     }
 }

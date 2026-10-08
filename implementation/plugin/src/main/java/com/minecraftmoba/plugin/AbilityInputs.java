@@ -63,6 +63,9 @@ public final class AbilityInputs implements Listener {
         var reconfig = plugin.getConfig().getConfigurationSection("abilities.definitions.reconfiguratron");
         if (reconfig != null)
             abilities.put("reconfiguratron", new ReconfiguratronAbility(plugin, reconfig, plugin.utilityBelt()));
+        var jump = plugin.getConfig().getConfigurationSection("abilities.definitions.jumpstartinator");
+        if (jump != null)
+            abilities.put("jumpstartinator", new JumpstartinatorAbility(plugin, jump, plugin.utilityBelt()));
         var drill = plugin.getConfig().getConfigurationSection("abilities.definitions.drill_rush");
         if (drill != null) abilities.put("drill_rush", new DrillRushAbility(plugin, drill));
         // Daredevil's three share one state object: momentum and airtime are

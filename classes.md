@@ -3630,6 +3630,19 @@ say.
 
 ### A2 — Jumpstartinator! (3 charges, 8s recharge)
 
+**Built 8 October 2026** as `JumpstartinatorAbility`, firing the same board
+through `UtilityBelt.jumpstart`. Building it required making the belt's run
+state **per run rather than per player**: projected origin and amplification
+were maps keyed by player, which worked only because the passive's cooldown
+guarantees one run at a time. A2 fires the same components on its own charges,
+so two runs can now be live at once for one player, and player-keyed state
+would have had them clearing each other's origin mid-circuit.
+
+A2 does not read or set the passive's cooldown — the two are meant to
+alternate, not gate each other — and it resolves its components immediately
+rather than honouring their authored tick offsets, because it is a manual jolt
+of the first components rather than a short run of the program.
+
 Manually activate the first two components of the **same** Utility Belt,
 targeting Toolbox where applicable. There is no separate A2 circuit; that is
 the point.
