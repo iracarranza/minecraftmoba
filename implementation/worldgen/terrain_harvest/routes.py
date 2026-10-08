@@ -342,10 +342,14 @@ def author(candidate: dict, configuration: dict, world: Path, report: Path,
         'crossings': [c for r in routes for c in r['crosses']],
         'cost_model': 'vanilla_search.task_a.Terrain, the graph that sited the '
                       'team structures and produced the travel matrix',
-        'nature': 'physical path quality only: surfacing, clearing and decking. '
-                  'No movement-speed effect is granted or implied.',
+        'nature': 'physical path quality only: surfacing, clearing, grading and '
+                  'decking. No movement-speed effect is granted or implied.',
+        'grading': 'a median-filtered, step-limited height profile; the corridor '
+                   'follows the PROFILE, not raw terrain, and ground within '
+                   f'{ASSIMILATE} blocks of it is nudged to meet it',
         'not_covered': [
-            'stairs or grading on steep steps; the corridor follows terrain',
+            'stairs, landings and other authored step geometry; a steep run is '
+            'graded by the profile rather than built into treads',
             'what the Route does to Practical Reach, which only the rescan measures',
             'Route width, surface material and headroom as design decisions; these '
             'are authoring fixtures, not canon',
