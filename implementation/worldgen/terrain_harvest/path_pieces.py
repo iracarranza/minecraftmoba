@@ -105,10 +105,55 @@ def connects(left: Piece, right: Piece) -> bool:
     return (left.exit, right.entry) in COMPATIBLE
 
 
+def column_character(profile: Sequence[Optional[int]],
+                     raw: Sequence[Optional[int]],
+                     i: int,
+                     water: Sequence[bool] = (),
+                     turns: Sequence[int] = (),
+                     span_deviation: int = SPAN_DEVIATION,
+                     termini: bool = True) -> str:
+    """What the path is at one column, before any grouping.
+
+    The atomic rule, and the one that exists twice -- here and in the plugin's
+    LabGeometry. Both run fixtures/path-character-crosscheck.json. Grouping
+    into runs is derived from this and is the compiler's business alone.
+
+    <h2>Priority, and why this order</h2>
+
+    ``entrance`` > ``bridge`` > ``stairs`` > ``bend`` > ``straight``.
+
+    A terminus is a STRUCTURAL fact -- it is where the path joins something
+    that was there first -- so it outranks everything about the ground. Water
+    or a void beneath is a PHYSICAL fact and outranks shape: a column cannot be
+    stepped through because it slopes. Slope is shape, a turn is direction, and
+    straight is what is left.
+
+    The two implementations disagreed on this before the fixture. Java checked
+    slope first, so a sloping column over water read as a stair; Python checked
+    the void first and had no terminus at all, so a path's ends were whatever
+    the ground happened to be doing there.
+    """
+    n = len(profile)
+    if termini and n and (i == 0 or i == n - 1):
+        return 'entrance'
+    if i < len(water) and water[i]:
+        return 'bridge'
+    p, r = (profile[i], raw[i]) if i < len(raw) else (None, None)
+    if p is not None and r is not None and p - r >= span_deviation:
+        return 'bridge'
+    if i > 0 and p is not None and profile[i - 1] is not None and p != profile[i - 1]:
+        return 'slope_up' if p > profile[i - 1] else 'slope_down'
+    if i in set(turns):
+        return 'bend'
+    return 'straight'
+
+
 def segment(profile: Sequence[Optional[int]],
             raw: Sequence[Optional[int]],
             turns: Sequence[int] = (),
-            span_deviation: int = SPAN_DEVIATION) -> List[Piece]:
+            span_deviation: int = SPAN_DEVIATION,
+            water: Sequence[bool] = (),
+            termini: bool = False) -> List[Piece]:
     """Cut a fitted profile into pieces.
 
     Each column is first given a *character* from what the path is doing there,
@@ -125,24 +170,17 @@ def segment(profile: Sequence[Optional[int]],
     if n == 0:
         return []
 
-    turn_at = set(turns)
     character = []
     for i in range(n):
-        p, r = profile[i], raw[i]
-        if p is None or r is None:
+        if profile[i] is None or raw[i] is None:
             character.append('flat')          # unknown ground is not a reason to build
             continue
-        if p - r >= span_deviation:
-            character.append('span')
-        elif i > 0 and profile[i - 1] is not None and profile[i] != profile[i - 1]:
-            # Direction is part of the character, not a detail of it. Without
-            # it a ridge is one unbroken run of 'slope' and the reversal at the
-            # top -- the exact place a landing belongs -- is invisible.
-            character.append('slope_up' if profile[i] > profile[i - 1] else 'slope_down')
-        elif i in turn_at:
-            character.append('turn')
-        else:
-            character.append('flat')
+        # Termini are opt-in. A corridor cut for inspection has no structure at
+        # its ends, and calling those columns entrances would demand thresholds
+        # that do not exist.
+        c = column_character(profile, raw, i, water, turns, span_deviation,
+                             termini=termini)
+        character.append(_INTERNAL[c])
 
     pieces: List[Piece] = []
     start = 0
@@ -154,8 +192,15 @@ def segment(profile: Sequence[Optional[int]],
     return _insert_landings(pieces, profile)
 
 
+#: Shared names to the segmenter's internal ones. The cross-check speaks the
+#: shared vocabulary; the run-grouping below is the compiler's own business.
+_INTERNAL = {'entrance': 'portal_end', 'bridge': 'span', 'bend': 'turn',
+             'straight': 'flat', 'slope_up': 'slope_up', 'slope_down': 'slope_down'}
+
+
 _KINDS = {
     'flat': ('straight', 'flat', 'flat'),
+    'portal_end': ('entrance', 'flat', 'portal'),
     'turn': ('bend', 'flat', 'flat'),
     'span': ('bridge', 'deck', 'deck'),
     'slope_up': ('stairs', 'slope', 'slope'),

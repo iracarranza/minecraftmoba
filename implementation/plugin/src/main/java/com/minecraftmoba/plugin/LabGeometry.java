@@ -4,10 +4,54 @@ import java.util.*;
 
 /** Pure, bounded prototype geometry planner; shared by preview and application. */
 public final class LabGeometry {
+    /** Deviation at which ground can no longer carry a walker; shared with the compiler. */
+    public static final int SPAN_DEVIATION = 3;
     public record Pos(int x, int y, int z) {}
     public record XZ(int x, int z) {}
     public record TemplateBlock(int x, int y, int z, String data) {}
-    public enum Module { LANDING, STRAIGHT, CORNER, STAIR, BRIDGE }
+    /**
+     * What the path is at one column.
+     *
+     * Reconciled with the compiler's vocabulary on 8 October 2026 and pinned
+     * by {@code fixtures/path-character-crosscheck.json}. The two had drifted
+     * into answering slightly different questions: BRIDGE here meant water and
+     * there meant ground too far below; LANDING here meant the first or last
+     * column and there meant a slope reversal; there was no ENTRANCE at all.
+     *
+     * One rule now, with both reasons for a bridge and the terminus named for
+     * what it is. LANDING survives as a compiler-side grouping artefact -- it
+     * is synthesised between two stair runs that reverse -- and so is not a
+     * column character and is not cross-checked.
+     */
+    public enum Module { ENTRANCE, BRIDGE, STAIR, BEND, STRAIGHT, LANDING }
+
+    /**
+     * The atomic classification, shared with {@code path_pieces.column_character}.
+     *
+     * <h2>Priority, and why this order</h2>
+     *
+     * {@code ENTRANCE > BRIDGE > STAIR > BEND > STRAIGHT}.
+     *
+     * A terminus is a STRUCTURAL fact -- it is where the path joins something
+     * that was there first -- so it outranks everything about the ground.
+     * Water or a void beneath is a PHYSICAL fact and outranks shape: a column
+     * cannot be stepped through because it happens to slope. Slope is shape, a
+     * turn is direction, and straight is what is left.
+     *
+     * This copy used to test slope FIRST, so a sloping column over water read
+     * as a stair -- a staircase into a river.
+     */
+    public static Module character(int[] profile, int[] raw, int i, boolean[] water,
+                                   java.util.Set<Integer> turns, int spanDeviation,
+                                   boolean termini) {
+        int n = profile.length;
+        if (termini && n > 0 && (i == 0 || i == n - 1)) return Module.ENTRANCE;
+        if (water != null && i < water.length && water[i]) return Module.BRIDGE;
+        if (i < raw.length && profile[i] - raw[i] >= spanDeviation) return Module.BRIDGE;
+        if (i > 0 && profile[i] != profile[i - 1]) return Module.STAIR;
+        if (turns != null && turns.contains(i)) return Module.BEND;
+        return Module.STRAIGHT;
+    }
     public interface Terrain {
         int height(int x, int z);
         boolean water(int x, int z);
@@ -177,9 +221,12 @@ public final class LabGeometry {
                 steps++;
             }
             int surfaceY = height[i];
-            Module module = up!=null ? Module.STAIR : terrain.water(here.x,here.z) ? Module.BRIDGE
-                    : i==0||i==line.size()-1 ? Module.LANDING
-                    : line.get(i-1).x!=line.get(i+1).x && line.get(i-1).z!=line.get(i+1).z ? Module.CORNER : Module.STRAIGHT;
+            boolean turns = i>0 && i<line.size()-1
+                    && line.get(i-1).x!=line.get(i+1).x && line.get(i-1).z!=line.get(i+1).z;
+            boolean[] wet = new boolean[line.size()];
+            wet[i] = terrain.water(here.x, here.z);
+            Module module = character(height, height, i, wet,
+                    turns ? java.util.Set.of(i) : java.util.Set.of(), SPAN_DEVIATION, true);
             modules.merge(module,1,Integer::sum);
             for (int y = raw[i]+1; y < surfaceY; y++)
                 put(terrain,edits,problems,new Pos(here.x,y,here.z),"minecraft:coarse_dirt");

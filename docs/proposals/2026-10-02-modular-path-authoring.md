@@ -209,6 +209,44 @@ would mean giving pieces **roles** rather than ends, which is the special-casing
 the table's shortness exists to avoid. `entrance_faults`, which knows about
 thresholds, is where the information to object actually lives.
 
+## The vocabulary existed twice, 8 October 2026
+
+`LabGeometry` in the plugin and `path_pieces` in the compiler were two
+implementations of the same idea, and they had drifted into answering
+**different questions**:
+
+| | Java `Module` | Python character |
+|---|---|---|
+| bridge | water | ground too far below |
+| landing | first or last column | slope reversal |
+| corner / bend | from the line geometry | caller-supplied turns |
+| entrance | — | caller-supplied |
+
+Reconciled into one rule, with a priority the fixture states:
+
+> **ENTRANCE > BRIDGE > STAIR > BEND > STRAIGHT**
+
+A terminus is a **structural** fact — it is where the path joins something that
+was there first — so it outranks everything about the ground. Water or a void
+beneath is a **physical** fact and outranks shape: a column is not stepped
+through because it happens to slope. Java tested slope first, so **a sloping
+column over a river classified as a staircase**.
+
+**A bridge now has two reasons and one name.** Water was Java's definition and
+a void was Python's; both are true, and a path over a ravine needs the same
+piece as a path over a river.
+
+**`LANDING` is not a column character.** It is synthesised between two reversing
+stair runs, which is a *grouping* decision — so it stays the compiler's alone
+and is deliberately outside the cross-check, rather than forcing the lab to
+implement run-grouping it has no use for.
+
+Two things each fixture asserts about itself: that **every character appears in
+some case** — a fixture that never produced a `BEND` would pass against an
+implementation that had dropped bends — and, on the Java side, that **its own
+regex matched something**, because a hand-parsed cross-check that parses
+nothing passes everything.
+
 ## Where this would start
 
 The review's recommendation, preserved: the strongest first prototype is a
