@@ -92,6 +92,26 @@ not covered, from grading, which is, and states what the profile guarantees.
 Worth noting as a pattern rather than an incident: **the code was fixed and the
 document describing it was not**, and nothing connected the two.
 
+## Built 8 October 2026
+
+`terrain_harvest/path_pieces.py`, pure and with no block writing, covering the
+three stages the corridor work did not have: **segmentation into pieces**,
+**connection validation**, and **traversal measurement**.
+
+Two findings from building it:
+
+- **Slope direction is part of a column's character, not a detail of it.**
+  Without it a ridge reads as one unbroken run and the reversal at the top —
+  the exact place a landing belongs — is invisible. The first implementation
+  had this wrong and produced a single stairs piece climbing and descending.
+- **A landing is for a reversal, not for every pair of stairs.** Flat ground at
+  the top of a climb already provides the legal join, and inserting one anyway
+  would be construction nobody asked for.
+
+The landing is zero-length, occupying the boundary column the two runs share.
+Giving it width would move every later piece and the pieces would stop
+describing the profile they were cut from.
+
 ## Where this would start
 
 The review's recommendation, preserved: the strongest first prototype is a
