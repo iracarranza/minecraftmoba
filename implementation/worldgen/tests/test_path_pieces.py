@@ -179,3 +179,73 @@ class Reporting(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class TerrainTolerance(unittest.TestCase):
+    """What a piece declares it can sit on, and what catches one that cannot."""
+
+    def test_a_grounded_piece_is_limited_by_height_and_a_bridge_is_not(self):
+        # The asymmetry worth encoding. A straight three blocks up is the wrong
+        # piece whatever its length; a bridge is high BY DEFINITION, so height
+        # says nothing about it and length says everything.
+        self.assertEqual(pp.DEFAULT_TOLERANCE, pp.TOLERANCE['straight'])
+        self.assertIsNone(pp.TOLERANCE['bridge'],
+                          'a bridge has no vertical tolerance to exceed')
+
+    def test_a_straight_resting_on_nothing_is_reported(self):
+        # Hand-built rather than segmented, which is exactly the case
+        # segmentation cannot catch: it would have cut this as a bridge.
+        piece = pp.Piece('straight', 0, 3, 'flat', 'flat', 0, 2)
+        faults = pp.terrain_faults([piece], [70] * 4, [70, 66, 65, 70])
+        self.assertEqual(1, len(faults))
+        self.assertIn('tolerance', faults[0])
+
+    def test_ground_within_tolerance_is_not_a_fault(self):
+        piece = pp.Piece('straight', 0, 3, 'flat', 'flat', 0, 2)
+        self.assertEqual([], pp.terrain_faults([piece], [70] * 4, [70, 69, 68, 70]))
+
+    def test_a_segmented_path_satisfies_its_own_tolerances(self):
+        # It should, since the same numbers produced it. This is the check
+        # that the two rules have not drifted apart.
+        profile = [70, 70, 71, 72, 71, 70]
+        raw = [70, 69, 71, 72, 71, 70]
+        pieces = pp.segment(profile, raw)
+        self.assertEqual([], pp.terrain_faults(pieces, profile, raw))
+
+    def test_a_synthesised_landing_is_checked_like_anything_else(self):
+        # The landing is INSERTED at a slope reversal, so nothing in
+        # segmentation ever looked at the ground beneath it. On a ridge that
+        # happens to stand over a drop, this is the only thing that would.
+        landing = pp.Piece('landing', 2, 2, 'flat', 'flat', 0, pp.TOLERANCE['landing'])
+        faults = pp.terrain_faults([landing], [70, 70, 70], [70, 70, 55])
+        self.assertEqual(1, len(faults))
+
+    def test_a_viaduct_is_a_fault_about_the_corridor_not_the_bridge(self):
+        # A sixty-column deck is not a crossing. It almost always means the
+        # centreline went through something it should have gone around.
+        long_span = pp.Piece('bridge', 0, 59, 'deck', 'deck', 0, 2)
+        faults = pp.terrain_faults([long_span], [70] * 60, [40] * 60)
+        self.assertEqual(1, len(faults))
+        self.assertIn('corridor', faults[0])
+
+    def test_a_crossing_within_the_span_cap_is_fine_however_deep(self):
+        deep = pp.Piece('bridge', 0, 5, 'deck', 'deck', 0, 2)
+        self.assertEqual([], pp.terrain_faults([deep], [70] * 6, [10] * 6),
+                         'depth is not what bounds a bridge')
+
+    def test_unmeasured_ground_is_counted_rather_than_blamed(self):
+        # An unknown is not a defect. Folding it into the faults would make a
+        # well-built path over unsurveyed ground indistinguishable from a badly
+        # built one.
+        piece = pp.Piece('straight', 0, 3, 'flat', 'flat', 0, 2)
+        profile = [70, None, None, 70]
+        raw = [70, None, 60, 70]
+        self.assertEqual([], pp.terrain_faults([piece], profile, raw))
+        self.assertEqual(2, pp.unmeasured([piece], profile, raw))
+
+    def test_topology_and_ground_are_reported_separately(self):
+        # A path can be perfectly assembled and resting on nothing. If one
+        # function answered both, "sound" would mean two different things.
+        floating = pp.Piece('straight', 0, 2, 'flat', 'flat', 0, 2)
+        self.assertEqual([], pp.validate([floating]), 'topology is fine')
+        self.assertEqual(1, len(pp.terrain_faults([floating], [70] * 3, [50] * 3)))
+

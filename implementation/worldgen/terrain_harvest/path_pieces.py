@@ -30,6 +30,29 @@ SPAN_DEVIATION = 3
 #: How far a piece may sit from the ground it covers before it is the wrong piece.
 DEFAULT_TOLERANCE = 2
 
+#: Columns a deck may cross before the corridor, not the bridge, is the problem.
+#:
+#: A sixty-column deck is not a crossing, it is a viaduct, and it almost always
+#: means the centreline was routed through something it should have gone around.
+#: Capping it turns a silent monstrosity into a reported fault.
+MAX_SPAN = 24
+
+#: What each kind can accept beneath it.
+#:
+#: Grounded pieces are limited by VERTICAL deviation: a straight sitting three
+#: blocks above the ground is the wrong piece, whatever its length. A bridge is
+#: the opposite -- it exists precisely because the ground is far away, so
+#: height says nothing about whether it is the right piece and LENGTH says
+#: everything. The two are not the same quantity wearing different numbers, and
+#: a single tolerance field would have hidden that.
+TOLERANCE = {
+    'straight': DEFAULT_TOLERANCE,
+    'bend': DEFAULT_TOLERANCE,
+    'stairs': DEFAULT_TOLERANCE,
+    'landing': DEFAULT_TOLERANCE,
+    'bridge': None,                 # unbounded vertically, bounded by MAX_SPAN
+}
+
 
 @dataclass(frozen=True)
 class Piece:
@@ -141,6 +164,7 @@ _KINDS = {
 
 def _piece(character: str, start: int, end: int, profile) -> Piece:
     kind, entry, exit_ = _KINDS[character]
+    tolerance = TOLERANCE.get(kind, DEFAULT_TOLERANCE)
     rise = 0
     # A slope column is the one you ARRIVE at, so the run's climb includes the
     # step into it. Measuring from the run's own first column loses exactly one
@@ -150,7 +174,8 @@ def _piece(character: str, start: int, end: int, profile) -> Piece:
     a, b = profile[base], profile[end]
     if a is not None and b is not None:
         rise = b - a
-    return Piece(kind, start, end, entry, exit_, rise)
+    return Piece(kind, start, end, entry, exit_, rise,
+                 DEFAULT_TOLERANCE if tolerance is None else tolerance)
 
 
 def _insert_landings(pieces: List[Piece], profile) -> List[Piece]:
@@ -171,7 +196,8 @@ def _insert_landings(pieces: List[Piece], profile) -> List[Piece]:
         left = out[-1]
         if not connects(left, right):
             at = right.start
-            out.append(Piece('landing', at, at, 'flat', 'flat', 0))
+            out.append(Piece('landing', at, at, 'flat', 'flat', 0,
+                             TOLERANCE['landing']))
         out.append(right)
     return out
 
@@ -196,6 +222,58 @@ def validate(pieces: Sequence[Piece]) -> List[str]:
         if p.rise != 0:
             faults.append(f'{p} changes height by {p.rise:+d}, which only stairs may do')
     return faults
+
+
+def terrain_faults(pieces: Sequence[Piece],
+                   profile: Sequence[Optional[int]],
+                   raw: Sequence[Optional[int]],
+                   max_span: int = MAX_SPAN) -> List[str]:
+    """Pieces placed where they cannot sit.
+
+    Kept apart from {@link validate} on purpose: that one is topology -- do the
+    pieces meet -- and this one is ground. A path can be perfectly assembled
+    and still be resting on nothing, and conflating the two would make a report
+    that says "sound" mean two different things.
+
+    Segmentation derives most pieces from these same numbers, so most of this
+    passes by construction. It earns its place on the cases segmentation cannot
+    see: the landing, which is SYNTHESISED at a slope reversal and never
+    checked against the ground under it, and any piece supplied by a caller
+    rather than cut from a profile.
+    """
+    faults = []
+    for p in pieces:
+        if p.kind == 'bridge':
+            if p.columns > max_span:
+                faults.append(f'{p} spans {p.columns} columns, past the {max_span} '
+                              f'at which the corridor rather than the crossing is wrong')
+            continue
+        worst = 0
+        for i in range(p.start, min(p.end, len(profile) - 1, len(raw) - 1) + 1):
+            if profile[i] is None or raw[i] is None:
+                continue                    # unmeasured is not a fault; see below
+            worst = max(worst, abs(profile[i] - raw[i]))
+        if worst > p.tolerance:
+            faults.append(f'{p} sits {worst} from the ground, past its tolerance of '
+                          f'{p.tolerance}')
+    return faults
+
+
+def unmeasured(pieces: Sequence[Piece],
+               profile: Sequence[Optional[int]],
+               raw: Sequence[Optional[int]]) -> int:
+    """Columns no judgement could be made about.
+
+    Reported rather than folded into the faults, because an unknown is not a
+    defect and counting it as one would make a well-built path over unsurveyed
+    ground indistinguishable from a badly built one.
+    """
+    total = 0
+    for p in pieces:
+        for i in range(p.start, min(p.end, len(profile) - 1, len(raw) - 1) + 1):
+            if profile[i] is None or raw[i] is None:
+                total += 1
+    return total
 
 
 @dataclass(frozen=True)

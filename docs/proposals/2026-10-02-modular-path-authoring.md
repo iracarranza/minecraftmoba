@@ -138,6 +138,40 @@ step, where almost every column differs in direction from its neighbour.
 Generating bends from that would label the whole path a bend. The caller holds
 the geometry that would answer this.
 
+## Terrain tolerance, 8 October 2026
+
+The `terrain_matching` half. Each piece declares what ground it will accept,
+and the asymmetry turned out to be the content:
+
+> **Grounded pieces are limited by vertical deviation. A spanning piece is
+> limited by horizontal length.**
+
+A straight sitting three blocks above the ground is the wrong piece whatever
+its length. A bridge is high *by definition* — height says nothing about
+whether it is the right piece, and **length says everything**. A sixty-column
+deck is not a crossing, it is a viaduct, and it almost always means the
+centreline was routed through something it should have gone around. So
+`bridge` has no vertical tolerance and a `MAX_SPAN` instead, and exceeding it
+reports a fault **about the corridor rather than about the bridge**.
+
+A single tolerance field would have hidden that the two are different
+quantities.
+
+**Terrain faults are reported apart from connection faults**, because a path
+can be perfectly assembled and resting on nothing; one combined verdict would
+make "sound" mean two different things.
+
+Most of this passes by construction, since segmentation derives pieces from
+the same numbers. It earns its place on what segmentation cannot see: the
+**landing**, which is synthesised at a slope reversal and never checked against
+the ground beneath it — on a ridge standing over a drop, this is the only thing
+that would notice — and any piece supplied by a caller rather than cut from a
+profile.
+
+**Unmeasured columns are counted, not blamed.** An unknown is not a defect, and
+folding it into the faults would make a well-built path over unsurveyed ground
+indistinguishable from a badly built one.
+
 ## Where this would start
 
 The review's recommendation, preserved: the strongest first prototype is a

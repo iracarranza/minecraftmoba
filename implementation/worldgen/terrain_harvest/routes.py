@@ -33,7 +33,7 @@ from vanilla_search.extract import VanillaChunk
 from vanilla_search.task_a import Terrain, path_to, shortest
 
 from .build_structures import WorldEditor
-from .path_pieces import segment, summarise, validate
+from .path_pieces import segment, summarise, terrain_faults, unmeasured, validate
 from .respect import fell, is_leaf, is_log, is_structure
 
 SCHEMA = 'map_routes_authored/1'
@@ -204,7 +204,14 @@ def carve(editor, chunks, centreline):
         for i in range(piece.start, piece.end + 1):
             kind_at[i] = piece.kind
     stats['pieces'] = summarise(pieces)
+    # Two separate questions, reported separately: do the pieces MEET, and can
+    # they SIT where they are. A path can be perfectly assembled and resting on
+    # nothing, and one combined verdict would make "sound" ambiguous.
     stats['piece_faults'] = validate(pieces)
+    stats['terrain_faults'] = terrain_faults(pieces, profile, raw)
+    # An unknown is not a defect. Counted so a path over unsurveyed ground is
+    # distinguishable from a badly built one rather than being blamed for it.
+    stats['unmeasured_columns'] = unmeasured(pieces, profile, raw)
 
     for i, (x, z) in enumerate(centreline):
         y = profile[i]
@@ -378,9 +385,11 @@ def author(candidate: dict, configuration: dict, world: Path, report: Path,
                    'follows the PROFILE, not raw terrain, and ground within '
                    f'{ASSIMILATE} blocks of it is nudged to meet it',
         'assembly': 'the fitted profile is cut into declared pieces -- straight, '
-                    'stairs, landing, bridge -- and their connections are '
-                    'validated; per-route counts and any faults are in each '
-                    "route's statistics",
+                    'stairs, landing, bridge -- each declaring what ground it '
+                    'tolerates. Connection faults and terrain faults are '
+                    'reported separately, because a path can be well assembled '
+                    'and resting on nothing. Unmeasured columns are counted '
+                    'rather than blamed.',
         'not_covered': [
             'stairs, landings and other authored step geometry; a steep run is '
             'graded by the profile rather than built into treads',
