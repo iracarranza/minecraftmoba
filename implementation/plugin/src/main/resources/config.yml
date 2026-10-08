@@ -968,6 +968,11 @@ abilities:
       #
       # The Lv30 capstone is DEFERRED, not absent. Its slot is left empty
       # rather than filled with a placeholder.
+      # A2 and the Ultimate are not yet built; the class ships a partial kit
+      # rather than a placeholder in their slots.
+      branches: { reconfiguratron: more_config }
+      persistentStateDefaults: { reconfiguratronBranch: more_config }
+      a1: reconfiguratron
       growth:
         level6:
           infrastructure:
@@ -1159,6 +1164,24 @@ abilities:
         drift_to_drift: { combat: false }
         branch_to_branch: { speedMultiplier: 1.35, extraLift: 0.35, combat: false }
         track_to_track: { combat: false }
+    # Toolbox A1. [WORKING] values are provisional calibration.
+    reconfiguratron:
+      displayName: "Reconfiguratron!"
+      # Non-combat: it rearranges Toolbox's own inventory and does nothing to
+      # anybody's capacity to fight. Spare Parts heals, which is still not
+      # combat -- the Utility Belt it edits is separately declared.
+      combat: false
+      cooldownTicks: 120            # 6s
+      # How many components from each end are exchanged.
+      depth: 2
+      spareParts:
+        # Effective Health points per component the swap left alone, scaled
+        # per player like every other configured health quantity.
+        healthPerComponent: 1.0
+      branches:
+        speedy_swap: { cooldownMultiplier: 0.5, combat: false }
+        more_config: { depth: 3, combat: false }
+        spare_parts: { combat: false }
     # Daredevil. [WORKING] every value is provisional calibration carried
     # from codex/lightfooted-from-phase1; none has been played.
     runway:

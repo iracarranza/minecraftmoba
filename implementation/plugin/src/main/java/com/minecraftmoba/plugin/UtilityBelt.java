@@ -111,6 +111,17 @@ public final class UtilityBelt implements Listener {
         return true;
     }
 
+    /**
+     * The player's current circuit, for anything that needs to read the board
+     * without firing it.
+     *
+     * A1 rearranges the same board A2 and the passive run, so it must see the
+     * same reading -- including the unlocked width and the flow order. A second
+     * copy of this conversion would be a second definition of what the circuit
+     * IS, and they would drift.
+     */
+    public CircuitReader.Circuit circuitOf(Player p) { return read(p); }
+
     /** Read the board out of the live inventory at its unlocked width. */
     private CircuitReader.Circuit read(Player p) {
         ItemStack[] contents = p.getInventory().getContents();

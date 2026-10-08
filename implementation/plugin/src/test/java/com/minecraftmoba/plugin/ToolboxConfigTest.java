@@ -98,13 +98,17 @@ class ToolboxConfigTest {
      * are absent rather than pointed at a placeholder. An unbound input does
      * nothing; a placeholder would be a lie that looked like a feature.
      */
-    @Test void toolboxShipsWithOnlyItsPassive() {
+    @Test void toolboxShipsAPartialKitAndSaysWhichPartsAreMissing() {
+        // This asserted that NOTHING but the passive was built. A1 now is, so
+        // the tripwire moves rather than being deleted: it still fails the
+        // moment A2 or the Ultimate is wired without this being updated, which
+        // is the whole point of having it.
         var toolbox = shipped().getConfigurationSection("abilities.classes.toolbox");
         assertNotNull(toolbox, "the class must exist, or setclass refuses it");
         assertEquals("utility_belt", toolbox.getString("passiveHook"));
-        assertNull(toolbox.getString("a1"), "Reconfiguratron! is designed, not built");
-        assertNull(toolbox.getString("a2"));
-        assertNull(toolbox.getString("ult"));
+        assertEquals("reconfiguratron", toolbox.getString("a1"), "A1 is built");
+        assertNull(toolbox.getString("a2"), "Jumpstartinator! is designed, not built");
+        assertNull(toolbox.getString("ult"), "Gizmo of Absurdity is designed, not built");
     }
 
     // ---- the Growth clock -------------------------------------------------

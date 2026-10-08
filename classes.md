@@ -3604,6 +3604,13 @@ environmental procs, or make A2 about *when* rather than *how much*.
 
 ### A1 — Reconfiguratron! (6s)
 
+**Built 8 October 2026.** The exchange rule is `Reconfiguration`; the ability
+is `ReconfiguratronAbility`. classes.md fixes the two groups and not the
+pairing between them, which is settled in the implementation as **outermost
+first** — the first component swaps with the last. That is the only pairing
+under which overlapping groups mean anything, and it is what makes Spare Parts'
+payout arise from the arithmetic rather than from a special case.
+
 Swap the first two **components** in the Utility Belt circuit for the last two
 components in the inventory.
 

@@ -60,6 +60,9 @@ public final class AbilityInputs implements Listener {
         if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
         var bounding = plugin.getConfig().getConfigurationSection("abilities.definitions.bounding");
         if (bounding != null) abilities.put("bounding", new BoundingAbility(plugin, bounding));
+        var reconfig = plugin.getConfig().getConfigurationSection("abilities.definitions.reconfiguratron");
+        if (reconfig != null)
+            abilities.put("reconfiguratron", new ReconfiguratronAbility(plugin, reconfig, plugin.utilityBelt()));
         var drill = plugin.getConfig().getConfigurationSection("abilities.definitions.drill_rush");
         if (drill != null) abilities.put("drill_rush", new DrillRushAbility(plugin, drill));
         // Daredevil's three share one state object: momentum and airtime are
@@ -204,11 +207,15 @@ public final class AbilityInputs implements Listener {
             return true;
         }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
+        // Built before the cooldown gate rather than after it, because the
+        // branch it carries may CHANGE the cooldown being checked.
+        var formContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
+        long recharge = ability.rechargeTicks(p, formContext);
         // Say so rather than doing nothing. A cooldown that refuses silently
         // is indistinguishable from an input that was not registered, which is
         // the worse of the two to guess at mid-fight.
         long remaining = cooldowns.untilNextCharge(p.getUniqueId(), ability.id(), tick,
-                ability.charges(), ability.rechargeTicks());
+                ability.charges(), recharge);
         if (remaining > 0) {
             if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, remaining);
             return true;
@@ -221,7 +228,6 @@ public final class AbilityInputs implements Listener {
         // Quick becomes Hold for a hold-dependent ability rather than being
         // refused: refusing leaves a player unable to cast because of a
         // setting, while a tap under Hold already behaves as Quick does.
-        var formContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
         boolean holdDependent = ability.holdDependent(p, formContext);
         CastMode mode = d.castMode().effectiveFor(holdDependent);
         var aimContext = formContext;
@@ -233,7 +239,7 @@ public final class AbilityInputs implements Listener {
         last.put(ability.id(), tick);
         var context = aimContext;
         if (ability.execute(p,context)) {
-            cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),ability.rechargeTicks());
+            cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
             // Activating a COMBAT ability puts the caster in combat. Classified
             // from the declaration, per branch, so Mole tunnelling or a
             // Gardener clipping a plant is not treated as fighting.

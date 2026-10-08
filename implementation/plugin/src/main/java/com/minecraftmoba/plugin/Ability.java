@@ -29,6 +29,20 @@ public interface Ability {
      */
     default long rechargeTicks() { return cooldownTicks(); }
 
+    /**
+     * The recharge for THIS player, with their branch in hand.
+     *
+     * A branch may change a cooldown -- Toolbox's Speedy Swap halves A1's,
+     * Lightfooted's Swarming Bite shortens Lunge's near wolves -- and branches
+     * are per player, so a single global number cannot express it.
+     *
+     * The source branch solved this by naming one ability by string literal
+     * inside the dispatcher. That works once and is wrong twice: the dispatcher
+     * is not where an ability's cooldown is decided, and the second ability to
+     * want it adds a second special case.
+     */
+    default long rechargeTicks(Player player, AbilityContext context) { return rechargeTicks(); }
+
     default Map<String, String> branches() { return Map.of(); }
     default List<String> branchIds() { return List.copyOf(branches().keySet()); }
     default boolean active(Player player) { return false; }
