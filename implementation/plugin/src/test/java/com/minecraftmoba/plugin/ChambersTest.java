@@ -160,4 +160,34 @@ class ChambersTest {
                 List.of(), false), null);
         assertEquals("other", s.pending().description());
     }
+
+    // ---- the shipped bay --------------------------------------------------
+
+    @Test void theShippedChamberFitsTheUndoJournal() throws Exception {
+        // The decision CHAMBERS.md records, enforced rather than described.
+        // Regenerating a bay writes its whole volume, so a radius that puts
+        // that past LabUndo's budget silently makes regeneration
+        // un-undoable -- and nothing else would notice.
+        var cfg = new org.yaml.snakeyaml.Yaml().<java.util.Map<String, Object>>load(
+                java.nio.file.Files.newInputStream(
+                        java.nio.file.Path.of("src/main/resources/config.yml")));
+        @SuppressWarnings("unchecked")
+        var chamber = (java.util.Map<String, Object>)
+                ((java.util.Map<String, Object>) ((java.util.Map<String, Object>)
+                        cfg.get("alpha")).get("lab")).get("chamber");
+
+        int radius = ((Number) chamber.get("radius")).intValue();
+        int height = ((Number) chamber.get("height")).intValue();
+        var shipped = Chamber.around(WORLD, 0, 60, 0, radius, height, UUID.randomUUID());
+
+        assertTrue(shipped.volume() < LabUndo.MAX_BLOCKS,
+                "a bay of " + shipped.volume() + " blocks cannot be journalled against "
+                        + LabUndo.MAX_BLOCKS);
+    }
+
+    @Test void theBudgetIsReadFromTheJournalRatherThanCopied() {
+        // Two copies of a number drift. This one is named where it is enforced.
+        assertEquals(120_000, LabUndo.MAX_BLOCKS);
+        assertEquals(8, LabUndo.MAX_ENTRIES);
+    }
 }

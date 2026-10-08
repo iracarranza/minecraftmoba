@@ -1672,6 +1672,15 @@ alpha:
   instanceWorldName: alpha_match
   # Reusable debug scoops, isolated from the consumable production pool.
   lab:
+    # Chamber bays, cut from the launched scoop.
+    #
+    # 33 x 21 x 33 at radius 16. Deliberately inside LabUndo's 120,000-block
+    # journal, so regenerating a bay stays undoable; a larger radius would put
+    # it out of reach and that is a decision rather than an accident.
+    chamber:
+      radius: 16
+      height: 20
+      floor: 60
     mapsDirectory: lab-maps
     roomWorldName: moba_lab
     instanceWorldName: moba_lab_match

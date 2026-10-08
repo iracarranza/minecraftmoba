@@ -7,8 +7,18 @@ placement experiment has somewhere it cannot escape from. That is what makes
 ```
 /moba lab chamber            allot a bay and go to it
 /moba lab chamber leave      hand it back
+/moba lab chamber confirm    commit the pending placement
+/moba lab chamber cancel     discard it
 /moba lab chamber status     bay, allotment count, what is pending
 ```
+
+Chambers exist only inside a **launched scoop**, not in the lab room. A bay is
+terrain a tester edits, and the room is Adventure-mode and block-protected —
+offering a chamber there would be offering somewhere to build that refuses
+every block.
+
+The workspace is created per launch and dropped in `teardown()` **before** the
+world unloads, so a bay never outlives the terrain it was cut from.
 
 Placement follows the ability gesture rather than a second grammar: the first
 press previews, the same input confirms, another input cancels. That is
@@ -64,6 +74,8 @@ confused:
 Both are legitimate and they answer different questions. They want different
 names, and a measurement taken in one must never be reported as the other.
 
-Also open: a chamber of 33 x 21 x 33 fits `LabUndo`'s 120,000-block journal and
-a larger one does not, so whether a regeneration is undoable is a decision
-about chamber size rather than an accident.
+The shipped bay is 33 x 21 x 33, deliberately inside `LabUndo`'s
+120,000-block journal so that regenerating one stays undoable. That is
+**enforced**, not described: a test reads the radius from `config.yml`, the
+budget from `LabUndo`, and fails if a future radius puts regeneration out of
+reach. Nothing else would notice.

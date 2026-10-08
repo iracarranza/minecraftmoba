@@ -48,6 +48,55 @@ public final class Lab implements Listener {
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
     }
 
+    /**
+     * The chamber workspace, which exists only inside a launched lab scoop.
+     *
+     * Gated on the disposable world rather than on the room, because a bay is
+     * terrain a tester edits and the room is Adventure-mode and protected.
+     * Offering a chamber in the room would be offering somewhere to build that
+     * refuses every block.
+     */
+    private void chamber(Player p, String[] args) {
+        var workspace = plugin.chamberWorkspace();
+        if (workspace == null || !plugin.worldInstance().labActive())
+            throw new IllegalStateException(
+                    "Chambers need a launched scoop. /moba lab start, choose and launch first.");
+        String verb = args.length > 2 ? args[2].toLowerCase(Locale.ROOT) : "take";
+        switch (verb) {
+            case "take", "new" -> {
+                var c = workspace.enter(p);
+                p.sendMessage("Chamber allotted at " + c.minX() + "," + c.minZ()
+                        + ", " + (c.maxX() - c.minX() + 1) + " across. "
+                        + "Undo applies to this bay alone.");
+            }
+            case "leave", "release" -> {
+                workspace.leave(p);
+                p.sendMessage("Chamber released. Its bay is free for the next tester.");
+            }
+            case "cancel" -> {
+                var outcome = workspace.resolve(p, AimState.Decision.CANCEL);
+                p.sendMessage(outcome == ChamberSession.Outcome.CANCELLED
+                        ? "Pending placement discarded." : "Nothing was pending.");
+            }
+            case "confirm" -> {
+                var pending = workspace.session(p).pending();
+                if (pending == null) { p.sendMessage("Nothing is pending."); return; }
+                var outcome = workspace.resolve(p, AimState.Decision.FIRE);
+                if (outcome == ChamberSession.Outcome.REFUSED) {
+                    // Kept, not discarded: the reason is what the tester wants
+                    // now, and rebuilding the placement to read it would be a
+                    // tax on having asked.
+                    p.sendMessage("Refused: " + pending.verdict());
+                    pending.faults().forEach(f -> p.sendMessage("  " + f));
+                } else {
+                    p.sendMessage("Placement confirmed: " + pending.description());
+                }
+            }
+            case "status" -> p.sendMessage(workspace.report(p));
+            default -> p.sendMessage("/moba lab chamber take | leave | confirm | cancel | status");
+        }
+    }
+
     static boolean mayPrepare(Match.State state, boolean labActive) {
         return state == Match.State.IDLE && !labActive;
     }
@@ -79,6 +128,7 @@ public final class Lab implements Listener {
                     Selection s = requireSetup(p); s.team = Team.valueOf(value(args).toUpperCase(Locale.ROOT)); menu(p, "setup", 0);
                 }
                 case "play", "launch" -> play(p);
+                case "chamber" -> chamber(p, args);
                 case "author" -> authoring.command(p, args);
                 case "undo" -> authoring.command(p, new String[]{"lab","author","undo"});
                 case "end", "stop" -> end(p);
@@ -93,7 +143,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | end | leave | status");
+                default -> p.sendMessage("/moba lab start | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -146,6 +196,14 @@ public final class Lab implements Listener {
             p.performCommand("moba setlevel " + p.getName() + " " + s.level);
             plugin.match().startForTest();
             plugin.match().add(p, s.team);
+            // The workspace is built per launch and against the disposable
+            // world, so bays never outlive the terrain they were cut from.
+            World scoop = p.getWorld();
+            var cfg = plugin.getConfig();
+            plugin.chamberWorkspace(new ChamberWorkspace(plugin, scoop,
+                    cfg.getInt("alpha.lab.chamber.radius", 16),
+                    cfg.getInt("alpha.lab.chamber.height", 20),
+                    cfg.getInt("alpha.lab.chamber.floor", 60)));
             p.setGameMode(GameMode.SURVIVAL);
             p.sendMessage("Lab running on " + maps.label(entry) + " as " + s.classId
                     + ". /moba lab end returns to setup. This scoop remains reusable.");
@@ -161,6 +219,10 @@ public final class Lab implements Listener {
 
     private void teardown() throws IOException {
         authoring.clear();
+        // Dropped before the world is unloaded, not after: a bay in a world
+        // that no longer exists is the same defect the scenario harness is
+        // built around avoiding.
+        plugin.chamberWorkspace(null);
         if (plugin.worldInstance().labActive()) {
             plugin.match().resetForLab();
             plugin.worldInstance().exitLab();

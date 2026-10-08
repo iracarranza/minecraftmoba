@@ -395,6 +395,21 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public UtilityBelt utilityBelt() { return utilityBelt; }
     private GizmoWindow gizmoWindow;
     public GizmoWindow gizmoWindow() { return gizmoWindow; }
+    /**
+     * Built when a lab scoop launches and dropped when it ends, because a
+     * chamber is a bay of a disposable world and outliving that world would
+     * leave bays allotted in somewhere that no longer exists.
+     */
+    private ChamberWorkspace chamberWorkspace;
+    public ChamberWorkspace chamberWorkspace() { return chamberWorkspace; }
+    public void chamberWorkspace(ChamberWorkspace workspace) {
+        if (chamberWorkspace != null) {
+            chamberWorkspace.reset();
+            org.bukkit.event.HandlerList.unregisterAll(chamberWorkspace);
+        }
+        chamberWorkspace = workspace;
+        if (workspace != null) getServer().getPluginManager().registerEvents(workspace, this);
+    }
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
     /** Team-coloured glow marking objectives and Fountains as one team system. */
