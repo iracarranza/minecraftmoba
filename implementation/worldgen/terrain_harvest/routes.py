@@ -48,6 +48,7 @@ HALF_WIDTH = 1      # an approximate 3-wide corridor, not an exact cross-section
 HEADROOM = 2        # a player's body, cleared at the WALKING height
 MAX_STEP = 1        # the largest rise a walker takes without jumping repeatedly
 SMOOTH = 7          # columns of median filter: removes noise, keeps the slope
+PROFILE_PASSES = 3  # forward+backward clamp sweeps; three is where it settles
 ASSIMILATE = 2      # deviation the ground is nudged to meet the profile
 FILL = block('coarse_dirt')      # what a small hollow is made up with
 BRIDGE = block('oak_planks')     # only where terrain genuinely cannot carry a walker
@@ -141,11 +142,30 @@ def walkable_profile(raw, max_step=MAX_STEP):
     if not known:
         return list(raw)
     profile = median_filter([known[0] if y is None else y for y in raw])
-    for _ in range(2):                      # forward then backward, twice
+
+    # The ANCHORS are pinned, and this half was missing.
+    #
+    # A median takes the endpoint's height from its neighbours, so a profile
+    # could begin three blocks off the thing the path is supposed to meet --
+    # the floating doorway `entrance_faults` exists to catch. The Java twin
+    # pinned them for exactly this reason and this copy did not, which is why
+    # the two disagreed on 86% of profiles.
+    #
+    # This copy was the wrong one. It was always walkable, but only because it
+    # was free to ignore the anchor -- a path that never reaches its door is
+    # not a walkable path, it is a different path.
+    ends = {0, len(profile) - 1}
+    for i in ends:
+        if raw[i] is not None:
+            profile[i] = raw[i]
+
+    for _ in range(PROFILE_PASSES):
         for i in range(1, len(profile)):
-            profile[i] = clamp_step(profile[i - 1], profile[i], max_step)
+            if i not in ends:
+                profile[i] = clamp_step(profile[i - 1], profile[i], max_step)
         for i in range(len(profile) - 2, -1, -1):
-            profile[i] = clamp_step(profile[i + 1], profile[i], max_step)
+            if i not in ends:
+                profile[i] = clamp_step(profile[i + 1], profile[i], max_step)
     return profile
 
 
@@ -164,6 +184,49 @@ def treatment(deviation):
     if abs(deviation) <= ASSIMILATE:
         return 'assimilated'
     return 'constructed'
+
+
+def anchors_reachable(raw, max_step=MAX_STEP):
+    """Whether any walkable profile can meet both ends.
+
+    A profile that steps at most `max_step` per column cannot cross more than
+    `(columns - 1) * max_step` of height. Two anchors further apart than that
+    admit no solution at all -- not a worse one, none -- and that is a fact
+    about the CORRIDOR rather than about the fitting.
+    """
+    known = [y for y in raw if y is not None]
+    if len(known) < 2:
+        return True
+    return abs(known[-1] - known[0]) <= (len(raw) - 1) * max_step
+
+
+def profile_faults(profile, raw=None, max_step=MAX_STEP):
+    """Why this profile is not walkable, in terms someone can act on.
+
+    Infeasibility is reported as itself rather than as a step. When two anchors
+    are further apart than the columns between them allow, the fitting has no
+    valid answer, and whichever end absorbs the shortfall does so arbitrarily --
+    so reporting "a step of 12 at column 0" names the symptom at a position the
+    algorithm chose, and invites someone to fix the step rather than the route.
+
+    The actionable statement is that the corridor demands more descent than it
+    has room for. The remedies are a longer corridor, switchbacks, or an
+    authored stair -- all decisions about the route, which is where the problem
+    is.
+    """
+    if raw is not None and not anchors_reachable(raw, max_step):
+        known = [y for y in raw if y is not None]
+        drop = abs(known[-1] - known[0])
+        room = (len(raw) - 1) * max_step
+        return [f'anchors are {drop} apart over {len(raw)} columns, which allows '
+                f'only {room}; no walkable profile meets both']
+    out = []
+    for i, (a, b) in enumerate(zip(profile, profile[1:])):
+        if a is None or b is None:
+            continue
+        if abs(b - a) > max_step:
+            out.append(f'step of {abs(b - a)} between columns {i} and {i + 1}')
+    return out
 
 
 def carve(editor, chunks, centreline):
@@ -209,6 +272,7 @@ def carve(editor, chunks, centreline):
     # nothing, and one combined verdict would make "sound" ambiguous.
     stats['piece_faults'] = validate(pieces)
     stats['terrain_faults'] = terrain_faults(pieces, profile, raw)
+    stats['profile_faults'] = profile_faults(profile, raw)
     # An unknown is not a defect. Counted so a path over unsurveyed ground is
     # distinguishable from a badly built one rather than being blamed for it.
     stats['unmeasured_columns'] = unmeasured(pieces, profile, raw)

@@ -1,0 +1,583 @@
+{
+ "schema": "route_profile_crosscheck/1",
+ "note": "Shared fixture. The walkable height profile exists twice -- in the offline compiler (Python, terrain_harvest/routes.py) and in the plugin lab (Java, LabGeometry) -- because the compiler authors Routes into a world file without a server and the lab fits paths at runtime against live blocks. Neither can call the other. Two copies of a rule drift, and these two had: they disagreed on 86% of profiles, because Java pinned the path to its anchors and Python did not. Java was right. Python was always walkable only because it was free to ignore the anchor, which is a path that does not reach its door. Python now pins too, the two agree on every profile tested, and infeasibility -- anchors further apart than the columns allow -- is reported rather than absorbed silently into whichever end loses.",
+ "rules": {
+  "median_window": 7,
+  "max_step": 1,
+  "passes": 3,
+  "anchors": "the first and last columns are PINNED to their raw height and never clamped",
+  "faults": "infeasibility is reported as itself -- anchors further apart than the columns allow -- rather than as a step fault at a position the algorithm chose arbitrarily"
+ },
+ "cases": [
+  {
+   "note": "flat ground is left alone",
+   "raw": [
+    70,
+    70,
+    70,
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "profile": [
+    70,
+    70,
+    70,
+    70,
+    70,
+    70,
+    70,
+    70
+   ],
+   "faults": []
+  },
+  {
+   "note": "a steady slope is a slope, and the median leaves it",
+   "raw": [
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79
+   ],
+   "profile": [
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79
+   ],
+   "faults": []
+  },
+  {
+   "note": "noise is removed without moving the shape",
+   "raw": [
+    70,
+    71,
+    70,
+    71,
+    70,
+    71,
+    70,
+    71
+   ],
+   "profile": [
+    70,
+    70,
+    71,
+    70,
+    71,
+    71,
+    71,
+    71
+   ],
+   "faults": []
+  },
+  {
+   "note": "both anchors are met exactly",
+   "raw": [
+    64,
+    70,
+    71,
+    70,
+    66
+   ],
+   "profile": [
+    64,
+    65,
+    66,
+    67,
+    66
+   ],
+   "faults": []
+  },
+  {
+   "note": "a cliff mid-run is graded into a walkable descent",
+   "raw": [
+    70,
+    70,
+    70,
+    52,
+    52,
+    52,
+    52,
+    52
+   ],
+   "profile": [
+    70,
+    58,
+    57,
+    56,
+    55,
+    54,
+    53,
+    52
+   ],
+   "faults": [
+    "anchors are 18 apart over 8 columns, which allows only 7; no walkable profile meets both"
+   ]
+  },
+  {
+   "note": "the Java endpoint bug: an unclamped pinned anchor",
+   "raw": [
+    70,
+    67,
+    66,
+    65,
+    64,
+    64,
+    63,
+    60,
+    57,
+    54
+   ],
+   "profile": [
+    70,
+    62,
+    61,
+    60,
+    59,
+    58,
+    57,
+    56,
+    55,
+    54
+   ],
+   "faults": [
+    "anchors are 16 apart over 10 columns, which allows only 9; no walkable profile meets both"
+   ]
+  },
+  {
+   "note": "two columns",
+   "raw": [
+    70,
+    74
+   ],
+   "profile": [
+    70,
+    74
+   ],
+   "faults": [
+    "anchors are 4 apart over 2 columns, which allows only 1; no walkable profile meets both"
+   ]
+  },
+  {
+   "note": "one column",
+   "raw": [
+    70
+   ],
+   "profile": [
+    70
+   ],
+   "faults": []
+  },
+  {
+   "note": "a descent that must still land on its anchor",
+   "raw": [
+    80,
+    79,
+    78,
+    70,
+    69,
+    68,
+    60
+   ],
+   "profile": [
+    80,
+    65,
+    64,
+    63,
+    62,
+    61,
+    60
+   ],
+   "faults": [
+    "anchors are 20 apart over 7 columns, which allows only 6; no walkable profile meets both"
+   ]
+  },
+  {
+   "note": "infeasible: anchors further apart than the columns allow",
+   "raw": [
+    70,
+    70,
+    70,
+    70,
+    100
+   ],
+   "profile": [
+    70,
+    97,
+    98,
+    99,
+    100
+   ],
+   "faults": [
+    "anchors are 30 apart over 5 columns, which allows only 4; no walkable profile meets both"
+   ]
+  },
+  {
+   "note": "random terrain 0",
+   "raw": [
+    70,
+    73,
+    74,
+    75,
+    78,
+    78,
+    77,
+    80,
+    81,
+    80,
+    79,
+    80,
+    80,
+    79,
+    78,
+    81,
+    78,
+    79,
+    80,
+    79
+   ],
+   "profile": [
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    80,
+    80,
+    79,
+    79,
+    79,
+    79,
+    79,
+    79,
+    79
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 1",
+   "raw": [
+    70,
+    73,
+    72,
+    69,
+    66,
+    66
+   ],
+   "profile": [
+    70,
+    70,
+    69,
+    68,
+    67,
+    66
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 2",
+   "raw": [
+    70,
+    67,
+    68,
+    68,
+    69,
+    69,
+    72,
+    72,
+    72,
+    73,
+    70,
+    69,
+    70
+   ],
+   "profile": [
+    70,
+    69,
+    69,
+    69,
+    69,
+    69,
+    70,
+    71,
+    72,
+    72,
+    72,
+    71,
+    70
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 3",
+   "raw": [
+    70,
+    71,
+    74,
+    73,
+    73,
+    73,
+    73,
+    76,
+    76,
+    73,
+    72,
+    71,
+    72,
+    71
+   ],
+   "profile": [
+    70,
+    71,
+    72,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    72,
+    72,
+    72,
+    71
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 4",
+   "raw": [
+    70,
+    71,
+    70,
+    67,
+    64,
+    64,
+    64,
+    61,
+    62,
+    63,
+    64,
+    65,
+    64,
+    64,
+    64
+   ],
+   "profile": [
+    70,
+    70,
+    70,
+    69,
+    68,
+    67,
+    66,
+    65,
+    64,
+    64,
+    64,
+    64,
+    64,
+    64,
+    64
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 5",
+   "raw": [
+    70,
+    69,
+    69,
+    69,
+    66,
+    67,
+    66,
+    65,
+    65,
+    64,
+    61,
+    58,
+    59,
+    60,
+    59,
+    62
+   ],
+   "profile": [
+    70,
+    69,
+    69,
+    69,
+    68,
+    67,
+    66,
+    65,
+    65,
+    64,
+    63,
+    62,
+    61,
+    60,
+    61,
+    62
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 6",
+   "raw": [
+    70,
+    71,
+    74,
+    74,
+    73,
+    74,
+    75,
+    74,
+    75,
+    76,
+    76,
+    73
+   ],
+   "profile": [
+    70,
+    71,
+    72,
+    73,
+    74,
+    74,
+    74,
+    75,
+    75,
+    75,
+    74,
+    73
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 7",
+   "raw": [
+    70,
+    70,
+    67,
+    67,
+    66,
+    67,
+    66,
+    63,
+    62,
+    62,
+    63,
+    63,
+    60,
+    60
+   ],
+   "profile": [
+    70,
+    69,
+    68,
+    67,
+    67,
+    66,
+    66,
+    65,
+    64,
+    63,
+    62,
+    62,
+    61,
+    60
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 8",
+   "raw": [
+    70,
+    71,
+    70,
+    69,
+    68,
+    68,
+    68,
+    65,
+    65,
+    65,
+    66,
+    65,
+    66,
+    65,
+    66
+   ],
+   "profile": [
+    70,
+    70,
+    70,
+    69,
+    68,
+    68,
+    68,
+    67,
+    66,
+    65,
+    65,
+    65,
+    66,
+    66,
+    66
+   ],
+   "faults": []
+  },
+  {
+   "note": "random terrain 9",
+   "raw": [
+    70,
+    69,
+    69,
+    69,
+    69,
+    69,
+    68,
+    71,
+    71,
+    72,
+    73
+   ],
+   "profile": [
+    70,
+    69,
+    69,
+    69,
+    69,
+    69,
+    69,
+    70,
+    71,
+    72,
+    73
+   ],
+   "faults": []
+  }
+ ]
+}

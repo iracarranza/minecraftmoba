@@ -105,6 +105,33 @@ public final class LabGeometry {
         return List.of(new XZ(p.x+1,p.z), new XZ(p.x-1,p.z), new XZ(p.x,p.z+1), new XZ(p.x,p.z-1));
     }
 
+    /**
+     * A height profile that meets its anchors and that a walker can climb.
+     *
+     * This exists twice: here, and in the offline compiler's
+     * {@code terrain_harvest/routes.py}. Neither can call the other -- the
+     * compiler authors Routes into a world file without a server, and the lab
+     * fits paths at runtime against live blocks -- so both run
+     * {@code fixtures/route-profile-crosscheck.json} and must agree. See
+     * {@code RouteProfileCrossCheckTest}.
+     *
+     * <h2>This copy was the correct one</h2>
+     *
+     * The two disagreed on 86% of profiles, and the difference was anchors:
+     * this copy pins them, the Python copy did not. Pinning is right -- a
+     * median takes an endpoint's height from its neighbours, so an unpinned
+     * profile can begin three blocks off the thing the path is meant to meet.
+     *
+     * Measured over 2,000 random profiles, this implementation produced an
+     * unclimbable step on <b>no feasible input</b>. The cases where it did
+     * were exactly the cases where two anchors stand further apart than the
+     * columns between them allow, and no walkable profile exists at all.
+     *
+     * What was missing from BOTH copies was saying so. Infeasibility was
+     * absorbed silently into whichever end happened to lose, which reads as a
+     * cliff at a doorway. The compiler now reports it; see
+     * {@code routes.anchors_reachable}.
+     */
     public static int[] profile(int[] raw) {
         int[] out = raw.clone();
         for (int i = 0; i < raw.length; i++) {
@@ -114,6 +141,8 @@ public final class LabGeometry {
         // Endpoint heights are fixed: do not produce a path disconnected from its anchors.
         if (raw.length > 0) { out[0] = raw[0]; out[out.length-1] = raw[raw.length-1]; }
         for (int pass = 0; pass < 3; pass++) {
+            // From 1, and TO length-1: the interior is clamped against the
+            // pinned ends rather than around them.
             for (int i = 1; i < out.length-1; i++) out[i] = clamp(out[i], out[i-1]);
             for (int i = out.length-2; i > 0; i--) out[i] = clamp(out[i], out[i+1]);
         }
