@@ -249,3 +249,75 @@ class TerrainTolerance(unittest.TestCase):
         self.assertEqual([], pp.validate([floating]), 'topology is fine')
         self.assertEqual(1, len(pp.terrain_faults([floating], [70] * 3, [50] * 3)))
 
+class Entrances(unittest.TestCase):
+    """Whether a path can be walked INTO the places it was built to reach."""
+
+    def test_the_gap_this_closes(self):
+        # traverse() measures the walk ALONG a corridor. A path can report a
+        # flawless traversal and finish at a wall five blocks under the door,
+        # and the corridor's own statistics call that a success.
+        profile = [70] * 6
+        self.assertTrue(pp.traverse(profile).walkable, 'the corridor is perfect')
+
+        pieces = [pp.Piece('straight', 0, 4, 'flat', 'flat'), pp.entrance(5, 75)]
+        faults = pp.entrance_faults(pieces, profile, {5: 75})
+        self.assertEqual(1, len(faults), 'and it still does not reach the door')
+        self.assertIn('climb', faults[0])
+
+    def test_a_threshold_one_step_away_is_reached(self):
+        pieces = [pp.entrance(3, 71)]
+        self.assertEqual([], pp.entrance_faults(pieces, [70, 70, 70, 70], {3: 71}))
+
+    def test_a_drop_is_named_as_a_drop(self):
+        # Which way the failure goes matters to whoever fixes it: a path above
+        # its door needs lowering, a path below it needs raising.
+        pieces = [pp.entrance(2, 66)]
+        faults = pp.entrance_faults(pieces, [70, 70, 70], {2: 66})
+        self.assertIn('drop', faults[0])
+
+    def test_an_entrance_tolerates_nothing_unlike_every_other_piece(self):
+        # The reason it is a piece rather than the last straight. A straight
+        # may float two blocks over its ground; a doorway is a specific height
+        # and "close enough" is how a path ends above a door.
+        self.assertEqual(0, pp.TOLERANCE['entrance'])
+        self.assertEqual(2, pp.TOLERANCE['straight'])
+
+    def test_an_entrance_to_nothing_is_reported(self):
+        faults = pp.entrance_faults([pp.entrance(1, 70)], [70, 70], {})
+        self.assertEqual(1, len(faults))
+        self.assertIn('entrance to nothing', faults[0])
+
+    def test_a_structure_with_no_entrance_is_the_same_defect_from_the_other_side(self):
+        # The path was built, the building is there, and they do not meet.
+        # Only checking the pieces would miss it entirely.
+        pieces = [pp.Piece('straight', 0, 3, 'flat', 'flat')]
+        faults = pp.entrance_faults(pieces, [70] * 4, {3: 70})
+        self.assertEqual(1, len(faults))
+        self.assertIn('no entrance piece', faults[0])
+
+    def test_an_entrance_connects_to_the_path_and_terminates_it(self):
+        # flat meets portal, which is what the connection table already said
+        # and nothing produced until now.
+        path = pp.Piece('straight', 0, 4, 'flat', 'flat')
+        door = pp.entrance(5, 70)
+        self.assertTrue(pp.connects(path, door))
+        self.assertEqual([], pp.validate([path, door]))
+
+    def test_a_portal_meets_flat_because_a_path_may_also_LEAVE_a_building(self):
+        # I expected two entrances to be refused as abutting. They are not, and
+        # the table is right: portal-meets-flat is how a path departs a
+        # doorway, and the end-kind vocabulary deliberately cannot tell an
+        # arrival from a departure.
+        #
+        # Encoding that difference would mean giving pieces ROLES rather than
+        # ends, which is the special-casing the table's shortness exists to
+        # avoid. The limit is recorded here instead: two entrances back to back
+        # pass connection validation, and it is entrance_faults -- which knows
+        # about thresholds -- that has the information to object.
+        self.assertTrue(pp.connects(pp.entrance(0, 70), pp.entrance(1, 70)))
+        self.assertIn(('portal', 'flat'), pp.COMPATIBLE)
+
+    def test_unmeasured_ground_under_an_entrance_is_not_a_fault(self):
+        pieces = [pp.entrance(1, 70)]
+        self.assertEqual([], pp.entrance_faults(pieces, [70, None], {1: 70}))
+

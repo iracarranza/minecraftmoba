@@ -172,6 +172,43 @@ profile.
 folding it into the faults would make a well-built path over unsurveyed ground
 indistinguishable from a badly built one.
 
+## Structure entrances, 8 October 2026
+
+The `portal` end kind had been in the connection table since the vocabulary was
+written and nothing produced one. Building the piece exposed a gap rather than
+adding a refinement:
+
+> **`traverse()` measures the walk *along* a corridor. Nothing measured the
+> step at the end of it.**
+
+So a Route could report a flawless traversal — zero jumps, nothing unclimbable
+— and finish at a wall five blocks under the door, with the corridor's own
+statistics calling that a success. That is the "awkward, buried or floating
+build" the 2 October review warned a good-looking placement could still
+produce, and it was invisible to every measurement the project had.
+
+An entrance has **tolerance zero**, alone among the pieces. That is the reason
+it is a piece at all rather than the last straight: a straight may float two
+blocks over its ground, but a doorway is a specific height, and "close enough"
+is exactly how a path ends above a door.
+
+The check runs **from both sides**. An entrance with no threshold is an
+entrance to nothing; a threshold with no entrance piece is the same defect read
+from the other side — the path was built, the building is there, and they do
+not meet. Checking only the pieces would miss the second case entirely.
+
+Failures name their direction, because a path above its door needs lowering and
+a path below it needs raising, and the fix differs.
+
+### A limit, recorded rather than special-cased
+
+Two entrances back to back **pass** connection validation: `portal` meets
+`flat`, because that is also how a path *leaves* a building, and the end-kind
+vocabulary cannot tell an arrival from a departure. Encoding that difference
+would mean giving pieces **roles** rather than ends, which is the special-casing
+the table's shortness exists to avoid. `entrance_faults`, which knows about
+thresholds, is where the information to object actually lives.
+
 ## Where this would start
 
 The review's recommendation, preserved: the strongest first prototype is a

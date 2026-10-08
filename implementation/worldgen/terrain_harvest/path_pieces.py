@@ -51,6 +51,7 @@ TOLERANCE = {
     'stairs': DEFAULT_TOLERANCE,
     'landing': DEFAULT_TOLERANCE,
     'bridge': None,                 # unbounded vertically, bounded by MAX_SPAN
+    'entrance': 0,                  # a threshold is met exactly or it is not met
 }
 
 
@@ -274,6 +275,57 @@ def unmeasured(pieces: Sequence[Piece],
             if profile[i] is None or raw[i] is None:
                 total += 1
     return total
+
+
+def entrance(at: int, threshold: int) -> Piece:
+    """The transition from path to building, at one column.
+
+    Its tolerance is **zero**, which is the point of having it as a piece
+    rather than as the last straight: a threshold is a specific height that a
+    door is actually at, and "close enough" is how a path ends four blocks
+    above a doorway.
+    """
+    return Piece('entrance', at, at, 'flat', 'portal', 0, TOLERANCE['entrance'])
+
+
+def entrance_faults(pieces: Sequence[Piece],
+                    profile: Sequence[Optional[int]],
+                    thresholds: dict,
+                    max_step: int = 1) -> List[str]:
+    """Whether a path can actually be walked INTO the places it goes to.
+
+    This is a gap rather than a refinement. {@link traverse} measures the walk
+    ALONG a corridor and nothing measures the step at the end of it, so a Route
+    can report a perfect traversal and finish at a wall five blocks under the
+    door. The corridor's own statistics would call that a success.
+
+    ``thresholds`` maps a column index to the floor height of the structure
+    there -- the height a player actually arrives at, which the caller knows
+    and this module cannot.
+    """
+    faults = []
+    for p in pieces:
+        if p.kind != 'entrance':
+            continue
+        threshold = thresholds.get(p.start)
+        if threshold is None:
+            faults.append(f'{p} is an entrance to nothing: no threshold at column {p.start}')
+            continue
+        standing = profile[p.start] if p.start < len(profile) else None
+        if standing is None:
+            continue                        # unmeasured, and counted elsewhere
+        step = abs(threshold - standing)
+        if step > max_step:
+            faults.append(f'{p} arrives {step} from its threshold, which is '
+                          f'{"a drop" if standing > threshold else "a climb"} '
+                          f'no walker takes in one step')
+    # An unserved threshold is the same defect read from the other side: the
+    # path was built, the building is there, and they do not meet.
+    served = {p.start for p in pieces if p.kind == 'entrance'}
+    for column in sorted(thresholds):
+        if column not in served:
+            faults.append(f'the structure at column {column} has no entrance piece')
+    return faults
 
 
 @dataclass(frozen=True)
