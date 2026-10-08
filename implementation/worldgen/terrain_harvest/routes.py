@@ -33,6 +33,7 @@ from vanilla_search.extract import VanillaChunk
 from vanilla_search.task_a import Terrain, path_to, shortest
 
 from .build_structures import WorldEditor
+from .path_pieces import segment, summarise, validate
 from .respect import fell, is_leaf, is_log, is_structure
 
 SCHEMA = 'map_routes_authored/1'
@@ -184,6 +185,27 @@ def carve(editor, chunks, centreline):
     stats['walk_unclimbable'] = sum(1 for d in walk if d >= 2)
     stats['walk_worst_step'] = max(walk) if walk else 0
 
+    # Cut the fitted profile into declared pieces, and check that they meet.
+    #
+    # The treatments below classify COLUMNS; pieces classify RUNS, which is
+    # what lets a crossing be recognised as a crossing rather than as a long
+    # series of deep hollows. Faults are recorded rather than raised: a Route
+    # that cannot be assembled cleanly is still the Route the optimizer chose,
+    # and silently refusing to build it would lose the map rather than the
+    # problem.
+    #
+    # [OPEN] No turns are passed. A bend needs the corridor's WAYPOINTS, and
+    # by here the centreline is densified to one column per step, where almost
+    # every column differs in direction from its neighbour. Synthesising bends
+    # from that would label the whole path a bend.
+    pieces = segment(profile, raw)
+    kind_at = {}
+    for piece in pieces:
+        for i in range(piece.start, piece.end + 1):
+            kind_at[i] = piece.kind
+    stats['pieces'] = summarise(pieces)
+    stats['piece_faults'] = validate(pieces)
+
     for i, (x, z) in enumerate(centreline):
         y = profile[i]
         # Width drifts rather than being an exact cross-section every step, so
@@ -207,8 +229,16 @@ def carve(editor, chunks, centreline):
                 deviation = y - ty
                 stats[treatment(deviation)] += 1
 
-                if name in WATER:
-                    # Constructed only where the crossing actually is water.
+                if name in WATER or kind_at.get(i) == 'bridge':
+                    # Decked where the crossing is water, and now also where
+                    # the pieces say the ground cannot carry a walker.
+                    #
+                    # This is the join earning its keep. Filling was unbounded:
+                    # a corridor crossing a twenty-block gully raised a
+                    # twenty-block pillar of coarse dirt in every column of its
+                    # width, because each column only ever saw its own
+                    # deviation. A run that deep is a crossing, and a crossing
+                    # is decked.
                     editor.set(cx, y, cz, BRIDGE)
                     stats['bridged'] += 1
                 elif deviation > 0:
@@ -347,6 +377,10 @@ def author(candidate: dict, configuration: dict, world: Path, report: Path,
         'grading': 'a median-filtered, step-limited height profile; the corridor '
                    'follows the PROFILE, not raw terrain, and ground within '
                    f'{ASSIMILATE} blocks of it is nudged to meet it',
+        'assembly': 'the fitted profile is cut into declared pieces -- straight, '
+                    'stairs, landing, bridge -- and their connections are '
+                    'validated; per-route counts and any faults are in each '
+                    "route's statistics",
         'not_covered': [
             'stairs, landings and other authored step geometry; a steep run is '
             'graded by the profile rather than built into treads',

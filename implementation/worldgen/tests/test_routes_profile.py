@@ -14,6 +14,8 @@ from pathlib import Path
 WORLDGEN = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(WORLDGEN))
 
+from terrain_harvest import path_pieces as pp
+from terrain_harvest import routes
 from terrain_harvest.routes import (MAX_STEP, treatment, walkable_profile)
 
 
@@ -138,3 +140,33 @@ class RoutesProfile(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class PieceSeam(unittest.TestCase):
+    """Where routes.py and path_pieces.py have to agree, or crossings split."""
+
+    def test_the_fill_ceiling_and_the_span_floor_are_adjacent(self):
+        # routes.treatment() calls a column 'constructed' above ASSIMILATE, and
+        # path_pieces calls a run a span at SPAN_DEVIATION. If these drift
+        # apart, a crossing gets decked in some columns and filled in others --
+        # a half-bridged gully, which is worse than either alone.
+        self.assertEqual(routes.ASSIMILATE + 1, pp.SPAN_DEVIATION,
+                         'a span begins exactly where assimilation stops')
+
+    def test_a_deep_gully_is_one_bridge_rather_than_many_hollows(self):
+        # The behaviour the join exists for. Filling was unbounded: each column
+        # saw only its own deviation, so a twenty-block gully raised a
+        # twenty-block pillar of coarse dirt across the corridor's whole width.
+        profile = [70] * 9
+        raw = [70, 70, 58, 52, 50, 52, 58, 70, 70]
+        kinds = [p.kind for p in pp.segment(profile, raw)]
+        self.assertEqual(['straight', 'bridge', 'straight'], kinds)
+
+    def test_a_dip_within_assimilation_is_still_filled(self):
+        # And the other side of the seam: a shallow hollow is made up, not
+        # spanned. A bridge over a two-block dip would be absurd construction.
+        profile = [70] * 5
+        raw = [70, 69, 68, 69, 70]
+        self.assertEqual(['straight'], [p.kind for p in pp.segment(profile, raw)])
+        self.assertEqual('assimilated', routes.treatment(2))
+        self.assertEqual('constructed', routes.treatment(3))
+

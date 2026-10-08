@@ -112,6 +112,32 @@ The landing is zero-length, occupying the boundary column the two runs share.
 Giving it width would move every later piece and the pieces would stop
 describing the profile they were cut from.
 
+## Joined to `routes.py`, 8 October 2026
+
+`carve()` now segments the fitted profile, validates the assembly, and records
+both the piece counts and any faults per route. Faults are **recorded rather
+than raised**: a Route that cannot be assembled cleanly is still the Route the
+optimizer chose, and refusing to build it would lose the map rather than the
+problem.
+
+**The join changes one behaviour, and it is the one worth changing.** Filling
+was unbounded — each column saw only its own deviation, so a corridor crossing
+a twenty-block gully raised a twenty-block pillar of coarse dirt in every
+column of its width. A run that deep is a *crossing*, and a crossing is decked.
+Water was already decked; now so is ground that cannot carry a walker.
+
+The two modules have to agree at exactly one number, and a test pins it:
+`treatment()` calls a column constructed above `ASSIMILATE`, and segmentation
+calls a run a span at `SPAN_DEVIATION`. **A span begins exactly where
+assimilation stops.** If those drift apart a crossing is decked in some columns
+and filled in others, which is worse than either alone.
+
+[OPEN] **Bends are not synthesised.** A bend needs the corridor's *waypoints*,
+and by the time `carve()` runs the centreline is densified to one column per
+step, where almost every column differs in direction from its neighbour.
+Generating bends from that would label the whole path a bend. The caller holds
+the geometry that would answer this.
+
 ## Where this would start
 
 The review's recommendation, preserved: the strongest first prototype is a
