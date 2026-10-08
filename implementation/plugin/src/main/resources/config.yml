@@ -968,14 +968,13 @@ abilities:
       #
       # The Lv30 capstone is DEFERRED, not absent. Its slot is left empty
       # rather than filled with a placeholder.
-      # The Ultimate is not yet built; the class ships a partial kit rather
-      # than a placeholder in its slot.
       branches: { reconfiguratron: more_config, jumpstartinator: super_circuit }
       persistentStateDefaults:
         reconfiguratronBranch: more_config
         jumpstartinatorBranch: super_circuit
       a1: reconfiguratron
       a2: jumpstartinator
+      ult: gizmo
       growth:
         level6:
           infrastructure:
@@ -1185,6 +1184,24 @@ abilities:
         speedy_swap: { cooldownMultiplier: 0.5, combat: false }
         more_config: { depth: 3, combat: false }
         spare_parts: { combat: false }
+    # Toolbox's Ultimate. [WORKING] values are provisional calibration.
+    gizmo:
+      displayName: "Gizmo of Absurdity and Untold Destruction!!!"
+      combat: true
+      cooldownTicks: 1340           # 67s
+      # The two caps are PAIRED: 120 / 32 is 3.75 ticks each, so a fast clock
+      # is bounded by activations and a broad slow machine by time. Both bite,
+      # in different builds.
+      #
+      # Six seconds is also the Lv25 passive cooldown, and A2 holds three
+      # charges, so the window is a burst window for the whole kit.
+      durationTicks: 120            # 6s
+      activations: 32
+      # [OPEN] Ownership. The design says "the next Redstone circuit Toolbox
+      # POWERS", which cannot be evaluated without tracing redstone graphs. A
+      # radius is the stand-in: physical, legible, and bounded. It is not the
+      # authored rule and should not be mistaken for it.
+      machineRadius: 32.0
     # Toolbox A2. [WORKING] values are provisional calibration.
     jumpstartinator:
       displayName: "Jumpstartinator!"

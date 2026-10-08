@@ -261,6 +261,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         stun = new Stun(this);
         getServer().getPluginManager().registerEvents(stun, this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
+        // The Ultimate's armed window listens for world redstone on its own.
+        gizmoWindow = new GizmoWindow(this, utilityBelt);
+        getServer().getPluginManager().registerEvents(gizmoWindow, this);
         getServer().getPluginManager().registerEvents(utilityBelt, this);
         // Said at enable, not at first use: the failure it predicts surfaces
         // as an opaque world-restore error in chat, long after the console
@@ -390,6 +393,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Displacement displacement() { return displacement; }
     private UtilityBelt utilityBelt;
     public UtilityBelt utilityBelt() { return utilityBelt; }
+    private GizmoWindow gizmoWindow;
+    public GizmoWindow gizmoWindow() { return gizmoWindow; }
     public Match match() { return match; }
     public Worksites worksites() { return worksites; }
     /** Team-coloured glow marking objectives and Fountains as one team system. */

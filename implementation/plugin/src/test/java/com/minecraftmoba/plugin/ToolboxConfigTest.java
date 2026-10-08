@@ -98,17 +98,82 @@ class ToolboxConfigTest {
      * are absent rather than pointed at a placeholder. An unbound input does
      * nothing; a placeholder would be a lie that looked like a feature.
      */
-    @Test void toolboxShipsAPartialKitAndSaysWhichPartsAreMissing() {
-        // This asserted that NOTHING but the passive was built. A1 now is, so
-        // the tripwire moves rather than being deleted: it still fails the
-        // moment A2 or the Ultimate is wired without this being updated, which
-        // is the whole point of having it.
+    @Test void toolboxShipsItsWholeKit() {
+        // This began as "ships with ONLY its passive" and moved twice as A1
+        // and A2 landed. The kit is now complete, so what it guards changes
+        // shape: it stops tracking what is missing and starts pinning what is
+        // present, including that every slot names the ability classes.md
+        // names and not a stub.
         var toolbox = shipped().getConfigurationSection("abilities.classes.toolbox");
         assertNotNull(toolbox, "the class must exist, or setclass refuses it");
         assertEquals("utility_belt", toolbox.getString("passiveHook"));
-        assertEquals("reconfiguratron", toolbox.getString("a1"), "A1 is built");
-        assertEquals("jumpstartinator", toolbox.getString("a2"), "A2 is built");
-        assertNull(toolbox.getString("ult"), "Gizmo of Absurdity is designed, not built");
+        assertEquals("reconfiguratron", toolbox.getString("a1"));
+        assertEquals("jumpstartinator", toolbox.getString("a2"));
+        assertEquals("gizmo", toolbox.getString("ult"));
+
+        // The Lv30 capstone remains DEFERRED rather than absent: its slot is
+        // left empty on purpose, and filling it is a design decision.
+        var growth = toolbox.getConfigurationSection("growth");
+        assertNull(growth.getConfigurationSection("level30"),
+                "the capstone is deferred, and a placeholder would hide that");
+    }
+
+    // ---- the Ultimate ------------------------------------------------------
+
+    @Test void theTwoCapsArePairedRatherThanIndependent() {
+        // 120 / 32 is 3.75 ticks per activation, which is what makes both caps
+        // bite: a clock faster than about four ticks is bounded by activations,
+        // a broad slow machine by time. Drifting either number alone would
+        // quietly leave one cap doing nothing.
+        var ult = shipped().getConfigurationSection("abilities.definitions.gizmo");
+        assertEquals(120, ult.getLong("durationTicks"), "six seconds");
+        assertEquals(32, ult.getInt("activations"));
+        assertEquals(3.75, ult.getLong("durationTicks") / (double) ult.getInt("activations"), 1e-9);
+    }
+
+    @Test void theWindowMatchesThePassivesFastestCooldown() {
+        // Not a coincidence: the window is a burst window for the whole kit,
+        // so it is the Lv25 passive cooldown, with A2's three charges fitting
+        // inside it.
+        var cfg = shipped();
+        long window = cfg.getLong("abilities.definitions.gizmo.durationTicks");
+        long fastestPassive = cfg.getLong("abilities.definitions.utility_belt.cooldownByLevel.level25");
+        assertEquals(fastestPassive, window, "six seconds, both");
+    }
+
+    @Test void onlyComponentsIndependentOfInventoryAndTheTriggerAreEligible() {
+        // The eligible list is produced by a rule -- a component qualifies only
+        // if its effect depends on neither inventory geometry nor the damage
+        // trigger -- but a world block cannot be asked about inventory
+        // geometry, so the code encodes the rule's OUTPUT. This is where the
+        // two are checked against each other.
+        for (var m : new org.bukkit.Material[]{
+                org.bukkit.Material.PISTON, org.bukkit.Material.STICKY_PISTON,
+                org.bukkit.Material.HOPPER, org.bukkit.Material.DISPENSER,
+                org.bukkit.Material.DROPPER, org.bukkit.Material.OBSERVER})
+            assertNotNull(GizmoWindow.eligible(m), m + " qualifies under the rule");
+
+        // Each excluded for its own reason, all from the same rule.
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.COMPARATOR), "needs the damage trigger");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.TRIPWIRE_HOOK), "needs the slot below");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.DAYLIGHT_DETECTOR), "needs the slot above");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.REDSTONE), "needs being first, and the trigger");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.REPEATER), "needs inventory flow order");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.REDSTONE_TORCH), "a source, not a sink");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.LEVER), "sources drive a circuit");
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.STONE_BUTTON));
+        assertNull(GizmoWindow.eligible(org.bukkit.Material.STONE_PRESSURE_PLATE));
+    }
+
+    @Test void anActivationIsARisingEdgeAndNotASustainedSignal() {
+        // "Activated" is read as RECEIVES a signal. A block held powered is one
+        // activation, not one per tick -- otherwise a single lever would spend
+        // the whole cap instantly.
+        assertTrue(GizmoWindow.isRisingEdge(0, 15));
+        assertFalse(GizmoWindow.isRisingEdge(15, 15), "already powered is not a new activation");
+        assertFalse(GizmoWindow.isRisingEdge(15, 0), "falling is not an activation");
+        assertFalse(GizmoWindow.isRisingEdge(0, 0));
+        assertTrue(GizmoWindow.isRisingEdge(0, 1), "any strength counts");
     }
 
     // ---- the Growth clock -------------------------------------------------

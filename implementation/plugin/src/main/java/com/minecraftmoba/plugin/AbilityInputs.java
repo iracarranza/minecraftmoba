@@ -66,6 +66,8 @@ public final class AbilityInputs implements Listener {
         var jump = plugin.getConfig().getConfigurationSection("abilities.definitions.jumpstartinator");
         if (jump != null)
             abilities.put("jumpstartinator", new JumpstartinatorAbility(plugin, jump, plugin.utilityBelt()));
+        var gizmo = plugin.getConfig().getConfigurationSection("abilities.definitions.gizmo");
+        if (gizmo != null) abilities.put("gizmo", new GizmoAbility(plugin, gizmo));
         var drill = plugin.getConfig().getConfigurationSection("abilities.definitions.drill_rush");
         if (drill != null) abilities.put("drill_rush", new DrillRushAbility(plugin, drill));
         // Daredevil's three share one state object: momentum and airtime are

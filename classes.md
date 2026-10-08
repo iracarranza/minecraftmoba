@@ -3677,6 +3677,20 @@ require permanently running a short circuit.
 
 ### Ultimate — Gizmo of Absurdity and Untold Destruction!!! (67s)
 
+**Built 8 October 2026** as `GizmoAbility` arming `GizmoWindow`. The eligible
+component list is derived from the single rule in
+[the grammar record](docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md) § 7B, and a test
+checks the code's list against that table rather than restating it.
+
+[OPEN] **Ownership.** The design says "the next Redstone circuit Toolbox
+**powers**", which cannot be evaluated without tracing redstone graphs. The
+implementation stands in a **radius** around Toolbox — physical, legible and
+bounded, but not the authored rule, and it should not be mistaken for it.
+
+**This completes the kit.** Toolbox ships its passive, A1, A2 and Ultimate; the
+Lv30 capstone remains deliberately deferred, and a test asserts its slot is
+empty rather than holding a placeholder.
+
 The next Redstone circuit Toolbox powers treats any activated **pistons
 (including sticky), hoppers, droppers, dispensers and observers** as if they
 were also activated by the Utility Belt, for **6 seconds and/or up to 32

@@ -219,12 +219,28 @@ public final class UtilityBelt implements Listener {
         // there cannot be spent, and firing a component nobody is carrying
         // would make consumption a fiction.
         if (!spend(p, step)) return false;
+        effect(p, step.component(), run);
+        return true;
+    }
 
+    /**
+     * One component's effect, with no inventory cost.
+     *
+     * Split out of {@link #resolve} because the Ultimate activates components
+     * that are <b>world blocks</b> rather than inventory items. A world piston
+     * is not a piston in a slot, so there is nothing to spend -- but its effect
+     * is identical, and a second copy of this switch would be a second
+     * definition of what each component DOES.
+     *
+     * Dispenser and Dropper still cost an item, because they draw from
+     * Toolbox's inventory by definition rather than by being a component in it.
+     */
+    void effect(Player p, CircuitComponent component, Run run) {
         Entity origin = origin(p, run);
         int amp = run.amplification;
         boolean amplifies = false;
 
-        switch (step.component()) {
+        switch (component) {
             case OBSERVER -> observe(p, origin, run);
             case TORCH -> { if (origin != p) statuses.illuminate(origin); }
             case PISTON -> impulse(p, origin, p.getLocation().getDirection(), amp);
@@ -246,7 +262,6 @@ public final class UtilityBelt implements Listener {
         // Amplification is for the NEXT component only, so anything that is
         // not itself a Comparator clears it after use.
         if (!amplifies) run.amplification = 0;
-        return true;
     }
 
     /** Take one item from the step's slot, or decline to resolve. */

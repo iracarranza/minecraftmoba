@@ -96,6 +96,7 @@ public final class Match implements Listener {
         // Restored rather than discarded: the alternative is a map that
         // remembers an unfinished cast from the previous match.
         if (plugin.displacement() != null) plugin.displacement().reset();
+        if (plugin.gizmoWindow() != null) plugin.gizmoWindow().reset();
     }
 
     public State state() { return state; }
