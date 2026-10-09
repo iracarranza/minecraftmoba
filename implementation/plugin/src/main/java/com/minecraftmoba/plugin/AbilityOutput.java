@@ -78,15 +78,35 @@ public record AbilityOutput(String id, TargetForm target, InputForm input, Recip
     /**
      * Several outputs on one ability, checked for a usable selector.
      *
-     * @throws IllegalArgumentException if two outputs share an input form,
-     *         because then no gesture distinguishes them.
+     * <h2>The selector is the gesture OR what was aimed at</h2>
+     *
+     * This used to require distinct input forms, on the reading that a tap and
+     * a hold are what choose between outputs. The roster disagrees: Skeleton
+     * Crew's Graveyard Shift strikes an enemy you target and otherwise raises
+     * a Crew Member, and Chef's Flip and Press flips a targeted enemy or
+     * advances a targeted cooking station. One gesture, two outputs, chosen by
+     * <b>what the activation found</b>.
+     *
+     * That is already how the ability layer works: {@code AbilityContext}
+     * carries the clicked block and the interacted entity separately,
+     * documented as "an ability reads whichever its form expects and refuses
+     * cleanly when neither is there". Selection by target was in the code
+     * before it was in the vocabulary.
+     *
+     * So what must be distinct is the <b>pair</b>. Two outputs sharing both a
+     * target form and an input form have nothing to tell them apart, and that
+     * is the only case refused.
+     *
+     * @throws IllegalArgumentException if two outputs share both forms.
      */
     public static List<AbilityOutput> of(AbilityOutput... outputs) {
-        var forms = new LinkedHashSet<InputForm>();
+        record Selector(TargetForm target, InputForm input) {}
+        var seen = new LinkedHashSet<Selector>();
         for (AbilityOutput o : outputs)
-            if (!forms.add(o.input()))
-                throw new IllegalArgumentException("Outputs of one ability are selected by gesture, and '"
-                        + o.id() + "' shares " + o.input() + " with another, so nothing selects it.");
+            if (!seen.add(new Selector(o.target(), o.input())))
+                throw new IllegalArgumentException("Outputs of one ability are selected by gesture or "
+                        + "by what is aimed at, and '" + o.id() + "' shares both " + o.target()
+                        + " and " + o.input() + " with another, so nothing selects it.");
         return List.of(outputs);
     }
 

@@ -125,6 +125,53 @@ three branches, three different answers:
 `Ability.outputs(player, context)` remains the runtime authority and must agree
 with what the manifest says.
 
+## The manifest holds a SET of outputs
+
+Every slot carries an `outputs` map, even when it holds one, so there is a
+single shape to read rather than two. The key is the output's id; for a
+single-output ability that is the ability's own id, which is what the Java
+passes to `AbilityOutput.single`.
+
+```yaml
+a1:
+  id: "graveyard_shift"
+  outputs:
+    strike: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+    raise:  { target: "SELF",        input: "?", affects: "NONE",    caster: "false" }
+  branches:
+    field_work:
+      outputs:
+        strike: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+        raise:  { target: "DIRECTION", input: "?", affects: "NONE",    caster: "false" }
+```
+
+### The selector is the gesture OR what was aimed at
+
+`AbilityOutput.of` used to require **distinct input forms**, on the reading that
+a tap and a hold are what choose between outputs. The roster disagrees:
+
+- **Graveyard Shift** strikes a targeted enemy and *otherwise* raises a Crew
+  Member.
+- **Flip and Press** flips a targeted enemy, *or* advances a targeted cooking
+  station.
+
+One gesture, two outputs, chosen by **what the activation found**. That is
+already how the ability layer works — `AbilityContext` carries the clicked block
+and the interacted entity separately, documented as "an ability reads whichever
+its form expects and refuses cleanly when neither is there." Selection by target
+was in the code before it was in the vocabulary.
+
+So what must be distinct is the **pair**. Two outputs sharing both a target form
+and an input form have nothing to tell them apart, and that is now the only case
+refused.
+
+### A branch declares every output
+
+Not only the ones it changes. Skeleton Crew's **Field Work** is why: it turns
+Graveyard Shift into a projectile, moving *both* outputs from `UNIT_ENTITY` and
+`SELF` to `DIRECTION`. A branch recording only what differs would have to say
+which output it meant.
+
 ## The unit is an OUTPUT, not an ability
 
 A tap that stabs and a hold that throws are two outputs of one ability, with
@@ -195,10 +242,7 @@ three aims at), `wax_on` ("apply Wax to a target" — block or creature is not
 stated), `viscerwall`, and Looming Talismaniac's unnamed A2. Left `?` rather
 than guessed.
 
-Two multi-output abilities are recorded by their primary output only, because a
-manifest row holds one: Skeleton Crew's **Graveyard Shift** (strike an enemy, or
-else raise a Crew Member) and Chef's **Flip and Press** (flip an enemy, or
-advance a cooking station). `Ability.outputs` can hold both when they are built.
+Both multi-output abilities now carry both outputs — see below.
 
 ## The manifest is not config
 

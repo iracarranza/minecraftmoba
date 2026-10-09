@@ -46,8 +46,9 @@ class AbilitySkeletonTest {
         }
     }
 
+    /** One row per SLOT: id, name, status, and its outputs map. */
     @SuppressWarnings("unchecked")
-    private static List<Map<String, Object>> entries() {
+    private static List<Map<String, Object>> slots() {
         var out = new ArrayList<Map<String, Object>>();
         classes().forEach((cls, body) -> {
             var abilities = (Map<String, Map<String, Object>>) body.get("abilities");
@@ -58,6 +59,31 @@ class AbilitySkeletonTest {
                 out.add(copy);
             });
         });
+        return out;
+    }
+
+    /**
+     * One row per OUTPUT, which is the unit everything else is asked about.
+     *
+     * An ability is a set of one or more outputs, so a test that asked a slot
+     * "what do you target" would be asking the wrong thing of Graveyard Shift.
+     */
+    @SuppressWarnings("unchecked")
+    private static List<Map<String, Object>> entries() {
+        var out = new ArrayList<Map<String, Object>>();
+        for (var slot : slots()) {
+            var outputs = (Map<String, Map<String, Object>>) slot.get("outputs");
+            assertNotNull(outputs, slot.get("id") + " declares no outputs map");
+            outputs.forEach((name, o) -> {
+                var copy = new LinkedHashMap<String, Object>(o);
+                copy.put("class", slot.get("class"));
+                copy.put("slot", slot.get("slot"));
+                copy.put("id", slot.get("id"));
+                copy.put("output", name);
+                copy.put("status", slot.get("status"));
+                out.add(copy);
+            });
+        }
         return out;
     }
 
@@ -80,7 +106,7 @@ class AbilitySkeletonTest {
         // a branch selection and a combat flag shared between them.
         var seen = new TreeSet<String>();
         var clashes = new TreeSet<String>();
-        for (var e : entries()) if (!seen.add((String) e.get("id"))) clashes.add((String) e.get("id"));
+        for (var e : slots()) if (!seen.add((String) e.get("id"))) clashes.add((String) e.get("id"));
         assertTrue(clashes.isEmpty(), "Duplicate ability ids: " + clashes);
     }
 
@@ -150,7 +176,7 @@ class AbilitySkeletonTest {
         // implementation that never declared is found here rather than by a
         // cast mode silently doing nothing.
         var missing = new TreeSet<String>();
-        for (var e : entries()) {
+        for (var e : slots()) {
             if (!BUILT.equals(e.get("status"))) continue;
             Class<?> impl = implementationOf((String) e.get("id"));
             assertNotNull(impl, e.get("id") + " is marked built but has no implementation class");
@@ -170,7 +196,7 @@ class AbilitySkeletonTest {
         // use: one shared declaration, read from both sides.
         var disagreements = new TreeSet<String>();
         for (var e : entries()) {
-            if (!BUILT.equals(e.get("status"))) continue;
+            if (!BUILT.equals(e.get("status")) || !e.get("id").equals(e.get("output"))) continue;
             Class<?> impl = implementationOf((String) e.get("id"));
             var method = impl.getDeclaredMethod("outputs");
             var src = new String(java.nio.file.Files.readAllBytes(
@@ -186,19 +212,24 @@ class AbilitySkeletonTest {
         assertTrue(disagreements.isEmpty(), String.join("; ", disagreements));
     }
 
-    /** Every branch declaration in the manifest, flattened. */
+    /** Every branch's every output, flattened. */
     @SuppressWarnings("unchecked")
     private static List<Map<String, Object>> branches() {
         var out = new ArrayList<Map<String, Object>>();
-        for (var e : entries()) {
-            var declared = (Map<String, Map<String, Object>>) e.get("branches");
+        for (var slot : slots()) {
+            var declared = (Map<String, Map<String, Object>>) slot.get("branches");
             if (declared == null) continue;
             declared.forEach((branch, body) -> {
-                var copy = new LinkedHashMap<String, Object>(body);
-                copy.put("ability", e.get("id"));
-                copy.put("branch", branch);
-                copy.put("status", e.get("status"));
-                out.add(copy);
+                var outputs = (Map<String, Map<String, Object>>) body.get("outputs");
+                assertNotNull(outputs, slot.get("id") + "." + branch + " declares no outputs");
+                outputs.forEach((name, o) -> {
+                    var copy = new LinkedHashMap<String, Object>(o);
+                    copy.put("ability", slot.get("id"));
+                    copy.put("branch", branch);
+                    copy.put("output", name);
+                    copy.put("status", slot.get("status"));
+                    out.add(copy);
+                });
             });
         }
         return out;
@@ -249,7 +280,7 @@ class AbilitySkeletonTest {
         // tell "this branch is the same" from "nobody has checked". Built
         // abilities list all three, so the file answers without a union.
         var missing = new TreeSet<String>();
-        for (var e : entries()) {
+        for (var e : slots()) {
             if (!BUILT.equals(e.get("status"))) continue;
             Class<?> impl = implementationOf((String) e.get("id"));
             if (impl == null) continue;
@@ -294,6 +325,7 @@ class AbilitySkeletonTest {
         // case an enum could not have held at all: ENEMIES *and* the caster.
         var byId = new LinkedHashMap<String, Map<String, Object>>();
         for (var e : entries()) byId.put((String) e.get("id"), e);
+        // single-output abilities only, which all of the ones named here are
 
         assertEquals("false", byId.get("tunneling").get("caster"), "it lands on nobody");
         assertEquals("true", byId.get("deathly_clutches").get("caster"));
@@ -336,6 +368,45 @@ class AbilitySkeletonTest {
         assertEquals(Set.of("fungal_assassin (ENEMIES)"), enemyFacing,
                 "Creeping Colony applies Fungal Growth to enemies attacked; a second "
                 + "such passive is a design change worth noticing here");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test void anAbilityIsASetOfOutputsAndTwoOfThemAreMoreThanOne() {
+        // classes.md settled that the unit of description is an OUTPUT. The
+        // manifest used to put one output's fields on the ability, which
+        // quietly contradicted that and could not hold the two that need it.
+        var multi = new TreeSet<String>();
+        for (var slot : slots()) {
+            var outputs = (Map<String, Object>) slot.get("outputs");
+            if (outputs.size() > 1) multi.add(slot.get("id") + "=" + new TreeSet<>(outputs.keySet()));
+        }
+        assertEquals(Set.of("graveyard_shift=[raise, strike]", "flip_and_press=[flip, press]"), multi,
+                "found: " + multi);
+    }
+
+    @Test void twoOutputsOfOneAbilityAreToldApartByTargetOrByGesture() {
+        // Not by gesture alone, which is what AbilityOutput.of used to demand.
+        // Graveyard Shift strikes a targeted enemy and otherwise raises a Crew
+        // Member: one gesture, two outputs, chosen by what the cast found.
+        var byOutput = new LinkedHashMap<String, Map<String, Object>>();
+        for (var e : entries())
+            if ("graveyard_shift".equals(e.get("id"))) byOutput.put((String) e.get("output"), e);
+
+        assertEquals("UNIT_ENTITY", byOutput.get("strike").get("target"));
+        assertEquals("SELF", byOutput.get("raise").get("target"));
+        assertEquals(byOutput.get("strike").get("input"), byOutput.get("raise").get("input"),
+                "the gesture is the same, so the target is what selects");
+    }
+
+    @Test void aBranchDeclaresEveryOutputAndNotOnlyTheOneItChanges() {
+        // Field Work turns Graveyard Shift into a projectile, moving BOTH
+        // outputs to DIRECTION. A branch recording only what differs would
+        // have to say which output it meant.
+        var fieldWork = branches().stream()
+                .filter(b -> "field_work".equals(b.get("branch"))).toList();
+        assertEquals(2, fieldWork.size(), "both outputs: " + fieldWork);
+        for (var o : fieldWork)
+            assertEquals("DIRECTION", o.get("target"), o.get("output") + " becomes a projectile too");
     }
 
     @Test void theRostersOnlyAllyFacingOutputsAreChefsAndTheTalismaniacs() {

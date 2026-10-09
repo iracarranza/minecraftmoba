@@ -43,11 +43,18 @@ class CombatManifestTest {
                 var m = a.getValue();
                 boolean built = "built".equals(m.get("status"));
                 boolean passive = slot == Slot.PASSIVE;
+                // An ability is a SET of outputs: the manifest carries an
+                // outputs map per slot, because Graveyard Shift and Flip and
+                // Press each have two that one row could not hold.
                 List<AbilityOutput> outputs = List.of();
                 if (built) {
-                    outputs = List.of(new AbilityOutput(String.valueOf(m.get("id")),
-                            parse(TargetForm.class, m.get("target")), parse(InputForm.class, m.get("input")),
-                            parse(Recipients.class, m.get("affects"))));
+                    var declared = (Map<String, Map<String, Object>>) m.get("outputs");
+                    var built0 = new ArrayList<AbilityOutput>();
+                    declared.forEach((name, o) -> built0.add(new AbilityOutput(name,
+                            parse(TargetForm.class, o.get("target")), parse(InputForm.class, o.get("input")),
+                            parse(Recipients.class, o.get("affects")),
+                            "true".equals(String.valueOf(o.get("caster"))))));
+                    outputs = List.copyOf(built0);
                 }
                 slots.add(new SlotInfo(slot, String.valueOf(m.get("id")), String.valueOf(m.get("name")),
                         built, passive, false, outputs));
