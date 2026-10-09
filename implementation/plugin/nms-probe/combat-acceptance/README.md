@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 57 of 57.
+the server. `report-1.21.11-132.txt` is the last run: 64 of 64.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -48,7 +48,16 @@ combat it resumes and restarts its script (executions 1 to 3); with interference
 toggled off a strike changes nothing and it carries on; with it back on, a stun
 stands it down (STUNNED).
 
+Lab time and rules, in the combat chamber: `lab time dusk | midnight | dawn` sets the
+world time (12000, 18000, 0); `time skip` is refused there; a frozen hunger cancels a
+food LOSS but not a gain; regeneration off cancels satiated healing but not other
+healing; leaving clears the tester's rules.
+
 ## Not covered
+
+The match-clock half of lab time (`time skip`, `time night`, `pause`, `resume` in a
+launched scoop) and the terrain chamber's Clock page: no launchable scoop exists on
+this machine, so those are compiled and arithmetic-tested but never run.
 
 DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through

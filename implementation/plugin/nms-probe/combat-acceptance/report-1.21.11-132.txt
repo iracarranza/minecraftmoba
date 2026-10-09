@@ -55,5 +55,12 @@ PASS interference: ...and it carried on :: executions 3 -> 4 | Ghost: SCRIPTING,
 PASS interference: back on, a stun stands it down (STUNNED) :: stunned
 PASS interference: reported as stunned :: Ghost: INTERFERED by STUNNED, interfered 2 time(s), interference on. It stands down until it leaves combat, then restarts its script.
 PASS interference: leave :: dummiesGone=true state=idle
+PASS clock: enter the combat chamber :: state=in chamber
+PASS clock: /moba lab time dusk sets the combat world to dusk :: time=12000
+PASS clock: /moba lab time midnight, then dawn :: midnight=18000 dawn=0
+PASS clock: skip is refused in the combat chamber (no match clock) :: time 0 -> 0
+PASS rules: a hunger LOSS is cancelled while frozen, a gain is not :: frozen=true lossCancelled=true gainCancelled=false
+PASS rules: satiated and regen healing are cancelled while regeneration is off :: satiatedCancelled=true magicCancelled=false
+PASS rules: leaving the chamber clears the tester's rules :: cleared=true
 
-SUMMARY pass=57 fail=0
+SUMMARY pass=64 fail=0

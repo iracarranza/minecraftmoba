@@ -203,7 +203,8 @@ public final class ChamberMenu {
                         Item.submenu("route", "Draw route"),
                         Item.action("regenerate", "Regenerate terrain"),
                         Item.action("undo", "Undo"),
-                        Item.action("redo", "Redo"))
+                        Item.action("redo", "Redo"),
+                        Item.submenu("clock", "Clock and rules"))
                 .page("objective", "Objective",
                         Item.action("fountain", "Fountain"),
                         Item.action("outpost", "Outpost"),
@@ -222,6 +223,16 @@ public final class ChamberMenu {
                 .page("route", "Route",
                         Item.action("route.from", "Set start"),
                         Item.action("route.to", "Set end and preview"))
+                // Shared time and world-rule controls (LabTime, LabRules).
+                .page("clock", "Clock and rules",
+                        Item.action("clock.dusk", "Jump to dusk"),
+                        Item.action("clock.midnight", "Jump to midnight"),
+                        Item.action("clock.dawn", "Jump to dawn"),
+                        Item.action("clock.skip10", "Skip 10 minutes"),
+                        Item.action("clock.pause", "Pause the clock"),
+                        Item.action("clock.resume", "Resume the clock"),
+                        Item.action("rules.hunger", "Freeze or free hunger"),
+                        Item.action("rules.regen", "Stop or allow regeneration"))
                 .page("pending", "Pending placement",
                         Item.action("preview", "Show again"),
                         Item.action("confirm", "Place"),

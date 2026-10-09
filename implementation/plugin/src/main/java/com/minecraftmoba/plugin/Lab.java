@@ -44,8 +44,12 @@ public final class Lab implements Listener {
         @Override public Inventory getInventory() { return inventory; }
     }
 
+    private final LabRules rules = new LabRules();
+    public LabRules rules() { return rules; }
+
     public Lab(MobaPlugin plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(rules, plugin);
         authoring = new LabAuthoring(plugin, this);
         Bukkit.getPluginManager().registerEvents(authoring, plugin);
         combat = new CombatChamber(plugin, this);
@@ -119,6 +123,8 @@ public final class Lab implements Listener {
                 case "play", "launch" -> play(p);
                 case "chamber" -> chamber(p, args);
                 case "combat" -> combat.command(p, args);
+                case "time" -> time(p, args);
+                case "rules" -> rules(p, args);
                 case "author" -> authoring.command(p, args);
                 case "undo" -> authoring.command(p, new String[]{"lab","author","undo"});
                 case "end", "stop" -> end(p);
@@ -170,7 +176,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); }
+    public void close() { combat.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))
@@ -220,6 +226,7 @@ public final class Lab implements Listener {
     }
 
     private void teardown() throws IOException {
+        rules.clearAll();
         authoring.clear();
         // Dropped before the world is unloaded, not after: a bay in a world
         // that no longer exists is the same defect the scenario harness is
@@ -234,6 +241,72 @@ public final class Lab implements Listener {
             plugin.match().discardEmptyLabPreparation();
         }
         owner = null; activeMap = null;
+    }
+
+    // ---- time and world rules ---------------------------------------------------
+
+    /** Where this tester's clock lives: their launched scoop, or the combat chamber's world. */
+    private enum Where { SCOOP, COMBAT }
+
+    private Where whereClock(Player p) {
+        if (combat.occupies(p)) return Where.COMBAT;
+        if (owner != null && owner.equals(p.getUniqueId()) && plugin.worldInstance().labActive()
+                && p.getWorld().equals(plugin.worldInstance().world())) return Where.SCOOP;
+        throw new IllegalStateException("Time and rules need your launched scoop or the combat chamber.");
+    }
+
+    /**
+     * {@code /moba lab time status | dawn | noon | dusk | midnight | night <n> | skip <minutes> | pause | resume}.
+     *
+     * In a scoop this drives the real match clock, so a skipped night is a real night:
+     * its boundaries fire. It only runs FORWARD ({@link LabTime}). The combat chamber
+     * has no match clock, only a world time, so there only the time of day is settable.
+     */
+    private void time(Player p, String[] args) {
+        Where where = whereClock(p);
+        String verb = args.length > 2 ? args[2].toLowerCase(Locale.ROOT) : "status";
+        if (where == Where.COMBAT) {
+            var w = p.getWorld();
+            switch (verb) {
+                case "status" -> p.sendMessage("Combat chamber time " + w.getTime() + " (fixed; no match clock here).");
+                case "dawn", "noon", "dusk", "midnight", "day", "night", "sunset", "sunrise" -> {
+                    w.setTime(LabTime.TimeOfDay.parse(verb).tick);
+                    p.sendMessage("Combat chamber time set to " + verb + ".");
+                }
+                default -> p.sendMessage("The combat chamber has no match clock: /moba lab time dawn | noon | dusk | midnight");
+            }
+            return;
+        }
+        var match = plugin.match();
+        switch (verb) {
+            case "status" -> p.sendMessage("Clock " + MatchClock.describe(match.elapsedTicks())
+                    + (match.labPaused() ? " [PAUSED]" : " [running]") + "; " + rules.describe(p));
+            case "pause" -> { match.pauseForLabAuthoring(); p.sendMessage("Clock paused."); }
+            case "resume" -> { match.resumeFromLabPause(); p.sendMessage("Clock running."); }
+            case "skip" -> {
+                if (args.length < 4) throw new IllegalArgumentException("/moba lab time skip <minutes>");
+                p.sendMessage(match.skipTicks(LabTime.ticksForMinutes(Integer.parseInt(args[3]))));
+            }
+            case "night" -> {
+                if (args.length < 4) throw new IllegalArgumentException("/moba lab time night <n>");
+                p.sendMessage(match.skipTicks(LabTime.ticksUntilNight(match.elapsedTicks(), Integer.parseInt(args[3]))));
+            }
+            default -> p.sendMessage(match.skipTicks(LabTime.ticksUntil(match.elapsedTicks(), LabTime.TimeOfDay.parse(verb))));
+        }
+    }
+
+    /** {@code /moba lab rules status | hunger freeze|normal | regen off|normal}. */
+    private void rules(Player p, String[] args) {
+        whereClock(p);
+        String verb = args.length > 2 ? args[2].toLowerCase(Locale.ROOT) : "status";
+        String value = args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "";
+        switch (verb) {
+            case "hunger" -> rules.hungerFrozen(p, value.equals("freeze") || value.equals("frozen") || value.equals("on"));
+            case "regen" -> rules.regenOff(p, value.equals("off") || value.equals("stop"));
+            case "status" -> { }
+            default -> throw new IllegalArgumentException("/moba lab rules hunger freeze|normal | regen off|normal");
+        }
+        p.sendMessage("Lab rules: " + rules.describe(p));
     }
 
     private void end(Player p) throws IOException {

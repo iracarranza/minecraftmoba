@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /** The pure half of the chamber UI: item stacks, intents, refusals, platform, region mapping. */
 class ChamberUiTest {
-    private static final ChamberController.State OUT = new ChamberController.State(false, 0, false, false);
-    private static final ChamberController.State IN = new ChamberController.State(true, 0, false, false);
+    private static final ChamberController.State OUT = new ChamberController.State(false, 0, false, false, false, false, false);
+    private static final ChamberController.State IN = new ChamberController.State(true, 0, false, false, false, false, false);
 
     // ---- items ---------------------------------------------------------------
 
@@ -86,24 +86,24 @@ class ChamberUiTest {
 
     @Test void undoIsGreyedUntilThereIsHistory() {
         assertNotNull(ChamberController.refusal("undo", IN));
-        assertNull(ChamberController.refusal("undo", new ChamberController.State(true, 1, false, false)));
+        assertNull(ChamberController.refusal("undo", new ChamberController.State(true, 1, false, false, false, false, false)));
     }
 
     @Test void redoIsAlwaysUnavailableBecauseNoForwardJournalExists() {
-        var busy = new ChamberController.State(true, 5, true, true);
+        var busy = new ChamberController.State(true, 5, true, true, false, false, false);
         assertNotNull(ChamberController.refusal("redo", busy));
         assertEquals(ChamberController.Kind.UNAVAILABLE, ChamberController.intent("redo").kind());
     }
 
     @Test void regenerationNeedsASourceChosenAtThePlatform() {
         assertNotNull(ChamberController.refusal("regenerate", IN));
-        assertNull(ChamberController.refusal("regenerate", new ChamberController.State(true, 0, false, true)));
+        assertNull(ChamberController.refusal("regenerate", new ChamberController.State(true, 0, false, true, false, false, false)));
     }
 
     @Test void pendingVerbsNeedAPendingPlacement() {
         for (String id : List.of("confirm", "preview", "cancel")) {
             assertNotNull(ChamberController.refusal(id, IN), id);
-            assertNull(ChamberController.refusal(id, new ChamberController.State(true, 0, true, false)), id);
+            assertNull(ChamberController.refusal(id, new ChamberController.State(true, 0, true, false, false, false, false)), id);
         }
     }
 

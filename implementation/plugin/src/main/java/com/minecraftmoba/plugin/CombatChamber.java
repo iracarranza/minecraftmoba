@@ -561,6 +561,7 @@ public final class CombatChamber implements Listener {
     public void leave(Player p) {
         var a = active.remove(p.getUniqueId());
         ui.release(p);
+        lab.rules().clear(p);
         if (a != null && a.dummy != null) bodies.despawn(a.dummy);
         if (active.isEmpty()) stopTicker();
         if (a != null) { lab.toRoom(p); p.sendMessage("Left the combat chamber."); }

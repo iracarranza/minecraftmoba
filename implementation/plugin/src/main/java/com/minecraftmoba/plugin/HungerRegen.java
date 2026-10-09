@@ -119,6 +119,7 @@ public final class HungerRegen implements Listener {
 
     public boolean eligible(Player p) {
         if (!enabled() || !plugin.enrolled(p)) return false;
+        if (plugin.lab() != null && plugin.lab().rules().regenOff(p)) return false;
         // Where vanilla can regenerate, leave it to vanilla rather than stacking.
         if (vanillaCovers(p.getFoodLevel(), vanillaRegenerationOn(p))) return false;
         if (p.getFoodLevel() < thresholdFor(p)) return false;

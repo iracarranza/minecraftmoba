@@ -476,6 +476,28 @@ public final class Match implements Listener {
         if (!worldInstance.labActive()) throw new IllegalStateException("Only lab sessions can pause for authoring.");
         labAuthoringPaused = true;
     }
+    /**
+     * Let the clock run again after a lab pause. Authoring pauses it and nothing used to
+     * un-pause it, so a tester who built something could never watch it play out.
+     */
+    public void resumeFromLabPause() {
+        if (!worldInstance.labActive()) throw new IllegalStateException("Only lab sessions can pause or resume.");
+        labAuthoringPaused = false;
+    }
+    public boolean labPaused() { return labAuthoringPaused; }
+
+    /**
+     * Advance a lab session's clock by ticks, firing every boundary crossed. Works while
+     * the clock is paused: skipping is a deliberate act, pausing only stops the ticker.
+     */
+    public String skipTicks(long ticks) {
+        if (!running()) throw new IllegalStateException("No match running.");
+        if (!worldInstance.labActive()) throw new IllegalStateException("Lab sessions only.");
+        if (ticks <= 0) throw new IllegalArgumentException("Ticks must be positive.");
+        advance(ticks);
+        return "Advanced to " + MatchClock.describe(elapsed) + ".";
+    }
+
     private void tick() { if (!labAuthoringPaused) advance(1); }
 
     /**

@@ -161,7 +161,8 @@ final class ChamberUi implements Listener {
 
     private ChamberController.State state(Player p) {
         return new ChamberController.State(hotbar.engaged(p), lab.authoring().undoDepth(),
-                !workspace.session(p).idle(), lastSource.containsKey(p.getUniqueId()));
+                !workspace.session(p).idle(), lastSource.containsKey(p.getUniqueId()),
+                plugin.match() != null && plugin.match().labPaused(), lab.rules().hungerFrozen(p), lab.rules().regenOff(p));
     }
 
     /** Keep the page and the items matching what is actually pending. */
@@ -220,6 +221,14 @@ final class ChamberUi implements Listener {
             case REGENERATE_LAST -> {
                 var source = lastSource.get(p.getUniqueId());
                 if (source != null) regenerate(p, source);
+            }
+            case LAB -> {
+                var args = new java.util.ArrayList<String>(List.of("lab"));
+                args.addAll(intent.args());
+                // The rules toggle: the argument is the opposite of the current setting.
+                if (itemId.equals("rules.hunger")) { args.add("hunger"); args.add(lab.rules().hungerFrozen(p) ? "normal" : "freeze"); }
+                if (itemId.equals("rules.regen")) { args.add("regen"); args.add(lab.rules().regenOff(p) ? "normal" : "off"); }
+                lab.command(p, args.toArray(new String[0]));
             }
             case UNAVAILABLE -> note(p, ChamberController.refusal(itemId, state(p)) == null
                     ? "That has no effect yet." : ChamberController.refusal(itemId, state(p)));

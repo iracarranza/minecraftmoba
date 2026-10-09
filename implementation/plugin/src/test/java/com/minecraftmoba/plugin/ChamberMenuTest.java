@@ -69,7 +69,7 @@ class ChamberMenuTest {
 
     @Test void anEmptySlotIsNotAChoice() {
         var m = menu();
-        var choice = m.choose(6, ChamberMenu.Gate.OPEN);
+        var choice = m.choose(7, ChamberMenu.Gate.OPEN);   // slot 6 is now the clock page
         assertNull(choice.kind());
         assertTrue(m.atRoot());
     }

@@ -93,6 +93,13 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "interference: back on, a stun stands it down (STUNNED)", this::intStun);
         at(c, 8, "interference: reported as stunned", this::intStunResult);
         at(c, 3, "interference: leave", this::recipientLeave);
+        at(c, 4, "clock: enter the combat chamber", this::clockEnter);
+        at(c, 3, "clock: /moba lab time dusk sets the combat world to dusk", this::clockDusk);
+        at(c, 2, "clock: /moba lab time midnight, then dawn", this::clockMidnightDawn);
+        at(c, 2, "clock: skip is refused in the combat chamber (no match clock)", this::clockSkipRefused);
+        at(c, 2, "rules: a hunger LOSS is cancelled while frozen, a gain is not", this::rulesHunger);
+        at(c, 2, "rules: satiated and regen healing are cancelled while regeneration is off", this::rulesRegen);
+        at(c, 2, "rules: leaving the chamber clears the tester's rules", this::rulesCleared);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -648,5 +655,60 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String intStunResult() {
         var line = ghostLine();
         return line + (line.contains("INTERFERED by STUNNED") ? "" : " | FAIL: a stun did not stand the ghost down");
+    }
+
+    private void lab(String c) { t.performCommand("moba lab " + c); }
+
+    private String clockEnter() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set level 15"); cmd("pick enter");
+        return "state=" + combat().state(t) + (combat().state(t).equals("in chamber") ? "" : " | FAIL: not in chamber");
+    }
+
+    private String clockDusk() {
+        lab("time dusk");
+        long time = Bukkit.getWorld("moba_combat").getTime();
+        return "time=" + time + (time == 12000 ? "" : " | FAIL: expected 12000");
+    }
+
+    private String clockMidnightDawn() {
+        lab("time midnight");
+        long mid = Bukkit.getWorld("moba_combat").getTime();
+        lab("time dawn");
+        long dawn = Bukkit.getWorld("moba_combat").getTime();
+        return "midnight=" + mid + " dawn=" + dawn + (mid == 18000 && dawn == 0 ? "" : " | FAIL: expected 18000 then 0");
+    }
+
+    private String clockSkipRefused() {
+        long before = Bukkit.getWorld("moba_combat").getTime();
+        lab("time skip 10");
+        long after = Bukkit.getWorld("moba_combat").getTime();
+        return "time " + before + " -> " + after + (before == after ? "" : " | FAIL: a skip changed the combat world's time");
+    }
+
+    private String rulesHunger() {
+        lab("rules hunger freeze");
+        var loss = new org.bukkit.event.entity.FoodLevelChangeEvent(t, Math.max(0, t.getFoodLevel() - 3));
+        Bukkit.getPluginManager().callEvent(loss);
+        var gain = new org.bukkit.event.entity.FoodLevelChangeEvent(t, Math.min(20, t.getFoodLevel() + 3));
+        Bukkit.getPluginManager().callEvent(gain);
+        boolean frozen = moba.lab().rules().hungerFrozen(t);
+        return "frozen=" + frozen + " lossCancelled=" + loss.isCancelled() + " gainCancelled=" + gain.isCancelled()
+                + (frozen && loss.isCancelled() && !gain.isCancelled() ? "" : " | FAIL: a freeze must stop only losses");
+    }
+
+    private String rulesRegen() {
+        lab("rules regen off");
+        var sat = new org.bukkit.event.entity.EntityRegainHealthEvent(t, 1, org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason.SATIATED);
+        Bukkit.getPluginManager().callEvent(sat);
+        var magic = new org.bukkit.event.entity.EntityRegainHealthEvent(t, 1, org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason.MAGIC);
+        Bukkit.getPluginManager().callEvent(magic);
+        return "satiatedCancelled=" + sat.isCancelled() + " magicCancelled=" + magic.isCancelled()
+                + (sat.isCancelled() && !magic.isCancelled() ? "" : " | FAIL: only natural regeneration should be stopped");
+    }
+
+    private String rulesCleared() {
+        cmd("leave");
+        boolean cleared = !moba.lab().rules().hungerFrozen(t) && !moba.lab().rules().regenOff(t);
+        return "cleared=" + cleared + (cleared ? "" : " | FAIL: rules followed the tester out");
     }
 }

@@ -19,14 +19,17 @@ public final class ChamberController {
     private ChamberController() {}
 
     /** The facts a refusal depends on. */
-    public record State(boolean inBay, int undoDepth, boolean pending, boolean sourceChosen) {}
+    public record State(boolean inBay, int undoDepth, boolean pending, boolean sourceChosen,
+                        boolean clockPaused, boolean hungerFrozen, boolean regenOff) {}
 
-    public enum Kind { AUTHOR, SHOW_AGAIN, CONFIRM, CANCEL, REGENERATE_LAST, UNAVAILABLE }
+    public enum Kind { AUTHOR, SHOW_AGAIN, CONFIRM, CANCEL, REGENERATE_LAST, LAB, UNAVAILABLE }
 
     /** What to do. {@code args} are LabAuthoring arguments after "lab author". */
     public record Intent(Kind kind, List<String> args) {
         static Intent author(String... args) { return new Intent(Kind.AUTHOR, List.of(args)); }
         static Intent of(Kind kind) { return new Intent(kind, List.of()); }
+        /** A {@code /moba lab ...} command, for the clock and rules. */
+        static Intent lab(String... args) { return new Intent(Kind.LAB, List.of(args)); }
     }
 
     /**
@@ -45,6 +48,14 @@ public final class ChamberController {
             case "route.from" -> Intent.author("path", "from");
             case "route.to" -> Intent.author("path", "to");
             case "undo" -> Intent.author("undo");
+            case "clock.dusk" -> Intent.lab("time", "dusk");
+            case "clock.midnight" -> Intent.lab("time", "midnight");
+            case "clock.dawn" -> Intent.lab("time", "dawn");
+            case "clock.skip10" -> Intent.lab("time", "skip", "10");
+            case "clock.pause" -> Intent.lab("time", "pause");
+            case "clock.resume" -> Intent.lab("time", "resume");
+            // The ARGUMENT depends on the current setting, so it is filled in by the caller.
+            case "rules.hunger", "rules.regen" -> Intent.lab("rules");
             case "redo" -> Intent.of(Kind.UNAVAILABLE);
             case "preview" -> Intent.of(Kind.SHOW_AGAIN);
             case "confirm" -> Intent.of(Kind.CONFIRM);
@@ -69,6 +80,8 @@ public final class ChamberController {
             case "regenerate" -> s.sourceChosen() ? null
                     : "Choose a certified scoop or a random seed at the platform first.";
             case "confirm", "preview", "cancel" -> s.pending() ? null : "Nothing is pending.";
+            case "clock.pause" -> s.clockPaused() ? "The clock is already paused." : null;
+            case "clock.resume" -> s.clockPaused() ? null : "The clock is already running.";
             default -> null;
         };
     }
