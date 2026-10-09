@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 44 of 44.
+the server. `report-1.21.11-132.txt` is the last run: 57 of 57.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -42,9 +42,15 @@ the STOP RECORDING button, the GHOST ONCE button and the LEAVE button all work t
 real Bukkit events, and leaving restores the hotbar and removes the deck. The Leave
 inventory item's click was not simulated (the world button was).
 
+Interference: a looping Mole ghost casts from its script; a strike stands it down
+(STRUCK) and it stays passive and casts nothing while still in combat; once out of
+combat it resumes and restarts its script (executions 1 to 3); with interference
+toggled off a strike changes nothing and it carries on; with it back on, a stun
+stands it down (STUNNED).
+
 ## Not covered
 
-An ally dummy (no team assignment; the refusal is in code, not exercised live),
+DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 

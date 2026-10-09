@@ -297,6 +297,19 @@ Typed commands still work. **Right-click is A2:** while ability mode is on the m
 the buttons stand back, so a press cannot also cast. The pre-entry flow (class, role,
 slot, modes) is still command-driven; an in-world version is not built.
 
+**Slice 5, interference (9 October 2026), verified live, 57 of 57.** A scripted dummy (a
+replaying ghost, or a Recipient or Observer dummy on the repeat script) now follows
+the state machine in "Interference" above (`GhostInterference`, pure and tested).
+STRUCK, STUNNED, ROOTED and DISPLACED stand it down, cancel what it was holding, and
+leave it passive; once out of combat (`CombatState`) and no longer stunned or rooted it
+restarts its script from the beginning. The proposals above were adopted as written:
+restart rather than resume mid-sequence, and "displaced" meaning motion no ability of
+its own explains (approximate: no own ability running and no cast in the last 40 ticks).
+**Observer ignores interference by default**, and the `interference` verb (hotbar,
+console, or `/moba lab combat interference`) toggles it for anyone. `reset` forces a
+resume. The report shows the ghost's state, cause and count. The first open question
+below (restart or mid-sequence) is answered: restart.
+
 ## Open questions
 
 - Should the temporary non-player target in step 1 be built, or should nothing
@@ -304,4 +317,4 @@ slot, modes) is still command-driven; an in-world version is not built.
 - Should Observer have its own controls (repeat, freeze, camera), or is that a
   later layer?
 - Does the `affects` request land in the skeleton as specified?
-- Resume point after interference: restart (proposed) or mid-sequence?
+- ~~Resume point after interference: restart (proposed) or mid-sequence?~~ Restart, built.

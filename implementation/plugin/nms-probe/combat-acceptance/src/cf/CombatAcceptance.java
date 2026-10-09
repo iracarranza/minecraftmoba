@@ -80,6 +80,19 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "ui: the GHOST ONCE world button starts the ghost", this::uiReplayByButton);
         at(c, 75, "ui: the ghost reproduced the take", this::uiGhostResult);
         at(c, 3, "ui: the LEAVE world button leaves; hotbar restored, deck removed", this::uiLeave);
+        at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
+        at(c, 6, "interference: the tester performs it", this::intPerform);
+        at(c, 14, "interference: the take is two inputs", this::intStop);
+        at(c, 3, "interference: a looping ghost starts and casts", this::intReplay);
+        at(c, 50, "interference: the ghost is casting from its script", this::intCasting);
+        at(c, 10, "interference: striking the ghost stands it down (STRUCK)", this::intStruck);
+        at(c, 60, "interference: it stays passive while still in combat (no casts)", this::intPassive);
+        at(c, 130, "interference: out of combat it resumes and restarts its script", this::intResumed);
+        at(c, 3, "interference: turning interference off, a strike no longer stands it down", this::intIgnoreOn);
+        at(c, 12, "interference: ...and it carried on", this::intIgnoreResult);
+        at(c, 3, "interference: back on, a stun stands it down (STUNNED)", this::intStun);
+        at(c, 8, "interference: reported as stunned", this::intStunResult);
+        at(c, 3, "interference: leave", this::recipientLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -465,7 +478,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var deck = w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType();
         var first = w.getBlockAt(-7, CombatSlab.FLOOR_Y + 1, -19).getType();
         boolean ok = "record".equals(itemId(1)) && "replay".equals(itemId(2)) && "return".equals(itemId(9))
-                && buttons == 10 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
+                && buttons == 11 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
         return "slot0=" + itemId(0) + " slot1=" + itemId(1) + " slot2=" + itemId(2) + " slot9=" + itemId(9)
                 + " buttons=" + buttons + " deck=" + deck + " firstButton=" + first
                 + (ok ? "" : " | FAIL: menu, leave item or control deck missing");
@@ -545,5 +558,95 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
                 && buttons == 0 && w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType() == Material.AIR;
         return "pressed=" + pressed + " world=" + t.getWorld().getName() + " slot0=" + itemId(0) + " slot9=" + itemId(9)
                 + " buttons=" + buttons + (ok ? "" : " | FAIL: leave incomplete");
+    }
+
+    private int mark;
+    private String ghostLine() {
+        return combat().reportLines(t).stream().filter(l -> l.startsWith("Ghost:")).findFirst().orElse("(no ghost line)");
+    }
+
+    /** Strike the ghost on the first tick it is not burrowed (an invulnerable ghost takes no damage). */
+    private void strikeWhenVulnerable() {
+        Player d = combat().dummy(t);
+        var task = new org.bukkit.scheduler.BukkitTask[1];
+        int[] tries = {60};
+        task[0] = Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (!d.isInvulnerable() || tries[0]-- <= 0) { d.damage(1.0, t); task[0].cancel(); }
+        }, 0L, 1L);
+    }
+
+    private String intRecordStart() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        cmd("record start");
+        return "state=" + combat().state(t);
+    }
+
+    private String intPerform() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a2"));
+        Bukkit.getScheduler().runTaskLater(this, () -> in.input(t, in.inputFor("a2")), 10);
+        return "cast";
+    }
+
+    private String intStop() {
+        cmd("record stop");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Take:")).findFirst().orElse("(no take)");
+        return line + (line.contains("2 input(s)") ? "" : " | FAIL: expected two inputs");
+    }
+
+    private String intReplay() { cmd("replay loop"); return "ghost=" + combat().dummy(t).getName(); }
+
+    private String intCasting() {
+        int ran = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        strikeWhenVulnerable();
+        return "ghost drill_rush executions=" + ran + " | " + ghostLine()
+                + (ran >= 1 && ghostLine().contains("SCRIPTING") ? "" : " | FAIL: the ghost was not casting from its script");
+    }
+
+    private String intStruck() {
+        mark = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        var line = ghostLine();
+        return line + " | executions=" + mark + (line.contains("INTERFERED by STRUCK") ? "" : " | FAIL: a strike did not stand the ghost down");
+    }
+
+    private String intPassive() {
+        int now = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        var line = ghostLine();
+        return "executions " + mark + " -> " + now + " | " + line
+                + (now == mark && line.contains("INTERFERED") ? "" : " | FAIL: it cast, or resumed, while still in combat");
+    }
+
+    private String intResumed() {
+        int now = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        var line = ghostLine();
+        return "executions " + mark + " -> " + now + " | " + line
+                + (now > mark && line.contains("SCRIPTING") && line.contains("interfered 1 time") ? "" : " | FAIL: it did not resume and restart");
+    }
+
+    private String intIgnoreOn() {
+        cmd("interference");
+        mark = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        strikeWhenVulnerable();
+        return "ignoring now; " + ghostLine();
+    }
+
+    private String intIgnoreResult() {
+        var line = ghostLine();
+        int now = moba.inputs().executions(combat().dummy(t), "drill_rush");
+        return "executions " + mark + " -> " + now + " | " + line
+                + (line.contains("IGNORED") && line.contains("SCRIPTING") && line.contains("interfered 1 time") && now > mark
+                    ? "" : " | FAIL: an ignoring ghost must carry on when struck");
+    }
+
+    private String intStun() {
+        cmd("interference");
+        moba.stun().stun(combat().dummy(t), 60);
+        return "stunned";
+    }
+
+    private String intStunResult() {
+        var line = ghostLine();
+        return line + (line.contains("INTERFERED by STUNNED") ? "" : " | FAIL: a stun did not stand the ghost down");
     }
 }

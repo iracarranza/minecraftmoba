@@ -81,6 +81,12 @@ public final class CombatChamber implements Listener {
         InputRecording.Take take;
         InputRecording.Replayer replayer;
         long replayStart;
+        boolean loop;
+        final GhostInterference gi = new GhostInterference();
+        UUID owner;
+        long armedAt = Long.MAX_VALUE;
+        long lastOwnCast = Long.MIN_VALUE / 2;
+        org.bukkit.util.Vector lastPos;
         int casts, refused;
         String lastCast = "none";
         long lastHit;
@@ -235,7 +241,12 @@ public final class CombatChamber implements Listener {
         double[] d = CombatSlab.dummySpawn(DUMMY_DISTANCE);
         a.post = new Location(world, d[0], d[1], d[2], 180f, 0f);
         a.dummy = spawnDummy(a);
-        if (!operator && s.script() == CombatBehavior.Script.REPEAT) a.nextCast = Bukkit.getCurrentTick() + REPEAT_TICKS;
+        a.owner = p.getUniqueId();
+        a.gi.ignoring(s.role() == CombatAvailability.Role.OBSERVER);
+        if (!operator && s.script() == CombatBehavior.Script.REPEAT) {
+            a.nextCast = Bukkit.getCurrentTick() + REPEAT_TICKS;
+            a.armedAt = Bukkit.getCurrentTick() + 30;
+        }
         active.put(p.getUniqueId(), a);
         ui.engage(p, world);
         startTicker();
@@ -285,7 +296,7 @@ public final class CombatChamber implements Listener {
             facing = new CastAim.Facing(a.post.getYaw(), 0f);
         }
         var r = caster.cast(d, a.spec.slot().name().toLowerCase(Locale.ROOT), facing, 0);
-        if (r.cast()) a.casts++; else a.refused++;
+        if (r.cast()) { a.casts++; a.lastOwnCast = Bukkit.getCurrentTick(); } else a.refused++;
         a.lastCast = r.note();
         return r;
     }
@@ -320,6 +331,10 @@ public final class CombatChamber implements Listener {
             case "log", "status" -> report(p, a);
             case "clear" -> { a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0; p.sendMessage("Logs cleared."); }
             case "reset" -> reset(p, a);
+            case "interference" -> {
+                a.gi.ignoring(!a.gi.ignoring());
+                p.sendMessage("Ghost interference is now " + (a.gi.ignoring() ? "IGNORED: the ghost carries on when struck." : "ON: the ghost stands down when struck, displaced, stunned or rooted."));
+            }
             case "record" -> record(p, a, args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "");
             case "replay" -> replay(p, a, args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "");
             case "cast" -> {
@@ -372,14 +387,71 @@ public final class CombatChamber implements Listener {
         }
         if (a.take == null || a.take.empty()) { p.sendMessage(ChatColor.RED + "No take with inputs. Record one first."); return; }
         if (a.recorder != null) { p.sendMessage(ChatColor.RED + "Stop recording first."); return; }
-        a.replayer = new InputRecording.Replayer(a.take, sub.equals("loop"));
+        a.loop = sub.equals("loop");
+        a.gi.force();
+        a.lastPos = null;
+        a.replayer = new InputRecording.Replayer(a.take, a.loop);
         // The ghost is a body of the class the take was made as, fresh at its post.
         if (a.dummy != null) bodies.despawn(a.dummy);
         a.dummy = spawnDummy(a);
         a.replayStart = Bukkit.getCurrentTick() + 30;
+        a.armedAt = a.replayStart;
         a.casts = 0; a.refused = 0;
         p.sendMessage(ChatColor.GREEN + "The ghost (" + a.take.classId() + ") will replay " + a.take.events().size()
                 + " input(s) in 1.5s" + (sub.equals("loop") ? ", looping" : "") + ". It is a replay of inputs, so cooldowns and stuns apply to it.");
+    }
+
+    // ---- interference ------------------------------------------------------------
+
+    /** Whether the dummy is running a script that interference can interrupt. */
+    private static boolean scripted(Active a) { return a.replayer != null || a.nextCast != Long.MAX_VALUE; }
+
+    private void interfere(Active a, GhostInterference.Cause cause, long now) {
+        if (!scripted(a) || a.dummy == null || !a.gi.interfere(cause, now)) return;
+        // Whatever the ghost was holding or channelling stops with it.
+        plugin.inputs().exit(a.dummy.player(), true);
+        Player tester = a.owner == null ? null : Bukkit.getPlayer(a.owner);
+        if (tester != null)
+            tester.sendMessage(ChatColor.YELLOW + "The ghost was interfered with (" + cause + "). It is passive until it leaves combat, then restarts its script.");
+    }
+
+    /** Detect what is done to the ghost, and let it resume once the fight has paused. */
+    private void watchInterference(Player tester, Active a, Player dummy, long now) {
+        if (!scripted(a) || now < a.armedAt) return;
+        var stun = plugin.stun();
+        if (stun != null && stun.isStunned(dummy)) interfere(a, GhostInterference.Cause.STUNNED, now);
+        else if (stun != null && stun.movementRefused(dummy)) interfere(a, GhostInterference.Cause.ROOTED, now);
+        var here = dummy.getLocation().toVector();
+        if (a.lastPos != null && GhostInterference.displaced(here.distanceSquared(a.lastPos), ownAbilityActive(dummy),
+                now - a.lastOwnCast))
+            interfere(a, GhostInterference.Cause.DISPLACED, now);
+        a.lastPos = here;
+        if (!a.gi.scripting()) {
+            boolean inCombat = plugin.combatState() != null && plugin.combatState().inCombat(dummy);
+            boolean held = stun != null && stun.movementRefused(dummy);
+            if (a.gi.tryResume(inCombat, held)) restartScript(tester, a, now);
+        }
+    }
+
+    private boolean ownAbilityActive(Player dummy) {
+        var d = plugin.data(dummy);
+        if (d == null) return false;
+        for (String slot : new String[]{"a1", "a2", "ult"}) {
+            var ability = plugin.inputs().abilityFor(d.classId, slot);
+            if (ability != null && ability.active(dummy)) return true;
+        }
+        return false;
+    }
+
+    /** Start over from the beginning, so each presentation of the telegraph is clean. */
+    private void restartScript(Player tester, Active a, long now) {
+        if (a.replayer != null && a.take != null) {
+            a.replayer = new InputRecording.Replayer(a.take, a.loop);
+            a.replayStart = now + 20;
+        }
+        if (a.nextCast != Long.MAX_VALUE) a.nextCast = now + REPEAT_TICKS;
+        a.lastPos = null;
+        tester.sendMessage(ChatColor.GREEN + "The ghost left combat and starts its script again.");
     }
 
     private void replayTick(Player tester, Active a, long now) {
@@ -387,7 +459,7 @@ public final class CombatChamber implements Listener {
         for (var e : a.replayer.advance(now - a.replayStart)) {
             var facing = new CastAim.Facing(InputRecording.replayYaw(a.post.getYaw(), e.relYaw()), e.pitch());
             var r = caster.cast(a.dummy.player(), e.slot(), facing, 0);
-            if (r.cast()) a.casts++; else a.refused++;
+            if (r.cast()) { a.casts++; a.lastOwnCast = now; } else a.refused++;
             a.lastCast = e.slot() + ": " + r.note();
         }
         if (a.replayer.done()) { a.replayer = null; tester.sendMessage("Replay finished."); }
@@ -413,6 +485,10 @@ public final class CombatChamber implements Listener {
         out.add(String.format("  last 5s: %.2f per second", log.perSecond(now, 100)));
         log.finalBySource().forEach((src, dmg) -> out.add(String.format("  %s: %.2f", src, dmg)));
         out.add("Taken by you: " + a.taken.count() + " hits, final " + String.format("%.2f", a.taken.totalFinal()));
+        if (scripted(a) || a.gi.times() > 0)
+            out.add("Ghost: " + (a.gi.scripting() ? "SCRIPTING" : "INTERFERED by " + a.gi.cause()) + ", interfered "
+                    + a.gi.times() + " time(s), interference " + (a.gi.ignoring() ? "IGNORED" : "on")
+                    + ". It stands down until it leaves combat, then restarts its script.");
         if (a.take != null)
             out.add("Take: " + a.take.events().size() + " input(s) over " + String.format("%.1f", a.take.length() / 20.0)
                     + "s as " + a.take.classId() + (a.replayer != null ? " (replaying)" : "")
@@ -472,6 +548,8 @@ public final class CombatChamber implements Listener {
         CombatSlabWorld.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
         a.replayer = null;
+        a.gi.force();
+        a.lastPos = null;
         a.dummy = spawnDummy(a);
         a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0;
         double[] at = CombatSlab.testerSpawn();
@@ -524,6 +602,7 @@ public final class CombatChamber implements Listener {
             if (dummyHit) {
                 a.dealt.record(Bukkit.getCurrentTick(), rawEffective, finalEffective, source);
                 a.lastHit = Bukkit.getCurrentTick();
+                if (finalEffective > 0) interfere(a, GhostInterference.Cause.STRUCK, Bukkit.getCurrentTick());
                 // A lethal hit is recorded at its true size, then clamped so the session survives it.
                 if (victim.getHealth() - e.getFinalDamage() <= 0.5) e.setDamage(Math.max(0, victim.getHealth() - 1.0));
             } else {
@@ -560,9 +639,12 @@ public final class CombatChamber implements Listener {
                 if (a.dummy != null) plugin.inputs().cooldowns().clear(a.dummy.player().getUniqueId());
             }
             if (a.dummy == null) continue;
-            replayTick(tester, a, now);
-            if (now >= a.nextCast) { castNow(tester, a); a.nextCast = now + REPEAT_TICKS; }
             Player dummy = a.dummy.player();
+            watchInterference(tester, a, dummy, now);
+            if (a.gi.scripting()) {
+                replayTick(tester, a, now);
+                if (now >= a.nextCast) { castNow(tester, a); a.nextCast = now + REPEAT_TICKS; }
+            }
             var max = dummy.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
             double full = max == null ? 20.0 : max.getValue();
             if (dummy.getHealth() < full * 0.5) { dummy.setHealth(full); a.refills++; }
@@ -570,6 +652,7 @@ public final class CombatChamber implements Listener {
             if (now - a.lastHit > RETURN_AFTER && dummy.getLocation().distance(a.post) > 2.0) {
                 dummy.setVelocity(new org.bukkit.util.Vector());
                 dummy.teleport(a.post);
+                a.lastPos = null;
             }
         }
     }

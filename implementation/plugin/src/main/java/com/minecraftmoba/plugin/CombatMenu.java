@@ -36,6 +36,7 @@ public final class CombatMenu {
                         ChamberMenu.Item.action("cast", "Dummy casts"),
                         ChamberMenu.Item.submenu("record", "Record a take"),
                         ChamberMenu.Item.submenu("replay", "Ghost replay"),
+                        ChamberMenu.Item.action("interference", "Toggle interference"),
                         ChamberMenu.Item.action("log", "Show the report"),
                         ChamberMenu.Item.action("clear", "Clear the logs"),
                         ChamberMenu.Item.action("reset", "Reset the chamber"))
@@ -51,7 +52,7 @@ public final class CombatMenu {
     /** Every verb the console offers, in button order. {@link #LEAVE} is last and set apart. */
     public static final List<String> CONSOLE_VERBS = List.of(
             "cast", "record.start", "record.stop", "replay.once", "replay.loop", "replay.stop",
-            "log", "clear", "reset", LEAVE);
+            "interference", "log", "clear", "reset", LEAVE);
 
     public static Intent intent(String id) {
         return switch (id) {
@@ -61,6 +62,7 @@ public final class CombatMenu {
             case "replay.once" -> new Intent(List.of("replay"));
             case "replay.loop" -> new Intent(List.of("replay", "loop"));
             case "replay.stop" -> new Intent(List.of("replay", "stop"));
+            case "interference" -> new Intent(List.of("interference"));
             case "log" -> new Intent(List.of("log"));
             case "clear" -> new Intent(List.of("clear"));
             case "reset" -> new Intent(List.of("reset"));

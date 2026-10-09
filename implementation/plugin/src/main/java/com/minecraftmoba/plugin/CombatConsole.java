@@ -62,6 +62,7 @@ public record CombatConsole(Box deck, List<Button> buttons) {
             case "replay.once" -> Material.LIGHT_BLUE_CONCRETE;
             case "replay.loop" -> Material.CYAN_CONCRETE;
             case "replay.stop" -> Material.GRAY_CONCRETE;
+            case "interference" -> Material.MAGENTA_CONCRETE;
             case "log" -> Material.WHITE_CONCRETE;
             case "clear" -> Material.YELLOW_CONCRETE;
             case "reset" -> Material.BROWN_CONCRETE;
@@ -77,6 +78,7 @@ public record CombatConsole(Box deck, List<Button> buttons) {
             case "replay.once" -> "GHOST ONCE";
             case "replay.loop" -> "GHOST LOOP";
             case "replay.stop" -> "STOP GHOST";
+            case "interference" -> "INTERFERENCE";
             case "log" -> "SHOW REPORT";
             case "clear" -> "CLEAR LOGS";
             case "reset" -> "RESET";

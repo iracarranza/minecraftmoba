@@ -45,6 +45,7 @@ public final class ChamberItems {
             Map.entry("cast", Material.BOW),
             Map.entry("record", Material.REDSTONE_TORCH),
             Map.entry("replay", Material.CLOCK),
+            Map.entry("interference", Material.SHIELD),
             Map.entry("log", Material.WRITABLE_BOOK),
             Map.entry("clear", Material.SPONGE),
             Map.entry("reset", Material.TNT),
