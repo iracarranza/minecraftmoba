@@ -5,6 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -60,6 +62,15 @@ public final class Passives implements Listener {
      */
     public static final String SIFTH_SENSE = "sifth_sense";
 
+    /**
+     * Skeleton Crew. Hostile undead pursue from farther away.
+     *
+     * The passive's other half -- killing them generates Crew -- needs Crew,
+     * which is the class's whole resource system and does not exist. See
+     * {@link UndeadAffinity}.
+     */
+    public static final String UNDEAD_AFFINITY = "undead_affinity";
+
     private final MobaPlugin plugin;
     /** Players currently carrying a passive speed modifier, so it can be taken back. */
     private final Set<UUID> speeded = new HashSet<>();
@@ -112,14 +123,40 @@ public final class Passives implements Listener {
 
     // ---- speed ------------------------------------------------------------
 
-    /** Apply or withdraw the fox speed bonus. Called from the plugin's timer. */
+    /** The standing passives. Called from the plugin's timer. */
     public void tick() {
         for (Player p : plugin.getServer().getOnlinePlayers()) {
+            if (has(p, UNDEAD_AFFINITY)) drawUndead(p);
             if (!has(p, ANIMAL_SENSES)) { withdrawSpeed(p); continue; }
             double bonus = AnimalSenses.speedBonus(AnimalSenses.nearby(p, radius()).foxes(),
                     plugin.getConfig().getDouble("passives.animalSenses.foxSpeedBonus"), cap());
             if (bonus <= 0) { withdrawSpeed(p); continue; }
             applySpeed(p, bonus);
+        }
+    }
+
+    // ---- Undead Affinity ---------------------------------------------------
+
+    /**
+     * Point untargeted undead in the extended band at this player.
+     *
+     * Granted per scan rather than by raising FOLLOW_RANGE, because an
+     * attribute raised on a mob stays raised after the player dies, switches
+     * class or walks away, and nothing takes it back. That is the defect
+     * {@link #withdrawSpeed} exists for, and the cheapest fix is to lend
+     * nothing: there is no residue to withdraw.
+     */
+    private void drawUndead(Player p) {
+        double extended = plugin.getConfig().getDouble(
+                "passives.undeadAffinity.range", UndeadAffinity.DEFAULT_EXTENDED);
+        double normal = plugin.getConfig().getDouble(
+                "passives.undeadAffinity.vanillaRange", UndeadAffinity.VANILLA_FOLLOW);
+
+        for (Entity e : p.getNearbyEntities(extended, extended, extended)) {
+            if (!(e instanceof Mob mob) || !UndeadAffinity.eligible(e.getType())) continue;
+            if (!UndeadAffinity.shouldPursue(e.getLocation().distance(p.getLocation()),
+                    normal, extended, mob.getTarget() != null)) continue;
+            mob.setTarget(p);
         }
     }
 

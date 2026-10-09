@@ -60,10 +60,6 @@ class PassiveHookDispatchTest {
      * removed from here, so the record cannot quietly go stale.
      */
     private static final Map<String, String> UNDISPATCHED = new LinkedHashMap<>(Map.of(
-            // Skeleton Crew. Half of it is ordinary -- undead pursuing from
-            // farther away is a follow-range change -- and half needs Crew,
-            // which is the class's whole resource system and does not exist.
-            "undead_affinity", "Skeleton Crew has no passive in game.",
             // Toolbox. The only one here whose passive actually RUNS: UtilityBelt
             // matches classId == "toolbox" directly. So the cost is not a missing
             // feature, it is a config key that describes a mechanism it does not

@@ -1384,6 +1384,21 @@ passives:
   sifthSense:
     radius: 5
     volume: 64
+  # Skeleton Crew. Hostile undead pursue from substantially farther than normal,
+  # converting night-time danger into economic opportunity.
+  #
+  # ONLY THE PURSUIT HALF IS BUILT. The passive also generates Crew on kills,
+  # and Crew -- worker entities with cargo, Supply Line deposits and a priority
+  # order -- does not exist. A counter nothing spends would be a placeholder one
+  # layer in, so it is absent rather than stubbed.
+  #
+  # [FIXTURE -- expect to tune] "Substantially farther" is the only constraint
+  # classes.md gives; doubling is the reading taken. vanillaRange is the band's
+  # LOWER bound, not a cap: inside it vanilla already pursues, and re-targeting
+  # there would make the passive's own contribution unmeasurable.
+  undeadAffinity:
+    range: 32.0
+    vanillaRange: 16.0
 
 combat:
   # [PROTOTYPE] 7 seconds is a first value, not calibration.

@@ -3246,6 +3246,17 @@ Each Crew Member is either physically active in the world **or** committed to Su
 
 Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew stacks. This deliberately converts nighttime and undead danger into economic opportunity. [OPEN] Detection radius, eligible undead, Crew generation values, Crew Limit.
 
+**Build note, 8 October 2026. Pursuit half only.** Implemented as `UndeadAffinity` plus a scan in `Passives.tick`. The Crew-generation half is **not built and not stubbed**: Crew is the class's whole resource system — worker entities with cargo, Supply Line deposits and a Combat → Logistics → self-preservation order — and a counter nothing spends would be a placeholder one layer in. A test asserts `UndeadAffinity` has grown no Crew method, so the counter cannot appear before the ability that spends it.
+
+Decisions taken to make the pursuit half run:
+
+- **Pursuit is granted per scan, not by raising `FOLLOW_RANGE`.** An attribute raised on a mob stays raised after the player dies, switches class or walks away, and nothing takes it back — the defect `withdrawSpeed` already exists for. Lending nothing means there is no residue to withdraw.
+- **A mob already fighting someone is left alone.** Converting night-time danger into opportunity means drawing undead that were not fighting anyone; pulling one off an ally mid-fight is a **taunt**, which is a different and much stronger ability than the one described. [OPEN] if taunting is wanted, it should be stated.
+- **Inside vanilla's own follow range the passive does nothing**, because vanilla already pursues there. This keeps the passive's contribution measurable instead of mixed in with behaviour the game was doing anyway.
+- **Zombified piglins and the Wither are excluded** from `[OPEN] eligible undead`. Piglins are undead but *neutral* and retaliate as a group: pulling them would not extend a danger Skeleton Crew already lives with, it would manufacture a new and lethal one. The Wither is summoned deliberately, not encountered at night.
+
+Range is `[FIXTURE — expect to tune]` at 32 blocks against vanilla's 16. "Substantially farther" is the only constraint given, and doubling is the reading taken.
+
 ### Base Crew behaviour
 
 Active Crew Members are physical workers and combatants with the priority order **Combat → Logistics → self-preservation**. Empty-handed Crew follow Skeleton Crew. Cargo-carrying Crew seek the nearest valid Supply Line node, deposit, then follow. Provoked Crew fight, then resume previous behaviour. Crew likely retain cargo while fighting and spill it if killed. Ordinary sunlight can burn Crew like undead unless otherwise protected.
