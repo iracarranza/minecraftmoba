@@ -40,28 +40,44 @@ branch**: Food Fight damages enemies and Super Nutritious heals allies it hits.
 Nothing built reaches allies yet, so the ally side of any chamber is still
 untested by anything that exists.
 
-### A branch can change the answer, so the manifest says so
+### A branch is its own declaration, not a delta
 
-Two cases, which makes it a pattern rather than an exception:
+A branch carries the **whole triple** — target, input and affects — because any
+of the three can differ. `classes.md` records that a branch may change an
+ability's input form, so a branch holding only the field that happens to differ
+today would quietly become wrong the first time another one moves.
 
-| Ability | Base | Branch |
+There is no base-plus-override to resolve. The ability's row is what it does
+unbranched; a branch row is what *that branch* does, and they are simply allowed
+to differ:
+
+```yaml
+a1:
+  id: "runway"
+  target: "SELF"   input: "INSTANT"   affects: "NONE"
+  branches:
+    pop_rocket: { target: "SELF", input: "INSTANT", affects: "NONE" }
+    trampoline: { target: "SELF", input: "INSTANT", affects: "NONE" }
+    suplex:     { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+```
+
+**Built abilities list every branch**, so a reader needs no union and no second
+file. Two branches may be identical — three branches that happen to reach the
+same people is a fact about the kit, and suppressing it would make "the same"
+indistinguishable from "nobody checked". Crash Landing is that case: all three
+trade self-damage against impact damage, and all three hit enemies.
+
+Chef's Food Fight is the opposite, and the clearest argument for the shape —
+three branches, three different answers:
+
+| Branch | Affects | |
 |---|---|---|
-| Runway | `NONE` | Suplex → `ENEMIES` |
-| Chef's Food Fight | `ENEMIES` | Super Nutritious → `BOTH` |
+| Super Nutritious | `BOTH` | heals allies it hits |
+| Extra Spicy | `ENEMIES` | sets them alight |
+| Reckless Rationing | `NONE` | leaves a raw copy on a cooking station |
 
-`config.yml` already records the first as `combat: false` against
-`branches.suplex.combat: true`, so the split is not new information — it just
-had nowhere to live.
-
-The row carries the **base**; an optional `branchAffects` map beside it carries
-any branch that differs. A branch repeating the base is refused by a test:
-noise that reads as a decision costs the next reader a trip to the design doc
-to learn it was not one.
-
-**Worst-case coverage is the row unioned with its `branchAffects` values.** A
-chamber reading the row alone stands up no enemy dummy for Suplex and no ally
-dummy for Super Nutritious. `Ability.outputs(player, context)` remains the
-authority at runtime.
+`Ability.outputs(player, context)` remains the runtime authority and must agree
+with what the manifest says.
 
 ## The unit is an OUTPUT, not an ability
 

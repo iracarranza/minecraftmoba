@@ -29,15 +29,23 @@
 #   this axis describes an output's reach, and nothing in the roster's passives
 #   reaches another player. The first that does should say so.
 #
-#   The row carries the BASE. A branch that changes the answer goes in the
-#   optional branchAffects map beside it -- Runway is NONE until Suplex, Chef's
-#   Food Fight is ENEMIES until Super Nutritious heals allies it hits. Two cases
-#   is a pattern rather than an exception, so the manifest expresses it instead
-#   of leaving readers to find it in Java.
+# branches:
+#   A BRANCH IS ITS OWN DECLARATION, not a delta on the ability. Each listed
+#   branch carries the full triple, because any of the three can differ and not
+#   only who it reaches -- classes.md records that a branch may change an
+#   ability's input form.
 #
-#   Ability.outputs(player, context) remains the authority at runtime. Anything
-#   reading this file for WORST-CASE coverage must union the row with its
-#   branchAffects values -- which is why they are here and not in a comment.
+#     Runway      SELF/INSTANT/NONE, and Suplex is SELF/INSTANT/ENEMIES
+#     Food Fight  one branch heals allies, one burns enemies, one touches nobody
+#
+#   So there is no base-plus-override to resolve. The ability's own row is what
+#   it does unbranched; a branch row is what THAT branch does. Two branches are
+#   allowed to be identical, because three branches that happen to agree is a
+#   fact about the kit rather than a redundancy to suppress.
+#
+#   Built abilities list every branch, so a reader needs no union and no second
+#   file. Ability.outputs(player, context) is the runtime authority and must
+#   agree with what is here.
 #
 # target / input:
 #   One of TargetForm / InputForm, or "?" for a question classes.md has not
@@ -55,8 +63,28 @@ classes:
     displayName: "Mole"
     abilities:
       passive: { id: sifth_sense, name: "Sifth Sense", status: dispatched, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: tunneling, name: "Tunneling", status: built, target: "DIRECTION", input: "INSTANT", affects: "NONE" }
-      a2: { id: drill_rush, name: "Drill Rush", status: built, target: "DIRECTION", input: "INSTANT", affects: "ENEMIES" }
+      a1:
+        id: "tunneling"
+        name: "Tunneling"
+        status: "built"
+        target: "DIRECTION"
+        input: "INSTANT"
+        affects: "NONE"
+        branches:
+          bore: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+          gallery: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+          dig_in: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+      a2:
+        id: "drill_rush"
+        name: "Drill Rush"
+        status: "built"
+        target: "DIRECTION"
+        input: "INSTANT"
+        affects: "ENEMIES"
+        branches:
+          armored_emergence: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES" }
+          undermine: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES" }
+          burrow_chain: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES" }
       ult: { id: sinkhole, name: "Sinkhole", status: designed, target: "?", input: "?", affects: "?" }
   gardener:
     displayName: "Gardener"
@@ -98,14 +126,44 @@ classes:
     abilities:
       passive: { id: animal_senses, name: "Animal Senses", status: dispatched, target: "SELF", input: "PASSIVE", affects: "NONE" }
       a1: { id: lunge, name: "Lunge", status: designed, target: "?", input: "?", affects: "?" }
-      a2: { id: bounding, name: "Bounding", status: built, target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+      a2:
+        id: "bounding"
+        name: "Bounding"
+        status: "built"
+        target: "DIRECTION"
+        input: "INSTANT"
+        affects: "NONE"
+        branches:
+          drift_to_drift: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+          branch_to_branch: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
+          track_to_track: { target: "DIRECTION", input: "INSTANT", affects: "NONE" }
       ult: { id: rabbits_lucky_foot, name: "Rabbit's Lucky Foot", status: designed, target: "?", input: "?", affects: "?" }
   daredevil:
     displayName: "Daredevil"
     abilities:
       passive: { id: skydiver, name: "Skydiver", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: runway, name: "Runway", status: built, target: "SELF", input: "INSTANT", affects: "NONE", branchAffects: { suplex: ENEMIES } }
-      a2: { id: crash_landing, name: "Crash Landing", status: built, target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+      a1:
+        id: "runway"
+        name: "Runway"
+        status: "built"
+        target: "SELF"
+        input: "INSTANT"
+        affects: "NONE"
+        branches:
+          pop_rocket: { target: "SELF", input: "INSTANT", affects: "NONE" }
+          trampoline: { target: "SELF", input: "INSTANT", affects: "NONE" }
+          suplex: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+      a2:
+        id: "crash_landing"
+        name: "Crash Landing"
+        status: "built"
+        target: "SELF"
+        input: "INSTANT"
+        affects: "ENEMIES"
+        branches:
+          crater: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+          combat_roll: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+          superhero: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
       ult: { id: deathly_clutches, name: "Deathly Clutches", status: built, target: "SELF", input: "INSTANT", affects: "NONE" }
   waxer:
     displayName: "Waxer"
@@ -118,8 +176,28 @@ classes:
     displayName: "Toolbox"
     abilities:
       passive: { id: utility_belt, name: "Utility Belt", status: dispatched, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: reconfiguratron, name: "Reconfiguratron!", status: built, target: "SELF", input: "INSTANT", affects: "NONE" }
-      a2: { id: jumpstartinator, name: "Jumpstartinator!", status: built, target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+      a1:
+        id: "reconfiguratron"
+        name: "Reconfiguratron!"
+        status: "built"
+        target: "SELF"
+        input: "INSTANT"
+        affects: "NONE"
+        branches:
+          speedy_swap: { target: "SELF", input: "INSTANT", affects: "NONE" }
+          more_config: { target: "SELF", input: "INSTANT", affects: "NONE" }
+          spare_parts: { target: "SELF", input: "INSTANT", affects: "NONE" }
+      a2:
+        id: "jumpstartinator"
+        name: "Jumpstartinator!"
+        status: "built"
+        target: "SELF"
+        input: "INSTANT"
+        affects: "ENEMIES"
+        branches:
+          overcharging: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+          super_circuit: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
+          short_circuit: { target: "SELF", input: "INSTANT", affects: "ENEMIES" }
       ult: { id: gizmo, name: "Gizmo of Absurdity and Untold Destruction!!!", status: built, target: "SELF", input: "INSTANT", affects: "ENEMIES" }
   bloodmason:
     displayName: "Bloodmason"
@@ -132,7 +210,17 @@ classes:
     displayName: "Chef"
     abilities:
       passive: { id: trusty_spatula, name: "Trusty Spatula", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: food_fight, name: "Food Fight", status: designed, target: "?", input: "?", affects: "ENEMIES", branchAffects: { super_nutritious: BOTH } }
+      a1:
+        id: "food_fight"
+        name: "Food Fight"
+        status: "designed"
+        target: "?"
+        input: "?"
+        affects: "ENEMIES"
+        branches:
+          super_nutritious: { target: "?", input: "?", affects: "BOTH" }
+          extra_spicy: { target: "?", input: "?", affects: "ENEMIES" }
+          reckless_rationing: { target: "?", input: "?", affects: "NONE" }
       a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "?", input: "?", affects: "ENEMIES" }
       ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "?", input: "?", affects: "ENEMIES" }
   fungal_assassin:

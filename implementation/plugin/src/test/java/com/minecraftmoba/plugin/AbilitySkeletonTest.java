@@ -181,49 +181,105 @@ class AbilitySkeletonTest {
         assertTrue(disagreements.isEmpty(), String.join("; ", disagreements));
     }
 
+    /** Every branch declaration in the manifest, flattened. */
     @SuppressWarnings("unchecked")
-    @Test void everyBranchAffectsValueIsAFormTheCodeKnows() {
+    private static List<Map<String, Object>> branches() {
+        var out = new ArrayList<Map<String, Object>>();
+        for (var e : entries()) {
+            var declared = (Map<String, Map<String, Object>>) e.get("branches");
+            if (declared == null) continue;
+            declared.forEach((branch, body) -> {
+                var copy = new LinkedHashMap<String, Object>(body);
+                copy.put("ability", e.get("id"));
+                copy.put("branch", branch);
+                copy.put("status", e.get("status"));
+                out.add(copy);
+            });
+        }
+        return out;
+    }
+
+    @Test void aBranchDeclaresTheWholeTripleRatherThanADeltaOnTheAbility() {
+        // A branch is its own thing, not a modifier. Any of the three can
+        // differ -- classes.md records that a branch may change an ability's
+        // input form -- so a branch carrying only the field that happens to
+        // differ today would silently become wrong the first time another one
+        // moves.
+        var incomplete = new TreeSet<String>();
+        for (var b : branches())
+            for (String field : new String[]{"target", "input", "affects"})
+                if (b.get(field) == null)
+                    incomplete.add(b.get("ability") + "." + b.get("branch") + " omits " + field);
+        assertTrue(incomplete.isEmpty(), String.valueOf(incomplete));
+    }
+
+    @Test void everyBranchDeclarationUsesFormsTheCodeKnows() {
         var unknown = new TreeSet<String>();
-        for (var e : entries()) {
-            var branches = (Map<String, Object>) e.get("branchAffects");
-            if (branches == null) continue;
-            branches.forEach((branch, value) -> {
-                if (!named(Recipients.values(), String.valueOf(value)))
-                    unknown.add(e.get("id") + "." + branch + " = " + value);
-            });
+        for (var b : branches()) {
+            String t = String.valueOf(b.get("target")), i = String.valueOf(b.get("input")),
+                   a = String.valueOf(b.get("affects"));
+            String where = b.get("ability") + "." + b.get("branch");
+            if (!"?".equals(t) && !named(TargetForm.values(), t)) unknown.add(where + " target " + t);
+            if (!"?".equals(i) && !named(InputForm.values(), i)) unknown.add(where + " input " + i);
+            if (!"?".equals(a) && !named(Recipients.values(), a)) unknown.add(where + " affects " + a);
         }
-        assertTrue(unknown.isEmpty(), "Not a recipient the code knows: " + unknown);
+        assertTrue(unknown.isEmpty(), String.valueOf(unknown));
+    }
+
+    @Test void aBuiltAbilitysBranchesHaveAnsweredToo() {
+        // Same rule as the ability row: "?" is for a question classes.md has
+        // not answered, and something implemented has answered by existing.
+        var unanswered = new TreeSet<String>();
+        for (var b : branches()) {
+            if (!BUILT.equals(b.get("status"))) continue;
+            if ("?".equals(b.get("target")) || "?".equals(b.get("input")) || "?".equals(b.get("affects")))
+                unanswered.add(b.get("ability") + "." + b.get("branch"));
+        }
+        assertTrue(unanswered.isEmpty(), "Built but undeclared: " + unanswered);
     }
 
     @SuppressWarnings("unchecked")
-    @Test void aBranchIsOnlyRecordedWhenItChangesTheAnswer() {
-        // A branch repeating the base is noise that reads as a decision, and
-        // the next person has to check the design to find out it was not one.
-        var redundant = new TreeSet<String>();
+    @Test void everyBuiltAbilityWithBranchesListsAllOfThem() {
+        // Listing only the branches that differ would mean a reader could not
+        // tell "this branch is the same" from "nobody has checked". Built
+        // abilities list all three, so the file answers without a union.
+        var missing = new TreeSet<String>();
         for (var e : entries()) {
-            var branches = (Map<String, Object>) e.get("branchAffects");
-            if (branches == null) continue;
-            branches.forEach((branch, value) -> {
-                if (String.valueOf(value).equals(e.get("affects")))
-                    redundant.add(e.get("id") + "." + branch);
-            });
+            if (!BUILT.equals(e.get("status"))) continue;
+            Class<?> impl = implementationOf((String) e.get("id"));
+            if (impl == null) continue;
+            var declared = (Map<String, Object>) e.get("branches");
+            int listed = declared == null ? 0 : declared.size();
+            if (listed != 0 && listed != 3)
+                missing.add(e.get("id") + " lists " + listed + " of its branches");
         }
-        assertTrue(redundant.isEmpty(), "Same as the base, so says nothing: " + redundant);
+        assertTrue(missing.isEmpty(), String.valueOf(missing));
     }
 
-    @SuppressWarnings("unchecked")
-    @Test void worstCaseCoverageIsTheRowUnionedWithItsBranches() {
-        // The reading a combat chamber needs. Asserted on the two cases that
-        // exist so the union is a documented operation rather than something
-        // each reader works out again.
-        var runway = entries().stream().filter(e -> "runway".equals(e.get("id"))).findFirst().orElseThrow();
-        assertEquals("NONE", runway.get("affects"));
-        assertEquals("ENEMIES", ((Map<String, Object>) runway.get("branchAffects")).get("suplex"),
-                "a chamber reading the row alone would stand up no enemy dummy for Suplex");
+    @Test void branchesMayAgreeWithEachOtherAndWithTheAbility() {
+        // Deliberately asserted, because an earlier version refused a branch
+        // that repeated the base as redundant. It is not redundant: three
+        // branches that happen to reach the same people is a fact about the
+        // kit, and suppressing it makes "same" indistinguishable from
+        // "unchecked". Crash Landing is the case -- all three branches trade
+        // self-damage against impact damage, and all three hit enemies.
+        var crash = branches().stream()
+                .filter(b -> "crash_landing".equals(b.get("ability"))).toList();
+        assertEquals(3, crash.size());
+        for (var b : crash) assertEquals("ENEMIES", b.get("affects"));
+    }
 
-        var food = entries().stream().filter(e -> "food_fight".equals(e.get("id"))).findFirst().orElseThrow();
-        assertEquals("BOTH", ((Map<String, Object>) food.get("branchAffects")).get("super_nutritious"),
-                "Super Nutritious heals allies it hits, and the base does not");
+    @Test void aBranchThatReachesSomebodyTheAbilityDoesNotIsVisibleHere() {
+        // The reading the combat chamber needs, and the reason this is not a
+        // base-plus-override: Suplex and Super Nutritious reach people their
+        // own abilities do not, and the file says so directly.
+        var suplex = branches().stream()
+                .filter(b -> "suplex".equals(b.get("branch"))).findFirst().orElseThrow();
+        assertEquals("ENEMIES", suplex.get("affects"));
+
+        var nutritious = branches().stream()
+                .filter(b -> "super_nutritious".equals(b.get("branch"))).findFirst().orElseThrow();
+        assertEquals("BOTH", nutritious.get("affects"), "it heals allies and still throws food");
     }
 
     @Test void anAbilityWhoseBranchChangesWhoItReachesSaysSoInJava() {
