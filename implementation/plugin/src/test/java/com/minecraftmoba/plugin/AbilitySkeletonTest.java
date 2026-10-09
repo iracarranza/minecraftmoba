@@ -371,15 +371,18 @@ class AbilitySkeletonTest {
     }
 
     @SuppressWarnings("unchecked")
-    @Test void anAbilityIsASetOfOutputsAndFourOfThemAreMoreThanOne() {
+    @Test void anAbilityIsASetOfOutputsAndFiveOfThemAreMoreThanOne() {
         // classes.md settled that the unit of description is an OUTPUT. The
         // manifest used to put one output's fields on the ability, which
         // quietly contradicted that and could not hold the ones that need it.
         //
-        // Two kinds appear. Graveyard Shift and Flip and Press hold outputs
-        // selected by what the cast FOUND. Capillary Flow and Viscerwall hold
-        // the held channels Bloodmason's Ultimate re-expresses them as, which
-        // a third thing selects: the Anatomb being up.
+        // Three kinds appear. Graveyard Shift, Flip and Press and Wax-On hold
+        // outputs selected by what the cast FOUND -- Wax-On seals an
+        // interactive block or restores durability to equipment, which are
+        // different targets, not one effect described twice. Capillary Flow
+        // and Viscerwall hold the held channels Bloodmason's Ultimate
+        // re-expresses them as, which a third thing selects: the Anatomb
+        // being up.
         var multi = new TreeSet<String>();
         for (var slot : slots()) {
             var outputs = (Map<String, Object>) slot.get("outputs");
@@ -387,7 +390,8 @@ class AbilitySkeletonTest {
         }
         assertEquals(Set.of("graveyard_shift=[raise, strike]", "flip_and_press=[flip, press]",
                             "capillary_flow=[capillary_flow, hemorrhage]",
-                            "viscerwall=[teratoma, viscerwall]"), multi, "found: " + multi);
+                            "viscerwall=[teratoma, viscerwall]",
+                            "wax_on=[restore, seal]"), multi, "found: " + multi);
     }
 
     @Test void twoOutputsOfOneAbilityAreToldApartByTargetOrByGesture() {
@@ -456,9 +460,9 @@ class AbilitySkeletonTest {
                 capillary.stream().map(e -> e.get("input")).collect(java.util.stream.Collectors.toSet()));
     }
 
-    @Test void theRostersOnlyAllyFacingOutputsAreChefsAndTheTalismaniacs() {
+    @Test void theRostersAllyFacingOutputsAreNamedSoAnotherArrivesDeliberately() {
         // The combat chamber's ally dummy has exactly these to receive, and
-        // neither is built. Asserted so a third arrives deliberately.
+        // none of them is built.
         var ally = new TreeSet<String>();
         for (var e : entries())
             if ("ALLIES".equals(e.get("affects")) || "BOTH".equals(e.get("affects")))
@@ -466,7 +470,7 @@ class AbilitySkeletonTest {
         for (var b : branches())
             if ("ALLIES".equals(b.get("affects")) || "BOTH".equals(b.get("affects")))
                 ally.add(b.get("ability") + "." + b.get("branch"));
-        assertEquals(Set.of("talisman_of_undying", "food_fight.super_nutritious"), ally,
+        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious"), ally,
                 "found: " + ally);
     }
 

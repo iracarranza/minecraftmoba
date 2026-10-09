@@ -204,19 +204,19 @@ classes:
         name: "Animate"
         status: "designed"
         outputs:
-          animate: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          animate: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       a2:
         id: "assemble"
         name: "Assemble"
         status: "designed"
         outputs:
-          assemble: { target: "?", input: "INSTANT", affects: "?", caster: "false" }
+          assemble: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "false" }
       ult:
         id: "wither_golem"
         name: "Wither Golem"
         status: "designed"
         outputs:
-          wither_golem: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          wither_golem: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   kitfighter:
     displayName: "Kitfighter"
     abilities:
@@ -410,7 +410,8 @@ classes:
         name: "Wax-On"
         status: "designed"
         outputs:
-          wax_on: { target: "?", input: "INSTANT", affects: "NONE", caster: "false" }
+          seal: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
+          restore: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "wax_off"
         name: "Wax-Off"
@@ -491,7 +492,7 @@ classes:
         name: "Viscerwall"
         status: "designed"
         outputs:
-          viscerwall: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "true" }
           teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
       ult:
         id: "athanor_anatomb"
@@ -597,7 +598,7 @@ classes:
         name: "[OPEN] A2 is described but unnamed in classes.md"
         status: "designed"
         outputs:
-          talisman_core: { target: "?", input: "INSTANT", affects: "?", caster: "?" }
+          talisman_core: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       ult:
         id: "talisman_of_undying"
         name: "Talisman of Undying"

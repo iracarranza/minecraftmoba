@@ -208,9 +208,210 @@ inferred from its name. Across all 72 slots:
 | `AREA_BLOCKS` | 5 |
 | `UNIT_BLOCK` | 5 |
 | `UNIT_ENTITY` | 5 |
-| `?` | 6 |
+| `?` | 0 |
 
-All 72 slots now declare an input form; none remains `?`.
+Every output declares all four fields. Nothing in the manifest is `?`.
+
+**All four new values are used**, which is the check that the split was real
+and not a tidy-up: `AREA_ENTITIES` alone carries Irresistible Buffet, Eternity
+Mountain, the Racing Line, Talisman of Undying, Retinue and Burning Out — six
+abilities that would have had to claim a free block preview they cannot give.
+
+### What this surfaced
+
+- **Fungal Assassin's Creeping Colony is the roster's only enemy-facing
+  passive** — attacking applies Fungal Growth. A test asserted every passive
+  was `NONE`; that test would have forced this one to lie, and now pins the
+  count at exactly one instead.
+- **Looming Talismaniac's Talisman of Undying is the first `ALLIES` output**,
+  and Chef's Super Nutritious the only `BOTH`. Nothing else in 72 slots reaches
+  an ally. A test names both, so a third arrives deliberately.
+- **Paver's A1 and A2 are both marked `**Passive.**` in `classes.md`** — Rebar
+  Chain and Chamfering are properties of placed concrete, not castable
+  abilities. Recorded as `PASSIVE` input because that is what the design says,
+  but a class whose A1 and A2 are passives has no active kit below its
+  Ultimate, which is worth a look. [OPEN]
+- **Chauffeur's Racing Line is vector-shaped and needs no vector targeting.**
+  It draws a line from Chauffeur to their Parking Spot — a start and an end,
+  but both already fixed, so there is no second designation to make. It is
+  `AREA_ENTITIES` over the corridor. Worth knowing before `VECTOR` gets built
+  for something that did not need it.
+
+### Input forms: a press unless the design says hold
+
+Filled 9 October. `INSTANT` is **not** a default applied for want of evidence —
+`classes.md` records the preference directly:
+
+> prefer press to a deterministic state sequence over hold and release, unless
+> continuous charging is indispensable
+
+and spells it out where it could be misread, as in Stalking Pounce: *"There is
+no hold-and-release input ... it cannot be charged indefinitely."* So an ability
+described without hold language is one that fires on a press, and recording
+`INSTANT` reports that rather than guessing.
+
+**Three outputs are `CHANNELED`**, all on explicit "hold to channel" wording:
+Bloodmason's Hemorrhage and Teratoma, and Quarryman's Eternity Mountain.
+
+**Nothing is `CHARGED`.** That means "fires once at whatever a held aim
+reached" — a beam that widens while aimed. Bloodmason's channels are not that;
+they repeat an effect every half second held. A test pins it, because
+`CastMode.effectiveFor` and `InputForm.resolve` both exist to handle `CHARGED`
+and **neither has ever run against a real ability**. The first charged ability
+makes both live at once.
+
+### An Ultimate can re-express an ability
+
+Bloodmason's Anatomb turns Capillary Flow into **Hemorrhage** and Viscerwall
+into **Teratoma**, both held channels. They are recorded as outputs of *their
+own abilities*, not of the Ultimate, because that is where the gesture lands.
+
+That makes four multi-output abilities, of two kinds:
+
+| | Selected by |
+|---|---|
+| Graveyard Shift, Flip and Press | what the cast **found** — an enemy or terrain |
+| Capillary Flow, Viscerwall | whether the **Anatomb is up** |
+
+The second is a third selector, after gesture and target. It needs no contract
+change — the `(target, input)` pair differs from the base either way — but it is
+worth naming, because an ability whose outputs depend on a *match state* is not
+something `Ability.outputs(player, context)` currently has a way to ask about.
+[OPEN]
+
+### The last six, closed 9 October
+
+All of them were answered in the classes' **developed sections**, below the kit
+blocks I had read:
+
+| | | Found in |
+|---|---|---|
+| `animate` | `AREA_BLOCKS` | "Target terrain and consume blocks from the area" |
+| `assemble` | `UNIT_BLOCK` | "construct a wall at the targeted location" |
+| `wither_golem` | `SELF` | "Create a temporary Wither Golem" — no aim, as with A-Head of Schedule |
+| `talisman_core` | `UNIT_BLOCK` | the banner, whose supporting block and contiguous region become cursed |
+| `wax_on` | two outputs | below |
+| `viscerwall` | `UNIT_BLOCK` | the weakest of the six — see below |
+
+**Wax-On turned out to be two outputs**: *"Interactive **blocks** that
+accumulate enough Wax become Sealed"* and *"Applying the first Wax to damaged,
+previously unwaxed **equipment** also restores some durability."* A block and a
+piece of gear are different targets, not one effect described twice, so it
+declares `seal` (`UNIT_BLOCK`) and `restore` (`SELF`).
+
+[OPEN] Its Sticky branch mentions *"Attacking Waxed enemy armor"*, which implies
+a path by which an enemy's equipment becomes waxed. Nothing says what that path
+is, so no third output is declared for it.
+
+**Assemble is the roster's third ally-facing output.** The wall mitigates for
+the team behind it and slows enemies shot through it, and `classes.md` records
+its three branches as landing combat "by mitigation, crowd control and buffing
+respectively" — two of those face allies. `BOTH`.
+
+**Viscerwall rests on a pairing, not a statement.** Nothing in its section says
+what it aims at. Capillary Flow — its pair, on the same Hemostasis axis — says
+"Targets the block Bloodmason is looking at", and Viscerwall's mature form is
+described as "concave toward Bloodmason", which only means anything if it is
+placed away from him. `UNIT_BLOCK` on that reading. It is the one of the six I
+would most expect to be corrected.
+
+### Where a designated block expands into many
+
+`UNIT_BLOCK` rather than `AREA_BLOCKS` whenever the **aim** designates one
+block and the ability grows from it — Assemble's wall, Capillary Flow's
+construction, Hotswap's web. `AREA_BLOCKS` is for an aim that selects a set:
+Animate consuming terrain, Wax-Off splashing an area, Sinkhole destabilising a
+region.
+
+Both preview as blocks, so nothing is lost either way; the distinction is what
+the player points at.
+
+## The manifest holds a SET of outputs
+
+Every slot carries an `outputs` map, even when it holds one, so there is a
+single shape to read rather than two. The key is the output's id; for a
+single-output ability that is the ability's own id, which is what the Java
+passes to `AbilityOutput.single`.
+
+```yaml
+a1:
+  id: "graveyard_shift"
+  outputs:
+    strike: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+    raise:  { target: "SELF",        input: "?", affects: "NONE",    caster: "false" }
+  branches:
+    field_work:
+      outputs:
+        strike: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+        raise:  { target: "DIRECTION", input: "?", affects: "NONE",    caster: "false" }
+```
+
+### The selector is the gesture OR what was aimed at
+
+`AbilityOutput.of` used to require **distinct input forms**, on the reading that
+a tap and a hold are what choose between outputs. The roster disagrees:
+
+- **Graveyard Shift** strikes a targeted enemy and *otherwise* raises a Crew
+  Member.
+- **Flip and Press** flips a targeted enemy, *or* advances a targeted cooking
+  station.
+
+One gesture, two outputs, chosen by **what the activation found**. That is
+already how the ability layer works — `AbilityContext` carries the clicked block
+and the interacted entity separately, documented as "an ability reads whichever
+its form expects and refuses cleanly when neither is there." Selection by target
+was in the code before it was in the vocabulary.
+
+So what must be distinct is the **pair**. Two outputs sharing both a target form
+and an input form have nothing to tell them apart, and that is now the only case
+refused.
+
+### A branch declares every output
+
+Not only the ones it changes. Skeleton Crew's **Field Work** is why: it turns
+Graveyard Shift into a projectile, moving *both* outputs from `UNIT_ENTITY` and
+`SELF` to `DIRECTION`. A branch recording only what differs would have to say
+which output it meant.
+
+## The unit is an OUTPUT, not an ability
+
+A tap that stabs and a hold that throws are two outputs of one ability, with
+different forms, and a single pair on the ability cannot describe that. So
+`Ability.outputs()` returns a list of `AbilityOutput(id, target, input)`, and
+where there is more than one the **input form is the selector** — which is why
+`AbilityOutput.of` refuses two outputs that share one.
+
+Most abilities have exactly one output and the distinction never shows.
+
+## What was dead, and is now wired
+
+`TargetForm` and `InputForm` were written, tested against each other, and
+**referenced by no production code at all**. The vocabulary existed; nothing
+spoke it. `Ability` now declares outputs, and `holdDependent` is *derived* from
+`InputForm.CHARGED` rather than declared a second time — so an ability can no
+longer state a form and then contradict it.
+
+`Ability.outputs()` defaults to **empty, meaning undeclared** — not to a
+guessed single output. `SELF` is how an ability says it targets nothing; an
+empty list is how it says nothing at all, and `AbilitySkeletonTest` names every
+one.
+
+## The designed roster, filled in 9 October
+
+Every designed ability's target form was read off `classes.md` rather than
+inferred from its name. Across all 72 slots:
+
+| Form | Count |
+|---|---|
+| `SELF` | 51 |
+| `DIRECTION` | 18 |
+| `AREA_ENTITIES` | 6 |
+| `AREA_BLOCKS` | 5 |
+| `UNIT_BLOCK` | 5 |
+| `UNIT_ENTITY` | 5 |
+| `?` | 0 |
+
+Every output declares all four fields. Nothing in the manifest is `?`.
 
 **All four new values are used**, which is the check that the split was real
 and not a tidy-up: `AREA_ENTITIES` alone carries Irresistible Buffet, Eternity
