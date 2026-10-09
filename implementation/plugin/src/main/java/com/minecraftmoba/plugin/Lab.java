@@ -45,6 +45,8 @@ public final class Lab implements Listener {
     }
 
     private final LabRules rules = new LabRules();
+    private OpportunityBench opportunity;
+    public OpportunityBench opportunity() { return opportunity; }
     private LegibilityBench legibility;
     public LegibilityBench legibility() { return legibility; }
     public LabRules rules() { return rules; }
@@ -57,6 +59,7 @@ public final class Lab implements Listener {
         combat = new CombatChamber(plugin, this);
         Bukkit.getPluginManager().registerEvents(combat, plugin);
         legibility = new LegibilityBench(plugin, this);
+        opportunity = new OpportunityBench(plugin, this);
         Path configured = Path.of(plugin.getConfig().getString("alpha.lab.mapsDirectory", "lab-maps"));
         maps = new LabMaps(configured.isAbsolute() ? configured
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
@@ -127,6 +130,7 @@ public final class Lab implements Listener {
                 case "chamber" -> chamber(p, args);
                 case "combat" -> combat.command(p, args);
                 case "legibility" -> legibility.command(p, args);
+                case "opportunity" -> opportunity.command(p, args);
                 case "time" -> time(p, args);
                 case "rules" -> rules(p, args);
                 case "author" -> authoring.command(p, args);
@@ -180,7 +184,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); legibility.close(); rules.clearAll(); }
+    public void close() { combat.close(); legibility.close(); opportunity.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))

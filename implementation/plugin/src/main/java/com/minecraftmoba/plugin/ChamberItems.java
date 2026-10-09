@@ -57,6 +57,18 @@ public final class ChamberItems {
             Map.entry("interference", Material.SHIELD),
             Map.entry("log", Material.WRITABLE_BOOK),
             Map.entry("clear", Material.SPONGE),
+            // The opportunity bench's verbs.
+            Map.entry("plot", Material.COMPASS),
+            Map.entry("spawn", Material.EGG),
+            Map.entry("skip", Material.SUGAR),
+            Map.entry("manifest", Material.WHEAT_SEEDS),
+            Map.entry("harvest", Material.IRON_HOE),
+            Map.entry("harvest.one", Material.WOODEN_HOE),
+            Map.entry("harvest.all", Material.DIAMOND_HOE),
+            Map.entry("base", Material.OAK_PLANKS),
+            Map.entry("time", Material.DAYLIGHT_DETECTOR),
+            Map.entry("view", Material.SPYGLASS),
+            Map.entry("show", Material.ENDER_EYE),
             // The legibility bench's verbs.
             Map.entry("scale", Material.SLIME_BALL),
             Map.entry("glow", Material.GLOW_INK_SAC),

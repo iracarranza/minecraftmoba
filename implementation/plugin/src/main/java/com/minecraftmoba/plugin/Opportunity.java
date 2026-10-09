@@ -108,7 +108,9 @@ public final class Opportunity {
     /** A manifestation was created at this locus with this much in it. */
     public void manifested(Eligibility.Locus at, int size) {
         if (size <= 0) throw new IllegalArgumentException("a manifestation needs members");
-        previousLocus = locus;
+        // A resolved manifestation has already recorded its site as the previous one and cleared
+        // `locus`; overwriting with that null would forget it.
+        if (locus != null) previousLocus = locus;
         locus = at;
         hasManifested = true;
         remaining = size;
@@ -129,7 +131,11 @@ public final class Opportunity {
         if (remaining == 0) {
             state = State.RECOVERING;
             recoveryProgress = 0;
-            locus = null;          // the locus was the manifestation's, not the opportunity's
+            // The locus belonged to the manifestation, but it is the PREVIOUS site of the
+            // next one: Eligibility keeps a new manifestation away from it. Clearing it here
+            // without remembering it made that rule unreachable (found by the opportunity bench).
+            previousLocus = locus;
+            locus = null;
         }
     }
 
@@ -137,7 +143,7 @@ public final class Opportunity {
     public void observeRemaining(int count) {
         if (state != State.MANIFESTED) return;
         remaining = Math.max(0, count);
-        if (remaining == 0) { state = State.RECOVERING; recoveryProgress = 0; locus = null; }
+        if (remaining == 0) { state = State.RECOVERING; recoveryProgress = 0; previousLocus = locus; locus = null; }
     }
 
     /** Match reset: the opportunity persists, every manifestation is discarded. */

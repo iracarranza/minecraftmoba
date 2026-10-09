@@ -107,12 +107,41 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "legibility: marks record distance; the report gives the median and pixels", this::legMarks);
         at(c, 3, "legibility: the report states the doctrine rule and that per-viewer glow is not delivered", this::legReport);
         at(c, 3, "legibility: the LEAVE world button leaves, restores the hotbar and removes the subject and deck", this::legLeave);
+        at(c, 6, "opportunity: entering builds the platform with two biomes, the deck and hotbar", this::opEnter);
+        at(c, 4, "opportunity: spawning the Herd registers a real source that starts RECOVERING", this::opSpawnHerd);
+        at(c, 3, "opportunity: manifest and harvest are refused with reasons while it recovers", this::opRefusals);
+        at(c, 3, "opportunity: skipping recovery manifests the herd at an eligible site", this::opSkip);
+        at(c, 50, "opportunity: five sheep stand in the region, away from the tester", this::opManifested);
+        at(c, 3, "opportunity: harvesting one counts through the runtime's own listener", this::opHarvestOne);
+        at(c, 4, "opportunity: a standing manifestation cannot be skipped", this::opSkipRefused);
+        at(c, 3, "opportunity: harvesting the rest starts recovery from zero", this::opHarvestAll);
+        at(c, 3, "opportunity: recovered again, it manifests at a DIFFERENT site", this::opSkip);
+        at(c, 50, "opportunity: the second manifestation is displaced from the first", this::opDisplaced);
+        at(c, 4, "opportunity: building over the region blocks the next manifestation and the report says why", this::opBlocked);
+        at(c, 60, "opportunity: it waits READY with blocked attempts counted", this::opBlockedResult);
+        at(c, 3, "opportunity: clearing the base and forcing a manifestation works", this::opCleared);
+        at(c, 5, "opportunity: a Crop Patch manifests wheat and a harvest breaks one", this::opPatch);
+        at(c, 60, "opportunity: the patch stands as eight crops", this::opPatchResult);
+        at(c, 4, "opportunity: harvesting a crop counts", this::opPatchHarvest);
+        at(c, 6, "opportunity: a Swarm manifests a ravager by day in the mountain biome", this::opSwarmDay);
+        at(c, 60, "opportunity: one ravager stands in the mountain plot", this::opSwarmDayResult);
+        at(c, 4, "opportunity: at night the day-only swarm is refused and the report says so", this::opSwarmNight);
+        at(c, 60, "opportunity: it waits READY, not eligible", this::opSwarmNightResult);
+        at(c, 3, "opportunity: back to day, a forced manifestation succeeds", this::opSwarmForced);
+        at(c, 4, "opportunity: a source whose radius is smaller than its region is swept: members outside the cube 'leave' (the Alpha mismatch)", this::opMismatchStart);
+        at(c, 30, "opportunity: ...skip to recovered after the first manifestation if it landed inside the cube", this::opMismatchSecond);
+        at(c, 260, "opportunity: ...after a sweep tick the herd has lost members nobody harvested", this::opMismatchResult);
+        at(c, 4, "opportunity: nothing was ever granted by renewal", this::opGranted);
+        at(c, 4, "opportunity: leaving removes sources, members, deck and restores the hotbar", this::opLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
     }
 
     private void at(int[] clock, int gap, String name, Callable<String> body) {
+        // ACCEPT_ONLY=<prefix> runs just that group (plus setup), so one bench can be iterated on quickly.
+        String only = System.getenv("ACCEPT_ONLY");
+        if (only != null && !(name.startsWith(only) || name.startsWith("plugin loaded") || name.startsWith("lab start puts"))) return;
         clock[0] += gap;
         Bukkit.getScheduler().runTaskLater(this, () -> {
             try {
@@ -824,5 +853,245 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
                 && itemIdKey(0, "legibility_item") == null && buttons == 0 && !leg().occupies(t);
         return "pressed=" + pressed + " world=" + t.getWorld().getName() + " subjectGone=" + (Bukkit.getPlayer(subId) == null) + " buttons=" + buttons
                 + (ok ? "" : " | FAIL: leave incomplete");
+    }
+
+    private OpportunityBench opp() { return moba.lab().opportunity(); }
+    private void oppCmd(String c) { t.performCommand("moba lab opportunity " + c); }
+    private Renewables.Source src(String plot) { return opp().source(t, plot); }
+    private int ticksSeen;
+
+    private long countMembers(Renewables.Source s) {
+        return Bukkit.getWorld("moba_opportunity").getEntities().stream().filter(e -> moba.renewables().isMember(e, s)).count();
+    }
+
+    private String opEnter() {
+        oppCmd("start");
+        World w = Bukkit.getWorld("moba_opportunity");
+        if (w == null || !t.getWorld().getName().equals("moba_opportunity")) return "FAIL: not in the bench world: " + t.getWorld().getName();
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream().filter(i -> i.getScoreboardTags().contains("opportunity_button")).count();
+        String west = w.getBiome(-30, 64, 0) == org.bukkit.block.Biome.PLAINS ? "plains" : "other", east = w.getBiome(30, 64, 0) == org.bukkit.block.Biome.WINDSWEPT_HILLS ? "mountain" : "other";
+        var floor = w.getBlockAt(0, 64, 0).getType();
+        boolean ok = "plot".equals(itemIdKey(0, "opportunity_item")) && "return".equals(itemIdKey(9, "opportunity_item"))
+                && buttons == 11 && west.equals("plains") && east.equals("mountain") && floor == Material.GRASS_BLOCK;
+        return "slot0=" + itemIdKey(0, "opportunity_item") + " slot9=" + itemIdKey(9, "opportunity_item") + " buttons=" + buttons
+                + " west=" + west + " east=" + east + " floor=" + floor + " station=" + String.format("%.1f,%.1f", t.getLocation().getX(), t.getLocation().getZ())
+                + (ok ? "" : " | FAIL: bench not set up as expected");
+    }
+
+    private String opSpawnHerd() {
+        oppCmd("spawn");
+        var s = src("herd");
+        if (s == null) return "FAIL: no source registered";
+        var op = s.opportunity();
+        boolean ok = op.state() == Opportunity.State.RECOVERING && op.recoveryProgress() == 0.0 && s.region().contains(-30, 0);
+        return s.id() + " kind=" + s.kind() + " " + op + " region=" + s.region() + (ok ? "" : " | FAIL: expected a fresh RECOVERING source");
+    }
+
+    private String opRefusals() {
+        oppCmd("manifest"); oppCmd("harvest one");
+        var s = src("herd");
+        boolean ok = s.opportunity().state() == Opportunity.State.RECOVERING && countMembers(s) == 0;
+        return "state=" + s.opportunity().state() + " members=" + countMembers(s) + (ok ? "" : " | FAIL: a refused verb changed something");
+    }
+
+    private String opSkip() {
+        var s = src(opp().selected(t) == 0 ? "herd" : opp().selected(t) == 1 ? "patch" : "swarm");
+        oppCmd("skip");
+        return "state=" + s.opportunity().state() + (s.opportunity().state() == Opportunity.State.READY_AWAITING_LOCUS || s.opportunity().state() == Opportunity.State.MANIFESTED
+                ? "" : " | FAIL: expected recovered");
+    }
+
+    private Eligibility.Locus firstLocus;
+    private String opManifested() {
+        var s = src("herd");
+        var op = s.opportunity();
+        long members = countMembers(s);
+        long sheep = Bukkit.getWorld("moba_opportunity").getEntities().stream().filter(e -> e.getType() == org.bukkit.entity.EntityType.SHEEP).count();
+        var l = op.locus();
+        double fromTester = l == null ? -1 : Math.hypot(l.x() - t.getLocation().getX(), l.z() - t.getLocation().getZ());
+        boolean ok = op.state() == Opportunity.State.MANIFESTED && op.remaining() == 5 && members == 5 && sheep >= 5
+                && l != null && Math.abs(l.x() + 30) <= 12 && Math.abs(l.z()) <= 12 && fromTester >= 24;
+        firstLocus = l;
+        return op + " members=" + members + " sheep=" + sheep + " fromTester=" + String.format("%.1f", fromTester) + (ok ? "" : " | FAIL: expected a five-sheep herd");
+    }
+
+    private String opHarvestOne() {
+        var s = src("herd");
+        oppCmd("harvest one");
+        long members = countMembers(s);
+        boolean ok = s.opportunity().remaining() == 4;
+        return "remaining=" + s.opportunity().remaining() + " membersNow=" + members + (ok ? "" : " | FAIL: expected 4 remaining");
+    }
+
+    private String opSkipRefused() {
+        var s = src("herd");
+        double before = s.opportunity().recoveryProgress();
+        oppCmd("skip");
+        boolean ok = s.opportunity().state() == Opportunity.State.MANIFESTED && s.opportunity().remaining() == 4;
+        return "state=" + s.opportunity().state() + " remaining=" + s.opportunity().remaining() + (ok ? "" : " | FAIL: a standing manifestation must not be skipped");
+    }
+
+    private String opHarvestAll() {
+        var s = src("herd");
+        oppCmd("harvest all");
+        boolean ok = s.opportunity().state() == Opportunity.State.RECOVERING && s.opportunity().recoveryProgress() == 0.0;
+        return s.opportunity() + (ok ? "" : " | FAIL: expected RECOVERING from zero");
+    }
+
+    private String opDisplaced() {
+        var s = src("herd");
+        var op = s.opportunity();
+        var prev = op.previousLocus(); var cur = op.locus();
+        boolean ok = op.state() == Opportunity.State.MANIFESTED && prev != null && cur != null && cur.distanceTo(prev) >= 12.0;
+        return op + " previous=" + prev + " distance=" + (prev == null || cur == null ? -1 : String.format("%.1f", cur.distanceTo(prev)))
+                + (ok ? "" : " | FAIL: expected a second manifestation at least 12 blocks from the first");
+    }
+
+    private String opBlocked() {
+        oppCmd("harvest all");
+        oppCmd("base");
+        oppCmd("skip");
+        return "state=" + src("herd").opportunity().state();
+    }
+
+    private String opBlockedResult() {
+        var s = src("herd");
+        var op = s.opportunity();
+        String joined = String.join(" || ", opp().reportLines(t)).replaceAll("§.", "");
+        boolean ok = op.state() == Opportunity.State.READY_AWAITING_LOCUS && op.blockedAttempts() > 0 && joined.contains("NO viable locus")
+                && (joined.contains("not natural ground") || joined.contains("player-placed"));
+        return op + " | " + joined.substring(joined.indexOf("Eligibility query")) .substring(0, Math.min(260, joined.length() - joined.indexOf("Eligibility query")))
+                + (ok ? "" : " | FAIL: expected READY, blocked attempts counted, with the reason");
+    }
+
+    private String opCleared() {
+        var s = src("herd");
+        oppCmd("base");              // clear
+        oppCmd("manifest");          // force
+        boolean ok = s.opportunity().state() == Opportunity.State.MANIFESTED && s.opportunity().remaining() == 5;
+        return s.opportunity() + (ok ? "" : " | FAIL: expected a forced manifestation after clearing");
+    }
+
+    private String opPatch() {
+        oppCmd("plot");
+        oppCmd("spawn"); oppCmd("skip");
+        return "selected=" + opp().selected(t) + " state=" + src("patch").opportunity().state();
+    }
+
+    private String opPatchResult() {
+        var s = src("patch");
+        World w = Bukkit.getWorld("moba_opportunity");
+        int wheat = 0;
+        for (int x = s.x() - s.radius(); x <= s.x() + s.radius(); x++) for (int z = s.z() - s.radius(); z <= s.z() + s.radius(); z++)
+            if (w.getBlockAt(x, 65, z).getType() == Material.WHEAT) wheat++;
+        boolean ok = s.opportunity().state() == Opportunity.State.MANIFESTED && s.opportunity().remaining() == 8 && wheat == 8;
+        return s.opportunity() + " wheatBlocks=" + wheat + (ok ? "" : " | FAIL: expected eight wheat");
+    }
+
+    private String opPatchHarvest() {
+        var s = src("patch");
+        oppCmd("harvest one");
+        World w = Bukkit.getWorld("moba_opportunity");
+        int wheat = 0;
+        for (int x = s.x() - s.radius(); x <= s.x() + s.radius(); x++) for (int z = s.z() - s.radius(); z <= s.z() + s.radius(); z++)
+            if (w.getBlockAt(x, 65, z).getType() == Material.WHEAT) wheat++;
+        boolean ok = s.opportunity().remaining() == 7 && wheat == 7;
+        return "remaining=" + s.opportunity().remaining() + " wheatBlocks=" + wheat + (ok ? "" : " | FAIL: expected seven");
+    }
+
+    private String opSwarmDay() {
+        oppCmd("plot");
+        oppCmd("spawn"); oppCmd("skip");
+        return "selected=" + opp().selected(t) + " state=" + src("swarm").opportunity().state();
+    }
+
+    private String opSwarmDayResult() {
+        var s = src("swarm");
+        long ravagers = Bukkit.getWorld("moba_opportunity").getEntities().stream().filter(e -> e.getType() == org.bukkit.entity.EntityType.RAVAGER).count();
+        boolean ok = s.opportunity().state() == Opportunity.State.MANIFESTED && s.opportunity().remaining() == 1 && ravagers == 1;
+        return s.opportunity() + " ravagers=" + ravagers + (ok ? "" : " | FAIL: expected one ravager by day in the mountain");
+    }
+
+    private String opSwarmNight() {
+        oppCmd("harvest all");
+        oppCmd("time");
+        oppCmd("skip");
+        return "night=" + WorldTerrain.isNight(Bukkit.getWorld("moba_opportunity")) + " state=" + src("swarm").opportunity().state();
+    }
+
+    private String opSwarmNightResult() {
+        var s = src("swarm");
+        String joined = String.join(" || ", opp().reportLines(t)).replaceAll("§.", "");
+        boolean ok = WorldTerrain.isNight(Bukkit.getWorld("moba_opportunity")) && s.opportunity().state() == Opportunity.State.READY_AWAITING_LOCUS
+                && s.opportunity().blockedAttempts() > 0 && joined.contains("NOT eligible");
+        int i = joined.indexOf("Swarm table");
+        return s.opportunity() + " | " + (i < 0 ? "(no swarm line)" : joined.substring(i, Math.min(joined.length(), i + 200)))
+                + (ok ? "" : " | FAIL: a day-only swarm must wait at night");
+    }
+
+    private String opSwarmForced() {
+        oppCmd("time");        // back to day
+        oppCmd("manifest");
+        var s = src("swarm");
+        boolean ok = !WorldTerrain.isNight(Bukkit.getWorld("moba_opportunity")) && s.opportunity().state() == Opportunity.State.MANIFESTED;
+        return "state=" + s.opportunity().state() + (ok ? "" : " | FAIL: expected a manifestation by day");
+    }
+
+    private String mismatchPlace;
+    private String opMismatchStart() {
+        oppCmd("plot");                              // swarm -> herd
+        oppCmd("spawn 4");                          // radius 4 against a region of half-span 12
+        oppCmd("skip");
+        var s = src("herd");
+        return "plot=" + opp().selected(t) + " radius=" + s.radius() + " " + s.opportunity();
+    }
+
+    private String opMismatchSecond() {
+        var s = src("herd"); var op = s.opportunity();
+        var l = op.locus();
+        boolean inside = l != null && Math.abs(l.x() + 30) <= 4 && Math.abs(l.z()) <= 4;
+        mismatchPlace = (l == null ? "none" : l.toString()) + (inside ? " (inside the cube)" : " (OUTSIDE the cube)");
+        if (inside && op.state() == Opportunity.State.MANIFESTED) { oppCmd("harvest all"); oppCmd("skip"); return "first landed inside; recovering for a second try: " + mismatchPlace; }
+        return "first landed " + mismatchPlace;
+    }
+
+    private String opMismatchResult() {
+        var s = src("herd"); var op = s.opportunity();
+        // If the sweep emptied the herd the opportunity is RECOVERING and the site is now the previous one.
+        var l = op.locus() != null ? op.locus() : op.previousLocus();
+        boolean outside = l != null && (Math.abs(l.x() + 30) > 4 || Math.abs(l.z()) > 4);
+        long members = countMembers(s);
+        // Nobody harvested anything in this step; any loss is the sweeper's.
+        boolean ok = outside && op.remaining() < 5 && s.radius() == 4;   // a RECOVERING herd has remaining 0: the sweeper emptied it
+        return op + " radius=" + s.radius() + " site=" + l + " outsideCube=" + outside + " membersLeft=" + members + " (capacity 5, nobody harvested)"
+                + (ok ? "  => CONFIRMED: members outside the radius cube were swept as having left the region"
+                      : " | FAIL: expected the sweeper to deplete a manifestation placed outside the radius cube");
+    }
+
+    private String opGranted() {
+        long granted = moba.renewables().grantedByRenewal();
+        return "grantedByRenewal=" + granted + (granted == 0 ? "" : " | FAIL: renewal granted something");
+    }
+
+    private String opLeave() {
+        var ids = new java.util.ArrayList<String>();
+        for (var p : new String[]{"herd", "patch", "swarm"}) if (src(p) != null) ids.add(src(p).id());
+        oppCmd("report");
+        pressOpportunityLeave();
+        World w = Bukkit.getWorld("moba_opportunity");
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream().filter(i -> i.getScoreboardTags().contains("opportunity_button")).count();
+        boolean gone = true;
+        for (var s : moba.renewables().sources()) if (ids.contains(s.id())) gone = false;
+        long mobs = w.getEntities().stream().filter(e -> e.getType() == org.bukkit.entity.EntityType.SHEEP || e.getType() == org.bukkit.entity.EntityType.RAVAGER).count();
+        boolean ok = t.getWorld().getName().equals("moba_lab") && gone && buttons == 0 && mobs == 0 && itemIdKey(0, "opportunity_item") == null && !opp().occupies(t);
+        return "world=" + t.getWorld().getName() + " sourcesGone=" + gone + " buttons=" + buttons + " mobs=" + mobs + (ok ? "" : " | FAIL: leave incomplete");
+    }
+
+    private void pressOpportunityLeave() {
+        for (var i : Bukkit.getWorld("moba_opportunity").getEntitiesByClass(org.bukkit.entity.Interaction.class))
+            if (i.getScoreboardTags().contains("opportunity_button") && i.getScoreboardTags().contains("verb:leave")) {
+                Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, i));
+                return;
+            }
     }
 }

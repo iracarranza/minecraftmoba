@@ -586,7 +586,7 @@ public final class Renewables implements Listener {
     }
 
     /** ALPHA FIXTURES. Exact predicates by resource kind are unresolved. */
-    private Eligibility.Rules eligibilityRules() {
+    Eligibility.Rules eligibilityRules() {
         var cfg = plugin.getConfig();
         String base = "renewables.eligibility.";
         return new Eligibility.Rules(
@@ -599,7 +599,7 @@ public final class Renewables implements Listener {
     }
 
     /** WORKING CALIBRATION, expressed as fractions of the Temporal Phase P. */
-    private Recovery.Rates ratesFor(Source s) {
+    Recovery.Rates ratesFor(Source s) {
         var cfg = plugin.getConfig();
         String base = "renewables.temporal.";
         double nightRate = s.type == Type.SWARM
