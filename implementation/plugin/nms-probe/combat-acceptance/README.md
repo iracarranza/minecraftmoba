@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 34 of 34.
+the server. `report-1.21.11-132.txt` is the last run: 44 of 44.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -33,6 +33,14 @@ Recording and ghost replay: as Operator the tester records two slot presses (Dri
 Rush, then its recast); the take is two inputs as Mole; `replay` spawns a Mole ghost
 that performs both from inputs alone (execution count 1, emerged, 2 ran and 0
 refused).
+
+In-chamber UI (no typing): entering puts the menu on the hotbar, Leave in inventory
+slot 9, and builds a control deck of ten world buttons; Dummy casts is greyed with a
+reason for an Operator; with ability mode on, right-click is the ability's alone and
+the menu does not act; the Record item opens its page; Start recording, the real casts,
+the STOP RECORDING button, the GHOST ONCE button and the LEAVE button all work through
+real Bukkit events, and leaving restores the hotbar and removes the deck. The Leave
+inventory item's click was not simulated (the world button was).
 
 ## Not covered
 

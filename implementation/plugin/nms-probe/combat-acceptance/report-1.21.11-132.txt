@@ -32,5 +32,15 @@ PASS ghost: stop saves a take of two inputs :: Take: 2 input(s) over 1.1s as mol
 PASS ghost: replay starts a Mole ghost :: ghost class=mole
 PASS ghost: the ghost ran the real Drill Rush and recast it, from inputs alone :: ghost drill_rush executions=1 invulnerable=false | Dummy casts: 2 ran, 0 refused; last: a2: cast. Replay is approximate: terrain, timing and randomness differ per cast.
 PASS ghost: leave :: dummiesGone=true state=idle
+PASS ui: entering puts the menu on the hotbar, Leave in the inventory, and builds the control deck :: slot0=cast slot1=record slot2=replay slot9=return buttons=10 deck=POLISHED_ANDESITE firstButton=PURPLE_CONCRETE
+PASS ui: Operator sees 'Dummy casts' greyed with a reason :: slot0 material=GRAY_DYE
+PASS ui: with ability mode on, right-click is the ability's: the menu does not act :: abilityModeOn=true dummyUntouched=true abilityCast 1 -> 2
+PASS ui: using the Record item opens its page :: slot0=record.start slot1=record.stop slot8=back cancelled=true
+PASS ui: Start recording on the hotbar starts a take :: used record.start, cancelled=true
+PASS ui: the tester's real casts are recorded while the menu is on the hotbar :: tester drill_rush executions=3
+PASS ui: the STOP RECORDING world button saves the take :: pressed=true | Take: 2 input(s) over 1.0s as mole. A replay is approximate and does not react to you.
+PASS ui: the GHOST ONCE world button starts the ghost :: pressed=true ghost=mole
+PASS ui: the ghost reproduced the take :: ghost drill_rush executions=1 invulnerable=false
+PASS ui: the LEAVE world button leaves; hotbar restored, deck removed :: pressed=true world=moba_lab slot0=null slot9=null buttons=0
 
-SUMMARY pass=34 fail=0
+SUMMARY pass=44 fail=0

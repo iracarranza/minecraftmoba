@@ -70,6 +70,16 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "ghost: replay starts a Mole ghost", this::ghostReplay);
         at(c, 75, "ghost: the ghost ran the real Drill Rush and recast it, from inputs alone", this::ghostResult);
         at(c, 3, "ghost: leave", this::recipientLeave);
+        at(c, 4, "ui: entering puts the menu on the hotbar, Leave in the inventory, and builds the control deck", this::uiEnter);
+        at(c, 4, "ui: Operator sees 'Dummy casts' greyed with a reason", this::uiCastGreyed);
+        at(c, 3, "ui: with ability mode on, right-click is the ability's: the menu does not act", this::uiModeGuard);
+        at(c, 3, "ui: using the Record item opens its page", this::uiOpenRecord);
+        at(c, 3, "ui: Start recording on the hotbar starts a take", this::uiStartRecording);
+        at(c, 6, "ui: the tester's real casts are recorded while the menu is on the hotbar", this::uiPerform);
+        at(c, 14, "ui: the STOP RECORDING world button saves the take", this::uiStopByButton);
+        at(c, 3, "ui: the GHOST ONCE world button starts the ghost", this::uiReplayByButton);
+        at(c, 75, "ui: the ghost reproduced the take", this::uiGhostResult);
+        at(c, 3, "ui: the LEAVE world button leaves; hotbar restored, deck removed", this::uiLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -420,5 +430,120 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         boolean ok = ran == 1 && !d.isInvulnerable() && line.contains("2 ran, 0 refused");
         return "ghost drill_rush executions=" + ran + " invulnerable=" + d.isInvulnerable() + " | " + line
                 + (ok ? "" : " | FAIL: the ghost did not reproduce the take");
+    }
+
+    private String itemId(int slot) {
+        var st = t.getInventory().getItem(slot);
+        if (st == null || !st.hasItemMeta()) return null;
+        return st.getItemMeta().getPersistentDataContainer().get(new org.bukkit.NamespacedKey(moba, "combat_item"),
+                org.bukkit.persistence.PersistentDataType.STRING);
+    }
+
+    private org.bukkit.event.player.PlayerInteractEvent rightClick(int heldSlot) {
+        t.getInventory().setHeldItemSlot(heldSlot);
+        var e = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR,
+                t.getInventory().getItemInMainHand(), null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(e);
+        return e;
+    }
+
+    private boolean pressButton(String verb) {
+        for (var i : Bukkit.getWorld("moba_combat").getEntitiesByClass(org.bukkit.entity.Interaction.class))
+            if (i.getScoreboardTags().contains("verb:" + verb)) {
+                Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, i));
+                return true;
+            }
+        return false;
+    }
+
+    private String uiEnter() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        World w = Bukkit.getWorld("moba_combat");
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream()
+                .filter(i -> i.getScoreboardTags().contains("combat_button")).count();
+        var deck = w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType();
+        var first = w.getBlockAt(-7, CombatSlab.FLOOR_Y + 1, -19).getType();
+        boolean ok = "record".equals(itemId(1)) && "replay".equals(itemId(2)) && "return".equals(itemId(9))
+                && buttons == 10 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
+        return "slot0=" + itemId(0) + " slot1=" + itemId(1) + " slot2=" + itemId(2) + " slot9=" + itemId(9)
+                + " buttons=" + buttons + " deck=" + deck + " firstButton=" + first
+                + (ok ? "" : " | FAIL: menu, leave item or control deck missing");
+    }
+
+    private String uiCastGreyed() {
+        var st = t.getInventory().getItem(0);
+        boolean greyed = st != null && st.getType() == Material.GRAY_DYE;
+        String lore = st == null || st.lore() == null ? "" : st.lore().toString();
+        return "slot0 material=" + (st == null ? null : st.getType()) + (greyed && lore.contains("caster") ? "" : " | FAIL: expected greyed with a reason; lore=" + lore);
+    }
+
+    private String uiOpenRecord() {
+        var e = rightClick(1);
+        boolean ok = "record.start".equals(itemId(0)) && "record.stop".equals(itemId(1)) && e.isCancelled();
+        return "slot0=" + itemId(0) + " slot1=" + itemId(1) + " slot8=" + itemId(8) + " cancelled=" + e.isCancelled()
+                + (ok ? "" : " | FAIL: the Record page did not open");
+    }
+
+    private String uiStartRecording() {
+        var e = rightClick(0);
+        // The recorder is private to the chamber; its effect is that a later stop saves a take.
+        return "used record.start, cancelled=" + e.isCancelled() + (e.isCancelled() ? "" : " | FAIL: the menu press was not consumed");
+    }
+
+    private String uiModeGuard() {
+        // At the root, slot 5 is Reset. If the menu acted the dummy would be replaced.
+        var in = moba.inputs();
+        var dummyBefore = combat().dummy(t).getUniqueId();
+        int before = in.executions(t, "drill_rush");
+        in.input(t, in.modeInput());
+        boolean on = in.active(t);
+        rightClick(5);
+        in.input(t, in.inputFor("a2"));            // emerge again, so the take starts clean
+        in.exit(t, true);
+        boolean sameDummy = combat().dummy(t).getUniqueId().equals(dummyBefore);
+        int after = in.executions(t, "drill_rush");
+        return "abilityModeOn=" + on + " dummyUntouched=" + sameDummy + " abilityCast " + before + " -> " + after
+                + (on && sameDummy && after == before + 1 ? "" : " | FAIL: with ability mode on the click must be the ability's alone");
+    }
+
+    private String uiPerform() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a2"));
+        Bukkit.getScheduler().runTaskLater(this, () -> in.input(t, in.inputFor("a2")), 10);
+        return "tester drill_rush executions=" + in.executions(t, "drill_rush");
+    }
+
+    private String uiStopByButton() {
+        boolean pressed = pressButton("record.stop");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Take:")).findFirst().orElse("(no take line)");
+        return "pressed=" + pressed + " | " + line
+                + (pressed && line.contains("2 input(s)") ? "" : " | FAIL: expected a take of two inputs from the real casts");
+    }
+
+    private String uiReplayByButton() {
+        boolean pressed = pressButton("replay.once");
+        Player d = combat().dummy(t);
+        return "pressed=" + pressed + " ghost=" + (d == null ? null : moba.data(d).classId)
+                + (pressed && d != null && "mole".equals(moba.data(d).classId) ? "" : " | FAIL: no ghost");
+    }
+
+    private String uiGhostResult() {
+        Player d = combat().dummy(t);
+        int ran = moba.inputs().executions(d, "drill_rush");
+        return "ghost drill_rush executions=" + ran + " invulnerable=" + d.isInvulnerable()
+                + (ran == 1 && !d.isInvulnerable() ? "" : " | FAIL: the ghost did not reproduce the take");
+    }
+
+    private String uiLeave() {
+        boolean pressed = pressButton("leave");
+        World w = Bukkit.getWorld("moba_combat");
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream()
+                .filter(i -> i.getScoreboardTags().contains("combat_button")).count();
+        boolean ok = pressed && t.getWorld().getName().equals("moba_lab") && itemId(0) == null && itemId(9) == null
+                && buttons == 0 && w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType() == Material.AIR;
+        return "pressed=" + pressed + " world=" + t.getWorld().getName() + " slot0=" + itemId(0) + " slot9=" + itemId(9)
+                + " buttons=" + buttons + (ok ? "" : " | FAIL: leave incomplete");
     }
 }

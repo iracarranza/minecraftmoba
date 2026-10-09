@@ -93,6 +93,7 @@ public final class CombatChamber implements Listener {
     private final NmsBodies bodies;
     private final CombatCatalog catalog;
     private final BodyCaster caster;
+    private final CombatUi ui;
     private final java.util.Random rng = new java.util.Random();
     /** Ticks between casts under the repeat script. */
     private static final int REPEAT_TICKS = 100;
@@ -109,6 +110,8 @@ public final class CombatChamber implements Listener {
         this.bodies = new NmsBodies(plugin);
         this.catalog = new CombatCatalog(plugin);
         this.caster = new BodyCaster(plugin);
+        this.ui = new CombatUi(plugin, this);
+        Bukkit.getPluginManager().registerEvents(ui, plugin);
     }
 
     /** The shared body factory, so one set of dummies exists however the chamber is reached. */
@@ -234,13 +237,16 @@ public final class CombatChamber implements Listener {
         a.dummy = spawnDummy(a);
         if (!operator && s.script() == CombatBehavior.Script.REPEAT) a.nextCast = Bukkit.getCurrentTick() + REPEAT_TICKS;
         active.put(p.getUniqueId(), a);
+        ui.engage(p, world);
         startTicker();
         p.sendMessage(ChatColor.GREEN + "In the combat chamber as " + s.classId() + " (level " + s.modes().level() + "). "
                 + "Cooldowns " + (s.modes().cooldownWaiver() ? "WAIVED (every report says so). " : "normal. ")
                 + (operator ? "A passive dummy stands " + DUMMY_DISTANCE + " blocks ahead. /moba lab combat log | clear | reset | leave"
                         : "The dummy is a " + s.classId() + " and casts " + s.slot() + " on command: /moba lab combat cast "
                                 + (s.script() == CombatBehavior.Script.REPEAT ? "(it also casts every " + REPEAT_TICKS / 20 + "s)" : "")
-                                + " | log | clear | reset | leave"));
+                                + " | log | clear | reset | leave"))
+        ;
+        p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on.");
     }
 
     /** Why this Recipient or Observer session cannot be entered yet, or null when it can. */
@@ -425,6 +431,23 @@ public final class CombatChamber implements Listener {
         return flow == null ? "idle" : "setup step " + flow.step();
     }
 
+    /** The facts the hotbar and console refusals depend on. */
+    CombatMenu.State uiState(Player p) {
+        var a = active.get(p.getUniqueId());
+        if (a == null) return new CombatMenu.State(false, false, false, false, false);
+        return new CombatMenu.State(true, a.spec.role() == CombatAvailability.Role.OPERATOR, a.recorder != null,
+                a.take != null && !a.take.empty(), a.replayer != null);
+    }
+
+    /** Run a menu or console verb exactly as its typed command would run. */
+    void runVerb(Player p, String verbId) {
+        var intent = CombatMenu.intent(verbId);
+        if (intent == null) return;
+        var full = new java.util.ArrayList<String>(java.util.List.of("lab", "combat"));
+        full.addAll(intent.command());
+        command(p, full.toArray(new String[0]));
+    }
+
     /** Whether this player is a chamber tester or a tester's dummy. */
     public boolean occupies(Player p) {
         if (active.containsKey(p.getUniqueId())) return true;
@@ -459,6 +482,7 @@ public final class CombatChamber implements Listener {
     /** Leave the chamber: remove the dummy and go back to the lab room. */
     public void leave(Player p) {
         var a = active.remove(p.getUniqueId());
+        ui.release(p);
         if (a != null && a.dummy != null) bodies.despawn(a.dummy);
         if (active.isEmpty()) stopTicker();
         if (a != null) { lab.toRoom(p); p.sendMessage("Left the combat chamber."); }
@@ -472,6 +496,7 @@ public final class CombatChamber implements Listener {
             if (p != null) lab.toRoom(p);
         }
         active.clear(); pre.clear(); stopTicker();
+        ui.close();
     }
 
     // ---- measurement ------------------------------------------------------------
@@ -529,6 +554,7 @@ public final class CombatChamber implements Listener {
             Active a = e.getValue();
             Player tester = Bukkit.getPlayer(e.getKey());
             if (tester == null) continue;
+            if (now % 10 == 0) ui.sync(tester);
             if (a.spec.modes().cooldownWaiver()) {
                 plugin.inputs().cooldowns().clear(e.getKey());
                 if (a.dummy != null) plugin.inputs().cooldowns().clear(a.dummy.player().getUniqueId());
@@ -552,6 +578,7 @@ public final class CombatChamber implements Listener {
         pre.remove(e.getPlayer().getUniqueId());
         if (active.containsKey(e.getPlayer().getUniqueId())) {
             var a = active.remove(e.getPlayer().getUniqueId());
+            ui.release(e.getPlayer());
             if (a.dummy != null) bodies.despawn(a.dummy);
             if (active.isEmpty()) stopTicker();
         }

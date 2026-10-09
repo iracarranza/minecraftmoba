@@ -58,6 +58,14 @@ final class ChamberHotbar {
     }
 
     void engage(Player p) {
+        engage(p, ChamberMenu.chamberMenu(), "Return to lab", "Ends the lab session and returns to setup.", true);
+    }
+
+    /**
+     * Engage with another menu and its own wording for the one session verb it keeps.
+     * The combat chamber has no "test as player", so it leaves that slot alone.
+     */
+    void engage(Player p, ChamberMenu menu, String returnName, String returnLore, boolean playtest) {
         if (engaged(p)) return;
         var inv = p.getInventory();
         var saved = new ItemStack[ChamberMenu.SLOTS + 2];
@@ -65,12 +73,12 @@ final class ChamberHotbar {
         saved[ChamberMenu.SLOTS] = copy(inv.getItem(RETURN_SLOT));
         saved[ChamberMenu.SLOTS + 1] = copy(inv.getItem(PLAYTEST_SLOT));
         snapshots.put(p.getUniqueId(), saved);
-        menus.put(p.getUniqueId(), ChamberMenu.chamberMenu());
+        menus.put(p.getUniqueId(), menu);
         lastSignature.remove(p.getUniqueId());
-        inv.setItem(RETURN_SLOT, sessionItem("return", "Return to lab", Material.ENDER_PEARL,
-                "Ends the lab session and returns to setup."));
-        inv.setItem(PLAYTEST_SLOT, sessionItem("playtest", "Test as player", Material.IRON_SWORD,
-                "Leaves the chamber and hands you your own hotbar."));
+        inv.setItem(RETURN_SLOT, sessionItem("return", returnName, Material.ENDER_PEARL, returnLore));
+        if (playtest)
+            inv.setItem(PLAYTEST_SLOT, sessionItem("playtest", "Test as player", Material.IRON_SWORD,
+                    "Leaves the chamber and hands you your own hotbar."));
     }
 
     void release(Player p) {

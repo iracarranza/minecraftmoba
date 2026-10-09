@@ -287,6 +287,16 @@ Two statements above were corrected by running it:
 The temporary non-player target proposed in the suggested order was not needed: the
 real dummy was available first.
 
+**Slice 4, the in-chamber UI (9 October 2026), verified live, 44 of 44.** Inside the
+chamber every action is reachable without typing, mirroring the terrain chamber:
+the hotbar is a `ChamberMenu` (`CombatMenu`: Dummy casts, Record a take, Ghost replay,
+Show the report, Clear the logs, Reset the chamber), unusable items stay in place greyed
+with a reason, Leave is an inventory item, and a control deck west of the slab
+(`CombatConsole`) carries one world button per verb, Leave set apart from the rest.
+Typed commands still work. **Right-click is A2:** while ability mode is on the menu and
+the buttons stand back, so a press cannot also cast. The pre-entry flow (class, role,
+slot, modes) is still command-driven; an in-world version is not built.
+
 ## Open questions
 
 - Should the temporary non-player target in step 1 be built, or should nothing

@@ -40,7 +40,19 @@ public final class ChamberItems {
             Map.entry("route.to", Material.RED_CONCRETE),
             Map.entry("preview", Material.ENDER_EYE),
             Map.entry("confirm", Material.EMERALD),
-            Map.entry("cancel", Material.BARRIER));
+            Map.entry("cancel", Material.BARRIER),
+            // The combat chamber's verbs.
+            Map.entry("cast", Material.BOW),
+            Map.entry("record", Material.REDSTONE_TORCH),
+            Map.entry("replay", Material.CLOCK),
+            Map.entry("log", Material.WRITABLE_BOOK),
+            Map.entry("clear", Material.SPONGE),
+            Map.entry("reset", Material.TNT),
+            Map.entry("record.start", Material.RED_CONCRETE),
+            Map.entry("record.stop", Material.ORANGE_CONCRETE),
+            Map.entry("replay.once", Material.SPECTRAL_ARROW),
+            Map.entry("replay.loop", Material.REPEATER),
+            Map.entry("replay.stop", Material.BARRIER));
 
     public static Spec spec(ChamberMenu.Item item, String refusal) {
         if (item.kind() == ChamberMenu.Kind.BACK)
