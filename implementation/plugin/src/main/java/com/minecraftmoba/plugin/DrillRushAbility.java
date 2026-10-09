@@ -48,7 +48,7 @@ public final class DrillRushAbility implements Ability {
      * press is the whole input, and the recast is a second press, not a hold.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("drill_rush", TargetForm.DIRECTION, InputForm.INSTANT);
+        return AbilityOutput.single("drill_rush", TargetForm.DIRECTION, InputForm.INSTANT, Recipients.ENEMIES);
     }
 
     private final MobaPlugin plugin;

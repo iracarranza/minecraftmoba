@@ -16,8 +16,34 @@ as deliberately outside them.
 | Input form | how the gesture is made | the ability | `InputForm` |
 | Cast mode | whether the aim is verified first | the **player** | `CastMode` |
 | Charges | how many activations bank | the ability | `Ability.charges()` |
+| **Affects** | **who the output acts on** | the ability | `Recipients` |
 
 Only the third is a preference, and it never changes what is cast.
+
+## Who an output reaches is its own question
+
+`Recipients` — `NONE`, `ENEMIES`, `ALLIES`, `BOTH` — added 8 October at the
+combat chamber's request, because nothing else answers it:
+
+- **Not `TargetForm`.** Crash Landing is `SELF` — it ends the caster's own
+  movement and aims at nothing — and damages every enemy near the impact.
+- **Not `combat`.** Deathly Clutches declares `combat: true` and touches nobody
+  but the caster, because combat-ness is about acting on a combatant's
+  capacity to fight, which includes mitigating your own.
+
+Of the nine built abilities: four `NONE`, five `ENEMIES`, **no `ALLIES`** — a
+test asserts that last one, so the first ally-facing ability is a deliberate
+edit rather than a quiet one.
+
+### One row cannot hold a branch
+
+Runway is `NONE` on Pop Rocket and Trampoline and `ENEMIES` on Suplex, which
+`config.yml` already records as `combat: false` against `branches.suplex.combat:
+true`. The manifest row carries the **base**; `Ability.outputs(player, context)`
+is the authority with a branch in hand.
+
+Anything reading the manifest for worst-case coverage must know that, or it
+will under-provision for Suplex.
 
 ## The unit is an OUTPUT, not an ability
 

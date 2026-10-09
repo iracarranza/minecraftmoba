@@ -25,26 +25,35 @@ import java.util.Objects;
  * gesture selects, which is not a selection. {@link #of} refuses that rather
  * than letting the ambiguity reach a player.
  *
+ * <h2>Who it reaches is a fourth question</h2>
+ *
+ * {@link Recipients} is carried because no other axis answers it. Crash
+ * Landing is SELF and damages nearby enemies; Deathly Clutches declares
+ * {@code combat: true} and touches nobody but the caster. Target form, input
+ * form and combat-ness each answer something else.
+ *
  * <h2>What this is not</h2>
  *
  * Not {@link CastMode}. A mode is the player's preference about whether their
  * aim is verified before committing, and it never changes what is cast. Target
  * and input form belong to the ability; the mode belongs to the person.
  */
-public record AbilityOutput(String id, TargetForm target, InputForm input) {
+public record AbilityOutput(String id, TargetForm target, InputForm input, Recipients affects) {
 
     public AbilityOutput {
         Objects.requireNonNull(id, "An output needs an id.");
         Objects.requireNonNull(target, "An output must declare what it aims at.");
         Objects.requireNonNull(input, "An output must declare how it is gestured.");
+        Objects.requireNonNull(affects, "An output must declare who it acts on.");
     }
 
     /**
      * The ordinary case: one output, so the ability is fully described by a
-     * target form and an input form.
+     * target form, an input form and who it reaches.
      */
-    public static List<AbilityOutput> single(String id, TargetForm target, InputForm input) {
-        return List.of(new AbilityOutput(id, target, input));
+    public static List<AbilityOutput> single(String id, TargetForm target, InputForm input,
+                                             Recipients affects) {
+        return List.of(new AbilityOutput(id, target, input, affects));
     }
 
     /**

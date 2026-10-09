@@ -26,7 +26,7 @@ public final class GizmoAbility implements Ability {
      * Toolbox, so the ability aims at nobody -- the window does.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("gizmo", TargetForm.SELF, InputForm.INSTANT);
+        return AbilityOutput.single("gizmo", TargetForm.SELF, InputForm.INSTANT, Recipients.ENEMIES);
     }
 
     private final MobaPlugin plugin;

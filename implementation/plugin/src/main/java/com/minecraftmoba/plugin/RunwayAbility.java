@@ -35,7 +35,26 @@ public final class RunwayAbility implements Ability {
      * decides it, so the target form is unchanged and only combat-ness differs.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("runway", TargetForm.SELF, InputForm.INSTANT);
+        return AbilityOutput.single("runway", TargetForm.SELF, InputForm.INSTANT, Recipients.NONE);
+    }
+
+    /**
+     * Suplex reaches an enemy; the other two branches reach nobody.
+     *
+     * The declaration has to be per branch, because config.yml already says so:
+     * {@code runway.combat} is false and {@code branches.suplex.combat} is
+     * true. A single answer for the ability would have to be wrong for one
+     * branch or the other -- NONE under-describes Suplex, ENEMIES claims
+     * Pop Rocket and Trampoline hit somebody.
+     *
+     * The manifest records the BASE, because a row has one cell. This method is
+     * the authority when a branch is in hand.
+     */
+    @Override public java.util.List<AbilityOutput> outputs(org.bukkit.entity.Player player,
+                                                          AbilityContext context) {
+        boolean suplex = context != null && "suplex".equals(context.branchFor("runway"));
+        return AbilityOutput.single("runway", TargetForm.SELF, InputForm.INSTANT,
+                suplex ? Recipients.ENEMIES : Recipients.NONE);
     }
 
     private final MobaPlugin plugin;

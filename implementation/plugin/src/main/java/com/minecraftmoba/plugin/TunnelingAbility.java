@@ -18,7 +18,7 @@ final class TunnelingAbility implements Ability {
      * persisting afterwards is a held CAST, not a held input.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("tunneling", TargetForm.DIRECTION, InputForm.INSTANT);
+        return AbilityOutput.single("tunneling", TargetForm.DIRECTION, InputForm.INSTANT, Recipients.NONE);
     }
     private final MobaPlugin plugin;
     private final ConfigurationSection config;

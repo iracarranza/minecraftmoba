@@ -62,7 +62,7 @@ public final class BoundingAbility implements Ability {
      * series runs on its own afterwards.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("bounding", TargetForm.DIRECTION, InputForm.INSTANT);
+        return AbilityOutput.single("bounding", TargetForm.DIRECTION, InputForm.INSTANT, Recipients.NONE);
     }
 
     /** One in-flight bound run: how many leaps remain, the shared heading, and branch state. */

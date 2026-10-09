@@ -40,7 +40,7 @@ public final class ReconfiguratronAbility implements Ability {
      * why it ignores cast modes rather than previewing an empty set.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("reconfiguratron", TargetForm.SELF, InputForm.INSTANT);
+        return AbilityOutput.single("reconfiguratron", TargetForm.SELF, InputForm.INSTANT, Recipients.NONE);
     }
 
     private final MobaPlugin plugin;

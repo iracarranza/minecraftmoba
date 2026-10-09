@@ -37,7 +37,7 @@ public final class JumpstartinatorAbility implements Ability {
      * outward; the ACTIVATION does not aim, which is what the form records.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("jumpstartinator", TargetForm.SELF, InputForm.INSTANT);
+        return AbilityOutput.single("jumpstartinator", TargetForm.SELF, InputForm.INSTANT, Recipients.ENEMIES);
     }
 
     private final MobaPlugin plugin;

@@ -97,7 +97,8 @@ class AbilitySkeletonTest {
         // open would be the manifest disagreeing with the code.
         var unanswered = new TreeSet<String>();
         for (var e : entries())
-            if (BUILT.equals(e.get("status")) && ("?".equals(e.get("target")) || "?".equals(e.get("input"))))
+            if (BUILT.equals(e.get("status")) && ("?".equals(e.get("target"))
+                    || "?".equals(e.get("input")) || "?".equals(e.get("affects"))))
                 unanswered.add(e.get("class") + "." + e.get("slot"));
         assertTrue(unanswered.isEmpty(), "Built but undeclared: " + unanswered);
     }
@@ -108,6 +109,8 @@ class AbilitySkeletonTest {
             String t = (String) e.get("target"), i = (String) e.get("input");
             if (!"?".equals(t) && !named(TargetForm.values(), t)) unknown.add("target " + t);
             if (!"?".equals(i) && !named(InputForm.values(), i)) unknown.add("input " + i);
+            String a = (String) e.get("affects");
+            if (!"?".equals(a) && !named(Recipients.values(), a)) unknown.add("affects " + a);
         }
         assertTrue(unknown.isEmpty(), "Not a form in the vocabulary: " + unknown);
     }
@@ -120,6 +123,9 @@ class AbilitySkeletonTest {
             if ("passive".equals(e.get("slot"))) {
                 assertEquals("PASSIVE", e.get("input"), e.get("class") + "'s passive");
                 assertEquals("SELF", e.get("target"), e.get("class") + "'s passive");
+                assertEquals("NONE", e.get("affects"),
+                        e.get("class") + "'s passive: no passive in the roster reaches another "
+                        + "player, and the first that does should say so rather than inherit this");
             }
     }
 
@@ -167,11 +173,40 @@ class AbilitySkeletonTest {
                     java.nio.file.Path.of("src/main/java/com/minecraftmoba/plugin/"
                             + impl.getSimpleName() + ".java")));
             String want = "AbilityOutput.single(\"" + e.get("id") + "\", TargetForm."
-                    + e.get("target") + ", InputForm." + e.get("input") + ")";
+                    + e.get("target") + ", InputForm." + e.get("input")
+                    + ", Recipients." + e.get("affects") + ")";
             if (!src.contains(want)) disagreements.add(impl.getSimpleName() + " should declare " + want);
             assertNotNull(method);
         }
         assertTrue(disagreements.isEmpty(), String.join("; ", disagreements));
+    }
+
+    @Test void anAbilityWhoseBranchChangesWhoItReachesSaysSoInJava() {
+        // The manifest has one row per slot and cannot express branch variance.
+        // Runway is NONE on Pop Rocket and Trampoline and ENEMIES on Suplex,
+        // which config.yml already records as combat false and combat true.
+        // A reader taking the row as the whole answer would under-provision a
+        // combat chamber for Suplex, so the override must exist.
+        try {
+            String src = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/minecraftmoba/plugin/RunwayAbility.java"));
+            assertTrue(src.contains("Recipients.ENEMIES"),
+                    "Suplex reaches an enemy and the base declaration does not say so");
+            assertTrue(src.contains("outputs(org.bukkit.entity.Player"),
+                    "the per-branch declaration is where that lives");
+        } catch (java.io.IOException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    @Test void noBuiltAbilityClaimsToReachAlliesYet() {
+        // Not a rule -- a fact worth asserting, so that the first ally-facing
+        // ability is a deliberate change here rather than a quiet one. The
+        // combat chamber's ally dummy currently has nothing to receive.
+        for (var e : entries())
+            if (BUILT.equals(e.get("status")))
+                assertNotEquals("ALLIES", e.get("affects"),
+                        e.get("class") + "." + e.get("slot") + " is the first; update this test");
     }
 
     private static Class<?> implementationOf(String id) {
