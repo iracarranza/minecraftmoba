@@ -181,6 +181,51 @@ class AbilitySkeletonTest {
         assertTrue(disagreements.isEmpty(), String.join("; ", disagreements));
     }
 
+    @SuppressWarnings("unchecked")
+    @Test void everyBranchAffectsValueIsAFormTheCodeKnows() {
+        var unknown = new TreeSet<String>();
+        for (var e : entries()) {
+            var branches = (Map<String, Object>) e.get("branchAffects");
+            if (branches == null) continue;
+            branches.forEach((branch, value) -> {
+                if (!named(Recipients.values(), String.valueOf(value)))
+                    unknown.add(e.get("id") + "." + branch + " = " + value);
+            });
+        }
+        assertTrue(unknown.isEmpty(), "Not a recipient the code knows: " + unknown);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test void aBranchIsOnlyRecordedWhenItChangesTheAnswer() {
+        // A branch repeating the base is noise that reads as a decision, and
+        // the next person has to check the design to find out it was not one.
+        var redundant = new TreeSet<String>();
+        for (var e : entries()) {
+            var branches = (Map<String, Object>) e.get("branchAffects");
+            if (branches == null) continue;
+            branches.forEach((branch, value) -> {
+                if (String.valueOf(value).equals(e.get("affects")))
+                    redundant.add(e.get("id") + "." + branch);
+            });
+        }
+        assertTrue(redundant.isEmpty(), "Same as the base, so says nothing: " + redundant);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test void worstCaseCoverageIsTheRowUnionedWithItsBranches() {
+        // The reading a combat chamber needs. Asserted on the two cases that
+        // exist so the union is a documented operation rather than something
+        // each reader works out again.
+        var runway = entries().stream().filter(e -> "runway".equals(e.get("id"))).findFirst().orElseThrow();
+        assertEquals("NONE", runway.get("affects"));
+        assertEquals("ENEMIES", ((Map<String, Object>) runway.get("branchAffects")).get("suplex"),
+                "a chamber reading the row alone would stand up no enemy dummy for Suplex");
+
+        var food = entries().stream().filter(e -> "food_fight".equals(e.get("id"))).findFirst().orElseThrow();
+        assertEquals("BOTH", ((Map<String, Object>) food.get("branchAffects")).get("super_nutritious"),
+                "Super Nutritious heals allies it hits, and the base does not");
+    }
+
     @Test void anAbilityWhoseBranchChangesWhoItReachesSaysSoInJava() {
         // The manifest has one row per slot and cannot express branch variance.
         // Runway is NONE on Pop Rocket and Trampoline and ENEMIES on Suplex,

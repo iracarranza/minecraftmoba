@@ -35,15 +35,33 @@ Of the nine built abilities: four `NONE`, five `ENEMIES`, **no `ALLIES`** — a
 test asserts that last one, so the first ally-facing ability is a deliberate
 edit rather than a quiet one.
 
-### One row cannot hold a branch
+Chef is the roster's first ally-facing kit, and it is ally-facing **on a
+branch**: Food Fight damages enemies and Super Nutritious heals allies it hits.
+Nothing built reaches allies yet, so the ally side of any chamber is still
+untested by anything that exists.
 
-Runway is `NONE` on Pop Rocket and Trampoline and `ENEMIES` on Suplex, which
-`config.yml` already records as `combat: false` against `branches.suplex.combat:
-true`. The manifest row carries the **base**; `Ability.outputs(player, context)`
-is the authority with a branch in hand.
+### A branch can change the answer, so the manifest says so
 
-Anything reading the manifest for worst-case coverage must know that, or it
-will under-provision for Suplex.
+Two cases, which makes it a pattern rather than an exception:
+
+| Ability | Base | Branch |
+|---|---|---|
+| Runway | `NONE` | Suplex → `ENEMIES` |
+| Chef's Food Fight | `ENEMIES` | Super Nutritious → `BOTH` |
+
+`config.yml` already records the first as `combat: false` against
+`branches.suplex.combat: true`, so the split is not new information — it just
+had nowhere to live.
+
+The row carries the **base**; an optional `branchAffects` map beside it carries
+any branch that differs. A branch repeating the base is refused by a test:
+noise that reads as a decision costs the next reader a trip to the design doc
+to learn it was not one.
+
+**Worst-case coverage is the row unioned with its `branchAffects` values.** A
+chamber reading the row alone stands up no enemy dummy for Suplex and no ally
+dummy for Super Nutritious. `Ability.outputs(player, context)` remains the
+authority at runtime.
 
 ## The unit is an OUTPUT, not an ability
 

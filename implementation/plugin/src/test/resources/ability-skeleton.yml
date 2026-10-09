@@ -29,10 +29,15 @@
 #   this axis describes an output's reach, and nothing in the roster's passives
 #   reaches another player. The first that does should say so.
 #
-#   Recorded per output, which a one-row-per-slot manifest cannot fully express:
-#   Runway is NONE on two branches and ENEMIES on Suplex. The row carries the
-#   BASE, and Ability.outputs(player, context) is the authority with a branch
-#   in hand. Anything reading this file for worst-case coverage must know that.
+#   The row carries the BASE. A branch that changes the answer goes in the
+#   optional branchAffects map beside it -- Runway is NONE until Suplex, Chef's
+#   Food Fight is ENEMIES until Super Nutritious heals allies it hits. Two cases
+#   is a pattern rather than an exception, so the manifest expresses it instead
+#   of leaving readers to find it in Java.
+#
+#   Ability.outputs(player, context) remains the authority at runtime. Anything
+#   reading this file for WORST-CASE coverage must union the row with its
+#   branchAffects values -- which is why they are here and not in a comment.
 #
 # target / input:
 #   One of TargetForm / InputForm, or "?" for a question classes.md has not
@@ -99,7 +104,7 @@ classes:
     displayName: "Daredevil"
     abilities:
       passive: { id: skydiver, name: "Skydiver", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: runway, name: "Runway", status: built, target: "SELF", input: "INSTANT", affects: "NONE" }
+      a1: { id: runway, name: "Runway", status: built, target: "SELF", input: "INSTANT", affects: "NONE", branchAffects: { suplex: ENEMIES } }
       a2: { id: crash_landing, name: "Crash Landing", status: built, target: "SELF", input: "INSTANT", affects: "ENEMIES" }
       ult: { id: deathly_clutches, name: "Deathly Clutches", status: built, target: "SELF", input: "INSTANT", affects: "NONE" }
   waxer:
@@ -127,9 +132,9 @@ classes:
     displayName: "Chef"
     abilities:
       passive: { id: trusty_spatula, name: "Trusty Spatula", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE" }
-      a1: { id: food_fight, name: "Food Fight", status: designed, target: "?", input: "?", affects: "?" }
-      a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "?", input: "?", affects: "?" }
-      ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "?", input: "?", affects: "?" }
+      a1: { id: food_fight, name: "Food Fight", status: designed, target: "?", input: "?", affects: "ENEMIES", branchAffects: { super_nutritious: BOTH } }
+      a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "?", input: "?", affects: "ENEMIES" }
+      ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "?", input: "?", affects: "ENEMIES" }
   fungal_assassin:
     displayName: "Fungal Assassin"
     abilities:
