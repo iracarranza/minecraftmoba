@@ -155,6 +155,8 @@ public final class LobbyWorld implements Listener {
      */
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent e) {
+        // A body is created where a scenario wants it, not sent to the lobby.
+        if (NmsBodies.isBody(e.getPlayer().getUniqueId())) return;
         if (!enabled() || !plugin.getConfig().getBoolean("features.lobbyWorld.sendOnJoin", true)) return;
         Match match = plugin.match();
         if (match != null && match.running() && match.participant(e.getPlayer().getUniqueId()) != null) return;

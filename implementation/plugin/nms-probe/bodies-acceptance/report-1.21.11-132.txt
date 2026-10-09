@@ -1,0 +1,20 @@
+PASS plugin loaded and exposes inputs :: classes registered: [daredevil, lightfooted, mole, skeleton_crew, test, toolbox] | lobbyWorld.enabled=true | match running=false
+PASS connected() starts verification and does not claim an answer it lacks :: connected()=false verified=false | NMS fake players over an embedded channel (1.21.11-132-c5eb079 (MC: 1.21.11)), connected=unverified (verification in progress; ready in about 12 ticks)
+PASS connected() verified true after the self-test settles :: connected()=true verified=true | NMS fake players over an embedded channel (1.21.11-132-c5eb079 (MC: 1.21.11)), connected=true (a movement packet fired PlayerMoveEvent)
+PASS spawn two bodies (north class A L5, south class B L10) :: spawned B_north_1 and B_south_1; online=2; live=2
+PASS input to an unsettled body is refused, not silently dropped :: refused: body north_1 has not settled: the server silently drops a new player's input for the first...
+PASS enrolled, classed, levelled, not sent to the lobby :: B_north_1: enrolled=true class=daredevil level=5 isBody=true world=world dist=0.0; B_south_1: enrolled=true class=lightfooted level=10 isBody=true world=world dist=0.0; 
+PASS settled() becomes true :: settled(a)=true
+PASS F packet :: sent F; active before=false
+PASS F toggles ability mode through PacketInputs -> AbilityInputs :: active false -> true | vanilla PlayerSwapHandItemsEvent +0
+PASS second F packet :: sent F; active before=true
+PASS second F toggles it back off :: active true -> false
+PASS movement packet :: sent movement, x=4.5
+PASS movement packet moved the body and fired PlayerMoveEvent :: x 4.5 -> 5.5 | PlayerMoveEvent +1
+PASS drop packet is consumed without dropping the held item :: dropped item entities 1 -> 1 | in hand=STICK
+PASS gravity acts on a body :: start y=-48.0
+PASS ...after 30 ticks it landed :: y -48.0 -> -60.0
+PASS despawn: offline, unenrolled, no longer special, files gone, idempotent :: online 2 -> 0 | live=0 | playerdata remains=false
+PASS churn: 4 bodies x 2 rounds leaves nothing live :: online=0 live=0
+
+SUMMARY pass=18 fail=0

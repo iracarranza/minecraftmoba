@@ -7,6 +7,8 @@ repositories {
 }
 dependencies {
     compileOnly("io.netty:netty-transport:4.2.7.Final")
+    // Embedded channels for NmsBodies tests. The server supplies netty at runtime.
+    testImplementation("io.netty:netty-transport:4.2.7.Final")
     compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     testImplementation("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
     testImplementation("org.mockito:mockito-core:5.18.0")

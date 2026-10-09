@@ -41,6 +41,8 @@ public final class ResourcePackPush implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void join(PlayerJoinEvent e) {
         if (!enabled()) return;
+        // A body cannot answer a pack prompt.
+        if (NmsBodies.isBody(e.getPlayer().getUniqueId())) return;
         send(e.getPlayer());
     }
 

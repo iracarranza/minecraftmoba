@@ -1,0 +1,5 @@
+name: BodiesAcceptance
+version: 0.1
+main: bf.BodiesAcceptance
+api-version: '1.21.11'
+depend: [MinecraftMoba]
