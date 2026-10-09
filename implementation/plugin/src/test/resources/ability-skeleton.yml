@@ -14,9 +14,11 @@
 # status:
 #   built       an Ability implementation exists and declares its outputs
 #   dispatched  a passive with a live listener; no Ability, so no outputs
-#   declared    config names a passiveHook that NOTHING dispatches -- the
-#               failure mode this repository has already paid for twice, so it
-#               gets a status rather than a comment
+#   dispatched* a passive that RUNS, but not through its passiveHook: UtilityBelt
+#               matches on classId == "toolbox" directly, so Toolbox's declared
+#               hook is read by nothing and the passive works anyway
+#   declared    config names a passiveHook that NOTHING dispatches -- not the
+#               hook, and no hardcoded check either. The passive does not exist.
 #   designed    classes.md has the kit; nothing is implemented
 #
 # target / input:
@@ -97,7 +99,7 @@ classes:
   toolbox:
     displayName: "Toolbox"
     abilities:
-      passive: { id: utility_belt, name: "Utility Belt", status: dispatched, target: "SELF", input: "PASSIVE" }
+      passive: { id: utility_belt, name: "Utility Belt", status: dispatched*, target: "SELF", input: "PASSIVE" }
       a1: { id: reconfiguratron, name: "Reconfiguratron!", status: built, target: "SELF", input: "INSTANT" }
       a2: { id: jumpstartinator, name: "Jumpstartinator!", status: built, target: "SELF", input: "INSTANT" }
       ult: { id: gizmo, name: "Gizmo of Absurdity and Untold Destruction!!!", status: built, target: "SELF", input: "INSTANT" }
