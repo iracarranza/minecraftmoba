@@ -37,7 +37,7 @@ public final class DeathlyClutchesAbility implements Ability {
      * Acts on the health and damage negation of the caster alone.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("deathly_clutches", TargetForm.SELF, InputForm.INSTANT, Recipients.NONE);
+        return AbilityOutput.single("deathly_clutches", TargetForm.SELF, InputForm.INSTANT, Recipients.NONE, true);
     }
 
     private final MobaPlugin plugin;

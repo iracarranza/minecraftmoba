@@ -34,30 +34,53 @@ public enum TargetForm {
     SELF,
 
     /**
-     * Affects whatever was targeted, immediately.
+     * Affects one block, identified by the click.
      *
-     * Wax this block. Heal this teammate. One thing, already identified by the
-     * click, and the ability acts on it.
+     * Wax this block.
      *
-     * <b>Supported.</b> {@code AbilityContext} carries the clicked block and
-     * the interacted entity, so the ability reads whichever its form expects
-     * and refuses cleanly when neither is there. Carried rather than re-found:
-     * "used ON that player" and "whatever my raycast finds now" are different
-     * predicates, and a heal that re-found its target could heal whoever
-     * stepped into the line after the click.
+     * <b>Supported.</b> {@code AbilityContext} carries the clicked block.
+     * Carried rather than re-found: "used ON that block" and "whatever my
+     * raycast finds now" are different predicates at reach edges.
      */
-    UNIT,
+    UNIT_BLOCK,
+
+    /**
+     * Affects one creature, identified by the click.
+     *
+     * Heal this teammate.
+     *
+     * <b>Supported.</b> {@code AbilityContext} carries the interacted entity
+     * separately from the block, because the client sends one interaction or
+     * the other -- so an ability reads whichever its form expects and refuses
+     * cleanly when neither is there. A heal that re-found its target could
+     * heal whoever stepped into the line after the click.
+     */
+    UNIT_ENTITY,
 
     /**
      * Selects a set of blocks to affect.
      *
      * Set this grass patch alight. Break this vein.
      *
-     * <b>Supported.</b> This is exactly what {@code Ability.preview} returns,
-     * which means an area ability gets a targeting preview for free and is the
-     * form cast modes were built around.
+     * <b>Supported, and previews for free.</b> This is exactly what {@code
+     * Ability.preview} returns, which is why it is the form cast modes were
+     * built around.
      */
-    AREA,
+    AREA_BLOCKS,
+
+    /**
+     * Selects a set of creatures to affect.
+     *
+     * Crash Landing damages everyone near the impact. Irresistible Buffet
+     * seats every enemy the table rolls through.
+     *
+     * <b>Supported, and does NOT preview for free.</b> That is the whole
+     * reason it is separate from {@link #AREA_BLOCKS} rather than folded into
+     * it: {@code preview} returns blocks, so an area of creatures labelled
+     * AREA would inherit a guarantee that is false for it, and a cast mode
+     * would offer a preview with nothing in it.
+     */
+    AREA_ENTITIES,
 
     /**
      * Aims in a direction and fires.
@@ -93,4 +116,33 @@ public enum TargetForm {
 
     /** Whether the input layer can serve this form today. */
     public boolean supported() { return this != VECTOR; }
+
+    /** Whether this form aims at one thing rather than a set. */
+    public boolean unit() { return this == UNIT_BLOCK || this == UNIT_ENTITY; }
+
+    /** Whether this form aims at a set rather than one thing. */
+    public boolean area() { return this == AREA_BLOCKS || this == AREA_ENTITIES; }
+
+    /** Whether what is aimed at is terrain. */
+    public boolean blocks() { return this == UNIT_BLOCK || this == AREA_BLOCKS; }
+
+    /** Whether what is aimed at is a creature. */
+    public boolean entities() { return this == UNIT_ENTITY || this == AREA_ENTITIES; }
+
+    /**
+     * Whether {@code Ability.preview} can describe this form for free.
+     *
+     * Only block forms. A preview is a set of blocks, so a form that aims at
+     * creatures has nothing to hand it -- which is the distinction the split
+     * exists to make visible rather than a limitation of the preview.
+     */
+    public boolean previewsAsBlocks() { return blocks(); }
+
+    /**
+     * Whether an aim can be expressed as a point in the world.
+     *
+     * A creature is not a point: you aim at it, and where it is standing is
+     * incidental. Everything else can be marked.
+     */
+    public boolean pointable() { return this != UNIT_ENTITY && this != SELF && supported(); }
 }

@@ -73,8 +73,10 @@ class InputFormTest {
      */
     @Test void formAndTargetingAreDifferentQuestions() {
         assertEquals(4, InputForm.values().length);
-        assertEquals(5, TargetForm.values().length);
+        assertEquals(7, TargetForm.values().length);
         assertEquals(3, CastMode.values().length);
+        assertEquals(4, Recipients.values().length,
+                "and WHO it reaches is a fourth question, which none of the three answers");
     }
 
     /**

@@ -46,12 +46,15 @@ public final class CombatBehavior {
         if (out.target() == TargetForm.SELF) return result;
         if (!out.target().supported())
             return List.of(new Choice<>(null, false, out.target() + " targeting is not supported."));
-        boolean pointable = out.target() == TargetForm.AREA || out.target() == TargetForm.DIRECTION;
+        // Was "AREA || DIRECTION", which read UNIT as always meaning a
+        // creature. A block is a unit target and IS a point, so the question
+        // is the form's own, and TargetForm answers it.
+        boolean pointable = out.target().pointable();
         result.add(new Choice<>(Aim.AT_PLAYER, true, null));
         result.add(new Choice<>(Aim.STRAIGHT_AHEAD, true, null));
         result.add(new Choice<>(Aim.RANDOM, true, null));
         result.add(pointable ? new Choice<>(Aim.MARKED_POINT, true, null)
-                : new Choice<>(Aim.MARKED_POINT, false, "A unit target is a creature, not a point."));
+                : new Choice<>(Aim.MARKED_POINT, false, "A creature is not a point."));
         result.add(RECORDINGS_EXIST ? new Choice<>(Aim.AS_RECORDED, true, null)
                 : new Choice<>(Aim.AS_RECORDED, false, "No take has been recorded."));
         return result;

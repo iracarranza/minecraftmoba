@@ -42,7 +42,7 @@ public final class CrashLandingAbility implements Ability {
      * the impact, which is an area EFFECT and not an area target: nothing is aimed.
      */
     @Override public java.util.List<AbilityOutput> outputs() {
-        return AbilityOutput.single("crash_landing", TargetForm.SELF, InputForm.INSTANT, Recipients.ENEMIES);
+        return AbilityOutput.single("crash_landing", TargetForm.SELF, InputForm.INSTANT, Recipients.ENEMIES, true);
     }
 
     private final MobaPlugin plugin;

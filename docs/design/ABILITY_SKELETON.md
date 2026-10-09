@@ -16,9 +16,39 @@ as deliberately outside them.
 | Input form | how the gesture is made | the ability | `InputForm` |
 | Cast mode | whether the aim is verified first | the **player** | `CastMode` |
 | Charges | how many activations bank | the ability | `Ability.charges()` |
-| **Affects** | **who the output acts on** | the ability | `Recipients` |
+| Affects | who else the output acts on | the ability | `Recipients` |
+| Caster | whether it also lands on you | the ability | `AbilityOutput.affectsCaster` |
 
 Only the third is a preference, and it never changes what is cast.
+
+## What is aimed at: block or creature
+
+`TargetForm` split on 9 October. `UNIT` covered both — its own doc said *"Wax
+this block. Heal this teammate."* — while `AbilityContext` had always carried
+the clicked block and the interacted entity as separate, mutually exclusive
+fields. The code distinguished them and the words did not.
+
+| | Aims at | Previews for free |
+|---|---|---|
+| `SELF` | nothing | — |
+| `UNIT_BLOCK` | one block | yes |
+| `UNIT_ENTITY` | one creature | no |
+| `AREA_BLOCKS` | a set of blocks | yes |
+| `AREA_ENTITIES` | a set of creatures | **no** |
+| `DIRECTION` | a facing | — |
+| `VECTOR` | a start and an end | not supported |
+
+`AREA_ENTITIES` is the half that mattered most. `AREA` promised *"this is
+exactly what `Ability.preview` returns, which means an area ability gets a
+targeting preview for free"* — and `preview` returns blocks. Crash Landing
+damaging everyone near the impact, or Irresistible Buffet seating every enemy
+the table rolls through, would have inherited a guarantee that is false for
+them, and a cast mode would have offered a preview with nothing in it.
+
+The split also fixed a live defect in the combat chamber: `CombatBehavior`
+asked `AREA || DIRECTION` for "can this be aimed at a marked point", refusing
+unit targets with *"a unit target is a creature, not a point."* A block is a
+unit target and **is** a point. It now asks `TargetForm.pointable()`.
 
 ## Who an output reaches is its own question
 
@@ -30,6 +60,22 @@ combat chamber's request, because nothing else answers it:
 - **Not `combat`.** Deathly Clutches declares `combat: true` and touches nobody
   but the caster, because combat-ness is about acting on a combatant's
   capacity to fight, which includes mitigating your own.
+
+### And the caster is asked separately
+
+`Recipients.NONE` used to be documented as *"the caster, or nobody"* — two
+different facts in one value. Tunneling lands on no one; Deathly Clutches drops
+its caster to near-death. A chamber measuring self-damage could not tell them
+apart.
+
+Crash Landing is the case an enum could not have held at all: it damages nearby
+enemies **and** takes fixed fall damage itself. A value per combination does
+not scale, so `affectsCaster` is a separate boolean and `NONE` now means
+"nobody *else*".
+
+Locomotion is not an effect landing on you: Runway launches its caster and is
+`false`; Crash Landing ends the same movement and takes damage for it, and is
+`true`.
 
 Of the nine built abilities: four `NONE`, five `ENEMIES`, **no `ALLIES`** — a
 test asserts that last one, so the first ally-facing ability is a deliberate

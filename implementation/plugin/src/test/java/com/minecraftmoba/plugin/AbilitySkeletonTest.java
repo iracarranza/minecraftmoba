@@ -98,7 +98,8 @@ class AbilitySkeletonTest {
         var unanswered = new TreeSet<String>();
         for (var e : entries())
             if (BUILT.equals(e.get("status")) && ("?".equals(e.get("target"))
-                    || "?".equals(e.get("input")) || "?".equals(e.get("affects"))))
+                    || "?".equals(e.get("input")) || "?".equals(e.get("affects"))
+                    || "?".equals(e.get("caster"))))
                 unanswered.add(e.get("class") + "." + e.get("slot"));
         assertTrue(unanswered.isEmpty(), "Built but undeclared: " + unanswered);
     }
@@ -174,7 +175,8 @@ class AbilitySkeletonTest {
                             + impl.getSimpleName() + ".java")));
             String want = "AbilityOutput.single(\"" + e.get("id") + "\", TargetForm."
                     + e.get("target") + ", InputForm." + e.get("input")
-                    + ", Recipients." + e.get("affects") + ")";
+                    + ", Recipients." + e.get("affects")
+                    + ("true".equals(e.get("caster")) ? ", true)" : ")");
             if (!src.contains(want)) disagreements.add(impl.getSimpleName() + " should declare " + want);
             assertNotNull(method);
         }
@@ -280,6 +282,27 @@ class AbilitySkeletonTest {
         var nutritious = branches().stream()
                 .filter(b -> "super_nutritious".equals(b.get("branch"))).findFirst().orElseThrow();
         assertEquals("BOTH", nutritious.get("affects"), "it heals allies and still throws food");
+    }
+
+    @Test void theCasterIsAskedSeparatelyFromWhoElseIsReached() {
+        // Recipients.NONE used to mean "the caster, or nobody", which made
+        // Tunneling -- which lands on no one -- indistinguishable from Deathly
+        // Clutches, which drops its caster to near-death. Crash Landing is the
+        // case an enum could not have held at all: ENEMIES *and* the caster.
+        var byId = new LinkedHashMap<String, Map<String, Object>>();
+        for (var e : entries()) byId.put((String) e.get("id"), e);
+
+        assertEquals("false", byId.get("tunneling").get("caster"), "it lands on nobody");
+        assertEquals("true", byId.get("deathly_clutches").get("caster"));
+        assertEquals("NONE", byId.get("deathly_clutches").get("affects"),
+                "and it still reaches nobody else, which is the pair that needed separating");
+
+        assertEquals("ENEMIES", byId.get("crash_landing").get("affects"));
+        assertEquals("true", byId.get("crash_landing").get("caster"),
+                "both at once, which no single enum value could have said");
+
+        assertEquals("false", byId.get("runway").get("caster"),
+                "locomotion is the ability working, not an effect landing on you");
     }
 
     @Test void anAbilityWhoseBranchChangesWhoItReachesSaysSoInJava() {

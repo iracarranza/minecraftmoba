@@ -29,11 +29,11 @@ class CombatChamberLogicTest {
     private static final SlotInfo DESIGNED = new SlotInfo(Slot.ULT, "sinkhole", "Sinkhole", false, false, false, List.of());
     /** A support ability that heals allies with a held gesture. */
     private static final SlotInfo HEAL = new SlotInfo(Slot.A1, "mend", "Mend", true, false, false,
-            List.of(out("mend", TargetForm.UNIT, InputForm.CHANNELED, Recipients.ALLIES)));
+            List.of(out("mend", TargetForm.UNIT_ENTITY, InputForm.CHANNELED, Recipients.ALLIES)));
     /** One ability, two outputs: a tap that hits enemies and a hold that affects everyone. */
     private static final SlotInfo TWO = new SlotInfo(Slot.A1, "pantheon_q", "Two-Way", true, false, false,
-            List.of(out("stab", TargetForm.UNIT, InputForm.INSTANT, Recipients.ENEMIES),
-                    out("throw", TargetForm.AREA, InputForm.CHARGED, Recipients.BOTH)));
+            List.of(out("stab", TargetForm.UNIT_ENTITY, InputForm.INSTANT, Recipients.ENEMIES),
+                    out("throw", TargetForm.AREA_ENTITIES, InputForm.CHARGED, Recipients.BOTH)));
 
     // ---- availability -----------------------------------------------------------
 

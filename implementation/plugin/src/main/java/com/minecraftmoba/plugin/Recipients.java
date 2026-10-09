@@ -23,7 +23,20 @@ package com.minecraftmoba.plugin;
  */
 public enum Recipients {
 
-    /** The caster, or nobody. A dig, a travel ability, a self-buff. */
+    /**
+     * Nobody but, possibly, the caster.
+     *
+     * This says nothing about the caster: that is {@code
+     * AbilityOutput.affectsCaster}, kept separate because the caster is not an
+     * alternative to enemies and allies. Crash Landing damages nearby enemies
+     * and takes fall damage itself, so a single enum would need a value for
+     * every combination.
+     *
+     * Before that flag existed this value was documented as "the caster, or
+     * nobody", which conflated Tunneling -- which lands on no one -- with
+     * Deathly Clutches, which drops its caster to near-death. A chamber
+     * measuring self-damage could not tell them apart.
+     */
     NONE,
 
     /** Damage, control, debuffs. */

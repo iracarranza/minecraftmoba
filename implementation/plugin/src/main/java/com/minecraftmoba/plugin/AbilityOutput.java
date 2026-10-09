@@ -38,13 +38,19 @@ import java.util.Objects;
  * aim is verified before committing, and it never changes what is cast. Target
  * and input form belong to the ability; the mode belongs to the person.
  */
-public record AbilityOutput(String id, TargetForm target, InputForm input, Recipients affects) {
+public record AbilityOutput(String id, TargetForm target, InputForm input, Recipients affects,
+                            boolean affectsCaster) {
 
     public AbilityOutput {
         Objects.requireNonNull(id, "An output needs an id.");
         Objects.requireNonNull(target, "An output must declare what it aims at.");
         Objects.requireNonNull(input, "An output must declare how it is gestured.");
         Objects.requireNonNull(affects, "An output must declare who it acts on.");
+    }
+
+    /** An output that does nothing to its own caster, which is most of them. */
+    public AbilityOutput(String id, TargetForm target, InputForm input, Recipients affects) {
+        this(id, target, input, affects, false);
     }
 
     /**
@@ -54,6 +60,19 @@ public record AbilityOutput(String id, TargetForm target, InputForm input, Recip
     public static List<AbilityOutput> single(String id, TargetForm target, InputForm input,
                                              Recipients affects) {
         return List.of(new AbilityOutput(id, target, input, affects));
+    }
+
+    /**
+     * The same, for an output whose effect also lands on its caster.
+     *
+     * Separate from {@link Recipients} rather than a value in it, because the
+     * caster is not an alternative to enemies and allies -- Crash Landing
+     * damages nearby enemies AND takes fixed fall damage itself, and an enum
+     * would need a value for every combination.
+     */
+    public static List<AbilityOutput> single(String id, TargetForm target, InputForm input,
+                                             Recipients affects, boolean affectsCaster) {
+        return List.of(new AbilityOutput(id, target, input, affects, affectsCaster));
     }
 
     /**
