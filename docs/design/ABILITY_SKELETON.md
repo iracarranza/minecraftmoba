@@ -65,10 +65,22 @@ stable id without giving any class an ability a player could press.
 | `declared` | `config.yml` names a `passiveHook` that **nothing dispatches** |
 | `designed` | `classes.md` has the kit; nothing is implemented |
 
-`declared` exists because two already are: `undead_affinity` and
-`mole_digging` are named on their classes and reach no code. That is the
-silent-disablement failure this repository has paid for twice, so it gets a
-status rather than a comment.
+`declared` exists because **three of four hooks are dead**, and
+`PassiveHookDispatchTest` now holds the list:
+
+| Hook | Class | What it costs |
+|---|---|---|
+| `undead_affinity` | Skeleton Crew | no passive in game |
+| `mole_digging` | Mole | no passive in game, and misnamed — `classes.md` calls it Sifth Sense |
+| `utility_belt` | Toolbox | the passive **runs**, via a hardcoded `classId == "toolbox"`; the hook is read by nothing |
+
+Toolbox is the one that made the others hard to see: a config key describing a
+mechanism it does not use, next to two that describe a mechanism nobody
+implemented. Only `animal_senses` goes through the dispatch the config implies
+all four use.
+
+The test fails if a new dead hook appears, and fails just as loudly if one of
+these is fixed and not removed — so the list cannot quietly go stale.
 
 ### `?` is a real value
 
