@@ -1,0 +1,4 @@
+name: NmsProbe
+version: 0.1
+main: probe.NmsProbe
+api-version: '1.21.11'

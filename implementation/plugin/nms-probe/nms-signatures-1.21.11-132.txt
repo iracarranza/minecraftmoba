@@ -1,0 +1,649 @@
+server=1.21.11-132-c5eb079 (MC: 1.21.11) | 1.21.11-R0.1-SNAPSHOT
+craftserver=org.bukkit.craftbukkit.CraftServer
+minecraftserver=net.minecraft.server.dedicated.DedicatedServer
+serverlevel=net.minecraft.server.level.ServerLevel
+
+=== com.mojang.authlib.GameProfile
+  public final record extends java.lang.Record
+  component java.util.UUID id
+  component java.lang.String name
+  component com.mojang.authlib.properties.PropertyMap properties
+  ctor public (java.util.UUID, java.lang.String, com.mojang.authlib.properties.PropertyMap)
+  ctor public (java.util.UUID, java.lang.String)
+  field private final java.util.UUID id
+  field private final java.lang.String name
+  field private final com.mojang.authlib.properties.PropertyMap properties
+  method public final boolean equals(java.lang.Object)
+  method public final int hashCode()
+  method public java.util.UUID id()
+  method public java.lang.String name()
+  method public com.mojang.authlib.properties.PropertyMap properties()
+  method public final java.lang.String toString()
+
+=== net.minecraft.server.level.ClientInformation
+  public final record extends java.lang.Record
+  component java.lang.String language
+  component int viewDistance
+  component net.minecraft.world.entity.player.ChatVisiblity chatVisibility
+  component boolean chatColors
+  component int modelCustomisation
+  component net.minecraft.world.entity.HumanoidArm mainHand
+  component boolean textFilteringEnabled
+  component boolean allowsListing
+  component net.minecraft.server.level.ParticleStatus particleStatus
+  ctor public (java.lang.String, int, net.minecraft.world.entity.player.ChatVisiblity, boolean, int, net.minecraft.world.entity.HumanoidArm, boolean, boolean, net.minecraft.server.level.ParticleStatus)
+  ctor public (net.minecraft.network.FriendlyByteBuf)
+  field private final java.lang.String language
+  field private final int viewDistance
+  field private final net.minecraft.world.entity.player.ChatVisiblity chatVisibility
+  field private final boolean chatColors
+  field private final int modelCustomisation
+  field private final net.minecraft.world.entity.HumanoidArm mainHand
+  field private final boolean textFilteringEnabled
+  field private final boolean allowsListing
+  field private final net.minecraft.server.level.ParticleStatus particleStatus
+  field public static final int MAX_LANGUAGE_LENGTH
+  method public boolean allowsListing()
+  method public boolean chatColors()
+  method public net.minecraft.world.entity.player.ChatVisiblity chatVisibility()
+  method public static net.minecraft.server.level.ClientInformation createDefault()
+  method public final boolean equals(java.lang.Object)
+  method public final int hashCode()
+  method public java.lang.String language()
+  method public net.minecraft.world.entity.HumanoidArm mainHand()
+  method public int modelCustomisation()
+  method public net.minecraft.server.level.ParticleStatus particleStatus()
+  method public boolean textFilteringEnabled()
+  method public final java.lang.String toString()
+  method public int viewDistance()
+  method public void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.server.level.ServerPlayer
+  public class extends net.minecraft.world.entity.player.Player
+  ctor public (net.minecraft.server.MinecraftServer, net.minecraft.server.level.ServerLevel, com.mojang.authlib.GameProfile, net.minecraft.server.level.ClientInformation)
+  field public long lastSave
+  field public static final double BLOCK_INTERACTION_DISTANCE_VERIFICATION_BUFFER
+  field public static final double ENTITY_INTERACTION_DISTANCE_VERIFICATION_BUFFER
+  field public static final int ENDER_PEARL_TICKET_RADIUS
+  field public static final java.lang.String ENDER_PEARLS_TAG
+  field public static final java.lang.String ENDER_PEARL_DIMENSION_TAG
+  field public static final java.lang.String TAG_DIMENSION
+  field public net.minecraft.server.network.ServerGamePacketListenerImpl connection
+  field public final net.minecraft.server.level.ServerPlayerGameMode gameMode
+  field public int lastSentExp
+  field public net.minecraft.server.level.ParticleStatus particleStatus
+  field public boolean isChangingDimension
+  field public boolean seenCredits
+  field private boolean disconnected
+  field public java.lang.String language
+  field public java.util.Locale adventure$locale
+  field public net.minecraft.world.entity.monster.warden.WardenSpawnTracker wardenSpawnTracker
+  field public final net.minecraft.world.inventory.ContainerSynchronizer containerSynchronizer
+  field public final java.lang.Object object
+  field public boolean wonGame
+  field public long loginTime
+  field public int patrolSpawnDelay
+  field public boolean queueHealthUpdatePacket
+  field public net.minecraft.network.protocol.game.ClientboundSetHealthPacket queuedHealthUpdatePacket
+  field public static final int MOBCATEGORY_TOTAL_ENUMS
+  field public final int[] mobCounts
+  field public final int[] mobBackoffCounts
+  field public java.lang.String lastKnownName
+  field public java.lang.String displayName
+  field public net.kyori.adventure.text.Component adventure$displayName
+  field public net.minecraft.network.chat.Component listName
+  field public int listOrder
+  field public org.bukkit.Location compassTarget
+  field public int newExp
+  field public int newLevel
+  field public int newTotalExp
+  field public boolean keepLevel
+  field public double maxHealthCache
+  field public boolean joining
+  field public boolean sentListPacket
+  field public boolean suppressTrackerForLogin
+  field public boolean isRealPlayer
+  field public com.destroystokyo.paper.event.entity.PlayerNaturallySpawnCreaturesEvent playerNaturallySpawnedEvent
+  field public org.bukkit.event.player.PlayerQuitEvent$QuitReason quitReason
+  field public long timeOffset
+  field public boolean relativeTime
+  field public org.bukkit.WeatherType weatherType
+  method public void disconnect()
+  method public void doTick()
+  method public net.minecraft.world.entity.item.ItemEntity drop(net.minecraft.world.item.ItemStack, boolean, boolean, boolean, java.util.function.Consumer)
+  method public boolean drop(boolean)
+  method public volatile org.bukkit.craftbukkit.entity.CraftEntity getBukkitEntity()
+  method public volatile org.bukkit.craftbukkit.entity.CraftHumanEntity getBukkitEntity()
+  method public org.bukkit.craftbukkit.entity.CraftPlayer getBukkitEntity()
+  method private void lambda$drop$22(net.minecraft.world.entity.player.Inventory, int)
+  method public void resetLastActionTime()
+  method public void restoreFrom(net.minecraft.server.level.ServerPlayer, boolean)
+  method public boolean setGameMode(net.minecraft.world.level.GameType)
+  method public org.bukkit.event.player.PlayerGameModeChangeEvent setGameMode(net.minecraft.world.level.GameType, org.bukkit.event.player.PlayerGameModeChangeEvent$Cause, net.kyori.adventure.text.Component)
+  method public void snapTo(double, double, double)
+  method public void swing(net.minecraft.world.InteractionHand)
+  method public void teleportTo(double, double, double)
+  method public void teleportTo(double, double, double, org.bukkit.event.player.PlayerTeleportEvent$TeleportCause)
+  method public boolean teleportTo(net.minecraft.server.level.ServerLevel, double, double, double, java.util.Set, float, float, boolean, org.bukkit.event.player.PlayerTeleportEvent$TeleportCause)
+  method public void tick()
+  method protected void tickRegeneration()
+  method public void tickWeather()
+
+=== net.minecraft.server.network.CommonListenerCookie
+  public final record extends java.lang.Record
+  component com.mojang.authlib.GameProfile gameProfile
+  component int latency
+  component net.minecraft.server.level.ClientInformation clientInformation
+  component boolean transferred
+  component java.lang.String brandName
+  component java.util.Set channels
+  component io.papermc.paper.util.KeepAlive keepAlive
+  ctor public (com.mojang.authlib.GameProfile, int, net.minecraft.server.level.ClientInformation, boolean, java.lang.String, java.util.Set, io.papermc.paper.util.KeepAlive)
+  field private final com.mojang.authlib.GameProfile gameProfile
+  field private final int latency
+  field private final net.minecraft.server.level.ClientInformation clientInformation
+  field private final boolean transferred
+  field private final java.lang.String brandName
+  field private final java.util.Set channels
+  field private final io.papermc.paper.util.KeepAlive keepAlive
+  method public java.lang.String brandName()
+  method public java.util.Set channels()
+  method public net.minecraft.server.level.ClientInformation clientInformation()
+  method public static net.minecraft.server.network.CommonListenerCookie createInitial(com.mojang.authlib.GameProfile, boolean)
+  method public final boolean equals(java.lang.Object)
+  method public com.mojang.authlib.GameProfile gameProfile()
+  method public final int hashCode()
+  method public io.papermc.paper.util.KeepAlive keepAlive()
+  method public int latency()
+  method public final java.lang.String toString()
+  method public boolean transferred()
+
+=== net.minecraft.server.network.ServerGamePacketListenerImpl
+  public class extends net.minecraft.server.network.ServerCommonPacketListenerImpl
+  ctor public (net.minecraft.server.MinecraftServer, net.minecraft.network.Connection, net.minecraft.server.level.ServerPlayer, net.minecraft.server.network.CommonListenerCookie)
+  field public static final int CLIENT_LOADED_TIMEOUT_TIME
+  field public net.minecraft.server.level.ServerPlayer player
+  field public final net.minecraft.server.network.PlayerChunkSender chunkSender
+  field private int tickCount
+  field private final io.papermc.paper.event.packet.ClientTickEndEvent tickEndEvent
+  field public final io.papermc.paper.connection.PaperPlayerGameConnection playerGameConnection
+  method public void disconnect(net.kyori.adventure.text.Component, org.bukkit.event.player.PlayerKickEvent$Cause)
+  method public void disconnect(net.kyori.adventure.text.Component)
+  method public void disconnect(net.minecraft.network.chat.Component, org.bukkit.event.player.PlayerKickEvent$Cause)
+  method public void disconnectAsync(net.kyori.adventure.text.Component, org.bukkit.event.player.PlayerKickEvent$Cause)
+  method public void disconnectAsync(net.minecraft.network.chat.Component, org.bukkit.event.player.PlayerKickEvent$Cause)
+  method public void disconnectAsync(net.minecraft.network.DisconnectionDetails)
+  method public void handleAcceptTeleportPacket(net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket)
+  method public void handleAnimate(net.minecraft.network.protocol.game.ServerboundSwingPacket)
+  method public void handleInteract(net.minecraft.network.protocol.game.ServerboundInteractPacket)
+  method public void handleMovePlayer(net.minecraft.network.protocol.game.ServerboundMovePlayerPacket)
+  method public void handlePlayerAction(net.minecraft.network.protocol.game.ServerboundPlayerActionPacket)
+  method public void handlePlayerInput(net.minecraft.network.protocol.game.ServerboundPlayerInputPacket)
+  method public void handleSetCarriedItem(net.minecraft.network.protocol.game.ServerboundSetCarriedItemPacket)
+  method public void handleUseItem(net.minecraft.network.protocol.game.ServerboundUseItemPacket)
+  method public void handleUseItemOn(net.minecraft.network.protocol.game.ServerboundUseItemOnPacket)
+  method public boolean isAcceptingMessages()
+  method private void lambda$disconnectAsync$21(net.minecraft.network.DisconnectionDetails)
+  method private boolean lambda$handleAnimate$16(org.bukkit.entity.Entity)
+  method private static boolean lambda$sendServerSuggestions$3(com.mojang.brigadier.exceptions.CommandSyntaxException)
+  method private static boolean lambda$sendServerSuggestions$4(com.mojang.brigadier.suggestion.Suggestion)
+  method private void lambda$sendServerSuggestions$5(net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket, com.mojang.brigadier.suggestion.Suggestions)
+  method public void onDisconnect(net.minecraft.network.DisconnectionDetails)
+  method public void sendDisguisedChatMessage(net.minecraft.network.chat.Component, net.minecraft.network.chat.ChatType$Bound)
+  method public void sendPlayerChatMessage(net.minecraft.network.chat.PlayerChatMessage, net.minecraft.network.chat.ChatType$Bound)
+  method private void sendServerSuggestions(net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket, com.mojang.brigadier.StringReader)
+  method public void tick()
+  method public void tickClientLoadTimeout()
+  method private boolean tickPlayer()
+
+=== net.minecraft.network.Connection
+  public class extends io.netty.channel.SimpleChannelInboundHandler
+  ctor public (net.minecraft.network.protocol.PacketFlow)
+  field public static final org.slf4j.Marker ROOT_MARKER
+  field public static final org.slf4j.Marker PACKET_MARKER
+  field public static final org.slf4j.Marker PACKET_RECEIVED_MARKER
+  field public static final org.slf4j.Marker PACKET_SENT_MARKER
+  field private volatile boolean sendLoginDisconnect
+  field public io.netty.channel.Channel channel
+  field public java.net.SocketAddress address
+  field public java.util.UUID spoofedUUID
+  field public com.mojang.authlib.properties.Property[] spoofedProfile
+  field public boolean preparing
+  field private volatile net.minecraft.network.PacketListener disconnectListener
+  field private net.minecraft.network.DisconnectionDetails disconnectionDetails
+  field private boolean disconnectionHandled
+  field private int tickCount
+  field public java.lang.String hostname
+  field public int protocolVersion
+  field public java.net.InetSocketAddress virtualHost
+  field public java.net.SocketAddress haProxyAddress
+  field public java.util.Optional legacySavedLoginEventResultOverride
+  field public boolean handledLegacyLoginEvent
+  field public net.minecraft.server.level.ServerPlayer savedPlayerForLegacyEvents
+  field public org.bukkit.event.player.PlayerResourcePackStatusEvent$Status resourcePackStatus
+  field public boolean isPending
+  field public boolean queueImmunity
+  method public void channelActive(io.netty.channel.ChannelHandlerContext)
+  method public void channelInactive(io.netty.channel.ChannelHandlerContext)
+  method protected void channelRead0(io.netty.channel.ChannelHandlerContext, net.minecraft.network.protocol.Packet)
+  method protected volatile void channelRead0(io.netty.channel.ChannelHandlerContext, java.lang.Object)
+  method public void configurePacketHandler(io.netty.channel.ChannelPipeline)
+  method public void disconnect(net.minecraft.network.DisconnectionDetails)
+  method public void disconnect(net.minecraft.network.chat.Component)
+  method public void exceptionCaught(io.netty.channel.ChannelHandlerContext, java.lang.Throwable)
+  method public net.minecraft.network.PacketListener getPacketListener()
+  method public void handleDisconnection()
+  method public boolean isConnected()
+  method public boolean isMemoryConnection()
+  method private static io.papermc.paper.util.IntervalledCounter lambda$channelRead0$5(io.papermc.paper.configuration.GlobalConfiguration$PacketLimiter$PacketLimit, java.lang.Class)
+  method private void lambda$exceptionCaught$4(net.minecraft.network.DisconnectionDetails)
+  method private static net.minecraft.network.DisconnectionDetails lambda$handleDisconnection$14()
+  method private void lambda$sendPacket$10(net.minecraft.network.protocol.Packet, io.netty.channel.ChannelFutureListener, boolean)
+  method private static void lambda$setupInboundProtocol$6(net.minecraft.network.PacketBundlePacker, io.netty.channel.ChannelHandlerContext)
+  method private static void lambda$setupOutboundProtocol$7(net.minecraft.network.PacketBundleUnpacker, io.netty.channel.ChannelHandlerContext)
+  method private void lambda$setupOutboundProtocol$8(boolean, io.netty.channel.ChannelHandlerContext)
+  method private void lambda$tick$13()
+  method public void send(net.minecraft.network.protocol.Packet, io.netty.channel.ChannelFutureListener)
+  method public void send(net.minecraft.network.protocol.Packet, io.netty.channel.ChannelFutureListener, boolean)
+  method public void send(net.minecraft.network.protocol.Packet)
+  method private void sendPacket(net.minecraft.network.protocol.Packet, io.netty.channel.ChannelFutureListener, boolean)
+  method public void setListenerForServerboundHandshake(net.minecraft.network.PacketListener)
+  method public void setReadOnly()
+  method public void setupInboundProtocol(net.minecraft.network.ProtocolInfo, net.minecraft.network.PacketListener)
+  method public void setupOutboundProtocol(net.minecraft.network.ProtocolInfo)
+  method public void tick()
+  method protected void tickSecond()
+
+=== net.minecraft.network.protocol.PacketFlow
+  public final enum extends java.lang.Enum
+  constants [SERVERBOUND, CLIENTBOUND]
+  ctor private (java.lang.String, int, java.lang.String)
+  field private final java.lang.String id
+  field private static final net.minecraft.network.protocol.PacketFlow[] $VALUES
+  method private static net.minecraft.network.protocol.PacketFlow[] $values()
+  method public net.minecraft.network.protocol.PacketFlow getOpposite()
+  method public java.lang.String id()
+  method public static net.minecraft.network.protocol.PacketFlow valueOf(java.lang.String)
+  method public static net.minecraft.network.protocol.PacketFlow[] values()
+
+=== net.minecraft.server.players.PlayerList
+  public abstract class extends java.lang.Object
+  ctor public (net.minecraft.server.MinecraftServer, net.minecraft.core.LayeredRegistryAccess, net.minecraft.world.level.storage.PlayerDataStorage, net.minecraft.server.notifications.NotificationService)
+  field public static final java.io.File USERBANLIST_FILE
+  field public static final java.io.File IPBANLIST_FILE
+  field public static final java.io.File OPLIST_FILE
+  field public static final java.io.File WHITELIST_FILE
+  field public static final net.minecraft.network.chat.Component CHAT_FILTERED_FULL
+  field public static final net.minecraft.network.chat.Component DUPLICATE_LOGIN_DISCONNECT_MESSAGE
+  field public final java.util.List players
+  field public final net.minecraft.world.level.storage.PlayerDataStorage playerIo
+  field public java.lang.String collideRuleTeamName
+  method public void broadcastAll(net.minecraft.network.protocol.Packet)
+  method public void broadcastAll(net.minecraft.network.protocol.Packet, net.minecraft.resources.ResourceKey)
+  method public void broadcastAll(net.minecraft.network.protocol.Packet, net.minecraft.world.level.Level)
+  method public void broadcastAll(net.minecraft.network.protocol.Packet, net.minecraft.world.entity.player.Player)
+  method public net.minecraft.server.players.PlayerList$LoginResult canPlayerLogin(java.net.SocketAddress, net.minecraft.server.players.NameAndId)
+  method public net.minecraft.server.level.ServerPlayer getPlayer(java.lang.String)
+  method public net.minecraft.server.level.ServerPlayer getPlayer(java.util.UUID)
+  method public net.minecraft.server.PlayerAdvancements getPlayerAdvancements(net.minecraft.server.level.ServerPlayer)
+  method public net.minecraft.server.level.ServerPlayer getPlayerByName(java.lang.String)
+  method public int getPlayerCount()
+  method public java.lang.String[] getPlayerNamesArray()
+  method public net.minecraft.stats.ServerStatsCounter getPlayerStats(com.mojang.authlib.GameProfile)
+  method public net.minecraft.stats.ServerStatsCounter getPlayerStats(net.minecraft.server.level.ServerPlayer)
+  method public java.util.List getPlayers()
+  method public java.util.List getPlayersWithAddress(java.lang.String)
+  method private static void lambda$remove$0(net.minecraft.world.entity.Entity)
+  method private java.lang.Object lambda$saveAll$2(int)
+  method public abstract void loadAndSaveFiles()
+  method public java.util.Optional loadPlayerData(net.minecraft.server.players.NameAndId)
+  method public void placeNewPlayer(net.minecraft.network.Connection, net.minecraft.server.level.ServerPlayer, net.minecraft.server.network.CommonListenerCookie)
+  method public void reloadAdvancementData()
+  method public void reloadRecipes()
+  method public void reloadResources()
+  method public void reloadTagData()
+  method public void reloadWhiteList()
+  method public net.kyori.adventure.text.Component remove(net.minecraft.server.level.ServerPlayer, net.kyori.adventure.text.Component)
+  method public net.kyori.adventure.text.Component remove(net.minecraft.server.level.ServerPlayer)
+  method public void removeAll()
+  method public void removeAll(boolean)
+  method public net.minecraft.server.level.ServerPlayer respawn(net.minecraft.server.level.ServerPlayer, boolean, net.minecraft.world.entity.Entity$RemovalReason, org.bukkit.event.player.PlayerRespawnEvent$RespawnReason)
+  method protected void save(net.minecraft.server.level.ServerPlayer)
+  method public void saveAll()
+  method public void saveAll(int)
+
+=== net.minecraft.server.MinecraftServer
+  public abstract class extends net.minecraft.util.thread.ReentrantBlockableEventLoop
+  ctor public (joptsimple.OptionSet, net.minecraft.server.WorldLoader$DataLoadContext, java.lang.Thread, net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess, net.minecraft.server.packs.repository.PackRepository, net.minecraft.server.WorldStem, java.net.Proxy, com.mojang.datafixers.DataFixer, net.minecraft.server.Services, net.minecraft.server.level.progress.LevelLoadListener)
+  field public static final org.slf4j.Logger LOGGER
+  field public static final net.kyori.adventure.text.logger.slf4j.ComponentLogger COMPONENT_LOGGER
+  field public static final java.lang.String VANILLA_BRAND
+  field public static final int SPAWN_POSITION_SEARCH_RADIUS
+  field public static final int ABSOLUTE_MAX_WORLD_SIZE
+  field public static final net.minecraft.world.level.LevelSettings DEMO_SETTINGS
+  field public static final net.minecraft.server.players.NameAndId ANONYMOUS_PLAYER_PROFILE
+  field public net.minecraft.world.level.storage.LevelStorageSource$LevelStorageAccess storageSource
+  field public final net.minecraft.world.level.storage.PlayerDataStorage playerDataStorage
+  field public final com.mojang.datafixers.DataFixer fixerUpper
+  field public final java.lang.Thread serverThread
+  field public final java.util.concurrent.Executor executor
+  field public net.minecraft.server.MinecraftServer$ReloadableResources resources
+  field public net.minecraft.world.item.alchemy.PotionBrewing potionBrewing
+  field public final net.minecraft.server.WorldLoader$DataLoadContext worldLoaderContext
+  field public org.bukkit.craftbukkit.CraftServer server
+  field public joptsimple.OptionSet options
+  field public org.bukkit.command.ConsoleCommandSender console
+  field public static int currentTick
+  field public java.util.Queue processQueue
+  field public int autosavePeriod
+  field public boolean forceTicks
+  field public static final int TPS
+  field public static final int TICK_TIME
+  field public volatile boolean hasFullyShutdown
+  field public volatile boolean abnormalExit
+  field public volatile java.lang.Thread shutdownThread
+  field public final io.papermc.paper.configuration.PaperConfigurations paperConfigurations
+  field public boolean isIteratingOverLevels
+  field public static final long SERVER_INIT
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes1s
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes5s
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes10s
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes15s
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes1m
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes5m
+  field public final ca.spottedleaf.moonrise.common.time.TickData tickTimes15m
+  field public final io.papermc.paper.threadedregions.EntityScheduler$EntitySchedulerTickList entitySchedulerTickList
+  field public final java.util.concurrent.ExecutorService chatExecutor
+  field public final net.minecraft.network.chat.ChatDecorator improvedChatDecorator
+  method public void executeIfPossible(java.lang.Runnable)
+  method private void executeModerately()
+  method public java.lang.Iterable getAllLevels()
+  method public net.minecraft.server.network.ServerConnectionListener getConnection()
+  method public net.minecraft.server.players.PlayerList getPlayerList()
+  method public boolean isSameThread()
+  method public final void moonrise$executeMidTickTasks()
+  method public final net.minecraft.server.level.ServerLevel overworld()
+
+=== net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
+  public abstract class extends java.lang.Object
+  ctor protected (double, double, double, float, float, boolean, boolean, boolean, boolean)
+  field private static final int FLAG_ON_GROUND
+  field private static final int FLAG_HORIZONTAL_COLLISION
+  field public final double x
+  field public final double y
+  field public final double z
+  field public final float yRot
+  field public final float xRot
+  field protected final boolean onGround
+  field protected final boolean horizontalCollision
+  field public final boolean hasPos
+  field public final boolean hasRot
+  method public double getX(double)
+  method public float getXRot(float)
+  method public double getY(double)
+  method public float getYRot(float)
+  method public double getZ(double)
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public boolean hasPosition()
+  method public boolean hasRotation()
+  method public boolean horizontalCollision()
+  method public boolean isOnGround()
+  method static int packFlags(boolean, boolean)
+  method public abstract net.minecraft.network.protocol.PacketType type()
+  method static boolean unpackHorizontalCollision(int)
+  method static boolean unpackOnGround(int)
+
+=== net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$Pos
+  public static class extends net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
+  ctor public (net.minecraft.world.phys.Vec3, boolean, boolean)
+  ctor public (double, double, double, boolean, boolean)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method private static net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$Pos read(net.minecraft.network.FriendlyByteBuf)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$PosRot
+  public static class extends net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
+  ctor public (net.minecraft.world.phys.Vec3, float, float, boolean, boolean)
+  ctor public (double, double, double, float, float, boolean, boolean)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method private static net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$PosRot read(net.minecraft.network.FriendlyByteBuf)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$Rot
+  public static class extends net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
+  ctor public (float, float, boolean, boolean)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method private static net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$Rot read(net.minecraft.network.FriendlyByteBuf)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$StatusOnly
+  public static class extends net.minecraft.network.protocol.game.ServerboundMovePlayerPacket
+  ctor public (boolean, boolean)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method private static net.minecraft.network.protocol.game.ServerboundMovePlayerPacket$StatusOnly read(net.minecraft.network.FriendlyByteBuf)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundPlayerInputPacket
+  public final record extends java.lang.Record
+  component net.minecraft.world.entity.player.Input input
+  ctor public (net.minecraft.world.entity.player.Input)
+  field private final net.minecraft.world.entity.player.Input input
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  method public final boolean equals(java.lang.Object)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public final int hashCode()
+  method public net.minecraft.world.entity.player.Input input()
+  method public final java.lang.String toString()
+  method public net.minecraft.network.protocol.PacketType type()
+
+=== net.minecraft.world.entity.player.Input
+  public final record extends java.lang.Record
+  component boolean forward
+  component boolean backward
+  component boolean left
+  component boolean right
+  component boolean jump
+  component boolean shift
+  component boolean sprint
+  ctor public (boolean, boolean, boolean, boolean, boolean, boolean, boolean)
+  field private final boolean forward
+  field private final boolean backward
+  field private final boolean left
+  field private final boolean right
+  field private final boolean jump
+  field private final boolean shift
+  field private final boolean sprint
+  field private static final byte FLAG_FORWARD
+  field private static final byte FLAG_BACKWARD
+  field private static final byte FLAG_LEFT
+  field private static final byte FLAG_RIGHT
+  field private static final byte FLAG_JUMP
+  field private static final byte FLAG_SHIFT
+  field private static final byte FLAG_SPRINT
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field public static net.minecraft.world.entity.player.Input EMPTY
+  method public boolean backward()
+  method public final boolean equals(java.lang.Object)
+  method public boolean forward()
+  method public final int hashCode()
+  method public boolean jump()
+  method public boolean left()
+  method public boolean right()
+  method public boolean shift()
+  method public boolean sprint()
+  method public final java.lang.String toString()
+
+=== net.minecraft.network.protocol.game.ServerboundPlayerActionPacket
+  public class extends java.lang.Object
+  ctor public (net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action, net.minecraft.core.BlockPos, net.minecraft.core.Direction, int)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  ctor public (net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action, net.minecraft.core.BlockPos, net.minecraft.core.Direction)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final net.minecraft.core.BlockPos pos
+  field private final net.minecraft.core.Direction direction
+  field private final net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action action
+  field private final int sequence
+  method public net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action getAction()
+  method public net.minecraft.core.Direction getDirection()
+  method public net.minecraft.core.BlockPos getPos()
+  method public int getSequence()
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action
+  public static final enum extends java.lang.Enum
+  constants [START_DESTROY_BLOCK, ABORT_DESTROY_BLOCK, STOP_DESTROY_BLOCK, DROP_ALL_ITEMS, DROP_ITEM, RELEASE_USE_ITEM, SWAP_ITEM_WITH_OFFHAND, STAB]
+  ctor private (java.lang.String, int)
+  field private static final net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action[] $VALUES
+  method private static net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action[] $values()
+  method public static net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action valueOf(java.lang.String)
+  method public static net.minecraft.network.protocol.game.ServerboundPlayerActionPacket$Action[] values()
+
+=== net.minecraft.network.protocol.game.ServerboundSwingPacket
+  public class extends java.lang.Object
+  ctor public (net.minecraft.world.InteractionHand)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final net.minecraft.world.InteractionHand hand
+  method public net.minecraft.world.InteractionHand getHand()
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundUseItemPacket
+  public class extends java.lang.Object
+  ctor public (net.minecraft.world.InteractionHand, int, float, float)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final net.minecraft.world.InteractionHand hand
+  field private final int sequence
+  field private final float yRot
+  field private final float xRot
+  field public long timestamp
+  method public net.minecraft.world.InteractionHand getHand()
+  method public int getSequence()
+  method public float getXRot()
+  method public float getYRot()
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundUseItemOnPacket
+  public class extends java.lang.Object
+  ctor public (net.minecraft.world.InteractionHand, net.minecraft.world.phys.BlockHitResult, int)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final net.minecraft.world.phys.BlockHitResult blockHit
+  field private final net.minecraft.world.InteractionHand hand
+  field private final int sequence
+  field public long timestamp
+  method public net.minecraft.world.InteractionHand getHand()
+  method public net.minecraft.world.phys.BlockHitResult getHitResult()
+  method public int getSequence()
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundSetCarriedItemPacket
+  public class extends java.lang.Object
+  ctor public (int)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final int slot
+  method public int getSlot()
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundInteractPacket
+  public class extends java.lang.Object
+  ctor private (int, boolean, net.minecraft.network.protocol.game.ServerboundInteractPacket$Action)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final int entityId
+  field private final net.minecraft.network.protocol.game.ServerboundInteractPacket$Action action
+  field private final boolean usingSecondaryAction
+  field static final net.minecraft.network.protocol.game.ServerboundInteractPacket$Action ATTACK_ACTION
+  method public static net.minecraft.network.protocol.game.ServerboundInteractPacket createAttackPacket(net.minecraft.world.entity.Entity, boolean)
+  method public static net.minecraft.network.protocol.game.ServerboundInteractPacket createInteractionPacket(net.minecraft.world.entity.Entity, boolean, net.minecraft.world.InteractionHand, net.minecraft.world.phys.Vec3)
+  method public static net.minecraft.network.protocol.game.ServerboundInteractPacket createInteractionPacket(net.minecraft.world.entity.Entity, boolean, net.minecraft.world.InteractionHand)
+  method public void dispatch(net.minecraft.network.protocol.game.ServerboundInteractPacket$Handler)
+  method public int getEntityId()
+  method public net.minecraft.world.entity.Entity getTarget(net.minecraft.server.level.ServerLevel)
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public boolean isAttack()
+  method public boolean isUsingSecondaryAction()
+  method public boolean isWithinRange(net.minecraft.server.level.ServerPlayer, net.minecraft.world.phys.AABB, double)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket
+  public class extends java.lang.Object
+  ctor public (int)
+  ctor private (net.minecraft.network.FriendlyByteBuf)
+  field public static final net.minecraft.network.codec.StreamCodec STREAM_CODEC
+  field private final int id
+  method public int getId()
+  method public volatile void handle(net.minecraft.network.PacketListener)
+  method public void handle(net.minecraft.network.protocol.game.ServerGamePacketListener)
+  method public net.minecraft.network.protocol.PacketType type()
+  method private void write(net.minecraft.network.FriendlyByteBuf)
+
+=== net.minecraft.world.InteractionHand
+  public final enum extends java.lang.Enum
+  constants [MAIN_HAND, OFF_HAND]
+  ctor private (java.lang.String, int)
+  field private static final net.minecraft.world.InteractionHand[] $VALUES
+  method private static net.minecraft.world.InteractionHand[] $values()
+  method public net.minecraft.world.entity.EquipmentSlot asEquipmentSlot()
+  method public static net.minecraft.world.InteractionHand valueOf(java.lang.String)
+  method public static net.minecraft.world.InteractionHand[] values()
+
+=== io.netty.channel.embedded.EmbeddedChannel
+  public class extends io.netty.channel.AbstractChannel
+  ctor public transient (boolean, io.netty.channel.ChannelHandler[])
+  ctor public transient (boolean, boolean, io.netty.channel.ChannelHandler[])
+  ctor public transient (io.netty.channel.ChannelId, io.netty.channel.ChannelHandler[])
+  ctor public transient (io.netty.channel.ChannelHandler[])
+  ctor public (io.netty.channel.ChannelId)
+  ctor public ()
+  ctor protected (io.netty.channel.embedded.EmbeddedChannel$Builder)
+  ctor public transient (io.netty.channel.ChannelId, boolean, io.netty.channel.ChannelConfig, io.netty.channel.ChannelHandler[])
+  ctor public transient (io.netty.channel.Channel, io.netty.channel.ChannelId, boolean, boolean, io.netty.channel.ChannelHandler[])
+  ctor public transient (io.netty.channel.ChannelId, boolean, boolean, io.netty.channel.ChannelHandler[])
+  ctor public transient (io.netty.channel.ChannelId, boolean, io.netty.channel.ChannelHandler[])
+  field private static final java.net.SocketAddress LOCAL_ADDRESS
+  field private static final java.net.SocketAddress REMOTE_ADDRESS
+  field private static final io.netty.channel.ChannelHandler[] EMPTY_HANDLERS
+  field private static final io.netty.util.internal.logging.InternalLogger logger
+  field private static final io.netty.channel.ChannelMetadata METADATA_NO_DISCONNECT
+  field private static final io.netty.channel.ChannelMetadata METADATA_DISCONNECT
+  field private final io.netty.channel.embedded.EmbeddedEventLoop loop
+  field private final io.netty.channel.ChannelFutureListener recordExceptionListener
+  field private final io.netty.channel.ChannelMetadata metadata
+  field private final io.netty.channel.ChannelConfig config
+  field private java.util.Queue inboundMessages
+  field private java.util.Queue outboundMessages
+  field private java.lang.Throwable lastException
+  field private io.netty.channel.embedded.EmbeddedChannel$State state
+  field private int executingStackCnt
+  field private boolean cancelRemainingScheduledTasks
+  field static final boolean $assertionsDisabled
+
