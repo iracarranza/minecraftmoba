@@ -209,12 +209,19 @@ public final class ChamberMenu {
                         Item.action("outpost", "Outpost"),
                         Item.action("rampart", "Rampart"),
                         Item.action("spike", "Spike"))
+                // Aim at the ground and use the item: each id maps to a LabAuthoring
+                // fauna or swarm verb (see ChamberController.intent).
                 .page("renewable", "Renewable",
-                        Item.action("renewable.place", "Place here"))
+                        Item.action("fauna.sheep", "Sheep herd"),
+                        Item.action("fauna.cow", "Cow herd"),
+                        Item.action("fauna.pig", "Pig herd"),
+                        Item.action("fauna.chicken", "Chicken flock"),
+                        Item.action("swarm.mountain_ravager", "Mountain Ravager"))
+                // LabAuthoring previews a path when its END is set, so there is no
+                // separate Draw: setting the end IS drawing it.
                 .page("route", "Route",
                         Item.action("route.from", "Set start"),
-                        Item.action("route.to", "Set end"),
-                        Item.action("route.draw", "Draw"))
+                        Item.action("route.to", "Set end and preview"))
                 .page("pending", "Pending placement",
                         Item.action("preview", "Show again"),
                         Item.action("confirm", "Place"),

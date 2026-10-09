@@ -72,6 +72,21 @@ public final class ChamberWorkspace implements Listener {
 
     // ---- the workspace -----------------------------------------------------
 
+    /** Give a tester a bay without moving them, so the platform can be the way in. */
+    public Chamber allot(Player p) { return chambers.allot(p.getUniqueId()); }
+
+    /** Drop a pending placement without announcing it, for internal replacement. */
+    public void discard(Player p) { session(p).clear(); }
+
+    /** Where a tester stands when they enter their bay: above its surface at the centre. */
+    public Location bayEntry(Chamber c) {
+        World w = plugin.getServer().getWorld(c.world());
+        if (w == null) return null;
+        int x = (c.minX() + c.maxX()) / 2, z = (c.minZ() + c.maxZ()) / 2;
+        int y = Math.min(c.maxY() - 2, Math.max(c.minY() + 1, w.getHighestBlockYAt(x, z) + 1));
+        return new Location(w, x + 0.5, y, z + 0.5);
+    }
+
     /** Give a tester a bay and put them in it. */
     public Chamber enter(Player p) {
         Chamber c = chambers.allot(p.getUniqueId());

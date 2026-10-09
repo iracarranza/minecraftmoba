@@ -25,6 +25,10 @@ public final class Lab implements Listener {
     private String activeMap;
     private World room;
     private final LabAuthoring authoring;
+    private ChamberUi chamberUi;
+
+    LabMaps maps() { return maps; }
+    LabAuthoring authoring() { return authoring; }
 
     private static final class Selection {
         String mapId, classId;
@@ -56,44 +60,26 @@ public final class Lab implements Listener {
      * Offering a chamber in the room would be offering somewhere to build that
      * refuses every block.
      */
-    private void chamber(Player p, String[] args) {
+    private void chamber(Player p, String[] args) throws IOException {
         var workspace = plugin.chamberWorkspace();
         if (workspace == null || !plugin.worldInstance().labActive())
             throw new IllegalStateException(
                     "Chambers need a launched scoop. /moba lab start, choose and launch first.");
         String verb = args.length > 2 ? args[2].toLowerCase(Locale.ROOT) : "take";
         switch (verb) {
-            case "take", "new" -> {
-                var c = workspace.enter(p);
-                p.sendMessage("Chamber allotted at " + c.minX() + "," + c.minZ()
-                        + ", " + (c.maxX() - c.minX() + 1) + " across. "
-                        + "Undo applies to this bay alone.");
-            }
+            case "take", "new" -> chamberUi.take(p);
+            case "enter" -> chamberUi.enterBay(p);
             case "leave", "release" -> {
-                workspace.leave(p);
+                chamberUi.leave(p);
                 p.sendMessage("Chamber released. Its bay is free for the next tester.");
             }
-            case "cancel" -> {
-                var outcome = workspace.resolve(p, AimState.Decision.CANCEL);
-                p.sendMessage(outcome == ChamberSession.Outcome.CANCELLED
-                        ? "Pending placement discarded." : "Nothing was pending.");
-            }
-            case "confirm" -> {
-                var pending = workspace.session(p).pending();
-                if (pending == null) { p.sendMessage("Nothing is pending."); return; }
-                var outcome = workspace.resolve(p, AimState.Decision.FIRE);
-                if (outcome == ChamberSession.Outcome.REFUSED) {
-                    // Kept, not discarded: the reason is what the tester wants
-                    // now, and rebuilding the placement to read it would be a
-                    // tax on having asked.
-                    p.sendMessage("Refused: " + pending.verdict());
-                    pending.faults().forEach(f -> p.sendMessage("  " + f));
-                } else {
-                    p.sendMessage("Placement confirmed: " + pending.description());
-                }
-            }
+            // Placement goes through LabAuthoring, which judges it against the
+            // bay and does the write. Resolving the session here instead would
+            // clear the verdict without placing anything.
+            case "cancel" -> authoring.command(p, new String[]{"lab", "author", "cancel"});
+            case "confirm" -> authoring.command(p, new String[]{"lab", "author", "apply"});
             case "status" -> p.sendMessage(workspace.report(p));
-            default -> p.sendMessage("/moba lab chamber take | leave | confirm | cancel | status");
+            default -> p.sendMessage("/moba lab chamber take | enter | leave | confirm | cancel | status");
         }
     }
 
@@ -204,6 +190,7 @@ public final class Lab implements Listener {
                     cfg.getInt("alpha.lab.chamber.radius", 16),
                     cfg.getInt("alpha.lab.chamber.height", 20),
                     cfg.getInt("alpha.lab.chamber.floor", 60)));
+            chamberUi = new ChamberUi(plugin, this, plugin.chamberWorkspace());
             p.setGameMode(GameMode.SURVIVAL);
             p.sendMessage("Lab running on " + maps.label(entry) + " as " + s.classId
                     + ". /moba lab end returns to setup. This scoop remains reusable.");
@@ -222,6 +209,7 @@ public final class Lab implements Listener {
         // Dropped before the world is unloaded, not after: a bay in a world
         // that no longer exists is the same defect the scenario harness is
         // built around avoiding.
+        if (chamberUi != null) { chamberUi.close(); chamberUi = null; }
         plugin.chamberWorkspace(null);
         if (plugin.worldInstance().labActive()) {
             plugin.match().resetForLab();

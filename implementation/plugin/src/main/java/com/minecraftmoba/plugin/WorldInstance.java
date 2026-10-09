@@ -292,7 +292,7 @@ public final class WorldInstance {
         return load();
     }
 
-    private static void copyTree(Path from, Path to) throws IOException {
+    static void copyTree(Path from, Path to) throws IOException {
         Files.walkFileTree(from, new SimpleFileVisitor<>() {
             @Override public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes a)
                     throws IOException {
@@ -308,7 +308,7 @@ public final class WorldInstance {
         });
     }
 
-    private static void deleteTree(Path root) throws IOException {
+    static void deleteTree(Path root) throws IOException {
         if (!Files.exists(root)) return;
         try (var walk = Files.walk(root)) {
             for (Path p : walk.sorted(Comparator.reverseOrder()).toList()) Files.delete(p);

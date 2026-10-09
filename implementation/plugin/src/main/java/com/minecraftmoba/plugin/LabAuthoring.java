@@ -29,6 +29,39 @@ public final class LabAuthoring implements org.bukkit.event.Listener {
 
     LabAuthoring(MobaPlugin plugin, Lab lab) { this.plugin = plugin; this.lab = lab; }
 
+    /** History depth, so the chamber hotbar can grey Undo when there is nothing to undo. */
+    int undoDepth() { return undo.depth(); }
+
+    /** Drop any preview, as typing "cancel" would, without a message. */
+    void discardPreview(Player p) { cancel(p); scanGeneration++; }
+
+    /** Journal an edit made outside {@link #apply}, so it can be undone like one. */
+    void recordEdit(String description, List<BlockState> before) { undo.push(description, before, List.of()); }
+
+    /**
+     * Offer the plan to the tester's chamber for a verdict, if they have one.
+     *
+     * Outside a bay authoring behaves exactly as before. Inside one, the
+     * placement is checked against the bay as a PROPOSAL, so a placement that
+     * would leave it says so while it can still be changed.
+     */
+    private void propose(Player p, String description, LabGeometry.Plan plan) {
+        var ws = plugin.chamberWorkspace();
+        if (ws == null || ws.chambers().of(p.getUniqueId()) == null) return;
+        ws.propose(p, description, ChamberBridge.affected(p.getWorld().getUID(), plan.edits().keySet()),
+                plan.problems());
+    }
+
+    /** Refuse, by throwing, a commit the chamber has already judged unacceptable. */
+    private void chamberGate(Player p) {
+        var ws = plugin.chamberWorkspace();
+        if (ws == null || ws.chambers().of(p.getUniqueId()) == null || ws.session(p).idle()) return;
+        var pending = ws.session(p).pending();
+        if (ws.resolve(p, AimState.Decision.FIRE) == ChamberSession.Outcome.REFUSED)
+            throw new IllegalStateException("Chamber refused: " + pending.verdict()
+                    + (pending.faults().isEmpty() ? "" : " (" + String.join("; ", pending.faults()) + ")"));
+    }
+
     public void command(Player p, String[] args) throws IOException {
         lab.requireAuthor(p);
         if (!editing) {
@@ -169,6 +202,7 @@ public final class LabAuthoring implements org.bukkit.event.Listener {
             p.sendBlockChange(at,Bukkit.createBlockData(edit.getValue()));
         }
         report(p,preview);
+        propose(p, r.kind + " at " + r.from, preview);
         // Cyan marks the original surface under the proposed geometry. Preview packets never mutate it.
         var marked=new HashSet<LabGeometry.XZ>();
         for (var pos:preview.edits().keySet()) {
@@ -197,6 +231,7 @@ public final class LabAuthoring implements org.bukkit.event.Listener {
         var fresh = plan(p,request); report(p,fresh);
         if (!fresh.accepted()) throw new IllegalStateException("Placement rejected; preview remains inspectable.");
         if (!fresh.edits().equals(preview.edits())) throw new IllegalStateException("Terrain changed since preview; create a new preview.");
+        chamberGate(p);
         var states = new ArrayList<BlockState>();
         // Capture every state before any write; restoration disables physics, preserving block data.
         for (var pos : fresh.edits().keySet()) states.add(p.getWorld().getBlockAt(pos.x(),pos.y(),pos.z()).getState());
@@ -223,6 +258,8 @@ public final class LabAuthoring implements org.bukkit.event.Listener {
                 recipient.sendBlockChange(at,recipient.getWorld().getBlockAt(at).getBlockData());
             }
         previewBefore.clear(); previewPlayer = null; preview = null; request = null;
+        var ws = plugin.chamberWorkspace();
+        if (ws != null) ws.discard(p);
     }
 
     private void spawn(Player p,String[] args,boolean swarm) {

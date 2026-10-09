@@ -95,6 +95,8 @@ server; the Bukkit half only renders a view and reads a slot back.
 ```
 root       Place objective | Place renewable | Draw route | Regenerate | Undo | Redo
 objective  Fountain | Outpost | Rampart | Spike                            | Go back
+renewable  Sheep | Cow | Pig | Chicken | Mountain Ravager                   | Go back
+route      Set start | Set end and preview                                   | Go back
 pending    Show again | Place | Discard                                    | Go back
 ```
 
@@ -137,3 +139,65 @@ The shipped bay is 33 x 21 x 33, deliberately inside `LabUndo`'s
 **enforced**, not described: a test reads the radius from `config.yml`, the
 budget from `LabUndo`, and fails if a future radius puts regeneration out of
 reach. Nothing else would notice.
+
+## The Bukkit layer
+
+`ChamberUi` owns events and the lifecycle; every rule is in a class tested
+without a server.
+
+| Class | Does |
+|---|---|
+| `ChamberItems` | menu item to item stack: arrow for back, greyed with the reason when unavailable |
+| `ChamberController` | what an item means (`intent`) and why it may not be used (`refusal`) |
+| `ChamberPlatform` | where the deck, window, doorway, plate and two buttons sit, relative to a bay |
+| `RegionCopy` | how bay columns map onto a source world's, with the surface aligned vertically |
+| `ChamberHotbar` | writes a view across the hotbar; snapshots and restores the tester's own items |
+| `ChamberPlatformWorld` | places the platform's blocks and button entities |
+| `BayTerrain` | copies a region from a certified scoop or a random vanilla seed, journalled for undo |
+| `ChamberUi` | the listener: buttons, pressure plate, hotbar use, inventory protection |
+
+### Flow
+
+1. `/moba lab chamber take` allots a bay, builds its platform in the gutter on
+   the bay's north side, and stands you on it looking down into the bay.
+2. **CERTIFIED SCOOP** cycles to the next pre-staged scoop and copies a region
+   into the bay. **RANDOM SEED** rolls unvetted terrain. Two buttons, never a
+   toggle, and each reports which it was.
+3. Stepping on the **pressure plate** enters the bay and turns the hotbar into
+   the menu. Your own hotbar and the two inventory slots the session verbs use
+   are snapshotted and restored on leaving.
+4. Hotbar items run the same `/moba lab author` command a typed one does. The
+   preview, the plan and the undo are LabAuthoring's. LabAuthoring offers its
+   plan to the chamber for a verdict and consults it before committing, so a
+   placement that leaves the bay is **refused while still a proposal**.
+5. **Return to lab** and **Test as player** are in the inventory, not the
+   hotbar. Test as player returns your hotbar and gamemode but cannot resume the
+   match clock LabAuthoring paused; Match has no resume.
+
+### Certified means certified
+
+The certified source refuses a sampling centre unless every chunk it needs is
+**already generated** on disk, and gives up after eight attempts rather than
+fall back. Reading an ungenerated chunk would make Minecraft invent terrain that
+would then be reported as certified ground.
+
+### Names that did not match
+
+The menu's **Rampart** is the authoring template **bastion**. The template is
+what exists, so the id is translated in one place (`RAMPART_TEMPLATE`).
+LabAuthoring previews a path when its **end** is set, so the route page has no
+separate Draw: setting the end is drawing it.
+
+## Verification status
+
+**Compiled and unit-tested; not exercised by a client.** What the tests cover:
+item specs, intents, every refusal, the platform's geometry (it stays inside the
+gutter, touches no bay and no other platform across the first 25 bays, and the
+buttons and plate stand on the deck), and the region mapping.
+
+What they cannot: the pressure-plate and button events firing, the hotbar
+rewrite and restore, the platform build, and above all **`BayTerrain`'s creation,
+reading and deletion of a temporary source world**. Run it once on a throwaway
+server before relying on it. Concretely: take a chamber, press both buttons,
+enter, place an outpost, deliberately place one that overlaps the bay edge,
+confirm it is refused, undo a regeneration, leave, and check the hotbar returned.
