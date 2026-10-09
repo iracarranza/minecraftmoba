@@ -124,9 +124,12 @@ class AbilitySkeletonTest {
             if ("passive".equals(e.get("slot"))) {
                 assertEquals("PASSIVE", e.get("input"), e.get("class") + "'s passive");
                 assertEquals("SELF", e.get("target"), e.get("class") + "'s passive");
-                assertEquals("NONE", e.get("affects"),
-                        e.get("class") + "'s passive: no passive in the roster reaches another "
-                        + "player, and the first that does should say so rather than inherit this");
+                // NOT asserted NONE. Fungal Assassin's Creeping Colony applies
+                // Fungal Growth to enemies Fungal Assassin attacks, so the
+                // roster's first enemy-facing passive exists -- and the earlier
+                // version of this test would have forced it to lie.
+                assertNotEquals("?", e.get("affects"),
+                        e.get("class") + "'s passive has not said who it reaches");
             }
     }
 
@@ -321,6 +324,32 @@ class AbilitySkeletonTest {
         } catch (java.io.IOException e) {
             throw new AssertionError(e);
         }
+    }
+
+    @Test void aPassiveMayReachSomebodyAndExactlyOneDoes() {
+        // Worth pinning, because the shape of a passive is otherwise assumed:
+        // every other one in the roster acts on its own holder.
+        var enemyFacing = new TreeSet<String>();
+        for (var e : entries())
+            if ("passive".equals(e.get("slot")) && !"NONE".equals(e.get("affects")))
+                enemyFacing.add(e.get("class") + " (" + e.get("affects") + ")");
+        assertEquals(Set.of("fungal_assassin (ENEMIES)"), enemyFacing,
+                "Creeping Colony applies Fungal Growth to enemies attacked; a second "
+                + "such passive is a design change worth noticing here");
+    }
+
+    @Test void theRostersOnlyAllyFacingOutputsAreChefsAndTheTalismaniacs() {
+        // The combat chamber's ally dummy has exactly these to receive, and
+        // neither is built. Asserted so a third arrives deliberately.
+        var ally = new TreeSet<String>();
+        for (var e : entries())
+            if ("ALLIES".equals(e.get("affects")) || "BOTH".equals(e.get("affects")))
+                ally.add((String) e.get("id"));
+        for (var b : branches())
+            if ("ALLIES".equals(b.get("affects")) || "BOTH".equals(b.get("affects")))
+                ally.add(b.get("ability") + "." + b.get("branch"));
+        assertEquals(Set.of("talisman_of_undying", "food_fight.super_nutritious"), ally,
+                "found: " + ally);
     }
 
     @Test void noBuiltAbilityClaimsToReachAlliesYet() {

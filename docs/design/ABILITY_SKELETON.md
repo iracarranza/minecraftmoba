@@ -148,6 +148,58 @@ guessed single output. `SELF` is how an ability says it targets nothing; an
 empty list is how it says nothing at all, and `AbilitySkeletonTest` names every
 one.
 
+## The designed roster, filled in 9 October
+
+Every designed ability's target form was read off `classes.md` rather than
+inferred from its name. Across all 72 slots:
+
+| Form | Count |
+|---|---|
+| `SELF` | 51 |
+| `DIRECTION` | 18 |
+| `AREA_ENTITIES` | 6 |
+| `AREA_BLOCKS` | 5 |
+| `UNIT_BLOCK` | 5 |
+| `UNIT_ENTITY` | 5 |
+| `?` | 6 |
+
+**All four new values are used**, which is the check that the split was real
+and not a tidy-up: `AREA_ENTITIES` alone carries Irresistible Buffet, Eternity
+Mountain, the Racing Line, Talisman of Undying, Retinue and Burning Out — six
+abilities that would have had to claim a free block preview they cannot give.
+
+### What this surfaced
+
+- **Fungal Assassin's Creeping Colony is the roster's only enemy-facing
+  passive** — attacking applies Fungal Growth. A test asserted every passive
+  was `NONE`; that test would have forced this one to lie, and now pins the
+  count at exactly one instead.
+- **Looming Talismaniac's Talisman of Undying is the first `ALLIES` output**,
+  and Chef's Super Nutritious the only `BOTH`. Nothing else in 72 slots reaches
+  an ally. A test names both, so a third arrives deliberately.
+- **Paver's A1 and A2 are both marked `**Passive.**` in `classes.md`** — Rebar
+  Chain and Chamfering are properties of placed concrete, not castable
+  abilities. Recorded as `PASSIVE` input because that is what the design says,
+  but a class whose A1 and A2 are passives has no active kit below its
+  Ultimate, which is worth a look. [OPEN]
+- **Chauffeur's Racing Line is vector-shaped and needs no vector targeting.**
+  It draws a line from Chauffeur to their Parking Spot — a start and an end,
+  but both already fixed, so there is no second designation to make. It is
+  `AREA_ENTITIES` over the corridor. Worth knowing before `VECTOR` gets built
+  for something that did not need it.
+
+### The six still open
+
+`animate`, `assemble`, `wither_golem` (Golem Master never says what any of the
+three aims at), `wax_on` ("apply Wax to a target" — block or creature is not
+stated), `viscerwall`, and Looming Talismaniac's unnamed A2. Left `?` rather
+than guessed.
+
+Two multi-output abilities are recorded by their primary output only, because a
+manifest row holds one: Skeleton Crew's **Graveyard Shift** (strike an enemy, or
+else raise a Crew Member) and Chef's **Flip and Press** (flip an enemy, or
+advance a cooking station). `Ability.outputs` can hold both when they are built.
+
 ## The manifest is not config
 
 `implementation/plugin/src/test/resources/ability-skeleton.yml` holds all 18

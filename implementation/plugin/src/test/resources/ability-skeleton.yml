@@ -103,47 +103,47 @@ classes:
           armored_emergence: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           undermine: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           burrow_chain: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
-      ult: { id: sinkhole, name: "Sinkhole", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      ult: { id: sinkhole, name: "Sinkhole", status: designed, target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
   gardener:
     displayName: "Gardener"
     abilities:
-      passive: { id: plant_material, name: "Plant Material", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: clip, name: "Clip", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: cultivate, name: "Cultivate", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: grafters_handbook, name: "Grafter's Handbook", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: plant_material, name: "Plant Material", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: clip, name: "Clip", status: designed, target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "true" }
+      a2: { id: cultivate, name: "Cultivate", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
+      ult: { id: grafters_handbook, name: "Grafter's Handbook", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
   golem_master:
     displayName: "Golem Master"
     abilities:
-      passive: { id: pumpkin_supply, name: "Pumpkin Supply", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: animate, name: "Animate", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: assemble, name: "Assemble", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: wither_golem, name: "Wither Golem", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: pumpkin_supply, name: "Pumpkin Supply", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: animate, name: "Animate", status: designed, target: "?", input: "?", affects: "ENEMIES", caster: "true" }
+      a2: { id: assemble, name: "Assemble", status: designed, target: "?", input: "?", affects: "?", caster: "false" }
+      ult: { id: wither_golem, name: "Wither Golem", status: designed, target: "?", input: "?", affects: "ENEMIES", caster: "false" }
   kitfighter:
     displayName: "Kitfighter"
     abilities:
-      passive: { id: salvage, name: "Salvage", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: offhander, name: "Offhander", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: hotswap, name: "Hotswap", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: covered_with_diamonds, name: "Covered With Diamonds", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: salvage, name: "Salvage", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: offhander, name: "Offhander", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
+      a2: { id: hotswap, name: "Hotswap", status: designed, target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "false" }
+      ult: { id: covered_with_diamonds, name: "Covered With Diamonds", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
   merchant:
     displayName: "Merchant"
     abilities:
-      passive: { id: work, name: "Work", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: swindle, name: "Swindle", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: retinue, name: "Retinue", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: procession, name: "Procession / Silk Road", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: work, name: "Work", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: swindle, name: "Swindle", status: designed, target: "UNIT_ENTITY", input: "?", affects: "NONE", caster: "true" }
+      a2: { id: retinue, name: "Retinue", status: designed, target: "AREA_ENTITIES", input: "?", affects: "NONE", caster: "false" }
+      ult: { id: procession, name: "Procession / Silk Road", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
   skeleton_crew:
     displayName: "Skeleton Crew"
     abilities:
       passive: { id: undead_affinity, name: "Undead Affinity", status: dispatched, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
-      a1: { id: graveyard_shift, name: "Graveyard Shift", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: burning_out, name: "Burning Out", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: a_head_of_schedule, name: "A-Head of Schedule", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      a1: { id: graveyard_shift, name: "Graveyard Shift", status: designed, target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+      a2: { id: burning_out, name: "Burning Out", status: designed, target: "AREA_ENTITIES", input: "?", affects: "NONE", caster: "false" }
+      ult: { id: a_head_of_schedule, name: "A-Head of Schedule", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "false" }
   lightfooted:
     displayName: "Lightfooted"
     abilities:
       passive: { id: animal_senses, name: "Animal Senses", status: dispatched, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
-      a1: { id: lunge, name: "Lunge", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      a1: { id: lunge, name: "Lunge", status: designed, target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
       a2:
         id: "bounding"
         name: "Bounding"
@@ -156,11 +156,11 @@ classes:
           drift_to_drift: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
           branch_to_branch: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
           track_to_track: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
-      ult: { id: rabbits_lucky_foot, name: "Rabbit's Lucky Foot", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      ult: { id: rabbits_lucky_foot, name: "Rabbit's Lucky Foot", status: designed, target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
   daredevil:
     displayName: "Daredevil"
     abilities:
-      passive: { id: skydiver, name: "Skydiver", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
+      passive: { id: skydiver, name: "Skydiver", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "runway"
         name: "Runway"
@@ -189,10 +189,10 @@ classes:
   waxer:
     displayName: "Waxer"
     abilities:
-      passive: { id: waxed_recipes, name: "Waxed Recipes", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: wax_on, name: "Wax-On", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: wax_off, name: "Wax-Off", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: amber, name: "Amber", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: waxed_recipes, name: "Waxed Recipes", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: wax_on, name: "Wax-On", status: designed, target: "?", input: "?", affects: "NONE", caster: "false" }
+      a2: { id: wax_off, name: "Wax-Off", status: designed, target: "AREA_BLOCKS", input: "?", affects: "NONE", caster: "false" }
+      ult: { id: amber, name: "Amber", status: designed, target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
   toolbox:
     displayName: "Toolbox"
     abilities:
@@ -225,67 +225,67 @@ classes:
   bloodmason:
     displayName: "Bloodmason"
     abilities:
-      passive: { id: hemostasis, name: "Hemostasis", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: capillary_flow, name: "Capillary Flow", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: viscerwall, name: "Viscerwall", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: athanor_anatomb, name: "Athanor Anatomb", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: hemostasis, name: "Hemostasis", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: capillary_flow, name: "Capillary Flow", status: designed, target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "true" }
+      a2: { id: viscerwall, name: "Viscerwall", status: designed, target: "?", input: "?", affects: "ENEMIES", caster: "true" }
+      ult: { id: athanor_anatomb, name: "Athanor Anatomb", status: designed, target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "true" }
   chef:
     displayName: "Chef"
     abilities:
-      passive: { id: trusty_spatula, name: "Trusty Spatula", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
+      passive: { id: trusty_spatula, name: "Trusty Spatula", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "food_fight"
         name: "Food Fight"
         status: "designed"
-        target: "?"
+        target: "DIRECTION"
         input: "?"
         affects: "ENEMIES"
-        caster: "?"
+        caster: "false"
         branches:
-          super_nutritious: { target: "?", input: "?", affects: "BOTH", caster: "?" }
-          extra_spicy: { target: "?", input: "?", affects: "ENEMIES", caster: "?" }
-          reckless_rationing: { target: "?", input: "?", affects: "NONE", caster: "?" }
-      a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "?", input: "?", affects: "ENEMIES", caster: "?" }
-      ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "?", input: "?", affects: "ENEMIES", caster: "?" }
+          super_nutritious: { target: "DIRECTION", input: "?", affects: "BOTH", caster: "false" }
+          extra_spicy: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+          reckless_rationing: { target: "DIRECTION", input: "?", affects: "NONE", caster: "false" }
+      a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+      ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "AREA_ENTITIES", input: "?", affects: "ENEMIES", caster: "false" }
   fungal_assassin:
     displayName: "Fungal Assassin"
     abilities:
-      passive: { id: creeping_colony, name: "Creeping Colony", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: bursting_spore, name: "Bursting Spore", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: myceliate, name: "Myceliate", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: destroying_angels_blessing, name: "Destroying Angel's Blessing", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: creeping_colony, name: "Creeping Colony", status: designed, target: "SELF", input: "PASSIVE", affects: "ENEMIES", caster: "true" }
+      a1: { id: bursting_spore, name: "Bursting Spore", status: designed, target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+      a2: { id: myceliate, name: "Myceliate", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
+      ult: { id: destroying_angels_blessing, name: "Destroying Angel's Blessing", status: designed, target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "false" }
   looming_talismaniac:
     displayName: "Looming Talismaniac"
     abilities:
-      passive: { id: pattern_linking, name: "Pattern Linking", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: imprint, name: "Imprint", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: pattern_linking, name: "Pattern Linking", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+      a1: { id: imprint, name: "Imprint", status: designed, target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "true" }
       a2: { id: talisman_core, name: "[OPEN] A2 is described but unnamed in classes.md", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: talisman_of_undying, name: "Talisman of Undying", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      ult: { id: talisman_of_undying, name: "Talisman of Undying", status: designed, target: "AREA_ENTITIES", input: "?", affects: "ALLIES", caster: "true" }
   paver:
     displayName: "Paver"
     abilities:
-      passive: { id: concrete_mixer, name: "Concrete Mixer", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: rebar_chain, name: "Rebar Chain", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: chamfering, name: "Chamfering", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: concrete_shoes, name: "Concrete Shoes", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: concrete_mixer, name: "Concrete Mixer", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: rebar_chain, name: "Rebar Chain", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+      a2: { id: chamfering, name: "Chamfering", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+      ult: { id: concrete_shoes, name: "Concrete Shoes", status: designed, target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
   chauffeur:
     displayName: "Chauffeur"
     abilities:
-      passive: { id: parking_spot, name: "Parking Spot", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: cargo_boat, name: "Cargo Boat", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: muscle_cart, name: "Muscle Cart", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: highly_irresponsible_racing_line, name: "Highly Irresponsible Racing Line", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: parking_spot, name: "Parking Spot", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: cargo_boat, name: "Cargo Boat", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a2: { id: muscle_cart, name: "Muscle Cart", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      ult: { id: highly_irresponsible_racing_line, name: "Highly Irresponsible Racing Line", status: designed, target: "AREA_ENTITIES", input: "?", affects: "ENEMIES", caster: "false" }
   quarryman:
     displayName: "Quarryman"
     abilities:
-      passive: { id: quarry_quota, name: "Quarry Quota", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: ceaseless_swing, name: "Ceaseless Swing", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: miners_strike, name: "Miner's Strike", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: eternity_mountain, name: "Eternity Mountain", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: quarry_quota, name: "Quarry Quota", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: ceaseless_swing, name: "Ceaseless Swing", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a2: { id: miners_strike, name: "Miner's Strike", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
+      ult: { id: eternity_mountain, name: "Eternity Mountain", status: designed, target: "AREA_ENTITIES", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
   werewolf:
     displayName: "Werewolf"
     abilities:
-      passive: { id: lycanthropy, name: "Lycanthropy", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "?" }
-      a1: { id: brawling_slash, name: "Brawling Slash", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      a2: { id: bloodhide, name: "Bloodhide", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
-      ult: { id: monster_howl, name: "Monster Howl", status: designed, target: "?", input: "?", affects: "?", caster: "?" }
+      passive: { id: lycanthropy, name: "Lycanthropy", status: designed, target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1: { id: brawling_slash, name: "Brawling Slash", status: designed, target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+      a2: { id: bloodhide, name: "Bloodhide", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
+      ult: { id: monster_howl, name: "Monster Howl", status: designed, target: "SELF", input: "?", affects: "NONE", caster: "true" }
