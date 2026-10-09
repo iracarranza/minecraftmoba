@@ -147,6 +147,17 @@ public final class AbilityInputs implements Listener {
         return null;
     }
 
+    private final java.util.List<java.util.function.BiConsumer<Player, String>> observers =
+            new java.util.concurrent.CopyOnWriteArrayList<>();
+
+    /**
+     * Watch slot presses ("a1", "a2", "ult") that reach the ability layer, for
+     * recording a take. Only presses that mean something are reported: ability
+     * mode open, or an ability running that the press would recast or cancel.
+     * The mode toggle itself is not a slot and is not reported.
+     */
+    public void observeSlotInputs(java.util.function.BiConsumer<Player, String> observer) { observers.add(observer); }
+
     /** The input that toggles ability mode. */
     public Input modeInput() { return modeInput; }
 
@@ -177,6 +188,10 @@ public final class AbilityInputs implements Listener {
                          org.bukkit.block.Block block, org.bukkit.block.BlockFace face,
                          org.bukkit.entity.Entity entity) {
         if (!plugin.enrolled(p)) return false;
+        if (!observers.isEmpty()) {
+            String slot = slotOf.get(input);
+            if (slot != null && (active(p) || isAbilityActive(p))) observers.forEach(o -> o.accept(p, slot));
+        }
         if (isAbilityActive(p)) {
             // A second activation is the ability's to interpret before it is
             // the input layer's to discard. Releasing a charge and cancelling

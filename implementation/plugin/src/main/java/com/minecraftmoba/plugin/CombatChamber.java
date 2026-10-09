@@ -77,6 +77,10 @@ public final class CombatChamber implements Listener {
         Bodies.Body dummy;
         Location post;
         long nextCast = Long.MAX_VALUE;
+        InputRecording.Recorder recorder;
+        InputRecording.Take take;
+        InputRecording.Replayer replayer;
+        long replayStart;
         int casts, refused;
         String lastCast = "none";
         long lastHit;
@@ -97,6 +101,7 @@ public final class CombatChamber implements Listener {
     private final Map<EntityDamageEvent, Double> rawSeen = new java.util.WeakHashMap<>();
     private World world;
     private BukkitTask ticker;
+    private boolean observing;
 
     public CombatChamber(MobaPlugin plugin, Lab lab) {
         this.plugin = plugin;
@@ -251,6 +256,8 @@ public final class CombatChamber implements Listener {
 
     /** The dummy: classless when the tester operates, otherwise the class being examined. */
     private Bodies.Body spawnDummy(Active a) {
+        if (a.replayer != null && a.take != null)
+            return bodies.spawn("dummy", null, a.take.classId(), a.take.level(), a.post);
         boolean operator = a.spec.role() == CombatAvailability.Role.OPERATOR;
         return bodies.spawn("dummy", null, operator ? null : a.spec.classId(),
                 operator ? 0 : a.spec.modes().level(), a.post);
@@ -307,17 +314,78 @@ public final class CombatChamber implements Listener {
             case "log", "status" -> report(p, a);
             case "clear" -> { a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0; p.sendMessage("Logs cleared."); }
             case "reset" -> reset(p, a);
+            case "record" -> record(p, a, args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "");
+            case "replay" -> replay(p, a, args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "");
             case "cast" -> {
                 if (a.spec.role() == CombatAvailability.Role.OPERATOR) { p.sendMessage("Operator casts for themselves; the dummy is passive."); break; }
                 var r = castNow(p, a);
                 p.sendMessage((r.cast() ? ChatColor.GREEN : ChatColor.RED) + "Dummy: " + r.note());
             }
             case "leave", "end" -> leave(p);
-            default -> p.sendMessage("In the chamber: /moba lab combat cast | log | clear | reset | leave");
+            default -> p.sendMessage("In the chamber: /moba lab combat cast | record start|stop | replay [loop|stop] | log | clear | reset | leave");
         }
     }
 
     private void report(Player p, Active a) { reportLines(a).forEach(p::sendMessage); }
+
+    // ---- recording and the ghost -------------------------------------------------
+
+    private void record(Player p, Active a, String sub) {
+        if (a.spec.role() != CombatAvailability.Role.OPERATOR) {
+            p.sendMessage("Record as Operator, then replay: the take is made by acting, not by being acted on."); return;
+        }
+        switch (sub) {
+            case "start" -> {
+                if (!observing) { plugin.inputs().observeSlotInputs(this::observe); observing = true; }
+                a.recorder = new InputRecording.Recorder(Bukkit.getCurrentTick(), p.getLocation().getYaw());
+                p.sendMessage(ChatColor.GREEN + "Recording. Press F, then your ability keys. /moba lab combat record stop");
+            }
+            case "stop" -> {
+                if (a.recorder == null) { p.sendMessage("Not recording."); return; }
+                var d = plugin.data(p);
+                a.take = a.recorder.finish(Bukkit.getCurrentTick(), d.classId, d.level);
+                a.recorder = null;
+                p.sendMessage(ChatColor.GREEN + "Take saved: " + a.take.events().size() + " input(s) over "
+                        + String.format("%.1f", a.take.length() / 20.0) + "s as " + a.take.classId()
+                        + ". Movement and hold times are not recorded. /moba lab combat replay [loop]");
+            }
+            default -> p.sendMessage("/moba lab combat record start | stop");
+        }
+    }
+
+    private void observe(Player p, String slot) {
+        var a = active.get(p.getUniqueId());
+        if (a == null || a.recorder == null) return;
+        var loc = p.getLocation();
+        a.recorder.record(Bukkit.getCurrentTick(), slot, loc.getYaw(), loc.getPitch());
+    }
+
+    private void replay(Player p, Active a, String sub) {
+        if (sub.equals("stop")) {
+            a.replayer = null; p.sendMessage("Replay stopped."); return;
+        }
+        if (a.take == null || a.take.empty()) { p.sendMessage(ChatColor.RED + "No take with inputs. Record one first."); return; }
+        if (a.recorder != null) { p.sendMessage(ChatColor.RED + "Stop recording first."); return; }
+        a.replayer = new InputRecording.Replayer(a.take, sub.equals("loop"));
+        // The ghost is a body of the class the take was made as, fresh at its post.
+        if (a.dummy != null) bodies.despawn(a.dummy);
+        a.dummy = spawnDummy(a);
+        a.replayStart = Bukkit.getCurrentTick() + 30;
+        a.casts = 0; a.refused = 0;
+        p.sendMessage(ChatColor.GREEN + "The ghost (" + a.take.classId() + ") will replay " + a.take.events().size()
+                + " input(s) in 1.5s" + (sub.equals("loop") ? ", looping" : "") + ". It is a replay of inputs, so cooldowns and stuns apply to it.");
+    }
+
+    private void replayTick(Player tester, Active a, long now) {
+        if (a.replayer == null || a.dummy == null || now < a.replayStart) return;
+        for (var e : a.replayer.advance(now - a.replayStart)) {
+            var facing = new CastAim.Facing(InputRecording.replayYaw(a.post.getYaw(), e.relYaw()), e.pitch());
+            var r = caster.cast(a.dummy.player(), e.slot(), facing, 0);
+            if (r.cast()) a.casts++; else a.refused++;
+            a.lastCast = e.slot() + ": " + r.note();
+        }
+        if (a.replayer.done()) { a.replayer = null; tester.sendMessage("Replay finished."); }
+    }
 
     /** The report as lines, so it can be shown, logged or asserted on. */
     public java.util.List<String> reportLines(Player tester) {
@@ -339,7 +407,11 @@ public final class CombatChamber implements Listener {
         out.add(String.format("  last 5s: %.2f per second", log.perSecond(now, 100)));
         log.finalBySource().forEach((src, dmg) -> out.add(String.format("  %s: %.2f", src, dmg)));
         out.add("Taken by you: " + a.taken.count() + " hits, final " + String.format("%.2f", a.taken.totalFinal()));
-        if (a.spec.role() != CombatAvailability.Role.OPERATOR)
+        if (a.take != null)
+            out.add("Take: " + a.take.events().size() + " input(s) over " + String.format("%.1f", a.take.length() / 20.0)
+                    + "s as " + a.take.classId() + (a.replayer != null ? " (replaying)" : "")
+                    + ". A replay is approximate and does not react to you.");
+        if (a.spec.role() != CombatAvailability.Role.OPERATOR || a.take != null)
             out.add("Dummy casts: " + a.casts + " ran, " + a.refused + " refused; last: " + a.lastCast
                     + ". Replay is approximate: terrain, timing and randomness differ per cast.");
         if (a.refills > 0) out.add(ChatColor.GRAY + "The dummy was refilled " + a.refills + " time(s); it cannot die.");
@@ -376,6 +448,7 @@ public final class CombatChamber implements Listener {
     private void reset(Player p, Active a) {
         CombatSlabWorld.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
+        a.replayer = null;
         a.dummy = spawnDummy(a);
         a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0;
         double[] at = CombatSlab.testerSpawn();
@@ -461,6 +534,7 @@ public final class CombatChamber implements Listener {
                 if (a.dummy != null) plugin.inputs().cooldowns().clear(a.dummy.player().getUniqueId());
             }
             if (a.dummy == null) continue;
+            replayTick(tester, a, now);
             if (now >= a.nextCast) { castNow(tester, a); a.nextCast = now + REPEAT_TICKS; }
             Player dummy = a.dummy.player();
             var max = dummy.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);

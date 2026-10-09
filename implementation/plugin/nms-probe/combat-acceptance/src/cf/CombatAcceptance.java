@@ -63,6 +63,13 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 4, "toolbox: a Toolbox dummy enters (the belt was null at ability construction)", this::toolboxEnter);
         at(c, 14, "toolbox: Jumpstartinator (A2) actually executes", this::toolboxCast);
         at(c, 3, "toolbox: leave", this::recipientLeave);
+        at(c, 4, "ghost: operate as Mole with the waiver, then start recording", this::ghostRecordStart);
+        at(c, 6, "ghost: the tester's first press runs the real Drill Rush", this::ghostPressOne);
+        at(c, 12, "ghost: a second press (the recast) emerges", this::ghostPressTwo);
+        at(c, 3, "ghost: stop saves a take of two inputs", this::ghostStop);
+        at(c, 3, "ghost: replay starts a Mole ghost", this::ghostReplay);
+        at(c, 75, "ghost: the ghost ran the real Drill Rush and recast it, from inputs alone", this::ghostResult);
+        at(c, 3, "ghost: leave", this::recipientLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -363,5 +370,55 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         cmd("cast");
         int after = moba.inputs().executions(d, "jumpstartinator");
         return "executions " + before + " -> " + after + (after == before + 1 ? "" : " | FAIL: Jumpstartinator did not execute");
+    }
+
+    private String ghostRecordStart() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        if (!combat().state(t).equals("in chamber")) return "FAIL: not in chamber: " + combat().state(t);
+        cmd("record start");
+        return "recording; class=" + moba.data(t).classId;
+    }
+
+    private String ghostPressOne() {
+        var in = moba.inputs();
+        int before = in.executions(t, "drill_rush");
+        in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a2"));
+        int after = in.executions(t, "drill_rush");
+        return "tester drill_rush " + before + " -> " + after + " invulnerable=" + t.isInvulnerable()
+                + (after == before + 1 ? "" : " | FAIL: the tester's own cast did not run");
+    }
+
+    private String ghostPressTwo() {
+        var in = moba.inputs();
+        boolean activeBefore = in.abilityFor("mole", "a2").active(t);
+        double[] sp = CombatSlab.testerSpawn();
+        var loc = t.getLocation();
+        in.input(t, in.inputFor("a2"));
+        return "activeBefore=" + activeBefore + " activeAfter=" + in.abilityFor("mole", "a2").active(t)
+                + " pos=" + String.format("%.1f,%.1f,%.1f", loc.getX(), loc.getY(), loc.getZ()) + " yaw=" + loc.getYaw() + " pitch=" + loc.getPitch()
+                + (in.abilityFor("mole", "a2").active(t) ? " | FAIL: the recast did not end the burrow" : "");
+    }
+
+    private String ghostStop() {
+        cmd("record stop");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Take:")).findFirst().orElse("(no take line)");
+        return line + (line.contains("2 input(s)") && line.contains("mole") ? "" : " | FAIL: expected a take of two inputs as mole");
+    }
+
+    private String ghostReplay() {
+        cmd("replay");
+        Player d = combat().dummy(t);
+        return "ghost class=" + (d == null ? null : moba.data(d).classId) + (d != null && "mole".equals(moba.data(d).classId) ? "" : " | FAIL: no mole ghost");
+    }
+
+    private String ghostResult() {
+        Player d = combat().dummy(t);
+        int ran = moba.inputs().executions(d, "drill_rush");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Dummy casts")).findFirst().orElse("(no cast line)");
+        boolean ok = ran == 1 && !d.isInvulnerable() && line.contains("2 ran, 0 refused");
+        return "ghost drill_rush executions=" + ran + " invulnerable=" + d.isInvulnerable() + " | " + line
+                + (ok ? "" : " | FAIL: the ghost did not reproduce the take");
     }
 }

@@ -25,5 +25,12 @@ PASS recipient: leave removes the dummy caster :: dummiesGone=true state=idle
 PASS toolbox: a Toolbox dummy enters (the belt was null at ability construction) :: dummy class=toolbox belt=true
 PASS toolbox: Jumpstartinator (A2) actually executes :: executions 0 -> 1
 PASS toolbox: leave :: dummiesGone=true state=idle
+PASS ghost: operate as Mole with the waiver, then start recording :: recording; class=mole
+PASS ghost: the tester's first press runs the real Drill Rush :: tester drill_rush 0 -> 1 invulnerable=true
+PASS ghost: a second press (the recast) emerges :: activeBefore=true activeAfter=false pos=0.5,65.0,-12.5 yaw=0.0 pitch=0.0
+PASS ghost: stop saves a take of two inputs :: Take: 2 input(s) over 1.1s as mole. A replay is approximate and does not react to you.
+PASS ghost: replay starts a Mole ghost :: ghost class=mole
+PASS ghost: the ghost ran the real Drill Rush and recast it, from inputs alone :: ghost drill_rush executions=1 invulnerable=false | Dummy casts: 2 ran, 0 refused; last: a2: cast. Replay is approximate: terrain, timing and randomness differ per cast.
+PASS ghost: leave :: dummiesGone=true state=idle
 
-SUMMARY pass=27 fail=0
+SUMMARY pass=34 fail=0

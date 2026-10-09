@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 27 of 27.
+the server. `report-1.21.11-132.txt` is the last run: 34 of 34.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -29,10 +29,15 @@ level 15, and `cast` runs the REAL Drill Rush (execution count 0 to 1, dummy
 invulnerable). A second `cast` is the ability's own recast and the dummy emerges
 (invulnerability off). A passive slot is refused with the flow unchanged.
 
+Recording and ghost replay: as Operator the tester records two slot presses (Drill
+Rush, then its recast); the take is two inputs as Mole; `replay` spawns a Mole ghost
+that performs both from inputs alone (execution count 1, emerged, 2 ran and 0
+refused).
+
 ## Not covered
 
 An ally dummy (no team assignment; the refusal is in code, not exercised live),
-marked-point and recorded aim, held (charged or channelled) abilities through
+marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 
 Aim matters to what the real ability does: Drill Rush aimed at the tester (slightly
