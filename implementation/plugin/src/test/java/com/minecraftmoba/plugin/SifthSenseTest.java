@@ -105,6 +105,53 @@ class SifthSenseTest {
         assertEquals(ring.size() - 1, found.size(), "the whole ring except the break");
     }
 
+    // ---- the yield ----------------------------------------------------------
+
+    @Test void everyBlockIsItsOwnTrialSoTheExpectationStaysLinear() {
+        // TaskEffects carries the scar from the other arrangement: a chance
+        // both scaled and rolled repeatedly made the expectation quadratic,
+        // and past a threshold stopped being a roll at all.
+        assertEquals(10, SifthSense.inclusions(10, 1.0, () -> 0.0));
+        assertEquals(0, SifthSense.inclusions(10, 0.0, () -> 0.5));
+
+        // Half the trials succeed: alternating draws either side of the rate.
+        var draws = new double[]{0.1, 0.9, 0.1, 0.9, 0.1, 0.9};
+        int[] i = {0};
+        assertEquals(3, SifthSense.inclusions(6, 0.5, () -> draws[i[0]++]));
+    }
+
+    @Test void anOutOfRangeChanceIsClampedRatherThanTrusted() {
+        assertEquals(5, SifthSense.inclusions(5, 4.0, () -> 0.999));
+        assertEquals(0, SifthSense.inclusions(5, -1.0, () -> 0.0));
+    }
+
+    @Test void siftingNothingYieldsNothing() {
+        assertEquals(0, SifthSense.inclusions(0, 1.0, () -> 0.0));
+        assertEquals(0, SifthSense.inclusions(-3, 1.0, () -> 0.0));
+    }
+
+    @Test void theSiftIsAFloorAndNeverAPenaltyForHoldingAGoodTool() {
+        // The case that matters. Fortune III already gives flint from every
+        // gravel block, so a flat sift rate would make the class's own passive
+        // the worse play -- which is not a balance problem, it is an ability
+        // that punishes you for using it.
+        assertEquals(1.0, SifthSense.effectiveChance(SifthSense.DEFAULT_SIFT_CHANCE, 3));
+        assertEquals(SifthSense.DEFAULT_SIFT_CHANCE, SifthSense.effectiveChance(
+                SifthSense.DEFAULT_SIFT_CHANCE, 0), "and it beats bare hands");
+    }
+
+    @Test void anAbsurdFortuneLevelIsClampedToTheTableRatherThanThrowing() {
+        // Enchantment levels can exceed vanilla's maximum through commands and
+        // through other plugins, and a passive is not the place to find out.
+        assertEquals(1.0, SifthSense.effectiveChance(0.2, 99));
+        assertEquals(0.2, SifthSense.effectiveChance(0.2, -5));
+    }
+
+    @Test void siftingBeatsBreakingByHandOrItIsNotAPassive() {
+        assertTrue(SifthSense.DEFAULT_SIFT_CHANCE > SifthSense.VANILLA_FLINT[0],
+                "a sift that matched the vanilla flint rate would be decoration");
+    }
+
     // ---- the fixtures are declared as fixtures -------------------------------
 
     @Test void theDefaultsAreBoundedEnoughToRunOnATick() {

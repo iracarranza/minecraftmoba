@@ -1710,7 +1710,15 @@ World systems such as Worksites should preserve meaningful specialist advantage 
 
 Sense radius (5) and sift volume (64) are `[FIXTURE — expect to tune]`. The **volume** is load-bearing rather than tuning: a dune is effectively unbounded connected sand, so an uncapped fill is a server stall on a single block break. The reach is breadth-first so that the cap truncates the far edge and leaves a contiguous pocket around the break, rather than a tendril across the dune.
 
-[OPEN] *Sift* versus *clear* — whether this yields more than the material taken — is still unchosen. The implementation returns the reach and takes no position.
+**[RESOLVED 8 October 2026] Sift, not clear.** The developed wording above says "sift or clear", but the canonical [K7] kit block says *sift through*, and that block states that where the two differ it is the current statement. Two further things agree: Mole's archetype is **Extraction**, whose definition says extraction "does not simply mean that blocks disappear" — which is this question decided against clear — and Flint sits outside Primary Materials, so a richer flint yield does not disturb the restricted economy [Kitfighter's Salvage](#7-kitfighter) depends on.
+
+So the sifted mass is processed. A sifted **gravel** block gives up flint instead of gravel at `siftChance`, `[FIXTURE — expect to tune]` at 0.35 against vanilla's 0.10.
+
+- **The sift rate is a floor, never a cap.** Vanilla's flint chance reaches 1.00 at Fortune III, so a flat rate would make Mole's own passive the worse play while holding a good tool. The effective chance is the greater of the two.
+- **The blocks are cleared and the drops computed, not broken naturally.** Breaking naturally would roll vanilla's gravel/flint table and then pay the sift on top, so one block would yield both. Sifting changes *which* of the two you get.
+- **[OPEN] Sand has no inclusion.** The design names sand and gravel together, but vanilla sand contains nothing. Sand is sifted for its reach — it comes apart rather than collapsing — and yields sand. Inventing a product for it would answer a question the design has not asked.
+
+One consequence to note: `volume` stops being only a performance guard. It is now also the rate limit on an economy, so that fixture is balance-sensitive rather than technical.
 
 ---
 

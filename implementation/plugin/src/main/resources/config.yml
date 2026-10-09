@@ -1384,6 +1384,21 @@ passives:
   sifthSense:
     radius: 5
     volume: 64
+    # SIFT, not clear: the mass is processed rather than merely removed. The
+    # canonical [K7] kit block says "sift through", and Mole's archetype is
+    # Extraction, whose definition states that extraction does not simply mean
+    # that blocks disappear.
+    #
+    # The chance that a sifted GRAVEL block gives up flint instead of gravel.
+    # Vanilla is 0.10 by hand, rising to 1.00 at Fortune III -- so this is
+    # treated as a FLOOR, never a cap, or the passive would punish Mole for
+    # holding a good tool.
+    #
+    # [FIXTURE -- expect to tune] The one place this passive touches the
+    # economy, and the number classes.md leaves unresolved. Note that
+    # passives.sifthSense.volume stops being only a performance guard once this
+    # exists: it is now also the rate limit on that economy.
+    siftChance: 0.35
   # Skeleton Crew. Hostile undead pursue from substantially farther than normal,
   # converting night-time danger into economic opportunity.
   #

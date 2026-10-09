@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Mob;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -225,11 +226,50 @@ public final class Passives implements Listener {
         var found = SifthSense.reach(origin, at -> siftable(world, at), radiusBlocks(), volume());
         if (found.isEmpty()) return;
 
-        var tool = p.getInventory().getItemInMainHand();
+        sift(p, world, found);
+    }
+
+    /**
+     * Take the sifted mass and pay out what was in it.
+     *
+     * <h2>The blocks are cleared, not broken naturally</h2>
+     *
+     * {@code breakNaturally} would roll vanilla's own gravel/flint table, and
+     * the sift would then be paid ON TOP of it -- a gravel block yielding both
+     * its gravel and its flint. Sifting is meant to change WHICH of the two you
+     * get, not to produce both, so the drops are computed here and the blocks
+     * are set to air.
+     *
+     * <h2>Only gravel has an inclusion</h2>
+     *
+     * [OPEN] classes.md names sand and gravel together, but only gravel
+     * contains anything: vanilla sand drops sand. Sand is therefore sifted for
+     * its reach -- it still comes apart rather than collapsing -- and yields
+     * sand. Inventing a product for it would be answering a question the
+     * design has not asked.
+     */
+    private void sift(Player p, World world, java.util.List<SifthSense.At> found) {
+        double chance = SifthSense.effectiveChance(
+                plugin.getConfig().getDouble("passives.sifthSense.siftChance",
+                        SifthSense.DEFAULT_SIFT_CHANCE),
+                p.getInventory().getItemInMainHand()
+                        .getEnchantmentLevel(org.bukkit.enchantments.Enchantment.FORTUNE));
+
+        int gravel = 0;
+        var raw = new java.util.ArrayList<Material>();
         for (SifthSense.At at : found) {
             Block block = world.getBlockAt(at.x(), at.y(), at.z());
-            block.breakNaturally(tool);
+            Material type = block.getType();
+            if (type == Material.GRAVEL) gravel++; else raw.add(type);
+            block.setType(Material.AIR, false);
         }
+
+        int flint = SifthSense.inclusions(gravel, chance, Math::random);
+        var drop = world.getBlockAt(found.get(0).x(), found.get(0).y(), found.get(0).z()).getLocation();
+        if (flint > 0) world.dropItemNaturally(drop, new ItemStack(Material.FLINT, flint));
+        if (gravel - flint > 0)
+            world.dropItemNaturally(drop, new ItemStack(Material.GRAVEL, gravel - flint));
+        for (Material type : raw) world.dropItemNaturally(drop, new ItemStack(type, 1));
     }
 
     /**

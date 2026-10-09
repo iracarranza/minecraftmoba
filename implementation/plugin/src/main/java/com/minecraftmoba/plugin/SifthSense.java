@@ -48,12 +48,18 @@ import java.util.function.Predicate;
  * The other reading is defensible and the gate is one predicate at the call
  * site, so switching is a line. It is recorded rather than decided.
  *
- * <h2>[OPEN] Sift versus clear</h2>
+ * <h2>Sift, not clear [RESOLVED 8 October 2026]</h2>
  *
- * "Sift or clear ... substantially more effectively" permits either a yield
- * bonus or mere removal, and classes.md does not choose. This returns the
- * reach and takes no position; what the caller does with it is where that
- * decision will land.
+ * The developed section said "sift or clear", but the canonical [K7] kit block
+ * says <i>sift through</i>, and that block carries precedence where the two
+ * differ. Two other things agree with it: Mole's archetype is <b>Extraction</b>,
+ * whose definition states that extraction "does not simply mean that blocks
+ * disappear" -- which is the clear/sift question decided against clear -- and
+ * Flint sits outside Primary Materials, so a richer flint yield does not
+ * disturb the restricted economy Kitfighter's Salvage depends on.
+ *
+ * So the sifted mass is PROCESSED rather than merely removed: see {@link
+ * #inclusions}.
  */
 public final class SifthSense {
 
@@ -128,6 +134,61 @@ public final class SifthSense {
     public static List<At> reach(At origin, Predicate<At> siftable) {
         return reach(origin, siftable, DEFAULT_RADIUS, DEFAULT_VOLUME);
     }
+
+    // ---- the yield ---------------------------------------------------------
+
+    /**
+     * Vanilla's flint chance when breaking gravel by hand, and with each level
+     * of Fortune.
+     *
+     * Carried so the sift can be compared against what Mole would have got
+     * anyway. Fortune III already gives flint from every gravel block, which is
+     * the case that makes a flat sift rate a DOWNGRADE rather than a passive.
+     */
+    public static final double[] VANILLA_FLINT = {0.10, 0.14, 0.25, 1.00};
+
+    /**
+     * How often a sifted block gives up its inclusion rather than its raw
+     * material.
+     *
+     * [FIXTURE -- expect to tune] A balance number, and the one place this
+     * passive touches the economy. classes.md leaves it unresolved.
+     */
+    public static final double DEFAULT_SIFT_CHANCE = 0.35;
+
+    /**
+     * The chance actually used, which is never worse than mining by hand.
+     *
+     * Without this, a Mole holding Fortune III would sift gravel at 35% where
+     * breaking it gives flint at 100% -- so the passive would be a penalty for
+     * having a good tool, and the better play would be to not use the class's
+     * own passive. Taking the maximum means the sift is a floor that a good
+     * tool can exceed, rather than a ceiling it is capped to.
+     */
+    public static double effectiveChance(double siftChance, int fortuneLevel) {
+        int level = Math.max(0, Math.min(VANILLA_FLINT.length - 1, fortuneLevel));
+        return Math.max(clamp(siftChance), VANILLA_FLINT[level]);
+    }
+
+    /**
+     * How many of {@code blocks} give up their inclusion, one independent trial
+     * each.
+     *
+     * One trial PER BLOCK, so the expectation is {@code blocks * chance} --
+     * linear, as "a chance per block" says. {@link TaskEffects#extraUnits}
+     * carries the scar from the other arrangement: a chance that was both
+     * scaled and rolled repeatedly made the expectation quadratic, and above a
+     * threshold stopped being a roll at all.
+     */
+    public static int inclusions(int blocks, double chance, java.util.function.DoubleSupplier rng) {
+        if (blocks <= 0) return 0;
+        double p = clamp(chance);
+        int found = 0;
+        for (int i = 0; i < blocks; i++) if (rng.getAsDouble() < p) found++;
+        return found;
+    }
+
+    private static double clamp(double value) { return Math.min(1.0, Math.max(0.0, value)); }
 
     private SifthSense() {}
 }
