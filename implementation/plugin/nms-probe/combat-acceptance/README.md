@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 24 of 24.
+the server. `report-1.21.11-132.txt` is the last run: 27 of 27.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put

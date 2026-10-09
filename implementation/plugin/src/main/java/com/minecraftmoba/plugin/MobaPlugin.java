@@ -230,6 +230,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(this, this);
         rewards = new Rewards(this, settings.rewards());
         getServer().getPluginManager().registerEvents(rewards, this);
+        // Built BEFORE the ability registry: Reconfiguratron and Jumpstartinator
+        // capture the belt when they are constructed, and a belt built after
+        // them left both holding null, so Toolbox's A1 and A2 never fired.
+        toolboxStatuses = new ToolboxStatuses(this);
+        utilityBelt = new UtilityBelt(this, toolboxStatuses);
         inputs = new AbilityInputs(this, provenance);
         packets = new PacketInputs(this, inputs);
         getServer().getPluginManager().registerEvents(inputs, this);
@@ -254,13 +259,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         targetPreview = new TargetPreview(this);
         getServer().getPluginManager().registerEvents(lobbySettings, this);
         getServer().getPluginManager().registerEvents(new TeamDamage(this), this);
-        toolboxStatuses = new ToolboxStatuses(this);
         // Stun enforces Root too. Root has existed since the Utility Belt and
         // nothing has ever read it, so both statuses live behind one listener
         // rather than each waiting for its own.
         stun = new Stun(this);
         getServer().getPluginManager().registerEvents(stun, this);
-        utilityBelt = new UtilityBelt(this, toolboxStatuses);
         // The Ultimate's armed window listens for world redstone on its own.
         gizmoWindow = new GizmoWindow(this, utilityBelt);
         getServer().getPluginManager().registerEvents(gizmoWindow, this);

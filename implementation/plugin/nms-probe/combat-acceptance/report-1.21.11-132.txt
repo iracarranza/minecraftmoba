@@ -22,5 +22,8 @@ PASS recipient: commanded cast runs the real ability and the report counts it ::
 PASS recipient: a second command is the ability's own recast (Drill Rush emerges) :: invulnerable true -> false | Dummy casts: 2 ran, 0 refused; last: cast. Replay is approximate: terrain, timing and randomness differ per cast.
 PASS recipient: a passive slot is refused with a reason :: before=setup step SLOT after picking passive=setup step SLOT
 PASS recipient: leave removes the dummy caster :: dummiesGone=true state=idle
+PASS toolbox: a Toolbox dummy enters (the belt was null at ability construction) :: dummy class=toolbox belt=true
+PASS toolbox: Jumpstartinator (A2) actually executes :: executions 0 -> 1
+PASS toolbox: leave :: dummiesGone=true state=idle
 
-SUMMARY pass=24 fail=0
+SUMMARY pass=27 fail=0

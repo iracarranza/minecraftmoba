@@ -60,6 +60,9 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "recipient: a second command is the ability's own recast (Drill Rush emerges)", this::recipientRecast);
         at(c, 3, "recipient: a passive slot is refused with a reason", this::passiveRefused);
         at(c, 6, "recipient: leave removes the dummy caster", this::recipientLeave);
+        at(c, 4, "toolbox: a Toolbox dummy enters (the belt was null at ability construction)", this::toolboxEnter);
+        at(c, 14, "toolbox: Jumpstartinator (A2) actually executes", this::toolboxCast);
+        at(c, 3, "toolbox: leave", this::recipientLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -340,5 +343,25 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         cmd("leave");
         boolean none = Bukkit.getOnlinePlayers().stream().noneMatch(p -> p.getName().equals("B_dummy"));
         return "dummiesGone=" + none + " state=" + combat().state(t) + (none ? "" : " | FAIL: dummy left behind");
+    }
+
+    private String toolboxEnter() {
+        cmd("leave"); cmd("start"); cmd("pick toolbox"); cmd("pick RECIPIENT"); cmd("pick A2");
+        for (int i = 0; i < 4; i++) {
+            String s = combat().state(t);
+            if (s.equals("setup step SCRIPT")) cmd("pick ONCE");
+            else if (s.equals("setup step AIM")) cmd("pick STRAIGHT_AHEAD");
+            else if (s.equals("setup step MODES")) { cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter"); }
+        }
+        Player d = combat().dummy(t);
+        return d == null ? "FAIL: no dummy; state=" + combat().state(t) : "dummy class=" + moba.data(d).classId + " belt=" + (moba.utilityBelt() != null);
+    }
+
+    private String toolboxCast() {
+        Player d = combat().dummy(t);
+        int before = moba.inputs().executions(d, "jumpstartinator");
+        cmd("cast");
+        int after = moba.inputs().executions(d, "jumpstartinator");
+        return "executions " + before + " -> " + after + (after == before + 1 ? "" : " | FAIL: Jumpstartinator did not execute");
     }
 }
