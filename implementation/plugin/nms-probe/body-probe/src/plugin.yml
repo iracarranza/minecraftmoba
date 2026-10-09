@@ -1,0 +1,4 @@
+name: BodyProbe
+version: 0.1
+main: bodyprobe.BodyProbe
+api-version: '1.21.11'

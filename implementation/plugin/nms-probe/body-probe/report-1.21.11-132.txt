@@ -1,0 +1,21 @@
+PASS spawn :: online=true name=Body1 world=world loc=0.5,-60.0,0.5 onlineCount=1 channelActive=true isConnected=true
+PASS pipeline :: names=[hackfix, packet_handler, DefaultChannelPipeline$TailContext#0] connection.channel==embedded:true
+PASS attach the PacketInputs-style handler :: PacketInputs reflection chain resolved; handler inserted before packet_handler; same channel=true
+PASS accept the join teleport :: awaitingPositionFromClient=(0.5, -60.0, 0.5) awaitingTeleport=1 -> after accept: awaitingPositionFromClient=null
+PASS client-loaded packet :: sent ServerboundPlayerLoadedPacket; loaded-ish methods on ServerPlayer: [closeUnloadedInventory(), touchingUnloadedChunk()]
+PASS movement packet :: moved 0.5,-60.0,0.5 -> 1.3,-60.0,0.5 yaw 1.7670403 -> 90.0 PlayerMoveEvent x1
+PASS swap-hand packet :: handler saw ServerboundPlayerActionPacket=true | PlayerSwapHandItemsEvent x1 | offhand=STICK
+PASS swap-hand through the server packet processor (NativePacketQueue path) :: scheduleIfPossible returned null (event result reported by the next step)
+PASS processor result :: PlayerSwapHandItemsEvent x1 offhand=STICK
+PASS key-input packet :: PlayerInputEvent x1
+PASS swing packet :: PlayerAnimationEvent x1
+PASS outbound queue :: outbound packets queued on the embedded channel: 854 (37 kinds, e.g. [ClientboundBundlePacket, ClientboundChangeDifficultyPacket, ClientboundCommandsPacket, ClientboundContainerSetContentPacket, ClientboundContainerSetSlotPacket]); drained
+PASS despawn :: online 1 -> 0 | getPlayer=null | PlayerQuitEvent +1 | playerdata file written=true (deleted)
+PASS four bodies spawn and despawn :: spawned 4: online=4 | after despawn: online=0
+PASS physics: spawn 15 blocks above ground :: start y=-45.0 onGround=false
+PASS physics: did gravity act on the body? :: y -45.0 -> -60.0 after ~25 ticks; velocity=0.0,-0.0784000015258789,0.0 onGround=true
+PASS physics: setVelocity on a grounded body :: x=0.5 then setVelocity(0.6,0,0)
+PASS physics: did the velocity move it? :: x 0.5 -> 1.8210795631815926 after ~15 ticks
+PASS physics: despawn :: online now 0
+
+SUMMARY pass=19 fail=0 events={join=6, move=1, swap=2, input=1, animation=1, quit=6}
