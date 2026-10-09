@@ -32,6 +32,14 @@ import java.util.Objects;
  */
 public final class JumpstartinatorAbility implements Ability {
 
+    /**
+     * Fires the first components of your own belt. The components may reach
+     * outward; the ACTIVATION does not aim, which is what the form records.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("jumpstartinator", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final UtilityBelt belt;

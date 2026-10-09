@@ -21,6 +21,14 @@ import java.util.Objects;
  */
 public final class GizmoAbility implements Ability {
 
+    /**
+     * Arms a window on the caster. Everything that then fires originates at
+     * Toolbox, so the ability aims at nobody -- the window does.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("gizmo", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
 

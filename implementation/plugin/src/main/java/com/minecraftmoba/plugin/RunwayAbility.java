@@ -29,6 +29,15 @@ import java.util.Objects;
  */
 public final class RunwayAbility implements Ability {
 
+    /**
+     * Converts the momentum the caster already has. The Suplex branch subjects a
+     * touched enemy to the launch, but it is not AIMED at them -- contact
+     * decides it, so the target form is unchanged and only combat-ness differs.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("runway", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final DaredevilState state;

@@ -34,6 +34,15 @@ import java.util.Objects;
  */
 public final class ReconfiguratronAbility implements Ability {
 
+    /**
+     * Swaps two components in your own inventory. classes.md names this as the
+     * case that forced SELF into the vocabulary: it targets nothing, which is
+     * why it ignores cast modes rather than previewing an empty set.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("reconfiguratron", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final UtilityBelt belt;

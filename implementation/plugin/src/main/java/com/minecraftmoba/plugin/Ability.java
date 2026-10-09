@@ -101,7 +101,38 @@ public interface Ability {
      * change this. A projectile branch is not hold-dependent; its
      * widening-beam branch is.
      */
-    default boolean holdDependent(Player player, AbilityContext context) { return false; }
+    default boolean holdDependent(Player player, AbilityContext context) {
+        for (AbilityOutput o : outputs(player, context)) if (o.holdDependent()) return true;
+        return false;
+    }
+
+    /**
+     * What this ability can do, each with its target form and input form.
+     *
+     * <h2>Empty means UNDECLARED, not "nothing"</h2>
+     *
+     * There is deliberately no guessed default. {@link AbilityCombat} already
+     * paid for the alternative: a key that is simply absent reads as a
+     * deliberate false, and six features once shipped silently disabled that
+     * way. So an empty list here is not a quiet "this targets nothing" -- SELF
+     * says that, explicitly -- it is an ability that has not said, and
+     * {@code AbilitySkeletonTest} names every one that has not.
+     *
+     * It is a default rather than an abstract method only so that adding the
+     * declaration is a change per ability rather than a change to all of them
+     * at once. The test is what makes it required.
+     */
+    default List<AbilityOutput> outputs() { return List.of(); }
+
+    /**
+     * The outputs for THIS activation, with the branch in hand.
+     *
+     * A branch may change an ability's input form -- classes.md records this
+     * directly -- so a projectile branch and its widening-beam branch are not
+     * the same declaration. Abilities whose branches do not reshape the gesture
+     * ignore the arguments, which is most of them.
+     */
+    default List<AbilityOutput> outputs(Player player, AbilityContext context) { return outputs(); }
 
     /**
      * The blocks this activation would affect, for a targeting preview.

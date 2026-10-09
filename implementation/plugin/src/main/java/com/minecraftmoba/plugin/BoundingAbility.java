@@ -57,6 +57,14 @@ import java.util.UUID;
  */
 public final class BoundingAbility implements Ability {
 
+    /**
+     * A fixed series of leaps along one heading. The heading is the aim; the
+     * series runs on its own afterwards.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("bounding", TargetForm.DIRECTION, InputForm.INSTANT);
+    }
+
     /** One in-flight bound run: how many leaps remain, the shared heading, and branch state. */
     private static final class Run {
         int remaining;

@@ -37,6 +37,14 @@ import java.util.Objects;
  */
 public final class CrashLandingAbility implements Ability {
 
+    /**
+     * Ends the movement the caster already has. Nearby enemies take damage from
+     * the impact, which is an area EFFECT and not an area target: nothing is aimed.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("crash_landing", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final DaredevilState state;

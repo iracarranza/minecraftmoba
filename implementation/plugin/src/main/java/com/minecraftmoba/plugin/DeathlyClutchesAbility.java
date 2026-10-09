@@ -33,6 +33,13 @@ import java.util.Objects;
  */
 public final class DeathlyClutchesAbility implements Ability {
 
+    /**
+     * Acts on the health and damage negation of the caster alone.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("deathly_clutches", TargetForm.SELF, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final DaredevilState state;

@@ -11,6 +11,15 @@ import java.util.*;
 
 /** Sustained, velocity-driven Mole tunneling. The player moves through space; the ability only clears ahead. */
 final class TunnelingAbility implements Ability {
+
+    /**
+     * Facing is read at RESOLUTION rather than at trigger, which is what lets
+     * the dig turn as the player moves the mouse. A press starts it; the mode
+     * persisting afterwards is a held CAST, not a held input.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("tunneling", TargetForm.DIRECTION, InputForm.INSTANT);
+    }
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final Map<UUID, State> active = new HashMap<>();

@@ -43,6 +43,14 @@ import java.util.UUID;
  */
 public final class DrillRushAbility implements Ability {
 
+    /**
+     * Emerges along the facing. INSTANT despite being active for a while: the
+     * press is the whole input, and the recast is a second press, not a hold.
+     */
+    @Override public java.util.List<AbilityOutput> outputs() {
+        return AbilityOutput.single("drill_rush", TargetForm.DIRECTION, InputForm.INSTANT);
+    }
+
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final Map<UUID, Location> entries = new HashMap<>();

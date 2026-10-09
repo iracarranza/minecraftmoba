@@ -1,0 +1,159 @@
+# The ability skeleton: every designed class, every slot, and what is declared.
+#
+# THIS IS NOT LOADED BY THE PLUGIN. It lives under src/test/resources
+# deliberately, because config.yml already records the decision this file would
+# otherwise break:
+#
+#   "An unbound input does nothing, which is honest; a placeholder would be a
+#    lie that looked like a feature."
+#
+# So the skeleton is a DESIGN MANIFEST, read only by AbilitySkeletonTest. It
+# gives every class a named slot and a stable id without giving any class a
+# half-built ability that a player could press.
+#
+# status:
+#   built       an Ability implementation exists and declares its outputs
+#   dispatched  a passive with a live listener; no Ability, so no outputs
+#   declared    config names a passiveHook that NOTHING dispatches -- the
+#               failure mode this repository has already paid for twice, so it
+#               gets a status rather than a comment
+#   designed    classes.md has the kit; nothing is implemented
+#
+# target / input:
+#   One of TargetForm / InputForm, or "?" for a question classes.md has not
+#   answered. "?" is legal ONLY while status is designed -- the test refuses a
+#   built ability that has not said. Guessing a form from an ability's NAME is
+#   how a wrong answer gets laundered into a decision, so unanswered cells stay
+#   unanswered.
+#
+# A passive is the one form that is determined without reading further: it has
+# no gesture, so it permits no cast mode, and that is a different statement
+# from "every mode applies".
+
+classes:
+  mole:
+    displayName: "Mole"
+    abilities:
+      passive: { id: sifth_sense, name: "Sifth Sense", status: declared, target: "SELF", input: "PASSIVE" }
+      a1: { id: tunneling, name: "Tunneling", status: built, target: "DIRECTION", input: "INSTANT" }
+      a2: { id: drill_rush, name: "Drill Rush", status: built, target: "DIRECTION", input: "INSTANT" }
+      ult: { id: sinkhole, name: "Sinkhole", status: designed, target: "?", input: "?" }
+  gardener:
+    displayName: "Gardener"
+    abilities:
+      passive: { id: plant_material, name: "Plant Material", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: clip, name: "Clip", status: designed, target: "?", input: "?" }
+      a2: { id: cultivate, name: "Cultivate", status: designed, target: "?", input: "?" }
+      ult: { id: grafters_handbook, name: "Grafter's Handbook", status: designed, target: "?", input: "?" }
+  golem_master:
+    displayName: "Golem Master"
+    abilities:
+      passive: { id: pumpkin_supply, name: "Pumpkin Supply", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: animate, name: "Animate", status: designed, target: "?", input: "?" }
+      a2: { id: assemble, name: "Assemble", status: designed, target: "?", input: "?" }
+      ult: { id: wither_golem, name: "Wither Golem", status: designed, target: "?", input: "?" }
+  kitfighter:
+    displayName: "Kitfighter"
+    abilities:
+      passive: { id: salvage, name: "Salvage", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: offhander, name: "Offhander", status: designed, target: "?", input: "?" }
+      a2: { id: hotswap, name: "Hotswap", status: designed, target: "?", input: "?" }
+      ult: { id: covered_with_diamonds, name: "Covered With Diamonds", status: designed, target: "?", input: "?" }
+  merchant:
+    displayName: "Merchant"
+    abilities:
+      passive: { id: work, name: "Work", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: swindle, name: "Swindle", status: designed, target: "?", input: "?" }
+      a2: { id: retinue, name: "Retinue", status: designed, target: "?", input: "?" }
+      ult: { id: procession, name: "Procession / Silk Road", status: designed, target: "?", input: "?" }
+  skeleton_crew:
+    displayName: "Skeleton Crew"
+    abilities:
+      passive: { id: undead_affinity, name: "Undead Affinity", status: declared, target: "SELF", input: "PASSIVE" }
+      a1: { id: graveyard_shift, name: "Graveyard Shift", status: designed, target: "?", input: "?" }
+      a2: { id: burning_out, name: "Burning Out", status: designed, target: "?", input: "?" }
+      ult: { id: a_head_of_schedule, name: "A-Head of Schedule", status: designed, target: "?", input: "?" }
+  lightfooted:
+    displayName: "Lightfooted"
+    abilities:
+      passive: { id: animal_senses, name: "Animal Senses", status: dispatched, target: "SELF", input: "PASSIVE" }
+      a1: { id: lunge, name: "Lunge", status: designed, target: "?", input: "?" }
+      a2: { id: bounding, name: "Bounding", status: built, target: "DIRECTION", input: "INSTANT" }
+      ult: { id: rabbits_lucky_foot, name: "Rabbit's Lucky Foot", status: designed, target: "?", input: "?" }
+  daredevil:
+    displayName: "Daredevil"
+    abilities:
+      passive: { id: skydiver, name: "Skydiver", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: runway, name: "Runway", status: built, target: "SELF", input: "INSTANT" }
+      a2: { id: crash_landing, name: "Crash Landing", status: built, target: "SELF", input: "INSTANT" }
+      ult: { id: deathly_clutches, name: "Deathly Clutches", status: built, target: "SELF", input: "INSTANT" }
+  waxer:
+    displayName: "Waxer"
+    abilities:
+      passive: { id: waxed_recipes, name: "Waxed Recipes", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: wax_on, name: "Wax-On", status: designed, target: "?", input: "?" }
+      a2: { id: wax_off, name: "Wax-Off", status: designed, target: "?", input: "?" }
+      ult: { id: amber, name: "Amber", status: designed, target: "?", input: "?" }
+  toolbox:
+    displayName: "Toolbox"
+    abilities:
+      passive: { id: utility_belt, name: "Utility Belt", status: dispatched, target: "SELF", input: "PASSIVE" }
+      a1: { id: reconfiguratron, name: "Reconfiguratron!", status: built, target: "SELF", input: "INSTANT" }
+      a2: { id: jumpstartinator, name: "Jumpstartinator!", status: built, target: "SELF", input: "INSTANT" }
+      ult: { id: gizmo, name: "Gizmo of Absurdity and Untold Destruction!!!", status: built, target: "SELF", input: "INSTANT" }
+  bloodmason:
+    displayName: "Bloodmason"
+    abilities:
+      passive: { id: hemostasis, name: "Hemostasis", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: capillary_flow, name: "Capillary Flow", status: designed, target: "?", input: "?" }
+      a2: { id: viscerwall, name: "Viscerwall", status: designed, target: "?", input: "?" }
+      ult: { id: athanor_anatomb, name: "Athanor Anatomb", status: designed, target: "?", input: "?" }
+  chef:
+    displayName: "Chef"
+    abilities:
+      passive: { id: trusty_spatula, name: "Trusty Spatula", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: food_fight, name: "Food Fight", status: designed, target: "?", input: "?" }
+      a2: { id: flip_and_press, name: "Flip and Press", status: designed, target: "?", input: "?" }
+      ult: { id: irresistible_buffet, name: "Irresistible Buffet", status: designed, target: "?", input: "?" }
+  fungal_assassin:
+    displayName: "Fungal Assassin"
+    abilities:
+      passive: { id: creeping_colony, name: "Creeping Colony", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: bursting_spore, name: "Bursting Spore", status: designed, target: "?", input: "?" }
+      a2: { id: myceliate, name: "Myceliate", status: designed, target: "?", input: "?" }
+      ult: { id: destroying_angels_blessing, name: "Destroying Angel's Blessing", status: designed, target: "?", input: "?" }
+  looming_talismaniac:
+    displayName: "Looming Talismaniac"
+    abilities:
+      passive: { id: pattern_linking, name: "Pattern Linking", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: imprint, name: "Imprint", status: designed, target: "?", input: "?" }
+      a2: { id: talisman_core, name: "[OPEN] A2 is described but unnamed in classes.md", status: designed, target: "?", input: "?" }
+      ult: { id: talisman_of_undying, name: "Talisman of Undying", status: designed, target: "?", input: "?" }
+  paver:
+    displayName: "Paver"
+    abilities:
+      passive: { id: concrete_mixer, name: "Concrete Mixer", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: rebar_chain, name: "Rebar Chain", status: designed, target: "?", input: "?" }
+      a2: { id: chamfering, name: "Chamfering", status: designed, target: "?", input: "?" }
+      ult: { id: concrete_shoes, name: "Concrete Shoes", status: designed, target: "?", input: "?" }
+  chauffeur:
+    displayName: "Chauffeur"
+    abilities:
+      passive: { id: parking_spot, name: "Parking Spot", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: cargo_boat, name: "Cargo Boat", status: designed, target: "?", input: "?" }
+      a2: { id: muscle_cart, name: "Muscle Cart", status: designed, target: "?", input: "?" }
+      ult: { id: highly_irresponsible_racing_line, name: "Highly Irresponsible Racing Line", status: designed, target: "?", input: "?" }
+  quarryman:
+    displayName: "Quarryman"
+    abilities:
+      passive: { id: quarry_quota, name: "Quarry Quota", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: ceaseless_swing, name: "Ceaseless Swing", status: designed, target: "?", input: "?" }
+      a2: { id: miners_strike, name: "Miner's Strike", status: designed, target: "?", input: "?" }
+      ult: { id: eternity_mountain, name: "Eternity Mountain", status: designed, target: "?", input: "?" }
+  werewolf:
+    displayName: "Werewolf"
+    abilities:
+      passive: { id: lycanthropy, name: "Lycanthropy", status: designed, target: "SELF", input: "PASSIVE" }
+      a1: { id: brawling_slash, name: "Brawling Slash", status: designed, target: "?", input: "?" }
+      a2: { id: bloodhide, name: "Bloodhide", status: designed, target: "?", input: "?" }
+      ult: { id: monster_howl, name: "Monster Howl", status: designed, target: "?", input: "?" }
