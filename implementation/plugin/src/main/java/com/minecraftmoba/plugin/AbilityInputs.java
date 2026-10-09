@@ -141,6 +141,23 @@ public final class AbilityInputs implements Listener {
     /** The cooldown book, so a measuring chamber can waive cooldowns. Package-private on purpose. */
     AbilityCooldowns cooldowns() { return cooldowns; }
 
+    /** The input bound to a slot ("a1", "a2", "ult"), or null. */
+    public Input inputFor(String slot) {
+        for (var e : slotOf.entrySet()) if (e.getValue().equals(slot)) return e.getKey();
+        return null;
+    }
+
+    /** The input that toggles ability mode. */
+    public Input modeInput() { return modeInput; }
+
+    /** How many times an ability has executed for a player, for callers that must tell a cast from a refusal. */
+    public int executions(Player p, String abilityId) {
+        return executionCounts.getOrDefault(p.getUniqueId(), Map.of()).getOrDefault(abilityId, 0);
+    }
+
+    /** Whether the player is holding a hold-dependent ability down. */
+    public boolean sustained(Player p) { return sustaining.containsKey(p.getUniqueId()); }
+
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
     public boolean input(Player p, Input input) { return input(p, input, null, null, null); }
 

@@ -41,7 +41,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 2, "combat start begins at the class step", this::combatStart);
         at(c, 2, "recipient flow: a movement-only ability is refused and does not advance", this::refusalFlow);
         at(c, 2, "recipient flow: an acts-on-others ability advances to modes", this::recipientFlow);
-        at(c, 2, "entering as Recipient is refused (dummy cannot cast yet) and the tester stays in the lab room", this::recipientRefused);
+        at(c, 2, "entering as Recipient (Crash Landing, enemy dummy) reaches the combat world", this::recipientRefused);
         at(c, 2, "operator flow with night time and cooldown waiver enters the chamber", this::operatorEnter);
         at(c, 6, "tester is in the combat world on the control band, class and level applied", this::inChamber);
         at(c, 2, "the slab was built: control stone, sand, water pool, ramp, clear air above", this::slabBuilt);
@@ -55,6 +55,11 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 6, "clear empties the logs", this::clearCheck);
         at(c, 2, "leave returns the tester to the lab room and removes the dummy", this::leaveCheck);
         at(c, 3, "nothing is left behind: no dummy, no ticker side effects, bodies registry clean", this::cleanCheck);
+        at(c, 4, "recipient: a Mole dummy enters, is the class, and is enrolled", this::recipientEnter);
+        at(c, 14, "recipient: commanded cast runs the real ability and the report counts it", this::recipientCast);
+        at(c, 3, "recipient: a second command is the ability's own recast (Drill Rush emerges)", this::recipientRecast);
+        at(c, 3, "recipient: a passive slot is refused with a reason", this::passiveRefused);
+        at(c, 6, "recipient: leave removes the dummy caster", this::recipientLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -133,7 +138,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         String world = t.getWorld().getName();
         String s = combat().state(t);
         return "world=" + world + " state=" + s
-                + (world.equals("moba_lab") ? "" : " | FAIL: a Recipient entry reached the combat world");
+                + (world.equals("moba_combat") ? "" : " | FAIL: the Recipient entry did not reach the combat world");
     }
 
     private String operatorEnter() {
@@ -279,5 +284,61 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         boolean dummiesLeft = Bukkit.getOnlinePlayers().stream().anyMatch(p -> p.getName().equals("B_dummy"));
         return "online=" + online + " (only the tester) dummiesLeft=" + dummiesLeft
                 + (online == 1 && !dummiesLeft ? "" : " | FAIL: players left behind");
+    }
+
+    private String recipientEnter() {
+        cmd("leave"); cmd("start");
+        cmd("pick mole"); cmd("pick RECIPIENT");
+        String s0 = combat().state(t);
+        cmd("pick A2");
+        for (int i = 0; i < 4; i++) {
+            String s = combat().state(t);
+            if (s.equals("setup step SCRIPT")) cmd("pick ONCE");
+            else if (s.equals("setup step AIM")) cmd("pick STRAIGHT_AHEAD");
+            else if (s.equals("setup step MODES")) { cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter"); }
+        }
+        Player d = combat().dummy(t);
+        if (d == null) return "FAIL: no dummy; state=" + combat().state(t) + " (at role step: " + s0 + ")";
+        var dd = moba.data(d);
+        boolean ok = t.getWorld().getName().equals("moba_combat") && dd != null && "mole".equals(dd.classId) && dd.level == 15;
+        return "world=" + t.getWorld().getName() + " dummyClass=" + (dd == null ? null : dd.classId) + " level=" + (dd == null ? -1 : dd.level)
+                + (ok ? "" : " | FAIL: not entered as a Recipient with a Toolbox dummy");
+    }
+
+    private String recipientCast() {
+        Player d = combat().dummy(t);
+        var inputs = moba.inputs();
+        int before = inputs.executions(d, "drill_rush");
+        seen.clear();
+        cmd("cast");
+        int after = inputs.executions(d, "drill_rush");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Dummy casts")).findFirst().orElse("(no cast line)");
+        return "executions " + before + " -> " + after + " | " + line + " | events=" + seen
+                + (after == before + 1 && line.contains("1 ran") && combat().dummy(t).isInvulnerable() ? "" : " | FAIL: the real ability did not run exactly once");
+    }
+
+    private String recipientRecast() {
+        Player d = combat().dummy(t);
+        boolean heldBefore = d.isInvulnerable();
+        cmd("cast");
+        var line = combat().reportLines(t).stream().filter(l -> l.startsWith("Dummy casts")).findFirst().orElse("(no cast line)");
+        return "invulnerable " + heldBefore + " -> " + d.isInvulnerable() + " | " + line
+                + (heldBefore && !d.isInvulnerable() ? "" : " | FAIL: the second command did not recast (emerge)");
+    }
+
+    private String passiveRefused() {
+        cmd("leave");
+        cmd("start"); cmd("pick mole"); cmd("pick RECIPIENT");
+        String s = combat().state(t);
+        cmd("pick PASSIVE");
+        String after = combat().state(t);
+        return "before=" + s + " after picking passive=" + after
+                + (after.equals(s) ? "" : " | FAIL: a passive advanced as Recipient");
+    }
+
+    private String recipientLeave() {
+        cmd("leave");
+        boolean none = Bukkit.getOnlinePlayers().stream().noneMatch(p -> p.getName().equals("B_dummy"));
+        return "dummiesGone=" + none + " state=" + combat().state(t) + (none ? "" : " | FAIL: dummy left behind");
     }
 }

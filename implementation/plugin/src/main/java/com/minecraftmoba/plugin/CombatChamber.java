@@ -27,10 +27,11 @@ import java.util.UUID;
  *
  * <h2>Scope of this slice</h2>
  *
- * The pre-entry flow ({@link CombatPreEntry}) offers every role. Only
- * <b>Operator</b> can be ENTERED: Recipient and Observer need the dummy to cast on
- * command, which needs input recording and casting for a body that is not built.
- * Entering one of those says so instead of pretending.
+ * The pre-entry flow ({@link CombatPreEntry}) offers every role. Operator, Recipient
+ * and Observer can be ENTERED. For the latter two the dummy is a body of the chosen
+ * class that casts on command through {@link BodyCaster}. Still refused, with a
+ * reason: a passive slot, an ally dummy (no team assignment), and marked-point or
+ * recorded aim (no marker, no recording).
  *
  * <h2>Why it needs no scoop and no match</h2>
  *
@@ -75,6 +76,9 @@ public final class CombatChamber implements Listener {
         final DamageLog taken = new DamageLog();
         Bodies.Body dummy;
         Location post;
+        long nextCast = Long.MAX_VALUE;
+        int casts, refused;
+        String lastCast = "none";
         long lastHit;
         int refills;
         Active(CombatPreEntry.Session spec) { this.spec = spec; }
@@ -84,6 +88,10 @@ public final class CombatChamber implements Listener {
     private final Lab lab;
     private final NmsBodies bodies;
     private final CombatCatalog catalog;
+    private final BodyCaster caster;
+    private final java.util.Random rng = new java.util.Random();
+    /** Ticks between casts under the repeat script. */
+    private static final int REPEAT_TICKS = 100;
     private final Map<UUID, CombatPreEntry> pre = new HashMap<>();
     private final Map<UUID, Active> active = new HashMap<>();
     private final Map<EntityDamageEvent, Double> rawSeen = new java.util.WeakHashMap<>();
@@ -95,6 +103,7 @@ public final class CombatChamber implements Listener {
         this.lab = lab;
         this.bodies = new NmsBodies(plugin);
         this.catalog = new CombatCatalog(plugin);
+        this.caster = new BodyCaster(plugin);
     }
 
     /** The shared body factory, so one set of dummies exists however the chamber is reached. */
@@ -194,11 +203,14 @@ public final class CombatChamber implements Listener {
     // ---- entering ---------------------------------------------------------------
 
     private void enter(Player p, CombatPreEntry.Session s) {
-        if (s.role() != CombatAvailability.Role.OPERATOR) {
-            p.sendMessage(ChatColor.YELLOW + "Recipient and Observer need the dummy to cast on command, which is not built yet. "
-                    + "Only Operator can be entered. Pick Operate to continue.");
-            pre.put(p.getUniqueId(), flowToRole(s));
-            return;
+        boolean operator = s.role() == CombatAvailability.Role.OPERATOR;
+        if (!operator) {
+            String refusal = refusal(s);
+            if (refusal != null) {
+                p.sendMessage(ChatColor.YELLOW + refusal);
+                pre.put(p.getUniqueId(), flowToRole(s));
+                return;
+            }
         }
         world();
         CombatSlabWorld.build(world);
@@ -214,12 +226,55 @@ public final class CombatChamber implements Listener {
         var a = new Active(s);
         double[] d = CombatSlab.dummySpawn(DUMMY_DISTANCE);
         a.post = new Location(world, d[0], d[1], d[2], 180f, 0f);
-        a.dummy = bodies.spawn("dummy", null, null, 0, a.post);
+        a.dummy = spawnDummy(a);
+        if (!operator && s.script() == CombatBehavior.Script.REPEAT) a.nextCast = Bukkit.getCurrentTick() + REPEAT_TICKS;
         active.put(p.getUniqueId(), a);
         startTicker();
         p.sendMessage(ChatColor.GREEN + "In the combat chamber as " + s.classId() + " (level " + s.modes().level() + "). "
                 + "Cooldowns " + (s.modes().cooldownWaiver() ? "WAIVED (every report says so). " : "normal. ")
-                + "A passive dummy stands " + DUMMY_DISTANCE + " blocks ahead. /moba lab combat log | clear | reset | leave");
+                + (operator ? "A passive dummy stands " + DUMMY_DISTANCE + " blocks ahead. /moba lab combat log | clear | reset | leave"
+                        : "The dummy is a " + s.classId() + " and casts " + s.slot() + " on command: /moba lab combat cast "
+                                + (s.script() == CombatBehavior.Script.REPEAT ? "(it also casts every " + REPEAT_TICKS / 20 + "s)" : "")
+                                + " | log | clear | reset | leave"));
+    }
+
+    /** Why this Recipient or Observer session cannot be entered yet, or null when it can. */
+    private String refusal(CombatPreEntry.Session s) {
+        if (s.slot() == null || s.slot() == CombatAvailability.Slot.PASSIVE)
+            return "A passive has no gesture to command; it can be operated, not received. Pick Operate or another slot.";
+        if (s.modes().dummy() == CombatAvailability.Relation.ALLY)
+            return "An ally dummy needs team assignment, which is not built. Choose an enemy dummy.";
+        if (s.aim() == CombatBehavior.Aim.MARKED_POINT || s.aim() == CombatBehavior.Aim.AS_RECORDED)
+            return "Marked-point and recorded aim are not built. Choose at-player, straight-ahead or random.";
+        return null;
+    }
+
+    /** The dummy: classless when the tester operates, otherwise the class being examined. */
+    private Bodies.Body spawnDummy(Active a) {
+        boolean operator = a.spec.role() == CombatAvailability.Role.OPERATOR;
+        return bodies.spawn("dummy", null, operator ? null : a.spec.classId(),
+                operator ? 0 : a.spec.modes().level(), a.post);
+    }
+
+    /** Make the dummy cast the session's slot, aimed by the session's policy. Returns the outcome for the log. */
+    private BodyCaster.Result castNow(Player tester, Active a) {
+        if (a.dummy == null) return new BodyCaster.Result(false, "No dummy.");
+        Player d = a.dummy.player();
+        var aim = a.spec.aim();
+        CastAim.Facing facing = null;
+        if (aim == CombatBehavior.Aim.AT_PLAYER) {
+            var from = d.getEyeLocation();
+            var to = tester.getLocation().add(0, tester.getHeight() / 2, 0);
+            facing = CastAim.toward(from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ());
+        } else if (aim == CombatBehavior.Aim.RANDOM) {
+            facing = CastAim.random(rng);
+        } else if (aim == CombatBehavior.Aim.STRAIGHT_AHEAD) {
+            facing = new CastAim.Facing(a.post.getYaw(), 0f);
+        }
+        var r = caster.cast(d, a.spec.slot().name().toLowerCase(Locale.ROOT), facing, 0);
+        if (r.cast()) a.casts++; else a.refused++;
+        a.lastCast = r.note();
+        return r;
     }
 
     /** A flow parked at the role step so the tester can choose Operate after a refused entry. */
@@ -250,10 +305,15 @@ public final class CombatChamber implements Listener {
         var a = active.get(p.getUniqueId());
         switch (verb) {
             case "log", "status" -> report(p, a);
-            case "clear" -> { a.dealt.clear(); a.taken.clear(); a.refills = 0; p.sendMessage("Logs cleared."); }
+            case "clear" -> { a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0; p.sendMessage("Logs cleared."); }
             case "reset" -> reset(p, a);
+            case "cast" -> {
+                if (a.spec.role() == CombatAvailability.Role.OPERATOR) { p.sendMessage("Operator casts for themselves; the dummy is passive."); break; }
+                var r = castNow(p, a);
+                p.sendMessage((r.cast() ? ChatColor.GREEN : ChatColor.RED) + "Dummy: " + r.note());
+            }
             case "leave", "end" -> leave(p);
-            default -> p.sendMessage("In the chamber: /moba lab combat log | clear | reset | leave");
+            default -> p.sendMessage("In the chamber: /moba lab combat cast | log | clear | reset | leave");
         }
     }
 
@@ -279,6 +339,9 @@ public final class CombatChamber implements Listener {
         out.add(String.format("  last 5s: %.2f per second", log.perSecond(now, 100)));
         log.finalBySource().forEach((src, dmg) -> out.add(String.format("  %s: %.2f", src, dmg)));
         out.add("Taken by you: " + a.taken.count() + " hits, final " + String.format("%.2f", a.taken.totalFinal()));
+        if (a.spec.role() != CombatAvailability.Role.OPERATOR)
+            out.add("Dummy casts: " + a.casts + " ran, " + a.refused + " refused; last: " + a.lastCast
+                    + ". Replay is approximate: terrain, timing and randomness differ per cast.");
         if (a.refills > 0) out.add(ChatColor.GRAY + "The dummy was refilled " + a.refills + " time(s); it cannot die.");
         return out;
     }
@@ -313,8 +376,8 @@ public final class CombatChamber implements Listener {
     private void reset(Player p, Active a) {
         CombatSlabWorld.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
-        a.dummy = bodies.spawn("dummy", null, null, 0, a.post);
-        a.dealt.clear(); a.taken.clear(); a.refills = 0;
+        a.dummy = spawnDummy(a);
+        a.dealt.clear(); a.taken.clear(); a.refills = 0; a.casts = 0; a.refused = 0;
         double[] at = CombatSlab.testerSpawn();
         p.teleport(new Location(world, at[0], at[1], at[2], 0f, 0f));
         p.sendMessage("Chamber rebuilt, dummy restored, logs cleared.");
@@ -393,8 +456,12 @@ public final class CombatChamber implements Listener {
             Active a = e.getValue();
             Player tester = Bukkit.getPlayer(e.getKey());
             if (tester == null) continue;
-            if (a.spec.modes().cooldownWaiver()) plugin.inputs().cooldowns().clear(e.getKey());
+            if (a.spec.modes().cooldownWaiver()) {
+                plugin.inputs().cooldowns().clear(e.getKey());
+                if (a.dummy != null) plugin.inputs().cooldowns().clear(a.dummy.player().getUniqueId());
+            }
             if (a.dummy == null) continue;
+            if (now >= a.nextCast) { castNow(tester, a); a.nextCast = now + REPEAT_TICKS; }
             Player dummy = a.dummy.player();
             var max = dummy.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
             double full = max == null ? 20.0 : max.getValue();

@@ -3,7 +3,7 @@ PASS lab start puts the tester in the lab room :: world=moba_lab
 PASS combat start begins at the class step :: setup step CLASS
 PASS recipient flow: a movement-only ability is refused and does not advance :: before=setup step SLOT after pick A1=setup step SLOT
 PASS recipient flow: an acts-on-others ability advances to modes :: setup step SCRIPT
-PASS entering as Recipient is refused (dummy cannot cast yet) and the tester stays in the lab room :: world=moba_lab state=idle
+PASS entering as Recipient (Crash Landing, enemy dummy) reaches the combat world :: world=moba_combat state=in chamber
 PASS operator flow with night time and cooldown waiver enters the chamber :: state=in chamber
 PASS tester is in the combat world on the control band, class and level applied :: world=moba_combat state=in chamber class=daredevil level=15 distFromSpawn=0.0
 PASS the slab was built: control stone, sand, water pool, ramp, clear air above :: control=STONE sand=SAND grass=GRASS_BLOCK water=WATER ice=PACKED_ICE ramp=STONE_BRICKS 
@@ -17,5 +17,10 @@ PASS reset rebuilds the slab, removes what was placed, restores the dummy :: pla
 PASS clear empties the logs :: hits 1 -> 0
 PASS leave returns the tester to the lab room and removes the dummy :: tester world=moba_lab dummyGone=true state=idle
 PASS nothing is left behind: no dummy, no ticker side effects, bodies registry clean :: online=1 (only the tester) dummiesLeft=false
+PASS recipient: a Mole dummy enters, is the class, and is enrolled :: world=moba_combat dummyClass=mole level=15
+PASS recipient: commanded cast runs the real ability and the report counts it :: executions 0 -> 1 | Dummy casts: 1 ran, 0 refused; last: cast. Replay is approximate: terrain, timing and randomness differ per cast. | events=[]
+PASS recipient: a second command is the ability's own recast (Drill Rush emerges) :: invulnerable true -> false | Dummy casts: 2 ran, 0 refused; last: cast. Replay is approximate: terrain, timing and randomness differ per cast.
+PASS recipient: a passive slot is refused with a reason :: before=setup step SLOT after picking passive=setup step SLOT
+PASS recipient: leave removes the dummy caster :: dummiesGone=true state=idle
 
-SUMMARY pass=19 fail=0
+SUMMARY pass=24 fail=0
