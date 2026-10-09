@@ -40,7 +40,18 @@ public final class LobbySafety implements Listener {
         return part != null && part.alive;
     }
 
-    private boolean protect(Player p) { return enabled() && !inMatch(p); }
+    /**
+     * Combat chamber occupants are exempt. The chamber exists to take damage, and it
+     * runs outside a match on purpose, so "you cannot be hurt while you are not in a
+     * match" would cancel every hit it is there to measure. The exemption is
+     * explicit and covers only the tester and their dummy.
+     */
+    private boolean inCombatChamber(Player p) {
+        var lab = plugin.lab();
+        return lab != null && lab.combat() != null && lab.combat().occupies(p);
+    }
+
+    private boolean protect(Player p) { return enabled() && !inMatch(p) && !inCombatChamber(p); }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void damage(EntityDamageEvent e) {

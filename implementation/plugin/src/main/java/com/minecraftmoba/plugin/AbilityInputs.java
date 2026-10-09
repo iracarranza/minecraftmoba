@@ -17,6 +17,8 @@ public final class AbilityInputs implements Listener {
     private final Provenance provenance;
     private final Map<String, Ability> abilities;
     private final Map<String, Map<Input, Ability>> kits = new HashMap<>();
+    /** The same kits keyed by SLOT (a1, a2, ult), for callers that ask "what is this class's A2". */
+    private final Map<String, Map<String, Ability>> slotKits = new HashMap<>();
     private final Map<String, ClassDefinition> classes = new HashMap<>();
     /** The class definition for an id, or null when the class is unknown. */
     public ClassDefinition definition(String id) { return id == null ? null : classes.get(id); }
@@ -104,6 +106,7 @@ public final class AbilityInputs implements Listener {
                                    GrowthPacket.load(section(classSection, "growth"))));
             this.classes.put(id, definition);
             Map<Input, Ability> kit = new EnumMap<>(Input.class);
+            Map<String, Ability> bySlot = new HashMap<>();
             for (String slot : List.of("a1","a2","ult")) {
                 String abilityId=classes.getString(id+"."+slot);
                 // An ABSENT slot is a class still being authored: it gets a
@@ -118,15 +121,26 @@ public final class AbilityInputs implements Listener {
                 Ability ability=abilities.get(abilityId);
                 if (ability == null) throw new IllegalArgumentException("Unknown ability: " + abilityId);
                 kit.put(Input.valueOf(c.getString("abilities.bindings."+slot)), ability);
+                bySlot.put(slot, ability);
             }
             if (kit.size() < 3)
                 plugin.getLogger().info("class '" + id + "' has a partial kit ("
                         + kit.size() + "/3 slots); unbound inputs do nothing");
             kits.put(id, Map.copyOf(kit));
+            slotKits.put(id, Map.copyOf(bySlot));
         }
         plugin.getLogger().info("Registered ability kits: " + kits.keySet());
         Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 1, 1); // server tick cadence, not a balance constant
     }
+    /** The ability bound to a class's slot ("a1", "a2", "ult"), or null when the slot is unbuilt. */
+    public Ability abilityFor(String classId, String slot) {
+        var bySlot = slotKits.get(classId);
+        return bySlot == null ? null : bySlot.get(slot);
+    }
+
+    /** The cooldown book, so a measuring chamber can waive cooldowns. Package-private on purpose. */
+    AbilityCooldowns cooldowns() { return cooldowns; }
+
     public boolean active(Player p) { return plugin.enrolled(p) && plugin.data(p).modeState.active; }
     public boolean input(Player p, Input input) { return input(p, input, null, null, null); }
 

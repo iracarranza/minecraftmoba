@@ -618,6 +618,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // A boss is a persistent entity in a world that outlives the plugin, so
         // leaving it there would strand an unowned Giant across a reload.
         if (lair != null) lair.reset();
+        // Dummies are players in a world that outlives the plugin.
+        if (lab != null) lab.close();
         if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
         if (packets != null) packets.close();
         if (inputs != null) getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true));

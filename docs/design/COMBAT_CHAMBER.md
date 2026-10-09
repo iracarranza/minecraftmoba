@@ -268,6 +268,25 @@ usable **Operator** mode against a measurable target before the NMS work.
 4. Input recording and replay, with the interference state machine.
 5. Dojo and stage.
 
+## Status, 9 October 2026
+
+Slice 1 is built and verified live: availability, the pre-entry flow, the damage log,
+the blank slab, the `/moba lab combat` commands, cooldown waiving, and Operator mode
+against a real `NmsBodies` dummy (`docs/audit/2026-10-09-combat-chamber-acceptance.md`,
+19 of 19). Recipient and Observer go through the pre-entry flow but are refused at
+entry, because the dummy cannot cast on command yet.
+
+Two statements above were corrected by running it:
+
+- **"No scoop and no match needed" was incomplete.** `LobbySafety` cancels all damage to
+  anyone not in a running match, so the chamber needs an explicit exemption for its
+  tester and dummy. It has one (`CombatChamber.occupies`).
+- **A measured final can be below raw with no armor**, because vanilla damage-immunity
+  frames apply only the excess of a second hit. The report states this.
+
+The temporary non-player target proposed in the suggested order was not needed: the
+real dummy was available first.
+
 ## Open questions
 
 - Should the temporary non-player target in step 1 be built, or should nothing

@@ -1,0 +1,5 @@
+name: CombatAcceptance
+version: 0.1
+main: cf.CombatAcceptance
+api-version: '1.21.11'
+depend: [MinecraftMoba]

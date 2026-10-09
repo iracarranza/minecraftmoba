@@ -26,6 +26,7 @@ public final class Lab implements Listener {
     private World room;
     private final LabAuthoring authoring;
     private ChamberUi chamberUi;
+    private final CombatChamber combat;
 
     LabMaps maps() { return maps; }
     LabAuthoring authoring() { return authoring; }
@@ -47,6 +48,8 @@ public final class Lab implements Listener {
         this.plugin = plugin;
         authoring = new LabAuthoring(plugin, this);
         Bukkit.getPluginManager().registerEvents(authoring, plugin);
+        combat = new CombatChamber(plugin, this);
+        Bukkit.getPluginManager().registerEvents(combat, plugin);
         Path configured = Path.of(plugin.getConfig().getString("alpha.lab.mapsDirectory", "lab-maps"));
         maps = new LabMaps(configured.isAbsolute() ? configured
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
@@ -115,6 +118,7 @@ public final class Lab implements Listener {
                 }
                 case "play", "launch" -> play(p);
                 case "chamber" -> chamber(p, args);
+                case "combat" -> combat.command(p, args);
                 case "author" -> authoring.command(p, args);
                 case "undo" -> authoring.command(p, new String[]{"lab","author","undo"});
                 case "end", "stop" -> end(p);
@@ -129,7 +133,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
+                default -> p.sendMessage("/moba lab start | combat | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -156,6 +160,17 @@ public final class Lab implements Listener {
         p.sendMessage("Lab preparation: choose a class and scoop, then Launch. /moba lab end returns here after a test.");
         menu(p, "setup", 0);
     }
+
+    public CombatChamber combat() { return combat; }
+
+    /** For the combat chamber, which starts from the lab room like a scoop launch does. */
+    void requireSetupFor(Player p) { requireSetup(p); }
+
+    /** Send a tester back to the lab room. */
+    void toRoom(Player p) { sendToRoom(p); }
+
+    /** Release what the lab holds at shutdown. */
+    public void close() { combat.close(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))

@@ -1,0 +1,21 @@
+PASS plugin loaded, tester body spawned and op'd :: tester=B_tester op=true enrolled=true classes=[daredevil, lightfooted, mole, skeleton_crew, test, toolbox]
+PASS lab start puts the tester in the lab room :: world=moba_lab
+PASS combat start begins at the class step :: setup step CLASS
+PASS recipient flow: a movement-only ability is refused and does not advance :: before=setup step SLOT after pick A1=setup step SLOT
+PASS recipient flow: an acts-on-others ability advances to modes :: setup step SCRIPT
+PASS entering as Recipient is refused (dummy cannot cast yet) and the tester stays in the lab room :: world=moba_lab state=idle
+PASS operator flow with night time and cooldown waiver enters the chamber :: state=in chamber
+PASS tester is in the combat world on the control band, class and level applied :: world=moba_combat state=in chamber class=daredevil level=15 distFromSpawn=0.0
+PASS the slab was built: control stone, sand, water pool, ramp, clear air above :: control=STONE sand=SAND grass=GRASS_BLOCK water=WATER ice=PACKED_ICE ramp=STONE_BRICKS 
+PASS time was set to night :: time=18000
+PASS a dummy player stands ahead of the tester :: dummy=B_dummy isBody=true online=true distFromPost=0.0 enrolled=true
+PASS a hit is measured at raw 8 / final 8; an immediate second hit fires no event (damage immunity) :: dummy gm=SURVIVAL invulnerable=false noDamageTicks=0 health=20.0 | tester gm=SURVIVAL | with source: health 20.0 -> 2.2222213745117188 events=[B_dummy cause=ENTITY_ATTACK cancelled=false damage=17.78 final=17.78] | no source: health 2.2222213745117188 -> 2.2222213745117188 events=[] | hits 0 -> 1 | Dealt to the dummy: 1 hits, raw 8.00 -> final 8.00 (0.0% mitigated)
+PASS a huge hit is recorded at its true size, after the immunity window, and the dummy survives :: hits=2 dummyAlive=true health=1.00 | Dealt to the dummy: 2 hits, raw 100008.00 -> final 100008.00 (0.0% mitigated)
+PASS cooldown waiver clears a spent cooldown :: spent a 6000-tick cooldown: remaining 6000 (cleared by the ticker next tick; checked in the report step)
+PASS the report names the waiver, units and source :: cooldown remaining after the ticker=0 | Combat report: daredevil L15, cooldowns WAIVED, time NIGHT || Units are effective points (the displayed value is these x100). || Dealt to the dummy: 2 hits, raw 100008.00 -> final 100008.00 (0.0% mitigated) ||   last 5s: 20001.60 per second ||   B_tester entity_attack: 100008.00 || Taken by you: 0 hits, final 0.00 || The dummy was refilled 2 time(s); it cannot die.
+PASS reset rebuilds the slab, removes what was placed, restores the dummy :: placed obsidian removed and dug hole refilled=true | new dummy=true | hits=0
+PASS clear empties the logs :: hits 1 -> 0
+PASS leave returns the tester to the lab room and removes the dummy :: tester world=moba_lab dummyGone=true state=idle
+PASS nothing is left behind: no dummy, no ticker side effects, bodies registry clean :: online=1 (only the tester) dummiesLeft=false
+
+SUMMARY pass=19 fail=0
