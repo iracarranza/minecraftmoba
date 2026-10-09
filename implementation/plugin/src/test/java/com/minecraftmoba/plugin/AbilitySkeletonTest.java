@@ -371,17 +371,23 @@ class AbilitySkeletonTest {
     }
 
     @SuppressWarnings("unchecked")
-    @Test void anAbilityIsASetOfOutputsAndTwoOfThemAreMoreThanOne() {
+    @Test void anAbilityIsASetOfOutputsAndFourOfThemAreMoreThanOne() {
         // classes.md settled that the unit of description is an OUTPUT. The
         // manifest used to put one output's fields on the ability, which
-        // quietly contradicted that and could not hold the two that need it.
+        // quietly contradicted that and could not hold the ones that need it.
+        //
+        // Two kinds appear. Graveyard Shift and Flip and Press hold outputs
+        // selected by what the cast FOUND. Capillary Flow and Viscerwall hold
+        // the held channels Bloodmason's Ultimate re-expresses them as, which
+        // a third thing selects: the Anatomb being up.
         var multi = new TreeSet<String>();
         for (var slot : slots()) {
             var outputs = (Map<String, Object>) slot.get("outputs");
             if (outputs.size() > 1) multi.add(slot.get("id") + "=" + new TreeSet<>(outputs.keySet()));
         }
-        assertEquals(Set.of("graveyard_shift=[raise, strike]", "flip_and_press=[flip, press]"), multi,
-                "found: " + multi);
+        assertEquals(Set.of("graveyard_shift=[raise, strike]", "flip_and_press=[flip, press]",
+                            "capillary_flow=[capillary_flow, hemorrhage]",
+                            "viscerwall=[teratoma, viscerwall]"), multi, "found: " + multi);
     }
 
     @Test void twoOutputsOfOneAbilityAreToldApartByTargetOrByGesture() {
@@ -407,6 +413,47 @@ class AbilitySkeletonTest {
         assertEquals(2, fieldWork.size(), "both outputs: " + fieldWork);
         for (var o : fieldWork)
             assertEquals("DIRECTION", o.get("target"), o.get("output") + " becomes a projectile too");
+    }
+
+    @Test void theOnlyHeldOutputsAreTheOnesTheDesignSaysToHold() {
+        // INSTANT is not a default applied for want of evidence. classes.md
+        // records the preference -- "prefer press to a deterministic state
+        // sequence over hold and release, unless continuous charging is
+        // indispensable" -- and says so explicitly where it could be misread,
+        // as in Stalking Pounce: "There is no hold-and-release input".
+        //
+        // So a held output is a claim, and these three make it in as many words.
+        var held = new TreeSet<String>();
+        for (var e : entries())
+            if (!"INSTANT".equals(e.get("input")) && !"PASSIVE".equals(e.get("input")))
+                held.add(e.get("input") + " " + e.get("output"));
+        assertEquals(Set.of("CHANNELED hemorrhage", "CHANNELED teratoma",
+                            "CHANNELED eternity_mountain"), held, "found: " + held);
+    }
+
+    @Test void nothingInTheRosterIsCharged() {
+        // CHARGED means the output fires ONCE at whatever a held aim reached --
+        // a beam that widens while aimed. Bloodmason's channels are not that:
+        // they repeat an effect every half second held. Worth pinning, because
+        // CastMode.effectiveFor and InputForm.resolve both exist to handle
+        // CHARGED and neither has ever been exercised against a real ability.
+        for (var e : entries())
+            assertNotEquals("CHARGED", e.get("input"),
+                    e.get("output") + " would be the first; both Quick-to-Hold upgrade "
+                    + "paths become live the moment it is");
+    }
+
+    @Test void anUltimateMayReExpressAnAbilityAsAnotherOutput() {
+        // Bloodmason's Anatomb turns Capillary Flow into Hemorrhage and
+        // Viscerwall into Teratoma, both held channels. They are outputs of
+        // their own abilities rather than of the Ultimate, because that is
+        // where the gesture lands -- and the pair (target, input) differs from
+        // the base, so AbilityOutput.of admits them.
+        var capillary = entries().stream()
+                .filter(e -> "capillary_flow".equals(e.get("id"))).toList();
+        assertEquals(2, capillary.size(), "base and its Anatomb re-expression");
+        assertEquals(Set.of("INSTANT", "CHANNELED"),
+                capillary.stream().map(e -> e.get("input")).collect(java.util.stream.Collectors.toSet()));
     }
 
     @Test void theRostersOnlyAllyFacingOutputsAreChefsAndTheTalismaniacs() {

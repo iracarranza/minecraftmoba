@@ -88,6 +88,22 @@
 #   is false; Crash Landing ends the same movement and takes damage for it, and
 #   is true.
 #
+# input:
+#   Filled 9 October. INSTANT is not a default applied for want of evidence:
+#   classes.md records the preference directly --
+#
+#     "prefer press to a deterministic state sequence over hold and release,
+#      unless continuous charging is indispensable"
+#
+#   -- and spells it out where it could be mistaken, as in Stalking Pounce:
+#   "There is no hold-and-release input ... it cannot be charged indefinitely."
+#   So an ability the design describes without hold language is an ability that
+#   fires on a press, and saying INSTANT reports that rather than guessing it.
+#
+#   Three outputs are CHANNELED, all on explicit "hold to channel" wording.
+#   Nothing in the roster is CHARGED: no ability yet fires once at whatever a
+#   held aim reached, which is the only thing CHARGED means.
+#
 # target / input:
 #   One of TargetForm / InputForm, or "?" for a question classes.md has not
 #   answered. "?" is legal ONLY while status is designed -- the test refuses a
@@ -146,7 +162,7 @@ classes:
         name: "Sinkhole"
         status: "designed"
         outputs:
-          sinkhole: { target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
+          sinkhole: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   gardener:
     displayName: "Gardener"
     abilities:
@@ -161,19 +177,19 @@ classes:
         name: "Clip"
         status: "designed"
         outputs:
-          clip: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "true" }
+          clip: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "cultivate"
         name: "Cultivate"
         status: "designed"
         outputs:
-          cultivate: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          cultivate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "grafters_handbook"
         name: "Grafter's Handbook"
         status: "designed"
         outputs:
-          grafters_handbook: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          grafters_handbook: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
   golem_master:
     displayName: "Golem Master"
     abilities:
@@ -188,19 +204,19 @@ classes:
         name: "Animate"
         status: "designed"
         outputs:
-          animate: { target: "?", input: "?", affects: "ENEMIES", caster: "true" }
+          animate: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       a2:
         id: "assemble"
         name: "Assemble"
         status: "designed"
         outputs:
-          assemble: { target: "?", input: "?", affects: "?", caster: "false" }
+          assemble: { target: "?", input: "INSTANT", affects: "?", caster: "false" }
       ult:
         id: "wither_golem"
         name: "Wither Golem"
         status: "designed"
         outputs:
-          wither_golem: { target: "?", input: "?", affects: "ENEMIES", caster: "false" }
+          wither_golem: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   kitfighter:
     displayName: "Kitfighter"
     abilities:
@@ -215,19 +231,19 @@ classes:
         name: "Offhander"
         status: "designed"
         outputs:
-          offhander: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          offhander: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "hotswap"
         name: "Hotswap"
         status: "designed"
         outputs:
-          hotswap: { target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "false" }
+          hotswap: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       ult:
         id: "covered_with_diamonds"
         name: "Covered With Diamonds"
         status: "designed"
         outputs:
-          covered_with_diamonds: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          covered_with_diamonds: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
   merchant:
     displayName: "Merchant"
     abilities:
@@ -242,19 +258,19 @@ classes:
         name: "Swindle"
         status: "designed"
         outputs:
-          swindle: { target: "UNIT_ENTITY", input: "?", affects: "NONE", caster: "true" }
+          swindle: { target: "UNIT_ENTITY", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "retinue"
         name: "Retinue"
         status: "designed"
         outputs:
-          retinue: { target: "AREA_ENTITIES", input: "?", affects: "NONE", caster: "false" }
+          retinue: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "procession"
         name: "Procession / Silk Road"
         status: "designed"
         outputs:
-          procession: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          procession: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
   skeleton_crew:
     displayName: "Skeleton Crew"
     abilities:
@@ -269,33 +285,33 @@ classes:
         name: "Graveyard Shift"
         status: "designed"
         outputs:
-          strike: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-          raise: { target: "SELF", input: "?", affects: "NONE", caster: "false" }
+          strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          raise: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
         branches:
           field_work:
             outputs:
-              strike: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
-              raise: { target: "DIRECTION", input: "?", affects: "NONE", caster: "false" }
+              strike: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              raise: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
           hard_hat_zone:
             outputs:
-              strike: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-              raise: { target: "SELF", input: "?", affects: "NONE", caster: "false" }
+              strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              raise: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
           labored_union:
             outputs:
-              strike: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-              raise: { target: "SELF", input: "?", affects: "NONE", caster: "false" }
+              strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              raise: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
       a2:
         id: "burning_out"
         name: "Burning Out"
         status: "designed"
         outputs:
-          burning_out: { target: "AREA_ENTITIES", input: "?", affects: "NONE", caster: "false" }
+          burning_out: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "a_head_of_schedule"
         name: "A-Head of Schedule"
         status: "designed"
         outputs:
-          a_head_of_schedule: { target: "SELF", input: "?", affects: "NONE", caster: "false" }
+          a_head_of_schedule: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
   lightfooted:
     displayName: "Lightfooted"
     abilities:
@@ -310,7 +326,7 @@ classes:
         name: "Lunge"
         status: "designed"
         outputs:
-          lunge: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+          lunge: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "bounding"
         name: "Bounding"
@@ -332,7 +348,7 @@ classes:
         name: "Rabbit's Lucky Foot"
         status: "designed"
         outputs:
-          rabbits_lucky_foot: { target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
+          rabbits_lucky_foot: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   daredevil:
     displayName: "Daredevil"
     abilities:
@@ -394,19 +410,19 @@ classes:
         name: "Wax-On"
         status: "designed"
         outputs:
-          wax_on: { target: "?", input: "?", affects: "NONE", caster: "false" }
+          wax_on: { target: "?", input: "INSTANT", affects: "NONE", caster: "false" }
       a2:
         id: "wax_off"
         name: "Wax-Off"
         status: "designed"
         outputs:
-          wax_off: { target: "AREA_BLOCKS", input: "?", affects: "NONE", caster: "false" }
+          wax_off: { target: "AREA_BLOCKS", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "amber"
         name: "Amber"
         status: "designed"
         outputs:
-          amber: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+          amber: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   toolbox:
     displayName: "Toolbox"
     abilities:
@@ -468,19 +484,21 @@ classes:
         name: "Capillary Flow"
         status: "designed"
         outputs:
-          capillary_flow: { target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "true" }
+          capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          hemorrhage: { target: "AREA_ENTITIES", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
       a2:
         id: "viscerwall"
         name: "Viscerwall"
         status: "designed"
         outputs:
-          viscerwall: { target: "?", input: "?", affects: "ENEMIES", caster: "true" }
+          viscerwall: { target: "?", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
       ult:
         id: "athanor_anatomb"
         name: "Athanor Anatomb"
         status: "designed"
         outputs:
-          athanor_anatomb: { target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "true" }
+          athanor_anatomb: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "true" }
   chef:
     displayName: "Chef"
     abilities:
@@ -495,43 +513,43 @@ classes:
         name: "Food Fight"
         status: "designed"
         outputs:
-          food_fight: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+          food_fight: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
         branches:
           super_nutritious:
             outputs:
-              food_fight: { target: "DIRECTION", input: "?", affects: "BOTH", caster: "false" }
+              food_fight: { target: "DIRECTION", input: "INSTANT", affects: "BOTH", caster: "false" }
           extra_spicy:
             outputs:
-              food_fight: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+              food_fight: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           reckless_rationing:
             outputs:
-              food_fight: { target: "DIRECTION", input: "?", affects: "NONE", caster: "false" }
+              food_fight: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
       a2:
         id: "flip_and_press"
         name: "Flip and Press"
         status: "designed"
         outputs:
-          flip: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-          press: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "false" }
+          flip: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          press: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
         branches:
           hibachi_skills:
             outputs:
-              flip: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-              press: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "false" }
+              flip: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              press: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
           rake_the_coals:
             outputs:
-              flip: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-              press: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "false" }
+              flip: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              press: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
           broiler_rack:
             outputs:
-              flip: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
-              press: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "false" }
+              flip: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              press: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "irresistible_buffet"
         name: "Irresistible Buffet"
         status: "designed"
         outputs:
-          irresistible_buffet: { target: "AREA_ENTITIES", input: "?", affects: "ENEMIES", caster: "false" }
+          irresistible_buffet: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   fungal_assassin:
     displayName: "Fungal Assassin"
     abilities:
@@ -546,19 +564,19 @@ classes:
         name: "Bursting Spore"
         status: "designed"
         outputs:
-          bursting_spore: { target: "UNIT_ENTITY", input: "?", affects: "ENEMIES", caster: "false" }
+          bursting_spore: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "myceliate"
         name: "Myceliate"
         status: "designed"
         outputs:
-          myceliate: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          myceliate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "destroying_angels_blessing"
         name: "Destroying Angel's Blessing"
         status: "designed"
         outputs:
-          destroying_angels_blessing: { target: "UNIT_BLOCK", input: "?", affects: "ENEMIES", caster: "false" }
+          destroying_angels_blessing: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   looming_talismaniac:
     displayName: "Looming Talismaniac"
     abilities:
@@ -573,19 +591,19 @@ classes:
         name: "Imprint"
         status: "designed"
         outputs:
-          imprint: { target: "UNIT_BLOCK", input: "?", affects: "NONE", caster: "true" }
+          imprint: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "talisman_core"
         name: "[OPEN] A2 is described but unnamed in classes.md"
         status: "designed"
         outputs:
-          talisman_core: { target: "?", input: "?", affects: "?", caster: "?" }
+          talisman_core: { target: "?", input: "INSTANT", affects: "?", caster: "?" }
       ult:
         id: "talisman_of_undying"
         name: "Talisman of Undying"
         status: "designed"
         outputs:
-          talisman_of_undying: { target: "AREA_ENTITIES", input: "?", affects: "ALLIES", caster: "true" }
+          talisman_of_undying: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ALLIES", caster: "true" }
   paver:
     displayName: "Paver"
     abilities:
@@ -612,7 +630,7 @@ classes:
         name: "Concrete Shoes"
         status: "designed"
         outputs:
-          concrete_shoes: { target: "AREA_BLOCKS", input: "?", affects: "ENEMIES", caster: "false" }
+          concrete_shoes: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   chauffeur:
     displayName: "Chauffeur"
     abilities:
@@ -639,7 +657,7 @@ classes:
         name: "Highly Irresponsible Racing Line"
         status: "designed"
         outputs:
-          highly_irresponsible_racing_line: { target: "AREA_ENTITIES", input: "?", affects: "ENEMIES", caster: "false" }
+          highly_irresponsible_racing_line: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   quarryman:
     displayName: "Quarryman"
     abilities:
@@ -660,7 +678,7 @@ classes:
         name: "Miner's Strike"
         status: "designed"
         outputs:
-          miners_strike: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          miners_strike: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "eternity_mountain"
         name: "Eternity Mountain"
@@ -681,16 +699,16 @@ classes:
         name: "Brawling Slash"
         status: "designed"
         outputs:
-          brawling_slash: { target: "DIRECTION", input: "?", affects: "ENEMIES", caster: "false" }
+          brawling_slash: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "bloodhide"
         name: "Bloodhide"
         status: "designed"
         outputs:
-          bloodhide: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          bloodhide: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "monster_howl"
         name: "Monster Howl"
         status: "designed"
         outputs:
-          monster_howl: { target: "SELF", input: "?", affects: "NONE", caster: "true" }
+          monster_howl: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }

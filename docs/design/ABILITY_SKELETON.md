@@ -210,6 +210,8 @@ inferred from its name. Across all 72 slots:
 | `UNIT_ENTITY` | 5 |
 | `?` | 6 |
 
+All 72 slots now declare an input form; none remains `?`.
+
 **All four new values are used**, which is the check that the split was real
 and not a tidy-up: `AREA_ENTITIES` alone carries Irresistible Buffet, Eternity
 Mountain, the Racing Line, Talisman of Undying, Retinue and Burning Out — six
@@ -234,6 +236,48 @@ abilities that would have had to claim a free block preview they cannot give.
   but both already fixed, so there is no second designation to make. It is
   `AREA_ENTITIES` over the corridor. Worth knowing before `VECTOR` gets built
   for something that did not need it.
+
+### Input forms: a press unless the design says hold
+
+Filled 9 October. `INSTANT` is **not** a default applied for want of evidence —
+`classes.md` records the preference directly:
+
+> prefer press to a deterministic state sequence over hold and release, unless
+> continuous charging is indispensable
+
+and spells it out where it could be misread, as in Stalking Pounce: *"There is
+no hold-and-release input ... it cannot be charged indefinitely."* So an ability
+described without hold language is one that fires on a press, and recording
+`INSTANT` reports that rather than guessing.
+
+**Three outputs are `CHANNELED`**, all on explicit "hold to channel" wording:
+Bloodmason's Hemorrhage and Teratoma, and Quarryman's Eternity Mountain.
+
+**Nothing is `CHARGED`.** That means "fires once at whatever a held aim
+reached" — a beam that widens while aimed. Bloodmason's channels are not that;
+they repeat an effect every half second held. A test pins it, because
+`CastMode.effectiveFor` and `InputForm.resolve` both exist to handle `CHARGED`
+and **neither has ever run against a real ability**. The first charged ability
+makes both live at once.
+
+### An Ultimate can re-express an ability
+
+Bloodmason's Anatomb turns Capillary Flow into **Hemorrhage** and Viscerwall
+into **Teratoma**, both held channels. They are recorded as outputs of *their
+own abilities*, not of the Ultimate, because that is where the gesture lands.
+
+That makes four multi-output abilities, of two kinds:
+
+| | Selected by |
+|---|---|
+| Graveyard Shift, Flip and Press | what the cast **found** — an enemy or terrain |
+| Capillary Flow, Viscerwall | whether the **Anatomb is up** |
+
+The second is a third selector, after gesture and target. It needs no contract
+change — the `(target, input)` pair differs from the base either way — but it is
+worth naming, because an ability whose outputs depend on a *match state* is not
+something `Ability.outputs(player, context)` currently has a way to ask about.
+[OPEN]
 
 ### The six still open
 
