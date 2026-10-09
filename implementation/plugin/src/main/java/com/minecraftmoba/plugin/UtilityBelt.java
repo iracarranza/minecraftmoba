@@ -83,12 +83,23 @@ public final class UtilityBelt implements Listener {
         this.statuses = statuses;
     }
 
-    /** The class this belongs to. Anything else is not running a circuit. */
-    private static final String CLASS_ID = "toolbox";
-
-    private boolean isToolbox(Player p) {
-        var data = plugin.data(p);
-        return data != null && CLASS_ID.equals(data.classId);
+    /**
+     * Whether this player's class declares the belt as its passive.
+     *
+     * Asked of {@link Passives} by HOOK, not by class id. The previous version
+     * compared {@code data.classId} against the literal "toolbox", which worked
+     * and meant Toolbox's declared {@code passiveHook: utility_belt} was read
+     * by nothing -- a config key describing a mechanism it did not use, sitting
+     * beside two hooks that dispatched nothing at all. That resemblance is what
+     * made the dead ones hard to see.
+     *
+     * One consequence is deliberate: the belt now honours {@code
+     * passives.enabled} like every other passive. A switch labelled "passives"
+     * that left the biggest one running would not be a switch.
+     */
+    private boolean runsBelt(Player p) {
+        var passives = plugin.passives();
+        return passives != null && passives.has(p, Passives.UTILITY_BELT);
     }
 
     // ---- the trigger ------------------------------------------------------
@@ -102,7 +113,7 @@ public final class UtilityBelt implements Listener {
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void damaged(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player p) || !isToolbox(p)) return;
+        if (!(event.getEntity() instanceof Player p) || !runsBelt(p)) return;
         if (!plugin.enrolled(p)) return;
         trigger(p);
     }

@@ -71,6 +71,17 @@ public final class Passives implements Listener {
      */
     public static final String UNDEAD_AFFINITY = "undead_affinity";
 
+    /**
+     * Toolbox. Incoming damage runs the inventory circuit.
+     *
+     * Dispatched by {@link UtilityBelt} rather than here, because the belt is a
+     * machine with its own cooldown, circuit reader and run state, and folding
+     * it into this class would make Passives the owner of Toolbox. The hook is
+     * declared here so there is one place that lists them, and {@link
+     * #has(Player, String)} is what UtilityBelt asks.
+     */
+    public static final String UTILITY_BELT = "utility_belt";
+
     private final MobaPlugin plugin;
     /** Players currently carrying a passive speed modifier, so it can be taken back. */
     private final Set<UUID> speeded = new HashSet<>();
@@ -88,7 +99,16 @@ public final class Passives implements Listener {
         return definition == null ? "" : definition.passiveHook();
     }
 
-    private boolean has(Player p, String hook) { return enabled() && hook.equals(hook(p)); }
+    /**
+     * Whether this player's class declares this passive, and passives are on.
+     *
+     * Public because {@link UtilityBelt} dispatches its own passive and still
+     * has to ask the same question. It used to answer it itself, by comparing
+     * {@code classId} against the literal "toolbox" -- which worked, and left
+     * Toolbox's declared passiveHook read by nothing, so the config described
+     * a mechanism it did not use.
+     */
+    public boolean has(Player p, String hook) { return enabled() && hook.equals(hook(p)); }
 
     private double radius() { return plugin.getConfig().getDouble("passives.animalSenses.radius"); }
     private int cap() { return plugin.getConfig().getInt("passives.animalSenses.speciesCap"); }

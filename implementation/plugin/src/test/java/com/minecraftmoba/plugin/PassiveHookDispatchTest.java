@@ -58,13 +58,13 @@ class PassiveHookDispatchTest {
      * A list rather than a silent pass: the test fails if a NEW dead hook
      * appears, and fails just as loudly if one of these is fixed and not
      * removed from here, so the record cannot quietly go stale.
+     *
+     * EMPTY as of 8 October 2026. All four hooks dispatch. It stays because
+     * the next class to declare one is the case this was written for, and an
+     * empty list that is checked is worth more than a comment saying the
+     * problem used to exist.
      */
-    private static final Map<String, String> UNDISPATCHED = new LinkedHashMap<>(Map.of(
-            // Toolbox. The only one here whose passive actually RUNS: UtilityBelt
-            // matches classId == "toolbox" directly. So the cost is not a missing
-            // feature, it is a config key that describes a mechanism it does not
-            // use -- which is what made the other two hard to see.
-            "utility_belt", "Toolbox's passive runs, but not through this."));
+    private static final Map<String, String> UNDISPATCHED = new LinkedHashMap<>();
 
     private static String config() {
         try {
@@ -84,6 +84,17 @@ class PassiveHookDispatchTest {
     }
 
     /** Whether any production source names this hook as a bare string literal. */
+    /**
+     * Source with comments removed.
+     *
+     * Found by this test failing on its own explanation: a scan that reads
+     * comments cannot distinguish code from prose ABOUT the code, and every
+     * assertion here is of the form "no source says X".
+     */
+    private static String code(String source) {
+        return source.replaceAll("(?s)/\\*.*?\\*/", "").replaceAll("(?m)//.*$", "");
+    }
+
     private static boolean named(String hook) {
         String literal = '"' + hook + '"';
         try (Stream<Path> files = Files.walk(SOURCES)) {
@@ -91,7 +102,7 @@ class PassiveHookDispatchTest {
                     .filter(p -> !PLUMBING.contains(p.getFileName().toString()))
                     .anyMatch(p -> {
                         try {
-                            return Files.readString(p).contains(literal);
+                            return code(Files.readString(p)).contains(literal);
                         } catch (IOException e) {
                             return false;
                         }
@@ -138,15 +149,29 @@ class PassiveHookDispatchTest {
         assertTrue(orphaned.isEmpty(), "No longer in config.yml: " + orphaned);
     }
 
-    @Test void toolboxesHookIsDeadEvenThoughItsPassiveRuns() {
-        // The case that makes "the passive works" and "the hook dispatches it"
-        // worth separating. UtilityBelt matches on classId == "toolbox"
-        // directly, so the declared hook is read by nothing -- and the passive
-        // runs anyway, through a second path the config does not describe.
-        assertTrue(declaredHooks().contains("utility_belt"));
-        assertFalse(named("utility_belt"),
-                "If UtilityBelt now dispatches by hook, this test should say so instead");
-        assertTrue(named("toolbox"), "it matches the class id instead");
+    @Test void everyHookIsDispatchedAndTheGapListIsEmpty() {
+        // The state this test was written to reach. Keeping it asserted means
+        // a regression reads as "a hook went dead" rather than as a list
+        // quietly growing an entry.
+        assertTrue(UNDISPATCHED.isEmpty(),
+                "Known dead hooks remain: " + UNDISPATCHED);
+        for (String hook : declaredHooks())
+            assertTrue(named(hook), hook + " reaches no code");
+    }
+
+    @Test void toolboxIsNoLongerRecognisedByItsClassIdAlone() {
+        // The specific regression: UtilityBelt used to compare classId against
+        // the literal "toolbox", which worked and left the declared hook inert.
+        // A config key describing a mechanism it does not use is what made the
+        // genuinely dead hooks hard to see.
+        try {
+            String src = code(Files.readString(SOURCES.resolve("UtilityBelt.java")));
+            assertFalse(src.contains("\"toolbox\""),
+                    "UtilityBelt should ask Passives by hook, not match the class id");
+            assertTrue(src.contains("Passives.UTILITY_BELT"));
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
     }
 
     @Test void theOneWorkingHookProvesTheMechanismIsReal() {
