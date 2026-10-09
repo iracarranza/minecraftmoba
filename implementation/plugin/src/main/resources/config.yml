@@ -1055,7 +1055,7 @@ abilities:
       ult: channel_ult
     mole:
       displayName: Mole
-      passiveHook: mole_digging
+      passiveHook: sifth_sense
       statGrowthProfile: mole
       # Mole reaches Routes late because Routes are secondary to its
       # excavation/combat methodology. This is Mole's authored timing, NOT a
@@ -1373,6 +1373,17 @@ passives:
     # so an uncapped count is an invitation rather than an edge case. Four
     # matches the ceiling Swarming Bite already uses.
     speciesCap: 4
+  # Mole. Breaking sand or gravel sifts the connected mass instead of letting
+  # it collapse. classes.md leaves sense radius and sift volume unresolved, so
+  # both are [FIXTURE -- expect to tune] rather than balance decisions.
+  #
+  # The VOLUME is the load-bearing one. A dune is effectively unbounded
+  # connected sand, so without a cap this is a flood fill across a desert on a
+  # single block break -- a server stall rather than a strong passive. The
+  # radius alone does not bound it usefully: an 11-cube holds 1331 blocks.
+  sifthSense:
+    radius: 5
+    volume: 64
 
 combat:
   # [PROTOTYPE] 7 seconds is a first value, not calibration.

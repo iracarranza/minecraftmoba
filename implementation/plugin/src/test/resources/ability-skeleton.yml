@@ -36,7 +36,7 @@ classes:
   mole:
     displayName: "Mole"
     abilities:
-      passive: { id: sifth_sense, name: "Sifth Sense", status: declared, target: "SELF", input: "PASSIVE" }
+      passive: { id: sifth_sense, name: "Sifth Sense", status: dispatched, target: "SELF", input: "PASSIVE" }
       a1: { id: tunneling, name: "Tunneling", status: built, target: "DIRECTION", input: "INSTANT" }
       a2: { id: drill_rush, name: "Drill Rush", status: built, target: "DIRECTION", input: "INSTANT" }
       ult: { id: sinkhole, name: "Sinkhole", status: designed, target: "?", input: "?" }

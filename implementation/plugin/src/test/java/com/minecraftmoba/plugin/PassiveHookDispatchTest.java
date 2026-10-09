@@ -64,12 +64,6 @@ class PassiveHookDispatchTest {
             // farther away is a follow-range change -- and half needs Crew,
             // which is the class's whole resource system and does not exist.
             "undead_affinity", "Skeleton Crew has no passive in game.",
-            // Mole. Buildable: Tunneling already tracks "actively digging", and
-            // the sift is a connected-falling-block rule. The open items are
-            // numbers, which this repository parameterises as [FIXTURE].
-            // Note also that classes.md calls this passive Sifth Sense, so the
-            // hook and the design disagree about its name before anyone wires it.
-            "mole_digging", "Mole has no passive in game, and the hook is misnamed.",
             // Toolbox. The only one here whose passive actually RUNS: UtilityBelt
             // matches classId == "toolbox" directly. So the cost is not a missing
             // feature, it is a config key that describes a mechanism it does not

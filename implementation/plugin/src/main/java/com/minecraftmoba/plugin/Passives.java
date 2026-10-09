@@ -1,6 +1,10 @@
 package com.minecraftmoba.plugin;
 
 import org.bukkit.attribute.Attribute;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,6 +49,16 @@ public final class Passives implements Listener {
 
     /** Lightfooted. Wolves mitigate damage, cats soften falls, foxes add speed. */
     public static final String ANIMAL_SENSES = "animal_senses";
+
+    /**
+     * Mole. Breaking sand or gravel sifts the material connected to it.
+     *
+     * Named for what classes.md calls the passive. The config key used to read
+     * {@code mole_digging}, which named a different thing and dispatched to
+     * nothing -- so the rename and the wiring landed together rather than
+     * leaving a hook whose spelling still disagreed with the design.
+     */
+    public static final String SIFTH_SENSE = "sifth_sense";
 
     private final MobaPlugin plugin;
     /** Players currently carrying a passive speed modifier, so it can be taken back. */
@@ -128,6 +142,71 @@ public final class Passives implements Listener {
         if (!speeded.remove(p.getUniqueId())) return;
         var attribute = p.getAttribute(Attribute.MOVEMENT_SPEED);
         if (attribute != null) attribute.setBaseValue(attribute.getDefaultValue());
+    }
+
+    // ---- Sifth Sense -------------------------------------------------------
+
+    /**
+     * Sift the material connected to a broken sand or gravel block.
+     *
+     * MONITOR and ignoreCancelled: the break has to have actually happened.
+     * Sifting a mass around a block that some protection then refused would
+     * clear terrain nobody was allowed to touch.
+     *
+     * The reach is {@link SifthSense}; this supplies the world. Everything
+     * here is the part that cannot be tested without a server -- what a
+     * position holds, whether a player put it there, and taking it away.
+     */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onBreak(BlockBreakEvent e) {
+        Player p = e.getPlayer();
+        if (!has(p, SIFTH_SENSE)) return;
+        Block broken = e.getBlock();
+        World world = broken.getWorld();
+
+        var origin = new SifthSense.At(broken.getX(), broken.getY(), broken.getZ());
+        var found = SifthSense.reach(origin, at -> siftable(world, at), radiusBlocks(), volume());
+        if (found.isEmpty()) return;
+
+        var tool = p.getInventory().getItemInMainHand();
+        for (SifthSense.At at : found) {
+            Block block = world.getBlockAt(at.x(), at.y(), at.z());
+            block.breakNaturally(tool);
+        }
+    }
+
+    /**
+     * Whether a position holds material this sense acts on.
+     *
+     * The provenance check is not incidental. Sifting is faster than mining
+     * and reaches through a whole connected mass, so without it a built sand
+     * or gravel wall would come apart in a single hit -- a siege ability
+     * nobody designed. Tunneling already refuses player-placed blocks for the
+     * weaker version of the same reason.
+     */
+    private boolean siftable(World world, SifthSense.At at) {
+        Block block = world.getBlockAt(at.x(), at.y(), at.z());
+        if (!SIFTABLE.contains(block.getType())) return false;
+        return !plugin.provenance().isPlayerPlaced(block);
+    }
+
+    /**
+     * The material Sifth Sense acts on.
+     *
+     * classes.md says "sand and gravel", so that is what this is. Concrete
+     * powder also falls, and is deliberately absent: it is a BUILT material,
+     * and sifting it would make this an answer to somebody else's
+     * construction rather than a way of moving through terrain.
+     */
+    private static final java.util.Set<Material> SIFTABLE =
+            java.util.Set.of(Material.SAND, Material.RED_SAND, Material.GRAVEL);
+
+    private int radiusBlocks() {
+        return plugin.getConfig().getInt("passives.sifthSense.radius", SifthSense.DEFAULT_RADIUS);
+    }
+
+    private int volume() {
+        return plugin.getConfig().getInt("passives.sifthSense.volume", SifthSense.DEFAULT_VOLUME);
     }
 
     @EventHandler public void onQuit(PlayerQuitEvent e) { speeded.remove(e.getPlayer().getUniqueId()); }

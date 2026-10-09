@@ -1702,6 +1702,16 @@ While actively digging, Mole senses nearby sand and gravel. Excavating sand or g
 
 World systems such as Worksites should preserve meaningful specialist advantage for Sifth Sense without making Mole mandatory.
 
+**Build note, 8 October 2026.** Implemented as `SifthSense` plus a handler in `Passives`. Three decisions the design did not settle were taken to get it running, and are recorded here rather than buried in code:
+
+- **"While actively digging" is read as *breaking a siftable block*, not as *Tunneling being active*.** A passive gated on an ability is a rider on A1, and this is listed as the class's passive. The other reading is defensible and the gate is one predicate, so switching is a line. [OPEN]
+- **Player-placed sand and gravel are excluded.** Sifting is faster than mining and reaches through a connected mass, so without the `Provenance` check a built sand wall comes apart in one hit. That is a siege ability nobody designed. Tunneling already refuses player-placed blocks for the weaker version of the same reason.
+- **Concrete powder is excluded** though it also falls. classes.md says "sand and gravel", and concrete powder is a *built* material — sifting it would make this an answer to somebody else's construction rather than a way of moving through terrain.
+
+Sense radius (5) and sift volume (64) are `[FIXTURE — expect to tune]`. The **volume** is load-bearing rather than tuning: a dune is effectively unbounded connected sand, so an uncapped fill is a server stall on a single block break. The reach is breadth-first so that the cap truncates the far edge and leaves a contiguous pocket around the break, rather than a tendril across the dune.
+
+[OPEN] *Sift* versus *clear* — whether this yields more than the material taken — is still unchosen. The implementation returns the reach and takes no position.
+
 ---
 
 ## Ability 1 — Tunneling

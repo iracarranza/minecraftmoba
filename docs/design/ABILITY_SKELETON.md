@@ -71,7 +71,7 @@ stable id without giving any class an ability a player could press.
 | Hook | Class | What it costs |
 |---|---|---|
 | `undead_affinity` | Skeleton Crew | no passive in game |
-| `mole_digging` | Mole | no passive in game, and misnamed — `classes.md` calls it Sifth Sense |
+| ~~`mole_digging`~~ | Mole | **closed 8 October** — renamed `sifth_sense` and dispatched |
 | `utility_belt` | Toolbox | the passive **runs**, via a hardcoded `classId == "toolbox"`; the hook is read by nothing |
 
 Toolbox is the one that made the others hard to see: a config key describing a
