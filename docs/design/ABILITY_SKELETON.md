@@ -65,22 +65,26 @@ stable id without giving any class an ability a player could press.
 | `declared` | `config.yml` names a `passiveHook` that **nothing dispatches** |
 | `designed` | `classes.md` has the kit; nothing is implemented |
 
-`declared` exists because **three of four hooks are dead**, and
-`PassiveHookDispatchTest` now holds the list:
+`declared` exists because **three of four hooks were dead on 8 October 2026**,
+and `PassiveHookDispatchTest` now holds the list -- which is empty:
 
-| Hook | Class | What it costs |
-|---|---|---|
-| ~~`undead_affinity`~~ | Skeleton Crew | **closed 8 October** — pursuit half dispatched; Crew half deliberately unbuilt |
-| ~~`mole_digging`~~ | Mole | **closed 8 October** — renamed `sifth_sense` and dispatched |
-| `utility_belt` | Toolbox | the passive **runs**, via a hardcoded `classId == "toolbox"`; the hook is read by nothing |
+| Hook | Class | Was | Now |
+|---|---|---|---|
+| `mole_digging` | Mole | no passive in game, and misnamed | renamed `sifth_sense` and dispatched |
+| `undead_affinity` | Skeleton Crew | no passive in game | pursuit half dispatched; Crew half deliberately unbuilt |
+| `utility_belt` | Toolbox | passive ran, via a hardcoded `classId == "toolbox"`; hook inert | dispatched by hook |
 
-Toolbox is the one that made the others hard to see: a config key describing a
-mechanism it does not use, next to two that described a mechanism nobody
-implemented. Both of those are now closed, and `utility_belt` is the last dead
-hook — the benign kind, where the passive works and only the key is inert.
+Toolbox was the one that made the others hard to see: a config key describing a
+mechanism it did not use, sitting beside two that described a mechanism nobody
+had implemented. From the config they looked alike.
 
-The test fails if a new dead hook appears, and fails just as loudly if one of
-these is fixed and not removed — so the list cannot quietly go stale.
+Dispatching the belt by hook has one deliberate consequence — it now honours
+`passives.enabled` like every other passive. A switch labelled "passives" that
+left the biggest one running would not be a switch.
+
+The list stays, empty and checked. The test fails if a new dead hook appears,
+and fails just as loudly if a closed one is left in it — so it cannot go stale
+in either direction.
 
 ### `?` is a real value
 
