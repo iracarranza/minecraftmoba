@@ -91,7 +91,8 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
         per_seed: int = 2, generate_workers: int = DEFAULT_GENERATE_WORKERS,
         compile_workers: int = DEFAULT_COMPILE_WORKERS,
         keep_worlds: bool = False, scanner: str | None = None,
-        budget: int = 3, pool: Path | None = None, log=print) -> dict:
+        budget: int = 3, pool: Path | None = None, lab_pool: Path | None = None,
+        log=print) -> dict:
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     started = time.perf_counter()
@@ -169,8 +170,23 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
                     publish_failures.append(
                         {'seed': record['seed'], 'error': f'{type(exc).__name__}: {exc}'})
 
+    # LAB SCOOPS: the same playable maps, published with the trial-chamber rule waived and
+    # marked lab-only, so the lab has something to launch. Never the match pool.
+    lab_published, lab_failures = [], []
+    if lab_pool is not None:
+        from . import foundry
+        for entry in compiled:
+            for record in (entry.get('compiled') or {}).get('runs') or []:
+                if not record.get('playable'):
+                    continue
+                try:
+                    lab_published.append(foundry.publish(
+                        Path(lab_pool), record['seed'], Path(entry['build_world']), record, lab_only=True))
+                except Exception as exc:              # noqa: BLE001
+                    lab_failures.append({'seed': record['seed'], 'error': f'{type(exc).__name__}: {exc}'})
+
     keep = {str(Path(h['work'])) for h in harvested
-            if pool is not None and any(
+            if (pool is not None or lab_pool is not None) and any(
                 r.get('playable') and r['seed'] == h['seed']
                 for e in compiled for r in (e.get('compiled') or {}).get('runs') or [])}
     freed = 0
@@ -202,6 +218,8 @@ def run(seeds, *, server_jar: Path, java: Path, root: Path,
         'worlds_deleted': freed,
         'published': len(published),
         'publish_failures': publish_failures,
+        'lab_published': len(lab_published),
+        'lab_publish_failures': lab_failures,
         'pool': str(pool) if pool else None,
         'prospects': prospects,
         'compilations': compiled,

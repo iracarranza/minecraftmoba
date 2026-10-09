@@ -100,6 +100,7 @@ public final class CombatChamber implements Listener {
     private final CombatCatalog catalog;
     private final BodyCaster caster;
     private final CombatUi ui;
+    private final CombatPreEntryMenu preMenu;
     private final java.util.Random rng = new java.util.Random();
     /** Ticks between casts under the repeat script. */
     private static final int REPEAT_TICKS = 100;
@@ -117,11 +118,16 @@ public final class CombatChamber implements Listener {
         this.catalog = new CombatCatalog(plugin);
         this.caster = new BodyCaster(plugin);
         this.ui = new CombatUi(plugin, this);
+        this.preMenu = new CombatPreEntryMenu(plugin, this);
+        Bukkit.getPluginManager().registerEvents(preMenu, plugin);
         Bukkit.getPluginManager().registerEvents(ui, plugin);
     }
 
     /** The shared body factory, so one set of dummies exists however the chamber is reached. */
     NmsBodies bodies() { return bodies; }
+
+    /** The pre-entry menu, so acceptance runs can press its slots. */
+    public CombatPreEntryMenu preEntryMenu() { return preMenu; }
 
     // ---- commands -------------------------------------------------------------
 
@@ -135,7 +141,7 @@ public final class CombatChamber implements Listener {
             case "back" -> back(p);
             case "set" -> set(p, args);
             case "status" -> status(p);
-            case "leave", "cancel" -> { pre.remove(p.getUniqueId()); p.sendMessage("Combat chamber setup cancelled."); }
+            case "leave", "cancel" -> { pre.remove(p.getUniqueId()); preMenu.close(p); p.sendMessage("Combat chamber setup cancelled."); }
             default -> p.sendMessage("/moba lab combat start | pick <id> | back | set <cooldown|time|level|dummy> <value> | status | leave");
         }
     }
@@ -164,7 +170,7 @@ public final class CombatChamber implements Listener {
             show(p, flow);
             return;
         }
-        if (flow.ready()) { enter(p, flow.session()); pre.remove(p.getUniqueId()); }
+        if (flow.ready()) { preMenu.close(p); enter(p, flow.session()); pre.remove(p.getUniqueId()); }
         else show(p, flow);
     }
 
@@ -193,6 +199,7 @@ public final class CombatChamber implements Listener {
         var m = flow.modes();
         p.sendMessage("Modes: cooldowns " + (m.cooldownWaiver() ? "WAIVED" : "normal") + ", time " + m.timeOfDay()
                 + ", level " + m.level() + (m.dummy() == null ? "" : ", dummy " + m.dummy()));
+        preMenu.open(p, flow);
     }
 
     private void status(Player p) {
@@ -212,6 +219,7 @@ public final class CombatChamber implements Listener {
             p.sendMessage(ChatColor.GRAY + "Modes: cooldowns " + (m.cooldownWaiver() ? "WAIVED" : "normal")
                     + ", time " + m.timeOfDay() + ", level " + m.level() + ". Change with /moba lab combat set ...");
         }
+        preMenu.open(p, flow);
     }
 
     // ---- entering ---------------------------------------------------------------
@@ -576,6 +584,7 @@ public final class CombatChamber implements Listener {
         }
         active.clear(); pre.clear(); stopTicker();
         ui.close();
+        preMenu.shutdown();
     }
 
     // ---- measurement ------------------------------------------------------------

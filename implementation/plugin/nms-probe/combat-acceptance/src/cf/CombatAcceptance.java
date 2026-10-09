@@ -133,6 +133,34 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 260, "opportunity: ...after a sweep tick the herd has lost members nobody harvested", this::opMismatchResult);
         at(c, 4, "opportunity: nothing was ever granted by renewal", this::opGranted);
         at(c, 4, "opportunity: leaving removes sources, members, deck and restores the hotbar", this::opLeave);
+        at(c, 6, "hub: the lab room has a pedestal and a label for every bench", this::hubRoom);
+        at(c, 3, "hub: the Benches menu opens with four benches", this::hubMenu);
+        at(c, 3, "hub: the terrain pedestal is refused without a launched scoop, with the reason", this::hubTerrainRefused);
+        at(c, 3, "hub: clicking the combat pedestal opens the pre-entry menu at the class step", this::hubCombat);
+        at(c, 3, "hub: the class screen offers every class and no way back", this::hubClassScreen);
+        at(c, 3, "hub: picking Mole then Operate reaches the modes screen", this::hubToModes);
+        at(c, 3, "hub: the mode buttons cycle waiver, time and level and show the current values", this::hubModes);
+        at(c, 4, "hub: Enter puts the tester in the chamber with exactly those modes", this::hubEnter);
+        at(c, 4, "hub: leaving returns to the room, and the legibility and opportunity pedestals enter their benches", this::hubOthers);
+        at(c, 6, "scoop: lab start, choose Mole level 15 and the first scoop, launch", this::scoopLaunch);
+        at(c, 40, "scoop: the tester is in the scoop world as Mole and the match clock is running", this::scoopRunning);
+        at(c, 3, "scoop: lab time dusk jumps the REAL match clock to sunset", this::scoopDusk);
+        at(c, 3, "scoop: lab time night 2 lands on the second sunset", this::scoopNight2);
+        at(c, 3, "scoop: pause stops the clock and resume starts it", this::scoopPause);
+        at(c, 25, "scoop: ...the clock held while paused", this::scoopPausedHeld);
+        at(c, 3, "scoop: ...and runs again after resume", this::scoopResume);
+        at(c, 25, "scoop: ...ticking again", this::scoopResumed);
+        at(c, 3, "scoop: skip 10 minutes advances 12000 ticks", this::scoopSkip);
+        at(c, 3, "terrain: lab chamber take allots a bay and builds the observation platform", this::terrainTake);
+        at(c, 3, "terrain: CERTIFIED SCOOP copies certified terrain into the bay", this::terrainCertified);
+        at(c, 40, "terrain: ...and the bay has ground", this::terrainBayHasGround);
+        at(c, 3, "terrain: RANDOM SEED rolls unvetted terrain into the bay", this::terrainRandom);
+        at(c, 60, "terrain: ...and the bay has ground again", this::terrainBayHasGround);
+        at(c, 3, "terrain: entering the bay puts the menu on the hotbar", this::terrainEnter);
+        at(c, 3, "terrain: the Objective page opens and Fountain previews a placement", this::terrainPreview);
+        at(c, 6, "terrain: the pending page offers Place, and placing builds and is undoable", this::terrainPlace);
+        at(c, 6, "terrain: the Clock page jumps the match clock to dusk from the hotbar", this::terrainClock);
+        at(c, 3, "terrain: leave and end return to the lab room", this::terrainEnd);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -141,7 +169,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private void at(int[] clock, int gap, String name, Callable<String> body) {
         // ACCEPT_ONLY=<prefix> runs just that group (plus setup), so one bench can be iterated on quickly.
         String only = System.getenv("ACCEPT_ONLY");
-        if (only != null && !(name.startsWith(only) || name.startsWith("plugin loaded") || name.startsWith("lab start puts"))) return;
+        if (only != null && !(java.util.Arrays.stream(only.split(",")).anyMatch(name::startsWith)
+                || name.startsWith("plugin loaded") || name.startsWith("lab start puts"))) return;
         clock[0] += gap;
         Bukkit.getScheduler().runTaskLater(this, () -> {
             try {
@@ -1093,5 +1122,271 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
                 Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, i));
                 return;
             }
+    }
+
+    private void clickPedestal(Material m, int x, int z) {
+        var w = Bukkit.getWorld("moba_lab");
+        var block = w.getBlockAt(x, 65, z);
+        var e = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK,
+                new org.bukkit.inventory.ItemStack(Material.AIR), block, org.bukkit.block.BlockFace.UP, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(e);
+    }
+
+    private int slotWith(String action) {
+        var menu = combat().preEntryMenu();
+        for (int i = 0; i < 54; i++) if (action.equals(menu.actionAt(t, i))) return i;
+        return -1;
+    }
+
+    private String hubRoom() {
+        t.performCommand("moba lab start");
+        var w = Bukkit.getWorld("moba_lab");
+        StringBuilder sb = new StringBuilder(); boolean bad = false;
+        for (var b : LabHub.BENCHES) {
+            var type = w.getBlockAt(b.x(), 65, b.z()).getType();
+            sb.append(b.id()).append("=").append(type).append(" ");
+            if (type != b.pedestal()) bad = true;
+        }
+        var texts = new java.util.ArrayList<String>();
+        for (var e : w.getEntitiesByClass(org.bukkit.entity.TextDisplay.class)) texts.add(String.valueOf(e.text()));
+        int named = 0;
+        for (var b : LabHub.BENCHES) if (texts.stream().anyMatch(x -> x.contains(b.label()))) named++;
+        return sb + "benchLabels=" + named + "/4" + (bad || named < 4 ? " | FAIL: a pedestal or label is missing" : "");
+    }
+
+    private String hubMenu() {
+        t.performCommand("moba lab benches");
+        var inv = t.getOpenInventory().getTopInventory();
+        int items = 0; for (var st : inv.getContents()) if (st != null) items++;
+        boolean ok = inv.getSize() == 27 && items == 5;      // four benches and Back
+        return "size=" + inv.getSize() + " items=" + items + (ok ? "" : " | FAIL: expected the 27-slot Benches page with five items");
+    }
+
+    private String hubTerrainRefused() {
+        t.closeInventory();
+        clickPedestal(Material.GRASS_BLOCK, 6, -7);
+        boolean stillRoom = t.getWorld().getName().equals("moba_lab") && moba.chamberWorkspace() == null;
+        return "world=" + t.getWorld().getName() + " workspace=" + (moba.chamberWorkspace() == null ? "none" : "present")
+                + (stillRoom ? "" : " | FAIL: the terrain pedestal acted without a scoop");
+    }
+
+    private String hubCombat() {
+        clickPedestal(Material.NETHERITE_BLOCK, -6, -7);
+        String st = combat().state(t);
+        var inv = t.getOpenInventory().getTopInventory();
+        boolean ok = st.equals("setup step CLASS") && inv.getSize() == 54;
+        return "state=" + st + " inventorySize=" + inv.getSize() + (ok ? "" : " | FAIL: expected the class screen");
+    }
+
+    private String hubClassScreen() {
+        var menu = combat().preEntryMenu();
+        int classes = 0; for (int i = 0; i < 45; i++) if (menu.actionAt(t, i) != null && menu.actionAt(t, i).startsWith("pick ")) classes++;
+        boolean noBack = menu.actionAt(t, 49) == null;
+        boolean ok = classes == moba.inputs().ids().size() && noBack;
+        return "classesOffered=" + classes + " of " + moba.inputs().ids().size() + " noBack=" + noBack + (ok ? "" : " | FAIL");
+    }
+
+    private String hubToModes() {
+        var menu = combat().preEntryMenu();
+        menu.clickSlot(t, slotWith("pick mole"));
+        menu.clickSlot(t, slotWith("pick OPERATOR"));
+        String st = combat().state(t);
+        boolean ok = st.equals("setup step MODES") && menu.actionAt(t, 22) != null && menu.actionAt(t, 22).equals("pick enter");
+        return "state=" + st + " enter=" + menu.actionAt(t, 22) + (ok ? "" : " | FAIL: expected the modes screen");
+    }
+
+    private String hubModes() {
+        var menu = combat().preEntryMenu();
+        String before = menu.actionAt(t, 10) + " | " + menu.actionAt(t, 12) + " | " + menu.actionAt(t, 14);
+        menu.clickSlot(t, 10);          // waive cooldowns
+        menu.clickSlot(t, 12);          // time -> day
+        menu.clickSlot(t, 14);          // level 5 -> 10
+        String after = menu.actionAt(t, 10) + " | " + menu.actionAt(t, 12) + " | " + menu.actionAt(t, 14);
+        var inv = t.getOpenInventory().getTopInventory();
+        String cooldownLabel = inv.getItem(10) == null ? "" : inv.getItem(10).getItemMeta().getDisplayName();
+        boolean ok = before.startsWith("set cooldown waive") && after.startsWith("set cooldown normal") && cooldownLabel.contains("WAIVED");
+        return before + "  ->  " + after + " | label=" + cooldownLabel + (ok ? "" : " | FAIL: modes did not cycle");
+    }
+
+    private String hubEnter() {
+        combat().preEntryMenu().clickSlot(t, 22);
+        var d = moba.data(t);
+        var report = String.join(" || ", combat().reportLines(t)).replaceAll("§.", "");
+        boolean ok = t.getWorld().getName().equals("moba_combat") && d != null && "mole".equals(d.classId) && d.level == 20   // default 15, one click -> 20
+                && report.contains("WAIVED") && report.contains("L20");
+        return "world=" + t.getWorld().getName() + " class=" + (d == null ? null : d.classId) + " level=" + (d == null ? -1 : d.level)
+                + " | " + (report.length() > 120 ? report.substring(0, 120) : report) + (ok ? "" : " | FAIL: modes not applied");
+    }
+
+    private String hubOthers() {
+        cmd("leave");
+        boolean room = t.getWorld().getName().equals("moba_lab");
+        clickPedestal(Material.LODESTONE, -2, -7);
+        boolean leg = t.getWorld().getName().equals("moba_legibility") && moba.lab().legibility().occupies(t);
+        moba.lab().legibility().leave(t);
+        clickPedestal(Material.HAY_BLOCK, 2, -7);
+        boolean opp = t.getWorld().getName().equals("moba_opportunity") && moba.lab().opportunity().occupies(t);
+        moba.lab().opportunity().leave(t);
+        return "backInRoom=" + room + " legibility=" + leg + " opportunity=" + opp + (room && leg && opp ? "" : " | FAIL: a pedestal did not enter its bench");
+    }
+
+    private long elapsedNow() { return moba.match().elapsedTicks(); }
+    private long heldElapsed;
+
+    private String scoopLaunch() {
+        t.performCommand("moba lab start");
+        t.performCommand("moba lab class mole");
+        t.performCommand("moba lab map 1");
+        t.performCommand("moba lab level 15");
+        t.performCommand("moba lab play");
+        return "world=" + t.getWorld().getName() + " labActive=" + moba.worldInstance().labActive();
+    }
+
+    private String scoopRunning() {
+        var d = moba.data(t);
+        boolean ok = moba.worldInstance().labActive() && t.getWorld().equals(moba.worldInstance().world()) && moba.match().running()
+                && d != null && "mole".equals(d.classId) && d.level == 15;
+        return "world=" + t.getWorld().getName() + " running=" + moba.match().running() + " class=" + (d == null ? null : d.classId)
+                + " elapsed=" + elapsedNow() + (ok ? "" : " | FAIL: the scoop did not launch");
+    }
+
+    private String scoopDusk() {
+        t.performCommand("moba lab time dusk");
+        long e = elapsedNow();
+        boolean ok = e % 24000 == 12000 && t.getWorld().getTime() == 12000;
+        return "elapsed=" + e + " worldTime=" + t.getWorld().getTime() + (ok ? "" : " | FAIL: expected sunset");
+    }
+
+    private String scoopNight2() {
+        t.performCommand("moba lab time night 2");
+        long e = elapsedNow();
+        boolean ok = e == LabTime.sunsetTick(2) && MatchClock.sunsetOrdinal(e) == 2;
+        return "elapsed=" + e + " sunsetOrdinal=" + MatchClock.sunsetOrdinal(e) + (ok ? "" : " | FAIL: expected the second sunset");
+    }
+
+    private String scoopPause() {
+        t.performCommand("moba lab time pause");
+        heldElapsed = elapsedNow();
+        return "paused=" + moba.match().labPaused() + " elapsed=" + heldElapsed + (moba.match().labPaused() ? "" : " | FAIL: not paused");
+    }
+
+    private String scoopPausedHeld() {
+        long e = elapsedNow();
+        return "elapsed " + heldElapsed + " -> " + e + (e == heldElapsed ? "" : " | FAIL: the clock moved while paused");
+    }
+
+    private String scoopResume() {
+        t.performCommand("moba lab time resume");
+        heldElapsed = elapsedNow();
+        return "paused=" + moba.match().labPaused() + (moba.match().labPaused() ? " | FAIL: still paused" : "");
+    }
+
+    private String scoopResumed() {
+        long e = elapsedNow();
+        return "elapsed " + heldElapsed + " -> " + e + (e > heldElapsed ? "" : " | FAIL: the clock did not run after resume");
+    }
+
+    private String scoopSkip() {
+        long before = elapsedNow();
+        t.performCommand("moba lab time skip 10");
+        long after = elapsedNow();
+        return "elapsed " + before + " -> " + after + (after - before >= 12000 && after - before < 12100 ? "" : " | FAIL: expected +12000");
+    }
+
+    private org.bukkit.entity.Interaction chamberButton(String which) {
+        for (var i : t.getWorld().getEntitiesByClass(org.bukkit.entity.Interaction.class))
+            if (i.getScoreboardTags().contains("chamber_button") && i.getScoreboardTags().contains(which)
+                    && i.getScoreboardTags().contains(t.getUniqueId().toString())) return i;
+        return null;
+    }
+
+    private String terrainTake() {
+        t.performCommand("moba lab chamber take");
+        long buttons = t.getWorld().getEntitiesByClass(org.bukkit.entity.Interaction.class).stream()
+                .filter(i -> i.getScoreboardTags().contains("chamber_button")).count();
+        boolean plate = false;
+        var loc = t.getLocation();
+        for (int dx = -8; dx <= 8 && !plate; dx++) for (int dz = -8; dz <= 8 && !plate; dz++) for (int dy = -3; dy <= 3 && !plate; dy++)
+            if (t.getWorld().getBlockAt(loc.getBlockX() + dx, loc.getBlockY() + dy, loc.getBlockZ() + dz).getType() == Material.STONE_PRESSURE_PLATE) plate = true;
+        boolean ok = moba.chamberWorkspace() != null && buttons == 2 && plate;
+        return "workspace=" + (moba.chamberWorkspace() != null) + " buttons=" + buttons + " plateNearby=" + plate
+                + " at=" + String.format("%.0f,%.0f,%.0f", loc.getX(), loc.getY(), loc.getZ()) + (ok ? "" : " | FAIL: expected a bay, two buttons and a plate");
+    }
+
+    private String terrainCertified() {
+        var b = chamberButton("certified");
+        if (b == null) return "FAIL: no certified button";
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, b));
+        return "pressed";
+    }
+
+    private int bayGround;
+    private String terrainBayHasGround() {
+        // Walk into the bay's column range to sample: the bay sits below the platform, in front of the tester.
+        var loc = t.getLocation();
+        int solid = 0, sampled = 0;
+        for (int dz = 4; dz <= 20; dz += 2) for (int dx = -10; dx <= 10; dx += 2) for (int y = loc.getBlockY() - 20; y <= loc.getBlockY(); y++) {
+            sampled++;
+            if (t.getWorld().getBlockAt(loc.getBlockX() + dx, y, loc.getBlockZ() + dz).getType() != Material.AIR) { solid++; break; }
+        }
+        bayGround = solid;
+        return "columns with ground below the platform: " + solid + "/" + (sampled > 0 ? sampled / 21 : 0) + (solid >= 10 ? "" : " | FAIL: the bay looks empty");
+    }
+
+    private String terrainRandom() {
+        var b = chamberButton("random");
+        if (b == null) return "FAIL: no random button";
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, b));
+        return "pressed";
+    }
+
+    private String terrainEnter() {
+        t.performCommand("moba lab chamber enter");
+        boolean ok = "objective".equals(itemIdKey(0, "chamber_item")) && "return".equals(itemIdKey(9, "chamber_item"));
+        return "slot0=" + itemIdKey(0, "chamber_item") + " slot6=" + itemIdKey(6, "chamber_item") + " slot9=" + itemIdKey(9, "chamber_item")
+                + " at=" + String.format("%.0f,%.0f,%.0f", t.getLocation().getX(), t.getLocation().getY(), t.getLocation().getZ())
+                + (ok ? "" : " | FAIL: expected the chamber menu on the hotbar");
+    }
+
+    private String terrainPreview() {
+        t.setRotation(0f, 85f);                // look down at the ground
+        rightClick2Key(0);                    // Place objective -> page
+        String page1 = itemIdKey(0, "chamber_item");
+        rightClick2Key(0);                    // Fountain -> preview
+        String page2 = itemIdKey(0, "chamber_item");
+        return "after objective: slot0=" + page1 + "; after fountain: slot0=" + page2 + " | " + moba.chamberWorkspace().report(t)
+                + (("fountain".equals(page1)) && "preview".equals(page2) ? "" : " | FAIL: expected the objective page then the pending page");
+    }
+
+    private org.bukkit.event.player.PlayerInteractEvent rightClick2Key(int heldSlot) {
+        t.getInventory().setHeldItemSlot(heldSlot);
+        var e = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR,
+                t.getInventory().getItemInMainHand(), null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(e);
+        return e;
+    }
+
+    private String terrainPlace() {
+        rightClick2Key(1);                    // pending page: slot 1 = Place
+        String after = itemIdKey(0, "chamber_item");
+        boolean ok = "objective".equals(after);
+        return "after place: slot0=" + after + " slot4=" + itemIdKey(4, "chamber_item") + " | " + moba.chamberWorkspace().report(t) + (ok ? "" : " | FAIL: expected to be back at the root with the placement applied");
+    }
+
+    private String terrainClock() {
+        rightClick2Key(6);                    // Clock and rules page
+        String page = itemIdKey(0, "chamber_item");
+        long before = elapsedNow();
+        rightClick2Key(0);                    // Jump to dusk
+        long after = elapsedNow();
+        return "page slot0=" + page + " elapsed " + before + " -> " + after
+                + ("clock.dusk".equals(page) && after > before && after % 24000 == 12000 ? "" : " | FAIL: expected the clock page and a jump to dusk");
+    }
+
+    private String terrainEnd() {
+        t.performCommand("moba lab chamber leave");
+        t.performCommand("moba lab end");
+        boolean ok = t.getWorld().getName().equals("moba_lab") && !moba.worldInstance().labActive();
+        return "world=" + t.getWorld().getName() + " labActive=" + moba.worldInstance().labActive() + (ok ? "" : " | FAIL: did not return to the room");
     }
 }

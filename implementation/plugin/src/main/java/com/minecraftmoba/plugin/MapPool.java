@@ -91,6 +91,14 @@ public final class MapPool {
         return end == i ? null : json.substring(i, end);
     }
 
+    /** Whether an entry's manifest marks it lab-only. */
+    static boolean labOnly(Entry e) {
+        try {
+            return Files.readString(e.directory().resolve("map.json"), StandardCharsets.UTF_8)
+                    .matches("(?s).*\"lab_only\"\\s*:\\s*true.*");
+        } catch (IOException ex) { return false; }
+    }
+
     /** Every entry the pool holds, in a stable order. */
     public List<Entry> entries() {
         Path dir = directory();
@@ -142,6 +150,10 @@ public final class MapPool {
     public Entry claim(String matchId, String mapId) {
         for (Entry e : entries()) {
             if (!READY.equals(e.state())) continue;
+            // A lab scoop waives a publication rule (trial chambers) and exists for the lab's
+            // chambers only. It is never claimable by a match, even if a lab directory is ever
+            // pointed at as the pool.
+            if (labOnly(e)) continue;
             if (mapId != null && !mapId.equals(e.mapId())) continue;
             try {
                 Files.writeString(e.directory().resolve("claim"),

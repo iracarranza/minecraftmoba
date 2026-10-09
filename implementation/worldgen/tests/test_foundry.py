@@ -59,6 +59,34 @@ class Publishing(unittest.TestCase):
             foundry.publish(self.pool, 1, self.src, compilation())
         self.assertFalse(self.pool.exists())
 
+    def test_a_lab_scoop_waives_only_the_trial_chamber_rule_and_says_so(self):
+        self.scan.return_value = [[1, 2, 'trial_spawner']]
+        manifest = foundry.publish(self.pool, 1, self.src, compilation(), lab_only=True)
+        self.assertTrue(manifest['lab_only'])
+        self.assertEqual('excluded_structures.trial_chambers', manifest['waivers'][0]['rule'])
+        self.assertEqual([[1, 2, 'trial_spawner']], manifest['waivers'][0]['findings'])
+        self.assertIn('trial chamber waived', manifest['lab_label'])
+        self.assertTrue(manifest['world_fingerprint'])
+        self.assertEqual('READY', manifest['state'])
+
+    def test_a_lab_scoop_without_trial_chambers_has_no_waiver(self):
+        manifest = foundry.publish(self.pool, 1, self.src, compilation(), lab_only=True)
+        self.assertTrue(manifest['lab_only']); self.assertEqual([], manifest['waivers'])
+        self.assertNotIn('waived', manifest['lab_label'])
+
+    def test_a_lab_scoop_still_requires_everything_else(self):
+        self.scan.return_value = [[1, 2, 'trial_spawner']]
+        with self.assertRaises(ValueError):
+            foundry.publish(self.pool, 1, self.src, compilation(playable=False, stage='lair', ready=False), lab_only=True)
+        with self.assertRaisesRegex(ValueError, 'NOT READY'):
+            foundry.publish(self.pool, 1, self.src, compilation(ready=False), lab_only=True)
+        with self.assertRaisesRegex(ValueError, 'no runtime bindings'):
+            foundry.publish(self.pool, 1, self.src, compilation(bindings=False), lab_only=True)
+
+    def test_a_normal_publish_is_not_marked_lab_only(self):
+        manifest = foundry.publish(self.pool, 1, self.src, compilation())
+        self.assertNotIn('lab_only', manifest)
+
     def setUp(self):
         scanner = patch('terrain_harvest.excluded_structures.trial_chambers', return_value=[])
         self.scan = scanner.start()

@@ -46,6 +46,18 @@ class MapPoolTest {
         assertTrue(entries.stream().allMatch(e -> MapPool.READY.equals(e.state())));
     }
 
+    @Test void aLabOnlyScoopIsNeverClaimedByAMatchButIsStillListed() throws IOException {
+        Path dir = pool("99887766", "2718281");
+        Path lab = dir.resolve("99887766-abcdef0123/map.json");
+        Files.writeString(lab, Files.readString(lab).replace("\"state\": \"READY\",", "\"state\": \"READY\",\n \"lab_only\": true,"));
+        var p = at(dir);
+        assertEquals(2, p.entries().size(), "the lab can still see it");
+        var got = p.claim("match-1");
+        assertEquals(2718281L, got.seed(), "a match takes the ordinary map");
+        assertNull(p.claim("match-2"), "and never the lab-only one");
+        assertNull(p.claim("match-3", "99887766-abcdef0123"), "not even when it is asked for by name");
+    }
+
     @Test void claimingTakesAMapAndMarksItInUse() throws IOException {
         Path dir = pool("99887766");
         MapPool p = at(dir);

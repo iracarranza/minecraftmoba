@@ -201,3 +201,13 @@ reading and deletion of a temporary source world**. Run it once on a throwaway
 server before relying on it. Concretely: take a chamber, press both buttons,
 enter, place an outpost, deliberately place one that overlaps the bay edge,
 confirm it is refused, undo a regeneration, leave, and check the hotbar returned.
+
+## Verification status, updated 9 October 2026
+
+The terrain chamber has now been run on a real server with a real launched scoop. The
+platform and its two buttons, the pressure plate, both terrain sources (including creating and
+deleting the temporary source world), entering the bay with the hotbar menu, previewing and
+placing a Fountain, and the Clock page all worked. One defect was found and fixed: the
+CERTIFIED SCOOP button sampled near the world spawn, which is nowhere near a compiled scoop's
+generated window, and so refused every time; it now samples around the map's fountains,
+objectives and Lair. See `docs/design/LAB_HUB.md`.

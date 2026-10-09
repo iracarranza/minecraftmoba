@@ -128,6 +128,8 @@ public final class Lab implements Listener {
                 }
                 case "play", "launch" -> play(p);
                 case "chamber" -> chamber(p, args);
+                case "benches" -> { requireSetup(p); menu(p, "benches", 0); }
+                case "bench" -> bench(p, value(args));
                 case "combat" -> combat.command(p, args);
                 case "legibility" -> legibility.command(p, args);
                 case "opportunity" -> opportunity.command(p, args);
@@ -147,7 +149,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | combat | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
+                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -338,6 +340,24 @@ public final class Lab implements Listener {
         p.setGameMode(GameMode.CREATIVE);
     }
 
+    /** Enter a bench from the hub, by id. The bench's own command does the work, so there is one way in. */
+    private void bench(Player p, String id) {
+        var b = LabHub.bench(id);
+        if (b == null) throw new IllegalArgumentException("No bench '" + id + "'. Benches: "
+                + LabHub.BENCHES.stream().map(LabHub.Bench::id).toList());
+        requireSetup(p);
+        String why = LabHub.refusal(b, new LabHub.State(plugin.worldInstance().labActive()));
+        if (why != null) { p.sendMessage(why); return; }
+        p.closeInventory();
+        switch (b.id()) {
+            case "combat" -> combat.command(p, new String[]{"lab", "combat", "start"});
+            case "legibility" -> legibility.command(p, new String[]{"lab", "legibility", "start"});
+            case "opportunity" -> opportunity.command(p, new String[]{"lab", "opportunity", "start"});
+            case "terrain" -> { try { chamber(p, new String[]{"lab", "chamber", "take"}); } catch (IOException ex) { throw new IllegalStateException(ex); } }
+            default -> throw new IllegalStateException("Unwired bench " + id);
+        }
+    }
+
     private void sendToRoom(Player p) {
         World w = ensureRoom();
         p.teleport(new Location(w, .5, 66, .5));
@@ -372,6 +392,7 @@ public final class Lab implements Listener {
         pedestal(-5, 0, Material.BOOKSHELF, "Classes");
         pedestal(5, 0, Material.CARTOGRAPHY_TABLE, "Map scoops");
         pedestal(0, 6, Material.EMERALD_BLOCK, "Launch test");
+        for (var b : LabHub.BENCHES) pedestal(b.x(), b.z(), b.pedestal(), b.label());
         return room;
     }
 
@@ -396,7 +417,7 @@ public final class Lab implements Listener {
     private void menu(Player p, String kind, int page) {
         Selection s = selections.get(p.getUniqueId());
         Menu holder = new Menu(p.getUniqueId());
-        holder.inventory = Bukkit.createInventory(holder, kind.equals("setup") ? 27 : 54,
+        holder.inventory = Bukkit.createInventory(holder, kind.equals("setup") || kind.equals("benches") ? 27 : 54,
                 Component.text(kind.equals("setup") ? "Lab · Choose and launch" : "Lab · " + kind));
         if (kind.equals("setup")) {
             item(holder, 10, Material.BOOK, "Class: " + Objects.toString(s.classId, "choose"), "classes");
@@ -407,7 +428,17 @@ public final class Lab implements Listener {
             item(holder, 16, Material.EXPERIENCE_BOTTLE, "Starting level: " + s.level, "level " + next, "/moba lab level <n> for a specific level.");
             boolean ready = s.mapId != null && s.classId != null;
             item(holder, 22, ready ? Material.EMERALD_BLOCK : Material.BARRIER, "Launch test", "play", "Choose class and scoop first.");
+            item(holder, 18, Material.COMPASS, "Benches", "benches", "Combat chamber, legibility, opportunity, terrain.");
             item(holder, 26, Material.OAK_DOOR, "Return to normal lobby", "leave");
+        } else if (kind.equals("benches")) {
+            int slot = 10;
+            for (var b : LabHub.BENCHES) {
+                String why = LabHub.refusal(b, new LabHub.State(plugin.worldInstance().labActive()));
+                item(holder, slot, why == null ? b.pedestal() : Material.GRAY_DYE, b.label(), "bench " + b.id(),
+                        why == null ? b.blurb() : "Unavailable: " + why);
+                slot += 2;
+            }
+            item(holder, 22, Material.OAK_DOOR, "Back to setup", "menu");
         } else {
             List<String> ids = kind.equals("classes") ? plugin.inputs().ids()
                     : maps.entries().stream().map(MapPool.Entry::mapId).toList();
@@ -453,9 +484,10 @@ public final class Lab implements Listener {
             case BOOKSHELF -> "classes";
             case CARTOGRAPHY_TABLE -> "maps";
             case EMERALD_BLOCK -> "play";
-            default -> "menu";
+            default -> { var b = LabHub.atBlock(event.getClickedBlock().getType()); yield b == null ? "menu" : "bench " + b.id(); }
         };
-        if (event.getHand() == org.bukkit.inventory.EquipmentSlot.HAND) command(event.getPlayer(), new String[]{"lab", action});
+        // "bench <id>" is two words: passing it as one argument made the pedestals do nothing.
+        if (event.getHand() == org.bukkit.inventory.EquipmentSlot.HAND) command(event.getPlayer(), ("lab " + action).split(" "));
     }
     @EventHandler public void breakBlock(BlockBreakEvent event) {
         if (room != null && event.getBlock().getWorld().equals(room)) event.setCancelled(true);

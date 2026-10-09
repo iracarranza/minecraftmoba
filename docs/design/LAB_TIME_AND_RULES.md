@@ -47,5 +47,7 @@ pre-entry mode, by design, so changing it mid-session is the typed command only.
 
 Arithmetic and menu rules: unit-tested. Live (combat chamber, real server): time of day,
 the refused skip, both rules' listeners, and clearing on leave: 64 of 64 with the
-combat acceptance run. **Not run live:** the match-clock path and the terrain chamber's
-Clock page, because no launchable scoop exists on this machine. They need one.
+combat acceptance run. **Update, same day:** with a launchable scoop now available (`docs/design/LAB_HUB.md`) the
+match-clock path ran live: `time dusk` and `time night 2` land on the real sunsets, pause holds
+the clock and resume restarts it, `skip 10` advances 12000 ticks, and the terrain chamber's
+Clock page jumps the clock from the hotbar.

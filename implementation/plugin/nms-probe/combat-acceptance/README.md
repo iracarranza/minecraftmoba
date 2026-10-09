@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 97 of 97.
+the server. `report-1.21.11-132.txt` is the last run: 125 of 125.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -73,13 +73,26 @@ by day; a source with radius 4 against a region of half-span 12 is swept to RECO
 nothing harvested (the Alpha radius/region mismatch); nothing granted by renewal; clean leave.
 `ACCEPT_ONLY=opportunity` runs just that group (plus setup) for quick iteration.
 
+Lab hub and pre-entry menu: the room has a pedestal and label for every bench; the Benches
+menu opens; the terrain pedestal is refused without a scoop; the combat pedestal opens the
+class screen (six classes, no way back); a Mole/Operate walk through the menu reaches the modes
+screen, the mode buttons cycle (waiver, time, level) and Enter lands in the chamber with those
+modes; the legibility and opportunity pedestals enter their benches.
+
+Launched scoop (needs a lab scoop in the server's `lab-maps`, see `docs/design/LAB_HUB.md`):
+the scoop launches with the tester as Mole; `lab time dusk`, `night 2`, pause, resume and
+`skip 10` drive the REAL match clock; the terrain chamber allots a bay with its platform and
+buttons, fills it from the certified scoop and from a random seed, enters with the hotbar menu,
+previews and places a Fountain (undoable), and the Clock page jumps to dusk. `ACCEPT_ONLY` takes
+a comma-separated list of name prefixes, e.g. `scoop,terrain`.
+
 ## Not covered
 
 The match-clock half of lab time (`time skip`, `time night`, `pause`, `resume` in a
 launched scoop) and the terrain chamber's Clock page: no launchable scoop exists on
 this machine, so those are compiled and arithmetic-tested but never run.
 
-Particles actually rendering (the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
+Particles actually rendering (the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and the terrain chamber's Regenerate and route items, DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 

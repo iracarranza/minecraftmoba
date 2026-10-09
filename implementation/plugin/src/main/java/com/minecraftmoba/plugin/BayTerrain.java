@@ -99,9 +99,18 @@ final class BayTerrain {
         boolean certified = source instanceof Source.Certified;
         int cx = 0, cz = 0, surface = 0;
         boolean found = false;
-        for (int attempt = 0; attempt < ATTEMPTS && !found; attempt++) {
-            cx = src.getSpawnLocation().getBlockX() + random.nextInt(certified ? 401 : 4001) - (certified ? 200 : 2000);
-            cz = src.getSpawnLocation().getBlockZ() + random.nextInt(certified ? 401 : 4001) - (certified ? 200 : 2000);
+        // A certified scoop generates a window that can be thousands of blocks from its world
+        // spawn, so it is sampled around what the map itself certified: its fountains,
+        // objectives and Lair. (Sampling near spawn never found generated ground.)
+        var anchors = certified ? anchors(((Source.Certified) source).entry(), src) : List.<int[]>of();
+        for (int attempt = 0; attempt < ATTEMPTS * (certified ? 4 : 1) && !found; attempt++) {
+            if (certified && !anchors.isEmpty()) {
+                int[] centre = CertifiedCentres.pick(anchors, random, CertifiedCentres.SPREAD);
+                cx = centre[0]; cz = centre[1];
+            } else {
+                cx = src.getSpawnLocation().getBlockX() + random.nextInt(certified ? 401 : 4001) - (certified ? 200 : 2000);
+                cz = src.getSpawnLocation().getBlockZ() + random.nextInt(certified ? 401 : 4001) - (certified ? 200 : 2000);
+            }
             if (certified && !generated(src, cx, cz, radius)) continue;
             surface = src.getHighestBlockYAt(cx, cz);
             // Rough terrain is for severity testing, not for testing a sea: skip
@@ -112,7 +121,7 @@ final class BayTerrain {
         }
         if (!found)
             throw new IOException(certified
-                    ? "No fully generated stretch of this certified scoop was found near its spawn. "
+                    ? "No fully generated stretch of this certified scoop was found around its fountains, objectives or Lair. "
                       + "Not substituting generated terrain: that would not be certified ground."
                     : "Could not find dry ground in this random seed. Try again.");
         var map = RegionCopy.of(bay, cx, cz, surface);
@@ -146,6 +155,23 @@ final class BayTerrain {
         if (!certified)
             p.sendMessage("Rough terrain nobody vetted. A result here is not a result on shipped ground.");
         return new Result(kind, source.label(), before.size(), cx, cz);
+    }
+
+    /** The places the map certified as generated and authored: both fountains, the Lair, and each objective. */
+    private static List<int[]> anchors(MapPool.Entry entry, World src) {
+        var out = new ArrayList<int[]>();
+        var b = MapBindings.of(entry);
+        if (b == null) return out;
+        for (var team : Team.values()) {
+            add(out, b.fountain(src, team));
+            for (String kind : b.objectiveKinds(team)) add(out, b.objective(src, team, kind));
+        }
+        add(out, b.lairAnchor(src));
+        return out;
+    }
+
+    private static void add(List<int[]> out, org.bukkit.Location l) {
+        if (l != null) out.add(new int[]{l.getBlockX(), l.getBlockZ()});
     }
 
     private static boolean generated(World src, int cx, int cz, int radius) {

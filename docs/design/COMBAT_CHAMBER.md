@@ -310,6 +310,13 @@ console, or `/moba lab combat interference`) toggles it for anyone. `reset` forc
 resume. The report shows the ghost's state, cause and count. The first open question
 below (restart or mid-sequence) is answered: restart.
 
+**Slice 6, the pre-entry as a menu (9 October 2026), verified live.** The pre-entry flow is now
+an inventory menu (`CombatPreEntryView`, `CombatPreEntryMenu`) reached from a pedestal in the
+lab room, `/moba lab combat`, or `status`. Each slot runs the typed command it stands for;
+unavailable options are greyed with their reason; at the modes step each setting is a button
+showing its current value. The "in-world pre-entry menu" listed as unbuilt earlier is built.
+See `docs/design/LAB_HUB.md`.
+
 ## Open questions
 
 - Should the temporary non-player target in step 1 be built, or should nothing

@@ -55,12 +55,20 @@ def map_id(seed, compilation) -> str:
 
 
 def publish(pool: Path, seed, source_world: Path, compilation: dict,
-            *, authoring_version='2026-09-23', copy=True) -> dict:
+            *, authoring_version='2026-09-23', copy=True, lab_only=False) -> dict:
     """Write one verified map into the pool as READY.
 
     Refuses anything that is not playable. A pool of maps that might be fine is
     not a pool; the whole value of the foundry is that claiming is unconditional
     because everything in it already passed.
+
+    ``lab_only`` writes a LAB SCOOP, for the lab's chambers and never for a match. It waives
+    exactly one rule, the trial-chamber publication rule, and says so in the manifest
+    (``lab_only`` and ``waivers``). A lab scoop exists because that rule rejected every
+    map in a 16-target batch (0 published), so the lab had nothing to launch. Everything
+    else is still required: verified, READY, bindings. The runtime's match pool refuses to
+    claim a ``lab_only`` entry, so a waived map cannot reach a match even if a lab
+    directory is ever pointed at as a pool.
     """
     # VERIFIED is not READY. A map can satisfy every physical check and still be
     # unusable -- that is exactly how a realization with an unmanifested Lair
@@ -82,10 +90,11 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
         raise FileExistsError(f'{ident} is already in the pool')
     if copy and not Path(source_world).is_dir():
         raise FileNotFoundError(f'no authored world at {source_world}')
+    forbidden = []
     if copy:
         from .excluded_structures import trial_chambers
         forbidden = trial_chambers(source_world)
-        if forbidden:
+        if forbidden and not lab_only:
             raise ValueError(f'seed {seed} contains excluded trial chambers: {forbidden[:5]}')
     entry.mkdir(parents=True)
     world = entry / 'world'
@@ -147,6 +156,10 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
             'blocks_written': (evidence.get('authored') or {}).get('blocks_written'),
         },
         'world_fingerprint': _fingerprint(world) if copy else None,
+        **({'lab_only': True,
+            'lab_label': f'LAB ONLY, seed {seed}' + (' (trial chamber waived)' if forbidden else ''),
+            'waivers': [{'rule': 'excluded_structures.trial_chambers', 'scope': 'lab-only',
+                         'findings': forbidden[:20]}] if forbidden else []} if lab_only else {}),
         'history': [{'state': READY, 'at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}],
     }
     (entry / 'map.json').write_text(json.dumps(manifest, indent=1))
