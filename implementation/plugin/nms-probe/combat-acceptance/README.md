@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 64 of 64.
+the server. `report-1.21.11-132.txt` is the last run: 71 of 71.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -53,13 +53,22 @@ world time (12000, 18000, 0); `time skip` is refused there; a frozen hunger canc
 food LOSS but not a gain; regeneration off cancels satiated healing but not other
 healing; leaving clears the tester's rules.
 
+Legibility bench (`/moba lab legibility`): entering builds the marked track, the deck
+(nine buttons) and the hotbar, and spawns the subject 16 blocks out; the Next scale item
+sets the subject's scale to 1.25; the GLOW button makes it glow; armor, particles and
+clutter change the variant and the world (leather helmet, a stone-brick pillar placed then
+removed); two marks at 16 and 40 blocks give a median of 28.0 and a pixel height; the
+report states the doctrine rule and that per-viewer glow is not delivered; the LEAVE button
+leaves and removes the subject and deck. A bug found by running it: the deck's buttons
+vanished because nothing held their chunks, so the bench now keeps its chunks loaded.
+
 ## Not covered
 
 The match-clock half of lab time (`time skip`, `time night`, `pause`, `resume` in a
 launched scoop) and the terrain chamber's Clock page: no launchable scoop exists on
 this machine, so those are compiled and arithmetic-tested but never run.
 
-DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
+Particles actually rendering (the variant and its task are set, not seen), the glow being SEEN by a real client, and DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 

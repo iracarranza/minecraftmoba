@@ -62,5 +62,12 @@ PASS clock: skip is refused in the combat chamber (no match clock) :: time 0 -> 
 PASS rules: a hunger LOSS is cancelled while frozen, a gain is not :: frozen=true lossCancelled=true gainCancelled=false
 PASS rules: satiated and regen healing are cancelled while regeneration is off :: satiatedCancelled=true magicCancelled=false
 PASS rules: leaving the chamber clears the tester's rules :: cleared=true
+PASS legibility: entering builds the track, deck and hotbar and spawns the subject 16 blocks away :: subject=B_subject slot0=scale slot9=return buttons=9 floor=STONE stripe@8=YELLOW_CONCRETE distance=16.0
+PASS legibility: the Next scale hotbar item scales the subject (1.0 -> 1.25) :: scale=1.25 cancelled=true
+PASS legibility: the GLOW world button makes the subject glow :: tags=[legibility_button, verb:armor, verb:clear, verb:clutter, verb:glow, verb:leave, verb:mark, verb:particles, verb:report, verb:scale] pressed=true glowing=true
+PASS legibility: armor, particles and clutter change the variant and the world :: scale 1.25 | glow on | armor leather | particles flame | clutter on | helmet=LEATHER_HELMET pillarOn=STONE_BRICKS pillarOff=AIR
+PASS legibility: marks record distance; the report gives the median and pixels :: marks=2 | scale 1.25 | glow on | armor leather | particles flame | clutter on: 2 mark(s), 16.0 / 28.0 / 40.0 blocks (min / median / max); 62 px tall at the median
+PASS legibility: the report states the doctrine rule and that per-viewer glow is not delivered :: doctrine lines present
+PASS legibility: the LEAVE world button leaves, restores the hotbar and removes the subject and deck :: pressed=true world=moba_lab subjectGone=true buttons=0
 
-SUMMARY pass=64 fail=0
+SUMMARY pass=71 fail=0

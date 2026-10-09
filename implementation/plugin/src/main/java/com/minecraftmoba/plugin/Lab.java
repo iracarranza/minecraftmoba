@@ -45,6 +45,8 @@ public final class Lab implements Listener {
     }
 
     private final LabRules rules = new LabRules();
+    private LegibilityBench legibility;
+    public LegibilityBench legibility() { return legibility; }
     public LabRules rules() { return rules; }
 
     public Lab(MobaPlugin plugin) {
@@ -54,6 +56,7 @@ public final class Lab implements Listener {
         Bukkit.getPluginManager().registerEvents(authoring, plugin);
         combat = new CombatChamber(plugin, this);
         Bukkit.getPluginManager().registerEvents(combat, plugin);
+        legibility = new LegibilityBench(plugin, this);
         Path configured = Path.of(plugin.getConfig().getString("alpha.lab.mapsDirectory", "lab-maps"));
         maps = new LabMaps(configured.isAbsolute() ? configured
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
@@ -123,6 +126,7 @@ public final class Lab implements Listener {
                 case "play", "launch" -> play(p);
                 case "chamber" -> chamber(p, args);
                 case "combat" -> combat.command(p, args);
+                case "legibility" -> legibility.command(p, args);
                 case "time" -> time(p, args);
                 case "rules" -> rules(p, args);
                 case "author" -> authoring.command(p, args);
@@ -176,7 +180,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); rules.clearAll(); }
+    public void close() { combat.close(); legibility.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))

@@ -100,6 +100,13 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 2, "rules: a hunger LOSS is cancelled while frozen, a gain is not", this::rulesHunger);
         at(c, 2, "rules: satiated and regen healing are cancelled while regeneration is off", this::rulesRegen);
         at(c, 2, "rules: leaving the chamber clears the tester's rules", this::rulesCleared);
+        at(c, 4, "legibility: entering builds the track, deck and hotbar and spawns the subject 16 blocks away", this::legEnter);
+        at(c, 3, "legibility: the Next scale hotbar item scales the subject (1.0 -> 1.25)", this::legScale);
+        at(c, 3, "legibility: the GLOW world button makes the subject glow", this::legGlow);
+        at(c, 3, "legibility: armor, particles and clutter change the variant and the world", this::legOthers);
+        at(c, 3, "legibility: marks record distance; the report gives the median and pixels", this::legMarks);
+        at(c, 3, "legibility: the report states the doctrine rule and that per-viewer glow is not delivered", this::legReport);
+        at(c, 3, "legibility: the LEAVE world button leaves, restores the hotbar and removes the subject and deck", this::legLeave);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -710,5 +717,112 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         cmd("leave");
         boolean cleared = !moba.lab().rules().hungerFrozen(t) && !moba.lab().rules().regenOff(t);
         return "cleared=" + cleared + (cleared ? "" : " | FAIL: rules followed the tester out");
+    }
+
+    private String itemIdKey(int slot, String key) {
+        var st = t.getInventory().getItem(slot);
+        if (st == null || !st.hasItemMeta()) return null;
+        return st.getItemMeta().getPersistentDataContainer().get(new org.bukkit.NamespacedKey(moba, key),
+                org.bukkit.persistence.PersistentDataType.STRING);
+    }
+
+    private boolean pressTagged(String tag, String verb) {
+        for (var i : Bukkit.getWorld("moba_legibility").getEntitiesByClass(org.bukkit.entity.Interaction.class))
+            if (i.getScoreboardTags().contains(tag) && i.getScoreboardTags().contains("verb:" + verb)) {
+                Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEntityEvent(t, i));
+                return true;
+            }
+        return false;
+    }
+
+    private LegibilityBench leg() { return moba.lab().legibility(); }
+    private void legCmd(String c) { t.performCommand("moba lab legibility " + c); }
+
+    private String legEnter() {
+        legCmd("start");
+        World w = Bukkit.getWorld("moba_legibility");
+        if (w == null || !t.getWorld().getName().equals("moba_legibility")) return "FAIL: not in the bench world; world=" + t.getWorld().getName();
+        Player sub = leg().subject(t);
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream().filter(i -> i.getScoreboardTags().contains("legibility_button")).count();
+        int stripeZ = LegibilityTrack.markerZ(8);
+        var floor = w.getBlockAt(0, LegibilityTrack.FLOOR_Y, 0).getType();
+        var stripe = w.getBlockAt(0, LegibilityTrack.FLOOR_Y, stripeZ).getType();
+        double dist = sub == null ? -1 : Math.hypot(t.getLocation().getX() - sub.getLocation().getX(), t.getLocation().getZ() - sub.getLocation().getZ());
+        boolean ok = sub != null && "scale".equals(itemIdKey(0, "legibility_item")) && "return".equals(itemIdKey(9, "legibility_item"))
+                && buttons == 9 && floor == Material.STONE && (stripe == Material.RED_CONCRETE || stripe == Material.YELLOW_CONCRETE)
+                && Math.abs(dist - 16.0) < 1.5;
+        return "subject=" + (sub == null ? null : sub.getName()) + " slot0=" + itemIdKey(0, "legibility_item") + " slot9=" + itemIdKey(9, "legibility_item")
+                + " buttons=" + buttons + " floor=" + floor + " stripe@8=" + stripe + " distance=" + String.format("%.1f", dist)
+                + (ok ? "" : " | FAIL: bench not set up as expected");
+    }
+
+    private String legScale() {
+        var e = rightClick2(0);
+        Player sub = leg().subject(t);
+        double scale = sub.getAttribute(org.bukkit.attribute.Attribute.SCALE).getBaseValue();
+        return "scale=" + scale + " cancelled=" + e.isCancelled() + (scale == 1.25 && e.isCancelled() ? "" : " | FAIL: expected 1.25");
+    }
+
+    private org.bukkit.event.player.PlayerInteractEvent rightClick2(int heldSlot) {
+        t.getInventory().setHeldItemSlot(heldSlot);
+        var e = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR,
+                t.getInventory().getItemInMainHand(), null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(e);
+        return e;
+    }
+
+    private String legGlow() {
+        boolean pressed = pressTagged("legibility_button", "glow");
+        Player sub = leg().subject(t);
+        var seen = new java.util.TreeSet<String>();
+        for (var i : Bukkit.getWorld("moba_legibility").getEntitiesByClass(org.bukkit.entity.Interaction.class)) seen.addAll(i.getScoreboardTags());
+        return "tags=" + seen + " pressed=" + pressed + " glowing=" + sub.isGlowing() + (pressed && sub.isGlowing() ? "" : " | FAIL: the subject is not glowing");
+    }
+
+    private String legOthers() {
+        legCmd("armor"); legCmd("particles"); legCmd("clutter");
+        Player sub = leg().subject(t);
+        var v = leg().variant(t);
+        var pillar = LegibilityTrack.clutter(7L, 2.0).get(0);
+        var at = Bukkit.getWorld("moba_legibility").getBlockAt(pillar.x(), LegibilityTrack.FLOOR_Y + 1, pillar.z()).getType();
+        var helmet = sub.getEquipment().getHelmet();
+        legCmd("clutter");
+        var gone = Bukkit.getWorld("moba_legibility").getBlockAt(pillar.x(), LegibilityTrack.FLOOR_Y + 1, pillar.z()).getType();
+        legCmd("clutter");
+        boolean ok = v.armor() == LegibilityVariant.Armor.LEATHER && helmet != null && helmet.getType() == Material.LEATHER_HELMET
+                && v.particles() == LegibilityVariant.Particles.FLAME && at == Material.STONE_BRICKS && gone == Material.AIR;
+        return v.signature() + " | helmet=" + (helmet == null ? null : helmet.getType()) + " pillarOn=" + at + " pillarOff=" + gone
+                + (ok ? "" : " | FAIL: armor, particles or clutter not applied");
+    }
+
+    private String legMarks() {
+        legCmd("clear");
+        legCmd("mark");                                      // 16 blocks out
+        var loc = t.getLocation(); loc.setZ(LegibilityTrack.SUBJECT_Z + 40);
+        t.teleport(loc);
+        legCmd("mark");                                      // 40 blocks out
+        legCmd("report");
+        var lines = leg().reportLines(t);
+        String marks = lines.stream().filter(l -> l.contains("mark(s)")).findFirst().orElse("(no marks line)");
+        boolean ok = leg().marks(t) == 2 && marks.contains("2 mark(s)") && marks.contains("28.0") && marks.contains("px tall");
+        return "marks=" + leg().marks(t) + " | " + marks.replaceAll("§.", "") + (ok ? "" : " | FAIL: expected two marks, median 28.0, with pixels");
+    }
+
+    private String legReport() {
+        String joined = String.join(" || ", leg().reportLines(t)).replaceAll("§.", "");
+        boolean ok = joined.contains("settled RULE") && joined.contains("PROTOTYPE") && joined.contains("not delivered")
+                && joined.contains("enemy out of combat: Empowerment glow: hidden (the enemy is not in combat)");
+        return (ok ? "doctrine lines present" : "FAIL: " + joined);
+    }
+
+    private String legLeave() {
+        UUID subId = leg().subject(t).getUniqueId();
+        boolean pressed = pressTagged("legibility_button", "leave");
+        World w = Bukkit.getWorld("moba_legibility");
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream().filter(i -> i.getScoreboardTags().contains("legibility_button")).count();
+        boolean ok = pressed && t.getWorld().getName().equals("moba_lab") && Bukkit.getPlayer(subId) == null
+                && itemIdKey(0, "legibility_item") == null && buttons == 0 && !leg().occupies(t);
+        return "pressed=" + pressed + " world=" + t.getWorld().getName() + " subjectGone=" + (Bukkit.getPlayer(subId) == null) + " buttons=" + buttons
+                + (ok ? "" : " | FAIL: leave incomplete");
     }
 }
