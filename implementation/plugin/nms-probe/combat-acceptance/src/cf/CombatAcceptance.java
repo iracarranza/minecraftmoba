@@ -172,6 +172,17 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "overlay: the report gives the legend and counts from the data", this::ovReport);
         at(c, 3, "overlay: switching layers off removes their entities", this::ovLayersOff);
         at(c, 3, "overlay: off removes everything, restores the hotbar", this::ovOff);
+        at(c, 6, "night: launch a scoop and start the night bench", this::nbStart);
+        at(c, 40, "night: the hotbar menu is on and the report shows the plan beside the runtime's state", this::nbMenu);
+        at(c, 3, "night: jumping to night 1 fires the real sunset and the Worksite I tier", this::nbNight1);
+        at(c, 3, "night: jumping to night 2 reaches the Giant's night", this::nbNight2);
+        at(c, 3, "night: night 1 is refused now, and the clock does not move", this::nbRefusePast);
+        at(c, 3, "night: the hotbar's Next objective cycles the target", this::nbTarget);
+        at(c, 3, "night: a wave of defenders reduces the objective by its share", this::nbCombat);
+        at(c, 3, "night: the signature takes 45% of capacity, from the hotbar", this::nbSignature);
+        at(c, 3, "night: the Lair assault topples it", this::nbLair);
+        at(c, 3, "night: a toppled objective refuses further siege and the report says so", this::nbToppled);
+        at(c, 3, "night: off restores the hotbar", this::nbOff);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -1536,5 +1547,113 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         boolean ok = !ov().occupies(t) && ovTagged() == 0 && itemIdKey(0, "overlay_item") == null;
         t.performCommand("moba lab end");
         return "occupies=" + ov().occupies(t) + " tagged=" + ovTagged() + " slot0=" + itemIdKey(0, "overlay_item") + (ok ? "" : " | FAIL: overlay not fully removed");
+    }
+
+    private NightBench nb() { return moba.lab().night(); }
+    private void nbRight(int slot) {
+        t.getInventory().setHeldItemSlot(slot);
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR,
+                t.getInventory().getItemInMainHand(), null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND));
+    }
+    private int worksitesActive() { return moba.worksites() == null ? -1 : moba.worksites().inState(Worksites.State.ACTIVATED).size(); }
+    private double nbRemaining;
+
+    private String nbStart() {
+        t.performCommand("moba lab start");
+        t.performCommand("moba lab class mole");
+        t.performCommand("moba lab map 1");
+        t.performCommand("moba lab level 15");
+        t.performCommand("moba lab play");
+        return "world=" + t.getWorld().getName();
+    }
+
+    private String nbMenu() {
+        t.performCommand("moba lab night");
+        String joined = String.join(" || ", nb().reportLines(t)).replaceAll("§.", "");
+        boolean ok = nb().occupies(t) && "night".equals(itemIdKey(0, "night_item")) && "target".equals(itemIdKey(1, "night_item"))
+                && "report".equals(itemIdKey(3, "night_item")) && "return".equals(itemIdKey(9, "night_item"))
+                && joined.contains("night 1 (") && joined.contains("night 6 (") && joined.contains("Worksites") && joined.contains("Lair:") && joined.contains("Objectives");
+        var capacity = moba.defensiveCapacity();
+        return "objectivesRegistered=" + (capacity == null ? -1 : capacity.all().size()) + " worksites=" + (moba.worksites() == null ? -1 : moba.worksites().all().size())
+                + " active=" + worksitesActive() + " | " + (joined.length() > 200 ? joined.substring(0, 200) : joined) + (ok ? "" : " | FAIL: bench or report incomplete");
+    }
+
+    private String nbNight1() {
+        int before = worksitesActive();
+        t.performCommand("moba lab night 1");
+        long e = moba.match().elapsedTicks(); int after = worksitesActive();
+        boolean ok = e == 12000 && after > before;
+        return "elapsed=" + e + " worksites activated " + before + " -> " + after + (ok ? "" : " | FAIL: expected sunset 1 and Worksites activated");
+    }
+
+    private String nbNight2() {
+        t.performCommand("moba lab night 2");
+        long e = moba.match().elapsedTicks();
+        String lair = moba.lair() == null ? "none" : moba.lair().lifecycle().state() + " scheduled=" + moba.lair().lifecycle().scheduled();
+        boolean ok = e == 36000 && moba.lair() != null && moba.lair().lifecycle().scheduled() == OpportunityCadence.Boss.GIANT;
+        return "elapsed=" + e + " lair=" + lair + " worksites=" + worksitesActive() + (ok ? "" : " | FAIL: expected night 2 with the Giant scheduled");
+    }
+
+    private String nbRefusePast() {
+        long before = moba.match().elapsedTicks();
+        t.performCommand("moba lab night 1");
+        long after = moba.match().elapsedTicks();
+        return "elapsed " + before + " -> " + after + (before == after ? "" : " | FAIL: the clock moved backwards or sideways");
+    }
+
+    private String nbTarget() {
+        var first = nb().target(t);
+        nbRight(1);
+        var second = nb().target(t);
+        boolean ok = first != null && second != null && !first.equals(second) && second.equals(SiegeTarget.next(first));
+        return first.label() + " -> " + second.label() + (ok ? "" : " | FAIL: the target did not advance");
+    }
+
+    private DefensiveCapacity.Objective nbObjective() {
+        var tg = nb().target(t);
+        return moba.defensiveCapacity().get(tg.team(), tg.kind());
+    }
+
+    private String nbCombat() {
+        var o = nbObjective();
+        if (o == null) return "FAIL: the selected objective is not bound: " + nb().target(t).label();
+        nbRemaining = o.remaining();
+        t.performCommand("moba lab night siege combat");
+        double want = SiegeTarget.route("combat").amount() * DefensiveCapacity.COMBAT_PER_DEFENDER * o.initial;
+        boolean ok = Math.abs((nbRemaining - o.remaining()) - want) < 1e-6;
+        return nb().target(t).label() + " " + o + " (combat took " + String.format("%.2f", nbRemaining - o.remaining()) + ", want " + String.format("%.2f", want) + ")"
+                + (ok ? "" : " | FAIL: combat share wrong");
+    }
+
+    private String nbSignature() {
+        var o = nbObjective(); nbRemaining = o.remaining();
+        nbRight(2);                    // Besiege page
+        nbRight(2);                    // slot 2 = signature
+        double want = DefensiveCapacity.SIGNATURE_SHARE * o.initial;
+        boolean ok = Math.abs((nbRemaining - o.remaining()) - want) < 1e-6;
+        return o + " (signature took " + String.format("%.2f", nbRemaining - o.remaining()) + ", want " + String.format("%.2f", want) + ")" + (ok ? "" : " | FAIL: signature share wrong");
+    }
+
+    private String nbLair() {
+        var o = nbObjective();
+        nbRight(2);                    // Besiege page
+        nbRight(3);                    // slot 3 = lair assault
+        boolean ok = o.state() == DefensiveCapacity.State.TOPPLED;
+        return o + " state=" + o.state() + (ok ? "" : " | FAIL: expected combat + signature + lair to topple it");
+    }
+
+    private String nbToppled() {
+        var o = nbObjective(); double before = o.remaining();
+        t.performCommand("moba lab night siege combat");
+        String joined = String.join(" || ", nb().reportLines(t)).replaceAll("§.", "");
+        boolean ok = o.remaining() == before && o.state() == DefensiveCapacity.State.TOPPLED && joined.contains("TOPPLED");
+        return o + " | report mentions TOPPLED=" + joined.contains("TOPPLED") + (ok ? "" : " | FAIL: a toppled objective must refuse and be reported");
+    }
+
+    private String nbOff() {
+        t.performCommand("moba lab night off");
+        boolean ok = !nb().occupies(t) && itemIdKey(0, "night_item") == null;
+        t.performCommand("moba lab end");
+        return "occupies=" + nb().occupies(t) + " slot0=" + itemIdKey(0, "night_item") + (ok ? "" : " | FAIL: bench not removed");
     }
 }

@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 136 of 136.
+the server. `report-1.21.11-132.txt` is the last run: 147 of 147.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -95,6 +95,14 @@ tints by relation; field points and landmarks draw markers; the report gives cou
 data; switching layers off and then the overlay off removes everything and restores the hotbar.
 The terrain Fountain placement tries four directions, because the bay holds random terrain and
 a given spot can fault.
+
+Night and objective bench (`/moba lab night`, needs a launched scoop, see
+`docs/design/NIGHT_BENCH.md`): the bench starts with the hotbar and a report showing the plan
+beside the runtime's state; night 1 lands on sunset 1 and activates Worksites (0 to 2); night 2
+lands on 36000 with the Lair ALIVE and the Giant scheduled; night 1 is then refused and the clock
+does not move; Next objective cycles; combat, signature (from the hotbar) and Lair assault each
+take exactly their share and topple the north Nether Bastion; a further siege is refused and the
+report says TOPPLED; off restores the hotbar.
 
 ## Not covered
 

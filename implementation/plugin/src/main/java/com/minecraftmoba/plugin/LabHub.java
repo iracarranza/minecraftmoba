@@ -36,7 +36,9 @@ public final class LabHub {
             new Bench("terrain", "Terrain chamber", Material.GRASS_BLOCK, 6, -7, Needs.LAUNCHED_SCOOP,
                     "Place objectives, renewables and routes on certified or random terrain."),
             new Bench("overlay", "Map overlay", Material.COPPER_BLOCK, 6, -3, Needs.LAUNCHED_SCOOP,
-                    "See a scoop's cost fields, bands and field points drawn in the world."));
+                    "See a scoop's cost fields, bands and field points drawn in the world."),
+            new Bench("night", "Night and objectives", Material.CRYING_OBSIDIAN, -6, -3, Needs.LAUNCHED_SCOOP,
+                    "Jump to night N and besiege objectives, on the match's real clock."));
 
     /** The pedestals the room already has, so a new one never lands on them. */
     public static final List<int[]> EXISTING_PEDESTALS = List.of(new int[]{-5, 0}, new int[]{5, 0}, new int[]{0, 6});

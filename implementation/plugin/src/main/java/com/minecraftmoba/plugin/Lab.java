@@ -45,6 +45,8 @@ public final class Lab implements Listener {
     }
 
     private final LabRules rules = new LabRules();
+    private NightBench night;
+    public NightBench night() { return night; }
     private MapOverlay overlay;
     public MapOverlay overlay() { return overlay; }
     /** The launched scoop's id, or null. */
@@ -67,6 +69,7 @@ public final class Lab implements Listener {
         legibility = new LegibilityBench(plugin, this);
         opportunity = new OpportunityBench(plugin, this);
         overlay = new MapOverlay(plugin, this);
+        night = new NightBench(plugin, this);
         Path configured = Path.of(plugin.getConfig().getString("alpha.lab.mapsDirectory", "lab-maps"));
         maps = new LabMaps(configured.isAbsolute() ? configured
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
@@ -141,6 +144,7 @@ public final class Lab implements Listener {
                 case "legibility" -> legibility.command(p, args);
                 case "opportunity" -> opportunity.command(p, args);
                 case "overlay" -> overlay.command(p, args);
+                case "night" -> night.command(p, args);
                 case "time" -> time(p, args);
                 case "rules" -> rules(p, args);
                 case "author" -> authoring.command(p, args);
@@ -157,7 +161,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | overlay | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
+                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | overlay | night | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -194,7 +198,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); legibility.close(); opportunity.close(); overlay.close(); rules.clearAll(); }
+    public void close() { combat.close(); legibility.close(); opportunity.close(); overlay.close(); night.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))
@@ -362,6 +366,7 @@ public final class Lab implements Listener {
             case "legibility" -> legibility.command(p, new String[]{"lab", "legibility", "start"});
             case "opportunity" -> opportunity.command(p, new String[]{"lab", "opportunity", "start"});
             case "overlay" -> overlay.command(p, new String[]{"lab", "overlay", "start"});
+            case "night" -> night.command(p, new String[]{"lab", "night", "start"});
             case "terrain" -> { try { chamber(p, new String[]{"lab", "chamber", "take"}); } catch (IOException ex) { throw new IllegalStateException(ex); } }
             default -> throw new IllegalStateException("Unwired bench " + id);
         }

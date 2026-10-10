@@ -32,7 +32,7 @@ class LabHubTest {
 
     @Test void onlyTheBenchesThatDrawOnAScoopNeedOneAndSaySo() {
         for (var b : LabHub.BENCHES) {
-            boolean needs = b.id().equals("terrain") || b.id().equals("overlay");
+            boolean needs = java.util.Set.of("terrain", "overlay", "night").contains(b.id());
             if (needs) {
                 assertNotNull(LabHub.refusal(b, new LabHub.State(false)), b.id());
                 assertTrue(LabHub.refusal(b, new LabHub.State(false)).contains("launched scoop"));

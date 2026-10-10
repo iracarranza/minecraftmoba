@@ -70,33 +70,33 @@ PASS legibility: marks record distance; the report gives the median and pixels :
 PASS legibility: the report states the doctrine rule and that per-viewer glow is not delivered :: doctrine lines present
 PASS legibility: the LEAVE world button leaves, restores the hotbar and removes the subject and deck :: pressed=true world=moba_lab subjectGone=true buttons=0
 PASS opportunity: entering builds the platform with two biomes, the deck and hotbar :: slot0=plot slot9=return buttons=11 west=plains east=mountain floor=GRASS_BLOCK station=0.5,-36.5
-PASS opportunity: spawning the Herd registers a real source that starts RECOVERING :: bench_herd_3da8a0 kind=sheep RECOVERING 0% region=Region[1 cell(s), 625 columns]
+PASS opportunity: spawning the Herd registers a real source that starts RECOVERING :: bench_herd_85b2c kind=sheep RECOVERING 0% region=Region[1 cell(s), 625 columns]
 PASS opportunity: manifest and harvest are refused with reasons while it recovers :: state=RECOVERING members=0
 PASS opportunity: skipping recovery manifests the herd at an eligible site :: state=READY_AWAITING_LOCUS
-PASS opportunity: five sheep stand in the region, away from the tester :: MANIFESTED x5 at Locus[x=-18, y=65, z=-4] members=5 sheep=5 fromTester=37.4
+PASS opportunity: five sheep stand in the region, away from the tester :: MANIFESTED x5 at Locus[x=-18, y=65, z=-12] members=5 sheep=5 fromTester=30.7
 PASS opportunity: harvesting one counts through the runtime's own listener :: remaining=4 membersNow=4
 PASS opportunity: a standing manifestation cannot be skipped :: state=MANIFESTED remaining=4
 PASS opportunity: harvesting the rest starts recovery from zero :: RECOVERING 0%
 PASS opportunity: recovered again, it manifests at a DIFFERENT site :: state=READY_AWAITING_LOCUS
-PASS opportunity: the second manifestation is displaced from the first :: MANIFESTED x5 at Locus[x=-38, y=65, z=-12] previous=Locus[x=-18, y=65, z=-4] distance=21.5
+PASS opportunity: the second manifestation is displaced from the first :: MANIFESTED x5 at Locus[x=-22, y=65, z=0] previous=Locus[x=-18, y=65, z=-12] distance=12.6
 PASS opportunity: building over the region blocks the next manifestation and the report says why :: state=READY_AWAITING_LOCUS
 PASS opportunity: it waits READY with blocked attempts counted :: READY_AWAITING_LOCUS (no eligible locus, 3 attempt(s)) | Eligibility query, as the world is now: || NO viable locus among 49 sampled columns: the ground is not natural ground. ||   eligible ground 0 | unknown (unloaded) 0 | wrong ground 49 | player-placed 0 | no headroom 0 || Granted by renewal: 0 (must stay 0: rene
-PASS opportunity: clearing the base and forcing a manifestation works :: MANIFESTED x5 at Locus[x=-30, y=65, z=0]
+PASS opportunity: clearing the base and forcing a manifestation works :: MANIFESTED x5 at Locus[x=-22, y=65, z=-12]
 PASS opportunity: a Crop Patch manifests wheat and a harvest breaks one :: selected=1 state=READY_AWAITING_LOCUS
-PASS opportunity: the patch stands as eight crops :: MANIFESTED x8 at Locus[x=-8, y=65, z=26] wheatBlocks=8
+PASS opportunity: the patch stands as eight crops :: MANIFESTED x8 at Locus[x=0, y=65, z=22] wheatBlocks=8
 PASS opportunity: harvesting a crop counts :: remaining=7 wheatBlocks=7
 PASS opportunity: a Swarm manifests a ravager by day in the mountain biome :: selected=2 state=READY_AWAITING_LOCUS
-PASS opportunity: one ravager stands in the mountain plot :: MANIFESTED x1 at Locus[x=38, y=65, z=-12] ravagers=1
+PASS opportunity: one ravager stands in the mountain plot :: MANIFESTED x1 at Locus[x=30, y=65, z=0] ravagers=1
 PASS opportunity: at night the day-only swarm is refused and the report says so :: night=true state=READY_AWAITING_LOCUS
 PASS opportunity: it waits READY, not eligible :: READY_AWAITING_LOCUS (no eligible locus, 3 attempt(s)) | Swarm table: mountain_ravager; here the biome is minecraft:windswept_hills and it is night: NOT eligible (needs [mountain], DAY). || Granted by renewal: 0 (must stay 0: renewal restores availability, 
 PASS opportunity: back to day, a forced manifestation succeeds :: state=MANIFESTED
 PASS opportunity: a source whose radius is smaller than its region is swept: members outside the cube 'leave' (the Alpha mismatch) :: plot=0 radius=4 READY_AWAITING_LOCUS
-PASS opportunity: ...skip to recovered after the first manifestation if it landed inside the cube :: first landed Locus[x=-22, y=65, z=0] (OUTSIDE the cube)
-PASS opportunity: ...after a sweep tick the herd has lost members nobody harvested :: RECOVERING 7% radius=4 site=Locus[x=-22, y=65, z=0] outsideCube=true membersLeft=0 (capacity 5, nobody harvested)  => CONFIRMED: members outside the radius cube were swept as having left the region
+PASS opportunity: ...skip to recovered after the first manifestation if it landed inside the cube :: first landed inside; recovering for a second try: Locus[x=-34, y=65, z=0] (inside the cube)
+PASS opportunity: ...after a sweep tick the herd has lost members nobody harvested :: MANIFESTED x1 at Locus[x=-30, y=65, z=12] radius=4 site=Locus[x=-30, y=65, z=12] outsideCube=true membersLeft=1 (capacity 5, nobody harvested)  => CONFIRMED: members outside the radius cube were swept as having left the region
 PASS opportunity: nothing was ever granted by renewal :: grantedByRenewal=0
 PASS opportunity: leaving removes sources, members, deck and restores the hotbar :: world=moba_lab sourcesGone=true buttons=0 mobs=0
-PASS hub: the lab room has a pedestal and a label for every bench :: combat=NETHERITE_BLOCK legibility=LODESTONE opportunity=HAY_BLOCK terrain=GRASS_BLOCK overlay=COPPER_BLOCK benchLabels=5/5
-PASS hub: the Benches menu opens with every bench :: size=27 items=6
+PASS hub: the lab room has a pedestal and a label for every bench :: combat=NETHERITE_BLOCK legibility=LODESTONE opportunity=HAY_BLOCK terrain=GRASS_BLOCK overlay=COPPER_BLOCK night=CRYING_OBSIDIAN benchLabels=6/6
+PASS hub: the Benches menu opens with every bench :: size=27 items=7
 PASS hub: the terrain pedestal is refused without a launched scoop, with the reason :: world=moba_lab workspace=none
 PASS hub: clicking the combat pedestal opens the pre-entry menu at the class step :: state=setup step CLASS inventorySize=54
 PASS hub: the class screen offers every class and no way back :: classesOffered=6 of 6 noBack=true
@@ -115,11 +115,11 @@ PASS scoop: ...ticking again :: elapsed 36003 -> 36028
 PASS scoop: skip 10 minutes advances 12000 ticks :: elapsed 36031 -> 48031
 PASS terrain: lab chamber take allots a bay and builds the observation platform :: workspace=true buttons=2 plateNearby=true at=1,69,-61
 PASS terrain: CERTIFIED SCOOP copies certified terrain into the bay :: pressed
-PASS terrain: ...and the bay has ground :: columns with ground below the platform: 99/56
+PASS terrain: ...and the bay has ground :: columns with ground below the platform: 99/57
 PASS terrain: RANDOM SEED rolls unvetted terrain into the bay :: pressed
-PASS terrain: ...and the bay has ground again :: columns with ground below the platform: 92/62
+PASS terrain: ...and the bay has ground again :: columns with ground below the platform: 99/56
 PASS terrain: entering the bay puts the menu on the hotbar :: slot0=objective slot6=clock slot9=return at=1,69,-41
-PASS terrain: the Objective page opens and Fountain previews a placement :: after objective: slot0=fountain; after fountain: slot0=preview | CHAMBER bay=-16,-57 allotted=1 pending=fountain at XZ[x=0, z=-41] (715 BLOCKS)
+PASS terrain: the Objective page opens and Fountain previews a placement :: after objective: slot0=fountain; after fountain: slot0=preview | CHAMBER bay=-16,-57 allotted=1 pending=fountain at XZ[x=0, z=-41] (712 BLOCKS)
 PASS terrain: the pending page offers Place, and placing builds and is undoable :: after place: slot0=objective slot4=undo | CHAMBER bay=-16,-57 allotted=1 pending=none
 PASS terrain: the Clock page jumps the match clock to dusk from the hotbar :: page slot0=clock.dusk elapsed 48146 -> 60000
 PASS terrain: leave and end return to the lab room :: world=moba_lab labActive=false
@@ -134,5 +134,16 @@ PASS overlay: landmarks add the Fountains, Objectives, Lair and Worksites in ran
 PASS overlay: the report gives the legend and counts from the data :: Map overlay: 238 cells of 64 blocks, 14 field points, team shown: south, layers: [POINTS, LANDMARKS] || Reachable cells: north 238, south 238 of 238. Opening cost 120 (within it is 'near'). || Cells by relation: {behind_north=20, behind_south=16, cheap_north=5
 PASS overlay: switching layers off removes their entities :: counts={cells=0, cellEntities=0, markers=0} tagged=0
 PASS overlay: off removes everything, restores the hotbar :: occupies=false tagged=0 slot0=null
+PASS night: launch a scoop and start the night bench :: world=moba_lab_match
+PASS night: the hotbar menu is on and the report shows the plan beside the runtime's state :: objectivesRegistered=6 worksites=12 active=0 | Night bench: clock DAY 0:01 (day, phase 0) [running] || The plan (OpportunityCadence), '>' marks the night the clock is in: ||   night 1 (10 min): Worksite I: Iron + Coal / Blast Furnace + Smoker (bul
+PASS night: jumping to night 1 fires the real sunset and the Worksite I tier :: elapsed=12000 worksites activated 0 -> 2
+PASS night: jumping to night 2 reaches the Giant's night :: elapsed=36000 lair=ALIVE scheduled=GIANT worksites=2
+PASS night: night 1 is refused now, and the clock does not move :: elapsed 36003 -> 36003
+PASS night: the hotbar's Next objective cycles the target :: north pillager outpost -> north nether bastion
+PASS night: a wave of defenders reduces the objective by its share :: north nether bastion north/NETHER_BASTION 1636/1818 (STANDING) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=0.0, LAIR_ASSAULT=0.0} (combat took 181.77, want 181.77)
+PASS night: the signature takes 45% of capacity, from the hotbar :: north/NETHER_BASTION 818/1818 (STANDING) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=817.956, LAIR_ASSAULT=0.0} (signature took 817.96, want 817.96)
+PASS night: the Lair assault topples it :: north/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=817.956, LAIR_ASSAULT=817.9560000000005} state=TOPPLED
+PASS night: a toppled objective refuses further siege and the report says so :: north/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=817.956, LAIR_ASSAULT=817.9560000000005} | report mentions TOPPLED=true
+PASS night: off restores the hotbar :: occupies=false slot0=null
 
-SUMMARY pass=136 fail=0
+SUMMARY pass=147 fail=0
