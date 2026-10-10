@@ -69,8 +69,8 @@ listeners; a standing manifestation cannot be skipped; the second manifestation 
 at least 12 blocks from the first; building over the region blocks the next manifestation and
 the report names the ground; clearing and forcing works; a wheat patch of eight and a
 harvest; a ravager by day in the mountain biome, refused at night ("NOT eligible") and forced
-by day; a source with radius 4 against a region of half-span 12 is swept to RECOVERING with
-nothing harvested (the Alpha radius/region mismatch); nothing granted by renewal; clean leave.
+by day; a radius-10 source places its site and all five members inside its cube, so none are swept for
+being placed outside it (the radius is authoritative; strolling afterwards is reported, not judged); nothing granted by renewal; clean leave.
 `ACCEPT_ONLY=opportunity` runs just that group (plus setup) for quick iteration.
 
 Lab hub and pre-entry menu: the room has a pedestal and label for every bench; the Benches

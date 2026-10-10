@@ -52,21 +52,28 @@ Three defects in the existing runtime, each found by running it:
    had a previous site, and a region could decay into a camp coordinate. **Fixed** on this
    branch (the site becomes the previous one on resolution and is not overwritten), with unit
    tests and a live check (second manifestation 17.9 blocks from the first).
-2. **Region and radius disagree, and the sweeper uses the radius.** Eligibility chooses a site
-   anywhere in the Opportunity Region (a migrated half-span of 48 in Alpha), but the
-   membership sweep, harvest scan and `membersOf` judge "still in the wild population" by the
-   source's `radius` cube around its authored origin (20 in every Alpha source). Members placed
-   outside that cube are swept as "left the region" and deplete the opportunity within one
-   200-tick sample, nobody having harvested anything. Reproduced live with `spawn 4`: a
-   five-sheep herd placed outside a radius-4 cube was swept to RECOVERING. With Alpha's numbers,
-   about 82% of the region is outside the cube. **NOT fixed**: which of region or radius is
-   authoritative is a design decision. The bench's own sources use a radius that covers their
-   region, and the report prints the percentage outside for any source.
-3. **`membersOf` and `count` share it**: they scan the radius cube too, so they miss members
-   outside it. The bench does its own world-wide membership scan for that reason.
+2. **Region and radius disagreed, and the sweeper used the radius.** Eligibility chose a site
+   anywhere in the Opportunity Region (a 48-block default half-span), but the membership sweep, harvest
+   scan and `membersOf` judged "still in the wild population" by the source's `radius` cube (20 in every
+   Alpha source). Members placed outside the cube were swept as "left the region" and depleted the
+   opportunity within one 200-tick sample, nobody having harvested anything. About 82% of the Alpha
+   region was outside the cube. **Resolved 10 October 2026: the radius is authoritative** (the 48 was a
+   default, not an authored extent). A source with no authored region cells now gets its radius as its
+   region, pulled in by a placement margin (the larger of a patch's spread and half a herd's cluster, 6
+   by default), so a site and its members are placed inside the cube they are judged by. See
+   `docs/reconciliation/2026-10-10-opportunity-radius-authoritative.md`. Live: with a radius-10 source
+   the site and all five members were placed inside the cube.
+3. **`membersOf` and `count` scan the radius cube**, so they miss members that have strolled outside it.
+   With the radius authoritative that is now the intended definition, but the bench still does its own
+   world-wide membership scan so it can see and clean up a member that wandered out.
 
-Also noted, not a defect: a Crop Patch spreads past its locus, so crops can stand outside the
-region.
+Also noted: a Crop Patch spreads past its locus, which the placement margin now accounts for.
+
+**Still open: strolling.** Placement is now inside the cube, but a vanilla sheep wanders up to ten blocks
+from where it stands, so a member near the edge of a small cube can walk out and is then revoked. A
+radius-4 herd lost members this way in a live run. Whether to confine movement to the radius (a soft home
+range, relaxed when a creature is led or aggroed) is a separate design question that interacts with
+capture by leading and with unresolved swarm behaviors.
 
 ## Verification
 

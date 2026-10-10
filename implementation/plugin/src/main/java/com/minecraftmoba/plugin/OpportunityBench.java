@@ -157,8 +157,8 @@ public final class OpportunityBench {
         String id = "bench_" + plot.id() + "_" + Long.toHexString(System.nanoTime() & 0xFFFFFFL);
         var s = plugin.renewables().createRuntime(id, plot.kind(), world, plot.x(), OpportunityPlots.FLOOR_Y, plot.z(),
                 radius(), plot.capacity(), 200L);
-        // The migrated default region is 48 blocks each way, which would swallow the platform.
-        s.region = plot.region();
+        // The runtime derives the region from the radius (radius less the placement margin), which for the
+        // radius() below is exactly the plot's region, so the bench exercises the real derivation.
         if (plot.swarm()) s.table = SwarmDefinitions.table(List.of("mountain_ravager"));
         a.sources.put(plot.id(), s);
         a.built.put(plot.id(), false);
@@ -167,11 +167,12 @@ public final class OpportunityBench {
     }
 
     /**
-     * The source radius: the region's half-span plus room for a herd's spread, so membership
-     * (judged by this cube) covers every site eligibility (judged by the region) can choose.
-     * The Alpha sources do not have this: radius 20 against a migrated region half-span of 48.
+     * The source radius. The authored radius is authoritative, and the runtime derives the region from
+     * it by pulling in a placement margin, so the plot's region (HALF) is radius minus that margin.
      */
-    private int radius() { return radiusOverride > 0 ? radiusOverride : OpportunityPlots.HALF + 4; }
+    int plotRadius() { return OpportunityPlots.HALF + plugin.renewables().placementMargin(); }
+
+    private int radius() { return radiusOverride > 0 ? radiusOverride : plotRadius(); }
 
     private void skip(Player p, Active a) {
         var s = a.sources.get(plot(a).id());
@@ -408,9 +409,9 @@ public final class OpportunityBench {
                 Recovery.remainingTicks(op.recoveryProgress(), true, rates) / 20.0));
         out.add("Previous site " + op.previousLocus() + ", current site " + op.locus());
         double outside = EligibilityReport.fractionOutsideRadius(s.region(), s.x(), s.z(), s.radius());
-        out.add(String.format(Locale.ROOT, "Source radius %d around its origin; region half-span %d. %.0f%% of the region lies OUTSIDE that cube%s",
-                s.radius(), OpportunityPlots.HALF, outside * 100,
-                outside > 0 ? ": members placed there are swept as 'left the region' (the Alpha sources have this mismatch)." : "."));
+        out.add(String.format(Locale.ROOT, "Source radius %d (authoritative); region = radius less a %d-block placement margin. %.0f%% of the region lies OUTSIDE the radius cube%s",
+                s.radius(), plugin.renewables().placementMargin(), outside * 100,
+                outside > 0 ? ": members placed there would be swept as 'left the region'. It should be 0." : " (as it should be)."));
         out.add("Eligibility query, as the world is now:");
         EligibilityReport.describe(eligibility(s)).forEach(l -> out.add(l));
         if (plot.swarm()) {

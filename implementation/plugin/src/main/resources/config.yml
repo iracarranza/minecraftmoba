@@ -1525,9 +1525,11 @@ renewables:
       - gravel
       - stone
       - snow_block
-  # Half-span of the square region migrated from an authored origin+radius when
-  # a source declares no explicit cells. A coarse search area, not a site.
-  migratedRegionHalfSpan: 48
+  # A source that declares no explicit region cells gets its RADIUS as its region, pulled in by
+  # a placement margin (the larger of patch.spread and half of herd.cluster, below), so a
+  # manifestation and its members stay inside the cube membership is judged by. The authored
+  # radius is authoritative (decided 10 October 2026). Read by BOTH the plugin and the offline
+  # simulation in implementation/worldgen, so edit the two keys below only here.
   patch:
     spread: 6                   # how far an irregular patch may wander from its locus
   herd:
