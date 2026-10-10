@@ -83,6 +83,27 @@ class Publishing(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'no runtime bindings'):
             foundry.publish(self.pool, 1, self.src, compilation(bindings=False), lab_only=True)
 
+    def test_a_publish_with_a_cell_grid_writes_the_inspection_sidecar(self):
+        c = compilation()
+        c['evidence']['cell_grid'] = {'cells': [{'cell': [0, 0], 'world_origin': [0, 0], 'centroid': [32, 32],
+                                                 'strategic_depth_cost': {'north': 10.0, 'south': 500.0}}]}
+        manifest = foundry.publish(self.pool, 1, self.src, c)
+        sidecar = self.pool / manifest['map_id'] / 'inspection.json'
+        data = json.loads(sidecar.read_text())
+        self.assertEqual('moba_map_inspection/1', data['schema'])
+        self.assertEqual(1, len(data['cells']))
+
+    def test_a_publish_without_a_cell_grid_writes_no_sidecar(self):
+        manifest = foundry.publish(self.pool, 1, self.src, compilation())
+        self.assertFalse((self.pool / manifest['map_id'] / 'inspection.json').exists())
+
+    def test_the_sidecar_does_not_change_the_world_fingerprint(self):
+        plain = foundry.publish(self.pool, 1, self.src, compilation())
+        c = compilation(); c['evidence']['cell_grid'] = {'cells': [{'cell': [0, 0], 'world_origin': [0, 0],
+                                                                    'strategic_depth_cost': {'north': 1.0, 'south': 2.0}}]}
+        with_overlay = foundry.publish(self.tmp / 'pool2', 1, self.src, c)
+        self.assertEqual(plain['world_fingerprint'], with_overlay['world_fingerprint'])
+
     def test_a_normal_publish_is_not_marked_lab_only(self):
         manifest = foundry.publish(self.pool, 1, self.src, compilation())
         self.assertNotIn('lab_only', manifest)

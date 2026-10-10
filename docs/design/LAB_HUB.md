@@ -15,6 +15,7 @@ setup menu has a **Benches** page.
 | Lodestone | Legibility bench | nothing |
 | Hay bale | Opportunity bench | nothing |
 | Grass block | Terrain chamber | a launched scoop |
+| Copper block | Map overlay | a launched scoop |
 
 Right-click a pedestal, or open **Benches** from the setup menu (the compass), or type
 `/moba lab bench <id>`. All three run the same code, so there is one way in. The terrain

@@ -134,7 +134,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 4, "opportunity: nothing was ever granted by renewal", this::opGranted);
         at(c, 4, "opportunity: leaving removes sources, members, deck and restores the hotbar", this::opLeave);
         at(c, 6, "hub: the lab room has a pedestal and a label for every bench", this::hubRoom);
-        at(c, 3, "hub: the Benches menu opens with four benches", this::hubMenu);
+        at(c, 3, "hub: the Benches menu opens with every bench", this::hubMenu);
         at(c, 3, "hub: the terrain pedestal is refused without a launched scoop, with the reason", this::hubTerrainRefused);
         at(c, 3, "hub: clicking the combat pedestal opens the pre-entry menu at the class step", this::hubCombat);
         at(c, 3, "hub: the class screen offers every class and no way back", this::hubClassScreen);
@@ -161,6 +161,17 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 6, "terrain: the pending page offers Place, and placing builds and is undoable", this::terrainPlace);
         at(c, 6, "terrain: the Clock page jumps the match clock to dusk from the hotbar", this::terrainClock);
         at(c, 3, "terrain: leave and end return to the lab room", this::terrainEnd);
+        at(c, 6, "overlay: launch a scoop that carries inspection data and start the overlay", this::ovStart);
+        at(c, 40, "overlay: the hotbar menu is on and the overlay holds the parsed data", this::ovMenu);
+        at(c, 3, "overlay: the cost layer draws a column and label for every cell near the tester", this::ovCost);
+        at(c, 3, "overlay: a column is where the data says, tinted by the NORTH cost", this::ovColumnNorth);
+        at(c, 3, "overlay: switching team retints the same column by the SOUTH cost", this::ovColumnSouth);
+        at(c, 3, "overlay: relation tints by who the cell favours", this::ovRelation);
+        at(c, 3, "overlay: field points draw a beam and label for each point in range", this::ovPoints);
+        at(c, 3, "overlay: landmarks add the Fountains, Objectives, Lair and Worksites in range", this::ovLandmarks);
+        at(c, 3, "overlay: the report gives the legend and counts from the data", this::ovReport);
+        at(c, 3, "overlay: switching layers off removes their entities", this::ovLayersOff);
+        at(c, 3, "overlay: off removes everything, restores the hotbar", this::ovOff);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -1151,14 +1162,14 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         for (var e : w.getEntitiesByClass(org.bukkit.entity.TextDisplay.class)) texts.add(String.valueOf(e.text()));
         int named = 0;
         for (var b : LabHub.BENCHES) if (texts.stream().anyMatch(x -> x.contains(b.label()))) named++;
-        return sb + "benchLabels=" + named + "/4" + (bad || named < 4 ? " | FAIL: a pedestal or label is missing" : "");
+        return sb + "benchLabels=" + named + "/" + LabHub.BENCHES.size() + (bad || named < LabHub.BENCHES.size() ? " | FAIL: a pedestal or label is missing" : "");
     }
 
     private String hubMenu() {
         t.performCommand("moba lab benches");
         var inv = t.getOpenInventory().getTopInventory();
         int items = 0; for (var st : inv.getContents()) if (st != null) items++;
-        boolean ok = inv.getSize() == 27 && items == 5;      // four benches and Back
+        boolean ok = inv.getSize() == 27 && items == LabHub.BENCHES.size() + 1;      // every bench and Back
         return "size=" + inv.getSize() + " items=" + items + (ok ? "" : " | FAIL: expected the 27-slot Benches page with five items");
     }
 
@@ -1349,13 +1360,22 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     }
 
     private String terrainPreview() {
-        t.setRotation(0f, 85f);                // look down at the ground
-        rightClick2Key(0);                    // Place objective -> page
-        String page1 = itemIdKey(0, "chamber_item");
-        rightClick2Key(0);                    // Fountain -> preview
-        String page2 = itemIdKey(0, "chamber_item");
-        return "after objective: slot0=" + page1 + "; after fountain: slot0=" + page2 + " | " + moba.chamberWorkspace().report(t)
-                + (("fountain".equals(page1)) && "preview".equals(page2) ? "" : " | FAIL: expected the objective page then the pending page");
+        // The bay holds random terrain, so a given spot can legitimately fault; a refused placement is
+        // the chamber working. Try four directions and use the first spot with no faults.
+        String page1 = null, page2 = null, report = "";
+        for (int attempt = 0; attempt < 4; attempt++) {
+            t.setRotation(attempt * 90f, 85f);            // look down, turned a quarter each time
+            rightClick2Key(0);                            // Place objective -> page
+            page1 = itemIdKey(0, "chamber_item");
+            rightClick2Key(0);                            // Fountain -> preview
+            page2 = itemIdKey(0, "chamber_item");
+            report = moba.chamberWorkspace().report(t);
+            if (report.contains("BLOCKS") && !report.contains("FAULT")) break;
+            rightClick2Key(2);                            // Discard, and try another spot
+        }
+        return "after objective: slot0=" + page1 + "; after fountain: slot0=" + page2 + " | " + report
+                + (("fountain".equals(page1)) && "preview".equals(page2) && report.contains("BLOCKS") && !report.contains("FAULT")
+                    ? "" : " | FAIL: expected a faultless pending placement within four tries");
     }
 
     private org.bukkit.event.player.PlayerInteractEvent rightClick2Key(int heldSlot) {
@@ -1388,5 +1408,133 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         t.performCommand("moba lab end");
         boolean ok = t.getWorld().getName().equals("moba_lab") && !moba.worldInstance().labActive();
         return "world=" + t.getWorld().getName() + " labActive=" + moba.worldInstance().labActive() + (ok ? "" : " | FAIL: did not return to the room");
+    }
+
+    private MapOverlay ov() { return moba.lab().overlay(); }
+    private int ovTagged() { return (int) t.getWorld().getEntities().stream().filter(e -> e.getScoreboardTags().contains("map_overlay")).count(); }
+    private void ovRightClick(int slot) { rightClick2Key2(slot); }
+    private void rightClick2Key2(int heldSlot) {
+        t.getInventory().setHeldItemSlot(heldSlot);
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR,
+                t.getInventory().getItemInMainHand(), null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND));
+    }
+
+    private String ovStart() {
+        t.performCommand("moba lab start");
+        t.performCommand("moba lab class mole");
+        t.performCommand("moba lab map 1");
+        t.performCommand("moba lab level 15");
+        t.performCommand("moba lab play");
+        return "world=" + t.getWorld().getName();
+    }
+
+    private String ovMenu() {
+        t.performCommand("moba lab overlay");
+        var data = ov().data(t);
+        boolean ok = ov().occupies(t) && data != null && "cells".equals(itemIdKey(0, "overlay_item")) && "report".equals(itemIdKey(7, "overlay_item"))
+                && "return".equals(itemIdKey(9, "overlay_item"));
+        return "occupies=" + ov().occupies(t) + " cells=" + (data == null ? -1 : data.cells().size()) + " points=" + (data == null ? -1 : data.points().size())
+                + " at=" + String.format("%.0f,%.0f", t.getLocation().getX(), t.getLocation().getZ()) + (ok ? "" : " | FAIL: overlay not started");
+    }
+
+    private int expectedCells() { return ov().data(t).cellsWithin(t.getLocation().getX(), t.getLocation().getZ(), MapOverlay.DRAW_RADIUS).size(); }
+
+    private String ovCost() {
+        ovRightClick(1);                          // cost on (north)
+        var counts = ov().counts(t);
+        int want = expectedCells();
+        boolean ok = want > 0 && counts.get("cells") == want && counts.get("cellEntities") == want * 2;
+        // Every drawn entity must still EXIST: non-persistent entities vanish if their chunk unloads.
+        boolean alive = ovTagged() == counts.get("cellEntities");
+        return "expected cells in range=" + want + " drawn=" + counts + " tagged=" + ovTagged()
+                + (ok && alive ? "" : " | FAIL: wrong number of columns, or some were lost with their chunks");
+    }
+
+    private MapInspection.Cell nearestCell() {
+        MapInspection.Cell best = null; double bd = Double.MAX_VALUE;
+        for (var c : ov().data(t).cells()) {
+            double d = Math.hypot(c.centroidX() - t.getLocation().getX(), c.centroidZ() - t.getLocation().getZ());
+            if (d < bd) { bd = d; best = c; }
+        }
+        return best;
+    }
+
+    private org.bukkit.entity.BlockDisplay columnOf(MapInspection.Cell c) {
+        for (var e : t.getWorld().getEntitiesByClass(org.bukkit.entity.BlockDisplay.class))
+            if (e.getScoreboardTags().contains("map_overlay") && Math.abs(e.getLocation().getX() - (c.centroidX() - 1.0)) < 0.01
+                    && Math.abs(e.getLocation().getZ() - (c.centroidZ() - 1.0)) < 0.01) return e;
+        return null;
+    }
+
+    private String ovColumnNorth() {
+        var c = nearestCell(); var col = columnOf(c);
+        if (col == null) return "FAIL: no column at cell " + c.ci() + "," + c.cj();
+        String want = InspectionDraw.costGlass(c.north(), ov().data(t).openingCost());
+        return "cell " + c.ci() + "," + c.cj() + " north=" + c.north() + " block=" + col.getBlock().getMaterial() + " want=" + want
+                + (col.getBlock().getMaterial().name().equals(want) ? "" : " | FAIL: wrong tint");
+    }
+
+    private String ovColumnSouth() {
+        ovRightClick(6);                          // team -> south
+        var c = nearestCell(); var col = columnOf(c);
+        if (col == null) return "FAIL: no column after the team switch";
+        String want = InspectionDraw.costGlass(c.south(), ov().data(t).openingCost());
+        return "cell " + c.ci() + "," + c.cj() + " south=" + c.south() + " block=" + col.getBlock().getMaterial() + " want=" + want
+                + (col.getBlock().getMaterial().name().equals(want) ? "" : " | FAIL: the column was not retinted");
+    }
+
+    private String ovRelation() {
+        ovRightClick(1);                          // cost off
+        ovRightClick(2);                          // relation on
+        var c = nearestCell(); var col = columnOf(c);
+        if (col == null) return "FAIL: no relation column";
+        String want = InspectionDraw.relationGlass(c.relation());
+        return "relation=" + c.relation() + " block=" + col.getBlock().getMaterial() + " want=" + want
+                + (col.getBlock().getMaterial().name().equals(want) ? "" : " | FAIL: wrong relation tint");
+    }
+
+    private String ovPoints() {
+        ovRightClick(2);                          // relation off
+        ovRightClick(4);                          // points on
+        int want = ov().data(t).pointsWithin(t.getLocation().getX(), t.getLocation().getZ(), MapOverlay.DRAW_RADIUS).size();
+        var counts = ov().counts(t);
+        boolean ok = counts.get("markers") == want * 2 && counts.get("cells") == 0;
+        return "points in range=" + want + " drawn=" + counts + (ok ? "" : " | FAIL: expected a beam and label per point and no columns");
+    }
+
+    private String ovLandmarks() {
+        int before = ov().counts(t).get("markers");
+        ovRightClick(5);                          // landmarks on
+        int after = ov().counts(t).get("markers");
+        var d = ov().data(t); double x = t.getLocation().getX(), z = t.getLocation().getZ(); int r = (int) MapOverlay.DRAW_RADIUS;
+        int landmarks = 0;
+        for (var f : d.fountains().values()) if (Math.hypot(f[0] - x, f[2] - z) <= r) landmarks++;
+        for (var o : d.objectives()) if (Math.hypot(o.x() - x, o.z() - z) <= r) landmarks++;
+        if (d.lair() != null && Math.hypot(d.lair()[0] - x, d.lair()[2] - z) <= r) landmarks++;
+        for (var w : d.worksites()) if (Math.hypot(w.x() - x, w.z() - z) <= r) landmarks++;
+        boolean ok = landmarks > 0 && after - before == landmarks * 2;
+        return "landmarks in range=" + landmarks + " markers " + before + " -> " + after + (ok ? "" : " | FAIL: expected two entities per landmark");
+    }
+
+    private String ovReport() {
+        String joined = String.join(" || ", ov().reportLines(t)).replaceAll("§.", "");
+        var d = ov().data(t);
+        boolean ok = joined.contains("Reachable cells") && joined.contains("Cells by relation") && joined.contains("Field points by kind")
+                && joined.contains(d.cells().size() + " cells") && joined.contains("an absent point is a real answer");
+        return (joined.length() > 260 ? joined.substring(0, 260) : joined) + (ok ? "" : " | FAIL: report incomplete");
+    }
+
+    private String ovLayersOff() {
+        ovRightClick(4); ovRightClick(5);          // points off, landmarks off
+        var counts = ov().counts(t);
+        boolean ok = counts.get("markers") == 0 && counts.get("cellEntities") == 0 && ovTagged() == 0;
+        return "counts=" + counts + " tagged=" + ovTagged() + (ok ? "" : " | FAIL: entities remain");
+    }
+
+    private String ovOff() {
+        t.performCommand("moba lab overlay off");
+        boolean ok = !ov().occupies(t) && ovTagged() == 0 && itemIdKey(0, "overlay_item") == null;
+        t.performCommand("moba lab end");
+        return "occupies=" + ov().occupies(t) + " tagged=" + ovTagged() + " slot0=" + itemIdKey(0, "overlay_item") + (ok ? "" : " | FAIL: overlay not fully removed");
     }
 }

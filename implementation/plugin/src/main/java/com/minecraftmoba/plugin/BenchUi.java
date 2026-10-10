@@ -42,7 +42,15 @@ final class BenchUi implements Listener {
     /** What a bench tells the UI. */
     record Spec(String id, java.util.function.Supplier<ChamberMenu> menu, Function<Player, ChamberMenu.Gate> gate,
                 Refuser refusal, DeckLayout deck, String worldName,
-                BiConsumer<Player, String> run, Consumer<Player> leave, String leaveName, String leaveLore) {}
+                BiConsumer<Player, String> run, Consumer<Player> leave, String leaveName, String leaveLore,
+                java.util.function.Predicate<Player> standBack) {
+        /** The common case: nothing competes with right-click, so the menu always takes it. */
+        Spec(String id, java.util.function.Supplier<ChamberMenu> menu, Function<Player, ChamberMenu.Gate> gate,
+             Refuser refusal, DeckLayout deck, String worldName,
+             BiConsumer<Player, String> run, Consumer<Player> leave, String leaveName, String leaveLore) {
+            this(id, menu, gate, refusal, deck, worldName, run, leave, leaveName, leaveLore, p -> false);
+        }
+    }
 
     /** A verb's refusal for a tester, or null. */
     interface Refuser { String refuse(Player p, String verb); }
@@ -160,6 +168,8 @@ final class BenchUi implements Listener {
         if (e.getHand() != EquipmentSlot.HAND || !hotbar.engaged(p)) return;
         if (e.getAction() != Action.RIGHT_CLICK_AIR && e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if (hotbar.idOf(p.getInventory().getItemInMainHand()) == null) return;
+        // A bench whose tester has a class (right-click is A2 while ability mode is on) stands back.
+        if (spec.standBack().test(p)) return;
         e.setCancelled(true);
         var menu = hotbar.menu(p);
         var choice = menu.choose(p.getInventory().getHeldItemSlot(), spec.gate().apply(p));

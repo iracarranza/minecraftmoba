@@ -163,6 +163,11 @@ def publish(pool: Path, seed, source_world: Path, compilation: dict,
         'history': [{'state': READY, 'at': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}],
     }
     (entry / 'map.json').write_text(json.dumps(manifest, indent=1))
+    # The overlay's data, as a sidecar: not part of the world, so the fingerprint is untouched.
+    from . import inspection
+    overlay = inspection.build(evidence, resolved)
+    if overlay:
+        (entry / 'inspection.json').write_text(json.dumps(overlay))
     return manifest
 
 

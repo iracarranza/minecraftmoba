@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 125 of 125.
+the server. `report-1.21.11-132.txt` is the last run: 136 of 136.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -86,13 +86,23 @@ buttons, fills it from the certified scoop and from a random seed, enters with t
 previews and places a Fountain (undoable), and the Clock page jumps to dusk. `ACCEPT_ONLY` takes
 a comma-separated list of name prefixes, e.g. `scoop,terrain`.
 
+Map overlay (`/moba lab overlay`, needs a lab scoop WITH `inspection.json`, see
+`docs/design/MAP_OVERLAY.md`): the overlay starts on a launched scoop with the hotbar and the
+parsed data (238 cells, 14 points); the cost layer draws a column and label for exactly the 29
+cells in range and every drawn entity still exists; a column sits where the data says and is
+tinted by the north cost, then retinted by the south cost on a team switch; the relation layer
+tints by relation; field points and landmarks draw markers; the report gives counts from the
+data; switching layers off and then the overlay off removes everything and restores the hotbar.
+The terrain Fountain placement tries four directions, because the bay holds random terrain and
+a given spot can fault.
+
 ## Not covered
 
 The match-clock half of lab time (`time skip`, `time night`, `pause`, `resume` in a
 launched scoop) and the terrain chamber's Clock page: no launchable scoop exists on
 this machine, so those are compiled and arithmetic-tested but never run.
 
-Particles actually rendering (the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and the terrain chamber's Regenerate and route items, DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
+Particles actually rendering (the overlay's grid and band edges as well as the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and the terrain chamber's Regenerate and route items, DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 

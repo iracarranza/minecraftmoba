@@ -30,10 +30,11 @@ class LabHubTest {
             assertTrue(Math.hypot(b.x() - e[0], b.z() - e[1]) >= 3, b.id());
     }
 
-    @Test void onlyTheTerrainChamberNeedsAScoopAndSaysSo() {
+    @Test void onlyTheBenchesThatDrawOnAScoopNeedOneAndSaySo() {
         for (var b : LabHub.BENCHES) {
-            if (b.id().equals("terrain")) {
-                assertNotNull(LabHub.refusal(b, new LabHub.State(false)));
+            boolean needs = b.id().equals("terrain") || b.id().equals("overlay");
+            if (needs) {
+                assertNotNull(LabHub.refusal(b, new LabHub.State(false)), b.id());
                 assertTrue(LabHub.refusal(b, new LabHub.State(false)).contains("launched scoop"));
                 assertNull(LabHub.refusal(b, new LabHub.State(true)));
             } else assertNull(LabHub.refusal(b, new LabHub.State(false)), b.id());
