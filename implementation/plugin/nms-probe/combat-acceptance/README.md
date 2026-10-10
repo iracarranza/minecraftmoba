@@ -3,7 +3,7 @@
 A test-only plugin that drives the real `/moba lab combat` commands inside a
 server with the real `MobaPlugin` loaded, using a `NmsBodies` body as the tester
 (op'd by the fixture). It writes `plugins/CombatAcceptance/report.txt` and stops
-the server. `report-1.21.11-132.txt` is the last run: 147 of 147.
+the server. `report-1.21.11-132.txt` is the last run: 158 of 158.
 
 Set up the throwaway server exactly as in `../bodies-acceptance/README.md`
 (Paper `1.21.11-132`, EULA, `maps/*.json.gz`, never the live alpha server), put
@@ -104,13 +104,22 @@ does not move; Next objective cycles; combat, signature (from the hotbar) and La
 take exactly their share and topple the north Nether Bastion; a further siege is refused and the
 report says TOPPLED; off restores the hotbar.
 
+Scenario bench (`/moba lab scenario`, needs a launched scoop, see
+`docs/design/SKIRMISH_BENCH.md`): the bench starts with the hotbar and validates the shipped
+scenarios at load; `friendly_fire` passes 3/3 (an ally takes nothing from an authored hit, an enemy
+does, a systemic explosion crosses teams); `stun_and_root` passes 9/9 including a walking CONTROL so
+the Root check is not vacuous; `skirmish_2v2` passes 9/9 with four bodies on two teams, two real Mole
+Drill Rushes and a Toolbox Jumpstartinator; every roster body is gone after each run; and ending the lab
+mid-run leaves no body behind. The runner deletes the server's saved `config.yml` first so the jar's
+current scenarios are the ones that run.
+
 ## Not covered
 
 The match-clock half of lab time (`time skip`, `time night`, `pause`, `resume` in a
 launched scoop) and the terrain chamber's Clock page: no launchable scoop exists on
 this machine, so those are compiled and arithmetic-tested but never run.
 
-Particles actually rendering (the overlay's grid and band edges as well as the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and the terrain chamber's Regenerate and route items, DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
+Particles actually rendering (the overlay's grid and band edges as well as the variant and its task are set, not seen; likewise the opportunity bench's eligible-site display), the glow being SEEN by a real client, and the terrain chamber's Regenerate and route items, the displacement-reservation scenario (the ledger has no live callers), a fourteen-body load run, DISPLACED and ROOTED interference (the cause paths exist and are unit-tested, but nothing live pushed or rooted the ghost), an Observer's default of ignoring interference, and an ally dummy (no team assignment; the refusal is in code, not exercised live),
 marked-point aim, looping replay, replay of held inputs, held (charged or channelled) abilities through
 `BodyCaster`'s hold path, Observer's own controls, and walking input.
 

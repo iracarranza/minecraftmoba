@@ -176,6 +176,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(objectiveGlow, this);
         getServer().getPluginManager().registerEvents(objectiveTint, this);
         match = new Match(this, worldInstance);
+        // Allies are the running match's own teams; see Targetability.matchTeams.
+        Targetability.matchTeams(p -> { var part = match.participant(p.getUniqueId()); return part == null ? null : part.team; });
         getServer().getPluginManager().registerEvents(match, this);
         infraMode = new InfraMode(this);
         getServer().getPluginManager().registerEvents(infraMode, this);

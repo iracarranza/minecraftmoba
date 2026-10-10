@@ -45,6 +45,8 @@ public final class Lab implements Listener {
     }
 
     private final LabRules rules = new LabRules();
+    private ScenarioBench scenario;
+    public ScenarioBench scenario() { return scenario; }
     private NightBench night;
     public NightBench night() { return night; }
     private MapOverlay overlay;
@@ -70,6 +72,7 @@ public final class Lab implements Listener {
         opportunity = new OpportunityBench(plugin, this);
         overlay = new MapOverlay(plugin, this);
         night = new NightBench(plugin, this);
+        scenario = new ScenarioBench(plugin, this);
         Path configured = Path.of(plugin.getConfig().getString("alpha.lab.mapsDirectory", "lab-maps"));
         maps = new LabMaps(configured.isAbsolute() ? configured
                 : Bukkit.getWorldContainer().toPath().resolve(configured));
@@ -145,6 +148,7 @@ public final class Lab implements Listener {
                 case "opportunity" -> opportunity.command(p, args);
                 case "overlay" -> overlay.command(p, args);
                 case "night" -> night.command(p, args);
+                case "scenario", "scenarios" -> scenario.command(p, args);
                 case "time" -> time(p, args);
                 case "rules" -> rules(p, args);
                 case "author" -> authoring.command(p, args);
@@ -161,7 +165,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | overlay | night | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
+                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | overlay | night | scenario | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -198,7 +202,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); legibility.close(); opportunity.close(); overlay.close(); night.close(); rules.clearAll(); }
+    public void close() { combat.close(); legibility.close(); opportunity.close(); overlay.close(); night.close(); scenario.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))
@@ -248,6 +252,8 @@ public final class Lab implements Listener {
     }
 
     private void teardown() throws IOException {
+        // Bodies first: a fake player alive in a world that no longer exists is the failure this exists to prevent.
+        scenario.abortAll("the lab session ended");
         rules.clearAll();
         authoring.clear();
         // Dropped before the world is unloaded, not after: a bay in a world
@@ -367,6 +373,7 @@ public final class Lab implements Listener {
             case "opportunity" -> opportunity.command(p, new String[]{"lab", "opportunity", "start"});
             case "overlay" -> overlay.command(p, new String[]{"lab", "overlay", "start"});
             case "night" -> night.command(p, new String[]{"lab", "night", "start"});
+            case "scenario" -> scenario.command(p, new String[]{"lab", "scenario", "start"});
             case "terrain" -> { try { chamber(p, new String[]{"lab", "chamber", "take"}); } catch (IOException ex) { throw new IllegalStateException(ex); } }
             default -> throw new IllegalStateException("Unwired bench " + id);
         }
@@ -445,14 +452,13 @@ public final class Lab implements Listener {
             item(holder, 18, Material.COMPASS, "Benches", "benches", "Combat chamber, legibility, opportunity, terrain.");
             item(holder, 26, Material.OAK_DOOR, "Return to normal lobby", "leave");
         } else if (kind.equals("benches")) {
-            int slot = 10;
+            int index = 0;
             for (var b : LabHub.BENCHES) {
                 String why = LabHub.refusal(b, new LabHub.State(plugin.worldInstance().labActive()));
-                item(holder, slot, why == null ? b.pedestal() : Material.GRAY_DYE, b.label(), "bench " + b.id(),
+                item(holder, LabHub.menuSlot(index++), why == null ? b.pedestal() : Material.GRAY_DYE, b.label(), "bench " + b.id(),
                         why == null ? b.blurb() : "Unavailable: " + why);
-                slot += 2;
             }
-            item(holder, 22, Material.OAK_DOOR, "Back to setup", "menu");
+            item(holder, LabHub.BACK_SLOT, Material.OAK_DOOR, "Back to setup", "menu");
         } else {
             List<String> ids = kind.equals("classes") ? plugin.inputs().ids()
                     : maps.entries().stream().map(MapPool.Entry::mapId).toList();

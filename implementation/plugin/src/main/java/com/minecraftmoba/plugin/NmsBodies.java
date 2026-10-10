@@ -199,6 +199,7 @@ public final class NmsBodies implements Bodies {
     private String connectedWhy = "not yet verified";
     private final Map<UUID, Handle> handles = new LinkedHashMap<>();
     private final Set<UUID> physicsFailed = ConcurrentHashMap.newKeySet();
+    private boolean teleportWarned;
     private BukkitTask physics;
 
     public NmsBodies(MobaPlugin plugin) { this.plugin = plugin; }
@@ -277,7 +278,18 @@ public final class NmsBodies implements Bodies {
      * that {@link PlayerMoveEvent} fires. Safe to call repeatedly: concurrent callers
      * share one run, and a finished answer is returned immediately.
      */
-    public synchronized void prepare(java.util.function.Consumer<Boolean> done) {
+    public synchronized void prepare(java.util.function.Consumer<Boolean> done) { prepare(null, done); }
+
+    /**
+     * As {@link #prepare(java.util.function.Consumer)}, with the self-test body standing at a
+     * place the caller knows is solid ground.
+     *
+     * The default is the world's spawn point, which in a launched scoop is the origin: the
+     * scoop's terrain is a window thousands of blocks away, so a body at the origin stands on
+     * nothing and its movement packet is rejected, which reported "not connected" for bodies
+     * that move perfectly well.
+     */
+    public synchronized void prepare(Location at, java.util.function.Consumer<Boolean> done) {
         requireMainThread();
         if (connected != null) { if (done != null) done.accept(connected); return; }
         if (done != null) waiters.add(done);
@@ -285,7 +297,7 @@ public final class NmsBodies implements Bodies {
         verifying = true;
         connectedWhy = "verification in progress; ready in about " + (SETTLE_TICKS + 2) + " ticks";
         Player p;
-        try { p = place("selftest", defaultLocation()); }
+        try { p = place("selftest", at != null ? at : defaultLocation()); }
         catch (RuntimeException ex) { finishVerification(false, "could not spawn the self-test body: " + ex); return; }
         MoveWatch watch = new MoveWatch(p.getUniqueId());
         Bukkit.getPluginManager().registerEvents(watch, plugin);
@@ -296,11 +308,22 @@ public final class NmsBodies implements Bodies {
                 Location l = p.getLocation();
                 moveTo(body, l.getX() + 0.3, l.getY(), l.getZ());
                 ok = watch.moved;
-                why = ok ? "a movement packet fired PlayerMoveEvent" : "a movement packet fired no PlayerMoveEvent";
+                why = ok ? "a movement packet fired PlayerMoveEvent" : "a movement packet fired no PlayerMoveEvent" + diagnose(p);
             } catch (RuntimeException ex) { why = "self-test failed: " + ex; }
             finally { HandlerList.unregisterAll(watch); remove(p.getUniqueId()); }
             finishVerification(ok, why);
         }, SETTLE_TICKS + 2L);
+    }
+
+    /** What a failed self-test body looked like, so "not connected" says why. */
+    private String diagnose(Player p) {
+        try {
+            Handle h = handles.get(p.getUniqueId());
+            Object awaiting = h == null ? "no handle" : field(field(h.serverPlayer(), "connection"), "awaitingPositionFromClient");
+            var l = p.getLocation();
+            return " [world=" + l.getWorld().getName() + " at " + String.format("%.1f,%.1f,%.1f", l.getX(), l.getY(), l.getZ())
+                    + " dead=" + p.isDead() + " onGround=" + p.isOnGround() + " awaitingTeleport=" + (awaiting != null) + "]";
+        } catch (ReflectiveOperationException | RuntimeException ex) { return " [no diagnosis: " + ex + "]"; }
     }
 
     private synchronized void finishVerification(boolean ok, String why) {
@@ -469,6 +492,29 @@ public final class NmsBodies implements Bodies {
         h.channel().runPendingTasks();
     }
 
+    /**
+     * Accept a teleport the server is still waiting on, as a client would.
+     *
+     * A teleport of a body AFTER it was admitted (joining a team in a running match teleports it
+     * to its Fountain; an ability can too) leaves the server waiting for an acknowledgement that
+     * never comes, and the server drops every movement packet until it does. That is silent, and
+     * looks exactly like input that works and has no effect: bodies placed on a team could not
+     * walk at all. Checked every tick, so a body keeps working however it is moved.
+     * Found by the scenario bench's walking control.
+     */
+    private void acceptPendingTeleport(Handle h, Nms n) {
+        try {
+            Object listener = field(h.serverPlayer(), "connection");
+            if (field(listener, "awaitingPositionFromClient") != null) {
+                int id = (Integer) field(listener, "awaitingTeleport");
+                h.channel().writeInbound(n.acceptTeleport.getConstructor(int.class).newInstance(id));
+                h.channel().runPendingTasks();
+            }
+        } catch (ReflectiveOperationException | RuntimeException ex) {
+            if (!teleportWarned) { teleportWarned = true; plugin.getLogger().warning("[bodies] could not accept a pending teleport: " + ex); }
+        }
+    }
+
     private void remove(UUID uuid) {
         Handle h = handles.remove(uuid);
         try {
@@ -512,6 +558,7 @@ public final class NmsBodies implements Bodies {
         for (var e : handles.entrySet()) {
             Player p = Bukkit.getPlayer(e.getKey());
             if (p == null || p.isDead()) continue;
+            acceptPendingTeleport(e.getValue(), n);
             try { n.travel.invoke(e.getValue().serverPlayer(), n.vecZero); }
             catch (ReflectiveOperationException ex) {
                 if (physicsFailed.add(e.getKey()))

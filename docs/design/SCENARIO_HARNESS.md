@@ -34,6 +34,15 @@ what this harness supplies.
 
 ---
 
+## Status, 10 October 2026
+
+**Built and run.** The harness runs in the lab on a launched scoop: `/moba lab scenario` (or the
+hub's Scenarios pedestal, or the Benches page) lists scenarios, and `/moba lab scenario <id>` runs
+one with real fake players on teams in the running match. Three scenarios ship in
+`alpha.lab.scenarios`, all passing live: `friendly_fire` (3 checks), `stun_and_root` (9) and
+`skirmish_2v2` (9, four bodies, real Mole and Toolbox abilities). See
+`docs/design/SKIRMISH_BENCH.md` for what was built, what running it found, and what is not done.
+
 # Part 1 — The scenario harness
 
 ## Bodies: server-side fake players

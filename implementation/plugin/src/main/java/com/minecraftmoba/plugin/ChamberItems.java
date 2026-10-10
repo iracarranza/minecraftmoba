@@ -86,6 +86,9 @@ public final class ChamberItems {
             Map.entry("team", Material.WHITE_BANNER),
             // The night and objective bench's verbs.
             Map.entry("night", Material.NETHER_STAR),
+            Map.entry("scenario", Material.WRITTEN_BOOK),
+            Map.entry("run", Material.LIME_DYE),
+            Map.entry("stop", Material.BARRIER),
             Map.entry("target", Material.COMPASS),
             Map.entry("siege", Material.IRON_SWORD),
             Map.entry("night.1", Material.IRON_INGOT),

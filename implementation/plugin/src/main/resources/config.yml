@@ -1722,6 +1722,79 @@ alpha:
       radius: 16
       height: 20
       floor: 60
+    # Scenarios for the lab's scenario bench (docs/design/SCENARIO_HARNESS.md). Data, not code.
+    # Roster coordinates are OFFSETS from the anchor (fountain_north, fountain_south or lair) at
+    # the scoop's ground level, because a scoop's own coordinates differ from map to map. Ticks
+    # are absolute. `since: N` means "compared with the moment tick N began".
+    scenarios:
+      friendly_fire:
+        description: "Authored damage does not cross teams; systemic damage does."
+        anchor: fountain_north
+        roster:
+          - { id: north_a, team: NORTH, class: lightfooted, level: 12, at: [4, 0, 8] }
+          - { id: north_b, team: NORTH, class: toolbox, level: 12, at: [6, 0, 8] }
+          - { id: south_a, team: SOUTH, class: mole, level: 12, at: [10, 0, 8] }
+        timeline:
+          - { tick: 20, actor: north_a, do: hit, target: north_b, amount: 4 }
+          - { tick: 26, assert: health_not_lower, of: north_b, since: 20, because: "authored damage does not cross teams" }
+          - { tick: 40, actor: north_a, do: hit, target: south_a, amount: 4 }
+          - { tick: 46, assert: health_below, of: south_a, than: since, since: 40, because: "authored damage reaches an enemy" }
+          - { tick: 80, actor: north_a, do: explode, at: north_b, power: 2 }
+          - { tick: 86, assert: health_below, of: north_b, than: since, since: 80, because: "systemic damage crosses teams by design" }
+      stun_and_root:
+        description: "A Root refuses movement but not attacks; a Stun refuses attacks; neither shortens a longer one."
+        anchor: fountain_north
+        # The Root check needs a body that really moves, or it would pass without the rule running.
+        requiresConnectedBodies: true
+        roster:
+          - { id: rooted, team: SOUTH, class: lightfooted, level: 12, at: [6, 0, 8] }
+          - { id: walker, team: SOUTH, class: lightfooted, level: 12, at: [6, 0, 14] }
+          - { id: victim, team: NORTH, class: mole, level: 12, at: [8, 0, 8] }
+        timeline:
+          - { tick: 15, actor: victim, do: root, target: rooted }
+          - { tick: 15, actor: rooted, do: walk, direction: east, ticks: 8 }
+          - { tick: 15, actor: walker, do: walk, direction: east, ticks: 8 }
+          - { tick: 17, assert: rooted, of: rooted, because: "the Root landed" }
+          - { tick: 17, actor: rooted, do: hit, target: victim, amount: 3 }
+          - { tick: 19, assert: health_below, of: victim, than: since, since: 17, because: "a rooted player can still attack" }
+          - { tick: 26, assert: moved_more_than, of: walker, blocks: 1.5, since: 15, because: "CONTROL: an unrooted body does walk, so the root check below is not vacuous" }
+          - { tick: 26, assert: moved_less_than, of: rooted, blocks: 0.6, since: 15, because: "a Root refuses movement" }
+          - { tick: 40, actor: victim, do: stun, target: rooted, ticks: 40 }
+          - { tick: 42, assert: stunned, of: rooted, because: "the Stun landed" }
+          - { tick: 42, actor: rooted, do: hit, target: victim, amount: 3 }
+          - { tick: 48, assert: health_not_lower, of: victim, since: 42, because: "a stunned player cannot attack" }
+          - { tick: 44, actor: victim, do: stun, target: rooted, ticks: 5 }
+          - { tick: 46, assert: stunned_for_at_least, of: rooted, ticks: 30, because: "a shorter Stun does not shorten a longer one" }
+          - { tick: 82, assert: not_stunned, of: rooted, because: "a Stun expires on time" }
+          - { tick: 84, actor: rooted, do: hit, target: victim, amount: 3 }
+          - { tick: 90, assert: health_below, of: victim, than: since, since: 84, because: "and can attack again afterwards" }
+      skirmish_2v2:
+        description: "Two against two: teams hold, enemies take damage, real abilities run."
+        anchor: fountain_north
+        roster:
+          - { id: north_a, team: NORTH, class: mole, level: 12, at: [4, 0, 8] }
+          - { id: north_b, team: NORTH, class: toolbox, level: 12, at: [4, 0, 12] }
+          - { id: south_a, team: SOUTH, class: mole, level: 12, at: [14, 0, 8] }
+          - { id: south_b, team: SOUTH, class: lightfooted, level: 12, at: [14, 0, 12] }
+        timeline:
+          - { tick: 20, actor: north_a, do: cast, slot: a2, at: south_a, level: true }
+          - { tick: 20, actor: south_a, do: cast, slot: a2, at: north_a, level: true }
+          - { tick: 30, actor: north_a, do: cast, slot: a2, at: south_a, level: true }
+          - { tick: 30, actor: south_a, do: cast, slot: a2, at: north_a, level: true }
+          - { tick: 22, assert: ability_executed, of: north_a, ability: drill_rush, because: "a real Mole ability ran on a body in a team" }
+          - { tick: 22, assert: ability_executed, of: south_a, ability: drill_rush }
+          - { tick: 40, actor: north_b, do: cast, slot: a2, at: south_b }
+          - { tick: 42, assert: ability_executed, of: north_b, ability: jumpstartinator, because: "a real Toolbox ability ran" }
+          - { tick: 60, actor: north_a, do: hit, target: south_b, amount: 4 }
+          - { tick: 60, actor: south_b, do: hit, target: north_b, amount: 4 }
+          - { tick: 80, actor: north_b, do: hit, target: north_a, amount: 4 }
+          - { tick: 80, actor: south_a, do: hit, target: south_b, amount: 4 }
+          - { tick: 66, assert: health_below, of: south_b, than: since, since: 60, because: "an enemy took authored damage" }
+          - { tick: 66, assert: health_below, of: north_b, than: since, since: 60, because: "the other side's hit landed too" }
+          - { tick: 86, assert: health_not_lower, of: north_a, since: 80, because: "friendly fire is refused in a fight" }
+          - { tick: 86, assert: health_not_lower, of: south_b, since: 80, because: "friendly fire is refused on both sides" }
+          - { tick: 90, assert: alive, of: north_a }
+          - { tick: 90, assert: alive, of: south_b }
     mapsDirectory: lab-maps
     roomWorldName: moba_lab
     instanceWorldName: moba_lab_match

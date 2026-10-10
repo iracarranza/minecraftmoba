@@ -32,13 +32,26 @@ class LabHubTest {
 
     @Test void onlyTheBenchesThatDrawOnAScoopNeedOneAndSaySo() {
         for (var b : LabHub.BENCHES) {
-            boolean needs = java.util.Set.of("terrain", "overlay", "night").contains(b.id());
+            boolean needs = java.util.Set.of("terrain", "overlay", "night", "scenario").contains(b.id());
             if (needs) {
                 assertNotNull(LabHub.refusal(b, new LabHub.State(false)), b.id());
                 assertTrue(LabHub.refusal(b, new LabHub.State(false)).contains("launched scoop"));
                 assertNull(LabHub.refusal(b, new LabHub.State(true)));
             } else assertNull(LabHub.refusal(b, new LabHub.State(false)), b.id());
         }
+    }
+
+    @Test void everyBenchHasItsOwnSlotAndNoneIsTheBackButton() {
+        // Found by the full acceptance run: with seven benches the Back button overwrote the seventh.
+        assertTrue(LabHub.BENCHES.size() <= LabHub.MAX_BENCHES, "the Benches page cannot hold " + LabHub.BENCHES.size());
+        var slots = new HashSet<Integer>();
+        for (int i = 0; i < LabHub.BENCHES.size(); i++) {
+            int slot = LabHub.menuSlot(i);
+            assertTrue(slots.add(slot), "slot " + slot + " used twice");
+            assertNotEquals(LabHub.BACK_SLOT, slot, "bench " + i + " is under the Back button");
+            assertTrue(slot < 27, "slot " + slot + " is outside the 27-slot page");
+        }
+        assertThrows(IllegalArgumentException.class, () -> LabHub.menuSlot(LabHub.MAX_BENCHES));
     }
 
     @Test void lookupsByIdAndByBlockAgree() {

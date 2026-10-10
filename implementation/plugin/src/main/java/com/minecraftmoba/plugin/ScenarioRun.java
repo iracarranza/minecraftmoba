@@ -53,6 +53,10 @@ public final class ScenarioRun {
     private final Map<String, Bodies.Body> roster = new LinkedHashMap<>();
     private final List<String> failures = new ArrayList<>();
     private final java.util.function.BiFunction<Scenario.Check, Bodies.Body, String> judge;
+    /** Where each member stands when spawned, or null to let the body source choose. */
+    private final java.util.function.Function<Scenario.Member, org.bukkit.Location> placement;
+    /** Checks with a window that have already passed or failed, so each is reported once. */
+    private final java.util.Set<Scenario.Check> resolved = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
 
     private long tick = -1;
     private long checksRun;
@@ -66,9 +70,16 @@ public final class ScenarioRun {
      */
     public ScenarioRun(Scenario scenario, Bodies bodies,
                        java.util.function.BiFunction<Scenario.Check, Bodies.Body, String> judge) {
+        this(scenario, bodies, judge, null);
+    }
+
+    public ScenarioRun(Scenario scenario, Bodies bodies,
+                       java.util.function.BiFunction<Scenario.Check, Bodies.Body, String> judge,
+                       java.util.function.Function<Scenario.Member, org.bukkit.Location> placement) {
         this.scenario = scenario;
         this.bodies = bodies;
         this.judge = judge;
+        this.placement = placement;
     }
 
     public Scenario scenario() { return scenario; }
@@ -94,7 +105,7 @@ public final class ScenarioRun {
         }
         try {
             for (Scenario.Member m : scenario.roster()) {
-                var body = bodies.spawn(m.id(), m.team(), m.classId(), m.level(), null);
+                var body = bodies.spawn(m.id(), m.team(), m.classId(), m.level(), placement == null ? null : placement.apply(m));
                 if (body == null) throw new IllegalStateException("spawn returned nothing for " + m.id());
                 roster.put(m.id(), body);
             }
@@ -111,8 +122,11 @@ public final class ScenarioRun {
             try {
                 if (step instanceof Scenario.Act act && act.tick() == tick) {
                     perform(act);
-                } else if (step instanceof Scenario.Check check && check.tick() == tick) {
+                } else if (step instanceof Scenario.Check check && check.window() == 0 && check.tick() == tick) {
                     evaluate(check);
+                } else if (step instanceof Scenario.Check check && check.window() > 0
+                        && tick >= check.tick() && tick <= check.lastTick() && !resolved.contains(check)) {
+                    evaluateWindowed(check);
                 }
             } catch (RuntimeException e) {
                 abort("step at tick " + tick + " threw: " + e.getMessage());
@@ -134,6 +148,24 @@ public final class ScenarioRun {
         checksRun++;
         String why = judge.apply(check, subject);
         if (why != null) failures.add(describe(check) + " -- " + why);
+    }
+
+    /**
+     * A check with a window passes the first tick it holds and fails only if it never does.
+     *
+     * A single-tick check on something that travels, or on an effect that is scheduled, is a race
+     * against the scheduler rather than a test. A window turns it into "this must come true by
+     * then", which is what the rule actually says.
+     */
+    private void evaluateWindowed(Scenario.Check check) {
+        Bodies.Body subject = roster.get(check.subject());
+        if (subject == null) throw new IllegalStateException("no body for subject " + check.subject());
+        String why = judge.apply(check, subject);
+        if (why == null) { resolved.add(check); checksRun++; return; }
+        if (tick >= check.lastTick()) {
+            resolved.add(check); checksRun++;
+            failures.add(describe(check) + " -- never held between ticks " + check.tick() + " and " + check.lastTick() + "; last reason: " + why);
+        }
     }
 
     private static String describe(Scenario.Check c) {

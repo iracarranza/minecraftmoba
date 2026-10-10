@@ -183,6 +183,17 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "night: the Lair assault topples it", this::nbLair);
         at(c, 3, "night: a toppled objective refuses further siege and the report says so", this::nbToppled);
         at(c, 3, "night: off restores the hotbar", this::nbOff);
+        at(c, 6, "scenario: launch a scoop and start the scenario bench", this::scStart);
+        at(c, 40, "scenario: the hotbar menu is on and the shipped scenarios are loaded and validated", this::scMenu);
+        at(c, 3, "scenario: run friendly_fire", this::scRunFriendly);
+        at(c, 130, "scenario: friendly_fire passed every check and its bodies are gone", this::scFriendlyDone);
+        at(c, 3, "scenario: run stun_and_root", this::scRunStun);
+        at(c, 150, "scenario: stun_and_root passed, including the walking control", this::scStunDone);
+        at(c, 3, "scenario: run skirmish_2v2 with two bodies a team", this::scRunSkirmish);
+        at(c, 140, "scenario: skirmish_2v2 passed and every body is gone", this::scSkirmishDone);
+        at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
+        at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
+        at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -1181,7 +1192,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var inv = t.getOpenInventory().getTopInventory();
         int items = 0; for (var st : inv.getContents()) if (st != null) items++;
         boolean ok = inv.getSize() == 27 && items == LabHub.BENCHES.size() + 1;      // every bench and Back
-        return "size=" + inv.getSize() + " items=" + items + (ok ? "" : " | FAIL: expected the 27-slot Benches page with five items");
+        return "size=" + inv.getSize() + " items=" + items + (ok ? "" : " | FAIL: expected the 27-slot Benches page with every bench and Back");
     }
 
     private String hubTerrainRefused() {
@@ -1371,22 +1382,27 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     }
 
     private String terrainPreview() {
-        // The bay holds random terrain, so a given spot can legitimately fault; a refused placement is
-        // the chamber working. Try four directions and use the first spot with no faults.
+        // The bay holds terrain from a random centre, so a given spot can legitimately be refused (it may
+        // leave the chamber, or fault); that is the chamber working. Try several spots across the bay
+        // and use the first with a faultless placement.
+        var center = t.getLocation().clone();
+        int[][] spots = {{0, 0}, {8, 0}, {-8, 0}, {0, 8}, {0, -8}, {8, 8}, {-8, -8}};
         String page1 = null, page2 = null, report = "";
-        for (int attempt = 0; attempt < 4; attempt++) {
-            t.setRotation(attempt * 90f, 85f);            // look down, turned a quarter each time
+        for (int attempt = 0; attempt < spots.length; attempt++) {
+            int x = center.getBlockX() + spots[attempt][0], z = center.getBlockZ() + spots[attempt][1];
+            t.teleport(new Location(t.getWorld(), x + 0.5, t.getWorld().getHighestBlockYAt(x, z) + 1, z + 0.5));
+            t.setRotation(0f, 85f);                       // look down at the ground
             rightClick2Key(0);                            // Place objective -> page
             page1 = itemIdKey(0, "chamber_item");
             rightClick2Key(0);                            // Fountain -> preview
             page2 = itemIdKey(0, "chamber_item");
             report = moba.chamberWorkspace().report(t);
-            if (report.contains("BLOCKS") && !report.contains("FAULT")) break;
+            if (report.contains("BLOCKS") && !report.contains("FAULT") && !report.contains("LEAVES")) break;
             rightClick2Key(2);                            // Discard, and try another spot
         }
         return "after objective: slot0=" + page1 + "; after fountain: slot0=" + page2 + " | " + report
-                + (("fountain".equals(page1)) && "preview".equals(page2) && report.contains("BLOCKS") && !report.contains("FAULT")
-                    ? "" : " | FAIL: expected a faultless pending placement within four tries");
+                + (("fountain".equals(page1)) && "preview".equals(page2) && report.contains("BLOCKS") && !report.contains("FAULT") && !report.contains("LEAVES")
+                    ? "" : " | FAIL: expected a faultless pending placement at one of seven spots");
     }
 
     private org.bukkit.event.player.PlayerInteractEvent rightClick2Key(int heldSlot) {
@@ -1655,5 +1671,60 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         boolean ok = !nb().occupies(t) && itemIdKey(0, "night_item") == null;
         t.performCommand("moba lab end");
         return "occupies=" + nb().occupies(t) + " slot0=" + itemIdKey(0, "night_item") + (ok ? "" : " | FAIL: bench not removed");
+    }
+
+    private ScenarioBench sb() { return moba.lab().scenario(); }
+    private static final String[] ROSTER_NAMES = {"north_a", "north_b", "south_a", "south_b", "rooted", "walker", "victim"};
+    private long rosterAlive() {
+        return Bukkit.getOnlinePlayers().stream().filter(p -> {
+            for (String n : ROSTER_NAMES) if (p.getName().equals("B_" + n)) return true;
+            return false;
+        }).count();
+    }
+
+    private String scStart() {
+        t.performCommand("moba lab start");
+        t.performCommand("moba lab class mole");
+        t.performCommand("moba lab map 1");
+        t.performCommand("moba lab level 15");
+        t.performCommand("moba lab play");
+        return "world=" + t.getWorld().getName();
+    }
+
+    private String scMenu() {
+        t.performCommand("moba lab scenario");
+        var lib = sb().scenarios(t);
+        boolean ok = sb().occupies(t) && lib.size() >= 3 && "scenario".equals(itemIdKey(0, "scenario_item")) && "run".equals(itemIdKey(1, "scenario_item"))
+                && "report".equals(itemIdKey(3, "scenario_item")) && "return".equals(itemIdKey(9, "scenario_item"));
+        return "scenarios=" + lib.stream().map(Scenario::id).toList() + " slot0=" + itemIdKey(0, "scenario_item") + (ok ? "" : " | FAIL: bench not started");
+    }
+
+    private String scRunFriendly() { t.performCommand("moba lab scenario friendly_fire"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+
+    private String scResult(String id, int minChecks) {
+        var r = sb().lastReport(t, id);
+        if (r == null) return "FAIL: no report for " + id;
+        boolean ok = r.passed() && r.checksRun() >= minChecks && rosterAlive() == 0;
+        return r.summary().replace("\n", " | ") + " | rosterAlive=" + rosterAlive() + (ok ? "" : " | FAIL: " + id + " did not pass cleanly");
+    }
+
+    private String scFriendlyDone() { return scResult("friendly_fire", 3); }
+    private String scRunStun() { t.performCommand("moba lab scenario stun_and_root"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scStunDone() { return scResult("stun_and_root", 8); }
+    private String scRunSkirmish() { t.performCommand("moba lab scenario skirmish_2v2"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scSkirmishDone() { return scResult("skirmish_2v2", 8); }
+
+    private String scAbortStart() { t.performCommand("moba lab scenario friendly_fire"); return "started"; }
+
+    private String scAbortMid() {
+        long alive = rosterAlive();
+        boolean ok = alive == 3 && sb().runOf(t) != null && sb().runOf(t).running();
+        return "rosterAlive=" + alive + " running=" + (sb().runOf(t) != null && sb().runOf(t).running()) + (ok ? "" : " | FAIL: expected a three-body roster mid-run");
+    }
+
+    private String scAbortEnd() {
+        t.performCommand("moba lab end");
+        long alive = rosterAlive();
+        return "rosterAlive=" + alive + " world=" + t.getWorld().getName() + (alive == 0 && t.getWorld().getName().equals("moba_lab") ? "" : " | FAIL: bodies outlived the lab session");
     }
 }

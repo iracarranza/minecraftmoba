@@ -38,7 +38,17 @@ public record Scenario(String id,
                        String description,
                        List<Member> roster,
                        List<Step> timeline,
-                       boolean requiresConnectedBodies) {
+                       boolean requiresConnectedBodies,
+                       String anchor) {
+
+    /** Where roster coordinates are measured from when a scenario does not say. */
+    public static final String ABSOLUTE = "absolute";
+    public static final String DEFAULT_ANCHOR = "fountain_north";
+
+    /** A scenario whose coordinates are absolute, as the first harness version had them. */
+    public Scenario(String id, String description, List<Member> roster, List<Step> timeline, boolean requiresConnectedBodies) {
+        this(id, description, roster, timeline, requiresConnectedBodies, ABSOLUTE);
+    }
 
     /** A participant the scenario needs before it can start. */
     public record Member(String id, Team team, String classId, int level,
@@ -77,6 +87,10 @@ public record Scenario(String id,
         Objects.requireNonNull(section, "No scenario section: " + id);
         String description = section.getString("description", "");
         boolean needsConnected = section.getBoolean("requiresConnectedBodies", false);
+        // Roster coordinates are offsets from an anchor on the launched map ("fountain_north",
+        // "fountain_south", "lair"), because a scoop's coordinates are not the same from one map
+        // to the next. A scenario that really wants fixed coordinates says "absolute".
+        String anchor = section.getString("anchor", DEFAULT_ANCHOR);
 
         List<Member> roster = new ArrayList<>();
         var rosterList = section.getMapList("roster");
@@ -116,7 +130,7 @@ public record Scenario(String id,
         }
         if (timeline.isEmpty()) throw new IllegalArgumentException("Scenario " + id + " has no timeline.");
 
-        var scenario = new Scenario(id, description, List.copyOf(roster), List.copyOf(timeline), needsConnected);
+        var scenario = new Scenario(id, description, List.copyOf(roster), List.copyOf(timeline), needsConnected, anchor);
         scenario.verify();
         return scenario;
     }

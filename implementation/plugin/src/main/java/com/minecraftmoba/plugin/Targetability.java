@@ -128,9 +128,36 @@ public final class Targetability {
     public static boolean allied(Entity target, Player source) {
         if (!(target instanceof Player other)) return false;
         var manager = org.bukkit.Bukkit.getScoreboardManager();
-        if (manager == null) return false;
-        var board = manager.getMainScoreboard();
-        var team = board.getEntryTeam(source.getName());
-        return team != null && team.equals(board.getEntryTeam(other.getName()));
+        boolean sameScoreboardTeam = false;
+        if (manager != null) {
+            var board = manager.getMainScoreboard();
+            var team = board.getEntryTeam(source.getName());
+            sameScoreboardTeam = team != null && team.equals(board.getEntryTeam(other.getName()));
+        }
+        var teams = matchTeams;
+        return decide(teams == null ? null : teams.apply(source), teams == null ? null : teams.apply(other), sameScoreboardTeam);
+    }
+
+    /**
+     * Where a player's match team comes from.
+     *
+     * Set once by the plugin to read the running match's participants. It exists because nothing
+     * in the plugin ever put match players on a MAIN-scoreboard team, which is the only place
+     * {@link #allied} used to look, so in a running match nobody was anybody's ally: no-friendly-fire
+     * refused nothing and the sweep abilities struck teammates. The scenario bench's friendly-fire
+     * scenario found it.
+     */
+    private static volatile java.util.function.Function<Player, Team> matchTeams;
+
+    public static void matchTeams(java.util.function.Function<Player, Team> resolver) { matchTeams = resolver; }
+
+    /**
+     * Who counts as an ally. The match's own teams are authoritative when BOTH players are in it;
+     * otherwise the scoreboard decides, which keeps the original rule for anything outside a match
+     * (the datapack tests, a hand-built team).
+     */
+    static boolean decide(Team a, Team b, boolean sameScoreboardTeam) {
+        if (a != null && b != null) return a == b;
+        return sameScoreboardTeam;
     }
 }

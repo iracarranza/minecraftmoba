@@ -38,10 +38,21 @@ public final class LabHub {
             new Bench("overlay", "Map overlay", Material.COPPER_BLOCK, 6, -3, Needs.LAUNCHED_SCOOP,
                     "See a scoop's cost fields, bands and field points drawn in the world."),
             new Bench("night", "Night and objectives", Material.CRYING_OBSIDIAN, -6, -3, Needs.LAUNCHED_SCOOP,
-                    "Jump to night N and besiege objectives, on the match's real clock."));
+                    "Jump to night N and besiege objectives, on the match's real clock."),
+            new Bench("scenario", "Scenarios", Material.RESPAWN_ANCHOR, 2, -3, Needs.LAUNCHED_SCOOP,
+                    "Run a 2v2 skirmish or a rule check with several real fake players."));
 
     /** The pedestals the room already has, so a new one never lands on them. */
     public static final List<int[]> EXISTING_PEDESTALS = List.of(new int[]{-5, 0}, new int[]{5, 0}, new int[]{0, 6});
+
+    /** The Benches page is a 27-slot menu: benches fill its middle row, Back sits below them. */
+    public static final int FIRST_SLOT = 9, BACK_SLOT = 22, MAX_BENCHES = 9;
+
+    /** The slot of the i-th bench on the Benches page. */
+    public static int menuSlot(int index) {
+        if (index < 0 || index >= MAX_BENCHES) throw new IllegalArgumentException("The Benches page holds " + MAX_BENCHES + " benches.");
+        return FIRST_SLOT + index;
+    }
 
     public static Bench bench(String id) {
         for (Bench b : BENCHES) if (b.id().equals(id)) return b;
