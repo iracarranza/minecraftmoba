@@ -326,10 +326,11 @@ public final class Renewables implements Listener {
      *
      * Explicit cells are preferred, because that is the shape the worldgen
      * analysis works in and an ecology worth calling a region often spans
-     * several adjacent ones. A source with no cells falls back to a square
-     * around its authored point -- which is a MIGRATION of the old origin+radius
-     * data into the new shape, not an endorsement of it. The square is a coarse
-     * search area; nothing selects a manifestation site from its centre.
+     * several adjacent ones. A source with no cells falls back to its RADIUS:
+     * the authored radius is authoritative for where the wild population lives
+     * (decided 10 October 2026; the earlier 48-block default was a placeholder,
+     * not an authored extent), so the region is that cube less a placement
+     * margin. See {@link #migratedRegion}.
      */
     private OpportunityRegion regionFor(String base, int x, int z, int radius) {
         var cells = plugin.getConfig().getMapList(base + "region");
@@ -341,8 +342,30 @@ public final class Renewables implements Listener {
                         ((Number) cell.get("maxX")).intValue(), ((Number) cell.get("maxZ")).intValue()));
             return new OpportunityRegion(parsed);
         }
-        int half = plugin.getConfig().getInt("renewables.migratedRegionHalfSpan", 0);
-        return OpportunityRegion.square(x, z, half > 0 ? half : radius * 3);
+        return migratedRegion(x, z, radius, placementMargin());
+    }
+
+    /**
+     * The region of a source that declares none: its radius cube, pulled in by a margin.
+     *
+     * Eligibility chooses a manifestation SITE anywhere in the region, and the members are then
+     * spread around it (a herd's cluster, a patch's spread). Membership is judged by the radius
+     * cube, so a site must sit far enough inside it that its members do too, or they are swept as
+     * having left. Before this the region was 48 blocks (3x the radius when unset) against a
+     * 20-block cube, so about 82% of sites put a manifestation outside the cube it was judged by.
+     */
+    static OpportunityRegion migratedRegion(int x, int z, int radius, int margin) {
+        return OpportunityRegion.square(x, z, Math.max(1, radius - margin));
+    }
+
+    /** How far members spread from a site: the larger of a patch's spread and half a herd's cluster. */
+    static int placementMargin(int patchSpread, int herdCluster) {
+        return Math.max(patchSpread, (herdCluster + 1) / 2);
+    }
+
+    int placementMargin() {
+        return placementMargin(plugin.getConfig().getInt("renewables.patch.spread", 6),
+                plugin.getConfig().getInt("renewables.herd.cluster", 5));
     }
 
     /** Saved state only becomes readable once the owning chunk loads. */
@@ -364,6 +387,9 @@ public final class Renewables implements Listener {
                                 int radius, int capacity, long recoverTicks) {
         var k = RenewableKinds.require(kind);
         var s = new Source(id, k.type(), w.getUID(), x, y, z, radius, capacity, recoverTicks, kind);
+        // A runtime source has no authored cells. It used to get no region at all, which
+        // manifest() would have dereferenced.
+        s.region = migratedRegion(x, z, radius, placementMargin());
         register(s);
         return s;
     }

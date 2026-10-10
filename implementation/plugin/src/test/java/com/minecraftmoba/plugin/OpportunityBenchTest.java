@@ -138,6 +138,47 @@ class OpportunityBenchTest {
         assertEquals(a, op.previousLocus());
     }
 
+    // ---- the radius is authoritative (decided 10 October 2026) ----------------------
+
+    @Test void aSourcesRegionIsItsRadiusLessThePlacementMarginAndNeverLeavesTheCube() {
+        for (int radius : new int[]{8, 12, 20, 32, 48}) {
+            var region = Renewables.migratedRegion(100, -50, radius, 6);
+            assertEquals(0.0, EligibilityReport.fractionOutsideRadius(region, 100, -50, radius), 1e-12, "radius " + radius);
+            assertEquals(Math.max(1, radius - 6), (region.cells().get(0).maxX() - region.cells().get(0).minX()) / 2);
+        }
+    }
+
+    @Test void aSiteAtTheEdgeOfTheRegionStillKeepsItsMembersInsideTheCube() {
+        // The worst case: a site on the region's edge, members spread by the margin beyond it.
+        int radius = 20, margin = Renewables.placementMargin(6, 5);
+        var c = Renewables.migratedRegion(0, 0, radius, margin).cells().get(0);
+        assertTrue(c.maxX() + margin <= radius && c.minX() - margin >= -radius);
+        assertTrue(c.maxZ() + margin <= radius && c.minZ() - margin >= -radius);
+    }
+
+    @Test void theMarginIsTheLargerOfAPatchsSpreadAndHalfAHerdsCluster() {
+        assertEquals(6, Renewables.placementMargin(6, 5));
+        assertEquals(6, Renewables.placementMargin(2, 11));      // half of 11, rounded up
+        assertEquals(3, Renewables.placementMargin(1, 5));
+    }
+
+    @Test void aTinyRadiusStillHasARegion() {
+        var region = Renewables.migratedRegion(0, 0, 4, 6);
+        assertEquals(9, region.area(), "a 3x3 region, never empty");
+    }
+
+    @Test void theBenchPlotsRegionIsExactlyWhatTheRuntimeDerivesFromItsRadius() {
+        int margin = Renewables.placementMargin(6, 5);
+        for (var plot : OpportunityPlots.PLOTS)
+            assertEquals(plot.region().cells(), Renewables.migratedRegion(plot.x(), plot.z(), OpportunityPlots.HALF + margin, margin).cells(), plot.id());
+    }
+
+    @Test void theAlphaSourcesNoLongerHaveMostOfTheirRegionOutsideTheirRadius() {
+        // Radius 20, as every Alpha source has. Before: a 48-block square, 82% outside the cube.
+        var region = Renewables.migratedRegion(0, 0, 20, Renewables.placementMargin(6, 5));
+        assertEquals(0.0, EligibilityReport.fractionOutsideRadius(region, 0, 0, 20), 1e-12);
+    }
+
     // ---- the venue ----------------------------------------------------------------
 
     @Test void plotsAreOnThePlatformAndDoNotOverlap() {

@@ -128,9 +128,9 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 4, "opportunity: at night the day-only swarm is refused and the report says so", this::opSwarmNight);
         at(c, 60, "opportunity: it waits READY, not eligible", this::opSwarmNightResult);
         at(c, 3, "opportunity: back to day, a forced manifestation succeeds", this::opSwarmForced);
-        at(c, 4, "opportunity: a source whose radius is smaller than its region is swept: members outside the cube 'leave' (the Alpha mismatch)", this::opMismatchStart);
-        at(c, 30, "opportunity: ...skip to recovered after the first manifestation if it landed inside the cube", this::opMismatchSecond);
-        at(c, 260, "opportunity: ...after a sweep tick the herd has lost members nobody harvested", this::opMismatchResult);
+        at(c, 4, "opportunity: the radius is authoritative: a small radius keeps its herd inside its cube", this::opMismatchStart);
+        at(c, 30, "opportunity: ...the site and every member were placed inside the cube", this::opMismatchSecond);
+        at(c, 260, "opportunity: ...after a sweep tick the runtime's count agrees with the world (strolling losses are reported)", this::opMismatchResult);
         at(c, 4, "opportunity: nothing was ever granted by renewal", this::opGranted);
         at(c, 4, "opportunity: leaving removes sources, members, deck and restores the hotbar", this::opLeave);
         at(c, 6, "hub: the lab room has a pedestal and a label for every bench", this::hubRoom);
@@ -152,10 +152,12 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 25, "scoop: ...ticking again", this::scoopResumed);
         at(c, 3, "scoop: skip 10 minutes advances 12000 ticks", this::scoopSkip);
         at(c, 3, "terrain: lab chamber take allots a bay and builds the observation platform", this::terrainTake);
-        at(c, 3, "terrain: CERTIFIED SCOOP copies certified terrain into the bay", this::terrainCertified);
-        at(c, 40, "terrain: ...and the bay has ground", this::terrainBayHasGround);
+        // Random terrain first and the certified scoop LAST, so the placement tests below stand on ground the
+        // compiler certified (around the fountains and objectives) and not on whatever an unvetted seed rolled.
         at(c, 3, "terrain: RANDOM SEED rolls unvetted terrain into the bay", this::terrainRandom);
-        at(c, 60, "terrain: ...and the bay has ground again", this::terrainBayHasGround);
+        at(c, 60, "terrain: ...and the bay has ground", this::terrainBayHasGround);
+        at(c, 3, "terrain: CERTIFIED SCOOP copies certified terrain into the bay", this::terrainCertified);
+        at(c, 40, "terrain: ...and the bay has ground again", this::terrainBayHasGround);
         at(c, 3, "terrain: entering the bay puts the menu on the hotbar", this::terrainEnter);
         at(c, 3, "terrain: the Objective page opens and Fountain previews a placement", this::terrainPreview);
         at(c, 6, "terrain: the pending page offers Place, and placing builds and is undoable", this::terrainPlace);
@@ -1102,7 +1104,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String mismatchPlace;
     private String opMismatchStart() {
         oppCmd("plot");                              // swarm -> herd
-        oppCmd("spawn 4");                          // radius 4 against a region of half-span 12
+        oppCmd("spawn 10");                         // radius 10: a 21-block cube, region half-span 4
         oppCmd("skip");
         var s = src("herd");
         return "plot=" + opp().selected(t) + " radius=" + s.radius() + " " + s.opportunity();
@@ -1111,23 +1113,27 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String opMismatchSecond() {
         var s = src("herd"); var op = s.opportunity();
         var l = op.locus();
-        boolean inside = l != null && Math.abs(l.x() + 30) <= 4 && Math.abs(l.z()) <= 4;
-        mismatchPlace = (l == null ? "none" : l.toString()) + (inside ? " (inside the cube)" : " (OUTSIDE the cube)");
-        if (inside && op.state() == Opportunity.State.MANIFESTED) { oppCmd("harvest all"); oppCmd("skip"); return "first landed inside; recovering for a second try: " + mismatchPlace; }
-        return "first landed " + mismatchPlace;
+        boolean siteInside = l != null && Math.abs(l.x() + 30) <= 10 && Math.abs(l.z()) <= 10;
+        // Every member must have been PLACED inside the cube: that is what the region derivation guarantees.
+        int outside = 0, total = 0;
+        for (var e : Bukkit.getWorld("moba_opportunity").getEntities())
+            if (moba.renewables().isMember(e, s)) {
+                total++;
+                if (Math.abs(e.getLocation().getX() - (-30 + 0.5)) > 10.5 || Math.abs(e.getLocation().getZ() - 0.5) > 10.5) outside++;
+            }
+        boolean ok = siteInside && total == 5 && outside == 0;
+        return op + " site " + l + " members placed=" + total + " outsideTheCube=" + outside
+                + (ok ? "" : " | FAIL: every member of a manifestation must be placed inside its radius cube");
     }
 
     private String opMismatchResult() {
+        // Later strolling is a separate matter: a vanilla sheep wanders up to ten blocks from where it stands, so
+        // a member near the edge of a small cube can walk out and is then revoked. Reported, not judged.
         var s = src("herd"); var op = s.opportunity();
-        // If the sweep emptied the herd the opportunity is RECOVERING and the site is now the previous one.
-        var l = op.locus() != null ? op.locus() : op.previousLocus();
-        boolean outside = l != null && (Math.abs(l.x() + 30) > 4 || Math.abs(l.z()) > 4);
         long members = countMembers(s);
-        // Nobody harvested anything in this step; any loss is the sweeper's.
-        boolean ok = outside && op.remaining() < 5 && s.radius() == 4;   // a RECOVERING herd has remaining 0: the sweeper emptied it
-        return op + " radius=" + s.radius() + " site=" + l + " outsideCube=" + outside + " membersLeft=" + members + " (capacity 5, nobody harvested)"
-                + (ok ? "  => CONFIRMED: members outside the radius cube were swept as having left the region"
-                      : " | FAIL: expected the sweeper to deplete a manifestation placed outside the radius cube");
+        boolean consistent = members == op.remaining();
+        return op + " radius=" + s.radius() + " membersInWorld=" + members + " of 5 after a sweep tick (nobody harvested; any loss is members that strolled out of the cube)"
+                + (consistent ? "" : " | FAIL: the runtime's count disagrees with the world");
     }
 
     private String opGranted() {

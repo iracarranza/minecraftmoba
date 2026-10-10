@@ -78,6 +78,16 @@ def sources_from_config(text: str) -> list[dict]:
     return [s for s in out if 'x' in s]
 
 
+def placement_margin(text: str) -> int:
+    """The larger of a patch's spread and half a herd's cluster: how far members stand from a site.
+
+    Mirrors `Renewables.placementMargin`, read from the same config keys so the two cannot drift.
+    """
+    spread = int(re.search(r'^\s*patch:\s*\n\s*spread:\s*(\d+)', text, re.M).group(1))
+    cluster = int(re.search(r'^\s*herd:\s*\n\s*cluster:\s*(\d+)', text, re.M).group(1))
+    return max(spread, (cluster + 1) // 2)
+
+
 def pad_span(kind_type: str) -> int:
     return FIELD_SPAN if kind_type == 'CROP' else PEN_SPAN
 
@@ -85,7 +95,7 @@ def pad_span(kind_type: str) -> int:
 def simulate(world: Path, out_dir: Path, sequence: int, seed: int):
     text = CONFIG.read_text()
     rules = rules_from_config(CONFIG)
-    half = int(re.search(r'migratedRegionHalfSpan:\s*(\d+)', text).group(1))
+    margin = placement_margin(text)
     terrain = TemplateTerrain(world)
 
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -99,10 +109,12 @@ def simulate(world: Path, out_dir: Path, sequence: int, seed: int):
                         'minDisplacement': rules.min_displacement,
                         'playerExclusion': rules.player_exclusion,
                         'naturalGround': sorted(rules.ground),
-                        'migratedRegionHalfSpan': half},
+                        'placementMargin': margin},
               'opportunities': []}
 
     for source in sources_from_config(text):
+        # The authored RADIUS is the region, pulled in by the placement margin (see Renewables.migratedRegion).
+        half = max(1, int(source['radius']) - margin)
         region = Region.square(source['x'], source['z'], half)
         loci, chosen = generations(region, terrain, rules, sequence, seed)
         span = pad_span(source.get('type', 'ANIMAL'))
