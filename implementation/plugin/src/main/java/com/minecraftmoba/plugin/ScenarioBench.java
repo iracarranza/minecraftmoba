@@ -343,8 +343,9 @@ public final class ScenarioBench {
                 // `level: true` aims along the ground: an ability that lands a fixed distance ahead (Drill
                 // Rush's emerge) fails with NO EXIT when aimed slightly downward into the floor.
                 var f = "true".equals(args.get("level")) ? new CastAim.Facing(aimed.yaw(), 0f) : aimed;
-                var r = caster.cast(me, args.get("slot"), f, 0);
-                plugin.getLogger().info("[scenario] " + actor.id() + " cast " + args.get("slot") + ": " + r.note());
+                var mode = "air".equals(args.get("click")) ? BodyCaster.ClickMode.AIR : BodyCaster.ClickMode.RESOLVE;
+                var r = caster.cast(me, args.get("slot"), f, 0, mode);
+                plugin.getLogger().info("[scenario] " + actor.id() + " cast " + args.get("slot") + ": " + r.note() + " (click: " + r.click().describe() + ")");
             }
             case "walk" -> walk(a, actor, args.get("direction"), Integer.parseInt(args.get("ticks")));
             default -> throw new IllegalStateException("unhandled act " + act.verb());
