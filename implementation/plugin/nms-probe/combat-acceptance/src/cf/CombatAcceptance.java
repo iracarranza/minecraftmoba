@@ -100,6 +100,11 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 4, "testing: a quit restores the real inventory, and a parked file left by a dead server is restored at the next join", this::tmRecover);
         at(c, 3, "testing: leaving the chamber while testing also returns the real inventory", this::tmLeaveWhileTesting);
         at(c, 3, "loadout: leave", this::tmFinalLeave);
+        at(c, 4, "damage door: enter the chamber as an operator", this::ddEnter);
+        at(c, 3, "damage door: CONTROL, a hit with ability mode OFF lands", this::ddControl);
+        at(c, 12, "damage door: a plain damage call with ability mode ON is still read as a left-click and swallowed (the melee path is kept)", this::ddPlainSwallowed);
+        at(c, 12, "damage door: AbilityDamage.deal with ability mode ON lands and the mode is not consumed", this::ddDealLands);
+        at(c, 3, "damage door: leave", this::recipientLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -965,6 +970,35 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         t.getInventory().setStorageContents(preContents); t.getInventory().setArmorContents(preArmor); t.getInventory().setItemInOffHand(preOff);
         return "world=" + t.getWorld().getName() + " testing=" + combat().testing(t) + " enrolled=" + moba.enrolled(t) + " paused=" + moba.enrollmentPaused(t)
                 + " offhand=" + t.getInventory().getItemInOffHand().getType() + " preOff=" + preOff.getType() + " cursor=" + t.getItemOnCursor().getType();
+    }
+
+    // ---- the ability damage door -----------------------------------------------------------------
+
+    private double ddBefore;
+    private String ddEnter() { cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter"); return "state=" + combat().state(t); }
+    private String ddControl() {
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth(); d.damage(3, t);
+        boolean ok = d.getHealth() < before;
+        return "mode=" + moba.inputs().active(t) + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + (ok ? "" : " | FAIL: the control hit did not land");
+    }
+    private String ddPlainSwallowed() {
+        var in = moba.inputs(); in.input(t, in.modeInput());
+        boolean modeBefore = in.active(t);
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth(); d.damage(3, t);
+        boolean swallowed = d.getHealth() >= before && !in.active(t);
+        if (in.active(t)) in.input(t, in.modeInput());
+        return "modeBefore=" + modeBefore + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + " swallowed=" + swallowed
+                + (modeBefore && swallowed ? "" : " | FAIL: a real swing in ability mode must still be a click");
+    }
+    private String ddDealLands() {
+        var in = moba.inputs(); in.input(t, in.modeInput());
+        boolean modeBefore = in.active(t);
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth();
+        AbilityDamage.deal(d, 3, t);
+        boolean landed = d.getHealth() < before, modeKept = in.active(t);
+        if (in.active(t)) in.input(t, in.modeInput());
+        return "modeBefore=" + modeBefore + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + " landed=" + landed + " modeKept=" + modeKept
+                + (modeBefore && landed && modeKept ? "" : " | FAIL: ability damage was swallowed or consumed the mode");
     }
 
     private String uiLeave() {

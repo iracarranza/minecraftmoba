@@ -36,7 +36,7 @@ final class BrawlingSlashAbility implements Ability {
         if(form!=Lycanthropy.Form.UNLEASHED && first==null)return false;
         p.swingMainHand();Player target=first instanceof Player victim?victim:null;
         if(form==Lycanthropy.Form.UNLEASHED)area(p,p.getLocation(),direction,damage,config.getDouble("sweepRadius"),.4);
-        else {first.damage(damage,p);first.setVelocity(direction.clone().multiply(config.getDouble("knockback")).setY(.25));}
+        else {AbilityDamage.deal(first,damage,p);first.setVelocity(direction.clone().multiply(config.getDouble("knockback")).setY(.25));}
         if(form==Lycanthropy.Form.UNLEASHED || target!=null){
             int delay=form==Lycanthropy.Form.UNLEASHED?config.getInt("unleashedDelayTicks"):config.getInt("delayTicks");
             leaps.put(p.getUniqueId(),new Leap(p,target,form,ctx.branchFor(id()),damage,direction,clock+delay));
@@ -84,7 +84,7 @@ final class BrawlingSlashAbility implements Ability {
     private void pathHits(Leap leap,Location at){
         if(leap.form==Lycanthropy.Form.HUMAN && !"whirling_slash".equals(leap.branch))return;
         for(var e:at.getWorld().getNearbyEntities(at,1.2,1.8,1.2))if(e instanceof LivingEntity enemy && Targetability.status(enemy,leap.player) && leap.hit.add(enemy.getUniqueId())){
-            enemy.damage(leap.damage*(leap.form==Lycanthropy.Form.HUMAN?config.getDouble("whirlingMultiplier"):1),leap.player);
+            AbilityDamage.deal(enemy,leap.damage*(leap.form==Lycanthropy.Form.HUMAN?config.getDouble("whirlingMultiplier"):1),leap.player);
             if(leap.form==Lycanthropy.Form.TRANSFORMED){if("gnashing_slash".equals(leap.branch))leap.pulled.add(enemy);else enemy.setVelocity(leap.direction.clone().multiply(.7).setY(.2));}
         }
     }
@@ -98,7 +98,7 @@ final class BrawlingSlashAbility implements Ability {
         for(var e:at.getWorld().getNearbyEntities(at,radius,2,radius))if(e instanceof LivingEntity target && Targetability.status(target,p)){
             Vector offset=target.getLocation().toVector().subtract(at.toVector()).setY(0);
             if(offset.lengthSquared()>radius*radius || (offset.lengthSquared()>.01 && offset.normalize().dot(flat)<coneDot))continue;
-            target.damage(damage,p);target.setVelocity(flat.clone().multiply(.7).setY(.3));
+            AbilityDamage.deal(target,damage,p);target.setVelocity(flat.clone().multiply(.7).setY(.3));
         }
         at.getWorld().spawnParticle(Particle.SWEEP_ATTACK,at.clone().add(0,.4,0),10,radius/2,.2,radius/2,0);
     }

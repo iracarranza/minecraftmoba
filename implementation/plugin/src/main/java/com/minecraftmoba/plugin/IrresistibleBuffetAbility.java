@@ -139,7 +139,7 @@ final class IrresistibleBuffetAbility implements Ability, Listener {
         if (seat != null) seat.chair().remove();
         p.saveData();
         if (penalty && seat != null && !p.isDead())
-            p.damage(Math.max(0, 9 - seat.eaten()[0]) * config.getDouble("damagePerServing"), seat.table().chef);
+            AbilityDamage.deal(p, Math.max(0, 9 - seat.eaten()[0]) * config.getDouble("damagePerServing"), seat.table().chef);
     }
     private void clearTable(Table t) {
         for (var s : List.copyOf(seats.values())) if (s.table() == t) release(s.victim(), false, true);

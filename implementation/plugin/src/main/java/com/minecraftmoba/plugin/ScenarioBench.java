@@ -315,7 +315,7 @@ public final class ScenarioBench {
             case "hit" -> {
                 Player victim = a.run.body(args.get("target")).player();
                 double before = victim.getHealth();
-                victim.damage(Double.parseDouble(args.get("amount")), me);
+                AbilityDamage.deal(victim, Double.parseDouble(args.get("amount")), me);
                 // Logged, so a hit that did nothing can be told from a check that was wrong.
                 plugin.getLogger().info("[scenario] " + actor.id() + " hit " + args.get("target") + ": health "
                         + String.format(Locale.ROOT, "%.2f -> %.2f", before, victim.getHealth())

@@ -60,7 +60,7 @@ final class FoodFightAbility implements Ability {
                 if (hit.getHitEntity() instanceof LivingEntity target) {
                     if (Targetability.allied(target, f.caster())) ChefItems.heal(target, target instanceof Player ally ? Vitals.scaleHealing(config.getDouble("heal"), plugin.effectiveMaxHealth(ally)) : config.getDouble("heal"));
                     else {
-                        target.damage(config.getDouble("damage"), f.caster());
+                        AbilityDamage.deal(target, config.getDouble("damage"), f.caster());
                         if ("extra_spicy".equals(f.branch())) target.setFireTicks(Math.max(target.getFireTicks(), config.getInt("fireTicks")));
                     }
                     finish(f, false);

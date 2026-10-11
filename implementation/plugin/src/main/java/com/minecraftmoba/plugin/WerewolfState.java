@@ -96,7 +96,7 @@ final class WerewolfState implements Listener {
         w.received+=taken;
         if(w.model.form()==Lycanthropy.Form.UNLEASHED){w.extraSize=Math.min(config.getDouble("sizeCap"),w.received/plugin.effectiveMaxHealth(p)*config.getDouble("sizePerHealth"));size(w);
             if(w.frenzy && e instanceof EntityDamageByEntityEvent by){LivingEntity attacker=by.getDamager() instanceof LivingEntity living?living:by.getDamager() instanceof Projectile shot && shot.getShooter() instanceof LivingEntity shooter?shooter:null;if(attacker!=null && Targetability.status(attacker,p)){
-                w.frenzy=false;plugin.getServer().getScheduler().runTask(plugin,()->{if(p.isOnline()&&!p.isDead()&&wolves.get(p.getUniqueId())==w&&attacker.isValid())attacker.damage(weaponDamage(p)*config.getDouble("maulMultiplier"),p);});}}
+                w.frenzy=false;plugin.getServer().getScheduler().runTask(plugin,()->{if(p.isOnline()&&!p.isDead()&&wolves.get(p.getUniqueId())==w&&attacker.isValid())AbilityDamage.deal(attacker,weaponDamage(p)*config.getDouble("maulMultiplier"),p);});}}
         }
     }
     static double weaponDamage(Player p){return Math.max(1,p.getAttribute(Attribute.ATTACK_DAMAGE).getValue());}
@@ -117,7 +117,7 @@ final class WerewolfState implements Listener {
             // Monitor observes only; the actual swept attacks run next tick outside the event dispatch.
             plugin.getServer().getScheduler().runTask(plugin,()->{
                 if(!p.isOnline() || p.isDead() || !hiding(p))return;secondary=true;
-                try{for(var other:p.getNearbyEntities(2+w.extraSize,1.5,2+w.extraSize))if(other instanceof LivingEntity target && !other.equals(e.getEntity()) && Targetability.status(target,p))target.damage(sweepDamage,p);}finally{secondary=false;}
+                try{for(var other:p.getNearbyEntities(2+w.extraSize,1.5,2+w.extraSize))if(other instanceof LivingEntity target && !other.equals(e.getEntity()) && Targetability.status(target,p))AbilityDamage.deal(target,sweepDamage,p);}finally{secondary=false;}
             });
         }
     }

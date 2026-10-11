@@ -61,7 +61,7 @@ final class FlipAndPressAbility implements Ability {
                     || !f.caster().getWorld().equals(f.target().getWorld())) { flips.remove(f); continue; }
             if (clock == f.slamAt()) f.target().setVelocity(new Vector(0, -config.getDouble("slamSpeed"), 0));
             if (clock >= f.slamAt() && (f.target().isOnGround() || clock >= f.expires())) {
-                f.target().damage(config.getDouble("damage"), f.caster());
+                AbilityDamage.deal(f.target(), config.getDouble("damage"), f.caster());
                 if (plugin.stun() != null) plugin.stun().stun(f.target(), config.getLong("stunTicks"));
                 flips.remove(f);
             }

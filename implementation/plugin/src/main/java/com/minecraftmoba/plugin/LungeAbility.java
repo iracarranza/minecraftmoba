@@ -61,7 +61,7 @@ final class LungeAbility implements Ability, org.bukkit.event.Listener {
             double radius = config.getDouble("damageRadius");
             for (var e : s.player().getNearbyEntities(radius, radius, radius))
                 if (e instanceof LivingEntity target && !target.equals(s.player()) && Targetability.status(target, s.player()) && s.struck().add(target.getUniqueId())) {
-                    target.damage(config.getDouble("damage"), s.player());
+                    AbilityDamage.deal(target, config.getDouble("damage"), s.player());
                     if ("thieving_swipe".equals(s.branch()) && target instanceof Player victim) {
                         var b = branch("thievingSwipe"); var item = victim.getInventory().getItemInMainHand();
                         int foxes = AnimalSenses.nearby(s.player(), config.getDouble("animalRadius")).foxes();

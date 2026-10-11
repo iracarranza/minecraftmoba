@@ -159,7 +159,7 @@ final class GardenerState implements Listener {
             if("torchflower".equals(f.type()) && ally)target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION,config.getInt("pulseTicks")+10,0,false,true,true));
             if("sweet_berry_bush".equals(f.type())) {
                 if(ally && target instanceof Player p) {p.setFoodLevel(Math.min(20,p.getFoodLevel()+config.getInt("provisionFood")));}
-                else if(Targetability.status(target,f.owner())) { target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,config.getInt("pulseTicks")+10,1));target.damage(config.getDouble("thicketDamage"),f.owner()); }
+                else if(Targetability.status(target,f.owner())) { target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS,config.getInt("pulseTicks")+10,1));AbilityDamage.deal(target,config.getDouble("thicketDamage"),f.owner()); }
             }
         }
     }
