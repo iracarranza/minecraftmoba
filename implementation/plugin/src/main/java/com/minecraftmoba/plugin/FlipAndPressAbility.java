@@ -30,10 +30,9 @@ final class FlipAndPressAbility implements Ability {
         Entity entity = ctx.entity(); Block block = ctx.block();
         // An air activation (including a lab body) resolves its aim once. Carried clicks win.
         if (entity == null && block == null) {
-            var hit = p.getWorld().rayTrace(p.getEyeLocation(), p.getEyeLocation().getDirection(),
-                    config.getDouble("reach"), FluidCollisionMode.NEVER, true, .25,
-                    e -> !e.equals(p) && Targetability.status(e, p));
-            if (hit != null) { entity = hit.getHitEntity(); block = hit.getHitBlock(); }
+            var hit = AbilityTargeting.ray(p, p.getEyeLocation(), p.getEyeLocation().getDirection(),
+                    config.getDouble("reach"), config.getDouble("rayWidth"), AbilityTargeting.Relation.ENEMY);
+            if (hit != null) { entity = hit.entity(); block = hit.block(); }
         }
         double multiplier = ChefItems.spatula(p, plugin) ? config.getDouble("spatulaMultiplier") : 1;
         if (entity instanceof LivingEntity target && Targetability.status(target, p)

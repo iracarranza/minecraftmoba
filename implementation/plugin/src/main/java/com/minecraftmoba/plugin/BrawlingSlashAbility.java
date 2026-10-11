@@ -31,8 +31,8 @@ final class BrawlingSlashAbility implements Ability {
     public boolean execute(Player p,AbilityContext ctx){
         if(leaps.containsKey(p.getUniqueId()))return false;
         var form=state.form(p);Vector direction=p.getEyeLocation().getDirection().normalize();double damage=WerewolfState.weaponDamage(p)*1.05;
-        var ray=p.getWorld().rayTrace(p.getEyeLocation(),direction,config.getDouble("range"),FluidCollisionMode.NEVER,true,.35,e->Targetability.status(e,p));
-        LivingEntity first=ray!=null && ray.getHitEntity() instanceof LivingEntity living?living:null;
+        var ray=AbilityTargeting.ray(p,p.getEyeLocation(),direction,config.getDouble("range"),config.getDouble("rayWidth"),AbilityTargeting.Relation.ENEMY);
+        LivingEntity first=ray!=null?ray.entity():null;
         if(form!=Lycanthropy.Form.UNLEASHED && first==null)return false;
         p.swingMainHand();Player target=first instanceof Player victim?victim:null;
         if(form==Lycanthropy.Form.UNLEASHED)area(p,p.getLocation(),direction,damage,config.getDouble("sweepRadius"),.4);
@@ -95,9 +95,9 @@ final class BrawlingSlashAbility implements Ability {
     }
     private void area(Player p,Location at,Vector facing,double damage,double radius,double coneDot){
         Vector flat=facing.clone().setY(0);if(flat.lengthSquared()>0)flat.normalize();
-        for(var e:at.getWorld().getNearbyEntities(at,radius,2,radius))if(e instanceof LivingEntity target && Targetability.status(target,p)){
-            Vector offset=target.getLocation().toVector().subtract(at.toVector()).setY(0);
-            if(offset.lengthSquared()>radius*radius || (offset.lengthSquared()>.01 && offset.normalize().dot(flat)<coneDot))continue;
+        for(var target:AbilityTargeting.within(p,at,radius,2,radius,AbilityTargeting.Relation.ENEMY,false)){
+            Vector offset=target.getLocation().toVector().subtract(at.toVector());
+            if(!AbilityTargeting.inCone(offset.getX(),offset.getZ(),flat.getX(),flat.getZ(),radius,coneDot))continue;
             AbilityDamage.deal(target,damage,p);target.setVelocity(flat.clone().multiply(.7).setY(.3));
         }
         at.getWorld().spawnParticle(Particle.SWEEP_ATTACK,at.clone().add(0,.4,0),10,radius/2,.2,radius/2,0);
