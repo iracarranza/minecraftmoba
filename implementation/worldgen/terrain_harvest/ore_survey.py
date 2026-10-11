@@ -32,7 +32,11 @@ number is not over-read:
 
   * Veins are clipped by the Y range and by the edge of the generated area, so
     a vein cut by either reads as smaller than it is.
-  * Two veins of one material that touch are one vein here.
+  * Two veins of one material that touch are one vein here. Vanilla's large
+    copper and iron "ore veins" (copper near Y 0-50 in granite, iron in deepslate
+    near Y -60 to -8 in tuff) are therefore hundreds of blocks in one piece; the
+    256+ bucket is where they land, and they are not an artefact of the
+    26-neighbour rule (face-only connectivity still gives a 156-block copper vein).
   * Distance treats fluids as rock and unknown (ungenerated) neighbours as
     rock, and only air beneath the surface counts as a cave.
 
@@ -275,12 +279,15 @@ def find_veins(ore):
         stack = [start]
         size = sx = sy = sz = cave = 0
         ymin, ymax = 10 ** 6, -10 ** 6
+        xmin = zmin = 10 ** 9
+        xmax = zmax = -10 ** 9
         while stack:
             k = stack.pop()
             x, y, z = pos_of(k)
             size += 1
             sx += x; sy += y; sz += z
             ymin = min(ymin, y); ymax = max(ymax, y)
+            xmin = min(xmin, x); xmax = max(xmax, x); zmin = min(zmin, z); zmax = max(zmax, z)
             if ore[k] & 3 == 0:
                 cave += 1
             for d in CONNECT:
@@ -292,7 +299,8 @@ def find_veins(ore):
                         stack.append(n)
         out.append({'material': MATERIALS[material], 'size': size,
                     'x': round(sx / size, 1), 'y': round(sy / size, 1), 'z': round(sz / size, 1),
-                    'y_min': ymin, 'y_max': ymax, 'cave_exposed_blocks': cave})
+                    'y_min': ymin, 'y_max': ymax, 'x_min': xmin, 'x_max': xmax, 'z_min': zmin, 'z_max': zmax,
+                    'cave_exposed_blocks': cave})
     return out
 
 
@@ -302,7 +310,7 @@ def percentile(sorted_values, q):
     return sorted_values[min(len(sorted_values) - 1, int(q * len(sorted_values)))]
 
 
-SIZE_BUCKETS = ((1, 1), (2, 3), (4, 7), (8, 15), (16, 31), (32, None))
+SIZE_BUCKETS = ((1, 1), (2, 3), (4, 7), (8, 15), (16, 31), (32, 63), (64, 255), (256, None))
 
 
 def _bucket_label(lo, hi):
