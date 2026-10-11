@@ -34,3 +34,5 @@ __pycache__/
 /validation/plugin/kits/build/
 
 /validation/plugin/next-kits/build/
+
+/validation/plugin/skeleton-crew/build/

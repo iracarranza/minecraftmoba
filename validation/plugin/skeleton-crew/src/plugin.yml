@@ -1,0 +1,5 @@
+name: CrewAcceptance
+version: 1.0
+main: kf.CrewAcceptance
+api-version: '1.21'
+depend: [MinecraftMoba]

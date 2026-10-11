@@ -1,0 +1,37 @@
+PASS all Skeleton Crew slots and six branches register
+PASS Raise spends stored Crew and is a noncombat cast
+PASS Hard Hat equips helmet then chest legs boots and refreshes timeout
+PASS native cargo slots preserve unstackable and partial-stack limits
+PASS real tagged products transport while synthetic lab controls are refused
+PASS two halves of one Copper Chest cannot prove separate endpoints
+PASS shared authored damage rule protects owned workers
+PASS Strike immediately damages enemy and provokes workers
+PASS Fire Drill abandons combat without ignition or teleport
+PASS Field Work launches one noncombat projectile
+PASS Field Work enemy impact strikes without spending Crew or raising
+PASS Field Work terrain impact raises exactly once without a strike
+PASS physical logistics works before infrastructure recognition
+PASS ultimate commits to Logistics and inherits a physical assignment
+PASS temporary workers cannot commit and do not consume ordinary limit
+PASS two full physical trips transfer actual cargo and permit directional recognition
+PASS another committed worker cannot substitute for the defining carrier
+PASS flow pauses while the specific defining worker is active
+PASS commitment withdraws physical worker and preserves measured Item Rate
+PASS recognized line moves real upstream items using committed Capacity
+PASS destroyed destination pauses retained recognition and cargo
+PASS repair resumes flow without reproving the retained line
+PASS base Burning Out ignites and native fire increases movement
+PASS any-source fire applies speed during a productive/idle task
+PASS water extinguishing heals by burn duration and grants refreshed speed
+PASS Labored Union automatically provokes nonundead mob
+PASS ordinary automatic combat is physical and ultimate locks Combat specialization
+PASS Horseman specialization remains fixed when ordinary task changes
+PASS Union crew kill of a cow mints stored Crew
+PASS Deadline begins actual burning combat streak
+PASS Deadline explodes after sustained native burning combat
+PASS normal undead player kill grants Crew and limit blocks seventh ordinary worker
+PASS worker death spills cargo without synthetic equipment drops
+PASS crew checkpoint reload restores resource ledger and real cargo
+PASS Supply Line persistence reload retains measured rate and endpoints
+PASS explicit lab cleanup removes workers and recognition
+SUMMARY pass=36 fail=0

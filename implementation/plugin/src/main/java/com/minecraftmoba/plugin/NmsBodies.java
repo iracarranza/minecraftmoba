@@ -241,6 +241,7 @@ public final class NmsBodies implements Bodies {
                         org.bukkit.Material.CROSSBOW, org.bukkit.Material.FISHING_ROD, org.bukkit.Material.GOLDEN_APPLE, org.bukkit.Material.ARROW};
                 for (int i=0;i<items.length;i++) p.getInventory().setItem(i,new org.bukkit.inventory.ItemStack(items[i],i>=4?16:1));
             }
+            if ("skeleton_crew".equals(classId)) { plugin.inputs().crew().grant(p, 3); p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SWORD)); }
             if ("werewolf".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SWORD));
             if ("gardener".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.WHEAT_SEEDS,64));
             // Only a running match takes participants; outside one a body is

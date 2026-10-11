@@ -77,9 +77,11 @@ public final class TeamDamage implements Listener {
      */
     static Player owner(Entity damager) {
         if (damager instanceof Player p) return p;
+        if (SkeletonCrewState.owned(damager)) return SkeletonCrewState.owner(damager);
         if (damager instanceof Projectile projectile) {
             ProjectileSource shooter = projectile.getShooter();
             if (shooter instanceof Player p) return p;
+            if (shooter instanceof Entity e && SkeletonCrewState.owned(e)) return SkeletonCrewState.owner(e);
         }
         if (damager instanceof Tameable tameable && tameable.getOwner() instanceof Player p) return p;
         return null;
@@ -97,10 +99,12 @@ public final class TeamDamage implements Listener {
     public void damage(EntityDamageByEntityEvent event) {
         if (!enabled()) return;
         if (!authored(event.getCause())) return;
-        if (!(event.getEntity() instanceof Player victim)) return;
+        Player victim = event.getEntity() instanceof Player p ? p : SkeletonCrewState.owner(event.getEntity());
+        if (victim == null) return;
 
         Player source = owner(event.getDamager());
-        if (source == null || source.equals(victim)) return;
+        if (source == null) return;
+        if (source.equals(victim) && event.getEntity() instanceof Player) return;
         if (!Targetability.allied(victim, source)) return;
 
         event.setCancelled(true);

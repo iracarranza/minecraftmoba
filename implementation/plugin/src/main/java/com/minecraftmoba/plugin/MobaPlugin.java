@@ -28,7 +28,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public void applyDraftedClass(Player p, String id) {
         var d = data(p);
         if (d == null) return;
-        if (inputs != null) { inputs.forget(p); inputs.daredevil().clear(p); }
+        if (inputs != null) { if (!Objects.equals(d.classId, id)) inputs.crew().clearOwner(p.getUniqueId()); inputs.forget(p); inputs.daredevil().clear(p); }
         d.classId = id;
         sync(p, d);
     }
@@ -56,6 +56,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private RenewableAuthoring renewAuthoring;
     private InfraMode infraMode;
     private Routes routes;
+    private TransportEvidence transportEvidence = new TransportEvidence();
+    private SupplyLines supplyLines;
+    TransportEvidence transportEvidence() { return transportEvidence; }
+    SupplyLines supplyLines() { return supplyLines; }
     public InfraMode infraMode() { return infraMode; }
     public Routes routes() { return routes; }
     private RewardAdvancements rewardAdvancements;
@@ -243,6 +247,9 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
         inputs = new AbilityInputs(this, provenance);
+        transportEvidence = new TransportEvidence();
+        supplyLines = new SupplyLines(this);
+        getServer().getPluginManager().registerEvents(supplyLines, this);
         packets = new PacketInputs(this, inputs);
         getServer().getPluginManager().registerEvents(inputs, this);
         // Daredevil's shared state listens for movement and damage on its own
@@ -463,6 +470,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
      * and levels are match-scoped for Alpha and reset between matches).
      */
     public void clearMatchScopedState(org.bukkit.entity.Player p) {
+        inputs.crew().clearOwner(p.getUniqueId());
         inputs.forget(p);
         var fresh = new PlayerData(p.getUniqueId());
         players.put(fresh.uuid, fresh);
@@ -959,6 +967,11 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (args.length == 1 && args[0].equalsIgnoreCase("rewards") && sender instanceof Player player) {
             rewards.open(player); return true;
         }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("crew") && sender instanceof Player p) {
+            if (!enrolled(p) || !"skeleton_crew".equals(data(p).classId)) { p.sendMessage("Choose Skeleton Crew to manage its workforce."); return true; }
+            return inputs.crew().command(p, args);
+        }
+        if (args.length >= 1 && args[0].equalsIgnoreCase("supply") && sender instanceof Player p) { supplyLines.report(p); return true; }
         if (!sender.hasPermission("moba.admin")) { sender.sendMessage("Missing moba.admin permission."); return true; }
         if (args.length == 2 && args[0].equalsIgnoreCase("task")) {
             var target = org.bukkit.Bukkit.getPlayerExact(args[1]);

@@ -92,11 +92,10 @@ class UndeadAffinityTest {
     }
 
     @Test void crewIsNotMintedHere() {
-        // The other half of the passive needs Crew, which does not exist. If a
-        // Crew counter ever appears on this class, it should arrive with the
-        // ability that spends it -- not as a number that only goes up.
+        // Pursuit remains a pure eligibility/geometry helper. Resources now live
+        // in SkeletonCrewState alongside the workers and abilities consuming them.
         for (var m : UndeadAffinity.class.getDeclaredMethods())
             assertFalse(m.getName().toLowerCase().contains("crew"),
-                    "UndeadAffinity grew " + m.getName() + " before Crew existed");
+                    "UndeadAffinity grew " + m.getName() + " in the pursuit helper");
     }
 }

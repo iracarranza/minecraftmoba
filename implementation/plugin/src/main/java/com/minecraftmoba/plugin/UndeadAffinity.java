@@ -5,20 +5,9 @@ import org.bukkit.entity.EntityType;
 import java.util.Set;
 
 /**
- * Skeleton Crew's passive, in the half that can exist yet.
- *
- * <h2>The passive has two halves and only one is buildable</h2>
- *
- * classes.md: <i>"Hostile undead detect and pursue Skeleton Crew from
- * substantially farther away than normal. Killing eligible hostile undead
- * generates Crew stacks."</i>
- *
- * The first sentence is a targeting range. The second mints <b>Crew</b> --
- * worker entities with a Combat/Logistics/self-preservation priority order,
- * cargo, Supply Line deposits and sunlight burning -- which is the class's
- * entire resource system and does not exist. Building a counter that nothing
- * spends would be a placeholder one layer in, so this is the pursuit half
- * alone, and the class's passive is real instead of absent.
+ * Pursuit eligibility and geometry for Skeleton Crew's passive.
+ * Crew generation, cargo and workforce allocation are now implemented by
+ * {@link SkeletonCrewState}; this helper remains the pursuit half.
  *
  * <h2>Pursuit is granted, not attribute-modified</h2>
  *

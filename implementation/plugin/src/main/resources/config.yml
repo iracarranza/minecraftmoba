@@ -1,6 +1,11 @@
 # Feature flags. Each Phase 2 feature is independently switchable; turning one
 # off must never require touching another.
 features:
+  # Lab-only single-link proof. Open span/relay progression is not invented by this prototype.
+  supplyLines:
+    enabled: true
+    prototypeWorlds: [moba_combat, moba_lab_match]
+    proofTimeoutTicks: 24000
   # No friendly fire, as ONE rule in one place.
   #
   # [RESOLVED 27 September 2026] It means no AUTHORED damage across teams,
@@ -1044,9 +1049,10 @@ abilities:
           # Growth, kit, infrastructure consequence or mixed". If crew capacity
           # turns out to be Growth, it is a PERSONAL class-resource capacity and
           # belongs here; if it is kit, it does not.
-      a1: lunge
-      a2: sinkhole_lite
-      ult: channel_ult
+      a1: graveyard_shift
+      a2: burning_out
+      ult: a_head_of_schedule
+      branches: { graveyard_shift: hard_hat_zone, burning_out: water_break }
     mole:
       displayName: Mole
       passiveHook: sifth_sense
@@ -1118,6 +1124,23 @@ abilities:
       ult: monster_howl
       branches: { brawling_slash: whirling_slash, bloodhide: brawlers_mind }
   definitions:
+    graveyard_shift:
+      displayName: Graveyard Shift
+      combat: true
+      cooldownTicks: 30
+      strikeRange: 5
+      projectileSpeed: 0.8
+      projectileTicks: 40
+      branches: { field_work: { combat: true }, hard_hat_zone: { combat: true }, labored_union: { combat: true } }
+    burning_out:
+      displayName: Burning Out
+      combat: true
+      cooldownTicks: 160
+      branches: { fire_drill: { combat: false }, deadline: { combat: true }, water_break: { combat: true } }
+    a_head_of_schedule:
+      displayName: A-Head of Schedule
+      combat: true
+      cooldownTicks: 800
     # Prototype/test values; branch choice stays mutually exclusive pending the Werewolf Open decision.
     offhander:
       displayName: Offhander
@@ -1578,10 +1601,9 @@ passives:
   # Skeleton Crew. Hostile undead pursue from substantially farther than normal,
   # converting night-time danger into economic opportunity.
   #
-  # ONLY THE PURSUIT HALF IS BUILT. The passive also generates Crew on kills,
-  # and Crew -- worker entities with cargo, Supply Line deposits and a priority
-  # order -- does not exist. A counter nothing spends would be a placeholder one
-  # layer in, so it is absent rather than stubbed.
+  # Pursuit geometry remains here. Crew kills, stored resource, physical cargo
+  # and allocation are now supplied by SkeletonCrewState; prototype values
+  # live in skeletonCrew below. Recognition belongs to shared SupplyLines.
   #
   # [FIXTURE -- expect to tune] "Substantially farther" is the only constraint
   # classes.md gives; doubling is the reading taken. vanillaRange is the band's
@@ -1995,6 +2017,26 @@ alpha:
           - { tick: 90, assert: health_not_lower, of: gardener, since: 85, because: "authored damage still refuses allies" }
           - { tick: 100, assert: alive, of: fighter }
           - { tick: 100, assert: alive, of: wolf }
+      skeleton_crew_skirmish:
+        description: "Raise, burning workers, a direct Strike and a specialized Horseman shift in a team encounter."
+        anchor: fountain_north
+        roster:
+          - { id: foreman, team: NORTH, class: skeleton_crew, level: 15, at: [4, 0, 8] }
+          - { id: ally, team: NORTH, class: kitfighter, level: 15, at: [4, 0, 12] }
+          - { id: enemy, team: SOUTH, class: mole, level: 15, at: [8, 0, 8] }
+        timeline:
+          - { tick: 20, actor: foreman, do: cast, slot: a1, at: ally }
+          - { tick: 22, assert: ability_executed, of: foreman, ability: graveyard_shift, because: "the off-axis allied aim raises from seeded Crew" }
+          - { tick: 55, actor: foreman, do: cast, slot: a1, at: enemy, level: true }
+          - { tick: 57, assert: ability_executed, of: foreman, ability: graveyard_shift }
+          - { tick: 65, window: 5, assert: health_below, of: enemy, than: since, since: 55, because: "direct Strike damages the enemy and provokes physical Crew" }
+          - { tick: 70, actor: foreman, do: cast, slot: a2, at: enemy }
+          - { tick: 72, assert: ability_executed, of: foreman, ability: burning_out }
+          - { tick: 80, actor: foreman, do: cast, slot: ult, at: enemy }
+          - { tick: 82, assert: ability_executed, of: foreman, ability: a_head_of_schedule }
+          - { tick: 90, actor: foreman, do: hit, target: ally, amount: 2 }
+          - { tick: 95, assert: health_not_lower, of: ally, since: 90, because: "authored damage still protects allies" }
+          - { tick: 100, assert: alive, of: foreman }
       lure_and_frighten:
         description: "Lured walks toward its source and Frightened away from it, both facing it; a Stun overrides both; a Lured body may attack."
         anchor: fountain_north
@@ -2253,3 +2295,43 @@ werewolf:
   sizePerHealth: 1
   maulMultiplier: 1.5
   lifesteal: 0.085
+
+# Skeleton Crew Prototype/test values. Limit counts active AND committed ordinary workers and does not scale with level.
+skeletonCrew:
+  limit: 6
+  cargoSlots: 5
+  raiseCost: 1
+  killCrew: 1
+  health: 20
+  damage: 3
+  strikeBonus: 2
+  unionBonusMultiplier: 0.35
+  friendlyDamage: 1
+  armorTicks: 300
+  burnTicks: 200
+  burnSpeed: 1.8
+  alarmTicks: 100
+  alarmSpeed: 2.2
+  deadlineTicks: 60
+  deadlinePower: 2.5
+  waterHealPerTick: 0.025
+  refreshTicks: 80
+  refreshedSpeed: 1.5
+  ultimateTicks: 400
+  temporaryCrew: 3
+  temporaryCargoSlots: 5
+  horsemanHealth: 36
+  horsemanDamage: 6
+  horsemanReach: 4
+  ultimateSpeed: 1.5
+  ultimateDamage: 1.5
+  attackReach: 2.2
+  attackTicks: 20
+  aggroRadius: 10
+  pursuitRadius: 20
+  arrivalRadius: 2
+  pickupRadius: 1.2
+  waterSearchRadius: 6
+  assignmentRange: 8
+  navigationTicks: 10
+  checkpointTicks: 40

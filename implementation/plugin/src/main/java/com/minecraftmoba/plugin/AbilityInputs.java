@@ -58,6 +58,8 @@ public final class AbilityInputs implements Listener {
     private final GardenerState gardener;
     private final WerewolfState werewolf;
     private final Salvage salvage;
+    private final SkeletonCrewState crew;
+    SkeletonCrewState crew() { return crew; }
     GardenerState gardener() { return gardener; }
     WerewolfState werewolf() { return werewolf; }
     private final IrresistibleBuffetAbility buffet;
@@ -109,6 +111,10 @@ public final class AbilityInputs implements Listener {
         abilities.put("brawling_slash", new BrawlingSlashAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.brawling_slash"), werewolf));
         abilities.put("bloodhide", new BloodhideAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.bloodhide")));
         abilities.put("monster_howl", new MonsterHowlAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.monster_howl")));
+        crew = new SkeletonCrewState(plugin);
+        abilities.put("graveyard_shift", new GraveyardShiftAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.graveyard_shift"), crew));
+        abilities.put("burning_out", new BurningOutAbility(crew, plugin.getConfig().getConfigurationSection("abilities.definitions.burning_out")));
+        abilities.put("a_head_of_schedule", new AHeadOfScheduleAbility(crew, plugin.getConfig().getConfigurationSection("abilities.definitions.a_head_of_schedule")));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
@@ -334,11 +340,10 @@ public final class AbilityInputs implements Listener {
             // Marked on success only: a refused or no-op activation did not
             // happen, and should not gate the caster out of levelling.
             //
-            // [OPEN] A context-sensitive ability -- Skeleton Crew's Graveyard
-            // Shift either Strikes or Raises -- must report what it actually
-            // did rather than carry this fixed answer. The seam is unresolved,
-            // and no current ability needs it.
-            if (plugin.combatState()!=null && combatRules.combat(ability.id(),context.branchFor(ability.id())))
+            // Contextual casts may report the action actually performed.
+            // Graveyard Shift marks direct Strike, while Raise and a projectile
+            // launch remain noncombat until real impact damage is observed.
+            if (plugin.combatState()!=null && combatActivation(ability, p, context))
                 plugin.combatState().markAbilityActivation(p);
             executionCounts.computeIfAbsent(p.getUniqueId(),k->new HashMap<>()).merge(ability.id(),1,Integer::sum);
             if (plugin.getConfig().getBoolean("abilities.logExecutions"))
@@ -537,14 +542,18 @@ public final class AbilityInputs implements Listener {
         // is still a cast, and marking combat differently would make the cast
         // mode a balance setting.
         if (plugin.combatState() != null
-                && combatRules.combat(ability.id(), context.branchFor(ability.id())))
+                && combatActivation(ability, p, context))
             plugin.combatState().markAbilityActivation(p);
     }
 
+    private boolean combatActivation(Ability ability, Player p, Ability.AbilityContext context) {
+        Boolean result = ability.combatActivation(p, context);
+        return result != null ? result : combatRules.combat(ability.id(), context.branchFor(ability.id()));
+    }
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
     java.util.List<Listener> listeners() {
         var result = new ArrayList<Listener>(abilities.values().stream().filter(a -> a instanceof Listener).map(a -> (Listener) a).toList());
-        result.addAll(List.of(gardener, werewolf, salvage)); return result;
+        result.addAll(List.of(gardener, werewolf, salvage, crew)); return result;
     }
     void close() {
         Bukkit.getOnlinePlayers().forEach(p -> abilities.values().forEach(a -> a.forget(p)));

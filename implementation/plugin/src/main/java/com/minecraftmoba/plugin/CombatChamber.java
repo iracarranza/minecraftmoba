@@ -238,10 +238,12 @@ public final class CombatChamber implements Listener {
         world();
         CombatSlabWorld.build(world);
         CombatEcologyFixture.build(world);
+        CombatLogisticsFixture.build(world);
         applyTime(s.modes().timeOfDay());
         if (!plugin.enrolled(p)) p.performCommand("moba join");
         if (!plugin.enrolled(p)) throw new IllegalStateException("Could not enrol; empty your offhand and cursor, then retry.");
         plugin.applyDraftedClass(p, s.classId());
+        if (operator && "skeleton_crew".equals(s.classId())) plugin.inputs().crew().grant(p, 3);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "moba setlevel " + p.getName() + " " + s.modes().level());
 
         double[] at = CombatSlab.testerSpawn();
@@ -267,6 +269,7 @@ public final class CombatChamber implements Listener {
                                 + (s.script() == CombatBehavior.Script.REPEAT ? "(it also casts every " + REPEAT_TICKS / 20 + "s)" : "")
                                 + " | log | clear | reset | leave"))
         ;
+        if ("skeleton_crew".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Prototype: 3 stored Crew seeded for this lab session. Copper Chest controls: x0 and x8, z8. /moba crew list; target a chest then /moba crew source|destination <worker>. Use Infrastructure Mode at level 6+ to prove a line; carry real cargo.");
         if ("gardener".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Clip controls grow on the grass band: x12–16, z-8–-4. Carry plant items for Cultivate; full meters need nearby soil.");
         p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on. Equipment / controls (or /moba lab combat equipment) restores your real hotbar for food, weapons and tools.");
     }
@@ -556,9 +559,12 @@ public final class CombatChamber implements Listener {
     }
 
     private void reset(Player p, Active a) {
+        plugin.inputs().crew().clearOwner(p.getUniqueId());
+        if ("skeleton_crew".equals(plugin.data(p).classId)) plugin.inputs().crew().grant(p, 3);
         plugin.inputs().forget(p);
         CombatSlabWorld.build(world);
         CombatEcologyFixture.build(world);
+        CombatLogisticsFixture.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
         a.replayer = null;
         a.gi.force();
@@ -572,6 +578,7 @@ public final class CombatChamber implements Listener {
 
     /** Leave the chamber: remove the dummy and go back to the lab room. */
     public void leave(Player p) {
+        plugin.inputs().crew().clearOwner(p.getUniqueId());
         plugin.inputs().forget(p);
         var a = active.remove(p.getUniqueId());
         ui.release(p);
@@ -586,7 +593,7 @@ public final class CombatChamber implements Listener {
         for (var e : new java.util.ArrayList<>(active.entrySet())) {
             Player p = Bukkit.getPlayer(e.getKey());
             if (e.getValue().dummy != null) bodies.despawn(e.getValue().dummy);
-            if (p != null) { plugin.inputs().forget(p); lab.toRoom(p); }
+            if (p != null) { plugin.inputs().crew().clearOwner(p.getUniqueId()); plugin.inputs().forget(p); lab.toRoom(p); }
         }
         active.clear(); pre.clear(); stopTicker();
         ui.close();

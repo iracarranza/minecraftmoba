@@ -16,7 +16,7 @@ import java.util.*;
  * Holding no item and granting no benefit by itself. infrastructure.md is clear
  * that ordinary roads, caches and farms keep their value independently of
  * recognition, so entering this mode must not confer anything — it only changes
- * what a Banner interaction does.
+ * what Banner and Copper Chest interactions do.
  *
  * Mode must not survive death or disconnect in a stuck form. The Phase 1
  * deathInMode scenario established that for ability mode and the same applies
@@ -38,7 +38,7 @@ public final class InfraMode implements Listener {
         if (!active.add(p.getUniqueId())) { p.sendMessage("Already in Infrastructure Mode."); return; }
         if (plugin.hud() != null) plugin.hud().showMode(p, "Infrastructure Mode", BarColor.BLUE);
         p.sendMessage(ChatColor.AQUA + "Infrastructure Mode entered.");
-        p.sendActionBar(ChatColor.AQUA + "Interact with a Banner to designate a Route endpoint");
+        p.sendActionBar(ChatColor.AQUA + "Designate a Banner for Routes or a Copper Chest for the Supply Line lab prototype");
     }
 
     public void exit(Player p) {
@@ -46,6 +46,7 @@ public final class InfraMode implements Listener {
         // Leaving abandons an unfinished designation rather than keeping it
         // alive invisibly.
         if (plugin.routes() != null) plugin.routes().discardPending(p);
+        if (plugin.supplyLines() != null) plugin.supplyLines().discardPending(p);
         if (plugin.hud() != null) plugin.hud().hideMode(p);
         p.sendMessage(ChatColor.GRAY + "Infrastructure Mode exited.");
     }
@@ -74,6 +75,7 @@ public final class InfraMode implements Listener {
     private void forceClear(Player p) {
         if (!active.remove(p.getUniqueId())) return;
         if (plugin.routes() != null) plugin.routes().discardPending(p);
+        if (plugin.supplyLines() != null) plugin.supplyLines().discardPending(p);
         if (plugin.hud() != null) plugin.hud().hideMode(p);
     }
 

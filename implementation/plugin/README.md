@@ -119,3 +119,23 @@ Enrollment/reset/level reduction requires an empty cursor and empty temporary me
 slots. These conservative restrictions avoid closing-time insertion into locked slots
 without relocating or restoring anything. Commands or other plugins that directly
 write inventories bypass Bukkit inventory events and are not supported insertion paths.
+
+## Skeleton Crew lab prototype
+
+Skeleton Crew now binds its resource/workforce passive, Graveyard Shift with all
+three branches, Burning Out with all three branches, and A-Head of Schedule. The
+combat chamber seeds three stored Crew for operator sessions and provides empty
+Copper Chests at x0/x8, y65, z8. Carry real cargo; `/moba crew list` shows IDs. Target
+a chest, then use `/moba crew source|destination <worker>`. Use Infrastructure Mode
+after the class earns Supply Line recognition, prove two actual full deliveries,
+then designate Destination. `/moba supply` reports lines; `/moba crew commit
+<worker> <line>` withdraws a physical worker, `/moba crew mobilize <worker>` restores
+it and withdraws Capacity. Temporary Horseman workers cannot become persistent
+Capacity.
+
+Recognition is a shared single-link **lab-only** foundation, with measured Item Rate
+and real inventory pulses. Ordinary worker/cargo/allocation and recognized lines
+persist in versioned sidecars; explicit lab teardown clears session state. The
+`skeleton_crew_skirmish` scenario is available for a launched scoop. See
+[delivery and Open limits](../../docs/design/SKELETON_CREW_LAB_PASS.md) and
+[native acceptance](../../validation/plugin/skeleton-crew/README.md).

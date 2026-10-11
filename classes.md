@@ -3260,7 +3260,7 @@ Each Crew Member is either physically active in the world **or** committed to Su
 
 Hostile undead detect and pursue Skeleton Crew from substantially farther away than normal. Killing eligible hostile undead generates Crew stacks. This deliberately converts nighttime and undead danger into economic opportunity. [OPEN] Detection radius, eligible undead, Crew generation values, Crew Limit.
 
-**Build note, 8 October 2026. Pursuit half only.** Implemented as `UndeadAffinity` plus a scan in `Passives.tick`. The Crew-generation half is **not built and not stubbed**: Crew is the class's whole resource system — worker entities with cargo, Supply Line deposits and a Combat → Logistics → self-preservation order — and a counter nothing spends would be a placeholder one layer in. A test asserts `UndeadAffinity` has grown no Crew method, so the counter cannot appear before the ability that spends it.
+**[HISTORICAL delivery note, 8 October 2026] Pursuit half only.** Implemented as `UndeadAffinity` plus a scan in `Passives.tick`. The Crew-generation half is **not built and not stubbed**: Crew is the class's whole resource system — worker entities with cargo, Supply Line deposits and a Combat → Logistics → self-preservation order — and a counter nothing spends would be a placeholder one layer in. A test asserts `UndeadAffinity` has grown no Crew method, so the counter cannot appear before the ability that spends it.
 
 Decisions taken to make the pursuit half run:
 
@@ -3274,6 +3274,15 @@ Range is `[FIXTURE — expect to tune]` at 32 blocks against vanilla's 16. "Subs
 ### Base Crew behaviour
 
 Active Crew Members are physical workers and combatants with the priority order **Combat → Logistics → self-preservation**. Empty-handed Crew follow Skeleton Crew. Cargo-carrying Crew seek the nearest valid Supply Line node, deposit, then follow. Provoked Crew fight, then resume previous behaviour. Crew likely retain cargo while fighting and spill it if killed. Ordinary sunlight can burn Crew like undead unless otherwise protected.
+
+**Build note, 11 October 2026. Prototype/test kit and workforce built.**
+The resource half, physical workers/cargo, all three active slots and all six named
+branches now have implementations in the Java 21 / Paper 1.21.11 labs. Shared
+single-link Supply Line recognition, measured real transport and mutually exclusive
+commitment are a **lab foundation**, not complete production infrastructure; relay
+thresholds, capture, full topology and final balance remain Open. See the
+[delivery and limits](docs/design/SKELETON_CREW_LAB_PASS.md) and
+[reconciliation](docs/reconciliation/2026-10-11-skeleton-crew-lab-pass.md).
 
 ### Ability 1 — Graveyard Shift
 

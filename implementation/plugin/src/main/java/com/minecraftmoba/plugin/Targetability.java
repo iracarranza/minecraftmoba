@@ -119,14 +119,16 @@ public final class Targetability {
     }
 
     /**
-     * Same-team players. Everything non-player is nobody's ally.
+     * Same-team players and owned Crew inherit their owner's allegiance.
      *
      * Reads the scoreboard team, which is where team membership already lives
      * and what the existing sweep abilities use, rather than introducing a
      * second source that could disagree with it.
      */
     public static boolean allied(Entity target, Player source) {
-        if (!(target instanceof Player other)) return false;
+        Player other = target instanceof Player p ? p : SkeletonCrewState.owner(target);
+        if (other == null) return false;
+        if (other.equals(source)) return true;
         var manager = org.bukkit.Bukkit.getScoreboardManager();
         boolean sameScoreboardTeam = false;
         if (manager != null) {

@@ -606,3 +606,14 @@ Current direction is that the shared opportunity can be allocated flexibly to an
 **First Capture is not Exclusive Control.** The team that first capitalizes a Worksite permanently retains the earned shared Infrastructure opportunity, while later control and exploitation of the Worksite can change hands.
 
 The reward does not itself award flat Work Points or XP. Its value is persistent Work Stock: greater future Infrastructure breadth/capability can expand Practical Reach and future useful Work Flow.
+
+## Delivery note — 11 October 2026
+
+**Prototype/test, lab worlds only.** Shared single-link Supply Line recognition now
+observes two full real ordinary-worker deliveries between designated Copper Chest
+inventories. It persists measured method/rate and uses conserved committed Skeleton
+Crew capacity for real inventory pulses. Missing support pauses retained recognition.
+This does not settle Open production relay/span thresholds, capture, integration,
+night topology, progression rewards or generalized carrier support. See
+[Skeleton Crew lab delivery](docs/design/SKELETON_CREW_LAB_PASS.md) and its
+[reconciliation](docs/reconciliation/2026-10-11-skeleton-crew-lab-pass.md).

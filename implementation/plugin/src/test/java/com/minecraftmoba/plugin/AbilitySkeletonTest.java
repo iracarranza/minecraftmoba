@@ -408,15 +408,14 @@ class AbilitySkeletonTest {
                 "the gesture is the same, so the target is what selects");
     }
 
-    @Test void aBranchDeclaresEveryOutputAndNotOnlyTheOneItChanges() {
-        // Field Work turns Graveyard Shift into a projectile, moving BOTH
-        // outputs to DIRECTION. A branch recording only what differs would
-        // have to say which output it meant.
+    @Test void fieldWorkDeclaresOneProjectileWhoseImpactSelectsStrikeOrRaise() {
+        // One aimed projectile, never two identical selectors that the dispatcher
+        // cannot distinguish. Impact resolves the mutually exclusive outcomes.
         var fieldWork = branches().stream()
                 .filter(b -> "field_work".equals(b.get("branch"))).toList();
-        assertEquals(2, fieldWork.size(), "both outputs: " + fieldWork);
-        for (var o : fieldWork)
-            assertEquals("DIRECTION", o.get("target"), o.get("output") + " becomes a projectile too");
+        assertEquals(1, fieldWork.size());
+        assertEquals("field_work", fieldWork.getFirst().get("output"));
+        assertEquals("DIRECTION", fieldWork.getFirst().get("target"));
     }
 
     @Test void theOnlyHeldOutputsAreTheOnesTheDesignSaysToHold() {
@@ -470,7 +469,7 @@ class AbilitySkeletonTest {
         for (var b : branches())
             if ("ALLIES".equals(b.get("affects")) || "BOTH".equals(b.get("affects")))
                 ally.add(b.get("ability") + "." + b.get("branch"));
-        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious", "plant_material"), ally,
+        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious", "plant_material", "graveyard_shift.hard_hat_zone"), ally,
                 "found: " + ally);
     }
 

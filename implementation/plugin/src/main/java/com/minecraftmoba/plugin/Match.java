@@ -781,6 +781,8 @@ public final class Match implements Listener {
         // its occupant is removed before the restore rather than orphaned in a
         // world nobody will load again.
         if (plugin.lair() != null) plugin.lair().reset();
+        plugin.inputs().crew().reset();
+        if (plugin.supplyLines() != null) plugin.supplyLines().reset();
         worldInstance.release("reset");
         if (plugin.teamObjectives() != null) plugin.teamObjectives().reset();
         // Routes, Infrastructure Mode and contributions are all match-scoped and

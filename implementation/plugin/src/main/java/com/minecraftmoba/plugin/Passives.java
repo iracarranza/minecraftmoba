@@ -66,9 +66,8 @@ public final class Passives implements Listener {
     /**
      * Skeleton Crew. Hostile undead pursue from farther away.
      *
-     * The passive's other half -- killing them generates Crew -- needs Crew,
-     * which is the class's whole resource system and does not exist. See
-     * {@link UndeadAffinity}.
+     * Crew generation and the physical workforce are owned by SkeletonCrewState;
+     * this dispatcher handles pursuit through UndeadAffinity.
      */
     public static final String UNDEAD_AFFINITY = "undead_affinity";
 
@@ -220,7 +219,7 @@ public final class Passives implements Listener {
                 "passives.undeadAffinity.vanillaRange", UndeadAffinity.VANILLA_FOLLOW);
 
         for (Entity e : p.getNearbyEntities(extended, extended, extended)) {
-            if (!(e instanceof Mob mob) || !UndeadAffinity.eligible(e.getType())) continue;
+            if (!(e instanceof Mob mob) || SkeletonCrewState.owned(e) || !UndeadAffinity.eligible(e.getType())) continue;
             if (!UndeadAffinity.shouldPursue(e.getLocation().distance(p.getLocation()),
                     normal, extended, mob.getTarget() != null)) continue;
             mob.setTarget(p);

@@ -319,22 +319,21 @@ classes:
         name: "Undead Affinity"
         status: "dispatched"
         outputs:
-          undead_affinity: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+          undead_affinity: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "graveyard_shift"
         name: "Graveyard Shift"
-        status: "designed"
+        status: "built"
         outputs:
           strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           raise: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
         branches:
           field_work:
             outputs:
-              strike: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
-              raise: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
+              field_work: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           hard_hat_zone:
             outputs:
-              strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+              strike: { target: "UNIT_ENTITY", input: "INSTANT", affects: "BOTH", caster: "false" }
               raise: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
           labored_union:
             outputs:
@@ -343,13 +342,23 @@ classes:
       a2:
         id: "burning_out"
         name: "Burning Out"
-        status: "designed"
+        status: "built"
         outputs:
           burning_out: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
+        branches:
+          fire_drill:
+            outputs:
+              burning_out: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
+          deadline:
+            outputs:
+              burning_out: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
+          water_break:
+            outputs:
+              burning_out: { target: "AREA_ENTITIES", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "a_head_of_schedule"
         name: "A-Head of Schedule"
-        status: "designed"
+        status: "built"
         outputs:
           a_head_of_schedule: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
   lightfooted:
