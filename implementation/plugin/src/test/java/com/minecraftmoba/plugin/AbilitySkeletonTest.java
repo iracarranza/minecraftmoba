@@ -358,16 +358,16 @@ class AbilitySkeletonTest {
         }
     }
 
-    @Test void aPassiveMayReachSomebodyAndExactlyOneDoes() {
+    @Test void passivesThatReachOthersAreRecordedDeliberately() {
         // Worth pinning, because the shape of a passive is otherwise assumed:
         // every other one in the roster acts on its own holder.
         var enemyFacing = new TreeSet<String>();
         for (var e : entries())
             if ("passive".equals(e.get("slot")) && !"NONE".equals(e.get("affects")))
                 enemyFacing.add(e.get("class") + " (" + e.get("affects") + ")");
-        assertEquals(Set.of("fungal_assassin (ENEMIES)"), enemyFacing,
-                "Creeping Colony applies Fungal Growth to enemies attacked; a second "
-                + "such passive is a design change worth noticing here");
+        assertEquals(Set.of("fungal_assassin (ENEMIES)", "gardener (BOTH)"), enemyFacing,
+                "Creeping Colony applies Fungal Growth to enemies attacked; Cultivar auras reach allies and enemies; "
+                + "another such passive should be recorded deliberately");
     }
 
     @SuppressWarnings("unchecked")
@@ -470,7 +470,7 @@ class AbilitySkeletonTest {
         for (var b : branches())
             if ("ALLIES".equals(b.get("affects")) || "BOTH".equals(b.get("affects")))
                 ally.add(b.get("ability") + "." + b.get("branch"));
-        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious"), ally,
+        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious", "plant_material"), ally,
                 "found: " + ally);
     }
 

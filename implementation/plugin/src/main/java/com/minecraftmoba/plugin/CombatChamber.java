@@ -237,6 +237,7 @@ public final class CombatChamber implements Listener {
         }
         world();
         CombatSlabWorld.build(world);
+        CombatEcologyFixture.build(world);
         applyTime(s.modes().timeOfDay());
         if (!plugin.enrolled(p)) p.performCommand("moba join");
         if (!plugin.enrolled(p)) throw new IllegalStateException("Could not enrol; empty your offhand and cursor, then retry.");
@@ -266,6 +267,7 @@ public final class CombatChamber implements Listener {
                                 + (s.script() == CombatBehavior.Script.REPEAT ? "(it also casts every " + REPEAT_TICKS / 20 + "s)" : "")
                                 + " | log | clear | reset | leave"))
         ;
+        if ("gardener".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Clip controls grow on the grass band: x12–16, z-8–-4. Carry plant items for Cultivate; full meters need nearby soil.");
         p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on. Equipment / controls (or /moba lab combat equipment) restores your real hotbar for food, weapons and tools.");
     }
 
@@ -556,6 +558,7 @@ public final class CombatChamber implements Listener {
     private void reset(Player p, Active a) {
         plugin.inputs().forget(p);
         CombatSlabWorld.build(world);
+        CombatEcologyFixture.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
         a.replayer = null;
         a.gi.force();

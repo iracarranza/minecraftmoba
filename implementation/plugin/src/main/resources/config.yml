@@ -1092,7 +1092,98 @@ abilities:
       a2: flip_and_press
       ult: irresistible_buffet
       branches: { food_fight: extra_spicy, flip_and_press: hibachi_skills }
+    # Prototype/test kits; fallback stat profiles do not author new growth progression.
+    kitfighter:
+      displayName: Kitfighter
+      passiveHook: salvage
+      statGrowthProfile: fallback
+      a1: offhander
+      a2: hotswap
+      ult: covered_with_diamonds
+      branches: { offhander: crossbow, hotswap: cobweb }
+    gardener:
+      displayName: Gardener
+      passiveHook: plant_material
+      statGrowthProfile: fallback
+      a1: clip
+      a2: cultivate
+      ult: grafters_handbook
+      branches: { clip: specimen, cultivate: torchflower }
+    werewolf:
+      displayName: Werewolf
+      passiveHook: lycanthropy
+      statGrowthProfile: fallback
+      a1: brawling_slash
+      a2: bloodhide
+      ult: monster_howl
+      branches: { brawling_slash: whirling_slash, bloodhide: brawlers_mind }
   definitions:
+    # Prototype/test values; branch choice stays mutually exclusive pending the Werewolf Open decision.
+    offhander:
+      displayName: Offhander
+      combat: false
+      cooldownTicks: 20
+      headRegenTicks: 160
+      branches: { crossbow: { combat: false }, fishing_rod: { combat: false }, golden_head: { combat: false } }
+    hotswap:
+      displayName: Hotswap
+      combat: true
+      cooldownTicks: 100
+      range: 12
+      durationTicks: 60
+      cobwebTicks: 200
+      fuseTicks: 60
+      branches: { cobweb: { combat: true }, lava: { combat: true }, tnt: { combat: true } }
+    covered_with_diamonds:
+      displayName: Covered With Diamonds
+      combat: true
+      cooldownTicks: 800
+      durationTicks: 200
+      speed: 0.20
+      knockbackResistance: 0.30
+    clip:
+      displayName: Clip
+      combat: false
+      cooldownTicks: 30
+      range: 8
+      branches: { specimen: { combat: false }, proliferation: { combat: false }, collection: { combat: false } }
+    cultivate:
+      displayName: Cultivate
+      combat: false
+      cooldownTicks: 20
+      branches: { torchflower: { combat: false }, sweet_berry_bush: { combat: false }, giant_bamboo: { combat: false } }
+    grafters_handbook:
+      displayName: "Grafter's Handbook"
+      combat: false
+      cooldownTicks: 800
+    brawling_slash:
+      displayName: Brawling Slash
+      combat: true
+      cooldownTicks: 100
+      range: 4
+      delayTicks: 8
+      unleashedDelayTicks: 16
+      travelTicks: 40
+      travelSpeed: 0.7
+      knockback: 0.6
+      sweepRadius: 4
+      whirlingMultiplier: 0.25
+      pullSpeed: 0.9
+      crushMultiplier: 1.8
+      crushRadius: 4
+      thirdSlamMultiplier: 0.8
+      thirdSlamRadius: 6
+      thirdSlamDelayTicks: 10
+      branches: { whirling_slash: { combat: true }, gnashing_slash: { combat: true }, lumbering_crash: { combat: true } }
+    bloodhide:
+      displayName: Bloodhide
+      combat: true
+      cooldownTicks: 160
+      branches: { brawlers_mind: { combat: true }, canine_instinct: { combat: true }, rabid_frenzy: { combat: true } }
+    monster_howl:
+      displayName: Monster Howl
+      combat: true
+      cooldownTicks: 800
     # Toolbox's passive. Incoming damage -- from anything, including mobs,
     # fall and fire -- runs the inventory circuit, because the belt is a
     # machine reacting to being hit rather than a combat state.
@@ -1870,6 +1961,29 @@ alpha:
           - { tick: 50, assert: health_not_lower, of: ally, since: 20, because: "Food Fight did not damage the allied body" }
           - { tick: 60, actor: chef, do: cast, slot: ult, at: enemy, level: true }
           - { tick: 62, assert: ability_executed, of: chef, ability: irresistible_buffet, because: "the real Buffet rollout started" }
+      next_kits_skirmish:
+        description: "Kitfighter protection, Werewolf empowerment and Gardener plant conversion in a team encounter."
+        anchor: fountain_north
+        roster:
+          - { id: fighter, team: NORTH, class: kitfighter, level: 15, at: [4, 0, 8] }
+          - { id: gardener, team: NORTH, class: gardener, level: 15, at: [4, 0, 12] }
+          - { id: wolf, team: SOUTH, class: werewolf, level: 15, at: [8, 0, 8] }
+          - { id: guard, team: SOUTH, class: mole, level: 15, at: [8, 0, 12] }
+        timeline:
+          - { tick: 20, actor: fighter, do: cast, slot: ult, at: wolf }
+          - { tick: 22, assert: ability_executed, of: fighter, ability: covered_with_diamonds }
+          - { tick: 25, actor: gardener, do: cast, slot: a2, at: guard }
+          - { tick: 27, assert: ability_executed, of: gardener, ability: cultivate, because: "Cultivate spends a real carried plant" }
+          - { tick: 40, actor: wolf, do: cast, slot: a2, at: fighter }
+          - { tick: 42, assert: ability_executed, of: wolf, ability: bloodhide }
+          - { tick: 50, actor: fighter, do: hit, target: wolf, amount: 3 }
+          - { tick: 55, window: 5, assert: health_below, of: wolf, than: since, since: 50, because: "Bloodhide mitigates a hit without erasing it" }
+          - { tick: 70, actor: wolf, do: cast, slot: ult, at: fighter }
+          - { tick: 72, assert: ability_executed, of: wolf, ability: monster_howl }
+          - { tick: 85, actor: fighter, do: hit, target: gardener, amount: 3 }
+          - { tick: 90, assert: health_not_lower, of: gardener, since: 85, because: "authored damage still refuses allies" }
+          - { tick: 100, assert: alive, of: fighter }
+          - { tick: 100, assert: alive, of: wolf }
       skirmish_2v2:
         description: "Two against two: teams hold, enemies take damage, real abilities run."
         anchor: fountain_north
@@ -2053,3 +2167,38 @@ chef:
     MANGROVE_PLANKS: 300
     CHERRY_PLANKS: 300
     PALE_OAK_PLANKS: 300
+
+# Prototype/test ecology. No Development Zone dependency or permanent cultivar persistence is authored here.
+gardener:
+  threshold: 20
+  youngClip: 3
+  matureClip: 8
+  specimenMultiplier: 1.5
+  familyRadius: 2
+  familyCap: 8
+  familyBonus: 0.12
+  collectionMultiplier: 1.8
+  inventoryMaterial: 2
+  placementRadius: 3
+  cultivarCap: 8
+  lifetimeTicks: 1200
+  growthRadius: 2
+  pulseTicks: 40
+  auraRadius: 3
+  provisionFood: 1
+  thicketDamage: 1
+  offspringTicks: 100
+  offspringCap: 2
+  handbookTicks: 600
+# Prototype/test resolutions for open Werewolf coefficients; fixed trigger/Unleashed/lockout times follow the kit.
+werewolf:
+  nightTicks: 100
+  dayTicks: 400
+  recoveryTicks: 60
+  recoverySlowness: 1
+  recoveryWeakness: 0
+  hideThreshold: 0.15
+  sizeCap: 0.5
+  sizePerHealth: 1
+  maulMultiplier: 1.5
+  lifesteal: 0.085

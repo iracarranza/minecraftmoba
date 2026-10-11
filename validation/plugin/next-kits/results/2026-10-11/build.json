@@ -1,0 +1,14 @@
+{
+  "unit_tests": 1121,
+  "unit_failures": 0,
+  "native_checks": 36,
+  "native_failures": 0,
+  "earlier_kit_regression_checks": 25,
+  "earlier_kit_regression_failures": 0,
+  "paper": "1.21.11-132-c5eb079",
+  "java": "21",
+  "artifact_sha256": "a79914587c4a7d07a9e7ea5bcd70afba84b963ccfd999b9d1f309183576d62f1",
+  "config_sha256": "3bc1527177d7d3db7eacacb5354dc4f160553d248a2874285e90f6fd32fc6129",
+  "deployment": "isolated validation only",
+  "launched_scoop_scenario": "schema validated; not live-run"
+}

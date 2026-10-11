@@ -55,6 +55,11 @@ public final class AbilityInputs implements Listener {
     private long tick;
     /** Shared by Daredevil's three abilities; registered as a listener by the plugin. */
     private final DaredevilState daredevil;
+    private final GardenerState gardener;
+    private final WerewolfState werewolf;
+    private final Salvage salvage;
+    GardenerState gardener() { return gardener; }
+    WerewolfState werewolf() { return werewolf; }
     private final IrresistibleBuffetAbility buffet;
     IrresistibleBuffetAbility buffet() { return buffet; }
     public DaredevilState daredevil() { return daredevil; }
@@ -92,6 +97,18 @@ public final class AbilityInputs implements Listener {
         abilities.put("flip_and_press", new FlipAndPressAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.flip_and_press"), cooking));
         buffet = new IrresistibleBuffetAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.irresistible_buffet"));
         abilities.put("irresistible_buffet", buffet);
+        gardener = new GardenerState(plugin);
+        werewolf = new WerewolfState(plugin);
+        salvage = new Salvage(plugin);
+        abilities.put("clip", new ClipAbility(gardener, plugin.getConfig().getConfigurationSection("abilities.definitions.clip")));
+        abilities.put("cultivate", new CultivateAbility(gardener, plugin.getConfig().getConfigurationSection("abilities.definitions.cultivate")));
+        abilities.put("grafters_handbook", new GraftersHandbookAbility(gardener, plugin.getConfig().getConfigurationSection("abilities.definitions.grafters_handbook")));
+        abilities.put("offhander", new OffhanderAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.offhander")));
+        abilities.put("hotswap", new HotswapAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.hotswap")));
+        abilities.put("covered_with_diamonds", new CoveredWithDiamondsAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.covered_with_diamonds")));
+        abilities.put("brawling_slash", new BrawlingSlashAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.brawling_slash"), werewolf));
+        abilities.put("bloodhide", new BloodhideAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.bloodhide")));
+        abilities.put("monster_howl", new MonsterHowlAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.monster_howl")));
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
@@ -274,12 +291,13 @@ public final class AbilityInputs implements Listener {
         // branch it carries may CHANGE the cooldown being checked.
         var formContext = new Ability.AbilityContext(plugin,provenance,this,classes.get(d.classId),d,block,face,entity);
         long recharge = ability.rechargeTicks(p, formContext);
+        boolean freeRecast = ability.cooldownExemptRecast(p, formContext);
         // Say so rather than doing nothing. A cooldown that refuses silently
         // is indistinguishable from an input that was not registered, which is
         // the worse of the two to guess at mid-fight.
         long remaining = cooldowns.untilNextCharge(p.getUniqueId(), ability.id(), tick,
                 ability.charges(), recharge);
-        if (remaining > 0) {
+        if (remaining > 0 && !freeRecast) {
             if (plugin.hudNotice() != null) plugin.hudNotice().onCooldown(p, remaining);
             return true;
         }
@@ -302,7 +320,7 @@ public final class AbilityInputs implements Listener {
         last.put(ability.id(), tick);
         var context = aimContext;
         if (ability.execute(p,context)) {
-            cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
+            if (!freeRecast) cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
             // Activating a COMBAT ability puts the caster in combat. Classified
             // from the declaration, per branch, so Mole tunnelling or a
             // Gardener clipping a plant is not treated as fighting.
@@ -518,8 +536,14 @@ public final class AbilityInputs implements Listener {
     }
 
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
-    java.util.List<Listener> listeners() { return abilities.values().stream().filter(a -> a instanceof Listener).map(a -> (Listener) a).toList(); }
-    void close() { buffet.close(); }
+    java.util.List<Listener> listeners() {
+        var result = new ArrayList<Listener>(abilities.values().stream().filter(a -> a instanceof Listener).map(a -> (Listener) a).toList());
+        result.addAll(List.of(gardener, werewolf, salvage)); return result;
+    }
+    void close() {
+        Bukkit.getOnlinePlayers().forEach(p -> abilities.values().forEach(a -> a.forget(p)));
+        abilities.values().forEach(Ability::close); gardener.close(); werewolf.close();
+    }
 
     private void cancelAbilities(Player p) { abilities.values().forEach(a -> a.cancel(p)); }
 

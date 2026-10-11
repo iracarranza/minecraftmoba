@@ -43,6 +43,9 @@ public interface Ability {
      */
     default long rechargeTicks(Player player, AbilityContext context) { return rechargeTicks(); }
 
+    /** Re-arm an existing empowerment without spending or resetting its original cooldown. */
+    default boolean cooldownExemptRecast(Player player, AbilityContext context) { return false; }
+
     default Map<String, String> branches() { return Map.of(); }
     default List<String> branchIds() { return List.copyOf(branches().keySet()); }
     default boolean canBuildWhileActive() { return false; }
@@ -154,6 +157,8 @@ public interface Ability {
         return java.util.List.of();
     }
     default void tick() {}
+    /** Final plugin teardown, including any state whose player has already disconnected. */
+    default void close() {}
     /**
      * What the activation knew, including WHAT IT WAS AIMED AT.
      *

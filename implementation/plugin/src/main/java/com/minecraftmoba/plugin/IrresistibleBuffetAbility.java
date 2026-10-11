@@ -149,7 +149,7 @@ final class IrresistibleBuffetAbility implements Ability, Listener {
         if (seated(p)) release(p, false, true);
         for (var t : List.copyOf(tables)) if (t.chef.equals(p)) clearTable(t);
     }
-    void close() { for (var t : List.copyOf(tables)) clearTable(t); }
+    public void close() { for (var t : List.copyOf(tables)) clearTable(t); }
 
     @EventHandler(priority = EventPriority.LOWEST) public void death(PlayerDeathEvent e) {
         var p = e.getPlayer(); if (!seated(p)) return;

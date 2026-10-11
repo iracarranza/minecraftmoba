@@ -106,9 +106,13 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public OffhandMap offhandMap() { return offhandMap; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
     /** The player's Capacity health: what a full bar is WORTH, not how long it is. */
+    private final TemporaryChunks temporaryChunks = new TemporaryChunks(this);
+    TemporaryChunks temporaryChunks() { return temporaryChunks; }
+
     public double effectiveMaxHealth(Player p) {
         var d = data(p);
-        return d == null ? Vitals.DISPLAY_MAX : capacity(d).maxHealth();
+        return (d == null ? Vitals.DISPLAY_MAX : capacity(d).maxHealth())
+                * (inputs == null ? 1 : inputs.werewolf().healthMultiplier(p));
     }
 
     /**

@@ -101,7 +101,7 @@ public final class NmsBodies implements Bodies {
     private static final class Nms {
         final Constructor<?> serverPlayer, connection;
         final Method createInfo, createCookie, placeNewPlayer, removePlayer, configurePacketHandler,
-                setPos, travel, getPlayerList, getHandle;
+                setPos, travel, detectEquipmentUpdates, getPlayerList, getHandle;
         final Class<?> gameProfile;
         final Object serverbound, vecZero;
         final Class<?> acceptTeleport, playerLoaded, movePos, movePosRot, moveRot, swing, action, carried, playerInput, input, useItem;
@@ -128,6 +128,7 @@ public final class NmsBodies implements Bodies {
             configurePacketHandler = conn.getMethod("configurePacketHandler", ChannelPipeline.class);
             setPos = sp.getMethod("setPos", double.class, double.class, double.class);
             travel = sp.getMethod("travel", vec);
+            detectEquipmentUpdates = sp.getMethod("detectEquipmentUpdates");
             getPlayerList = server.getMethod("getPlayerList");
             getHandle = Class.forName("org.bukkit.craftbukkit.entity.CraftPlayer", false, l).getMethod("getHandle");
             serverbound = enumConst(flow, "SERVERBOUND");
@@ -235,6 +236,13 @@ public final class NmsBodies implements Bodies {
                 p.getInventory().setItem(1, new org.bukkit.inventory.ItemStack(org.bukkit.Material.COOKED_BEEF, 64));
                 p.getInventory().setItem(2, new org.bukkit.inventory.ItemStack(org.bukkit.Material.BEEF, 32));
             }
+            if ("kitfighter".equals(classId)) {
+                var items = new org.bukkit.Material[]{org.bukkit.Material.IRON_SWORD, org.bukkit.Material.BOW,
+                        org.bukkit.Material.CROSSBOW, org.bukkit.Material.FISHING_ROD, org.bukkit.Material.GOLDEN_APPLE, org.bukkit.Material.ARROW};
+                for (int i=0;i<items.length;i++) p.getInventory().setItem(i,new org.bukkit.inventory.ItemStack(items[i],i>=4?16:1));
+            }
+            if ("werewolf".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SWORD));
+            if ("gardener".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.WHEAT_SEEDS,64));
             // Only a running match takes participants; outside one a body is
             // still a valid target for abilities, just not a team member.
             if (team != null && plugin.match() != null && plugin.match().running())
@@ -564,7 +572,12 @@ public final class NmsBodies implements Bodies {
             Player p = Bukkit.getPlayer(e.getKey());
             if (p == null || p.isDead()) continue;
             acceptPendingTeleport(e.getValue(), n);
-            try { n.travel.invoke(e.getValue().serverPlayer(), n.vecZero); }
+            try {
+                // A body has no client-driven doTick. Run the vanilla equipment detector
+                // as well as travel, so carried weapons and armor contribute their real attributes.
+                n.detectEquipmentUpdates.invoke(e.getValue().serverPlayer());
+                n.travel.invoke(e.getValue().serverPlayer(), n.vecZero);
+            }
             catch (ReflectiveOperationException ex) {
                 if (physicsFailed.add(e.getKey()))
                     plugin.getLogger().warning("[bodies] physics step failed for " + e.getKey() + ": " + ex);

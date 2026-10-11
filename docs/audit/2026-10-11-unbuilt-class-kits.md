@@ -3,7 +3,9 @@
 Compiled 11 October 2026 against `main` at `12c3ac9`.
 
 This is the **pre-build snapshot**. The subsequent Chef/Mole/Lightfooted/Daredevil
-prototype work is recorded in [the lab pass](../design/CLASS_KIT_LAB_PASS.md);
+prototype work is recorded in [the lab pass](../design/CLASS_KIT_LAB_PASS.md),
+and the subsequent Kitfighter/Werewolf/Gardener pass in
+[the next lab pass](../design/NEXT_CLASS_KIT_LAB_PASS.md);
 the counts and missing-feature descriptions below describe the baseline.
 
 ## Scope and meaning

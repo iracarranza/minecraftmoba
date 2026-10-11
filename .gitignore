@@ -32,3 +32,5 @@ __pycache__/
 
 # Reproducible class-kit validation fixture compilation.
 /validation/plugin/kits/build/
+
+/validation/plugin/next-kits/build/

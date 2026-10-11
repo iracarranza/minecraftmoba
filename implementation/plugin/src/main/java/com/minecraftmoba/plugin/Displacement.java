@@ -98,6 +98,34 @@ public final class Displacement implements Listener {
         return data;
     }
 
+    /** Reserve an empty cell for an ability-created temporary block; returning it restores the exact air state. */
+    public boolean placeTemporary(Block block, UUID token, BlockData data) {
+        if (block == null || !block.isEmpty() || isReserved(block)) return false;
+        if (!ledger.reserve(keyOf(block), token, block.getState())) return false;
+        block.setBlockData(data, false);
+        return true;
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void breakReserved(org.bukkit.event.block.BlockBreakEvent e) {
+        if (isReserved(e.getBlock())) e.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void bucketFill(org.bukkit.event.player.PlayerBucketFillEvent e) {
+        if (isReserved(e.getBlock()) || isReserved(e.getBlockClicked())) e.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void bucketEmpty(org.bukkit.event.player.PlayerBucketEmptyEvent e) {
+        if (isReserved(e.getBlock()) || isReserved(e.getBlockClicked())) e.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void tree(org.bukkit.event.world.StructureGrowEvent e) {
+        if (!ledger.isEmpty() && e.getBlocks().stream().anyMatch(s -> isReserved(s.getBlock()))) e.setCancelled(true);
+    }
+
     /** Positions whose block was player-placed before being taken. */
     private final java.util.Set<DisplacementLedger.Key> placedByPlayer = new java.util.HashSet<>();
 
@@ -170,7 +198,7 @@ public final class Displacement implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void flow(BlockFromToEvent e) {
         if (ledger.isEmpty()) return;
-        if (ledger.isReserved(keyOf(e.getToBlock()))) e.setCancelled(true);
+        if (isReserved(e.getBlock()) || isReserved(e.getToBlock())) e.setCancelled(true);
     }
 
     /** A falling block landing, or any entity changing a block. */

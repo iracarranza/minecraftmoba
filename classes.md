@@ -1928,6 +1928,8 @@ A Worksite system should not automatically reveal/excavate so much information o
 
 # 5. Gardener
 
+**Prototype/test build — 11 October 2026.** This kit is now registered in the combat/skirmish labs; implementation choices, Open limits and validation are recorded in [the next kit lab pass](docs/design/NEXT_CLASS_KIT_LAB_PASS.md). Existing design status is unchanged.
+
 ### Canonical kit — 13 September 2026
 
 **Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
@@ -2332,6 +2334,8 @@ The class's exceptional ceiling comes from converting:
 ---
 
 # 7. Kitfighter
+
+**Prototype/test build — 11 October 2026.** This kit is now registered in the combat/skirmish labs; implementation choices, Open limits and validation are recorded in [the next kit lab pass](docs/design/NEXT_CLASS_KIT_LAB_PASS.md). Existing design status is unchanged.
 
 ### Canonical kit — 13 September 2026
 
@@ -6439,6 +6443,8 @@ blocks.
 ---
 
 # 29. Werewolf
+
+**Prototype/test build — 11 October 2026.** This kit is now registered in the combat/skirmish labs; implementation choices, Open limits and validation are recorded in [the next kit lab pass](docs/design/NEXT_CLASS_KIT_LAB_PASS.md). Existing design status is unchanged.
 
 **Working direction, 1 October 2026.** Supersedes the 30 September state-model-only
 version of this section. Primary archetype Combat; Difficulty 1/5. Question: *How

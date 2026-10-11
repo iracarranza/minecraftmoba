@@ -169,25 +169,45 @@ classes:
       passive:
         id: "plant_material"
         name: "Plant Material"
-        status: "designed"
+        status: "dispatched"
         outputs:
-          plant_material: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+          plant_material: { target: "SELF", input: "PASSIVE", affects: "BOTH", caster: "true" }
       a1:
         id: "clip"
         name: "Clip"
-        status: "designed"
+        status: "built"
         outputs:
           clip: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          specimen:
+            outputs:
+              specimen: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+          proliferation:
+            outputs:
+              proliferation: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+          collection:
+            outputs:
+              collection: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "cultivate"
         name: "Cultivate"
-        status: "designed"
+        status: "built"
         outputs:
           cultivate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          torchflower:
+            outputs:
+              torchflower: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          sweet_berry_bush:
+            outputs:
+              sweet_berry_bush: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          giant_bamboo:
+            outputs:
+              giant_bamboo: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "grafters_handbook"
         name: "Grafter's Handbook"
-        status: "designed"
+        status: "built"
         outputs:
           grafters_handbook: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
   golem_master:
@@ -223,25 +243,45 @@ classes:
       passive:
         id: "salvage"
         name: "Salvage"
-        status: "designed"
+        status: "dispatched"
         outputs:
           salvage: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "offhander"
         name: "Offhander"
-        status: "designed"
+        status: "built"
         outputs:
           offhander: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          crossbow:
+            outputs:
+              crossbow: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          fishing_rod:
+            outputs:
+              fishing_rod: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          golden_head:
+            outputs:
+              golden_head: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "hotswap"
         name: "Hotswap"
-        status: "designed"
+        status: "built"
         outputs:
           hotswap: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+        branches:
+          cobweb:
+            outputs:
+              cobweb: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          lava:
+            outputs:
+              lava: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          tnt:
+            outputs:
+              tnt: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       ult:
         id: "covered_with_diamonds"
         name: "Covered With Diamonds"
-        status: "designed"
+        status: "built"
         outputs:
           covered_with_diamonds: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
   merchant:
@@ -692,24 +732,44 @@ classes:
       passive:
         id: "lycanthropy"
         name: "Lycanthropy"
-        status: "designed"
+        status: "dispatched"
         outputs:
           lycanthropy: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "brawling_slash"
         name: "Brawling Slash"
-        status: "designed"
+        status: "built"
         outputs:
           brawling_slash: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+        branches:
+          whirling_slash:
+            outputs:
+              whirling_slash: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          gnashing_slash:
+            outputs:
+              gnashing_slash: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          lumbering_crash:
+            outputs:
+              lumbering_crash: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "bloodhide"
         name: "Bloodhide"
-        status: "designed"
+        status: "built"
         outputs:
           bloodhide: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          brawlers_mind:
+            outputs:
+              brawlers_mind: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          canine_instinct:
+            outputs:
+              canine_instinct: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          rabid_frenzy:
+            outputs:
+              rabid_frenzy: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
       ult:
         id: "monster_howl"
         name: "Monster Howl"
-        status: "designed"
+        status: "built"
         outputs:
           monster_howl: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }

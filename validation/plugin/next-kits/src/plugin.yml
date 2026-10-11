@@ -1,0 +1,5 @@
+name: NextKitAcceptance
+version: 1.0
+main: kf.NextKitAcceptance
+api-version: '1.21'
+depend: [MinecraftMoba]

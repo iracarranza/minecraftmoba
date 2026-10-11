@@ -14,7 +14,6 @@ final class SinkholeAbility implements Ability {
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final List<Hole> holes = new ArrayList<>();
-    private final Map<Chunk,Integer> tickets = new HashMap<>();
     private long clock;
     SinkholeAbility(MobaPlugin plugin, ConfigurationSection config) { this.plugin = plugin; this.config = config; }
     public String id() { return "sinkhole"; }
@@ -53,7 +52,7 @@ final class SinkholeAbility implements Ability {
         }
         var chunks = new HashSet<Chunk>(); var selected = new ArrayList<Selected>();
         for (var b : blocks) { selected.add(new Selected(b, b.getBlockData().clone())); chunks.add(b.getChunk()); }
-        for (var c : chunks) { if (tickets.merge(c, 1, Integer::sum) == 1) c.addPluginChunkTicket(plugin); }
+        for (var c : chunks) plugin.temporaryChunks().hold(c);
         long opens = clock + (long) slowest;
         holes.add(new Hole(p, UUID.randomUUID(), selected, chunks, opens, opens + config.getLong("openTicks")));
         highlight(selected); return true;
@@ -75,7 +74,7 @@ final class SinkholeAbility implements Ability {
     }
     private void restore(Hole h) {
         plugin.displacement().restore(h.token()); holes.remove(h);
-        for (var c : h.chunks()) if (tickets.computeIfPresent(c, (k,v) -> v == 1 ? null : v - 1) == null) c.removePluginChunkTicket(plugin);
+        for (var c : h.chunks()) plugin.temporaryChunks().release(c);
     }
     public void cancel(Player p) { for (var h : List.copyOf(holes)) if (h.caster().equals(p)) restore(h); }
 }
