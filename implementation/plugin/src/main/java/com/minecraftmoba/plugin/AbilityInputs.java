@@ -643,6 +643,8 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {
+        // An ability's own damage is not a left-click: see AbilityDamage.
+        if (AbilityDamage.active()) return;
         if (e.getDamager() instanceof Player p && (isAbilityActive(p) || input(p,Input.LEFT_CLICK))) { e.setCancelled(true); if (isAbilityActive(p)) abilities.values().stream().filter(a -> a.active(p) && a.attackCancels()).forEach(a -> a.cancel(p)); }
     }
     @EventHandler(priority=EventPriority.HIGHEST)

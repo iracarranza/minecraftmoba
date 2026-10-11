@@ -51,21 +51,19 @@ final class FoodFightAbility implements Ability {
                     || !f.caster().getWorld().equals(f.display().getWorld())) { finish(f, false); continue; }
             Location start = f.display().getLocation(); double distance = f.velocity().length();
             if (distance < 1e-6) { finish(f, true); continue; }
-            var hit = start.getWorld().rayTrace(start, f.velocity().clone().normalize(), distance,
-                    FluidCollisionMode.NEVER, true, config.getDouble("hitRadius"), e -> e instanceof LivingEntity
-                            && !e.equals(f.caster()) && (Targetability.status(e, f.caster())
-                            || "super_nutritious".equals(f.branch()) && Targetability.allied(e, f.caster())));
+            var hit = AbilityTargeting.ray(f.caster(), start, f.velocity(), distance, config.getDouble("hitRadius"),
+                    "super_nutritious".equals(f.branch()) ? AbilityTargeting.Relation.EITHER : AbilityTargeting.Relation.ENEMY);
             if (hit != null) {
-                f.display().teleport(hit.getHitPosition().toLocation(start.getWorld()));
-                if (hit.getHitEntity() instanceof LivingEntity target) {
+                f.display().teleport(hit.point().toLocation(start.getWorld()));
+                if (hit.entity() != null) { LivingEntity target = hit.entity();
                     if (Targetability.allied(target, f.caster())) ChefItems.heal(target, target instanceof Player ally ? Vitals.scaleHealing(config.getDouble("heal"), plugin.effectiveMaxHealth(ally)) : config.getDouble("heal"));
                     else {
-                        target.damage(config.getDouble("damage"), f.caster());
+                        AbilityDamage.deal(target, config.getDouble("damage"), f.caster());
                         if ("extra_spicy".equals(f.branch())) target.setFireTicks(Math.max(target.getFireTicks(), config.getInt("fireTicks")));
                     }
                     finish(f, false);
                 } else {
-                    var block = hit.getHitBlock();
+                    var block = hit.block();
                     boolean wasActive = block != null && cooking.active(block);
                     if (block != null && cooking.load(block, f.food())) {
                         if (wasActive && "reckless_rationing".equals(f.branch()) && !ChefItems.tagged(f.food(), ration))
