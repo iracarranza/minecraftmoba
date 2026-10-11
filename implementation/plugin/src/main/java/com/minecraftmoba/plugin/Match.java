@@ -93,6 +93,7 @@ public final class Match implements Listener {
         // and a mob frozen by a Stun stayed frozen into the next one.
         if (plugin.toolboxStatuses() != null) plugin.toolboxStatuses().reset();
         if (plugin.stun() != null) plugin.stun().reset();
+        if (plugin.forced() != null) plugin.forced().reset();
         // Restored rather than discarded: the alternative is a map that
         // remembers an unfinished cast from the previous match.
         if (plugin.displacement() != null) plugin.displacement().reset();

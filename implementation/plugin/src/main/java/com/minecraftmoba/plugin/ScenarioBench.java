@@ -297,6 +297,11 @@ public final class ScenarioBench {
             @Override public boolean stunned(String id) { return plugin.stun() != null && plugin.stun().isStunned(p(id)); }
             @Override public long stunRemaining(String id) { return plugin.stun() == null ? 0 : plugin.stun().remaining(p(id)); }
             @Override public boolean rooted(String id) { return plugin.toolboxStatuses() != null && plugin.toolboxStatuses().isRooted(p(id)); }
+            @Override public boolean statusActive(String id, String kind) {
+                var k = Statuses.Kind.of(kind);
+                return k != null && Statuses.has(plugin, k, p(id));
+            }
+            @Override public float yaw(String id) { return p(id).getLocation().getYaw(); }
             @Override public int executions(String id, String abilityId) { return plugin.inputs().executions(p(id), abilityId); }
         };
     }
@@ -322,6 +327,12 @@ public final class ScenarioBench {
             }
             case "stun" -> plugin.stun().stun(a.run.body(args.get("target")).player(), Long.parseLong(args.get("ticks")));
             case "root" -> plugin.toolboxStatuses().root(a.run.body(args.get("target")).player());
+            case "status" -> {
+                var kind = Statuses.Kind.of(args.get("kind"));
+                Player target = a.run.body(args.get("target")).player();
+                Player source = args.containsKey("source") ? a.run.body(args.get("source")).player() : null;
+                Statuses.apply(plugin, kind, target, Long.parseLong(args.get("ticks")), source == null ? null : source::getLocation);
+            }
             case "heal" -> {
                 var attr = me.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
                 me.setHealth(attr == null ? 20.0 : attr.getValue());

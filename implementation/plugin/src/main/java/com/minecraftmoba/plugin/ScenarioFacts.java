@@ -25,6 +25,10 @@ public interface ScenarioFacts {
     boolean stunned(String id);
     long stunRemaining(String id);
     boolean rooted(String id);
+    /** Whether a roster member currently carries a control status (by {@link Statuses.Kind} name, any case). */
+    boolean statusActive(String id, String kind);
+    /** The yaw a roster member is facing now. */
+    float yaw(String id);
     /** How many times a roster member's ability has executed (a real cast, not a refusal). */
     int executions(String id, String abilityId);
 }

@@ -114,6 +114,9 @@ public final class Stun implements Listener {
         return until == null ? 0 : Math.max(0, until - now());
     }
 
+    /** End a Stun now, restoring a mob's AI. */
+    public void clear(Entity target) { if (target != null) release(target); }
+
     private void release(Entity target) {
         stunned.remove(target.getUniqueId());
         if (target instanceof Mob mob) mob.setAI(true);

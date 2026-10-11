@@ -21,6 +21,10 @@ class ScenarioJudgeTest {
         public boolean stunned(String id) { return stunned; }
         public long stunRemaining(String id) { return stunLeft; }
         public boolean rooted(String id) { return rooted; }
+        final java.util.Set<String> kinds = new java.util.HashSet<>(); float yaw;
+        final Map<String, double[]> positions = new HashMap<>();
+        public boolean statusActive(String id, String kind) { return kinds.contains(kind.toLowerCase()); }
+        public float yaw(String id) { return yaw; }
         int ran = 0;
         public int executions(String id, String ability) { return ran; }
     }

@@ -16,6 +16,7 @@ import java.util.Set;
  * explode  at, power               a systemic explosion centred on a roster member, caused by the actor
  * stun     target, ticks           apply a Stun
  * root     target                  apply a Root
+ * status   target, kind, ticks [source]   apply a control status; Lured and Frightened need a source (a roster member)
  * walk     direction, ticks        the body reports walking, a step a tick (north, south, east, west)
  * cast     slot, at [level]        the body casts a real ability (a1, a2, ult) facing a roster member;
  *                                 level: true aims along the ground, not down into it
@@ -33,6 +34,7 @@ public final class ScenarioActs {
             "explode", List.of("at", "power"),
             "stun", List.of("target", "ticks"),
             "root", List.of("target"),
+            "status", List.of("target", "kind", "ticks"),
             "walk", List.of("direction", "ticks"),
             "cast", List.of("slot", "at"),
             "look", List.of("at"),
@@ -43,7 +45,7 @@ public final class ScenarioActs {
     public static final Set<String> SLOTS = Set.of("a1", "a2", "ult");
 
     /** Arguments that name another roster member. */
-    private static final Set<String> MEMBER_ARGS = Set.of("target", "at");
+    private static final Set<String> MEMBER_ARGS = Set.of("target", "at", "source");
 
     /** Null when the scenario's acts and checks are all well formed; otherwise the first problem. */
     public static String problem(Scenario s) {
@@ -66,6 +68,12 @@ public final class ScenarioActs {
             }
             if (a.verb().equals("walk") && !DIRECTIONS.contains(a.args().get("direction")))
                 return s.id() + " tick " + a.tick() + ": walk direction '" + a.args().get("direction") + "' is not one of " + new java.util.TreeSet<>(DIRECTIONS) + ".";
+            if (a.verb().equals("status")) {
+                var kind = Statuses.Kind.of(a.args().get("kind"));
+                if (kind == null) return s.id() + " tick " + a.tick() + ": status kind '" + a.args().get("kind") + "' is not one of " + java.util.Arrays.toString(Statuses.Kind.values()) + ".";
+                if (kind.needsSource() && !a.args().containsKey("source"))
+                    return s.id() + " tick " + a.tick() + ": " + kind.label() + " needs a 'source', the roster member it is lured to or frightened from.";
+            }
             if (a.verb().equals("cast") && !SLOTS.contains(a.args().get("slot")))
                 return s.id() + " tick " + a.tick() + ": cast slot '" + a.args().get("slot") + "' is not one of " + new java.util.TreeSet<>(SLOTS) + ".";
             for (String numeric : List.of("amount", "power", "ticks")) {
