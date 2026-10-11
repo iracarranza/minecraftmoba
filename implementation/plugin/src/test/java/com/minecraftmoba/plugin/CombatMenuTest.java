@@ -16,7 +16,7 @@ class CombatMenuTest {
 
     @Test void everyActionIdOnTheMenuHasAnIntent() {
         var m = CombatMenu.menu();
-        for (String page : new String[]{"root", "record", "replay"}) {
+        for (String page : new String[]{"root", "record", "replay", "loadout", "more"}) {
             m.reset(); if (!page.equals("root")) m.open(page);
             for (var item : m.view(ChamberMenu.Gate.OPEN).slots())
                 if (item != null && item.kind() == ChamberMenu.Kind.ACTION)
@@ -27,7 +27,7 @@ class CombatMenuTest {
     @Test void everyConsoleVerbHasAnIntentAndTheHotbarActionsAreAllOnTheConsole() {
         for (String v : CombatMenu.CONSOLE_VERBS) assertNotNull(CombatMenu.intent(v), v);
         var m = CombatMenu.menu();
-        for (String page : new String[]{"root", "record", "replay"}) {
+        for (String page : new String[]{"root", "record", "replay", "loadout", "more"}) {
             m.reset(); if (!page.equals("root")) m.open(page);
             for (var item : m.view(ChamberMenu.Gate.OPEN).slots())
                 if (item != null && item.kind() == ChamberMenu.Kind.ACTION)
@@ -37,7 +37,7 @@ class CombatMenuTest {
 
     @Test void leaveIsNotAHotbarVerb() {
         var m = CombatMenu.menu();
-        for (String page : new String[]{"root", "record", "replay"}) {
+        for (String page : new String[]{"root", "record", "replay", "loadout", "more"}) {
             m.reset(); if (!page.equals("root")) m.open(page);
             for (var item : m.view(ChamberMenu.Gate.OPEN).slots()) if (item != null) assertNotEquals("leave", item.id());
         }
@@ -46,6 +46,55 @@ class CombatMenuTest {
     @Test void nothingWorksOutsideTheChamber() {
         var out = new CombatMenu.State(false, true, false, false, false);
         for (String v : CombatMenu.CONSOLE_VERBS) assertNotNull(CombatMenu.refusal(v, out), v);
+    }
+
+    @Test void rootHoldsTheLoadoutsPageAndStartTestingAndNothingIsLost() {
+        var all = new HashSet<String>();
+        var m = CombatMenu.menu();
+        for (String page : new String[]{"root", "record", "replay", "loadout", "more"}) {
+            m.reset(); if (!page.equals("root")) m.open(page);
+            for (var item : m.view(ChamberMenu.Gate.OPEN).slots()) if (item != null) all.add(item.id());
+        }
+        for (String id : new String[]{"cast", "interference", "log", "clear", "reset", "equipment", "test.start",
+                "loadout.edit", "loadout.next", "loadout.dummy", "loadout.dummy.clear"})
+            assertTrue(all.contains(id), id + " is not reachable from the hotbar");
+    }
+
+    @Test void theLoadoutVerbsMapToTheLoadoutAndTestCommands() {
+        assertEquals(java.util.List.of("loadout", "edit"), CombatMenu.intent("loadout.edit").command());
+        assertEquals(java.util.List.of("loadout", "next"), CombatMenu.intent("loadout.next").command());
+        assertEquals(java.util.List.of("loadout", "dummy"), CombatMenu.intent("loadout.dummy").command());
+        assertEquals(java.util.List.of("loadout", "dummy", "clear"), CombatMenu.intent("loadout.dummy.clear").command());
+        assertEquals(java.util.List.of("test"), CombatMenu.intent("test.start").command());
+    }
+
+    @Test void startTestingIsRefusedWhileTesting() {
+        var testing = new CombatMenu.State(true, true, false, false, false, true, true);
+        assertNotNull(CombatMenu.refusal("test.start", testing));
+        assertNull(CombatMenu.refusal("test.start", s(true, false, false, false)));
+    }
+
+    @Test void giftingTheDummyNeedsADummy() {
+        var none = new CombatMenu.State(true, true, false, false, false, false, false);
+        assertNotNull(CombatMenu.refusal("loadout.dummy", none));
+        assertNotNull(CombatMenu.refusal("loadout.dummy.clear", none));
+        assertNull(CombatMenu.refusal("loadout.dummy", s(true, false, false, false)));
+    }
+
+    @Test void editingAndSelectingNeedNothingButTheChamber() {
+        assertNull(CombatMenu.refusal("loadout.edit", s(true, false, false, false)));
+        assertNull(CombatMenu.refusal("loadout.next", s(true, false, false, false)));
+    }
+
+    @Test void theConsoleHasAButtonForEveryNewVerbAndTheStationIsOnTheDeck() {
+        var console = CombatConsole.of();
+        for (String v : new String[]{"test.start", "loadout.edit", "loadout.next", "loadout.dummy", "loadout.dummy.clear"})
+            assertNotNull(console.button(v), v);
+        var st = CombatConsole.station();
+        var d = console.deck();
+        assertTrue(st.x() >= d.minX() && st.x() <= d.maxX() && st.z() >= d.minZ() && st.z() <= d.maxZ(), "the ender chest stands on the deck");
+        assertEquals(d.minY() + 1, st.y(), "and sits on its floor");
+        for (var b : console.buttons()) assertNotEquals(b.at(), CombatConsole.station(), "a button must not occupy the station");
     }
 
     @Test void castIsForRecipientAndObserverOnly() {
