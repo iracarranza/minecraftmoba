@@ -75,6 +75,8 @@ public final class CombatChamber implements Listener {
         final DamageLog dealt = new DamageLog();
         final DamageLog taken = new DamageLog();
         Bodies.Body dummy;
+        /** What the dummy was last given, so a reset or a replay respawn dresses it the same way. */
+        Loadout<org.bukkit.inventory.ItemStack> dummyGear;
         Location post;
         long nextCast = Long.MAX_VALUE;
         InputRecording.Recorder recorder;
@@ -101,6 +103,9 @@ public final class CombatChamber implements Listener {
     private final BodyCaster caster;
     private final CombatUi ui;
     private final CombatPreEntryMenu preMenu;
+    private final LoadoutStore loadouts;
+    private final TestingMode testing;
+    private final LoadoutEditor editor;
     private final java.util.Random rng = new java.util.Random();
     /** Ticks between casts under the repeat script. */
     private static final int REPEAT_TICKS = 100;
@@ -119,6 +124,11 @@ public final class CombatChamber implements Listener {
         this.caster = new BodyCaster(plugin);
         this.ui = new CombatUi(plugin, this);
         this.preMenu = new CombatPreEntryMenu(plugin, this);
+        this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
+        this.testing = new TestingMode(plugin, loadouts, this::endTesting);
+        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot));
+        Bukkit.getPluginManager().registerEvents(testing, plugin);
+        Bukkit.getPluginManager().registerEvents(editor, plugin);
         Bukkit.getPluginManager().registerEvents(preMenu, plugin);
         Bukkit.getPluginManager().registerEvents(ui, plugin);
     }
@@ -284,6 +294,12 @@ public final class CombatChamber implements Listener {
 
     /** The dummy: classless when the tester operates, otherwise the class being examined. */
     private Bodies.Body spawnDummy(Active a) {
+        var body = spawnDummyBody(a);
+        if (a.dummyGear != null) LoadoutGear.give(body.player(), a.dummyGear);
+        return body;
+    }
+
+    private Bodies.Body spawnDummyBody(Active a) {
         if (a.replayer != null && a.take != null)
             return bodies.spawn("dummy", null, a.take.classId(), a.take.level(), a.post);
         boolean operator = a.spec.role() == CombatAvailability.Role.OPERATOR;
@@ -353,12 +369,113 @@ public final class CombatChamber implements Listener {
                 var r = castNow(p, a);
                 p.sendMessage((r.cast() ? ChatColor.GREEN : ChatColor.RED) + "Dummy: " + r.note());
             }
+            case "equipment" -> ui.equipment(p);
+            case "test", "testing" -> testCommand(p, a, args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "");
+            case "loadout", "loadouts" -> loadoutCommand(p, a, args);
             case "leave", "end" -> leave(p);
-            default -> p.sendMessage("In the chamber: /moba lab combat cast | record start|stop | replay [loop|stop] | log | clear | reset | leave");
+            default -> p.sendMessage("In the chamber: /moba lab combat cast | record start|stop | replay [loop|stop] | log | clear | reset | loadout edit|next|dummy [clear]|me | test [off|refill] | leave");
         }
     }
 
     private void report(Player p, Active a) { reportLines(a).forEach(p::sendMessage); }
+
+    // ---- loadouts and testing mode -------------------------------------------------------------
+
+    /** The tester's saved loadouts, for acceptance runs. */
+    LoadoutStore loadoutStore() { return loadouts; }
+
+    /** Whether this tester is in testing mode. */
+    public boolean testing(Player p) { return testing.active(p); }
+
+    /** Open the loadout editor; refused outside the chamber. */
+    public void openEditor(Player p) {
+        if (!active.containsKey(p.getUniqueId())) { p.sendMessage("Enter the combat chamber first."); return; }
+        editor.open(p);
+    }
+
+    LoadoutEditor loadoutEditor() { return editor; }
+
+    /**
+     * Give a testing tester their real inventory back without ending the chamber session. This is what a
+     * quit does to a testing tester; it is public so an acceptance run can exercise it without dispatching a
+     * real quit, which would also un-enrol the tester from everything else.
+     */
+    public boolean restoreRealInventory(Player p) { return testing.exit(p); }
+
+    /** What a join does for a tester whose inventory a dead server left parked on disk. Public for acceptance runs. */
+    public void recoverParkedInventory(Player p) { testing.recover(p); }
+
+    private void loadoutCommand(Player p, Active a, String[] args) {
+        String sub = args.length > 3 ? args[3].toLowerCase(Locale.ROOT) : "show";
+        var book = loadouts.book(p.getUniqueId());
+        switch (sub) {
+            case "edit", "open" -> openEditor(p);
+            case "next" -> {
+                book.next(); loadouts.save(p.getUniqueId());
+                p.sendMessage(ChatColor.GREEN + "Selected " + book.selectedName() + ": " + book.current().count() + " item(s).");
+            }
+            case "select" -> {
+                try { book.select(Integer.parseInt(args[4]) - 1); loadouts.save(p.getUniqueId()); }
+                catch (RuntimeException ex) { p.sendMessage(ChatColor.RED + "/moba lab combat loadout select 1-" + LoadoutBook.SLOTS); return; }
+                p.sendMessage(ChatColor.GREEN + "Selected " + book.selectedName() + ": " + book.current().count() + " item(s).");
+            }
+            case "dummy" -> {
+                if (a.dummy == null) { p.sendMessage(ChatColor.RED + "There is no dummy."); return; }
+                boolean clear = args.length > 4 && args[4].equalsIgnoreCase("clear");
+                a.dummyGear = clear ? null : book.current();
+                LoadoutGear.give(a.dummy.player(), clear ? Loadout.<org.bukkit.inventory.ItemStack>empty() : book.current());
+                p.sendMessage(ChatColor.GREEN + (clear ? "The dummy is empty-handed and stays so across resets."
+                        : "The dummy now carries " + book.selectedName() + " (" + book.current().count() + " item(s)) and keeps it across resets."));
+            }
+            case "me", "give" -> {
+                if (!testing.active(p)) { p.sendMessage(ChatColor.RED + "Loadouts are given to you by Start testing, so your own inventory is never overwritten."); return; }
+                testing.refill(p, book.current());
+                p.sendMessage(ChatColor.GREEN + book.selectedName() + " given again.");
+            }
+            default -> {
+                p.sendMessage(ChatColor.GOLD + "Loadouts (selected: " + book.selectedName() + "):");
+                for (int i = 0; i < LoadoutBook.SLOTS; i++)
+                    p.sendMessage((i == book.selected() ? ChatColor.GREEN + "> " : ChatColor.GRAY + "  ") + LoadoutBook.name(i) + ": " + book.get(i).count() + " item(s)");
+                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | next | select <n> | dummy [clear] | me");
+            }
+        }
+    }
+
+    private void testCommand(Player p, Active a, String sub) {
+        switch (sub) {
+            case "", "start", "on" -> startTesting(p, a);
+            case "off", "exit", "stop" -> {
+                if (!testing.active(p)) { p.sendMessage("Not testing."); return; }
+                endTesting(p);
+            }
+            case "refill", "gear" -> loadoutCommand(p, a, new String[]{"lab", "combat", "loadout", "me"});
+            default -> p.sendMessage("/moba lab combat test [off|refill]");
+        }
+    }
+
+    private void startTesting(Player p, Active a) {
+        if (testing.active(p)) { p.sendMessage("Already testing: the Exit testing item is in your inventory (or /moba lab combat test off)."); return; }
+        if (a.recorder != null) { p.sendMessage(ChatColor.RED + "Stop recording first."); return; }
+        var book = loadouts.book(p.getUniqueId());
+        ui.suspend(p);
+        try {
+            testing.enter(p, book.current());
+        } catch (RuntimeException ex) {
+            ui.resume(p, world);
+            p.sendMessage(ChatColor.RED + ex.getMessage());
+            return;
+        }
+        p.sendMessage(ChatColor.GREEN + "Testing with " + book.selectedName() + " (" + book.current().count() + " item(s)). "
+                + "Your own inventory is parked safely. The Exit testing item (or /moba lab combat test off) ends it; "
+                + "commands still work: loadout me refills, log, reset, cast.");
+    }
+
+    /** Give the tester their own inventory back and put the chamber menu on the hotbar again. */
+    void endTesting(Player p) {
+        if (!testing.exit(p)) return;
+        if (active.containsKey(p.getUniqueId())) ui.resume(p, world);
+        p.sendMessage(ChatColor.GREEN + "Testing ended: your inventory is back.");
+    }
 
     // ---- recording and the ghost -------------------------------------------------
 
@@ -523,7 +640,7 @@ public final class CombatChamber implements Listener {
         var a = active.get(p.getUniqueId());
         if (a == null) return new CombatMenu.State(false, false, false, false, false);
         return new CombatMenu.State(true, a.spec.role() == CombatAvailability.Role.OPERATOR, a.recorder != null,
-                a.take != null && !a.take.empty(), a.replayer != null);
+                a.take != null && !a.take.empty(), a.replayer != null, testing.active(p), a.dummy != null);
     }
 
     /** Run a menu or console verb exactly as its typed command would run. */
@@ -573,6 +690,7 @@ public final class CombatChamber implements Listener {
     /** Leave the chamber: remove the dummy and go back to the lab room. */
     public void leave(Player p) {
         plugin.inputs().forget(p);
+        if (testing.exit(p)) p.sendMessage("Testing ended: your inventory is back.");
         var a = active.remove(p.getUniqueId());
         ui.release(p);
         lab.rules().clear(p);
@@ -583,6 +701,8 @@ public final class CombatChamber implements Listener {
 
     /** Remove everything, for plugin shutdown. */
     public void close() {
+        editor.closeAll();
+        testing.exitAll();
         for (var e : new java.util.ArrayList<>(active.entrySet())) {
             Player p = Bukkit.getPlayer(e.getKey());
             if (e.getValue().dummy != null) bodies.despawn(e.getValue().dummy);

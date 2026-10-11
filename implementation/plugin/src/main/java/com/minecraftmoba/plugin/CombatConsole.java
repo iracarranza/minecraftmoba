@@ -57,6 +57,11 @@ public record CombatConsole(Box deck, List<Button> buttons) {
     private static Material material(String verb) {
         return switch (verb) {
             case "equipment" -> Material.GREEN_CONCRETE;
+            case "loadout.edit" -> Material.LIGHT_GRAY_CONCRETE;
+            case "loadout.next" -> Material.PINK_CONCRETE;
+            case "loadout.dummy" -> Material.BLUE_CONCRETE;
+            case "loadout.dummy.clear" -> Material.PURPLE_TERRACOTTA;
+            case "test.start" -> Material.LIME_CONCRETE;
             case "cast" -> Material.PURPLE_CONCRETE;
             case "record.start" -> Material.RED_CONCRETE;
             case "record.stop" -> Material.ORANGE_CONCRETE;
@@ -74,6 +79,11 @@ public record CombatConsole(Box deck, List<Button> buttons) {
     private static String label(String verb) {
         return switch (verb) {
             case "equipment" -> "EQUIPMENT / CONTROLS";
+            case "loadout.edit" -> "EDIT LOADOUTS";
+            case "loadout.next" -> "NEXT LOADOUT";
+            case "loadout.dummy" -> "LOADOUT TO DUMMY";
+            case "loadout.dummy.clear" -> "EMPTY THE DUMMY";
+            case "test.start" -> "START TESTING";
             case "cast" -> "DUMMY CASTS";
             case "record.start" -> "RECORD";
             case "record.stop" -> "STOP RECORDING";
@@ -87,6 +97,9 @@ public record CombatConsole(Box deck, List<Button> buttons) {
             default -> "LEAVE CHAMBER";
         };
     }
+
+    /** The ender chest that opens the loadout editor: on the deck, beside where the tester spawns. */
+    public static Pos station() { return new Pos(-5, CombatSlab.FLOOR_Y + 1, (int) Math.floor(CombatSlab.testerSpawn()[2]) + 1); }
 
     public Button button(String verb) {
         for (Button b : buttons) if (b.verb().equals(verb)) return b;

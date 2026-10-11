@@ -97,6 +97,15 @@ final class CombatUi implements Listener {
         if (hotbar.engaged(p)) hotbar.render(p, CombatMenu.gate(chamber.uiState(p)));
     }
 
+    /** What the tester really carries in a slot, seeing through the menu. */
+    org.bukkit.inventory.ItemStack realItem(Player p, int slot) { return hotbar.real(p, slot); }
+
+    /** Take the chamber menu off the hotbar without taking the world controls down (testing mode). */
+    void suspend(Player p) { hotbar.release(p); }
+
+    /** Put the chamber menu back after testing mode. */
+    void resume(Player p, World w) { engage(p, w); }
+
     void equipment(Player p) {
         if (plugin.inputs().buffet().seated(p)) { note(p, "Leave the Buffet before switching hotbars."); return; }
         hotbar.toggleEquipment(p); sync(p);
@@ -122,6 +131,7 @@ final class CombatUi implements Listener {
         for (int x = d.minX(); x <= d.maxX(); x++)
             for (int z = d.minZ(); z <= d.maxZ(); z++)
                 w.getBlockAt(x, d.minY(), z).setType(Material.POLISHED_ANDESITE, false);
+        buildStation(w);
         for (var b : console.buttons()) {
             w.getBlockAt(b.at().x(), b.at().y(), b.at().z()).setType(b.block(), false);
             var colour = b.verb().equals(CombatMenu.LEAVE) ? NamedTextColor.RED : NamedTextColor.WHITE;
@@ -140,6 +150,27 @@ final class CombatUi implements Listener {
                 i.addScoreboardTag(VERB_PREFIX + b.verb());
             });
         }
+    }
+
+    private void buildStation(World w) {
+        var at = CombatConsole.station();
+        w.getBlockAt(at.x(), at.y(), at.z()).setType(Material.ENDER_CHEST, false);
+        w.spawn(new Location(w, at.x() + .5, at.y() + 1.3, at.z() + .5), TextDisplay.class, t -> {
+            t.text(Component.text("LOADOUTS (right-click)", NamedTextColor.LIGHT_PURPLE));
+            t.setBillboard(Display.Billboard.CENTER);
+            t.setPersistent(false);
+            t.addScoreboardTag(BUTTON_TAG);
+        });
+    }
+
+    /** Right-clicking the station opens the loadout editor instead of the player's own ender chest. */
+    @EventHandler(priority = EventPriority.HIGH)
+    public void station(PlayerInteractEvent e) {
+        if (e.getHand() != EquipmentSlot.HAND || e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        var b = e.getClickedBlock();
+        if (b == null || b.getType() != Material.ENDER_CHEST || !b.getWorld().getName().equals(CombatChamber.WORLD)) return;
+        e.setCancelled(true);
+        chamber.openEditor(e.getPlayer());
     }
 
     private void removeConsole(World w) {
