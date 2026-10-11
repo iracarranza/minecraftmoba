@@ -25,6 +25,7 @@ class AbilityInputsTest {
         config.setDefaults(defaults); // existing scaffold config lacks the later registry sections
         Settings.load(config);
         when(plugin.getConfig()).thenReturn(config); when(plugin.getLogger()).thenReturn(java.util.logging.Logger.getAnonymousLogger());
+        when(plugin.namespace()).thenReturn("minecraftmoba");
         var id=UUID.randomUUID(); var data=new PlayerData(id); data.classId="test"; data.level=1;
         when(player.getUniqueId()).thenReturn(id); when(player.getName()).thenReturn("test");
         when(plugin.enrolled(player)).thenReturn(true); when(plugin.data(player)).thenReturn(data);

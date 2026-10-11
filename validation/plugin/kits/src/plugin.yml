@@ -1,0 +1,5 @@
+name: KitAcceptance
+version: 0.1
+main: kf.KitAcceptance
+api-version: '1.21.11'
+depend: [MinecraftMoba]

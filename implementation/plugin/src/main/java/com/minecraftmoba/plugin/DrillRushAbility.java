@@ -41,7 +41,7 @@ import java.util.UUID;
  * [WORKING] Every value is provisional calibration carried from the source
  * branch. None has been played.
  */
-public final class DrillRushAbility implements Ability {
+public final class DrillRushAbility implements Ability, org.bukkit.event.Listener {
 
     /**
      * Emerges along the facing. INSTANT despite being active for a while: the
@@ -54,6 +54,13 @@ public final class DrillRushAbility implements Ability {
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final Map<UUID, Location> entries = new HashMap<>();
+    private final Map<UUID, Long> burrowStarted = new HashMap<>();
+    private final Map<UUID, Boolean> invulnerability = new HashMap<>();
+    private final Map<UUID, Long> armored = new HashMap<>();
+    private record Chain(Location wall, long until) {}
+    private final Map<UUID, Chain> chain = new HashMap<>();
+    private long clock;
+    private org.bukkit.NamespacedKey speedKey() { return new org.bukkit.NamespacedKey(plugin, "burrow_chain"); }
 
     public DrillRushAbility(MobaPlugin plugin, ConfigurationSection config) {
         this.plugin = plugin;
@@ -79,7 +86,10 @@ public final class DrillRushAbility implements Ability {
 
     @Override
     public void cancel(Player p) {
-        if (entries.remove(p.getUniqueId()) != null) p.setInvulnerable(false);
+        if (entries.remove(p.getUniqueId()) != null) p.setInvulnerable(invulnerability.getOrDefault(p.getUniqueId(), false));
+        burrowStarted.remove(p.getUniqueId());
+        invulnerability.remove(p.getUniqueId()); armored.remove(p.getUniqueId());
+        if (chain.remove(p.getUniqueId()) != null) removeSpeed(p);
     }
 
     /** Burrow. */
@@ -87,6 +97,8 @@ public final class DrillRushAbility implements Ability {
     public boolean execute(Player p, AbilityContext ctx) {
         if (active(p)) return false;
         entries.put(p.getUniqueId(), p.getLocation().clone());
+        invulnerability.put(p.getUniqueId(), p.isInvulnerable());
+        burrowStarted.put(p.getUniqueId(), clock);
         p.setInvulnerable(true);
         return true;
     }
@@ -105,6 +117,7 @@ public final class DrillRushAbility implements Ability {
             return true;
         }
 
+        Location entry = entries.get(p.getUniqueId());
         cancel(p);
         p.teleport(out);
 
@@ -127,8 +140,63 @@ public final class DrillRushAbility implements Ability {
                     plugin.stun().stun(target, stunTicks);
         }
 
-        // [OPEN] Armored Emergence and Burrow Chain are unimplemented rather
-        // than approximated: both need values classes.md does not yet give.
+        if ("armored_emergence".equals(ctx.branchFor(id())))
+            armored.put(p.getUniqueId(), clock + config.getLong("armorTicks"));
+        if ("burrow_chain".equals(ctx.branchFor(id())) && Math.abs(facing.getY()) < .6) {
+            chain.put(p.getUniqueId(), new Chain(entry, clock + config.getLong("chainTicks")));
+            var speed = p.getAttribute(org.bukkit.attribute.Attribute.MOVEMENT_SPEED);
+            if (speed != null) speed.addModifier(new org.bukkit.attribute.AttributeModifier(speedKey(),
+                    config.getDouble("chainSpeed"), org.bukkit.attribute.AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                    org.bukkit.inventory.EquipmentSlotGroup.ANY));
+        }
         return true;
     }
+    private void removeSpeed(Player p) {
+        var speed = p.getAttribute(org.bukkit.attribute.Attribute.MOVEMENT_SPEED);
+        if (speed != null) speed.getModifiers().stream().filter(m -> m.getKey().equals(speedKey())).toList().forEach(speed::removeModifier);
+    }
+    @org.bukkit.event.EventHandler(priority = org.bukkit.event.EventPriority.HIGH, ignoreCancelled = true)
+    public void damage(org.bukkit.event.entity.EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player p && armored.getOrDefault(p.getUniqueId(), 0L) > clock)
+            e.setDamage(e.getDamage() * (1 - config.getDouble("armorReduction")));
+    }
+    @Override public void tick() {
+        clock++;
+        for (var item : List.copyOf(entries.entrySet())) {
+            Player p = plugin.getServer().getPlayer(item.getKey());
+            if (p == null) { entries.remove(item.getKey()); invulnerability.remove(item.getKey()); burrowStarted.remove(item.getKey()); continue; }
+            if (!p.isOnline() || p.isDead() || !p.getWorld().equals(item.getValue().getWorld())) { cancel(p); continue; }
+            if (clock - burrowStarted.getOrDefault(item.getKey(), clock) >= config.getLong("maxBurrowTicks")) {
+                p.teleport(item.getValue()); cancel(p); continue;
+            }
+            if (plugin.stun() != null && plugin.stun().movementRefused(p)) continue;
+            var input = p.getCurrentInput(); Vector motion = p.getLocation().getDirection().setY(0);
+            if (motion.lengthSquared() > 1e-6) motion.normalize();
+            Vector lateral = new Vector(-motion.getZ(), 0, motion.getX());
+            Vector step = new Vector();
+            if (input.isForward()) step.add(motion); if (input.isBackward()) step.subtract(motion);
+            if (input.isRight()) step.add(lateral); if (input.isLeft()) step.subtract(lateral);
+            if (input.isJump()) step.setY(1); if (input.isSneak()) step.setY(-1);
+            if (step.lengthSquared() > 1e-6) {
+                Location next = p.getLocation().add(step.normalize().multiply(config.getDouble("burrowSpeed")));
+                if (next.getY() >= p.getWorld().getMinHeight() && next.getY() < p.getWorld().getMaxHeight() - 2
+                        && next.getBlock().getType().getHardness() >= 0) p.teleport(next);
+            }
+            p.setVelocity(new Vector());
+        }
+        armored.values().removeIf(expiry -> expiry <= clock);
+        for (var item : List.copyOf(chain.entrySet())) {
+            Player p = plugin.getServer().getPlayer(item.getKey()); Chain c = item.getValue();
+            if (p == null || !p.isOnline() || p.isDead() || clock >= c.until()
+                    || !p.getWorld().equals(c.wall().getWorld())) {
+                if (p != null) removeSpeed(p); chain.remove(item.getKey()); continue;
+            }
+            Location ahead = p.getLocation().add(p.getLocation().getDirection().setY(0).multiply(.8));
+            if (!ahead.getBlock().isPassable() && ahead.distanceSquared(c.wall()) >= 4) {
+                plugin.inputs().cooldowns().clear(p.getUniqueId(), id());
+                removeSpeed(p); chain.remove(item.getKey());
+            }
+        }
+    }
+
 }

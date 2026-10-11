@@ -57,6 +57,15 @@ public final class RunwayAbility implements Ability {
                 suplex ? Recipients.ENEMIES : Recipients.NONE);
     }
 
+    private static final class Stunt {
+        final Player caster; final String branch; final java.util.List<Entity> passengers;
+        final long starts; boolean airborne; boolean pulled; double descent;
+        Stunt(Player caster, String branch, java.util.List<Entity> passengers, long starts) {
+            this.caster = caster; this.branch = branch; this.passengers = passengers; this.starts = starts;
+        }
+    }
+    private final java.util.Map<java.util.UUID, Stunt> stunts = new java.util.HashMap<>();
+    private long clock;
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final DaredevilState state;
@@ -101,14 +110,21 @@ public final class RunwayAbility implements Ability {
         // Suplex takes whoever Daredevil is touching along for the whole
         // trajectory -- up AND back down -- so it is applied as the same
         // vector rather than as a separate knock-up.
+        var passengers = new java.util.ArrayList<Entity>();
+        if ("pop_rocket".equals(branch)) {
+            p.getWorld().spawnParticle(org.bukkit.Particle.GUST_EMITTER_SMALL, p.getLocation(), 1);
+            p.setFallDistance(0);
+            state.negateNextFall(p);
+        }
         if ("suplex".equals(branch)) {
             double reach = config.getDouble("suplexReach");
             // Targetability.impulse is the permissive axis: anything physics
             // can move, allies excluded. Suplex displaces rather than
             // afflicts, so it is the correct one of the two.
             for (Entity e : p.getNearbyEntities(reach, reach, reach))
-                if (!e.equals(p) && Targetability.impulse(e, p)) e.setVelocity(leap.clone());
+                if (!e.equals(p) && Targetability.impulse(e, p)) { e.setVelocity(leap.clone()); passengers.add(e); }
         }
+        stunts.put(p.getUniqueId(), new Stunt(p, branch, passengers, clock));
         return true;
     }
 
@@ -117,4 +133,29 @@ public final class RunwayAbility implements Ability {
         ConfigurationSection all = config.getConfigurationSection("branches");
         return all == null ? null : all.getConfigurationSection(branch);
     }
+    @Override public void tick() {
+        clock++;
+        for (var stunt : java.util.List.copyOf(stunts.values())) {
+            Player p = stunt.caster;
+            if (!p.isOnline() || p.isDead() || !state.isDaredevil(p) || clock - stunt.starts > config.getLong("stuntTimeoutTicks")) { cancel(p); continue; }
+            if (!p.isOnGround()) stunt.airborne = true;
+            stunt.descent = Math.max(stunt.descent, Math.max(0, -p.getVelocity().getY()));
+            if ("suplex".equals(stunt.branch) && stunt.airborne && !stunt.pulled && p.getVelocity().getY() < 0) {
+                stunt.pulled = true;
+                for (Entity target : stunt.passengers) if (target.isValid() && target.getWorld().equals(p.getWorld()) && Targetability.impulse(target, p))
+                    target.setVelocity(target.getVelocity().setY(-config.getDouble("suplexDownward")));
+            }
+            if (stunt.airborne && p.isOnGround()) {
+                if ("trampoline".equals(stunt.branch)) {
+                    Vector heading = p.getLocation().getDirection().setY(0);
+                    if (heading.lengthSquared() > 1e-6) heading.normalize().multiply(Math.max(.2, state.momentum(p)));
+                    p.setVelocity(heading.setY(Math.max(config.getDouble("reboundMinimum"), stunt.descent * config.getDouble("reboundFraction"))));
+                    p.setFallDistance(0);
+                }
+                cancel(p);
+            }
+        }
+    }
+    @Override public void cancel(Player p) { stunts.remove(p.getUniqueId()); }
+
 }

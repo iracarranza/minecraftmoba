@@ -93,7 +93,13 @@ final class CombatUi implements Listener {
 
     /** Keep the items greyed or lit to match the chamber's actual state. */
     void sync(Player p) {
+        if (plugin.inputs().buffet().seated(p)) return;
         if (hotbar.engaged(p)) hotbar.render(p, CombatMenu.gate(chamber.uiState(p)));
+    }
+
+    void equipment(Player p) {
+        if (plugin.inputs().buffet().seated(p)) { note(p, "Leave the Buffet before switching hotbars."); return; }
+        hotbar.toggleEquipment(p); sync(p);
     }
 
     void syncAll() {

@@ -28,6 +28,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public void applyDraftedClass(Player p, String id) {
         var d = data(p);
         if (d == null) return;
+        if (inputs != null) { inputs.forget(p); inputs.daredevil().clear(p); }
         d.classId = id;
         sync(p, d);
     }
@@ -243,6 +244,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // Daredevil's shared state listens for movement and damage on its own
         // behalf; its abilities only read it.
         getServer().getPluginManager().registerEvents(inputs.daredevil(), this);
+        inputs.listeners().forEach(listener -> getServer().getPluginManager().registerEvents(listener, this));
         selection = new InWorldSelection(this, settings.rewards());
         getServer().getPluginManager().registerEvents(selection, this);
         // One timer drives the beat and sweeps combat state. Both are cheap
@@ -624,10 +626,12 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // leaving it there would strand an unowned Giant across a reload.
         if (lair != null) lair.reset();
         // Dummies are players in a world that outlives the plugin.
+        if (inputs != null) inputs.close();
         if (lab != null) lab.close();
         if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
+        if (passives != null) passives.close();
         if (packets != null) packets.close();
-        if (inputs != null) getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true));
+        if (inputs != null) { inputs.close(); getServer().getOnlinePlayers().forEach(p -> inputs.exit(p, true)); }
         if (provenance != null) provenance.sample();
         for (Player p : getServer().getOnlinePlayers()) {
             PlayerData d = players.get(p.getUniqueId());
@@ -1133,7 +1137,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
                     if (!args[2].equals("none") && inputs.definition(args[2]) == null)
                         throw new IllegalArgumentException("No such class '" + args[2]
                                 + "'. Registered: " + inputs.ids());
-                    inputs.exit(p, true);
+                    inputs.forget(p);
                     d.classId = args[2].equals("none") ? null : args[2];
                     d.modeState.clear();
                     if (args.length == 5) inputs.setBranches(p, Integer.parseInt(args[3]), Integer.parseInt(args[4]));

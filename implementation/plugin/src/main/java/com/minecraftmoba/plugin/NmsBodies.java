@@ -230,6 +230,11 @@ public final class NmsBodies implements Bodies {
             if (classId != null) plugin.applyDraftedClass(p, classId);
             if (level > 0)
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "moba setlevel " + p.getName() + " " + level);
+            if ("chef".equals(classId)) {
+                p.getInventory().setItem(0, new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SHOVEL));
+                p.getInventory().setItem(1, new org.bukkit.inventory.ItemStack(org.bukkit.Material.COOKED_BEEF, 64));
+                p.getInventory().setItem(2, new org.bukkit.inventory.ItemStack(org.bukkit.Material.BEEF, 32));
+            }
             // Only a running match takes participants; outside one a body is
             // still a valid target for abilities, just not a team member.
             if (team != null && plugin.match() != null && plugin.match().running())

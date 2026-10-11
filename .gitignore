@@ -29,3 +29,6 @@ __pycache__/
 
 # Generated resource pack builds are reproducible from the tooling.
 /implementation/resourcepack/build/
+
+# Reproducible class-kit validation fixture compilation.
+/validation/plugin/kits/build/

@@ -1,0 +1,12 @@
+{
+  "unit_tests": 1111,
+  "unit_failures": 0,
+  "native_checks": 25,
+  "native_failures": 0,
+  "paper": "1.21.11-132-c5eb079",
+  "java": "21",
+  "artifact": "implementation/plugin/build/libs/minecraft-moba-0.1.0-SNAPSHOT.jar",
+  "artifact_sha256": "8b0bd87b2b8833e2c20dd1aebf09490993f74a373770acf9b2b349104bf8dfda",
+  "config_sha256": "15caf6fb8e14276c762e392db00f6c79fbaef2b01293fde69a0d0463c4da4c23",
+  "deployment": "isolated validation only"
+}

@@ -1638,6 +1638,8 @@ The current XP bands and requirement indices are a framework for that later bott
 
 # 4. Mole
 
+**Prototype/test build update, 11 October 2026.** Sinkhole now has a real temporary restoring implementation; Armored Emergence and Burrow Chain have prototype branch effects. Shared displacement snapshots now preserve container state. Geometry, protected-terrain policy, movement and durations remain provisional. See [the lab pass record](docs/design/CLASS_KIT_LAB_PASS.md).
+
 **Growth curve authored 26 September 2026.** Mole is the roster's introductory
 calibration class and now has a full Lv0–30 curve — Health 100→320 on the ×10
 scale (+22 every Growth), Hunger 10→20 maturing by Lv15, Inventory 6→24,
@@ -3303,6 +3305,8 @@ The fantasy: the project is behind schedule, so Skeleton Crew brings in another 
 
 # 16. Lightfooted
 
+**Prototype/test build update, 11 October 2026.** Rabbit's Lucky Foot is implemented, animal-side passive bonuses are dispatched, Lunge has species-specific branch scaling, and Bounding follows detected landings. Collision, item-disable fidelity and movement feel still need playtesting. See [the lab pass record](docs/design/CLASS_KIT_LAB_PASS.md).
+
 ### Canonical kit — 13 September 2026
 
 **Source: [K7] seven-class kit handoff.** Reproduced as supplied. Where the developed material below elaborates this kit they agree; where it differs, this block is the current statement.
@@ -3393,6 +3397,8 @@ After landing, ordinary protection ends and the group is physically concentrated
 ---
 
 # 17. Daredevil
+
+**Prototype/test build update, 11 October 2026.** Skydiver now dispatches from server-tick airtime; Trampoline and Suplex have their additional physical phases. Pop Rocket remains an amplified gust/fall-protection stand-in rather than native Wind Charge/Wind Burst behavior. Conceptual-pass status and numerical questions remain Open. See [the lab pass record](docs/design/CLASS_KIT_LAB_PASS.md).
 
 **Kit supplied 13 September 2026. Source: [K7].** Daredevil was previously a substantially incomplete draft with no Ability 2 and no ultimate ([section 14](#14-class-draft-record)). The kit below supplies both and is reproduced as given. [OPEN] Whether this constitutes a completed conceptual pass equivalent to Skeleton Crew's and Lightfooted's is the owner's call; it is not asserted here.
 
@@ -4594,6 +4600,8 @@ low rating is not a scheduling estimate.
 ---
 
 # 22. Chef
+
+**Prototype/test build update, 11 October 2026.** Chef is registered with Trusty Spatula, both actives and all six branches, and Irresistible Buffet. The cooking/custody implementation and lab fixtures are recorded separately; Growth and the existing Open parameters have not been promoted to settled design. See [the lab pass record](docs/design/CLASS_KIT_LAB_PASS.md).
 
 **Proposed 29 September 2026.** The first of the seven Difficulty-1 archetype
 exemplars ([section 21](#21-class-difficulty)). Reproduced as supplied, with the

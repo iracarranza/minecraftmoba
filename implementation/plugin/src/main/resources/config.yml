@@ -946,14 +946,8 @@ abilities:
   logExecutions: true
   # User-authorized prototype test kit. Not class design or balance canon.
   classes:
-    # Toolbox. Construction archetype: the inventory IS the program.
-    #
-    # PARTIAL KIT, deliberately. Only the Utility Belt passive is built;
-    # A1 (Reconfiguratron!), A2 and the Ultimate are designed in
-    # docs/design/TOOLBOX_CIRCUIT_GRAMMAR.md and not yet implemented, so
-    # their slots are absent rather than pointed at a placeholder. An
-    # unbound input does nothing, which is honest; a placeholder would be a
-    # lie that looked like a feature.
+    # Toolbox's passive and all three actives are built. Its Lv30 capstone
+    # remains deliberately deferred; authored numbers remain provisional.
     toolbox:
       displayName: "Toolbox"
       passiveHook: "utility_belt"
@@ -1014,7 +1008,7 @@ abilities:
       # Was sinkhole_lite: the shared prototype stub, which is Mole's ability
       # and said nothing about this class.
       a2: bounding
-      ult: channel_ult
+      ult: rabbits_lucky_foot
     # The class that could not be configured at all under one effect per level.
     # Lv6 is Supply Line access AND Signal Flares I; Lv18 is Signal
     # Flares II plus crew combat development. Both are two effects, and
@@ -1077,18 +1071,27 @@ abilities:
       # Was sinkhole_lite: the shared prototype stub, which Lightfooted also
       # carried until Bounding replaced it. Mole's A2 is Drill Rush.
       a2: drill_rush
-      ult: channel_ult
+      ult: sinkhole
     # Daredevil. The kit exists in classes.md section 17; this entry makes its
     # three abilities reachable. [OPEN] statGrowthProfile, passiveHook for
     # Skydiver, and infrastructureProgression are not yet authored, so the
     # class is playable but not progressed.
     daredevil:
       displayName: Daredevil
+      passiveHook: skydiver
       branches: { runway: trampoline, crash_landing: combat_roll }
       persistentStateDefaults: { runwayBranch: trampoline, crashLandingBranch: combat_roll }
       a1: runway
       a2: crash_landing
       ult: deathly_clutches
+    chef:
+      displayName: Chef
+      passiveHook: trusty_spatula
+      statGrowthProfile: fallback
+      a1: food_fight
+      a2: flip_and_press
+      ult: irresistible_buffet
+      branches: { food_fight: extra_spicy, flip_and_press: hibachi_skills }
   definitions:
     # Toolbox's passive. Incoming damage -- from anything, including mobs,
     # fall and fire -- runs the inventory circuit, because the belt is a
@@ -1139,12 +1142,13 @@ abilities:
       sweepTicks: 8
       branches:
         # Damage scaled by the pack around you.
-        swarmingBite: { perWolfPower: 0.03, combat: true }
+        swarmingBite: { power: 0.9, rechargePerWolf: 0.25, perWolfPower: 0.03, combat: true }
         # Disables the target's mainhand: acting on capacity to fight.
-        thievingSwipe: { power: 1.0, disableTicks: 30, combat: true }
+        thievingSwipe: { perFoxTicks: 10, disableCapTicks: 100, power: 1.0, disableTicks: 30, combat: true }
         # A committed leap onto a target, paid for with a rooted windup.
         stalkingPounce: { power: 1.6, windupTicks: 12, combat: true }
     bounding:
+      maxAirTicks: 200
       displayName: Bounding
       # Non-combat: it is travel. It does nothing to anybody's capacity to
       # fight, and attacking is refused for its duration precisely so it cannot
@@ -1226,6 +1230,10 @@ abilities:
     # Daredevil. [WORKING] every value is provisional calibration carried
     # from codex/lightfooted-from-phase1; none has been played.
     runway:
+      stuntTimeoutTicks: 200
+      suplexDownward: 1.5
+      reboundMinimum: 0.6
+      reboundFraction: 0.8
       displayName: Runway
       # Non-combat at base: it is traversal, and converts Daredevil's own
       # momentum into height. Suplex is combat because it takes an enemy with
@@ -1271,6 +1279,12 @@ abilities:
       restores: 2
     # Mole A2.
     drill_rush:
+      maxBurrowTicks: 200
+      burrowSpeed: 0.15
+      armorTicks: 60
+      armorReduction: 0.65
+      chainTicks: 60
+      chainSpeed: 0.4
       displayName: "Drill Rush"
       combat: true
       cooldownTicks: 200
@@ -1326,6 +1340,76 @@ abilities:
       branches:
         bore: { speedMultiplier: 1.6, combat: false }
         gallery: { width: 3, combat: false }
+    # Lightfooted ultimate. Prototype/test calibration.
+    rabbits_lucky_foot:
+      displayName: Rabbit's Lucky Foot
+      combat: true
+      cooldownTicks: 1200
+      range: 24
+      animalRadius: 12.0
+      casterDelayTicks: 8
+      flightTicks: 50
+      arcHeight: 10.0
+      impactRadius: 2.0
+      animalDamage: 2.0
+      casterDamage: 6.0
+    # Revised Mole ultimate. Prototype/test geometry and duration.
+    sinkhole:
+      displayName: Sinkhole
+      combat: true
+      cooldownTicks: 1200
+      range: 24
+      radius: 4
+      depth: 4
+      blockBudget: 192
+      openTicks: 200
+    # Chef: all amounts are Prototype/test fixtures, not final balance.
+    food_fight:
+      displayName: Food Fight
+      combat: true
+      cooldownTicks: 60
+      range: 18.0
+      speed: 0.9
+      gravity: 0.003
+      hitRadius: 0.25
+      damage: 3.0
+      heal: 3.0
+      fireTicks: 60
+      spatulaRangeMultiplier: 1.5
+      branches:
+        super_nutritious: { combat: true }
+        extra_spicy: { combat: true }
+        reckless_rationing: { combat: true }
+    flip_and_press:
+      displayName: Flip and Press
+      combat: true
+      cooldownTicks: 120
+      reach: 5.0
+      lift: 0.8
+      slamSpeed: 1.5
+      slamDelayTicks: 10
+      landingTimeoutTicks: 40
+      damage: 2.0
+      stunTicks: 15
+      advanceTicks: 160
+      spatulaMultiplier: 1.25
+      hibachiMultiplier: 1.5
+      fuelFraction: 0.5
+      batchPerItem: 0.05
+      batchCap: 2.0
+      branches:
+        hibachi_skills: { combat: true }
+        rake_the_coals: { combat: true }
+        broiler_rack: { combat: true }
+    irresistible_buffet:
+      displayName: Irresistible Buffet
+      combat: true
+      cooldownTicks: 1200
+      length: 16
+      rollTicks: 2
+      durationTicks: 200
+      catchRadius: 1.5
+      damagePerServing: 0.25
   feedback:
     enter: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 1.2 }
     exit: { sound: minecraft:block.note_block.pling, volume: 0.5, pitch: 0.8 }
@@ -1352,6 +1436,7 @@ abilities:
 # leave its class permanently in it -- unable to level up, Recall, or hold any
 # out-of-combat effect. See docs/design/COMBAT_STATE.md.
 passives:
+  skydiver: { airborneTicks: 25, airAcceleration: 0.06, maxHorizontalSpeed: 1.1 }
   enabled: true
   # How often standing passive attributes are rewritten. Event-shaped passives
   # (damage, fall) do not use this; they are read at the event.
@@ -1770,6 +1855,21 @@ alpha:
           - { tick: 82, assert: not_stunned, of: rooted, because: "a Stun expires on time" }
           - { tick: 84, actor: rooted, do: hit, target: victim, amount: 3 }
           - { tick: 90, assert: health_below, of: victim, than: since, since: 84, because: "and can attack again afterwards" }
+      chef_skirmish:
+        description: "Chef's real food projectiles and Buffet in a two-versus-two encounter."
+        anchor: fountain_north
+        roster:
+          - { id: chef, team: NORTH, class: chef, level: 15, at: [4, 0, 8] }
+          - { id: ally, team: NORTH, class: toolbox, level: 15, at: [4, 0, 12] }
+          - { id: enemy, team: SOUTH, class: mole, level: 15, at: [10, 0, 8] }
+          - { id: enemy_b, team: SOUTH, class: daredevil, level: 15, at: [10, 0, 12] }
+        timeline:
+          - { tick: 20, actor: chef, do: cast, slot: a1, at: enemy }
+          - { tick: 22, assert: ability_executed, of: chef, ability: food_fight, because: "a real Food Fight consumed inventory food" }
+          - { tick: 35, window: 15, assert: health_below, of: enemy, than: since, since: 20, because: "the food projectile hit an enemy" }
+          - { tick: 50, assert: health_not_lower, of: ally, since: 20, because: "Food Fight did not damage the allied body" }
+          - { tick: 60, actor: chef, do: cast, slot: ult, at: enemy, level: true }
+          - { tick: 62, assert: ability_executed, of: chef, ability: irresistible_buffet, because: "the real Buffet rollout started" }
       skirmish_2v2:
         description: "Two against two: teams hold, enemies take damage, real abilities run."
         anchor: fountain_north
@@ -1931,3 +2031,25 @@ alpha:
       - id: ws_6_4
         xyz: [-1698, 76, 14]
         bias: neutral
+
+# Chef's supported supplemental fuel. Remaining lit fuel is always usable.
+# Unknown fuel stays untouched for vanilla; no free furnace energy is generated.
+chef:
+  fuelTicks:
+    COAL: 1600
+    CHARCOAL: 1600
+    COAL_BLOCK: 16000
+    LAVA_BUCKET: 20000
+    BLAZE_ROD: 2400
+    DRIED_KELP_BLOCK: 4000
+    BAMBOO: 50
+    STICK: 100
+    OAK_PLANKS: 300
+    SPRUCE_PLANKS: 300
+    BIRCH_PLANKS: 300
+    JUNGLE_PLANKS: 300
+    ACACIA_PLANKS: 300
+    DARK_OAK_PLANKS: 300
+    MANGROVE_PLANKS: 300
+    CHERRY_PLANKS: 300
+    PALE_OAK_PLANKS: 300

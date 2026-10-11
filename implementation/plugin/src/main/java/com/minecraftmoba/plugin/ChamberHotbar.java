@@ -45,6 +45,7 @@ final class ChamberHotbar {
     private final Map<UUID, ItemStack[]> snapshots = new HashMap<>();
     private final Map<UUID, ChamberMenu> menus = new HashMap<>();
     private final Map<UUID, String> lastSignature = new HashMap<>();
+    private final java.util.Set<UUID> equipment = new java.util.HashSet<>();
 
     ChamberHotbar(NamespacedKey key) { this.key = key; }
 
@@ -87,7 +88,8 @@ final class ChamberHotbar {
         lastSignature.remove(p.getUniqueId());
         if (saved == null) return;
         var inv = p.getInventory();
-        for (int i = 0; i < ChamberMenu.SLOTS; i++) inv.setItem(i, saved[i]);
+        if (!equipment.remove(p.getUniqueId()))
+            for (int i = 0; i < ChamberMenu.SLOTS; i++) inv.setItem(i, saved[i]);
         inv.setItem(RETURN_SLOT, saved[ChamberMenu.SLOTS]);
         inv.setItem(PLAYTEST_SLOT, saved[ChamberMenu.SLOTS + 1]);
     }
@@ -97,6 +99,7 @@ final class ChamberHotbar {
      * changed, so a periodic refresh does not flicker the tester's selection.
      */
     void render(Player p, ChamberMenu.Gate gate) {
+        if (equipment.contains(p.getUniqueId())) return;
         var menu = menus.get(p.getUniqueId());
         if (menu == null) return;
         var view = menu.view(gate);
@@ -111,6 +114,19 @@ final class ChamberHotbar {
             inv.setItem(slot, item == null ? null : stack(ChamberItems.spec(item, view.refusalAt(slot))));
         }
         p.updateInventory();
+    }
+
+    /** Swap controls for the real equipment; consumption survives returning to the menu. */
+    void toggleEquipment(Player p) {
+        var saved = snapshots.get(p.getUniqueId());
+        if (saved == null) return;
+        if (equipment.remove(p.getUniqueId())) {
+            for (int i = 0; i < ChamberMenu.SLOTS; i++) saved[i] = copy(p.getInventory().getItem(i));
+            lastSignature.remove(p.getUniqueId());
+        } else {
+            equipment.add(p.getUniqueId());
+            for (int i = 0; i < ChamberMenu.SLOTS; i++) p.getInventory().setItem(i, copy(saved[i]));
+        }
     }
 
     private ItemStack stack(ChamberItems.Spec spec) {

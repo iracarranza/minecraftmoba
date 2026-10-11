@@ -3,6 +3,8 @@ package com.minecraftmoba.plugin;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.BlockState;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -67,7 +69,7 @@ import java.util.UUID;
 public final class Displacement implements Listener {
 
     private final MobaPlugin plugin;
-    private final DisplacementLedger<BlockData> ledger = new DisplacementLedger<>();
+    private final DisplacementLedger<BlockState> ledger = new DisplacementLedger<>();
 
     public Displacement(MobaPlugin plugin) { this.plugin = plugin; }
 
@@ -90,7 +92,7 @@ public final class Displacement implements Listener {
         // borrowed and returned is still player-placed, and forgetting that
         // would quietly convert built material into a resource opportunity.
         boolean placed = plugin.provenance() != null && plugin.provenance().isPlayerPlaced(block);
-        if (!ledger.reserve(key, token, data)) return null;
+        if (!ledger.reserve(key, token, block.getState())) return null;
         block.setType(Material.AIR, false);
         if (placed) placedByPlayer.add(key);
         return data;
@@ -107,12 +109,12 @@ public final class Displacement implements Listener {
     /** Put one position back early, leaving the token's others held. */
     public boolean restore(Block block) {
         var key = keyOf(block);
-        BlockData data = ledger.release(key);
+        BlockState data = ledger.release(key);
         if (data == null) return false;
         return put(List.of(Map.entry(key, data))) == 1;
     }
 
-    private int put(List<Map.Entry<DisplacementLedger.Key, BlockData>> entries) {
+    private int put(List<Map.Entry<DisplacementLedger.Key, BlockState>> entries) {
         int done = 0;
         for (var e : entries) {
             var world = plugin.getServer().getWorld(e.getKey().world());
@@ -120,7 +122,7 @@ public final class Displacement implements Listener {
             // it. Drop the reservation rather than retrying forever.
             if (world == null) { placedByPlayer.remove(e.getKey()); continue; }
             Block at = world.getBlockAt(e.getKey().x(), e.getKey().y(), e.getKey().z());
-            at.setBlockData(e.getValue(), false);
+            e.getValue().update(true, false);
             if (placedByPlayer.remove(e.getKey()) && plugin.provenance() != null)
                 plugin.provenance().mark(at, true);
             done++;
@@ -154,6 +156,14 @@ public final class Displacement implements Listener {
             e.setCancelled(true);
             if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(e.getPlayer(), "RESERVED");
         }
+    }
+
+    /** Suppress support updates at the reserved boundary so sand cannot fall into the loan. */
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void physics(BlockPhysicsEvent e) {
+        if (ledger.isEmpty()) return;
+        Block b = e.getBlock();
+        if (isReserved(b) || isReserved(b.getRelative(0, -1, 0))) e.setCancelled(true);
     }
 
     /** Fluid flowing into a reserved position would occupy it. */

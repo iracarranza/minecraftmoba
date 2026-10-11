@@ -86,6 +86,9 @@ public final class Passives implements Listener {
     private final MobaPlugin plugin;
     /** Players currently carrying a passive speed modifier, so it can be taken back. */
     private final Set<UUID> speeded = new HashSet<>();
+    private record AnimalBonus(org.bukkit.entity.LivingEntity animal, int count) {}
+    private final java.util.Map<UUID, AnimalBonus> animalBonuses = new java.util.HashMap<>();
+    private org.bukkit.NamespacedKey animalSpeedKey() { return new org.bukkit.NamespacedKey(plugin, "animal_senses_speed"); }
 
     public Passives(MobaPlugin plugin) { this.plugin = plugin; }
 
@@ -130,7 +133,18 @@ public final class Passives implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player p) || !has(p, ANIMAL_SENSES)) return;
+        if (!(e.getEntity() instanceof Player)) {
+            var b = animalBonuses.get(e.getEntity().getUniqueId());
+            if (b == null) return;
+            var species = AnimalSenses.species(b.animal());
+            if (species == org.bukkit.entity.EntityType.WOLF)
+                e.setDamage(e.getDamage() * AnimalSenses.damageMultiplier(b.count(), plugin.getConfig().getDouble("passives.animalSenses.wolfDamageReduction"), cap()));
+            if (species == org.bukkit.entity.EntityType.CAT && e.getCause() == EntityDamageEvent.DamageCause.FALL)
+                e.setDamage(e.getDamage() * AnimalSenses.fallMultiplier(b.count(), plugin.getConfig().getDouble("passives.animalSenses.catFallReduction"), cap()));
+            return;
+        }
+        Player p = (Player) e.getEntity();
+        if (!has(p, ANIMAL_SENSES)) return;
         var bonus = AnimalSenses.nearby(p, radius());
         if (bonus.none()) return;
 
@@ -146,6 +160,7 @@ public final class Passives implements Listener {
 
     /** The standing passives. Called from the plugin's timer. */
     public void tick() {
+        refreshAnimals();
         for (Player p : plugin.getServer().getOnlinePlayers()) {
             if (has(p, UNDEAD_AFFINITY)) drawUndead(p);
             if (!has(p, ANIMAL_SENSES)) { withdrawSpeed(p); continue; }
@@ -154,6 +169,37 @@ public final class Passives implements Listener {
             if (bonus <= 0) { withdrawSpeed(p); continue; }
             applySpeed(p, bonus);
         }
+    }
+
+    private void refreshAnimals() {
+        var next = new java.util.HashMap<UUID, AnimalBonus>();
+        for (Player p : plugin.getServer().getOnlinePlayers()) if (has(p, ANIMAL_SENSES)) {
+            var counts = AnimalSenses.nearby(p, radius());
+            for (Entity e : p.getNearbyEntities(radius(), radius(), radius())) {
+                var species = AnimalSenses.species(e);
+                if (species == null || !(e instanceof org.bukkit.entity.LivingEntity animal)) continue;
+                int count = switch (species) { case WOLF -> counts.wolves(); case FOX -> counts.foxes(); default -> counts.cats(); };
+                var old = next.get(e.getUniqueId());
+                if (old == null || count > old.count()) next.put(e.getUniqueId(), new AnimalBonus(animal, count));
+            }
+        }
+        for (var b : animalBonuses.values()) if (!next.containsKey(b.animal().getUniqueId())) removeAnimalSpeed(b.animal());
+        animalBonuses.clear(); animalBonuses.putAll(next);
+        for (var b : next.values()) if (AnimalSenses.species(b.animal()) == org.bukkit.entity.EntityType.FOX) {
+            removeAnimalSpeed(b.animal());
+            var speed = b.animal().getAttribute(Attribute.MOVEMENT_SPEED);
+            if (speed != null) speed.addModifier(new org.bukkit.attribute.AttributeModifier(animalSpeedKey(),
+                    AnimalSenses.speedBonus(b.count(), plugin.getConfig().getDouble("passives.animalSenses.foxSpeedBonus"), cap()),
+                    org.bukkit.attribute.AttributeModifier.Operation.MULTIPLY_SCALAR_1, org.bukkit.inventory.EquipmentSlotGroup.ANY));
+        }
+    }
+    private void removeAnimalSpeed(org.bukkit.entity.LivingEntity animal) {
+        var speed = animal.getAttribute(Attribute.MOVEMENT_SPEED);
+        if (speed != null) speed.getModifiers().stream().filter(m -> animalSpeedKey().equals(m.getKey())).toList().forEach(speed::removeModifier);
+    }
+    void close() {
+        animalBonuses.values().forEach(b -> removeAnimalSpeed(b.animal())); animalBonuses.clear();
+        plugin.getServer().getOnlinePlayers().forEach(this::withdrawSpeed);
     }
 
     // ---- Undead Affinity ---------------------------------------------------
@@ -306,7 +352,7 @@ public final class Passives implements Listener {
         return plugin.getConfig().getInt("passives.sifthSense.volume", SifthSense.DEFAULT_VOLUME);
     }
 
-    @EventHandler public void onQuit(PlayerQuitEvent e) { speeded.remove(e.getPlayer().getUniqueId()); }
+    @EventHandler public void onQuit(PlayerQuitEvent e) { withdrawSpeed(e.getPlayer()); }
 
     public String report(Player p) {
         String hook = hook(p);

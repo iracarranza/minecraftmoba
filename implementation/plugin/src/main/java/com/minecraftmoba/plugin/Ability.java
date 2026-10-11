@@ -45,8 +45,12 @@ public interface Ability {
 
     default Map<String, String> branches() { return Map.of(); }
     default List<String> branchIds() { return List.copyOf(branches().keySet()); }
+    default boolean canBuildWhileActive() { return false; }
+    default boolean attackCancels() { return true; }
     default boolean active(Player player) { return false; }
     default void cancel(Player player) {}
+    /** Player/session teardown, including recipient-side state that ordinary cast cancellation must retain. */
+    default void forget(Player player) { cancel(player); }
 
     /**
      * A second activation while already active.

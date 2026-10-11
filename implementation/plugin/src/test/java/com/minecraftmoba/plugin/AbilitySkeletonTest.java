@@ -206,7 +206,7 @@ class AbilitySkeletonTest {
                     + e.get("target") + ", InputForm." + e.get("input")
                     + ", Recipients." + e.get("affects")
                     + ("true".equals(e.get("caster")) ? ", true)" : ")");
-            if (!src.contains(want)) disagreements.add(impl.getSimpleName() + " should declare " + want);
+            if (!src.contains(want) && !src.contains(want.replace("AbilityOutput.single(", "new AbilityOutput("))) disagreements.add(impl.getSimpleName() + " should declare " + want);
             assertNotNull(method);
         }
         assertTrue(disagreements.isEmpty(), String.join("; ", disagreements));

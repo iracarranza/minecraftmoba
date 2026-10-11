@@ -106,8 +106,33 @@ public final class DaredevilState implements Listener {
         if (!isDaredevil(p)) return;
         UUID id = p.getUniqueId();
         lastStep.put(id, e.getTo().toVector().subtract(e.getFrom().toVector()));
-        if (p.isOnGround()) airborne.put(id, 0);
-        else airborne.merge(id, 1, Integer::sum);
+
+    }
+
+    /** Count server ticks, not move packets, then offer directional control while airborne. */
+    public void tick() {
+        for (Player p : org.bukkit.Bukkit.getOnlinePlayers()) {
+            if (!isDaredevil(p) || p.isDead()) { clear(p); continue; }
+            UUID id = p.getUniqueId();
+            if (p.isOnGround()) { airborne.put(id, 0); continue; }
+            int air = airborne.merge(id, 1, Integer::sum);
+            var config = plugin.getConfig().getConfigurationSection("passives.skydiver");
+            if (config == null || air < config.getInt("airborneTicks") || plugin.passives() == null
+                    || !plugin.passives().has(p, "skydiver")) continue;
+            var input = p.getCurrentInput();
+            Vector forward = p.getLocation().getDirection().setY(0);
+            if (forward.lengthSquared() < 1e-6) continue;
+            forward.normalize(); Vector side = new Vector(-forward.getZ(), 0, forward.getX());
+            Vector desired = new Vector();
+            if (input.isForward()) desired.add(forward); if (input.isBackward()) desired.subtract(forward);
+            if (input.isRight()) desired.add(side); if (input.isLeft()) desired.subtract(side);
+            if (desired.lengthSquared() < 1e-6) continue;
+            Vector v = p.getVelocity(); Vector horizontal = v.clone().setY(0)
+                    .add(desired.normalize().multiply(config.getDouble("airAcceleration")));
+            double cap = config.getDouble("maxHorizontalSpeed");
+            if (horizontal.length() > cap) horizontal.normalize().multiply(cap);
+            p.setVelocity(horizontal.setY(v.getY()));
+        }
     }
 
     /**

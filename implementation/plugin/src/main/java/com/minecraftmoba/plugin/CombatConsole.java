@@ -56,6 +56,7 @@ public record CombatConsole(Box deck, List<Button> buttons) {
 
     private static Material material(String verb) {
         return switch (verb) {
+            case "equipment" -> Material.GREEN_CONCRETE;
             case "cast" -> Material.PURPLE_CONCRETE;
             case "record.start" -> Material.RED_CONCRETE;
             case "record.stop" -> Material.ORANGE_CONCRETE;
@@ -72,6 +73,7 @@ public record CombatConsole(Box deck, List<Button> buttons) {
 
     private static String label(String verb) {
         return switch (verb) {
+            case "equipment" -> "EQUIPMENT / CONTROLS";
             case "cast" -> "DUMMY CASTS";
             case "record.start" -> "RECORD";
             case "record.stop" -> "STOP RECORDING";

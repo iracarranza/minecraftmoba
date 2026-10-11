@@ -55,9 +55,12 @@ public final class AbilityInputs implements Listener {
     private long tick;
     /** Shared by Daredevil's three abilities; registered as a listener by the plugin. */
     private final DaredevilState daredevil;
+    private final IrresistibleBuffetAbility buffet;
+    IrresistibleBuffetAbility buffet() { return buffet; }
     public DaredevilState daredevil() { return daredevil; }
     public AbilityInputs(MobaPlugin plugin, Provenance provenance) {
         this.plugin=plugin; this.provenance=provenance; abilities=new HashMap<>(TestAbilities.create(plugin));
+        abilities.put("lunge", new LungeAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.lunge")));
         var tunnel = plugin.getConfig().getConfigurationSection("abilities.definitions.tunneling");
         if (tunnel != null) abilities.put("tunneling", new TunnelingAbility(plugin, tunnel));
         var bounding = plugin.getConfig().getConfigurationSection("abilities.definitions.bounding");
@@ -82,6 +85,13 @@ public final class AbilityInputs implements Listener {
         if (crash != null) abilities.put("crash_landing", new CrashLandingAbility(plugin, crash, daredevil));
         var clutches = plugin.getConfig().getConfigurationSection("abilities.definitions.deathly_clutches");
         if (clutches != null) abilities.put("deathly_clutches", new DeathlyClutchesAbility(plugin, clutches, daredevil));
+        abilities.put("rabbits_lucky_foot", new RabbitsLuckyFootAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.rabbits_lucky_foot")));
+        abilities.put("sinkhole", new SinkholeAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.sinkhole")));
+        var cooking = new ChefCooking(plugin);
+        abilities.put("food_fight", new FoodFightAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.food_fight"), cooking));
+        abilities.put("flip_and_press", new FlipAndPressAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.flip_and_press"), cooking));
+        buffet = new IrresistibleBuffetAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.irresistible_buffet"));
+        abilities.put("irresistible_buffet", buffet);
         var c=plugin.getConfig(); timeout=c.getLong("abilities.modeTimeoutTicks");
         combatRules=AbilityCombat.load(c.getConfigurationSection("abilities.definitions"));
         modeInput=Input.valueOf(c.getString("abilities.bindings.mode"));
@@ -187,12 +197,14 @@ public final class AbilityInputs implements Listener {
     public boolean input(Player p, Input input,
                          org.bukkit.block.Block block, org.bukkit.block.BlockFace face,
                          org.bukkit.entity.Entity entity) {
+        if (buffet.seated(p)) return false;
         if (!plugin.enrolled(p)) return false;
         if (!observers.isEmpty()) {
             String slot = slotOf.get(input);
             if (slot != null && (active(p) || isAbilityActive(p))) observers.forEach(o -> o.accept(p, slot));
         }
         if (isAbilityActive(p)) {
+            if (input == Input.RIGHT_CLICK && abilities.values().stream().anyMatch(a -> a.active(p) && a.canBuildWhileActive())) return false;
             // A second activation is the ability's to interpret before it is
             // the input layer's to discard. Releasing a charge and cancelling
             // a channel are the same keystroke; only the ability knows which
@@ -385,7 +397,7 @@ public final class AbilityInputs implements Listener {
         if (!silent) sound(p,"exit");
     }
     public void forget(Player p) {
-        exit(p,true); cancelAbilities(p); cooldowns.clear(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
+        exit(p,true); abilities.values().forEach(a -> a.forget(p)); daredevil.clear(p); cooldowns.clear(p.getUniqueId()); lastFire.remove(p.getUniqueId()); executionCounts.remove(p.getUniqueId());
     }
     /**
      * Advance every aim, drawing its preview and committing when it is due.
@@ -506,6 +518,9 @@ public final class AbilityInputs implements Listener {
     }
 
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
+    java.util.List<Listener> listeners() { return abilities.values().stream().filter(a -> a instanceof Listener).map(a -> (Listener) a).toList(); }
+    void close() { buffet.close(); }
+
     private void cancelAbilities(Player p) { abilities.values().forEach(a -> a.cancel(p)); }
 
     /** Offer the recast to whichever ability is active; true if one took it. */
@@ -534,6 +549,7 @@ public final class AbilityInputs implements Listener {
     public String debug(Player p) { return "kitConfigured="+kits.containsKey(plugin.data(p).classId)+" executions="+executionCounts.getOrDefault(p.getUniqueId(),Map.of())+" channel="+channels.containsKey(p.getUniqueId()); }
     private void tick() {
         tick++;
+        daredevil.tick();
         abilities.values().forEach(Ability::tick);
         tickAims();
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -597,7 +613,7 @@ public final class AbilityInputs implements Listener {
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void attack(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player p && (isAbilityActive(p) || input(p,Input.LEFT_CLICK))) { e.setCancelled(true); if (isAbilityActive(p)) cancelAbilities(p); }
+        if (e.getDamager() instanceof Player p && (isAbilityActive(p) || input(p,Input.LEFT_CLICK))) { e.setCancelled(true); if (isAbilityActive(p)) abilities.values().stream().filter(a -> a.active(p) && a.attackCancels()).forEach(a -> a.cancel(p)); }
     }
     @EventHandler(priority=EventPriority.HIGHEST)
     public void entity(PlayerInteractEntityEvent e) {

@@ -74,6 +74,7 @@ public final class LockedSlots implements Listener {
     /** Adds markers to newly locked slots and clears them from newly unlocked ones. */
     public void refresh(Player p) {
         var inv = p.getInventory();
+        if (plugin.inputs() != null && plugin.inputs().buffet().seated(p)) return;
         if (!enabled()) { clear(p); return; }
         // A player who has not enrolled has no progression, so no slot is
         // locked. Being unenrolled is an ordinary lobby state, not an error:

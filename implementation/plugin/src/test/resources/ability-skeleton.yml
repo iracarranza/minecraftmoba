@@ -160,7 +160,7 @@ classes:
       ult:
         id: "sinkhole"
         name: "Sinkhole"
-        status: "designed"
+        status: "built"
         outputs:
           sinkhole: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   gardener:
@@ -324,7 +324,7 @@ classes:
       a1:
         id: "lunge"
         name: "Lunge"
-        status: "designed"
+        status: "built"
         outputs:
           lunge: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
@@ -346,7 +346,7 @@ classes:
       ult:
         id: "rabbits_lucky_foot"
         name: "Rabbit's Lucky Foot"
-        status: "designed"
+        status: "built"
         outputs:
           rabbits_lucky_foot: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   daredevil:
@@ -355,7 +355,7 @@ classes:
       passive:
         id: "skydiver"
         name: "Skydiver"
-        status: "designed"
+        status: "dispatched"
         outputs:
           skydiver: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
@@ -506,13 +506,13 @@ classes:
       passive:
         id: "trusty_spatula"
         name: "Trusty Spatula"
-        status: "designed"
+        status: "dispatched"
         outputs:
           trusty_spatula: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "food_fight"
         name: "Food Fight"
-        status: "designed"
+        status: "built"
         outputs:
           food_fight: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
         branches:
@@ -524,11 +524,11 @@ classes:
               food_fight: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           reckless_rationing:
             outputs:
-              food_fight: { target: "DIRECTION", input: "INSTANT", affects: "NONE", caster: "false" }
+              food_fight: { target: "DIRECTION", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "flip_and_press"
         name: "Flip and Press"
-        status: "designed"
+        status: "built"
         outputs:
           flip: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
           press: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "false" }
@@ -548,7 +548,7 @@ classes:
       ult:
         id: "irresistible_buffet"
         name: "Irresistible Buffet"
-        status: "designed"
+        status: "built"
         outputs:
           irresistible_buffet: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   fungal_assassin:

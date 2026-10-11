@@ -136,6 +136,7 @@ public final class CombatChamber implements Listener {
         String verb = args.length > 2 ? args[2].toLowerCase(Locale.ROOT) : "start";
         if (active.containsKey(p.getUniqueId())) { inChamber(p, verb, args); return; }
         switch (verb) {
+            case "equipment" -> ui.equipment(p);
             case "start", "begin" -> begin(p);
             case "pick" -> pick(p, args);
             case "back" -> back(p);
@@ -265,7 +266,7 @@ public final class CombatChamber implements Listener {
                                 + (s.script() == CombatBehavior.Script.REPEAT ? "(it also casts every " + REPEAT_TICKS / 20 + "s)" : "")
                                 + " | log | clear | reset | leave"))
         ;
-        p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on.");
+        p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on. Equipment / controls (or /moba lab combat equipment) restores your real hotbar for food, weapons and tools.");
     }
 
     /** Why this Recipient or Observer session cannot be entered yet, or null when it can. */
@@ -553,6 +554,7 @@ public final class CombatChamber implements Listener {
     }
 
     private void reset(Player p, Active a) {
+        plugin.inputs().forget(p);
         CombatSlabWorld.build(world);
         if (a.dummy != null) bodies.despawn(a.dummy);
         a.replayer = null;
@@ -567,6 +569,7 @@ public final class CombatChamber implements Listener {
 
     /** Leave the chamber: remove the dummy and go back to the lab room. */
     public void leave(Player p) {
+        plugin.inputs().forget(p);
         var a = active.remove(p.getUniqueId());
         ui.release(p);
         lab.rules().clear(p);
@@ -580,7 +583,7 @@ public final class CombatChamber implements Listener {
         for (var e : new java.util.ArrayList<>(active.entrySet())) {
             Player p = Bukkit.getPlayer(e.getKey());
             if (e.getValue().dummy != null) bodies.despawn(e.getValue().dummy);
-            if (p != null) lab.toRoom(p);
+            if (p != null) { plugin.inputs().forget(p); lab.toRoom(p); }
         }
         active.clear(); pre.clear(); stopTicker();
         ui.close();

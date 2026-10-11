@@ -74,11 +74,17 @@ public final class BoundingAbility implements Ability {
         boolean lastWasBonus;
         /** Drift to Drift: invisibility persists until the NEXT bound leaves the ground. */
         boolean drifting;
+        boolean priorInvisible;
+        boolean airborne;
+        long launched;
+        long nextLaunch;
+        Player player;
         Run(int remaining, Vector heading, String branch) {
             this.remaining = remaining; this.heading = heading; this.branch = branch;
         }
     }
 
+    private long clock;
     private final MobaPlugin plugin;
     private final ConfigurationSection config;
     private final Map<UUID, Run> running = new HashMap<>();
@@ -105,6 +111,10 @@ public final class BoundingAbility implements Ability {
         return List.of("drift_to_drift", "branch_to_branch", "track_to_track");
     }
 
+    @Override public boolean canBuildWhileActive() { return true; }
+    @Override public boolean attackCancels() { return false; }
+    @Override public boolean recast(Player p, AbilityContext ctx) { return active(p); }
+
     /** True while the player is mid-run. {@link AbilityInputs} uses this to refuse attacks. */
     @Override public boolean active(Player player) { return running.containsKey(player.getUniqueId()); }
 
@@ -113,7 +123,7 @@ public final class BoundingAbility implements Ability {
         // Leaving a cancelled drift invisible would be a permanent stealth bug
         // reachable by dying mid-bound, which is the cheapest thing in the game
         // to do on purpose.
-        if (run != null && run.drifting) player.setInvisible(false);
+        if (run != null && run.drifting) player.setInvisible(run.priorInvisible);
     }
 
     @Override
@@ -126,6 +136,7 @@ public final class BoundingAbility implements Ability {
         if (heading.lengthSquared() < 1.0e-6) heading = new Vector(0, 0, 1);
         running.put(p.getUniqueId(),
                 new Run(config.getInt("bounds"), heading.normalize(), ctx.branchFor(id())));
+        running.get(p.getUniqueId()).player = p;
         p.sendActionBar(Component.text("Bounding"));
         launch(p);
         return true;
@@ -138,7 +149,7 @@ public final class BoundingAbility implements Ability {
 
         // Drift to Drift ends here: the invisibility granted by the PREVIOUS
         // takeoff lasts exactly until this bound leaves the ground.
-        if (run.drifting) { p.setInvisible(false); run.drifting = false; }
+        if (run.drifting) { p.setInvisible(run.priorInvisible); run.drifting = false; }
 
         boolean bonus = run.lastWasBonus;
         run.lastWasBonus = false;
@@ -160,11 +171,6 @@ public final class BoundingAbility implements Ability {
             }
         }
 
-        if ("drift_to_drift".equals(run.branch) && takingOffFrom(p, "snow")) {
-            p.setInvisible(true);
-            run.drifting = true;
-        }
-
         // A bonus bound cannot earn another, so the check is skipped entirely
         // on one -- otherwise dirt-family terrain would make Bounding endless.
         if ("track_to_track".equals(run.branch) && !bonus && takingOffFrom(p, "dirt")) {
@@ -179,7 +185,36 @@ public final class BoundingAbility implements Ability {
         for (Entity e : p.getNearbyEntities(radius, radius, radius))
             if (AnimalSenses.species(e) != null) e.setVelocity(leap.clone());
 
-        Bukkit.getScheduler().runTaskLater(plugin, () -> launch(p), config.getLong("boundTicks"));
+        run.launched = clock; run.airborne = false; run.nextLaunch = 0;
+    }
+
+    @Override public void tick() {
+        clock++;
+        for (var run : java.util.List.copyOf(running.values())) {
+            Player p = run.player;
+            if (!p.isOnline() || p.isDead() || clock - run.launched > config.getLong("maxAirTicks")) { cancel(p); continue; }
+            if (run.nextLaunch > 0) {
+                if (clock >= run.nextLaunch) {
+                    Vector heading = p.getLocation().getDirection().setY(0);
+                    if (heading.lengthSquared() > 1e-6) run.heading.copy(heading.normalize());
+                    launch(p);
+                }
+                continue;
+            }
+            if (!p.isOnGround()) {
+                run.airborne = true;
+                // Keep the chosen horizontal heading through an arc; vertical physics still acts.
+                Vector v = p.getVelocity(); double horizontal = Math.hypot(v.getX(), v.getZ());
+                p.setVelocity(run.heading.clone().multiply(horizontal).setY(v.getY()));
+            } else if (run.airborne && clock > run.launched + 1) {
+                if (run.remaining <= 0) { cancel(p); continue; }
+                if ("drift_to_drift".equals(run.branch) && takingOffFrom(p, "snow")) {
+                    run.priorInvisible = p.isInvisible(); p.setInvisible(true); run.drifting = true;
+                }
+                // One server tick between landing and the mandatory next takeoff, never a pause control.
+                run.nextLaunch = clock + 1;
+            }
+        }
     }
 
     /**
