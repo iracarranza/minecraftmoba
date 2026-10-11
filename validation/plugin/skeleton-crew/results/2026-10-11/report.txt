@@ -8,6 +8,7 @@ PASS shared authored damage rule protects owned workers
 PASS Strike immediately damages enemy and provokes workers
 PASS Fire Drill abandons combat without ignition or teleport
 PASS Field Work launches one noncombat projectile
+PASS Field Work caster may rearm before the projectile hits
 PASS Field Work enemy impact strikes without spending Crew or raising
 PASS Field Work terrain impact raises exactly once without a strike
 PASS physical logistics works before infrastructure recognition
@@ -34,4 +35,4 @@ PASS worker death spills cargo without synthetic equipment drops
 PASS crew checkpoint reload restores resource ledger and real cargo
 PASS Supply Line persistence reload retains measured rate and endpoints
 PASS explicit lab cleanup removes workers and recognition
-SUMMARY pass=36 fail=0
+SUMMARY pass=37 fail=0

@@ -1129,6 +1129,8 @@ abilities:
       combat: true
       cooldownTicks: 30
       strikeRange: 5
+      rayWidth: 0.3
+      projectileWidth: 0.2
       projectileSpeed: 0.8
       projectileTicks: 40
       branches: { field_work: { combat: true }, hard_hat_zone: { combat: true }, labored_union: { combat: true } }

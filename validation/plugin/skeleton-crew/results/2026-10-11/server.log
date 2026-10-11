@@ -1,181 +1,183 @@
 Starting org.bukkit.craftbukkit.Main
-[18:01:08 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
-[18:01:08 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
-[18:01:08 INFO]: [PluginInitializerManager] Initializing plugins...
-[18:01:09 INFO]: [ReobfServer] Remapping server...
-[18:01:12 INFO]: [ReobfServer] Done remapping server in 3556ms.
-[18:01:12 INFO]: [PluginRemapper] Remapping plugin 'plugins/CrewAcceptance.jar'...
-[18:01:13 INFO]: [PluginRemapper] Done remapping plugin 'plugins/CrewAcceptance.jar' in 68ms.
-[18:01:13 INFO]: [PluginInitializerManager] Initialized 2 plugins
-[18:01:13 INFO]: [PluginInitializerManager] Bukkit plugins (2):
+[18:05:23 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
+[18:05:23 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[18:05:24 INFO]: [PluginInitializerManager] Initializing plugins...
+[18:05:24 INFO]: [ReobfServer] Remapping server...
+[18:05:29 INFO]: [ReobfServer] Done remapping server in 4878ms.
+[18:05:29 INFO]: [PluginRemapper] Remapping plugin 'plugins/CrewAcceptance.jar'...
+[18:05:29 INFO]: [PluginRemapper] Done remapping plugin 'plugins/CrewAcceptance.jar' in 59ms.
+[18:05:29 INFO]: [PluginInitializerManager] Initialized 2 plugins
+[18:05:29 INFO]: [PluginInitializerManager] Bukkit plugins (2):
  - CrewAcceptance (1.0), MinecraftMoba (0.1.0)
-[18:01:16 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
-[18:01:16 INFO]: Found new data pack file/bukkit, loading it automatically
-[18:01:16 INFO]: Found new data pack paper, loading it automatically
-[18:01:17 INFO]: No existing world data, creating new world
-[31;1m[18:01:17 ERROR]: No key layers in MapLike[{}]
-[m[18:01:17 INFO]: Loaded 1470 recipes
-[18:01:17 INFO]: Loaded 1584 advancements
-[18:01:17 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
-[18:01:17 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 284.9ms
-[18:01:18 INFO]: Starting minecraft server version 1.21.11
-[18:01:18 INFO]: Loading properties
-[18:01:18 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
-[18:01:18 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
-[18:01:18 INFO]: Server Ping Player Sample Count: 12
-[18:01:18 INFO]: Using 4 threads for Netty based IO
-[18:01:18 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
-[18:01:18 INFO]: Default game type: SURVIVAL
-[18:01:18 INFO]: Generating keypair
->   [18:01:18 INFO]: Starting Minecraft server on 127.0.0.1:25668
->   [18:01:19 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
->   [18:01:19 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
->   [18:01:19 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
->   [18:01:19 INFO]: [CrewAcceptance] Loading server plugin CrewAcceptance v1.0
->   [33;1m[18:01:19 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[m>   [33;1m[18:01:19 WARN]: The server will make no attempt to authenticate usernames. Beware.
-[m>   [33;1m[18:01:19 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[m>   [33;1m[18:01:19 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[m>   [18:01:19 INFO]: Preparing level "crew_acceptance_boot"
->   [31;1m[18:01:19 ERROR]: No key layers in MapLike[{}]
-[m>   [18:01:19 INFO]: Selecting spawn point for world 'minecraft:overworld'...
->   [31;1m[18:01:19 ERROR]: No key layers in MapLike[{}]
-[m>   [18:01:19 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
->   [31;1m[18:01:20 ERROR]: No key layers in MapLike[{}]
-[m>   [18:01:20 INFO]: Selecting spawn point for world 'minecraft:the_end'...
->   [18:01:20 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
->   [18:01:20 INFO]: Preparing spawn area: 100%
->   [18:01:20 INFO]: Prepared spawn area in 1269 ms
->   [18:01:20 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
->   [18:01:20 INFO]: Preparing spawn area: 100%
->   [18:01:20 INFO]: Prepared spawn area in 1003 ms
->   [18:01:20 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
->   [18:01:20 INFO]: Preparing spawn area: 100%
->   [18:01:20 INFO]: Prepared spawn area in 196 ms
->   [18:01:20 INFO]: Done preparing level "crew_acceptance_boot" (1.447s)
->   [18:01:20 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
->   [18:01:21 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
->   [18:01:26 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
->   [18:01:26 INFO]: Preparing spawn area: 100%
->   [18:01:26 INFO]: Prepared spawn area in 4695 ms
->   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[18:01:26 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [18:01:27 INFO]: [MinecraftMoba] Registered ability kits: [werewolf, test, daredevil, kitfighter, toolbox, mole, chef, lightfooted, gardener, skeleton_crew]
->   [18:01:27 INFO]: [CrewAcceptance] Enabling CrewAcceptance v1.0
->   [18:01:27 INFO]: [spark] Starting background profiler...
->   [18:01:28 INFO]: Running delayed init tasks
->   [18:01:28 INFO]: Done (20.923s)! For help, type "help"
->   [18:01:28 INFO]: *************************************************************************************
->   [18:01:28 INFO]: This is the first time you're starting this server.
->   [18:01:28 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
->   [18:01:28 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
->   [18:01:28 INFO]: *************************************************************************************
->   [33;1m[18:01:28 WARN]: *************************************************************************************
-[m>   [33;1m[18:01:28 WARN]: You are running the latest build for your Minecraft version (1.21.11)
-[m>   [33;1m[18:01:28 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
-[m>   [33;1m[18:01:28 WARN]: It is recommended that you update as soon as possible
-[m>   [33;1m[18:01:28 WARN]: https://papermc.io/downloads/paper
-[m>   [33;1m[18:01:28 WARN]: *************************************************************************************
-[m>   [18:01:32 INFO]: [93mB_crew_probe joined the game[0m
->   [18:01:32 INFO]: B_crew_probe[embedded] logged in with entity id 1 at ([crew_acceptance_boot]0.5, 100.0, 0.5)
->   [18:01:32 INFO]: Updated B_crew_probe: level=30 xp=0 class=skeleton_crew
->   [18:01:32 INFO]: [93mB_crew_enemy joined the game[0m
->   [18:01:32 INFO]: B_crew_enemy[embedded] logged in with entity id 2 at ([crew_acceptance_boot]20.5, 100.0, 0.5)
->   [18:01:32 INFO]: Updated B_crew_enemy: level=30 xp=0 class=mole
->   [18:01:32 INFO]: [CrewAcceptance] PASS all Skeleton Crew slots and six branches register
->   [18:01:32 INFO]: [CrewAcceptance] PASS Raise spends stored Crew and is a noncombat cast
->   [18:01:32 INFO]: [CrewAcceptance] PASS Hard Hat equips helmet then chest legs boots and refreshes timeout
->   [18:01:32 INFO]: [CrewAcceptance] PASS native cargo slots preserve unstackable and partial-stack limits
->   [18:01:32 INFO]: [CrewAcceptance] PASS real tagged products transport while synthetic lab controls are refused
->   [18:01:32 INFO]: [CrewAcceptance] PASS two halves of one Copper Chest cannot prove separate endpoints
->   [18:01:32 INFO]: [CrewAcceptance] PASS shared authored damage rule protects owned workers
->   [18:01:33 INFO]: [CrewAcceptance] PASS Strike immediately damages enemy and provokes workers
->   [18:01:33 INFO]: [CrewAcceptance] PASS Fire Drill abandons combat without ignition or teleport
->   [18:01:34 INFO]: [CrewAcceptance] PASS Field Work launches one noncombat projectile
->   [18:01:34 INFO]: [CrewAcceptance] PASS Field Work enemy impact strikes without spending Crew or raising
->   [18:01:35 INFO]: B_crew_enemy has made the advancement [92m[Monster Hunter][0m
->   [18:01:35 INFO]: Named entity Skeleton['Crew 6bd92b92'/6, uuid='ce35d508-67ed-4459-8c83-f4548e288e9a', l='ServerLevel[crew_acceptance_boot]', x=0.48, y=100.00, z=-0.14, cpos=[0, -1], tl=8, v=true] died: Crew 6bd92b92 was slain by B_crew_enemy
->   [18:01:35 INFO]: [CrewAcceptance] PASS Field Work terrain impact raises exactly once without a strike
->   [18:01:38 INFO]: [CrewAcceptance] PASS physical logistics works before infrastructure recognition
->   [18:01:42 INFO]: [CrewAcceptance] PASS ultimate commits to Logistics and inherits a physical assignment
->   [18:01:42 INFO]: [CrewAcceptance] PASS temporary workers cannot commit and do not consume ordinary limit
->   [18:02:01 INFO]: [CrewAcceptance] PASS two full physical trips transfer actual cargo and permit directional recognition
->   [18:02:01 INFO]: [CrewAcceptance] PASS another committed worker cannot substitute for the defining carrier
->   [18:02:02 INFO]: Named entity Skeleton['Crew 4483435f'/13, uuid='608f9f3b-1614-4a19-bf89-1344345824da', l='ServerLevel[crew_acceptance_boot]', x=19.50, y=100.00, z=4.50, cpos=[1, 0], tl=0, v=true] died: Crew 4483435f was slain by B_crew_enemy
->   [18:02:02 INFO]: [CrewAcceptance] PASS flow pauses while the specific defining worker is active
->   [18:02:02 INFO]: [CrewAcceptance] PASS commitment withdraws physical worker and preserves measured Item Rate
->   [18:02:02 INFO]: [CrewAcceptance] PASS recognized line moves real upstream items using committed Capacity
->   [18:02:02 INFO]: [CrewAcceptance] PASS destroyed destination pauses retained recognition and cargo
->   [18:02:15 INFO]: [CrewAcceptance] PASS repair resumes flow without reproving the retained line
->   [18:02:15 INFO]: [CrewAcceptance] PASS base Burning Out ignites and native fire increases movement
->   [18:02:16 INFO]: [CrewAcceptance] PASS any-source fire applies speed during a productive/idle task
->   [18:02:16 INFO]: [CrewAcceptance] PASS water extinguishing heals by burn duration and grants refreshed speed
->   [18:02:16 INFO]: [CrewAcceptance] PASS Labored Union automatically provokes nonundead mob
->   [18:02:17 INFO]: [CrewAcceptance] PASS ordinary automatic combat is physical and ultimate locks Combat specialization
->   [18:02:17 INFO]: [CrewAcceptance] PASS Horseman specialization remains fixed when ordinary task changes
->   [18:02:17 INFO]: [CrewAcceptance] PASS Union crew kill of a cow mints stored Crew
->   [18:02:18 INFO]: [CrewAcceptance] PASS Deadline begins actual burning combat streak
->   [18:02:21 INFO]: [CrewAcceptance] PASS Deadline explodes after sustained native burning combat
->   [18:02:22 INFO]: B_crew_probe has made the advancement [92m[Monster Hunter][0m
->   [18:02:22 INFO]: [CrewAcceptance] PASS normal undead player kill grants Crew and limit blocks seventh ordinary worker
->   [18:02:22 INFO]: Named entity Skeleton['Crew 194b0fef'/32, uuid='2c9e6855-1995-48b3-80d7-2b50e07c145e', l='ServerLevel[crew_acceptance_boot]', x=19.50, y=100.00, z=15.50, cpos=[1, 0], tl=1, v=true] died: Crew 194b0fef was slain by B_crew_enemy
->   [18:02:22 INFO]: [CrewAcceptance] PASS worker death spills cargo without synthetic equipment drops
->   [18:02:22 INFO]: [CrewAcceptance] PASS crew checkpoint reload restores resource ledger and real cargo
->   [18:02:22 INFO]: [CrewAcceptance] PASS Supply Line persistence reload retains measured rate and endpoints
->   [18:02:23 INFO]: [CrewAcceptance] PASS explicit lab cleanup removes workers and recognition
->   [18:02:23 INFO]: [CrewAcceptance] SUMMARY pass=36 fail=0
->   [18:02:23 INFO]: B_crew_probe has made the advancement [92m[Diamonds!][0m
->   [18:02:23 INFO]: Map color cache not found, building it in the background
->   [18:02:24 INFO]: Stopping server
->   [18:02:24 INFO]: [CrewAcceptance] Disabling CrewAcceptance v1.0
->   [18:02:24 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
->   [18:02:24 INFO]: Saving players
->   [18:02:24 INFO]: Saving worlds
->   [18:02:24 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot]'/minecraft:overworld
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot'
->   [18:02:24 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot'
->   [18:02:24 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 154 entity chunks, 0 poi chunks in world 'crew_acceptance_boot' in 0.42s
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot'
->   [18:02:24 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot_nether]'/minecraft:the_nether
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot_nether'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot_nether'
->   [18:02:24 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot_nether'
->   [18:02:24 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'crew_acceptance_boot_nether' in 0.01s
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot_nether'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot_nether'
->   [18:02:24 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot_the_end]'/minecraft:the_end
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot_the_end'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot_the_end'
->   [18:02:24 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot_the_end'
->   [18:02:24 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'crew_acceptance_boot_the_end' in 0.01s
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot_the_end'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot_the_end'
->   [18:02:24 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
->   [18:02:24 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
->   [18:02:24 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.01s
->   [18:02:24 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
->   [18:02:24 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
->   [18:02:24 INFO]: ThreadedAnvilChunkStorage (crew_acceptance_boot): All chunks are saved
->   [18:02:24 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
->   [18:02:24 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
->   [18:02:24 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
->   [18:02:24 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
->   [18:02:24 INFO]: Waiting for all RegionFile I/O tasks to complete...
->   [18:02:24 INFO]: All RegionFile I/O tasks to complete
->   [18:02:24 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
->   [18:02:24 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+[18:05:32 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[18:05:32 INFO]: Found new data pack file/bukkit, loading it automatically
+[18:05:32 INFO]: Found new data pack paper, loading it automatically
+[18:05:33 INFO]: No existing world data, creating new world
+[31;1m[18:05:33 ERROR]: No key layers in MapLike[{}]
+[m[18:05:33 INFO]: Loaded 1470 recipes
+[18:05:33 INFO]: Loaded 1584 advancements
+[18:05:33 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[18:05:34 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 250.4ms
+[18:05:34 INFO]: Starting minecraft server version 1.21.11
+[18:05:34 INFO]: Loading properties
+[18:05:34 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[18:05:34 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[18:05:34 INFO]: Server Ping Player Sample Count: 12
+[18:05:34 INFO]: Using 4 threads for Netty based IO
+[18:05:34 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
+[18:05:34 INFO]: Default game type: SURVIVAL
+[18:05:34 INFO]: Generating keypair
+>   [18:05:34 INFO]: Starting Minecraft server on 127.0.0.1:25668
+>   [18:05:35 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
+>   [18:05:35 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
+>   [18:05:35 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
+>   [18:05:35 INFO]: [CrewAcceptance] Loading server plugin CrewAcceptance v1.0
+>   [33;1m[18:05:35 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[m>   [33;1m[18:05:35 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[m>   [33;1m[18:05:35 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[m>   [33;1m[18:05:35 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[m>   [18:05:35 INFO]: Preparing level "crew_acceptance_boot"
+>   [31;1m[18:05:35 ERROR]: No key layers in MapLike[{}]
+[m>   [18:05:35 INFO]: Selecting spawn point for world 'minecraft:overworld'...
+>   [31;1m[18:05:35 ERROR]: No key layers in MapLike[{}]
+[m>   [18:05:35 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
+>   [31;1m[18:05:36 ERROR]: No key layers in MapLike[{}]
+[m>   [18:05:36 INFO]: Selecting spawn point for world 'minecraft:the_end'...
+>   [18:05:37 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>   [18:05:37 INFO]: Preparing spawn area: 100%
+>   [18:05:37 INFO]: Prepared spawn area in 1322 ms
+>   [18:05:37 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>   [18:05:37 INFO]: Preparing spawn area: 100%
+>   [18:05:37 INFO]: Prepared spawn area in 1029 ms
+>   [18:05:37 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>   [18:05:37 INFO]: Preparing spawn area: 100%
+>   [18:05:37 INFO]: Prepared spawn area in 237 ms
+>   [18:05:37 INFO]: Done preparing level "crew_acceptance_boot" (1.475s)
+>   [18:05:37 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
+>   [18:05:37 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
+>   [18:05:43 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
+>   [18:05:43 INFO]: Preparing spawn area: 100%
+>   [18:05:43 INFO]: Prepared spawn area in 5499 ms
+>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:05:43 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [18:05:43 INFO]: [MinecraftMoba] Registered ability kits: [werewolf, test, daredevil, kitfighter, toolbox, mole, chef, lightfooted, gardener, skeleton_crew]
+>   [18:05:44 INFO]: [CrewAcceptance] Enabling CrewAcceptance v1.0
+>   [18:05:44 INFO]: [spark] Starting background profiler...
+>   [18:05:44 INFO]: Running delayed init tasks
+>   [18:05:44 INFO]: Done (21.889s)! For help, type "help"
+>   [18:05:44 INFO]: *************************************************************************************
+>   [18:05:44 INFO]: This is the first time you're starting this server.
+>   [18:05:44 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+>   [18:05:44 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+>   [18:05:44 INFO]: *************************************************************************************
+>   [33;1m[18:05:45 WARN]: *************************************************************************************
+[m>   [33;1m[18:05:45 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+[m>   [33;1m[18:05:45 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
+[m>   [33;1m[18:05:45 WARN]: It is recommended that you update as soon as possible
+[m>   [33;1m[18:05:45 WARN]: https://papermc.io/downloads/paper
+[m>   [33;1m[18:05:45 WARN]: *************************************************************************************
+[m>   [18:05:48 INFO]: [93mB_crew_probe joined the game[0m
+>   [18:05:48 INFO]: B_crew_probe[embedded] logged in with entity id 1 at ([crew_acceptance_boot]0.5, 100.0, 0.5)
+>   [18:05:48 INFO]: Updated B_crew_probe: level=30 xp=0 class=skeleton_crew
+>   [18:05:48 INFO]: [93mB_crew_enemy joined the game[0m
+>   [18:05:48 INFO]: B_crew_enemy[embedded] logged in with entity id 2 at ([crew_acceptance_boot]20.5, 100.0, 0.5)
+>   [18:05:48 INFO]: Updated B_crew_enemy: level=30 xp=0 class=mole
+>   [18:05:48 INFO]: [CrewAcceptance] PASS all Skeleton Crew slots and six branches register
+>   [18:05:49 INFO]: [CrewAcceptance] PASS Raise spends stored Crew and is a noncombat cast
+>   [18:05:49 INFO]: [CrewAcceptance] PASS Hard Hat equips helmet then chest legs boots and refreshes timeout
+>   [18:05:49 INFO]: [CrewAcceptance] PASS native cargo slots preserve unstackable and partial-stack limits
+>   [18:05:49 INFO]: [CrewAcceptance] PASS real tagged products transport while synthetic lab controls are refused
+>   [18:05:49 INFO]: [CrewAcceptance] PASS two halves of one Copper Chest cannot prove separate endpoints
+>   [18:05:49 INFO]: [CrewAcceptance] PASS shared authored damage rule protects owned workers
+>   [18:05:49 INFO]: [MinecraftMoba] ABILITY player=B_crew_probe id=graveyard_shift tick=84
+>   [18:05:49 INFO]: [CrewAcceptance] PASS Strike immediately damages enemy and provokes workers
+>   [18:05:49 INFO]: [CrewAcceptance] PASS Fire Drill abandons combat without ignition or teleport
+>   [18:05:51 INFO]: [CrewAcceptance] PASS Field Work launches one noncombat projectile
+>   [18:05:51 INFO]: [CrewAcceptance] PASS Field Work caster may rearm before the projectile hits
+>   [18:05:51 INFO]: [CrewAcceptance] PASS Field Work enemy impact strikes without spending Crew or raising
+>   [18:05:52 INFO]: B_crew_enemy has made the advancement [92m[Monster Hunter][0m
+>   [18:05:52 INFO]: Named entity Skeleton['Crew f68c62b8'/6, uuid='062e7d8e-ecaf-4fcd-bc73-9421a6f00213', l='ServerLevel[crew_acceptance_boot]', x=0.48, y=100.00, z=-0.14, cpos=[0, -1], tl=8, v=true] died: Crew f68c62b8 was slain by B_crew_enemy
+>   [18:05:52 INFO]: [CrewAcceptance] PASS Field Work terrain impact raises exactly once without a strike
+>   [18:05:55 INFO]: [CrewAcceptance] PASS physical logistics works before infrastructure recognition
+>   [18:05:59 INFO]: [CrewAcceptance] PASS ultimate commits to Logistics and inherits a physical assignment
+>   [18:05:59 INFO]: [CrewAcceptance] PASS temporary workers cannot commit and do not consume ordinary limit
+>   [18:06:18 INFO]: [CrewAcceptance] PASS two full physical trips transfer actual cargo and permit directional recognition
+>   [18:06:18 INFO]: [CrewAcceptance] PASS another committed worker cannot substitute for the defining carrier
+>   [18:06:18 INFO]: Named entity Skeleton['Crew 5acc5a2d'/13, uuid='045aa771-f7fd-4c86-a950-084a92642f6f', l='ServerLevel[crew_acceptance_boot]', x=19.50, y=100.00, z=4.50, cpos=[1, 0], tl=0, v=true] died: Crew 5acc5a2d was slain by B_crew_enemy
+>   [18:06:18 INFO]: [CrewAcceptance] PASS flow pauses while the specific defining worker is active
+>   [18:06:18 INFO]: [CrewAcceptance] PASS commitment withdraws physical worker and preserves measured Item Rate
+>   [18:06:19 INFO]: [CrewAcceptance] PASS recognized line moves real upstream items using committed Capacity
+>   [18:06:19 INFO]: [CrewAcceptance] PASS destroyed destination pauses retained recognition and cargo
+>   [18:06:32 INFO]: [CrewAcceptance] PASS repair resumes flow without reproving the retained line
+>   [18:06:32 INFO]: [CrewAcceptance] PASS base Burning Out ignites and native fire increases movement
+>   [18:06:32 INFO]: [CrewAcceptance] PASS any-source fire applies speed during a productive/idle task
+>   [18:06:33 INFO]: [CrewAcceptance] PASS water extinguishing heals by burn duration and grants refreshed speed
+>   [18:06:33 INFO]: [CrewAcceptance] PASS Labored Union automatically provokes nonundead mob
+>   [18:06:34 INFO]: [CrewAcceptance] PASS ordinary automatic combat is physical and ultimate locks Combat specialization
+>   [18:06:34 INFO]: [CrewAcceptance] PASS Horseman specialization remains fixed when ordinary task changes
+>   [18:06:34 INFO]: [CrewAcceptance] PASS Union crew kill of a cow mints stored Crew
+>   [18:06:35 INFO]: [CrewAcceptance] PASS Deadline begins actual burning combat streak
+>   [18:06:38 INFO]: [CrewAcceptance] PASS Deadline explodes after sustained native burning combat
+>   [18:06:39 INFO]: B_crew_probe has made the advancement [92m[Monster Hunter][0m
+>   [18:06:39 INFO]: [CrewAcceptance] PASS normal undead player kill grants Crew and limit blocks seventh ordinary worker
+>   [18:06:39 INFO]: Named entity Skeleton['Crew 72a6398c'/32, uuid='c4b2d422-1e8f-4b76-9554-e250268af8f3', l='ServerLevel[crew_acceptance_boot]', x=19.50, y=100.00, z=15.50, cpos=[1, 0], tl=1, v=true] died: Crew 72a6398c was slain by B_crew_enemy
+>   [18:06:39 INFO]: [CrewAcceptance] PASS worker death spills cargo without synthetic equipment drops
+>   [18:06:39 INFO]: [CrewAcceptance] PASS crew checkpoint reload restores resource ledger and real cargo
+>   [18:06:39 INFO]: [CrewAcceptance] PASS Supply Line persistence reload retains measured rate and endpoints
+>   [18:06:40 INFO]: [CrewAcceptance] PASS explicit lab cleanup removes workers and recognition
+>   [18:06:40 INFO]: [CrewAcceptance] SUMMARY pass=37 fail=0
+>   [18:06:40 INFO]: B_crew_probe has made the advancement [92m[Diamonds!][0m
+>   [18:06:40 INFO]: Map color cache not found, building it in the background
+>   [18:06:41 INFO]: Stopping server
+>   [18:06:41 INFO]: [CrewAcceptance] Disabling CrewAcceptance v1.0
+>   [18:06:41 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
+>   [18:06:41 INFO]: Saving players
+>   [18:06:41 INFO]: Saving worlds
+>   [18:06:41 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot]'/minecraft:overworld
+>   [18:06:41 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot'
+>   [18:06:41 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot'
+>   [18:06:41 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 154 entity chunks, 0 poi chunks in world 'crew_acceptance_boot' in 1.08s
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot'
+>   [18:06:42 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot_nether]'/minecraft:the_nether
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot_nether'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot_nether'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot_nether'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'crew_acceptance_boot_nether' in 0.01s
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot_nether'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot_nether'
+>   [18:06:42 INFO]: Saving chunks for level 'ServerLevel[crew_acceptance_boot_the_end]'/minecraft:the_end
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'crew_acceptance_boot_the_end'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted chunk system for world 'crew_acceptance_boot_the_end'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'crew_acceptance_boot_the_end'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'crew_acceptance_boot_the_end' in 0.01s
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'crew_acceptance_boot_the_end'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'crew_acceptance_boot_the_end'
+>   [18:06:42 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
+>   [18:06:42 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.01s
+>   [18:06:42 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
+>   [18:06:42 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
+>   [18:06:42 INFO]: ThreadedAnvilChunkStorage (crew_acceptance_boot): All chunks are saved
+>   [18:06:42 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>   [18:06:42 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>   [18:06:42 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>   [18:06:42 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>   [18:06:42 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>   [18:06:42 INFO]: All RegionFile I/O tasks to complete
+>   [18:06:42 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>   [18:06:42 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
 > 

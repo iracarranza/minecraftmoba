@@ -26,3 +26,8 @@ sample count, owner-only lab node access and persistence lifecycle interpretatio
 remain Prototype/test. No conceptual design status is promoted. Ordinary owner death
 is not assigned the Open universal line-disable rule, and the stale browser wiki
 is not used as authority.
+
+Integration with the newer `main` loadout/targeting pass retains both lab workflows.
+Skeleton Crew rays use `AbilityTargeting`, with widths in config, and direct /
+projectile Strikes use `AbilityDamage` so rearmed input mode does not consume
+scripted damage as another left-click. Native validation checks both paths.

@@ -22,7 +22,9 @@ it on death, with synthetic bones/equipment/XP suppressed.
   damage and provokes active Crew; otherwise it Raises. **Field Work** launches
   one bone projectile: enemy/mob impact Strikes, solid terrain impact may Raise,
   never both. Launch/Raise is noncombat; direct Strike reports a contextual combat
-  activation and sourced projectile damage enters the shared CombatState.
+  activation and sourced projectile damage enters the shared CombatState. Strikes
+  use the shared AbilityDamage scope so damage landing after rearming cannot
+  be mistaken for a second left-click; rays use AbilityTargeting with config widths.
 - **Hard Hat Zone** Strikes allied Crew for reduced damage, granting helmet,
   chestplate, leggings, boots in sequence and refreshing all granted armor even
   at full armor. Native iron armor and sunlight helmet behavior apply. The
@@ -132,3 +134,7 @@ method-isolated transport proof and burn/disengagement/recovery lifecycle. Nativ
 acceptance uses actual Paper mobs, navigation, items, inventory, damage, projectile
 impacts, persistence reconstruction and teardown. It does not prove a human client's
 controls, a full plugin process restart, or final balance.
+
+Final integrated validation: **1,216 unit tests, 37 Skeleton Crew native checks,
+36 next-kit and 25 earlier-kit native regression checks passed**, zero failures.
+All completed native fixtures use the same final artifact recorded in `build.json`.

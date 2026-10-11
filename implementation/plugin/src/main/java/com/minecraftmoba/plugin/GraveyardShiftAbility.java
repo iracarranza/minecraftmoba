@@ -32,8 +32,8 @@ final class GraveyardShiftAbility implements Ability {
         LivingEntity target=null;
         if(ctx.onEntity()){if(ctx.entity() instanceof LivingEntity living)target=living;else return false;}
         else if(!ctx.onBlock()){
-            var hit=p.getWorld().rayTrace(p.getEyeLocation(),p.getEyeLocation().getDirection(),config.getDouble("strikeRange"),FluidCollisionMode.NEVER,true,.3,e->!e.equals(p)&&e instanceof LivingEntity);
-            if(hit!=null&&hit.getHitEntity() instanceof LivingEntity living)target=living;
+            var hit=AbilityTargeting.ray(p,p.getEyeLocation(),p.getEyeLocation().getDirection(),config.getDouble("strikeRange"),config.getDouble("rayWidth",.3),"hard_hat_zone".equals(branch)?AbilityTargeting.Relation.EITHER:AbilityTargeting.Relation.ENEMY);
+            if(hit!=null&&hit.entityHit())target=hit.entity();
         }
         if(target!=null && (Targetability.status(target,p) || "hard_hat_zone".equals(branch)&&SkeletonCrewState.owned(target)&&Targetability.allied(target,p))){boolean struck=state.strike(p,target,branch);combat.put(p.getUniqueId(),struck);return struck;}
         return state.raise(p,p.getLocation());
@@ -41,9 +41,9 @@ final class GraveyardShiftAbility implements Ability {
     public void tick(){
         clock++;state.tick();for(var shot:List.copyOf(shots)){
             if(clock>=shot.until()||!shot.player().isOnline()||shot.player().isDead()||shot.player().getWorld()!=shot.visual().getWorld()){remove(shot);continue;}
-            Location from=shot.visual().getLocation();var hit=from.getWorld().rayTrace(from,shot.velocity(),shot.velocity().length(),FluidCollisionMode.NEVER,true,.2,e->e instanceof LivingEntity&&Targetability.status(e,shot.player()));
-            if(hit!=null){if(hit.getHitEntity() instanceof LivingEntity living)state.strike(shot.player(),living,"field_work");
-                else if(hit.getHitBlock()!=null&&hit.getHitBlock().getType().isSolid())state.raise(shot.player(),hit.getHitBlock().getLocation().add(0,1,0));remove(shot);}
+            Location from=shot.visual().getLocation();var hit=AbilityTargeting.ray(shot.player(),from,shot.velocity(),shot.velocity().length(),config.getDouble("projectileWidth",.2),AbilityTargeting.Relation.ENEMY);
+            if(hit!=null){if(hit.entity() instanceof LivingEntity living)state.strike(shot.player(),living,"field_work");
+                else if(hit.block()!=null&&hit.block().getType().isSolid())state.raise(shot.player(),hit.block().getLocation().add(0,1,0));remove(shot);}
             else{Location to=from.clone().add(shot.velocity());if(!to.getWorld().isChunkLoaded(to.getBlockX()>>4,to.getBlockZ()>>4)){remove(shot);continue;}shot.visual().teleport(to);to.getWorld().spawnParticle(Particle.SOUL,to,2,.1,.1,.1,0);}
         }
     }

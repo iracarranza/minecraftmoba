@@ -93,7 +93,7 @@ final class SkeletonCrewState implements Listener {
         }
         if(!Targetability.status(target,p))return false;
         double base=Math.max(1,p.getAttribute(Attribute.ATTACK_DAMAGE).getValue());double bonus=config.getDouble("strikeBonus")*("labored_union".equals(selected)?config.getDouble("unionBonusMultiplier"):1);
-        target.damage(base+bonus,p);for(var m:activeMembers(p))m.target=target;return true;
+        AbilityDamage.deal(target,base+bonus,p);for(var m:activeMembers(p))m.target=target;return true;
     }
     private void armor(Member m){
         if(m.body==null)return;Material[] pieces={Material.IRON_HELMET,Material.IRON_CHESTPLATE,Material.IRON_LEGGINGS,Material.IRON_BOOTS};EquipmentSlot[] slots={EquipmentSlot.HEAD,EquipmentSlot.CHEST,EquipmentSlot.LEGS,EquipmentSlot.FEET};

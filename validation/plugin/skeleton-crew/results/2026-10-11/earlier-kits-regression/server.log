@@ -1,169 +1,169 @@
 Starting org.bukkit.craftbukkit.Main
-[14:27:58 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
-[14:27:58 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
-[14:27:58 INFO]: [PluginInitializerManager] Initializing plugins...
-[14:27:59 INFO]: [ReobfServer] Remapping server...
-[14:28:03 INFO]: [ReobfServer] Done remapping server in 3595ms.
-[14:28:03 INFO]: [PluginRemapper] Remapping plugin 'plugins/KitAcceptance.jar'...
-[14:28:03 INFO]: [PluginRemapper] Done remapping plugin 'plugins/KitAcceptance.jar' in 57ms.
-[14:28:03 INFO]: [PluginInitializerManager] Initialized 2 plugins
-[14:28:03 INFO]: [PluginInitializerManager] Bukkit plugins (2):
+[18:08:59 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
+[18:08:59 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[18:09:00 INFO]: [PluginInitializerManager] Initializing plugins...
+[18:09:01 INFO]: [ReobfServer] Remapping server...
+[18:09:07 INFO]: [ReobfServer] Done remapping server in 6163ms.
+[18:09:07 INFO]: [PluginRemapper] Remapping plugin 'plugins/KitAcceptance.jar'...
+[18:09:07 INFO]: [PluginRemapper] Done remapping plugin 'plugins/KitAcceptance.jar' in 170ms.
+[18:09:07 INFO]: [PluginInitializerManager] Initialized 2 plugins
+[18:09:07 INFO]: [PluginInitializerManager] Bukkit plugins (2):
  - KitAcceptance (0.1), MinecraftMoba (0.1.0)
-[14:28:06 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
-[14:28:06 INFO]: Found new data pack file/bukkit, loading it automatically
-[14:28:06 INFO]: Found new data pack paper, loading it automatically
-[14:28:06 INFO]: No existing world data, creating new world
-[31;1m[14:28:06 ERROR]: No key layers in MapLike[{}]
-[m[14:28:06 INFO]: Loaded 1470 recipes
-[14:28:06 INFO]: Loaded 1584 advancements
-[14:28:06 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
-[14:28:07 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 214.6ms
-[14:28:07 INFO]: Starting minecraft server version 1.21.11
-[14:28:07 INFO]: Loading properties
-[14:28:07 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
-[14:28:07 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
-[14:28:07 INFO]: Server Ping Player Sample Count: 12
-[14:28:07 INFO]: Using 4 threads for Netty based IO
-[14:28:07 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
-[14:28:07 INFO]: Default game type: SURVIVAL
-[14:28:07 INFO]: Generating keypair
->   [14:28:07 INFO]: Starting Minecraft server on 127.0.0.1:25668
->   [14:28:08 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
->   [14:28:08 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
->   [14:28:08 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
->   [14:28:08 INFO]: [KitAcceptance] Loading server plugin KitAcceptance v0.1
->   [33;1m[14:28:08 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[m>   [33;1m[14:28:08 WARN]: The server will make no attempt to authenticate usernames. Beware.
-[m>   [33;1m[14:28:08 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[m>   [33;1m[14:28:08 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[m>   [14:28:08 INFO]: Preparing level "kit_acceptance_boot"
->   [31;1m[14:28:08 ERROR]: No key layers in MapLike[{}]
-[m>   [14:28:08 INFO]: Selecting spawn point for world 'minecraft:overworld'...
->   [31;1m[14:28:08 ERROR]: No key layers in MapLike[{}]
-[m>   [14:28:08 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
->   [31;1m[14:28:09 ERROR]: No key layers in MapLike[{}]
-[m>   [14:28:09 INFO]: Selecting spawn point for world 'minecraft:the_end'...
->   [14:28:09 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
->   [14:28:09 INFO]: Preparing spawn area: 100%
->   [14:28:10 INFO]: Prepared spawn area in 1409 ms
->   [14:28:10 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
->   [14:28:10 INFO]: Preparing spawn area: 100%
->   [14:28:10 INFO]: Prepared spawn area in 1132 ms
->   [14:28:10 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
->   [14:28:10 INFO]: Preparing spawn area: 100%
->   [14:28:10 INFO]: Prepared spawn area in 135 ms
->   [14:28:10 INFO]: Done preparing level "kit_acceptance_boot" (1.540s)
->   [14:28:10 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
->   [14:28:10 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
->   [14:28:16 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
->   [14:28:16 INFO]: Preparing spawn area: 100%
->   [14:28:16 INFO]: Prepared spawn area in 5574 ms
->   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [33;1m[14:28:16 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
-[m>   [14:28:16 INFO]: [MinecraftMoba] Registered ability kits: [werewolf, test, daredevil, kitfighter, toolbox, mole, chef, lightfooted, gardener, skeleton_crew]
->   [14:28:16 INFO]: [KitAcceptance] Enabling KitAcceptance v0.1
->   [14:28:16 INFO]: [spark] Starting background profiler...
->   [14:28:16 INFO]: Running delayed init tasks
->   [14:28:16 INFO]: Done (19.219s)! For help, type "help"
->   [14:28:16 INFO]: *************************************************************************************
->   [14:28:16 INFO]: This is the first time you're starting this server.
->   [14:28:16 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
->   [14:28:16 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
->   [14:28:16 INFO]: *************************************************************************************
->   [33;1m[14:28:17 WARN]: *************************************************************************************
-[m>   [33;1m[14:28:17 WARN]: You are running the latest build for your Minecraft version (1.21.11)
-[m>   [33;1m[14:28:17 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
-[m>   [33;1m[14:28:17 WARN]: It is recommended that you update as soon as possible
-[m>   [33;1m[14:28:17 WARN]: https://papermc.io/downloads/paper
-[m>   [33;1m[14:28:17 WARN]: *************************************************************************************
-[m>   [14:28:20 INFO]: [93mB_chef_probe joined the game[0m
->   [14:28:20 INFO]: B_chef_probe[embedded] logged in with entity id 5 at ([kit_acceptance_boot]0.5, 100.0, 0.5)
->   [14:28:20 INFO]: Updated B_chef_probe: level=30 xp=0 class=chef
->   [14:28:20 INFO]: [93mB_victim_probe joined the game[0m
->   [14:28:20 INFO]: B_victim_probe[embedded] logged in with entity id 6 at ([kit_acceptance_boot]5.5, 100.0, 0.5)
->   [14:28:20 INFO]: Updated B_victim_probe: level=30 xp=0 class=mole
->   [14:28:20 INFO]: [KitAcceptance] PASS production plugin and all four kits registered
->   [14:28:21 INFO]: [KitAcceptance] PASS Furnace carryover finishes one item and advances the next with paid fuel
->   [14:28:21 INFO]: [KitAcceptance] PASS Rake the Coals pays half fuel and never invents fuel
->   [14:28:21 INFO]: [KitAcceptance] PASS Campfire finishes independent slots immediately
->   [14:28:21 INFO]: [KitAcceptance] PASS Food Fight launches a real stored food
->   [14:28:22 INFO]: [KitAcceptance] PASS Food Fight damages enemy and Extra Spicy ignites
->   [14:28:22 INFO]: [KitAcceptance] PASS Super Nutritious launches toward an ally
->   [14:28:23 INFO]: [KitAcceptance] PASS Super Nutritious heals without damaging ally
->   [14:28:24 INFO]: [KitAcceptance] PASS Buffet starts and leaves Chef free to act
->   [14:28:25 INFO]: [KitAcceptance] PASS Buffet mounts victim, protects originals and spends nine real servings
->   [14:28:25 INFO]: [KitAcceptance] PASS Dismount restores original hotbar exactly once
->   [14:28:25 INFO]: [KitAcceptance] PASS second invitation
->   [14:28:26 INFO]: [KitAcceptance] PASS Death event preserves original items and exports no temporary serving
->   [14:28:27 INFO]: [KitAcceptance] PASS third invitation
->   [14:28:28 INFO]: Map color cache not found, building it in the background
->   [14:28:28 INFO]: [KitAcceptance] PASS Real disconnect/despawn restores suspended hotbar
->   [14:28:28 INFO]: [KitAcceptance] PASS Sinkhole preserves container state and reserves its origin
->   [14:28:29 INFO]: [KitAcceptance] PASS Mole casts the actual temporary Sinkhole
->   [14:28:30 INFO]: [KitAcceptance] PASS Sinkhole opens only after telegraph and holds reservations
->   [14:28:30 INFO]: [KitAcceptance] PASS Lightfooted casts protected animal and caster leaps
->   [14:28:34 INFO]: [KitAcceptance] PASS Forced animal leap lands and releases protection
->   [14:28:34 INFO]: [93mB_engine_death joined the game[0m
->   [14:28:34 INFO]: B_engine_death[embedded] logged in with entity id 62 at ([kit_acceptance_boot]5.5, 100.0, 0.5)
->   [14:28:34 INFO]: Updated B_engine_death: level=30 xp=0 class=mole
->   [14:28:34 INFO]: [KitAcceptance] PASS full-engine death fixture seats a fresh victim
->   [14:28:34 INFO]: Map color cache build successfully
->   [14:28:35 INFO]: B_engine_death died
->   [14:28:35 INFO]: [KitAcceptance] PASS actual death while seated releases custody
->   [14:28:36 INFO]: [KitAcceptance] PASS respawn after actual Buffet death
->   [14:28:37 INFO]: [KitAcceptance] PASS actual death/respawn keeps originals once and exports no servings
->   [14:28:38 INFO]: [KitAcceptance] PASS Lab kit cleanup removes projectiles, tables and reservations
->   [14:28:40 INFO]: [KitAcceptance] SUMMARY pass=25 fail=0
->   [14:28:40 INFO]: Stopping server
->   [14:28:40 INFO]: [KitAcceptance] Disabling KitAcceptance v0.1
->   [14:28:40 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
->   [14:28:40 INFO]: Saving players
->   [14:28:40 INFO]: Saving worlds
->   [14:28:40 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot]'/minecraft:overworld
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot'
->   [14:28:40 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot'
->   [14:28:40 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 132 entity chunks, 0 poi chunks in world 'kit_acceptance_boot' in 0.13s
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot'
->   [14:28:40 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot_nether]'/minecraft:the_nether
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot_nether'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot_nether'
->   [14:28:40 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot_nether'
->   [14:28:40 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'kit_acceptance_boot_nether' in 0.00s
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot_nether'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot_nether'
->   [14:28:40 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot_the_end]'/minecraft:the_end
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot_the_end'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot_the_end'
->   [14:28:40 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot_the_end'
->   [14:28:40 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'kit_acceptance_boot_the_end' in 0.00s
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot_the_end'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot_the_end'
->   [14:28:40 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
->   [14:28:40 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
->   [14:28:40 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.00s
->   [14:28:40 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
->   [14:28:40 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
->   [14:28:40 INFO]: ThreadedAnvilChunkStorage (kit_acceptance_boot): All chunks are saved
->   [14:28:40 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
->   [14:28:40 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
->   [14:28:40 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
->   [14:28:40 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
->   [14:28:40 INFO]: Waiting for all RegionFile I/O tasks to complete...
->   [14:28:40 INFO]: All RegionFile I/O tasks to complete
->   [14:28:40 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
->   [14:28:40 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+[18:09:11 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[18:09:12 INFO]: Found new data pack file/bukkit, loading it automatically
+[18:09:12 INFO]: Found new data pack paper, loading it automatically
+[18:09:12 INFO]: No existing world data, creating new world
+[31;1m[18:09:12 ERROR]: No key layers in MapLike[{}]
+[m[18:09:13 INFO]: Loaded 1470 recipes
+[18:09:13 INFO]: Loaded 1584 advancements
+[18:09:13 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[18:09:13 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 372.1ms
+[18:09:13 INFO]: Starting minecraft server version 1.21.11
+[18:09:13 INFO]: Loading properties
+[18:09:13 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[18:09:13 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[18:09:13 INFO]: Server Ping Player Sample Count: 12
+[18:09:13 INFO]: Using 4 threads for Netty based IO
+[18:09:14 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
+[18:09:14 INFO]: Default game type: SURVIVAL
+[18:09:14 INFO]: Generating keypair
+>   [18:09:14 INFO]: Starting Minecraft server on 127.0.0.1:25679
+>   [18:09:14 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
+>   [18:09:14 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
+>   [18:09:15 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
+>   [18:09:15 INFO]: [KitAcceptance] Loading server plugin KitAcceptance v0.1
+>   [33;1m[18:09:15 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[m>   [33;1m[18:09:15 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[m>   [33;1m[18:09:15 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[m>   [33;1m[18:09:15 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[m>   [18:09:15 INFO]: Preparing level "kit_acceptance_boot"
+>   [31;1m[18:09:15 ERROR]: No key layers in MapLike[{}]
+[m>   [18:09:15 INFO]: Selecting spawn point for world 'minecraft:overworld'...
+>   [31;1m[18:09:15 ERROR]: No key layers in MapLike[{}]
+[m>   [18:09:15 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
+>   [31;1m[18:09:16 ERROR]: No key layers in MapLike[{}]
+[m>   [18:09:16 INFO]: Selecting spawn point for world 'minecraft:the_end'...
+>   [18:09:16 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>   [18:09:16 INFO]: Preparing spawn area: 100%
+>   [18:09:16 INFO]: Prepared spawn area in 1003 ms
+>   [18:09:16 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>   [18:09:16 INFO]: Preparing spawn area: 100%
+>   [18:09:16 INFO]: Prepared spawn area in 757 ms
+>   [18:09:16 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>   [18:09:16 INFO]: Preparing spawn area: 100%
+>   [18:09:16 INFO]: Prepared spawn area in 178 ms
+>   [18:09:16 INFO]: Done preparing level "kit_acceptance_boot" (1.215s)
+>   [18:09:16 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
+>   [18:09:17 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
+>   [18:09:23 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
+>   [18:09:23 INFO]: Preparing spawn area: 100%
+>   [18:09:23 INFO]: Prepared spawn area in 6682 ms
+>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[18:09:23 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [18:09:23 INFO]: [MinecraftMoba] Registered ability kits: [werewolf, test, daredevil, kitfighter, toolbox, mole, chef, lightfooted, gardener, skeleton_crew]
+>   [18:09:24 INFO]: [KitAcceptance] Enabling KitAcceptance v0.1
+>   [18:09:24 INFO]: [spark] Starting background profiler...
+>   [18:09:24 INFO]: Running delayed init tasks
+>   [18:09:24 INFO]: Done (26.173s)! For help, type "help"
+>   [18:09:24 INFO]: *************************************************************************************
+>   [18:09:24 INFO]: This is the first time you're starting this server.
+>   [18:09:24 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+>   [18:09:24 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+>   [18:09:24 INFO]: *************************************************************************************
+>   [33;1m[18:09:24 WARN]: *************************************************************************************
+[m>   [33;1m[18:09:24 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+[m>   [33;1m[18:09:24 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
+[m>   [33;1m[18:09:24 WARN]: It is recommended that you update as soon as possible
+[m>   [33;1m[18:09:24 WARN]: https://papermc.io/downloads/paper
+[m>   [33;1m[18:09:24 WARN]: *************************************************************************************
+[m>   [18:09:28 INFO]: [93mB_chef_probe joined the game[0m
+>   [18:09:28 INFO]: B_chef_probe[embedded] logged in with entity id 1 at ([kit_acceptance_boot]0.5, 100.0, 0.5)
+>   [18:09:28 INFO]: Updated B_chef_probe: level=30 xp=0 class=chef
+>   [18:09:28 INFO]: [93mB_victim_probe joined the game[0m
+>   [18:09:28 INFO]: B_victim_probe[embedded] logged in with entity id 2 at ([kit_acceptance_boot]5.5, 100.0, 0.5)
+>   [18:09:28 INFO]: Updated B_victim_probe: level=30 xp=0 class=mole
+>   [18:09:28 INFO]: [KitAcceptance] PASS production plugin and all four kits registered
+>   [18:09:29 INFO]: [KitAcceptance] PASS Furnace carryover finishes one item and advances the next with paid fuel
+>   [18:09:29 INFO]: [KitAcceptance] PASS Rake the Coals pays half fuel and never invents fuel
+>   [18:09:29 INFO]: [KitAcceptance] PASS Campfire finishes independent slots immediately
+>   [18:09:29 INFO]: [KitAcceptance] PASS Food Fight launches a real stored food
+>   [18:09:30 INFO]: [KitAcceptance] PASS Food Fight damages enemy and Extra Spicy ignites
+>   [18:09:31 INFO]: [KitAcceptance] PASS Super Nutritious launches toward an ally
+>   [18:09:32 INFO]: [KitAcceptance] PASS Super Nutritious heals without damaging ally
+>   [18:09:32 INFO]: [KitAcceptance] PASS Buffet starts and leaves Chef free to act
+>   [18:09:33 INFO]: [KitAcceptance] PASS Buffet mounts victim, protects originals and spends nine real servings
+>   [18:09:33 INFO]: [KitAcceptance] PASS Dismount restores original hotbar exactly once
+>   [18:09:34 INFO]: [KitAcceptance] PASS second invitation
+>   [18:09:35 INFO]: [KitAcceptance] PASS Death event preserves original items and exports no temporary serving
+>   [18:09:35 INFO]: [KitAcceptance] PASS third invitation
+>   [18:09:36 INFO]: Map color cache not found, building it in the background
+>   [18:09:36 INFO]: [KitAcceptance] PASS Real disconnect/despawn restores suspended hotbar
+>   [18:09:37 INFO]: [KitAcceptance] PASS Sinkhole preserves container state and reserves its origin
+>   [18:09:37 INFO]: [KitAcceptance] PASS Mole casts the actual temporary Sinkhole
+>   [18:09:38 INFO]: [KitAcceptance] PASS Sinkhole opens only after telegraph and holds reservations
+>   [18:09:39 INFO]: [KitAcceptance] PASS Lightfooted casts protected animal and caster leaps
+>   [18:09:42 INFO]: [KitAcceptance] PASS Forced animal leap lands and releases protection
+>   [18:09:42 INFO]: [93mB_engine_death joined the game[0m
+>   [18:09:42 INFO]: B_engine_death[embedded] logged in with entity id 58 at ([kit_acceptance_boot]5.5, 100.0, 0.5)
+>   [18:09:42 INFO]: Updated B_engine_death: level=30 xp=0 class=mole
+>   [18:09:42 INFO]: [KitAcceptance] PASS full-engine death fixture seats a fresh victim
+>   [18:09:43 INFO]: B_engine_death died
+>   [18:09:43 INFO]: [KitAcceptance] PASS actual death while seated releases custody
+>   [18:09:44 INFO]: [KitAcceptance] PASS respawn after actual Buffet death
+>   [18:09:44 INFO]: Map color cache build successfully
+>   [18:09:45 INFO]: [KitAcceptance] PASS actual death/respawn keeps originals once and exports no servings
+>   [18:09:47 INFO]: [KitAcceptance] PASS Lab kit cleanup removes projectiles, tables and reservations
+>   [18:09:48 INFO]: [KitAcceptance] SUMMARY pass=25 fail=0
+>   [18:09:48 INFO]: Stopping server
+>   [18:09:48 INFO]: [KitAcceptance] Disabling KitAcceptance v0.1
+>   [18:09:48 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
+>   [18:09:48 INFO]: Saving players
+>   [18:09:48 INFO]: Saving worlds
+>   [18:09:48 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot]'/minecraft:overworld
+>   [18:09:48 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot'
+>   [18:09:48 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot'
+>   [18:09:48 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 132 entity chunks, 0 poi chunks in world 'kit_acceptance_boot' in 0.33s
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot'
+>   [18:09:49 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot_nether]'/minecraft:the_nether
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot_nether'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot_nether'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot_nether'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'kit_acceptance_boot_nether' in 0.00s
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot_nether'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot_nether'
+>   [18:09:49 INFO]: Saving chunks for level 'ServerLevel[kit_acceptance_boot_the_end]'/minecraft:the_end
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'kit_acceptance_boot_the_end'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted chunk system for world 'kit_acceptance_boot_the_end'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'kit_acceptance_boot_the_end'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'kit_acceptance_boot_the_end' in 0.02s
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'kit_acceptance_boot_the_end'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'kit_acceptance_boot_the_end'
+>   [18:09:49 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
+>   [18:09:49 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.02s
+>   [18:09:49 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
+>   [18:09:49 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
+>   [18:09:49 INFO]: ThreadedAnvilChunkStorage (kit_acceptance_boot): All chunks are saved
+>   [18:09:49 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>   [18:09:49 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>   [18:09:49 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>   [18:09:49 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>   [18:09:49 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>   [18:09:49 INFO]: All RegionFile I/O tasks to complete
+>   [18:09:49 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>   [18:09:49 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
 > 

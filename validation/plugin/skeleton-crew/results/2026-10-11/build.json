@@ -1,17 +1,20 @@
 {
-  "unit_tests": 1171,
+  "unit_tests": 1216,
   "unit_failures": 0,
-  "native_checks": 36,
+  "native_checks": 37,
   "native_failures": 0,
   "next_kit_regression_checks": 36,
   "earlier_kit_regression_checks": 25,
   "regression_failures": 0,
   "paper": "1.21.11-132-c5eb079",
   "java": "21",
-  "artifact_sha256": "46e46371fc9212a85260363e9defab6dd3430c2b24c0864564c8ffba5016c52b",
-  "config_sha256": "68b818707bb967b6b51007a8597071f02e2fff0137ebbd9a77cd818e9d5e8c36",
-  "regression_artifact_sha256": "912bd5314183902dedd182d79676f67973049fe77e93710cb93e48325e31664a",
-  "regression_scope_note": "Regression build precedes only the final shared double-chest-inventory overlap guard.",
+  "artifact_sha256": "7ab0cd942721baa255a33fa5e40ca959f02c79d2f4b398935a972d2b3dd3d311",
+  "config_sha256": "6c0288703c5045c1cfd6ba544d0dd8fbe5c72863418065c396d69a94bae09b33",
+  "regression_artifact_sha256": "7ab0cd942721baa255a33fa5e40ca959f02c79d2f4b398935a972d2b3dd3d311",
   "deployment": "isolated validation only",
-  "launched_scoop_scenario": "schema validated; not live-run"
+  "launched_scoop_scenario": "schema validated; not live-run",
+  "integrated_main": "62206ae",
+  "input_regression": "direct dispatcher Strike and Field Work impact after rearming pass",
+  "native_checks_total": 98,
+  "regression_scope_note": "All three completed native fixtures use the same final integrated artifact."
 }

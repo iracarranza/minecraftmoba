@@ -14,7 +14,10 @@ python3 validation/plugin/skeleton-crew/run.py \
 
 The server directory must not exist. Compilation goes under ignored `build/`;
 worlds remain in the disposable directory. The server binds 127.0.0.1:25668 and
-stops after the fixture, with a 180-second timeout. Run native fixtures serially.
+stops after the fixture, with a 180-second timeout. `--port` selects a different
+localhost port when another validation task is running; default is 25668. The
+runner uses `validation-runtime.jar` to keep its process distinct from other local
+Paper harnesses. Incomplete reports fail validation even if all reported checks pass.
 
 The fixture uses real NMS player bodies, native mobs/pathfinding, Copper Chest
 inventories, sourced damage and projectile impacts. Assignment uses worker commands;
@@ -24,7 +27,9 @@ construct the actual persistence managers from saved sidecars and reconstruct re
 ordinary worker bodies; they do not claim a whole-server process restart. Water
 recovery places the body in real water, testing native extinguishing and recovery,
 not a proof that every obstacle configuration can be navigated. Native cleanup
-counts owned workers, excluding unrelated natural mobs.
+counts owned workers, excluding unrelated natural mobs. Direct Strike runs through
+the actual input dispatcher; Field Work impact is also tested after rearming,
+checking that scripted damage neither casts again nor consumes input mode.
 
 See [delivery limits](../../../docs/design/SKELETON_CREW_LAB_PASS.md). The skirmish
 scenario's schema is validated separately; no launched-scoop run, human client

@@ -43,10 +43,10 @@ public interface Ability {
      */
     default long rechargeTicks(Player player, AbilityContext context) { return rechargeTicks(); }
 
-    /** Re-arm an existing empowerment without spending or resetting its original cooldown. */
     /** Null uses the configured classification; contextual abilities report the outcome they actually performed. */
     default Boolean combatActivation(Player player, AbilityContext context) { return null; }
 
+    /** Re-arm an existing empowerment without spending or resetting its original cooldown. */
     default boolean cooldownExemptRecast(Player player, AbilityContext context) { return false; }
 
     default Map<String, String> branches() { return Map.of(); }
