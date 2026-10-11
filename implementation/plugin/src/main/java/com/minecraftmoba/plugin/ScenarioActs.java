@@ -18,8 +18,10 @@ import java.util.Set;
  * root     target                  apply a Root
  * status   target, kind, ticks [source]   apply a control status; Lured and Frightened need a source (a roster member)
  * walk     direction, ticks        the body reports walking, a step a tick (north, south, east, west)
- * cast     slot, at [level]        the body casts a real ability (a1, a2, ult) facing a roster member;
- *                                 level: true aims along the ground, not down into it
+ * cast     slot, at [level] [click] the body casts a real ability (a1, a2, ult) facing a roster member;
+ *                                 level: true aims along the ground, not down into it;
+ *                                 click: air sends no block or creature (the old behaviour); the default sends
+ *                                 what a client's click would, see ClickResolver
  * look     at                      face a roster member
  * heal                             restore the actor to full health
  * </pre>
@@ -43,6 +45,7 @@ public final class ScenarioActs {
     public static final Set<String> KNOWN = REQUIRES.keySet();
     public static final Set<String> DIRECTIONS = Set.of("north", "south", "east", "west");
     public static final Set<String> SLOTS = Set.of("a1", "a2", "ult");
+    public static final Set<String> CLICKS = Set.of("air", "resolve");
 
     /** Arguments that name another roster member. */
     private static final Set<String> MEMBER_ARGS = Set.of("target", "at", "source");
@@ -74,6 +77,8 @@ public final class ScenarioActs {
                 if (kind.needsSource() && !a.args().containsKey("source"))
                     return s.id() + " tick " + a.tick() + ": " + kind.label() + " needs a 'source', the roster member it is lured to or frightened from.";
             }
+            if (a.verb().equals("cast") && a.args().containsKey("click") && !CLICKS.contains(a.args().get("click")))
+                return s.id() + " tick " + a.tick() + ": cast click '" + a.args().get("click") + "' is not one of " + new java.util.TreeSet<>(CLICKS) + ".";
             if (a.verb().equals("cast") && !SLOTS.contains(a.args().get("slot")))
                 return s.id() + " tick " + a.tick() + ": cast slot '" + a.args().get("slot") + "' is not one of " + new java.util.TreeSet<>(SLOTS) + ".";
             for (String numeric : List.of("amount", "power", "ticks")) {

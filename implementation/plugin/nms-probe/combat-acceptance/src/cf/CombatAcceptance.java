@@ -111,6 +111,11 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "targeting: a wall stops the ray, and an area query with line of sight leaves out what is behind it", this::tgWall);
         at(c, 3, "targeting: the relation filter never lets the caster be a target", this::tgSelf);
         at(c, 3, "targeting: leave", this::tgLeave);
+        at(c, 4, "body click: enter the chamber and place two Kitfighter bodies, each facing a one-block wall", this::bcSetup);
+        at(c, 8, "body click: a RESOLVE cast clicks the wall (block and face carried), so Hotswap puts its web in front of it", this::bcResolve);
+        at(c, 3, "body click: an AIR cast sends no click, so Hotswap's ray fallback puts its web on top of the wall", this::bcAir);
+        at(c, 3, "body click: facing the tester from two blocks, the click is on the tester (a creature), and a far target is air", this::bcEntityAndAir);
+        at(c, 3, "body click: clean up", this::bcClean);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -1064,6 +1069,61 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         if (tgAlly != null) bodies.despawn(tgAlly);
         if (tgTeam != null) { tgTeam.removeEntry(t.getName()); tgTeam.unregister(); tgTeam = null; }
         tgAlly = null;
+        cmd("leave");
+        return "state=" + combat().state(t);
+    }
+
+    // ---- bodies that carry a click ---------------------------------------------------------------
+
+    private Bodies.Body bcA, bcB;
+    private BodyCaster.Result bcResultA, bcResultB;
+    private int bcY, bcZ;
+
+    private String bcSetup() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        var w = Bukkit.getWorld("moba_combat"); bcY = (int) CombatSlab.FLOOR_Y + 1; bcZ = -9;
+        w.getBlockAt(2, bcY + 1, bcZ).setType(Material.STONE, false);         // eye height of a body standing on the floor
+        w.getBlockAt(-2, bcY + 1, bcZ).setType(Material.STONE, false);
+        bcA = bodies.spawn("click_a", null, "kitfighter", 15, new Location(w, 2.5, bcY, -11.5, 0f, 0f));
+        bcB = bodies.spawn("click_b", null, "kitfighter", 15, new Location(w, -1.5, bcY, -11.5, 0f, 0f));
+        return "state=" + combat().state(t) + " wallA=" + w.getBlockAt(2, bcY + 1, bcZ).getType() + " bodies=" + (bcA != null && bcB != null);
+    }
+
+    private String bcResolve() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        bcResultA = caster.cast(bcA.player(), "a2", new CastAim.Facing(0f, 0f), 0, BodyCaster.ClickMode.RESOLVE);
+        var front = w.getBlockAt(2, bcY + 1, bcZ - 1).getType(); var top = w.getBlockAt(2, bcY + 2, bcZ).getType();
+        var click = bcResultA.click();
+        boolean ok = bcResultA.cast() && click.kind() == ClickResolver.Kind.BLOCK && click.face() == org.bukkit.block.BlockFace.NORTH
+                && front == Material.COBWEB && top != Material.COBWEB;
+        return "cast=" + bcResultA.cast() + " click=" + click.describe() + " webInFrontOfWall=" + (front == Material.COBWEB) + " webOnTop=" + (top == Material.COBWEB)
+                + (ok ? "" : " | FAIL: the block click did not reach Hotswap");
+    }
+
+    private String bcAir() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        bcResultB = caster.cast(bcB.player(), "a2", new CastAim.Facing(0f, 0f), 0, BodyCaster.ClickMode.AIR);
+        var front = w.getBlockAt(-2, bcY + 1, bcZ - 1).getType(); var top = w.getBlockAt(-2, bcY + 2, bcZ).getType();
+        boolean ok = bcResultB.cast() && bcResultB.click().kind() == ClickResolver.Kind.AIR && front != Material.COBWEB && top == Material.COBWEB;
+        return "cast=" + bcResultB.cast() + " click=" + bcResultB.click().describe() + " webInFrontOfWall=" + (front == Material.COBWEB) + " webOnTop=" + (top == Material.COBWEB)
+                + (ok ? "" : " | FAIL: an AIR cast should have used the fallback ray (web on top)");
+    }
+
+    private String bcEntityAndAir() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        var from = bcA.player();
+        from.teleport(new Location(w, t.getLocation().getX(), bcY, t.getLocation().getZ() - 2.0, 0f, 0f));      // two blocks short of the tester, facing it
+        var near = ClickResolver.resolve(from);
+        from.teleport(new Location(w, t.getLocation().getX(), bcY, t.getLocation().getZ() - 6.0, 0f, 0f));      // six blocks short: out of creature reach
+        var far = ClickResolver.resolve(from);
+        boolean ok = near.kind() == ClickResolver.Kind.ENTITY && t.equals(near.entity()) && far.kind() == ClickResolver.Kind.AIR;
+        return "twoBlocks=" + near.describe() + " sixBlocks=" + far.describe() + (ok ? "" : " | FAIL: creature reach");
+    }
+
+    private String bcClean() {
+        var w = Bukkit.getWorld("moba_combat");
+        for (var b : new Bodies.Body[]{bcA, bcB}) if (b != null) bodies.despawn(b);
+        for (int x : new int[]{2, -2}) for (int dy = 0; dy <= 2; dy++) for (int dz = -2; dz <= 0; dz++) w.getBlockAt(x, bcY + dy, bcZ + dz).setType(Material.AIR, false);
         cmd("leave");
         return "state=" + combat().state(t);
     }

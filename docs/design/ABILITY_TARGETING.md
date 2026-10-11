@@ -26,8 +26,8 @@ Inconsistencies found, with what has been done about each:
 | Each ability decides for itself whether an ally blocks its ray | Fixed for the three moved: an ENEMY ray passes through allies |
 | Area attacks pass through walls | A line-of-sight option exists and is verified; **no ability uses it yet**, see decisions |
 | Sinkhole and Rabbit's Lucky Foot ignore the clicked block and always re-ray | Open |
-| Hotswap's ray fallback always places on top; a click places on the face clicked | Open |
-| Scripted bodies send no block or entity, so ground abilities are refused for them and the click path is never tested | Open (`BodyCaster`) |
+| Hotswap's ray fallback always places on top; a click places on the face clicked | Now testable and shown live: a body that clicks a wall gets the web in front of it, an AIR cast gets it on top. The difference remains, it is no longer hidden |
+| Scripted bodies send no block or entity, so the click path is never tested | **Fixed and verified live** (below) |
 | `tunneling.targetDistance` is read and the result discarded | Open |
 | The caster's own tamed animals are not "allied" (Lunge, Brawling and Rabbit can hurt them); Rabbit pulls in every wolf, fox and cat nearby whoever owns it | Open, a design call |
 | Observer sees through walls | Open, a design call |
@@ -72,9 +72,25 @@ fallback) are on it and keep the values they had: ray widths moved from code to 
 (`brawling_slash.rayWidth` .35, `flip_and_press.rayWidth` .25, Food Fight's existing `hitRadius`), with no
 change to what any of them hits.
 
+## Bodies that carry a click
+
+`BodyCaster.cast` now sends what a client's click would have carried, through `ClickResolver`:
+
+- Reach is vanilla survival: 4.5 blocks for a block, 3.0 for a creature. The crosshair is on a creature when one is in
+  reach and no block is nearer, otherwise on the block, otherwise on air.
+- What the event carries depends on the input: a right-click carries the block and face, or the creature; a
+  left-click carries the block and face but **not** a creature (hitting one is a damage event); the hand swap and the
+  drop carry nothing. This matches `AbilityInputs`' own handlers.
+- `ClickMode.RESOLVE` is the default for the chamber's dummies and the scenario `cast` act. `ClickMode.AIR` (and
+  `click: air` on the act) sends no click, which is how every cast used to be sent. The result reports what was clicked.
+
+Live: a Kitfighter body right-clicking a one-block wall puts Hotswap's web in front of the wall (the clicked face); the
+same cast as AIR puts it on top (the ray fallback); a body two blocks from the tester clicks the tester, and six blocks
+away clicks air. A held ability still repeats an air click each tick.
+
 ## Verified, and not
 
-- Java suite passes; the combat chamber acceptance run is 203 of 203; the kit fixtures pass 25 of 25
+- Java suite passes; the combat chamber acceptance run is 208 of 208; the kit fixtures pass 25 of 25
   (Food Fight damage and healing among them) and 36 of 36 (Human Slash hitting an enemy among them).
 - Live: the damage door in all three cases (control, plain call still swallowed, `deal` lands and keeps the
   mode); an ENEMY ray passing through an ally and hitting the dummy, EITHER stopping at the ally, ALLY
