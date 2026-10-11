@@ -57,6 +57,8 @@ public final class Lab implements Listener {
     World scoopWorld() { return plugin.worldInstance().labActive() ? plugin.worldInstance().world() : null; }
     private OpportunityBench opportunity;
     public OpportunityBench opportunity() { return opportunity; }
+    private StatusBench status;
+    public StatusBench status() { return status; }
     private LegibilityBench legibility;
     public LegibilityBench legibility() { return legibility; }
     public LabRules rules() { return rules; }
@@ -69,6 +71,7 @@ public final class Lab implements Listener {
         combat = new CombatChamber(plugin, this);
         Bukkit.getPluginManager().registerEvents(combat, plugin);
         legibility = new LegibilityBench(plugin, this);
+        status = new StatusBench(plugin, this);
         opportunity = new OpportunityBench(plugin, this);
         overlay = new MapOverlay(plugin, this);
         night = new NightBench(plugin, this);
@@ -145,6 +148,7 @@ public final class Lab implements Listener {
                 case "bench" -> bench(p, value(args));
                 case "combat" -> combat.command(p, args);
                 case "legibility" -> legibility.command(p, args);
+                case "effects" -> status.command(p, args);
                 case "opportunity" -> opportunity.command(p, args);
                 case "overlay" -> overlay.command(p, args);
                 case "night" -> night.command(p, args);
@@ -165,7 +169,7 @@ public final class Lab implements Listener {
                     var s = selections.get(p.getUniqueId());
                     if (s != null) p.sendMessage("Selected map=" + s.mapId + " class=" + s.classId + " level=" + s.level + " team=" + s.team);
                 }
-                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | opportunity | overlay | night | scenario | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
+                default -> p.sendMessage("/moba lab start | benches | bench <id> | combat | legibility | effects | opportunity | overlay | night | scenario | maps | classes | map <id/number> | class <id> | level <n> | team <north/south> | play | chamber | end | leave | status");
             }
         } catch (IOException | RuntimeException ex) {
             p.sendMessage("Lab refused: " + ex.getMessage());
@@ -202,7 +206,7 @@ public final class Lab implements Listener {
     void toRoom(Player p) { sendToRoom(p); }
 
     /** Release what the lab holds at shutdown. */
-    public void close() { combat.close(); legibility.close(); opportunity.close(); overlay.close(); night.close(); scenario.close(); rules.clearAll(); }
+    public void close() { combat.close(); legibility.close(); status.close(); opportunity.close(); overlay.close(); night.close(); scenario.close(); rules.clearAll(); }
 
     private Selection requireSetup(Player p) {
         if (!mayPrepare(plugin.match().state(), plugin.worldInstance().labActive()))
@@ -370,6 +374,7 @@ public final class Lab implements Listener {
         switch (b.id()) {
             case "combat" -> combat.command(p, new String[]{"lab", "combat", "start"});
             case "legibility" -> legibility.command(p, new String[]{"lab", "legibility", "start"});
+            case "status" -> status.command(p, new String[]{"lab", "effects", "start"});
             case "opportunity" -> opportunity.command(p, new String[]{"lab", "opportunity", "start"});
             case "overlay" -> overlay.command(p, new String[]{"lab", "overlay", "start"});
             case "night" -> night.command(p, new String[]{"lab", "night", "start"});

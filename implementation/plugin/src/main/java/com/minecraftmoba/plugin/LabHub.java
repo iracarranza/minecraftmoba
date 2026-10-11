@@ -40,7 +40,9 @@ public final class LabHub {
             new Bench("night", "Night and objectives", Material.CRYING_OBSIDIAN, -6, -3, Needs.LAUNCHED_SCOOP,
                     "Jump to night N and besiege objectives, on the match's real clock."),
             new Bench("scenario", "Scenarios", Material.RESPAWN_ANCHOR, 2, -3, Needs.LAUNCHED_SCOOP,
-                    "Run a 2v2 skirmish or a rule check with several real fake players."));
+                    "Run a 2v2 skirmish or a rule check with several real fake players."),
+            new Bench("status", "Status effects", Material.SCULK, -2, -3, Needs.NOTHING,
+                    "Apply Stunned, Rooted, Blinded, Weakened, Lured or Frightened and watch it hold."));
 
     /** The pedestals the room already has, so a new one never lands on them. */
     public static final List<int[]> EXISTING_PEDESTALS = List.of(new int[]{-5, 0}, new int[]{5, 0}, new int[]{0, 6});

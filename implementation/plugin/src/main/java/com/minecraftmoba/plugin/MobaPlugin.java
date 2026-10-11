@@ -272,6 +272,17 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // rather than each waiting for its own.
         stun = new Stun(this);
         getServer().getPluginManager().registerEvents(stun, this);
+        // Lured and Frightened: forced facing and movement. [PROTOTYPE] from the unofficial Wayfinder and Hollow.
+        forced = new ForcedMovement(this);
+        forced.bodyMover((body, dx, dz, yaw, pitch) -> {
+            if (lab == null) return false;
+            var at = body.getLocation();
+            lab.combat().bodies().moveTo(new Bodies.Body("forced", body, null, null, 0),
+                    at.getX() + dx, at.getY(), at.getZ() + dz, Float.isNaN(yaw) ? at.getYaw() : yaw, pitch);
+            return true;
+        });
+        getServer().getPluginManager().registerEvents(forced, this);
+        forced.start();
         // The Ultimate's armed window listens for world redstone on its own.
         gizmoWindow = new GizmoWindow(this, utilityBelt);
         getServer().getPluginManager().registerEvents(gizmoWindow, this);
@@ -400,6 +411,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public ToolboxStatuses toolboxStatuses() { return toolboxStatuses; }
     private Stun stun;
     public Stun stun() { return stun; }
+    private ForcedMovement forced;
+    public ForcedMovement forced() { return forced; }
     private Displacement displacement;
     public Displacement displacement() { return displacement; }
     private UtilityBelt utilityBelt;

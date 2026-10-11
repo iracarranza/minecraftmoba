@@ -163,6 +163,16 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 6, "terrain: the pending page offers Place, and placing builds and is undoable", this::terrainPlace);
         at(c, 6, "terrain: the Clock page jumps the match clock to dusk from the hotbar", this::terrainClock);
         at(c, 3, "terrain: leave and end return to the lab room", this::terrainEnd);
+        at(c, 4, "status: entering builds the arena and deck, spawns the subject and puts the menu on the hotbar", this::stEnter);
+        at(c, 20, "status: the subject has settled; Lured is applied from the console and the subject is lured toward the source", this::stLure);
+        at(c, 70, "status: ...it walked toward the source, facing it, and the check reports it nearer", this::stLureDone);
+        at(c, 3, "status: Frightened is applied and the subject backs away from the source", this::stFright);
+        at(c, 70, "status: ...it walked away from the source while still facing it", this::stFrightDone);
+        at(c, 3, "status: Blinded and Weakened are the platform's own effects at level I", this::stNative);
+        at(c, 3, "status: the rule checklist has no mismatch for any status the server can answer", this::stChecklist);
+        at(c, 3, "status: applying Lured to the tester turns the tester to the source and refuses abilities", this::stSelf);
+        at(c, 60, "status: ...the tester faces the source, and clear ends it (the velocity push on a real client is NOT exercised here)", this::stSelfDone);
+        at(c, 3, "status: leaving clears every status and removes the subject", this::stLeave);
         at(c, 6, "overlay: launch a scoop that carries inspection data and start the overlay", this::ovStart);
         at(c, 40, "overlay: the hotbar menu is on and the overlay holds the parsed data", this::ovMenu);
         at(c, 3, "overlay: the cost layer draws a column and label for every cell near the tester", this::ovCost);
@@ -193,6 +203,10 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 150, "scenario: stun_and_root passed, including the walking control", this::scStunDone);
         at(c, 3, "scenario: run skirmish_2v2 with two bodies a team", this::scRunSkirmish);
         at(c, 140, "scenario: skirmish_2v2 passed and every body is gone", this::scSkirmishDone);
+        at(c, 3, "scenario: run lure_and_frighten (Lured, Frightened, a Stun overriding a Lure, a Lured body attacking)", this::scRunLure);
+        at(c, 150, "scenario: lure_and_frighten passed, including its no-status control", this::scLureDone);
+        at(c, 3, "scenario: run lured_refuses_abilities", this::scRunLureCast);
+        at(c, 60, "scenario: a Lured Chef could not cast and an unaffected Chef could", this::scLureCastDone);
         at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
         at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
         at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
@@ -585,7 +599,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var deck = w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType();
         var first = w.getBlockAt(-7, CombatSlab.FLOOR_Y + 1, -19).getType();
         boolean ok = "record".equals(itemId(1)) && "replay".equals(itemId(2)) && "return".equals(itemId(9))
-                && buttons == 11 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
+                && buttons == 12 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
         return "slot0=" + itemId(0) + " slot1=" + itemId(1) + " slot2=" + itemId(2) + " slot9=" + itemId(9)
                 + " buttons=" + buttons + " deck=" + deck + " firstButton=" + first
                 + (ok ? "" : " | FAIL: menu, leave item or control deck missing");
@@ -1719,6 +1733,142 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String scStunDone() { return scResult("stun_and_root", 8); }
     private String scRunSkirmish() { t.performCommand("moba lab scenario skirmish_2v2"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
     private String scSkirmishDone() { return scResult("skirmish_2v2", 8); }
+
+    private String scRunLure() { t.performCommand("moba lab scenario lure_and_frighten"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scLureDone() { return scResult("lure_and_frighten", 10); }
+    private String scRunLureCast() { t.performCommand("moba lab scenario lured_refuses_abilities"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scLureCastDone() { return scResult("lured_refuses_abilities", 2); }
+
+    // ---- the status bench ------------------------------------------------------------------------
+
+    private StatusBench st() { return moba.lab().status(); }
+    private double sx, sz;
+    private double flatDistance(org.bukkit.Location a, org.bukkit.Location b) { return Math.hypot(a.getX() - b.getX(), a.getZ() - b.getZ()); }
+
+    private String stEnter() {
+        t.performCommand("moba lab effects");
+        var subject = st().subjectOf(t);
+        var src = st().source(t);
+        boolean ok = st().occupies(t) && subject != null && src != null
+                && src.clone().subtract(0, 1, 0).getBlock().getType() == Material.GOLD_BLOCK
+                && "status".equals(itemIdKey(0, "status_item")) && "apply".equals(itemIdKey(2, "status_item"));
+        return "occupies=" + st().occupies(t) + " subject=" + (subject != null) + " source=" + src + " slot0=" + itemIdKey(0, "status_item")
+                + " slot2=" + itemIdKey(2, "status_item") + (ok ? "" : " | FAIL: bench not set up");
+    }
+
+    private String stLure() {
+        t.performCommand("moba lab effects lured 5");
+        var subject = st().subjectOf(t);
+        sx = flatDistance(subject.getLocation(), st().source(t));
+        t.performCommand("moba lab effects apply");
+        return "selected=" + st().selected(t) + " distance=" + String.format("%.1f", sx)
+                + " lured=" + Statuses.has(moba, Statuses.Kind.LURED, subject);
+    }
+
+    private String stLureDone() {
+        var subject = st().subjectOf(t);
+        double now = flatDistance(subject.getLocation(), st().source(t));
+        double off = ForcedMotion.yawDifference(subject.getLocation().getYaw(), ForcedMotion.yawOf(
+                st().source(t).getX() - subject.getLocation().getX(), st().source(t).getZ() - subject.getLocation().getZ()));
+        var lines = st().checkLines(t);
+        boolean nearer = lines.stream().anyMatch(l -> l.contains("(nearer)"));
+        boolean ok = now < sx - 2.0 && off < 25 && nearer;
+        return String.format("distance %.1f -> %.1f, camera %.0f degrees off the source, check says nearer=%s", sx, now, off, nearer)
+                + (ok ? "" : " | FAIL: lured body did not close in facing its source");
+    }
+
+    private String stFright() {
+        t.performCommand("moba lab effects clear");
+        t.performCommand("moba lab effects frightened 5");
+        var subject = st().subjectOf(t);
+        sx = flatDistance(subject.getLocation(), st().source(t));
+        t.performCommand("moba lab effects apply");
+        return "distance=" + String.format("%.1f", sx) + " frightened=" + Statuses.has(moba, Statuses.Kind.FRIGHTENED, subject);
+    }
+
+    private String stFrightDone() {
+        var subject = st().subjectOf(t);
+        double now = flatDistance(subject.getLocation(), st().source(t));
+        double off = ForcedMotion.yawDifference(subject.getLocation().getYaw(), ForcedMotion.yawOf(
+                st().source(t).getX() - subject.getLocation().getX(), st().source(t).getZ() - subject.getLocation().getZ()));
+        boolean ok = now > sx + 2.0 && off < 25;
+        return String.format("distance %.1f -> %.1f, camera %.0f degrees off the source", sx, now, off)
+                + (ok ? "" : " | FAIL: frightened body did not back away facing its source");
+    }
+
+    private String stNative() {
+        t.performCommand("moba lab effects clear");
+        var subject = st().subjectOf(t);
+        t.performCommand("moba lab effects blinded 5");
+        t.performCommand("moba lab effects apply");
+        boolean blind = subject.hasPotionEffect(org.bukkit.potion.PotionEffectType.BLINDNESS)
+                && subject.getPotionEffect(org.bukkit.potion.PotionEffectType.BLINDNESS).getAmplifier() == 0;
+        t.performCommand("moba lab effects weakened 5");
+        t.performCommand("moba lab effects apply");
+        boolean weak = subject.hasPotionEffect(org.bukkit.potion.PotionEffectType.WEAKNESS)
+                && subject.getPotionEffect(org.bukkit.potion.PotionEffectType.WEAKNESS).getAmplifier() == 0;
+        t.performCommand("moba lab effects clear");
+        boolean gone = !subject.hasPotionEffect(org.bukkit.potion.PotionEffectType.BLINDNESS) && !subject.hasPotionEffect(org.bukkit.potion.PotionEffectType.WEAKNESS);
+        return "blindness=" + blind + " weakness=" + weak + " cleared=" + gone + (blind && weak && gone ? "" : " | FAIL: native effects");
+    }
+
+    private String stChecklist() {
+        var subject = st().subjectOf(t);
+        var report = new ArrayList<String>();
+        boolean clean = true;
+        for (var kind : Statuses.Kind.values()) {
+            t.performCommand("moba lab effects clear");
+            t.performCommand("moba lab effects " + kind.name().toLowerCase() + " 5");
+            t.performCommand("moba lab effects apply");
+            var lines = StatusRules.checklist(kind, cap -> switch (cap) {
+                case MOVE -> moba.stun().movementRefused(subject) || moba.forced().refusesAbilities(subject);
+                case ACT, ATTACK -> moba.stun().actionsRefused(subject) ? Boolean.TRUE : (moba.forced().refusesAbilities(subject) && cap == StatusRules.Capability.ATTACK ? null : Boolean.FALSE);
+                case ABILITIES -> moba.stun().actionsRefused(subject) || moba.forced().refusesAbilities(subject);
+                case SPRINT -> moba.stun().movementRefused(subject) || moba.forced().refusesAbilities(subject);
+                case CROUCH -> moba.forced().refusesAbilities(subject);
+                case JUMP -> moba.stun().movementRefused(subject) ? Boolean.TRUE : (moba.forced().refusesAbilities(subject) ? null : Boolean.FALSE);
+                case LOOK -> moba.forced().refusesAbilities(subject) ? Boolean.TRUE : (moba.stun().actionsRefused(subject) ? Boolean.FALSE : null);
+            });
+            var bad = StatusRules.mismatches(lines);
+            report.add(kind.label() + (bad.isEmpty() ? " ok" : " MISMATCH " + bad));
+            clean &= bad.isEmpty() && Statuses.has(moba, kind, subject);
+        }
+        t.performCommand("moba lab effects clear");
+        var check = st().checkLines(t);
+        return String.join("; ", report) + " | check lines=" + check.size() + (clean ? "" : " | FAIL: the server disagrees with a definition");
+    }
+
+    private String stSelf() {
+        t.performCommand("moba lab effects clear");
+        t.performCommand("moba lab effects lured 5");
+        sx = flatDistance(t.getLocation(), st().source(t));
+        t.setRotation(0f, 0f);                         // looking the other way, so a turn is a turn
+        t.performCommand("moba lab effects self");
+        boolean lured = Statuses.has(moba, Statuses.Kind.LURED, t);
+        return "tester distance=" + String.format("%.1f", sx) + " lured=" + lured + " abilitiesRefused=" + moba.forced().refusesAbilities(t)
+                + (lured && moba.forced().refusesAbilities(t) ? "" : " | FAIL: self application");
+    }
+
+    private String stSelfDone() {
+        var src = st().source(t);
+        double off = ForcedMotion.yawDifference(t.getLocation().getYaw(),
+                ForcedMotion.yawOf(src.getX() - t.getLocation().getX(), src.getZ() - t.getLocation().getZ()));
+        t.performCommand("moba lab effects clear");
+        boolean cleared = !Statuses.has(moba, Statuses.Kind.LURED, t) && !moba.forced().refusesAbilities(t);
+        // The tester's body belongs to this fixture's own NmsBodies, not the lab's, so the body mover cannot move it.
+        // A real client takes the velocity push instead; that is not exercised here.
+        return String.format("tester camera %.0f degrees off the source, cleared=%s", off, cleared)
+                + (off < 25 && cleared ? "" : " | FAIL: tester was not turned to the source or clear did not end it");
+    }
+
+    private String stLeave() {
+        var subject = st().subjectOf(t);
+        var id = subject == null ? null : subject.getUniqueId();
+        t.performCommand("moba lab effects leave");
+        boolean gone = !st().occupies(t) && (id == null || Bukkit.getPlayer(id) == null || !Bukkit.getPlayer(id).isOnline());
+        boolean clean = !moba.forced().refusesAbilities(t);
+        return "left=" + !st().occupies(t) + " subjectGone=" + gone + " clean=" + clean + (gone && clean ? "" : " | FAIL: bench left something behind");
+    }
 
     private String scAbortStart() { t.performCommand("moba lab scenario friendly_fire"); return "started"; }
 

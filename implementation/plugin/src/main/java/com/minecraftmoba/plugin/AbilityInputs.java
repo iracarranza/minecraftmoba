@@ -286,6 +286,12 @@ public final class AbilityInputs implements Listener {
             if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, "STUNNED");
             return true;
         }
+        // Lured and Frightened forbid abilities too, for the same reason: checked once, here.
+        if (plugin.forced() != null && plugin.forced().refusesAbilities(p)) {
+            if (plugin.hudNotice() != null)
+                plugin.hudNotice().unavailable(p, plugin.forced().kind(p) == ForcedMotion.Kind.LURED ? "LURED" : "FRIGHTENED");
+            return true;
+        }
         var last=lastFire.computeIfAbsent(p.getUniqueId(), k->new HashMap<>());
         // Built before the cooldown gate rather than after it, because the
         // branch it carries may CHANGE the cooldown being checked.

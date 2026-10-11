@@ -94,6 +94,15 @@ public final class ToolboxStatuses {
      */
     public void root(LivingEntity target) { rooted.put(target.getUniqueId(), now() + ROOT_TICKS); }
 
+    /** Root for a stated length, taking the LATER expiry like a Stun (the lab applies it with a chosen duration). */
+    public void root(LivingEntity target, long ticks) {
+        if (target == null || ticks <= 0) return;
+        rooted.merge(target.getUniqueId(), now() + ticks, Math::max);
+    }
+
+    /** End a Root now. */
+    public void unroot(Entity target) { if (target != null) rooted.remove(target.getUniqueId()); }
+
     public boolean isRooted(Entity target) { return held(rooted, target); }
 
     /** Ticks of Root left, for the movement listener that enforces it. */

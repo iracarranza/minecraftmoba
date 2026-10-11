@@ -1850,6 +1850,17 @@ renewables:
       capacity: 24
       recoverTicks: 1200
 
+# Control statuses. Blinded and Weakened are Minecraft's own Blindness and Weakness, so their strength is the
+# platform's (amplifier 0 is level I); there is nothing to design. Lured and Frightened are [PROTOTYPE], from the
+# unofficial Wayfinder and Hollow classes: speed is blocks per tick (a walk is about 0.2158) and a Lured entity
+# stops this many blocks from its source. Native Weakness lowers MELEE damage only, not ability damage.
+statuses:
+  blinded: { amplifier: 0 }
+  weakened: { amplifier: 0 }
+  forced:
+    speed: 0.2158
+    stopDistance: 1.5
+
 # Alpha 0.1 match lifecycle.
 #
 # The template is the frozen Consolidative world (docs/analysis/alpha-0.1-map-freeze.json).
@@ -1984,6 +1995,46 @@ alpha:
           - { tick: 90, assert: health_not_lower, of: gardener, since: 85, because: "authored damage still refuses allies" }
           - { tick: 100, assert: alive, of: fighter }
           - { tick: 100, assert: alive, of: wolf }
+      lure_and_frighten:
+        description: "Lured walks toward its source and Frightened away from it, both facing it; a Stun overrides both; a Lured body may attack."
+        anchor: fountain_north
+        # Forced movement is delivered as position reports, so the bodies must really move.
+        requiresConnectedBodies: true
+        roster:
+          - { id: source, team: NORTH, class: mole, level: 12, at: [4, 0, 8] }
+          - { id: lured, team: SOUTH, class: lightfooted, level: 12, at: [4, 0, 18] }
+          - { id: scared, team: SOUTH, class: lightfooted, level: 12, at: [10, 0, 10] }
+          - { id: control, team: SOUTH, class: lightfooted, level: 12, at: [10, 0, 18] }
+          - { id: held, team: SOUTH, class: lightfooted, level: 12, at: [16, 0, 14] }
+        timeline:
+          - { tick: 15, actor: source, do: status, target: lured, kind: lured, ticks: 100, source: source }
+          - { tick: 15, actor: source, do: status, target: scared, kind: frightened, ticks: 100, source: source }
+          - { tick: 15, actor: source, do: stun, target: held, ticks: 100 }
+          - { tick: 15, actor: source, do: status, target: held, kind: lured, ticks: 100, source: source }
+          - { tick: 17, assert: status_active, of: lured, kind: lured, because: "the Lure landed" }
+          - { tick: 17, assert: status_active, of: scared, kind: frightened, because: "the Fright landed" }
+          - { tick: 22, assert: facing_source, of: lured, source: source, within: 25, because: "a Lured body looks at its source" }
+          - { tick: 22, assert: facing_source, of: scared, source: source, within: 25, because: "a Frightened body still looks at its source" }
+          - { tick: 60, assert: moved_toward, of: lured, source: source, blocks: 2, since: 15, because: "a Lured body walks toward its source" }
+          - { tick: 60, assert: moved_away, of: scared, source: source, blocks: 2, since: 15, because: "a Frightened body walks away from its source" }
+          - { tick: 60, assert: moved_less_than, of: control, blocks: 0.6, since: 15, because: "CONTROL: a body with no status stays put, so the movement above is the status" }
+          - { tick: 60, assert: moved_less_than, of: held, blocks: 0.6, since: 15, because: "a Stun refuses the movement a Lure would force" }
+          - { tick: 62, actor: lured, do: hit, target: source, amount: 3 }
+          - { tick: 66, assert: health_below, of: source, than: since, since: 62, because: "a Lured body may attack" }
+          - { tick: 130, assert: status_inactive, of: lured, kind: lured, because: "a Lure ends on time" }
+      lured_refuses_abilities:
+        description: "A Lured Chef cannot cast; an unaffected Chef can."
+        anchor: fountain_north
+        roster:
+          - { id: lured_chef, team: NORTH, class: chef, level: 15, at: [4, 0, 8] }
+          - { id: free_chef, team: NORTH, class: chef, level: 15, at: [4, 0, 12] }
+          - { id: victim, team: SOUTH, class: mole, level: 12, at: [12, 0, 10] }
+        timeline:
+          - { tick: 20, actor: victim, do: status, target: lured_chef, kind: lured, ticks: 60, source: victim }
+          - { tick: 22, actor: lured_chef, do: cast, slot: a1, at: victim }
+          - { tick: 22, actor: free_chef, do: cast, slot: a1, at: victim }
+          - { tick: 26, assert: ability_executed, of: free_chef, ability: food_fight, because: "CONTROL: an unaffected Chef casts, so the refusal below is the status" }
+          - { tick: 26, assert: ability_not_executed, of: lured_chef, ability: food_fight, because: "a Lured body cannot use abilities" }
       skirmish_2v2:
         description: "Two against two: teams hold, enemies take damage, real abilities run."
         anchor: fountain_north

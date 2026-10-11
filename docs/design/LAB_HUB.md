@@ -17,6 +17,7 @@ setup menu has a **Benches** page.
 | Grass block | Terrain chamber | a launched scoop |
 | Copper block | Map overlay | a launched scoop |
 | Crying obsidian | Night and objectives | a launched scoop |
+| Sculk | Status effects | nothing; see [STATUS_BENCH.md](STATUS_BENCH.md) |
 | Respawn anchor | Scenarios | a launched scoop |
 
 Right-click a pedestal, or open **Benches** from the setup menu (the compass), or type

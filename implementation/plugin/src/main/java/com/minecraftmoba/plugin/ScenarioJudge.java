@@ -20,7 +20,11 @@ import java.util.Locale;
  * stunned / not_stunned
  * stunned_for_at_least  ticks
  * rooted / not_rooted
+ * status_active / status_inactive  kind   a control status (stunned, rooted, blinded, weakened, lured, frightened)
+ * moved_toward / moved_away   source blocks [since]   the distance to another roster member changed by more than this
+ * facing_source      source [within]   the subject's yaw is within this many degrees (default 15) of facing the source
  * ability_executed  ability [times]  a real ability ran at least this many times (default 1)
+ * ability_not_executed  ability     a real ability has never run (a refused cast does not count)
  * </pre>
  *
  * Pure. Tested without a server.
@@ -81,6 +85,40 @@ public final class ScenarioJudge {
                 return ran >= need ? null : a.get("ability") + " ran " + ran + " time(s), not " + need
                         + " (a refused cast, a cooldown or a stun does not count)";
             }
+            case "ability_not_executed" -> {
+                if (!a.containsKey("ability")) return "needs an 'ability' argument";
+                int ran = f.executions(id, a.get("ability"));
+                return ran == 0 ? null : a.get("ability") + " ran " + ran + " time(s), but was meant to be refused";
+            }
+            case "status_active", "status_inactive" -> {
+                if (!a.containsKey("kind")) return "needs a 'kind' argument";
+                if (Statuses.Kind.of(a.get("kind")) == null) return "'" + a.get("kind") + "' is not a status";
+                boolean has = f.statusActive(id, a.get("kind"));
+                boolean wantActive = c.assertion().equalsIgnoreCase("status_active");
+                if (wantActive) return has ? null : "is not " + a.get("kind");
+                return !has ? null : "is still " + a.get("kind");
+            }
+            case "moved_toward", "moved_away" -> {
+                if (!a.containsKey("source") || !a.containsKey("blocks")) return "needs 'source' and 'blocks' arguments";
+                double need = Double.parseDouble(a.get("blocks"));
+                double[] then = f.positionAt(id, since), thenSource = f.positionAt(a.get("source"), since);
+                if (then == null || thenSource == null) return "no position was recorded at tick " + since;
+                double[] now = f.position(id), nowSource = f.position(a.get("source"));
+                double before = Math.hypot(then[0] - thenSource[0], then[2] - thenSource[2]);
+                double after = Math.hypot(now[0] - nowSource[0], now[2] - nowSource[2]);
+                boolean toward = c.assertion().equalsIgnoreCase("moved_toward");
+                double change = toward ? before - after : after - before;
+                return change > need ? null : "the distance to " + a.get("source") + " went from " + fmt(before) + " to " + fmt(after)
+                        + ", a change of " + fmt(change) + " " + (toward ? "closer" : "further") + ", not more than " + fmt(need);
+            }
+            case "facing_source" -> {
+                if (!a.containsKey("source")) return "needs a 'source' argument";
+                double within = a.containsKey("within") ? Double.parseDouble(a.get("within")) : 15.0;
+                double[] me = f.position(id), src = f.position(a.get("source"));
+                double want = ForcedMotion.yawOf(src[0] - me[0], src[2] - me[2]);
+                double off = ForcedMotion.yawDifference(f.yaw(id), want);
+                return off <= within ? null : "is facing " + fmt(off) + " degrees off the source, not within " + fmt(within);
+            }
             case "rooted" -> { return f.rooted(id) ? null : "is not rooted"; }
             case "not_rooted" -> { return !f.rooted(id) ? null : "is still rooted"; }
             default -> { return "unknown assertion '" + c.assertion() + "'"; }
@@ -90,7 +128,8 @@ public final class ScenarioJudge {
     /** Every assertion name the judge understands, for validating scenarios at load. */
     public static final java.util.Set<String> KNOWN = java.util.Set.of(
             "health_unchanged", "health_not_lower", "health_below", "health_at_least", "alive", "moved_less_than", "moved_more_than",
-            "stunned", "not_stunned", "stunned_for_at_least", "rooted", "not_rooted", "ability_executed");
+            "stunned", "not_stunned", "stunned_for_at_least", "rooted", "not_rooted", "ability_executed",
+            "ability_not_executed", "status_active", "status_inactive", "moved_toward", "moved_away", "facing_source");
 
     private static String fmt(double d) { return String.format(Locale.ROOT, "%.2f", d); }
 }
