@@ -126,7 +126,7 @@ public final class DrillRushAbility implements Ability, org.bukkit.event.Listene
         for (Entity e : out.getWorld().getNearbyEntities(out, radius, radius, radius))
             if (e instanceof LivingEntity target && !target.equals(p)
                     && Targetability.status(target, p))
-                target.damage(damage, p);
+                AbilityDamage.deal(target, damage, p);
 
         // Undermine stuns only on a FLOOR emergence -- coming up from below,
         // not out of a wall. The branch's whole distinction is the direction

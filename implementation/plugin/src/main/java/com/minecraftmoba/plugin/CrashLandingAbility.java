@@ -93,7 +93,7 @@ public final class CrashLandingAbility implements Ability {
             for (Entity e : p.getNearbyEntities(radius, radius, radius))
                 if (e instanceof LivingEntity target && !target.equals(p)
                         && Targetability.impulse(target, p))
-                    target.damage(impact, p);
+                    AbilityDamage.deal(target, impact, p);
         }
 
         // Crater trades impact damage for control, scaled by the velocity it

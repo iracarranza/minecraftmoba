@@ -116,6 +116,23 @@ final class ChamberHotbar {
         p.updateInventory();
     }
 
+    /**
+     * What the player really carries in an inventory slot, seeing through the chamber's menu.
+     *
+     * While the menu is on the hotbar the real hotbar items are held in a snapshot, and the Leave item
+     * stands in slot 9; this answers with the real thing, so a loadout copied from the tester's
+     * inventory never contains the chamber's own controls.
+     */
+    ItemStack real(Player p, int slot) {
+        var saved = snapshots.get(p.getUniqueId());
+        if (saved != null && !equipment.contains(p.getUniqueId())) {
+            if (slot >= 0 && slot < ChamberMenu.SLOTS) return copy(saved[slot]);
+            if (slot == RETURN_SLOT) return copy(saved[ChamberMenu.SLOTS]);
+            if (slot == PLAYTEST_SLOT) return copy(saved[ChamberMenu.SLOTS + 1]);
+        }
+        return copy(p.getInventory().getItem(slot));
+    }
+
     /** Swap controls for the real equipment; consumption survives returning to the menu. */
     void toggleEquipment(Player p) {
         var saved = snapshots.get(p.getUniqueId());

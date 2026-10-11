@@ -103,7 +103,7 @@ final class TestAbilities {
                     for (Entity e : p.getNearbyEntities(radius, radius, radius)) {
                         if (!(e instanceof LivingEntity target) || target.equals(p) || target.isDead()) continue;
                         if (friendly(p, target) || !struck.add(target.getUniqueId())) continue;
-                        target.damage(damage, p);
+                        AbilityDamage.deal(target, damage, p);
                         if ("thieving_swipe".equals(branch) && target instanceof Player victim) {
                             var item = victim.getInventory().getItemInMainHand();
                             if (!item.getType().isAir())

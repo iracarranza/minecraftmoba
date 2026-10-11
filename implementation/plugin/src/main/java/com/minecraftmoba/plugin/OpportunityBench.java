@@ -222,7 +222,7 @@ public final class OpportunityBench {
         }
         for (var e : members(s)) {
             if (e instanceof LivingEntity living && !living.isDead()) {
-                living.damage(10000.0, p);     // lethal, credited to the tester: only player-caused harvests count
+                AbilityDamage.deal(living, 10000.0, p);     // lethal, credited to the tester: only player-caused harvests count
                 return true;
             }
         }

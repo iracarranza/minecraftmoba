@@ -80,6 +80,37 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "ui: the GHOST ONCE world button starts the ghost", this::uiReplayByButton);
         at(c, 75, "ui: the ghost reproduced the take", this::uiGhostResult);
         at(c, 3, "ui: the LEAVE world button leaves; hotbar restored, deck removed", this::uiLeave);
+        at(c, 4, "loadout: entering builds the ender chest station beside the tester, and the deck has the new buttons", this::ldEnter);
+        at(c, 3, "loadout: right-clicking the ender chest opens the editor with the reserved slot and the controls", this::ldOpenFromStation);
+        at(c, 3, "loadout: items placed in the editor are saved to the selected loadout when it closes, and survive reopening", this::ldSave);
+        at(c, 3, "loadout: Next loadout selects an empty one and the saved one is untouched", this::ldNext);
+        at(c, 3, "loadout: the editor's Copy my inventory control copies the real hotbar and not the chamber's controls", this::ldCopyMine);
+        at(c, 3, "loadout: giving it to the dummy dresses the dummy exactly", this::ldDummy);
+        at(c, 3, "loadout: reset rebuilds the dummy and it is dressed the same way again", this::ldReset);
+        at(c, 14, "loadout: ...the new dummy carries the loadout", this::ldResetDone);
+        at(c, 3, "loadout: the editor's Copy the dummy's gear control reads the dummy's inventory into a loadout", this::ldCopyDummy);
+        at(c, 3, "loadout: emptying the dummy clears it and it stays empty across a reset", this::ldDummyClear);
+        at(c, 14, "loadout: ...the rebuilt dummy is empty", this::ldDummyClearDone);
+        at(c, 3, "testing: Start testing parks the real inventory and leaves the loadout and one Exit testing item", this::tmStart);
+        at(c, 3, "testing: the real inventory is on disk, so a crash would not lose it", this::tmParked);
+        at(c, 3, "testing: nothing else is on the tester, and the chamber's menu items are gone", this::tmClean);
+        at(c, 3, "testing: refill gives the loadout again and the exit item is still there", this::tmRefill);
+        at(c, 3, "testing: the exit item cannot be dropped or moved", this::tmGuarded);
+        at(c, 3, "testing: using the Exit testing item returns the real inventory exactly and the menu comes back", this::tmExit);
+        at(c, 4, "testing: a quit restores the real inventory, and a parked file left by a dead server is restored at the next join", this::tmRecover);
+        at(c, 3, "testing: leaving the chamber while testing also returns the real inventory", this::tmLeaveWhileTesting);
+        at(c, 3, "loadout: leave", this::tmFinalLeave);
+        at(c, 4, "damage door: enter the chamber as an operator", this::ddEnter);
+        at(c, 3, "damage door: CONTROL, a hit with ability mode OFF lands", this::ddControl);
+        at(c, 12, "damage door: a plain damage call with ability mode ON is still read as a left-click and swallowed (the melee path is kept)", this::ddPlainSwallowed);
+        at(c, 12, "damage door: AbilityDamage.deal with ability mode ON lands and the mode is not consumed", this::ddDealLands);
+        at(c, 3, "damage door: leave", this::recipientLeave);
+        at(c, 4, "targeting: enter the chamber as an operator", this::tgEnter);
+        at(c, 3, "targeting: a friendly body is placed four blocks ahead, on the tester's scoreboard team", this::tgAlly);
+        at(c, 25, "targeting: an ENEMY ray passes through the ally and hits the dummy, EITHER stops at the ally, ALLY hits the ally", this::tgRays);
+        at(c, 3, "targeting: a wall stops the ray, and an area query with line of sight leaves out what is behind it", this::tgWall);
+        at(c, 3, "targeting: the relation filter never lets the caster be a target", this::tgSelf);
+        at(c, 3, "targeting: leave", this::tgLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -599,7 +630,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var deck = w.getBlockAt(-8, CombatSlab.FLOOR_Y, -10).getType();
         var first = w.getBlockAt(-7, CombatSlab.FLOOR_Y + 1, -19).getType();
         boolean ok = "record".equals(itemId(1)) && "replay".equals(itemId(2)) && "return".equals(itemId(9))
-                && buttons == 12 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
+                && buttons == 17 && deck == Material.POLISHED_ANDESITE && first == Material.PURPLE_CONCRETE;
         return "slot0=" + itemId(0) + " slot1=" + itemId(1) + " slot2=" + itemId(2) + " slot9=" + itemId(9)
                 + " buttons=" + buttons + " deck=" + deck + " firstButton=" + first
                 + (ok ? "" : " | FAIL: menu, leave item or control deck missing");
@@ -668,6 +699,373 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         int ran = moba.inputs().executions(d, "drill_rush");
         return "ghost drill_rush executions=" + ran + " invulnerable=" + d.isInvulnerable()
                 + (ran == 1 && !d.isInvulnerable() ? "" : " | FAIL: the ghost did not reproduce the take");
+    }
+
+    // ---- loadouts and testing mode -------------------------------------------------------------------
+
+    private Player dummyP() { return combat().dummy(t); }
+    private static boolean air(org.bukkit.inventory.ItemStack i) { return i == null || i.getType().isAir(); }
+    private org.bukkit.inventory.ItemStack stack(Material m, int n) { return new org.bukkit.inventory.ItemStack(m, n); }
+    private java.io.File loadoutFile() { return new java.io.File(moba.getDataFolder().getParentFile().getParentFile() == null ? moba.getDataFolder() : moba.getDataFolder(), "lab-loadouts/" + t.getUniqueId() + ".yml"); }
+    private java.io.File dataFile(String name) { return new java.io.File(Bukkit.getPluginManager().getPlugin("MinecraftMoba").getDataFolder(), "lab-loadouts/" + t.getUniqueId() + name); }
+    private List<org.bukkit.inventory.ItemStack> realGear;
+
+    private org.bukkit.inventory.ItemStack[] preContents, preArmor; private org.bukkit.inventory.ItemStack preOff;
+
+    private String ldEnter() {
+        // Remember the tester exactly as the earlier steps left them (the plugin's own tome and map items are in there).
+        var pi = t.getInventory();
+        preContents = Arrays.stream(pi.getStorageContents()).map(i -> i == null ? null : i.clone()).toArray(org.bukkit.inventory.ItemStack[]::new);
+        preArmor = Arrays.stream(pi.getArmorContents()).map(i -> i == null ? null : i.clone()).toArray(org.bukkit.inventory.ItemStack[]::new);
+        preOff = pi.getItemInOffHand().clone();
+        Bukkit.getLogger().info("[loadout] before: enrolled=" + moba.enrolled(t) + " offhand=" + preOff.getType() + " cursor=" + t.getItemOnCursor().getType());
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        // Give the tester recognisable real gear in the hotbar, a storage slot, the armor and the offhand, with a sentinel in slot 8.
+        var inv = t.getInventory();
+        // The hotbar holds the chamber menu now; seeing through it is what the editor does, so plant real gear via the menu's snapshot by toggling equipment.
+        cmd("equipment");
+        inv.setStorageContents(new org.bukkit.inventory.ItemStack[36]); inv.setArmorContents(new org.bukkit.inventory.ItemStack[4]);
+        inv.setItem(0, stack(Material.NETHERITE_AXE, 1)); inv.setItem(3, stack(Material.COOKED_BEEF, 20)); inv.setItem(8, stack(Material.GOLDEN_APPLE, 3));
+        inv.setItem(20, stack(Material.BOW, 1)); inv.setHelmet(stack(Material.IRON_HELMET, 1));
+        cmd("equipment");     // back to the menu: the gear above is now parked behind it
+        var w = Bukkit.getWorld("moba_combat");
+        var st = CombatConsole.station();
+        long buttons = w.getEntitiesByClass(org.bukkit.entity.Interaction.class).stream()
+                .filter(i -> i.getScoreboardTags().contains("combat_button")).count();
+        var chest = w.getBlockAt(st.x(), st.y(), st.z()).getType();
+        boolean ok = chest == Material.ENDER_CHEST && buttons == 17 && "test.start".equals(CombatConsole.of().button("test.start") == null ? null : "test.start")
+                && itemId(0) != null;
+        return "station=" + chest + " at " + st + " buttons=" + buttons + " slot0=" + itemId(0) + (ok ? "" : " | FAIL: station or deck");
+    }
+
+    private String ldOpenFromStation() {
+        var st = CombatConsole.station();
+        var block = Bukkit.getWorld("moba_combat").getBlockAt(st.x(), st.y(), st.z());
+        var ev = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK,
+                t.getInventory().getItemInMainHand(), block, org.bukkit.block.BlockFace.UP, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(ev);
+        var top = t.getOpenInventory().getTopInventory();
+        boolean ok = ev.useInteractedBlock() == org.bukkit.event.Event.Result.DENY || ev.isCancelled();
+        ok &= top.getSize() == 54 && top.getType() == org.bukkit.event.inventory.InventoryType.CHEST
+                && top.getItem(8) != null && top.getItem(8).getType() == Material.BARRIER
+                && top.getItem(45) != null && top.getItem(45).getType() == Material.COMPASS
+                && top.getItem(53) != null && top.getItem(53).getType() == Material.EMERALD;
+        return "size=" + top.getSize() + " slot8=" + (top.getItem(8) == null ? null : top.getItem(8).getType()) + " slot45="
+                + (top.getItem(45) == null ? null : top.getItem(45).getType()) + " cancelled=" + ev.isCancelled() + (ok ? "" : " | FAIL: editor did not open from the station");
+    }
+
+    private String ldSave() {
+        var top = t.getOpenInventory().getTopInventory();
+        top.setItem(0, stack(Material.DIAMOND_SWORD, 1));
+        top.setItem(5, stack(Material.COOKED_BEEF, 16));
+        top.setItem(Loadout.CHESTPLATE, stack(Material.IRON_CHESTPLATE, 1));
+        t.closeInventory();
+        combat().openEditor(t);
+        var again = t.getOpenInventory().getTopInventory();
+        boolean ok = again.getItem(0) != null && again.getItem(0).getType() == Material.DIAMOND_SWORD
+                && again.getItem(5) != null && again.getItem(5).getAmount() == 16
+                && again.getItem(37) != null && again.getItem(37).getType() == Material.IRON_CHESTPLATE
+                && again.getItem(8).getType() == Material.BARRIER && dataFile(".yml").exists();
+        t.closeInventory();
+        return "reopened slot0=" + again.getItem(0) + " slot5=" + again.getItem(5) + " file=" + dataFile(".yml").exists() + (ok ? "" : " | FAIL: loadout not saved");
+    }
+
+    private String ldNext() {
+        cmd("loadout next");
+        combat().openEditor(t);
+        var b = t.getOpenInventory().getTopInventory();
+        boolean empty = true;
+        for (int i = 0; i < Loadout.SIZE; i++) if (i != 8 && b.getItem(i) != null) empty = false;
+        t.closeInventory();
+        cmd("loadout select 1");
+        combat().openEditor(t);
+        boolean back = t.getOpenInventory().getTopInventory().getItem(0) != null
+                && t.getOpenInventory().getTopInventory().getItem(0).getType() == Material.DIAMOND_SWORD;
+        t.closeInventory();
+        return "B empty=" + empty + " A restored=" + back + (empty && back ? "" : " | FAIL: loadout selection");
+    }
+
+    private String ldCopyMine() {
+        cmd("loadout select 2");
+        combat().openEditor(t);
+        var top = t.getOpenInventory().getTopInventory();
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(),
+                org.bukkit.event.inventory.InventoryType.SlotType.CONTAINER, 46, org.bukkit.event.inventory.ClickType.LEFT,
+                org.bukkit.event.inventory.InventoryAction.PICKUP_ALL));
+        boolean axe = top.getItem(0) != null && top.getItem(0).getType() == Material.NETHERITE_AXE;
+        boolean beef = top.getItem(3) != null && top.getItem(3).getType() == Material.COOKED_BEEF && top.getItem(3).getAmount() == 20;
+        boolean bow = top.getItem(20) != null && top.getItem(20).getType() == Material.BOW;
+        boolean helm = top.getItem(36) != null && top.getItem(36).getType() == Material.IRON_HELMET;
+        boolean off = top.getItem(40) == null || top.getItem(40).getType() == Material.GRAY_STAINED_GLASS_PANE;    // no offhand slot in a loadout
+        boolean noMenu = true;
+        for (int i = 0; i < Loadout.SIZE; i++) if (top.getItem(i) != null && (top.getItem(i).getType() == Material.ENDER_PEARL || top.getItem(i).getType() == Material.IRON_SWORD)) noMenu = false;
+        boolean slot8Locked = top.getItem(8) != null && top.getItem(8).getType() == Material.BARRIER;
+        t.closeInventory();
+        cmd("loadout select 1");
+        boolean ok = axe && beef && bow && helm && off && noMenu && slot8Locked;
+        return "axe=" + axe + " beef=" + beef + " bow=" + bow + " helmet=" + helm + " offhand=" + off + " noMenuItems=" + noMenu + " slot8Locked=" + slot8Locked
+                + (ok ? "" : " | FAIL: copy from my inventory");
+    }
+
+    private String ldDummy() {
+        cmd("loadout dummy");
+        var d = dummyP().getInventory();
+        boolean ok = d.getItem(0) != null && d.getItem(0).getType() == Material.DIAMOND_SWORD && d.getItem(5) != null && d.getItem(5).getAmount() == 16
+                && d.getChestplate() != null && d.getChestplate().getType() == Material.IRON_CHESTPLATE
+                && (d.getItemInOffHand().getType() == Material.FILLED_MAP);     // the plugin's own map is untouched
+        return "dummy slot0=" + d.getItem(0) + " chest=" + d.getChestplate() + " offhand=" + d.getItemInOffHand().getType() + (ok ? "" : " | FAIL: dummy not dressed");
+    }
+
+    private String ldReset() { cmd("reset"); return "reset requested"; }
+
+    private String ldResetDone() {
+        var d = dummyP().getInventory();
+        boolean ok = d.getItem(0) != null && d.getItem(0).getType() == Material.DIAMOND_SWORD && d.getChestplate() != null;
+        return "rebuilt dummy slot0=" + d.getItem(0) + " chest=" + d.getChestplate() + (ok ? "" : " | FAIL: gear lost on reset");
+    }
+
+    private String ldCopyDummy() {
+        cmd("loadout select 4");
+        combat().openEditor(t);
+        var top = t.getOpenInventory().getTopInventory();
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(),
+                org.bukkit.event.inventory.InventoryType.SlotType.CONTAINER, 47, org.bukkit.event.inventory.ClickType.LEFT,
+                org.bukkit.event.inventory.InventoryAction.PICKUP_ALL));
+        boolean ok = top.getItem(0) != null && top.getItem(0).getType() == Material.DIAMOND_SWORD && top.getItem(37) != null
+                && top.getItem(37).getType() == Material.IRON_CHESTPLATE;
+        t.closeInventory();
+        cmd("loadout select 1");
+        return "copied slot0=" + top.getItem(0) + " chest=" + top.getItem(37) + (ok ? "" : " | FAIL: copy from the dummy");
+    }
+
+    private String ldDummyClear() { cmd("loadout dummy clear"); var d = dummyP().getInventory(); cmd("reset");
+        return "cleared slot0=" + d.getItem(0) + " chest=" + d.getChestplate() + (air(d.getItem(0)) && air(d.getChestplate()) ? "" : " | FAIL: dummy not emptied"); }
+
+    private String ldDummyClearDone() {
+        var d = dummyP().getInventory();
+        boolean ok = air(d.getItem(0)) && air(d.getChestplate()) && (air(d.getItemInOffHand()) || d.getItemInOffHand().getType() == Material.FILLED_MAP);   // the plugin keeps its own offhand map on an enrolled body
+        return "rebuilt dummy slot0=" + d.getItem(0) + " chest=" + d.getChestplate() + " helmet=" + d.getHelmet() + " legs=" + d.getLeggings()
+                + " boots=" + d.getBoots() + " offhand=" + d.getItemInOffHand() + " contents=" + java.util.Arrays.stream(d.getContents()).filter(i -> !air(i)).toList()
+                + (ok ? "" : " | FAIL: dummy has gear after clear + reset");
+    }
+
+    private String tmStart() {
+        realGear = new ArrayList<>();
+        cmd("loadout select 1");
+        cmd("equipment");   // look at the real gear to record it, then hand control back
+        var inv = t.getInventory();
+        for (int i = 0; i < Loadout.SIZE; i++) {
+            org.bukkit.inventory.ItemStack it = i < 36 ? inv.getItem(i) : switch (i) { case 36 -> inv.getHelmet(); case 37 -> inv.getChestplate();
+                case 38 -> inv.getLeggings(); case 39 -> inv.getBoots(); default -> inv.getItemInOffHand(); };
+            realGear.add(i == 9 || i == 10 || it == null || it.getType().isAir() ? null : it.clone());    // 9 and 10 are the chamber's own session slots
+        }
+        cmd("equipment");
+        cmd("test");
+        var now = t.getInventory();
+        boolean ok = combat().testing(t) && now.getItem(0) != null && now.getItem(0).getType() == Material.DIAMOND_SWORD
+                && now.getItem(8) != null && now.getItem(8).getType() == Material.BARRIER
+                && now.getChestplate() != null && now.getChestplate().getType() == Material.IRON_CHESTPLATE
+                && air(now.getItem(3)) && air(now.getHelmet());
+        return "testing=" + combat().testing(t) + " slot0=" + now.getItem(0) + " slot8=" + (now.getItem(8) == null ? null : now.getItem(8).getType())
+                + " realGearItems=" + realGear.stream().filter(Objects::nonNull).count() + (ok ? "" : " | FAIL: testing mode did not start");
+    }
+
+    private String tmParked() {
+        var f = dataFile(".restore");
+        return "restore file exists=" + f.exists() + " bytes=" + f.length() + (f.exists() && f.length() > 100 ? "" : " | FAIL: the real inventory is not on disk");
+    }
+
+    private String tmClean() {
+        var inv = t.getInventory();
+        int count = 0;
+        for (int i = 0; i < 36; i++) if (inv.getItem(i) != null) count++;
+        boolean noMenu = true;
+        for (int i = 0; i < 36; i++) { var it = inv.getItem(i); if (it != null && (itemId(i) != null)) noMenu = false; }
+        // loadout B holds: slot0 sword, slot5 beef, chestplate, offhand -> exactly 2 inventory stacks + the exit item
+        boolean ok = count == 3 && noMenu && itemId(9) == null;
+        return "inventory stacks=" + count + " (sword, beef, exit) menuItems=" + !noMenu + " slot9=" + inv.getItem(9) + (ok ? "" : " | FAIL: something else is on the tester");
+    }
+
+    private String tmRefill() {
+        t.getInventory().setItem(0, null); t.getInventory().setItem(5, null);
+        cmd("loadout me");
+        var inv = t.getInventory();
+        boolean ok = inv.getItem(0) != null && inv.getItem(0).getType() == Material.DIAMOND_SWORD && inv.getItem(5) != null
+                && inv.getItem(8) != null && inv.getItem(8).getType() == Material.BARRIER;
+        return "refilled slot0=" + inv.getItem(0) + " slot8=" + (inv.getItem(8) == null ? null : inv.getItem(8).getType()) + (ok ? "" : " | FAIL: refill");
+    }
+
+    private String tmGuarded() {
+        t.getInventory().setHeldItemSlot(8);
+        var drop = new org.bukkit.event.player.PlayerDropItemEvent(t, t.getWorld().dropItem(t.getLocation(), t.getInventory().getItem(8).clone()));
+        Bukkit.getPluginManager().callEvent(drop);
+        drop.getItemDrop().remove();
+        var click = new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(), org.bukkit.event.inventory.InventoryType.SlotType.QUICKBAR,
+                8, org.bukkit.event.inventory.ClickType.SHIFT_LEFT, org.bukkit.event.inventory.InventoryAction.MOVE_TO_OTHER_INVENTORY);
+        boolean ok = drop.isCancelled();
+        return "drop cancelled=" + drop.isCancelled() + (ok ? "" : " | FAIL: the exit item can be dropped");
+    }
+
+    private String tmExit() {
+        t.getInventory().setHeldItemSlot(8);
+        var ev = new org.bukkit.event.player.PlayerInteractEvent(t, org.bukkit.event.block.Action.RIGHT_CLICK_AIR, t.getInventory().getItemInMainHand(),
+                null, org.bukkit.block.BlockFace.SELF, org.bukkit.inventory.EquipmentSlot.HAND);
+        Bukkit.getPluginManager().callEvent(ev);
+        var inv = t.getInventory();
+        boolean menuBack = "cast".equals(itemId(0)) && "return".equals(itemId(9));
+        cmd("equipment");    // look at the real gear through the menu's own toggle
+        var after = new ArrayList<org.bukkit.inventory.ItemStack>();
+        for (int i = 0; i < Loadout.SIZE; i++) {
+            org.bukkit.inventory.ItemStack it = i < 36 ? inv.getItem(i) : switch (i) { case 36 -> inv.getHelmet(); case 37 -> inv.getChestplate();
+                case 38 -> inv.getLeggings(); case 39 -> inv.getBoots(); default -> inv.getItemInOffHand(); };
+            after.add(i == 9 || i == 10 || it == null || it.getType().isAir() ? null : it);
+        }
+        boolean same = true;
+        for (int i = 0; i < Loadout.SIZE; i++) {
+            var a = realGear.get(i); var b = after.get(i);
+            if (!(a == null ? b == null : b != null && a.isSimilar(b) && a.getAmount() == b.getAmount())) { same = false; Bukkit.getLogger().info("[loadout] slot " + i + " was " + a + " now " + b); }
+        }
+        cmd("equipment");
+        boolean ok = !combat().testing(t) && same && menuBack && !dataFile(".restore").exists();
+        return "testing=" + combat().testing(t) + " realInventoryIdentical=" + same + " menuBack=" + menuBack + " restoreFileGone=" + !dataFile(".restore").exists()
+                + (ok ? "" : " | FAIL: testing did not end cleanly");
+    }
+
+    private String tmLeaveWhileTesting() {
+        cmd("test");
+        boolean started = combat().testing(t);
+        cmd("leave");
+        var inv = t.getInventory();
+        boolean back = !combat().testing(t) && !dataFile(".restore").exists();
+        boolean noExit = true;
+        for (int i = 0; i < 36; i++) { var it = inv.getItem(i); if (it != null && it.getType() == Material.BARRIER) noExit = false; }
+        boolean realAxe = false;
+        for (int i = 0; i < 36; i++) { var it = inv.getItem(i); if (it != null && it.getType() == Material.NETHERITE_AXE) realAxe = true; }
+        boolean ok = started && back && noExit && realAxe;
+        return "started=" + started + " back=" + back + " noExitItem=" + noExit + " realAxeBack=" + realAxe + (ok ? "" : " | FAIL: leave while testing");
+    }
+
+    private String tmRecover() {
+        t.getInventory().setItem(20, stack(Material.EMERALD, 7));
+        cmd("test");
+        var file = dataFile(".restore");
+        boolean parked = file.exists();
+        byte[] saved;
+        try { saved = java.nio.file.Files.readAllBytes(file.toPath()); } catch (Exception e) { return "FAIL: could not read the parked file " + e; }
+        // 1. A clean quit gives the real inventory back and deletes the file.
+        combat().restoreRealInventory(t);
+        boolean restoredOnQuit = !combat().testing(t) && !file.exists();
+        boolean emeralds = t.getInventory().getItem(20) != null && t.getInventory().getItem(20).getType() == Material.EMERALD && t.getInventory().getItem(20).getAmount() == 7;
+        // 2. A server that died mid-test leaves the file and a loadout-only inventory behind; the next join restores from the file.
+        t.getInventory().clear(); t.getInventory().setItem(0, stack(Material.DIAMOND, 1));
+        try { java.nio.file.Files.write(file.toPath(), saved); } catch (Exception e) { return "FAIL: could not recreate the parked file " + e; }
+        combat().recoverParkedInventory(t);
+        boolean joinRestored = t.getInventory().getItem(20) != null && t.getInventory().getItem(20).getType() == Material.EMERALD;
+        boolean diamondGone = true;
+        for (int i = 0; i < 36; i++) { var it = t.getInventory().getItem(i); if (it != null && it.getType() == Material.DIAMOND) diamondGone = false; }
+        boolean ok = parked && restoredOnQuit && emeralds && joinRestored && diamondGone && !file.exists();
+        return "parked=" + parked + " restoredAtQuit=" + restoredOnQuit + " emeraldsBack=" + emeralds + " restoredAtJoin=" + joinRestored
+                + " fileGone=" + !file.exists() + (ok ? "" : " | FAIL: recovery");
+    }
+
+    private String tmFinalLeave() {
+        cmd("leave");
+        // Put the tester back exactly as they were: the gear these steps planted would stop the next session enrolling.
+        t.getInventory().clear(); t.setItemOnCursor(null);
+        t.getInventory().setStorageContents(preContents); t.getInventory().setArmorContents(preArmor); t.getInventory().setItemInOffHand(preOff);
+        return "world=" + t.getWorld().getName() + " testing=" + combat().testing(t) + " enrolled=" + moba.enrolled(t) + " paused=" + moba.enrollmentPaused(t)
+                + " offhand=" + t.getInventory().getItemInOffHand().getType() + " preOff=" + preOff.getType() + " cursor=" + t.getItemOnCursor().getType();
+    }
+
+    // ---- the ability damage door -----------------------------------------------------------------
+
+    private double ddBefore;
+    private String ddEnter() { cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter"); return "state=" + combat().state(t); }
+    private String ddControl() {
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth(); d.damage(3, t);
+        boolean ok = d.getHealth() < before;
+        return "mode=" + moba.inputs().active(t) + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + (ok ? "" : " | FAIL: the control hit did not land");
+    }
+    private String ddPlainSwallowed() {
+        var in = moba.inputs(); in.input(t, in.modeInput());
+        boolean modeBefore = in.active(t);
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth(); d.damage(3, t);
+        boolean swallowed = d.getHealth() >= before && !in.active(t);
+        if (in.active(t)) in.input(t, in.modeInput());
+        return "modeBefore=" + modeBefore + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + " swallowed=" + swallowed
+                + (modeBefore && swallowed ? "" : " | FAIL: a real swing in ability mode must still be a click");
+    }
+    private String ddDealLands() {
+        var in = moba.inputs(); in.input(t, in.modeInput());
+        boolean modeBefore = in.active(t);
+        var d = combat().dummy(t); d.setNoDamageTicks(0); double before = d.getHealth();
+        AbilityDamage.deal(d, 3, t);
+        boolean landed = d.getHealth() < before, modeKept = in.active(t);
+        if (in.active(t)) in.input(t, in.modeInput());
+        return "modeBefore=" + modeBefore + " health " + String.format("%.2f", before) + " -> " + String.format("%.2f", d.getHealth()) + " landed=" + landed + " modeKept=" + modeKept
+                + (modeBefore && landed && modeKept ? "" : " | FAIL: ability damage was swallowed or consumed the mode");
+    }
+
+    // ---- ability targeting ---------------------------------------------------------------------
+
+    private Bodies.Body tgAlly;
+    private org.bukkit.scoreboard.Team tgTeam;
+
+    private String tgEnter() { cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter"); return "state=" + combat().state(t); }
+
+    private String tgAlly() {
+        var at = t.getLocation().clone().add(0, 0, 4);
+        tgAlly = bodies.spawn("ally", null, null, 0, at);
+        var board = Bukkit.getScoreboardManager().getMainScoreboard();
+        tgTeam = board.getTeam("tg_ally") != null ? board.getTeam("tg_ally") : board.registerNewTeam("tg_ally");
+        tgTeam.addEntry(t.getName()); tgTeam.addEntry(tgAlly.player().getName());
+        return "ally at " + at.getBlockZ() + " allied=" + Targetability.allied(tgAlly.player(), t) + " dummyAllied=" + Targetability.allied(combat().dummy(t), t);
+    }
+
+    private String tgRays() {
+        var eye = t.getEyeLocation(); var dir = new org.bukkit.util.Vector(0, 0, 1);
+        var dummy = combat().dummy(t); var ally = tgAlly.player();
+        var enemy = AbilityTargeting.ray(t, eye, dir, 20, .3, AbilityTargeting.Relation.ENEMY);
+        var either = AbilityTargeting.ray(t, eye, dir, 20, .3, AbilityTargeting.Relation.EITHER);
+        var allies = AbilityTargeting.ray(t, eye, dir, 20, .3, AbilityTargeting.Relation.ALLY);
+        boolean a = enemy != null && enemy.entity() != null && enemy.entity().equals(dummy);
+        boolean b = either != null && either.entity() != null && either.entity().equals(ally);
+        boolean c2 = allies != null && allies.entity() != null && allies.entity().equals(ally);
+        boolean short1 = AbilityTargeting.ray(t, eye, dir, 3, .3, AbilityTargeting.Relation.ENEMY) == null;
+        boolean ok = a && b && c2 && short1;
+        return "enemyRayHitsDummy=" + a + " eitherStopsAtAlly=" + b + " allyRayHitsAlly=" + c2 + " tooShortFindsNothing=" + short1 + (ok ? "" : " | FAIL: ray relation");
+    }
+
+    private String tgWall() {
+        var w = t.getWorld(); int y = t.getLocation().getBlockY(), z = t.getLocation().getBlockZ() + 6;
+        for (int x = -2; x <= 3; x++) for (int dy = 0; dy <= 2; dy++) w.getBlockAt(x, y + dy, z).setType(Material.STONE, false);
+        var eye = t.getEyeLocation(); var dummy = combat().dummy(t);
+        var ray = AbilityTargeting.ray(t, eye, new org.bukkit.util.Vector(0, 0, 1), 20, .3, AbilityTargeting.Relation.ENEMY);
+        boolean stopped = ray != null && ray.entity() == null && ray.block() != null;
+        var open = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, false);
+        var seen = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
+        boolean behind = open.contains(dummy) && !seen.contains(dummy);
+        for (int x = -2; x <= 3; x++) for (int dy = 0; dy <= 2; dy++) w.getBlockAt(x, y + dy, z).setType(Material.AIR, false);
+        var cleared = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
+        boolean back = cleared.contains(dummy);
+        boolean ok = stopped && behind && back;
+        return "wallStopsRay=" + stopped + " dummyBehindWall(open/LOS)=" + open.contains(dummy) + "/" + seen.contains(dummy) + " visibleAgainAfterWallGone=" + back + (ok ? "" : " | FAIL: wall or line of sight");
+    }
+
+    private String tgSelf() {
+        boolean selfEnemy = AbilityTargeting.filter(t, AbilityTargeting.Relation.EITHER).test(t);
+        var around = AbilityTargeting.within(t, t.getLocation(), 3, 3, 3, AbilityTargeting.Relation.EITHER, false);
+        boolean ok = !selfEnemy && !around.contains(t);
+        return "callerAcceptedAsTarget=" + selfEnemy + " inOwnArea=" + around.contains(t) + (ok ? "" : " | FAIL: the caster is a target");
+    }
+
+    private String tgLeave() {
+        if (tgAlly != null) bodies.despawn(tgAlly);
+        if (tgTeam != null) { tgTeam.removeEntry(t.getName()); tgTeam.unregister(); tgTeam = null; }
+        tgAlly = null;
+        cmd("leave");
+        return "state=" + combat().state(t);
     }
 
     private String uiLeave() {

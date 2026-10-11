@@ -110,7 +110,7 @@ public final class JumpstartinatorAbility implements Ability {
         for (Entity e : p.getNearbyEntities(radius, radius, radius))
             if (e instanceof LivingEntity target && !target.equals(p)
                     && Targetability.status(target, p))
-                target.damage(damage, p);
+                AbilityDamage.deal(target, damage, p);
     }
 
     private ConfigurationSection branchConfig(String branch) {

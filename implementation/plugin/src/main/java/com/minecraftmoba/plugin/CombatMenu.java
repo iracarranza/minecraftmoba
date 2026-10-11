@@ -25,7 +25,13 @@ public final class CombatMenu {
     public static final String LEAVE = "leave";
 
     /** The facts a refusal depends on. */
-    public record State(boolean inChamber, boolean operator, boolean recording, boolean hasTake, boolean replaying) {}
+    public record State(boolean inChamber, boolean operator, boolean recording, boolean hasTake, boolean replaying,
+                        boolean testing, boolean hasDummy) {
+        /** The state before testing mode and the dummy's gear existed: not testing, a dummy present. */
+        public State(boolean inChamber, boolean operator, boolean recording, boolean hasTake, boolean replaying) {
+            this(inChamber, operator, recording, hasTake, replaying, false, true);
+        }
+    }
 
     /** The in-chamber command a verb runs: the words after {@code /moba lab combat}. */
     public record Intent(List<String> command) {}
@@ -38,6 +44,15 @@ public final class CombatMenu {
                         ChamberMenu.Item.submenu("replay", "Ghost replay"),
                         ChamberMenu.Item.action("interference", "Toggle interference"),
                         ChamberMenu.Item.action("log", "Show the report"),
+                        ChamberMenu.Item.submenu("loadout", "Loadouts"),
+                        ChamberMenu.Item.action("test.start", "Start testing"),
+                        ChamberMenu.Item.submenu("more", "Clear, reset, equipment"))
+                .page("loadout", "Loadouts",
+                        ChamberMenu.Item.action("loadout.edit", "Edit loadouts"),
+                        ChamberMenu.Item.action("loadout.next", "Next loadout"),
+                        ChamberMenu.Item.action("loadout.dummy", "Give it to the dummy"),
+                        ChamberMenu.Item.action("loadout.dummy.clear", "Empty the dummy"))
+                .page("more", "More",
                         ChamberMenu.Item.action("clear", "Clear the logs"),
                         ChamberMenu.Item.action("reset", "Reset the chamber"),
                         ChamberMenu.Item.action("equipment", "Equipment / controls"))
@@ -53,11 +68,17 @@ public final class CombatMenu {
     /** Every verb the console offers, in button order. {@link #LEAVE} is last and set apart. */
     public static final List<String> CONSOLE_VERBS = List.of(
             "cast", "record.start", "record.stop", "replay.once", "replay.loop", "replay.stop",
-            "interference", "log", "clear", "reset", "equipment", LEAVE);
+            "interference", "log", "clear", "reset", "equipment",
+            "loadout.edit", "loadout.next", "loadout.dummy", "loadout.dummy.clear", "test.start", LEAVE);
 
     public static Intent intent(String id) {
         return switch (id) {
             case "equipment" -> new Intent(List.of("equipment"));
+            case "loadout.edit" -> new Intent(List.of("loadout", "edit"));
+            case "loadout.next" -> new Intent(List.of("loadout", "next"));
+            case "loadout.dummy" -> new Intent(List.of("loadout", "dummy"));
+            case "loadout.dummy.clear" -> new Intent(List.of("loadout", "dummy", "clear"));
+            case "test.start" -> new Intent(List.of("test"));
             case "cast" -> new Intent(List.of("cast"));
             case "record.start" -> new Intent(List.of("record", "start"));
             case "record.stop" -> new Intent(List.of("record", "stop"));
@@ -84,6 +105,8 @@ public final class CombatMenu {
             case "replay.once", "replay.loop" -> s.recording() ? "Stop recording first."
                     : !s.hasTake() ? "No take yet: record one as Operator." : s.replaying() ? "The ghost is already replaying." : null;
             case "replay.stop" -> s.replaying() ? null : "The ghost is not replaying.";
+            case "test.start" -> s.testing() ? "Already testing: use the Exit testing item in your inventory." : null;
+            case "loadout.dummy", "loadout.dummy.clear" -> s.hasDummy() ? null : "There is no dummy to give it to.";
             default -> null;
         };
     }

@@ -1184,6 +1184,7 @@ abilities:
       combat: true
       cooldownTicks: 100
       range: 4
+      rayWidth: 0.35               # how far off the line a creature can be and still be the first hit
       delayTicks: 8
       unleashedDelayTicks: 16
       travelTicks: 40
@@ -1499,6 +1500,7 @@ abilities:
       combat: true
       cooldownTicks: 120
       reach: 5.0
+      rayWidth: 0.25               # how far off the line an aimed (non-click) cast still finds a creature or block
       lift: 0.8
       slamSpeed: 1.5
       slamDelayTicks: 10
