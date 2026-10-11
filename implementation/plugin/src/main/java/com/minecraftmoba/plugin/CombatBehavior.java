@@ -40,6 +40,22 @@ public final class CombatBehavior {
      */
     public static final boolean RECORDINGS_EXIST = false;
 
+    /**
+     * Whether a marked point can be aimed at yet. False: nothing marks one.
+     *
+     * Kept beside {@link #RECORDINGS_EXIST} because it is the same statement.
+     * Without it, {@link #aims} offered MARKED_POINT as selectable whenever the
+     * target form permitted a point, and {@code CombatChamber.refusal} then
+     * bounced the tester at entry with "Marked-point and recorded aim are not
+     * built" -- after they had finished the whole pre-entry flow.
+     *
+     * Two gates asking different questions. The form's question ("can this be
+     * aimed at a point?") is real, and so is the chamber's ("is it built?"),
+     * but only the second decides anything at the menu, so the menu has to ask
+     * it. The entry refusal stays as the backstop.
+     */
+    public static final boolean MARKED_POINTS_EXIST = false;
+
     /** Aim policies for an output: none at all for SELF, which aims at nothing. */
     public static List<Choice<Aim>> aims(AbilityOutput out) {
         var result = new ArrayList<Choice<Aim>>();
@@ -53,8 +69,11 @@ public final class CombatBehavior {
         result.add(new Choice<>(Aim.AT_PLAYER, true, null));
         result.add(new Choice<>(Aim.STRAIGHT_AHEAD, true, null));
         result.add(new Choice<>(Aim.RANDOM, true, null));
-        result.add(pointable ? new Choice<>(Aim.MARKED_POINT, true, null)
-                : new Choice<>(Aim.MARKED_POINT, false, "A creature is not a point."));
+        // Both questions, in the order a tester meets them: a creature is never
+        // a point, and nothing marks one yet even where it would be.
+        result.add(!pointable ? new Choice<>(Aim.MARKED_POINT, false, "A creature is not a point.")
+                : MARKED_POINTS_EXIST ? new Choice<>(Aim.MARKED_POINT, true, null)
+                : new Choice<>(Aim.MARKED_POINT, false, "Marking a point is not built."));
         result.add(RECORDINGS_EXIST ? new Choice<>(Aim.AS_RECORDED, true, null)
                 : new Choice<>(Aim.AS_RECORDED, false, "No take has been recorded."));
         return result;

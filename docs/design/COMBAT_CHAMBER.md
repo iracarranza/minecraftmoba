@@ -317,6 +317,20 @@ unavailable options are greyed with their reason; at the modes step each setting
 showing its current value. The "in-world pre-entry menu" listed as unbuilt earlier is built.
 See `docs/design/LAB_HUB.md`.
 
+**Marked-point is greyed, not offered (11 October 2026).** `CombatBehavior.aims`
+offered MARKED_POINT as selectable wherever the target form permitted a point, and
+`CombatChamber.refusal` then bounced the tester at entry — after the whole pre-entry
+flow. Two gates asking different questions, and only the one that decides nothing
+reached the tester in time.
+
+`MARKED_POINTS_EXIST = false` now sits beside `RECORDINGS_EXIST`, which already had
+this right. The form's own refusal still outranks it where it applies: a creature is
+told "A creature is not a point", which stays true after the feature is built, rather
+than "not built", which will not.
+
+A test asserts that **nothing the aim menu offers is refused at entry**, so the next
+unbuilt aim policy cannot reintroduce it.
+
 ## Open questions
 
 - Should the temporary non-player target in step 1 be built, or should nothing

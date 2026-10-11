@@ -111,13 +111,39 @@ class CombatChamberLogicTest {
         assertFalse(CombatBehavior.needsAim(CRASH.outputs().get(0)));
     }
 
-    @Test void aMarkedPointIsOfferedForAreasAndDirectionsButNotUnits() {
+    @Test void aMarkedPointIsGreyedEverywhereUntilSomethingMarksOne() {
+        // Two different reasons, and the tester should get the one that applies.
+        // A creature is never a point. A point IS aimable in principle for an
+        // area or a direction -- but nothing marks one yet, so offering it
+        // selectable sent the tester through the whole pre-entry flow to be
+        // bounced by CombatChamber.refusal at entry.
         var area = CombatBehavior.aims(TWO.outputs().get(1));
         var unit = CombatBehavior.aims(TWO.outputs().get(0));
-        assertTrue(area.stream().anyMatch(c -> c.value() == CombatBehavior.Aim.MARKED_POINT && c.available()));
-        var marked = unit.stream().filter(c -> c.value() == CombatBehavior.Aim.MARKED_POINT).findFirst().orElseThrow();
-        assertFalse(marked.available());
-        assertNotNull(marked.reason());
+
+        var onArea = area.stream().filter(c -> c.value() == CombatBehavior.Aim.MARKED_POINT)
+                .findFirst().orElseThrow();
+        assertFalse(onArea.available(), "nothing marks a point yet");
+        assertEquals("Marking a point is not built.", onArea.reason());
+
+        var onUnit = unit.stream().filter(c -> c.value() == CombatBehavior.Aim.MARKED_POINT)
+                .findFirst().orElseThrow();
+        assertFalse(onUnit.available());
+        assertEquals("A creature is not a point.", onUnit.reason(),
+                "the form's own refusal outranks it, because it survives the feature being built");
+    }
+
+    @Test void nothingTheAimMenuOffersIsRefusedAtEntry() {
+        // The defect this pair of tests exists for: two gates asking different
+        // questions, and only the menu's answer reaching the tester in time.
+        // CombatChamber.refusal bounces MARKED_POINT and AS_RECORDED, so
+        // neither may be offered as available.
+        for (var out : java.util.List.of(TWO.outputs().get(0), TWO.outputs().get(1),
+                                         TUNNELING.outputs().get(0)))
+            for (var c : CombatBehavior.aims(out))
+                if (c.value() == CombatBehavior.Aim.MARKED_POINT
+                        || c.value() == CombatBehavior.Aim.AS_RECORDED)
+                    assertFalse(c.available(),
+                            c.value() + " is offered but refused at entry; grey it or build it");
     }
 
     @Test void asRecordedIsUnavailableUntilARecordingExists() {
