@@ -15,13 +15,19 @@ combat chamber and have passive, A1, A2 and ultimate implementations.
   units recovered. Same-tick repeated crafting clicks are refused until the matrix
   settles. Canceled crafts and missing output do not award. Overflow refunds drop
   at the owner. Copper participates under the newer 19 September statement.
-- **Offhander** exchanges a real carried Bow, Crossbow, Fishing Rod or Golden Apple
-  with the current offhand item. Golden Apple is labeled Golden Head and receives
-  extra native regeneration when consumed by Kitfighter. No generated tool loan,
-  armor replacement, or free ammunition is introduced. Native offhand interactions
-  run outside ability mode; mainhand use priority is still vanilla. Requiring owned
-  gear and the Golden Apple representation are Prototype/test resource/UI choices.
-- **Hotswap** deploys in an eligible empty target cell. Base web is short; Cobweb
+- **Offhander** puts the branch's item in the offhand IN PLACE OF THE MAP (Bow, or Crossbow, Fishing Rod or Golden
+  Head), and pressing A1 again puts the map back. The item is issued: nothing is needed in the inventory and nothing
+  is taken or moved. It cannot be dropped or lifted out of the slot, is removed on death and on quit, and an emptied
+  hand (eating a Golden Head) gets the map re-issued by the offhand system. Native offhand interactions run outside
+  ability mode; mainhand use priority is still vanilla. **Revised 11 October 2026:** the first version exchanged a
+  carried item with the offhand and left the map in an inventory slot; the plugin pauses enrolment when the offhand
+  holds anything but its map, so a Kitfighter lost their class a second after pressing it (caught live,
+  `enrolled=false paused=true`). The Offhander item is now the offhand's recognised occupant. Golden Head is labelled
+  and receives extra native regeneration when consumed by Kitfighter. No free ammunition is introduced: a Bow or
+  Crossbow still needs arrows or bolts in the inventory. Whether the item should be issued or carried is a
+  Prototype/test choice, made 11 October on the owner's description.
+- **Hotswap** places its branch's placeable at once in the cell against the face being aimed at (a click's own face, or
+  the face the aim ray hits; the ray version used to always place on top of the block, which a click did not). It deploys in an eligible empty target cell. Base web is short; Cobweb
   lasts longer; Lava is contained against fluid spreading and bucket extraction;
   TNT is a real sourced primed explosive. Web/Lava hold shared reservations and
   restore the exact original air state. Breaking them ends the trap without drops.

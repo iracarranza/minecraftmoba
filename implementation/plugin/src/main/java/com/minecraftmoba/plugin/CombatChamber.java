@@ -125,7 +125,7 @@ public final class CombatChamber implements Listener {
         this.ui = new CombatUi(plugin, this);
         this.preMenu = new CombatPreEntryMenu(plugin, this);
         this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
-        this.testing = new TestingMode(plugin, loadouts, this::endTesting);
+        this.testing = new TestingMode(plugin, loadouts, this::endTesting, this::dummy);
         this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot));
         Bukkit.getPluginManager().registerEvents(testing, plugin);
         Bukkit.getPluginManager().registerEvents(editor, plugin);
@@ -397,6 +397,9 @@ public final class CombatChamber implements Listener {
     }
 
     LoadoutEditor loadoutEditor() { return editor; }
+
+    /** The testing sidebar's lines as drawn now, or null when the tester is not testing. Public for acceptance runs. */
+    public java.util.List<String> testingHud(Player p) { return testing.hudLines(p); }
 
     /**
      * Give a testing tester their real inventory back without ending the chamber session. This is what a

@@ -94,6 +94,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "testing: Start testing parks the real inventory and leaves the loadout and one Exit testing item", this::tmStart);
         at(c, 3, "testing: the real inventory is on disk, so a crash would not lose it", this::tmParked);
         at(c, 3, "testing: nothing else is on the tester, and the chamber's menu items are gone", this::tmClean);
+        at(c, 3, "testing: the sidebar shows the loadout, the tester's health and armor and the dummy's, on the tester's own scoreboard", this::tmHud);
         at(c, 3, "testing: refill gives the loadout again and the exit item is still there", this::tmRefill);
         at(c, 3, "testing: the exit item cannot be dropped or moved", this::tmGuarded);
         at(c, 3, "testing: using the Exit testing item returns the real inventory exactly and the menu comes back", this::tmExit);
@@ -113,9 +114,16 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "targeting: leave", this::tgLeave);
         at(c, 4, "body click: enter the chamber and place two Kitfighter bodies, each facing a one-block wall", this::bcSetup);
         at(c, 8, "body click: a RESOLVE cast clicks the wall (block and face carried), so Hotswap puts its web in front of it", this::bcResolve);
-        at(c, 3, "body click: an AIR cast sends no click, so Hotswap's ray fallback puts its web on top of the wall", this::bcAir);
+        at(c, 3, "body click: an AIR cast takes the face from its own ray, so Hotswap puts the web in front of the wall exactly as the click did", this::bcAir);
         at(c, 3, "body click: facing the tester from two blocks, the click is on the tester (a creature), and a far target is air", this::bcEntityAndAir);
         at(c, 3, "body click: clean up", this::bcClean);
+        at(c, 4, "offhander: enter as a Kitfighter operator", this::ofEnter);
+        at(c, 3, "offhander: A1 by the real input path puts the branch's item in the offhand in place of the map, taking nothing from the inventory", this::ofEquip);
+        at(c, 50, "offhander: a second later the Kitfighter is still enrolled (the first version paused them)", this::ofStillEnrolled);
+        at(c, 3, "offhander: the item cannot be dropped or lifted out of the slot", this::ofGuarded);
+        at(c, 3, "offhander: A1 again puts the map back", this::ofToggle);
+        at(c, 3, "offhander: leaving the ability (forget) also puts the map back, and a branch change swaps the item", this::ofForget);
+        at(c, 3, "offhander: leave", this::recipientLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -892,6 +900,18 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         return "inventory stacks=" + count + " (sword, beef, exit) menuItems=" + !noMenu + " slot9=" + inv.getItem(9) + (ok ? "" : " | FAIL: something else is on the tester");
     }
 
+    private String tmHud() {
+        var lines = combat().testingHud(t);
+        if (lines == null) return "FAIL: not testing";
+        var text = String.join("|", lines);
+        var obj = t.getScoreboard().getObjective("moba_testing");
+        double armor = t.getAttribute(org.bukkit.attribute.Attribute.ARMOR).getValue();
+        String armorText = "Armor " + (armor == Math.rint(armor) ? String.valueOf((int) armor) : String.format(Locale.ROOT, "%.1f", armor));
+        boolean ok = lines.get(0).startsWith("Testing: Loadout") && text.contains("You") && text.contains("Dummy") && text.contains(armorText) && armor > 0
+                && obj != null && obj.getDisplaySlot() == org.bukkit.scoreboard.DisplaySlot.SIDEBAR && t.getScoreboard() != Bukkit.getScoreboardManager().getMainScoreboard();
+        return "lines=" + lines.size() + " first='" + lines.get(0) + "' armorLine=" + armorText + " (attribute " + armor + ") sidebar=" + (obj != null) + (ok ? "" : " | FAIL: testing sidebar");
+    }
+
     private String tmRefill() {
         t.getInventory().setItem(0, null); t.getInventory().setItem(5, null);
         cmd("loadout me");
@@ -932,8 +952,9 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
             if (!(a == null ? b == null : b != null && a.isSimilar(b) && a.getAmount() == b.getAmount())) { same = false; Bukkit.getLogger().info("[loadout] slot " + i + " was " + a + " now " + b); }
         }
         cmd("equipment");
-        boolean ok = !combat().testing(t) && same && menuBack && !dataFile(".restore").exists();
-        return "testing=" + combat().testing(t) + " realInventoryIdentical=" + same + " menuBack=" + menuBack + " restoreFileGone=" + !dataFile(".restore").exists()
+        boolean sidebarGone = t.getScoreboard().getObjective("moba_testing") == null;
+        boolean ok = !combat().testing(t) && same && menuBack && !dataFile(".restore").exists() && sidebarGone;
+        return "testing=" + combat().testing(t) + " realInventoryIdentical=" + same + " menuBack=" + menuBack + " restoreFileGone=" + !dataFile(".restore").exists() + " sidebarGone=" + sidebarGone
                 + (ok ? "" : " | FAIL: testing did not end cleanly");
     }
 
@@ -1108,9 +1129,9 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
         bcResultB = caster.cast(bcB.player(), "a2", new CastAim.Facing(0f, 0f), 0, BodyCaster.ClickMode.AIR);
         var front = w.getBlockAt(-2, bcY + 1, bcZ - 1).getType(); var top = w.getBlockAt(-2, bcY + 2, bcZ).getType();
-        boolean ok = bcResultB.cast() && bcResultB.click().kind() == ClickResolver.Kind.AIR && front != Material.COBWEB && top == Material.COBWEB;
+        boolean ok = bcResultB.cast() && bcResultB.click().kind() == ClickResolver.Kind.AIR && front == Material.COBWEB && top != Material.COBWEB;
         return "cast=" + bcResultB.cast() + " click=" + bcResultB.click().describe() + " webInFrontOfWall=" + (front == Material.COBWEB) + " webOnTop=" + (top == Material.COBWEB)
-                + (ok ? "" : " | FAIL: an AIR cast should have used the fallback ray (web on top)");
+                + (ok ? "" : " | FAIL: an aimed cast must place against the face it aims at, like a click");
     }
 
     private String bcEntityAndAir() {
@@ -1130,6 +1151,59 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         for (int x : new int[]{2, -2}) for (int dy = 0; dy <= 2; dy++) for (int dz = -2; dz <= 0; dz++) w.getBlockAt(x, bcY + dy, bcZ + dz).setType(Material.AIR, false);
         cmd("leave");
         return "state=" + combat().state(t);
+    }
+
+    // ---- Kitfighter's Offhander --------------------------------------------------------------------------
+
+    private int ofCount(Material m) { int n = 0; for (var it : t.getInventory().getStorageContents()) if (it != null && it.getType() == m) n++; return n; }
+    private boolean ofMap() { return moba.offhandMap().isMap(t.getInventory().getItemInOffHand()); }
+
+    private String ofEnter() {
+        t.getInventory().setItemInOffHand(null); t.setItemOnCursor(null);
+        cmd("leave"); cmd("start"); cmd("pick kitfighter"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        return "state=" + combat().state(t) + " enrolled=" + moba.enrolled(t) + " offhandIsMap=" + ofMap();
+    }
+
+    private String ofEquip() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        var held = moba.offhandLoan().held(t);
+        boolean ok = held == OffhandLoan.Kind.CROSSBOW && t.getInventory().getItemInOffHand().getType() == Material.CROSSBOW && ofCount(Material.CROSSBOW) == 0 && !ofMap();
+        return "offhand=" + t.getInventory().getItemInOffHand().getType() + " strayCrossbowsInInventory=" + ofCount(Material.CROSSBOW) + " mapGone=" + !ofMap()
+                + (ok ? "" : " | FAIL: Offhander did not replace the map with the branch's item");
+    }
+
+    private String ofStillEnrolled() {
+        boolean ok = moba.enrolled(t) && !moba.enrollmentPaused(t) && moba.offhandLoan().held(t) != null;
+        return "enrolled=" + moba.enrolled(t) + " paused=" + moba.enrollmentPaused(t) + " offhand=" + t.getInventory().getItemInOffHand().getType()
+                + (ok ? "" : " | FAIL: the Offhander item un-enrolled the class");
+    }
+
+    private String ofGuarded() {
+        var item = t.getInventory().getItemInOffHand().clone();
+        var drop = new org.bukkit.event.player.PlayerDropItemEvent(t, t.getWorld().dropItem(t.getLocation(), item));
+        Bukkit.getPluginManager().callEvent(drop); drop.getItemDrop().remove();
+        var click = new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(), org.bukkit.event.inventory.InventoryType.SlotType.QUICKBAR,
+                40, org.bukkit.event.inventory.ClickType.SWAP_OFFHAND, org.bukkit.event.inventory.InventoryAction.HOTBAR_SWAP);
+        Bukkit.getPluginManager().callEvent(click);
+        boolean ok = drop.isCancelled() && click.isCancelled();
+        return "dropCancelled=" + drop.isCancelled() + " swapCancelled=" + click.isCancelled() + (ok ? "" : " | FAIL: the Offhander item can be lost");
+    }
+
+    private String ofToggle() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        boolean ok = ofMap() && moba.offhandLoan().held(t) == null && moba.enrolled(t);
+        return "offhandIsMap=" + ofMap() + " loanHeld=" + moba.offhandLoan().held(t) + (ok ? "" : " | FAIL: the second press did not put the map back");
+    }
+
+    private String ofForget() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        boolean equipped = moba.offhandLoan().held(t) != null;
+        in.forget(t);
+        boolean back = ofMap() && moba.offhandLoan().held(t) == null;
+        return "equipped=" + equipped + " mapBackAfterForget=" + back + (equipped && back ? "" : " | FAIL: forget did not return the map");
     }
 
     private String uiLeave() {
