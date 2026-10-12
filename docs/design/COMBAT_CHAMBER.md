@@ -337,5 +337,18 @@ unbuilt aim policy cannot reintroduce it.
   ship until `Bodies` exists?
 - Should Observer have its own controls (repeat, freeze, camera), or is that a
   later layer?
-- Does the `affects` request land in the skeleton as specified?
+- Does the `affects` request land in the skeleton as specified? **Yes, and more
+  than asked**: `Recipients` is on `AbilityOutput`, the manifest carries it per
+  output and per branch, and every slot in all 18 classes now declares target,
+  input, affects and caster. See `docs/design/ABILITY_SKELETON.md`.
+- **The damage log records the damager, not the ability.** `source(e)` returns the
+  damager's name plus the vanilla `EntityDamageEvent` cause — `B_tester
+  entity_attack` — where "What 'measurable' means" above promises "source ability
+  and branch". `entity_attack` is also what a melee swing reports, so the report's
+  per-source breakdown would merge a Drill Rush emergence with a sword hit from the
+  same caster. Found by running a real ability through the chamber
+  (`docs/audit/2026-10-11-ability-damage-through-the-chamber.md`); invisible to
+  slice 1, whose numbers all came from bare `damage()` calls. Closing it means
+  carrying the ability and branch on the damage rather than inferring them at the
+  listener.
 - ~~Resume point after interference: restart (proposed) or mid-sequence?~~ Restart, built.
