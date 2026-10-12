@@ -47,6 +47,12 @@ All of these are on the hotbar (a Loadouts page, and Start testing on the root) 
    your inventory, or `/moba lab combat test off`: your real inventory comes back exactly and the menu
    returns. It cannot be dropped, moved or swapped.
 
+**The sidebar.** Testing mode's own scoreboard, visible only to the tester and restored when testing ends, shows the selected
+loadout and how many items it holds, then the tester's effective health with a bar and armor and toughness, then the dummy's.
+Health is effective health (what Capacity scaling makes it), not the twenty-point vanilla bar; armor is the attribute value, so
+an equipped loadout's armor and anything that modifies it (Kitfighter's Covered With Diamonds, for one) count. It refreshes every
+half second. What it looks like on a client has not been seen.
+
 Everything is still reachable by command while testing (`log`, `reset`, `cast`, `loadout me`). A tester who
 dies keeps the loadout. Leaving the chamber, quitting, or the plugin stopping all restore the real
 inventory, and if the server died mid-test the parked file is restored at the next join.
