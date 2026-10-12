@@ -11,7 +11,16 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.*;
 import java.util.*;
 
-/** Equips actual carried gear by exchanging storage and offhand; there is no item loan to duplicate. */
+/**
+ * Offhander: the offhand's map, replaced by the branch's item, and put back by pressing it again.
+ *
+ * The item is issued (see {@link OffhandLoan}), not exchanged with gear in the inventory. The first version needed
+ * the Kitfighter to carry the item already, swapped it with whatever was in the offhand, and left the map in an
+ * inventory slot with the class paused. This one needs nothing carried, takes nothing, moves nothing.
+ *
+ * Pressing A1 with the same branch's item already equipped puts the map back; with another kind equipped it
+ * replaces it. Eating a Golden Head, or anything else that empties the hand, brings the map back by itself.
+ */
 final class OffhanderAbility implements Ability, Listener {
     private final MobaPlugin plugin; private final ConfigurationSection config; private final NamespacedKey head;
     OffhanderAbility(MobaPlugin plugin, ConfigurationSection config) { this.plugin = plugin; this.config = config; head = new NamespacedKey(plugin,"golden_head"); }
@@ -22,22 +31,15 @@ final class OffhanderAbility implements Ability, Listener {
     public Map<String,String> branches() { return Map.of("crossbow","Crossbow","fishing_rod","Fishing Rod","golden_head","Golden Head"); }
     public List<String> branchIds() { return List.of("crossbow","fishing_rod","golden_head"); }
     public boolean execute(Player p, AbilityContext ctx) {
-        String branch = ctx.branchFor(id());
-        Material wanted = "crossbow".equals(branch) ? Material.CROSSBOW : "fishing_rod".equals(branch) ? Material.FISHING_ROD
-                : "golden_head".equals(branch) ? Material.GOLDEN_APPLE : Material.BOW;
-        if (p.getInventory().getItemInOffHand().getType() == wanted) return false;
-        for (int i = 0; i < 36; i++) {
-            ItemStack item = p.getInventory().getItem(i);
-            if (item == null || item.getType() != wanted) continue;
-            ItemStack old = p.getInventory().getItemInOffHand().clone();
-            if (wanted == Material.GOLDEN_APPLE) {
-                item = item.clone(); var meta = item.getItemMeta(); meta.displayName(Component.text("Golden Head"));
-                meta.getPersistentDataContainer().set(head, PersistentDataType.BYTE, (byte)1); item.setItemMeta(meta);
-            }
-            p.getInventory().setItemInOffHand(item); p.getInventory().setItem(i, old); return true;
-        }
-        p.sendMessage("Carry a " + wanted.name().toLowerCase().replace('_',' ') + " to equip it."); return false;
+        var loan = plugin.offhandLoan();
+        var kind = OffhandLoan.Kind.of(ctx.branchFor(id()));
+        if (loan.held(p) == kind) { loan.unequip(p); return true; }
+        if (!loan.equip(p, kind)) { p.sendMessage("Your offhand is holding something else; empty it first."); return false; }
+        return true;
     }
+    /** An Offhander item is not an equipped ability: leaving, resetting or a match ending puts the map back. */
+    public void forget(Player p) { plugin.offhandLoan().unequip(p); }
+    public void close() { for (Player p : plugin.getServer().getOnlinePlayers()) plugin.offhandLoan().unequip(p); }
     @EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
     public void eat(PlayerItemConsumeEvent e) {
         var item = e.getItem(); Player p = e.getPlayer();

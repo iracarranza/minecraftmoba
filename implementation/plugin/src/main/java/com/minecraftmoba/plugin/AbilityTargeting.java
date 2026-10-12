@@ -90,6 +90,40 @@ public final class AbilityTargeting {
         return out;
     }
 
+    /**
+     * Every creature whose box overlaps the caster's own box expanded by {@code rx, ry, rz}, as
+     * {@code Entity#getNearbyEntities} reads it. This is NOT the same box as {@link #within} around a point: the
+     * entity's own width and height are added, so the abilities that searched from the caster keep exactly the reach
+     * they had. {@code centre} is the creature the search is from (the caster, or an animal the caster launched).
+     */
+    public static List<LivingEntity> around(Player caster, Entity centre, double rx, double ry, double rz,
+                                            Relation relation, boolean lineOfSight) {
+        var out = new ArrayList<LivingEntity>();
+        var test = filter(caster, relation);
+        for (Entity e : centre.getNearbyEntities(rx, ry, rz)) {
+            if (!test.test(e)) continue;
+            if (lineOfSight && !visible(centre.getLocation().add(0, centre.getHeight() * .9, 0), ((LivingEntity) e).getEyeLocation())) continue;
+            out.add((LivingEntity) e);
+        }
+        return out;
+    }
+
+    /**
+     * As {@link #ray}, but walls do not stop it. This is the Observer's behaviour, kept as an explicit choice so that
+     * deciding whether it should see through walls is one call to change and not a rewrite.
+     *
+     * @param excluded one more creature the ray must not hit (the origin it was cast from), or null
+     */
+    public static Hit rayIgnoringWalls(Player caster, Location from, Vector direction, double range, double width,
+                                       Relation relation, Entity excluded) {
+        if (direction.lengthSquared() < 1e-12 || range <= 0) return null;
+        var test = filter(caster, relation);
+        var hit = from.getWorld().rayTraceEntities(from, direction.clone().normalize(), range, width,
+                e -> e != excluded && test.test(e));
+        if (hit == null || !(hit.getHitEntity() instanceof LivingEntity living)) return null;
+        return new Hit(living, null, hit.getHitPosition());
+    }
+
     /** Whether no block lies on the straight line between two points. */
     public static boolean visible(Location from, Location to) {
         Vector line = to.toVector().subtract(from.toVector());

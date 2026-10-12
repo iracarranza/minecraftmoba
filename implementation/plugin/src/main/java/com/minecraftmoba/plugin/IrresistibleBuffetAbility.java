@@ -71,9 +71,8 @@ final class IrresistibleBuffetAbility implements Ability, Listener {
                 t.furniture.add(tabletop);
                 at.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, at.clone().add(0, 1.5, 0), 3, .5, .1, .5, 0);
                 double width = config.getDouble("catchRadius");
-                for (var e : at.getWorld().getNearbyEntities(at, width, 2, width))
-                    if (e instanceof Player victim && !victim.equals(t.chef) && Targetability.status(victim, t.chef)
-                            && !t.caught.contains(victim.getUniqueId())) seat(t, victim, at);
+                for (var e : AbilityTargeting.within(t.chef, at, width, 2, width, AbilityTargeting.Relation.ENEMY, false))
+                    if (e instanceof Player victim && !t.caught.contains(victim.getUniqueId())) seat(t, victim, at);
             }
         }
         for (var s : List.copyOf(seats.values()))

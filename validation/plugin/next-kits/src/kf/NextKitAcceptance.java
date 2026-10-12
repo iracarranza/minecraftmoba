@@ -53,12 +53,33 @@ public final class NextKitAcceptance extends JavaPlugin implements Listener {
             var board=Bukkit.getScoreboardManager().getMainScoreboard();north=board.registerNewTeam("next_n");south=board.registerNewTeam("next_s");for(Player p:List.of(fighter,gardener,wolf))north.addEntry(p.getName());south.addEntry(enemy.getName());
             crop=w.getBlockAt(13,100,0);crop.getRelative(0,-1,0).setType(Material.FARMLAND,false);crop.setType(Material.WHEAT,false);var age=(Ageable)crop.getBlockData();age.setAge(7);crop.setBlockData(age,false);
         });
-        at(80,"Offhander exchanges real carried Crossbow and retains original",()->{
-            fighter.getInventory().setItemInOffHand(new ItemStack(Material.DIAMOND,3));branch(fighter,"offhander","crossbow");require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"equip refused");
-            require(fighter.getInventory().getItemInOffHand().getType()==Material.CROSSBOW&&fighter.getInventory().getItem(2).getAmount()==3,"exchange lost originals");
+        at(80,"Offhander replaces the map with the branch's item, takes nothing from the inventory, and refuses a foreign offhand",()->{
+            var loan=m.offhandLoan();
+            fighter.getInventory().setItemInOffHand(new ItemStack(Material.DIAMOND,3));branch(fighter,"offhander","crossbow");
+            require(!ability(fighter,"a1").execute(fighter,ctx(fighter)),"an unrelated offhand item was overwritten");
+            require(fighter.getInventory().getItemInOffHand().getType()==Material.DIAMOND,"the player's offhand item was lost");
+            fighter.getInventory().setItemInOffHand(null);m.offhandMap().ensure(fighter);
+            require(m.offhandMap().isMap(fighter.getInventory().getItemInOffHand()),"the map was not issued");
+            var before=java.util.Arrays.stream(fighter.getInventory().getStorageContents()).filter(java.util.Objects::nonNull).count();
+            require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"equip refused");
+            require(fighter.getInventory().getItemInOffHand().getType()==Material.CROSSBOW&&loan.held(fighter)==OffhandLoan.Kind.CROSSBOW,"the crossbow is not in the offhand");
+            require(java.util.Arrays.stream(fighter.getInventory().getStorageContents()).filter(java.util.Objects::nonNull).count()==before,"the inventory changed: nothing should be taken or given");
+            require(m.offhandMap().ensure(fighter),"the paused-enrolment check rejects the Offhander item");
         });
-        at(81,"Offhand Fishing Rod, Golden Head and base Bow equip real items",()->{
-            for(String branch:List.of("fishing_rod","golden_head","base")){branch(fighter,"offhander",branch);require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"refused "+branch);}
+        at(81,"Each branch's item, the same press again puts the map back, and an empty hand re-issues it",()->{
+            var loan=m.offhandLoan();
+            for(var pair:java.util.Map.of("fishing_rod",Material.FISHING_ROD,"golden_head",Material.GOLDEN_APPLE,"base",Material.BOW).entrySet()){
+                branch(fighter,"offhander",pair.getKey());require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"refused "+pair.getKey());
+                require(fighter.getInventory().getItemInOffHand().getType()==pair.getValue(),pair.getKey()+" is not "+pair.getValue());
+                require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"toggle off refused "+pair.getKey());
+                require(m.offhandMap().isMap(fighter.getInventory().getItemInOffHand()),"the map did not come back after "+pair.getKey());
+            }
+            branch(fighter,"offhander","golden_head");require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"golden head refused");
+            var head=fighter.getInventory().getItemInOffHand();
+            require(loan.kindOf(head)==OffhandLoan.Kind.GOLDEN_HEAD&&head.getItemMeta().getPersistentDataContainer().has(new org.bukkit.NamespacedKey(m,"golden_head"),org.bukkit.persistence.PersistentDataType.BYTE),"the golden head lost its eat-bonus tag");
+            fighter.getInventory().setItemInOffHand(null);m.offhandMap().ensure(fighter);
+            require(m.offhandMap().isMap(fighter.getInventory().getItemInOffHand()),"an emptied hand did not get its map back");
+            branch(fighter,"offhander","base");require(ability(fighter,"a1").execute(fighter,ctx(fighter)),"bow refused");
             require(fighter.getInventory().getItemInOffHand().getType()==Material.BOW,"bow absent");
         });
         at(82,"Diamond projection fills naked slots while preserving above-Diamond toughness",()->{

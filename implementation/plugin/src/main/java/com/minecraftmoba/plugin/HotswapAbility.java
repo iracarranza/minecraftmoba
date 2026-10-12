@@ -20,10 +20,23 @@ final class HotswapAbility implements Ability, Listener {
     public List<AbilityOutput> outputs() { return AbilityOutput.single("hotswap", TargetForm.UNIT_BLOCK, InputForm.INSTANT, Recipients.ENEMIES); }
     public Map<String,String> branches() { return Map.of("cobweb","Cobweb","lava","Lava","tnt","TNT"); }
     public List<String> branchIds() { return List.of("cobweb","lava","tnt"); }
+    /**
+     * The cell the placeable goes in: the one against the face being aimed at, placed at once.
+     *
+     * A click carries the block and the face it was on. An aimed cast (a scripted body, or an activation that carried
+     * no click) used to find the block alone and always place on TOP of it; it now takes the face from the same ray,
+     * so aiming at a wall's side puts the web against that side exactly as clicking it would.
+     */
     private Block target(Player p, AbilityContext ctx) {
-        Block b=ctx.onBlock()?ctx.block():p.getTargetBlockExact(config.getInt("range"));
+        Block b; org.bukkit.block.BlockFace face;
+        if(ctx.onBlock()){ b=ctx.block(); face=ctx.face(); }
+        else {
+            var hit=p.rayTraceBlocks(config.getInt("range"), FluidCollisionMode.NEVER);
+            if(hit==null) return null;
+            b=hit.getHitBlock(); face=hit.getHitBlockFace();
+        }
         if(b==null) return null;
-        if(!b.isEmpty()) b=b.getRelative(ctx.face()==null?org.bukkit.block.BlockFace.UP:ctx.face());
+        if(!b.isEmpty()) b=b.getRelative(face==null?org.bukkit.block.BlockFace.UP:face);
         return b.isEmpty() && !plugin.displacement().isReserved(b)?b:null;
     }
     public Collection<Block> preview(Player p,AbilityContext ctx) { Block b=target(p,ctx); return b==null?List.of():List.of(b); }

@@ -90,10 +90,8 @@ public final class CrashLandingAbility implements Ability {
                 * (b == null ? 1.0 : b.getDouble("impactDamageMultiplier", 1.0));
         if (impact > 0) {
             double radius = config.getDouble("impactRadius");
-            for (Entity e : p.getNearbyEntities(radius, radius, radius))
-                if (e instanceof LivingEntity target && !target.equals(p)
-                        && Targetability.impulse(target, p))
-                    AbilityDamage.deal(target, impact, p);
+            for (var target : AbilityTargeting.around(p, p, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+                AbilityDamage.deal(target, impact, p);
         }
 
         // Crater trades impact damage for control, scaled by the velocity it
@@ -102,10 +100,8 @@ public final class CrashLandingAbility implements Ability {
         if ("crater".equals(branch) && plugin.stun() != null) {
             long stunTicks = Math.round(descent * config.getDouble("craterStunTicksPerVelocity"));
             double radius = config.getDouble("impactRadius");
-            for (Entity e : p.getNearbyEntities(radius, radius, radius))
-                if (e instanceof LivingEntity target && !target.equals(p)
-                        && Targetability.status(target, p))
-                    plugin.stun().stun(target, stunTicks);
+            for (var target : AbilityTargeting.around(p, p, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+                plugin.stun().stun(target, stunTicks);
         }
 
         // [OPEN] Superhero's "invincible and unable to act" pose is a Stun

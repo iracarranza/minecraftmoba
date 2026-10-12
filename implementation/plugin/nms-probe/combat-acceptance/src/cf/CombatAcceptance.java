@@ -94,6 +94,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "testing: Start testing parks the real inventory and leaves the loadout and one Exit testing item", this::tmStart);
         at(c, 3, "testing: the real inventory is on disk, so a crash would not lose it", this::tmParked);
         at(c, 3, "testing: nothing else is on the tester, and the chamber's menu items are gone", this::tmClean);
+        at(c, 3, "testing: the sidebar shows the loadout, the tester's health and armor and the dummy's, on the tester's own scoreboard", this::tmHud);
         at(c, 3, "testing: refill gives the loadout again and the exit item is still there", this::tmRefill);
         at(c, 3, "testing: the exit item cannot be dropped or moved", this::tmGuarded);
         at(c, 3, "testing: using the Exit testing item returns the real inventory exactly and the menu comes back", this::tmExit);
@@ -111,6 +112,18 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "targeting: a wall stops the ray, and an area query with line of sight leaves out what is behind it", this::tgWall);
         at(c, 3, "targeting: the relation filter never lets the caster be a target", this::tgSelf);
         at(c, 3, "targeting: leave", this::tgLeave);
+        at(c, 4, "body click: enter the chamber and place two Kitfighter bodies, each facing a one-block wall", this::bcSetup);
+        at(c, 8, "body click: a RESOLVE cast clicks the wall (block and face carried), so Hotswap puts its web in front of it", this::bcResolve);
+        at(c, 3, "body click: an AIR cast takes the face from its own ray, so Hotswap puts the web in front of the wall exactly as the click did", this::bcAir);
+        at(c, 3, "body click: facing the tester from two blocks, the click is on the tester (a creature), and a far target is air", this::bcEntityAndAir);
+        at(c, 3, "body click: clean up", this::bcClean);
+        at(c, 4, "offhander: enter as a Kitfighter operator", this::ofEnter);
+        at(c, 3, "offhander: A1 by the real input path puts the branch's item in the offhand in place of the map, taking nothing from the inventory", this::ofEquip);
+        at(c, 50, "offhander: a second later the Kitfighter is still enrolled (the first version paused them)", this::ofStillEnrolled);
+        at(c, 3, "offhander: the item cannot be dropped or lifted out of the slot", this::ofGuarded);
+        at(c, 3, "offhander: A1 again puts the map back", this::ofToggle);
+        at(c, 3, "offhander: leaving the ability (forget) also puts the map back, and a branch change swaps the item", this::ofForget);
+        at(c, 3, "offhander: leave", this::recipientLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -241,6 +254,10 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
         at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
         at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
+        at(c, 6, "ability damage: enter as a Mole Operator beside the dummy", this::adEnter);
+        at(c, 3, "ability damage: Drill Rush burrows the tester", this::adBurrow);
+        at(c, 6, "ability damage: emerging deals the REAL ability's damage and the chamber measures it", this::adEmerge);
+        at(c, 3, "ability damage: the report attributes it to the tester, not to a bare damage call", this::adReport);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -267,6 +284,69 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
                 for (int i = 0; i < Math.min(l.length, 14); i++) log("      " + l[i]);
             }
         }, clock[0]);
+    }
+
+    // ---- a real ability, measured ------------------------------------------------
+    //
+    // Everything else that reads a NUMBER out of the damage log drove it with a
+    // bare Player.damage call. That proves the instrument, not that it reads an
+    // ABILITY. Drill Rush is the one built ability whose damage lands on a
+    // stationary target: emerging deals emergeDamage to enemies within
+    // emergeRadius of a point emergeDistance ahead of the caster.
+
+    private double adRawBefore;
+
+    private String adEnter() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        if (!combat().state(t).equals("in chamber")) return "FAIL: not in chamber: " + combat().state(t);
+        Player d = combat().dummy(t);
+        if (d == null) return "FAIL: no dummy";
+        // Stand two blocks from the dummy, looking at it: emergence resolves
+        // emergeDistance ahead of the caster, so the dummy must be in that ball.
+        var at = d.getLocation().clone().add(d.getLocation().getDirection().setY(0).normalize().multiply(-2.0));
+        at.setDirection(d.getLocation().toVector().subtract(at.toVector()));
+        t.teleport(at);
+        adRawBefore = 0;
+        for (var h : combat().dealtHits(t)) adRawBefore += h.raw();
+        return "class=" + moba.data(t).classId + " distance="
+                + String.format("%.2f", t.getLocation().distance(d.getLocation()))
+                + " rawBefore=" + String.format("%.2f", adRawBefore);
+    }
+
+    private String adBurrow() {
+        var in = moba.inputs();
+        int before = in.executions(t, "drill_rush");
+        in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a2"));
+        boolean active = in.abilityFor("mole", "a2").active(t);
+        return "executions " + before + " -> " + in.executions(t, "drill_rush") + " active=" + active
+                + (active ? "" : " | FAIL: Drill Rush did not burrow");
+    }
+
+    private String adEmerge() {
+        var in = moba.inputs();
+        Player d = combat().dummy(t);
+        in.input(t, in.inputFor("a2"));
+        double raw = 0, fin = 0;
+        for (var h : combat().dealtHits(t)) { raw += h.raw(); fin += h.finalDamage(); }
+        double landed = raw - adRawBefore;
+        return "dummy hits=" + combat().hitsDealt(t) + " raw total=" + String.format("%.2f", raw)
+                + " final total=" + String.format("%.2f", fin)
+                + " from this emergence=" + String.format("%.2f", landed)
+                + " dummyHealth=" + String.format("%.2f", d.getHealth())
+                + (landed > 0 ? "" : " | FAIL: the ability ran but the chamber measured no damage");
+    }
+
+    private String adReport() {
+        var sources = new ArrayList<String>();
+        for (var h : combat().dealtHits(t)) sources.add(h.source());
+        var line = combat().reportLines(t).stream().filter(l -> l.contains("Dealt to the dummy"))
+                .findFirst().orElse("(no dealt line)");
+        boolean attributed = sources.stream().anyMatch(sc -> sc.contains(t.getName()));
+        cmd("leave");
+        return line.replaceAll("\\u00a7.", "") + " sources=" + sources
+                + (attributed ? "" : " | FAIL: no hit names the tester as the damager");
     }
 
     private void log(String s) { out.println(s); out.flush(); getLogger().info(s); }
@@ -887,6 +967,18 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         return "inventory stacks=" + count + " (sword, beef, exit) menuItems=" + !noMenu + " slot9=" + inv.getItem(9) + (ok ? "" : " | FAIL: something else is on the tester");
     }
 
+    private String tmHud() {
+        var lines = combat().testingHud(t);
+        if (lines == null) return "FAIL: not testing";
+        var text = String.join("|", lines);
+        var obj = t.getScoreboard().getObjective("moba_testing");
+        double armor = t.getAttribute(org.bukkit.attribute.Attribute.ARMOR).getValue();
+        String armorText = "Armor " + (armor == Math.rint(armor) ? String.valueOf((int) armor) : String.format(Locale.ROOT, "%.1f", armor));
+        boolean ok = lines.get(0).startsWith("Testing: Loadout") && text.contains("You") && text.contains("Dummy") && text.contains(armorText) && armor > 0
+                && obj != null && obj.getDisplaySlot() == org.bukkit.scoreboard.DisplaySlot.SIDEBAR && t.getScoreboard() != Bukkit.getScoreboardManager().getMainScoreboard();
+        return "lines=" + lines.size() + " first='" + lines.get(0) + "' armorLine=" + armorText + " (attribute " + armor + ") sidebar=" + (obj != null) + (ok ? "" : " | FAIL: testing sidebar");
+    }
+
     private String tmRefill() {
         t.getInventory().setItem(0, null); t.getInventory().setItem(5, null);
         cmd("loadout me");
@@ -927,8 +1019,9 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
             if (!(a == null ? b == null : b != null && a.isSimilar(b) && a.getAmount() == b.getAmount())) { same = false; Bukkit.getLogger().info("[loadout] slot " + i + " was " + a + " now " + b); }
         }
         cmd("equipment");
-        boolean ok = !combat().testing(t) && same && menuBack && !dataFile(".restore").exists();
-        return "testing=" + combat().testing(t) + " realInventoryIdentical=" + same + " menuBack=" + menuBack + " restoreFileGone=" + !dataFile(".restore").exists()
+        boolean sidebarGone = t.getScoreboard().getObjective("moba_testing") == null;
+        boolean ok = !combat().testing(t) && same && menuBack && !dataFile(".restore").exists() && sidebarGone;
+        return "testing=" + combat().testing(t) + " realInventoryIdentical=" + same + " menuBack=" + menuBack + " restoreFileGone=" + !dataFile(".restore").exists() + " sidebarGone=" + sidebarGone
                 + (ok ? "" : " | FAIL: testing did not end cleanly");
     }
 
@@ -1043,21 +1136,25 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var eye = t.getEyeLocation(); var dummy = combat().dummy(t);
         var ray = AbilityTargeting.ray(t, eye, new org.bukkit.util.Vector(0, 0, 1), 20, .3, AbilityTargeting.Relation.ENEMY);
         boolean stopped = ray != null && ray.entity() == null && ray.block() != null;
+        var through = AbilityTargeting.rayIgnoringWalls(t, eye, new org.bukkit.util.Vector(0, 0, 1), 20, .3, AbilityTargeting.Relation.ENEMY, null);
+        boolean seesThrough = through != null && dummy.equals(through.entity());
         var open = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, false);
         var seen = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
         boolean behind = open.contains(dummy) && !seen.contains(dummy);
         for (int x = -2; x <= 3; x++) for (int dy = 0; dy <= 2; dy++) w.getBlockAt(x, y + dy, z).setType(Material.AIR, false);
         var cleared = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
         boolean back = cleared.contains(dummy);
-        boolean ok = stopped && behind && back;
-        return "wallStopsRay=" + stopped + " dummyBehindWall(open/LOS)=" + open.contains(dummy) + "/" + seen.contains(dummy) + " visibleAgainAfterWallGone=" + back + (ok ? "" : " | FAIL: wall or line of sight");
+        boolean ok = stopped && behind && back && seesThrough;
+        return "wallStopsRay=" + stopped + " observerStyleRayPassesWall=" + seesThrough + " dummyBehindWall(open/LOS)=" + open.contains(dummy) + "/" + seen.contains(dummy) + " visibleAgainAfterWallGone=" + back + (ok ? "" : " | FAIL: wall or line of sight");
     }
 
     private String tgSelf() {
         boolean selfEnemy = AbilityTargeting.filter(t, AbilityTargeting.Relation.EITHER).test(t);
         var around = AbilityTargeting.within(t, t.getLocation(), 3, 3, 3, AbilityTargeting.Relation.EITHER, false);
-        boolean ok = !selfEnemy && !around.contains(t);
-        return "callerAcceptedAsTarget=" + selfEnemy + " inOwnArea=" + around.contains(t) + (ok ? "" : " | FAIL: the caster is a target");
+        var aroundMe = AbilityTargeting.around(t, t, 12, 3, 12, AbilityTargeting.Relation.ENEMY, false);
+        boolean reach = aroundMe.contains(combat().dummy(t)) && !aroundMe.contains(t);        // the dummy is eight blocks off
+        boolean ok = !selfEnemy && !around.contains(t) && reach;
+        return "callerAcceptedAsTarget=" + selfEnemy + " inOwnArea=" + around.contains(t) + " aroundCasterFindsDummy=" + reach + (ok ? "" : " | FAIL: the caster is a target or around() missed the dummy");
     }
 
     private String tgLeave() {
@@ -1066,6 +1163,114 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         tgAlly = null;
         cmd("leave");
         return "state=" + combat().state(t);
+    }
+
+    // ---- bodies that carry a click ---------------------------------------------------------------
+
+    private Bodies.Body bcA, bcB;
+    private BodyCaster.Result bcResultA, bcResultB;
+    private int bcY, bcZ;
+
+    private String bcSetup() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        var w = Bukkit.getWorld("moba_combat"); bcY = (int) CombatSlab.FLOOR_Y + 1; bcZ = -9;
+        w.getBlockAt(2, bcY + 1, bcZ).setType(Material.STONE, false);         // eye height of a body standing on the floor
+        w.getBlockAt(-2, bcY + 1, bcZ).setType(Material.STONE, false);
+        bcA = bodies.spawn("click_a", null, "kitfighter", 15, new Location(w, 2.5, bcY, -11.5, 0f, 0f));
+        bcB = bodies.spawn("click_b", null, "kitfighter", 15, new Location(w, -1.5, bcY, -11.5, 0f, 0f));
+        return "state=" + combat().state(t) + " wallA=" + w.getBlockAt(2, bcY + 1, bcZ).getType() + " bodies=" + (bcA != null && bcB != null);
+    }
+
+    private String bcResolve() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        bcResultA = caster.cast(bcA.player(), "a2", new CastAim.Facing(0f, 0f), 0, BodyCaster.ClickMode.RESOLVE);
+        var front = w.getBlockAt(2, bcY + 1, bcZ - 1).getType(); var top = w.getBlockAt(2, bcY + 2, bcZ).getType();
+        var click = bcResultA.click();
+        boolean ok = bcResultA.cast() && click.kind() == ClickResolver.Kind.BLOCK && click.face() == org.bukkit.block.BlockFace.NORTH
+                && front == Material.COBWEB && top != Material.COBWEB;
+        return "cast=" + bcResultA.cast() + " click=" + click.describe() + " webInFrontOfWall=" + (front == Material.COBWEB) + " webOnTop=" + (top == Material.COBWEB)
+                + (ok ? "" : " | FAIL: the block click did not reach Hotswap");
+    }
+
+    private String bcAir() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        bcResultB = caster.cast(bcB.player(), "a2", new CastAim.Facing(0f, 0f), 0, BodyCaster.ClickMode.AIR);
+        var front = w.getBlockAt(-2, bcY + 1, bcZ - 1).getType(); var top = w.getBlockAt(-2, bcY + 2, bcZ).getType();
+        boolean ok = bcResultB.cast() && bcResultB.click().kind() == ClickResolver.Kind.AIR && front == Material.COBWEB && top != Material.COBWEB;
+        return "cast=" + bcResultB.cast() + " click=" + bcResultB.click().describe() + " webInFrontOfWall=" + (front == Material.COBWEB) + " webOnTop=" + (top == Material.COBWEB)
+                + (ok ? "" : " | FAIL: an aimed cast must place against the face it aims at, like a click");
+    }
+
+    private String bcEntityAndAir() {
+        var caster = new BodyCaster(moba); var w = Bukkit.getWorld("moba_combat");
+        var from = bcA.player();
+        from.teleport(new Location(w, t.getLocation().getX(), bcY, t.getLocation().getZ() - 2.0, 0f, 0f));      // two blocks short of the tester, facing it
+        var near = ClickResolver.resolve(from);
+        from.teleport(new Location(w, t.getLocation().getX(), bcY, t.getLocation().getZ() - 6.0, 0f, 0f));      // six blocks short: out of creature reach
+        var far = ClickResolver.resolve(from);
+        boolean ok = near.kind() == ClickResolver.Kind.ENTITY && t.equals(near.entity()) && far.kind() == ClickResolver.Kind.AIR;
+        return "twoBlocks=" + near.describe() + " sixBlocks=" + far.describe() + (ok ? "" : " | FAIL: creature reach");
+    }
+
+    private String bcClean() {
+        var w = Bukkit.getWorld("moba_combat");
+        for (var b : new Bodies.Body[]{bcA, bcB}) if (b != null) bodies.despawn(b);
+        for (int x : new int[]{2, -2}) for (int dy = 0; dy <= 2; dy++) for (int dz = -2; dz <= 0; dz++) w.getBlockAt(x, bcY + dy, bcZ + dz).setType(Material.AIR, false);
+        cmd("leave");
+        return "state=" + combat().state(t);
+    }
+
+    // ---- Kitfighter's Offhander --------------------------------------------------------------------------
+
+    private int ofCount(Material m) { int n = 0; for (var it : t.getInventory().getStorageContents()) if (it != null && it.getType() == m) n++; return n; }
+    private boolean ofMap() { return moba.offhandMap().isMap(t.getInventory().getItemInOffHand()); }
+
+    private String ofEnter() {
+        t.getInventory().setItemInOffHand(null); t.setItemOnCursor(null);
+        cmd("leave"); cmd("start"); cmd("pick kitfighter"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        return "state=" + combat().state(t) + " enrolled=" + moba.enrolled(t) + " offhandIsMap=" + ofMap();
+    }
+
+    private String ofEquip() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        var held = moba.offhandLoan().held(t);
+        boolean ok = held == OffhandLoan.Kind.CROSSBOW && t.getInventory().getItemInOffHand().getType() == Material.CROSSBOW && ofCount(Material.CROSSBOW) == 0 && !ofMap();
+        return "offhand=" + t.getInventory().getItemInOffHand().getType() + " strayCrossbowsInInventory=" + ofCount(Material.CROSSBOW) + " mapGone=" + !ofMap()
+                + (ok ? "" : " | FAIL: Offhander did not replace the map with the branch's item");
+    }
+
+    private String ofStillEnrolled() {
+        boolean ok = moba.enrolled(t) && !moba.enrollmentPaused(t) && moba.offhandLoan().held(t) != null;
+        return "enrolled=" + moba.enrolled(t) + " paused=" + moba.enrollmentPaused(t) + " offhand=" + t.getInventory().getItemInOffHand().getType()
+                + (ok ? "" : " | FAIL: the Offhander item un-enrolled the class");
+    }
+
+    private String ofGuarded() {
+        var item = t.getInventory().getItemInOffHand().clone();
+        var drop = new org.bukkit.event.player.PlayerDropItemEvent(t, t.getWorld().dropItem(t.getLocation(), item));
+        Bukkit.getPluginManager().callEvent(drop); drop.getItemDrop().remove();
+        var click = new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(), org.bukkit.event.inventory.InventoryType.SlotType.QUICKBAR,
+                40, org.bukkit.event.inventory.ClickType.SWAP_OFFHAND, org.bukkit.event.inventory.InventoryAction.HOTBAR_SWAP);
+        Bukkit.getPluginManager().callEvent(click);
+        boolean ok = drop.isCancelled() && click.isCancelled();
+        return "dropCancelled=" + drop.isCancelled() + " swapCancelled=" + click.isCancelled() + (ok ? "" : " | FAIL: the Offhander item can be lost");
+    }
+
+    private String ofToggle() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        boolean ok = ofMap() && moba.offhandLoan().held(t) == null && moba.enrolled(t);
+        return "offhandIsMap=" + ofMap() + " loanHeld=" + moba.offhandLoan().held(t) + (ok ? "" : " | FAIL: the second press did not put the map back");
+    }
+
+    private String ofForget() {
+        var in = moba.inputs();
+        in.input(t, in.modeInput()); in.input(t, in.inputFor("a1"));
+        boolean equipped = moba.offhandLoan().held(t) != null;
+        in.forget(t);
+        boolean back = ofMap() && moba.offhandLoan().held(t) == null;
+        return "equipped=" + equipped + " mapBackAfterForget=" + back + (equipped && back ? "" : " | FAIL: forget did not return the map");
     }
 
     private String uiLeave() {

@@ -112,6 +112,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     public Pings pings() { return pings; }
     private TestBed testBed;
     public OffhandMap offhandMap() { return offhandMap; }
+    private OffhandLoan offhandLoan;
+    public OffhandLoan offhandLoan() { return offhandLoan; }
     /** Effective maximum Hunger for a player, for rules expressed relative to it. */
     /** The player's Capacity health: what a full bar is WORTH, not how long it is. */
     private final TemporaryChunks temporaryChunks = new TemporaryChunks(this);
@@ -240,6 +242,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         getServer().getPluginManager().registerEvents(renewables, this);
         offhandMap = new OffhandMap(this);
         getServer().getPluginManager().registerEvents(offhandMap, this);
+        offhandLoan = new OffhandLoan(this);
+        getServer().getPluginManager().registerEvents(offhandLoan, this);
         getServer().getPluginManager().registerEvents(new InventoryGuard(this), this);
         Objects.requireNonNull(getCommand("moba")).setExecutor(this);
         getServer().getPluginManager().registerEvents(this, this);

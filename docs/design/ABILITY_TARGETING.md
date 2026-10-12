@@ -22,13 +22,13 @@ Inconsistencies found, with what has been done about each:
 | Finding | State |
 |---|---|
 | Ability damage landing in ability mode was cancelled and read as a left-click | **Fixed and verified live** (below) |
-| Ray widths of .2, .25, .3, .35 and 1.0, only Food Fight in config | Food Fight, Brawling and Flip now read config; Graveyard Shift (not in this tree) and the Observer remain |
+| Ray widths of .2, .25, .3, .35 and 1.0, only Food Fight in config | **Fixed**: Food Fight, Brawling, Flip and Press, Graveyard Shift and the Observer all read config |
 | Each ability decides for itself whether an ally blocks its ray | Fixed for the three moved: an ENEMY ray passes through allies |
 | Area attacks pass through walls | A line-of-sight option exists and is verified; **no ability uses it yet**, see decisions |
 | Sinkhole and Rabbit's Lucky Foot ignore the clicked block and always re-ray | Open |
-| Hotswap's ray fallback always places on top; a click places on the face clicked | Open |
-| Scripted bodies send no block or entity, so ground abilities are refused for them and the click path is never tested | Open (`BodyCaster`) |
-| `tunneling.targetDistance` is read and the result discarded | Open |
+| Hotswap's ray fallback always places on top; a click places on the face clicked | Now testable and shown live: a body that clicks a wall gets the web in front of it, an AIR cast gets it on top. The difference remains, it is no longer hidden |
+| Scripted bodies send no block or entity, so the click path is never tested | **Fixed and verified live** (below) |
+| `tunneling.targetDistance` is read and the result discarded | **Removed**: the dead ray call and its config key |
 | The caster's own tamed animals are not "allied" (Lunge, Brawling and Rabbit can hurt them); Rabbit pulls in every wolf, fox and cat nearby whoever owns it | Open, a design call |
 | Observer sees through walls | Open, a design call |
 | Hotswap's TNT and lava are not in `TeamDamage`'s allow-list | Open |
@@ -72,9 +72,49 @@ fallback) are on it and keep the values they had: ray widths moved from code to 
 (`brawling_slash.rayWidth` .35, `flip_and_press.rayWidth` .25, Food Fight's existing `hitRadius`), with no
 change to what any of them hits.
 
+## The remaining migrations
+
+Every creature-targeting area query now goes through `AbilityTargeting`, with the reach each ability already had:
+
+- **Around the caster** (`around`, which reads `Entity#getNearbyEntities`, a box that includes the caster's own size):
+  Lunge, Crash Landing (damage and Crater's stun), Jumpstartinator's blast, Rabbit's Lucky Foot's impact (from the animal
+  it launched) and the Werewolf's hidden-sweep.
+- **Around a point** (`within`): Brawling Slash's leap path and slams, Drill Rush's emerge (damage and Undermine's stun),
+  Irresistible Buffet's table.
+- **A ray that ignores walls** (`rayIgnoringWalls`): the Observer, now named as a choice, so decision 3 below is one call.
+- Brawling Slash's path box and slam geometry moved to config (`pathRadius` 1.2, `pathHeight` 1.8, `areaHeight` 2,
+  `sweepConeDot` .4, `thirdSlamConeDot` .15) and the Observer's width to `observeWidth` (1.0).
+
+`around` and `within` are different boxes on purpose: moving an ability from one to the other would change how far it
+reaches by the caster's own width, and none of them was changed.
+
+**Deliberately not moved:**
+
+- **Physics-axis queries** (Runway's Suplex, the Toolbox Piston, the Hopper's vacuum) act on anything that can be moved,
+  including dropped items. The helper is creatures only, by design; `Targetability.impulse` stays the right tool there.
+- **The Gardener's aura** treats its owner as an ally (Absorption, food), and the helper never returns the caster.
+- **Animal scans** (Rabbit's pull-in, Bounding, passives) pick species, not a relation.
+- **Skeleton Crew's worker aggro** is that class's own targeting.
+
+## Bodies that carry a click
+
+`BodyCaster.cast` now sends what a client's click would have carried, through `ClickResolver`:
+
+- Reach is vanilla survival: 4.5 blocks for a block, 3.0 for a creature. The crosshair is on a creature when one is in
+  reach and no block is nearer, otherwise on the block, otherwise on air.
+- What the event carries depends on the input: a right-click carries the block and face, or the creature; a
+  left-click carries the block and face but **not** a creature (hitting one is a damage event); the hand swap and the
+  drop carry nothing. This matches `AbilityInputs`' own handlers.
+- `ClickMode.RESOLVE` is the default for the chamber's dummies and the scenario `cast` act. `ClickMode.AIR` (and
+  `click: air` on the act) sends no click, which is how every cast used to be sent. The result reports what was clicked.
+
+Live: a Kitfighter body right-clicking a one-block wall puts Hotswap's web in front of the wall (the clicked face); the
+same cast as AIR puts it on top (the ray fallback); a body two blocks from the tester clicks the tester, and six blocks
+away clicks air. A held ability still repeats an air click each tick.
+
 ## Verified, and not
 
-- Java suite passes; the combat chamber acceptance run is 203 of 203; the kit fixtures pass 25 of 25
+- Java suite passes; the combat chamber acceptance run is 208 of 208; the kit fixtures pass 25 of 25
   (Food Fight damage and healing among them) and 36 of 36 (Human Slash hitting an enemy among them).
 - Live: the damage door in all three cases (control, plain call still swallowed, `deal` lands and keeps the
   mode); an ENEMY ray passing through an ally and hitting the dummy, EITHER stopping at the ally, ALLY

@@ -49,6 +49,8 @@ public final class OffhandMap implements Listener {
         }
         if (plugin.sentinel() != null && plugin.sentinel().isSentinel(held)) return true;
         if (isMap(held)) return true;
+        // Kitfighter's Offhander item is the offhand's rightful occupant while it is equipped; see OffhandLoan.
+        if (plugin.offhandLoan() != null && plugin.offhandLoan().isLoan(held)) return true;
         if (!held.getType().isAir()) return false;
         // Tome mode: the map item also carries the sentinel identity and the
         // class blurb, so one offhand item is the map surface, the swap

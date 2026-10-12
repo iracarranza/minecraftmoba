@@ -53,9 +53,12 @@ final class TestingMode implements Listener {
     /** Testers in testing mode, with the real inventory held in memory as well as on disk. */
     private final Map<UUID, List<ItemStack>> parked = new HashMap<>();
 
-    TestingMode(MobaPlugin plugin, LoadoutStore store, Consumer<Player> onExit) {
+    private final TestingHud hud;
+
+    TestingMode(MobaPlugin plugin, LoadoutStore store, Consumer<Player> onExit, java.util.function.Function<Player, Player> dummyOf) {
         this.plugin = plugin;
         this.store = store;
+        this.hud = new TestingHud(plugin, store, dummyOf);
         this.key = new NamespacedKey(plugin, "testing_item");
         this.onExit = onExit;
     }
@@ -71,7 +74,11 @@ final class TestingMode implements Listener {
         store.park(p.getUniqueId(), real);            // throws before anything is cleared if it cannot
         parked.put(p.getUniqueId(), real);
         give(p, loadout);
+        hud.start(p);
     }
+
+    /** The sidebar's lines as drawn now (loadout, health, armor, the dummy), for assertions. Null when not testing. */
+    java.util.List<String> hudLines(Player p) { return active(p) ? hud.linesFor(p) : null; }
 
     /** Give the loadout again (consumed gear, a dropped item), keeping the exit item. */
     void refill(Player p, Loadout<ItemStack> loadout) {
@@ -89,6 +96,7 @@ final class TestingMode implements Listener {
     boolean exit(Player p) {
         var real = parked.remove(p.getUniqueId());
         if (real == null) return false;
+        hud.stop(p);
         LoadoutGear.give(p, real);
         store.discardParked(p.getUniqueId());
         p.updateInventory();

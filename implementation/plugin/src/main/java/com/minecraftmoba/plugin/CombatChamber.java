@@ -125,7 +125,7 @@ public final class CombatChamber implements Listener {
         this.ui = new CombatUi(plugin, this);
         this.preMenu = new CombatPreEntryMenu(plugin, this);
         this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
-        this.testing = new TestingMode(plugin, loadouts, this::endTesting);
+        this.testing = new TestingMode(plugin, loadouts, this::endTesting, this::dummy);
         this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot));
         Bukkit.getPluginManager().registerEvents(testing, plugin);
         Bukkit.getPluginManager().registerEvents(editor, plugin);
@@ -404,6 +404,9 @@ public final class CombatChamber implements Listener {
 
     LoadoutEditor loadoutEditor() { return editor; }
 
+    /** The testing sidebar's lines as drawn now, or null when the tester is not testing. Public for acceptance runs. */
+    public java.util.List<String> testingHud(Player p) { return testing.hudLines(p); }
+
     /**
      * Give a testing tester their real inventory back without ending the chamber session. This is what a
      * quit does to a testing tester; it is public so an acceptance run can exercise it without dispatching a
@@ -679,6 +682,19 @@ public final class CombatChamber implements Listener {
     public int hitsDealt(Player tester) {
         var a = active.get(tester.getUniqueId());
         return a == null ? 0 : a.dealt.count();
+    }
+
+    /**
+     * The hits the dummy has taken, for an acceptance fixture to read.
+     *
+     * The report prints totals and a per-source breakdown, which is what a
+     * tester wants and not enough to assert on: a check that an ABILITY was
+     * measured has to see the individual hit and who dealt it, or it cannot
+     * tell the ability's damage from a bare {@code damage()} call.
+     */
+    public java.util.List<DamageLog.Hit> dealtHits(Player tester) {
+        var a = active.get(tester.getUniqueId());
+        return a == null ? java.util.List.of() : a.dealt.hits();
     }
 
     private void reset(Player p, Active a) {
