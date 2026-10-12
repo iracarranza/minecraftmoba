@@ -88,13 +88,20 @@ public final class RunwayAbility implements Ability {
     @Override public List<String> branchIds() { return List.of("pop_rocket", "trampoline", "suplex"); }
 
     @Override
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        double need = config.getDouble("momentumThreshold");
+        return List.of(new Need("more speed: run (or sprint-jump) before you cast",
+                (pl, c) -> DaredevilState.qualifies(state.momentum(pl), need),
+                (pl, c) -> String.format(java.util.Locale.ROOT, "momentum %.2f of %.2f", state.momentum(pl), need)));
+    }
+
+    @Override
     public boolean execute(Player p, AbilityContext ctx) {
         if (!state.isDaredevil(p)) return false;
 
         double momentum = state.momentum(p);
         if (!DaredevilState.qualifies(momentum, config.getDouble("momentumThreshold"))) {
-            if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, "TOO SLOW");
-            return false;
+            return false;                                   // AbilityInputs explains it: see needs()
         }
 
         String branch = ctx.branchFor(id());

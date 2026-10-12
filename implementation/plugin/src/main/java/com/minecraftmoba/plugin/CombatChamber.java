@@ -106,6 +106,7 @@ public final class CombatChamber implements Listener {
     private final LoadoutStore loadouts;
     private final TestingMode testing;
     private final LoadoutEditor editor;
+    private final ItemPicker picker;
     private final java.util.Random rng = new java.util.Random();
     /** Ticks between casts under the repeat script. */
     private static final int REPEAT_TICKS = 100;
@@ -126,9 +127,11 @@ public final class CombatChamber implements Listener {
         this.preMenu = new CombatPreEntryMenu(plugin, this);
         this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
         this.testing = new TestingMode(plugin, loadouts, this::endTesting, this::dummy);
-        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot));
+        this.picker = new ItemPicker(plugin, loadouts, this::openEditor);
+        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot), picker::open);
         Bukkit.getPluginManager().registerEvents(testing, plugin);
         Bukkit.getPluginManager().registerEvents(editor, plugin);
+        Bukkit.getPluginManager().registerEvents(picker, plugin);
         Bukkit.getPluginManager().registerEvents(preMenu, plugin);
         Bukkit.getPluginManager().registerEvents(ui, plugin);
     }
@@ -281,6 +284,12 @@ public final class CombatChamber implements Listener {
         ;
         if ("skeleton_crew".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Prototype: 3 stored Crew seeded for this lab session. Copper Chest controls: x0 and x8, z8. /moba crew list; target a chest then /moba crew source|destination <worker>. Use Infrastructure Mode at level 6+ to prove a line; carry real cargo.");
         if ("gardener".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Clip controls grow on the grass band: x12–16, z-8–-4. Carry plant items for Cultivate; full meters need nearby soil.");
+        if ("fungal_assassin".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Mycelium controls: grass band x12–16, z4–8. Attacks infect enemies; Burst needs an infected target. Equipment mode restores ordinary attacks.");
+        if ("paver".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Carry Sand, Gravel and dye for the Mixer, and Concrete/Powder for construction. Place your own Concrete before suspending Powder. Pitons: two anchors, then recasts dash to the farther one.");
+        if ("chauffeur".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Exit a summoned vehicle to set Parking Spot. Outside ability mode, sneak-use Cargo Boat to open storage; ordinary Minecart variants are rideable.");
+        if ("hollow".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Your external Heart takes body damage until broken. Maw and Seeking Heart recast during cooldown; Soresight grows from unique enemies damaging you.");
+        if ("bloodmason".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "A1 lowers Hemostasis; A2 raises it. While Anatomb stands, hold M1/M2 to channel Health into blood/bone completion.");
+        if ("quarryman".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Mine natural terrain for quotas. Strike pauses and clears the current quota. Q marks a cube; recast after its telegraph to enter Eternity Mountain, then hold an equipped pickaxe on the Bedrock target.");
         p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on. Equipment / controls (or /moba lab combat equipment) restores your real hotbar for food, weapons and tools.");
     }
 
@@ -398,6 +407,18 @@ public final class CombatChamber implements Listener {
 
     LoadoutEditor loadoutEditor() { return editor; }
 
+    /** The item shelf, for acceptance runs. */
+    ItemPicker itemPicker() { return picker; }
+
+    /** The shelf window the tester has open, or null. Public for acceptance runs. */
+    public org.bukkit.inventory.Inventory itemShelfWindow(Player p) { return picker.window(p); }
+
+    /** Open the item shelf, optionally searching. Public for acceptance runs. */
+    public void openItemShelf(Player p, String query) {
+        if (!active.containsKey(p.getUniqueId())) { p.sendMessage("Enter the combat chamber first."); return; }
+        picker.open(p, null, query);
+    }
+
     /** The testing sidebar's lines as drawn now, or null when the tester is not testing. Public for acceptance runs. */
     public java.util.List<String> testingHud(Player p) { return testing.hudLines(p); }
 
@@ -425,6 +446,7 @@ public final class CombatChamber implements Listener {
                 catch (RuntimeException ex) { p.sendMessage(ChatColor.RED + "/moba lab combat loadout select 1-" + LoadoutBook.SLOTS); return; }
                 p.sendMessage(ChatColor.GREEN + "Selected " + book.selectedName() + ": " + book.current().count() + " item(s).");
             }
+            case "find", "items", "shelf" -> openItemShelf(p, args.length > 4 ? String.join(" ", java.util.Arrays.copyOfRange(args, 4, args.length)) : null);
             case "dummy" -> {
                 if (a.dummy == null) { p.sendMessage(ChatColor.RED + "There is no dummy."); return; }
                 boolean clear = args.length > 4 && args[4].equalsIgnoreCase("clear");
@@ -442,7 +464,7 @@ public final class CombatChamber implements Listener {
                 p.sendMessage(ChatColor.GOLD + "Loadouts (selected: " + book.selectedName() + "):");
                 for (int i = 0; i < LoadoutBook.SLOTS; i++)
                     p.sendMessage((i == book.selected() ? ChatColor.GREEN + "> " : ChatColor.GRAY + "  ") + LoadoutBook.name(i) + ": " + book.get(i).count() + " item(s)");
-                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | next | select <n> | dummy [clear] | me");
+                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | items | find <words> | next | select <n> | dummy [clear] | me");
             }
         }
     }
@@ -725,6 +747,7 @@ public final class CombatChamber implements Listener {
     /** Remove everything, for plugin shutdown. */
     public void close() {
         editor.closeAll();
+        picker.closeAll();
         testing.exitAll();
         for (var e : new java.util.ArrayList<>(active.entrySet())) {
             Player p = Bukkit.getPlayer(e.getKey());

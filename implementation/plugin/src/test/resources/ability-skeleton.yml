@@ -526,29 +526,55 @@ classes:
       passive:
         id: "hemostasis"
         name: "Hemostasis"
-        status: "designed"
+        status: "dispatched"
         outputs:
           hemostasis: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "capillary_flow"
         name: "Capillary Flow"
-        status: "designed"
+        status: "built"
         outputs:
-          capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "true" }
-          hemorrhage: { target: "AREA_ENTITIES", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
+          capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+          hemorrhage: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+        branches:
+          nausea_wave:
+            outputs:
+              capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              hemorrhage: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+          bloodtrail:
+            outputs:
+              capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              hemorrhage: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+          lifeblood:
+            outputs:
+              capillary_flow: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              hemorrhage: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
       a2:
         id: "viscerwall"
         name: "Viscerwall"
-        status: "designed"
+        status: "built"
         outputs:
-          viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "true" }
-          teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
+          viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+          teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+        branches:
+          render_flesh:
+            outputs:
+              viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+          fracture:
+            outputs:
+              viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
+          adipose:
+            outputs:
+              viscerwall: { target: "UNIT_BLOCK", input: "INSTANT", affects: "BOTH", caster: "true" }
+              teratoma: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "BOTH", caster: "true" }
       ult:
         id: "athanor_anatomb"
         name: "Athanor Anatomb"
-        status: "designed"
+        status: "built"
         outputs:
-          athanor_anatomb: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          athanor_anatomb: { target: "AREA_BLOCKS", input: "INSTANT", affects: "BOTH", caster: "true" }
   chef:
     displayName: "Chef"
     abilities:
@@ -606,25 +632,45 @@ classes:
       passive:
         id: "creeping_colony"
         name: "Creeping Colony"
-        status: "designed"
+        status: "dispatched"
         outputs:
           creeping_colony: { target: "SELF", input: "PASSIVE", affects: "ENEMIES", caster: "true" }
       a1:
         id: "bursting_spore"
         name: "Bursting Spore"
-        status: "designed"
+        status: "built"
         outputs:
           bursting_spore: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+        branches:
+          submersive:
+            outputs:
+              bursting_spore: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          airborne_spread:
+            outputs:
+              bursting_spore: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
+          root_network:
+            outputs:
+              bursting_spore: { target: "UNIT_ENTITY", input: "INSTANT", affects: "ENEMIES", caster: "false" }
       a2:
         id: "myceliate"
         name: "Myceliate"
-        status: "designed"
+        status: "built"
         outputs:
           myceliate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          hardy:
+            outputs:
+              myceliate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          nutrient_cycle:
+            outputs:
+              myceliate: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          hyphae_lashers:
+            outputs:
+              myceliate: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       ult:
         id: "destroying_angels_blessing"
         name: "Destroying Angel's Blessing"
-        status: "designed"
+        status: "built"
         outputs:
           destroying_angels_blessing: { target: "UNIT_BLOCK", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   looming_talismaniac:
@@ -660,25 +706,45 @@ classes:
       passive:
         id: "concrete_mixer"
         name: "Concrete Mixer"
-        status: "designed"
+        status: "dispatched"
         outputs:
           concrete_mixer: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "rebar_chain"
         name: "Rebar Chain"
-        status: "designed"
+        status: "built"
         outputs:
-          rebar_chain: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+          rebar_chain: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          galvanized:
+            outputs:
+              rebar_chain: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+          beveled_edges:
+            outputs:
+              rebar_chain: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
+          pitons:
+            outputs:
+              rebar_chain: { target: "UNIT_BLOCK", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "chamfering"
         name: "Chamfering"
-        status: "designed"
+        status: "built"
         outputs:
-          chamfering: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "false" }
+          chamfering: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
+        branches:
+          steep_grading:
+            outputs:
+              chamfering: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
+          pozzolan_patch:
+            outputs:
+              chamfering: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
+          natural_mix:
+            outputs:
+              chamfering: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "false" }
       ult:
         id: "concrete_shoes"
         name: "Concrete Shoes"
-        status: "designed"
+        status: "built"
         outputs:
           concrete_shoes: { target: "AREA_BLOCKS", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   chauffeur:
@@ -687,25 +753,45 @@ classes:
       passive:
         id: "parking_spot"
         name: "Parking Spot"
-        status: "designed"
+        status: "dispatched"
         outputs:
           parking_spot: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "cargo_boat"
         name: "Cargo Boat"
-        status: "designed"
+        status: "built"
         outputs:
-          cargo_boat: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+          cargo_boat: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+        branches:
+          jetski:
+            outputs:
+              cargo_boat: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          freight_engine:
+            outputs:
+              cargo_boat: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          front_propeller:
+            outputs:
+              cargo_boat: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       a2:
         id: "muscle_cart"
         name: "Muscle Cart"
-        status: "designed"
+        status: "built"
         outputs:
-          muscle_cart: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+          muscle_cart: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+        branches:
+          pop_the_hopper:
+            outputs:
+              muscle_cart: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          diesel_engine:
+            outputs:
+              muscle_cart: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          tactical_dismount:
+            outputs:
+              muscle_cart: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       ult:
         id: "highly_irresponsible_racing_line"
         name: "Highly Irresponsible Racing Line"
-        status: "designed"
+        status: "built"
         outputs:
           highly_irresponsible_racing_line: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "false" }
   quarryman:
@@ -714,27 +800,27 @@ classes:
       passive:
         id: "quarry_quota"
         name: "Quarry Quota"
-        status: "designed"
+        status: "dispatched"
         outputs:
           quarry_quota: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
       a1:
         id: "ceaseless_swing"
         name: "Ceaseless Swing"
-        status: "designed"
+        status: "built"
         outputs:
-          ceaseless_swing: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+          ceaseless_swing: { target: "AREA_BLOCKS", input: "INSTANT", affects: "NONE", caster: "true" }
       a2:
         id: "miners_strike"
         name: "Miner's Strike"
-        status: "designed"
+        status: "built"
         outputs:
-          miners_strike: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+          miners_strike: { target: "SELF", input: "INSTANT", affects: "ENEMIES", caster: "true" }
       ult:
         id: "eternity_mountain"
         name: "Eternity Mountain"
-        status: "designed"
+        status: "built"
         outputs:
-          eternity_mountain: { target: "AREA_ENTITIES", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
+          eternity_mountain: { target: "AREA_BLOCKS", input: "CHANNELED", affects: "ENEMIES", caster: "true" }
   werewolf:
     displayName: "Werewolf"
     abilities:
@@ -782,3 +868,50 @@ classes:
         status: "built"
         outputs:
           monster_howl: { target: "SELF", input: "INSTANT", affects: "NONE", caster: "true" }
+  hollow:
+    displayName: "Hollow"
+    abilities:
+      passive:
+        id: "hollowed_heart"
+        name: "Hollowed Heart"
+        status: "dispatched"
+        outputs:
+          hollowed_heart: { target: "SELF", input: "PASSIVE", affects: "NONE", caster: "true" }
+      a1:
+        id: "wooden_maw"
+        name: "Wooden Maw"
+        status: "built"
+        outputs:
+          wooden_maw: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+        branches:
+          mangling_branch:
+            outputs:
+              wooden_maw: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          eerie_resonance:
+            outputs:
+              wooden_maw: { target: "AREA_ENTITIES", input: "INSTANT", affects: "BOTH", caster: "true" }
+          soresight:
+            outputs:
+              wooden_maw: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+      a2:
+        id: "seeking_heart"
+        name: "Seeking Heart"
+        status: "built"
+        outputs:
+          seeking_heart: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+        branches:
+          cursed_canopy:
+            outputs:
+              seeking_heart: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          drawn_together:
+            outputs:
+              seeking_heart: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+          creaking_boards:
+            outputs:
+              seeking_heart: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }
+      ult:
+        id: "peekaboo"
+        name: "Peekaboo"
+        status: "built"
+        outputs:
+          peekaboo: { target: "AREA_ENTITIES", input: "INSTANT", affects: "ENEMIES", caster: "true" }

@@ -5005,10 +5005,10 @@ language. Abstraction: environmental adaptation.
 targets, and Bursting Spore receives a wider spread. Infection stops being purely
 one-host-at-a-time and becomes an outbreak. Abstraction: propagation.
 
-[OPEN] The recovered design alternates between **the Burst itself** becoming
-wider and **the resulting Mycelium spread** becoming wider. Preserved as a design
-clarification rather than silently resolved — see the feasibility note, since
-these are different code paths rather than different numbers.
+**[RESOLVED 11 October 2026]** Airborne Spread widens the **enemy-hit radius**
+of Bursting Spore; it does not widen the resulting Mycelium territory. The owner
+selected this interpretation before implementation. The historical ambiguity
+is retained in the dated audit/feasibility context.
 
 **Root Network** — Fungal Growth establishes a spatial relationship between
 infected prey and its originating Network. If that enemy travels sufficiently far
@@ -5144,7 +5144,7 @@ volume. They are different code, not different constants.
 ## Open
 
 - Every magnitude: Fungal Growth duration and damage, Network growth rates and thresholds, Burst radius, Myceliate range and duration, Hardy's cap, ultimate damage and radius.
-- Whether Airborne Spread widens the Burst or the resulting spread.
+- Airborne Spread radius magnitude; its enemy-hit interpretation is resolved above.
 - Submersive's aquatic species, given twisting vines cannot be waterlogged.
 - Root Network's pull distance, strength and whether it is resistible.
 - What "sufficiently developed" means for immediate priming.
@@ -5454,14 +5454,13 @@ to destroy. Abstraction: durability.
 Chain. Paver traverses their Concrete construction more rapidly without changing
 what they need to build. Abstraction: traversal efficiency.
 
-**Pitons** — Rebar Chain can be recast while attached to leave a **Piton**, a new
-attachment point. Subsequent casts dash Paver to the furthest Piton. Pitons
-establish persistent traversal anchors throughout the construction. Abstraction:
-traversal topology.
+**Pitons** — The initial Rebar Chain cast places the first Piton. The first recast
+places a second Piton; there are exactly **two**, not an expanding chain. Further
+recasts dash Paver to whichever of those two is farther from Paver’s **current
+position**. Abstraction: traversal topology.
 
-[OPEN] **"Furthest Piton" must be made explicit** during implementation: distance
-from Paver, distance from the original anchor, or position within an ordered
-chain are three different abilities.
+**[RESOLVED 11 October 2026]** The owner specified the two-anchor limit and
+current-position distance rule. The earlier unbounded/ambiguous phrasing is superseded.
 
 ## A2 — Chamfering
 
@@ -5641,7 +5640,7 @@ Anatomb are the others.
 ## Open
 
 - Every magnitude: conversion rate and water bonus, Chain radius, climb speed, hardness deltas, Shoes' mass-to-damage and mass-to-knockback curves, Root duration.
-- The definition of "furthest Piton".
+- Piton range and duration; the two-anchor/current-position rule is resolved above.
 - The adjacency cap on Chamfering release.
 - Whether the Powder → Concrete transition is observable without polling.
 - Growth progression.
@@ -6612,3 +6611,288 @@ define it.
   Unleashed version avoids the tracking by committing to a direction.
 - **Max Health interacts with the displayed health scaling** the plugin already
   applies, so size-and-health changes need a defined relationship to it.
+
+
+# 30. Hollow
+
+**Definitive design supplied by the owner, 11 October 2026.** The supplied text below
+is incorporated as class authority. Open implementation parameters remain Prototype/test;
+this does not promote prototype status magnitudes to final balance.
+
+# Hollow — Current Definitive Design
+
+## Identity
+
+**Hollow** is a Combat-purist CC tank inspired by the Creaking and Pale Garden.
+
+Core fantasy:
+> A person whose life has been displaced from their body into the world around them.
+
+Hollow's Heart exists physically outside their body. The class manipulates the position of that vulnerability, retrieves and protects it, sends it into dangerous spaces, and changes combat behavior depending on whether the Heart is intact or broken.
+
+Hollow is not literally a Creaking. The Creaking/Pale Garden phenomenon is the source vocabulary for a larger fantasy centered on an externally located life, a hollow body, stillness/pursuit, wooden bodily mutation, and horror.
+
+**Primary archetype:** Combat
+**Archetype status:** Combat purist
+
+Hollow's combat identity is:
+> externalize vulnerability → move the Heart → mutate the body around its position → manipulate enemy attention and positioning → terrify → restore self/Heart → repeat
+
+Hollow is a high-survivability CC tank, but a large fraction of that survivability exists in the external Heart rather than Hollow's body.
+
+---
+
+## Passive — Hollowed Heart
+
+**Hollowed Heart (Passive):** Periodically while it is alive, Hollow is followed by their Heart, which takes damage for them until breaking. Damage that breaks the Heart does not overflow to Hollow. Once broken, the Heart returns at full health after 40/32/24/16s (Lv0/8/16/24). While Hollow is at full Health, the Broken Heart returns twice as fast. The Heart's maximum health scales with Hollow's maximum health.
+
+The Heart is a physical follower rather than an abstract shield.
+
+When intact, damage intended for Hollow is taken by the Heart until it breaks. The hit that breaks the Heart does not transfer excess damage to Hollow.
+
+Heart return timing:
+- Lv0: 40s
+- Lv8: 32s
+- Lv16: 24s
+- Lv24: 16s
+
+While Hollow is at full Health, these effectively become:
+- Lv0: 20s
+- Lv8: 16s
+- Lv16: 12s
+- Lv24: 8s
+
+This gives opponents an incentive to damage Hollow after breaking the Heart, since even minor direct damage disables the accelerated return until Hollow is again at full Health.
+
+The Heart's maximum Health is derived directly from Hollow's maximum body Health.
+
+---
+
+## A1 — Wooden Maw
+
+**Wooden Maw (A1):** Hollow opens their cavity, pulling their Heart inside, distending in size, and gaining Resistance. Enemies that enter the cavity are violently thrashed, taking damage and healing the Heart. On recast or ability end, the cavity snaps shut, leaving the Heart behind.
+
+Wooden Maw functions as both a combat transformation and a Heart relocation tool:
+
+> retrieve Heart → protect Heart inside cavity → catch enemies to restore Heart → redeposit Heart
+
+When the cavity closes, the Heart remains at Hollow's ending position rather than automatically returning to its previous location.
+
+### Heartless
+
+**Heartless:** Similar to normal Wooden Maw but with diminished effects, and Hollow also receives Slowness during the cast.
+
+### Branches
+
+**Mangling Branch:** The first enemy caught inside the cavity is Stunned and carried with Hollow until Wooden Maw ends.
+
+**Eerie Resonance:** Thrashing an enemy also heals nearby allies for a lesser amount.
+
+**Soresight:** For each unique enemy that damages Hollow during Wooden Maw, Hollow gains additional size.
+
+**[RESOLVED 11 October 2026]** The owner replaced aim/attention targeting with unique damaging attackers during the cast; no aim-ray or mob-aggro inference is required.
+
+---
+
+## A2 — Seeking Heart
+
+**Seeking Heart (A2):** Hollow sends their Heart rolling in a straight line along terrain, following walls and locking onto the highest-percentage-health enemy within its radius. On recast, Hollow disappears and re-emerges at the Heart after a short delay.
+
+The Heart is an actual moving world object rather than a generic projectile.
+
+It:
+- rolls along terrain;
+- follows walls;
+- searches within its radius;
+- prioritizes the enemy with the highest percentage of maximum Health.
+
+The Heart remains Hollow's vulnerability while traveling.
+
+The basic combat decision is:
+
+> send vulnerability ahead → allow it to travel through danger → choose whether to follow → disappear → emerge at Heart
+
+Enemies can attack the incoming Heart before Hollow arrives.
+
+### Heartless
+
+**Heartless:** Hollow disappears into the ground and reemerges slowly at the highest-percent-health priority enemy player.
+
+Without the Heart, Hollow loses the ability to project an external anchor and instead has to move their own body toward the target.
+
+### Branches
+
+**Cursed Canopy:** When Hollow emerges, nearby enemies are afflicted with Blindness and Weakness.
+
+**Drawn Together:** On recast, Hollow instead draws their Heart back violently, dragging enemies along its path.
+
+The drag is physical displacement, not Lured.
+
+**Creaking Boards:** If Seeking Heart's path would bring it near a Wooden block, it temporarily enters that block. If Hollow enters the Heart, then when they emerge, enemy players touching nearby Wooden blocks are Stunned.
+
+---
+
+## Ultimate — Peekaboo
+
+**Peekaboo (Ultimate)**
+
+**Innate:** When enemies are inflicted with Frightened, Hollow and the Heart restore some health.
+
+**Active:** Hollow grotesquely transforms their body, Frightening enemies in a cone.
+
+**Cast during Wooden Maw:** Hollow's maw expands massively in a radius, Frightening enemies, then pulling them inwards.
+
+**Cast during Seeking Heart:** Hollow rushes at terrifying speed along the Heart's path, Frightening enemies along the way.
+
+Peekaboo changes its geometry according to Hollow's current form rather than becoming a separate unrelated combat mechanic:
+
+- Base Hollow → frontal cone.
+- Wooden Maw → radial Frighten followed by physical inward displacement.
+- Seeking Heart → high-speed rush along the Heart's traveled path.
+
+During the Wooden Maw version, Frightened occurs before the inward pull. The inward movement is physical displacement, not Lured.
+
+Peekaboo can consequently restore the Heart through Frightened while Wooden Maw can additionally restore it by thrashing enemies caught inside.
+
+---
+
+## Hearted / Heartless Combat States
+
+### Hearted
+
+Hollow:
+- possesses its full external survivability pool;
+- can retrieve, heal, carry and redeposit the Heart with Wooden Maw;
+- can send the Heart through terrain with Seeking Heart;
+- can use the Heart as a mobility/engagement anchor;
+- can restore Heart Health through aggression.
+
+### Heartless
+
+After the Heart breaks:
+- Hollow loses the external portion of its Health pool;
+- Wooden Maw continues in diminished form and Slows Hollow during its cast;
+- Seeking Heart becomes a slower bodily burrow toward the highest-percentage-health priority enemy;
+- Hollow remains functional and threatening but loses much of its mobility, survivability and precise Heart manipulation;
+- maintaining full body Health causes the Heart to reform twice as quickly.
+
+Heart break is therefore a major combat-state transition rather than simply depletion of an ordinary shield.
+
+---
+
+## Health / Growth
+
+Hollow's Health architecture is built around approximately a 60/40 division between body and Heart.
+
+Current Lv30 target:
+
+- **Body Health: 2,100**
+- **Heart Health: 1,500**
+- **Combined raw Health: 3,600**
+
+The Heart's maximum Health is derived directly from body maximum Health:
+
+**Heart Max Health = 5/7 × Hollow Max Health**
+
+This produces approximately:
+
+- Body: 58.3% of combined raw Health
+- Heart: 41.7% of combined raw Health
+
+Hollow begins with the standard 1,000 body Health and gains **+110 body Health at every Growth event**.
+
+| Level | Body Health | Heart Health | Combined |
+|---:|---:|---:|---:|
+| 0 | 1,000 | ~714 | ~1,714 |
+| 3 | 1,110 | ~793 | ~1,903 |
+| 6 | 1,220 | ~871 | ~2,091 |
+| 9 | 1,330 | 950 | 2,280 |
+| 12 | 1,440 | ~1,029 | ~2,469 |
+| 15 | 1,550 | ~1,107 | ~2,657 |
+| 18 | 1,660 | ~1,186 | ~2,846 |
+| 21 | 1,770 | ~1,264 | ~3,034 |
+| 24 | 1,880 | ~1,343 | ~3,223 |
+| 27 | 1,990 | ~1,421 | ~3,411 |
+| 30 | 2,100 | 1,500 | 3,600 |
+
+The Heart's special properties make Hollow's effective durability greater than the simple 3,600 raw-Health sum:
+- Heart-breaking damage does not overflow;
+- Wooden Maw can restore Heart Health;
+- Peekaboo can restore Hollow and Heart Health;
+- the Heart reforms after breaking;
+- full-health Hollow accelerates Heart reformation;
+- Wooden Maw grants Resistance.
+
+This is intentional.
+
+For comparison, Mole reaches 3,200 body Health at Lv30. Hollow has greater total raw Health while Hearted, but only 2,100 body Health once Heartless.
+
+---
+
+## Progression Relationship
+
+Growth and Task remain separate systems.
+
+**Growth** automatically matures Hollow's class-authored physical/capacity curve.
+
+**Task** is chosen by the player at Lv4/8/12/16/20/24/28. Task investment raises Yield, Efficiency or Slaying tiers. Reaching the appropriate advanced Task tier grants access to eligible shared Techniques.
+
+Techniques are therefore not granted directly by reaching a particular character level or Growth event.
+
+Hollow's established Growth backbone is its regular body-Health increase, with Heart Health derived from it.
+
+---
+
+## Status / Displacement Usage
+
+Hollow uses the game's standardized status vocabulary.
+
+**Stunned:** cannot move or act.
+
+**Blinded:** vision/perception substantially impaired.
+
+**Weakened:** offensive effectiveness reduced.
+
+**Frightened:** forced to walk away from the source/target.
+
+Physical pulls, drags and other displacement are not statuses.
+
+Accordingly:
+- Peekaboo applies **Frightened**.
+- Wooden Maw Peekaboo subsequently physically pulls enemies inward.
+- Drawn Together physically drags enemies along the Heart's path.
+- Neither physical movement effect is Lured.
+
+---
+
+## Core Combat Shape
+
+Hollow is a Combat-purist tank whose durability, mobility and crowd control are all organized around the same object: the Heart.
+
+The class alternates between:
+1. exposing or projecting the Heart;
+2. forcing enemies to decide whether to attack Hollow or the Heart;
+3. relocating Hollow relative to the Heart;
+4. using bodily transformations to control nearby enemies;
+5. restoring the Heart through successful aggression;
+6. surviving a substantially weaker Heartless state if the Heart is destroyed;
+7. reforming the Heart and beginning the cycle again.
+
+The intended durability profile is not "large Health bar plus shield."
+
+Hollow is a tank **because the Heart exists**.
+
+### Six-class lab implementation — 11 October 2026
+
+**Prototype/test.** Hollow, Paver, Fungal Assassin, Chauffeur, Bloodmason and
+Quarryman now have registered passive/A1/A2/ultimate implementations for the
+existing combat and skirmish labs, including every supplied branch. This does
+not change their design-state labels or settle unprovided Growth, Task,
+Infrastructure eligibility, final balance or world-system policy. Authored
+Hollow Health/Heart recovery follows the supplied definitive design.
+
+The owner decisions for Airborne Spread, two Pitons and damage-based Soresight
+are incorporated above. Implementation choices and fidelity limits are in
+[the six-class lab pass](docs/design/SIX_CLASS_KIT_LAB_PASS.md); the dated
+[reconciliation](docs/reconciliation/2026-10-11-six-class-lab-pass.md) separates
+those decisions from remaining Open questions.

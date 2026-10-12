@@ -46,9 +46,12 @@ final class IrresistibleBuffetAbility implements Ability, Listener {
     boolean seated(Player p) { return seats.containsKey(p.getUniqueId()); }
     boolean serving(ItemStack s) { return ChefItems.tagged(s, servingKey); }
 
+    public List<Need> needs(Player chef, AbilityContext ctx) {
+        return List.of(new Need("food in your inventory to serve (any edible item)", (p, c) -> ChefItems.foodSlot(p) >= 0, (p, c) -> "you carry none"));
+    }
     public boolean execute(Player chef, AbilityContext ctx) {
         int slot = ChefItems.foodSlot(chef);
-        if (slot < 0) { chef.sendMessage("Buffet needs stored food to serve."); return false; }
+        if (slot < 0) return false;                         // AbilityInputs explains it: see needs()
         var food = chef.getInventory().getItem(slot).asOne();
         Vector direction = chef.getLocation().getDirection().setY(0);
         if (direction.lengthSquared() < 1e-6) return false;

@@ -23,6 +23,9 @@ Moving takes items out of your own inventory, as a chest does. The two "copy" co
 your inventory (seeing through the chamber's menu, never copying the menu itself) or the dummy's, and
 leave the originals where they are.
 
+**Getting items.** The editor's **Get items** control opens the item shelf: every item in the game by category or name, with
+left-click for a stack and right-click for one, added to the loadout being edited. See [LAB_CLASS_INTEGRATION.md](LAB_CLASS_INTEGRATION.md).
+
 **Applying a loadout** is a separate step from editing it:
 
 | Verb | Command | What it does |

@@ -127,6 +127,7 @@ public final class Targetability {
      */
     public static boolean allied(Entity target, Player source) {
         Player other = target instanceof Player p ? p : SkeletonCrewState.owner(target);
+        if (other == null) other = OwnedEntities.owner(target);
         if (other == null) return false;
         if (other.equals(source)) return true;
         var manager = org.bukkit.Bukkit.getScoreboardManager();

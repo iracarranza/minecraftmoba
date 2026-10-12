@@ -111,7 +111,7 @@ class AbilitySkeletonTest {
     }
 
     @Test void theRosterCoversEveryClassDesignedInClassesMd() {
-        assertEquals(18, classes().size(),
+        assertEquals(19, classes().size(),
                 "classes.md sections 4-29 design 18 classes; the skeleton covers " + classes().keySet());
     }
 
@@ -469,7 +469,7 @@ class AbilitySkeletonTest {
         for (var b : branches())
             if ("ALLIES".equals(b.get("affects")) || "BOTH".equals(b.get("affects")))
                 ally.add(b.get("ability") + "." + b.get("branch"));
-        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious", "plant_material", "graveyard_shift.hard_hat_zone"), ally,
+        assertEquals(Set.of("talisman_of_undying", "assemble", "food_fight.super_nutritious", "plant_material", "graveyard_shift.hard_hat_zone", "capillary_flow", "viscerwall", "athanor_anatomb", "capillary_flow.nausea_wave", "capillary_flow.bloodtrail", "capillary_flow.lifeblood", "viscerwall.render_flesh", "viscerwall.fracture", "viscerwall.adipose", "wooden_maw.eerie_resonance"), ally,
                 "found: " + ally);
     }
 

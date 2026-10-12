@@ -1,0 +1,26 @@
+PASS production plugin and all four kits registered
+PASS Furnace carryover finishes one item and advances the next with paid fuel
+PASS Rake the Coals pays half fuel and never invents fuel
+PASS Campfire finishes independent slots immediately
+PASS Food Fight launches a real stored food
+PASS Food Fight damages enemy and Extra Spicy ignites
+PASS Super Nutritious launches toward an ally
+PASS Super Nutritious heals without damaging ally
+PASS Buffet starts and leaves Chef free to act
+PASS Buffet mounts victim, protects originals and spends nine real servings
+PASS Dismount restores original hotbar exactly once
+PASS second invitation
+PASS Death event preserves original items and exports no temporary serving
+PASS third invitation
+PASS Real disconnect/despawn restores suspended hotbar
+PASS Sinkhole preserves container state and reserves its origin
+PASS Mole casts the actual temporary Sinkhole
+PASS Sinkhole opens only after telegraph and holds reservations
+PASS Lightfooted casts protected animal and caster leaps
+PASS Forced animal leap lands and releases protection
+PASS full-engine death fixture seats a fresh victim
+PASS actual death while seated releases custody
+PASS respawn after actual Buffet death
+PASS actual death/respawn keeps originals once and exports no servings
+PASS Lab kit cleanup removes projectiles, tables and reservations
+SUMMARY pass=25 fail=0

@@ -42,6 +42,9 @@ final class SinkholeAbility implements Ability {
         return selected;
     }
     public Collection<Block> preview(Player p, AbilityContext ctx) { return selection(p); }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("a block to aim at, within " + config.getInt("range") + " blocks", (pl, c) -> pl.getTargetBlockExact(config.getInt("range")) != null, null));
+    }
     public boolean execute(Player p, AbilityContext ctx) {
         var blocks = selection(p); if (blocks.isEmpty()) return false;
         double slowest = 1;

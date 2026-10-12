@@ -39,6 +39,10 @@ final class HotswapAbility implements Ability, Listener {
         if(!b.isEmpty()) b=b.getRelative(face==null?org.bukkit.block.BlockFace.UP:face);
         return b.isEmpty() && !plugin.displacement().isReserved(b)?b:null;
     }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("a block to place it against, within " + config.getInt("range") + " blocks, with a free cell on the side you aim at",
+                (pl, c) -> target(pl, c) != null, null));
+    }
     public Collection<Block> preview(Player p,AbilityContext ctx) { Block b=target(p,ctx); return b==null?List.of():List.of(b); }
     public boolean execute(Player p, AbilityContext ctx) {
         Block b=target(p,ctx); if(b==null || !b.getChunk().isLoaded()) return false;

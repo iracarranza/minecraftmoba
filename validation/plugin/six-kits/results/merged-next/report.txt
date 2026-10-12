@@ -1,0 +1,37 @@
+PASS all three kits register every slot and branch
+PASS Offhander replaces the map with the branch's item, takes nothing from the inventory, and refuses a foreign offhand
+PASS Each branch's item, the same press again puts the map back, and an empty hand re-issues it
+PASS Diamond projection fills naked slots while preserving above-Diamond toughness
+PASS Diamond protection applies alongside native equipment modifiers
+PASS Hotswap reserves an empty cell for a Cobweb
+PASS breaking a temporary web restores air without drops
+PASS temporary Lava cannot spread outside its reserved cell
+PASS temporary TNT has a native fuse and cancels without stranded explosive
+PASS Salvage observes a real crafting inventory and ingredient debit
+PASS settled craft grants one material-specific Salvage
+PASS mature Clip preserves plant state and produces resource
+PASS Cultivate spends one real plant at lower efficiency
+PASS full material meter grows a real Torchflower and light
+PASS Collection rewards new species and diminishes repeated clipping
+PASS Proliferation rewards a real same-family plant concentration
+PASS Cultivar accelerates actual crop growth
+PASS growth veto is respected and Torchflower grants allied Absorption
+PASS Handbook queues both unselected Cultivars without respecializing
+PASS Berry cultivar prepares provisioning and enemy thicket control
+PASS Human Bloodhide reduces damage and Brawler's Mind passes projectiles
+PASS Berry provisions allies while thicket damages and slows enemies
+PASS Human Slash uses held weapon and hits an enemy
+PASS low-health combat starts natural transformation streak
+PASS Diamond projection expires without changing the real armor
+PASS Giant Bamboo produces one bounded generation
+PASS natural transformation grows real hitbox and preserves current effective HP
+PASS Howl cleanses, heals Transformed and enters public Unleashed
+PASS Unleashed Bloodhide gains size without damage reduction and supports recast
+PASS Rabid Frenzy recasts through the input dispatcher without resetting cooldown
+PASS second Howl grants lifesteal without extending the timer
+PASS Unleashed lifesteal returns effective dealt damage to caster
+PASS empowered offspring do not recursively reproduce
+PASS Unleashed ends on original ten-second deadline with recovery
+PASS destroying a real Cultivar removes its aura and returns reserved air
+PASS session teardown restores all temporary flora, attributes and reservations
+SUMMARY pass=36 fail=0

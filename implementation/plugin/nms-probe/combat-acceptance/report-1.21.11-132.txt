@@ -1,4 +1,4 @@
-PASS plugin loaded, tester body spawned and op'd :: tester=B_tester op=true enrolled=true classes=[chef, daredevil, gardener, kitfighter, lightfooted, mole, skeleton_crew, test, toolbox, werewolf]
+PASS plugin loaded, tester body spawned and op'd :: tester=B_tester op=true enrolled=true classes=[bloodmason, chauffeur, chef, daredevil, fungal_assassin, gardener, hollow, kitfighter, lightfooted, mole, paver, quarryman, skeleton_crew, test, toolbox, werewolf]
 PASS lab start puts the tester in the lab room :: world=moba_lab
 PASS combat start begins at the class step :: setup step CLASS
 PASS recipient flow: a movement-only ability is refused and does not advance :: before=setup step SLOT after pick A1=setup step SLOT
@@ -102,6 +102,13 @@ PASS offhander: the item cannot be dropped or lifted out of the slot :: dropCanc
 PASS offhander: A1 again puts the map back :: offhandIsMap=true loanHeld=null
 PASS offhander: leaving the ability (forget) also puts the map back, and a branch change swaps the item :: equipped=true mapBackAfterForget=true
 PASS offhander: leave :: dummiesGone=true state=idle
+PASS shelf: enter as a Chef operator with no food, and Food Fight says what it needs :: hud='Needs food in your inventory (any edible item) (you carry none)' unmet=[food in your inventory (any edible item) (you carry none)]
+PASS shelf: the item shelf opens on a search, shows what matches, and a click adds a stack to the selected loadout :: shelfOpen=true loadoutSlot0=ItemStack{COOKED_BEEF x 64}
+PASS shelf: right-click adds one, armor goes to its own slot, a second stack tops up the first :: one=ItemStack{COOKED_BEEF x 1} chestplateSlot=ItemStack{IRON_CHESTPLATE x 1} spareChestplate=ItemStack{IRON_CHESTPLATE x 1} toppedUp=ItemStack{COOKED_BEEF x 2}
+PASS shelf: categories cycle, a search can be cleared, and Back returns to the editor with everything saved :: iron matches=24 categoryIcon=true afterClear=28 cleared=true
+PASS shelf: the editor's Get items control opens the shelf :: editorAfterBack=true
+PASS shelf: with the food from the shelf in the loadout, testing mode lets Food Fight run and the 'needs' notice is gone :: shelfOpenedFromEditor=true beefInTestingInventory=true foodFightRan=true hud=null
+PASS shelf: leave :: dummiesGone=true state=idle
 PASS interference: record a two-input Mole take as Operator :: state=in chamber
 PASS interference: the tester performs it :: cast
 PASS interference: the take is two inputs :: Take: 2 input(s) over 1.0s as mole. A replay is approximate and does not react to you.
@@ -130,36 +137,36 @@ PASS legibility: marks record distance; the report gives the median and pixels :
 PASS legibility: the report states the doctrine rule and that per-viewer glow is not delivered :: doctrine lines present
 PASS legibility: the LEAVE world button leaves, restores the hotbar and removes the subject and deck :: pressed=true world=moba_lab subjectGone=true buttons=0
 PASS opportunity: entering builds the platform with two biomes, the deck and hotbar :: slot0=plot slot9=return buttons=11 west=plains east=mountain floor=GRASS_BLOCK station=0.5,-36.5
-PASS opportunity: spawning the Herd registers a real source that starts RECOVERING :: bench_herd_75c23f kind=sheep RECOVERING 0% region=Region[1 cell(s), 625 columns]
+PASS opportunity: spawning the Herd registers a real source that starts RECOVERING :: bench_herd_fdb98e kind=sheep RECOVERING 0% region=Region[1 cell(s), 625 columns]
 PASS opportunity: manifest and harvest are refused with reasons while it recovers :: state=RECOVERING members=0
 PASS opportunity: skipping recovery manifests the herd at an eligible site :: state=READY_AWAITING_LOCUS
-PASS opportunity: five sheep stand in the region, away from the tester :: MANIFESTED x5 at Locus[x=-34, y=65, z=4] members=5 sheep=5 fromTester=53.2
+PASS opportunity: five sheep stand in the region, away from the tester :: MANIFESTED x5 at Locus[x=-18, y=65, z=-12] members=5 sheep=5 fromTester=30.7
 PASS opportunity: harvesting one counts through the runtime's own listener :: remaining=4 membersNow=4
 PASS opportunity: a standing manifestation cannot be skipped :: state=MANIFESTED remaining=4
 PASS opportunity: harvesting the rest starts recovery from zero :: RECOVERING 0%
 PASS opportunity: recovered again, it manifests at a DIFFERENT site :: state=READY_AWAITING_LOCUS
-PASS opportunity: the second manifestation is displaced from the first :: MANIFESTED x5 at Locus[x=-18, y=65, z=8] previous=Locus[x=-34, y=65, z=4] distance=16.5
+PASS opportunity: the second manifestation is displaced from the first :: MANIFESTED x5 at Locus[x=-22, y=65, z=0] previous=Locus[x=-18, y=65, z=-12] distance=12.6
 PASS opportunity: building over the region blocks the next manifestation and the report says why :: state=READY_AWAITING_LOCUS
 PASS opportunity: it waits READY with blocked attempts counted :: READY_AWAITING_LOCUS (no eligible locus, 3 attempt(s)) | Eligibility query, as the world is now: || NO viable locus among 49 sampled columns: the ground is not natural ground. ||   eligible ground 0 | unknown (unloaded) 0 | wrong ground 49 | player-placed 0 | no headroom 0 || Granted by renewal: 0 (must stay 0: rene
-PASS opportunity: clearing the base and forcing a manifestation works :: MANIFESTED x5 at Locus[x=-30, y=65, z=-8]
+PASS opportunity: clearing the base and forcing a manifestation works :: MANIFESTED x5 at Locus[x=-38, y=65, z=0]
 PASS opportunity: a Crop Patch manifests wheat and a harvest breaks one :: selected=1 state=READY_AWAITING_LOCUS
-PASS opportunity: the patch stands as eight crops :: MANIFESTED x8 at Locus[x=8, y=65, z=38] wheatBlocks=8
+PASS opportunity: the patch stands as eight crops :: MANIFESTED x8 at Locus[x=-4, y=65, z=30] wheatBlocks=8
 PASS opportunity: harvesting a crop counts :: remaining=7 wheatBlocks=7
 PASS opportunity: a Swarm manifests a ravager by day in the mountain biome :: selected=2 state=READY_AWAITING_LOCUS
-PASS opportunity: one ravager stands in the mountain plot :: MANIFESTED x1 at Locus[x=18, y=65, z=-4] ravagers=1
+PASS opportunity: one ravager stands in the mountain plot :: MANIFESTED x1 at Locus[x=38, y=65, z=8] ravagers=1
 PASS opportunity: at night the day-only swarm is refused and the report says so :: night=true state=READY_AWAITING_LOCUS
 PASS opportunity: it waits READY, not eligible :: READY_AWAITING_LOCUS (no eligible locus, 3 attempt(s)) | Swarm table: mountain_ravager; here the biome is minecraft:windswept_hills and it is night: NOT eligible (needs [mountain], DAY). || Granted by renewal: 0 (must stay 0: renewal restores availability, 
 PASS opportunity: back to day, a forced manifestation succeeds :: state=MANIFESTED
 PASS opportunity: the radius is authoritative: a small radius keeps its herd inside its cube :: plot=0 radius=10 READY_AWAITING_LOCUS
-PASS opportunity: ...the site and every member were placed inside the cube :: MANIFESTED x5 at Locus[x=-26, y=65, z=0] site Locus[x=-26, y=65, z=0] members placed=5 outsideTheCube=0
-PASS opportunity: ...after a sweep tick the runtime's count agrees with the world (strolling losses are reported) :: MANIFESTED x5 at Locus[x=-26, y=65, z=0] radius=10 membersInWorld=5 of 5 after a sweep tick (nobody harvested; any loss is members that strolled out of the cube)
+PASS opportunity: ...the site and every member were placed inside the cube :: MANIFESTED x5 at Locus[x=-30, y=65, z=4] site Locus[x=-30, y=65, z=4] members placed=5 outsideTheCube=0
+PASS opportunity: ...after a sweep tick the runtime's count agrees with the world (strolling losses are reported) :: MANIFESTED x4 at Locus[x=-30, y=65, z=4] radius=10 membersInWorld=4 of 5 after a sweep tick (nobody harvested; any loss is members that strolled out of the cube)
 PASS opportunity: nothing was ever granted by renewal :: grantedByRenewal=0
 PASS opportunity: leaving removes sources, members, deck and restores the hotbar :: world=moba_lab sourcesGone=true buttons=0 mobs=0
 PASS hub: the lab room has a pedestal and a label for every bench :: combat=NETHERITE_BLOCK legibility=LODESTONE opportunity=HAY_BLOCK terrain=GRASS_BLOCK overlay=COPPER_BLOCK night=CRYING_OBSIDIAN scenario=RESPAWN_ANCHOR status=SCULK benchLabels=8/8
 PASS hub: the Benches menu opens with every bench :: size=27 items=9
 PASS hub: the terrain pedestal is refused without a launched scoop, with the reason :: world=moba_lab workspace=none
 PASS hub: clicking the combat pedestal opens the pre-entry menu at the class step :: state=setup step CLASS inventorySize=54
-PASS hub: the class screen offers every class and no way back :: classesOffered=10 of 10 noBack=true
+PASS hub: the class screen offers every class and no way back :: classesOffered=16 of 16 noBack=true
 PASS hub: picking Mole then Operate reaches the modes screen :: state=setup step MODES enter=pick enter
 PASS hub: the mode buttons cycle waiver, time and level and show the current values :: set cooldown waive | set time day | set level 20  ->  set cooldown normal | set time night | set level 25 | label=§fCooldowns: WAIVED
 PASS hub: Enter puts the tester in the chamber with exactly those modes :: world=moba_combat class=mole level=20 | Combat report: mole L20, cooldowns WAIVED, time DAY || Units are effective points (the displayed value is these x100). |
@@ -179,7 +186,7 @@ PASS terrain: ...and the bay has ground :: columns with ground below the platfor
 PASS terrain: CERTIFIED SCOOP copies certified terrain into the bay :: pressed
 PASS terrain: ...and the bay has ground again :: columns with ground below the platform: 99/56
 PASS terrain: entering the bay puts the menu on the hotbar :: slot0=objective slot6=clock slot9=return at=1,69,-41
-PASS terrain: the Objective page opens and Fountain previews a placement :: after objective: slot0=fountain; after fountain: slot0=preview | CHAMBER bay=-16,-57 allotted=1 pending=fountain at XZ[x=0, z=-41] (680 BLOCKS)
+PASS terrain: the Objective page opens and Fountain previews a placement :: after objective: slot0=fountain; after fountain: slot0=preview | CHAMBER bay=-16,-57 allotted=1 pending=fountain at XZ[x=0, z=-41] (678 BLOCKS)
 PASS terrain: the pending page offers Place, and placing builds and is undoable :: after place: slot0=objective slot4=undo | CHAMBER bay=-16,-57 allotted=1 pending=none
 PASS terrain: the Clock page jumps the match clock to dusk from the hotbar :: page slot0=clock.dusk elapsed 48146 -> 60000
 PASS terrain: leave and end return to the lab room :: world=moba_lab labActive=false
@@ -216,7 +223,7 @@ PASS night: the Lair assault topples it :: north/NETHER_BASTION 0/1818 (TOPPLED)
 PASS night: a toppled objective refuses further siege and the report says so :: north/NETHER_BASTION 0/1818 (TOPPLED) by {COMBAT=181.768, STRUCTURAL=0.0, SIGNATURE=817.956, LAIR_ASSAULT=817.9560000000005} | report mentions TOPPLED=true
 PASS night: off restores the hotbar :: occupies=false slot0=null
 PASS scenario: launch a scoop and start the scenario bench :: world=moba_lab_match
-PASS scenario: the hotbar menu is on and the shipped scenarios are loaded and validated :: scenarios=[friendly_fire, stun_and_root, chef_skirmish, next_kits_skirmish, skeleton_crew_skirmish, lure_and_frighten, lured_refuses_abilities, skirmish_2v2] slot0=scenario
+PASS scenario: the hotbar menu is on and the shipped scenarios are loaded and validated :: scenarios=[friendly_fire, stun_and_root, chef_skirmish, next_kits_skirmish, six_kits_skirmish, skeleton_crew_skirmish, lure_and_frighten, lured_refuses_abilities, skirmish_2v2] slot0=scenario
 PASS scenario: run friendly_fire :: running=true
 PASS scenario: friendly_fire passed every check and its bodies are gone :: friendly_fire: passed 3/3 checks | rosterAlive=0
 PASS scenario: run stun_and_root :: running=true
@@ -227,8 +234,29 @@ PASS scenario: run lure_and_frighten (Lured, Frightened, a Stun overriding a Lur
 PASS scenario: lure_and_frighten passed, including its no-status control :: lure_and_frighten: passed 10/10 checks | rosterAlive=0
 PASS scenario: run lured_refuses_abilities :: running=true
 PASS scenario: a Lured Chef could not cast and an unaffected Chef could :: lured_refuses_abilities: passed 2/2 checks | rosterAlive=0
+PASS scenario: run six_kits_skirmish (the six newest classes, each with the kit the lab gives its body) :: running=true
+PASS scenario: six_kits_skirmish passed :: six_kits_skirmish: passed 7/7 checks | rosterAlive=0
 PASS scenario: a run ended by /moba lab end leaves no body behind :: started
 PASS scenario: ...mid-run the roster stands :: rosterAlive=3 running=true
 PASS scenario: ...and lab end tears it down before the world goes :: rosterAlive=0 world=moba_lab
+PASS ability damage: enter as a Mole Operator beside the dummy :: class=mole distance=2.00 rawBefore=0.00
+PASS ability damage: Drill Rush burrows the tester :: executions 0 -> 1 active=true
+PASS ability damage: emerging deals the REAL ability's damage and the chamber measures it :: dummy hits=1 raw total=4.00 final total=4.00 from this emergence=4.00 dummyHealth=11.11
+PASS ability damage: the report attributes it to the tester, not to a bare damage call :: Dealt to the dummy: 1 hits, raw 4.00 -> final 4.00 (0.0% mitigated) sources=[B_tester entity_attack]
+PASS sweep: bloodmason is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=capillary_flow(not run, no stated need) a2=viscerwall(not run, no stated need) ult=athanor_anatomb(ran) | body a1=cast a2=cast ult=refused(no stated need)
+PASS sweep: chauffeur is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=cargo_boat(ran) a2=muscle_cart(ran) ult=highly_irresponsible_racing_line(ran) | body a1=cast a2=cast ult=cast
+PASS sweep: chef is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=food_fight(not run: needs [food in your inventory (any edible item) (you carry none)]) a2=flip_and_press(not run: needs [an enemy within 5 blocks, or a lit furnace, smoker or campfire to press: aim at one]) ult=irresistible_buffet(not run: needs [food in your inventory to serve (any edible item) (you carry none)]) | body a1=cast a2=cast ult=cast
+PASS sweep: daredevil is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=runway(not run: needs [more speed: run (or sprint-jump) before you cast (momentum 0.00 of 0.25)]) a2=crash_landing(not run: needs [to be falling faster: cast it on the way down from a height (descent 0.00 of 0.80)]) ult=deathly_clutches(ran) | body a1=refused: needs [more speed: run (or sprint-jump) before you cast (momentum 0.00 of 0.25)] a2=refused: needs [to be falling faster: cast it on the way down from a height (descent 0.00 of 0.80)] ult=cast
+PASS sweep: fungal_assassin is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=bursting_spore(not run: needs [an enemy you have infected, within 12 blocks: hit enemies to infect them, then aim at one]) a2=myceliate(not run: needs [fungal ground (mycelium or mushrooms) close by to travel through]) ult=destroying_angels_blessing(not run, no stated need) | body a1=refused: needs [an enemy you have infected, within 12 blocks: hit enemies to infect them, then aim at one] a2=refused: needs [fungal ground (mycelium or mushrooms) close by to travel through] ult=refused(no stated need)
+PASS sweep: gardener is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=clip(not run: needs [a living plant to clip, within 8 blocks: aim at one (you are aiming at nothing in range)]) a2=cultivate(not run: needs [a plant to convert into Plant Material (seeds, a sapling, a flower, berries, bamboo, kelp or similar) (you carry none)]) ult=grafters_handbook(ran) | body a1=refused: needs [a living plant to clip, within 8 blocks: aim at one (you are aiming at nothing in range)] a2=cast ult=cast
+PASS sweep: hollow is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=wooden_maw(ran) a2=seeking_heart(ran) ult=peekaboo(ran) | body a1=cast a2=cast ult=cast
+PASS sweep: kitfighter is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=offhander(ran) a2=hotswap(not run: needs [a block to place it against, within 12 blocks, with a free cell on the side you aim at]) ult=covered_with_diamonds(ran) | body a1=cast a2=refused: needs [a block to place it against, within 12 blocks, with a free cell on the side you aim at] ult=cast
+PASS sweep: lightfooted is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=refused ULT=ok | operator a1=lunge(ran) a2=bounding(ran) ult=rabbits_lucky_foot(not run: needs [a block to land beside, within 24 blocks, with room above it]) | body a1=cast a2=cast ult=refused: needs [a block to land beside, within 24 blocks, with room above it]
+PASS sweep: mole is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=tunneling(ran) a2=drill_rush(not run, no stated need) ult=sinkhole(not run: needs [a block to aim at, within 24 blocks]) | body a1=cast a2=refused(no stated need) ult=cast
+PASS sweep: paver is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=refused ULT=ok | operator a1=rebar_chain(not run, no stated need) a2=chamfering(ran) ult=concrete_shoes(not run: needs [Concrete in your inventory to make the shoes from (you carry none), a block to land on, within 16 blocks]) | body a1=refused(no stated need) a2=cast ult=refused: needs [Concrete in your inventory to make the shoes from (you carry none)]
+PASS sweep: quarryman is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=ceaseless_swing(ran) a2=miners_strike(ran) ult=eternity_mountain(ran) | body a1=cast a2=cast ult=cast
+PASS sweep: skeleton_crew is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=graveyard_shift(ran) a2=burning_out(ran) ult=a_head_of_schedule(ran) | body a1=cast a2=refused: needs [Crew standing in the world to set alight: raise some first (Graveyard Shift) (you have none out)] ult=cast
+PASS sweep: toolbox is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=refused A2=ok ULT=ok | operator a1=reconfiguratron(not run, no stated need) a2=jumpstartinator(ran) ult=gizmo(ran) | body a1=refused(no stated need) a2=cast ult=cast
+PASS sweep: werewolf is selectable in the combat chamber, enters, casts, and a body of it spawns and casts :: recipient A1=ok A2=ok ULT=ok | operator a1=brawling_slash(not run: needs [an enemy within 4 blocks in front of you (the Unleashed form needs none)]) a2=bloodhide(ran) ult=monster_howl(ran) | body a1=refused: needs [an enemy within 4 blocks in front of you (the Unleashed form needs none)] a2=cast ult=cast
 
-SUMMARY pass=216 fail=0
+SUMMARY pass=244 fail=0

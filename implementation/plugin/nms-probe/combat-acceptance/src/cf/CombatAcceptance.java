@@ -124,6 +124,13 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "offhander: A1 again puts the map back", this::ofToggle);
         at(c, 3, "offhander: leaving the ability (forget) also puts the map back, and a branch change swaps the item", this::ofForget);
         at(c, 3, "offhander: leave", this::recipientLeave);
+        at(c, 4, "shelf: enter as a Chef operator with no food, and Food Fight says what it needs", this::pkEnter);
+        at(c, 3, "shelf: the item shelf opens on a search, shows what matches, and a click adds a stack to the selected loadout", this::pkShelf);
+        at(c, 3, "shelf: right-click adds one, armor goes to its own slot, a second stack tops up the first", this::pkAmounts);
+        at(c, 3, "shelf: categories cycle, a search can be cleared, and Back returns to the editor with everything saved", this::pkNavigate);
+        at(c, 3, "shelf: the editor's Get items control opens the shelf", this::pkFromEditor);
+        at(c, 3, "shelf: with the food from the shelf in the loadout, testing mode lets Food Fight run and the 'needs' notice is gone", this::pkTest);
+        at(c, 3, "shelf: leave", this::recipientLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
         at(c, 14, "interference: the take is two inputs", this::intStop);
@@ -251,6 +258,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 150, "scenario: lure_and_frighten passed, including its no-status control", this::scLureDone);
         at(c, 3, "scenario: run lured_refuses_abilities", this::scRunLureCast);
         at(c, 60, "scenario: a Lured Chef could not cast and an unaffected Chef could", this::scLureCastDone);
+        at(c, 3, "scenario: run six_kits_skirmish (the six newest classes, each with the kit the lab gives its body)", this::scRunSix);
+        at(c, 120, "scenario: six_kits_skirmish passed", this::scSixDone);
         at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
         at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
         at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
@@ -258,6 +267,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "ability damage: Drill Rush burrows the tester", this::adBurrow);
         at(c, 6, "ability damage: emerging deals the REAL ability's damage and the chamber measures it", this::adEmerge);
         at(c, 3, "ability damage: the report attributes it to the tester, not to a bare damage call", this::adReport);
+        // Last, so the load of fifteen classes entering and spawning bodies cannot disturb the timing of any step above it.
+        for (String sweepId : sweepClasses()) at(c, 10, "sweep: " + sweepId + " is selectable in the combat chamber, enters, casts, and a body of it spawns and casts", () -> sweepClass(sweepId));
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -1271,6 +1282,169 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         in.forget(t);
         boolean back = ofMap() && moba.offhandLoan().held(t) == null;
         return "equipped=" + equipped + " mapBackAfterForget=" + back + (equipped && back ? "" : " | FAIL: forget did not return the map");
+    }
+
+    // ---- the class sweep: is every registered class reachable through the lab? ----------------------------
+
+    private List<String> sweepClasses() {
+        var m = (MobaPlugin) Bukkit.getPluginManager().getPlugin("MinecraftMoba");
+        if (m != null && m.isEnabled()) { var ids = new ArrayList<>(m.inputs().ids()); Collections.sort(ids); ids.remove("test"); return ids; }
+        return List.of("bloodmason", "chauffeur", "chef", "daredevil", "fungal_assassin", "gardener", "hollow", "kitfighter", "lightfooted", "mole", "paver", "quarryman", "skeleton_crew", "toolbox", "werewolf");
+    }
+
+    private String sweepClass(String id) {
+        var notes = new ArrayList<String>(); boolean fail = false;
+        try {
+            // 1. the pre-entry flow offers it
+            cmd("leave"); cmd("start"); cmd("pick " + id);
+            String afterPick = combat().state(t);
+            boolean offered = afterPick.startsWith("setup step") && !afterPick.endsWith("CLASS");
+            if (!offered) { fail = true; notes.add("NOT OFFERED (state=" + afterPick + ")"); }
+            // 2. which slots a Recipient can receive
+            var recv = new ArrayList<String>();
+            for (String slot : new String[]{"A1", "A2", "ULT"}) {
+                cmd("leave"); cmd("start"); cmd("pick " + id); cmd("pick RECIPIENT"); cmd("pick " + slot);
+                String st = combat().state(t);
+                recv.add(slot + "=" + (st.equals("setup step SLOT") ? "refused" : "ok"));
+            }
+            notes.add("recipient " + String.join(" ", recv));
+            // 3. operator entry
+            cmd("leave"); cmd("start"); cmd("pick " + id); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 30"); cmd("pick enter");
+            boolean in = combat().state(t).equals("in chamber");
+            var data = moba.data(t);
+            boolean applied = in && data != null && id.equals(data.classId) && moba.enrolled(t);
+            if (!applied) { fail = true; notes.add("OPERATOR ENTRY FAILED (state=" + combat().state(t) + " class=" + (data == null ? null : data.classId) + " enrolled=" + moba.enrolled(t) + ")"); }
+            // 4. every slot has an ability, and pressing it by the real input path runs or is refused with a reason
+            var slots = new ArrayList<String>();
+            if (applied) for (String slot : new String[]{"a1", "a2", "ult"}) {
+                var ability = moba.inputs().abilityFor(id, slot);
+                if (ability == null) { fail = true; slots.add(slot + "=MISSING"); continue; }
+                int before = moba.inputs().executions(t, ability.id());
+                var in2 = moba.inputs(); if (!in2.active(t)) in2.input(t, in2.modeInput()); in2.input(t, in2.inputFor(slot));
+                int ran = moba.inputs().executions(t, ability.id()) - before;
+                var why = moba.inputs().unmetNeeds(t, slot);
+                slots.add(slot + "=" + ability.id() + (ran > 0 ? "(ran)" : why.isEmpty() ? "(not run, no stated need)" : "(not run: needs " + why + ")"));
+                if (in2.active(t)) in2.input(t, in2.modeInput());
+            }
+            notes.add("operator " + String.join(" ", slots));
+            // 5. a body of the class spawns, is enrolled with it, and can be told to cast
+            var w = Bukkit.getWorld("moba_combat");
+            Bodies.Body body = bodies.spawn("sweep", null, id, 30, new Location(w, 4.5, CombatSlab.FLOOR_Y + 1, t.getLocation().getZ() + 4, 180f, 0f));
+            var bd = moba.data(body.player());
+            boolean bodyOk = bd != null && id.equals(bd.classId) && moba.enrolled(body.player());
+            if (!bodyOk) { fail = true; notes.add("BODY NOT ENROLLED AS " + id); }
+            var casts = new ArrayList<String>();
+            if (bodyOk) for (String slot : new String[]{"a1", "a2", "ult"}) {
+                var f = CastAim.toward(body.player().getEyeLocation().getX(), body.player().getEyeLocation().getY(), body.player().getEyeLocation().getZ(),
+                        t.getLocation().getX(), t.getLocation().getY() + 1, t.getLocation().getZ());
+                var r = new BodyCaster(moba).cast(body.player(), slot, f, 0);
+                var why = moba.inputs().unmetNeeds(body.player(), slot);
+                casts.add(slot + "=" + (r.cast() ? "cast" : why.isEmpty() ? "refused(no stated need)" : "refused: needs " + why));
+            }
+            notes.add("body " + String.join(" ", casts));
+            bodies.despawn(body);
+            cmd("leave");
+        } catch (RuntimeException ex) { fail = true; notes.add("EXCEPTION " + ex); try { cmd("leave"); } catch (RuntimeException ignored) { } }
+        return String.join(" | ", notes) + (fail ? " | FAIL: " + id + " is not fully reachable through the lab" : "");
+    }
+
+    // ---- the item shelf, and refusals that say what is missing -----------------------------------------------
+
+    private org.bukkit.event.inventory.InventoryClickEvent shelfClick(int slot, org.bukkit.event.inventory.ClickType click) {
+        var ev = new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(), org.bukkit.event.inventory.InventoryType.SlotType.CONTAINER, slot, click,
+                org.bukkit.event.inventory.InventoryAction.PICKUP_ALL);
+        Bukkit.getPluginManager().callEvent(ev);
+        return ev;
+    }
+
+    private org.bukkit.inventory.ItemStack loadoutItem(int slot) {
+        combat().openEditor(t);
+        var item = t.getOpenInventory().getTopInventory().getItem(slot);
+        var copy = item == null ? null : item.clone();
+        t.closeInventory();
+        return copy;
+    }
+
+    private String pkEnter() {
+        t.getInventory().setItemInOffHand(null); t.setItemOnCursor(null);
+        cmd("leave"); cmd("start"); cmd("pick chef"); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        for (int i = 0; i < 36; i++) { var it = t.getInventory().getItem(i); if (it != null && it.getType().isEdible() && itemId(i) == null) t.getInventory().setItem(i, null); }
+        var in = moba.inputs();
+        if (!in.active(t)) in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a1"));
+        String hud = moba.hudNotice().current(t);
+        var unmet = in.unmetNeeds(t, "a1");
+        boolean ok = hud != null && hud.startsWith("Needs food") && unmet.size() == 1 && unmet.get(0).contains("food");
+        return "hud='" + hud + "' unmet=" + unmet + (ok ? "" : " | FAIL: the refusal did not say what was missing");
+    }
+
+    private String pkShelf() {
+        cmd("loadout select 3");
+        combat().openItemShelf(t, "cooked beef");
+        var window = combat().itemShelfWindow(t);
+        boolean open = window != null && window.getItem(0) != null && window.getItem(0).getType() == Material.COOKED_BEEF && window.getItem(1) == null;
+        shelfClick(0, org.bukkit.event.inventory.ClickType.LEFT);
+        var added = loadoutItem(0);
+        boolean ok = open && added != null && added.getType() == Material.COOKED_BEEF && added.getAmount() == 64;
+        return "shelfOpen=" + open + " loadoutSlot0=" + added + (ok ? "" : " | FAIL: shelf search or add");
+    }
+
+    private String pkAmounts() {
+        combat().openItemShelf(t, "cooked beef");
+        shelfClick(0, org.bukkit.event.inventory.ClickType.RIGHT);                // one more beef: slot 0 is full, so it opens slot 1
+        var one = loadoutItem(1);
+        combat().openItemShelf(t, "iron chestplate");
+        shelfClick(0, org.bukkit.event.inventory.ClickType.LEFT);
+        var armor = loadoutItem(Loadout.CHESTPLATE);
+        combat().openItemShelf(t, "iron chestplate");
+        shelfClick(0, org.bukkit.event.inventory.ClickType.LEFT);                // the chestplate slot is taken: it goes in a free slot
+        var spare = loadoutItem(2);
+        combat().openItemShelf(t, "cooked beef");
+        shelfClick(0, org.bukkit.event.inventory.ClickType.RIGHT);                // tops up slot 1
+        var topped = loadoutItem(1);
+        boolean ok = one != null && one.getType() == Material.COOKED_BEEF && one.getAmount() == 1 && armor != null && armor.getType() == Material.IRON_CHESTPLATE
+                && spare != null && spare.getType() == Material.IRON_CHESTPLATE && topped != null && topped.getAmount() == 2;
+        return "one=" + one + " chestplateSlot=" + armor + " spareChestplate=" + spare + " toppedUp=" + topped + (ok ? "" : " | FAIL: amounts or armor slot");
+    }
+
+    private String pkNavigate() {
+        combat().openItemShelf(t, "iron");
+        var first = combat().itemShelfWindow(t);
+        int before = 0; for (int i = 0; i < 45; i++) if (first.getItem(i) != null) before++;
+        shelfClick(47, org.bukkit.event.inventory.ClickType.LEFT);                // next category: Combat
+        var combat = combat().itemShelfWindow(t);
+        boolean category = combat != null && combat.getItem(47) != null && combat.getItem(47).getType() == Material.IRON_SWORD;
+        shelfClick(49, org.bukkit.event.inventory.ClickType.LEFT);                // clear the search
+        int after = 0; for (int i = 0; i < 45; i++) if (combat.getItem(i) != null) after++;
+        boolean cleared = after > before || after == 45;
+        shelfClick(53, org.bukkit.event.inventory.ClickType.LEFT);                // back to the editor (opens next tick)
+        return "iron matches=" + before + " categoryIcon=" + category + " afterClear=" + after + " cleared=" + cleared + (category && cleared ? "" : " | FAIL: shelf navigation");
+    }
+
+    private String pkFromEditor() {
+        var top = t.getOpenInventory().getTopInventory();
+        boolean backInEditor = top != null && top.getSize() == 54 && top.getItem(0) != null && top.getItem(0).getType() == Material.COOKED_BEEF && top.getItem(49) != null
+                && top.getItem(49).getType() == Material.CHEST_MINECART;
+        shelfClick(49, org.bukkit.event.inventory.ClickType.LEFT);                // Get items: opens the shelf next tick
+        return "editorAfterBack=" + backInEditor + (backInEditor ? "" : " | FAIL: Back did not return to the editor with the additions");
+    }
+
+    private String pkTest() {
+        boolean shelfOpen = combat().itemShelfWindow(t) != null;
+        t.closeInventory();
+        cmd("loadout select 3"); cmd("test");
+        var inv = t.getInventory();
+        boolean beef = inv.getItem(0) != null && inv.getItem(0).getType() == Material.COOKED_BEEF && inv.getItem(0).getAmount() == 64;
+        var in = moba.inputs();
+        int before = in.executions(t, "food_fight");
+        moba.hudNotice().clear(t);
+        if (!in.active(t)) in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a1"));
+        boolean ran = in.executions(t, "food_fight") > before;
+        String hud = moba.hudNotice().current(t);
+        cmd("test off");
+        boolean ok = shelfOpen && beef && ran && (hud == null || !hud.startsWith("Needs"));
+        return "shelfOpenedFromEditor=" + shelfOpen + " beefInTestingInventory=" + beef + " foodFightRan=" + ran + " hud=" + hud + (ok ? "" : " | FAIL: food from the shelf did not let Food Fight run");
     }
 
     private String uiLeave() {
@@ -2337,6 +2511,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String scRunSkirmish() { t.performCommand("moba lab scenario skirmish_2v2"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
     private String scSkirmishDone() { return scResult("skirmish_2v2", 8); }
 
+    private String scRunSix() { t.performCommand("moba lab scenario six_kits_skirmish"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scSixDone() { return scResult("six_kits_skirmish", 7); }
     private String scRunLure() { t.performCommand("moba lab scenario lure_and_frighten"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
     private String scLureDone() { return scResult("lure_and_frighten", 10); }
     private String scRunLureCast() { t.performCommand("moba lab scenario lured_refuses_abilities"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }

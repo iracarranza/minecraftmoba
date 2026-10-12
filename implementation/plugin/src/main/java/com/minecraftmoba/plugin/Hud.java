@@ -67,6 +67,7 @@ public final class Hud implements Listener {
         set(obj, line--, ChatColor.GRAY + "Level " + ChatColor.WHITE + d.level
                 + ChatColor.GRAY + "  WP " + ChatColor.WHITE + progress);
         set(obj, line--, ChatColor.GRAY + "Class " + ChatColor.WHITE + (d.classId == null ? "none" : d.classId));
+        if(plugin.inputs()!=null)for(String state:plugin.inputs().hudState(p))set(obj,line--,ChatColor.GRAY+state);
         set(obj, line--, " ");
         // Effective health, not the bar length: under scaling the bar is always
         // twenty and the number is the only place Capacity is visible.

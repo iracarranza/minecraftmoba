@@ -26,6 +26,15 @@ final class FlipAndPressAbility implements Ability {
         return AbilityOutput.of(new AbilityOutput("flip", TargetForm.UNIT_ENTITY, InputForm.INSTANT, Recipients.ENEMIES),
                 new AbilityOutput("press", TargetForm.UNIT_BLOCK, InputForm.INSTANT, Recipients.NONE));
     }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("an enemy within " + (int) config.getDouble("reach") + " blocks, or a lit furnace, smoker or campfire to press: aim at one",
+                (pl, c) -> {
+                    if (c.onEntity() || c.onBlock()) return true;
+                    var hit = AbilityTargeting.ray(pl, pl.getEyeLocation(), pl.getEyeLocation().getDirection(),
+                            config.getDouble("reach"), config.getDouble("rayWidth"), AbilityTargeting.Relation.ENEMY);
+                    return hit != null && (hit.entity() != null || hit.block() != null);
+                }, null));
+    }
     public boolean execute(Player p, AbilityContext ctx) {
         Entity entity = ctx.entity(); Block block = ctx.block();
         // An air activation (including a lab body) resolves its aim once. Carried clicks win.
@@ -51,7 +60,7 @@ final class FlipAndPressAbility implements Ability {
             return cooking.advance(block, (int) Math.round(config.getInt("advanceTicks") * multiplier),
                     fraction, batch, config.getDouble("batchCap")) > 0;
         }
-        p.sendMessage("Flip and Press needs an enemy or an actively cooking station."); return false;
+        return false;                                       // AbilityInputs explains it: see needs()
     }
     public void tick() {
         clock++;

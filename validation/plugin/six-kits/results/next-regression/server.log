@@ -1,0 +1,185 @@
+Starting org.bukkit.craftbukkit.Main
+[21:16:02 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
+[21:16:02 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[21:16:02 INFO]: [PluginInitializerManager] Initializing plugins...
+[21:16:03 INFO]: [ReobfServer] Remapping server...
+[21:16:07 INFO]: [ReobfServer] Done remapping server in 3311ms.
+[21:16:07 INFO]: [PluginRemapper] Remapping plugin 'plugins/NextKitAcceptance.jar'...
+[21:16:07 INFO]: [PluginRemapper] Done remapping plugin 'plugins/NextKitAcceptance.jar' in 61ms.
+[21:16:07 INFO]: [PluginInitializerManager] Initialized 2 plugins
+[21:16:07 INFO]: [PluginInitializerManager] Bukkit plugins (2):
+ - MinecraftMoba (0.1.0), NextKitAcceptance (1.0)
+[21:16:09 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[21:16:09 INFO]: Found new data pack file/bukkit, loading it automatically
+[21:16:09 INFO]: Found new data pack paper, loading it automatically
+[21:16:10 INFO]: No existing world data, creating new world
+[31;1m[21:16:10 ERROR]: No key layers in MapLike[{}]
+[m[21:16:10 INFO]: Loaded 1470 recipes
+[21:16:10 INFO]: Loaded 1584 advancements
+[21:16:10 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[21:16:11 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 234.8ms
+[21:16:11 INFO]: Starting minecraft server version 1.21.11
+[21:16:11 INFO]: Loading properties
+[21:16:11 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[21:16:11 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[21:16:11 INFO]: Server Ping Player Sample Count: 12
+[21:16:11 INFO]: Using 4 threads for Netty based IO
+[21:16:11 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
+[21:16:11 INFO]: Default game type: SURVIVAL
+[21:16:11 INFO]: Generating keypair
+>   [21:16:11 INFO]: Starting Minecraft server on 127.0.0.1:25679
+>   [21:16:12 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
+>   [21:16:12 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
+>   [21:16:12 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
+>   [21:16:12 INFO]: [NextKitAcceptance] Loading server plugin NextKitAcceptance v1.0
+>   [33;1m[21:16:12 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[m>   [33;1m[21:16:12 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[m>   [33;1m[21:16:12 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[m>   [33;1m[21:16:12 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[m>   [21:16:12 INFO]: Preparing level "next_kit_acceptance_boot"
+>   [31;1m[21:16:12 ERROR]: No key layers in MapLike[{}]
+[m>   [21:16:12 INFO]: Selecting spawn point for world 'minecraft:overworld'...
+>   [31;1m[21:16:12 ERROR]: No key layers in MapLike[{}]
+[m>   [21:16:12 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
+>   [31;1m[21:16:13 ERROR]: No key layers in MapLike[{}]
+[m>   [21:16:13 INFO]: Selecting spawn point for world 'minecraft:the_end'...
+>   [21:16:13 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>   [21:16:13 INFO]: Preparing spawn area: 100%
+>   [21:16:13 INFO]: Prepared spawn area in 1025 ms
+>   [21:16:13 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>   [21:16:13 INFO]: Preparing spawn area: 100%
+>   [21:16:13 INFO]: Prepared spawn area in 704 ms
+>   [21:16:13 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>   [21:16:13 INFO]: Preparing spawn area: 100%
+>   [21:16:13 INFO]: Prepared spawn area in 182 ms
+>   [21:16:13 INFO]: Done preparing level "next_kit_acceptance_boot" (1.165s)
+>   [21:16:13 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
+>   [21:16:14 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
+>   [21:16:20 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
+>   [21:16:20 INFO]: Preparing spawn area: 100%
+>   [21:16:20 INFO]: Prepared spawn area in 6504 ms
+>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[21:16:20 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [21:16:21 INFO]: [MinecraftMoba] Registered ability kits: [bloodmason, werewolf, test, mole, chef, chauffeur, hollow, paver, lightfooted, gardener, fungal_assassin, daredevil, kitfighter, toolbox, quarryman, skeleton_crew]
+>   [21:16:21 INFO]: [NextKitAcceptance] Enabling NextKitAcceptance v1.0
+>   [21:16:21 INFO]: [spark] Starting background profiler...
+>   [21:16:22 INFO]: Running delayed init tasks
+>   [21:16:22 INFO]: Done (20.953s)! For help, type "help"
+>   [21:16:22 INFO]: *************************************************************************************
+>   [21:16:22 INFO]: This is the first time you're starting this server.
+>   [21:16:22 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+>   [21:16:22 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+>   [21:16:22 INFO]: *************************************************************************************
+>   [33;1m[21:16:22 WARN]: *************************************************************************************
+[m>   [33;1m[21:16:22 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+[m>   [33;1m[21:16:22 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
+[m>   [33;1m[21:16:22 WARN]: It is recommended that you update as soon as possible
+[m>   [33;1m[21:16:22 WARN]: https://papermc.io/downloads/paper
+[m>   [33;1m[21:16:22 WARN]: *************************************************************************************
+[m>   [21:16:25 INFO]: [93mB_kit_probe joined the game[0m
+>   [21:16:25 INFO]: B_kit_probe[embedded] logged in with entity id 1 at ([next_kit_acceptance_boot]0.5, 100.0, 0.5)
+>   [21:16:25 INFO]: Updated B_kit_probe: level=30 xp=0 class=kitfighter
+>   [21:16:25 INFO]: [93mB_plant_probe joined the game[0m
+>   [21:16:25 INFO]: B_plant_probe[embedded] logged in with entity id 2 at ([next_kit_acceptance_boot]12.5, 100.0, 0.5)
+>   [21:16:25 INFO]: Updated B_plant_probe: level=30 xp=0 class=gardener
+>   [21:16:25 INFO]: [93mB_wolf_probe joined the game[0m
+>   [21:16:25 INFO]: B_wolf_probe[embedded] logged in with entity id 3 at ([next_kit_acceptance_boot]25.5, 100.0, 0.5)
+>   [21:16:25 INFO]: Updated B_wolf_probe: level=30 xp=0 class=werewolf
+>   [21:16:25 INFO]: [93mB_enemy_probe joined the game[0m
+>   [21:16:25 INFO]: B_enemy_probe[embedded] logged in with entity id 4 at ([next_kit_acceptance_boot]28.5, 100.0, 0.5)
+>   [21:16:25 INFO]: Updated B_enemy_probe: level=30 xp=0 class=mole
+>   [21:16:25 INFO]: [NextKitAcceptance] PASS all three kits register every slot and branch
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS Offhander exchanges real carried Crossbow and retains original
+>   [21:16:26 INFO]: B_kit_probe has made the advancement [92m[Diamonds!][0m
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS Offhand Fishing Rod, Golden Head and base Bow equip real items
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS Diamond projection fills naked slots while preserving above-Diamond toughness
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS Diamond protection applies alongside native equipment modifiers
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS Hotswap reserves an empty cell for a Cobweb
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS breaking a temporary web restores air without drops
+>   [21:16:26 INFO]: [NextKitAcceptance] PASS temporary Lava cannot spread outside its reserved cell
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS temporary TNT has a native fuse and cancels without stranded explosive
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS Salvage observes a real crafting inventory and ingredient debit
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS settled craft grants one material-specific Salvage
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS mature Clip preserves plant state and produces resource
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS Cultivate spends one real plant at lower efficiency
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS full material meter grows a real Torchflower and light
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS Collection rewards new species and diminishes repeated clipping
+>   [21:16:27 INFO]: [NextKitAcceptance] PASS Proliferation rewards a real same-family plant concentration
+>   [21:16:27 INFO]: [MinecraftMoba] enrollment paused for B_kit_probe: offhand occupied
+>   [21:16:29 INFO]: [NextKitAcceptance] PASS Cultivar accelerates actual crop growth
+>   [21:16:32 INFO]: [NextKitAcceptance] PASS growth veto is respected and Torchflower grants allied Absorption
+>   [21:16:32 INFO]: [NextKitAcceptance] PASS Handbook queues both unselected Cultivars without respecializing
+>   [21:16:32 INFO]: [NextKitAcceptance] PASS Berry cultivar prepares provisioning and enemy thicket control
+>   [21:16:32 INFO]: [NextKitAcceptance] PASS Human Bloodhide reduces damage and Brawler's Mind passes projectiles
+>   [21:16:33 INFO]: [NextKitAcceptance] PASS Berry provisions allies while thicket damages and slows enemies
+>   [21:16:33 INFO]: [NextKitAcceptance] PASS Human Slash uses held weapon and hits an enemy
+>   [21:16:35 INFO]: [NextKitAcceptance] PASS low-health combat starts natural transformation streak
+>   [21:16:36 INFO]: [NextKitAcceptance] PASS Diamond projection expires without changing the real armor
+>   [21:16:37 INFO]: [NextKitAcceptance] PASS Giant Bamboo produces one bounded generation
+>   [21:16:38 INFO]: [NextKitAcceptance] PASS natural transformation grows real hitbox and preserves current effective HP
+>   [21:16:38 INFO]: [NextKitAcceptance] PASS Howl cleanses, heals Transformed and enters public Unleashed
+>   [21:16:39 INFO]: [MinecraftMoba] ABILITY player=B_wolf_probe id=bloodhide tick=330
+>   [21:16:39 INFO]: [NextKitAcceptance] PASS Unleashed Bloodhide gains size without damage reduction and supports recast
+>   [21:16:39 INFO]: [MinecraftMoba] ABILITY player=B_wolf_probe id=bloodhide tick=331
+>   [21:16:39 INFO]: [NextKitAcceptance] PASS Rabid Frenzy recasts through the input dispatcher without resetting cooldown
+>   [21:16:39 INFO]: [NextKitAcceptance] PASS second Howl grants lifesteal without extending the timer
+>   [21:16:39 INFO]: [NextKitAcceptance] PASS Unleashed lifesteal returns effective dealt damage to caster
+>   [21:16:44 INFO]: [NextKitAcceptance] PASS empowered offspring do not recursively reproduce
+>   [21:16:48 INFO]: [NextKitAcceptance] PASS Unleashed ends on original ten-second deadline with recovery
+>   [21:16:49 INFO]: [NextKitAcceptance] PASS destroying a real Cultivar removes its aura and returns reserved air
+>   [21:16:49 INFO]: [NextKitAcceptance] PASS session teardown restores all temporary flora, attributes and reservations
+>   [21:16:50 INFO]: [NextKitAcceptance] SUMMARY pass=36 fail=0
+>   [21:16:50 INFO]: Map color cache not found, building it in the background
+>   [21:16:50 INFO]: Stopping server
+>   [21:16:50 INFO]: [NextKitAcceptance] Disabling NextKitAcceptance v1.0
+>   [21:16:50 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
+>   [21:16:50 INFO]: Saving players
+>   [21:16:50 INFO]: Saving worlds
+>   [21:16:50 INFO]: Saving chunks for level 'ServerLevel[next_kit_acceptance_boot]'/minecraft:overworld
+>   [21:16:50 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'next_kit_acceptance_boot'
+>   [21:16:50 INFO]: [ChunkHolderManager] Halted chunk system for world 'next_kit_acceptance_boot'
+>   [21:16:50 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'next_kit_acceptance_boot'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 143 entity chunks, 0 poi chunks in world 'next_kit_acceptance_boot' in 0.22s
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'next_kit_acceptance_boot'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'next_kit_acceptance_boot'
+>   [21:16:51 INFO]: Saving chunks for level 'ServerLevel[next_kit_acceptance_boot_nether]'/minecraft:the_nether
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'next_kit_acceptance_boot_nether'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted chunk system for world 'next_kit_acceptance_boot_nether'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'next_kit_acceptance_boot_nether'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'next_kit_acceptance_boot_nether' in 0.01s
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'next_kit_acceptance_boot_nether'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'next_kit_acceptance_boot_nether'
+>   [21:16:51 INFO]: Saving chunks for level 'ServerLevel[next_kit_acceptance_boot_the_end]'/minecraft:the_end
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'next_kit_acceptance_boot_the_end'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted chunk system for world 'next_kit_acceptance_boot_the_end'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'next_kit_acceptance_boot_the_end'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'next_kit_acceptance_boot_the_end' in 0.01s
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'next_kit_acceptance_boot_the_end'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'next_kit_acceptance_boot_the_end'
+>   [21:16:51 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
+>   [21:16:51 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.00s
+>   [21:16:51 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
+>   [21:16:51 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
+>   [21:16:51 INFO]: ThreadedAnvilChunkStorage (next_kit_acceptance_boot): All chunks are saved
+>   [21:16:51 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>   [21:16:51 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>   [21:16:51 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>   [21:16:51 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>   [21:16:51 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>   [21:16:51 INFO]: All RegionFile I/O tasks to complete
+>   [21:16:51 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>   [21:16:51 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+> 

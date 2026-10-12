@@ -13,5 +13,9 @@ final class CombatEcologyFixture {
             var age=(Ageable)type.createBlockData();age.setAge(z%2==0?age.getMaximumAge():0);
             world.getBlockAt(x,floor+1,z).setBlockData(age,false);
         }
+        // Separate live Mycelium controls, leaving the original crop maturity plot intact.
+        for(int x=12;x<=16;x++)for(int z=4;z<=8;z++)world.getBlockAt(x,CombatSlab.FLOOR_Y,z).setType(Material.MYCELIUM,false);
+        world.getBlockAt(12,CombatSlab.FLOOR_Y+1,5).setType(Material.BROWN_MUSHROOM,false);
+        world.getBlockAt(16,CombatSlab.FLOOR_Y+1,5).setType(Material.RED_MUSHROOM,false);
     }
 }

@@ -1,0 +1,5 @@
+name: SixKitAcceptance
+version: 1.0
+main: kf.SixKitAcceptance
+api-version: '1.21'
+depend: [MinecraftMoba]

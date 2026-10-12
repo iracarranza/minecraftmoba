@@ -1,0 +1,55 @@
+PASS all six kits register three slots and their authored branches
+PASS Hollow authored level-30 body and Heart capacities
+PASS body damage redirects to Heart with zero breaking-hit overflow
+PASS heartless body becomes directly vulnerable
+PASS full body recovery doubles Heart return progress
+FAIL external physical Heart accepts enemy hits and protects allies :: java.lang.IllegalStateException: friendly hit
+java.lang.IllegalStateException: friendly hit
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$8(SixKitAcceptance.java:46)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+PASS Soresight counts unique enemies damaging Hollow
+PASS Maw recast redeposits Heart and resets size
+PASS Seeking Heart rolls while Peekaboo uses a ticked path rush
+PASS Paver concrete placement records persistent reinforced ownership
+PASS Chamfered Powder suspends against reinforced Concrete
+PASS Pozzolan actual form event creates reinforcement and Roots enemy
+PASS two Pitons remain two and later recasts alternate by current position
+PASS Mixer consumes real sand gravel dye while moving
+PASS Concrete Shoes debits inventory and reserves borrowed world material
+PASS Shoes restore original blocks while inventory material stays built
+PASS Fungal ordinary enemy attacks seed consumable infections
+PASS Airborne Spread widens enemy hits without widening Mycelium territory
+PASS physical fungal network and maturity survive a manager reload
+PASS Myceliate traverses actual network and can recast during cooldown
+PASS Angel is physical and unprimed destruction safely disarms it
+PASS Cargo Boat simultaneously retains passenger seat and real storage
+PASS summoned vehicle exit records one actual Parking Spot
+PASS resummon replaces prior vehicle and drops cargo exactly once
+PASS Chauffeur rides ordinary native Minecart variants
+PASS ordinary cart rail speed restores after driver leaves
+PASS Racing Line uses recorded Parking Spot and marks physical corridor
+PASS Bloodmason Flow advances a segment without leaving an elevator
+PASS Bloodtrail changes manifestation without extra Hemostasis cost
+PASS Bloodmason cleanup restores every temporary terrain cell
+PASS Viscerwall is physically destructible and still safely restored
+PASS Anatomb picks the largest fitting stage and exposes held replacement channels
+PASS held Hemorrhage spends health and advances additive completion
+PASS Teratoma repairs destroyed cells while narrowing usable space
+PASS Quarryman quota credits real native terrain but rejects placed blocks
+PASS Strike clears quota without lowering Stage and supports clean off toggle
+PASS Scan potency depends on CQ/LQC and uses ceil width without inflated formula
+PASS Eternity Mountain marks a real cube before capture
+PASS Eternity Mountain creates reachable second body and captures only enemies
+PASS damage to World Quarryman ends domain and returns both players
+PASS all temporary class state and native cargo clean up
+SUMMARY pass=40 fail=1
