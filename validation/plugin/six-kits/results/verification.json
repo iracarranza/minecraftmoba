@@ -1,34 +1,61 @@
 {
   "date": "2026-10-11",
   "runtime": "Java 21 / Paper 1.21.11 build 132",
-  "accepted_six_kit_run": "native-5",
-  "unit_tests": 1226,
+  "accepted_six_kit_run": "merged-native",
+  "unit_tests": 1248,
   "native_checks": 152,
-  "plugin_sha256": "df12c7ff6b09de9a365bdf1a0ab07339eda79b7acc8c509f72122353f3514ede",
+  "plugin_sha256": "385cf57ed7ff56a30677e0ce870b73e72b6ff64c3de53eba613db711f38a1e58",
   "runs": {
-    "native-5": {
+    "merged-native": {
       "passed": 54,
       "failed": 0,
-      "report": "validation/plugin/six-kits/results/native-5/report.txt"
+      "report": "validation/plugin/six-kits/results/merged-native/report.txt"
     },
-    "earlier-regression": {
-      "passed": 25,
-      "failed": 0,
-      "report": "validation/plugin/six-kits/results/earlier-regression/report.txt"
-    },
-    "next-regression": {
+    "merged-next": {
       "passed": 36,
       "failed": 0,
-      "report": "validation/plugin/six-kits/results/next-regression/report.txt"
+      "report": "validation/plugin/six-kits/results/merged-next/report.txt"
     },
-    "crew-final": {
+    "merged-earlier": {
+      "passed": 25,
+      "failed": 0,
+      "report": "validation/plugin/six-kits/results/merged-earlier/report.txt"
+    },
+    "merged-crew": {
       "passed": 37,
       "failed": 0,
-      "report": "validation/plugin/six-kits/results/crew-final/report.txt"
+      "report": "validation/plugin/six-kits/results/merged-crew/report.txt"
     }
   },
   "limits": [
     "Native bodies and controlled production-state calls do not certify connected-client handling.",
     "Prototype magnitudes and documented Open world/progression policies remain unsettled."
-  ]
+  ],
+  "pre_merge_evidence": {
+    "unit_tests": 1226,
+    "plugin_sha256": "df12c7ff6b09de9a365bdf1a0ab07339eda79b7acc8c509f72122353f3514ede",
+    "runs": {
+      "native-5": {
+        "passed": 54,
+        "failed": 0,
+        "report": "validation/plugin/six-kits/results/native-5/report.txt"
+      },
+      "earlier-regression": {
+        "passed": 25,
+        "failed": 0,
+        "report": "validation/plugin/six-kits/results/earlier-regression/report.txt"
+      },
+      "next-regression": {
+        "passed": 36,
+        "failed": 0,
+        "report": "validation/plugin/six-kits/results/next-regression/report.txt"
+      },
+      "crew-final": {
+        "passed": 37,
+        "failed": 0,
+        "report": "validation/plugin/six-kits/results/crew-final/report.txt"
+      }
+    }
+  },
+  "integration": "Merged origin/main through 1b89f02 before final validation."
 }

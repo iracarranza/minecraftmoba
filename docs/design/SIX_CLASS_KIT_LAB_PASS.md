@@ -262,10 +262,12 @@ for exact results and artifact hashes. No browser wiki resynchronization is impl
 
 ### Accepted evidence
 
-All **1,226 unit tests** passed. Native Paper evidence passed **152 checks**:
-54 six-kit checks in `native-5`, 25 earlier-kit checks, 36 Kitfighter/Werewolf/
+All **1,248 unit tests** passed after integrating the concurrent main changes. Native Paper evidence passed **152 checks**:
+54 six-kit checks in `merged-native`, 25 earlier-kit checks, 36 Kitfighter/Werewolf/
 Gardener checks, and 37 Skeleton Crew/transport checks. Exact reports and the
 plugin SHA-256 are recorded in
 [verification.json](../../validation/plugin/six-kits/results/verification.json).
 Exploratory failures remain retained separately; the accepted six-kit run has
 zero failures. Human client handling and production balance remain playtests.
+
+The pre-merge 1,226-test / `native-5` evidence is retained separately in that record.
