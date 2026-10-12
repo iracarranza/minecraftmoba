@@ -65,9 +65,8 @@ final class RabbitsLuckyFootAbility implements Ability {
         leaps.remove(leap); var e = leap.entity(); e.setFallDistance(0);
         if (impact) {
             double radius = config.getDouble("impactRadius");
-            for (var target : e.getNearbyEntities(radius, radius, radius))
-                if (target instanceof LivingEntity enemy && !enemy.equals(leap.caster()) && Targetability.status(enemy, leap.caster()))
-                    AbilityDamage.deal(enemy, config.getDouble(leap.casterLeap() ? "casterDamage" : "animalDamage"), leap.caster());
+            for (var enemy : AbilityTargeting.around(leap.caster(), e, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+                AbilityDamage.deal(enemy, config.getDouble(leap.casterLeap() ? "casterDamage" : "animalDamage"), leap.caster());
             e.getWorld().spawnParticle(Particle.CLOUD, e.getLocation(), 12, 1, .1, 1, .05);
         }
         if (!leap.casterLeap()) e.setInvulnerable(leap.wasInvulnerable());

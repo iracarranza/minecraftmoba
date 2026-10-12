@@ -34,7 +34,6 @@ final class TunnelingAbility implements Ability {
     public boolean active(Player p) { return active.containsKey(p.getUniqueId()); }
     public boolean execute(Player p, AbilityContext ctx) {
         if (active(p)) return true;
-        var hit = p.rayTraceBlocks(config.getDouble("targetDistance"), FluidCollisionMode.NEVER);
         Vector direction = quantize(p.getLocation().getDirection());
         if (direction.lengthSquared() == 0) return false;
         direction.normalize();

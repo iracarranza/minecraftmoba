@@ -1048,21 +1048,25 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         var eye = t.getEyeLocation(); var dummy = combat().dummy(t);
         var ray = AbilityTargeting.ray(t, eye, new org.bukkit.util.Vector(0, 0, 1), 20, .3, AbilityTargeting.Relation.ENEMY);
         boolean stopped = ray != null && ray.entity() == null && ray.block() != null;
+        var through = AbilityTargeting.rayIgnoringWalls(t, eye, new org.bukkit.util.Vector(0, 0, 1), 20, .3, AbilityTargeting.Relation.ENEMY, null);
+        boolean seesThrough = through != null && dummy.equals(through.entity());
         var open = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, false);
         var seen = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
         boolean behind = open.contains(dummy) && !seen.contains(dummy);
         for (int x = -2; x <= 3; x++) for (int dy = 0; dy <= 2; dy++) w.getBlockAt(x, y + dy, z).setType(Material.AIR, false);
         var cleared = AbilityTargeting.within(t, t.getLocation().add(0, 1, 0), 12, 3, 12, AbilityTargeting.Relation.ENEMY, true);
         boolean back = cleared.contains(dummy);
-        boolean ok = stopped && behind && back;
-        return "wallStopsRay=" + stopped + " dummyBehindWall(open/LOS)=" + open.contains(dummy) + "/" + seen.contains(dummy) + " visibleAgainAfterWallGone=" + back + (ok ? "" : " | FAIL: wall or line of sight");
+        boolean ok = stopped && behind && back && seesThrough;
+        return "wallStopsRay=" + stopped + " observerStyleRayPassesWall=" + seesThrough + " dummyBehindWall(open/LOS)=" + open.contains(dummy) + "/" + seen.contains(dummy) + " visibleAgainAfterWallGone=" + back + (ok ? "" : " | FAIL: wall or line of sight");
     }
 
     private String tgSelf() {
         boolean selfEnemy = AbilityTargeting.filter(t, AbilityTargeting.Relation.EITHER).test(t);
         var around = AbilityTargeting.within(t, t.getLocation(), 3, 3, 3, AbilityTargeting.Relation.EITHER, false);
-        boolean ok = !selfEnemy && !around.contains(t);
-        return "callerAcceptedAsTarget=" + selfEnemy + " inOwnArea=" + around.contains(t) + (ok ? "" : " | FAIL: the caster is a target");
+        var aroundMe = AbilityTargeting.around(t, t, 12, 3, 12, AbilityTargeting.Relation.ENEMY, false);
+        boolean reach = aroundMe.contains(combat().dummy(t)) && !aroundMe.contains(t);        // the dummy is eight blocks off
+        boolean ok = !selfEnemy && !around.contains(t) && reach;
+        return "callerAcceptedAsTarget=" + selfEnemy + " inOwnArea=" + around.contains(t) + " aroundCasterFindsDummy=" + reach + (ok ? "" : " | FAIL: the caster is a target or around() missed the dummy");
     }
 
     private String tgLeave() {

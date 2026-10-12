@@ -319,9 +319,12 @@ public final class UtilityBelt implements Listener {
         Location from = origin.getLocation().add(0, origin.getHeight() * 0.9, 0);
         Vector direction = p.getLocation().getDirection();
         double range = plugin.getConfig().getDouble("abilities.definitions.utility_belt.observeRange", 24.0);
-        var hit = origin.getWorld().rayTraceEntities(from, direction, range, 1.0,
-                e -> e != origin && e != p && Targetability.status(e, p));
-        return hit == null ? null : hit.getHitEntity();
+        // Walls do not stop an Observer: that is deliberate and a design question (docs/design/ABILITY_TARGETING.md),
+        // so it is named here and not left to be the default of whichever ray call was nearest.
+        var hit = AbilityTargeting.rayIgnoringWalls(p, from, direction, range,
+                plugin.getConfig().getDouble("abilities.definitions.utility_belt.observeWidth", 1.0),
+                AbilityTargeting.Relation.ENEMY, origin);
+        return hit == null ? null : hit.entity();
     }
 
     /**

@@ -35,7 +35,7 @@ final class BrawlingSlashAbility implements Ability {
         LivingEntity first=ray!=null?ray.entity():null;
         if(form!=Lycanthropy.Form.UNLEASHED && first==null)return false;
         p.swingMainHand();Player target=first instanceof Player victim?victim:null;
-        if(form==Lycanthropy.Form.UNLEASHED)area(p,p.getLocation(),direction,damage,config.getDouble("sweepRadius"),.4);
+        if(form==Lycanthropy.Form.UNLEASHED)area(p,p.getLocation(),direction,damage,config.getDouble("sweepRadius"),config.getDouble("sweepConeDot"));
         else {AbilityDamage.deal(first,damage,p);first.setVelocity(direction.clone().multiply(config.getDouble("knockback")).setY(.25));}
         if(form==Lycanthropy.Form.UNLEASHED || target!=null){
             int delay=form==Lycanthropy.Form.UNLEASHED?config.getInt("unleashedDelayTicks"):config.getInt("delayTicks");
@@ -47,7 +47,7 @@ final class BrawlingSlashAbility implements Ability {
         Player p=leap.player;
         if(!p.isOnline() || p.isDead() || !p.getWorld().equals(leap.last.getWorld()) || plugin.stun().isStunned(p) || plugin.toolboxStatuses().isRooted(p)){finish(leap);continue;}
         if(clock<leap.start)continue;
-        if(leap.slamAt>0){if(clock>=leap.slamAt){area(p,p.getLocation(),leap.direction,leap.damage*config.getDouble("thirdSlamMultiplier"),config.getDouble("thirdSlamRadius"),.15);finish(leap);}continue;}
+        if(leap.slamAt>0){if(clock>=leap.slamAt){area(p,p.getLocation(),leap.direction,leap.damage*config.getDouble("thirdSlamMultiplier"),config.getDouble("thirdSlamRadius"),config.getDouble("thirdSlamConeDot"));finish(leap);}continue;}
         if(leap.flight++==0)p.setCollidable(false);
         if(leap.flight>config.getInt("travelTicks")){land(leap);continue;}
         Vector delta;
@@ -83,7 +83,7 @@ final class BrawlingSlashAbility implements Ability {
     }
     private void pathHits(Leap leap,Location at){
         if(leap.form==Lycanthropy.Form.HUMAN && !"whirling_slash".equals(leap.branch))return;
-        for(var e:at.getWorld().getNearbyEntities(at,1.2,1.8,1.2))if(e instanceof LivingEntity enemy && Targetability.status(enemy,leap.player) && leap.hit.add(enemy.getUniqueId())){
+        for(var enemy:AbilityTargeting.within(leap.player,at,config.getDouble("pathRadius"),config.getDouble("pathHeight"),config.getDouble("pathRadius"),AbilityTargeting.Relation.ENEMY,false))if(leap.hit.add(enemy.getUniqueId())){
             AbilityDamage.deal(enemy,leap.damage*(leap.form==Lycanthropy.Form.HUMAN?config.getDouble("whirlingMultiplier"):1),leap.player);
             if(leap.form==Lycanthropy.Form.TRANSFORMED){if("gnashing_slash".equals(leap.branch))leap.pulled.add(enemy);else enemy.setVelocity(leap.direction.clone().multiply(.7).setY(.2));}
         }
@@ -95,7 +95,7 @@ final class BrawlingSlashAbility implements Ability {
     }
     private void area(Player p,Location at,Vector facing,double damage,double radius,double coneDot){
         Vector flat=facing.clone().setY(0);if(flat.lengthSquared()>0)flat.normalize();
-        for(var target:AbilityTargeting.within(p,at,radius,2,radius,AbilityTargeting.Relation.ENEMY,false)){
+        for(var target:AbilityTargeting.within(p,at,radius,config.getDouble("areaHeight"),radius,AbilityTargeting.Relation.ENEMY,false)){
             Vector offset=target.getLocation().toVector().subtract(at.toVector());
             if(!AbilityTargeting.inCone(offset.getX(),offset.getZ(),flat.getX(),flat.getZ(),radius,coneDot))continue;
             AbilityDamage.deal(target,damage,p);target.setVelocity(flat.clone().multiply(.7).setY(.3));

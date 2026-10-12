@@ -107,10 +107,8 @@ public final class JumpstartinatorAbility implements Ability {
     }
 
     private void blast(Player p, double damage, double radius) {
-        for (Entity e : p.getNearbyEntities(radius, radius, radius))
-            if (e instanceof LivingEntity target && !target.equals(p)
-                    && Targetability.status(target, p))
-                AbilityDamage.deal(target, damage, p);
+        for (var target : AbilityTargeting.around(p, p, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+            AbilityDamage.deal(target, damage, p);
     }
 
     private ConfigurationSection branchConfig(String branch) {
