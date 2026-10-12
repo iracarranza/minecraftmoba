@@ -123,6 +123,7 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "offhander: the item cannot be dropped or lifted out of the slot", this::ofGuarded);
         at(c, 3, "offhander: A1 again puts the map back", this::ofToggle);
         at(c, 3, "offhander: leaving the ability (forget) also puts the map back, and a branch change swaps the item", this::ofForget);
+        at(c, 3, "class kit: the editor's Fill-with-kit control and the loadout kit command give the class its lab kit from config", this::ckKit);
         at(c, 3, "offhander: leave", this::recipientLeave);
         at(c, 4, "interference: record a two-input Mole take as Operator", this::intRecordStart);
         at(c, 6, "interference: the tester performs it", this::intPerform);
@@ -251,6 +252,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 150, "scenario: lure_and_frighten passed, including its no-status control", this::scLureDone);
         at(c, 3, "scenario: run lured_refuses_abilities", this::scRunLureCast);
         at(c, 60, "scenario: a Lured Chef could not cast and an unaffected Chef could", this::scLureCastDone);
+        at(c, 3, "scenario: run six_kits_skirmish (the six newest classes, each with the kit the lab gives its body)", this::scRunSix);
+        at(c, 120, "scenario: six_kits_skirmish passed", this::scSixDone);
         at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
         at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
         at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
@@ -258,6 +261,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "ability damage: Drill Rush burrows the tester", this::adBurrow);
         at(c, 6, "ability damage: emerging deals the REAL ability's damage and the chamber measures it", this::adEmerge);
         at(c, 3, "ability damage: the report attributes it to the tester, not to a bare damage call", this::adReport);
+        // Last, so the load of fifteen classes entering and spawning bodies cannot disturb the timing of any step above it.
+        for (String sweepId : sweepClasses()) at(c, 10, "sweep: " + sweepId + " is selectable in the combat chamber, enters, casts, and a body of it spawns and casts", () -> sweepClass(sweepId));
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -1271,6 +1276,94 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         in.forget(t);
         boolean back = ofMap() && moba.offhandLoan().held(t) == null;
         return "equipped=" + equipped + " mapBackAfterForget=" + back + (equipped && back ? "" : " | FAIL: forget did not return the map");
+    }
+
+    // ---- the class sweep: is every registered class reachable through the lab? ----------------------------
+
+    private List<String> sweepClasses() {
+        var m = (MobaPlugin) Bukkit.getPluginManager().getPlugin("MinecraftMoba");
+        if (m != null && m.isEnabled()) { var ids = new ArrayList<>(m.inputs().ids()); Collections.sort(ids); ids.remove("test"); return ids; }
+        return List.of("bloodmason", "chauffeur", "chef", "daredevil", "fungal_assassin", "gardener", "hollow", "kitfighter", "lightfooted", "mole", "paver", "quarryman", "skeleton_crew", "toolbox", "werewolf");
+    }
+
+    private String sweepClass(String id) {
+        var notes = new ArrayList<String>(); boolean fail = false;
+        try {
+            // 1. the pre-entry flow offers it
+            cmd("leave"); cmd("start"); cmd("pick " + id);
+            String afterPick = combat().state(t);
+            boolean offered = afterPick.startsWith("setup step") && !afterPick.endsWith("CLASS");
+            if (!offered) { fail = true; notes.add("NOT OFFERED (state=" + afterPick + ")"); }
+            // 2. which slots a Recipient can receive
+            var recv = new ArrayList<String>();
+            for (String slot : new String[]{"A1", "A2", "ULT"}) {
+                cmd("leave"); cmd("start"); cmd("pick " + id); cmd("pick RECIPIENT"); cmd("pick " + slot);
+                String st = combat().state(t);
+                recv.add(slot + "=" + (st.equals("setup step SLOT") ? "refused" : "ok"));
+            }
+            notes.add("recipient " + String.join(" ", recv));
+            // 3. operator entry
+            cmd("leave"); cmd("start"); cmd("pick " + id); cmd("pick OPERATOR"); cmd("set cooldown off"); cmd("set level 30"); cmd("pick enter");
+            boolean in = combat().state(t).equals("in chamber");
+            var data = moba.data(t);
+            boolean applied = in && data != null && id.equals(data.classId) && moba.enrolled(t);
+            if (!applied) { fail = true; notes.add("OPERATOR ENTRY FAILED (state=" + combat().state(t) + " class=" + (data == null ? null : data.classId) + " enrolled=" + moba.enrolled(t) + ")"); }
+            // 4. every slot has an ability, and pressing it by the real input path runs or is refused with a reason
+            var slots = new ArrayList<String>();
+            if (applied) for (String slot : new String[]{"a1", "a2", "ult"}) {
+                var ability = moba.inputs().abilityFor(id, slot);
+                if (ability == null) { fail = true; slots.add(slot + "=MISSING"); continue; }
+                int before = moba.inputs().executions(t, ability.id());
+                var in2 = moba.inputs(); if (!in2.active(t)) in2.input(t, in2.modeInput()); in2.input(t, in2.inputFor(slot));
+                int ran = moba.inputs().executions(t, ability.id()) - before;
+                slots.add(slot + "=" + ability.id() + (ran > 0 ? "(ran)" : "(not run)"));
+                if (in2.active(t)) in2.input(t, in2.modeInput());
+            }
+            notes.add("operator " + String.join(" ", slots));
+            // 5. a body of the class spawns, is enrolled with it, and can be told to cast
+            var w = Bukkit.getWorld("moba_combat");
+            Bodies.Body body = bodies.spawn("sweep", null, id, 30, new Location(w, 4.5, CombatSlab.FLOOR_Y + 1, t.getLocation().getZ() + 4, 180f, 0f));
+            var bd = moba.data(body.player());
+            boolean bodyOk = bd != null && id.equals(bd.classId) && moba.enrolled(body.player());
+            if (!bodyOk) { fail = true; notes.add("BODY NOT ENROLLED AS " + id); }
+            // the body carries what its class consumes (alpha.lab.classKits)
+            var kitEntries = ClassKits.of(moba.getConfig(), id); var kitMissing = new ArrayList<String>();
+            for (int i = 0; bodyOk && i < kitEntries.size(); i++) {
+                var have = body.player().getInventory().getItem(i);
+                if (have == null || have.getType() != kitEntries.get(i).material()) kitMissing.add(kitEntries.get(i).material().name());
+            }
+            if (!kitMissing.isEmpty()) { fail = true; notes.add("BODY KIT MISSING " + kitMissing); }
+            else notes.add("kit " + kitEntries.size() + " stack(s)");
+            var casts = new ArrayList<String>();
+            if (bodyOk) for (String slot : new String[]{"a1", "a2", "ult"}) {
+                var f = CastAim.toward(body.player().getEyeLocation().getX(), body.player().getEyeLocation().getY(), body.player().getEyeLocation().getZ(),
+                        t.getLocation().getX(), t.getLocation().getY() + 1, t.getLocation().getZ());
+                var r = new BodyCaster(moba).cast(body.player(), slot, f, 0);
+                casts.add(slot + "=" + (r.cast() ? "cast" : "refused"));
+            }
+            notes.add("body " + String.join(" ", casts));
+            bodies.despawn(body);
+            cmd("leave");
+        } catch (RuntimeException ex) { fail = true; notes.add("EXCEPTION " + ex); try { cmd("leave"); } catch (RuntimeException ignored) { } }
+        return String.join(" | ", notes) + (fail ? " | FAIL: " + id + " is not fully reachable through the lab" : "");
+    }
+
+    private String ckKit() {
+        cmd("loadout select 5");
+        combat().openEditor(t);
+        var top = t.getOpenInventory().getTopInventory();
+        Bukkit.getPluginManager().callEvent(new org.bukkit.event.inventory.InventoryClickEvent(t.getOpenInventory(),
+                org.bukkit.event.inventory.InventoryType.SlotType.CONTAINER, 49, org.bukkit.event.inventory.ClickType.LEFT, org.bukkit.event.inventory.InventoryAction.PICKUP_ALL));
+        boolean control = top.getItem(0) != null && top.getItem(0).getType() == Material.IRON_SWORD && top.getItem(1) != null && top.getItem(1).getType() == Material.BOW
+                && top.getItem(4) != null && top.getItem(4).getType() == Material.GOLDEN_APPLE && top.getItem(4).getAmount() == 16;
+        t.closeInventory();
+        cmd("loadout select 4"); cmd("loadout kit");
+        combat().openEditor(t);
+        var again = t.getOpenInventory().getTopInventory();
+        boolean command = again.getItem(0) != null && again.getItem(0).getType() == Material.IRON_SWORD && again.getItem(5) != null && again.getItem(5).getType() == Material.ARROW;
+        t.closeInventory();
+        cmd("loadout select 1");
+        return "control=" + control + " command=" + command + (control && command ? "" : " | FAIL: class kit");
     }
 
     private String uiLeave() {
@@ -2337,6 +2430,8 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
     private String scRunSkirmish() { t.performCommand("moba lab scenario skirmish_2v2"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
     private String scSkirmishDone() { return scResult("skirmish_2v2", 8); }
 
+    private String scRunSix() { t.performCommand("moba lab scenario six_kits_skirmish"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
+    private String scSixDone() { return scResult("six_kits_skirmish", 7); }
     private String scRunLure() { t.performCommand("moba lab scenario lure_and_frighten"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }
     private String scLureDone() { return scResult("lure_and_frighten", 10); }
     private String scRunLureCast() { t.performCommand("moba lab scenario lured_refuses_abilities"); return "running=" + (sb().runOf(t) != null && sb().runOf(t).running()); }

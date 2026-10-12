@@ -2073,6 +2073,27 @@ alpha:
   instanceWorldName: alpha_match
   # Reusable debug scoops, isolated from the consumable production pool.
   lab:
+    # What a class's testers and dummy bodies carry so its abilities have something to consume. [PROTOTYPE/TEST]
+    # These are lab fixtures, not design: a class's real resources are whatever its kit says. Each entry is
+    # MATERIAL:amount, placed in slots 0, 1, 2... in order. An empty list means the class consumes no items,
+    # and every class must be listed (a unit test fails when a new one is not).
+    classKits:
+      test: []
+      toolbox: []
+      lightfooted: []
+      skeleton_crew: [IRON_SWORD:1]
+      mole: []
+      daredevil: []
+      chef: [IRON_SHOVEL:1, COOKED_BEEF:64, BEEF:32]
+      kitfighter: [IRON_SWORD:1, BOW:1, CROSSBOW:1, FISHING_ROD:1, GOLDEN_APPLE:16, ARROW:16]
+      gardener: [WHEAT_SEEDS:64]
+      quarryman: [IRON_PICKAXE:1, DIAMOND_PICKAXE:1]
+      bloodmason: []
+      chauffeur: [OAK_BOAT:1, MINECART:1, COOKED_BEEF:32]
+      fungal_assassin: []
+      paver: [SAND:64, GRAVEL:64, WHITE_DYE:16, WHITE_CONCRETE:64, WHITE_CONCRETE_POWDER:64, WATER_BUCKET:1]
+      hollow: []
+      werewolf: [IRON_SWORD:1]
     # Chamber bays, cut from the launched scoop.
     #
     # 33 x 21 x 33 at radius 16. Deliberately inside LabUndo's 120,000-block
@@ -2166,6 +2187,27 @@ alpha:
           - { tick: 90, assert: health_not_lower, of: gardener, since: 85, because: "authored damage still refuses allies" }
           - { tick: 100, assert: alive, of: fighter }
           - { tick: 100, assert: alive, of: wolf }
+      six_kits_skirmish:
+        description: "Quarryman, Hollow, Chauffeur and Paver each cast a real ability in a team encounter, with the kit the lab gives their body; Bloodmason stands in it as a target (its channelled kit is not a body cast)."
+        anchor: fountain_north
+        roster:
+          - { id: quarry, team: NORTH, class: quarryman, level: 15, at: [4, 0, 8] }
+          - { id: hollow, team: NORTH, class: hollow, level: 15, at: [4, 0, 12] }
+          - { id: driver, team: NORTH, class: chauffeur, level: 15, at: [4, 0, 16] }
+          - { id: paver, team: SOUTH, class: paver, level: 15, at: [12, 0, 8] }
+          - { id: mason, team: SOUTH, class: bloodmason, level: 15, at: [12, 0, 12] }
+        timeline:
+          - { tick: 20, actor: quarry, do: cast, slot: a1, at: paver }
+          - { tick: 22, assert: ability_executed, of: quarry, ability: ceaseless_swing }
+          - { tick: 25, actor: hollow, do: cast, slot: a1, at: mason }
+          - { tick: 27, assert: ability_executed, of: hollow, ability: wooden_maw }
+          - { tick: 30, actor: driver, do: cast, slot: a1, at: paver }
+          - { tick: 32, assert: ability_executed, of: driver, ability: cargo_boat }
+          - { tick: 35, actor: paver, do: cast, slot: a2, at: quarry }
+          - { tick: 37, assert: ability_executed, of: paver, ability: chamfering }
+          - { tick: 60, assert: alive, of: quarry }
+          - { tick: 60, assert: alive, of: paver }
+          - { tick: 60, assert: alive, of: mason }
       skeleton_crew_skirmish:
         description: "Raise, burning workers, a direct Strike and a specialized Horseman shift in a team encounter."
         anchor: fountain_north

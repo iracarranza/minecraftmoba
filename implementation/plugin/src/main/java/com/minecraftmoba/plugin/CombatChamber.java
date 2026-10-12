@@ -126,7 +126,8 @@ public final class CombatChamber implements Listener {
         this.preMenu = new CombatPreEntryMenu(plugin, this);
         this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
         this.testing = new TestingMode(plugin, loadouts, this::endTesting, this::dummy);
-        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot));
+        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot),
+                pl -> ClassKits.loadout(plugin.getConfig(), plugin.data(pl) == null ? null : plugin.data(pl).classId));
         Bukkit.getPluginManager().registerEvents(testing, plugin);
         Bukkit.getPluginManager().registerEvents(editor, plugin);
         Bukkit.getPluginManager().registerEvents(preMenu, plugin);
@@ -431,6 +432,12 @@ public final class CombatChamber implements Listener {
                 catch (RuntimeException ex) { p.sendMessage(ChatColor.RED + "/moba lab combat loadout select 1-" + LoadoutBook.SLOTS); return; }
                 p.sendMessage(ChatColor.GREEN + "Selected " + book.selectedName() + ": " + book.current().count() + " item(s).");
             }
+            case "kit" -> {
+                var kit = ClassKits.loadout(plugin.getConfig(), plugin.data(p) == null ? null : plugin.data(p).classId);
+                book.set(book.selected(), kit); loadouts.save(p.getUniqueId());
+                p.sendMessage(ChatColor.GREEN + book.selectedName() + " is now the " + (plugin.data(p) == null ? "?" : plugin.data(p).classId)
+                        + " kit (" + kit.count() + " item(s)); Start testing to use it. Prototype fixtures from config.");
+            }
             case "dummy" -> {
                 if (a.dummy == null) { p.sendMessage(ChatColor.RED + "There is no dummy."); return; }
                 boolean clear = args.length > 4 && args[4].equalsIgnoreCase("clear");
@@ -448,7 +455,7 @@ public final class CombatChamber implements Listener {
                 p.sendMessage(ChatColor.GOLD + "Loadouts (selected: " + book.selectedName() + "):");
                 for (int i = 0; i < LoadoutBook.SLOTS; i++)
                     p.sendMessage((i == book.selected() ? ChatColor.GREEN + "> " : ChatColor.GRAY + "  ") + LoadoutBook.name(i) + ": " + book.get(i).count() + " item(s)");
-                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | next | select <n> | dummy [clear] | me");
+                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | next | select <n> | kit | dummy [clear] | me");
             }
         }
     }

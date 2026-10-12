@@ -6,7 +6,7 @@ package com.minecraftmoba.plugin;
  * <pre>
  * rows 0-3   the 36 inventory slots (the hotbar first, then the rest); slot 8 is locked
  * row 4      helmet, chestplate, leggings, boots, then spacers
- * row 5      select, fill from me, fill from the dummy, clear, spacers, done
+ * row 5      select, fill from me, fill from the dummy, clear, fill with the class kit, spacers, done
  * </pre>
  *
  * Because the loadout's own slot numbering (see {@link Loadout}) runs 0-39 in exactly this order, an
@@ -16,7 +16,7 @@ public final class LoadoutEditorLayout {
     private LoadoutEditorLayout() {}
 
     public static final int SIZE = 54;
-    public static final int SELECT = 45, FILL_ME = 46, FILL_DUMMY = 47, CLEAR = 48, DONE = 53;
+    public static final int SELECT = 45, FILL_ME = 46, FILL_DUMMY = 47, CLEAR = 48, FILL_KIT = 49, DONE = 53;
 
     public enum Kind { ITEM, RESERVED, CONTROL, SPACER }
 
@@ -25,7 +25,7 @@ public final class LoadoutEditorLayout {
         if (Loadout.reserved(slot)) return Kind.RESERVED;
         if (slot < Loadout.SIZE) return Kind.ITEM;
         return switch (slot) {
-            case SELECT, FILL_ME, FILL_DUMMY, CLEAR, DONE -> Kind.CONTROL;
+            case SELECT, FILL_ME, FILL_DUMMY, CLEAR, FILL_KIT, DONE -> Kind.CONTROL;
             default -> Kind.SPACER;
         };
     }
