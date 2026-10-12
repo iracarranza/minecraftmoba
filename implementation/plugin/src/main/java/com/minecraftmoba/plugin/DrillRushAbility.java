@@ -123,10 +123,8 @@ public final class DrillRushAbility implements Ability, org.bukkit.event.Listene
 
         double radius = config.getDouble("emergeRadius");
         double damage = config.getDouble("emergeDamage");
-        for (Entity e : out.getWorld().getNearbyEntities(out, radius, radius, radius))
-            if (e instanceof LivingEntity target && !target.equals(p)
-                    && Targetability.status(target, p))
-                AbilityDamage.deal(target, damage, p);
+        for (var target : AbilityTargeting.within(p, out, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+            AbilityDamage.deal(target, damage, p);
 
         // Undermine stuns only on a FLOOR emergence -- coming up from below,
         // not out of a wall. The branch's whole distinction is the direction
@@ -134,10 +132,8 @@ public final class DrillRushAbility implements Ability, org.bukkit.event.Listene
         if ("undermine".equals(ctx.branchFor(id())) && plugin.stun() != null
                 && facing.getY() >= config.getDouble("undermineUpwardFacing")) {
             long stunTicks = config.getLong("undermineStunTicks");
-            for (Entity e : out.getWorld().getNearbyEntities(out, radius, radius, radius))
-                if (e instanceof LivingEntity target && !target.equals(p)
-                        && Targetability.status(target, p))
-                    plugin.stun().stun(target, stunTicks);
+            for (var target : AbilityTargeting.within(p, out, radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+                plugin.stun().stun(target, stunTicks);
         }
 
         if ("armored_emergence".equals(ctx.branchFor(id())))

@@ -117,7 +117,7 @@ final class WerewolfState implements Listener {
             // Monitor observes only; the actual swept attacks run next tick outside the event dispatch.
             plugin.getServer().getScheduler().runTask(plugin,()->{
                 if(!p.isOnline() || p.isDead() || !hiding(p))return;secondary=true;
-                try{for(var other:p.getNearbyEntities(2+w.extraSize,1.5,2+w.extraSize))if(other instanceof LivingEntity target && !other.equals(e.getEntity()) && Targetability.status(target,p))AbilityDamage.deal(target,sweepDamage,p);}finally{secondary=false;}
+                try{for(var target:AbilityTargeting.around(p,p,2+w.extraSize,1.5,2+w.extraSize,AbilityTargeting.Relation.ENEMY,false))if(!target.equals(e.getEntity()))AbilityDamage.deal(target,sweepDamage,p);}finally{secondary=false;}
             });
         }
     }

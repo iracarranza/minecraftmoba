@@ -59,8 +59,8 @@ final class LungeAbility implements Ability, org.bukkit.event.Listener {
         for (var s : List.copyOf(sweeps)) {
             if (clock >= s.until() || !s.player().isOnline() || s.player().isDead()) { sweeps.remove(s); continue; }
             double radius = config.getDouble("damageRadius");
-            for (var e : s.player().getNearbyEntities(radius, radius, radius))
-                if (e instanceof LivingEntity target && !target.equals(s.player()) && Targetability.status(target, s.player()) && s.struck().add(target.getUniqueId())) {
+            for (var target : AbilityTargeting.around(s.player(), s.player(), radius, radius, radius, AbilityTargeting.Relation.ENEMY, false))
+                if (s.struck().add(target.getUniqueId())) {
                     AbilityDamage.deal(target, config.getDouble("damage"), s.player());
                     if ("thieving_swipe".equals(s.branch()) && target instanceof Player victim) {
                         var b = branch("thievingSwipe"); var item = victim.getInventory().getItemInMainHand();

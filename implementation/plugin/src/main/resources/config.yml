@@ -1187,6 +1187,11 @@ abilities:
       cooldownTicks: 100
       range: 4
       rayWidth: 0.35               # how far off the line a creature can be and still be the first hit
+      pathRadius: 1.2              # a Transformed or Human leap hits creatures this close, sideways, along its path
+      pathHeight: 1.8              # ... and this close, vertically
+      areaHeight: 2.0              # the slams reach this far up and down
+      sweepConeDot: 0.4            # Unleashed sweep: cosine of its half-angle (1 straight ahead, -1 all round)
+      thirdSlamConeDot: 0.15       # Lumbering Crash's third slam, same scale
       delayTicks: 8
       unleashedDelayTicks: 16
       travelTicks: 40
@@ -1233,6 +1238,7 @@ abilities:
       # How far an Observer looks along Toolbox's live facing, FROM THE
       # CURRENT ORIGIN -- which is what permits relay.
       observeRange: 24.0
+      observeWidth: 1.0            # how far off the line a creature can be and still be Observed; the ray ignores walls
       pistonPower: 1.2
       pistonRadius: 3.0
       # What Illuminated is worth: a marginal knockback source made
@@ -1446,7 +1452,6 @@ abilities:
       # Mole out of progression while it performed its defining activity.
       combat: false
       cooldownTicks: 10
-      targetDistance: 12
       maxDistance: 16
       clearAhead: 1.2
       speed: 0.08
