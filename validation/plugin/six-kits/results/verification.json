@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-11",
+  "runtime": "Java 21 / Paper 1.21.11 build 132",
+  "accepted_six_kit_run": "native-5",
+  "unit_tests": 1226,
+  "native_checks": 152,
+  "plugin_sha256": "df12c7ff6b09de9a365bdf1a0ab07339eda79b7acc8c509f72122353f3514ede",
+  "runs": {
+    "native-5": {
+      "passed": 54,
+      "failed": 0,
+      "report": "validation/plugin/six-kits/results/native-5/report.txt"
+    },
+    "earlier-regression": {
+      "passed": 25,
+      "failed": 0,
+      "report": "validation/plugin/six-kits/results/earlier-regression/report.txt"
+    },
+    "next-regression": {
+      "passed": 36,
+      "failed": 0,
+      "report": "validation/plugin/six-kits/results/next-regression/report.txt"
+    },
+    "crew-final": {
+      "passed": 37,
+      "failed": 0,
+      "report": "validation/plugin/six-kits/results/crew-final/report.txt"
+    }
+  },
+  "limits": [
+    "Native bodies and controlled production-state calls do not certify connected-client handling.",
+    "Prototype magnitudes and documented Open world/progression policies remain unsettled."
+  ]
+}

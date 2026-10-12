@@ -69,6 +69,7 @@ import java.util.UUID;
 public final class Displacement implements Listener {
 
     private final MobaPlugin plugin;
+    private final java.util.Set<DisplacementLedger.Key> created = new java.util.HashSet<>();
     private final DisplacementLedger<BlockState> ledger = new DisplacementLedger<>();
 
     public Displacement(MobaPlugin plugin) { this.plugin = plugin; }
@@ -106,9 +107,18 @@ public final class Displacement implements Listener {
         return true;
     }
 
+    /** Destructible anatomy may disappear while its original air cell stays reserved. */
+    public boolean placeDestructible(Block block, UUID token, BlockData data) {
+        if(!placeTemporary(block,token,data))return false;
+        created.add(keyOf(block));return true;
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void breakReserved(org.bukkit.event.block.BlockBreakEvent e) {
-        if (isReserved(e.getBlock())) e.setCancelled(true);
+        if (isReserved(e.getBlock())) {
+            e.setCancelled(true);
+            if(created.contains(keyOf(e.getBlock()))) { e.setDropItems(false); e.getBlock().setType(Material.AIR,false); }
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -131,7 +141,9 @@ public final class Displacement implements Listener {
 
     /** Put everything this token holds back, exactly. */
     public int restore(UUID token) {
-        return put(ledger.release(token));
+        var entries=ledger.release(token);
+        entries.forEach(e -> created.remove(e.getKey()));
+        return put(entries);
     }
 
     /** Put one position back early, leaving the token's others held. */
@@ -145,6 +157,7 @@ public final class Displacement implements Listener {
     private int put(List<Map.Entry<DisplacementLedger.Key, BlockState>> entries) {
         int done = 0;
         for (var e : entries) {
+            created.remove(e.getKey());
             var world = plugin.getServer().getWorld(e.getKey().world());
             // A world unloaded under a live displacement takes its blocks with
             // it. Drop the reservation rather than retrying forever.

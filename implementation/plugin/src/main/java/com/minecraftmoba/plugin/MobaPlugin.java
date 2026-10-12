@@ -57,6 +57,10 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
     private InfraMode infraMode;
     private Routes routes;
     private TransportEvidence transportEvidence = new TransportEvidence();
+    private KitGlow kitGlow;
+    KitGlow kitGlow() { return kitGlow; }
+    private DevelopedZones developedZones;
+    DevelopedZones developedZones() { return developedZones; }
     private SupplyLines supplyLines;
     TransportEvidence transportEvidence() { return transportEvidence; }
     SupplyLines supplyLines() { return supplyLines; }
@@ -246,6 +250,8 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         // them left both holding null, so Toolbox's A1 and A2 never fired.
         toolboxStatuses = new ToolboxStatuses(this);
         utilityBelt = new UtilityBelt(this, toolboxStatuses);
+        kitGlow = new KitGlow(this);
+        developedZones = new DevelopedZones(this);
         inputs = new AbilityInputs(this, provenance);
         transportEvidence = new TransportEvidence();
         supplyLines = new SupplyLines(this);
@@ -652,6 +658,7 @@ public final class MobaPlugin extends JavaPlugin implements Listener, CommandExe
         if (lair != null) lair.reset();
         // Dummies are players in a world that outlives the plugin.
         if (inputs != null) inputs.close();
+        if (kitGlow != null) kitGlow.close();
         if (lab != null) lab.close();
         if (rewards != null) getServer().getOnlinePlayers().forEach(rewards::cleanup);
         if (passives != null) passives.close();

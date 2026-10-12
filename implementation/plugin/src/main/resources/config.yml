@@ -837,6 +837,11 @@ capacityProfiles:
     # 18 being a horizontal milestone only is the point of the middle of
     # this curve, not a gap in it.
     slots: { steps: [6, 12, 18, 21, 24, 27, 36, 36, 36, 36, 36], cap: 36 }
+  hollow:
+    # Supplied definitive curve: 1,000 -> 2,100 displayed; +110 per Growth.
+    health: { start: 10, growthUnit: 1.1, cap: 21 }
+    hunger: { start: 10, growthUnit: 2, cap: 20 }
+    slots: { start: 6, growthUnit: 3, cap: 24 }
   mole:
     # 100 -> 320 engine, +2.2 per Growth. Regular by design: Health is the
     # continuous curve and spikes come from abilities, branches, Task
@@ -1115,6 +1120,54 @@ abilities:
       a2: cultivate
       ult: grafters_handbook
       branches: { clip: specimen, cultivate: torchflower }
+    quarryman:
+      displayName: Quarryman
+      passiveHook: quarry_quota
+      statGrowthProfile: fallback
+      a1: ceaseless_swing
+      a2: miners_strike
+      ult: eternity_mountain
+    bloodmason:
+      displayName: Bloodmason
+      passiveHook: hemostasis
+      statGrowthProfile: fallback
+      persistentStateDefaults: { hemostasis: '3' }
+      a1: capillary_flow
+      a2: viscerwall
+      ult: athanor_anatomb
+      branches: { capillary_flow: bloodtrail, viscerwall: adipose }
+    chauffeur:
+      displayName: Chauffeur
+      passiveHook: parking_spot
+      statGrowthProfile: fallback
+      a1: cargo_boat
+      a2: muscle_cart
+      ult: highly_irresponsible_racing_line
+      branches: { cargo_boat: jetski, muscle_cart: tactical_dismount }
+    fungal_assassin:
+      displayName: Fungal Assassin
+      passiveHook: creeping_colony
+      statGrowthProfile: fallback
+      a1: bursting_spore
+      a2: myceliate
+      ult: destroying_angels_blessing
+      branches: { bursting_spore: airborne_spread, myceliate: hyphae_lashers }
+    paver:
+      displayName: Paver
+      passiveHook: concrete_mixer
+      statGrowthProfile: fallback
+      a1: rebar_chain
+      a2: chamfering
+      ult: concrete_shoes
+      branches: { rebar_chain: pitons, chamfering: natural_mix }
+    hollow:
+      displayName: Hollow
+      passiveHook: hollowed_heart
+      statGrowthProfile: hollow
+      a1: wooden_maw
+      a2: seeking_heart
+      ult: peekaboo
+      branches: { wooden_maw: mangling_branch, seeking_heart: cursed_canopy }
     werewolf:
       displayName: Werewolf
       passiveHook: lycanthropy
@@ -1124,6 +1177,93 @@ abilities:
       ult: monster_howl
       branches: { brawling_slash: whirling_slash, bloodhide: brawlers_mind }
   definitions:
+    ceaseless_swing:
+      displayName: Ceaseless Swing
+      cooldownTicks: 600
+      combat: false
+    miners_strike:
+      displayName: Miner's Strike
+      cooldownTicks: 20
+      combat: true
+    eternity_mountain:
+      displayName: Eternity Mountain
+      cooldownTicks: 1200
+      combat: true
+    capillary_flow:
+      displayName: Capillary Flow
+      cooldownTicks: 100
+      range: 12
+      combat: true
+      branches: { nausea_wave: { combat: true }, bloodtrail: { combat: true }, lifeblood: { combat: true } }
+    viscerwall:
+      displayName: Viscerwall
+      cooldownTicks: 100
+      range: 12
+      combat: true
+      branches: { render_flesh: { combat: true }, fracture: { combat: true }, adipose: { combat: true } }
+    athanor_anatomb:
+      displayName: Athanor Anatomb
+      cooldownTicks: 900
+      combat: true
+    cargo_boat:
+      displayName: Cargo Boat
+      cooldownTicks: 600
+      combat: false
+      branches: { jetski: { combat: false }, freight_engine: { combat: false }, front_propeller: { combat: true } }
+    muscle_cart:
+      displayName: Muscle Cart
+      cooldownTicks: 600
+      combat: true
+      branches: { pop_the_hopper: { combat: true }, diesel_engine: { combat: true }, tactical_dismount: { combat: true } }
+    highly_irresponsible_racing_line:
+      displayName: Highly Irresponsible Racing Line
+      cooldownTicks: 900
+      combat: true
+    bursting_spore:
+      displayName: Bursting Spore
+      cooldownTicks: 100
+      range: 12
+      combat: true
+      branches: { submersive: { combat: true }, airborne_spread: { combat: true }, root_network: { combat: true } }
+    myceliate:
+      displayName: Myceliate
+      cooldownTicks: 220
+      combat: false
+      branches: { hardy: { combat: false }, nutrient_cycle: { combat: false }, hyphae_lashers: { combat: true } }
+    destroying_angels_blessing:
+      displayName: Destroying Angel's Blessing
+      cooldownTicks: 700
+      range: 12
+      combat: true
+    rebar_chain:
+      displayName: Rebar Chain
+      cooldownTicks: 180
+      combat: false
+      branches: { galvanized: { combat: false }, beveled_edges: { combat: false }, pitons: { combat: false } }
+    chamfering:
+      displayName: Chamfering
+      cooldownTicks: 120
+      combat: false
+      branches: { steep_grading: { combat: false }, pozzolan_patch: { combat: false }, natural_mix: { combat: false } }
+    concrete_shoes:
+      displayName: Concrete Shoes
+      cooldownTicks: 700
+      range: 16
+      combat: true
+    wooden_maw:
+      displayName: Wooden Maw
+      cooldownTicks: 220
+      combat: true
+      branches: { mangling_branch: { combat: true }, eerie_resonance: { combat: true }, soresight: { combat: true } }
+    seeking_heart:
+      displayName: Seeking Heart
+      cooldownTicks: 260
+      combat: true
+      branches: { cursed_canopy: { combat: true }, drawn_together: { combat: true }, creaking_boards: { combat: true } }
+    peekaboo:
+      displayName: Peekaboo
+      cooldownTicks: 700
+      combat: true
     graveyard_shift:
       displayName: Graveyard Shift
       combat: true
@@ -2339,3 +2479,156 @@ skeletonCrew:
   assignmentRange: 8
   navigationTicks: 10
   checkpointTicks: 40
+
+# Hollow's supplied health/return curve is authored; other values are Prototype/test.
+hollow:
+  mawTicks: 140
+  mawScale: 1.8
+  heartlessScale: 1.3
+  heartlessStrength: 0.5
+  maxScale: 3.5
+  resistanceLevel: 1
+  cavityRadius: 1.3
+  thrashInterval: 20
+  thrashDamage: 1.5
+  thrashHeal: 0.8
+  allyHeal: 0.3
+  attentionRadius: 16
+  attentionScale: 0.15
+  seekTicks: 160
+  lockRadius: 8
+  rollSpeed: 0.3
+  pathLimit: 256
+  emergeDelayTicks: 12
+  heartlessDelayTicks: 40
+  dragRadius: 1.5
+  dragSpeed: 0.7
+  canopyRadius: 4
+  canopyTicks: 60
+  boardsRadius: 5
+  boardsStunTicks: 40
+  rushRadius: 2
+  mawPeekRadius: 7
+  peekRadius: 7
+  coneDot: 0.5
+  pullSpeed: 0.65
+  frightTicks: 50
+  frightHeal: 0.5
+  heartHeal: 0.7
+  innateRadius: 16
+  followDistance: 2
+  followSpeed: 0.2
+
+paver:
+  conversionSteps: 20
+  releaseCap: 256
+  reinforcedFatigue: 0
+  galvanizedFatigue: 1
+  patchRadius: 3
+  patchRootTicks: 40
+  chainRange: 12
+  chainRadius: 14
+  chainTicks: 300
+  climbSpeed: 0.18
+  beveledSpeed: 1.4
+  shoeMass: 40
+  borrowRadius: 12
+  shoeGatherTicks: 40
+  shoeRadius: 5
+  damagePerMass: 0.25
+  launchPerMass: 0.045
+
+fungalAssassin:
+  networkRange: 8
+  networkCap: 512
+  infectionTicks: 120
+  networkDurationMultiplier: 2
+  infectionInterval: 20
+  infectionDamage: 0.4
+  territoryRadius: 2
+  burstHitRadius: 2.5
+  airborneHitRadius: 5
+  burstDamage: 2
+  aquaticDepth: 8
+  aquaticHeight: 6
+  infectionSpreadRadius: 2.5
+  retentionRadius: 12
+  retentionSpeed: 0.3
+  travelTicks: 100
+  travelSpeed: 0.28
+  hardyCap: 3
+  hardyHeal: 0.1
+  lasherRootTicks: 30
+  instantPrimeMaturity: 10
+  primeTicks: 100
+  angelTicks: 400
+  bloomRadius: 7
+  bloomDamage: 8
+  ecologyInterval: 40
+  ecologyBudget: 32
+
+# Prototype driving and opportunity parameters; no abstract fuel meter.
+chauffeur:
+  summonTicks: 400
+  unmannedTicks: 40
+  parkingRadius: 4
+  parkingBoostTicks: 80
+  parkingSpeed: 1.4
+  raceRange: 128
+  raceCorridor: 4
+  raceTicks: 200
+  railSpeed: 0.7
+  charcoalBoost: 1.25
+  coalBoost: 1.1
+  landBoatBoost: 1.15
+  collisionRadius: 1.7
+  boatSpeed: 0.65
+  cartSpeed: 0.75
+  freightSpeed: 1.35
+  raceSpeed: 1.6
+  bubbleAcceleration: 0.15
+  boatTurn: 0.35
+  cartTurn: 0.08
+  unmannedDamage: 3
+  propellerDamage: 2
+  collisionPush: 0.8
+  markedAcceleration: 1.25
+  hopperLaunch: 1.0
+
+# Prototype anatomy materials, geometry and costs; canonical P-value topology is retained.
+bloodmason:
+  pathologyTicks: 200
+  endpointStunTicks: 40
+  relapseDamage: 3
+  flowTicks: 140
+  fastFlowTicks: 80
+  riseInterval: 20
+  fastRiseInterval: 8
+  trailTicks: 400
+  wallTicks: 200
+  eruptionDamage: 2
+  lifebloodExposure: 30
+  lifebloodHeal: 2
+  adiposeRootTicks: 15
+  maxStages: 3
+  anatombTicks: 300
+  channelHealthCost: 0.5
+  hemorrhageDamage: 1
+  completionPulses: 12
+  completionStunMin: 40
+  completionStunMissing: 160
+  protectionHeal: 1
+  metabolicHeal: 0.5
+
+# Open quota/world-domain parameters are bounded lab experiments, not settled balance.
+quarryman:
+  quotaTicks: 1200
+  baseDemand: 20
+  stageDemand: 10
+  stageFloor: 1
+  stageCeiling: 12
+  maxWidth: 15
+  miningGraceTicks: 6
+  channelTicks: 40
+  swingGraceTicks: 6
+  bedrockWork: 1200

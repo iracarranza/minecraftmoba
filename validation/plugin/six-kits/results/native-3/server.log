@@ -1,0 +1,203 @@
+Starting org.bukkit.craftbukkit.Main
+[20:36:24 INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.12.1; Homebrew Homebrew) on Mac OS X 15.7.4 (aarch64)
+[20:36:24 INFO]: [bootstrap] Loading Paper 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) for Minecraft 1.21.11
+[20:36:26 INFO]: [PluginInitializerManager] Initializing plugins...
+[20:36:26 INFO]: [ReobfServer] Remapping server...
+[20:36:30 INFO]: [ReobfServer] Done remapping server in 4528ms.
+[20:36:30 INFO]: [PluginRemapper] Remapping plugin 'plugins/SixKitAcceptance.jar'...
+[20:36:30 INFO]: [PluginRemapper] Done remapping plugin 'plugins/SixKitAcceptance.jar' in 71ms.
+[20:36:31 INFO]: [PluginInitializerManager] Initialized 2 plugins
+[20:36:31 INFO]: [PluginInitializerManager] Bukkit plugins (2):
+ - MinecraftMoba (0.1.0), SixKitAcceptance (1.0)
+[20:36:33 INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[20:36:33 INFO]: Found new data pack file/bukkit, loading it automatically
+[20:36:33 INFO]: Found new data pack paper, loading it automatically
+[20:36:34 INFO]: No existing world data, creating new world
+[31;1m[20:36:34 ERROR]: No key layers in MapLike[{}]
+[m[20:36:34 INFO]: Loaded 1470 recipes
+[20:36:34 INFO]: Loaded 1584 advancements
+[20:36:34 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Initialising converters for DataConverter...
+[20:36:34 INFO]: [ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry] Finished initialising converters for DataConverter in 218.0ms
+[20:36:34 INFO]: Starting minecraft server version 1.21.11
+[20:36:34 INFO]: Loading properties
+[20:36:34 INFO]: This server is running Paper version 1.21.11-132-ver/1.21.11@c5eb079 (2026-05-11T11:43:09Z) (Implementing API version 1.21.11-R0.1-SNAPSHOT)
+[20:36:35 INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[20:36:35 INFO]: Server Ping Player Sample Count: 12
+[20:36:35 INFO]: Using 4 threads for Netty based IO
+[20:36:35 INFO]: [MoonriseCommon] Paper is using 2 worker threads, 1 I/O threads
+[20:36:35 INFO]: Default game type: SURVIVAL
+[20:36:35 INFO]: Generating keypair
+>   [20:36:35 INFO]: Starting Minecraft server on 127.0.0.1:25679
+>   [20:36:36 INFO]: Paper: Using libdeflate (macOS ARM64 / Apple Silicon) compression from Velocity.
+>   [20:36:36 INFO]: Paper: Using native (macOS ARM64 / Apple Silicon) cipher from Velocity.
+>   [20:36:36 INFO]: [MinecraftMoba] Loading server plugin MinecraftMoba v0.1.0
+>   [20:36:36 INFO]: [SixKitAcceptance] Loading server plugin SixKitAcceptance v1.0
+>   [33;1m[20:36:36 WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[m>   [33;1m[20:36:36 WARN]: The server will make no attempt to authenticate usernames. Beware.
+[m>   [33;1m[20:36:36 WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[m>   [33;1m[20:36:36 WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[m>   [20:36:36 INFO]: Preparing level "six_kits_acceptance_boot"
+>   [31;1m[20:36:36 ERROR]: No key layers in MapLike[{}]
+[m>   [20:36:36 INFO]: Selecting spawn point for world 'minecraft:overworld'...
+>   [31;1m[20:36:37 ERROR]: No key layers in MapLike[{}]
+[m>   [20:36:37 INFO]: Selecting spawn point for world 'minecraft:the_nether'...
+>   [31;1m[20:36:38 ERROR]: No key layers in MapLike[{}]
+[m>   [20:36:38 INFO]: Selecting spawn point for world 'minecraft:the_end'...
+>   [20:36:38 INFO]: Loading 0 persistent chunks for world 'minecraft:overworld'...
+>   [20:36:38 INFO]: Preparing spawn area: 100%
+>   [20:36:38 INFO]: Prepared spawn area in 1593 ms
+>   [20:36:38 INFO]: Loading 0 persistent chunks for world 'minecraft:the_nether'...
+>   [20:36:38 INFO]: Preparing spawn area: 100%
+>   [20:36:38 INFO]: Prepared spawn area in 1193 ms
+>   [20:36:38 INFO]: Loading 0 persistent chunks for world 'minecraft:the_end'...
+>   [20:36:38 INFO]: Preparing spawn area: 100%
+>   [20:36:38 INFO]: Prepared spawn area in 222 ms
+>   [20:36:38 INFO]: Done preparing level "six_kits_acceptance_boot" (1.750s)
+>   [20:36:38 INFO]: [MinecraftMoba] Enabling MinecraftMoba v0.1.0
+>   [20:36:39 INFO]: Selecting spawn point for world 'minecraft:moba_lobby'...
+>   [20:36:43 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_lobby'...
+>   [20:36:43 INFO]: Preparing spawn area: 100%
+>   [20:36:43 INFO]: Prepared spawn area in 4661 ms
+>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'rabbit_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'sheep_0_5' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'cow_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'sheep_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'sheep_2_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'rabbit_3_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'chicken_4_1' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'sheep_4_4' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'carrots_0_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'potatoes_0_6' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'carrots_2_3' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [33;1m[20:36:43 WARN]: [MinecraftMoba] renewable source 'carrots_4_8' references world 'alpha_match', which is not loaded; skipped for now
+[m>   [20:36:43 INFO]: [MinecraftMoba] Registered ability kits: [bloodmason, werewolf, test, mole, chef, chauffeur, hollow, paver, lightfooted, gardener, fungal_assassin, daredevil, kitfighter, toolbox, quarryman, skeleton_crew]
+>   [33;1m[20:36:43 WARN]: [MinecraftMoba] "MinecraftMoba v0.1.0" has registered a listener for org.bukkit.event.entity.EntityKnockbackEvent on method "public void com.minecraftmoba.plugin.BloodmasonState.knockback(org.bukkit.event.entity.EntityKnockbackEvent)", but the event is Deprecated. "Server performance will be affected"; please notify the authors [].
+[m>   [20:36:44 INFO]: [SixKitAcceptance] Enabling SixKitAcceptance v1.0
+>   [20:36:44 INFO]: [spark] Starting background profiler...
+>   [20:36:44 INFO]: Running delayed init tasks
+>   [20:36:44 INFO]: Done (22.117s)! For help, type "help"
+>   [20:36:44 INFO]: *************************************************************************************
+>   [20:36:44 INFO]: This is the first time you're starting this server.
+>   [20:36:44 INFO]: It's recommended you read our 'Getting Started' documentation for guidance.
+>   [20:36:44 INFO]: View this and more helpful information here: https://docs.papermc.io/paper/next-steps
+>   [20:36:44 INFO]: *************************************************************************************
+>   [33;1m[20:36:44 WARN]: *************************************************************************************
+[m>   [33;1m[20:36:44 WARN]: You are running the latest build for your Minecraft version (1.21.11)
+[m>   [33;1m[20:36:44 WARN]: However, you are 6 release(s) behind the latest stable release (26.3)!
+[m>   [33;1m[20:36:44 WARN]: It is recommended that you update as soon as possible
+[m>   [33;1m[20:36:44 WARN]: https://papermc.io/downloads/paper
+[m>   [33;1m[20:36:44 WARN]: *************************************************************************************
+[m>   [20:36:48 INFO]: [93mB_six_owner joined the game[0m
+>   [20:36:48 INFO]: B_six_owner[embedded] logged in with entity id 1 at ([six_kits_acceptance_boot]0.5, 100.0, 0.5)
+>   [20:36:48 INFO]: Updated B_six_owner: level=30 xp=0 class=hollow
+>   [20:36:48 INFO]: [93mB_six_enemy joined the game[0m
+>   [20:36:48 INFO]: B_six_enemy[embedded] logged in with entity id 2 at ([six_kits_acceptance_boot]20.5, 100.0, 0.5)
+>   [20:36:48 INFO]: Updated B_six_enemy: level=30 xp=0 class=mole
+>   [20:36:48 INFO]: [93mB_six_ally joined the game[0m
+>   [20:36:48 INFO]: B_six_ally[embedded] logged in with entity id 3 at ([six_kits_acceptance_boot]35.5, 100.0, 0.5)
+>   [20:36:48 INFO]: Updated B_six_ally: level=30 xp=0 class=mole
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS all six kits register three slots and their authored branches
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS Hollow authored level-30 body and Heart capacities
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS body damage redirects to Heart with zero breaking-hit overflow
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS heartless body becomes directly vulnerable
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS full body recovery doubles Heart return progress
+>   [20:36:48 INFO]: [SixKitAcceptance] PASS external physical Heart accepts enemy hits and protects allies
+>   [20:36:49 INFO]: [SixKitAcceptance] PASS Soresight counts unique enemies damaging Hollow
+>   [20:36:49 INFO]: [SixKitAcceptance] PASS Maw recast redeposits Heart and resets size
+>   [20:36:49 INFO]: [SixKitAcceptance] PASS Seeking Heart rolls while Peekaboo uses a ticked path rush
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS Paver concrete placement records persistent reinforced ownership
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS Chamfered Powder suspends against reinforced Concrete
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS Pozzolan actual form event creates reinforcement and Roots enemy
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS two Pitons remain two and later recasts alternate by current position
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS Mixer consumes real sand gravel dye while moving
+>   [20:36:50 INFO]: [SixKitAcceptance] PASS Concrete Shoes debits inventory and reserves borrowed world material
+>   [20:36:53 INFO]: [SixKitAcceptance] PASS Shoes restore original blocks while inventory material stays built
+>   [20:36:54 INFO]: [SixKitAcceptance] PASS Fungal ordinary enemy attacks seed consumable infections
+>   [20:36:54 INFO]: [SixKitAcceptance] PASS Airborne Spread widens enemy hits without widening Mycelium territory
+>   [20:36:54 INFO]: [SixKitAcceptance] PASS physical fungal network and maturity survive a manager reload
+>   [20:36:54 INFO]: [SixKitAcceptance] PASS Myceliate traverses actual network and can recast during cooldown
+>   [20:36:54 INFO]: [SixKitAcceptance] PASS Angel is physical and unprimed destruction safely disarms it
+>   [20:36:55 INFO]: [SixKitAcceptance] PASS Cargo Boat simultaneously retains passenger seat and real storage
+>   [20:36:55 INFO]: [SixKitAcceptance] PASS summoned vehicle exit records one actual Parking Spot
+>   [20:36:55 INFO]: [SixKitAcceptance] PASS resummon replaces prior vehicle and drops cargo exactly once
+>   [20:36:55 INFO]: [SixKitAcceptance] PASS Chauffeur rides ordinary native Minecart variants
+>   [20:36:55 INFO]: [SixKitAcceptance] PASS ordinary cart rail speed restores after driver leaves
+>   [20:36:56 INFO]: [SixKitAcceptance] PASS Racing Line uses recorded Parking Spot and marks physical corridor
+>   [20:36:57 INFO]: [SixKitAcceptance] PASS Bloodmason Flow advances a segment without leaving an elevator
+>   [20:36:57 INFO]: [SixKitAcceptance] PASS Bloodtrail changes manifestation without extra Hemostasis cost
+>   [20:36:57 INFO]: [SixKitAcceptance] PASS Bloodmason cleanup restores every temporary terrain cell
+>   [20:36:57 INFO]: [SixKitAcceptance] PASS Viscerwall is physically destructible and still safely restored
+>   [20:36:58 INFO]: [SixKitAcceptance] PASS Anatomb picks the largest fitting stage and exposes held replacement channels
+>   [20:36:58 INFO]: [SixKitAcceptance] PASS held Hemorrhage spends health and advances additive completion
+>   [20:36:58 INFO]: [SixKitAcceptance] PASS Teratoma repairs destroyed cells while narrowing usable space
+>   [20:36:59 INFO]: [SixKitAcceptance] PASS Quarryman quota credits real native terrain but rejects placed blocks
+>   [20:36:59 INFO]: [SixKitAcceptance] PASS Strike clears quota without lowering Stage and supports clean off toggle
+>   [20:36:59 INFO]: [SixKitAcceptance] PASS Scan potency depends on CQ/LQC and uses ceil width without inflated formula
+>   [20:37:00 INFO]: [SixKitAcceptance] PASS Eternity Mountain marks a real cube before capture
+>   [20:37:02 INFO]: Selecting spawn point for world 'minecraft:moba_eternity_domain'...
+>   [20:37:07 INFO]: Loading 0 persistent chunks for world 'minecraft:moba_eternity_domain'...
+>   [20:37:07 INFO]: Preparing spawn area: 100%
+>   [20:37:07 INFO]: Prepared spawn area in 5488 ms
+>   [20:37:07 INFO]: [SixKitAcceptance] PASS Eternity Mountain creates reachable second body and captures only enemies
+>   [20:37:08 INFO]: [SixKitAcceptance] PASS damage to World Quarryman ends domain and returns both players
+>   [20:37:09 INFO]: [SixKitAcceptance] PASS partial quarry excavation persists when Mountain body is damaged
+>   [20:37:10 INFO]: [SixKitAcceptance] PASS Hollow heartless Soresight still counts actual damaging sources
+>   [20:37:11 INFO]: [SixKitAcceptance] PASS Paver Natural Mix suspends powder against real Grass
+>   [20:37:11 INFO]: [SixKitAcceptance] PASS Galvanized hardening ends when mining is aborted
+>   [20:37:11 INFO]: [SixKitAcceptance] PASS Fungal primed destruction blooms and reinfects survivors
+>   [20:37:11 INFO]: [SixKitAcceptance] FAIL Hollow Cursed Canopy applies Blindness and Weakness on emergence :: java.lang.IllegalStateException: emergence effects missing
+>   [20:37:21 INFO]: [SixKitAcceptance] PASS all temporary class state and native cargo clean up
+>   [20:37:21 INFO]: [SixKitAcceptance] SUMMARY pass=46 fail=1
+>   [20:37:22 INFO]: Map color cache not found, building it in the background
+>   [20:37:22 INFO]: B_six_enemy has made the advancement [92m[Diamonds!][0m
+>   [20:37:22 INFO]: Stopping server
+>   [20:37:22 INFO]: [SixKitAcceptance] Disabling SixKitAcceptance v1.0
+>   [20:37:22 INFO]: [MinecraftMoba] Disabling MinecraftMoba v0.1.0
+>   [20:37:22 INFO]: Saving players
+>   [20:37:22 INFO]: Saving worlds
+>   [20:37:22 INFO]: Saving chunks for level 'ServerLevel[six_kits_acceptance_boot]'/minecraft:overworld
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'six_kits_acceptance_boot'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted chunk system for world 'six_kits_acceptance_boot'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'six_kits_acceptance_boot'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saved 1122 block chunks, 176 entity chunks, 0 poi chunks in world 'six_kits_acceptance_boot' in 0.21s
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'six_kits_acceptance_boot'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'six_kits_acceptance_boot'
+>   [20:37:22 INFO]: Saving chunks for level 'ServerLevel[six_kits_acceptance_boot_nether]'/minecraft:the_nether
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'six_kits_acceptance_boot_nether'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted chunk system for world 'six_kits_acceptance_boot_nether'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'six_kits_acceptance_boot_nether'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'six_kits_acceptance_boot_nether' in 0.01s
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'six_kits_acceptance_boot_nether'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'six_kits_acceptance_boot_nether'
+>   [20:37:22 INFO]: Saving chunks for level 'ServerLevel[six_kits_acceptance_boot_the_end]'/minecraft:the_end
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'six_kits_acceptance_boot_the_end'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted chunk system for world 'six_kits_acceptance_boot_the_end'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'six_kits_acceptance_boot_the_end'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'six_kits_acceptance_boot_the_end' in 0.00s
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'six_kits_acceptance_boot_the_end'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'six_kits_acceptance_boot_the_end'
+>   [20:37:22 INFO]: Saving chunks for level 'ServerLevel[moba_lobby]'/minecraft:moba_lobby
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_lobby'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_lobby'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_lobby'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saved 0 block chunks, 0 entity chunks, 0 poi chunks in world 'moba_lobby' in 0.01s
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_lobby'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_lobby'
+>   [20:37:22 INFO]: Saving chunks for level 'ServerLevel[moba_eternity_domain]'/minecraft:moba_eternity_domain
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk system to halt for world 'moba_eternity_domain'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted chunk system for world 'moba_eternity_domain'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saving all chunkholders for world 'moba_eternity_domain'
+>   [20:37:22 INFO]: [ChunkHolderManager] Saved 1089 block chunks, 121 entity chunks, 0 poi chunks in world 'moba_eternity_domain' in 0.14s
+>   [20:37:22 INFO]: [ChunkHolderManager] Waiting 60s for chunk I/O to halt for world 'moba_eternity_domain'
+>   [20:37:22 INFO]: [ChunkHolderManager] Halted I/O scheduler for world 'moba_eternity_domain'
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage (six_kits_acceptance_boot): All chunks are saved
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage (moba_lobby): All chunks are saved
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage (moba_eternity_domain): All chunks are saved
+>   [20:37:22 INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+>   [20:37:22 INFO]: Waiting for all RegionFile I/O tasks to complete...
+>   [20:37:22 INFO]: All RegionFile I/O tasks to complete
+>   [20:37:22 INFO]: [MoonriseCommon] Awaiting termination of worker pool for up to 60s...
+>   [20:37:22 INFO]: [MoonriseCommon] Awaiting termination of I/O pool for up to 60s...
+> 

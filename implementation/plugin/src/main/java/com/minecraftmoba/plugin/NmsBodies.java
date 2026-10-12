@@ -522,6 +522,8 @@ public final class NmsBodies implements Bodies {
             if (field(listener, "awaitingPositionFromClient") != null) {
                 int id = (Integer) field(listener, "awaitingTeleport");
                 h.channel().writeInbound(n.acceptTeleport.getConstructor(int.class).newInstance(id));
+                // A dimension transfer also resets client-loaded state.
+                h.channel().writeInbound(n.playerLoaded.getConstructors()[0].newInstance());
                 h.channel().runPendingTasks();
             }
         } catch (ReflectiveOperationException | RuntimeException ex) {

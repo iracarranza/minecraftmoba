@@ -111,6 +111,9 @@ public interface Ability {
      * change this. A projectile branch is not hold-dependent; its
      * widening-beam branch is.
      */
+    /** Begin work on press and sustain it while repeated held input continues. */
+    default boolean continuousHold(Player player, AbilityContext context) { return false; }
+
     default boolean holdDependent(Player player, AbilityContext context) {
         for (AbilityOutput o : outputs(player, context)) if (o.holdDependent()) return true;
         return false;

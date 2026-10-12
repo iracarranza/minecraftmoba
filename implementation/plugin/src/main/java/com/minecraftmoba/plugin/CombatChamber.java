@@ -281,6 +281,12 @@ public final class CombatChamber implements Listener {
         ;
         if ("skeleton_crew".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Prototype: 3 stored Crew seeded for this lab session. Copper Chest controls: x0 and x8, z8. /moba crew list; target a chest then /moba crew source|destination <worker>. Use Infrastructure Mode at level 6+ to prove a line; carry real cargo.");
         if ("gardener".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Clip controls grow on the grass band: x12–16, z-8–-4. Carry plant items for Cultivate; full meters need nearby soil.");
+        if ("fungal_assassin".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Mycelium controls: grass band x12–16, z4–8. Attacks infect enemies; Burst needs an infected target. Equipment mode restores ordinary attacks.");
+        if ("paver".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Carry Sand, Gravel and dye for the Mixer, and Concrete/Powder for construction. Place your own Concrete before suspending Powder. Pitons: two anchors, then recasts dash to the farther one.");
+        if ("chauffeur".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Exit a summoned vehicle to set Parking Spot. Outside ability mode, sneak-use Cargo Boat to open storage; ordinary Minecart variants are rideable.");
+        if ("hollow".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Your external Heart takes body damage until broken. Maw and Seeking Heart recast during cooldown; Soresight grows from unique enemies damaging you.");
+        if ("bloodmason".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "A1 lowers Hemostasis; A2 raises it. While Anatomb stands, hold M1/M2 to channel Health into blood/bone completion.");
+        if ("quarryman".equals(s.classId())) p.sendMessage(ChatColor.GRAY + "Mine natural terrain for quotas. Strike pauses and clears the current quota. Q marks a cube; recast after its telegraph to enter Eternity Mountain, then hold an equipped pickaxe on the Bedrock target.");
         p.sendMessage(ChatColor.GRAY + "Everything here is also on your hotbar (use an item), on the control deck to the west (right-click a button), and Leave is in your inventory. Right-click is A2 while ability mode is on. Equipment / controls (or /moba lab combat equipment) restores your real hotbar for food, weapons and tools.");
     }
 

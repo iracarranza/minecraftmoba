@@ -66,7 +66,7 @@ class CombatManifestTest {
 
     @Test void everyClassCanBeOperated() throws Exception {
         var roster = roster();
-        assertEquals(18, roster.size(), "the manifest holds eighteen designed classes");
+        assertEquals(19, roster.size(), "the manifest includes Hollow and the eighteen earlier classes");
         for (var e : roster.entrySet())
             assertTrue(role(Role.OPERATOR, e.getValue()).available(), e.getKey());
     }

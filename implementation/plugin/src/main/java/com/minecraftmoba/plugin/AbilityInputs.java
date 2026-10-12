@@ -43,6 +43,16 @@ public final class AbilityInputs implements Listener {
      * still down. The difference is only what the answer ends.
      */
     private final Map<UUID, AimState> sustaining = new HashMap<>();
+    /** Live kit meters use the shared sidebar rather than competing with cast feedback. */
+    List<String> hudState(Player p) {
+        var data=plugin.data(p);if(data==null||data.classId==null)return List.of();
+        return switch(data.classId) {
+            case "quarryman" -> quarryman.hud(p);
+            case "bloodmason" -> bloodmason.hud(p);
+            case "hollow" -> hollow.hud(p);
+            default -> List.of();
+        };
+    }
     public AimState aiming(Player p) { return aiming.get(p.getUniqueId()); }
     private final Map<UUID, Map<String, Integer>> executionCounts = new HashMap<>();
     private final Input modeInput;
@@ -58,6 +68,18 @@ public final class AbilityInputs implements Listener {
     private final GardenerState gardener;
     private final WerewolfState werewolf;
     private final Salvage salvage;
+    private final QuarrymanState quarryman;
+    QuarrymanState quarryman() { return quarryman; }
+    private final BloodmasonState bloodmason;
+    BloodmasonState bloodmason() { return bloodmason; }
+    private final ChauffeurState chauffeur;
+    ChauffeurState chauffeur() { return chauffeur; }
+    private final FungalState fungal;
+    FungalState fungal() { return fungal; }
+    private final PaverState paver;
+    PaverState paver() { return paver; }
+    private final HollowState hollow;
+    HollowState hollow() { return hollow; }
     private final SkeletonCrewState crew;
     SkeletonCrewState crew() { return crew; }
     GardenerState gardener() { return gardener; }
@@ -111,6 +133,30 @@ public final class AbilityInputs implements Listener {
         abilities.put("brawling_slash", new BrawlingSlashAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.brawling_slash"), werewolf));
         abilities.put("bloodhide", new BloodhideAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.bloodhide")));
         abilities.put("monster_howl", new MonsterHowlAbility(werewolf, plugin.getConfig().getConfigurationSection("abilities.definitions.monster_howl")));
+        quarryman = new QuarrymanState(plugin);
+        abilities.put("ceaseless_swing", new CeaselessSwingAbility(quarryman, plugin.getConfig().getConfigurationSection("abilities.definitions.ceaseless_swing")));
+        abilities.put("miners_strike", new MinersStrikeAbility(quarryman, plugin.getConfig().getConfigurationSection("abilities.definitions.miners_strike")));
+        abilities.put("eternity_mountain", new EternityMountainAbility(quarryman, plugin.getConfig().getConfigurationSection("abilities.definitions.eternity_mountain")));
+        bloodmason = new BloodmasonState(plugin);
+        abilities.put("capillary_flow", new CapillaryFlowAbility(bloodmason, plugin.getConfig().getConfigurationSection("abilities.definitions.capillary_flow")));
+        abilities.put("viscerwall", new ViscerwallAbility(bloodmason, plugin.getConfig().getConfigurationSection("abilities.definitions.viscerwall")));
+        abilities.put("athanor_anatomb", new AthanorAnatombAbility(bloodmason, plugin.getConfig().getConfigurationSection("abilities.definitions.athanor_anatomb")));
+        chauffeur = new ChauffeurState(plugin);
+        abilities.put("cargo_boat", new CargoBoatAbility(chauffeur, plugin.getConfig().getConfigurationSection("abilities.definitions.cargo_boat")));
+        abilities.put("muscle_cart", new MuscleCartAbility(chauffeur, plugin.getConfig().getConfigurationSection("abilities.definitions.muscle_cart")));
+        abilities.put("highly_irresponsible_racing_line", new HighlyIrresponsibleRacingLineAbility(chauffeur, plugin.getConfig().getConfigurationSection("abilities.definitions.highly_irresponsible_racing_line")));
+        fungal = new FungalState(plugin, plugin.developedZones());
+        abilities.put("bursting_spore", new BurstingSporeAbility(fungal, plugin.getConfig().getConfigurationSection("abilities.definitions.bursting_spore")));
+        abilities.put("myceliate", new MyceliateAbility(fungal, plugin.getConfig().getConfigurationSection("abilities.definitions.myceliate")));
+        abilities.put("destroying_angels_blessing", new DestroyingAngelsBlessingAbility(fungal, plugin.getConfig().getConfigurationSection("abilities.definitions.destroying_angels_blessing")));
+        paver = new PaverState(plugin);
+        abilities.put("rebar_chain", new RebarChainAbility(paver, plugin.getConfig().getConfigurationSection("abilities.definitions.rebar_chain")));
+        abilities.put("chamfering", new ChamferingAbility(paver, plugin.getConfig().getConfigurationSection("abilities.definitions.chamfering")));
+        abilities.put("concrete_shoes", new ConcreteShoesAbility(paver, plugin.getConfig().getConfigurationSection("abilities.definitions.concrete_shoes")));
+        hollow = new HollowState(plugin);
+        abilities.put("wooden_maw", new WoodenMawAbility(hollow, plugin.getConfig().getConfigurationSection("abilities.definitions.wooden_maw")));
+        abilities.put("seeking_heart", new SeekingHeartAbility(hollow, plugin.getConfig().getConfigurationSection("abilities.definitions.seeking_heart")));
+        abilities.put("peekaboo", new PeekabooAbility(hollow, plugin.getConfig().getConfigurationSection("abilities.definitions.peekaboo")));
         crew = new SkeletonCrewState(plugin);
         abilities.put("graveyard_shift", new GraveyardShiftAbility(plugin, plugin.getConfig().getConfigurationSection("abilities.definitions.graveyard_shift"), crew));
         abilities.put("burning_out", new BurningOutAbility(crew, plugin.getConfig().getConfigurationSection("abilities.definitions.burning_out")));
@@ -240,6 +286,9 @@ public final class AbilityInputs implements Listener {
         AimState held = sustaining.get(p.getUniqueId());
         if (held != null && input != modeInput) {
             if (input == held.input()) {
+                Ability running = byId(held.abilityId());
+                if (plugin.stun().actionsRefused(p) || plugin.forced().refusesAbilities(p)) { endSustain(p,held); return true; }
+                if (running != null && running.continuousHold(p,contextFor(p))) running.execute(p,contextFor(p));
                 sustaining.put(p.getUniqueId(), held.refreshed(tick));
             } else {
                 endSustain(p, held);
@@ -321,6 +370,16 @@ public final class AbilityInputs implements Listener {
         // Quick becomes Hold for a hold-dependent ability rather than being
         // refused: refusing leaves a player unable to cast because of a
         // setting, while a tap under Hold already behaves as Quick does.
+        if (ability.continuousHold(p,formContext)) {
+            if (ability.execute(p,formContext)) {
+                sustaining.put(p.getUniqueId(),AimState.begin(ability.id(),input,CastMode.HOLD,tick));
+                last.put(ability.id(),tick);
+                if (!freeRecast) cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
+                if(plugin.combatState()!=null&&combatActivation(ability,p,formContext))plugin.combatState().markAbilityActivation(p);
+                disarm(p);
+            }
+            return true;
+        }
         boolean holdDependent = ability.holdDependent(p, formContext);
         CastMode mode = d.castMode().effectiveFor(holdDependent);
         var aimContext = formContext;
@@ -553,7 +612,7 @@ public final class AbilityInputs implements Listener {
     private boolean isAbilityActive(Player p) { return abilities.values().stream().anyMatch(a -> a.active(p)); }
     java.util.List<Listener> listeners() {
         var result = new ArrayList<Listener>(abilities.values().stream().filter(a -> a instanceof Listener).map(a -> (Listener) a).toList());
-        result.addAll(List.of(gardener, werewolf, salvage, crew)); return result;
+        result.addAll(List.of(gardener, werewolf, salvage, crew, hollow, paver, fungal, chauffeur, bloodmason, quarryman)); return result;
     }
     void close() {
         Bukkit.getOnlinePlayers().forEach(p -> abilities.values().forEach(a -> a.forget(p)));

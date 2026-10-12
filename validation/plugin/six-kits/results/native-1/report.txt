@@ -1,0 +1,171 @@
+PASS all six kits register three slots and their authored branches
+PASS Hollow authored level-30 body and Heart capacities
+PASS body damage redirects to Heart with zero breaking-hit overflow
+PASS heartless body becomes directly vulnerable
+PASS full body recovery doubles Heart return progress
+PASS external physical Heart accepts enemy hits and protects allies
+PASS Soresight counts unique enemies damaging Hollow
+PASS Maw recast redeposits Heart and resets size
+PASS Seeking Heart rolls while Peekaboo uses a ticked path rush
+PASS Paver concrete placement records persistent reinforced ownership
+PASS Chamfered Powder suspends against reinforced Concrete
+FAIL Pozzolan actual form event creates reinforcement and Roots enemy :: java.lang.NoSuchMethodException: com.minecraftmoba.plugin.ToolboxStatuses.rootRemaining(org.bukkit.entity.LivingEntity)
+java.lang.NoSuchMethodException: com.minecraftmoba.plugin.ToolboxStatuses.rootRemaining(org.bukkit.entity.LivingEntity)
+	at java.base/java.lang.Class.getDeclaredMethod(Class.java:2850)
+	at io.papermc.reflectionrewriter.runtime.AbstractDefaultRulesReflectionProxy.getDeclaredMethod(AbstractDefaultRulesReflectionProxy.java:95)
+	at io.papermc.paper.pluginremap.reflect.PaperReflectionHolder.getDeclaredMethod(Unknown Source)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.call(SixKitAcceptance.java:23)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$14(SixKitAcceptance.java:52)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+PASS two Pitons remain two and later recasts alternate by current position
+PASS Mixer consumes real sand gravel dye while moving
+PASS Concrete Shoes debits inventory and reserves borrowed world material
+PASS Shoes restore original blocks while inventory material stays built
+PASS Fungal ordinary enemy attacks seed consumable infections
+PASS Airborne Spread widens enemy hits without widening Mycelium territory
+PASS physical fungal network and maturity survive a manager reload
+PASS Myceliate traverses actual network and can recast during cooldown
+PASS Angel is physical and unprimed destruction safely disarms it
+FAIL Cargo Boat simultaneously retains passenger seat and real storage :: java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.call(SixKitAcceptance.java:23)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.act(SixKitAcceptance.java:32)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$24(SixKitAcceptance.java:62)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.IllegalArgumentException: Cannot spawn an entity for org.bukkit.entity.Boat
+	at org.bukkit.craftbukkit.CraftRegionAccessor.createEntity(CraftRegionAccessor.java:449)
+	at org.bukkit.craftbukkit.CraftRegionAccessor.spawn(CraftRegionAccessor.java:368)
+	at org.bukkit.craftbukkit.CraftRegionAccessor.spawn(CraftRegionAccessor.java:364)
+	at org.bukkit.RegionAccessor.spawn(RegionAccessor.java:390)
+	at minecraft-moba.jar//com.minecraftmoba.plugin.ChauffeurState.summon(ChauffeurState.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	... 14 more
+FAIL summoned vehicle exit records one actual Parking Spot :: java.lang.IllegalStateException: parking not saved
+java.lang.IllegalStateException: parking not saved
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$25(SixKitAcceptance.java:63)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+FAIL resummon replaces prior vehicle and drops cargo exactly once :: java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:118)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.call(SixKitAcceptance.java:23)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.act(SixKitAcceptance.java:32)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$26(SixKitAcceptance.java:64)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.IllegalArgumentException: Cannot spawn an entity for org.bukkit.entity.Boat
+	at org.bukkit.craftbukkit.CraftRegionAccessor.createEntity(CraftRegionAccessor.java:449)
+	at org.bukkit.craftbukkit.CraftRegionAccessor.spawn(CraftRegionAccessor.java:368)
+	at org.bukkit.craftbukkit.CraftRegionAccessor.spawn(CraftRegionAccessor.java:364)
+	at org.bukkit.RegionAccessor.spawn(RegionAccessor.java:390)
+	at minecraft-moba.jar//com.minecraftmoba.plugin.ChauffeurState.summon(ChauffeurState.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	... 14 more
+PASS Chauffeur rides ordinary native Minecart variants
+PASS ordinary cart rail speed restores after driver leaves
+FAIL Racing Line uses recorded Parking Spot and marks physical corridor :: java.lang.IllegalStateException: race refused
+java.lang.IllegalStateException: race refused
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$29(SixKitAcceptance.java:67)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+PASS Bloodmason Flow advances a segment without leaving an elevator
+PASS Bloodtrail changes manifestation without extra Hemostasis cost
+PASS Bloodmason cleanup restores every temporary terrain cell
+PASS Viscerwall is physically destructible and still safely restored
+PASS Anatomb picks the largest fitting stage and exposes held replacement channels
+PASS held Hemorrhage spends health and advances additive completion
+PASS Teratoma repairs destroyed cells while narrowing usable space
+FAIL Quarryman quota credits real native terrain but rejects placed blocks :: java.lang.IllegalStateException: placed quota farm
+java.lang.IllegalStateException: placed quota farm
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$37(SixKitAcceptance.java:75)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+PASS Strike clears quota without lowering Stage and supports clean off toggle
+PASS Scan potency depends on CQ/LQC and uses ceil width without inflated formula
+PASS Eternity Mountain marks a real cube before capture
+FAIL Eternity Mountain creates reachable second body and captures only enemies :: java.lang.IllegalStateException: no vulnerable real-world body
+java.lang.IllegalStateException: no vulnerable real-world body
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$41(SixKitAcceptance.java:79)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+FAIL damage to World Quarryman ends domain and returns both players :: java.lang.IllegalStateException: shared vulnerability/return
+java.lang.IllegalStateException: shared vulnerability/return
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.require(SixKitAcceptance.java:22)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$onEnable$42(SixKitAcceptance.java:80)
+	at SixKitAcceptance.jar//kf.SixKitAcceptance.lambda$at$0(SixKitAcceptance.java:20)
+	at org.bukkit.craftbukkit.scheduler.CraftTask.run(CraftTask.java:78)
+	at org.bukkit.craftbukkit.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:474)
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:1756)
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1611)
+	at net.minecraft.server.dedicated.DedicatedServer.tickServer(DedicatedServer.java:427)
+	at net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1667)
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:1335)
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:388)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+PASS all temporary class state and native cargo clean up
+SUMMARY pass=33 fail=8
