@@ -246,6 +246,10 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
         at(c, 3, "scenario: a run ended by /moba lab end leaves no body behind", this::scAbortStart);
         at(c, 40, "scenario: ...mid-run the roster stands", this::scAbortMid);
         at(c, 3, "scenario: ...and lab end tears it down before the world goes", this::scAbortEnd);
+        at(c, 6, "ability damage: enter as a Mole Operator beside the dummy", this::adEnter);
+        at(c, 3, "ability damage: Drill Rush burrows the tester", this::adBurrow);
+        at(c, 6, "ability damage: emerging deals the REAL ability's damage and the chamber measures it", this::adEmerge);
+        at(c, 3, "ability damage: the report attributes it to the tester, not to a bare damage call", this::adReport);
         Bukkit.getScheduler().runTaskLater(this, () -> {
             out.println(); out.println("SUMMARY pass=" + pass + " fail=" + fail); out.close(); Bukkit.shutdown();
         }, c[0] + 40);
@@ -272,6 +276,69 @@ public final class CombatAcceptance extends JavaPlugin implements org.bukkit.eve
                 for (int i = 0; i < Math.min(l.length, 14); i++) log("      " + l[i]);
             }
         }, clock[0]);
+    }
+
+    // ---- a real ability, measured ------------------------------------------------
+    //
+    // Everything else that reads a NUMBER out of the damage log drove it with a
+    // bare Player.damage call. That proves the instrument, not that it reads an
+    // ABILITY. Drill Rush is the one built ability whose damage lands on a
+    // stationary target: emerging deals emergeDamage to enemies within
+    // emergeRadius of a point emergeDistance ahead of the caster.
+
+    private double adRawBefore;
+
+    private String adEnter() {
+        cmd("leave"); cmd("start"); cmd("pick mole"); cmd("pick OPERATOR");
+        cmd("set cooldown off"); cmd("set level 15"); cmd("pick enter");
+        if (!combat().state(t).equals("in chamber")) return "FAIL: not in chamber: " + combat().state(t);
+        Player d = combat().dummy(t);
+        if (d == null) return "FAIL: no dummy";
+        // Stand two blocks from the dummy, looking at it: emergence resolves
+        // emergeDistance ahead of the caster, so the dummy must be in that ball.
+        var at = d.getLocation().clone().add(d.getLocation().getDirection().setY(0).normalize().multiply(-2.0));
+        at.setDirection(d.getLocation().toVector().subtract(at.toVector()));
+        t.teleport(at);
+        adRawBefore = 0;
+        for (var h : combat().dealtHits(t)) adRawBefore += h.raw();
+        return "class=" + moba.data(t).classId + " distance="
+                + String.format("%.2f", t.getLocation().distance(d.getLocation()))
+                + " rawBefore=" + String.format("%.2f", adRawBefore);
+    }
+
+    private String adBurrow() {
+        var in = moba.inputs();
+        int before = in.executions(t, "drill_rush");
+        in.input(t, in.modeInput());
+        in.input(t, in.inputFor("a2"));
+        boolean active = in.abilityFor("mole", "a2").active(t);
+        return "executions " + before + " -> " + in.executions(t, "drill_rush") + " active=" + active
+                + (active ? "" : " | FAIL: Drill Rush did not burrow");
+    }
+
+    private String adEmerge() {
+        var in = moba.inputs();
+        Player d = combat().dummy(t);
+        in.input(t, in.inputFor("a2"));
+        double raw = 0, fin = 0;
+        for (var h : combat().dealtHits(t)) { raw += h.raw(); fin += h.finalDamage(); }
+        double landed = raw - adRawBefore;
+        return "dummy hits=" + combat().hitsDealt(t) + " raw total=" + String.format("%.2f", raw)
+                + " final total=" + String.format("%.2f", fin)
+                + " from this emergence=" + String.format("%.2f", landed)
+                + " dummyHealth=" + String.format("%.2f", d.getHealth())
+                + (landed > 0 ? "" : " | FAIL: the ability ran but the chamber measured no damage");
+    }
+
+    private String adReport() {
+        var sources = new ArrayList<String>();
+        for (var h : combat().dealtHits(t)) sources.add(h.source());
+        var line = combat().reportLines(t).stream().filter(l -> l.contains("Dealt to the dummy"))
+                .findFirst().orElse("(no dealt line)");
+        boolean attributed = sources.stream().anyMatch(sc -> sc.contains(t.getName()));
+        cmd("leave");
+        return line.replaceAll("\\u00a7.", "") + " sources=" + sources
+                + (attributed ? "" : " | FAIL: no hit names the tester as the damager");
     }
 
     private void log(String s) { out.println(s); out.flush(); getLogger().info(s); }

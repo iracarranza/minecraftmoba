@@ -675,6 +675,19 @@ public final class CombatChamber implements Listener {
         return a == null ? 0 : a.dealt.count();
     }
 
+    /**
+     * The hits the dummy has taken, for an acceptance fixture to read.
+     *
+     * The report prints totals and a per-source breakdown, which is what a
+     * tester wants and not enough to assert on: a check that an ABILITY was
+     * measured has to see the individual hit and who dealt it, or it cannot
+     * tell the ability's damage from a bare {@code damage()} call.
+     */
+    public java.util.List<DamageLog.Hit> dealtHits(Player tester) {
+        var a = active.get(tester.getUniqueId());
+        return a == null ? java.util.List.of() : a.dealt.hits();
+    }
+
     private void reset(Player p, Active a) {
         plugin.inputs().crew().clearOwner(p.getUniqueId());
         if ("skeleton_crew".equals(plugin.data(p).classId)) plugin.inputs().crew().grant(p, 3);
