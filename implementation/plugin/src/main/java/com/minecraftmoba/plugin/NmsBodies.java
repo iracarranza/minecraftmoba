@@ -231,9 +231,19 @@ public final class NmsBodies implements Bodies {
             if (classId != null) plugin.applyDraftedClass(p, classId);
             if (level > 0)
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "moba setlevel " + p.getName() + " " + level);
-            // What the class consumes, from config (alpha.lab.classKits): the same list testers get as a loadout.
-            ClassKits.give(plugin.getConfig(), p, classId);
-            if ("skeleton_crew".equals(classId)) plugin.inputs().crew().grant(p, 3);
+            if ("chef".equals(classId)) {
+                p.getInventory().setItem(0, new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SHOVEL));
+                p.getInventory().setItem(1, new org.bukkit.inventory.ItemStack(org.bukkit.Material.COOKED_BEEF, 64));
+                p.getInventory().setItem(2, new org.bukkit.inventory.ItemStack(org.bukkit.Material.BEEF, 32));
+            }
+            if ("kitfighter".equals(classId)) {
+                var items = new org.bukkit.Material[]{org.bukkit.Material.IRON_SWORD, org.bukkit.Material.BOW,
+                        org.bukkit.Material.CROSSBOW, org.bukkit.Material.FISHING_ROD, org.bukkit.Material.GOLDEN_APPLE, org.bukkit.Material.ARROW};
+                for (int i=0;i<items.length;i++) p.getInventory().setItem(i,new org.bukkit.inventory.ItemStack(items[i],i>=4?16:1));
+            }
+            if ("skeleton_crew".equals(classId)) { plugin.inputs().crew().grant(p, 3); p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SWORD)); }
+            if ("werewolf".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.IRON_SWORD));
+            if ("gardener".equals(classId)) p.getInventory().setItem(0,new org.bukkit.inventory.ItemStack(org.bukkit.Material.WHEAT_SEEDS,64));
             // Only a running match takes participants; outside one a body is
             // still a valid target for abilities, just not a team member.
             if (team != null && plugin.match() != null && plugin.match().running())

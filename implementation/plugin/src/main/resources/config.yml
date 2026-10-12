@@ -2073,27 +2073,6 @@ alpha:
   instanceWorldName: alpha_match
   # Reusable debug scoops, isolated from the consumable production pool.
   lab:
-    # What a class's testers and dummy bodies carry so its abilities have something to consume. [PROTOTYPE/TEST]
-    # These are lab fixtures, not design: a class's real resources are whatever its kit says. Each entry is
-    # MATERIAL:amount, placed in slots 0, 1, 2... in order. An empty list means the class consumes no items,
-    # and every class must be listed (a unit test fails when a new one is not).
-    classKits:
-      test: []
-      toolbox: []
-      lightfooted: []
-      skeleton_crew: [IRON_SWORD:1]
-      mole: []
-      daredevil: []
-      chef: [IRON_SHOVEL:1, COOKED_BEEF:64, BEEF:32]
-      kitfighter: [IRON_SWORD:1, BOW:1, CROSSBOW:1, FISHING_ROD:1, GOLDEN_APPLE:16, ARROW:16]
-      gardener: [WHEAT_SEEDS:64]
-      quarryman: [IRON_PICKAXE:1, DIAMOND_PICKAXE:1]
-      bloodmason: []
-      chauffeur: [OAK_BOAT:1, MINECART:1, COOKED_BEEF:32]
-      fungal_assassin: []
-      paver: [SAND:64, GRAVEL:64, WHITE_DYE:16, WHITE_CONCRETE:64, WHITE_CONCRETE_POWDER:64, WATER_BUCKET:1]
-      hollow: []
-      werewolf: [IRON_SWORD:1]
     # Chamber bays, cut from the launched scoop.
     #
     # 33 x 21 x 33 at radius 16. Deliberately inside LabUndo's 120,000-block

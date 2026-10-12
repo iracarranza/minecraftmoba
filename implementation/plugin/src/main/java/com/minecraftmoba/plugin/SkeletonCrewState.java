@@ -46,6 +46,8 @@ final class SkeletonCrewState implements Listener {
     int capacity(String line){return allocation.capacity(line);}
     boolean supports(SupplyLines.Line line){var method=allocation.get(line.method());return method!=null&&line.id().equals(method.commitment());}
     int active(Player p){return allocation.active(p.getUniqueId());}
+    /** Whether this player has any Crew standing in the world (what Burning Out needs). */
+    boolean hasActiveCrew(Player p){return !activeMembers(p).isEmpty();}
     List<Member> activeMembers(Player p){return members.values().stream().filter(m->m.owner.equals(p.getUniqueId())&&m.body!=null&&m.body.isValid()).toList();}
     private String branch(Player p,String ability){var d=plugin.data(p);if(d==null)return null;String selected=d.classState.get("branch."+ability);return selected!=null?selected:plugin.inputs().definition(d.classId).branchFor(ability);}
     private boolean allied(Member m,Entity entity){

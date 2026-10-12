@@ -31,9 +31,13 @@ final class FoodFightAbility implements Ability {
         return AbilityOutput.single("food_fight", TargetForm.DIRECTION, InputForm.INSTANT,
                 "super_nutritious".equals(c.branchFor(id())) ? Recipients.BOTH : Recipients.ENEMIES);
     }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("food in your inventory (any edible item)", (pl, c) -> ChefItems.foodSlot(pl) >= 0,
+                (pl, c) -> "you carry none"));
+    }
     public boolean execute(Player p, AbilityContext ctx) {
         int slot = ChefItems.foodSlot(p);
-        if (slot < 0) { p.sendMessage("Food Fight needs food in your inventory."); return false; }
+        if (slot < 0) return false;                         // AbilityInputs explains it: see needs()
         var stack = p.getInventory().getItem(slot); var food = stack.asOne();
         p.getInventory().setItem(slot, stack.getAmount() == 1 ? null : stack.asQuantity(stack.getAmount() - 1));
         var start = p.getEyeLocation();

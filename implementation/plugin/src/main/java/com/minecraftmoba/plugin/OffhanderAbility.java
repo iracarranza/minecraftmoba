@@ -30,11 +30,17 @@ final class OffhanderAbility implements Ability, Listener {
     public List<AbilityOutput> outputs() { return AbilityOutput.single("offhander", TargetForm.SELF, InputForm.INSTANT, Recipients.NONE, true); }
     public Map<String,String> branches() { return Map.of("crossbow","Crossbow","fishing_rod","Fishing Rod","golden_head","Golden Head"); }
     public List<String> branchIds() { return List.of("crossbow","fishing_rod","golden_head"); }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("your offhand empty, or holding the map or an Offhander item (it is holding something else)", (pl, c) -> {
+            var off = pl.getInventory().getItemInOffHand();
+            return off.getType().isAir() || plugin.offhandMap().isMap(off) || plugin.offhandLoan().isLoan(off);
+        }, null));
+    }
     public boolean execute(Player p, AbilityContext ctx) {
         var loan = plugin.offhandLoan();
         var kind = OffhandLoan.Kind.of(ctx.branchFor(id()));
         if (loan.held(p) == kind) { loan.unequip(p); return true; }
-        if (!loan.equip(p, kind)) { p.sendMessage("Your offhand is holding something else; empty it first."); return false; }
+        if (!loan.equip(p, kind)) return false;             // AbilityInputs explains it: see needs()
         return true;
     }
     /** An Offhander item is not an equipped ability: leaving, resetting or a match ending puts the map back. */

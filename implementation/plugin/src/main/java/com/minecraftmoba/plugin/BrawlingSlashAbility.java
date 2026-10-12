@@ -28,6 +28,11 @@ final class BrawlingSlashAbility implements Ability {
     public List<AbilityOutput> outputs(){return AbilityOutput.single("brawling_slash", TargetForm.DIRECTION, InputForm.INSTANT, Recipients.ENEMIES);}
     public Map<String,String> branches(){return Map.of("whirling_slash","Whirling Slash","gnashing_slash","Gnashing Slash","lumbering_crash","Lumbering Crash");}
     public List<String> branchIds(){return List.of("whirling_slash","gnashing_slash","lumbering_crash");}
+    public List<Need> needs(Player p,AbilityContext ctx){
+        return List.of(new Need("an enemy within "+(int)config.getDouble("range")+" blocks in front of you (the Unleashed form needs none)",
+                (pl,c)->state.form(pl)==Lycanthropy.Form.UNLEASHED || AbilityTargeting.ray(pl,pl.getEyeLocation(),pl.getEyeLocation().getDirection(),
+                        config.getDouble("range"),config.getDouble("rayWidth"),AbilityTargeting.Relation.ENEMY)!=null, null));
+    }
     public boolean execute(Player p,AbilityContext ctx){
         if(leaps.containsKey(p.getUniqueId()))return false;
         var form=state.form(p);Vector direction=p.getEyeLocation().getDirection().normalize();double damage=WerewolfState.weaponDamage(p)*1.05;

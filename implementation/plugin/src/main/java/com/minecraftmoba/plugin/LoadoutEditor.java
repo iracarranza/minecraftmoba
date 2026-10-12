@@ -48,13 +48,13 @@ final class LoadoutEditor implements Listener {
     private final LoadoutStore store;
     private final Function<Player, Player> dummyOf;
     private final java.util.function.BiFunction<Player, Integer, ItemStack> realSlot;
-    private final Function<Player, Loadout<ItemStack>> kitOf;
+    private final java.util.function.Consumer<Player> shelf;
 
     /** @param realSlot what a player really carries in a slot, seeing through any menu on their hotbar */
     LoadoutEditor(MobaPlugin plugin, LoadoutStore store, Function<Player, Player> dummyOf,
                   java.util.function.BiFunction<Player, Integer, ItemStack> realSlot,
-                  Function<Player, Loadout<ItemStack>> kitOf) {
-        this.kitOf = kitOf;
+                  java.util.function.Consumer<Player> shelf) {
+        this.shelf = shelf;
         this.plugin = plugin;
         this.store = store;
         this.dummyOf = dummyOf;
@@ -114,8 +114,8 @@ final class LoadoutEditor implements Listener {
                     "Replaces this loadout with what you carry.", "Your own items stay with you.");
             case LoadoutEditorLayout.FILL_DUMMY -> named(Material.ARMOR_STAND, "Copy the dummy's gear in", NamedTextColor.AQUA,
                     "Replaces this loadout with what the dummy carries.");
-            case LoadoutEditorLayout.FILL_KIT -> named(Material.BARREL, "Fill with my class's kit", NamedTextColor.YELLOW,
-                    "Replaces this loadout with what the class consumes", "(alpha.lab.classKits in config; prototype fixtures).");
+            case LoadoutEditorLayout.ITEMS -> named(Material.CHEST_MINECART, "Get items", NamedTextColor.YELLOW,
+                    "Every item in the game, by category or name.", "A click puts it in this loadout.");
             case LoadoutEditorLayout.CLEAR -> named(Material.LAVA_BUCKET, "Empty this loadout", NamedTextColor.RED,
                     "Removes every item from the window.");
             default -> named(Material.EMERALD, "Done", NamedTextColor.GREEN, "Saves and closes.");
@@ -189,7 +189,7 @@ final class LoadoutEditor implements Listener {
                 refreshTitle(p, top);
             }
             case LoadoutEditorLayout.CLEAR -> { fill(top, Loadout.empty()); refreshTitle(p, top); }
-            case LoadoutEditorLayout.FILL_KIT -> { fill(top, kitOf.apply(p)); refreshTitle(p, top); }
+            case LoadoutEditorLayout.ITEMS -> Bukkit.getScheduler().runTask(plugin, () -> shelf.accept(p));
             case LoadoutEditorLayout.DONE -> Bukkit.getScheduler().runTask(plugin, () -> p.closeInventory());
             default -> { }
         }

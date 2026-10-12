@@ -371,7 +371,8 @@ public final class AbilityInputs implements Listener {
         // refused: refusing leaves a player unable to cast because of a
         // setting, while a tap under Hold already behaves as Quick does.
         if (ability.continuousHold(p,formContext)) {
-            if (ability.execute(p,formContext)) {
+            if (!ability.execute(p,formContext)) explainRefusal(p, ability, formContext);
+            else {
                 sustaining.put(p.getUniqueId(),AimState.begin(ability.id(),input,CastMode.HOLD,tick));
                 last.put(ability.id(),tick);
                 if (!freeRecast) cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
@@ -390,7 +391,9 @@ public final class AbilityInputs implements Listener {
         }
         last.put(ability.id(), tick);
         var context = aimContext;
-        if (ability.execute(p,context)) {
+        boolean executed = ability.execute(p,context);
+        if (!executed) explainRefusal(p, ability, context);
+        if (executed) {
             if (!freeRecast) cooldowns.spend(p.getUniqueId(),ability.id(),tick,ability.charges(),recharge);
             // Activating a COMBAT ability puts the caster in combat. Classified
             // from the declaration, per branch, so Mole tunnelling or a
@@ -573,6 +576,24 @@ public final class AbilityInputs implements Listener {
 
     private Ability byId(String id) { return abilities.get(id); }
 
+    /**
+     * An ability declined to run. If it can say what it needs and the player lacks it, say so: on the HUD line and in chat.
+     * Silent when the ability states no needs or all are met (its own rule refused it, and it speaks for itself).
+     */
+    private void explainRefusal(Player p, Ability ability, Ability.AbilityContext context) {
+        var unmet = AbilityNeeds.unmet(ability.needs(p, context), p, context);
+        if (unmet.isEmpty()) return;
+        if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, AbilityNeeds.hud(unmet));
+        p.sendMessage(org.bukkit.ChatColor.RED + AbilityNeeds.sentence(ability.displayName(), unmet));
+    }
+
+    /** What the player's current class slot is missing, for acceptance runs and the lab's reports. Empty when it states no needs or none are unmet. */
+    public List<String> unmetNeeds(Player p, String slot) {
+        var d = plugin.data(p);
+        var ability = d == null ? null : abilityFor(d.classId, slot);
+        return ability == null ? List.of() : AbilityNeeds.unmet(ability.needs(p, contextFor(p)), p, contextFor(p));
+    }
+
     private Ability.AbilityContext contextFor(Player p) {
         var d = plugin.data(p);
         return new Ability.AbilityContext(plugin, provenance, this,
@@ -587,7 +608,7 @@ public final class AbilityInputs implements Listener {
         var d = plugin.data(p);
         if (d == null) return;
         var context = contextFor(p);
-        if (!ability.execute(p, context)) return;
+        if (!ability.execute(p, context)) { explainRefusal(p, ability, context); return; }
         // A hold-dependent ability keeps running while the input stays down.
         // Under Double cast this is what makes the SECOND press holdable --
         // without it, press two would fire and forget and carry the same

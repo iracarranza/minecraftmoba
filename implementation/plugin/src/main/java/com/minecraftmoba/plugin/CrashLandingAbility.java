@@ -67,13 +67,20 @@ public final class CrashLandingAbility implements Ability {
     @Override public List<String> branchIds() { return List.of("crater", "combat_roll", "superhero"); }
 
     @Override
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        double need = config.getDouble("crashVelocity");
+        return List.of(new Need("to be falling faster: cast it on the way down from a height",
+                (pl, c) -> state.descent(pl) >= need,
+                (pl, c) -> String.format(java.util.Locale.ROOT, "descent %.2f of %.2f", state.descent(pl), need)));
+    }
+
+    @Override
     public boolean execute(Player p, AbilityContext ctx) {
         if (!state.isDaredevil(p)) return false;
 
         double descent = state.descent(p);
         if (descent < config.getDouble("crashVelocity")) {
-            if (plugin.hudNotice() != null) plugin.hudNotice().unavailable(p, "TOO SLOW");
-            return false;
+            return false;                                   // AbilityInputs explains it: see needs()
         }
 
         String branch = ctx.branchFor(id());

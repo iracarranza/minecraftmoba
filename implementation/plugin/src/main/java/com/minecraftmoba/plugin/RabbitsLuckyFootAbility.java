@@ -22,6 +22,13 @@ final class RabbitsLuckyFootAbility implements Ability {
     public Collection<org.bukkit.block.Block> preview(Player p, AbilityContext ctx) {
         var target = p.getTargetBlockExact(config.getInt("range")); return target == null ? List.of() : List.of(target);
     }
+    public List<Need> needs(Player p, AbilityContext ctx) {
+        return List.of(new Need("a block to land beside, within " + config.getInt("range") + " blocks, with room above it",
+                (pl, c) -> {
+                    var t = pl.getTargetBlockExact(config.getInt("range"));
+                    return t != null && t.getRelative(0, 1, 0).isPassable() && t.getRelative(0, 2, 0).isPassable();
+                }, null));
+    }
     public boolean execute(Player p, AbilityContext ctx) {
         var target = p.getTargetBlockExact(config.getInt("range")); if (target == null) return false;
         Location landing = target.getLocation().add(.5, 1, .5);

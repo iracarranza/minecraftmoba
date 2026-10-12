@@ -9,34 +9,41 @@ bench, loadouts and testing mode, and does each have what it needs to be tested?
 The acceptance run now ends with one step per registered class (fifteen, `test` excluded). For each it checks that the
 class is offered by the pre-entry flow; which slots a Recipient can receive; that it enters as Operator and is enrolled
 with the class; that all three slots have an ability; that pressing each by the real input path runs it or is refused;
-that a body of the class spawns enrolled; that it carries its kit; and that a body can be told to cast each slot.
-**A class that cannot be offered, entered or spawned, or is missing an ability or its kit, fails the run.** What a cast
+that a body of the class spawns enrolled; and that a body can be told to cast each slot.
+**A class that cannot be offered, entered or spawned, or is missing an ability, fails the run.** What a cast
 does after that depends on targets and resources, so "ran" and "refused" are recorded, not judged.
 
 Result: all fifteen pass. The six newest were already selectable (the roster feeds both lab selectors without a
 whitelist, as the six-class record says), enter, enrol, and have all three slots built. Hollow's Frighten uses the
 shared forced-movement status, so it shows up in the status bench's checks and the scenario harness like any other.
 
-## What was missing: kits for bodies and testers
+## What was missing: a way to get the items, and a way to be told
 
-Five classes (Chef, Kitfighter, Skeleton Crew, Werewolf, Gardener) had their items hardcoded into the body factory.
-The six newest had none, so a Paver dummy had no sand to mix and a Quarryman dummy no pickaxe: the sweep showed their
-bodies refused casts, and a tester had to build a kit by hand.
+A class's abilities consume ordinary items (sand and gravel for the Paver's Mixer, Concrete for its Shoes, food for the
+Chef) and need targets and tools. A first attempt at this wrote a kit per class into config. That was the wrong shape:
+nobody should need a kit authored for their class, and a tester should be able to get what they need themselves. It was
+removed. Two things replaced it.
 
-`alpha.lab.classKits` in config now lists what each class carries, as `MATERIAL:amount` stacks in slot order:
+**The item shelf.** The loadout editor (the ender chest) has a **Get items** control that opens every item in the game:
+by category (Combat, Armor, Tools, Food, Redstone and machines, Plants, Materials, Blocks, Everything else) or by name,
+paged. Left-click adds a full stack to the loadout being edited, right-click adds one. Armor goes to its own slot while
+that is empty, other items top up a matching stack before taking a free slot (never the reserved Exit slot), and Back
+returns to the editor with everything saved. Search is a word or two typed in chat, or
+`/moba lab combat loadout find <words>`. It adds to the selected loadout and never to the tester's own inventory, so
+Start testing then gives it, and the same loadout can be given to the dummy.
 
-- **Bodies** receive their class's kit at spawn (the hardcoded blocks are gone; the five kits are unchanged, and a test
-  pins them).
-- **Testers** get it as a loadout: the editor's **Fill with my class's kit** control, or
-  `/moba lab combat loadout kit`, which fills the selected loadout with the kit for the class they are testing; Start
-  testing then uses it.
-- **Every class must be listed**, an empty list meaning it consumes no items. A unit test fails when a new class is
-  not, and when a kit names an unknown item, a bad amount, or a class that does not exist.
+**Refusals that say what is missing.** An ability can declare its needs (`Ability.needs`): a carried item, a target in
+reach, a tool. When a cast is refused the dispatcher asks which are unmet and says so, on the HUD line and in chat:
+"Food Fight needs food in your inventory (any edible item) (you carry none)." It speaks only when the ability states
+needs and one is unmet, so an ability refused for its own rule is not given a made-up reason. Declared so far: Food Fight,
+Irresistible Buffet, Flip and Press, Offhander, Hotswap, Clip, Cultivate, Sinkhole, Rabbit's Lucky Foot, Brawling Slash,
+Concrete Shoes, Bursting Spore, Myceliate, Runway, Crash Landing and Burning Out. Runway and Crash Landing's old "TOO
+SLOW" notice and the Chef abilities' own chat lines were replaced by it.
 
-The new kits are fixtures, not design, and some are guesses at what the class consumes: Paver sand, gravel, dye, Concrete,
-Concrete Powder and a water bucket; Quarryman iron and diamond pickaxes; Chauffeur a boat, a minecart and cargo. Classes
-with an empty list (Bloodmason, Fungal Assassin, Hollow, Mole, Daredevil, Lightfooted, Toolbox) consume no items or their
-resources are not plain items; the Toolbox's belt components in particular are not covered.
+The sweep records, for every slot it could not run, what the ability says it needs, which gives a punch list of refusals
+that still say nothing: Bloodmason's two actives, Chef's none, Daredevil's body casts, Mole's Drill Rush, Paver's Rebar
+Chain, Fungal Assassin's ultimate, Toolbox's Reconfiguratron (which has its own message), and Skeleton Crew's body
+casts. Those are the ones to give needs next, where a need can be stated.
 
 ## A scenario
 
@@ -46,9 +53,8 @@ cast; that is a limit of how a body casts, not a verdict on the class.
 
 ## Verified, and not
 
-Live on Paper 1.21.11 build 132 with scripted bodies; the acceptance run is 238 of 238 and the kit fixtures pass
-(25, 36, 37 and the six-class fixture's 54). **Not verified:** that the kits are the right ones for a human testing the
-classes, that a body's "cast" for a held ability means the ability did its work, or any class's feel at a real client.
+Live on Paper 1.21.11 build 132 with scripted bodies; the acceptance run is 244 of 244 and the kit fixtures pass
+(25, 36, 37 and the six-class fixture's 54). **Not verified:** that the shelf is comfortable with a mouse, that a body's "cast" for a held ability means the ability did its work, or any class's feel at a real client.
 
 The sweep runs last on purpose: placed before the scoop steps it changed their timing and failed nine of them, so it
 sits at the end where its load cannot disturb anything.

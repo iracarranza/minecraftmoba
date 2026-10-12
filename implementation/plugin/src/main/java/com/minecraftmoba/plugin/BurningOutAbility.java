@@ -11,5 +11,6 @@ final class BurningOutAbility implements Ability {
     public List<AbilityOutput> outputs(){return AbilityOutput.single("burning_out", TargetForm.AREA_ENTITIES, InputForm.INSTANT, Recipients.NONE);}
     public Map<String,String> branches(){return Map.of("fire_drill","Fire Drill","deadline","Deadline","water_break","Water Break");}
     public List<String> branchIds(){return List.of("fire_drill","deadline","water_break");}
+    public List<Need> needs(Player p,AbilityContext ctx){return List.of(new Need("Crew standing in the world to set alight: raise some first (Graveyard Shift)",(pl,c)->state.hasActiveCrew(pl),(pl,c)->"you have none out"));}
     public boolean execute(Player p,AbilityContext ctx){return state.burn(p,ctx.branchFor(id()));}
 }

@@ -106,6 +106,7 @@ public final class CombatChamber implements Listener {
     private final LoadoutStore loadouts;
     private final TestingMode testing;
     private final LoadoutEditor editor;
+    private final ItemPicker picker;
     private final java.util.Random rng = new java.util.Random();
     /** Ticks between casts under the repeat script. */
     private static final int REPEAT_TICKS = 100;
@@ -126,10 +127,11 @@ public final class CombatChamber implements Listener {
         this.preMenu = new CombatPreEntryMenu(plugin, this);
         this.loadouts = new LoadoutStore(new java.io.File(plugin.getDataFolder(), "lab-loadouts"));
         this.testing = new TestingMode(plugin, loadouts, this::endTesting, this::dummy);
-        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot),
-                pl -> ClassKits.loadout(plugin.getConfig(), plugin.data(pl) == null ? null : plugin.data(pl).classId));
+        this.picker = new ItemPicker(plugin, loadouts, this::openEditor);
+        this.editor = new LoadoutEditor(plugin, loadouts, this::dummy, (pl, slot) -> ui.realItem(pl, slot), picker::open);
         Bukkit.getPluginManager().registerEvents(testing, plugin);
         Bukkit.getPluginManager().registerEvents(editor, plugin);
+        Bukkit.getPluginManager().registerEvents(picker, plugin);
         Bukkit.getPluginManager().registerEvents(preMenu, plugin);
         Bukkit.getPluginManager().registerEvents(ui, plugin);
     }
@@ -405,6 +407,18 @@ public final class CombatChamber implements Listener {
 
     LoadoutEditor loadoutEditor() { return editor; }
 
+    /** The item shelf, for acceptance runs. */
+    ItemPicker itemPicker() { return picker; }
+
+    /** The shelf window the tester has open, or null. Public for acceptance runs. */
+    public org.bukkit.inventory.Inventory itemShelfWindow(Player p) { return picker.window(p); }
+
+    /** Open the item shelf, optionally searching. Public for acceptance runs. */
+    public void openItemShelf(Player p, String query) {
+        if (!active.containsKey(p.getUniqueId())) { p.sendMessage("Enter the combat chamber first."); return; }
+        picker.open(p, null, query);
+    }
+
     /** The testing sidebar's lines as drawn now, or null when the tester is not testing. Public for acceptance runs. */
     public java.util.List<String> testingHud(Player p) { return testing.hudLines(p); }
 
@@ -432,12 +446,7 @@ public final class CombatChamber implements Listener {
                 catch (RuntimeException ex) { p.sendMessage(ChatColor.RED + "/moba lab combat loadout select 1-" + LoadoutBook.SLOTS); return; }
                 p.sendMessage(ChatColor.GREEN + "Selected " + book.selectedName() + ": " + book.current().count() + " item(s).");
             }
-            case "kit" -> {
-                var kit = ClassKits.loadout(plugin.getConfig(), plugin.data(p) == null ? null : plugin.data(p).classId);
-                book.set(book.selected(), kit); loadouts.save(p.getUniqueId());
-                p.sendMessage(ChatColor.GREEN + book.selectedName() + " is now the " + (plugin.data(p) == null ? "?" : plugin.data(p).classId)
-                        + " kit (" + kit.count() + " item(s)); Start testing to use it. Prototype fixtures from config.");
-            }
+            case "find", "items", "shelf" -> openItemShelf(p, args.length > 4 ? String.join(" ", java.util.Arrays.copyOfRange(args, 4, args.length)) : null);
             case "dummy" -> {
                 if (a.dummy == null) { p.sendMessage(ChatColor.RED + "There is no dummy."); return; }
                 boolean clear = args.length > 4 && args[4].equalsIgnoreCase("clear");
@@ -455,7 +464,7 @@ public final class CombatChamber implements Listener {
                 p.sendMessage(ChatColor.GOLD + "Loadouts (selected: " + book.selectedName() + "):");
                 for (int i = 0; i < LoadoutBook.SLOTS; i++)
                     p.sendMessage((i == book.selected() ? ChatColor.GREEN + "> " : ChatColor.GRAY + "  ") + LoadoutBook.name(i) + ": " + book.get(i).count() + " item(s)");
-                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | next | select <n> | kit | dummy [clear] | me");
+                p.sendMessage(ChatColor.GRAY + "/moba lab combat loadout edit | items | find <words> | next | select <n> | dummy [clear] | me");
             }
         }
     }
@@ -738,6 +747,7 @@ public final class CombatChamber implements Listener {
     /** Remove everything, for plugin shutdown. */
     public void close() {
         editor.closeAll();
+        picker.closeAll();
         testing.exitAll();
         for (var e : new java.util.ArrayList<>(active.entrySet())) {
             Player p = Bukkit.getPlayer(e.getKey());

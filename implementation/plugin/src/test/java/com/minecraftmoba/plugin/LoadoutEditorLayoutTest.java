@@ -25,7 +25,7 @@ class LoadoutEditorLayoutTest {
 
     @Test void theBottomRowCarriesTheControls() {
         for (int s : new int[]{LoadoutEditorLayout.SELECT, LoadoutEditorLayout.FILL_ME, LoadoutEditorLayout.FILL_DUMMY,
-                LoadoutEditorLayout.CLEAR, LoadoutEditorLayout.FILL_KIT, LoadoutEditorLayout.DONE})
+                LoadoutEditorLayout.CLEAR, LoadoutEditorLayout.ITEMS, LoadoutEditorLayout.DONE})
             assertEquals(LoadoutEditorLayout.Kind.CONTROL, LoadoutEditorLayout.kind(s));
         assertEquals(6, java.util.stream.IntStream.range(0, 54).filter(i -> LoadoutEditorLayout.kind(i) == LoadoutEditorLayout.Kind.CONTROL).count());
     }

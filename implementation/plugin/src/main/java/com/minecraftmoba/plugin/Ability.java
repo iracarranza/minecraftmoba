@@ -30,6 +30,25 @@ public interface Ability {
     default long rechargeTicks() { return cooldownTicks(); }
 
     /**
+     * One thing an ability needs before it can run: a carried item, a target in reach, a tool in hand.
+     *
+     * Used only to EXPLAIN a refusal. After an ability declines to run, the dispatcher asks which of its needs are unmet and tells
+     * the player ("Paver's Mixer needs 4 Sand"), so a cast that does nothing is never a mystery and never has to be
+     * diagnosed from the source. An ability whose needs cannot be stated simply does not declare any.
+     *
+     * @param label what is needed, as a phrase that completes "needs ..."
+     * @param met whether it is satisfied right now
+     * @param have what the player has instead, for the message ("you have 0"), or null
+     */
+    record Need(String label, java.util.function.BiPredicate<Player, AbilityContext> met,
+                java.util.function.BiFunction<Player, AbilityContext, String> have) {
+        public static Need of(String label, java.util.function.BiPredicate<Player, AbilityContext> met) { return new Need(label, met, null); }
+    }
+
+    /** What this ability needs to run for this player now, for explaining a refusal. Empty means it does not say. */
+    default List<Need> needs(Player player, AbilityContext context) { return List.of(); }
+
+    /**
      * The recharge for THIS player, with their branch in hand.
      *
      * A branch may change a cooldown -- Toolbox's Speedy Swap halves A1's,
