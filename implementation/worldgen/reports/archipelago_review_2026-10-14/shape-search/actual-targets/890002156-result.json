@@ -1,0 +1,94 @@
+{
+  "seed": 890002156,
+  "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/source-worlds/890002156/server/world",
+  "bounds": [
+    -1024,
+    1023,
+    -512,
+    1535
+  ],
+  "screen": {
+    "seed": 890002156,
+    "centre": [
+      0,
+      512
+    ],
+    "score": 8.72827086779355,
+    "home_islands": [
+      {
+        "id": 3,
+        "area_proxy": 275200
+      },
+      {
+        "id": 12,
+        "area_proxy": 192000
+      }
+    ],
+    "chains": [
+      [
+        {
+          "id": 5,
+          "area_proxy": 6656,
+          "relative_xz": [
+            1556.923076923077,
+            806.1538461538462
+          ]
+        },
+        {
+          "id": 4,
+          "area_proxy": 29440,
+          "relative_xz": [
+            1189.0086956521739,
+            827.9652173913043
+          ]
+        },
+        {
+          "id": 9,
+          "area_proxy": 33280,
+          "relative_xz": [
+            1353.6,
+            1113.7230769230769
+          ]
+        }
+      ],
+      [
+        {
+          "id": 10,
+          "area_proxy": 11520,
+          "relative_xz": [
+            633.2444444444444,
+            1179.3777777777777
+          ]
+        },
+        {
+          "id": 11,
+          "area_proxy": 34304,
+          "relative_xz": [
+            1273.4328358208954,
+            1495.402985074627
+          ]
+        }
+      ]
+    ],
+    "home_relative_xz": [
+      [
+        1811.4827906976743,
+        304.20837209302323
+      ],
+      [
+        604.6293333333333,
+        1813.5253333333333
+      ]
+    ],
+    "approximation_only": true,
+    "gameplay_qualified": false,
+    "fine_symmetry": {
+      "z": 0.0981,
+      "x": 0.2351
+    },
+    "source_probe": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/probes/890002156-sequence-0-512-16.bin",
+    "step": 16,
+    "minimum_shared_symmetry": 0.0981,
+    "approximate_shared_symmetry_pass": true
+  }
+}

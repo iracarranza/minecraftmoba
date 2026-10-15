@@ -1,0 +1,246 @@
+[
+  {
+    "seed": 890001380,
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001380-r90-p3001.json",
+    "membership": {
+      "north": {
+        "pillager_outpost": {
+          "geographic_island": 18,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 1,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 8,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 1,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      },
+      "south": {
+        "pillager_outpost": {
+          "geographic_island": 38,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 31,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 32,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 31,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      }
+    },
+    "lair_sample": {
+      "geographic_island": 3,
+      "sample_offset": 0.0,
+      "actual_surface_water": false
+    },
+    "minimum_all_nine_anchor_distance": 186.76188047886004,
+    "fountain_to_lair_straight_distances": {
+      "north": 1056.2726920639386,
+      "south": 1300.1661432293952
+    },
+    "status": "Independent sampled grouping and spacing pass; desired sequential morphology not certified"
+  },
+  {
+    "seed": 890001757,
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001757-r0-p3003.json",
+    "membership": {
+      "north": {
+        "pillager_outpost": {
+          "geographic_island": 292,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 242,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 8,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 8,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      },
+      "south": {
+        "pillager_outpost": {
+          "geographic_island": 258,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 185,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 1,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 1,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      }
+    },
+    "lair_sample": {
+      "geographic_island": 208,
+      "sample_offset": 0.0,
+      "actual_surface_water": false
+    },
+    "minimum_all_nine_anchor_distance": 178.88543819998318,
+    "fountain_to_lair_straight_distances": {
+      "north": 593.9427581846587,
+      "south": 559.7713819051488
+    },
+    "status": "Independent sampled grouping and spacing pass; desired sequential morphology not certified"
+  },
+  {
+    "seed": 890001967,
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001967-r90-p1001.json",
+    "membership": {
+      "north": {
+        "pillager_outpost": {
+          "geographic_island": 179,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 177,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 193,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 186,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      },
+      "south": {
+        "pillager_outpost": {
+          "geographic_island": 174,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 177,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 3,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 52,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      }
+    },
+    "lair_sample": {
+      "geographic_island": 177,
+      "sample_offset": 0.0,
+      "actual_surface_water": false
+    },
+    "minimum_all_nine_anchor_distance": 241.8594633252956,
+    "fountain_to_lair_straight_distances": {
+      "north": 927.6206121038924,
+      "south": 898.1759293145191
+    },
+    "status": "Independent sampled grouping and spacing pass; desired sequential morphology not certified"
+  },
+  {
+    "seed": 890001993,
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001993-r90-p1002.json",
+    "membership": {
+      "north": {
+        "pillager_outpost": {
+          "geographic_island": 30,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 48,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 3,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 3,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      },
+      "south": {
+        "pillager_outpost": {
+          "geographic_island": 30,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "nether_bastion": {
+          "geographic_island": 11,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "end_spike": {
+          "geographic_island": 21,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        },
+        "aether_fountain": {
+          "geographic_island": 21,
+          "sample_offset": 0.0,
+          "actual_surface_water": false
+        }
+      }
+    },
+    "lair_sample": {
+      "geographic_island": 30,
+      "sample_offset": 0.0,
+      "actual_surface_water": false
+    },
+    "minimum_all_nine_anchor_distance": 193.65949499056327,
+    "fountain_to_lair_straight_distances": {
+      "north": 1262.5054455328104,
+      "south": 1259.9682535683191
+    },
+    "status": "Independent sampled grouping and spacing pass; desired sequential morphology not certified"
+  }
+]

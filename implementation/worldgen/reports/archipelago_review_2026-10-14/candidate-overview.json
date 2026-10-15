@@ -1,0 +1,2216 @@
+[
+  {
+    "seed": 890000020,
+    "bank": "original-five",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890000020-r0-p4.json",
+    "bounds": [
+      -1024,
+      1023,
+      -1024,
+      1023
+    ],
+    "rotation": 0,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Rejected for Type/readability by user",
+    "anchors": {
+      "north/fountain": [
+        -604,
+        -684
+      ],
+      "south/fountain": [
+        276,
+        884
+      ],
+      "north/pillager_outpost": [
+        -716,
+        500
+      ],
+      "north/nether_bastion": [
+        -772,
+        44
+      ],
+      "north/end_spike": [
+        -508,
+        -244
+      ],
+      "south/pillager_outpost": [
+        -452,
+        588
+      ],
+      "south/nether_bastion": [
+        -4,
+        820
+      ],
+      "south/end_spike": [
+        180,
+        692
+      ],
+      "lair": [
+        -588,
+        972
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 214.66252583997982,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1798.0611780470654
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1189.2854997854804
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 747.1331875910747
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 450.3509742412022
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1281.0495696888547
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1619.264030354531
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1583.6767346905112
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1656.077292882189
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1063.7292888700583
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1343.0949333535584
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1373.6957450614746
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 785.87530817554
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 287.2211691362599
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 214.66252583997982
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 868.469918880326
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 459.42572849155937
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 772.5283166331186
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 278.2804340948174
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 780.6048936561953
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 916.3405480496865
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 489.04805489849366
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 390.69169430639295
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 631.1386535461126
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 1091.7875251164944
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1151.6110454489399
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 946.0655368419252
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 833.8824857256566
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1177.3325783312036
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1161.6539932355074
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1218.6287375570953
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 504.50768081368204
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 640.499804839939
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 407.37206580716844
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 224.1428116179504
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 603.4567093006755
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 817.4496926416941
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1656.077292882189,
+      "south": 868.469918880326
+    },
+    "lair_modeled_reach": {
+      "north": 5870.42,
+      "south": 5586.27
+    },
+    "lair_modeled_access_asymmetry": 0.0496
+  },
+  {
+    "seed": 890001347,
+    "bank": "original-five",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001347-r0-p4.json",
+    "bounds": [
+      -1536,
+      511,
+      -512,
+      1535
+    ],
+    "rotation": 0,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Acceptable prior prospect; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        -708,
+        -372
+      ],
+      "south/fountain": [
+        -548,
+        956
+      ],
+      "north/pillager_outpost": [
+        -332,
+        44
+      ],
+      "north/nether_bastion": [
+        -284,
+        -292
+      ],
+      "north/end_spike": [
+        -956,
+        -116
+      ],
+      "south/pillager_outpost": [
+        -188,
+        460
+      ],
+      "south/nether_bastion": [
+        -212,
+        636
+      ],
+      "south/end_spike": [
+        -220,
+        820
+      ],
+      "lair": [
+        -1372,
+        444
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 177.62882648939615,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1337.6038277457192
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 560.7423650840018
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 431.4811699251776
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 356.4267105591274
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 981.1340377338868
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1123.423339618685
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1288.024844480882
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1052.0228134408492
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 937.2299611087985
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1275.6174975281579
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1147.0170007458478
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 612.8751912094338
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 464.0
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 355.07745633875436
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 970.1133954337503
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 339.4112549695428
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 644.1863084543168
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 440.21812775032333
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 604.0397337924054
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 784.0408152641036
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 1114.2710621747296
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 694.6653870749572
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 758.1028953908566
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 930.7889126971808
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1113.8402039790087
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 1313.5600481135227
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 960.0
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1057.8468698256852
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1190.710712137923
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 697.6073394109326
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 177.62882648939615
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 361.4194239384485
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 1184.108103173017
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 184.1738309315414
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1175.782292773624
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 1211.808565739655
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1052.0228134408492,
+      "south": 970.1133954337503
+    },
+    "lair_modeled_reach": {
+      "north": 8229.84,
+      "south": 8489.57
+    },
+    "lair_modeled_access_asymmetry": 0.0311
+  },
+  {
+    "seed": 890001592,
+    "bank": "original-five",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001592-r0-p106.json",
+    "bounds": [
+      -1536,
+      511,
+      -1024,
+      1023
+    ],
+    "rotation": 0,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Rejected for Type/readability by user",
+    "anchors": {
+      "north/fountain": [
+        140,
+        -924
+      ],
+      "south/fountain": [
+        28,
+        836
+      ],
+      "north/pillager_outpost": [
+        44,
+        -420
+      ],
+      "north/nether_bastion": [
+        148,
+        -604
+      ],
+      "north/end_spike": [
+        28,
+        -740
+      ],
+      "south/pillager_outpost": [
+        -380,
+        260
+      ],
+      "south/nether_bastion": [
+        -284,
+        468
+      ],
+      "south/end_spike": [
+        -308,
+        684
+      ],
+      "lair": [
+        -1484,
+        -412
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 181.37254478007412,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1763.5600358366028
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 513.0613998343669
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 320.09998437988094
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 215.40659228538016
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1293.157376346746
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1455.1426046954984
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1669.241744026311
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1702.7976979077696
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1256.1019066938795
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1444.9913494550754
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1576.0
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 705.8611761529316
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 482.4603610660673
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 368.7817782917155
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 1960.5223793672951
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 211.3575170179665
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 320.3997503120126
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 801.3588459610338
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 946.640375221763
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 1158.757955743994
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 1528.0209422648632
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 181.37254478007412
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 1012.5611092669914
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 1155.7716037349248
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1366.3381719032811
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 1643.2553057878742
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 1080.0296292231985
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1247.6409739985297
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1463.1035506757546
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1547.1677349272768
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 229.08513701242163
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 430.06976178289955
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 1292.439553712281
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 217.329243315298
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1488.0860190190617
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 1607.5422233957029
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1702.7976979077696,
+      "south": 1960.5223793672951
+    },
+    "lair_modeled_reach": {
+      "north": 5655.1,
+      "south": 5643.55
+    },
+    "lair_modeled_access_asymmetry": 0.002
+  },
+  {
+    "seed": 890001687,
+    "bank": "original-five",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001687-r0-p2.json",
+    "bounds": [
+      -512,
+      1535,
+      -1536,
+      511
+    ],
+    "rotation": 0,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Acceptable prior prospect; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        1116,
+        -1084
+      ],
+      "south/fountain": [
+        396,
+        204
+      ],
+      "north/pillager_outpost": [
+        1084,
+        -700
+      ],
+      "north/nether_bastion": [
+        1236,
+        -796
+      ],
+      "north/end_spike": [
+        1284,
+        -972
+      ],
+      "south/pillager_outpost": [
+        348,
+        -636
+      ],
+      "south/nether_bastion": [
+        180,
+        -516
+      ],
+      "south/end_spike": [
+        260,
+        4
+      ],
+      "lair": [
+        -132,
+        -1476
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 179.77764043395385,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1475.5825968071051
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 385.3310265213534
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 312.0
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 201.9108714259834
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 889.1164153247876
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1094.8607217358744
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1384.3698927671028
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1308.1162027893392
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1136.0281686648443
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1305.9862173851607
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1473.60781756884
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 841.3703108619891
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 751.7020686415597
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 241.8594633252956
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 1761.0178874730377
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 179.77764043395385
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 337.61516553614706
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 738.7773683593726
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 922.535636168056
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 1083.785956727619
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 1442.50892544899
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 182.42806801586207
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 902.2992851598631
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 1092.4907322261367
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1261.9730583495036
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 1527.6858315766367
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 994.4807690448317
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1194.4672452604132
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1414.620797245679
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1503.0209579377126
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 206.45580640902304
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 646.0216714631174
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 967.4709297958259
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 526.1178575186361
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1009.4275605510284
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 1531.0336377754736
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1308.1162027893392,
+      "south": 1761.0178874730377
+    },
+    "lair_modeled_reach": {
+      "north": 5160.84,
+      "south": 4791.63
+    },
+    "lair_modeled_access_asymmetry": 0.0742
+  },
+  {
+    "seed": 890001809,
+    "bank": "original-five",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001809-r90-p301.json",
+    "bounds": [
+      -512,
+      1535,
+      -1024,
+      1023
+    ],
+    "rotation": 90,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Acceptable prior prospect; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        -356,
+        756
+      ],
+      "south/fountain": [
+        1212,
+        -668
+      ],
+      "north/pillager_outpost": [
+        668,
+        764
+      ],
+      "north/nether_bastion": [
+        292,
+        964
+      ],
+      "north/end_spike": [
+        124,
+        676
+      ],
+      "south/pillager_outpost": [
+        804,
+        484
+      ],
+      "south/nether_bastion": [
+        1052,
+        100
+      ],
+      "south/end_spike": [
+        860,
+        -4
+      ],
+      "lair": [
+        324,
+        -796
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 218.35750502329887,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 2118.1123671797964
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1024.0312495231774
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 680.5644715969237
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 486.62100242385753
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1191.4629662729767
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1553.3190271158078
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1433.9651320726036
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1694.433238578611
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1531.84855648331
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1873.4524280055793
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1729.1847790216061
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1222.1161974215054
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 784.4896430164008
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 751.5317691222375
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 897.1777973177893
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 425.8826129345973
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 551.0716831774247
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 311.2812233334995
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 767.0410680009253
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 791.6362801185908
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 1597.4780123682453
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 333.4186557467953
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 701.8147903827619
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 1150.6937038152248
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1122.3404118180902
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 1760.2908850528086
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 706.5861589360494
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1092.2270826160648
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1002.0459071320037
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1485.5248230844209
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 457.12142806917285
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 491.20260585628006
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 1367.040599250805
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 218.35750502329887
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1154.469575172945
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 956.3263041451909
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1694.433238578611,
+      "south": 897.1777973177893
+    },
+    "lair_modeled_reach": {
+      "north": 6226.87,
+      "south": 6617.53
+    },
+    "lair_modeled_access_asymmetry": 0.0608
+  },
+  {
+    "seed": 890001380,
+    "bank": "new-four",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001380-r90-p3001.json",
+    "bounds": [
+      -1536,
+      255,
+      -384,
+      1407
+    ],
+    "rotation": 90,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Basic shared-check pass; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        -1068,
+        -76
+      ],
+      "south/fountain": [
+        -116,
+        1196
+      ],
+      "north/pillager_outpost": [
+        -988,
+        540
+      ],
+      "north/nether_bastion": [
+        -876,
+        356
+      ],
+      "north/end_spike": [
+        -908,
+        172
+      ],
+      "south/pillager_outpost": [
+        -1356,
+        988
+      ],
+      "south/nether_bastion": [
+        -1316,
+        1252
+      ],
+      "south/end_spike": [
+        -332,
+        764
+      ],
+      "lair": [
+        -12,
+        -100
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 186.76188047886004,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1588.8008056392719
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 621.1730837697332
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 472.74517448621305
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 295.13386793114745
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1102.2885284715612
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1350.9581784792597
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1116.8240685085543
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1056.2726920639386
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1091.2011730198974
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1132.7841806805036
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1294.5423901904487
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1257.3241427730559
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1201.3059560328502
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 482.9906831399546
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 1300.1661432293952
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 215.40659228538016
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 376.59527347007423
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 579.76546982379
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 783.9183630965664
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 693.189728717903
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 1167.1229583895606
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 186.76188047886004
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 793.6145159962739
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 998.2063914842461
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 680.0
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 976.9503569782858
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 930.8920452984869
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 1154.4972931973466
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 825.9782079449797
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 936.3759928575699
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 267.0131082924582
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 1048.2137186661887
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 1729.1847790216061
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1098.3624174196784
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1878.3822827103115
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 921.3555231288299
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1056.2726920639386,
+      "south": 1300.1661432293952
+    },
+    "lair_modeled_reach": {
+      "north": 7914.39,
+      "south": 6852.04
+    },
+    "lair_modeled_access_asymmetry": 0.1439
+  },
+  {
+    "seed": 890001757,
+    "bank": "new-four",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001757-r0-p3003.json",
+    "bounds": [
+      -1024,
+      767,
+      -1536,
+      255
+    ],
+    "rotation": 0,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Basic shared-check pass; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        84,
+        -772
+      ],
+      "south/fountain": [
+        -732,
+        -564
+      ],
+      "north/pillager_outpost": [
+        -396,
+        -780
+      ],
+      "north/nether_bastion": [
+        -244,
+        -1028
+      ],
+      "north/end_spike": [
+        -220,
+        -812
+      ],
+      "south/pillager_outpost": [
+        -612,
+        -940
+      ],
+      "south/nether_bastion": [
+        -644,
+        -1124
+      ],
+      "south/end_spike": [
+        -668,
+        -756
+      ],
+      "lair": [
+        -444,
+        -1044
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 178.88543819998316,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 842.0926314842092
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 480.06666203768
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 416.076915966267
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 306.6202863477888
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 715.9888267284622
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 808.6334150899282
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 752.1701935067622
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 593.9427581846587
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 399.43960745023776
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 673.3795363686069
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 568.9006943219529
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 394.6846842734083
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 566.87211961782
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 202.3857702507763
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 559.7713819051488
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 290.8745434031655
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 178.88543819998316
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 268.80476186258306
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 424.0754649823543
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 273.0567706540162
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 268.32815729997475
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 217.329243315298
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 378.375474892335
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 411.3587242298381
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 503.7459677257973
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 200.63897926375125
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 412.3687670035159
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 526.4218840435872
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 451.48643390471875
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 322.490309931942
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 186.76188047886004
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 192.33304448274092
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 197.5854245636555
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 368.7817782917155
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 215.40659228538019
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 364.85613603172413
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 593.9427581846587,
+      "south": 559.7713819051488
+    },
+    "lair_modeled_reach": {
+      "north": 1912.52,
+      "south": 2072.3
+    },
+    "lair_modeled_access_asymmetry": 0.0802
+  },
+  {
+    "seed": 890001967,
+    "bank": "new-four",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001967-r90-p1001.json",
+    "bounds": [
+      -1536,
+      511,
+      -1536,
+      511
+    ],
+    "rotation": 90,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Basic shared-check pass; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        -1020,
+        284
+      ],
+      "south/fountain": [
+        204,
+        -860
+      ],
+      "north/pillager_outpost": [
+        -1228,
+        -636
+      ],
+      "north/nether_bastion": [
+        -892,
+        -460
+      ],
+      "north/end_spike": [
+        -140,
+        500
+      ],
+      "south/pillager_outpost": [
+        -892,
+        -740
+      ],
+      "south/nether_bastion": [
+        -444,
+        -428
+      ],
+      "south/end_spike": [
+        -1052,
+        -1444
+      ],
+      "lair": [
+        -644,
+        -564
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 241.8594633252956,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 1675.3841350567934
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 943.2200167511289
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 754.9304603736691
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 906.1214046693744
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1031.9689917822143
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 915.8165755215397
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1728.2962708980197
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 927.6206121038923
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1449.413674559475
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1166.7116181816311
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1402.8314225166184
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1102.5497721191546
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 778.7990755002216
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 1385.1324846382026
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 898.1759293145191
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 379.3046269161503
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 1572.9717098536769
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 351.7271669916897
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 811.1226787607409
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 826.9461893013355
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 588.4216175498653
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 1219.4687367866386
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 280.0
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 449.1414031237824
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 996.9232668565821
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 268.9237810235458
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 1450.2082609059983
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 976.5244492586962
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 2147.2959740101037
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1177.3325783312036
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 545.93772538633
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 721.9529070514225
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 304.10524493997144
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1184.0270267185626
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 241.8594633252956
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 969.9814431214651
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 927.6206121038923,
+      "south": 898.1759293145191
+    },
+    "lair_modeled_reach": {
+      "north": 7767.14,
+      "south": 6700.26
+    },
+    "lair_modeled_access_asymmetry": 0.1475
+  },
+  {
+    "seed": 890001993,
+    "bank": "new-four",
+    "source_compilation": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001993-r90-p1002.json",
+    "bounds": [
+      -1536,
+      511,
+      -512,
+      1535
+    ],
+    "rotation": 90,
+    "deepest_stage": "characterize",
+    "ready": false,
+    "playable": false,
+    "review": "Basic shared-check pass; no sequential-shape approval",
+    "anchors": {
+      "north/fountain": [
+        -1052,
+        -204
+      ],
+      "south/fountain": [
+        308,
+        1316
+      ],
+      "north/pillager_outpost": [
+        -1260,
+        1188
+      ],
+      "north/nether_bastion": [
+        -1380,
+        1340
+      ],
+      "north/end_spike": [
+        -716,
+        -148
+      ],
+      "south/pillager_outpost": [
+        -924,
+        1436
+      ],
+      "south/nether_bastion": [
+        92,
+        300
+      ],
+      "south/end_spike": [
+        428,
+        652
+      ],
+      "lair": [
+        -924,
+        1052
+      ]
+    },
+    "minimum_of_all_36_pair_distances": 193.6594949905633,
+    "all_36_pair_distances": [
+      {
+        "a": "north/fountain",
+        "b": "south/fountain",
+        "distance": 2039.607805437114
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1407.4544397599518
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1578.4549407569416
+      },
+      {
+        "a": "north/fountain",
+        "b": "north/end_spike",
+        "distance": 340.63470169670023
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1644.9875379467164
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1250.1007959360716
+      },
+      {
+        "a": "north/fountain",
+        "b": "south/end_spike",
+        "distance": 1709.7181054197208
+      },
+      {
+        "a": "north/fountain",
+        "b": "lair",
+        "distance": 1262.5054455328102
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/pillager_outpost",
+        "distance": 1573.2158148200774
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/nether_bastion",
+        "distance": 1688.170607492027
+      },
+      {
+        "a": "south/fountain",
+        "b": "north/end_spike",
+        "distance": 1786.5810924780326
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/pillager_outpost",
+        "distance": 1237.8303599443666
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/nether_bastion",
+        "distance": 1038.7068883953739
+      },
+      {
+        "a": "south/fountain",
+        "b": "south/end_spike",
+        "distance": 674.7562522867054
+      },
+      {
+        "a": "south/fountain",
+        "b": "lair",
+        "distance": 1259.968253568319
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/nether_bastion",
+        "distance": 193.6594949905633
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "north/end_spike",
+        "distance": 1442.5089254489899
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/pillager_outpost",
+        "distance": 417.612260356422
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 1617.5438170262962
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 1771.0561820563457
+      },
+      {
+        "a": "north/pillager_outpost",
+        "b": "lair",
+        "distance": 362.48034429469413
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "north/end_spike",
+        "distance": 1629.4293479620405
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/pillager_outpost",
+        "distance": 465.99570813474236
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/nether_bastion",
+        "distance": 1802.3273842451597
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 1934.478741160006
+      },
+      {
+        "a": "north/nether_bastion",
+        "b": "lair",
+        "distance": 539.3329213018616
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/pillager_outpost",
+        "distance": 1597.5981972949269
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/nether_bastion",
+        "distance": 923.8874390314007
+      },
+      {
+        "a": "north/end_spike",
+        "b": "south/end_spike",
+        "distance": 1395.9713464108063
+      },
+      {
+        "a": "north/end_spike",
+        "b": "lair",
+        "distance": 1217.8932629750443
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/nether_bastion",
+        "distance": 1524.0577416882866
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "south/end_spike",
+        "distance": 1562.8691563915388
+      },
+      {
+        "a": "south/pillager_outpost",
+        "b": "lair",
+        "distance": 384.0
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "south/end_spike",
+        "distance": 486.6210024238576
+      },
+      {
+        "a": "south/nether_bastion",
+        "b": "lair",
+        "distance": 1264.0253162021716
+      },
+      {
+        "a": "south/end_spike",
+        "b": "lair",
+        "distance": 1409.9304947407868
+      }
+    ],
+    "fountain_to_lair_straight_distances": {
+      "north": 1262.5054455328102,
+      "south": 1259.968253568319
+    },
+    "lair_modeled_reach": {
+      "north": 9048.04,
+      "south": 8942.68
+    },
+    "lair_modeled_access_asymmetry": 0.0117
+  }
+]

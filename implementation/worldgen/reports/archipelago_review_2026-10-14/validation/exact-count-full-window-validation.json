@@ -1,0 +1,13 @@
+{
+  "status": "Exact full-window measurement equivalence confirmed",
+  "seed": 890000020,
+  "matches": {
+    "cell_size_blocks": true,
+    "y_range": true,
+    "window_block_bounds": true,
+    "opportunity": true,
+    "source_files": true
+  },
+  "seconds": 136.34,
+  "source_world_unmodified": true
+}

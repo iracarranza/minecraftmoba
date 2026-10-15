@@ -1,0 +1,15 @@
+{
+  "status": "Exact equivalence confirmed",
+  "synthetic_sections": 72,
+  "actual_vanilla_sections": 168,
+  "actual_palette_bits": [
+    4,
+    5,
+    6
+  ],
+  "preserves": [
+    "All 4096 entries, signed longs, padded packing, final-word padding, repeated block names, singleton palettes",
+    "Exact resource/vegetation counts and existing shared gameplay thresholds"
+  ],
+  "scope": "Analysis process only; shared compiler and source worlds unchanged"
+}

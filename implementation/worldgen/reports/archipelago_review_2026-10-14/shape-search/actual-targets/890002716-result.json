@@ -1,0 +1,102 @@
+{
+  "seed": 890002716,
+  "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/source-worlds/890002716/server/world",
+  "bounds": [
+    -512,
+    1535,
+    -1024,
+    1023
+  ],
+  "screen": {
+    "seed": 890002716,
+    "centre": [
+      512,
+      0
+    ],
+    "score": 11.768619465761905,
+    "home_islands": [
+      {
+        "id": 2,
+        "area_proxy": 411904
+      },
+      {
+        "id": 15,
+        "area_proxy": 342528
+      }
+    ],
+    "chains": [
+      [
+        {
+          "id": 1,
+          "area_proxy": 5632,
+          "relative_xz": [
+            1130.909090909091,
+            40.72727272727273
+          ]
+        },
+        {
+          "id": 9,
+          "area_proxy": 13056,
+          "relative_xz": [
+            1458.1960784313726,
+            747.2941176470588
+          ]
+        },
+        {
+          "id": 14,
+          "area_proxy": 10752,
+          "relative_xz": [
+            1464.3809523809523,
+            1061.3333333333333
+          ]
+        },
+        {
+          "id": 18,
+          "area_proxy": 8704,
+          "relative_xz": [
+            1416.0,
+            1307.2941176470588
+          ]
+        }
+      ],
+      [
+        {
+          "id": 13,
+          "area_proxy": 4096,
+          "relative_xz": [
+            12.0,
+            995.0
+          ]
+        },
+        {
+          "id": 8,
+          "area_proxy": 52736,
+          "relative_xz": [
+            527.3786407766991,
+            610.4854368932039
+          ]
+        }
+      ]
+    ],
+    "home_relative_xz": [
+      [
+        1654.0957116221255,
+        259.0031075201989
+      ],
+      [
+        247.53363228699553,
+        1631.0792227204784
+      ]
+    ],
+    "approximation_only": true,
+    "gameplay_qualified": false,
+    "fine_symmetry": {
+      "z": 0.1959,
+      "x": 0.2784
+    },
+    "source_probe": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/probes/890002716-sequence-512-0-16.bin",
+    "step": 16,
+    "minimum_shared_symmetry": 0.1959,
+    "approximate_shared_symmetry_pass": true
+  }
+}

@@ -1,0 +1,538 @@
+{
+  "status": "curated review snapshot, not runtime READY",
+  "files": [
+    {
+      "path": "ARCHIPELAGO_REVIEW.md",
+      "source": "generated reviewer guide or validation",
+      "kind": "review",
+      "bytes": 528,
+      "sha256": "5b4046394b14884b8ca22e3e9b1e1a1e573488a8485588003f9b9a41deb9c518"
+    },
+    {
+      "path": "docs/audit/2026-10-12-archipelago-chain-search.md",
+      "source": "docs/audit/2026-10-12-archipelago-chain-search.md",
+      "kind": "design trace",
+      "bytes": 4556,
+      "sha256": "2a6ca4eacad9275793118cbce405c771e3510115cdb69d13629514ef0c013723"
+    },
+    {
+      "path": "docs/reconciliation/2026-10-12-archipelago-balancing.md",
+      "source": "docs/reconciliation/2026-10-12-archipelago-balancing.md",
+      "kind": "design trace",
+      "bytes": 3076,
+      "sha256": "be7d95e8f7481e5e04f4e0b432b8954951b016a6fb0889d3fbb0709fa0ef17ff"
+    },
+    {
+      "path": "implementation/worldgen/native/cubiomes/pale_gameplay_probe.c",
+      "source": "implementation/worldgen/native/cubiomes/pale_gameplay_probe.c",
+      "kind": "native source",
+      "bytes": 1401,
+      "sha256": "109b1601cf4c8a8c8f2c5edc9333746db0be1cbada3ece89460a8fccad685b5b"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/README.md",
+      "source": "generated reviewer guide or validation",
+      "kind": "review",
+      "bytes": 9751,
+      "sha256": "9cc51dc83e3349524299a76f4e83757d2cdcfb70f62771e5912b302ec49d4346"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/candidate-overview.json",
+      "source": "generated review bundle",
+      "kind": "independent anchor/spacing extraction",
+      "bytes": 51924,
+      "sha256": "32a29b59e3b68a9969bb031e2b2ac9cadc6a97e70f1f20fa85400d31737779e8"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/historical-report.md",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/README.md",
+      "kind": "evidence",
+      "bytes": 4223,
+      "sha256": "c79be9252fa81d4a62c80cafa3857f24b56d4b493d582a73506b2866e773b18b"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/independent-geographic-audit.json",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/independent-geographic-audit.json",
+      "kind": "evidence",
+      "bytes": 7366,
+      "sha256": "361cee0f476968dd653b1bf4da26a568f96222b525aa3851015378f0b58b0075"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/qualified-archipelagos.png",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/qualified-archipelagos.png",
+      "kind": "evidence",
+      "bytes": 417205,
+      "sha256": "a278a1d3cf672a571190b3ea0618d0fc4f52657db936c1286311eb693aef0193"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/qualified-summary.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/qualified-summary.json",
+      "kind": "evidence",
+      "bytes": 818446,
+      "sha256": "8f18182b38a10681f5c8a4e969645c1961f8fa4d07f776825c439e653d7533f4"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/seed-890001380-map.png",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/seed-890001380-map.png",
+      "kind": "evidence",
+      "bytes": 90758,
+      "sha256": "ac3fb97e3a107712f05c851ade43c2d9ad6fd3a279a7faf3d98aecc6f171b39c"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/seed-890001757-map.png",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/seed-890001757-map.png",
+      "kind": "evidence",
+      "bytes": 99056,
+      "sha256": "db2fc6ceed571a39e940322161276651b5296cc5e94d505564ea845b319de84d"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/seed-890001967-map.png",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/seed-890001967-map.png",
+      "kind": "evidence",
+      "bytes": 88730,
+      "sha256": "10c3bbd686bcce047bb69d3e06ad46a7b683b3971108df92e3d54c2e8e3071d5"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/new-four/seed-890001993-map.png",
+      "source": "implementation/worldgen/reports/archipelago_chain_search_2026-10-12/seed-890001993-map.png",
+      "kind": "evidence",
+      "bytes": 89670,
+      "sha256": "31c94cff9b0cd1b2dd06e4ba3bf4a71769310cf09e4109f0fcdfc047b90065a9"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/design-review.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/design-review.json",
+      "kind": "evidence",
+      "bytes": 391,
+      "sha256": "2f74e36ea4cefcbc45f830fc1e004169babe00c0ca2e73e475426206fae50108"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/historical-report.md",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/README.md",
+      "kind": "evidence",
+      "bytes": 3777,
+      "sha256": "b3481458cc926403a39a3b02edd0fb4a7238504834135dc0955b7d48c98b06d7"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/qualified-archipelagos.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/qualified-archipelagos.png",
+      "kind": "evidence",
+      "bytes": 533580,
+      "sha256": "d21bc260ab80d9643f4e08f37c7a19149e3a3d2e73375150246c18bb2f88c916"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/qualified-summary.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/qualified-summary.json",
+      "kind": "evidence",
+      "bytes": 1189918,
+      "sha256": "f3423bc3d1e2ead371399cda11d44a257977b99363f83c0dbe0b906522be85bf"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/seed-890000020-map.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/seed-890000020-map.png",
+      "kind": "evidence",
+      "bytes": 97499,
+      "sha256": "4483c421aec4a22768d00eb105243b0fc2d959838cae2bc070830fa53c1bc7a4"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/seed-890001347-map.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/seed-890001347-map.png",
+      "kind": "evidence",
+      "bytes": 96859,
+      "sha256": "7b65b5dc9f244d0954b4f5dbd9c5c9a28603680909d3e8a1edf49fb80bdd2c23"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/seed-890001592-map.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/seed-890001592-map.png",
+      "kind": "evidence",
+      "bytes": 93232,
+      "sha256": "f7082cf9983c13d058ccbdcace2b5c1171947c5293f4ac82c708a61931b0e873"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/seed-890001687-map.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/seed-890001687-map.png",
+      "kind": "evidence",
+      "bytes": 91541,
+      "sha256": "e23d9d52e293e09498d18c631d3facacda310a5a7bcd3564e3530a68c0413307"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/original-five/seed-890001809-map.png",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/seed-890001809-map.png",
+      "kind": "evidence",
+      "bytes": 96899,
+      "sha256": "65e75baedce1f82502b249cbfa74c64e14a5f461fbfe1a441faec0523baca00b"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/provenance.json",
+      "source": "generated review bundle",
+      "kind": "review",
+      "bytes": 1382,
+      "sha256": "7545f209f53b9cf2c89fdb5d62a98a1f0ff1d5f5bc0b217b74429637939ea6ae"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/rejected/890001993-r90-p901.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/890001993-r90-p901.json",
+      "kind": "evidence",
+      "bytes": 211004,
+      "sha256": "cbfddb782f1369d7a5734f1ac874525f5c05e56085f84a2d5e59b7a71195011f"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-geography-ranked.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/actual-geography-ranked.json",
+      "kind": "evidence",
+      "bytes": 1252,
+      "sha256": "341b63d9eb81b04a9d81a64fcfcfcc3fd4150f32e5ef622faa85329ed4c98ece"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-sequence-targets.png",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/actual-sequence-targets.png",
+      "kind": "evidence",
+      "bytes": 127939,
+      "sha256": "c263cfc7bd8cccc0ec87ed5810f42d3786663a25a0b4304fee2360cfe8a708ce"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002156-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002156/generation.json",
+      "kind": "evidence",
+      "bytes": 146,
+      "sha256": "840e9d60cdb3910472c6e9b54916a4d06dc4ff91e9c3925c43691989908a632c"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002156-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002156/result.json",
+      "kind": "evidence",
+      "bytes": 1960,
+      "sha256": "6e159b38e6261a1983e64471f162cf1036512fe3c728384e333484e7cec065d6"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002221-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002221/generation.json",
+      "kind": "evidence",
+      "bytes": 147,
+      "sha256": "956486c2c85462198925ebf009b41f01f4bae39e4880c7f8df1394cea5b6266f"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002221-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002221/result.json",
+      "kind": "evidence",
+      "bytes": 1773,
+      "sha256": "0a299daa835d67d9ea814327d109a815980bffdf9c7a1dc96dd7764a200e5dfe"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002226-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002226/generation.json",
+      "kind": "evidence",
+      "bytes": 146,
+      "sha256": "8dcd45c5194182f6501daae7ea18e1002f153cdb17a855c15cbf8488e1349e61"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002226-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002226/result.json",
+      "kind": "evidence",
+      "bytes": 985,
+      "sha256": "f8dd4446fa043a717463145eff676ef19cdfffd1c8d8000e4e1b71cfbf75d9cd"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002716-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002716/generation.json",
+      "kind": "evidence",
+      "bytes": 146,
+      "sha256": "5dbc7e8a855ca152a3b3f7969bb5171fc249abd65945e243fe5799aaf1ba8319"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890002716-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002716/result.json",
+      "kind": "evidence",
+      "bytes": 2107,
+      "sha256": "480f0834d1fc4d719c55f19709ded9bfc2c5f2b840641ebb25edc78d213b3e39"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890004593-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890004593/generation.json",
+      "kind": "evidence",
+      "bytes": 146,
+      "sha256": "2608a0812b84be08451cb82997e967f0867b11396f6b25559528e94803ea5575"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890004593-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890004593/result.json",
+      "kind": "evidence",
+      "bytes": 1978,
+      "sha256": "6fb334c872b5cb31ea4f687f1101e1cfbdccb375f98dcc7b6fe15bd47c724fd8"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890006350-generation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890006350/generation.json",
+      "kind": "evidence",
+      "bytes": 146,
+      "sha256": "1320d98fa843036331534dfa1216a8a5a9f35e55b2cec51f5c4865eac7b5a7bf"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/actual-targets/890006350-result.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890006350/result.json",
+      "kind": "evidence",
+      "bytes": 1775,
+      "sha256": "240b2b62fe8b150d46cab7e4ae72abadfc800bc57ffd96636559d467c8fcd4b3"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/all-window-coarse.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/all-window-coarse.json",
+      "kind": "evidence",
+      "bytes": 28144,
+      "sha256": "89faf31594797b8aaae3a687ba9ec02b1088846127ca73fb64a8faf29ea34a3c"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/all-window-fine.json.gz",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/all-window-fine.json",
+      "kind": "evidence",
+      "bytes": 15059,
+      "sha256": "e98ae0455fffae0f534d4894b937dd0cbe05af81fa5231a178352cc86e39e3e8"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/fine-sequence-prospects.png",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/fine-sequence-prospects.png",
+      "kind": "evidence",
+      "bytes": 316316,
+      "sha256": "2cf3354dff64aea9e7b3f251eae05694c52e2d74442e543c68201e062821551c"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/historical-report.md",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/README.md",
+      "kind": "evidence",
+      "bytes": 4204,
+      "sha256": "95e2c2ed80ba9942f9483ed81b2dab57118dc08efded189ef775d7f4df018b36"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/next-four-prospects.png",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/next-four-prospects.png",
+      "kind": "evidence",
+      "bytes": 169928,
+      "sha256": "4106a97672c14ca2e1be9c75fa2402b1514bbbfb435ce5fab2b83a1fb2da47f1"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/search-summary.json",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/search-summary.json",
+      "kind": "evidence",
+      "bytes": 1460,
+      "sha256": "390d33d1ce6c0aa366de6b36ea972c616a6074f058ebea741e3da7b9c87f7328"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/two-sequence-prospects.png",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/two-sequence-prospects.png",
+      "kind": "evidence",
+      "bytes": 101749,
+      "sha256": "36bbae1e1295c5e6a2f84d6d8f226245c30c92f264f4634f7893f361d88b5e7e"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/shape-search/verification-results.json",
+      "source": "implementation/worldgen/reports/archipelago_sequence_search_2026-10-13/verification-results.json",
+      "kind": "evidence",
+      "bytes": 1925,
+      "sha256": "486270aae29e39b19d669676592b13c994afe28a17578dedd28aa7b197cdddde"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/validation/exact-count-full-window-validation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/exact-count-full-window-validation.json",
+      "kind": "evidence",
+      "bytes": 301,
+      "sha256": "1254c03bb8e5fdb93c373b4c627b609466889650cf669c5e0c5a8dbf2bd0299f"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/validation/exact-count-validation.json",
+      "source": "implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/exact-count-validation.json",
+      "kind": "evidence",
+      "bytes": 458,
+      "sha256": "4a00416e34cf0d2e23af0f7018d718eb6c4ebe0e9f1b074fdb1e7be0131b7789"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/validation/native-actual-calibration.json",
+      "source": "implementation/worldgen/reports/catalogue_proxy_calibration_2026-10-14/calibration.json",
+      "kind": "calibration evidence",
+      "bytes": 60857,
+      "sha256": "80847473dfe02e4fe67f53bd700407497c1f484cc311bbbd01e5db47818de447"
+    },
+    {
+      "path": "implementation/worldgen/reports/archipelago_review_2026-10-14/validation/review-checks.json",
+      "source": "generated reviewer guide or validation",
+      "kind": "review",
+      "bytes": 956,
+      "sha256": "272594d5184b3dba819c27f832335623f81e586ad46ab295d21db6bb22b00f10"
+    },
+    {
+      "path": "maps.md",
+      "source": "maps.md: Archipelago section only",
+      "kind": "Working design addition",
+      "bytes": 101083,
+      "sha256": "b36eea9f981cdc326256d5cc6b44453a37a23d20ac8f740f6b5cc141567fd7db"
+    },
+    {
+      "path": "tools/analysis/audit_archipelago_geography.py",
+      "source": "tools/analysis/audit_archipelago_geography.py",
+      "kind": "analysis source",
+      "bytes": 2270,
+      "sha256": "7bfd97afb2891ec0fbdcc357c6562d9e13016c49da6d35d84ffa50c47f3c8205"
+    },
+    {
+      "path": "tools/analysis/calibrate_catalogue_proxies.py",
+      "source": "tools/analysis/calibrate_catalogue_proxies.py",
+      "kind": "analysis source",
+      "bytes": 5479,
+      "sha256": "27a269bc79470fccd01de0804ae7ffc58f2d1a26e2da5e82d5f6030802740733"
+    },
+    {
+      "path": "tools/analysis/census_sequential_archipelagos.py",
+      "source": "tools/analysis/census_sequential_archipelagos.py",
+      "kind": "analysis source",
+      "bytes": 1037,
+      "sha256": "2f276067bcd11c63f923035048267415a5e72ed5e01743e19432f861b0965a12"
+    },
+    {
+      "path": "tools/analysis/crop_archipelago_sources.py",
+      "source": "tools/analysis/crop_archipelago_sources.py",
+      "kind": "analysis source",
+      "bytes": 3520,
+      "sha256": "d4b5d068aebff8a02968924368bc519d8d02c08b3482d04222ba9df66ef34a17"
+    },
+    {
+      "path": "tools/analysis/exact_section_histogram.py",
+      "source": "tools/analysis/exact_section_histogram.py",
+      "kind": "analysis source",
+      "bytes": 3065,
+      "sha256": "f1b294092973c7c912f44ddb0dcdef8a99b2856905e2b3017de3e08e13355679"
+    },
+    {
+      "path": "tools/analysis/examine_scoop_axes.py",
+      "source": "tools/analysis/examine_scoop_axes.py",
+      "kind": "analysis source",
+      "bytes": 9778,
+      "sha256": "31e00b3d734535cf03859a850759c2f250996eb3539183d45ee4c6a87029d4c9"
+    },
+    {
+      "path": "tools/analysis/filter_pale_gameplay.py",
+      "source": "tools/analysis/filter_pale_gameplay.py",
+      "kind": "analysis source",
+      "bytes": 17591,
+      "sha256": "371bfecdc475c532d3ed7528543b40b17f1dbe6a770fd6f6675ba0742b0cf873"
+    },
+    {
+      "path": "tools/analysis/find_archipelago.py",
+      "source": "tools/analysis/find_archipelago.py",
+      "kind": "analysis source",
+      "bytes": 4519,
+      "sha256": "7ac30bd484c7cb8d03c6c36c6ce359f38402c3931c9cd4c414c51e3e0a902147"
+    },
+    {
+      "path": "tools/analysis/generate_archipelago_prospects.py",
+      "source": "tools/analysis/generate_archipelago_prospects.py",
+      "kind": "analysis source",
+      "bytes": 2937,
+      "sha256": "6387d60e3b4ffa170bed6df34148b164c3f2caba63d52873672031b01f735c40"
+    },
+    {
+      "path": "tools/analysis/qualify_archipelago.py",
+      "source": "tools/analysis/qualify_archipelago.py",
+      "kind": "analysis source",
+      "bytes": 8522,
+      "sha256": "178b15f4dcf6716f3470818a28a3ce6ff683b695aa6e95901ac39acd92cabf69"
+    },
+    {
+      "path": "tools/analysis/rebalance_pale_homebases.py",
+      "source": "tools/analysis/rebalance_pale_homebases.py",
+      "kind": "analysis source",
+      "bytes": 7665,
+      "sha256": "1b8e86ba477cb32bd14545b8abe91a2b4bf5405a9e878a4901f4f5623d1d1f4f"
+    },
+    {
+      "path": "tools/analysis/refine_archipelago_chains.py",
+      "source": "tools/analysis/refine_archipelago_chains.py",
+      "kind": "analysis source",
+      "bytes": 2102,
+      "sha256": "20c044ea34545e291d83d14852eeac27591b176782165db87f10016428f0b4ea"
+    },
+    {
+      "path": "tools/analysis/refine_pale_mansion_search.py",
+      "source": "tools/analysis/refine_pale_mansion_search.py",
+      "kind": "analysis source",
+      "bytes": 5666,
+      "sha256": "fd9eeb702f7e6f34a807c8e7ee66bce81f9bf44935c801855461c99c56373417"
+    },
+    {
+      "path": "tools/analysis/render_actual_sequence_targets.py",
+      "source": "tools/analysis/render_actual_sequence_targets.py",
+      "kind": "analysis source",
+      "bytes": 1758,
+      "sha256": "25c8ff4355b9404804516d98332c23def67dc5fff8333b2fd3b3dc42177d5796"
+    },
+    {
+      "path": "tools/analysis/render_sequential_prospects.py",
+      "source": "tools/analysis/render_sequential_prospects.py",
+      "kind": "analysis source",
+      "bytes": 1507,
+      "sha256": "3ca2b6b4b05fd67043f5b978e9423836ac5fb6e8e81364250d31ae9f3707ebb9"
+    },
+    {
+      "path": "tools/analysis/report_archipelago_gameplay.py",
+      "source": "tools/analysis/report_archipelago_gameplay.py",
+      "kind": "analysis source",
+      "bytes": 5400,
+      "sha256": "dc7053fa246dc9f7c226eaefe5dc6152d2348d5468697c30596d8f3ce95f05d1"
+    },
+    {
+      "path": "tools/analysis/report_pale_gameplay.py",
+      "source": "tools/analysis/report_pale_gameplay.py",
+      "kind": "analysis source",
+      "bytes": 18165,
+      "sha256": "e6194f43c0c75ba2cf62eb28d3059fde04ddd29b52c33ab7d25312f53cf21906"
+    },
+    {
+      "path": "tools/analysis/report_qualified_archipelagos.py",
+      "source": "tools/analysis/report_qualified_archipelagos.py",
+      "kind": "analysis source",
+      "bytes": 11063,
+      "sha256": "e2da86eac8d28fa4bcb30cf2e247f93917734c9c9a0cdf39e30a925e34efbde7"
+    },
+    {
+      "path": "tools/analysis/screen_actual_archipelago_sequences.py",
+      "source": "tools/analysis/screen_actual_archipelago_sequences.py",
+      "kind": "analysis source",
+      "bytes": 1091,
+      "sha256": "aa1628695719e076ed159b4952634ecf7be79b5384595b92b1b3af5ac263fa36"
+    },
+    {
+      "path": "tools/analysis/screen_sequential_archipelagos.py",
+      "source": "tools/analysis/screen_sequential_archipelagos.py",
+      "kind": "analysis source",
+      "bytes": 4698,
+      "sha256": "1934e63dfe2c38d32688a162721fd6a1d32c8b3284bee5e4a357b9d18416cafd"
+    },
+    {
+      "path": "tools/analysis/search_archipelago_layouts.py",
+      "source": "tools/analysis/search_archipelago_layouts.py",
+      "kind": "analysis source",
+      "bytes": 21829,
+      "sha256": "3df47acace4d83266c17e940dc121969c4d365849fe56c280ad926dd7fa05f79"
+    },
+    {
+      "path": "tools/analysis/search_archipelago_windows.py",
+      "source": "tools/analysis/search_archipelago_windows.py",
+      "kind": "analysis source",
+      "bytes": 2708,
+      "sha256": "6a832b9ba8a7985039ea5e65896fef0a71cf22ebbe9682d99fd4c49fefe12f21"
+    },
+    {
+      "path": "tools/analysis/search_sequential_windows.py",
+      "source": "tools/analysis/search_sequential_windows.py",
+      "kind": "analysis source",
+      "bytes": 2244,
+      "sha256": "d436a24b3868cf03fac41c9586eab075d99056ca601382e2e2f102ccce358218"
+    },
+    {
+      "path": "tools/analysis/stock_archipelago_bank.py",
+      "source": "tools/analysis/stock_archipelago_bank.py",
+      "kind": "analysis source",
+      "bytes": 2943,
+      "sha256": "f173ea4ad9d3686c7d47900e727a1a12beedad743ee6b3e38412b34988f1cf31"
+    }
+  ],
+  "total_listed_bytes": 5193415
+}

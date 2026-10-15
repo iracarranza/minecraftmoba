@@ -1,0 +1,86 @@
+{
+  "seed": 890002221,
+  "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/source-worlds/890002221/server/world",
+  "bounds": [
+    -1536,
+    511,
+    -1024,
+    1023
+  ],
+  "screen": {
+    "seed": 890002221,
+    "centre": [
+      -512,
+      0
+    ],
+    "score": 7.665194199760837,
+    "home_islands": [
+      {
+        "id": 4,
+        "area_proxy": 279296
+      },
+      {
+        "id": 2,
+        "area_proxy": 273152
+      }
+    ],
+    "chains": [
+      [
+        {
+          "id": 8,
+          "area_proxy": 5888,
+          "relative_xz": [
+            818.7826086956521,
+            1119.304347826087
+          ]
+        },
+        {
+          "id": 3,
+          "area_proxy": 49664,
+          "relative_xz": [
+            787.3814432989691,
+            297.64948453608247
+          ]
+        }
+      ],
+      [
+        {
+          "id": 5,
+          "area_proxy": 4864,
+          "relative_xz": [
+            1328.0,
+            592.0
+          ]
+        },
+        {
+          "id": 6,
+          "area_proxy": 271360,
+          "relative_xz": [
+            1184.1660377358492,
+            1067.0188679245282
+          ]
+        }
+      ]
+    ],
+    "home_relative_xz": [
+      [
+        139.4243813015582,
+        931.6223648029331
+      ],
+      [
+        1723.846298031865,
+        189.1808809746954
+      ]
+    ],
+    "approximation_only": true,
+    "gameplay_qualified": false,
+    "fine_symmetry": {
+      "z": 0.0715,
+      "x": 0.2942
+    },
+    "source_probe": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/probes/890002221-sequence--512-0-16.bin",
+    "step": 16,
+    "minimum_shared_symmetry": 0.0715,
+    "approximate_shared_symmetry_pass": true
+  }
+}

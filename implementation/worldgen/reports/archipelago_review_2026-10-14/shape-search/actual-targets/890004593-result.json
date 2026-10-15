@@ -1,0 +1,94 @@
+{
+  "seed": 890004593,
+  "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/source-worlds/890004593/server/world",
+  "bounds": [
+    -512,
+    1535,
+    -1536,
+    511
+  ],
+  "screen": {
+    "seed": 890004593,
+    "centre": [
+      512,
+      -512
+    ],
+    "score": 7.78534857683829,
+    "home_islands": [
+      {
+        "id": 14,
+        "area_proxy": 251392
+      },
+      {
+        "id": 2,
+        "area_proxy": 200192
+      }
+    ],
+    "chains": [
+      [
+        {
+          "id": 13,
+          "area_proxy": 43008,
+          "relative_xz": [
+            1200.5714285714287,
+            1611.904761904762
+          ]
+        },
+        {
+          "id": 4,
+          "area_proxy": 120576,
+          "relative_xz": [
+            686.2675159235669,
+            776.1188959660298
+          ]
+        }
+      ],
+      [
+        {
+          "id": 9,
+          "area_proxy": 6144,
+          "relative_xz": [
+            1978.6666666666667,
+            928.6666666666666
+          ]
+        },
+        {
+          "id": 8,
+          "area_proxy": 9472,
+          "relative_xz": [
+            1643.2432432432433,
+            887.7837837837837
+          ]
+        },
+        {
+          "id": 10,
+          "area_proxy": 162816,
+          "relative_xz": [
+            1722.4654088050315,
+            1360.6540880503144
+          ]
+        }
+      ]
+    ],
+    "home_relative_xz": [
+      [
+        330.4276985743381,
+        1857.4501018329938
+      ],
+      [
+        1840.9002557544757,
+        495.32480818414325
+      ]
+    ],
+    "approximation_only": true,
+    "gameplay_qualified": false,
+    "fine_symmetry": {
+      "z": 0.2333,
+      "x": 0.3359
+    },
+    "source_probe": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/probes/890004593-sequence-512--512-16.bin",
+    "step": 16,
+    "minimum_shared_symmetry": 0.2333,
+    "approximate_shared_symmetry_pass": true
+  }
+}

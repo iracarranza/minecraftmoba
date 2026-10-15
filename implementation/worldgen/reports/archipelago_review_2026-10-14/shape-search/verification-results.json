@@ -1,0 +1,56 @@
+{
+  "status": "No passing endpoint-constrained layout found for these two verification targets",
+  "minimum_distance": 175,
+  "seeds": [
+    890002226,
+    890002716
+  ],
+  "checks": {
+    "890002226": {
+      "actual_symmetry_passing_orientations": [
+        180
+      ],
+      "endpoint_home_census": {
+        "north": 13,
+        "south": 0
+      },
+      "actual_sampled_symmetry_diagnostics": {
+        "0": 0.3805,
+        "90": 0.2394,
+        "180": 0.2075,
+        "270": 0.4388
+      }
+    },
+    "890002716": {
+      "actual_symmetry_passing_orientations": [
+        0,
+        270
+      ],
+      "endpoint_home_census_by_orientation": {
+        "0": {
+          "north": 0,
+          "south": 1
+        },
+        "270": {
+          "north": 0,
+          "south": 2
+        }
+      },
+      "actual_sampled_symmetry_diagnostics": {
+        "0": 0.1969,
+        "90": 0.2727,
+        "180": 0.5394,
+        "270": 0.1408
+      }
+    }
+  },
+  "scope": "The broader search preserves shared Homebase quality and valid Fountain criteria; center-grade/canopy restrictions were removed only from candidate generation. No physical-fit or gameplay thresholds relaxed. Search failure is not a proof that no possible placement exists.",
+  "shape_review": "Vanilla generation reduces some approximate small islands to shoreline or tiny patches; neither target is certified for the desired sequential morphology.",
+  "additional_four_target_checks": {
+    "890002156": "No physically valid Fountain pair on selected endpoint islands across the tested orientations.",
+    "890006350": "Valid Fountain sites found at r270, but no Core pair with the three-distinct-defensive-islands eligibility upper bound.",
+    "890004593": "No orientation proceeded to endpoint Core census; actual sampled symmetry screen failed.",
+    "890002221": "No endpoint Homebase candidates at r0 or r270."
+  },
+  "additional_targets_qualified": 0
+}

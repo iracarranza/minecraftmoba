@@ -1,0 +1,27 @@
+{
+  "status": "pass",
+  "python_syntax_files": 24,
+  "helper_imports": [
+    "refine_pale_mansion_search",
+    "filter_pale_gameplay",
+    "examine_scoop_axes",
+    "report_pale_gameplay",
+    "rebalance_pale_homebases",
+    "exact_section_histogram",
+    "search_archipelago_layouts",
+    "search_archipelago_windows",
+    "screen_sequential_archipelagos"
+  ],
+  "native_C_syntax_check": "passed against pinned local Cubiomes headers",
+  "synthetic_exact_count_equivalence_cases": 72,
+  "readable_gzip_JSON_files": 6,
+  "saved_layouts_with_independent_spacing_check": 9,
+  "independent_anchor_pair_distances_recomputed": 324,
+  "minimum_required_spacing": 175,
+  "all_saved_layouts_READY_false": true,
+  "unrelated_compiler_functions_changed_only_in_shared_checkout": [
+    "bindings"
+  ],
+  "fresh_vanilla_world_rerun": false,
+  "reason_no_world_rerun": "Generated worlds and native source raster caches intentionally excluded from the scoped branch."
+}

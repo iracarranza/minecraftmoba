@@ -2647,6 +2647,51 @@ Potential techniques include:
 Logistics becomes unusually central.
 
 
+### Archipelago placement and readability — Working, 12 October 2026
+
+Map Types need balancing restrictions that reflect their terrain topology.
+For Archipelago, horizontal landmark spacing and equal Lair access are
+necessary evidence but do not establish a strategically legible arrangement.
+
+The current preferred pattern is two large islands supporting the respective
+Homebases, with Homebase-supported hinterlands and Wilderness extending into
+island chains that lead toward one another. Those chains may run straight,
+curl in complementary directions, or follow another readable pattern. This
+is a Working layout direction, not a requirement to mirror natural terrain.
+Objectives should occupy legibly strategic islands within that pattern.
+
+**Working clarification, 13 October 2026:** proximity alone does not establish
+the desired chain. Prefer a visually sequential progression of island size and
+footprint: a large Fountain/Homebase island at each end, followed by smaller
+chain islands that generally grow toward the shared center. Interspersed larger
+islands can carry structures and act as readable strategic stops. Assess the
+sequence across the whole chain, allowing those larger structure islands rather
+than requiring every adjacent island to grow monotonically. Straight and
+complementary curling sequences remain possible. This is a search and visual
+review preference; whether suitable unmodified vanilla seeds exist is unproven.
+
+Evaluate defensive structure grouping by island and by practical approaches.
+Two defensive structures sharing one island can create an excessively
+concentrated, defensible position even when their anchors satisfy the
+Prototype/test 175-block minimum. Do not treat numerical spacing as a substitute
+for reviewing island roles, approach bottlenecks, and defensibility. An absolute
+one-structure-per-island rule has not been chosen.
+
+Evaluate absolute Lair reach and discoverability as well as team access parity.
+A Lair can be equally distant for both teams yet take unreasonable time to find
+or reach. Its relationship to the island chains must support a conspicuous,
+readable shared destination. Equal access does not waive that requirement.
+
+**Open:** island-role classification; acceptable defensive concentration and
+approach topology; absolute Lair discovery/travel bounds; transport assumptions;
+size progression, chain continuity and curvature; and quantitative Type-specific
+acceptance limits. The 175-block anchor spacing
+remains a Prototype/test filter for this seed bank, not final balance.
+
+Source: review of the five-seed archipelago bank; see the
+[archipelago balancing record](docs/reconciliation/2026-10-12-archipelago-balancing.md).
+
+
 ## Underdark
 
 Predominantly underground and initially unknown.

@@ -1,0 +1,45 @@
+{
+  "new_seed_range": [
+    890002001,
+    890007000
+  ],
+  "new_seeds": 5000,
+  "shifted_windows_per_seed": 9,
+  "conventional_coarse_prospects": 661,
+  "morphology_first_coarse": 225,
+  "fine_sequence_prospects": 70,
+  "fine_sequence_with_approximate_symmetry": 22,
+  "actual_verified_targets": [
+    890002226,
+    890002716
+  ],
+  "fully_qualified_new_shape_candidates": 0,
+  "minimum_spacing_required": 175,
+  "status": "Completed verification batch; four basic gameplay-filter candidates banked, zero sequential-shape approvals",
+  "limits": "Biased approximate ranking, finite sampled placements, no runtime encounter or boat-time qualification",
+  "requested_new_qualifying_seeds": 4,
+  "qualified_toward_requested_target": 4,
+  "next_vanilla_targets": [
+    890002156,
+    890006350,
+    890004593,
+    890002221
+  ],
+  "basic_gameplay_filtered_seeds_available": [
+    890001380,
+    890001757,
+    890001967,
+    890001993
+  ],
+  "basic_gameplay_filtered_count": 4,
+  "sequential_shape_approved_count": 0,
+  "qualification_scope": "Four implemented-gameplay and all-nine-anchor 175-block passes; sequential shape and Type-specific balance remain separate review requirements.",
+  "target_count_scope": "Basic implemented gameplay qualification, not sequential morphology or Type-specific balance approval",
+  "additional_verification_targets": [
+    890002156,
+    890006350,
+    890004593,
+    890002221
+  ],
+  "additional_verification_passes": 0
+}

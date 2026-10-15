@@ -1,0 +1,57 @@
+{
+  "seed": 890002226,
+  "world": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/archipelago_qualified_search_2026-10-12/source-worlds/890002226/server/world",
+  "bounds": [
+    -1536,
+    511,
+    -512,
+    1535
+  ],
+  "screen": {
+    "seed": 890002226,
+    "centre": [
+      -512,
+      512
+    ],
+    "size": [
+      2048,
+      2048
+    ],
+    "axis": "x",
+    "approximate_symmetry": 0.1636,
+    "ocean_fraction": 0.6708984375,
+    "island_areas_proxy": [
+      860160,
+      286720,
+      122880,
+      45056,
+      45056,
+      12288,
+      8192
+    ],
+    "coarse_flat_land_counts": [
+      60,
+      15
+    ],
+    "score": 3.1783078125,
+    "step": 16,
+    "fine_symmetry": {
+      "z": 0.2878,
+      "x": 0.1839
+    },
+    "best_fine_symmetry": 0.1839,
+    "fine_island_areas_proxy": [
+      879872,
+      279552,
+      125440,
+      48896,
+      40960,
+      14848,
+      11264,
+      8192,
+      768
+    ],
+    "fine_islands": 9,
+    "approximation_only": true
+  }
+}

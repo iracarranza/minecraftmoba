@@ -1,0 +1,19 @@
+{
+  "snapshot_date": "2026-10-14",
+  "base_commit": "7fec4bacad89f8d4c888698fad84c9e5be7e8522",
+  "cubiomes_commit": "ca9fcb4e2b4f29a88b15a19fe1f00a73bf503ec2",
+  "native_probe_sha256": "f3a22ed133f316edab20439a917dc071444b442f31d24d81bb789db67752f439",
+  "original_shared_compiler_sha256": "4167ab54d9a928dd79371de032776f82554b6928323e9fd014c2b07e94aef133",
+  "review_base_compiler_sha256": "091ae2d09b9c7d80b21eebd55d3f4c67345da769c7212786639886e897677cca",
+  "compiler_note": "Shared checkout has a separate authored-Fountain runtime-bindings change not included here. Search and pre-authoring compiler gates are unchanged by that diff. Historical evidence carries its own production compiler hash. Hash mismatches are not silently asserted identical.",
+  "raw_exclusions": [
+    "Official Mojang server jars and generated worlds",
+    "Third-party Cubiomes checkout/binaries",
+    "Native probe raster caches",
+    "Bulk surface grids and candidate feature grids",
+    "Unselected intermediate layout trials",
+    "Live Default catalogues and coordinator state",
+    "Unrelated plugin/classes/relational siting/runtime bindings edits"
+  ],
+  "local_path_caveat": "Archived evidence retains original absolute local paths for provenance. Those paths will not exist on another computer; reconstruct the source directories or map the prefix explicitly before replaying commands."
+}

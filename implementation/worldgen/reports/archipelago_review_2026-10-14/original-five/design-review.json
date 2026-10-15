@@ -1,0 +1,15 @@
+{
+  "status": "User design review; basic gameplay pass does not imply design approval",
+  "rejected": [
+    890000020,
+    890001592
+  ],
+  "acceptable_prospects": [
+    890001347,
+    890001687,
+    890001809
+  ],
+  "closest_to_preferred_pattern": 890001809,
+  "canonical_direction": "maps.md \u2014 Archipelago placement and readability",
+  "new_type_specific_checks_implemented": false
+}
