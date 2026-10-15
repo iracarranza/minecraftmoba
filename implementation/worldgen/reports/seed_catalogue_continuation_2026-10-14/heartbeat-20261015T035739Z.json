@@ -1,0 +1,27 @@
+{
+  "heartbeat_event_utc": "2026-10-15T03:57:39.852Z",
+  "checked_unix": 1792036809.106661,
+  "worker_actions": "Retained both live locked workers and existing index watcher; no duplicate or rewind",
+  "native": {
+    "worker_pid": 21178,
+    "next_seed": 910005135,
+    "unique_seeds_measured": 5134,
+    "distinct_regions_measured": 513400,
+    "orientations_measured": 2053600,
+    "retained_bytes_estimate": 1602589490,
+    "max_storage_bytes": 4294967296,
+    "status": "running"
+  },
+  "actual": {
+    "worker_pid": 27216,
+    "next_job": 3832,
+    "actual_partial_compilations": 3832,
+    "default_regional_passes": 141,
+    "homebase_partial_passes": 1335,
+    "partial_front_end_passes": 18,
+    "errors": 0,
+    "status": "running"
+  },
+  "fully_qualified_new_maps": 0,
+  "schedule_correction": "schedule-correction-2026-10-15.json"
+}

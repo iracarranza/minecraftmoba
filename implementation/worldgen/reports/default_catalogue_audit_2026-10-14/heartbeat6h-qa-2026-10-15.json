@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "qa_kind": "incremental actual-record snapshot; unchanged prior corpus not reread",
+  "checked_unix": 1792054811.321766,
+  "baseline_cursor": 23066,
+  "baseline_byte_offset": 123296510,
+  "new_records_checked": 5713,
+  "delta_counts": {
+    "full_25_value_vectors": 5524,
+    "default_regional_passes": 189,
+    "homebase_partial_passes": 1999,
+    "combined_partial_passes": 35,
+    "no_coarse_home_pair_records": 189,
+    "independent_24_value_vectors": 189
+  },
+  "totals_at_snapshot": {
+    "actual_partial_records": 28779,
+    "distinct_existing_seeds": 40,
+    "distinct_windows": 7562,
+    "full_25_value_vectors": 27836,
+    "independent_24_value_vectors": 943,
+    "default_regional_pass_records": 988,
+    "distinct_seeds_with_default_regional_pass": 30,
+    "homebase_partial_pass_records": 10019,
+    "combined_partial_pass_records": 133,
+    "distinct_seeds_with_combined_partial_pass": 17,
+    "fully_qualified_new_seeds": 0
+  },
+  "snapshot_cursor": 28779,
+  "checkpoint_before_cursor": 28779,
+  "checkpoint_after_cursor": 28779,
+  "worker_pid": 79152,
+  "worker_status": "running",
+  "errors": 0,
+  "duplicate_ids": 0,
+  "missing_vectors": 0,
+  "source_validation": {
+    "prior_verified_complete_source_windows": 46,
+    "source_windows_stat_checked": 46,
+    "source_files_modified_since_verified_snapshot": [],
+    "unchanged_sources_not_rehashed": 46,
+    "source_scope": "Prior46/46 complete actual grids and hashes; only changed sources would be rehashed in this incremental QA."
+  },
+  "legacy_backfill_supplements_retained": 35,
+  "supplements_add_observations": 0,
+  "manifest_jobs": 60848,
+  "problems": [],
+  "worker_started_stopped_or_restarted": false,
+  "limitations": [
+    "40 existing cached seeds; rows are window/orientation records, not new seeds.",
+    "36archipelago+10Pale source windows; selection bias retained.",
+    "Combinedpartial means Defaultregional+sampledHomebase+Fountainpair175+sampledsymmetry; full gameplay/allnine175/physicalfit/READY unknown."
+  ]
+}

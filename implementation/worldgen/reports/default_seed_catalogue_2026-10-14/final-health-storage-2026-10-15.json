@@ -1,0 +1,17 @@
+{
+  "checked_unix": 1792051360.332808,
+  "static_source_component_bytes": {
+    "gzip_measurements": 2316059102,
+    "seed_summaries": 18688292,
+    "raw_native_grids": 513556064,
+    "sqlite": 1400827904,
+    "integration_feed": 15362188
+  },
+  "static_source_component_total": 4264493550,
+  "recorded_stopping_estimate_bytes": 4295677670,
+  "max_storage_bytes": 4294967296,
+  "budget_preserved": true,
+  "interpretation": "The producer stopped when its complete-batch estimate crossed the 4GiB cap. SQLite subsequently checkpointed its WAL; the static files now occupy slightly less than that conservative stopping estimate. This audit does not authorize restarting or changing the limit.",
+  "producer_source_hash_matches": true,
+  "native_binary_hash_matches": true
+}

@@ -1,0 +1,112 @@
+{
+  "status": "continuation_checked",
+  "time_unix": 1792034908.799339,
+  "mode": "ensure",
+  "native_before": {
+    "pid": 21178,
+    "process": "protected",
+    "lock_held": true,
+    "active_or_protected": true,
+    "stop_requested": false,
+    "storage_budget_reached": false,
+    "failure": null,
+    "safe_to_start": false,
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/checkpoint.json",
+    "next_seed": 910001907,
+    "counts": {
+      "unique_seeds_measured": 1906,
+      "distinct_regions_measured": 190600,
+      "orientations_measured": 762400
+    }
+  },
+  "actual_before": {
+    "pid": 27216,
+    "process_state": "permission_protected",
+    "lock_held": true,
+    "active_or_protected": true,
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/checkpoint.json",
+    "next_job": 1364,
+    "status": "running",
+    "stop_requested": false,
+    "legacy_worker_without_lock": false,
+    "catalogue_complete": false,
+    "safe_to_start": false
+  },
+  "native_action": {
+    "action": "kept_existing_or_preserved_stop",
+    "reason": {
+      "pid": 21178,
+      "process": "protected",
+      "lock_held": true,
+      "active_or_protected": true,
+      "stop_requested": false,
+      "storage_budget_reached": false,
+      "failure": null,
+      "safe_to_start": false,
+      "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/checkpoint.json",
+      "next_seed": 910001907,
+      "counts": {
+        "unique_seeds_measured": 1906,
+        "distinct_regions_measured": 190600,
+        "orientations_measured": 762400
+      }
+    }
+  },
+  "actual_action": {
+    "action": "kept_existing_or_stopped",
+    "worker": {
+      "pid": 27216,
+      "process_state": "permission_protected",
+      "lock_held": true,
+      "active_or_protected": true,
+      "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/checkpoint.json",
+      "next_job": 1365,
+      "status": "running",
+      "stop_requested": false,
+      "legacy_worker_without_lock": false,
+      "catalogue_complete": false,
+      "safe_to_start": false
+    }
+  },
+  "index_refresh": {
+    "generated_at_utc": "2026-10-15T03:28:40.090872+00:00",
+    "records": 799948,
+    "distinct_seeds": 3446,
+    "source_scoop_identities": 799947,
+    "new_or_updated_records_this_refresh": 38691
+  },
+  "index_watcher": {
+    "status": "existing index watcher retained",
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_catalogue_index_2026-10-14/watcher.json"
+  },
+  "native_after": {
+    "pid": 21178,
+    "process": "protected",
+    "lock_held": true,
+    "active_or_protected": true,
+    "stop_requested": false,
+    "storage_budget_reached": false,
+    "failure": null,
+    "safe_to_start": false,
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/checkpoint.json",
+    "next_seed": 910001917,
+    "counts": {
+      "unique_seeds_measured": 1916,
+      "distinct_regions_measured": 191600,
+      "orientations_measured": 766400
+    }
+  },
+  "actual_after": {
+    "pid": 27216,
+    "process_state": "permission_protected",
+    "lock_held": true,
+    "active_or_protected": true,
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/checkpoint.json",
+    "next_job": 1373,
+    "status": "running",
+    "stop_requested": false,
+    "legacy_worker_without_lock": false,
+    "catalogue_complete": false,
+    "safe_to_start": false
+  }
+}

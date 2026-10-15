@@ -1,0 +1,118 @@
+{
+  "schema": "default_catalogue_review/1",
+  "status": "User paused; review snapshot only",
+  "native": {
+    "unique_seeds": 13916,
+    "distinct_regions": 1391600,
+    "orientations": 5566400,
+    "first_seed": 910000001,
+    "last_seed": 910013916,
+    "next_seed": 910013917,
+    "included_full_native_sample_seeds": [
+      910000001,
+      910000002,
+      910000376,
+      910003612,
+      910006958,
+      910012671,
+      910013915,
+      910013916
+    ],
+    "all_seed_summaries_included": true,
+    "full_native_bulk_included": false
+  },
+  "actual": {
+    "next_job": 46236,
+    "actual_partial_compilations": 46236,
+    "partial_front_end_passes": 217,
+    "default_regional_passes": 1593,
+    "homebase_partial_passes": 16074,
+    "recommended_partial_candidates": 204,
+    "errors": 0,
+    "rejection_counts": {
+      "NO_DEFAULT_REGIONAL_SHAPE": 43140,
+      "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 35979,
+      "ACTUAL_SYMMETRY_BOUND": 34460,
+      "FOUNTAIN_PAIR_175_UNPROVEN": 5267,
+      "NO_COARSE_HOME_PAIR": 1503,
+      "NO_HOMEBASE_SOCKET_PAIR": 81
+    },
+    "status": "stopped_at_checkpoint",
+    "started_unix": 1792051076.0736341,
+    "stop_by_unix": 1792067276.0736341,
+    "source_count": 46,
+    "distinct_source_seeds": 40,
+    "jobs_available": 60848,
+    "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/STOP",
+    "fully_qualified_new_seeds": 0,
+    "scope": "actual vanilla surface grids; Default regional contract, independent Homebase partial stage; all rejects retained",
+    "updated_unix": 1792065984.821836,
+    "worker_pid": 79152
+  },
+  "compressed_exact_sources": [
+    {
+      "source": "implementation/worldgen/reports/default_seed_catalogue_2026-10-14/seed-index.jsonl",
+      "source_bytes": 15362188,
+      "source_sha256": "defc9a9052e874c2b4ba8d88a04ee92a933b9cb9bb2bb1cb32b98b65572f6247",
+      "archive": "implementation/worldgen/reports/default_seed_catalogue_2026-10-14/seed-index.jsonl.gz",
+      "archive_bytes": 699150
+    },
+    {
+      "source": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/actual-partials.jsonl",
+      "source_bytes": 247182478,
+      "source_sha256": "9fd5e9325bc9378f72df416148ab5cd9605440c2c48c2185360e1d2a9cf6c248",
+      "archive": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/actual-partials.jsonl.gz",
+      "archive_bytes": 24586893
+    },
+    {
+      "source": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/manifest.json",
+      "source_bytes": 18824634,
+      "source_sha256": "5bccafd9344be7acb49359eb852e4c8115034e85bff3e36b0cd7fcc05be37df6",
+      "archive": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/manifest.json.gz",
+      "archive_bytes": 1788543
+    },
+    {
+      "source": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/regional-vector-supplements.jsonl",
+      "source_bytes": 69835,
+      "source_sha256": "3432a96c08f19bb0c33a50e50c5e9c79e4ae18b6592d875ad3e3176ad1f788a4",
+      "archive": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/regional-vector-supplements.jsonl.gz",
+      "archive_bytes": 6308
+    }
+  ],
+  "compiler_and_evaluator_snapshots": [
+    {
+      "source": "implementation/worldgen/terrain_harvest/map_compiler.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/terrain_harvest/map_compiler.py",
+      "sha256": "4167ab54d9a928dd79371de032776f82554b6928323e9fd014c2b07e94aef133"
+    },
+    {
+      "source": "implementation/worldgen/terrain_harvest/scoop.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/terrain_harvest/scoop.py",
+      "sha256": "637e87d29ff85debae4c073cdded6ecc9db2d3e5518078be2557d94761f5a3a9"
+    },
+    {
+      "source": "implementation/worldgen/terrain_harvest/map_types.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/terrain_harvest/map_types.py",
+      "sha256": "7d9f2d6b9d144f2c5e723a4f56f742dda02a965163c08811c550e10765f0d8fc"
+    },
+    {
+      "source": "implementation/worldgen/vanilla_search/evaluate.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/vanilla_search/evaluate.py",
+      "sha256": "ceead9ce35d644eb8a30ad635fc4f19ec51a137e2b68559eb3614892b5eea164"
+    },
+    {
+      "source": "implementation/worldgen/vanilla_search/task_a.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/vanilla_search/task_a.py",
+      "sha256": "a5ee63438fe8903b7d719b5e2ed9e3ef582012c3e0b6b29842d27dfca2901658"
+    },
+    {
+      "source": "implementation/worldgen/vanilla_search/fit.py",
+      "snapshot": "implementation/worldgen/reports/default_catalogue_review_2026-10-15/source-snapshots/implementation/worldgen/vanilla_search/fit.py",
+      "sha256": "7e918a2db2dd1b256a4a92387c455da222cea28b84a4a5f103a355e2f74038cd"
+    }
+  ],
+  "bulk_retention": "Full native measurements, raw grids, complete actual surface inputs and SQLite databases remain intact locally; only eight full native seeds are included. Actual partial results are included in full, with35append-only amendments.",
+  "qualification": "No Default native or actual partial observation is fully qualified. All gameplay checks and175-block spacing across allnineanchors remain required.",
+  "base_branch": "codex/archipelago-seed-review",
+  "base_commit": "409e9fc5e44ef3b30d1149e5ea664a16b9298684"
+}

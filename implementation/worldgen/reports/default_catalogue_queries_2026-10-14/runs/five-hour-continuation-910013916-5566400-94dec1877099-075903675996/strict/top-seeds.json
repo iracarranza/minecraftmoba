@@ -1,0 +1,1247 @@
+[
+  {
+    "seed": 910003612,
+    "distinct_matching_regions": 40,
+    "matching_orientations": 44,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 36175872,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        384,
+        -3072,
+        1536
+      ],
+      [
+        384,
+        1536,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910012671,
+    "distinct_matching_regions": 38,
+    "matching_orientations": 42,
+    "greedy_pairwise_disjoint_regions": 6,
+    "union_horizontal_area_blocks2": 37552128,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        2048,
+        -1792,
+        1024
+      ],
+      [
+        384,
+        -768,
+        1536
+      ],
+      [
+        -2048,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910000376,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 40,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 37224448,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        -3072,
+        1024
+      ],
+      [
+        2048,
+        -3072,
+        1024
+      ],
+      [
+        2048,
+        -1792,
+        1024
+      ],
+      [
+        -3072,
+        -768,
+        1536
+      ],
+      [
+        -3072,
+        1536,
+        1536
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        -1024,
+        1024,
+        2048
+      ],
+      [
+        0,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910002553,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 37158912,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        768,
+        -3072,
+        1024
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ],
+      [
+        -3072,
+        -3072,
+        2048
+      ],
+      [
+        1024,
+        1024,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910011826,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 40,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -512,
+        1024
+      ],
+      [
+        -1792,
+        768,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        768,
+        768,
+        1024
+      ],
+      [
+        2048,
+        -1792,
+        1024
+      ],
+      [
+        -768,
+        -1920,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910013895,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 36175872,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        768,
+        768,
+        1024
+      ],
+      [
+        2048,
+        -3072,
+        1024
+      ],
+      [
+        -3072,
+        -3072,
+        1536
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910011616,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 38,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 35782656,
+    "greedy_disjoint_region_keys": [
+      [
+        -1792,
+        768,
+        1024
+      ],
+      [
+        -1792,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        768,
+        -3072,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        -3072,
+        -3072,
+        1536
+      ],
+      [
+        -768,
+        1536,
+        1536
+      ],
+      [
+        1536,
+        1536,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910009848,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 39,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 34996224,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        768,
+        -1792,
+        1024
+      ],
+      [
+        768,
+        2048,
+        1024
+      ],
+      [
+        -768,
+        384,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ],
+      [
+        -3072,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910007064,
+    "distinct_matching_regions": 37,
+    "matching_orientations": 38,
+    "greedy_pairwise_disjoint_regions": 4,
+    "union_horizontal_area_blocks2": 35192832,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -1920,
+        1536
+      ],
+      [
+        -1920,
+        384,
+        1536
+      ],
+      [
+        384,
+        -3072,
+        1536
+      ],
+      [
+        384,
+        384,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910005294,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 38,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        2048,
+        -3072,
+        1024
+      ],
+      [
+        2048,
+        768,
+        1024
+      ],
+      [
+        -3072,
+        1536,
+        1536
+      ],
+      [
+        1536,
+        -1920,
+        1536
+      ],
+      [
+        -3072,
+        -3072,
+        2048
+      ],
+      [
+        -1024,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910004849,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 40,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -1792,
+        768,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        768,
+        2048,
+        1024
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910005821,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 36,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -1792,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        768,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        -3072,
+        -1920,
+        1536
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910001525,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 38,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 35979264,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        2048,
+        768,
+        1024
+      ],
+      [
+        -3072,
+        384,
+        1536
+      ],
+      [
+        384,
+        1536,
+        1536
+      ],
+      [
+        1024,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910004995,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 39,
+    "greedy_pairwise_disjoint_regions": 7,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -512,
+        1024
+      ],
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        -512,
+        -1792,
+        1024
+      ],
+      [
+        384,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ],
+      [
+        1536,
+        1536,
+        1536
+      ],
+      [
+        -1024,
+        1024,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910001247,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 39,
+    "greedy_pairwise_disjoint_regions": 7,
+    "union_horizontal_area_blocks2": 37355520,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -1792,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        768,
+        -1792,
+        1024
+      ],
+      [
+        384,
+        -768,
+        1536
+      ],
+      [
+        1024,
+        1024,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910002653,
+    "distinct_matching_regions": 36,
+    "matching_orientations": 38,
+    "greedy_pairwise_disjoint_regions": 5,
+    "union_horizontal_area_blocks2": 36864000,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -1920,
+        1536
+      ],
+      [
+        -3072,
+        384,
+        1536
+      ],
+      [
+        -768,
+        384,
+        1536
+      ],
+      [
+        384,
+        -3072,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910013101,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 37355520,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -1792,
+        1024
+      ],
+      [
+        -3072,
+        -512,
+        1024
+      ],
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -1792,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        -3072,
+        1024
+      ],
+      [
+        768,
+        -3072,
+        1024
+      ],
+      [
+        768,
+        2048,
+        1024
+      ],
+      [
+        1024,
+        -2048,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910010235,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 36,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 36569088,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -1792,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -1792,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        2048,
+        -1792,
+        1024
+      ],
+      [
+        2048,
+        2048,
+        1024
+      ],
+      [
+        -768,
+        -3072,
+        1536
+      ],
+      [
+        -768,
+        1536,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910002351,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 36044800,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -512,
+        1024
+      ],
+      [
+        -3072,
+        2048,
+        1024
+      ],
+      [
+        -512,
+        -3072,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        768,
+        2048,
+        1024
+      ],
+      [
+        -1920,
+        -1920,
+        1536
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910005854,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 36,
+    "greedy_pairwise_disjoint_regions": 9,
+    "union_horizontal_area_blocks2": 32440320,
+    "greedy_disjoint_region_keys": [
+      [
+        -1792,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        768,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        768,
+        -1792,
+        1024
+      ],
+      [
+        2048,
+        -1792,
+        1024
+      ],
+      [
+        -3072,
+        -1920,
+        1536
+      ],
+      [
+        -768,
+        -3072,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910001943,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 36,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 36175872,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        -3072,
+        1024
+      ],
+      [
+        768,
+        -512,
+        1024
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910011071,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 36175872,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -3072,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        768,
+        768,
+        1024
+      ],
+      [
+        768,
+        2048,
+        1024
+      ],
+      [
+        -768,
+        -3072,
+        1536
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1024,
+        -2048,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910004576,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 35,
+    "greedy_pairwise_disjoint_regions": 8,
+    "union_horizontal_area_blocks2": 35979264,
+    "greedy_disjoint_region_keys": [
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        768,
+        1024
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ],
+      [
+        1536,
+        -768,
+        1536
+      ],
+      [
+        -3072,
+        1024,
+        2048
+      ],
+      [
+        -1024,
+        -3072,
+        2048
+      ],
+      [
+        1024,
+        1024,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910005806,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 36,
+    "greedy_pairwise_disjoint_regions": 7,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -512,
+        1024
+      ],
+      [
+        -1792,
+        -1792,
+        1024
+      ],
+      [
+        -1792,
+        -512,
+        1024
+      ],
+      [
+        -512,
+        2048,
+        1024
+      ],
+      [
+        2048,
+        -512,
+        1024
+      ],
+      [
+        -768,
+        -768,
+        1536
+      ],
+      [
+        1536,
+        -3072,
+        1536
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  },
+  {
+    "seed": 910006255,
+    "distinct_matching_regions": 35,
+    "matching_orientations": 37,
+    "greedy_pairwise_disjoint_regions": 7,
+    "union_horizontal_area_blocks2": 37748736,
+    "greedy_disjoint_region_keys": [
+      [
+        -3072,
+        -1792,
+        1024
+      ],
+      [
+        -3072,
+        768,
+        1024
+      ],
+      [
+        768,
+        768,
+        1024
+      ],
+      [
+        -1920,
+        384,
+        1536
+      ],
+      [
+        -768,
+        -3072,
+        1536
+      ],
+      [
+        384,
+        -768,
+        1536
+      ],
+      [
+        1024,
+        -3072,
+        2048
+      ]
+    ],
+    "qualified": false,
+    "ready": false
+  }
+]

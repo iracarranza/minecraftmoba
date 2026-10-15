@@ -1,0 +1,86 @@
+{
+  "schema": "default_native_catalogue_final_health/1",
+  "checked_unix": 1792051467.842425,
+  "status": "complete_integrity_pass",
+  "elapsed_seconds": 257.2,
+  "producer_state": {
+    "status": "stopped_at_checkpoint",
+    "stop_reason": "storage_budget",
+    "worker_pid_recorded": 21178,
+    "lifetime_lock_free": true,
+    "checkpoint_unchanged_during_full_audit": true,
+    "SQLite_WAL_empty": true,
+    "no_producer_launched": true,
+    "cap_preserved": true
+  },
+  "counts": {
+    "unique_seeds": 13916,
+    "distinct_regions": 1391600,
+    "orientation_records": 5566400,
+    "loose_end_land_orientations": 5028512,
+    "all_six_experimental_preferences_orientations": 486736,
+    "orientations_with_preference_misses_retained": 5079664,
+    "orientations_with_insufficient_coarse_end_land_retained": 537888,
+    "regional_band_vectors_verified": 38964800,
+    "native_raw_grid_samples_verified": 128249856
+  },
+  "cursor": {
+    "first_seed": 910000001,
+    "last_committed_seed": 910013916,
+    "next_seed": 910013917,
+    "contiguous": true,
+    "last_boundary_seed_has_all_400_orientations": true
+  },
+  "integrity": {
+    "SQLite_quick_check": "ok",
+    "seeds_with_wrong_window_count": [],
+    "orphan_window_rows": 0,
+    "full_gzip_CRC_and_JSON_verified_for_every_seed": true,
+    "all_records_vectors_histograms_misses_unknowns_verified": true,
+    "all_raw_headers_and_body_lengths_verified": true,
+    "seed_summaries_and_SQL_counts_match_all_archives": true,
+    "compact_feed_unique_complete": true,
+    "file_counts": {
+      "seeds": 13916,
+      "windows": 13916,
+      "raw_probes": 13916
+    },
+    "temporary_files_left": []
+  },
+  "preference_count_distribution": {
+    "1": 72063,
+    "2": 857495,
+    "3": 1523041,
+    "4": 1619664,
+    "5": 1007401,
+    "6": 486736
+  },
+  "unknown_check_record_counts": {
+    "actual_vanilla_terrain": 5566400,
+    "Homebase_Core_fit": 5566400,
+    "hinterlands_and_routes": 5566400,
+    "objective_placement": 5566400,
+    "all_nine_anchor_175_block_spacing": 5566400,
+    "Lair": 5566400,
+    "resources_and_opening_ceiling": 5566400,
+    "physical_column_fit": 5566400,
+    "runtime_READY": 5566400
+  },
+  "budget": {
+    "recorded_max_bytes": 4294967296,
+    "recorded_retained_bytes_estimate": 4295677670,
+    "overshoot_bytes": 710374,
+    "overshoot_fraction": 0.00016539683565497398,
+    "interpretation": "Stopped after committing a complete two-seed batch, producing a small bounded checkpoint overshoot; the storage cap was not raised or reset."
+  },
+  "recoverable_notes": {
+    "explicit_river_family_missing_seed_ids": [
+      910000001,
+      910000002
+    ],
+    "missing_river_field_orientation_count": 800,
+    "raw_biome_IDs_retained_for_these_seeds": true,
+    "dry_land_compatibility_names": "Non-ocean biome proxy; no verified actual dryness, gameplay or READY qualification."
+  },
+  "actions": "Audited existing source outputs only and wrote health evidence. No evidence deletion, producer restart, cursor change, policy refresh or cap change."
+}

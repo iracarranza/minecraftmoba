@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "portable_verification": {
+    "files_verified": 185,
+    "native_seed_summaries": 13916,
+    "native_full_samples": 8,
+    "actual_records": 46236,
+    "default_regional_passes": 1593,
+    "homebase_partial_passes": 16074,
+    "combined_partial_passes": 217,
+    "duplicates": 0,
+    "missing_vectors_after35amendments": 0,
+    "source_hashes_verified": true,
+    "manifest_prefix_verified": true,
+    "actual_record_compiler_matches_archival_snapshot": true
+  },
+  "python_syntax_files": 16,
+  "safe_method_imports": 9,
+  "paused_worker_locks": "all three free; durable STOP files retained; automation PAUSED",
+  "scope": "Evidence and package verification only, no world regeneration or gameplay qualification",
+  "full_actual_qa": "../default_catalogue_paused_final_qa_2026-10-15/audit.json",
+  "diff_whitespace_check": "Pass for active methods/docs/data; verbatim archival source snapshots exempt so their original hashes remain exact."
+}

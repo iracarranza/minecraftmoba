@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "checked_unix": 1792034420.849479,
+  "native_pid_preserved": 21178,
+  "actual_pid_preserved": 20533,
+  "native_cursor_advanced": [
+    910000921,
+    910001043
+  ],
+  "actual_cursor_advanced": [
+    826,
+    914
+  ],
+  "two_ensure_runs_kept_existing_workers": true,
+  "index_watcher_result": {
+    "status": "existing index watcher retained",
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_catalogue_index_2026-10-14/watcher.json"
+  },
+  "notes": [
+    "The legacy actual worker PID is permission-protected and correctly treated as alive.",
+    "Duplicate prevention and independent worker resume/append tests are also recorded by each lane."
+  ]
+}

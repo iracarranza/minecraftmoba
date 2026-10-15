@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "canonical_vectors_compared_exactly": 40,
+  "orientations_checked": 8,
+  "independent_metrics_each": 24,
+  "missing_home_regression_id": "0065782bd75539cb9daf",
+  "acceptance_unchanged": true,
+  "canonical_modules_modified": false
+}

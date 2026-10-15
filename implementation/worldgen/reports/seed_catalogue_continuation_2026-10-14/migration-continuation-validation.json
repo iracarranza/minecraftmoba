@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checked_unix": 1792034922.246987,
+  "actual_pid": 27216,
+  "actual_worker_locked": true,
+  "native_kept": true,
+  "actual_kept": true,
+  "index_watcher_result": {
+    "status": "existing index watcher retained",
+    "checkpoint": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/seed_catalogue_index_2026-10-14/watcher.json"
+  }
+}

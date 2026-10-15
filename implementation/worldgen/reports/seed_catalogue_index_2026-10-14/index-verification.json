@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "checks": {
+    "reflection_has_distinct_identity": true,
+    "failures_retained": true,
+    "unknowns_retained": true,
+    "partial_is_not_qualified": true,
+    "rejected_user_reference_excluded": true,
+    "truncated_tail_deferred": true,
+    "appended_tail_imported_once": true,
+    "complete_line_offset_correct": true
+  }
+}

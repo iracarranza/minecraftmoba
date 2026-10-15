@@ -1,0 +1,306 @@
+{
+  "schema": "default_native_size_coverage/1",
+  "design_status": "Prototype/test descriptive policy coverage",
+  "captured_at_utc": "2026-10-15T09:02:33.570647+00:00",
+  "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+  "saved_query_run": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_catalogue_queries_2026-10-14/runs/five-hour-continuation-910013916-5566400-94dec1877099-075903675996",
+  "native_seeds": 13916,
+  "maximum_seed": 910013916,
+  "measured_regions": 1391600,
+  "measured_orientations": 5566400,
+  "new_index_aggregation_seconds": 7.292,
+  "policies": {
+    "strict": {
+      "min_ocean_fraction": 0.0,
+      "max_ocean_fraction": 0.75,
+      "min_ocean_gradient": 0.1,
+      "min_western_height_advantage": 3.0,
+      "min_end_flat_cells": 12,
+      "max_mirror_ratio": 0.3,
+      "sizes": [
+        1024,
+        1536,
+        2048,
+        3072
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "min_distinct_regions": 1,
+      "rank_by": "distinct-regions"
+    },
+    "looser": {
+      "min_ocean_fraction": 0,
+      "max_ocean_fraction": 0.9,
+      "min_ocean_gradient": 0.0,
+      "min_western_height_advantage": 0.0,
+      "min_end_flat_cells": 8,
+      "max_mirror_ratio": 0.7,
+      "sizes": [
+        1024,
+        1536,
+        2048,
+        3072
+      ],
+      "rotations": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "min_distinct_regions": 1,
+      "rank_by": "distinct-regions"
+    }
+  },
+  "by_size": {
+    "1024": {
+      "size_blocks": 1024,
+      "measured_seeds": 13916,
+      "measured_regions": 347900,
+      "measured_orientations": 1391600,
+      "sampled_cells_per_team_end": 40,
+      "strict": {
+        "seeds_with_at_least_one_matching_region": 12333,
+        "distinct_matching_regions": 29362,
+        "matching_orientations": 30083,
+        "fraction_of_measured_regions_matching": 0.084398,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 0,
+          "p10": 0,
+          "median": 2.0,
+          "p90": 4,
+          "max": 8
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 12,
+        "required_fraction_of_sampled_team_end_cells": 0.3
+      },
+      "looser": {
+        "seeds_with_at_least_one_matching_region": 13916,
+        "distinct_matching_regions": 208069,
+        "matching_orientations": 292190,
+        "fraction_of_measured_regions_matching": 0.598071,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 4,
+          "p10": 11,
+          "median": 15.0,
+          "p90": 18,
+          "max": 24
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 8,
+        "required_fraction_of_sampled_team_end_cells": 0.2
+      },
+      "looser_minus_strict_distinct_regions": 178707
+    },
+    "1536": {
+      "size_blocks": 1536,
+      "measured_seeds": 13916,
+      "measured_regions": 347900,
+      "measured_orientations": 1391600,
+      "sampled_cells_per_team_end": 96,
+      "strict": {
+        "seeds_with_at_least_one_matching_region": 13752,
+        "distinct_matching_regions": 58530,
+        "matching_orientations": 60419,
+        "fraction_of_measured_regions_matching": 0.168238,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 0,
+          "p10": 2,
+          "median": 4.0,
+          "p90": 7,
+          "max": 12
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 12,
+        "required_fraction_of_sampled_team_end_cells": 0.125
+      },
+      "looser": {
+        "seeds_with_at_least_one_matching_region": 13916,
+        "distinct_matching_regions": 268290,
+        "matching_orientations": 368866,
+        "fraction_of_measured_regions_matching": 0.77117,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 8,
+          "p10": 16,
+          "median": 19.0,
+          "p90": 22,
+          "max": 25
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 8,
+        "required_fraction_of_sampled_team_end_cells": 0.083333
+      },
+      "looser_minus_strict_distinct_regions": 209760
+    },
+    "2048": {
+      "size_blocks": 2048,
+      "measured_seeds": 13916,
+      "measured_regions": 347900,
+      "measured_orientations": 1391600,
+      "sampled_cells_per_team_end": 160,
+      "strict": {
+        "seeds_with_at_least_one_matching_region": 13873,
+        "distinct_matching_regions": 76367,
+        "matching_orientations": 79362,
+        "fraction_of_measured_regions_matching": 0.219508,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 0,
+          "p10": 3,
+          "median": 5.0,
+          "p90": 8,
+          "max": 14
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 12,
+        "required_fraction_of_sampled_team_end_cells": 0.075
+      },
+      "looser": {
+        "seeds_with_at_least_one_matching_region": 13916,
+        "distinct_matching_regions": 288430,
+        "matching_orientations": 399147,
+        "fraction_of_measured_regions_matching": 0.82906,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 11,
+          "p10": 18,
+          "median": 21.0,
+          "p90": 23,
+          "max": 25
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 8,
+        "required_fraction_of_sampled_team_end_cells": 0.05
+      },
+      "looser_minus_strict_distinct_regions": 212063
+    },
+    "3072": {
+      "size_blocks": 3072,
+      "measured_seeds": 13916,
+      "measured_regions": 347900,
+      "measured_orientations": 1391600,
+      "sampled_cells_per_team_end": 384,
+      "strict": {
+        "seeds_with_at_least_one_matching_region": 13852,
+        "distinct_matching_regions": 88941,
+        "matching_orientations": 93212,
+        "fraction_of_measured_regions_matching": 0.255651,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 0,
+          "p10": 3,
+          "median": 6.0,
+          "p90": 10,
+          "max": 19
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 12,
+        "required_fraction_of_sampled_team_end_cells": 0.03125
+      },
+      "looser": {
+        "seeds_with_at_least_one_matching_region": 13916,
+        "distinct_matching_regions": 299272,
+        "matching_orientations": 425934,
+        "fraction_of_measured_regions_matching": 0.860224,
+        "per_seed_matching_region_count_quantiles": {
+          "min": 10,
+          "p10": 19,
+          "median": 22.0,
+          "p90": 24,
+          "max": 25
+        },
+        "flat_non_ocean_cells_required_at_each_team_end": 8,
+        "required_fraction_of_sampled_team_end_cells": 0.020833
+      },
+      "looser_minus_strict_distinct_regions": 210331
+    }
+  },
+  "coverage": {
+    "strict": {
+      "unique_seeds_with_any_matching_region": 13916,
+      "distinct_matching_regions": 253200,
+      "matching_orientations": 263076,
+      "seed_counts_by_matching_size_pattern": {
+        "1024+1536+2048": 57,
+        "1024+1536+2048+3072": 12120,
+        "1024+1536+3072": 34,
+        "1024+2048+3072": 119,
+        "1024+3072": 3,
+        "1536+2048": 6,
+        "1536+2048+3072": 1530,
+        "1536+3072": 5,
+        "2048": 1,
+        "2048+3072": 40,
+        "3072": 1
+      },
+      "seed_counts_by_number_of_matching_sizes": {
+        "1": 2,
+        "2": 54,
+        "3": 1740,
+        "4": 12120
+      },
+      "seed_counts_by_smallest_matching_size": {
+        "1024": 12333,
+        "1536": 1541,
+        "2048": 41,
+        "3072": 1
+      },
+      "saved_seed_breadth_quantiles": {
+        "min": 3,
+        "p10": 12,
+        "median": 18.0,
+        "p90": 25,
+        "max": 40
+      },
+      "saved_greedy_disjoint_count_quantiles": {
+        "min": 1,
+        "p10": 4,
+        "median": 5.0,
+        "p90": 7,
+        "max": 11
+      },
+      "saved_sum_greedy_disjoint_regions": 72059,
+      "region_choices_per_saved_greedy_disjoint_selection": 3.5138,
+      "overlap_note": "Region choices can overlap. Greedy disjoint counts are saved lower-bound packings, not exact maximum independent counts."
+    },
+    "looser": {
+      "unique_seeds_with_any_matching_region": 13916,
+      "distinct_matching_regions": 1064061,
+      "matching_orientations": 1486137,
+      "seed_counts_by_matching_size_pattern": {
+        "1024+1536+2048+3072": 13916
+      },
+      "seed_counts_by_number_of_matching_sizes": {
+        "4": 13916
+      },
+      "seed_counts_by_smallest_matching_size": {
+        "1024": 13916
+      },
+      "saved_seed_breadth_quantiles": {
+        "min": 44,
+        "p10": 69,
+        "median": 77.0,
+        "p90": 83,
+        "max": 94
+      },
+      "saved_greedy_disjoint_count_quantiles": {
+        "min": 8,
+        "p10": 13,
+        "median": 16.0,
+        "p90": 19,
+        "max": 24
+      },
+      "saved_sum_greedy_disjoint_regions": 221695,
+      "region_choices_per_saved_greedy_disjoint_selection": 4.7997,
+      "overlap_note": "Region choices can overlap. Greedy disjoint counts are saved lower-bound packings, not exact maximum independent counts."
+    }
+  },
+  "new_unique_seeds_gained_by_looser_policy": 0,
+  "additional_region_choices_from_looser_policy": 810861,
+  "validation": "Size aggregates sum exactly to the existing saved same-snapshot strict/looser region and orientation counts.",
+  "native_search_restarted": false,
+  "terrain_scans": 0,
+  "producer_processes_started": 0,
+  "qualified": false,
+  "ready": false,
+  "limits": [
+    "Native non-ocean is not actual dry land; end-flat samples are not physical Core fits.",
+    "Region bounds and sizes define choices, not independent or playable maps. Rotations are counted separately.",
+    "The same absolute flat-cell threshold imposes a different sampled-end density at different scoop sizes.",
+    "No gameplay, all-nine-anchor 175-block, Lair, resources, actual column fit or runtime qualification is performed."
+  ]
+}

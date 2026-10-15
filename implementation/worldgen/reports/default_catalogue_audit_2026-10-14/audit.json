@@ -1,0 +1,1664 @@
+{
+  "status": "pass",
+  "snapshot_unix": 1792051097.433609,
+  "snapshot": {
+    "bytes": 123296510,
+    "discarded_incomplete_tail_bytes": 0
+  },
+  "error_snapshot": {
+    "bytes": 0,
+    "discarded_incomplete_tail_bytes": 0
+  },
+  "supplement_snapshot": {
+    "bytes": 69835,
+    "discarded_incomplete_tail_bytes": 0
+  },
+  "checkpoint_before": {
+    "next_job": 23066,
+    "actual_partial_compilations": 23066,
+    "partial_front_end_passes": 98,
+    "default_regional_passes": 799,
+    "homebase_partial_passes": 8020,
+    "recommended_partial_candidates": 93,
+    "errors": 0,
+    "rejection_counts": {
+      "NO_DEFAULT_REGIONAL_SHAPE": 21513,
+      "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 17966,
+      "ACTUAL_SYMMETRY_BOUND": 17200,
+      "FOUNTAIN_PAIR_175_UNPROVEN": 2623,
+      "NO_COARSE_HOME_PAIR": 754,
+      "NO_HOMEBASE_SOCKET_PAIR": 35
+    },
+    "status": "running",
+    "started_unix": 1792051076.0736341,
+    "stop_by_unix": 1792067276.0736341,
+    "source_count": 46,
+    "distinct_source_seeds": 40,
+    "jobs_available": 60848,
+    "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/STOP",
+    "fully_qualified_new_seeds": 0,
+    "scope": "actual vanilla surface grids; Default regional contract, independent Homebase partial stage; all rejects retained",
+    "updated_unix": 1792051097.3570292,
+    "worker_pid": 79152
+  },
+  "checkpoint_after": {
+    "next_job": 23067,
+    "actual_partial_compilations": 23067,
+    "partial_front_end_passes": 98,
+    "default_regional_passes": 799,
+    "homebase_partial_passes": 8020,
+    "recommended_partial_candidates": 93,
+    "errors": 0,
+    "rejection_counts": {
+      "NO_DEFAULT_REGIONAL_SHAPE": 21514,
+      "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 17967,
+      "ACTUAL_SYMMETRY_BOUND": 17201,
+      "FOUNTAIN_PAIR_175_UNPROVEN": 2623,
+      "NO_COARSE_HOME_PAIR": 754,
+      "NO_HOMEBASE_SOCKET_PAIR": 35
+    },
+    "status": "running",
+    "started_unix": 1792051076.0736341,
+    "stop_by_unix": 1792067276.0736341,
+    "source_count": 46,
+    "distinct_source_seeds": 40,
+    "jobs_available": 60848,
+    "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/STOP",
+    "fully_qualified_new_seeds": 0,
+    "scope": "actual vanilla surface grids; Default regional contract, independent Homebase partial stage; all rejects retained",
+    "updated_unix": 1792051098.3235211,
+    "worker_pid": 79152
+  },
+  "counts": {
+    "actual_partial_records": 23066,
+    "measured_vectors": 23066,
+    "missing_vectors": 0,
+    "full_25_value_vectors": 22312,
+    "independent_24_value_vectors": 754,
+    "legacy_missing_vector_records": 35,
+    "supplements_applied": 35,
+    "supplement_records_not_counted_as_observations": 35,
+    "distinct_sampled_seeds": 40,
+    "distinct_sampled_windows": 7440,
+    "distinct_window_orientations": 23066,
+    "duplicate_ids": 0,
+    "source_windows": 46,
+    "distinct_source_seeds": 40,
+    "queued_window_orientations": 60848,
+    "default_regional_pass_records": 799,
+    "distinct_seeds_with_default_regional_pass": 29,
+    "homebase_partial_pass_records": 8020,
+    "combined_partial_pass_records": 98,
+    "distinct_seeds_with_combined_partial_pass": 16,
+    "fully_qualified_new_seeds": 0,
+    "sampled_coordinate_records": 64,
+    "fountains_independently_checked": 119
+  },
+  "progress_integrity": {
+    "catalogue_is_exact_manifest_prefix_excluding_errors": true,
+    "record_count_bracketed_by_concurrent_checkpoint": true,
+    "before_count": 23066,
+    "snapshot_count": 23066,
+    "after_count": 23067,
+    "explanation": "Producer appends one record before atomically saving its next cursor; one in-flight record may be ahead of a checkpoint."
+  },
+  "source_bias": {
+    "families": {
+      "pale": 10,
+      "archipelago": 36
+    },
+    "sources_with_water_gt_0431": 36,
+    "median_source_water_fraction": 0.6467666625976562,
+    "source_scope": "Earlier selected archipelago/Pale windows, not a representative random sample of Default terrain. Existing worlds only; new windows do not count as newly found seeds."
+  },
+  "truth_limits": [
+    "Complete official-vanilla extracted surface grids and their hashes were checked; no native approximate probes are used in this lane.",
+    "Source completeness and hashes are validated; this audit does not independently regenerate worlds or prove every source block.",
+    "Eight-block actual surface sampling is partial evidence, never exact block-column physical or full gameplay qualification."
+  ],
+  "issues": [],
+  "duplicates": {},
+  "duplicate_supplements": {},
+  "supplement_failures": [],
+  "source_failures": [],
+  "schema_violations": [],
+  "missing_metric_keys": [],
+  "coordinate_failures": [],
+  "metric_ranges": {
+    "actual_river_mouth_sample_cells": {
+      "count": 23066,
+      "min": 0,
+      "median": 46.0,
+      "max": 268
+    },
+    "actual_river_water_cells": {
+      "count": 23066,
+      "min": 0,
+      "median": 805.0,
+      "max": 4917
+    },
+    "actual_surface_water_fraction": {
+      "count": 23066,
+      "min": 0.0157,
+      "median": 0.7256,
+      "max": 0.9999
+    },
+    "actual_water_body_count": {
+      "count": 23066,
+      "min": 1,
+      "median": 45.0,
+      "max": 238
+    },
+    "coastal_buildable_sample_cells": {
+      "count": 23066,
+      "min": 0,
+      "median": 177.0,
+      "max": 1167
+    },
+    "coastline_sample_edge_blocks": {
+      "count": 23066,
+      "min": 24,
+      "median": 7368.0,
+      "max": 57712
+    },
+    "east_actual_ocean_fraction": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 0.6054,
+      "max": 1.0
+    },
+    "east_coast_boundary_variation_blocks": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 233.95499999999998,
+      "max": 788.91
+    },
+    "east_coast_headland_cove_turns": {
+      "count": 23066,
+      "min": 0,
+      "median": 22.0,
+      "max": 96
+    },
+    "east_over_west_ocean_advantage": {
+      "count": 23066,
+      "min": -0.9914,
+      "median": 0.0,
+      "max": 0.9914
+    },
+    "forest_interior_depth_blocks": {
+      "count": 23066,
+      "min": 0,
+      "median": 128.0,
+      "max": 520
+    },
+    "forest_region_count": {
+      "count": 23066,
+      "min": 0,
+      "median": 20.0,
+      "max": 161
+    },
+    "highland_depth_blocks": {
+      "count": 23066,
+      "min": 0,
+      "median": 72.0,
+      "max": 1128
+    },
+    "highland_fraction_west": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 0.0672,
+      "max": 0.7968
+    },
+    "homeland_developability_bias": {
+      "count": 22312,
+      "min": 0.0,
+      "median": 0.2099,
+      "max": 1.0
+    },
+    "largest_actual_water_body_blocks2": {
+      "count": 23066,
+      "min": 6016,
+      "median": 976352.0,
+      "max": 3600704
+    },
+    "largest_forest_region_blocks2": {
+      "count": 23066,
+      "min": 0,
+      "median": 71936.0,
+      "max": 1457152
+    },
+    "local_relief_p90_y": {
+      "count": 23066,
+      "min": 7,
+      "median": 11.0,
+      "max": 33
+    },
+    "open_buildable_fraction_of_land": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 0.4057,
+      "max": 0.6492
+    },
+    "snow_cold_cells_west": {
+      "count": 23066,
+      "min": 0,
+      "median": 0.0,
+      "max": 9197
+    },
+    "steep_fraction": {
+      "count": 23066,
+      "min": 0.2259,
+      "median": 0.346,
+      "max": 0.6817
+    },
+    "west_actual_ocean_fraction": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 0.6068,
+      "max": 1.0
+    },
+    "western_approach_bands": {
+      "count": 23066,
+      "min": 0,
+      "median": 3.0,
+      "max": 21
+    },
+    "western_mean_elevation_advantage_y": {
+      "count": 23066,
+      "min": -81.906,
+      "median": -0.0175,
+      "max": 77.627
+    },
+    "western_wall_concentration": {
+      "count": 23066,
+      "min": 0.0,
+      "median": 0.0427,
+      "max": 1.0
+    }
+  },
+  "sources": [
+    {
+      "seed": 880041481,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/10_880041481/surface-sample.json",
+      "bounds": [
+        2064,
+        3663,
+        2128,
+        3439
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "7e0ad68398671fd2cc9fb1ec9a0dd408eafb64d5308e201c39c3b59bcfc99169",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.13945121951219513,
+      "actual_ocean_fraction": 0.04670731707317073,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 890000067,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_gameplay_2026-10-12/890000067/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "28b9671ca86ac6c6884973c31d1e42565dc281b1ab6bc854019942947de21b1d",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.8355865478515625,
+      "actual_ocean_fraction": 0.748931884765625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 880034673,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/03_880034673/surface-sample.json",
+      "bounds": [
+        720,
+        2319,
+        2336,
+        3647
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "1d1e49ce88138a2d96f49fb6a36d071ceb481312d636f3a605015cc8e5500953",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.13969512195121953,
+      "actual_ocean_fraction": 0.006981707317073171,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 890001674,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001674/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "27079868a5b6d2e40ae89f4bcf91da863f3b08f305973fc15966ee811c3341bb",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.77734375,
+      "actual_ocean_fraction": 0.6501007080078125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001674,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001674/surface.json",
+      "bounds": [
+        -256,
+        1535,
+        -384,
+        1407
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "9a1f51a77e58a8d91c04960b17de5aefd8ad5570136a8686d557ed959eeeabff",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7777224170918368,
+      "actual_ocean_fraction": 0.6476403061224489,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 890001927,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001927/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "01c20ce0ef097bb1dbcff5e4c64fe71237934a4b5eb3a17920c536a2a2858238",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.583160400390625,
+      "actual_ocean_fraction": 0.4305572509765625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001993,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001993/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "7f15c942e3831666240dbd06bbc7ca7d55d506f9cc119076e6374f9f82996b4f",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.737030029296875,
+      "actual_ocean_fraction": 0.64404296875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001147,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001147/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "93e1d1f0c72394cd6c07796964c153ff7ab7ab337c7feaab15c41d4771dd5598",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6833953857421875,
+      "actual_ocean_fraction": 0.5639495849609375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001697,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001697/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "5443a99663f7fc01b734121cb5357841c6d8c7570589942e851700e069294229",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.791046142578125,
+      "actual_ocean_fraction": 0.71978759765625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001719,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001719/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "bd6e752eb9967ef27e9897d0d76741a7e43a5f889a2d98c10739c09af71ce2e5",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6139984130859375,
+      "actual_ocean_fraction": 0.494964599609375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890006350,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890006350/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "35886d81cb212b1fec13a80cbf783c1c224a219e19300e63f8478a9ab3f0463c",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.852569580078125,
+      "actual_ocean_fraction": 0.799560546875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 880025303,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/02_880025303/surface-sample.json",
+      "bounds": [
+        -656,
+        943,
+        6656,
+        7967
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "dc3be6e6174299d892459485ecec65ca86bcd610996ad26cc491e5c1efd6e6d1",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.09765243902439025,
+      "actual_ocean_fraction": 0.0,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 890001269,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001269/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "eea761dbefd93fa3264500cfe1073eed1d96e12b1f1c81da784ba6c61a25bb1c",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6697845458984375,
+      "actual_ocean_fraction": 0.5244598388671875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001302,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001302/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "24ec1a75a26f5b1083bbc9861150c9cee36a0fd0d46516f8b392e0172f22babf",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6750335693359375,
+      "actual_ocean_fraction": 0.5771636962890625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001687,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001687/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "efd2025d12081e1c84c0b5d2dc7c9a890a9993c575a13d273456ced0e380baf5",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.573028564453125,
+      "actual_ocean_fraction": 0.448394775390625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890002226,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002226/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "d9ba38d487366721cc03ddc19509e10f4ef8c2eb8122b7355ca81a976f928863",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7667999267578125,
+      "actual_ocean_fraction": 0.65966796875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001347,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001347/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "1cf8fc51bfd6d24e702aa21780edbab062d392517dc7d0e0fad5d6ae486dcc04",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7055206298828125,
+      "actual_ocean_fraction": 0.581695556640625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001380,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001380/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "0be05443ea0ef33a12d8da60bdb3952ce63e5b5beccc8f9b63dd24a739dbb182",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.5570068359375,
+      "actual_ocean_fraction": 0.4423675537109375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001380,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001380/surface.json",
+      "bounds": [
+        -1536,
+        255,
+        -384,
+        1407
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "fc7855ef76969ecbfc31947ee02fd360ce75fbdcdd43b567f200af33bd589941",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.5684390943877551,
+      "actual_ocean_fraction": 0.4634287308673469,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 890001809,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001809/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "8743a1f709e0eee92e874180275f3ea86dd8b46b62b736a843f59ca239015eba",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.550506591796875,
+      "actual_ocean_fraction": 0.38946533203125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 880018254,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/01_880018254/surface-sample.json",
+      "bounds": [
+        -5216,
+        -4161,
+        5232,
+        6095
+      ],
+      "width": 132,
+      "height": 108,
+      "source_sha256": "1df80fdc959064bfa50558181a81c26d68f8833d7215ca9006730ba36ad7a7ff",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.0901374859708193,
+      "actual_ocean_fraction": 0.0,
+      "full_chunks": 3564,
+      "expected_chunks": 3564,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 14256
+    },
+    {
+      "seed": 890001381,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001381/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "776dcca6f419fb77e75cae224bed1dc488399bf22d27f145fbbe7038b7833e17",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6234130859375,
+      "actual_ocean_fraction": 0.48553466796875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001381,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001381/surface.json",
+      "bounds": [
+        -384,
+        1407,
+        -512,
+        1279
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "45891324010e519ef6ddd2ba3be455495fd6922a190ea9988c574c635e781b5c",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7032047193877551,
+      "actual_ocean_fraction": 0.5684390943877551,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 890004593,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890004593/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "8d7131d5e00c0e545ff0369ac77a77842bf427eea5b29eae1b06ce483d104c05",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.766143798828125,
+      "actual_ocean_fraction": 0.6409454345703125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 880009422,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/05_880009422/surface-sample.json",
+      "bounds": [
+        2672,
+        3727,
+        -5936,
+        -5073
+      ],
+      "width": 132,
+      "height": 108,
+      "source_sha256": "4ebb8872f4758bf461e967b59ae1b398e271027ee816b11ef4735ac43b32d165",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.16449214365881032,
+      "actual_ocean_fraction": 0.0028759820426487092,
+      "full_chunks": 3564,
+      "expected_chunks": 3564,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 14256
+    },
+    {
+      "seed": 880027968,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/08_880027968/surface-sample.json",
+      "bounds": [
+        1072,
+        1935,
+        1232,
+        2287
+      ],
+      "width": 108,
+      "height": 132,
+      "source_sha256": "9a92cd4733a48c0292ddfdc26eaef0a5ad3c220441a94f4faec4420a528234c7",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.16351010101010102,
+      "actual_ocean_fraction": 0.0295314253647587,
+      "full_chunks": 3564,
+      "expected_chunks": 3564,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 14256
+    },
+    {
+      "seed": 880038759,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/06_880038759/surface-sample.json",
+      "bounds": [
+        5136,
+        6735,
+        5232,
+        6543
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "93cf2abd34e1417b3da0a154660bfe4b0b89cee9d8a49dc57055f1b91259f974",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.11161585365853659,
+      "actual_ocean_fraction": 0.0,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 890000062,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_gameplay_2026-10-12/890000062/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "6ea028a22e0dab5ad02c8e2b90dc9f29ce01179caf588d155c7be9d5a50b30c6",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6951904296875,
+      "actual_ocean_fraction": 0.591827392578125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890000172,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_gameplay_2026-10-12/890000172/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "338748b2631caf760bc64ca18e544e8a43f80b98d682bc2a1c649d40b9d374a1",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.8171844482421875,
+      "actual_ocean_fraction": 0.7248382568359375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001074,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001074/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "af0adda1cd9ac3c4afa468d7deee8bf7588c7bf5c22addeacb5270fcac6948e3",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.608154296875,
+      "actual_ocean_fraction": 0.478851318359375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001592,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001592/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "5c94eadd81f82d533944c2c9a1cd9b08a6200ce5a8e04b339563a012c5579a0e",
+      "user_rejected_seed": true,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6276397705078125,
+      "actual_ocean_fraction": 0.5042877197265625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001625,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001625/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "c6e604d5b0b96e5c71b4cbff8c8bd7fe222f7165e6afc8a2160d8f76815c4554",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.5878448486328125,
+      "actual_ocean_fraction": 0.418670654296875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001757,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001757/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "b18de21ad0c8149cc36902095e0aadebf24bb0cb3a2d92e0075faf43feda9a58",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.62164306640625,
+      "actual_ocean_fraction": 0.5145263671875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001757,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001757/surface.json",
+      "bounds": [
+        -1024,
+        767,
+        -1536,
+        255
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "c3ac6bf9a9905d86323919a53f9d761278a705ba17f55db40d43ed93419e7f55",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6065648915816326,
+      "actual_ocean_fraction": 0.4943997130102041,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 880004452,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/04_880004452/surface-sample.json",
+      "bounds": [
+        2288,
+        3887,
+        -288,
+        1023
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "dceae837fe2c333850fe484644420de9c07b6585a24c7ff2b10c68232fcb3f39",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.1732621951219512,
+      "actual_ocean_fraction": 0.026554878048780487,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 880007268,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/09_880007268/surface-sample.json",
+      "bounds": [
+        3184,
+        4783,
+        -6400,
+        -5089
+      ],
+      "width": 200,
+      "height": 164,
+      "source_sha256": "56060458c632b14624478544e09323c9343d37c771a6f9b8fb26e4594c9d4347",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.38347560975609757,
+      "actual_ocean_fraction": 0.17942073170731707,
+      "full_chunks": 8200,
+      "expected_chunks": 8200,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 32800
+    },
+    {
+      "seed": 890000020,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_gameplay_2026-10-12/890000020/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "7e007d1b36633cba127c20c824cc4808b25b087ab39cdb4eb8433ee6f97ff43a",
+      "user_rejected_seed": true,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.61248779296875,
+      "actual_ocean_fraction": 0.4339141845703125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001967,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001967/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "bae716d84688b62c0cc09230d063f4841d25acf9c33f101fd6b52449ab4366fb",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7740478515625,
+      "actual_ocean_fraction": 0.6628570556640625,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001967,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001967/surface.json",
+      "bounds": [
+        -1280,
+        511,
+        -1280,
+        511
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "abfcb3e96e77639bc5a62960ceda3d8db1dbfeaa983e02de703da15ba3ee44dd",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.7732382015306123,
+      "actual_ocean_fraction": 0.6698222257653061,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 890002221,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002221/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "65c5f3211300affdc1f978c19b9c9bd33150d67bf33140376c35dacce6e46dbc",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.8193817138671875,
+      "actual_ocean_fraction": 0.7609405517578125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890002716,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002716/surface.json",
+      "bounds": [
+        -512,
+        1535,
+        -1024,
+        1023
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "2713066ffd920ab625c2bc353c69891def749e2088f8ca348627826f9b2f3c99",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.8094482421875,
+      "actual_ocean_fraction": 0.7344512939453125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 880006236,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/pale_gameplay_2026-10-12/attempts/07_880006236/surface-sample.json",
+      "bounds": [
+        -7872,
+        -6817,
+        256,
+        1119
+      ],
+      "width": 132,
+      "height": 108,
+      "source_sha256": "e9a767b476df6709debee02c8b9e689bcd0ea73a6756a2e2f12372534e7982e6",
+      "user_rejected_seed": false,
+      "source_family": "pale",
+      "actual_water_fraction": 0.10507856341189674,
+      "actual_ocean_fraction": 0.0,
+      "full_chunks": 3564,
+      "expected_chunks": 3564,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 14256
+    },
+    {
+      "seed": 890001331,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001331/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "6a3da063586bfcfd7d3e08b47feea04953e6eac4eb6e7af35f00f9511373aa43",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6674346923828125,
+      "actual_ocean_fraction": 0.52325439453125,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001716,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890001716/surface.json",
+      "bounds": [
+        -1536,
+        511,
+        -1536,
+        511
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "a18713395e731a7ced852d136d692f8c38a663d8b32280c5ff47e3c83d049023",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6658935546875,
+      "actual_ocean_fraction": 0.53924560546875,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    },
+    {
+      "seed": 890001716,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/cropped-1792/890001716/surface.json",
+      "bounds": [
+        -1280,
+        511,
+        -1536,
+        255
+      ],
+      "width": 224,
+      "height": 224,
+      "source_sha256": "fcd08f733eb5ff2b724076dd7b9772c30ba7dc466d97adc144e3cd1f8d2a7c25",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.6742466517857143,
+      "actual_ocean_fraction": 0.5508609693877551,
+      "full_chunks": 12544,
+      "expected_chunks": 12544,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 50176
+    },
+    {
+      "seed": 890002156,
+      "source_surface": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/archipelago_qualified_search_2026-10-12/generated/890002156/surface.json",
+      "bounds": [
+        -1024,
+        1023,
+        -512,
+        1535
+      ],
+      "width": 256,
+      "height": 256,
+      "source_sha256": "86bbd7852050b6a9bebb6138d099af713eafaaf450f22f6e835087ad4c920834",
+      "user_rejected_seed": false,
+      "source_family": "archipelago",
+      "actual_water_fraction": 0.8638916015625,
+      "actual_ocean_fraction": 0.801849365234375,
+      "full_chunks": 16384,
+      "expected_chunks": 16384,
+      "complete_actual_surface": true,
+      "ground_scan": true,
+      "columns": 65536
+    }
+  ],
+  "per_seed": [
+    {
+      "seed": 880004452,
+      "measured_orientations": 371,
+      "distinct_windows": 115,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 43,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880006236,
+      "measured_orientations": 3,
+      "distinct_windows": 1,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 0,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880007268,
+      "measured_orientations": 347,
+      "distinct_windows": 111,
+      "default_regional_passes": 18,
+      "homebase_partial_passes": 200,
+      "combined_partial_passes": 1,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880009422,
+      "measured_orientations": 5,
+      "distinct_windows": 1,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 0,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880018254,
+      "measured_orientations": 3,
+      "distinct_windows": 1,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 2,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880025303,
+      "measured_orientations": 338,
+      "distinct_windows": 113,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 89,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880027968,
+      "measured_orientations": 3,
+      "distinct_windows": 1,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 2,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880034673,
+      "measured_orientations": 353,
+      "distinct_windows": 114,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 50,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880038759,
+      "measured_orientations": 339,
+      "distinct_windows": 114,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 240,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 880041481,
+      "measured_orientations": 351,
+      "distinct_windows": 113,
+      "default_regional_passes": 2,
+      "homebase_partial_passes": 144,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890000020,
+      "measured_orientations": 601,
+      "distinct_windows": 198,
+      "default_regional_passes": 17,
+      "homebase_partial_passes": 429,
+      "combined_partial_passes": 3,
+      "user_rejected_seed": true
+    },
+    {
+      "seed": 890000062,
+      "measured_orientations": 585,
+      "distinct_windows": 195,
+      "default_regional_passes": 11,
+      "homebase_partial_passes": 309,
+      "combined_partial_passes": 1,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890000067,
+      "measured_orientations": 619,
+      "distinct_windows": 200,
+      "default_regional_passes": 1,
+      "homebase_partial_passes": 78,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890000172,
+      "measured_orientations": 607,
+      "distinct_windows": 196,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 56,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001074,
+      "measured_orientations": 637,
+      "distinct_windows": 198,
+      "default_regional_passes": 97,
+      "homebase_partial_passes": 293,
+      "combined_partial_passes": 17,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001147,
+      "measured_orientations": 595,
+      "distinct_windows": 197,
+      "default_regional_passes": 43,
+      "homebase_partial_passes": 228,
+      "combined_partial_passes": 9,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001269,
+      "measured_orientations": 609,
+      "distinct_windows": 189,
+      "default_regional_passes": 8,
+      "homebase_partial_passes": 256,
+      "combined_partial_passes": 4,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001302,
+      "measured_orientations": 634,
+      "distinct_windows": 197,
+      "default_regional_passes": 8,
+      "homebase_partial_passes": 336,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001331,
+      "measured_orientations": 602,
+      "distinct_windows": 197,
+      "default_regional_passes": 31,
+      "homebase_partial_passes": 129,
+      "combined_partial_passes": 1,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001347,
+      "measured_orientations": 560,
+      "distinct_windows": 195,
+      "default_regional_passes": 26,
+      "homebase_partial_passes": 161,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001380,
+      "measured_orientations": 1038,
+      "distinct_windows": 343,
+      "default_regional_passes": 58,
+      "homebase_partial_passes": 669,
+      "combined_partial_passes": 9,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001381,
+      "measured_orientations": 1046,
+      "distinct_windows": 341,
+      "default_regional_passes": 30,
+      "homebase_partial_passes": 257,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001592,
+      "measured_orientations": 595,
+      "distinct_windows": 197,
+      "default_regional_passes": 16,
+      "homebase_partial_passes": 184,
+      "combined_partial_passes": 2,
+      "user_rejected_seed": true
+    },
+    {
+      "seed": 890001625,
+      "measured_orientations": 602,
+      "distinct_windows": 196,
+      "default_regional_passes": 10,
+      "homebase_partial_passes": 174,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001674,
+      "measured_orientations": 1079,
+      "distinct_windows": 343,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 456,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001687,
+      "measured_orientations": 618,
+      "distinct_windows": 193,
+      "default_regional_passes": 48,
+      "homebase_partial_passes": 462,
+      "combined_partial_passes": 9,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001697,
+      "measured_orientations": 592,
+      "distinct_windows": 194,
+      "default_regional_passes": 2,
+      "homebase_partial_passes": 83,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001716,
+      "measured_orientations": 1054,
+      "distinct_windows": 338,
+      "default_regional_passes": 105,
+      "homebase_partial_passes": 130,
+      "combined_partial_passes": 9,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001719,
+      "measured_orientations": 633,
+      "distinct_windows": 197,
+      "default_regional_passes": 22,
+      "homebase_partial_passes": 253,
+      "combined_partial_passes": 3,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001757,
+      "measured_orientations": 1007,
+      "distinct_windows": 340,
+      "default_regional_passes": 55,
+      "homebase_partial_passes": 419,
+      "combined_partial_passes": 6,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001809,
+      "measured_orientations": 626,
+      "distinct_windows": 199,
+      "default_regional_passes": 57,
+      "homebase_partial_passes": 332,
+      "combined_partial_passes": 1,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001927,
+      "measured_orientations": 605,
+      "distinct_windows": 201,
+      "default_regional_passes": 94,
+      "homebase_partial_passes": 473,
+      "combined_partial_passes": 22,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001967,
+      "measured_orientations": 1028,
+      "distinct_windows": 335,
+      "default_regional_passes": 2,
+      "homebase_partial_passes": 385,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890001993,
+      "measured_orientations": 588,
+      "distinct_windows": 196,
+      "default_regional_passes": 5,
+      "homebase_partial_passes": 140,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890002156,
+      "measured_orientations": 622,
+      "distinct_windows": 195,
+      "default_regional_passes": 0,
+      "homebase_partial_passes": 100,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890002221,
+      "measured_orientations": 609,
+      "distinct_windows": 199,
+      "default_regional_passes": 6,
+      "homebase_partial_passes": 0,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890002226,
+      "measured_orientations": 657,
+      "distinct_windows": 198,
+      "default_regional_passes": 2,
+      "homebase_partial_passes": 132,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890002716,
+      "measured_orientations": 650,
+      "distinct_windows": 194,
+      "default_regional_passes": 2,
+      "homebase_partial_passes": 86,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890004593,
+      "measured_orientations": 602,
+      "distinct_windows": 196,
+      "default_regional_passes": 8,
+      "homebase_partial_passes": 164,
+      "combined_partial_passes": 0,
+      "user_rejected_seed": false
+    },
+    {
+      "seed": 890006350,
+      "measured_orientations": 653,
+      "distinct_windows": 199,
+      "default_regional_passes": 15,
+      "homebase_partial_passes": 76,
+      "combined_partial_passes": 1,
+      "user_rejected_seed": false
+    }
+  ],
+  "rejection_counts": {
+    "NO_DEFAULT_REGIONAL_SHAPE": 21513,
+    "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 17966,
+    "ACTUAL_SYMMETRY_BOUND": 17200,
+    "FOUNTAIN_PAIR_175_UNPROVEN": 2623,
+    "NO_COARSE_HOME_PAIR": 754,
+    "NO_HOMEBASE_SOCKET_PAIR": 35
+  },
+  "elapsed_seconds": 6.441
+}

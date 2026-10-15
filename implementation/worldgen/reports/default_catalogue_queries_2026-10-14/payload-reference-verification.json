@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "verified": [
+    {
+      "seed": 910000376,
+      "path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910000376.jsonl.gz",
+      "line": 8,
+      "rotation": 270
+    },
+    {
+      "seed": 910000376,
+      "path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910000376.jsonl.gz",
+      "line": 144,
+      "rotation": 270
+    },
+    {
+      "seed": 910000376,
+      "path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910000376.jsonl.gz",
+      "line": 182,
+      "rotation": 90
+    },
+    {
+      "seed": 910000376,
+      "path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910000376.jsonl.gz",
+      "line": 215,
+      "rotation": 180
+    },
+    {
+      "seed": 910000376,
+      "path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910000376.jsonl.gz",
+      "line": 290,
+      "rotation": 90
+    }
+  ]
+}

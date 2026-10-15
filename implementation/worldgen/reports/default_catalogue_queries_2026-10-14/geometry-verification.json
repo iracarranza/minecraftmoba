@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "checks": {
+    "rotations_do_not_inflate_region_count": true,
+    "overlap_disjoint_count": true,
+    "overlap_union_area_exact": true,
+    "unknown_mirror_retained_in_snapshot": true,
+    "nested_policy_set_inclusion": true,
+    "single_region_reference_for_multiple_rotations": true,
+    "all_results_explicitly_unqualified": true,
+    "snapshot_read_only": true
+  }
+}

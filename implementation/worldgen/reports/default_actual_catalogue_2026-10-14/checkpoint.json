@@ -1,0 +1,28 @@
+{
+  "next_job": 46236,
+  "actual_partial_compilations": 46236,
+  "partial_front_end_passes": 217,
+  "default_regional_passes": 1593,
+  "homebase_partial_passes": 16074,
+  "recommended_partial_candidates": 204,
+  "errors": 0,
+  "rejection_counts": {
+    "NO_DEFAULT_REGIONAL_SHAPE": 43140,
+    "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 35979,
+    "ACTUAL_SYMMETRY_BOUND": 34460,
+    "FOUNTAIN_PAIR_175_UNPROVEN": 5267,
+    "NO_COARSE_HOME_PAIR": 1503,
+    "NO_HOMEBASE_SOCKET_PAIR": 81
+  },
+  "status": "stopped_at_checkpoint",
+  "started_unix": 1792051076.0736341,
+  "stop_by_unix": 1792067276.0736341,
+  "source_count": 46,
+  "distinct_source_seeds": 40,
+  "jobs_available": 60848,
+  "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/STOP",
+  "fully_qualified_new_seeds": 0,
+  "scope": "actual vanilla surface grids; Default regional contract, independent Homebase partial stage; all rejects retained",
+  "updated_unix": 1792065984.821836,
+  "worker_pid": 79152
+}

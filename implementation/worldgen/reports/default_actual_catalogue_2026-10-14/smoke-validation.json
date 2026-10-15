@@ -1,0 +1,48 @@
+{
+  "actual_jobs_checked": 6,
+  "errors": 0,
+  "checks": [
+    {
+      "id": "0003cea2ae5f0cc936f5",
+      "rotation": 0,
+      "reflected": true,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    },
+    {
+      "id": "000425b9c463e0fc658f",
+      "rotation": 0,
+      "reflected": false,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    },
+    {
+      "id": "0004bb4c00ba096555df",
+      "rotation": 180,
+      "reflected": false,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    },
+    {
+      "id": "0005e63a5d12bf9bfc46",
+      "rotation": 0,
+      "reflected": false,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    },
+    {
+      "id": "0006d351b9f673e77bad",
+      "rotation": 180,
+      "reflected": true,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    },
+    {
+      "id": "0009322f947352ae2512",
+      "rotation": 90,
+      "reflected": false,
+      "fountains_match_actual_source": true,
+      "partial_flags_consistent": true
+    }
+  ]
+}

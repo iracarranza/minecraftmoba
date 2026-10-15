@@ -1,0 +1,107 @@
+{
+  "updated_unix": 1792066061.648932,
+  "user_priority": "Vast Default-ish catalogue; retain raw measurements and misses so requirements can be loosened later. Rare-type curation deferred.",
+  "parallel_agents": {
+    "default_catalogue": {
+      "producer": "tools/analysis/catalogue_default_seeds.py",
+      "checkpoint": "implementation/worldgen/reports/default_seed_catalogue_2026-10-14/checkpoint.json",
+      "storage_cap_gib": 4,
+      "background_status": "See checkpoint and lifetime lock, not this snapshot",
+      "next_useful_actions": [
+        "Use coordinator to retain/resume producer; never reset next_seed",
+        "Preserve every orientation and native grid, including preference misses",
+        "Review configurable queries and broad seed richness, not just strict winners"
+      ],
+      "additional_task": "Separate archipelago review branch push in isolated worktree; root records branch URL after completion",
+      "current_state": "Stopped at4GiBstoragebudget:13916seeds; preserve cap and evidence. Resumecursor910013917 only if storage policy explicitly changes.",
+      "latest_integrity_audit": "Full13,916archiveCRC/5,566,400record/38,964,800regionalvector audit passed; see final-health-2026-10-15.json. Nativecorpusunchanged/stoppedcap; do not repeat fullreadwithoutnewconcern."
+    },
+    "actual_catalogue": {
+      "producer": "tools/analysis/catalogue_actual_scoops.py",
+      "checkpoint": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/checkpoint.json",
+      "manifest": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/manifest.json",
+      "next_useful_actions": [
+        "Resume exact next_job using --ensure, respecting live PID/legacy bridge and lock",
+        "Audit append-only partial records and retain rejection/unknown vectors",
+        "Read default_catalogue_audit_2026-10-14 for QA findings; these cached sources are mostly prior maritime/Pale candidates"
+      ],
+      "measurement_gap_repair": "Completed:35 append-only vector supplements,0 addedobservations,24 canonical regional measurements retained for new noHome cases; shared acceptance unchanged.",
+      "audit_report": "implementation/worldgen/reports/default_catalogue_audit_2026-10-14/README.md",
+      "migration_evidence": "implementation/worldgen/reports/default_actual_catalogue_2026-10-14/vector-migration.json",
+      "vector_sidecar": "See actual producer README and index overlay adapter; sidecars do not add candidate counts.",
+      "current_state": "6-hour incremental QA passed; protected locked PID 79152 retained. Snapshot: 28,779 actual records across 40 existing seeds, errors 0. Read the live checkpoint for later progress.",
+      "latest_incremental_qa": "implementation/worldgen/reports/default_catalogue_audit_2026-10-14/heartbeat6h-qa-2026-10-15.json",
+      "latest_incremental_qa_cursor": 28779,
+      "latest_incremental_qa_new_records": 5713,
+      "latest_incremental_qa_counts": {
+        "actual_partial_records": 28779,
+        "distinct_existing_seeds": 40,
+        "distinct_windows": 7562,
+        "full_25_value_vectors": 27836,
+        "independent_24_value_vectors": 943,
+        "default_regional_pass_records": 988,
+        "distinct_seeds_with_default_regional_pass": 30,
+        "homebase_partial_pass_records": 10019,
+        "combined_partial_pass_records": 133,
+        "distinct_seeds_with_combined_partial_pass": 17,
+        "fully_qualified_new_seeds": 0
+      },
+      "latest_incremental_qa_limits": "Partial measurements only; spacing among all nine anchors and full gameplay remain unknown. Source pool is biased toward maritime/Pale searches. Prior verified source files are unchanged; the full source corpus was not reread.",
+      "latest_incremental_qa_worker_untouched": true
+    },
+    "catalogue_index": {
+      "producer": "tools/analysis/index_seed_catalogues.py",
+      "index": "implementation/worldgen/reports/seed_catalogue_index_2026-10-14/index.html",
+      "next_useful_actions": [
+        "Keep the existing singleton index watcher while actual partial observations append.",
+        "Preserve native 4 GiB cap; corpus unchanged, so avoid repeated full archive audits or identical policy scans.",
+        "Use saved size-stratified coverage and configurable policies; distinct overlapping region choices, orientations, unique seeds and greedy disjoint selections are separate quantities."
+      ],
+      "query_script": "tools/analysis/query_default_catalogue.py",
+      "query_report": "implementation/worldgen/reports/default_catalogue_queries_2026-10-14/README.md",
+      "current_state": "6-hour continuity verified: singleton reporter PID79510 retained; actual index advancing, native corpus unchanged at 13,916 seeds/storage cap. New size-stratified policy coverage saved without terrain scans or producer restarts.",
+      "latest_heartbeat_evidence": "implementation/worldgen/reports/seed_catalogue_index_2026-10-14/heartbeat6h-evidence.json",
+      "coverage_script": "tools/analysis/summarize_catalogue_coverage.py",
+      "latest_coverage_report": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_catalogue_queries_2026-10-14/coverage/heartbeat6h-20261015T090233Z/README.md",
+      "latest_coverage_json": "implementation/worldgen/reports/default_catalogue_queries_2026-10-14/coverage-latest.json"
+    }
+  },
+  "root": {
+    "coordinator": "tools/analysis/continue_seed_catalogue.py --ensure --hours 4.5",
+    "handoff": "implementation/worldgen/reports/seed_catalogue_continuation_2026-10-14/README.md",
+    "validation": "implementation/worldgen/reports/seed_catalogue_continuation_2026-10-14/continuation-validation.json",
+    "calibration": "implementation/worldgen/reports/catalogue_proxy_calibration_2026-10-14/calibration.json",
+    "six_hour_status": "Existing actual worker and index watcher reused; actual evaluations advanced beyond29000, incremental QA passed; native storage stop/cursor preserved. New descriptive scoop-size coverage saved; remaining10h continuation must inspect exact current cursors/deadlines."
+  },
+  "scheduled_followups": "Existing 5/6/10-hour automation, no additional recurrence",
+  "fully_qualified_status": "No native/partial catalogue row is a qualified map; full gameplay and all-nine-anchor 175 remain separate.",
+  "archipelago_review": {
+    "status": "pushed",
+    "branch": "codex/archipelago-seed-review",
+    "commit": "409e9fc5e44ef3b30d1149e5ea664a16b9298684",
+    "review_entry": "https://github.com/iracarranza/minecraftmoba/blob/codex/archipelago-seed-review/ARCHIPELAGO_REVIEW.md",
+    "scope": "Archipelago methods and compact evidence only; no live Default catalogue data or world binaries",
+    "next_action": "No repeat push needed; user/Claude can review existing branch"
+  },
+  "latest_scheduled_run": "heartbeat-20261015T085710Z.json",
+  "user_pause": {
+    "time_unix": 1792066061.648044,
+    "instruction": "User requested pause; resume only on explicit user request.",
+    "automation_status": "PAUSED",
+    "native_next_seed": 910013917,
+    "actual_next_job": 46236,
+    "actual_partial_evaluations": 46236,
+    "actual_errors": 0,
+    "index_watcher_status": "stopped_at_checkpoint",
+    "locks": {
+      "default_seed_catalogue_2026-10-14": "free",
+      "default_actual_catalogue_2026-10-14": "free",
+      "seed_catalogue_index_2026-10-14": "free"
+    },
+    "STOP_files": [
+      "default_seed_catalogue_2026-10-14/STOP",
+      "default_actual_catalogue_2026-10-14/STOP"
+    ],
+    "raw_data_preserved": true
+  }
+}

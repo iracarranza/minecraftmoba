@@ -1,0 +1,110 @@
+{
+  "schema": "default_native_catalogue_health/1",
+  "checked_unix": 1792036780.2430851,
+  "status": "healthy_running",
+  "worker_pid": 21178,
+  "lifetime_singleton_lock_held": true,
+  "checkpoint_age_seconds_at_start": 0.44,
+  "process_health_note": "Checkpoint freshness, retained lifetime lock and cursor advance establish live work. A direct ps read was unavailable in the shell sandbox; no process was modified.",
+  "checkpoint": {
+    "status": "running",
+    "unique_seeds_measured": 5084,
+    "distinct_regions_measured": 508400,
+    "orientations_measured": 2033600,
+    "loose_end_land_orientations": 1835810,
+    "all_six_experimental_preferences_orientations": 177607,
+    "next_seed": 910005085,
+    "updated_unix": 1792036779.806978,
+    "retained_bytes_estimate": 1587178401,
+    "max_storage_bytes": 4294967296,
+    "stop_by_unix": 1792049975.906865
+  },
+  "sqlite_snapshot": {
+    "unique_seeds": 5084,
+    "distinct_regions": 508400,
+    "orientation_records": 2033600,
+    "loose_end_land_orientations": 1835810,
+    "all_six_experimental_preferences_orientations": 177607,
+    "first_seed": 910000001,
+    "last_committed_seed": 910005084,
+    "next_after_snapshot": 910005085,
+    "contiguous_seed_range": true,
+    "window_rows": 2033600,
+    "preference_count_range": [
+      1,
+      6
+    ],
+    "orientations_with_insufficient_coarse_end_land_retained": 197790,
+    "seeds_with_wrong_window_count": [],
+    "orphan_window_records": 0,
+    "checkpoint_lag_seeds": 0
+  },
+  "raw_coverage": {
+    "missing_committed_measurement_summary_or_grid_files": [],
+    "compact_feed_unique_seeds": 5088,
+    "committed_seeds_missing_in_feed": [],
+    "partial_feed_lines_during_live_read": 0,
+    "sample_checks": [
+      {
+        "seed": 910000001,
+        "orientations": 400,
+        "distinct_regions": 100,
+        "full_vectors_misses_biomes_unknowns_and_raw_grid_retained": true,
+        "raw_grid_samples": 9216,
+        "explicit_river_family": false
+      },
+      {
+        "seed": 910000002,
+        "orientations": 400,
+        "distinct_regions": 100,
+        "full_vectors_misses_biomes_unknowns_and_raw_grid_retained": true,
+        "raw_grid_samples": 9216,
+        "explicit_river_family": false
+      },
+      {
+        "seed": 910000003,
+        "orientations": 400,
+        "distinct_regions": 100,
+        "full_vectors_misses_biomes_unknowns_and_raw_grid_retained": true,
+        "raw_grid_samples": 9216,
+        "explicit_river_family": true
+      },
+      {
+        "seed": 910002542,
+        "orientations": 400,
+        "distinct_regions": 100,
+        "full_vectors_misses_biomes_unknowns_and_raw_grid_retained": true,
+        "raw_grid_samples": 9216,
+        "explicit_river_family": true
+      },
+      {
+        "seed": 910005084,
+        "orientations": 400,
+        "distinct_regions": 100,
+        "full_vectors_misses_biomes_unknowns_and_raw_grid_retained": true,
+        "raw_grid_samples": 9216,
+        "explicit_river_family": true
+      }
+    ]
+  },
+  "producer_hashes_unchanged": {
+    "script": true,
+    "probe": true
+  },
+  "budget_projection": {
+    "observed_average_bytes_per_seed": 312190.9,
+    "observed_mean_seeds_per_second": 1.691,
+    "storage_used_fraction": 0.3695437686983496,
+    "estimated_additional_seeds_to_storage_cap": 8673,
+    "estimated_total_seeds_at_storage_cap": 13757,
+    "estimated_seconds_to_storage_cap_at_observed_rate": 5128,
+    "estimated_seconds_to_time_limit": 13195,
+    "estimate_note": "Linear cumulative-throughput estimate; indexing, biome complexity and load can change it. A batch can exceed the cap by approximately one two-seed checkpoint plus SQLite WAL movement."
+  },
+  "recoverable_issues": [
+    "First two smoke seeds lack explicit river-family fields; complete native biome grids retain the IDs.",
+    "Compatibility dry/land names mean non-ocean biome proxy, not actual dry surface.",
+    "A live transaction can show zero or two more committed seeds than the atomic checkpoint during a batch."
+  ],
+  "actions": "Read-only inspection only; existing producer, cursor, singleton and 4GiB cap preserved."
+}

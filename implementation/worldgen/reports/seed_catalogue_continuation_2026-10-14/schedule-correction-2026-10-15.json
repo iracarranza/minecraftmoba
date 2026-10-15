@@ -1,0 +1,22 @@
+{
+  "status": "corrected_and_validated",
+  "automation_id": "seed-search-follow-ups-at-5-6-and-10-hours",
+  "original_setup_utc": "2026-10-15T02:54:28.999000+00:00",
+  "early_heartbeat_utc": "2026-10-15T03:57:39.852Z",
+  "correction": "Earlier BYHOUR values were interpreted as UTC; adjusted existing automation to original 5/6/10-hour offsets. No new automation created.",
+  "intended_future_runs_utc": [
+    "2026-10-15T07:54:28+00:00",
+    "2026-10-15T08:54:28+00:00",
+    "2026-10-15T12:54:28+00:00"
+  ],
+  "intended_future_runs_eastern": [
+    "2026-10-15T03:54:28-04:00",
+    "2026-10-15T04:54:28-04:00",
+    "2026-10-15T08:54:28-04:00"
+  ],
+  "full_three_future_offsets_hours": [
+    4.999722,
+    5.999722,
+    9.999722
+  ]
+}

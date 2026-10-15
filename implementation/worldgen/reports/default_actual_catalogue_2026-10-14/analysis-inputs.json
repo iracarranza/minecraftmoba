@@ -1,0 +1,33 @@
+{
+  "status": "Prototype/test partial catalogue",
+  "analysis_sha256": {
+    "/Users/iracarranza/minecraftmoba/tools/analysis/catalogue_actual_scoops.py": "9ef14dd95783cec9c7e27c59b548b599eb3111264c38a6927352852ee0fba461",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/map_compiler.py": "4167ab54d9a928dd79371de032776f82554b6928323e9fd014c2b07e94aef133",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/scoop.py": "637e87d29ff85debae4c073cdded6ecc9db2d3e5518078be2557d94761f5a3a9",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/terrain_harvest/map_types.py": "7d9f2d6b9d144f2c5e723a4f56f742dda02a965163c08811c550e10765f0d8fc",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/vanilla_search/evaluate.py": "ceead9ce35d644eb8a30ad635fc4f19ec51a137e2b68559eb3614892b5eea164",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/vanilla_search/fit.py": "7e918a2db2dd1b256a4a92387c455da222cea28b84a4a5f103a355e2f74038cd",
+    "/Users/iracarranza/minecraftmoba/implementation/worldgen/vanilla_search/task_a.py": "a5ee63438fe8903b7d719b5e2ed9e3ef582012c3e0b6b29842d27dfca2901658",
+    "/Users/iracarranza/minecraftmoba/tools/analysis/default_region_measurements.py": "2d3eb0ddf7d35e373d256983594793f3c450e656ceb857468767dd9b27cf8d7c"
+  },
+  "shared_provisional_constants": {
+    "min_homeland_developable_fraction": 0.52,
+    "max_hinterland_fraction_of_end": 0.5,
+    "max_lair_access_asymmetry": 0.15,
+    "max_levelling_moved_per_column": 10.0
+  },
+  "shared_symmetry_bound": {
+    "feature": "dev_rel",
+    "quantile": "p25",
+    "value": 0.2371,
+    "measured_over": "contested ground only",
+    "not_per_type": "the residual spread across Types is ~10% and unexplained; see maps.md Map Type doctrine",
+    "not_on_raw_deviation": "deviation scales with relief, so a raw bound admits only flat ground and water"
+  },
+  "partial_fountain_pair_spacing_blocks": 175,
+  "user_rejected_seeds_retained_as_negative_controls": [
+    890000020,
+    890001592
+  ],
+  "full_qualification_performed": false
+}

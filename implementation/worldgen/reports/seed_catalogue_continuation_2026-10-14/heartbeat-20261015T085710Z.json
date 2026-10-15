@@ -1,0 +1,73 @@
+{
+  "heartbeat_event_utc": "2026-10-15T08:57:10.926Z",
+  "checked_unix": 1792054916.571248,
+  "native_action": "Preserved storage-budget stop and next_seed; no producer restart, evidence deletion or cap change.",
+  "native": {
+    "unique_seeds_measured": 13916,
+    "distinct_regions_measured": 1391600,
+    "orientations_measured": 5566400,
+    "next_seed": 910013917,
+    "retained_bytes_estimate": 4295677670,
+    "max_storage_bytes": 4294967296,
+    "stop_reason": "storage_budget"
+  },
+  "actual_action": "Reused live protected worker and singleton lock; manifest cursor advanced.",
+  "actual": {
+    "worker_pid": 79152,
+    "next_job": 29050,
+    "actual_partial_compilations": 29050,
+    "default_regional_passes": 1000,
+    "homebase_partial_passes": 10115,
+    "partial_front_end_passes": 134,
+    "recommended_partial_candidates": 127,
+    "errors": 0,
+    "status": "running",
+    "stop_by_unix": 1792067276.0736341
+  },
+  "actual_growth_since_previous_notification": 5401,
+  "actual_scope": {
+    "existing_unique_seeds": 40,
+    "existing_source_grids": 46,
+    "manifest_jobs": 60848,
+    "counts_are_partial_crop_orientation_evaluations_not_new_seeds": true
+  },
+  "index_watcher": {
+    "status": "running",
+    "pid": 79510,
+    "started_unix": 1792051186.931324,
+    "stop_by_unix": 1792067386.931324,
+    "interval_seconds": 30.0,
+    "updated_unix": 1792054966.292608,
+    "latest_records": 5630783,
+    "latest_distinct_seeds": 15457
+  },
+  "fully_qualified_new_maps": 0,
+  "qualification_requires": "All existing gameplay checks and all-nine-anchor minimum spacing of175blocks. Partial stages do not establish qualification.",
+  "agents": "Existing three lanes followed up for append-only QA, index/coverage analysis and lightweight stopped-native continuity verification.",
+  "timing": "Existing ten-hour follow-up remains scheduled; no added recurrence. Read current metadata then resume stopped time-limited workers at exact cursors if safe.",
+  "native_continuity_report": "../default_seed_catalogue_2026-10-14/checkpoint-6h-2026-10-15.json",
+  "actual_incremental_qa": {
+    "report": "../default_catalogue_audit_2026-10-14/heartbeat6h-qa-2026-10-15.json",
+    "new_rows_audited": 5713,
+    "audited_total_rows": 28779,
+    "distinct_windows": 7562,
+    "existing_unique_seeds": 40,
+    "default_regional_pass_rows": 988,
+    "combined_partial_pass_rows": 133,
+    "combined_partial_pass_seeds": 17,
+    "duplicates": 0,
+    "missing_vectors": 0,
+    "fully_qualified": 0
+  },
+  "new_policy_coverage": {
+    "report": "../default_catalogue_queries_2026-10-14/coverage-latest.json",
+    "native_seeds_with_any_saved_strict_matching_region": 13916,
+    "extra_region_choices_with_saved_looser_policy": 810861,
+    "extra_unique_seed_ids": 0,
+    "experimental_policy_only": true,
+    "qualification": false,
+    "finding": "A fixed absolute end-flat cell threshold creates different sampled-end density requirements across scoop sizes; no acceptance rules changed."
+  },
+  "completed_unix": 1792054994.029345,
+  "index_continuation_evidence": "../seed_catalogue_index_2026-10-14/heartbeat6h-evidence.json"
+}

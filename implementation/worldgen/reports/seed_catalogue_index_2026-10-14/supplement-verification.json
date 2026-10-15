@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "checks": {
+    "supplement_not_new_observation": true,
+    "raw_vector_backfilled": true,
+    "original_failure_and_acceptance_retained": true,
+    "unavailable_stays_unknown": true,
+    "second_overlay_idempotent": true,
+    "identity_mismatch_rejected": true,
+    "inline_availability_and_provenance_retained": true
+  }
+}

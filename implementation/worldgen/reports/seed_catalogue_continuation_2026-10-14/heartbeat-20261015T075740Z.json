@@ -1,0 +1,50 @@
+{
+  "heartbeat_event_utc": "2026-10-15T07:57:40.704Z",
+  "checked_unix": 1792051278.46786,
+  "native_action": "Preserved storage-budget stop; no restart, deletion, rewind or raised cap.",
+  "native": {
+    "unique_seeds_measured": 13916,
+    "distinct_regions_measured": 1391600,
+    "orientations_measured": 5566400,
+    "next_seed": 910013917,
+    "retained_bytes_estimate": 4295677670,
+    "max_storage_bytes": 4294967296,
+    "stop_reason": "storage_budget"
+  },
+  "actual_action": "Resumed exact manifest cursor23031 under a new lifetime-locked worker.",
+  "actual": {
+    "worker_pid": 79152,
+    "next_job": 23649,
+    "actual_partial_compilations": 23649,
+    "default_regional_passes": 814,
+    "homebase_partial_passes": 8229,
+    "partial_front_end_passes": 102,
+    "errors": 0,
+    "status": "running"
+  },
+  "index_watcher": {
+    "status": "running",
+    "pid": 79510,
+    "started_unix": 1792051186.931324,
+    "stop_by_unix": 1792067386.931324,
+    "interval_seconds": 30.0,
+    "updated_unix": 1792051253.979748,
+    "latest_records": 5625069,
+    "latest_distinct_seeds": 15457
+  },
+  "fully_qualified_new_maps": 0,
+  "completed_unix": 1792051513.205626,
+  "native_full_integrity_audit": {
+    "status": "passed",
+    "seed_archives": 13916,
+    "orientation_records": 5566400,
+    "regional_band_vectors": 38964800,
+    "report": "../default_seed_catalogue_2026-10-14/final-health-2026-10-15.json"
+  },
+  "query_refresh": {
+    "strict_distinct_regions": 253200,
+    "loose_distinct_regions": 1064061,
+    "nested_inclusion_verified": true,
+    "report": "../default_catalogue_queries_2026-10-14/scheduled-latest.json"
+  }
+}

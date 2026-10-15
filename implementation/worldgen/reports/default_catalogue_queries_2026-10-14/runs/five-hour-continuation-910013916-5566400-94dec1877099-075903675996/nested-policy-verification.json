@@ -1,0 +1,24 @@
+{
+  "snapshot": {
+    "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+    "captured_at_utc": "2026-10-15T07:58:34.551656+00:00",
+    "journal_mode": "wal",
+    "read_only": true,
+    "consistent_transaction": true,
+    "query_script_sha256": "791e9e467a74d1f11a2852abeb79366b3999ae47e6b38b9a2e07111b2c0af66d",
+    "seeds": 13916,
+    "maximum_seed": 910013916,
+    "orientations": 5566400,
+    "seeds_with_windows": 13916,
+    "unknown_mirror_orientations": 72980
+  },
+  "verification": {
+    "strict_orientations_missing_from_loose": 0,
+    "strict_regions_missing_from_loose": 0,
+    "status": "pass"
+  },
+  "strict_regions": 253200,
+  "looser_regions": 1064061,
+  "strict_orientations": 263076,
+  "looser_orientations": 1486137
+}

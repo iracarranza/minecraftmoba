@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "unique_seeds": 4,
+  "distinct_regions": 400,
+  "orientation_records": 1600,
+  "mirror_comparisons_against_existing_scoop": 8,
+  "all_rows_retained": true,
+  "all_rows_unqualified": true,
+  "river_fields_added_after_first_two_smoke_seeds": true
+}

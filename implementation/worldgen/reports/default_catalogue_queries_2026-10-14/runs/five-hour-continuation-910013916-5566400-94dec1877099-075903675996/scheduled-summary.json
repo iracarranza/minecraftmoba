@@ -1,0 +1,153 @@
+{
+  "schema": "default_catalogue_scheduled_query_summary/1",
+  "status": "pass",
+  "captured_at_utc": "2026-10-15T07:58:34.551656+00:00",
+  "captured_at_eastern": "2026-10-15T03:58:34.551656-04:00",
+  "run": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_catalogue_queries_2026-10-14/runs/five-hour-continuation-910013916-5566400-94dec1877099-075903675996",
+  "snapshot": {
+    "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+    "captured_at_utc": "2026-10-15T07:58:34.551656+00:00",
+    "journal_mode": "wal",
+    "read_only": true,
+    "consistent_transaction": true,
+    "query_script_sha256": "791e9e467a74d1f11a2852abeb79366b3999ae47e6b38b9a2e07111b2c0af66d",
+    "seeds": 13916,
+    "maximum_seed": 910013916,
+    "orientations": 5566400,
+    "seeds_with_windows": 13916,
+    "unknown_mirror_orientations": 72980
+  },
+  "strict": {
+    "matching_seeds": 13916,
+    "distinct_regions": 253200,
+    "orientations": 263076,
+    "sum_greedy_disjoint_regions_across_seeds": 72059,
+    "median_greedy_disjoint_regions_per_seed": 5.0,
+    "top_seeds": [
+      {
+        "seed": 910003612,
+        "distinct_matching_regions": 40,
+        "matching_orientations": 44,
+        "greedy_pairwise_disjoint_regions": 8
+      },
+      {
+        "seed": 910012671,
+        "distinct_matching_regions": 38,
+        "matching_orientations": 42,
+        "greedy_pairwise_disjoint_regions": 6
+      },
+      {
+        "seed": 910000376,
+        "distinct_matching_regions": 37,
+        "matching_orientations": 40,
+        "greedy_pairwise_disjoint_regions": 9
+      },
+      {
+        "seed": 910002553,
+        "distinct_matching_regions": 37,
+        "matching_orientations": 37,
+        "greedy_pairwise_disjoint_regions": 9
+      },
+      {
+        "seed": 910011826,
+        "distinct_matching_regions": 37,
+        "matching_orientations": 40,
+        "greedy_pairwise_disjoint_regions": 8
+      }
+    ]
+  },
+  "looser": {
+    "matching_seeds": 13916,
+    "distinct_regions": 1064061,
+    "orientations": 1486137,
+    "sum_greedy_disjoint_regions_across_seeds": 221695,
+    "median_greedy_disjoint_regions_per_seed": 16.0,
+    "top_seeds": [
+      {
+        "seed": 910008029,
+        "distinct_matching_regions": 94,
+        "matching_orientations": 131,
+        "greedy_pairwise_disjoint_regions": 22
+      },
+      {
+        "seed": 910013683,
+        "distinct_matching_regions": 94,
+        "matching_orientations": 129,
+        "greedy_pairwise_disjoint_regions": 22
+      },
+      {
+        "seed": 910012463,
+        "distinct_matching_regions": 93,
+        "matching_orientations": 143,
+        "greedy_pairwise_disjoint_regions": 23
+      },
+      {
+        "seed": 910008191,
+        "distinct_matching_regions": 92,
+        "matching_orientations": 136,
+        "greedy_pairwise_disjoint_regions": 23
+      },
+      {
+        "seed": 910002746,
+        "distinct_matching_regions": 92,
+        "matching_orientations": 144,
+        "greedy_pairwise_disjoint_regions": 21
+      }
+    ]
+  },
+  "nested_policy_verification": {
+    "strict_orientations_missing_from_loose": 0,
+    "strict_regions_missing_from_loose": 0,
+    "status": "pass"
+  },
+  "count_and_disjoint_geometry_verification": "pass",
+  "existing_seed_count_stability": {
+    "previous_snapshot": {
+      "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+      "captured_at_utc": "2026-10-15T03:58:28.522634+00:00",
+      "journal_mode": "wal",
+      "read_only": true,
+      "consistent_transaction": true,
+      "query_script_sha256": "791e9e467a74d1f11a2852abeb79366b3999ae47e6b38b9a2e07111b2c0af66d",
+      "seeds": 4956,
+      "maximum_seed": 910004956,
+      "orientations": 1982400,
+      "seeds_with_windows": 4956,
+      "unknown_mirror_orientations": 26618
+    },
+    "previous_run": "implementation/worldgen/reports/default_catalogue_queries_2026-10-14/runs/scheduled-continuation-910004956-1982400-94dec1877099-035835884796",
+    "previously_ranked_seeds_unchanged": 4956,
+    "new_catalogue_seeds_since_previous_query": 8960
+  },
+  "aggregate_index_snapshot": {
+    "generated_at_utc": "2026-10-15T07:59:48.309690+00:00",
+    "records": 5624977,
+    "distinct_seeds": 15457,
+    "actual_default_records": 23195,
+    "read_diagnostics": []
+  },
+  "index_watcher": {
+    "status": "running",
+    "pid": 79510,
+    "started_unix": 1792051186.931324,
+    "stop_by_unix": 1792067386.931324,
+    "interval_seconds": 30.0,
+    "updated_unix": 1792051189.267148,
+    "latest_records": 5624977,
+    "latest_distinct_seeds": 15457
+  },
+  "native_search_not_restarted": true,
+  "no_scans_or_producers_started": true,
+  "qualified": false,
+  "ready": false,
+  "qualification_note": "Native experimental query matches only; all gameplay qualification remains separate.",
+  "index_watcher_lifetime_lock_held": true,
+  "native_checkpoint_storage_state": {
+    "status": "stopped_at_checkpoint",
+    "stop_by_unix": 1792049975.906865,
+    "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/STOP",
+    "max_storage_bytes": 4294967296,
+    "stopped_unix": 1792041847.8049889,
+    "stop_reason": "storage_budget"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tests_passed": [
+    "live legacy PID protects existing worker",
+    "second writer blocked by lifetime flock",
+    "lock releases on worker exit",
+    "intentional STOP respected",
+    "dead PID permits resume",
+    "metadata published on acquisition",
+    "two bounded resumes continue manifest cursor and preserve existing JSONL"
+  ],
+  "status": "pass",
+  "legacy_worker_pid": 20533,
+  "no_existing_worker_interrupted": true
+}

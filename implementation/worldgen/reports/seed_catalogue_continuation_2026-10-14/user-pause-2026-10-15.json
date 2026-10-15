@@ -1,0 +1,20 @@
+{
+  "time_unix": 1792066061.648044,
+  "instruction": "User requested pause; resume only on explicit user request.",
+  "automation_status": "PAUSED",
+  "native_next_seed": 910013917,
+  "actual_next_job": 46236,
+  "actual_partial_evaluations": 46236,
+  "actual_errors": 0,
+  "index_watcher_status": "stopped_at_checkpoint",
+  "locks": {
+    "default_seed_catalogue_2026-10-14": "free",
+    "default_actual_catalogue_2026-10-14": "free",
+    "seed_catalogue_index_2026-10-14": "free"
+  },
+  "STOP_files": [
+    "default_seed_catalogue_2026-10-14/STOP",
+    "default_actual_catalogue_2026-10-14/STOP"
+  ],
+  "raw_data_preserved": true
+}

@@ -1,0 +1,295 @@
+{
+  "schema": "seed_catalogue_index/1",
+  "design_status": "Prototype/test measurement catalogue",
+  "generated_at_utc": "2026-10-15T12:07:08.368027+00:00",
+  "new_or_updated_records_this_refresh": 0,
+  "records": 5648018,
+  "distinct_seeds": 15457,
+  "source_scoop_identities": 5648017,
+  "normalized_evidence_records": 81618,
+  "federated_native_records": 5566400,
+  "federated_native_regions": 1391600,
+  "implemented_shared_pass_records": 9,
+  "excluded_records": 2448,
+  "new_fully_qualified_maps_claimed_by_index": 0,
+  "lanes": [
+    {
+      "catalogue": "default_seed_catalogue_2026-10-14",
+      "evidence_level": "native_proxy",
+      "records": 5566400,
+      "seeds": 13916,
+      "distinct_scoop_identities": 5566400,
+      "distinct_regions": 1391600,
+      "excluded_records": 0,
+      "implemented_shared_pass_records": 0,
+      "storage": "federated source-owned gzip and SQLite; one summary per seed indexed here"
+    },
+    {
+      "catalogue": "default_actual_catalogue_2026-10-14",
+      "evidence_level": "actual_partial",
+      "records": 46236,
+      "seeds": 40,
+      "distinct_scoop_identities": 46236,
+      "excluded_records": 2444,
+      "implemented_shared_pass_records": 0
+    },
+    {
+      "catalogue": "loose_scoop_bank_2026-10-14",
+      "evidence_level": "actual_partial",
+      "records": 146,
+      "seeds": 3,
+      "distinct_scoop_identities": 145,
+      "excluded_records": 2,
+      "implemented_shared_pass_records": 0
+    },
+    {
+      "catalogue": "loose_scoop_bank_2026-10-14",
+      "evidence_level": "native_proxy",
+      "records": 30764,
+      "seeds": 1437,
+      "distinct_scoop_identities": 30764,
+      "excluded_records": 0,
+      "implemented_shared_pass_records": 0
+    },
+    {
+      "catalogue": "default_scoop_bank_2026-10-11",
+      "evidence_level": "native_proxy",
+      "records": 4463,
+      "seeds": 64,
+      "distinct_scoop_identities": 4463,
+      "excluded_records": 0,
+      "implemented_shared_pass_records": 0
+    },
+    {
+      "catalogue": "archipelago_chain_search_2026-10-12",
+      "evidence_level": "implemented_shared_checks",
+      "records": 4,
+      "seeds": 4,
+      "distinct_scoop_identities": 4,
+      "excluded_records": 0,
+      "implemented_shared_pass_records": 4
+    },
+    {
+      "catalogue": "archipelago_qualified_search_2026-10-12",
+      "evidence_level": "implemented_shared_checks",
+      "records": 5,
+      "seeds": 5,
+      "distinct_scoop_identities": 5,
+      "excluded_records": 2,
+      "implemented_shared_pass_records": 5
+    }
+  ],
+  "worker_metadata": {
+    "default_seed_catalogue_2026-10-14": {
+      "checkpoint.json": {
+        "requested_start": 910000001,
+        "schema": "default_native_catalogue/1",
+        "status": "stopped_at_checkpoint",
+        "worker_pid": 21178,
+        "started_unix": 1792033775.90682,
+        "stop_by_unix": 1792049975.906865,
+        "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/STOP",
+        "workers": 2,
+        "qualified": false,
+        "source_grid_half_extent": 3072,
+        "sample_spacing": 64,
+        "minecraft_target": "Java 1.21.11; local Cubiomes reimplementation, not generated chunks",
+        "measurement_notes": [
+          "Native heights are approximate; analysis clamps them to sea level 63",
+          "Raw grids retain unclamped heights and surface biome IDs",
+          "Fields named dry/land mean non-ocean biome proxy; actual inland/river water is unknown",
+          "Biomes are sampled by the native probe at quart scale and Y=319",
+          "Biome-family masks overlap; neither preference count nor mirror ratio is a qualification gate"
+        ],
+        "window_sizes_blocks": [
+          1024,
+          1536,
+          2048,
+          3072
+        ],
+        "retention": "Every measured orientation, preference miss, regional vector and native grid retained",
+        "script_sha256": "6ad90dad82a3546e98a74fd5b89c5f7e582a0b75514230b2f8d6585ede1fb887",
+        "probe_sha256": "f3a22ed133f316edab20439a917dc071444b442f31d24d81bb789db67752f439",
+        "unique_seeds_measured": 13916,
+        "distinct_regions_measured": 1391600,
+        "orientations_measured": 5566400,
+        "loose_end_land_orientations": 5028512,
+        "all_six_experimental_preferences_orientations": 486736,
+        "next_seed": 910013917,
+        "updated_unix": 1792041847.807138,
+        "qualified_seeds": 0,
+        "max_storage_bytes": 4294967296,
+        "retained_bytes_estimate": 4295677670,
+        "worker_argv": [
+          "/Users/iracarranza/minecraftmoba/artifacts/worldgen/pale_mansion_search_2026-10-12/build/plot-env/bin/python",
+          "/Users/iracarranza/minecraftmoba/tools/analysis/catalogue_default_seeds.py",
+          "--start",
+          "910000001",
+          "--max-seeds",
+          "100000",
+          "--hours",
+          "4.5",
+          "--workers",
+          "2",
+          "--max-storage-gib",
+          "4"
+        ],
+        "worker_cwd": "/Users/iracarranza/minecraftmoba",
+        "lifetime_lock": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/worker.lock",
+        "stopped_unix": 1792041847.8049889,
+        "stop_reason": "storage_budget"
+      }
+    },
+    "default_actual_catalogue_2026-10-14": {
+      "checkpoint.json": {
+        "next_job": 46236,
+        "actual_partial_compilations": 46236,
+        "partial_front_end_passes": 217,
+        "default_regional_passes": 1593,
+        "homebase_partial_passes": 16074,
+        "recommended_partial_candidates": 204,
+        "errors": 0,
+        "rejection_counts": {
+          "NO_DEFAULT_REGIONAL_SHAPE": 43140,
+          "SOCKET_NOT_INDEPENDENTLY_ACCEPTABLE": 35979,
+          "ACTUAL_SYMMETRY_BOUND": 34460,
+          "FOUNTAIN_PAIR_175_UNPROVEN": 5267,
+          "NO_COARSE_HOME_PAIR": 1503,
+          "NO_HOMEBASE_SOCKET_PAIR": 81
+        },
+        "status": "stopped_at_checkpoint",
+        "started_unix": 1792051076.0736341,
+        "stop_by_unix": 1792067276.0736341,
+        "source_count": 46,
+        "distinct_source_seeds": 40,
+        "jobs_available": 60848,
+        "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_actual_catalogue_2026-10-14/STOP",
+        "fully_qualified_new_seeds": 0,
+        "scope": "actual vanilla surface grids; Default regional contract, independent Homebase partial stage; all rejects retained",
+        "updated_unix": 1792065984.821836,
+        "worker_pid": 79152
+      }
+    },
+    "loose_scoop_bank_2026-10-14": {
+      "checkpoint.json": {
+        "next_seed": 900001445,
+        "seeds_screened": 1444,
+        "axis_scoops_screened": 872176,
+        "seeds_with_loose_scoops": 1437,
+        "loose_scoops_found": 32006,
+        "actual_partial_compilations": 144,
+        "partial_front_end_passes": 49,
+        "next_compile_job": 144,
+        "fully_qualified_new_seeds": 0,
+        "status": "stopped_at_checkpoint",
+        "scope": "Archipelago prospects; many region sizes and locations per seed. No authoring or full qualification.",
+        "minimum_anchor_spacing_for_qualification": 175,
+        "started_unix": 1792033133.846014,
+        "stop_by_unix": 1792050413.846014,
+        "stop_file": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/loose_scoop_bank_2026-10-14/STOP",
+        "actual_compile_jobs_available": 2128,
+        "updated_unix": 1792033554.1117408
+      }
+    },
+    "default_scoop_bank_2026-10-11": {
+      "inputs.json": {
+        "server_jar": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/build/server-1.21.11.jar",
+        "java": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/java",
+        "runtime": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/sandbox-attempt/attempts/2718281_0/server",
+        "scanner": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/build/native/mobascan",
+        "structures": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/seed_reevaluation_2026-10-02/build/native/mobastruct",
+        "artifacts": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/default_scoop_bank_2026-10-11",
+        "reports": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_scoop_bank_2026-10-11",
+        "first_seed": 911000,
+        "seed_count": 64,
+        "desired": 4,
+        "max_attempts": 40,
+        "vanilla": true,
+        "compiler_git_head": "7fec4bacad89f8d4c888698fad84c9e5be7e8522",
+        "server_jar_sha1": "64bb6d763bed0a9f1d632ec347938594144943ed",
+        "design_status": "Prototype/test",
+        "authoring": "Java 1.21.11 vanilla generation; existing Anvil compiler; pristine sources retained",
+        "selection": "landmass tutor, symmetry/land Homebase gate, predicted trial-chamber exclusion with 80-block margin; relief-quartile round robin"
+      },
+      "summary.json": {
+        "schema": "default_scoop_bank/1",
+        "design_status": "Prototype/test",
+        "attempts": [],
+        "published": [],
+        "status": "shortfall",
+        "banked_targets": 4463,
+        "eligible_targets": 0,
+        "desired": 4
+      }
+    },
+    "archipelago_chain_search_2026-10-12": {},
+    "archipelago_qualified_search_2026-10-12": {
+      "summary.json": {
+        "status": "completed bounded stock batch",
+        "minecraft_java_version": "1.21.11",
+        "initial_bank": [
+          890000020,
+          890001347
+        ],
+        "added_seeds": [
+          890001592,
+          890001687,
+          890001809
+        ],
+        "qualified_seeds": [
+          890000020,
+          890001347,
+          890001592,
+          890001687,
+          890001809
+        ],
+        "qualified_count": 5,
+        "minimum_distance": 175,
+        "spacing_scope": "All nine Fountain/Outpost/Bastion/Spike/Lair anchors, including opposing teams",
+        "all_implemented_shared_gates_passed_for_bank": true,
+        "tested_layouts_total": 99,
+        "layout_rejections": {
+          "NO_OBJECTIVE_SOCKET": 45,
+          "LAIR_ACCESS_DISPARITY": 38,
+          "GLOBAL_LANDMARK_MIN_SPACING": 12,
+          "NO_ORDERED_OBJECTIVE_LAYOUT": 35
+        },
+        "coarse_census_seeds": 1000,
+        "windows_per_seed": 9,
+        "current_batch_source_seeds": [
+          890001687,
+          890001592,
+          890001269,
+          890001927,
+          890001074,
+          890001719,
+          890001809,
+          890001147,
+          890001302
+        ],
+        "desired_additions": 4,
+        "actual_additions": 3,
+        "note": "Four-addition aim was not reached in this bounded batch. Failed retained placements do not prove a seed impossible. All workers finished; no ongoing job.",
+        "evidence": "qualified-summary.json",
+        "maps": "qualified-archipelagos.png",
+        "production_ready": false
+      }
+    }
+  },
+  "read_diagnostics": [],
+  "regional_measurement_supplements": {
+    "supplemental_job_ids": 35,
+    "applied_job_ids": 35,
+    "enriched_existing_observations": 35,
+    "pending_job_ids_without_matching_observation": [],
+    "new_observations_added": 0,
+    "acceptance_changed": false
+  },
+  "identity_warning": "Seed alone is not a map. Window bounds, coordinate convention, orientation and later placement variant matter. Axis-only records are not merged with directed rotations.",
+  "count_warning": "Records are evidence observations. The same seed/window can occur at multiple evidence levels; broad screens, saved rows and partial passes are different counts.",
+  "calibration": {
+    "path": "implementation/worldgen/reports/catalogue_proxy_calibration_2026-10-14/calibration.json",
+    "role": "Paired native-vs-actual measurement evidence only; adds no candidates or seeds.",
+    "sampling_limit": "Existing actual source windows are mostly archipelago-biased; not a general prevalence estimate."
+  }
+}

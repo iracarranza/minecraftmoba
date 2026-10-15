@@ -1,0 +1,48 @@
+{
+  "schema": "default_native_catalogue/1",
+  "seed": 910013915,
+  "status": "approximate_native_measurements",
+  "qualified": false,
+  "ready": false,
+  "distinct_regions_measured": 100,
+  "orientations_measured": 400,
+  "loose_end_land_orientations": 306,
+  "all_six_experimental_preferences_orientations": 45,
+  "best_descriptive_window": {
+    "seed": 910013915,
+    "bounds": [
+      0,
+      3071,
+      0,
+      3071
+    ],
+    "rotation": 270,
+    "size": [
+      3072,
+      3072
+    ],
+    "window_id": "910013915:0:0:3072:r270",
+    "preference_count": 6,
+    "preference_misses": [],
+    "ocean_east_minus_west": 0.28646,
+    "elevation_west_minus_centre": 6.21224,
+    "team_end_flat_dry_cells": [
+      212,
+      141
+    ]
+  },
+  "measurements_path": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/windows/910013915.jsonl.gz",
+  "raw_native_grid": "/Users/iracarranza/minecraftmoba/artifacts/worldgen/default_seed_catalogue_2026-10-14/probes/910013915-64.bin",
+  "elapsed_seconds": 1.017,
+  "unknown_checks": [
+    "actual_vanilla_terrain",
+    "Homebase_Core_fit",
+    "hinterlands_and_routes",
+    "objective_placement",
+    "all_nine_anchor_175_block_spacing",
+    "Lair",
+    "resources_and_opening_ceiling",
+    "physical_column_fit",
+    "runtime_READY"
+  ]
+}

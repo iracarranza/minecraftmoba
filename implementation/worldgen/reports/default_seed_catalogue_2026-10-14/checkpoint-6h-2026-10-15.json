@@ -1,0 +1,63 @@
+{
+  "schema": "default_native_catalogue_six_hour_continuity/1",
+  "checked_unix": 1792054802.81504,
+  "status": "continuity_pass_storage_bound_preserved",
+  "prior_full_audit": "final-health-2026-10-15.json",
+  "prior_full_audit_checked_unix": 1792051467.842425,
+  "counts": {
+    "unique_seeds": 13916,
+    "distinct_regions": 1391600,
+    "orientation_records": 5566400
+  },
+  "cursor": {
+    "last_committed_seed": 910013916,
+    "next_seed": 910013917,
+    "unchanged": true
+  },
+  "producer": {
+    "status": "stopped_at_checkpoint",
+    "stop_reason": "storage_budget",
+    "lifetime_lock_free": true,
+    "STOP_file_exists": false,
+    "new_worker_started": false
+  },
+  "storage": {
+    "cap_bytes": 4294967296,
+    "recorded_estimate_bytes": 4295677670,
+    "unchanged_since_full_audit": true,
+    "WAL_bytes": 0,
+    "cap_not_raised_or_reset": true
+  },
+  "source_hashes_match_startup": {
+    "producer_source": true,
+    "native_binary": true
+  },
+  "file_metadata_continuity": {
+    "counts": {
+      "seed_summaries": 13916,
+      "measurement_archives": 13916,
+      "raw_grids": 13916
+    },
+    "component_byte_totals": {
+      "seed_summaries": 18688292,
+      "measurement_archives": 2316059102,
+      "raw_grids": 513556064
+    },
+    "source_artifacts_modified_after_prior_full_audit": [],
+    "watched_metadata_modified_after_prior_audit": [],
+    "content_read_scope": "Producer source/binary hashes, compact seed table/feed metadata and only the final seed summary, gzip archive and raw-grid boundary; all other seed artifacts checked by filesystem metadata only.",
+    "full_corpus_content_reread": false,
+    "metadata_only_for_non_boundary_seed_artifacts": true
+  },
+  "boundary_check": {
+    "seed": 910013916,
+    "SQLite_orientation_count": 400,
+    "sizes": 4,
+    "rotations": 4,
+    "boundary_archive_gzip_CRC_and_400_JSON_records_valid": true,
+    "boundary_raw_grid_header_and_length_valid": true,
+    "note": "Only final boundary archive/grid reread; the complete corpus integrity proof remains the prior full audit."
+  },
+  "errors": [],
+  "actions": "Read-only continuity checks plus this small evidence file; no full corpus reread, deletion, producer restart, cursor change or cap change."
+}

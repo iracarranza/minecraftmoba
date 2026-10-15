@@ -1,0 +1,74 @@
+{
+  "status": "pass",
+  "checked_unix": 1792071739.7925289,
+  "paused": true,
+  "stop_file_exists": true,
+  "stop_file_sha256": "45a7589f310924900f5a7fc4a3e6f4703c71150616c230874b627af944de8e1f",
+  "worker_launched_stopped_or_restarted_by_qa": false,
+  "checkpoint_cursor": 46236,
+  "checkpoint_status": "stopped_at_checkpoint",
+  "errors": 0,
+  "previous_heartbeat_cursor": 28779,
+  "new_records_since_heartbeat": {
+    "records": 17457,
+    "full_25_value_vectors": 16897,
+    "default_regional_pass": 605,
+    "homebase_partial_pass": 6055,
+    "partial_front_end_pass": 84,
+    "independent_24_value_vectors": 560
+  },
+  "final_counts": {
+    "actual_partial_records": 46236,
+    "measured_vectors": 46236,
+    "missing_vectors": 0,
+    "full_25_value_vectors": 44733,
+    "independent_24_value_vectors": 1503,
+    "legacy_missing_vector_records": 35,
+    "supplements_applied": 35,
+    "supplement_records_not_counted_as_observations": 35,
+    "distinct_sampled_seeds": 40,
+    "distinct_sampled_windows": 7606,
+    "distinct_window_orientations": 46236,
+    "duplicate_ids": 0,
+    "source_windows": 46,
+    "distinct_source_seeds": 40,
+    "queued_window_orientations": 60848,
+    "default_regional_pass_records": 1593,
+    "distinct_seeds_with_default_regional_pass": 31,
+    "homebase_partial_pass_records": 16074,
+    "combined_partial_pass_records": 217,
+    "distinct_seeds_with_combined_partial_pass": 21,
+    "fully_qualified_new_seeds": 0,
+    "sampled_coordinate_records": 64,
+    "fountains_independently_checked": 115
+  },
+  "stage_supply": {
+    "default_regional_pass": {
+      "records": 1593,
+      "distinct_windows": 908,
+      "distinct_existing_seeds": 31
+    },
+    "homebase_partial_pass": {
+      "records": 16074,
+      "distinct_windows": 4031,
+      "distinct_existing_seeds": 37
+    },
+    "partial_front_end_pass": {
+      "records": 217,
+      "distinct_windows": 204,
+      "distinct_existing_seeds": 21
+    }
+  },
+  "all_queued_distinct_windows": 7606,
+  "distinct_window_coverage": 1.0,
+  "remaining_orientation_jobs": 14612,
+  "source_surface_files_bytes": 820703488,
+  "actual_partials_bytes": 247182478,
+  "review_dependency_caveats": [
+    "Underlying source references use local absolute surface-file paths; compact review summaries alone cannot reproduce surface measurements.",
+    "The full extracted grids and shared evaluator/compiler modules are needed to remeasure; no source worlds are authored or copied by this QA.",
+    "Source pool is 36 archipelago and10 Pale windows across40 existing seeds; strict regional pass supply does not estimate general seed rarity.",
+    "217 combined partial rows are not217 seeds and do not establish all-nine175 spacing, physical columns, Routes, Lair, resources or runtime readiness.",
+    "Homebase-independent vectors intentionally omit unavailable homeland bias;35 supplemental records amend originals without adding observations."
+  ]
+}

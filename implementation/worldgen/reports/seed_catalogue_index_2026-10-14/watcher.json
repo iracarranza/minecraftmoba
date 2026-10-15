@@ -1,0 +1,10 @@
+{
+  "status": "stopped_at_checkpoint",
+  "pid": 79510,
+  "started_unix": 1792051186.931324,
+  "stop_by_unix": 1792067386.931324,
+  "interval_seconds": 30.0,
+  "updated_unix": 1792066032.321374,
+  "latest_records": 5648018,
+  "latest_distinct_seeds": 15457
+}

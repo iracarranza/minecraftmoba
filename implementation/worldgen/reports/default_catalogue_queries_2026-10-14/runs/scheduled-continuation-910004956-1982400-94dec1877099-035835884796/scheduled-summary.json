@@ -1,0 +1,127 @@
+{
+  "schema": "default_catalogue_scheduled_query_summary/1",
+  "status": "pass",
+  "captured_at_utc": "2026-10-15T03:58:28.522634+00:00",
+  "captured_at_eastern": "2026-10-14T23:58:28.522634-04:00",
+  "run": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_catalogue_queries_2026-10-14/runs/scheduled-continuation-910004956-1982400-94dec1877099-035835884796",
+  "snapshot": {
+    "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+    "captured_at_utc": "2026-10-15T03:58:28.522634+00:00",
+    "journal_mode": "wal",
+    "read_only": true,
+    "consistent_transaction": true,
+    "query_script_sha256": "791e9e467a74d1f11a2852abeb79366b3999ae47e6b38b9a2e07111b2c0af66d",
+    "seeds": 4956,
+    "maximum_seed": 910004956,
+    "orientations": 1982400,
+    "seeds_with_windows": 4956,
+    "unknown_mirror_orientations": 26618
+  },
+  "strict": {
+    "matching_seeds": 4956,
+    "distinct_regions": 90399,
+    "orientations": 93897,
+    "sum_greedy_disjoint_regions_across_seeds": 25767,
+    "median_greedy_disjoint_regions_per_seed": 5.0,
+    "top_seeds": [
+      {
+        "seed": 910003612,
+        "distinct_matching_regions": 40,
+        "matching_orientations": 44,
+        "greedy_pairwise_disjoint_regions": 8
+      },
+      {
+        "seed": 910000376,
+        "distinct_matching_regions": 37,
+        "matching_orientations": 40,
+        "greedy_pairwise_disjoint_regions": 9
+      },
+      {
+        "seed": 910002553,
+        "distinct_matching_regions": 37,
+        "matching_orientations": 37,
+        "greedy_pairwise_disjoint_regions": 9
+      },
+      {
+        "seed": 910004849,
+        "distinct_matching_regions": 36,
+        "matching_orientations": 40,
+        "greedy_pairwise_disjoint_regions": 8
+      },
+      {
+        "seed": 910001525,
+        "distinct_matching_regions": 36,
+        "matching_orientations": 38,
+        "greedy_pairwise_disjoint_regions": 8
+      }
+    ]
+  },
+  "looser": {
+    "matching_seeds": 4956,
+    "distinct_regions": 378523,
+    "orientations": 528794,
+    "sum_greedy_disjoint_regions_across_seeds": 78808,
+    "median_greedy_disjoint_regions_per_seed": 16.0,
+    "top_seeds": [
+      {
+        "seed": 910002746,
+        "distinct_matching_regions": 92,
+        "matching_orientations": 144,
+        "greedy_pairwise_disjoint_regions": 21
+      },
+      {
+        "seed": 910004090,
+        "distinct_matching_regions": 92,
+        "matching_orientations": 141,
+        "greedy_pairwise_disjoint_regions": 21
+      },
+      {
+        "seed": 910003996,
+        "distinct_matching_regions": 92,
+        "matching_orientations": 134,
+        "greedy_pairwise_disjoint_regions": 20
+      },
+      {
+        "seed": 910000398,
+        "distinct_matching_regions": 91,
+        "matching_orientations": 128,
+        "greedy_pairwise_disjoint_regions": 21
+      },
+      {
+        "seed": 910000856,
+        "distinct_matching_regions": 91,
+        "matching_orientations": 134,
+        "greedy_pairwise_disjoint_regions": 21
+      }
+    ]
+  },
+  "nested_policy_verification": {
+    "strict_orientations_missing_from_loose": 0,
+    "strict_regions_missing_from_loose": 0,
+    "status": "pass"
+  },
+  "count_and_disjoint_geometry_verification": "pass",
+  "existing_seed_count_stability": {
+    "previous_snapshot": {
+      "source": "/Users/iracarranza/minecraftmoba/implementation/worldgen/reports/default_seed_catalogue_2026-10-14/catalogue.sqlite",
+      "captured_at_utc": "2026-10-15T03:25:32.969336+00:00",
+      "journal_mode": "wal",
+      "read_only": true,
+      "consistent_transaction": true,
+      "query_script_sha256": "791e9e467a74d1f11a2852abeb79366b3999ae47e6b38b9a2e07111b2c0af66d",
+      "seeds": 1602,
+      "maximum_seed": 910001602,
+      "orientations": 640800,
+      "seeds_with_windows": 1602,
+      "unknown_mirror_orientations": 9170
+    },
+    "previous_run": "implementation/worldgen/reports/default_catalogue_queries_2026-10-14/runs/strict-loose-smoke-910001602-640800-94dec1877099-032535234448",
+    "previously_ranked_seeds_unchanged": 1602,
+    "new_catalogue_seeds_since_previous_query": 3354
+  },
+  "index_watcher_retained_pid": 27981,
+  "no_scans_or_producers_started": true,
+  "qualified": false,
+  "ready": false,
+  "qualification_note": "Native experimental query matches only; all gameplay qualification remains separate."
+}
